@@ -18,7 +18,7 @@ Java Community Process</a>.
       </p>
       <p>
 This project implements the public interfaces, helper classes and exceptions 
-as specified in the JDO specification. They are indented to be shared by all 
+as specified in the JDO specification. They are intended to be shared by all 
 JDO implementations. 
       </p>
     </section>
