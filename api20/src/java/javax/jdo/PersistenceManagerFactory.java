@@ -26,6 +26,8 @@ import java.util.Collection;
 
 import javax.jdo.datastore.DataStoreCache;
 
+import javax.jdo.listener.InstanceLifecycleListener;
+
 /** The <code>PersistenceManagerFactory</code> is the interface to use to obtain
  * <code>PersistenceManager</code> instances.  All <code>PersistenceManager</code> instances obtained
  * from the same <code>PersistenceManagerFactory</code> will have the same default
@@ -354,4 +356,44 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * @since 2.0
      */
     DataStoreCache getDataStoreCache ();
+
+    /**
+     * Add the parameter listener to the list of
+     * instance lifecycle event listeners set as the initial listeners
+     * for each PersistenceManager created by this PersistenceManagerFactory. 
+     * The <code>addInstanceLifecycleListener</code> and 
+     * <code>removeInstanceLifecycleListener</code>
+     * methods are considered to be configuration methods and
+     * can only be called when the PersistenceManagerFactory
+     * is configurable (before the first time {@link #getPersistenceManager}
+     * is called).
+     * <p>The <code>classes</code> parameter identifies all
+     * of the classes of interest. If the <code>classes</code>
+     * parameter is specified as <code>null</code>, events for all
+     * persistent classes and interfaces will be sent to the listener.</p>
+     * <p>The listener will be called for each event for which it
+     * implements the corresponding {@link InstanceLifecycleListener}
+     * interface.</p>
+     * @param listener the lifecycle listener
+     * @param classes the classes of interest to the listener
+     * @since 2.0
+     */
+    void addInstanceLifecycleListener (InstanceLifecycleListener listener,
+        Class[] classes);
+
+    /**
+     * Remove the parameter listener instance from the list of
+     * instance lifecycle event listeners set as the initial listeners
+     * for each PersistenceManager created by this PersistenceManagerFactory. 
+     * The <code>addInstanceLifecycleListener</code> and 
+     * <code>removeInstanceLifecycleListener</code>
+     * methods are considered to be configuration methods and
+     * can only be called when the PersistenceManagerFactory
+     * is configurable (before the first time {@link #getPersistenceManager}
+     * is called).
+     * @param listener the listener instance to be removed
+     * @since 2.0
+     */
+    void removeInstanceLifecycleListener (InstanceLifecycleListener listener);
+
 }
