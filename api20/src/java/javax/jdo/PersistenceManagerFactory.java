@@ -193,6 +193,20 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     boolean getMultithreaded();
     
+    /** Set the Mapping setting for this factory. This is used to find the 
+     * object-datastore mapping file(s).
+     *
+     * @param mapping the Mapping setting.
+     */
+    void setMapping (String mapping);
+  
+    /** Get the Mapping setting for this factory.  This is used to find the 
+     * object-datastore mapping file(s).
+     *
+     * @return the Mapping setting.
+     */
+    String getMapping ();
+    
     /** Set the default Optimistic setting for all <code>PersistenceManager</code> instances
      * obtained from this factory.  
      *
