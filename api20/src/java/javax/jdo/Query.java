@@ -444,5 +444,24 @@ public interface Query extends Serializable {
      * @since 2.0
      */
     Object deletePersistentAll ();
+    
+    /**
+     * The unmodifiable flag, when set, disallows further 
+     * modification of the query, except for specifying the range, 
+     * result class, and ignoreCache option.
+     * The unmodifiable flag can also be set in metadata.
+     * @since 2.0
+      */
+    void setUnmodifiable();
+
+    /**
+     * The unmodifiable flag, when set, disallows further 
+     * modification of the query, except for specifying the range, 
+     * result class, and ignoreCache option.
+     * @return the current setting of the flag
+     * @since 2.0
+      */
+    boolean isUnmodifiable();
+
 }
 
