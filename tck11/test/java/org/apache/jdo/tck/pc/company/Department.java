@@ -308,6 +308,10 @@ public class Department
          * The required public, no-arg constructor.
          */
         public Oid() { }
+        
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.Department";
 
         /**
          * A constructor to initialize the identifier field.
@@ -316,6 +320,10 @@ public class Department
         public Oid(long deptid) {
             this.deptid = deptid;
         }
+        
+        public Oid(String s) { deptid = Long.parseLong(justTheId(s)); }
+
+        public String toString() { return getTargetClassName() + ": "  + deptid;}
 
         /** */
         public boolean equals(java.lang.Object obj) {
@@ -330,6 +338,17 @@ public class Department
         public int hashCode() {
             return( (int) deptid );
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

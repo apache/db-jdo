@@ -251,7 +251,7 @@ public class ArrayCollections {
         public Oid() {
         }
 
-        public Oid(String s) { identifier = Integer.parseInt(s); }
+        public Oid(String s) { identifier = Integer.parseInt(justTheId(s)); }
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
@@ -263,6 +263,10 @@ public class ArrayCollections {
                 return k.identifier == this.identifier;
             }
             return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
     }   

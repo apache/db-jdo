@@ -257,6 +257,10 @@ public class Project
          * <code>Project</code> class in both name and type. 
          */
         public long projid;
+        
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.Projectt";
 
         /**
          * The required public no-arg constructor.
@@ -270,6 +274,10 @@ public class Project
         public Oid(long projid) {
             this.projid = projid;
         }
+        
+        public Oid(String s) { projid = Long.parseLong(justTheId(s)); }
+
+        public String toString() { return getTargetClassName() + ": "  + projid;}
 
         /** */
         public boolean equals(java.lang.Object obj) {
@@ -284,6 +292,17 @@ public class Project
         public int hashCode() {
             return( (int) projid );
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

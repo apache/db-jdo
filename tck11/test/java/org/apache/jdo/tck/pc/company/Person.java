@@ -330,6 +330,14 @@ public class Person
         public Oid(long personid) {
             this.personid = personid;
         }
+        
+        public Oid(String s) { personid = Long.parseLong(justTheId(s)); }
+        
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.Person";
+
+        public String toString() { return getTargetClassName() + ": "  + personid;}
 
         /** */
         public boolean equals(java.lang.Object obj) {
@@ -344,6 +352,17 @@ public class Person
         public int hashCode() {
             return( (int) personid );
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

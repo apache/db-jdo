@@ -85,12 +85,16 @@ public class PCPoint implements Serializable {
     public static class Oid implements Serializable {
         public long id;
 
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.mylib.PCPoint"; 
+
         public Oid() {
         }
 
-        public Oid(String s) { id = Long.parseLong(s); }
+        public Oid(String s) { id = Long.parseLong(justTheId(s)); }
 
-        public String toString() { return this.getClass().getName() + ": "  + id;}
+        public String toString() { return getTargetClassName() + ": "  + id;}
 
         public int hashCode() { return (int)id ; }
 
@@ -101,6 +105,17 @@ public class PCPoint implements Serializable {
             }
             return false;
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
     }   
 }

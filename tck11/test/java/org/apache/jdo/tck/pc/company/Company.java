@@ -241,6 +241,10 @@ public class Company
          * and type with a field in the <code>Company</code> class.
          */
         public long companyid;
+        
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.Company";
 
         /** The required public no-arg constructor. */
         public Oid() { }
@@ -252,6 +256,11 @@ public class Company
         public Oid(long companyid) {
             this.companyid = companyid;
         }
+        
+        public Oid(String s) { companyid = Long.parseLong(justTheId(s)); }
+
+        public String toString() { return getTargetClassName() + ": "  + companyid;}
+
         
         /** */
         public boolean equals(Object obj) {
@@ -267,6 +276,17 @@ public class Company
         public int hashCode() {
             return (int)companyid;
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

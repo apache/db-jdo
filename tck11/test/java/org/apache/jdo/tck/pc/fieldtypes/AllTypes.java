@@ -298,7 +298,7 @@ public static void load(PersistenceManager pm)
         public Oid() {
         }
 
-        public Oid(String s) { id = Integer.parseInt(s); }
+        public Oid(String s) { id = Integer.parseInt(justTheId(s)); }
 
         public String toString() { return this.getClass().getName() + ": "  + id;}
 
@@ -310,6 +310,10 @@ public static void load(PersistenceManager pm)
                 return k.id == this.id;
             }
             return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
     }   

@@ -126,7 +126,7 @@ public class PCPoint2 implements Serializable, InstanceCallbacks {
         public Oid() {
         }
 
-        public Oid(String s) { id = Long.parseLong(s); }
+        public Oid(String s) { id = Long.parseLong(justTheId(s)); }
 
         public String toString() { return this.getClass().getName() + ": "  + id;}
 
@@ -138,6 +138,10 @@ public class PCPoint2 implements Serializable, InstanceCallbacks {
                 return k.id == this.id;
             }
             return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
     }   

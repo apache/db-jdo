@@ -82,7 +82,7 @@ public class PCRect {
         public Oid() {
         }
 
-        public Oid(String s) { id = Long.parseLong(s); }
+        public Oid(String s) { id = Long.parseLong(justTheId(s)); }
 
         public String toString() { return this.getClass().getName() + ": "  + id;}
 
@@ -94,6 +94,10 @@ public class PCRect {
                 return k.id == this.id;
             }
             return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
     }

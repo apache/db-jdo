@@ -1067,7 +1067,7 @@ false,false,true,false
         public Oid() {
         }
 
-        public Oid(String s) { identifier = Integer.parseInt(s); }
+        public Oid(String s) { identifier = Integer.parseInt(justTheId(s)); }
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
@@ -1079,6 +1079,10 @@ false,false,true,false
                 return k.identifier == this.identifier;
             }
             return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
     }   

@@ -230,6 +230,10 @@ public class Address
          */
         public long addrid;
         
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.address";
+        
         /** The required public, no-arg constructor. */
         public Oid()
         {
@@ -243,6 +247,11 @@ public class Address
         public Oid(long addrid) {
             this.addrid = addrid;
         }
+        
+        public Oid(String s) { addrid = Long.parseLong(justTheId(s)); }
+
+        public String toString() { return getTargetClassName() + ": "  + addrid;}
+
 
         /** */
         public boolean equals(java.lang.Object obj) {
@@ -257,6 +266,17 @@ public class Address
         public int hashCode() {
             return( (int) addrid );
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

@@ -188,6 +188,11 @@ public abstract class Insurance
          */
         public long insid;
         
+        /** The name of the class of the target object.
+        */
+        public static String targetClassName = "org.apache.jdo.tck.pc.company.Insurance";
+
+        
         /**
          * The required public no-args constructor.
          */
@@ -200,6 +205,11 @@ public abstract class Insurance
         public Oid(long insid) {
             this.insid = insid;
         }
+        
+        public Oid(String s) { insid = Long.parseLong(justTheId(s)); }
+
+        public String toString() { return getTargetClassName() + ": "  + insid;}
+
 
         /** */
         public boolean equals(java.lang.Object obj) {
@@ -214,6 +224,17 @@ public abstract class Insurance
         public int hashCode() {
             return( (int) insid );
         }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+        
+        /** Return the target class name.
+         * @return the target class name.
+         */
+        public String getTargetClassName() {
+            return targetClassName;
+        } 
 
         /** */
         public int compareTo(Object obj) {

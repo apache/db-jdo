@@ -294,18 +294,22 @@ public class PrimitiveTypes implements Serializable {
         public Oid() {
         }
 
-        public boolean equals(java.lang.Object obj) {
-            if( obj==null ||
-                !this.getClass().equals(obj.getClass()) ) return( false );
-            Oid o=(Oid) obj;
-            if( this.id!=o.id ) return( false );
-            return( true );
-        }
+        public Oid(String s) { id = Long.parseLong(justTheId(s)); }
 
-        public int hashCode() {
-            int hashCode=0;
-            hashCode += id;
-            return( hashCode );
+        public String toString() { return this.getClass().getName() + ": "  + id;}
+
+        public int hashCode() { return (int)id ; }
+
+        public boolean equals(Object other) {
+            if (other != null && (other instanceof Oid)) {
+                Oid k = (Oid)other;
+                return k.id == this.id;
+            }
+            return false;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
         }
 
         public int compareTo(Object o) {
