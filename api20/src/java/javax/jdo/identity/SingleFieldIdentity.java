@@ -48,6 +48,11 @@ public abstract class SingleFieldIdentity
      */
     protected int hashCode;
 
+    /** The single character that separates the class name from the key value
+     * in String representations of SingleFieldIdentity and its subclasses.
+     */
+    public static final char SEPARATOR_CHARACTER = ':';
+    
     /** Constructor with target class.
      * @param pcClass the class of the target
      * @since 2.0

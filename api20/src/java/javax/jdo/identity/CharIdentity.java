@@ -89,7 +89,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + ":" + key;
+        return getTargetClassName() + SEPARATOR_CHARACTER + key;
     }
 
     /** Determine if the other object represents the same object id.
