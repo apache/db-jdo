@@ -21,6 +21,8 @@
 
 package javax.jdo.listener;
 
+import javax.jdo.spi.I18NHelper;
+
 /**
  * This is the event class used in life cycle event notifications.
  * <P>Note that although InstanceLifecycleEvent inherits Serializable interface 
@@ -32,6 +34,7 @@ package javax.jdo.listener;
 public class InstanceLifecycleEvent
     extends java.util.EventObject {
 
+    private static final int FIRST_EVENT_TYPE = 0;
     public static final int CREATE = 0;
     public static final int LOAD = 1;
     public static final int STORE = 2;
@@ -40,6 +43,11 @@ public class InstanceLifecycleEvent
     public static final int DIRTY = 5;
     public static final int DETACH = 6;
     public static final int ATTACH = 7;
+    private static final int LAST_EVENT_TYPE = 7;
+
+    /** The Internationalization message helper.
+     */
+    private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /**
      * The event type that triggered the construction of this event object.
@@ -59,9 +67,7 @@ public class InstanceLifecycleEvent
      * @since 2.0
      */
     public InstanceLifecycleEvent (Object source, int type) {
-        super (source);
-        eventType = type;
-        target = null;
+        this(source, type, null);
     }
 
     /**
@@ -74,6 +80,9 @@ public class InstanceLifecycleEvent
      */
     public InstanceLifecycleEvent (Object source, int type, Object target) {
         super (source);
+        if (type < FIRST_EVENT_TYPE || type > LAST_EVENT_TYPE) {
+            throw new IllegalArgumentException(msg.msg("EXC_IllegalEventType"));
+        }
         eventType = type;
         this.target = target;
     }
