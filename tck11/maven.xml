@@ -75,7 +75,7 @@
     <!-- Run a single tck test. The property testcase defines the name of -->
     <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
     <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
-    <goal name="runtck.single" prereqs="enhance, testrunner.set, database, copyloggingprop">
+    <goal name="runtck.single" prereqs="enhance, testrunner.set, database, copyloggingprops">
         <echo>Run tck test org.apache.jdo.tck.${test}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="org.apache.jdo.tck.${test}">
@@ -104,8 +104,8 @@
                 <not>
                     <uptodate targetfile="${iut.enhanced.dir}/applicationidentity.jar">
                         <srcfiles dir="${basedir}/test/jdo/applicationidentity"
-                                  includes="org/apache/jdo/pc/**/*.jdo, 
-                                            org/apache/jdo/pc/**/jdoTest.properties"/>
+                                  includes="org/apache/jdo/tck/pc/**/*.jdo, 
+                                            org/apache/jdo/tck/pc/**/jdoTest.properties"/>
                         <srcfiles dir="${basedir}/test/java"
                                   includes="${jdo.tck.pcclasses.sources}
                                             ${jdo.tck.paclasses.sources}"/>
@@ -129,8 +129,8 @@
                 <not>
                     <uptodate targetfile="${iut.enhanced.dir}/datastoreidentity.jar">
                         <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
-                                  includes="org/apache/jdo/pc/**/*.jdo, 
-                                            org/apache/jdo/pc/**/jdoTest.properties"/>
+                                  includes="org/apache/jdo/tck/pc/**/*.jdo, 
+                                            org/apache/jdo/tck/pc/**/jdoTest.properties"/>
                         <srcfiles dir="${basedir}/test/java"
                                   includes="${jdo.tck.pcclasses.sources}
                                             ${jdo.tck.paclasses.sources}"/>
