@@ -1,0 +1,125 @@
+This is a prototype of the JDO maven projects:
+- api11 to build the jdo.jar which defines the JDO API
+- btree the Netbeans open source btree implementation used by ri 
+- ri11  the current JDORI
+- tck11 the current JDOTCK
+
+-------------
+Prerequisites
+-------------
+
+- Maven
+You need Maven version 1.0.1 or 1.0.2. You can download maven from 
+http://maven.apache.org/start/download.html
+
+- antlr
+The JDORI uses antlr version 2.7.3 to implement the query compiler. We asked to 
+add this version to the maven repository, but until this happens you need to 
+manually add antlr 2.7.3 to your local maven repository. Please download 
+version 2.7.3 from http://www.antlr.org/download/antlr-2.7.3.jar and copy 
+it to your local maven repository:
+  cp antlr-2.7.3.jar $HOME/.maven/repository/antlr/jars/antlr-2.7.3.jar
+
+- JNDI implementation
+- fscontext.jar and providerutil.jar
+The JDORI JNDI test case needs a JNDI implementation. To configure this please 
+update the property jndi in ri11/project.properties to include all jars of 
+your JNDI implementation. The properties file jndi.properties under ri11/test
+should define all the necessary properties of your JNDI implemenation.
+The defaults setting in project.properties and jndi.properties use Sun's File 
+System Service Provider implementation (fscontext.jar and providerutil.jar) and 
+assume to find both jars in the directory ri11. For donwload please go to 
+http://java.sun.com/products/jndi/downloads/index.html, click the Download 
+button at 'Download JNDI 1.2.1 & More', accept a license agreement, download 
+'File System Service Provider, 1.2 Beta 3' and then unpack the downloaded zip.
+ It includes the jars fscontext.jar and providerutil.jar.
+
+-------
+Remarks
+-------
+
+ToDo:
+- building ri
+- no useapplicationidentity and usedatastoreidentity anymore
+
+(1) Please note, maven uses the user.home system property for the location
+of the maven local repostitory: ${user.home}/.maven/repository.
+Under Windows this system property is C:\Documents and Settings\<user> 
+no matter what the HOME variable is set to. As a workaround I set the 
+system property by adding -Duser.home=%HOME% to the environment variable 
+MAVEN_OPTS.
+
+(2) The btree subproject checks out the Netbeans mdr btree implementation.
+This requires cvs being installed on your system. The official netbeans cvs 
+host might not work if you are behind a firewall that blocks the cvs port. 
+Please consult http://www.netbeans.org/community/sources for more info. 
+There is a special cvsroot if you are inside the Sun network (SWAN), please 
+check the project.properties in the btree subproject.
+
+(3) Remarks about ri11:
+- Calling 'maven build' in ri11 compiles the JDO RI sources and test classes 
+and then runs the JUnit tests. 
+- The maven goal runtest ('maven runtest') executes the full JDO RI test suite.
+This includes running all the JUnit tests w/O and w/ security manager, plus 
+some extra tests that require running more than one JVM. 
+- If you prefer the JUnit gui please call 'maven -Dgui=true runtests'. This 
+first starts a gui for running the JUnit tests w/o security manager. After 
+you exit the gui it automatically starts a new gui running the JUnit tests
+w/ security manager.
+
+(4) Remarks about tck11:
+Calling 'maven build' in tck11 compiles all the JDOTCK tests, runs the JDORI 
+enhancer and then runs all the tests using the JDORI. 
+To run the JDOTCK against an JDO implementation you should do the following:
+- Place the jars of your JDO implementation in the directory iut_jars. All the 
+jars in this directory are automatically added to the classpath.
+- Check the property iut.runtck.properties in project.properties. It should 
+refer to a file defining the PMF properties for your implementation. 
+- Please add any system properties to the property iut.runtck.sysproperties in 
+project.properties, e.g.
+iut.runtck.sysproperties = -DMySystemProperty1=value -DMySystemProperty2=value
+- If the JDO implementation comes with its own enhancer, please update the 
+properties iut.enhancer.main, iut.enhancer.options, iut.enhancer.args, and 
+iut.enhancer.sysproperties.
+- Check the properties iut.applicationidentity.supported and 
+iut.datastoreidentity.supported in project.properties and update them according 
+to the JDO implementation to be tested.
+- You run the TCK by calling 'maven runtck'. This first enhances the 
+persistence-capable and persistence-aware classes for applicationidentity and 
+for datastore identity. This uses the properties described in the previous item
+in order to decide which kind of identitytype is supported. After enhancement 
+'maven runtck' runs the JDO TCK test classes using the test configuration file
+as specified by the property jdo.tck.configuration. You find the property in
+project.properties.
+- A test configuration is a file defining two properties:
+jdo.tck.identitytype: either datastoreidentity or applicationidentity
+jdo.tck.testclasses: a list of fully qualified class names of the test classes 
+to be executed.
+The first property is important to include the enhanced classes for this 
+identitytype into the classpath. Today there is no checking whether the property
+value is correct. There is a predefined property jdo.tck.alltests including all 
+JDO TCK test classes. Please see the files datastoreidentity.conf and 
+applicationidentity.conf in test/conf as an example.
+- You can run the JUnit gui (instead of the batch mode) by setting the property
+gui to true: 'maven -Dgui=true runtck'.
+
+(5) Logging
+Apache JDO uses the apache commons logging package for logging.
+Sub-projects ri11 and tck11 use several properties files to configure logging.
+- common-logging.properties: specifies the logging implementation to use.
+  It is tested with apache SimpleLog and JDK 1.4 logging.
+- logging.properties: logger configuration when using JDK 1.4 logging.
+- simplelog.properties: logger configuration when using apache SimpleLog.
+
+(6) The file jdo_check.xml includes the checkstyle configuration. It is borrowed
+from the sun_checks.xml, but does not use all of the sun rules and customizes 
+some other rules. The checkstyle configuration is not yet finished.
+
+(7) Mevenide is a nice maven plugin for IDEs (see http://mevenide.codehaus.org).
+You find download instructions in http://mevenide.codehaus.org/download.html.
+For Netbeans, once you installed the plugin, you should be able to open an 
+existing maven project by File -> Open Project -> Open Project Folder.
+Navigate to a directoy including a maven project (e.g. api11) and choose this 
+directory. Netbeans will create a project folder. If you right-click the Maven 
+project you can examine the contents of the project.xml (see Properties) or 
+execute goals.
