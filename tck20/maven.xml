@@ -161,10 +161,10 @@
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
-               includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
-               destdir="${iut.enhanced.dir}"
-               debug="on"
-               classpathref="project.class.path">
+           includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
+           destdir="${iut.enhanced.dir}"
+           debug="on"
+           classpathref="project.class.path">
         </javac>
     </preGoal>
 
@@ -173,7 +173,7 @@
         <java fork="yes" failonerror="yes" 
               dir="${iut.enhanced.dir}"
               classname="${iut.enhancer.main}"
-              classpathref="project.class.path">
+              classpathref="enhance.class.path">
              <jvmarg line="${iut.enhancer.sysproperties}"/>
              <arg line="${iut.enhancer.options}"/>
              <arg line="${iut.enhancer.args}"/>
@@ -184,7 +184,7 @@
         <delete file="${iut.enhanced.dir}/${identitytype}.jar"/>
         <jar jarfile="${iut.enhanced.dir}/${identitytype}.jar">
             <fileset dir="${iut.enhanced.dir}" 
-                     includes="**/*.class, **/*.jdo, **/*.orm, **/jdoTest.properties"/>
+                 includes="**/*.class, **/*.jdo, **/*.orm, **/jdoTest.properties"/>
         </jar>
         <delete dir="${iut.enhanced.dir}/org"/>
     </postGoal>
@@ -192,7 +192,7 @@
     <preGoal name="jdorienhance">
         <copy todir="${jdo.tck.testclasses.dir}">
             <fileset dir="${basedir}/test/jdo/datastoreidentity" 
-                     includes="**/*jdoTest.properties, **/*.jdo"/>
+                 includes="**/*jdoTest.properties, **/*.jdo"/>
         </copy>
     </preGoal>
 
@@ -233,6 +233,26 @@
         <!-- Spring jar files -->
         <pathelement location="${spring.jarfile}"/>
         <pathelement location="${logging.jarfile}"/>
+        <!-- Jar files for the reference implementation -->
+        <pathelement location="${jpox.jdori.jarfile}" />
+        <pathelement location="${jpox.enhancer.jarfile}" />
+        <pathelement location="${jdo.jdobtree.jarfile}" />
+        <pathelement location="${antlr.jarfile}" />
+        <pathelement location="${jta.jarfile}" />
+        <pathelement location="${xmlparser}" />
+        <pathelement location="${bcel.jarfile}" />
+        <pathelement location="${log4j.jarfile}" />
+    </path>
+
+    <!-- Paths needed for enhancement.  Must not include
+        "${iut.enhanced.dir}/${jdo.tck.identitytype}.jar"  -->
+    <path id="enhance.class.path">
+        <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- Jar files for the implementation to be tested -->
+        <path refid="test_iut_jars" />
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
