@@ -21,7 +21,7 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO API 2.0</name>
+    <name>JDO</name>
     <artifactId>jdo-api</artifactId>
     <currentVersion>2.0</currentVersion>
     <package>javax.jdo</package>
