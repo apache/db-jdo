@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfDate" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfDate$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="Date1"  embedded="true">
+</field>
+<field name="Date2"  embedded="false">
+</field>
+<field name="Date3" persistence-modifier="none" >
+</field>
+<field name="Date4" persistence-modifier="persistent" >
+</field>
+<field name="Date5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date7" persistence-modifier="transactional" >
+</field>
+<field name="Date10" persistence-modifier="none" >
+</field>
+<field name="Date11" persistence-modifier="persistent" >
+</field>
+<field name="Date12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date14" persistence-modifier="transactional" >
+</field>
+<field name="Date17"  embedded="true">
+</field>
+<field name="Date18"  embedded="false">
+</field>
+<field name="Date19" persistence-modifier="none" >
+</field>
+<field name="Date20" persistence-modifier="persistent" >
+</field>
+<field name="Date21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date23" persistence-modifier="transactional" >
+</field>
+<field name="Date29" persistence-modifier="none" >
+</field>
+<field name="Date30" persistence-modifier="persistent" >
+</field>
+<field name="Date31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date33" persistence-modifier="transactional" >
+</field>
+<field name="Date37"  embedded="true">
+</field>
+<field name="Date38"  embedded="false">
+</field>
+<field name="Date39" persistence-modifier="none" >
+</field>
+<field name="Date40" persistence-modifier="persistent" >
+</field>
+<field name="Date41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date43" persistence-modifier="transactional" >
+</field>
+<field name="Date46" persistence-modifier="none" >
+</field>
+<field name="Date47" persistence-modifier="persistent" >
+</field>
+<field name="Date48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date50" persistence-modifier="transactional" >
+</field>
+<field name="Date53"  embedded="true">
+</field>
+<field name="Date54"  embedded="false">
+</field>
+<field name="Date55" persistence-modifier="none" >
+</field>
+<field name="Date56" persistence-modifier="persistent" >
+</field>
+<field name="Date57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date59" persistence-modifier="transactional" >
+</field>
+<field name="Date65" persistence-modifier="none" >
+</field>
+<field name="Date66" persistence-modifier="persistent" >
+</field>
+<field name="Date67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date69" persistence-modifier="transactional" >
+</field>
+<field name="Date73"  embedded="true">
+</field>
+<field name="Date74"  embedded="false">
+</field>
+<field name="Date75" persistence-modifier="none" >
+</field>
+<field name="Date76" persistence-modifier="persistent" >
+</field>
+<field name="Date77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date79" persistence-modifier="transactional" >
+</field>
+<field name="Date82" persistence-modifier="none" >
+</field>
+<field name="Date83" persistence-modifier="persistent" >
+</field>
+<field name="Date84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date86" persistence-modifier="transactional" >
+</field>
+<field name="Date89"  embedded="true">
+</field>
+<field name="Date90"  embedded="false">
+</field>
+<field name="Date91" persistence-modifier="none" >
+</field>
+<field name="Date92" persistence-modifier="persistent" >
+</field>
+<field name="Date93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date95" persistence-modifier="transactional" >
+</field>
+<field name="Date101" persistence-modifier="none" >
+</field>
+<field name="Date102" persistence-modifier="persistent" >
+</field>
+<field name="Date103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date105" persistence-modifier="transactional" >
+</field>
+<field name="Date109"  embedded="true">
+</field>
+<field name="Date110"  embedded="false">
+</field>
+<field name="Date111" persistence-modifier="none" >
+</field>
+<field name="Date112" persistence-modifier="persistent" >
+</field>
+<field name="Date113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date115" persistence-modifier="transactional" >
+</field>
+<field name="Date118" persistence-modifier="none" >
+</field>
+<field name="Date119" persistence-modifier="persistent" >
+</field>
+<field name="Date120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date122" persistence-modifier="transactional" >
+</field>
+<field name="Date125"  embedded="true">
+</field>
+<field name="Date126"  embedded="false">
+</field>
+<field name="Date127" persistence-modifier="none" >
+</field>
+<field name="Date128" persistence-modifier="persistent" >
+</field>
+<field name="Date129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date131" persistence-modifier="transactional" >
+</field>
+<field name="Date137" persistence-modifier="none" >
+</field>
+<field name="Date138" persistence-modifier="persistent" >
+</field>
+<field name="Date139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Date140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Date141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

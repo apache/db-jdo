@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+  <package name="org.apache.jdo.tck.pc.mylib">
+
+    <!-- This will not be required once the JDOModel is fixed so that
+         the defaults defined in section 18.4 of the spec are working
+    -->
+    <class name="PCPoint"
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCPoint$Oid">
+      <field name="id" primary-key="true"/>
+      <field name="x"/>
+      <field name="y"/>
+    </class>
+
+    <class name="PCPoint2"
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCPoint2$Oid">
+      <field name="id" primary-key="true"/>
+      <field name="x"/>
+      <field name="y"/>
+
+      <field name="clearCalled" persistence-modifier="none"/>
+      <field name="loadCalled" persistence-modifier="none"/>
+      <field name="storeCalled" persistence-modifier="none"/>
+      <field name="deleteCalled" persistence-modifier="none"/>
+    </class>
+
+    <class name="PCRect"
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCRect$Oid">
+      <field name="id" primary-key="true"/>
+      <field name="lowerRight"/>
+      <field name="upperLeft"/>
+    </class>
+
+    <class name="PrimitiveTypes" 
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes$Oid">
+      <field name="id" primary-key="true"/>
+      <field name="booleanNotNull"/>
+      <field name="booleanNull"/>
+      <field name="byteNotNull"/>
+      <field name="byteNull"/>
+      <field name="shortNotNull"/>
+      <field name="shortNull"/>
+      <field name="intNotNull"/>
+      <field name="intNull"/>
+      <field name="longNotNull"/>
+      <field name="longNull"/>
+      <field name="floatNotNull"/>
+      <field name="floatNull"/>
+      <field name="doubleNotNull"/>
+      <field name="doubleNull"/>
+      <field name="charNotNull"/>
+      <field name="charNull"/>
+      <field name="dateNull"/>
+      <field name="stringNull"/>
+      <field name="bigDecimal"/>
+      <field name="bigInteger"/>
+      <field name="PrimitiveTypes"/>
+    </class>
+
+  </package>
+</jdo>
+

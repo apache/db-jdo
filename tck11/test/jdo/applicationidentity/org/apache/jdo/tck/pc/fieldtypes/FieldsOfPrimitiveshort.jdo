@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfPrimitiveshort" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfPrimitiveshort$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="short1"  embedded="true">
+</field>
+<field name="short2"  embedded="false">
+</field>
+<field name="short3" persistence-modifier="none" >
+</field>
+<field name="short4" persistence-modifier="persistent" >
+</field>
+<field name="short5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short7" persistence-modifier="transactional" >
+</field>
+<field name="short10" persistence-modifier="none" >
+</field>
+<field name="short11" persistence-modifier="persistent" >
+</field>
+<field name="short12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short14" persistence-modifier="transactional" >
+</field>
+<field name="short17"  embedded="true">
+</field>
+<field name="short18"  embedded="false">
+</field>
+<field name="short19" persistence-modifier="none" >
+</field>
+<field name="short20" persistence-modifier="persistent" >
+</field>
+<field name="short21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short23" persistence-modifier="transactional" >
+</field>
+<field name="short29" persistence-modifier="none" >
+</field>
+<field name="short30" persistence-modifier="persistent" >
+</field>
+<field name="short31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short33" persistence-modifier="transactional" >
+</field>
+<field name="short37"  embedded="true">
+</field>
+<field name="short38"  embedded="false">
+</field>
+<field name="short39" persistence-modifier="none" >
+</field>
+<field name="short40" persistence-modifier="persistent" >
+</field>
+<field name="short41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short43" persistence-modifier="transactional" >
+</field>
+<field name="short46" persistence-modifier="none" >
+</field>
+<field name="short47" persistence-modifier="persistent" >
+</field>
+<field name="short48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short50" persistence-modifier="transactional" >
+</field>
+<field name="short53"  embedded="true">
+</field>
+<field name="short54"  embedded="false">
+</field>
+<field name="short55" persistence-modifier="none" >
+</field>
+<field name="short56" persistence-modifier="persistent" >
+</field>
+<field name="short57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short59" persistence-modifier="transactional" >
+</field>
+<field name="short65" persistence-modifier="none" >
+</field>
+<field name="short66" persistence-modifier="persistent" >
+</field>
+<field name="short67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short69" persistence-modifier="transactional" >
+</field>
+<field name="short73"  embedded="true">
+</field>
+<field name="short74"  embedded="false">
+</field>
+<field name="short75" persistence-modifier="none" >
+</field>
+<field name="short76" persistence-modifier="persistent" >
+</field>
+<field name="short77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short79" persistence-modifier="transactional" >
+</field>
+<field name="short82" persistence-modifier="none" >
+</field>
+<field name="short83" persistence-modifier="persistent" >
+</field>
+<field name="short84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short86" persistence-modifier="transactional" >
+</field>
+<field name="short89"  embedded="true">
+</field>
+<field name="short90"  embedded="false">
+</field>
+<field name="short91" persistence-modifier="none" >
+</field>
+<field name="short92" persistence-modifier="persistent" >
+</field>
+<field name="short93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short95" persistence-modifier="transactional" >
+</field>
+<field name="short101" persistence-modifier="none" >
+</field>
+<field name="short102" persistence-modifier="persistent" >
+</field>
+<field name="short103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short105" persistence-modifier="transactional" >
+</field>
+<field name="short109"  embedded="true">
+</field>
+<field name="short110"  embedded="false">
+</field>
+<field name="short111" persistence-modifier="none" >
+</field>
+<field name="short112" persistence-modifier="persistent" >
+</field>
+<field name="short113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short115" persistence-modifier="transactional" >
+</field>
+<field name="short118" persistence-modifier="none" >
+</field>
+<field name="short119" persistence-modifier="persistent" >
+</field>
+<field name="short120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short122" persistence-modifier="transactional" >
+</field>
+<field name="short125"  embedded="true">
+</field>
+<field name="short126"  embedded="false">
+</field>
+<field name="short127" persistence-modifier="none" >
+</field>
+<field name="short128" persistence-modifier="persistent" >
+</field>
+<field name="short129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short131" persistence-modifier="transactional" >
+</field>
+<field name="short137" persistence-modifier="none" >
+</field>
+<field name="short138" persistence-modifier="persistent" >
+</field>
+<field name="short139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="short140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="short141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

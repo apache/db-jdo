@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfBigDecimal" identity-type="datastore">
+<field name="BigDecimal1"  embedded="true">
+</field>
+<field name="BigDecimal2"  embedded="false">
+</field>
+<field name="BigDecimal3" persistence-modifier="none" >
+</field>
+<field name="BigDecimal4" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal7" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal10" persistence-modifier="none" >
+</field>
+<field name="BigDecimal11" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal14" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal17"  embedded="true">
+</field>
+<field name="BigDecimal18"  embedded="false">
+</field>
+<field name="BigDecimal19" persistence-modifier="none" >
+</field>
+<field name="BigDecimal20" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal23" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal29" persistence-modifier="none" >
+</field>
+<field name="BigDecimal30" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal33" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal37"  embedded="true">
+</field>
+<field name="BigDecimal38"  embedded="false">
+</field>
+<field name="BigDecimal39" persistence-modifier="none" >
+</field>
+<field name="BigDecimal40" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal43" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal46" persistence-modifier="none" >
+</field>
+<field name="BigDecimal47" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal50" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal53"  embedded="true">
+</field>
+<field name="BigDecimal54"  embedded="false">
+</field>
+<field name="BigDecimal55" persistence-modifier="none" >
+</field>
+<field name="BigDecimal56" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal59" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal65" persistence-modifier="none" >
+</field>
+<field name="BigDecimal66" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal69" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal73"  embedded="true">
+</field>
+<field name="BigDecimal74"  embedded="false">
+</field>
+<field name="BigDecimal75" persistence-modifier="none" >
+</field>
+<field name="BigDecimal76" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal79" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal82" persistence-modifier="none" >
+</field>
+<field name="BigDecimal83" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal86" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal89"  embedded="true">
+</field>
+<field name="BigDecimal90"  embedded="false">
+</field>
+<field name="BigDecimal91" persistence-modifier="none" >
+</field>
+<field name="BigDecimal92" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal95" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal101" persistence-modifier="none" >
+</field>
+<field name="BigDecimal102" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal105" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal109"  embedded="true">
+</field>
+<field name="BigDecimal110"  embedded="false">
+</field>
+<field name="BigDecimal111" persistence-modifier="none" >
+</field>
+<field name="BigDecimal112" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal115" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal118" persistence-modifier="none" >
+</field>
+<field name="BigDecimal119" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal122" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal125"  embedded="true">
+</field>
+<field name="BigDecimal126"  embedded="false">
+</field>
+<field name="BigDecimal127" persistence-modifier="none" >
+</field>
+<field name="BigDecimal128" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal131" persistence-modifier="transactional" >
+</field>
+<field name="BigDecimal137" persistence-modifier="none" >
+</field>
+<field name="BigDecimal138" persistence-modifier="persistent" >
+</field>
+<field name="BigDecimal139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="BigDecimal140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="BigDecimal141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

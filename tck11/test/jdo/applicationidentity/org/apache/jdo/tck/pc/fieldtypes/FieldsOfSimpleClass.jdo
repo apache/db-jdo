@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfSimpleClass" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleClass$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="SimpleClass1"  embedded="true">
+</field>
+<field name="SimpleClass2"  embedded="false">
+</field>
+<field name="SimpleClass3" persistence-modifier="none" >
+</field>
+<field name="SimpleClass4" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass7" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass10" persistence-modifier="none" >
+</field>
+<field name="SimpleClass11" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass14" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass17"  embedded="true">
+</field>
+<field name="SimpleClass18"  embedded="false">
+</field>
+<field name="SimpleClass19" persistence-modifier="none" >
+</field>
+<field name="SimpleClass20" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass23" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass29" persistence-modifier="none" >
+</field>
+<field name="SimpleClass30" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass33" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass37"  embedded="true">
+</field>
+<field name="SimpleClass38"  embedded="false">
+</field>
+<field name="SimpleClass39" persistence-modifier="none" >
+</field>
+<field name="SimpleClass40" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass43" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass46" persistence-modifier="none" >
+</field>
+<field name="SimpleClass47" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass50" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass53"  embedded="true">
+</field>
+<field name="SimpleClass54"  embedded="false">
+</field>
+<field name="SimpleClass55" persistence-modifier="none" >
+</field>
+<field name="SimpleClass56" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass59" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass65" persistence-modifier="none" >
+</field>
+<field name="SimpleClass66" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass69" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass73"  embedded="true">
+</field>
+<field name="SimpleClass74"  embedded="false">
+</field>
+<field name="SimpleClass75" persistence-modifier="none" >
+</field>
+<field name="SimpleClass76" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass79" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass82" persistence-modifier="none" >
+</field>
+<field name="SimpleClass83" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass86" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass89"  embedded="true">
+</field>
+<field name="SimpleClass90"  embedded="false">
+</field>
+<field name="SimpleClass91" persistence-modifier="none" >
+</field>
+<field name="SimpleClass92" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass95" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass101" persistence-modifier="none" >
+</field>
+<field name="SimpleClass102" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass105" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass109"  embedded="true">
+</field>
+<field name="SimpleClass110"  embedded="false">
+</field>
+<field name="SimpleClass111" persistence-modifier="none" >
+</field>
+<field name="SimpleClass112" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass115" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass118" persistence-modifier="none" >
+</field>
+<field name="SimpleClass119" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass122" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass125"  embedded="true">
+</field>
+<field name="SimpleClass126"  embedded="false">
+</field>
+<field name="SimpleClass127" persistence-modifier="none" >
+</field>
+<field name="SimpleClass128" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass131" persistence-modifier="transactional" >
+</field>
+<field name="SimpleClass137" persistence-modifier="none" >
+</field>
+<field name="SimpleClass138" persistence-modifier="persistent" >
+</field>
+<field name="SimpleClass139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleClass140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleClass141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2005 The Apache Software Foundation
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<project default="default"
+    xmlns:j="jelly:core"
+    xmlns:ant="jelly:ant"
+    xmlns:maven="jelly:maven"
+    >
+
+    <!-- ==================== -->
+    <!-- Default Global Goals -->
+    <!-- ==================== -->
+
+    <goal name="default">
+        <attainGoal name="jar:install"/>
+    </goal>
+
+    <goal name="build">
+        <attainGoal name="default"/>
+    </goal>
+
+    <goal name="rebuild">
+        <attainGoal name="clean"/>
+        <attainGoal name="build"/>
+    </goal>
+
+    <postGoal name="test:prepare-filesystem">
+        <mkdir dir="${jdo.tck.testdir}"/>
+    </postGoal>
+
+    <preGoal name="test:test">
+        <attainGoal name="jdorienhance"/>
+        <attainGoal name="database"/>
+    </preGoal>
+
+    <goal name="clobber" prereqs="clean">
+        <delete>
+            <fileset dir="." defaultexcludes="no" includes="**/*~"/>
+        </delete>
+    </goal>
+
+    <!-- ================== -->
+    <!-- Running test cases -->
+    <!-- ================== -->
+
+
+    <goal name="runtck" prereqs="enhance, testrunner.set, database, copyloggingprops">
+        <echo>Run JDO TCK with configuration ${jdo.tck.configuration}</echo>
+        <java fork="yes" dir="${jdo.tck.testdir}" 
+              classname="${jdo.tck.testrunnerclass}">
+            <classpath refid="project.class.path"/>
+            <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
+            <sysproperty key="verbose" value="${verbose}"/>
+            <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties" value="${basedir}/test/conf/jdori2.properties"/>
+            <jvmarg line="${iut.runtck.sysproperties}"/>
+            <arg line="${jdo.tck.testclasses}"/>
+        </java>
+    </goal>
+
+    <!-- Run a single tck test. The property testcase defines the name of -->
+    <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
+    <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
+    <goal name="runtck.single" prereqs="enhance, testrunner.set, database, copyloggingprop">
+        <echo>Run tck test org.apache.jdo.tck.${test}</echo>
+        <java fork="yes" dir="${jdo.tck.testdir}" 
+              classname="org.apache.jdo.tck.${test}">
+            <classpath refid="project.class.path"/>
+            <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
+            <sysproperty key="verbose" value="${verbose}"/>
+            <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties" value="${basedir}/test/conf/jdori2.properties"/>
+            <jvmarg line="${iut.runtck.sysproperties}"/>
+        </java>
+    </goal>
+
+    <!-- ================ -->
+    <!-- Enhancer support -->
+    <!-- ================ -->
+
+    <goal name="enhance">
+        <attainGoal name="enhance.applicationidentity"/> 
+        <attainGoal name="enhance.datastoreidentity"/>
+    </goal>
+
+    <preGoal name="enhance.applicationidentity">
+        <condition property="enhancement.required">
+            <and>
+                <istrue value="${iut.applicationidentity.supported}"/>
+                <not>
+                    <uptodate targetfile="${iut.enhanced.dir}/applicationidentity.jar">
+                        <srcfiles dir="${basedir}/test/jdo/applicationidentity"
+                                  includes="org/apache/jdo/pc/**/*.jdo, 
+                                            org/apache/jdo/pc/**/jdoTest.properties"/>
+                        <srcfiles dir="${basedir}/test/java"
+                                  includes="${jdo.tck.pcclasses.sources}
+                                            ${jdo.tck.paclasses.sources}"/>
+                    </uptodate>
+                </not>
+           </and>
+        </condition>
+    </preGoal>
+
+    <goal name="enhance.applicationidentity">
+        <j:if test="${enhancement.required}">
+            <j:set var="identitytype" value="applicationidentity"/>
+            <attainGoal name="enhance.run"/>
+        </j:if>
+    </goal>
+
+    <preGoal name="enhance.datastoreidentity">
+        <condition property="enhancement.required">
+            <and>
+                <istrue value="${iut.datastoreidentity.supported}"/>
+                <not>
+                    <uptodate targetfile="${iut.enhanced.dir}/datastoreidentity.jar">
+                        <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
+                                  includes="org/apache/jdo/pc/**/*.jdo, 
+                                            org/apache/jdo/pc/**/jdoTest.properties"/>
+                        <srcfiles dir="${basedir}/test/java"
+                                  includes="${jdo.tck.pcclasses.sources}
+                                            ${jdo.tck.paclasses.sources}"/>
+                    </uptodate>
+                </not>
+           </and>
+        </condition>
+    </preGoal>
+
+    <goal name="enhance.datastoreidentity">
+        <j:if test="${enhancement.required}">
+            <j:set var="identitytype" value="datastoreidentity"/>
+            <attainGoal name="enhance.run"/>
+        </j:if>
+    </goal>
+
+    <preGoal name="enhance.run">
+        <!-- copy metadata -->
+        <copy todir="${iut.enhanced.dir}">
+            <fileset dir="${basedir}/test/jdo/${identitytype}"
+                     includes="**/*.jdo, **/*.jdoTest.properties"/>
+        </copy>
+        <!-- compile pc and pa classes -->
+        <javac srcdir="${basedir}/test/java"
+               includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
+               destdir="${iut.enhanced.dir}"
+               debug="on"
+               classpathref="project.class.path">
+        </javac>
+    </preGoal>
+
+    <goal name="enhance.run">
+        <echo>Run IUT enhancer</echo>
+        <java fork="yes" failonerror="yes" 
+              dir="${iut.enhanced.dir}"
+              classname="${iut.enhancer.main}"
+              classpathref="project.class.path">
+             <jvmarg line="${iut.enhancer.sysproperties}"/>
+             <arg line="${iut.enhancer.options}"/>
+             <arg line="${iut.enhancer.args}"/>
+        </java>
+    </goal>
+
+    <postGoal name="enhance.run">
+        <delete file="${iut.enhanced.dir}/${identitytype}.jar"/>
+        <jar jarfile="${iut.enhanced.dir}/${identitytype}.jar">
+            <fileset dir="${iut.enhanced.dir}" 
+                     includes="**/*.class, **/*.jdo, **/jdoTest.properties"/>
+        </jar>
+        <delete dir="${iut.enhanced.dir}/org"/>
+    </postGoal>
+
+    <preGoal name="jdorienhance">
+        <copy todir="${jdo.tck.testclasses.dir}">
+            <fileset dir="${basedir}/test/jdo/datastoreidentity" 
+                     includes="**/*jdoTest.properties, **/*.jdo"/>
+        </copy>
+    </preGoal>
+
+    <goal name="jdorienhance">
+        <echo>Run JDORI enhancer</echo>
+        <java fork="yes" failonerror="yes" dir="${jdo.tck.testclasses.dir}"
+              classname="${jdo.enhancer.main}"
+              classpath="${jdo.enhancer.classpath}">
+             <arg line="${jdo.enhancer.options}"/>
+             <arg line="${jdo.enhancer.args}"/>
+        </java>
+    </goal>
+
+    <!-- ========= -->
+    <!-- Classpath -->
+    <!-- ========= -->
+
+    <ant:property file="${basedir}/test/conf/alltests.list"/>
+    <ant:property file="${jdo.tck.configuration}"/>
+
+    <path id="test_iut_jars" >
+        <fileset dir="iut_jars" includes="*.jar"/>
+    </path>
+
+    <path id="project.class.path">
+        <!-- Directory where enhanced class files are located  -->
+        <pathelement location="${iut.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
+        <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- Jar files for the implementation to be tested -->
+        <path refid="test_iut_jars" />
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
+        <!-- Spring jar files -->
+        <pathelement location="${spring.jarfile}"/>
+        <pathelement location="${logging.jarfile}"/>
+        <!-- Jar files for the reference implementation -->
+        <pathelement location="${jdo.jdori.jarfile}" />
+        <pathelement location="${jdo.jdobtree.jarfile}" />
+        <pathelement location="${antlr.jarfile}" />
+        <pathelement location="${jta.jarfile}" />
+        <pathelement location="${xmlparser}" />
+    </path>
+
+    <!-- ==== -->
+    <!-- Misc -->
+    <!-- ==== -->
+
+    <goal name="database">
+        <mkdir dir="${jdo.tck.testdir}/database" />
+    </goal>
+    
+    <goal name="testrunner.set">
+       <condition property="jdo.tck.testrunnerclass" 
+                  value="org.apache.jdo.tck.util.SwingTestRunner">
+           <istrue value="${gui}"/>
+       </condition>
+       <condition property="jdo.tck.testrunnerclass" 
+                  value="org.apache.jdo.tck.util.BatchTestRunner">
+           <isfalse value="${gui}"/>
+       </condition>
+    </goal>
+
+    <goal name="copyloggingprops">
+        <copy todir="${jdo.tck.testclasses.dir}" >
+            <fileset dir="${basedir}/test/conf">
+               <include name="commons-logging.properties"/>
+               <include name="simplelog.properties"/>
+               <include name="logging.properties"/>
+            </fileset>
+        </copy>
+    </goal>
+
+</project>

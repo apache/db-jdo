@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfLong" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfLong$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="Long1"  embedded="true">
+</field>
+<field name="Long2"  embedded="false">
+</field>
+<field name="Long3" persistence-modifier="none" >
+</field>
+<field name="Long4" persistence-modifier="persistent" >
+</field>
+<field name="Long5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long7" persistence-modifier="transactional" >
+</field>
+<field name="Long10" persistence-modifier="none" >
+</field>
+<field name="Long11" persistence-modifier="persistent" >
+</field>
+<field name="Long12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long14" persistence-modifier="transactional" >
+</field>
+<field name="Long17"  embedded="true">
+</field>
+<field name="Long18"  embedded="false">
+</field>
+<field name="Long19" persistence-modifier="none" >
+</field>
+<field name="Long20" persistence-modifier="persistent" >
+</field>
+<field name="Long21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long23" persistence-modifier="transactional" >
+</field>
+<field name="Long29" persistence-modifier="none" >
+</field>
+<field name="Long30" persistence-modifier="persistent" >
+</field>
+<field name="Long31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long33" persistence-modifier="transactional" >
+</field>
+<field name="Long37"  embedded="true">
+</field>
+<field name="Long38"  embedded="false">
+</field>
+<field name="Long39" persistence-modifier="none" >
+</field>
+<field name="Long40" persistence-modifier="persistent" >
+</field>
+<field name="Long41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long43" persistence-modifier="transactional" >
+</field>
+<field name="Long46" persistence-modifier="none" >
+</field>
+<field name="Long47" persistence-modifier="persistent" >
+</field>
+<field name="Long48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long50" persistence-modifier="transactional" >
+</field>
+<field name="Long53"  embedded="true">
+</field>
+<field name="Long54"  embedded="false">
+</field>
+<field name="Long55" persistence-modifier="none" >
+</field>
+<field name="Long56" persistence-modifier="persistent" >
+</field>
+<field name="Long57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long59" persistence-modifier="transactional" >
+</field>
+<field name="Long65" persistence-modifier="none" >
+</field>
+<field name="Long66" persistence-modifier="persistent" >
+</field>
+<field name="Long67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long69" persistence-modifier="transactional" >
+</field>
+<field name="Long73"  embedded="true">
+</field>
+<field name="Long74"  embedded="false">
+</field>
+<field name="Long75" persistence-modifier="none" >
+</field>
+<field name="Long76" persistence-modifier="persistent" >
+</field>
+<field name="Long77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long79" persistence-modifier="transactional" >
+</field>
+<field name="Long82" persistence-modifier="none" >
+</field>
+<field name="Long83" persistence-modifier="persistent" >
+</field>
+<field name="Long84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long86" persistence-modifier="transactional" >
+</field>
+<field name="Long89"  embedded="true">
+</field>
+<field name="Long90"  embedded="false">
+</field>
+<field name="Long91" persistence-modifier="none" >
+</field>
+<field name="Long92" persistence-modifier="persistent" >
+</field>
+<field name="Long93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long95" persistence-modifier="transactional" >
+</field>
+<field name="Long101" persistence-modifier="none" >
+</field>
+<field name="Long102" persistence-modifier="persistent" >
+</field>
+<field name="Long103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long105" persistence-modifier="transactional" >
+</field>
+<field name="Long109"  embedded="true">
+</field>
+<field name="Long110"  embedded="false">
+</field>
+<field name="Long111" persistence-modifier="none" >
+</field>
+<field name="Long112" persistence-modifier="persistent" >
+</field>
+<field name="Long113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long115" persistence-modifier="transactional" >
+</field>
+<field name="Long118" persistence-modifier="none" >
+</field>
+<field name="Long119" persistence-modifier="persistent" >
+</field>
+<field name="Long120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long122" persistence-modifier="transactional" >
+</field>
+<field name="Long125"  embedded="true">
+</field>
+<field name="Long126"  embedded="false">
+</field>
+<field name="Long127" persistence-modifier="none" >
+</field>
+<field name="Long128" persistence-modifier="persistent" >
+</field>
+<field name="Long129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long131" persistence-modifier="transactional" >
+</field>
+<field name="Long137" persistence-modifier="none" >
+</field>
+<field name="Long138" persistence-modifier="persistent" >
+</field>
+<field name="Long139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Long140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Long141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>
