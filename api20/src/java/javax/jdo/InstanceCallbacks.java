@@ -24,28 +24,34 @@ package javax.jdo;
 /** A <code>PersistenceCapable</code> class that provides callback methods for life
  * cycle events implements this interface.
  *
+ * <P>For JDO 2.0, <code>InstanceCallbacks</code> has been refactored to extend 
+ * four other interfaces, without changing any of the methods or semantics. 
+ * This allows fine-grained control over callbacks, for
+ * example to allow a class to implement the load callback without
+ * implementing any of the other callbacks. For backward compatibility
+ * with JDO 1.0, the <code>InstanceCallbacks</code> interface is preserved.
+ *
  * <P>Classes which include non-persistent fields whose values depend
  * on the values of persistent fields require callbacks on specific
  * JDO instance life cycle events in order to correctly populate the
  * values in these fields.
  *
- * <P>This interface defines the methods executed
- * by the <code>PersistenceManager</code> for these life cycle events.  If the class
- * implements <code>InstanceCallbacks</code>, it must explicitly declare it in the
- * class definition.  
- *
  * <P>The callbacks might also be used if the persistent instances
  * need to be put into the runtime infrastructure of the application.
  * For example, a persistent instance might notify other instances
- * on changes to state.  The persistent instance is in a list of
- * managed instances, and when the persistent instance is made hollow,
+ * on changes to state.  The persistent instance might be in a list of
+ * managed instances. When the persistent instance is made hollow,
  * it can no longer generate change events, and the persistent
  * instance should be removed from the list of managed instances.
  *
  * <P>To implement this, the application programmer would implement
- * the <code>jdoPostLoad</code> callback to put itself into the list of managed
- * instances; and implement the <code>jdoPreClear</code> to remove itself from
- * the list.
+ * <code>jdoPostLoad</code> to put itself into the list of managed
+ * instances, and implement <code>jdoPreClear</code> to remove itself from
+ * the list. With JDO 1.0, the domain class would be declared to implement
+ * <code>InstanceCallbacks</code>. With JDO 2.0, the domain class 
+ * would be declared to implement
+ * <code>javax.jdo.listener.LoadCallback</code> and 
+ * <code>javax.jdo.listener.ClearCallback</code>.
  *
  * <P>Note that JDO does not manage the state of non-persistent
  * fields, and when a JDO instance transitions to hollow, JDO clears
@@ -53,6 +59,7 @@ package javax.jdo;
  * clear non-persistent fields so that garbage collection of
  * referred instances can occur.
  *
+ * @since 1.0
  * @version 2.0
  */
 public interface InstanceCallbacks 
@@ -60,50 +67,4 @@ public interface InstanceCallbacks
         javax.jdo.listener.DeleteCallback,
         javax.jdo.listener.LoadCallback,
         javax.jdo.listener.StoreCallback {
-    
-    /**
-     * Called after the values are loaded from the data store into
-     * this instance.
-     *
-     * <P>This method is not modified by the Reference Enhancer.
-     * <P>Derived fields should be initialized in this method.
-     * The context in which this call is made does not allow access to 
-     * other persistent JDO instances.
-     */
-    void jdoPostLoad();
-
-    /**
-     * Called before the values are stored from this instance to the
-     * data store.
-     *
-     * <P>Data store fields that might have been affected by modified
-     * non-persistent fields should be updated in this method.
-     *
-     * <P>This method is modified by the enhancer so that changes to 
-     * persistent fields will be reflected in the data store. 
-     * The context in which this call is made allows access to the 
-     * <code>PersistenceManager</code> and other persistent JDO instances.
-     */
-    void jdoPreStore();
-
-    /**
-     * Called before the values in the instance are cleared.
-     *
-     * <P>Transient fields should be cleared in this method.  
-     * Associations between this
-     * instance and others in the runtime environment should be cleared.
-     *
-     * <P>This method is not modified by the enhancer.
-     */
-    void jdoPreClear();
-
-    /**
-     * Called before the instance is deleted.
-     * This method is called before the state transition to persistent-deleted 
-     * or persistent-new-deleted. Access to field values within this call 
-     * are valid. Access to field values after this call are disallowed. 
-     * <P>This method is modified by the enhancer so that fields referenced 
-     * can be used in the business logic of the method.
-     */
-    void jdoPreDelete();
 }
