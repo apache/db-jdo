@@ -55,18 +55,10 @@ public class ByteIdentity extends SingleFieldIdentity {
 
     /** Constructor with class and key.
      * @param pcClass the target class
-     * @param key the key
-     */
-    public ByteIdentity(Class pcClass, int key) {
-        this (pcClass, (byte)key);
-    }
-
-    /** Constructor with class and key.
-     * @param pcClass the target class
      * @param str the key
      */
     public ByteIdentity(Class pcClass, String str) {
-        this (pcClass, Byte.parseByte(str));
+        this (pcClass, Byte.parseByte(justTheId(str)));
     }
 
     /** Constructor only for Externalizable.
@@ -85,7 +77,7 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @return the key.
      */
     public String toString() {
-        return getTargetClassName() + " " + Byte.toString(key);
+        return getTargetClassName() + ":" + Byte.toString(key);
     }
 
     /** Determine if the other object represents the same object id.

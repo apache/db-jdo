@@ -47,6 +47,12 @@ public class StringIdentityTest extends SingleFieldIdentityTest {
         assertFalse ("Not equal StringIdentity instances compare equal", c1.equals(c3));
     }
     
+    public void testToStringConstructor() {
+        StringIdentity c1 = new StringIdentity(Object.class, "Now who's talking!");
+        StringIdentity c2 = new StringIdentity(Object.class, c1.toString());
+        assertEquals ("Equal StringIdentity instances compare not equal.", c1, c2);
+    }
+
     public void testSerialized() {
         StringIdentity c1 = new StringIdentity(Object.class, "1");
         StringIdentity c2 = new StringIdentity(Object.class, "1");

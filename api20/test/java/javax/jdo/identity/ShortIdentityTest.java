@@ -44,7 +44,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
         ShortIdentity c2 = new ShortIdentity(Object.class, (short)1);
         ShortIdentity c3 = new ShortIdentity(Object.class, (short)2);
         assertEquals("Equal ShortIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal ShortIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testShortConstructor() {
@@ -52,15 +52,13 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
         ShortIdentity c2 = new ShortIdentity(Object.class, new Short((short)1));
         ShortIdentity c3 = new ShortIdentity(Object.class, new Short((short)2));
         assertEquals ("Equal ShortIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal ShortIdentity instances compare equal", c1.equals(c3));
     }
 
-    public void testIntConstructor() {
-        ShortIdentity c1 = new ShortIdentity(Object.class, (short)1);
-        ShortIdentity c2 = new ShortIdentity(Object.class, 1);
-        ShortIdentity c3 = new ShortIdentity(Object.class, 2);
+    public void testToStringConstructor() {
+        ShortIdentity c1 = new ShortIdentity(Object.class, Short.MAX_VALUE);
+        ShortIdentity c2 = new ShortIdentity(Object.class, c1.toString());
         assertEquals ("Equal ShortIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testStringConstructor() {
@@ -68,7 +66,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
         ShortIdentity c2 = new ShortIdentity(Object.class, "1");
         ShortIdentity c3 = new ShortIdentity(Object.class, "2");
         assertEquals ("Equal ShortIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal ShortIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testIllegalStringConstructor() {

@@ -44,7 +44,7 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
         LongIdentity c2 = new LongIdentity(Object.class, 1);
         LongIdentity c3 = new LongIdentity(Object.class, 2);
         assertEquals("Equal LongIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal LongIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testLongConstructor() {
@@ -52,7 +52,13 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
         LongIdentity c2 = new LongIdentity(Object.class, new Long(1));
         LongIdentity c3 = new LongIdentity(Object.class, new Long(2));
         assertEquals ("Equal LongIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal LongIdentity instances compare equal", c1.equals(c3));
+    }
+
+    public void testToStringConstructor() {
+        LongIdentity c1 = new LongIdentity(Object.class, Long.MAX_VALUE);
+        LongIdentity c2 = new LongIdentity(Object.class, c1.toString());
+        assertEquals ("Equal LongIdentity instances compare not equal.", c1, c2);
     }
 
     public void testStringConstructor() {
@@ -60,7 +66,7 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
         LongIdentity c2 = new LongIdentity(Object.class, "1");
         LongIdentity c3 = new LongIdentity(Object.class, "2");
         assertEquals ("Equal LongIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal LongIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testIllegalStringConstructor() {

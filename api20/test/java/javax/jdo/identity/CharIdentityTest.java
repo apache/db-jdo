@@ -45,15 +45,21 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
         CharIdentity c2 = new CharIdentity(Object.class, 'a');
         CharIdentity c3 = new CharIdentity(Object.class, 'b');
         assertEquals("Equal CharIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal CharIdentity instances compare equal", c1.equals(c3));
     }
     
-    public void testIntConstructor() {
+    public void testCharacterConstructor() {
         CharIdentity c1 = new CharIdentity(Object.class, 'a');
-        CharIdentity c2 = new CharIdentity(Object.class, 97);
-        CharIdentity c3 = new CharIdentity(Object.class, 98);
+        CharIdentity c2 = new CharIdentity(Object.class, new Character('a'));
+        CharIdentity c3 = new CharIdentity(Object.class, new Character('b'));
+        assertEquals("Equal CharIdentity instances compare not equal.", c1, c2);
+        assertFalse ("Not equal CharIdentity instances compare equal", c1.equals(c3));
+    }
+    
+    public void testToStringConstructor() {
+        CharIdentity c1 = new CharIdentity(Object.class, 'a');
+        CharIdentity c2 = new CharIdentity(Object.class, c1.toString());
         assertEquals ("Equal CharIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testStringConstructor() {
@@ -61,7 +67,7 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
         CharIdentity c2 = new CharIdentity(Object.class, "a");
         CharIdentity c3 = new CharIdentity(Object.class, "b");
         assertEquals ("Equal CharIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal CharIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testStringConstructorTooLong() {
@@ -80,14 +86,6 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
             return; // good
         }
         fail ("No exception caught for String too short.");
-    }
-    
-    public void testCharacterConstructor() {
-        CharIdentity c1 = new CharIdentity(Object.class, 'a');
-        CharIdentity c2 = new CharIdentity(Object.class, new Character('a'));
-        CharIdentity c3 = new CharIdentity(Object.class, new Character('b'));
-        assertEquals ("Equal CharIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testSerialized() {

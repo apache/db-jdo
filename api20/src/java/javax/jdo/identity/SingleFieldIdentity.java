@@ -112,6 +112,14 @@ public abstract class SingleFieldIdentity
     public int hashCode() {
         return hashCode;
     }
+    
+    /** Convert the toString representation of a single field identity
+     * to remove the class name. The format of the toString is
+     * <targetClass name:id>.
+     */
+    protected static String justTheId(String str) {
+        return str.substring(str.indexOf(':') + 1);
+    }
 
     /** Write to the output stream.
      * @param out the stream

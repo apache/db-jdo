@@ -56,7 +56,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param str the key
      */
     public IntIdentity (Class pcClass, String str) {
-        this (pcClass, Integer.parseInt (str));
+        this (pcClass, Integer.parseInt (justTheId(str)));
     }
 
     /** Constructor only for Externalizable.
@@ -75,7 +75,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + " " + key;
+        return getTargetClassName() + ":" + key;
     }
 
     /** Determine if the other object represents the same object id.

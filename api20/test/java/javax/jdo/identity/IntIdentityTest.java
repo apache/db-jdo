@@ -44,15 +44,21 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
         IntIdentity c2 = new IntIdentity(Object.class, (int)1);
         IntIdentity c3 = new IntIdentity(Object.class, (int)2);
         assertEquals("Equal IntIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
     }
 
-    public void testintConstructor() {
+    public void testIntegerConstructor() {
         IntIdentity c1 = new IntIdentity(Object.class, (int)1);
         IntIdentity c2 = new IntIdentity(Object.class, new Integer((int)1));
         IntIdentity c3 = new IntIdentity(Object.class, new Integer((int)2));
         assertEquals ("Equal intIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
+    }
+
+    public void testToStringConstructor() {
+        IntIdentity c1 = new IntIdentity(Object.class, (int)1);
+        IntIdentity c2 = new IntIdentity(Object.class, c1.toString());
+        assertEquals ("Equal IntIdentity instances compare not equal.", c1, c2);
     }
 
     public void testStringConstructor() {
@@ -60,7 +66,7 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
         IntIdentity c2 = new IntIdentity(Object.class, "1");
         IntIdentity c3 = new IntIdentity(Object.class, "2");
         assertEquals ("Equal IntIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
     }
     
     public void testIllegalStringConstructor() {

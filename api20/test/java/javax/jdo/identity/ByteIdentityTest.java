@@ -55,12 +55,10 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
         assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
 
-    public void testIntConstructor() {
+    public void testToStringConstructor() {
         ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
-        ByteIdentity c2 = new ByteIdentity(Object.class, 1);
-        ByteIdentity c3 = new ByteIdentity(Object.class, 2);
+        ByteIdentity c2 = new ByteIdentity(Object.class, c1.toString());
         assertEquals ("Equal ByteIdentity instances compare not equal.", c1, c2);
-        assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
 
     public void testStringConstructor() {

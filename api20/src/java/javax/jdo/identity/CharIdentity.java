@@ -59,14 +59,6 @@ public class CharIdentity extends SingleFieldIdentity {
         this (pcClass, key.charValue ());
     }
 
-    /** Constructor with class and key.
-     * @param pcClass the target class
-     * @param key the key
-     */
-    public CharIdentity (Class pcClass, int key) {
-        this (pcClass, (char)key);
-    }
-
     /** Constructor with class and key. The String must have exactly one
      * character.
      * @param pcClass the target class
@@ -74,9 +66,10 @@ public class CharIdentity extends SingleFieldIdentity {
      */
     public CharIdentity (Class pcClass, String str) {
         super(pcClass);
-        if (str.length() != 1) 
+        String justTheId = justTheId(str);
+        if (justTheId.length() != 1) 
             throw new IllegalArgumentException(msg.msg("EXC_StringWrongLength"));
-        this.key = str.charAt(0);
+        this.key = justTheId.charAt(0);
         computeHashCode();
     }
 
@@ -96,7 +89,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + " " + key;
+        return getTargetClassName() + ":" + key;
     }
 
     /** Determine if the other object represents the same object id.
