@@ -62,6 +62,13 @@ public interface PersistenceCapable {
      */
     static final byte LOAD_REQUIRED = 1;
     
+    /** If jdoFlags is set to DETACHED, then fields identified as loadedFields
+     * can be read and written without having a StateManager. Fields modified
+     * while detached are kept track of as modifiedFields.
+     * @since 2.0
+     */
+    static final byte DETACHED = 2;
+    
     /** If jdoFlags is set to READ_OK, then the fields in the default fetch group
      * can be accessed for read without notifying the StateManager.
      */
