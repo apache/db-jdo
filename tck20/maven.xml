@@ -43,7 +43,10 @@
     </postGoal>
 
     <preGoal name="test:test">
+    <!-- jdorienhance needs to be fixed to work like enhance (jdo-4)
         <attainGoal name="jdorienhance"/>
+    -->
+        <attainGoal name="enhance"/>
         <attainGoal name="database"/>
         <echo>Run JDO TCK with configuration ${jdo.tck.configuration}</echo>
     </preGoal>
