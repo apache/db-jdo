@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfPrimitivechar" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfPrimitivechar$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="char1"  embedded="true">
+</field>
+<field name="char2"  embedded="false">
+</field>
+<field name="char3" persistence-modifier="none" >
+</field>
+<field name="char4" persistence-modifier="persistent" >
+</field>
+<field name="char5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char7" persistence-modifier="transactional" >
+</field>
+<field name="char10" persistence-modifier="none" >
+</field>
+<field name="char11" persistence-modifier="persistent" >
+</field>
+<field name="char12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char14" persistence-modifier="transactional" >
+</field>
+<field name="char17"  embedded="true">
+</field>
+<field name="char18"  embedded="false">
+</field>
+<field name="char19" persistence-modifier="none" >
+</field>
+<field name="char20" persistence-modifier="persistent" >
+</field>
+<field name="char21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char23" persistence-modifier="transactional" >
+</field>
+<field name="char29" persistence-modifier="none" >
+</field>
+<field name="char30" persistence-modifier="persistent" >
+</field>
+<field name="char31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char33" persistence-modifier="transactional" >
+</field>
+<field name="char37"  embedded="true">
+</field>
+<field name="char38"  embedded="false">
+</field>
+<field name="char39" persistence-modifier="none" >
+</field>
+<field name="char40" persistence-modifier="persistent" >
+</field>
+<field name="char41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char43" persistence-modifier="transactional" >
+</field>
+<field name="char46" persistence-modifier="none" >
+</field>
+<field name="char47" persistence-modifier="persistent" >
+</field>
+<field name="char48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char50" persistence-modifier="transactional" >
+</field>
+<field name="char53"  embedded="true">
+</field>
+<field name="char54"  embedded="false">
+</field>
+<field name="char55" persistence-modifier="none" >
+</field>
+<field name="char56" persistence-modifier="persistent" >
+</field>
+<field name="char57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char59" persistence-modifier="transactional" >
+</field>
+<field name="char65" persistence-modifier="none" >
+</field>
+<field name="char66" persistence-modifier="persistent" >
+</field>
+<field name="char67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char69" persistence-modifier="transactional" >
+</field>
+<field name="char73"  embedded="true">
+</field>
+<field name="char74"  embedded="false">
+</field>
+<field name="char75" persistence-modifier="none" >
+</field>
+<field name="char76" persistence-modifier="persistent" >
+</field>
+<field name="char77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char79" persistence-modifier="transactional" >
+</field>
+<field name="char82" persistence-modifier="none" >
+</field>
+<field name="char83" persistence-modifier="persistent" >
+</field>
+<field name="char84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char86" persistence-modifier="transactional" >
+</field>
+<field name="char89"  embedded="true">
+</field>
+<field name="char90"  embedded="false">
+</field>
+<field name="char91" persistence-modifier="none" >
+</field>
+<field name="char92" persistence-modifier="persistent" >
+</field>
+<field name="char93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char95" persistence-modifier="transactional" >
+</field>
+<field name="char101" persistence-modifier="none" >
+</field>
+<field name="char102" persistence-modifier="persistent" >
+</field>
+<field name="char103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char105" persistence-modifier="transactional" >
+</field>
+<field name="char109"  embedded="true">
+</field>
+<field name="char110"  embedded="false">
+</field>
+<field name="char111" persistence-modifier="none" >
+</field>
+<field name="char112" persistence-modifier="persistent" >
+</field>
+<field name="char113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char115" persistence-modifier="transactional" >
+</field>
+<field name="char118" persistence-modifier="none" >
+</field>
+<field name="char119" persistence-modifier="persistent" >
+</field>
+<field name="char120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char122" persistence-modifier="transactional" >
+</field>
+<field name="char125"  embedded="true">
+</field>
+<field name="char126"  embedded="false">
+</field>
+<field name="char127" persistence-modifier="none" >
+</field>
+<field name="char128" persistence-modifier="persistent" >
+</field>
+<field name="char129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char131" persistence-modifier="transactional" >
+</field>
+<field name="char137" persistence-modifier="none" >
+</field>
+<field name="char138" persistence-modifier="persistent" >
+</field>
+<field name="char139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="char140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="char141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

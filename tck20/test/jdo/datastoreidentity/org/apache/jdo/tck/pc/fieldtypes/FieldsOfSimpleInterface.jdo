@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfSimpleInterface" identity-type="datastore">
+<field name="SimpleInterface1"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface2"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface3" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface4" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface7" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface10" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface11" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface14" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface17"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface18"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface19" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface20" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface23" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface29" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface30" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface33" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface37"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface38"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface39" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface40" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface43" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface46" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface47" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface50" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface53"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface54"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface55" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface56" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface59" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface65" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface66" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface69" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface73"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface74"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface75" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface76" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface79" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface82" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface83" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface86" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface89"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface90"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface91" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface92" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface95" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface101" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface102" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface105" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface109"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface110"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface111" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface112" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface115" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface118" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface119" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface122" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface125"  embedded="true" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface126"  embedded="false" persistence-modifier="persistent">
+</field>
+<field name="SimpleInterface127" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface128" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface131" persistence-modifier="transactional" >
+</field>
+<field name="SimpleInterface137" persistence-modifier="none" >
+</field>
+<field name="SimpleInterface138" persistence-modifier="persistent" >
+</field>
+<field name="SimpleInterface139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="SimpleInterface140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="SimpleInterface141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+  <package name="org.apache.jdo.tck.pc.mylib">
+
+    <class name="PCPoint" table="PCPoint">
+      <datastore-identity strategy="identity" column="ID"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPoint2" table="PCPoint2">
+      <datastore-identity strategy="identity" column="ID"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCRect" table="PCRect">
+      <datastore-identity strategy="identity" column="ID"/>
+      <field name="lowerRight" column="LOWERRIGHT"/>
+      <field name="upperLeft" column="UPPERLEFT"/>
+    </class>
+
+    <class name="PrimitiveTypes" table="PrimitiveTypes">
+      <datastore-identity strategy="identity" column="ID"/>
+      <field name="booleanNotNull" column="booleanNotNull"/>
+      <field name="booleanNull" column="booleanNull"/>
+      <field name="byteNotNull" column="byteNotNull"/>
+      <field name="byteNull" column="byteNull"/>
+      <field name="shortNotNull" column="shortNotNull"/>
+      <field name="shortNull" column="shortNull"/>
+      <field name="intNotNull" column="intNotNull"/>
+      <field name="intNull" column="intNull"/>
+      <field name="longNotNull" column="longNotNull"/>
+      <field name="longNull" column="longNull"/>
+      <field name="floatNotNull" column="floatNotNull"/>
+      <field name="floatNull" column="floatNull"/>
+      <field name="doubleNotNull" column="doubleNotNull"/>
+      <field name="doubleNull" column="doubleNull"/>
+      <field name="charNotNull" column="charNotNull"/>
+      <field name="charNull" column="charNull"/>
+      <field name="dateNull" column="dateNull"/>
+      <field name="stringNull" column="stringNull"/>
+      <field name="bigDecimal" column="bigDecimal"/>
+      <field name="bigInteger" column="bigInteger"/>
+      <field name="PrimitiveTypes" column="PrimitiveTypes"/>
+    </class>
+
+  </package>
+</orm>
+

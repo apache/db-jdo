@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+    <package name="org.apache.jdo.tck.pc.inheritance">
+        <class
+            name="AllPersist"
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.inheritance.AllPersist$Id" >
+            <field name="intA" persistence-modifier="none"/>
+            <field name="keyValue" primary-key="true" />
+        </class>
+
+        <class
+            name="AllPersist2"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.AllPersist">
+            <field name="charC" persistence-modifier="none"/>
+            <field name="booleanD" persistence-modifier="none"/>
+            <field name="floatE" persistence-modifier="transactional"/>
+        </class>
+
+        <class
+            name="AllPersist3"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.AllPersist2">
+            <field name="secondObj" persistence-modifier="transactional" />
+            <field name="thirdObj" persistence-modifier="persistent" null-value="default"/>
+        </class>
+
+        <class
+            name="AllPersist4"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.AllPersist3">
+            <field name="shortG" persistence-modifier="none"/>
+            <field name="fourthObj" persistence-modifier="none"/>
+        </class>
+
+        <class
+            name="TopNonPersistB"
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.inheritance.TopNonPersistB$Id">
+            <field name="keyValue" primary-key="true" />
+        </class>
+
+        <class
+            name="TopNonPersistE"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopNonPersistB">
+            <field name="floatE" persistence-modifier="transactional"/>
+        </class>
+
+        <class
+            name="TopNonPersistF"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopNonPersistE">
+            <field name="secondObj" persistence-modifier="transactional" />
+            <field name="thirdObj" persistence-modifier="persistent" null-value="default"/>
+        </class>
+
+        <class
+            name="TopNonPersistH"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopNonPersistF">
+        </class>
+
+        <class 
+            name="TopPersist" 
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.inheritance.TopPersist$Id">
+            <field name="intA" persistence-modifier="none"/>
+            <field name="keyValue" primary-key="true" />
+        </class>
+
+        <class 
+            name="TopPersistE" 
+            identity-type="application"
+            persistence-capable-superclass ="org.apache.jdo.tck.pc.inheritance.TopPersist">
+            <field name="floatE" persistence-modifier="transactional"/>
+        </class>
+
+        <class 
+            name="TopPersistF" 
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopPersistE">
+            <field name="secondObj" persistence-modifier="transactional" />
+            <field name="thirdObj" persistence-modifier="persistent" null-value="default"/>
+        </class>
+
+        <class 
+            name="TopPersistH" 
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopPersistF">
+        </class>
+
+        <class 
+            name="FieldSameName" 
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.inheritance.FieldSameName$Id">
+            <field name="n1" persistence-modifier="none"/>
+            <field name="n2" persistence-modifier="persistent"/>
+            <field name="n3" persistence-modifier="persistent"/>
+            <field name="keyValue" primary-key="true" />
+        </class>
+
+        <class 
+            name="FieldSameName2" 
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.FieldSameName">
+            <field name="n1" persistence-modifier="none"/>
+            <field name="n2" persistence-modifier="none"/>
+            <field name="n3" persistence-modifier="transactional"/>
+        </class>
+
+        <class 
+            name="FieldSameName3" 
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.FieldSameName2">
+            <field name="n1" persistence-modifier="persistent"/>
+            <field name="n2" persistence-modifier="transactional" />
+            <field name="n3" persistence-modifier="persistent" null-value="default"/>
+        </class>
+
+        <class 
+            name="FieldSameName4" 
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.FieldSameName3">
+            <field name="n1" persistence-modifier="none"/>
+            <field name="n2" persistence-modifier="none"/>
+            <field name="n3" persistence-modifier="persistent"/>
+        </class>
+
+</package>
+</jdo>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="HashtableStringValueCollections" identity-type="datastore">
+<field name="HashtableOfObject_String0" >
+<map  key-type="Object" value-type="String">
+</map>
+</field>
+<field name="HashtableOfObject_String1" >
+<map  key-type="Object" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfObject_String2" >
+<map  key-type="Object" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfObject_String3" >
+<map  key-type="Object" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfObject_String4" >
+<map  key-type="Object" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfObject_String5" >
+<map  key-type="Object" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfObject_String6" >
+<map  key-type="Object" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfObject_String7" >
+<map  key-type="Object" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfObject_String8" >
+<map  key-type="Object" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String9" >
+<map  key-type="SimpleClass" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String10" >
+<map  key-type="SimpleClass" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String11" >
+<map  key-type="SimpleClass" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String12" >
+<map  key-type="SimpleClass" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String13" >
+<map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String14" >
+<map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String15" >
+<map  key-type="SimpleClass" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String16" >
+<map  key-type="SimpleClass" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleClass_String17" >
+<map  key-type="SimpleClass" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String18" >
+<map  key-type="SimpleInterface" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String19" >
+<map  key-type="SimpleInterface" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String20" >
+<map  key-type="SimpleInterface" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String21" >
+<map  key-type="SimpleInterface" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String22" >
+<map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String23" >
+<map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String24" >
+<map  key-type="SimpleInterface" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String25" >
+<map  key-type="SimpleInterface" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfSimpleInterface_String26" >
+<map  key-type="SimpleInterface" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfString_String27" >
+<map  key-type="String" value-type="String">
+</map>
+</field>
+<field name="HashtableOfString_String28" >
+<map  key-type="String" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfString_String29" >
+<map  key-type="String" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfString_String30" >
+<map  key-type="String" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfString_String31" >
+<map  key-type="String" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfString_String32" >
+<map  key-type="String" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfString_String33" >
+<map  key-type="String" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfString_String34" >
+<map  key-type="String" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfString_String35" >
+<map  key-type="String" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDate_String36" >
+<map  key-type="java.util.Date" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDate_String37" >
+<map  key-type="java.util.Date" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDate_String38" >
+<map  key-type="java.util.Date" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDate_String39" >
+<map  key-type="java.util.Date" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDate_String40" >
+<map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDate_String41" >
+<map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDate_String42" >
+<map  key-type="java.util.Date" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDate_String43" >
+<map  key-type="java.util.Date" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDate_String44" >
+<map  key-type="java.util.Date" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String45" >
+<map  key-type="java.math.BigDecimal" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String46" >
+<map  key-type="java.math.BigDecimal" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String47" >
+<map  key-type="java.math.BigDecimal" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String48" >
+<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String49" >
+<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String50" >
+<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String51" >
+<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String52" >
+<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigDecimal_String53" >
+<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String54" >
+<map  key-type="java.math.BigInteger" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String55" >
+<map  key-type="java.math.BigInteger" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String56" >
+<map  key-type="java.math.BigInteger" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String57" >
+<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String58" >
+<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String59" >
+<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String60" >
+<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String61" >
+<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfBigInteger_String62" >
+<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfByte_String63" >
+<map  key-type="Byte" value-type="String">
+</map>
+</field>
+<field name="HashtableOfByte_String64" >
+<map  key-type="Byte" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfByte_String65" >
+<map  key-type="Byte" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfByte_String66" >
+<map  key-type="Byte" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfByte_String67" >
+<map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfByte_String68" >
+<map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfByte_String69" >
+<map  key-type="Byte" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfByte_String70" >
+<map  key-type="Byte" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfByte_String71" >
+<map  key-type="Byte" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDouble_String72" >
+<map  key-type="Double" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDouble_String73" >
+<map  key-type="Double" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDouble_String74" >
+<map  key-type="Double" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDouble_String75" >
+<map  key-type="Double" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDouble_String76" >
+<map  key-type="Double" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDouble_String77" >
+<map  key-type="Double" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfDouble_String78" >
+<map  key-type="Double" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfDouble_String79" >
+<map  key-type="Double" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfDouble_String80" >
+<map  key-type="Double" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfFloat_String81" >
+<map  key-type="Float" value-type="String">
+</map>
+</field>
+<field name="HashtableOfFloat_String82" >
+<map  key-type="Float" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfFloat_String83" >
+<map  key-type="Float" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfFloat_String84" >
+<map  key-type="Float" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfFloat_String85" >
+<map  key-type="Float" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfFloat_String86" >
+<map  key-type="Float" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfFloat_String87" >
+<map  key-type="Float" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfFloat_String88" >
+<map  key-type="Float" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfFloat_String89" >
+<map  key-type="Float" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfInteger_String90" >
+<map  key-type="Integer" value-type="String">
+</map>
+</field>
+<field name="HashtableOfInteger_String91" >
+<map  key-type="Integer" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfInteger_String92" >
+<map  key-type="Integer" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfInteger_String93" >
+<map  key-type="Integer" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfInteger_String94" >
+<map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfInteger_String95" >
+<map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfInteger_String96" >
+<map  key-type="Integer" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfInteger_String97" >
+<map  key-type="Integer" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfInteger_String98" >
+<map  key-type="Integer" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfLong_String99" >
+<map  key-type="Long" value-type="String">
+</map>
+</field>
+<field name="HashtableOfLong_String100" >
+<map  key-type="Long" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfLong_String101" >
+<map  key-type="Long" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfLong_String102" >
+<map  key-type="Long" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfLong_String103" >
+<map  key-type="Long" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfLong_String104" >
+<map  key-type="Long" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfLong_String105" >
+<map  key-type="Long" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfLong_String106" >
+<map  key-type="Long" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfLong_String107" >
+<map  key-type="Long" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfShort_String108" >
+<map  key-type="Short" value-type="String">
+</map>
+</field>
+<field name="HashtableOfShort_String109" >
+<map  key-type="Short" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfShort_String110" >
+<map  key-type="Short" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfShort_String111" >
+<map  key-type="Short" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="HashtableOfShort_String112" >
+<map  key-type="Short" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfShort_String113" >
+<map  key-type="Short" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="HashtableOfShort_String114" >
+<map  key-type="Short" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="HashtableOfShort_String115" >
+<map  key-type="Short" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="HashtableOfShort_String116" >
+<map  key-type="Short" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+</class>
+</package>
+</jdo>

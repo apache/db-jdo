@@ -1,8 +1,10 @@
 This is a prototype of the JDO maven projects:
-- api11 to build the jdo.jar which defines the JDO API
+- api11 to build the jdo.jar which defines the JDO API version 1.1
+- api20 to build the jdo.jar which defines the JDO API version 2.0
 - btree the Netbeans open source btree implementation used by ri 
 - ri11  the current JDORI
 - tck11 the current JDOTCK
+- tck20 the JDO 2.0 TCK
 
 -------------
 Prerequisites
@@ -33,6 +35,20 @@ http://java.sun.com/products/jndi/downloads/index.html, click the Download
 button at 'Download JNDI 1.2.1 & More', accept a license agreement, download 
 'File System Service Provider, 1.2 Beta 3' and then unpack the downloaded zip.
  It includes the jars fscontext.jar and providerutil.jar.
+
+- jpox
+The Reference Implementation for JDO 2.0 is JPOX. To run tck20 you must
+manually add the JPOX jar file and JPOX enhancer jar file to your local
+maven repository. Download version 1.1.0-beta-2 of both jars from
+http://www.jpox.org/docs/download.html and copy them to your local maven
+repository:
+  cp jpox-1.1.0-beta-2.jar $HOME/.maven/repository/jpox/jars
+  cp jpox-enhancer-1.1.0-beta-2.jar $HOME/.maven/repository/jpox/jars
+
+- derby
+To use Derby as the datastore for tck20, download it from
+http://incubator.apache.org/derby/derby_downloads.html and place derby.jar
+and derbytools.jar in tck20/iut_jars.
 
 -------
 Remarks
@@ -103,7 +119,22 @@ applicationidentity.conf in test/conf as an example.
 - You can run the JUnit gui (instead of the batch mode) by setting the property
 gui to true: 'maven -Dgui=true runtck'.
 
-(5) Logging
+(5) Remarks about tck20:
+This version of the TCK is under development.  It is premature to attempt to
+run an implementation against it.  Currently only tests that use the persistence
+capable classes in org.apache.jdo.tck.pc.mylib run without error.
+
+- See Prerequisites concerning JPOX and Derby.
+
+- Select test configuration (application or datastore) in project.properties, as described above.
+
+- Edit tck20/test/sql/derby/createdb.sh to select the schema corresponding to the configuration you selected and edit DBPATH and BASEPATH.  Then run createdb.sh to create a Derby database.
+
+- Run "maven build" to build the tck.  This will run all the tests.
+
+- Run "maven runtck" to run all tests or "maven -Dtest=<test name> runtck.single to run one test, e.g. transactions.Commit.
+
+(6) Logging
 Apache JDO uses the apache commons logging package for logging.
 Sub-projects ri11 and tck11 use several properties files to configure logging.
 - common-logging.properties: specifies the logging implementation to use.
@@ -111,11 +142,11 @@ Sub-projects ri11 and tck11 use several properties files to configure logging.
 - logging.properties: logger configuration when using JDK 1.4 logging.
 - simplelog.properties: logger configuration when using apache SimpleLog.
 
-(6) The file jdo_check.xml includes the checkstyle configuration. It is borrowed
+(7) The file jdo_check.xml includes the checkstyle configuration. It is borrowed
 from the sun_checks.xml, but does not use all of the sun rules and customizes 
 some other rules. The checkstyle configuration is not yet finished.
 
-(7) Mevenide is a nice maven plugin for IDEs (see http://mevenide.codehaus.org).
+(8) Mevenide is a nice maven plugin for IDEs (see http://mevenide.codehaus.org).
 You find download instructions in http://mevenide.codehaus.org/download.html.
 For Netbeans, once you installed the plugin, you should be able to open an 
 existing maven project by File -> Open Project -> Open Project Folder.

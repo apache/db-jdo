@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="HashSetCollections" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.HashSetCollections$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="HashSetOfObject0" >
+<collection element-type="java.lang.Object">
+</collection>
+</field>
+<field name="HashSetOfObject1" >
+<collection element-type="java.lang.Object" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfObject2" >
+<collection element-type="java.lang.Object" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfSimpleClass3" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="HashSetOfSimpleClass4" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfSimpleClass5" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfSimpleInterface6" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+</collection>
+</field>
+<field name="HashSetOfSimpleInterface7" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfSimpleInterface8" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfString9" >
+<collection element-type="java.lang.String">
+</collection>
+</field>
+<field name="HashSetOfString10" >
+<collection element-type="java.lang.String" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfString11" >
+<collection element-type="java.lang.String" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfDate12" >
+<collection element-type="java.util.Date">
+</collection>
+</field>
+<field name="HashSetOfDate13" >
+<collection element-type="java.util.Date" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfDate14" >
+<collection element-type="java.util.Date" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfLocale15" >
+<collection element-type="java.util.Locale">
+</collection>
+</field>
+<field name="HashSetOfLocale16" >
+<collection element-type="java.util.Locale" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfLocale17" >
+<collection element-type="java.util.Locale" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfBigDecimal18" >
+<collection element-type="java.math.BigDecimal">
+</collection>
+</field>
+<field name="HashSetOfBigDecimal19" >
+<collection element-type="java.math.BigDecimal" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfBigDecimal20" >
+<collection element-type="java.math.BigDecimal" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfBigInteger21" >
+<collection element-type="java.math.BigInteger">
+</collection>
+</field>
+<field name="HashSetOfBigInteger22" >
+<collection element-type="java.math.BigInteger" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfBigInteger23" >
+<collection element-type="java.math.BigInteger" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfByte24" >
+<collection element-type="java.lang.Byte">
+</collection>
+</field>
+<field name="HashSetOfByte25" >
+<collection element-type="java.lang.Byte" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfByte26" >
+<collection element-type="java.lang.Byte" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfDouble27" >
+<collection element-type="java.lang.Double">
+</collection>
+</field>
+<field name="HashSetOfDouble28" >
+<collection element-type="java.lang.Double" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfDouble29" >
+<collection element-type="java.lang.Double" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfFloat30" >
+<collection element-type="java.lang.Float">
+</collection>
+</field>
+<field name="HashSetOfFloat31" >
+<collection element-type="java.lang.Float" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfFloat32" >
+<collection element-type="java.lang.Float" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfInteger33" >
+<collection element-type="java.lang.Integer">
+</collection>
+</field>
+<field name="HashSetOfInteger34" >
+<collection element-type="java.lang.Integer" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfInteger35" >
+<collection element-type="java.lang.Integer" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfLong36" >
+<collection element-type="java.lang.Long">
+</collection>
+</field>
+<field name="HashSetOfLong37" >
+<collection element-type="java.lang.Long" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfLong38" >
+<collection element-type="java.lang.Long" embedded-element="false">
+</collection>
+</field>
+<field name="HashSetOfShort39" >
+<collection element-type="java.lang.Short">
+</collection>
+</field>
+<field name="HashSetOfShort40" >
+<collection element-type="java.lang.Short" embedded-element="true">
+</collection>
+</field>
+<field name="HashSetOfShort41" >
+<collection element-type="java.lang.Short" embedded-element="false">
+</collection>
+</field>
+</class>
+</package>
+</jdo>

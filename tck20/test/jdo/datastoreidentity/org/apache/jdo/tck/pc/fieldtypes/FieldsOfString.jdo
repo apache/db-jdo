@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfString" identity-type="datastore">
+<field name="String1"  embedded="true">
+</field>
+<field name="String2"  embedded="false">
+</field>
+<field name="String3" persistence-modifier="none" >
+</field>
+<field name="String4" persistence-modifier="persistent" >
+</field>
+<field name="String5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String7" persistence-modifier="transactional" >
+</field>
+<field name="String10" persistence-modifier="none" >
+</field>
+<field name="String11" persistence-modifier="persistent" >
+</field>
+<field name="String12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String14" persistence-modifier="transactional" >
+</field>
+<field name="String17"  embedded="true">
+</field>
+<field name="String18"  embedded="false">
+</field>
+<field name="String19" persistence-modifier="none" >
+</field>
+<field name="String20" persistence-modifier="persistent" >
+</field>
+<field name="String21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String23" persistence-modifier="transactional" >
+</field>
+<field name="String29" persistence-modifier="none" >
+</field>
+<field name="String30" persistence-modifier="persistent" >
+</field>
+<field name="String31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String33" persistence-modifier="transactional" >
+</field>
+<field name="String37"  embedded="true">
+</field>
+<field name="String38"  embedded="false">
+</field>
+<field name="String39" persistence-modifier="none" >
+</field>
+<field name="String40" persistence-modifier="persistent" >
+</field>
+<field name="String41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String43" persistence-modifier="transactional" >
+</field>
+<field name="String46" persistence-modifier="none" >
+</field>
+<field name="String47" persistence-modifier="persistent" >
+</field>
+<field name="String48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String50" persistence-modifier="transactional" >
+</field>
+<field name="String53"  embedded="true">
+</field>
+<field name="String54"  embedded="false">
+</field>
+<field name="String55" persistence-modifier="none" >
+</field>
+<field name="String56" persistence-modifier="persistent" >
+</field>
+<field name="String57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String59" persistence-modifier="transactional" >
+</field>
+<field name="String65" persistence-modifier="none" >
+</field>
+<field name="String66" persistence-modifier="persistent" >
+</field>
+<field name="String67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String69" persistence-modifier="transactional" >
+</field>
+<field name="String73"  embedded="true">
+</field>
+<field name="String74"  embedded="false">
+</field>
+<field name="String75" persistence-modifier="none" >
+</field>
+<field name="String76" persistence-modifier="persistent" >
+</field>
+<field name="String77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String79" persistence-modifier="transactional" >
+</field>
+<field name="String82" persistence-modifier="none" >
+</field>
+<field name="String83" persistence-modifier="persistent" >
+</field>
+<field name="String84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String86" persistence-modifier="transactional" >
+</field>
+<field name="String89"  embedded="true">
+</field>
+<field name="String90"  embedded="false">
+</field>
+<field name="String91" persistence-modifier="none" >
+</field>
+<field name="String92" persistence-modifier="persistent" >
+</field>
+<field name="String93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String95" persistence-modifier="transactional" >
+</field>
+<field name="String101" persistence-modifier="none" >
+</field>
+<field name="String102" persistence-modifier="persistent" >
+</field>
+<field name="String103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String105" persistence-modifier="transactional" >
+</field>
+<field name="String109"  embedded="true">
+</field>
+<field name="String110"  embedded="false">
+</field>
+<field name="String111" persistence-modifier="none" >
+</field>
+<field name="String112" persistence-modifier="persistent" >
+</field>
+<field name="String113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String115" persistence-modifier="transactional" >
+</field>
+<field name="String118" persistence-modifier="none" >
+</field>
+<field name="String119" persistence-modifier="persistent" >
+</field>
+<field name="String120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String122" persistence-modifier="transactional" >
+</field>
+<field name="String125"  embedded="true">
+</field>
+<field name="String126"  embedded="false">
+</field>
+<field name="String127" persistence-modifier="none" >
+</field>
+<field name="String128" persistence-modifier="persistent" >
+</field>
+<field name="String129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String131" persistence-modifier="transactional" >
+</field>
+<field name="String137" persistence-modifier="none" >
+</field>
+<field name="String138" persistence-modifier="persistent" >
+</field>
+<field name="String139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="String140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="String141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

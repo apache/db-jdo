@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="MapStringKeyCollections" identity-type="datastore">
+<field name="MapOfString_Object0" >
+<map  key-type="String" value-type="Object">
+</map>
+</field>
+<field name="MapOfString_Object1" >
+<map  key-type="String" value-type="Object" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Object2" >
+<map  key-type="String" value-type="Object" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleClass3" >
+<map  key-type="String" value-type="SimpleClass">
+</map>
+</field>
+<field name="MapOfString_SimpleClass4" >
+<map  key-type="String" value-type="SimpleClass" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleClass5" >
+<map  key-type="String" value-type="SimpleClass" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface6" >
+<map  key-type="String" value-type="SimpleInterface">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface7" >
+<map  key-type="String" value-type="SimpleInterface" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface8" >
+<map  key-type="String" value-type="SimpleInterface" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_String9" >
+<map  key-type="String" value-type="String">
+</map>
+</field>
+<field name="MapOfString_String10" >
+<map  key-type="String" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_String11" >
+<map  key-type="String" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Date12" >
+<map  key-type="String" value-type="java.util.Date">
+</map>
+</field>
+<field name="MapOfString_Date13" >
+<map  key-type="String" value-type="java.util.Date" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Date14" >
+<map  key-type="String" value-type="java.util.Date" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Locale15" >
+<map  key-type="String" value-type="java.util.Locale">
+</map>
+</field>
+<field name="MapOfString_Locale16" >
+<map  key-type="String" value-type="java.util.Locale" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Locale17" >
+<map  key-type="String" value-type="java.util.Locale" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigDecimal18" >
+<map  key-type="String" value-type="java.math.BigDecimal">
+</map>
+</field>
+<field name="MapOfString_BigDecimal19" >
+<map  key-type="String" value-type="java.math.BigDecimal" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigDecimal20" >
+<map  key-type="String" value-type="java.math.BigDecimal" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigInteger21" >
+<map  key-type="String" value-type="java.math.BigInteger">
+</map>
+</field>
+<field name="MapOfString_BigInteger22" >
+<map  key-type="String" value-type="java.math.BigInteger" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigInteger23" >
+<map  key-type="String" value-type="java.math.BigInteger" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Byte24" >
+<map  key-type="String" value-type="Byte">
+</map>
+</field>
+<field name="MapOfString_Byte25" >
+<map  key-type="String" value-type="Byte" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Byte26" >
+<map  key-type="String" value-type="Byte" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Double27" >
+<map  key-type="String" value-type="Double">
+</map>
+</field>
+<field name="MapOfString_Double28" >
+<map  key-type="String" value-type="Double" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Double29" >
+<map  key-type="String" value-type="Double" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Float30" >
+<map  key-type="String" value-type="Float">
+</map>
+</field>
+<field name="MapOfString_Float31" >
+<map  key-type="String" value-type="Float" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Float32" >
+<map  key-type="String" value-type="Float" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Integer33" >
+<map  key-type="String" value-type="Integer">
+</map>
+</field>
+<field name="MapOfString_Integer34" >
+<map  key-type="String" value-type="Integer" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Integer35" >
+<map  key-type="String" value-type="Integer" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Long36" >
+<map  key-type="String" value-type="Long">
+</map>
+</field>
+<field name="MapOfString_Long37" >
+<map  key-type="String" value-type="Long" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Long38" >
+<map  key-type="String" value-type="Long" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Short39" >
+<map  key-type="String" value-type="Short">
+</map>
+</field>
+<field name="MapOfString_Short40" >
+<map  key-type="String" value-type="Short" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Short41" >
+<map  key-type="String" value-type="Short" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Object42" >
+<map  key-type="String" embedded-key="true" value-type="Object">
+</map>
+</field>
+<field name="MapOfString_Object43" >
+<map  key-type="String" embedded-key="true" value-type="Object" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Object44" >
+<map  key-type="String" embedded-key="true" value-type="Object" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleClass45" >
+<map  key-type="String" embedded-key="true" value-type="SimpleClass">
+</map>
+</field>
+<field name="MapOfString_SimpleClass46" >
+<map  key-type="String" embedded-key="true" value-type="SimpleClass" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleClass47" >
+<map  key-type="String" embedded-key="true" value-type="SimpleClass" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface48" >
+<map  key-type="String" embedded-key="true" value-type="SimpleInterface">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface49" >
+<map  key-type="String" embedded-key="true" value-type="SimpleInterface" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface50" >
+<map  key-type="String" embedded-key="true" value-type="SimpleInterface" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_String51" >
+<map  key-type="String" embedded-key="true" value-type="String">
+</map>
+</field>
+<field name="MapOfString_String52" >
+<map  key-type="String" embedded-key="true" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_String53" >
+<map  key-type="String" embedded-key="true" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Date54" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Date">
+</map>
+</field>
+<field name="MapOfString_Date55" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Date" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Date56" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Date" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Locale57" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Locale">
+</map>
+</field>
+<field name="MapOfString_Locale58" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Locale" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Locale59" >
+<map  key-type="String" embedded-key="true" value-type="java.util.Locale" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigDecimal60" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigDecimal">
+</map>
+</field>
+<field name="MapOfString_BigDecimal61" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigDecimal" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigDecimal62" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigDecimal" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigInteger63" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigInteger">
+</map>
+</field>
+<field name="MapOfString_BigInteger64" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigInteger" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigInteger65" >
+<map  key-type="String" embedded-key="true" value-type="java.math.BigInteger" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Byte66" >
+<map  key-type="String" embedded-key="true" value-type="Byte">
+</map>
+</field>
+<field name="MapOfString_Byte67" >
+<map  key-type="String" embedded-key="true" value-type="Byte" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Byte68" >
+<map  key-type="String" embedded-key="true" value-type="Byte" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Double69" >
+<map  key-type="String" embedded-key="true" value-type="Double">
+</map>
+</field>
+<field name="MapOfString_Double70" >
+<map  key-type="String" embedded-key="true" value-type="Double" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Double71" >
+<map  key-type="String" embedded-key="true" value-type="Double" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Float72" >
+<map  key-type="String" embedded-key="true" value-type="Float">
+</map>
+</field>
+<field name="MapOfString_Float73" >
+<map  key-type="String" embedded-key="true" value-type="Float" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Float74" >
+<map  key-type="String" embedded-key="true" value-type="Float" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Integer75" >
+<map  key-type="String" embedded-key="true" value-type="Integer">
+</map>
+</field>
+<field name="MapOfString_Integer76" >
+<map  key-type="String" embedded-key="true" value-type="Integer" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Integer77" >
+<map  key-type="String" embedded-key="true" value-type="Integer" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Long78" >
+<map  key-type="String" embedded-key="true" value-type="Long">
+</map>
+</field>
+<field name="MapOfString_Long79" >
+<map  key-type="String" embedded-key="true" value-type="Long" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Long80" >
+<map  key-type="String" embedded-key="true" value-type="Long" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Short81" >
+<map  key-type="String" embedded-key="true" value-type="Short">
+</map>
+</field>
+<field name="MapOfString_Short82" >
+<map  key-type="String" embedded-key="true" value-type="Short" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Short83" >
+<map  key-type="String" embedded-key="true" value-type="Short" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Object84" >
+<map  key-type="String" embedded-key="false" value-type="Object">
+</map>
+</field>
+<field name="MapOfString_Object85" >
+<map  key-type="String" embedded-key="false" value-type="Object" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Object86" >
+<map  key-type="String" embedded-key="false" value-type="Object" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleClass87" >
+<map  key-type="String" embedded-key="false" value-type="SimpleClass">
+</map>
+</field>
+<field name="MapOfString_SimpleClass88" >
+<map  key-type="String" embedded-key="false" value-type="SimpleClass" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleClass89" >
+<map  key-type="String" embedded-key="false" value-type="SimpleClass" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface90" >
+<map  key-type="String" embedded-key="false" value-type="SimpleInterface">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface91" >
+<map  key-type="String" embedded-key="false" value-type="SimpleInterface" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_SimpleInterface92" >
+<map  key-type="String" embedded-key="false" value-type="SimpleInterface" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_String93" >
+<map  key-type="String" embedded-key="false" value-type="String">
+</map>
+</field>
+<field name="MapOfString_String94" >
+<map  key-type="String" embedded-key="false" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_String95" >
+<map  key-type="String" embedded-key="false" value-type="String" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Date96" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Date">
+</map>
+</field>
+<field name="MapOfString_Date97" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Date" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Date98" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Date" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Locale99" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Locale">
+</map>
+</field>
+<field name="MapOfString_Locale100" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Locale" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Locale101" >
+<map  key-type="String" embedded-key="false" value-type="java.util.Locale" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigDecimal102" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigDecimal">
+</map>
+</field>
+<field name="MapOfString_BigDecimal103" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigDecimal" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigDecimal104" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigDecimal" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_BigInteger105" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigInteger">
+</map>
+</field>
+<field name="MapOfString_BigInteger106" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigInteger" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_BigInteger107" >
+<map  key-type="String" embedded-key="false" value-type="java.math.BigInteger" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Byte108" >
+<map  key-type="String" embedded-key="false" value-type="Byte">
+</map>
+</field>
+<field name="MapOfString_Byte109" >
+<map  key-type="String" embedded-key="false" value-type="Byte" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Byte110" >
+<map  key-type="String" embedded-key="false" value-type="Byte" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Double111" >
+<map  key-type="String" embedded-key="false" value-type="Double">
+</map>
+</field>
+<field name="MapOfString_Double112" >
+<map  key-type="String" embedded-key="false" value-type="Double" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Double113" >
+<map  key-type="String" embedded-key="false" value-type="Double" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Float114" >
+<map  key-type="String" embedded-key="false" value-type="Float">
+</map>
+</field>
+<field name="MapOfString_Float115" >
+<map  key-type="String" embedded-key="false" value-type="Float" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Float116" >
+<map  key-type="String" embedded-key="false" value-type="Float" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Integer117" >
+<map  key-type="String" embedded-key="false" value-type="Integer">
+</map>
+</field>
+<field name="MapOfString_Integer118" >
+<map  key-type="String" embedded-key="false" value-type="Integer" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Integer119" >
+<map  key-type="String" embedded-key="false" value-type="Integer" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Long120" >
+<map  key-type="String" embedded-key="false" value-type="Long">
+</map>
+</field>
+<field name="MapOfString_Long121" >
+<map  key-type="String" embedded-key="false" value-type="Long" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Long122" >
+<map  key-type="String" embedded-key="false" value-type="Long" embedded-value="false">
+</map>
+</field>
+<field name="MapOfString_Short123" >
+<map  key-type="String" embedded-key="false" value-type="Short">
+</map>
+</field>
+<field name="MapOfString_Short124" >
+<map  key-type="String" embedded-key="false" value-type="Short" embedded-value="true">
+</map>
+</field>
+<field name="MapOfString_Short125" >
+<map  key-type="String" embedded-key="false" value-type="Short" embedded-value="false">
+</map>
+</field>
+</class>
+</package>
+</jdo>

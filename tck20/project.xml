@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2005 The Apache Software Foundation
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <!-- ============== -->
+    <!-- Identification -->
+    <!-- ============== -->
+    <name>JDO Technology Compatibility Kit 2.0</name>
+    <artifactId>jdo-tck</artifactId>
+    <currentVersion>2.0</currentVersion>
+    <package>org.apache.jdo.tck</package>
+    <shortDescription>Java Data Object (JDO) TCK</shortDescription>
+    <description>The Java Data Objects (JDO) API is a standard interface-based 
+Java model abstraction of persistence, developed as Java Specification 
+Request 12 JSR 12 under the auspices of the Java Community Process.
+
+The JDO TCK is a test suite designed to test implementations of the Java Data Objects 
+specification. In order to claim compatibility with JDO, an implementation must pass 
+all relevant tests of the JDOTCK.</description>
+    <repository />
+    <!-- ============ -->
+    <!-- Dependencies -->
+    <!-- ============ -->
+    <dependencies>
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.3</version>
+            <url>http://www.antlr.org/download.html</url>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>geronimo-spec</groupId>
+            <artifactId>geronimo-spec-jta</artifactId>
+            <version>1.0.1B-rc2</version>
+        </dependency>
+        <!-- Restore when the jdo 2.0 api is available
+        <dependency>
+            <groupId>jdo</groupId>
+            <artifactId>jdo-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+-->
+        <dependency>
+            <groupId>jdo</groupId>
+            <artifactId>jdo-btree</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <!-- You must manually download jpox until it is available from ibiblio.org -->
+        <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox</artifactId>
+            <version>1.1.0-beta-2</version>
+            <url>http://prdownloads.sourceforge.net/jpox/jpox-1.1.0-beta-2.jar?use_mirror=easynews</url>
+        </dependency>
+        <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox-enhancer</artifactId>
+            <version>1.1.0-beta-2</version>
+            <url>http://prdownloads.sourceforge.net/jpox/jpox-enhancer-1.1.0-beta-2.jar?use_mirror=easynews</url>
+        </dependency>
+        <dependency>
+            <groupId>bcel</groupId>
+            <artifactId>bcel</artifactId>
+            <version>5.1</version>
+            <url>http://prdownloads.sourceforge.net/jpox/jpox-enhancer-1.1.0-beta-2.jar?use_mirror=easynews</url>
+        </dependency>
+        <dependency>
+            <groupId>springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>1.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+    </dependencies>
+    <!-- =================== -->
+    <!-- Build Specification -->
+    <!-- =================== -->
+    <build>
+        <unitTestSourceDirectory>test/java</unitTestSourceDirectory>
+        <!-- Unit test cases -->
+        <unitTest>
+            <includes>
+        <!--
+                <include>**/*.java</include>
+          In order to avoid running all tests, specify one to run
+        -->
+                <include>**/transactions/Commit.java</include>
+            </includes>
+            <excludes>
+                <exclude>**/pc/**/*.java</exclude>
+                <exclude>**/util/*.java</exclude>
+                <exclude>**/JDO_Test*.java</exclude>
+                <exclude>**/TestParts.java</exclude>
+                <exclude>**/EnhancerTest.java</exclude>
+                <exclude>**/ExtentTest.java</exclude>
+                <exclude>**/QueryTest.java</exclude>
+                <exclude>**/PersistenceManagerTest.java</exclude>
+                <exclude>**/FirstSetOfTestValuesForCollection.java</exclude>
+                <exclude>**/SecondSetOfTestValuesForCollection.java</exclude>
+                <exclude>**/TestUtil.java</exclude>
+                <exclude>**/ComparisonTests.java</exclude>
+            </excludes>
+            <resources>
+                <resource>
+                    <directory>${basedir}/test/java</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                    </includes>
+                </resource>
+            </resources>
+            <resources>
+                <resource>
+                    <directory>${basedir}/test/conf</directory>
+                    <includes>
+                        <include>JDOTCKTestCases.list</include>
+                        <include>enhancement-test.properties</include>
+                        <include>commons-logging.properties</include>
+                        <include>simplelog.properties</include>
+                        <include>logging.properties</include>
+                    </includes>
+                </resource>
+            </resources>
+        </unitTest>
+    </build>
+</project>
+
