@@ -71,6 +71,15 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     void close();
     
+    /** 
+     * A <code>PersistenceManagerFactory</code> instance can be used 
+     * until it is closed.
+     * @return <code>true</code> if this <code>PersistenceManagerFactory</code>
+     * has been closed.
+     * @see #close()
+     */
+    boolean isClosed();
+    
     /** Get an instance of <code>PersistenceManager</code> from this factory.  The instance has
      * default values for options.
      *
