@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-
     Copyright 2005 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +28,7 @@
     <shortDescription>Java Data Object (JDO) API 1.1</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
-Request 12 JSR 12 under the auspices of the Java Community Process.</description>
+Request 12 under the auspices of the Java Community Process.</description>
     <repository />
     <!-- ============ -->
     <!-- Dependencies -->
