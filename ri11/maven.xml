@@ -362,7 +362,8 @@
     <goal name="fsuid2.build">
         <ant dir="${basedir}/test/fsuid2" target="build">
             <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
-            <property name="jdori" value="${maven.build.dest}"/>
+            <property name="jdori" value="${maven.build
+            .dest}"/>
             <property name="logging" value="${logging.jarfile}"/>
             <property name="fsuid2.jarfile" value="${jdo.fsuid.jarfile}"/>
         </ant>

@@ -35,12 +35,12 @@
 </target>
 
 <target name="fsuid2.jar" unless="fsuid2.enhancement.notRequired">
-    <javac srcdir="org/apache/jdo/pc" debug="on" includes="PCPoint.java"/>
+    <javac srcdir="org/apache/jdo/pc" debug="on" includes="PCPoint.java" source="${maven.compile.source}" target="${maven.compile.target}"/>
 
     <mkdir dir="${enhanceDir}"/>
     <java fork="yes" failonerror="yes" 
           classname="${enhancer}" 
-          classpath="${jdoapi};${jdori};${xerces};${antlr};${logging}">
+          classpath="${maven.build.dest}:${jdoapi};${jdori};${xerces};${antlr};${logging}">
         <arg line="-f -d ${enhanceDir} -s . org/apache/jdo/pc/PCPoint.class"/>
     </java>
 
@@ -52,7 +52,7 @@
 
     <java fork="yes" failonerror="yes" 
           classname="org.apache.jdo.impl.enhancer.util.AugmentationTest"
-          classpath=".;${jdoapi};${jdori}">
+          classpath=".;${maven.build.dest}:${jdoapi};${jdori}">
         <arg line="-s"/>
         <arg path=".;${jdoapi};${jdori}"/>
         <arg line="--properties org/apache/jdo/pc/fsuid2.jdoproperties org.apache.jdo.pc.PCPoint"/>
@@ -60,7 +60,7 @@
 
     <java fork="yes" failonerror="yes"
           classname="org.apache.jdo.impl.enhancer.util.AnnotationTest"
-          classpath="${jdori}">
+          classpath="${maven.build.dest}:${jdori}">
         <arg line="--properties org/apache/jdo/pc/fsuid2.jdoproperties org/apache/jdo/pc/PCPoint.class"/>
     </java>
 
