@@ -16,11 +16,11 @@
 -->
 
 <document>
-  <properties> <title>JDO API</title> </properties>
+  <properties> <title>About</title> </properties>
 
   <body>
-    <section name="JDO API">
-      <p>The Java Data Objects (JDO) API is a standard interface-based 
+    <section name="JDO2 API">
+      <p>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as 
 <a href="http://www.jcp.org/en/jsr/detail?id=243">Java Specification 
 Request 243</a> under the auspices of the <a href="http://www.jcp.org">

@@ -15,9 +15,7 @@
     limitations under the License.
 -->
 
-<project name="JDO API">
-
-  <title>JDO API</title>
+<project name="JDO1 API">
 
   <body>
     <links>

@@ -22,9 +22,8 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO Reference Implementation 1.1</name>
-    <artifactId>jdo-ri</artifactId>
-    <id>jdo-ri</id>
+    <name>JDO1 Reference Implementation</name>
+    <artifactId>jdo1-ri</artifactId>
     <currentVersion>1.1</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Object (JDO) RI</shortDescription>
@@ -58,7 +57,7 @@ Request 12 JSR 12 under the auspices of the Java Community Process.</description
         </dependency>
         <dependency>
             <groupId>jdo</groupId>
-            <artifactId>jdo-api</artifactId>
+            <artifactId>jdo1-api</artifactId>
             <version>1.1</version>
         </dependency>
         <dependency>

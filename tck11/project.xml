@@ -23,8 +23,8 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO Technology Compatibility Kit 1.1</name>
-    <artifactId>jdo-tck</artifactId>
+    <name>JDO1 Technology Compatibility Kit</name>
+    <artifactId>jdo1-tck</artifactId>
     <currentVersion>1.1</currentVersion>
     <package>org.apache.jdo.tck</package>
     <shortDescription>Java Data Object (JDO) TCK</shortDescription>
@@ -60,7 +60,7 @@ all relevant tests of the JDOTCK.
         </dependency>
         <dependency>
             <groupId>jdo</groupId>
-            <artifactId>jdo-api</artifactId>
+            <artifactId>jdo1-api</artifactId>
             <version>1.1</version>
         </dependency>
         <dependency>
@@ -70,7 +70,7 @@ all relevant tests of the JDOTCK.
         </dependency>
         <dependency>
             <groupId>jdo</groupId>
-            <artifactId>jdo-ri</artifactId>
+            <artifactId>jdo1-ri</artifactId>
             <version>1.1</version>
         </dependency>
         <dependency>

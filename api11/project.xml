@@ -21,11 +21,11 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO API 1.1</name>
-    <artifactId>jdo-api</artifactId>
+    <name>JDO1 API</name>
+    <artifactId>jdo1-api</artifactId>
     <currentVersion>1.1</currentVersion>
     <package>javax.jdo</package>
-    <shortDescription>Java Data Object (JDO) API 1.1</shortDescription>
+    <shortDescription>Java Data Object (JDO) API</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request 12 under the auspices of the Java Community Process.</description>
