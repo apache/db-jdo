@@ -77,6 +77,7 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * @return <code>true</code> if this <code>PersistenceManagerFactory</code>
      * has been closed.
      * @see #close()
+     * @since 2.0
      */
     boolean isClosed();
     
