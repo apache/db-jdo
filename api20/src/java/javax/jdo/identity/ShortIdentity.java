@@ -58,7 +58,7 @@ public class ShortIdentity
      * @param str the key
      */
     public ShortIdentity (Class pcClass, String str) {
-        this (pcClass, Short.parseShort (justTheId(str)));
+        this (pcClass, Short.parseShort (str));
     }
 
     /** Constructor only for Externalizable.
@@ -77,7 +77,7 @@ public class ShortIdentity
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + SEPARATOR_CHARACTER + key;
+        return Short.toString(key);
     }
 
     /** Determine if the other object represents the same object id.

@@ -48,11 +48,6 @@ public abstract class SingleFieldIdentity
      */
     protected int hashCode;
 
-    /** The single character that separates the class name from the key value
-     * in String representations of SingleFieldIdentity and its subclasses.
-     */
-    public static final char SEPARATOR_CHARACTER = ':';
-    
     /** Constructor with target class.
      * @param pcClass the class of the target
      * @since 2.0
@@ -118,14 +113,6 @@ public abstract class SingleFieldIdentity
         return hashCode;
     }
     
-    /** Convert the toString representation of a single field identity
-     * to remove the class name. The format of the toString is
-     * <targetClass name:id>.
-     */
-    protected static String justTheId(String str) {
-        return str.substring(str.indexOf(':') + 1);
-    }
-
     /** Write to the output stream.
      * @param out the stream
      */

@@ -58,7 +58,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param str the key
      */
     public LongIdentity (Class pcClass, String str) {
-        this (pcClass, Long.parseLong (justTheId(str)));
+        this (pcClass, Long.parseLong(str));
     }
 
     /** Constructor only for Externalizable.
@@ -77,7 +77,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + SEPARATOR_CHARACTER + key;
+        return Long.toString(key);
     }
 
     /** Determine if the other object represents the same object id.

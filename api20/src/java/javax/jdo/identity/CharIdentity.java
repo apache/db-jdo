@@ -66,10 +66,10 @@ public class CharIdentity extends SingleFieldIdentity {
      */
     public CharIdentity (Class pcClass, String str) {
         super(pcClass);
-        String justTheId = justTheId(str);
-        if (justTheId.length() != 1) 
-            throw new IllegalArgumentException(msg.msg("EXC_StringWrongLength"));
-        this.key = justTheId.charAt(0);
+        if (str.length() != 1) 
+            throw new IllegalArgumentException(
+                    msg.msg("EXC_StringWrongLength"));
+        this.key = str.charAt(0);
         computeHashCode();
     }
 
@@ -89,7 +89,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return getTargetClassName() + SEPARATOR_CHARACTER + key;
+        return Character.toString(key);
     }
 
     /** Determine if the other object represents the same object id.
