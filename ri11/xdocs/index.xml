@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>JDO API</title>
+    <author email="mbo.tech@spree.de">Michael Bouschen</author>
+  </properties>
+
+  <body>
+
+    <section name="JDO API">
+      <p>The Java Data Objects (JDO) API is a standard interface-based 
+Java model abstraction of persistence, developed as 
+<a href="http://www.jcp.org/en/jsr/detail?id=12">Java Specification 
+Request 12</a> under the auspices of the <a href="http://www.jcp.org">
+Java Community Process</a>.
+      </p>
+      <p>
+This project implements the public interfaces, helper classes and exceptions 
+as specified in the JDO specification. They are indented to be shared by all 
+JDO implementations. 
+      </p>
+    </section>
+
+  </body>
+</document>

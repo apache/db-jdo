@@ -1,0 +1,255 @@
+<!--
+   Copyright 2005 The Apache Software Foundation
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+  <!-- libs -->
+  <property name="jdo"  value="../../../src/jdo.jar"/>
+  <property name="jdo-enhancer"  value="../../../src/jdo-enhancer.jar"/>
+  <property name="logging"  value="../../../release/lib/ext/commons-logging.jar"/>
+  <property name="xerces"  value="../../../release/lib/ext/xerces.jar"/>
+
+  <!-- subdirectories -->
+  <property name="src"  value="src"/> 
+  <property name="cls"  value="cls"/> 
+  <property name="gen"  value="gen"/> 
+  <property name="enh"  value="enh"/>
+
+  <!-- subdirectories -->
+  <property name="debug"  value="on"/> 
+
+  <!-- classpath -->
+  <path id="tools.class.path">
+    <pathelement location="${jdo}"/>
+    <pathelement location="${jdo-enhancer}"/>
+    <pathelement location="${logging}"/>
+    <pathelement location="${xerces}"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="${cls}"/>
+    <delete dir="${gen}"/>
+    <delete dir="${enh}"/>
+  </target>
+
+  <target name="mrproper" depends="clean">
+    <delete>
+      <fileset dir="." defaultexcludes="no">
+        <include name="**/*.*~"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="init_compile_common">
+    <mkdir dir="${cls}"/>
+  </target>
+
+  <target name="init_enhance_common">
+    <!-- <delete dir="${enh}"/> -->
+    <mkdir dir="${enh}"/>
+  </target>
+
+  <target name="init_generate_common">
+    <delete dir="${gen}"/>
+    <!-- <mkdir dir="${gen}"/> -->
+  </target>
+
+  <target name="compile_common" depends="init_compile_common">
+    <javac srcdir="${src}" destdir="${cls}" debug="${debug}"
+     classpathref="tools.class.path"/>
+  </target>
+
+  <target name="generate_common" depends="init_generate_common">
+    <java classname="org.apache.jdo.impl.enhancer.generator.Main"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="-d ${gen} --properties ${jdoproperties}"/>
+    </java>
+
+    <javac srcdir="${gen}" destdir="${gen}" debug="${debug}"
+     classpathref="tools.class.path"/>
+  </target>
+
+  <target name="enhance_common" depends="compile_common,init_enhance_common,arg.verbose">
+    <java classname="org.apache.jdo.enhancer.EnhancerMain"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="${arg.verbose}"/>
+      <arg line="-f -d ${enh}"/>
+<!--  disable calling the enhancer with jdopropeties for now
+      <arg line="- -properties ${jdoproperties}"/> 
+-->
+      <arg line="-j"/>
+      <arg path="${src}:${cls}:${jdo}"/>
+      <arg line="-s"/>
+      <arg path="${cls}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="enh0_common" depends="compile_common,init_enhance_common,arg.verbose">
+    <java classname="org.apache.jdo.enhancer.Main"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="${arg.verbose}"/>
+      <arg line="-f -d ${enh}"/>
+<!--  disable calling the enhancer with jdopropeties for now
+      <arg line="- -properties ${jdoproperties}"/>
+-->
+      <arg line="-s ${cls}:${jdo}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="enh1_common" depends="compile_common,init_enhance_common,arg.verbose">
+    <java classname="org.apache.jdo.enhancer.Main"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="${arg.verbose}"/>
+      <arg line="-f -s ${src} -d ${enh} ${classes0}"/>
+    </java>
+  </target>
+
+  <target name="javap_src_common" depends="compile_common">
+    <exec executable="javap" dir="." output="${cls}/${outjavap}"
+     failonerror="yes">
+      <arg line="-classpath"/>
+      <arg path="${cls}:${jdo}"/>
+      <arg line="-c -private"/>
+      <arg line="${classes1}"/>
+    </exec>
+  </target>
+
+  <target name="javap_gen_common">
+    <exec executable="javap" dir="." output="${gen}/${outjavap}"
+     failonerror="yes">
+      <arg line="-classpath"/>
+      <arg path="${gen}:${jdo}"/>
+      <arg line="-c -private"/>
+      <arg line="${classes1}"/>
+    </exec>
+  </target>
+
+  <target name="javap_enh_common">
+    <exec executable="javap" dir="." output="${enh}/${outjavap}"
+     failonerror="yes">
+      <arg line="-classpath"/>
+      <arg path="${enh}:${jdo}"/>
+      <arg line="-c -private"/>
+      <arg line="${classes1}"/>
+    </exec>
+  </target>
+
+  <target name="dis_gen_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.Disassembler"
+     fork="yes" classpathref="tools.class.path" failonerror="yes"
+     output="${gen}/${outdis}">
+      <arg line="${arg.verbose}"/>
+      <arg line="-s"/>
+      <arg path="${gen}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="dis_enh_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.Disassembler"
+     fork="yes" classpathref="tools.class.path" failonerror="yes"
+      output="${enh}/${outdis}">
+      <arg line="${arg.verbose}"/>
+      <arg line="-s"/>
+      <arg path="${enh}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="test_aug_gen_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.AugmentationTest"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="${arg.verbose}"/>
+      <arg line="-j"/>
+      <arg path="${src}:${gen}:${jdo}"/>
+      <arg line="-s"/>
+      <arg path="${gen}:${jdo}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="test_aug_enh_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.AugmentationTest"
+     fork="yes" failonerror="yes" classpathref="tools.class.path">
+      <arg line="${arg.verbose}"/>
+      <arg line="-j"/>
+      <arg path="${src}:${cls}:${jdo}"/>
+      <arg line="-s"/>
+      <arg path="${enh}:${jdo}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="test_ann_gen_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.AnnotationTest" fork="yes"
+     classpathref="tools.class.path" failonerror="yes">
+      <arg line="${arg.verbose}"/>
+      <arg line="-j"/>
+      <arg path="${src}:${gen}:${jdo}"/>
+      <arg line="-s"/>
+      <arg path="${gen}:${jdo}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="test_ann_enh_common" depends="arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.AnnotationTest" fork="yes"
+     classpathref="tools.class.path" failonerror="yes">
+      <arg line="${arg.verbose}"/>
+      <arg line="-j"/>
+      <arg path="${src}:${cls}:${jdo}"/>
+      <arg line="-s"/>
+      <arg path="${enh}:${jdo}"/>
+      <arg line="${classes0}"/>
+    </java>
+  </target>
+
+  <target name="test_aug_diff_common" depends="generate_common,enhance_common,arg.verbose">
+    <java classname="org.apache.jdo.impl.enhancer.util.AugmentationDiffTest"
+     fork="yes" classpathref="tools.class.path" failonerror="yes">
+      <arg line="${arg.verbose}"/>
+      <arg line="${gen}/**/*.class"/>
+      <arg line="${enh}/**/*.class"/>
+    </java>
+  </target>
+
+  <target name="compile" depends="compile_common"/>
+  <target name="generate" depends="generate_common"/>
+  <target name="enhance" depends="enhance_common"/>
+  <target name="javap_gen" depends="javap_gen_common"/>
+  <target name="javap_enh" depends="javap_enh_common"/>
+  <target name="dis_gen" depends="dis_gen_common"/>
+  <target name="dis_enh" depends="dis_enh_common"/>
+  <target name="test_aug_gen" depends="test_aug_gen_common"/>
+  <target name="test_aug_enh" depends="test_aug_enh_common"/>
+  <target name="test_ann_gen" depends="test_ann_gen_common"/>
+  <target name="test_ann_enh" depends="test_ann_enh_common"/>
+
+  <target name="all_gen" depends="generate,javap_gen,dis_gen,test_aug_gen,test_ann_gen"/>
+  <target name="all_enh" depends="compile,enhance,javap_enh,dis_enh,test_aug_enh,test_ann_enh"/>
+  <target name="all" depends="all_gen,all_enh"/>
+
+  <target name="arg.verbose">
+    <condition property="arg.verbose" value="-v">
+        <or>
+          <istrue value="${verbose}"/>
+          <not> <isset property="verbose"/> </not>
+        </or>
+    </condition>
+    <condition property="arg.verbose" value="">
+        <isfalse value="${verbose}"/>
+    </condition>
+  </target>

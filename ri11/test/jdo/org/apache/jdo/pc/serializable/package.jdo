@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+  <package name="org.apache.jdo.pc.serializable">
+
+    <class name="PCClass1"
+           identity-type="datastore">
+      <field name="s01" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t02" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCClass2A"
+           identity-type="datastore">
+      <field name="s01" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t02" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCClass2B"
+           identity-type="datastore">
+      <field name="s01" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t02" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCSuper"
+           identity-type="datastore">
+      <field name="s01" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t02" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCSub3"
+	   identity-type="datastore"
+	   persistence-capable-superclass="PCSuper">
+      <field name="s03" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t04" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCSub4A"
+	   identity-type="datastore"
+	   persistence-capable-superclass="PCSuper">
+      <field name="s03" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t04" persistence-modifier="persistent"/> 
+    </class>
+
+    <class name="PCSub4B"
+	   identity-type="datastore"
+	   persistence-capable-superclass="PCSuper">
+      <field name="s03" persistence-modifier="persistent"
+	                default-fetch-group="false" />
+      <field name="t04" persistence-modifier="persistent"/> 
+    </class>
+
+  </package>
+</jdo>
+

@@ -1,0 +1,35 @@
+# Classnames can have the following attributes: 
+#          jdo:{persistent|transactional} 
+#          super: <classname> 
+#          oid: <classname> 
+#          access: {public|protected|package|private} 
+# Fieldnames can have the following attributes: 
+#          type:<type> 
+#          access: {public|protected|package|private} 
+#          jdo:{persistent|transactional|transient} 
+#          annotation:{key|dfg|mediated} 
+
+empdept.Department=jdo:persistent,oid:empdept.Department$Oid,access:public
+empdept.Department#deptid=type:int,jdo:persistent,access:private,annotation:key
+empdept.Department#name=type:String,jdo:persistent,access:private,annotation:dfg
+empdept.Department#employees=type:java.util.Collection,jdo:persistent,access:private,annotation:mediated
+
+empdept.Employee=jdo:persistent,oid:empdept.Employee$Oid,access:public
+empdept.Employee#empid=type:long,jdo:persistent,access:private,annotation:key
+empdept.Employee#name=type:String,jdo:persistent,access:private,annotation:dfg
+empdept.Employee#department=type:empdept.Department,jdo:persistent,access:private,annotation:mediated
+empdept.Employee#birthdate=type:java.util.Date,jdo:persistent,access:private,annotation:mediated
+
+empdept.FullTimeEmployee=jdo:persistent,super:empdept.Employee,access:public
+empdept.FullTimeEmployee#salary=type:double,jdo:persistent,access:private,annotation:dfg
+
+empdept.PartTimeEmployee=jdo:persistent,super:empdept.Employee,oid:empdept.PartTimeEmployee$Oid,access:public
+empdept.PartTimeEmployee#cid=type:int,jdo:persistent,access:private,annotation:key
+empdept.PartTimeEmployee#wage=type:double,jdo:persistent,access:private,annotation:dfg
+
+empdept.Department$Oid=jdo:transient,access:public
+empdept.Department$Oid#deptid=type:int,jdo:transient,access:public
+empdept.Employee$Oid=jdo:transient,access:public
+empdept.Employee$Oid#empid=type:long,jdo:transient,access:public
+empdept.PartTimeEmployee$Oid=jdo:transient,super:empdept.Employee$Oid,access:public
+empdept.PartTimeEmployee$Oid#cid=type:long,jdo:transient,access:public

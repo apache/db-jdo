@@ -1,0 +1,40 @@
+# Classnames can have the following attributes: 
+#          jdo:{persistent|transient} 
+#          super: <classname> 
+#          oid: <classname> 
+#          access: {public|protected|package|private} 
+# Fieldnames can have the following attributes: 
+#          type:<type> 
+#          access: {public|protected|package|private} 
+#          jdo:{persistent|transactional|transient} 
+#          annotation:{key|dfg|mediated} 
+
+org.apache.jdo.pc.serializable.PCClass1=jdo:persistent
+org.apache.jdo.pc.serializable.PCClass1#s01=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCClass1#t02=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.PCClass2A=jdo:persistent
+org.apache.jdo.pc.serializable.PCClass2A#s01=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCClass2A#t02=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.PCClass2B=jdo:persistent
+org.apache.jdo.pc.serializable.PCClass2B#s01=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCClass2B#t02=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.PCSuper=jdo:persistent
+org.apache.jdo.pc.serializable.PCSuper#s01=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCSuper#t02=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.Transient=jdo:transient,super:org.apache.jdo.pc.serializable.PCSuper
+
+org.apache.jdo.pc.serializable.PCSub3=jdo:persistent,super:org.apache.jdo.pc.serializable.Transient
+org.apache.jdo.pc.serializable.PCSub3#s03=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCSub3#t04=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.PCSub4A=jdo:persistent,super:org.apache.jdo.pc.serializable.Transient
+org.apache.jdo.pc.serializable.PCSub4A#s03=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCSub4A#t04=jdo:persistent,annotation:dfg
+
+org.apache.jdo.pc.serializable.PCSub4B=jdo:persistent,super:org.apache.jdo.pc.serializable.Transient
+org.apache.jdo.pc.serializable.PCSub4B#s03=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.serializable.PCSub4B#t04=jdo:persistent,annotation:dfg

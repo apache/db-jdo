@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd">
+<jdo>
+  <package name="org.apache.jdo.pc.xempdept">
+    <class name="FullTimeEmployee" 
+           identity-type="datastore"
+	   persistence-capable-superclass="Employee">
+      <field name="salary"/>
+    </class>
+  </package>
+</jdo>

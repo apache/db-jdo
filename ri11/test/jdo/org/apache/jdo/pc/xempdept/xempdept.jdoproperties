@@ -1,0 +1,99 @@
+# Classnames can have the following attributes: 
+#          jdo:{persistent|transient} 
+#          super: <classname> 
+#          oid: <classname> 
+#          access: {public|protected|package|private} 
+# Fieldnames can have the following attributes: 
+#          type:<type> 
+#          access: {public|protected|package|private} 
+#          jdo:{persistent|transactional|transient} 
+#          annotation:{key|dfg|mediated} 
+
+org.apache.jdo.pc.xempdept.Company=jdo:persistent
+org.apache.jdo.pc.xempdept.Company#name=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Company#founded=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Company#address=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Company#departments=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Department=jdo:persistent
+org.apache.jdo.pc.xempdept.Department#deptid=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Department#name=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Department#company=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Department#employees=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Person=jdo:persistent
+org.apache.jdo.pc.xempdept.Person#firstname=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Person#lastname=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Person#birthdate=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Employee=jdo:persistent,super:org.apache.jdo.pc.xempdept.Person
+org.apache.jdo.pc.xempdept.Employee#empid=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#hiredate=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#weeklyhours=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#discriminator=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#reviewedProjects=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#projects=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#insurance=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#department=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#manager=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#team=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#mentor=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#protege=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#hradvisor=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Employee#hradvisees=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.FullTimeEmployee=jdo:persistent,super:org.apache.jdo.pc.xempdept.Employee
+org.apache.jdo.pc.xempdept.FullTimeEmployee#salary=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.PartTimeEmployee=jdo:persistent,super:org.apache.jdo.pc.xempdept.Employee
+org.apache.jdo.pc.xempdept.PartTimeEmployee#wage=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Insurance=jdo:persistent
+org.apache.jdo.pc.xempdept.Insurance#insid=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Insurance#carrier=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Insurance#employee=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Project=jdo:persistent
+org.apache.jdo.pc.xempdept.Project#projid=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Project#name=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Project#budget=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Project#reviewers=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.Project#employees=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.PrimitiveTypes=jdo:persistent
+org.apache.jdo.pc.xempdept.PrimitiveTypes#id=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#booleanNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#booleanNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#byteNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#byteNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#shortNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#shortNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#intNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#intNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#longNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#longNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#floatNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#floatNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#doubleNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#doubleNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#charNotNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#charNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#dateNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#stringNull=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#bigDecimal=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#bigInteger=jdo:persistent,annotation:mediated
+org.apache.jdo.pc.xempdept.PrimitiveTypes#PrimitiveTypes=jdo:persistent,annotation:mediated
+
+org.apache.jdo.pc.xempdept.Company$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.Company$Oid#name=jdo:transient
+org.apache.jdo.pc.xempdept.Company$Oid#founded=jdo:transient
+org.apache.jdo.pc.xempdept.Department$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.Department$Oid#deptid=jdo:transient
+org.apache.jdo.pc.xempdept.Employee$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.Employee$Oid#empid=jdo:transient
+org.apache.jdo.pc.xempdept.Project$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.Project$Oid#projid=jdo:transient
+org.apache.jdo.pc.xempdept.Insurance$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.Insurance$Oid#insid=jdo:transient
+org.apache.jdo.pc.xempdept.PrimitiveTypes$Oid=jdo:transient
+org.apache.jdo.pc.xempdept.PrimitiveTypes$Oid#id=jdo:transient

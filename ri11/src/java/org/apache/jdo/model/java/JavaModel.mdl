@@ -1,0 +1,2975 @@
+
+(object Petal
+    version    	42
+    _written   	"Rose 4.5.8054a"
+    charSet    	0)
+
+(object Design "Logical View"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    defaults   	(object defaults
+	rightMargin 	0.250000
+	leftMargin 	0.250000
+	topMargin  	0.250000
+	bottomMargin 	0.500000
+	pageOverlap 	0.250000
+	clipIconLabels 	TRUE
+	autoResize 	TRUE
+	snapToGrid 	TRUE
+	gridX      	16
+	gridY      	16
+	defaultFont 	(object Font
+	    size       	10
+	    face       	"Arial"
+	    bold       	FALSE
+	    italics    	FALSE
+	    underline  	FALSE
+	    strike     	FALSE
+	    color      	0
+	    default_color 	TRUE)
+	showMessageNum 	1
+	showClassOfObject 	TRUE
+	notation   	"Unified")
+    root_usecase_package 	(object Class_Category "Use Case View"
+	quid       	"3DB79E9500A5"
+	exportControl 	"Public"
+	global     	TRUE
+	logical_models 	(list unit_reference_list)
+	logical_presentations 	(list unit_reference_list
+	    (object UseCaseDiagram "Main"
+		quid       	"3DB79E9502D4"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    root_category 	(object Class_Category "Logical View"
+	quid       	"3DB79E9500A4"
+	exportControl 	"Public"
+	global     	TRUE
+	subsystem  	"Component View"
+	quidu      	"3DB79E9500A6"
+	logical_models 	(list unit_reference_list
+	    (object Association "$UNNAMED$0"
+		quid       	"3DBD566301A5"
+		roles      	(list role_list
+		    (object Role "declaringModel"
+			quid       	"3DBD566401F4"
+			label      	"declaringModel"
+			supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+			quidu      	"3DB7F9FB00D9"
+			client_cardinality 	(value cardinality "1..1")
+			is_navigable 	TRUE
+			is_aggregate 	TRUE)
+		    (object Role "declaredTypes"
+			quid       	"3DBD566401F5"
+			label      	"declaredTypes"
+			supplier   	"Logical View::com::sun::jdori::model::java::JavaType"
+			quidu      	"3DB7A32B028B"
+			client_cardinality 	(value cardinality "0..n")
+			is_navigable 	TRUE)))
+	    (object Association "$UNNAMED$1"
+		quid       	"3DBD5828006D"
+		roles      	(list role_list
+		    (object Role "parent"
+			quid       	"3DBD582C0242"
+			label      	"parent"
+			supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+			quidu      	"3DB7F9FB00D9"
+			client_cardinality 	(value cardinality "0..1")
+			is_navigable 	TRUE)
+		    (object Role "children"
+			quid       	"3DBD582C0243"
+			label      	"children"
+			supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+			quidu      	"3DB7F9FB00D9"
+			client_cardinality 	(value cardinality "0..n")
+			is_navigable 	TRUE)))
+	    (object Association "$UNNAMED$2"
+		quid       	"3DBD649D00AB"
+		roles      	(list role_list
+		    (object Role "jdoModel"
+			quid       	"3DBD649E003E"
+			label      	"jdoModel"
+			supplier   	"Logical View::com::sun::jdori::model::jdo::JDOModel"
+			quidu      	"3DB7FBE10241"
+			client_cardinality 	(value cardinality "1..1")
+			is_navigable 	TRUE)
+		    (object Role "javaModel"
+			quid       	"3DBD649E003F"
+			label      	"javaModel"
+			supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+			quidu      	"3DB7F9FB00D9"
+			client_cardinality 	(value cardinality "1..1")
+			is_navigable 	TRUE)))
+	    (object Class_Category "com"
+		quid       	"3DB79E9F02CE"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "sun"
+			quid       	"3DB79EAF0353"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list
+			    (object Class_Category "jdori"
+				quid       	"3DB79EB40238"
+				exportControl 	"Public"
+				logical_models 	(list unit_reference_list
+				    (object Class_Category "model"
+					quid       	"3DB7A30001E9"
+					exportControl 	"Public"
+					logical_models 	(list unit_reference_list
+					    (object Class "ModelException"
+						quid       	"3DEB7DCC01B5"
+						language   	"Java")
+					    (object Class "ModelFatalException"
+						quid       	"3DEB7DF5037A"
+						language   	"Java")
+					    (object Class "ModelVetoException"
+						quid       	"3DEB7E0602AF"
+						superclasses 	(list inheritance_relationship_list
+						    (object Inheritance_Relationship
+							quid       	"3DEB7E7200DA"
+							supplier   	"Logical View::com::sun::jdori::model::ModelException"
+							quidu      	"3DEB7DCC01B5"))
+						language   	"Java")
+					    (object Class "ModelValidationException"
+						quid       	"3DEB7E1302CE"
+						superclasses 	(list inheritance_relationship_list
+						    (object Inheritance_Relationship
+							quid       	"3DEB7E74031C"
+							supplier   	"Logical View::com::sun::jdori::model::ModelException"
+							quidu      	"3DEB7DCC01B5"))
+						language   	"Java")
+					    (object Class_Category "java"
+						quid       	"3DB7A3080028"
+						exportControl 	"Public"
+						logical_models 	(list unit_reference_list
+						    (object Class "JavaType"
+							quid       	"3DB7A32B028B"
+							stereotype 	"Interface"
+							operations 	(list Operations
+							    (object Operation "isPrimitive"
+								quid       	"3DB915FB02E5"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isIntegral"
+								quid       	"3DB916060038"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isFloatingPoint"
+								quid       	"3DB9161001F5"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isInterface"
+								quid       	"3DB9167803A3"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isArray"
+								quid       	"3DB9168303DB"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isWrapperClass"
+								quid       	"3DB9164B0272"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isJDOSupportedCollection"
+								quid       	"3DB9161B03C8"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isJDOSupportedMap"
+								quid       	"3DB9162A0329"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isTrackable"
+								quid       	"3DB916370039"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isValue"
+								quid       	"3DB91641019B"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isOrderable"
+								quid       	"3DC7AA1900FA"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isPersistenceCapable"
+								quid       	"3DB91659002D"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "isCompatibleWith"
+								quid       	"3DB916A10258"
+								parameters 	(list Parameters
+								    (object Parameter "javaType"
+									type       	"JavaType"))
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getName"
+								quid       	"3DB915E30309"
+								result     	"boolean"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getModifiers"
+								quid       	"3DF4A53B01B5"
+								result     	"int"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getSuperclass"
+								quid       	"3DF4A5530399"
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJDOClass"
+								quid       	"3DB9166603B1"
+								result     	"JDOClass"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getArrayComponentType"
+								quid       	"3DB91692026A"
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJavaField"
+								quid       	"3DF4A57903D8"
+								parameters 	(list Parameters
+								    (object Parameter "name"
+									type       	"String"))
+								result     	"JavaField"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0))
+							language   	"Java")
+						    (object Class "JavaModel"
+							quid       	"3DB7F9FB00D9"
+							stereotype 	"Interface"
+							operations 	(list Operations
+							    (object Operation "getJavaType"
+								quid       	"3DC1506D03A9"
+								parameters 	(list Parameters
+								    (object Parameter "name"
+									type       	"String"))
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJavaType"
+								quid       	"3DBD5894004E"
+								parameters 	(list Parameters
+								    (object Parameter "clazz"
+									type       	"Class"))
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getInputStreamForResource"
+								quid       	"3DBD58D601A5"
+								parameters 	(list Parameters
+								    (object Parameter "resource"
+									type       	"String"))
+								result     	"InputStream"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0))
+							language   	"Java")
+						    (object Class "JavaModelFactory"
+							quid       	"3DB7FA0202A6"
+							stereotype 	"Interface"
+							operations 	(list Operations
+							    (object Operation "createJavaModel"
+								quid       	"3DBD63B6000F"
+								parameters 	(list Parameters
+								    (object Parameter "key"
+									type       	"Object"))
+								result     	"JavaModel"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJavaModel"
+								quid       	"3DBD63CC0128"
+								parameters 	(list Parameters
+								    (object Parameter "key"
+									type       	"Object"))
+								result     	"JavaModel"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJavaType"
+								quid       	"3DBD63FB030D"
+								parameters 	(list Parameters
+								    (object Parameter "typeDesc"
+									type       	"Object"))
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0))
+							language   	"Java")
+						    (object Class "JavaField"
+							quid       	"3DF4A2C600AB"
+							stereotype 	"Interface"
+							operations 	(list Operations
+							    (object Operation "getName"
+								quid       	"3DF4A3B100DA"
+								result     	"String"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getModifiers"
+								quid       	"3DF4A4AA02BF"
+								result     	"int"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getType"
+								quid       	"3DF4A4B3029F"
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getDeclaringClass"
+								quid       	"3DF4A4D502EE"
+								result     	"JavaType"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJDOField"
+								quid       	"3DF4A4E7007D"
+								result     	"JDOField"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0))
+							language   	"Java"))
+						logical_presentations 	(list unit_reference_list))
+					    (object Class_Category "jdo"
+						quid       	"3DB7FAD3021A"
+						exportControl 	"Public"
+						logical_models 	(list unit_reference_list
+						    (object Class "JDOModel"
+							quid       	"3DB7FBE10241"
+							stereotype 	"Interface"
+							language   	"Java"))
+						logical_presentations 	(list unit_reference_list)))
+					logical_presentations 	(list unit_reference_list))
+				    (object Class_Category "common"
+					quid       	"3DB7A30E006D"
+					exportControl 	"Public"
+					logical_models 	(list unit_reference_list
+					    (object Class_Category "model"
+						quid       	"3DB7A31301BF"
+						exportControl 	"Public"
+						logical_models 	(list unit_reference_list
+						    (object Class_Category "java"
+							quid       	"3DB7A31E0215"
+							exportControl 	"Public"
+							logical_models 	(list unit_reference_list
+							    (object Class "AbstractJavaType"
+								quid       	"3DB7A3350087"
+								realized_interfaces 	(list realize_rel_list
+								    (object Realize_Relationship
+									quid       	"3DB7A4340305"
+									supplier   	"Logical View::com::sun::jdori::model::java::JavaType"
+									quidu      	"3DB7A32B028B"))
+								language   	"Java")
+							    (object Class "PredefinedType"
+								quid       	"3DB7A34002AA"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DF4A80802FD"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::ReflectionJavaType"
+									quidu      	"3DF4A7AD00AB"))
+								language   	"Java")
+							    (object Class "PrimitiveType"
+								quid       	"3DB7A34A0041"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A41D0059"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PredefinedType"
+									quidu      	"3DB7A34002AA"))
+								language   	"Java")
+							    (object Class "IntegralType"
+								quid       	"3DB7A352018D"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A4180001"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PrimitiveType"
+									quidu      	"3DB7A34A0041"))
+								language   	"Java")
+							    (object Class "FloatingPointType"
+								quid       	"3DB7A3610153"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A4A60331"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PrimitiveType"
+									quidu      	"3DB7A34A0041"))
+								language   	"Java")
+							    (object Class "ValueClassType"
+								quid       	"3DB7A36900A0"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A45F018A"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PredefinedType"
+									quidu      	"3DB7A34002AA"))
+								language   	"Java")
+							    (object Class "WrapperClassType"
+								quid       	"3DB7A37E02EF"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A461027D"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::ValueClassType"
+									quidu      	"3DB7A36900A0"))
+								language   	"Java")
+							    (object Class "JDOSupportedCollectionType"
+								quid       	"3DB7A38E0338"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A47B007C"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PredefinedType"
+									quidu      	"3DB7A34002AA"))
+								language   	"Java")
+							    (object Class "JDOSupportedMapType"
+								quid       	"3DB7A39A0277"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB7A47D022D"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::PredefinedType"
+									quidu      	"3DB7A34002AA"))
+								language   	"Java")
+							    (object Class "AbstractJavaModel"
+								quid       	"3DB7FA3500F1"
+								realized_interfaces 	(list realize_rel_list
+								    (object Realize_Relationship
+									quid       	"3DB7FB4401F5"
+									supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+									quidu      	"3DB7F9FB00D9"))
+								language   	"Java")
+							    (object Class "MutableValueClassType"
+								quid       	"3DB7FB2D031E"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DB90A9F03CA"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::ValueClassType"
+									quidu      	"3DB7A36900A0"))
+								language   	"Java")
+							    (object Class "ReflectionJavaType"
+								quid       	"3DF4A7AD00AB"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DF4A80B0177"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaType"
+									quidu      	"3DB7A3350087"))
+								language   	"Java")
+							    (object Class "AbstractJavaField"
+								quid       	"3DF4A7B701F4"
+								realized_interfaces 	(list realize_rel_list
+								    (object Realize_Relationship
+									quid       	"3DF4A849034B"
+									supplier   	"Logical View::com::sun::jdori::model::java::JavaField"
+									quidu      	"3DF4A2C600AB"))
+								language   	"Java")
+							    (object Class "ReflectionBasicJavaField"
+								quid       	"3DF4A7C1002E"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3DF4A83C002E"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaField"
+									quidu      	"3DF4A7B701F4"))
+								language   	"Java")
+							    (object Class "AbstractJavaModelFactory"
+								quid       	"3E0070EE0128"
+								realized_interfaces 	(list realize_rel_list
+								    (object Realize_Relationship
+									quid       	"3E00737203A9"
+									supplier   	"Logical View::com::sun::jdori::model::java::JavaModelFactory"
+									quidu      	"3DB7FA0202A6"))
+								language   	"Java")
+							    (object Class "NullType"
+								quid       	"3E007F390157"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3E007FF70251"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaType"
+									quidu      	"3DB7A3350087"))
+								language   	"Java")
+							    (object Class "ErrorType"
+								quid       	"3E007F3F02BF"
+								superclasses 	(list inheritance_relationship_list
+								    (object Inheritance_Relationship
+									quid       	"3E007FF401C5"
+									supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaType"
+									quidu      	"3DB7A3350087"))
+								language   	"Java")
+							    (object Class_Category "runtime"
+								quid       	"3DEB7F3401F4"
+								exportControl 	"Public"
+								logical_models 	(list unit_reference_list
+								    (object Class "RuntimeJavaModel"
+									quid       	"3DB7FA580015"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DB7FB4703B2"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaModel"
+										quidu      	"3DB7FA3500F1"))
+									language   	"Java")
+								    (object Class "RuntimeJavaField"
+									quid       	"3DF4A7CC03C8"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DF4A8C60399"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::ReflectionBasicJavaField"
+										quidu      	"3DF4A7C1002E"))
+									language   	"Java")
+								    (object Class "RuntimeJavaModelFactory"
+									quid       	"3E0072830251"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3E007374032C"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaModelFactory"
+										quidu      	"3E0070EE0128"))
+									language   	"Java")
+								    (object Class "RuntimeJavaType"
+									quid       	"3DB7FA500009"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DF4A815032C"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::ReflectionJavaType"
+										quidu      	"3DF4A7AD00AB"))
+									language   	"Java"))
+								logical_presentations 	(list unit_reference_list))
+							    (object Class_Category "development"
+								quid       	"3DF4A88B0232"
+								exportControl 	"Public"
+								logical_models 	(list unit_reference_list
+								    (object Class "DevelopmentJavaModel"
+									quid       	"3DBD6EB30000"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DBD6EDA02BF"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaModel"
+										quidu      	"3DB7FA3500F1"))
+									operations 	(list Operations
+									    (object Operation "getJavaType"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071130251"
+										parameters 	(list Parameters
+										    (object Parameter "name"
+											type       	"String"))
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getJavaType"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071130290"
+										parameters 	(list Parameters
+										    (object Parameter "clazz"
+											type       	"Class"))
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getInputStreamForResource"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711302CE"
+										parameters 	(list Parameters
+										    (object Parameter "resource"
+											type       	"String"))
+										result     	"InputStream"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0))
+									statediagram 	(object State_Diagram ""
+									    quid       	"3E39239E00BC"
+									    title      	""
+									    zoom       	100
+									    max_height 	28350
+									    max_width  	21600
+									    origin_x   	0
+									    origin_y   	0
+									    items      	(list diagram_item_list))
+									module     	"Component View::com::sun::jdori::common::model::java::development::DevelopmentJavaModel"
+									quidu      	"3E007113021A"
+									language   	"Java")
+								    (object Class "DevelopmentJavaField"
+									quid       	"3DF4A89F030D"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DF4A8B603C8"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaField"
+										quidu      	"3DF4A7B701F4"))
+									operations 	(list Operations
+									    (object Operation "getName"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113031C"
+										result     	"String"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getModifiers"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113032C"
+										result     	"int"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getType"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113034B"
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getDeclaringClass"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113035B"
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getJDOField"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113037A"
+										result     	"JDOField"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0))
+									module     	"Component View::com::sun::jdori::common::model::java::development::DevelopmentJavaField"
+									quidu      	"3E007113021B"
+									language   	"Java")
+								    (object Class "DevelopmentJavaType"
+									quid       	"3DBD6E4D035B"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DF4A81901C5"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaType"
+										quidu      	"3DB7A3350087"))
+									operations 	(list Operations
+									    (object Operation "isPrimitive"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007113038A"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isIntegral"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071130399"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isFloatingPoint"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711303A9"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isInterface"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711303C8"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isArray"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711303D8"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isWrapperClass"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071140000"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isJDOCollection"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114001F"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isJDOMap"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114002E"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isTrackable"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114003E"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isValue"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114005D"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isOrderable"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114006D"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isPersistenceCapable"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114007D"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "isCompatibleWith"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E007114009C"
+										parameters 	(list Parameters
+										    (object Parameter "javaType"
+											type       	"JavaType"))
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getName"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711400CB"
+										result     	"boolean"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getModifiers"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711400EA"
+										result     	"int"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getSuperclass"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E00711400FA"
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getJDOClass"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071140119"
+										result     	"JDOClass"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getArrayComponentType"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071140128"
+										result     	"JavaType"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0)
+									    (object Operation "getJavaField"
+										attributes 	(list Attribute_Set
+										    (object Attribute
+											tool       	"Java"
+											name       	"Synchronized"
+											value      	FALSE))
+										quid       	"3E0071140138"
+										parameters 	(list Parameters
+										    (object Parameter "name"
+											type       	"String"))
+										result     	"JavaField"
+										concurrency 	"Sequential"
+										opExportControl 	"Public"
+										uid        	0))
+									module     	"Component View::com::sun::jdori::common::model::java::development::DevelopmentJavaType"
+									quidu      	"3E007113021C"
+									language   	"Java")
+								    (object Class "DevelopmentJavaModelFactory"
+									quid       	"3E00723D03B9"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3E007377002E"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaModelFactory"
+										quidu      	"3E0070EE0128"))
+									language   	"Java"))
+								logical_presentations 	(list unit_reference_list))
+							    (object Class_Category "enhancer"
+								quid       	"3DF60BF4030D"
+								exportControl 	"Public"
+								logical_models 	(list unit_reference_list
+								    (object Class "EnhancerJavaType"
+									quid       	"3DBD6E5900EA"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DBD6EA60177"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaType"
+										quidu      	"3DB7A3350087"))
+									language   	"Java")
+								    (object Class "EnhancerJavaModel"
+									quid       	"3DBD6EE802FD"
+									realized_interfaces 	(list realize_rel_list
+									    (object Realize_Relationship
+										quid       	"3DC7C4FB0251"
+										supplier   	"Logical View::com::sun::jdori::model::java::JavaModel"
+										quidu      	"3DB7F9FB00D9"))
+									language   	"Java")
+								    (object Class "EnhancerJavaField"
+									quid       	"3DF60C0501B5"
+									superclasses 	(list inheritance_relationship_list
+									    (object Inheritance_Relationship
+										quid       	"3DF60C1F0157"
+										supplier   	"Logical View::com::sun::jdori::common::model::java::AbstractJavaField"
+										quidu      	"3DF4A7B701F4"))
+									language   	"Java"))
+								logical_presentations 	(list unit_reference_list)))
+							logical_presentations 	(list unit_reference_list))
+						    (object Class_Category "jdo"
+							quid       	"3DB7FAD90363"
+							exportControl 	"Public"
+							logical_models 	(list unit_reference_list)
+							logical_presentations 	(list unit_reference_list)))
+						logical_presentations 	(list unit_reference_list)))
+					logical_presentations 	(list unit_reference_list)))
+				logical_presentations 	(list unit_reference_list)))
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list)))
+	logical_presentations 	(list unit_reference_list
+	    (object ClassDiagram "Implementation"
+		quid       	"3DB79E9502D5"
+		title      	"Implementation"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::AbstractJavaType" @1
+			ShowCompartmentStereotypes 	TRUE
+			location   	(528, 1456)
+			label      	(object ItemLabel
+			    Parent_View 	@1
+			    location   	(354, 1404)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	348
+			    justify    	0
+			    label      	"AbstractJavaType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A3350087"
+			width      	366
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::PredefinedType" @2
+			ShowCompartmentStereotypes 	TRUE
+			location   	(768, 2048)
+			label      	(object ItemLabel
+			    Parent_View 	@2
+			    location   	(578, 1996)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	380
+			    justify    	0
+			    label      	"PredefinedType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A34002AA"
+			width      	398
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::PrimitiveType" @3
+			ShowCompartmentStereotypes 	TRUE
+			location   	(256, 2304)
+			label      	(object ItemLabel
+			    Parent_View 	@3
+			    location   	(118, 2252)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	276
+			    justify    	0
+			    label      	"PrimitiveType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A34A0041"
+			width      	294
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::IntegralType" @4
+			ShowCompartmentStereotypes 	TRUE
+			location   	(256, 2592)
+			label      	(object ItemLabel
+			    Parent_View 	@4
+			    location   	(129, 2540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	254
+			    justify    	0
+			    label      	"IntegralType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A352018D"
+			width      	272
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::FloatingPointType" @5
+			ShowCompartmentStereotypes 	TRUE
+			location   	(592, 2592)
+			label      	(object ItemLabel
+			    Parent_View 	@5
+			    location   	(411, 2540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	362
+			    justify    	0
+			    label      	"FloatingPointType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A3610153"
+			width      	380
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::ValueClassType" @6
+			ShowCompartmentStereotypes 	TRUE
+			location   	(592, 2304)
+			label      	(object ItemLabel
+			    Parent_View 	@6
+			    location   	(429, 2252)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	326
+			    justify    	0
+			    label      	"ValueClassType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A36900A0"
+			width      	344
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::WrapperClassType" @7
+			ShowCompartmentStereotypes 	TRUE
+			location   	(992, 2592)
+			label      	(object ItemLabel
+			    Parent_View 	@7
+			    location   	(805, 2540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	374
+			    justify    	0
+			    label      	"WrapperClassType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A37E02EF"
+			width      	392
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @8
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A4180001"
+			client     	@4
+			supplier   	@3
+			line_style 	0)
+		    (object InheritView "" @9
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A41D0059"
+			client     	@3
+			supplier   	@2
+			line_style 	0)
+		    (object InheritView "" @10
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A45F018A"
+			client     	@6
+			supplier   	@2
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::JDOSupportedCollectionType" @11
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1568, 2304)
+			label      	(object ItemLabel
+			    Parent_View 	@11
+			    location   	(1291, 2252)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	554
+			    justify    	0
+			    label      	"JDOSupportedCollectionType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A38E0338"
+			width      	572
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::JDOSupportedMapType" @12
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1024, 2304)
+			label      	(object ItemLabel
+			    Parent_View 	@12
+			    location   	(795, 2252)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	458
+			    justify    	0
+			    label      	"JDOSupportedMapType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A39A0277"
+			width      	476
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @13
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A47D022D"
+			client     	@12
+			supplier   	@2
+			line_style 	0)
+		    (object InheritView "" @14
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A4A60331"
+			client     	@5
+			supplier   	@3
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::runtime::RuntimeJavaType" @15
+			ShowCompartmentStereotypes 	TRUE
+			location   	(352, 2048)
+			label      	(object ItemLabel
+			    Parent_View 	@15
+			    location   	(178, 1996)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	348
+			    justify    	0
+			    label      	"RuntimeJavaType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FA500009"
+			width      	366
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::MutableValueClassType" @16
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1456, 2592)
+			label      	(object ItemLabel
+			    Parent_View 	@16
+			    location   	(1219, 2540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	474
+			    justify    	0
+			    label      	"MutableValueClassType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FB2D031E"
+			width      	492
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::runtime::RuntimeJavaModel" @17
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1536, 880)
+			label      	(object ItemLabel
+			    Parent_View 	@17
+			    location   	(1350, 828)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	372
+			    justify    	0
+			    label      	"RuntimeJavaModel")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FA580015"
+			width      	390
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaType" @18
+			ShowCompartmentStereotypes 	TRUE
+			SuppressAttribute 	TRUE
+			SuppressOperation 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(528, 1152)
+			label      	(object ItemLabel
+			    Parent_View 	@18
+			    location   	(400, 1134)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"JavaType")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@18
+			    location   	(400, 1084)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A32B028B"
+			width      	274
+			height     	160
+			autoResize 	TRUE)
+		    (object RealizeView "" @19
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A4340305"
+			client     	@1
+			supplier   	@18
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaModel" @20
+			ShowCompartmentStereotypes 	TRUE
+			SuppressAttribute 	TRUE
+			SuppressOperation 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1552, 272)
+			label      	(object ItemLabel
+			    Parent_View 	@20
+			    location   	(1424, 254)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"JavaModel")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@20
+			    location   	(1424, 204)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7F9FB00D9"
+			width      	274
+			height     	160
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::development::DevelopmentJavaType" @21
+			ShowCompartmentStereotypes 	TRUE
+			location   	(336, 1760)
+			label      	(object ItemLabel
+			    Parent_View 	@21
+			    location   	(120, 1708)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	432
+			    justify    	0
+			    label      	"DevelopmentJavaType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DBD6E4D035B"
+			width      	450
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::enhancer::EnhancerJavaType" @22
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1168, 1760)
+			label      	(object ItemLabel
+			    Parent_View 	@22
+			    location   	(983, 1708)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	370
+			    justify    	0
+			    label      	"EnhancerJavaType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DBD6E5900EA"
+			width      	388
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @23
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DBD6EA60177"
+			client     	@22
+			supplier   	@1
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::development::DevelopmentJavaModel" @24
+			ShowCompartmentStereotypes 	TRUE
+			location   	(2016, 880)
+			label      	(object ItemLabel
+			    Parent_View 	@24
+			    location   	(1790, 828)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	452
+			    justify    	0
+			    label      	"DevelopmentJavaModel")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DBD6EB30000"
+			width      	470
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::AbstractJavaModel" @25
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1536, 592)
+			label      	(object ItemLabel
+			    Parent_View 	@25
+			    location   	(1348, 540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	376
+			    justify    	0
+			    label      	"AbstractJavaModel")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FA3500F1"
+			width      	394
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @26
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7FB4703B2"
+			client     	@17
+			supplier   	@25
+			line_style 	0)
+		    (object RealizeView "" @27
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7FB4401F5"
+			client     	@25
+			supplier   	@20
+			line_style 	0)
+		    (object InheritView "" @28
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DBD6EDA02BF"
+			client     	@24
+			supplier   	@25
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::enhancer::EnhancerJavaModel" @29
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1968, 592)
+			label      	(object ItemLabel
+			    Parent_View 	@29
+			    location   	(1770, 540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	396
+			    justify    	0
+			    label      	"EnhancerJavaModel")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DBD6EE802FD"
+			width      	414
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::ReflectionBasicJavaField" @30
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1856, 1776)
+			label      	(object ItemLabel
+			    Parent_View 	@30
+			    location   	(1615, 1724)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	482
+			    justify    	0
+			    label      	"ReflectionBasicJavaField")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A7C1002E"
+			width      	500
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::AbstractJavaField" @31
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1856, 1488)
+			label      	(object ItemLabel
+			    Parent_View 	@31
+			    location   	(1682, 1436)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	348
+			    justify    	0
+			    label      	"AbstractJavaField")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A7B701F4"
+			width      	366
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::ReflectionJavaType" @32
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(768, 1760)
+			label      	(object ItemLabel
+			    Parent_View 	@32
+			    location   	(581, 1708)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	374
+			    justify    	0
+			    label      	"ReflectionJavaType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A7AD00AB"
+			width      	392
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @33
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A80802FD"
+			client     	@2
+			supplier   	@32
+			line_style 	0)
+		    (object InheritView "" @34
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A80B0177"
+			client     	@32
+			supplier   	@1
+			line_style 	0)
+		    (object InheritView "" @35
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A815032C"
+			client     	@15
+			supplier   	@32
+			line_style 	0)
+		    (object InheritView "" @36
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A81901C5"
+			client     	@21
+			supplier   	@1
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaField" @37
+			ShowCompartmentStereotypes 	TRUE
+			SuppressAttribute 	TRUE
+			SuppressOperation 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1856, 1168)
+			label      	(object ItemLabel
+			    Parent_View 	@37
+			    location   	(1728, 1150)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"JavaField")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@37
+			    location   	(1728, 1100)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A2C600AB"
+			width      	274
+			height     	160
+			autoResize 	TRUE)
+		    (object InheritView "" @38
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A83C002E"
+			client     	@30
+			supplier   	@31
+			line_style 	0)
+		    (object RealizeView "" @39
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A849034B"
+			client     	@31
+			supplier   	@37
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::development::DevelopmentJavaField" @40
+			ShowCompartmentStereotypes 	TRUE
+			location   	(1552, 1968)
+			label      	(object ItemLabel
+			    Parent_View 	@40
+			    location   	(1337, 1917)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	430
+			    justify    	0
+			    label      	"DevelopmentJavaField")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A89F030D"
+			width      	448
+			height     	126
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::runtime::RuntimeJavaField" @41
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1856, 2128)
+			label      	(object ItemLabel
+			    Parent_View 	@41
+			    location   	(1681, 2076)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	350
+			    justify    	0
+			    label      	"RuntimeJavaField")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A7CC03C8"
+			width      	368
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @42
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A8C60399"
+			client     	@41
+			supplier   	@30
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::enhancer::EnhancerJavaField" @43
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(2144, 1968)
+			label      	(object ItemLabel
+			    Parent_View 	@43
+			    location   	(1959, 1916)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	370
+			    justify    	0
+			    label      	"EnhancerJavaField")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF60C0501B5"
+			width      	388
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::AbstractJavaModelFactory" @44
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(592, 592)
+			label      	(object ItemLabel
+			    Parent_View 	@44
+			    location   	(337, 540)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	510
+			    justify    	0
+			    label      	"AbstractJavaModelFactory")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3E0070EE0128"
+			width      	528
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::development::DevelopmentJavaModelFactory" @45
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(976, 880)
+			label      	(object ItemLabel
+			    Parent_View 	@45
+			    location   	(679, 828)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	594
+			    justify    	0
+			    label      	"DevelopmentJavaModelFactory")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3E00723D03B9"
+			width      	612
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::runtime::RuntimeJavaModelFactory" @46
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(384, 880)
+			label      	(object ItemLabel
+			    Parent_View 	@46
+			    location   	(133, 828)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	502
+			    justify    	0
+			    label      	"RuntimeJavaModelFactory")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3E0072830251"
+			width      	520
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaModelFactory" @47
+			ShowCompartmentStereotypes 	TRUE
+			SuppressAttribute 	TRUE
+			SuppressOperation 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(592, 272)
+			label      	(object ItemLabel
+			    Parent_View 	@47
+			    location   	(415, 254)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	354
+			    justify    	0
+			    label      	"JavaModelFactory")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@47
+			    location   	(415, 204)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	354
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FA0202A6"
+			width      	372
+			height     	160
+			autoResize 	TRUE)
+		    (object RealizeView "" @48
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3E00737203A9"
+			client     	@44
+			supplier   	@47
+			line_style 	0)
+		    (object InheritView "" @49
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3E007374032C"
+			client     	@46
+			supplier   	@44
+			line_style 	0)
+		    (object InheritView "" @50
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3E007377002E"
+			client     	@45
+			supplier   	@44
+			line_style 	0)
+		    (object RealizeView "" @51
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DC7C4FB0251"
+			client     	@29
+			supplier   	@20
+			line_style 	0)
+		    (object InheritView "" @52
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A47B007C"
+			client     	@11
+			supplier   	@2
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::NullType" @53
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1216, 1600)
+			label      	(object ItemLabel
+			    Parent_View 	@53
+			    location   	(1124, 1548)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	184
+			    justify    	0
+			    label      	"NullType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3E007F390157"
+			width      	202
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::common::model::java::ErrorType" @54
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			location   	(1216, 1456)
+			label      	(object ItemLabel
+			    Parent_View 	@54
+			    location   	(1115, 1404)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	202
+			    justify    	0
+			    label      	"ErrorType")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3E007F3F02BF"
+			width      	220
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @55
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3E007FF401C5"
+			client     	@54
+			supplier   	@1
+			line_style 	0)
+		    (object InheritView "" @56
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3E007FF70251"
+			client     	@53
+			supplier   	@1
+			line_style 	0)
+		    (object InheritTreeView "" @57
+			location   	(568, 2463)
+			line_color 	3342489
+			fill_color 	13434879
+			supplier   	@6
+			vertices   	(list Points
+			    (568, 2463)
+			    (568, 2368)))
+		    (object InheritView "" @58
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB7A461027D"
+			client     	@7
+			supplier   	@6
+			line_style 	3
+			origin_attachment 	(884, 2528)
+			terminal_attachment 	(884, 2463)
+			drawSupplier 	@57)
+		    (object InheritView "" @59
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DB90A9F03CA"
+			client     	@16
+			supplier   	@6
+			line_style 	3
+			origin_attachment 	(1407, 2528)
+			terminal_attachment 	(1407, 2463)
+			drawSupplier 	@57)
+		    (object InheritView "" @60
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF4A8B603C8"
+			client     	@40
+			supplier   	@31
+			vertices   	(list Points
+			    (1551, 1904)
+			    (1550, 1678)
+			    (1751, 1552))
+			line_style 	0)
+		    (object InheritView "" @61
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DF60C1F0157"
+			client     	@43
+			supplier   	@31
+			vertices   	(list Points
+			    (2143, 1903)
+			    (2143, 1709)
+			    (1940, 1552))
+			line_style 	0)))
+	    (object ClassDiagram "API"
+		quid       	"3DEB7B29002E"
+		title      	"API"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaType" @62
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(544, 1696)
+			label      	(object ItemLabel
+			    Parent_View 	@62
+			    location   	(102, 1187)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	884
+			    justify    	0
+			    label      	"JavaType")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@62
+			    location   	(102, 1137)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	884
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7A32B028B"
+			compartment 	(object Compartment
+			    Parent_View 	@62
+			    location   	(102, 1247)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	20
+			    max_width  	890)
+			width      	902
+			height     	1142
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaModelFactory" @63
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(496, 512)
+			label      	(object ItemLabel
+			    Parent_View 	@63
+			    location   	(106, 403)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	780
+			    justify    	0
+			    label      	"JavaModelFactory")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@63
+			    location   	(106, 353)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	780
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FA0202A6"
+			compartment 	(object Compartment
+			    Parent_View 	@63
+			    location   	(106, 463)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	4
+			    max_width  	787)
+			width      	798
+			height     	342
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::ModelException" @64
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1392, 1856)
+			label      	(object ItemLabel
+			    Parent_View 	@64
+			    location   	(1229, 1804)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	326
+			    justify    	0
+			    label      	"ModelException")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DEB7DCC01B5"
+			width      	344
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::ModelFatalException" @65
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1808, 1856)
+			label      	(object ItemLabel
+			    Parent_View 	@65
+			    location   	(1599, 1804)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	418
+			    justify    	0
+			    label      	"ModelFatalException")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DEB7DF5037A"
+			width      	436
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::ModelVetoException" @66
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1312, 2192)
+			label      	(object ItemLabel
+			    Parent_View 	@66
+			    location   	(1111, 2140)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	402
+			    justify    	0
+			    label      	"ModelVetoException")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DEB7E0602AF"
+			width      	420
+			height     	128
+			autoResize 	TRUE)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::ModelValidationException" @67
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1808, 2192)
+			label      	(object ItemLabel
+			    Parent_View 	@67
+			    location   	(1555, 2140)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	506
+			    justify    	0
+			    label      	"ModelValidationException")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DEB7E1302CE"
+			width      	524
+			height     	128
+			autoResize 	TRUE)
+		    (object InheritView "" @68
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DEB7E7200DA"
+			client     	@66
+			supplier   	@64
+			line_style 	0)
+		    (object InheritView "" @69
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DEB7E74031C"
+			client     	@67
+			supplier   	@64
+			line_style 	0)
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaModel" @70
+			ShowCompartmentStereotypes 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1504, 512)
+			label      	(object ItemLabel
+			    Parent_View 	@70
+			    location   	(954, 402)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	1101
+			    justify    	0
+			    label      	"JavaModel")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@70
+			    location   	(954, 352)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	1101
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7F9FB00D9"
+			compartment 	(object Compartment
+			    Parent_View 	@70
+			    location   	(954, 462)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	4
+			    max_width  	1096)
+			width      	1119
+			height     	344
+			autoResize 	TRUE)
+		    (object AssociationViewNew "$UNNAMED$1" @71
+			location   	(1704, 206)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DBD5828006D"
+			roleview_list 	(list RoleViews
+			    (object RoleView "parent" @72
+				Parent_View 	@71
+				location   	(296, -290)
+				label      	(object SegLabel @73
+				    Parent_View 	@72
+				    location   	(1921, 222)
+				    anchor     	1
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	144
+				    justify    	0
+				    label      	"+parent"
+				    pctDist    	1.610294
+				    height     	16
+				    orientation 	1)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"3DBD582C0242"
+				client     	@71
+				supplier   	@70
+				vertices   	(list Points
+				    (1704, 206)
+				    (1839, 206)
+				    (1691, 339))
+				line_style 	0
+				label      	(object SegLabel @74
+				    Parent_View 	@72
+				    location   	(1900, 291)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"0..1"
+				    pctDist    	0.440133
+				    height     	104
+				    orientation 	0))
+			    (object RoleView "children" @75
+				Parent_View 	@71
+				location   	(296, -290)
+				label      	(object SegLabel @76
+				    Parent_View 	@75
+				    location   	(1390, 227)
+				    anchor     	1
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	168
+				    justify    	0
+				    label      	"+children"
+				    pctDist    	0.667665
+				    height     	113
+				    orientation 	1)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"3DBD582C0243"
+				client     	@71
+				supplier   	@70
+				vertices   	(list Points
+				    (1704, 206)
+				    (1502, 206)
+				    (1502, 339))
+				line_style 	0
+				label      	(object SegLabel @77
+				    Parent_View 	@75
+				    location   	(1421, 291)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"0..*"
+				    pctDist    	0.856287
+				    height     	82
+				    orientation 	1))))
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::jdo::JDOModel" @78
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1920, 960)
+			label      	(object ItemLabel
+			    Parent_View 	@78
+			    location   	(1792, 930)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"JDOModel")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@78
+			    location   	(1792, 880)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	256
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DB7FBE10241"
+			width      	274
+			height     	184
+			autoResize 	TRUE)
+		    (object AssociationViewNew "$UNNAMED$2" @79
+			location   	(1503, 899)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3DBD649D00AB"
+			roleview_list 	(list RoleViews
+			    (object RoleView "javaModel" @80
+				Parent_View 	@79
+				location   	(-81, 259)
+				label      	(object SegLabel @81
+				    Parent_View 	@80
+				    location   	(1387, 731)
+				    anchor     	1
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	204
+				    justify    	0
+				    label      	"+javaModel"
+				    pctDist    	0.781395
+				    height     	116
+				    orientation 	0)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"3DBD649E003F"
+				client     	@79
+				supplier   	@70
+				line_style 	0
+				label      	(object SegLabel @82
+				    Parent_View 	@80
+				    location   	(1417, 806)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"1..1"
+				    pctDist    	0.432558
+				    height     	86
+				    orientation 	0))
+			    (object RoleView "jdoModel" @83
+				Parent_View 	@79
+				location   	(-81, 259)
+				label      	(object SegLabel @84
+				    Parent_View 	@83
+				    location   	(1672, 913)
+				    anchor     	1
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	192
+				    justify    	0
+				    label      	"+jdoModel"
+				    pctDist    	0.675516
+				    height     	46
+				    orientation 	0)
+				stereotype 	TRUE
+				line_color 	3342489
+				quidu      	"3DBD649E003E"
+				client     	@79
+				supplier   	@78
+				vertices   	(list Points
+				    (1503, 899)
+				    (1503, 959)
+				    (1782, 959))
+				line_style 	0
+				label      	(object SegLabel @85
+				    Parent_View 	@83
+				    location   	(1708, 1003)
+				    anchor     	2
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	15
+				    justify    	0
+				    label      	"1..1"
+				    pctDist    	0.781711
+				    height     	44
+				    orientation 	1))))
+		    (object ClassView "Class" "Logical View::com::sun::jdori::model::java::JavaField" @86
+			ShowCompartmentStereotypes 	TRUE
+			IncludeAttribute 	TRUE
+			IncludeOperation 	TRUE
+			ShowOperationSignature 	TRUE
+			location   	(1424, 1392)
+			label      	(object ItemLabel
+			    Parent_View 	@86
+			    location   	(1144, 1233)
+			    fill_color 	13434879
+			    nlines     	1
+			    max_width  	560
+			    justify    	0
+			    label      	"JavaField")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@86
+			    location   	(1144, 1183)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	560
+			    justify    	0
+			    label      	"<<Interface>>")
+			icon       	"Interface"
+			icon_style 	"Label"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3DF4A2C600AB"
+			compartment 	(object Compartment
+			    Parent_View 	@86
+			    location   	(1144, 1293)
+			    icon_style 	"Icon"
+			    fill_color 	16777215
+			    anchor     	2
+			    nlines     	6
+			    max_width  	565)
+			width      	578
+			height     	442
+			autoResize 	TRUE)))))
+    root_subsystem 	(object SubSystem "Component View"
+	quid       	"3DB79E9500A6"
+	physical_models 	(list unit_reference_list
+	    (object SubSystem "com"
+		quid       	"3E0071130213"
+		physical_models 	(list unit_reference_list
+		    (object SubSystem "sun"
+			quid       	"3E0071130214"
+			physical_models 	(list unit_reference_list
+			    (object SubSystem "jdori"
+				quid       	"3E0071130215"
+				physical_models 	(list unit_reference_list
+				    (object SubSystem "common"
+					quid       	"3E0071130216"
+					physical_models 	(list unit_reference_list
+					    (object SubSystem "model"
+						quid       	"3E0071130217"
+						physical_models 	(list unit_reference_list
+						    (object SubSystem "java"
+							quid       	"3E0071130218"
+							physical_models 	(list unit_reference_list
+							    (object SubSystem "development"
+								quid       	"3E0071130219"
+								physical_models 	(list unit_reference_list
+								    (object module "DevelopmentJavaModel" "NotAModuleType" "NotAModulePart"
+									quid       	"3E007113021A"
+									stereotype 	""
+									language   	"Java")
+								    (object module "DevelopmentJavaField" "NotAModuleType" "NotAModulePart"
+									quid       	"3E007113021B"
+									stereotype 	""
+									language   	"Java")
+								    (object module "DevelopmentJavaType" "NotAModuleType" "NotAModulePart"
+									quid       	"3E007113021C"
+									stereotype 	""
+									language   	"Java"))
+								physical_presentations 	(list unit_reference_list)))
+							physical_presentations 	(list unit_reference_list)))
+						physical_presentations 	(list unit_reference_list)))
+					physical_presentations 	(list unit_reference_list)))
+				physical_presentations 	(list unit_reference_list)))
+			physical_presentations 	(list unit_reference_list)))
+		physical_presentations 	(list unit_reference_list)))
+	physical_presentations 	(list unit_reference_list
+	    (object Module_Diagram "Main"
+		quid       	"3DB79E9502D3"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    process_structure 	(object Processes
+	quid       	"3DB79E9500A7"
+	ProcsNDevs 	(list
+	    (object Process_Diagram "Deployment View"
+		quid       	"3DB79E9500A9"
+		title      	"Deployment View"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    properties 	(object Properties
+	attributes 	(list Attribute_Set
+	    (object Attribute
+		tool       	"DDL"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBase"
+			value      	("DataBaseSet" 800))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBaseSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"DDL"
+				name       	"ANSI"
+				value      	800)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Oracle"
+				value      	801)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"SQLServer"
+				value      	802)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Sybase"
+				value      	803)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Watcom"
+				value      	804)))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnName"
+			value      	"Id")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnType"
+			value      	"NUMBER(5)")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ViewName"
+			value      	"V_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"TableName"
+			value      	"T_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"InheritSuffix"
+			value      	"_V")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DropClause"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"BaseViews"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DDLScriptFilename"
+			value      	"DDL1.SQL")))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ColumnType"
+			value      	"VARCHAR")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Length"
+			value      	"")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"NullsOK"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKey"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Unique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CompositeUnique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CheckConstraint"
+			value      	"")))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"IDL"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"StopOnError"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GeneratePreserveRegions"
+			value      	TRUE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ImplementationType"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ConstValue"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDefaultSpecifier"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DefaultSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLElement"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLSpecificationType"
+			value      	("IDLSpecSet" 22))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLSpecSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Interface"
+				value      	22)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Typedef"
+				value      	54)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Enumeration"
+				value      	8)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Const"
+				value      	71)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Exception"
+				value      	61)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Struct"
+				value      	51)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Union"
+				value      	81)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateIDLModule"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"InclusionProtectionSymbol"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"OperationIsOneWay"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Context"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Raises"
+			value      	"")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CaseSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsConst"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ConstValue"
+			value      	"")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Has"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"BoundedHasRelType"
+			value      	("HasRelTypeSet" 47))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"HasRelTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"BoundedRoleType"
+			value      	("AssocTypeSet" 47))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AssocTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Uses"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Subsystem"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"Java"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"StopOnError"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"Java"
+			name       	"UsePrefixes"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"InstanceVariablePrefix"
+			value      	"m_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"ClassVariablePrefix"
+			value      	"s_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultAttributeDataType"
+			value      	"int")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultOperationReturnType"
+			value      	"void")))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDefaultConstructor"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ConstructorIs"
+			value      	("Ctor_Set" 62))
+		    (object Attribute
+			tool       	"Java"
+			name       	"Ctor_Set"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Java"
+				name       	"Public"
+				value      	62)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Protected"
+				value      	63)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Private"
+				value      	64)))
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateFinalizer"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateStaticInitializer"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateInstanceInitializer"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalImports"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalImports"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Abstract"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Static"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Native"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Synchronized"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ContainerClass"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"InitialValue"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"SCC"
+		name       	"HiddenTool"
+		value      	FALSE))
+	quid       	"3DB79E9500A8"))
