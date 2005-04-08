@@ -128,9 +128,11 @@ capable classes in org.apache.jdo.tck.pc.mylib run without error.
 
 - Select test configuration (application or datastore) in project.properties, as described above.
 
+- Copy derby.jar and derbytools.jar to test/iut_jars.
+
 - Edit tck20/test/sql/derby/createdb.sh to select the schema corresponding to the configuration you selected and edit DBPATH and BASEPATH.  Then run createdb.sh to create a Derby database.
 
-- Run "maven build" to build the tck.  This will run all the tests.
+- Run "maven build" to build the tck.  This will run all the tests. [Currently not implemented. Proceed to next step to run the tests.]
 
 - Run "maven runtck" to run all tests or "maven -Dtest=<test name> runtck.single to run one test, e.g. transactions.Commit.
 
