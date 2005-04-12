@@ -42,7 +42,7 @@ XXX.run: Runs the test without rebuilding.
 <!-- JAR files required to run the tests
 -->
 <property name="builddir" value="${basedir}/../target"/>
-<property name="jdoapi" value="${user.home}/.maven/repository/jdo/jars/jdo-api-1.1.jar"/>
+<property name="jdoapi" value="${user.home}/.maven/repository/jdo/jars/jdo1-api-1.1.jar"/>
 <property name="jdobtree" value="${user.home}/.maven/repository/jdo/jars/jdo-btree-1.1.jar"/>
 <property name="jdori" value="${builddir}/classes"/>
 <property name="jdoritests" value="${builddir}/test-classes/jdo-ri-tests.jar"/>
