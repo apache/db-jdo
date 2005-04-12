@@ -18,9 +18,6 @@ package org.apache.jdo.util;
 
 import java.util.Stack;
 
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.JDOUserException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -84,7 +81,7 @@ public class Pool {
                test.debug("Pool: count " + count + // NOI18N
                             " out of range 0-" + size); // NOI18N
            }
-           throw new JDOFatalInternalException(
+           throw new RuntimeException(
                msg.msg(
                    "EXC_CountOutOfRange", // NOI18N
                    new Integer(count).toString(),
@@ -95,7 +92,7 @@ public class Pool {
            if (debug) {
                test.debug("Pool: duplicate object"); // NOI18N
            }
-           throw new JDOFatalInternalException(
+           throw new RuntimeException(
                msg.msg(
                    "EXC_DuplicateObject", o)); // NOI18N
        }
@@ -116,7 +113,7 @@ public class Pool {
      * available, waits until one is.  The waiting is governed by two
      * variables, which are currently fixed: waitMillis and waitNumber.
      * If no object is available from the pool within (waitNumber) times
-     * (waitMillis) milliseconds, then a JDOUserException is thrown.
+     * (waitMillis) milliseconds, then a RuntimeException is thrown.
      * In future, the waitMillis and waitNumber should be configurable.
      * @return An object from the pool.
      */
@@ -129,7 +126,7 @@ public class Pool {
                 test.debug("Pool: count " + count + // NOI18N
                            " out of range 0-" + size); // NOI18N
             }
-            throw new JDOFatalInternalException(
+            throw new RuntimeException(
                 msg.msg(
                     "EXC_CountOutOfRange", // NOI18N
                     new Integer(count).toString(),
@@ -144,7 +141,7 @@ public class Pool {
             wait(waitMillis);
         }
         if (timeouts >= waitNumber) {
-            throw new JDOUserException(
+            throw new RuntimeException(
                 msg.msg("EXC_PoolGetTimeout")); // NOI18N
         }
         rc = stack.pop();

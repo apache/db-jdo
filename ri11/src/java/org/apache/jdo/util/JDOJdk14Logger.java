@@ -24,8 +24,6 @@ import java.security.PrivilegedAction;
 
 import java.util.logging.LogManager;
 
-import javax.jdo.JDOFatalUserException;
-
 import org.apache.commons.logging.impl.Jdk14Logger;
 
 /**
@@ -77,14 +75,14 @@ public class JDOJdk14Logger
                     return null;
                 }
                 catch (IOException ex) {
-                    throw new JDOFatalUserException(
+                    throw new RuntimeException(
                         msg.msg("EXC_LoggerSetupIOException", //NOI18N
-                                PROPERIES_FILE), ex); 
+                                PROPERIES_FILE) + ex); 
                 }
                 catch (SecurityException ex) {
-                    throw new JDOFatalUserException(
+                    throw new RuntimeException(
                         msg.msg("EXC_LoggerSetupSecurityException", // NOI18N
-                                PROPERIES_FILE), ex);
+                                PROPERIES_FILE) + ex);
                 }
             }
             });

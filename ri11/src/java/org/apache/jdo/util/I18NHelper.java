@@ -21,12 +21,10 @@ import java.text.MessageFormat;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-import javax.jdo.JDOFatalInternalException;
-
 /** Helper class for constructing messages from bundles.  The intended usage
  * of this class is to construct a new instance bound to a bundle, as in
  * <P>
- * <code>I18NHelper msg = I18NHelper.getInstance("javax.jdo.Bundle");</code>
+ * <code>I18NHelper msg = I18NHelper.getInstance("org.apache.jdo.util.jdo.Bundle");</code>
  * <P>
  * This call uses the class loader that loaded the I18NHelper class to find
  * the specified Bundle. The class provides two overloaded getInstance
@@ -229,14 +227,14 @@ public class I18NHelper {
     /** Assert resources available
      * @param key the message key 
      * @since 1.0.2
-     * @throws JDOFatalInternalException if the resource bundle could not
+     * @throws RuntimeException if the resource bundle could not
      * be loaded during construction.
      */
     private void assertBundle (String key) {
         if (failure != null)
-            throw new JDOFatalInternalException (
+            throw new RuntimeException (
                 "No resources could be found to annotate error message key:\"" + 
-                key + "\"", failure);
+                key + "\" " + failure);
     }
 
     /**

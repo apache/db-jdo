@@ -31,9 +31,6 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-
-import javax.jdo.JDOException;
-
 /**
  * Helper class to handle properties object with version number and vendor name.
  *
@@ -98,7 +95,7 @@ public class JDORIVersion {
             temp_properties.load(in);
             in.close();
         } catch (java.io.IOException e) {
-            throw new JDOException(null, e);
+            throw new RuntimeException(e.toString());
         }
     
         _properties = new Properties();
