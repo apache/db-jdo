@@ -31,25 +31,13 @@
 
     <goal name="build">
         <attainGoal name="default"/>
+        <attainGoal name="runtck.jdori"/>
     </goal>
 
     <goal name="rebuild">
         <attainGoal name="clean"/>
         <attainGoal name="build"/>
     </goal>
-
-    <postGoal name="test:prepare-filesystem">
-        <mkdir dir="${jdo.tck.testdir}"/>
-    </postGoal>
-
-    <preGoal name="test:test">
-    <!-- jdorienhance needs to be fixed to work like enhance (jdo-4)
-        <attainGoal name="jdorienhance"/>
-    -->
-        <attainGoal name="enhance"/>
-        <attainGoal name="database"/>
-        <echo>Run JDO TCK with configuration ${jdo.tck.configuration}</echo>
-    </preGoal>
 
     <goal name="clobber" prereqs="clean">
         <delete>
@@ -61,15 +49,15 @@
     <!-- Running test cases -->
     <!-- ================== -->
 
-
-    <goal name="runtck" prereqs="enhance, testrunner.set, database, copyloggingprops">
-        <echo>Run JDO TCK with configuration ${jdo.tck.configuration}</echo>
+    <goal name="runtck" prereqs="java:compile, enhance, testrunner.set, database, copyloggingprops">
+        <echo>Run JDO TCK on the IUT with configuration ${jdo.tck.configuration}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="${jdo.tck.testrunnerclass}">
             <classpath refid="project.class.path"/>
             <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
             <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties" value="${iut.runtck.properties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.testclasses}"/>
         </java>
@@ -78,17 +66,51 @@
     <!-- Run a single tck test. The property testcase defines the name of -->
     <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
     <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
-    <goal name="runtck.single" prereqs="enhance, testrunner.set, database, copyloggingprops">
-        <echo>Run tck test org.apache.jdo.tck.${test} with configuration ${jdo.tck.configuration}</echo>
+    <goal name="runtck.single" prereqs="java:compile, enhance, testrunner.set, database, copyloggingprops">
+        <echo>Run TCK test org.apache.jdo.tck.${test} on the IUT with configuration ${jdo.tck.configuration}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="org.apache.jdo.tck.${test}">
             <classpath refid="project.class.path"/>
             <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
             <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties" value="${iut.runtck.properties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
         </java>
     </goal>
+
+    <goal name="runtck.jdori" prereqs="java:compile, jdorienhance, database, copyloggingprops">
+        <echo>Run JDO TCK on the RI with configuration ${jdo.tck.configuration}</echo>
+        <j:set var="jdo.tck.testrunnerclass" value="org.apache.jdo.tck.util.BatchTestRunner"/>
+        <java fork="yes" dir="${jdo.tck.testdir}" 
+              classname="${jdo.tck.testrunnerclass}">
+            <classpath refid="jdori.class.path"/>
+            <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
+            <sysproperty key="verbose" value="${verbose}"/>
+            <sysproperty key="PMFProperties" value="${basedir}/test/conf/jdori.properties"/>
+            <sysproperty key="PMF2Properties" value="${basedir}/test/conf/jdori.properties"/>
+            <jvmarg line="${database.runtck.sysproperties}"/>
+            <arg line="${jdo.tck.alltests}"/>
+        </java>
+    </goal>
+
+    <!-- Run a single tck test. The property testcase defines the name of -->
+    <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
+    <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
+    <goal name="runtck.jdorisingle" prereqs="java:compile, jdorienhance, database, copyloggingprops">
+        <echo>Run TCK test org.apache.jdo.tck.${test} on the RI with configuration ${jdo.tck.configuration}</echo>
+        <java fork="yes" dir="${jdo.tck.testdir}" 
+              classname="org.apache.jdo.tck.${test}">
+            <classpath refid="jdori.class.path"/>
+            <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
+            <sysproperty key="verbose" value="${verbose}"/>
+            <sysproperty key="PMFProperties" value="${basedir}/test/conf/jdori.properties"/>
+            <sysproperty key="PMF2Properties" value="${basedir}/test/conf/jdori.properties"/>
+            <jvmarg line="${database.runtck.sysproperties}"/>
+            <arg line="${jdo.tck.alltests}"/>
+        </java>
+    </goal>
+
 
     <!-- ================ -->
     <!-- Enhancer support -->
@@ -189,22 +211,94 @@
         <delete dir="${iut.enhanced.dir}/org"/>
     </postGoal>
 
-    <preGoal name="jdorienhance">
-        <copy todir="${jdo.tck.testclasses.dir}">
-            <fileset dir="${basedir}/test/jdo/datastoreidentity" 
-                 includes="**/*jdoTest.properties, **/*.jdo"/>
-        </copy>
+    <goal name="jdorienhance">
+        <attainGoal name="jdorienhance.applicationidentity"/> 
+        <attainGoal name="jdorienhance.datastoreidentity"/>
+    </goal>
+
+    <preGoal name="jdorienhance.applicationidentity">
+        <condition property="enhancement.required">
+            <not>
+                <uptodate targetfile="${jdori.enhanced.dir}/applicationidentity.jar">
+                    <srcfiles dir="${basedir}/test/jdo/applicationidentity"
+                              includes="org/apache/jdo/tck/pc/**/*.jdo, 
+                                        org/apache/jdo/tck/pc/**/*.orm, 
+                                        org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                    <srcfiles dir="${basedir}/test/java"
+                              includes="${jdo.tck.pcclasses.sources}
+                                        ${jdo.tck.paclasses.sources}"/>
+                </uptodate>
+            </not>
+        </condition>
     </preGoal>
 
-    <goal name="jdorienhance">
-        <echo>Run JDORI enhancer</echo>
-        <java fork="yes" failonerror="yes" dir="${jdo.tck.testclasses.dir}"
+    <goal name="jdorienhance.applicationidentity">
+        <j:if test="${enhancement.required}">
+            <j:set var="identitytype" value="applicationidentity"/>
+            <attainGoal name="enhance.run"/>
+        </j:if>
+    </goal>
+
+    <preGoal name="jdorienhance.datastoreidentity">
+        <condition property="enhancement.required">
+            <not>
+                <uptodate targetfile="${jdo.enhanced.dir}/datastoreidentity.jar">
+                    <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
+                              includes="org/apache/jdo/tck/pc/**/*.jdo, 
+                                        org/apache/jdo/tck/pc/**/*.orm, 
+                                        org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                    <srcfiles dir="${basedir}/test/java"
+                              includes="${jdo.tck.pcclasses.sources}
+                                        ${jdo.tck.paclasses.sources}"/>
+                </uptodate>
+            </not>
+        </condition>
+    </preGoal>
+
+    <goal name="jdorienhance.datastoreidentity">
+        <j:if test="${enhancement.required}">
+            <j:set var="identitytype" value="datastoreidentity"/>
+            <attainGoal name="enhance.run"/>
+        </j:if>
+    </goal>
+
+    <preGoal name="jdorienhance.run">
+        <!-- copy metadata -->
+        <copy todir="${jdo.enhanced.dir}">
+            <fileset dir="${basedir}/test/jdo/${identitytype}"
+                     includes="**/*.jdo, **/*.jdoTest.properties"/>
+            <fileset dir="${basedir}/test/orm/${identitytype}"
+                     includes="**/*.orm, **/*.jdoTest.properties"/>
+        </copy>
+        <!-- compile pc and pa classes -->
+        <javac srcdir="${basedir}/test/java"
+           includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
+           destdir="${jdo.enhanced.dir}"
+           debug="on"
+           classpathref="project.class.path">
+        </javac>
+    </preGoal>
+
+    <goal name="jdorienhance.run">
+        <echo>Run IUT enhancer</echo>
+        <java fork="yes" failonerror="yes" 
+              dir="${jdo.enhanced.dir}"
               classname="${jdo.enhancer.main}"
-              classpath="${jdo.enhancer.classpath}">
+              classpathref="enhance.class.path">
+             <jvmarg line="${jdo.enhancer.sysproperties}"/>
              <arg line="${jdo.enhancer.options}"/>
              <arg line="${jdo.enhancer.args}"/>
         </java>
     </goal>
+
+    <postGoal name="jdorienhance.run">
+        <delete file="${jdo.enhanced.dir}/${identitytype}.jar"/>
+        <jar jarfile="${jdo.enhanced.dir}/${identitytype}.jar">
+            <fileset dir="${jdo.enhanced.dir}" 
+                 includes="**/*.class, **/*.jdo, **/*.orm, **/jdoTest.properties"/>
+        </jar>
+        <delete dir="${jdo.enhanced.dir}/org"/>
+    </postGoal>
 
     <!-- ========= -->
     <!-- Classpath -->
@@ -236,12 +330,11 @@
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
-        <pathelement location="${jdo.jdobtree.jarfile}" />
-        <pathelement location="${antlr.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
+        <pathelement location="${derby.jarfile}" />
     </path>
 
     <!-- Paths needed for enhancement.  Must not include
@@ -256,12 +349,33 @@
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
-        <pathelement location="${jdo.jdobtree.jarfile}" />
-        <pathelement location="${antlr.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
+    </path>
+
+    <path id="jdori.class.path">
+        <!-- Directory where jdori enhanced class files are located  -->
+        <pathelement location="${iut.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
+        <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <!--
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        -->
+        <pathelement location="${jta.jarfile}" />
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
+        <!-- Spring jar files -->
+        <pathelement location="${spring.jarfile}"/>
+        <pathelement location="${logging.jarfile}"/>
+        <!-- Jar files for the reference implementation -->
+        <pathelement location="${jpox.jdori.jarfile}" />
+        <pathelement location="${xmlparser}" />
+        <pathelement location="${bcel.jarfile}" />
+        <pathelement location="${log4j.jarfile}" />
+        <pathelement location="${derby.jarfile}" />
     </path>
 
     <!-- ==== -->
@@ -269,9 +383,19 @@
     <!-- ==== -->
 
     <goal name="database">
-        <mkdir dir="${jdo.tck.testdir}/database" />
+        <delete dir="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
+        <mkdir dir="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
+        <java classname="org.apache.derby.tools.ij" fork="true">
+              <classpath>
+                  <pathelement location="${derbytools.jarfile}"/>
+                  <pathelement location="${derby.jarfile}"/>
+              </classpath>
+              <arg value="${basedir}/test/sql/${jdo.tck.database}/${jdo.tck.schema}"/>
+              <sysproperty key="derby.system.home"
+                           value="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
+        </java>
     </goal>
-    
+
     <goal name="testrunner.set">
        <condition property="jdo.tck.testrunnerclass" 
                   value="org.apache.jdo.tck.util.SwingTestRunner">

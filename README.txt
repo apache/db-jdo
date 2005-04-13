@@ -46,9 +46,10 @@ repository:
   cp jpox-enhancer-1.1.0-beta-2.jar $HOME/.maven/repository/jpox/jars
 
 - derby
-To use Derby as the datastore for tck20, download it from
-http://incubator.apache.org/derby/derby_downloads.html and place derby.jar
-and derbytools.jar in tck20/iut_jars.
+To use Derby as the datastore for tck20, download version 10.0.2.1 from
+http://incubator.apache.org/derby/derby_downloads.html and add derby.jar
+and derbytools.jar your maven repository. Rename them to include the version
+number: derby-10.0.2.1.jar and derby-tools-10.0.2.1.jar.
 
 -------
 Remarks
@@ -128,13 +129,9 @@ capable classes in org.apache.jdo.tck.pc.mylib run without error.
 
 - Select test configuration (application or datastore) in project.properties, as described above.
 
-- Copy derby.jar and derbytools.jar to test/iut_jars.
+- Run "maven build" to build the tck.  This will run all the tests.
 
-- Edit tck20/test/sql/derby/createdb.sh to select the schema corresponding to the configuration you selected and edit DBPATH and BASEPATH.  Then run createdb.sh to create a Derby database.
-
-- Run "maven build" to build the tck.  This will run all the tests. [Currently not implemented. Proceed to next step to run the tests.]
-
-- Run "maven runtck" to run all tests or "maven -Dtest=<test name> runtck.single to run one test, e.g. transactions.Commit.
+- Run "maven runtck.jdori" to run all tests or "maven -Dtest=<test name> runtck.jdorisingle to run one test, e.g. transactions.Commit.
 
 (6) Logging
 Apache JDO uses the apache commons logging package for logging.
