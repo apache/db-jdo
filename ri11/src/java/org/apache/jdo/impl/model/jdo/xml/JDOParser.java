@@ -34,9 +34,6 @@ import org.apache.jdo.util.I18NHelper;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
-import javax.jdo.JDOFatalInternalException;
-
-
 /**
  * The class reads XML documents according to specified DTD and
  * translates all related events into JDOHandler events.
@@ -301,7 +298,7 @@ public class JDOParser
                          }
                      );
                     if (stream == null) {
-                        throw new JDOFatalInternalException(
+                        throw new RuntimeException(
                             msg.msg("EXC_MissingJDODTD", //NOI18N
                                 publicId, systemId)); 
                     }

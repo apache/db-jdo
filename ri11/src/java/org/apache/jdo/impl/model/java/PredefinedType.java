@@ -50,7 +50,7 @@ import org.apache.jdo.model.java.JavaType;
  * @since JDO 1.0.1
  */
 public class PredefinedType
-    extends ReflectionJavaType
+    extends BaseReflectionJavaType
 {
     /** Map of all predefined types. */
     private static final Map predefinedTypes = new HashMap();

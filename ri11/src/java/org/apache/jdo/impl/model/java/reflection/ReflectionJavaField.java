@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.impl.model.java.runtime;
+package org.apache.jdo.impl.model.java.reflection;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.lang.reflect.Field;
 
-import org.apache.jdo.impl.model.java.ReflectionJavaField;
+import org.apache.jdo.impl.model.java.BaseReflectionJavaField;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOField;
 import org.apache.jdo.util.I18NHelper;
-
-
-
-
 
 /**
  * A reflection based JavaField implementation used at runtime.  
@@ -37,23 +33,13 @@ import org.apache.jdo.util.I18NHelper;
  * to get Java related metadata about fields. 
  * 
  * @author Michael Bouschen
- * @since JDO 1.0.1
+ * @since JDO 1.1
  */
-public class RuntimeJavaField
-    extends ReflectionJavaField
+public class ReflectionJavaField
+    extends BaseReflectionJavaField
 {
     /** The corresponding JDO metadata. */
     protected JDOField jdoField;
-
-    /** JavaModelFactory */
-    private static final RuntimeJavaModelFactory javaModelFactory =
-        (RuntimeJavaModelFactory) AccessController.doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
-                    return RuntimeJavaModelFactory.getInstance();
-                }
-            }
-        );
 
     /** I18N support */
     private final static I18NHelper msg =  
@@ -64,10 +50,10 @@ public class RuntimeJavaField
      * @param field the reflection field representation.
      * @param declaringClass the JavaType of the class that declares the field.
      */
-    public RuntimeJavaField(Field field, JavaType declaringClass)
+    public ReflectionJavaField(Field field, JavaType declaringClass)
     {
         super(field, declaringClass);
-        this.type = javaModelFactory.getJavaType(field.getType());
+        this.type = getJavaTypeInternal(field.getType());
     }
     
     /** 
@@ -76,7 +62,7 @@ public class RuntimeJavaField
      * @param jdoField the JDO field metadata.
      * @param declaringClass the JavaType of the class that declares the field.
      */
-    public RuntimeJavaField(JDOField jdoField, JavaType declaringClass)
+    public ReflectionJavaField(JDOField jdoField, JavaType declaringClass)
     {
         this(jdoField, null, declaringClass);
     }
@@ -87,13 +73,13 @@ public class RuntimeJavaField
      * @param type the field type.
      * @param declaringClass the JavaType of the class that declares the field.
      */
-    public RuntimeJavaField(JDOField jdoField, JavaType type, JavaType declaringClass)
+    public ReflectionJavaField(JDOField jdoField, JavaType type, JavaType declaringClass)
     {
         super((jdoField == null) ? null : jdoField.getName(), declaringClass);
         if (jdoField == null)
             throw new ModelFatalException(msg.msg(
                 "ERR_InvalidNullFieldInstance", //NOI18N
-                "RuntimeJavaField.<init>")); //NOI18N
+                "ReflectionJavaField.<init>")); //NOI18N
         this.jdoField = jdoField;
         this.type = type;
     }
@@ -105,7 +91,7 @@ public class RuntimeJavaField
     public JavaType getType()
     {
         if (type == null) {
-            type = javaModelFactory.getJavaType(getField().getType());
+            type = getJavaTypeInternal(getField().getType());
         }
         return type;
     }
@@ -125,4 +111,20 @@ public class RuntimeJavaField
     {
         return jdoField;
     }
+
+    // ===== Methods not defined in JavaField =====
+
+    /** 
+     * Returns a JavaType instance for the specified Class object. 
+     * This method provides a hook such that ReflectionJavaField subclasses can
+     * implement their own mapping of Class objects to JavaType instances. 
+     */
+    protected JavaType getJavaTypeInternal(Class clazz)
+    {
+        return ((ReflectionJavaType)getDeclaringClass()).getJavaTypeInternal(clazz);
+    }
+    
+
+    
 }
+

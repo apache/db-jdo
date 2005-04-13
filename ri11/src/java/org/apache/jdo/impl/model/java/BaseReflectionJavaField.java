@@ -31,15 +31,15 @@ import org.apache.jdo.util.I18NHelper;
  * This class provides a basic JavaField implementation using a reflection
  * Field instance. The implementation supports lazy initialization of the
  * wrapped reflection field instance (see 
- * {@link #ReflectionJavaField(String fieldName, JavaType declaringClass)}.
+ * {@link #BaseReflectionJavaField(String fieldName, JavaType declaringClass)}.
  * <p>
  * Note, this implementation is not connected to a JavaModelFactory, thus
  * it can only support predefined types as field types.
  * @see PredefinedType
  * @author Michael Bouschen
- * @since JDO 1.0.1
+ * @since JDO 1.1
  */
-public class ReflectionJavaField
+public class BaseReflectionJavaField
     extends AbstractJavaField
 {
     /** The wrapped java.lang.reflect.Field instance. */
@@ -50,7 +50,7 @@ public class ReflectionJavaField
 
     /** I18N support */
     private final static I18NHelper msg = 
-        I18NHelper.getInstance(ReflectionJavaField.class);
+        I18NHelper.getInstance(BaseReflectionJavaField.class);
 
     /** 
      * Constructor taking a reflection field representation. The specifie
@@ -58,12 +58,12 @@ public class ReflectionJavaField
      * @param field the java.lang.reflect.Field instance
      * @param declaringClass the JavaType of the declaring class or interface.
      */
-    protected ReflectionJavaField(Field field, JavaType declaringClass)
+    protected BaseReflectionJavaField(Field field, JavaType declaringClass)
     {
         super((field == null) ? null : field.getName(), declaringClass);
         if (field == null)
             throw new ModelFatalException(msg.msg(
-                "ERR_InvalidNullFieldInstance", "ReflectionJavaField.<init>")); //NOI18N
+                "ERR_InvalidNullFieldInstance", "BaseReflectionJavaField.<init>")); //NOI18N
         this.field = field;
     }
     
@@ -73,7 +73,7 @@ public class ReflectionJavaField
      * @param fieldName the name of the field.
      * @param declaringClass the JavaType of the declaring class or interface.
      */
-    protected ReflectionJavaField(String fieldName, JavaType declaringClass)
+    protected BaseReflectionJavaField(String fieldName, JavaType declaringClass)
     {
         super(fieldName, declaringClass);
     }
@@ -164,12 +164,12 @@ public class ReflectionJavaField
     {
         if (this.field == null) {
             this.field = getDeclaredFieldPrivileged(
-                ((ReflectionJavaType)getDeclaringClass()).getJavaClass(),
+                ((BaseReflectionJavaType)getDeclaringClass()).getJavaClass(),
                 getName());
             if (field == null) {
                 throw new ModelFatalException(msg.msg(
                     "ERR_MissingFieldInstance", //NOI18N
-                    "ReflectionJavaField.ensureInitializedField", getName())); //NOI18N
+                    "BaseReflectionJavaField.ensureInitializedField", getName())); //NOI18N
             }
         }
     }

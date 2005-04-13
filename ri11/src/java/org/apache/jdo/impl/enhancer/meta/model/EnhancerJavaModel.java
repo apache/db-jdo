@@ -19,7 +19,7 @@ package org.apache.jdo.impl.enhancer.meta.model;
 import java.io.InputStream;
 
 import org.apache.jdo.impl.enhancer.util.ResourceLocator;
-import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModel;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModel;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModel;
 
@@ -30,7 +30,7 @@ import org.apache.jdo.model.jdo.JDOModel;
  * @author Martin Zaun
  */
 public class EnhancerJavaModel
-    extends RuntimeJavaModel
+    extends ReflectionJavaModel
 {
     /**
      * The "package" jdo file.
@@ -71,7 +71,7 @@ public class EnhancerJavaModel
      * @param clazz the Class instance representing the type
      * @return a new JavaType instance
      */
-    protected JavaType createJavaType(Class clazz, JDOModel jdoModel)
+    protected JavaType createJavaType(Class clazz)
     {
         return new EnhancerJavaType(clazz, getJDOModel(), this);
     }

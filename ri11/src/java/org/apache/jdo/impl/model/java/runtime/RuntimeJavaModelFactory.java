@@ -30,7 +30,7 @@ import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModelFactory;
 import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
-import org.apache.jdo.impl.model.java.ReflectionJavaType;
+import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
 import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.util.I18NHelper;
 
@@ -255,7 +255,7 @@ public class RuntimeJavaModelFactory
             return null;
         
         try {
-            return ((ReflectionJavaType)javaType).getJavaClass();
+            return ((BaseReflectionJavaType)javaType).getJavaClass();
         }
         catch (ClassCastException ex) {
             throw new ModelFatalException(msg.msg(

@@ -38,7 +38,7 @@ import javax.jdo.spi.PersistenceCapable;
 import org.apache.jdo.impl.model.java.ErrorType;
 import org.apache.jdo.impl.model.java.PredefinedType;
 import org.apache.jdo.impl.model.java.WrapperClassType;
-import org.apache.jdo.impl.model.java.runtime.RuntimeJavaField;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaField;
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModelFactory;
 import org.apache.jdo.jdoql.JDOQueryException;
 import org.apache.jdo.model.ModelFatalException;
@@ -404,7 +404,7 @@ public class TypeSupport
         Class clazz = javaModelFactory.getJavaClass(javaField.getDeclaringClass());
         String fieldName = javaField.getName();
         final Field field = 
-            RuntimeJavaField.getDeclaredFieldPrivileged(clazz, fieldName);
+            ReflectionJavaField.getDeclaredFieldPrivileged(clazz, fieldName);
         if (field == null) {
             throw new JDOQueryException( 
                 msg.msg("EXC_CannotFindField", //NOI18N

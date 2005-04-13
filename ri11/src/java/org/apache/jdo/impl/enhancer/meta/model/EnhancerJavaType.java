@@ -17,7 +17,7 @@
 package org.apache.jdo.impl.enhancer.meta.model;
 
 import org.apache.jdo.impl.enhancer.meta.EnhancerMetaDataFatalError;
-import org.apache.jdo.impl.model.java.runtime.RuntimeJavaType;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaType;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModel;
@@ -31,7 +31,7 @@ import org.apache.jdo.model.jdo.JDOModel;
  * @since JDO 1.0.1
  */
 public class EnhancerJavaType
-    extends RuntimeJavaType
+    extends ReflectionJavaType
 {
     /** The declaring EnhancerJavaModel instance. */
     private JavaModel javaModel = null;

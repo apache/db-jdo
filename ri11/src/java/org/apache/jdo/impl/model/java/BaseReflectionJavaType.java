@@ -29,17 +29,17 @@ import org.apache.jdo.util.I18NHelper;
  * This class provides a basic JavaType implementation using a reflection
  * Class instance.
  * <p> 
- * Note, ReflectionJavaType must not be used for array types, since it inherits
+ * Note, BaseReflectionJavaType must not be used for array types, since it inherits
  * the default implemention of methods isArray and getArrayComponentType
  * from its superclass AbstractJavaType.
  * 
  * @author Michael Bouschen
- * @since JDO 1.0.1
+ * @since JDO 1.1
  */
-public class ReflectionJavaType
+public class BaseReflectionJavaType
     extends AbstractJavaType
 {
-    /** The java.lang.Class instance for this ReflectionJavaType. */
+    /** The java.lang.Class instance for this BaseReflectionJavaType. */
     protected Class clazz;
 
     /** The superclass JavaType. */
@@ -47,7 +47,7 @@ public class ReflectionJavaType
 
     /** I18N support */
     private static I18NHelper msg = 
-        I18NHelper.getInstance(ReflectionJavaType.class);
+        I18NHelper.getInstance(BaseReflectionJavaType.class);
 
     /**
      * Constructor. The specified java.lang.Class instance must not be
@@ -55,11 +55,11 @@ public class ReflectionJavaType
      * @param clazz the Class instance representing the type
      * @param superclass JavaType instance representing the superclass.
      */
-    public ReflectionJavaType(Class clazz, JavaType superclass)
+    public BaseReflectionJavaType(Class clazz, JavaType superclass)
     {
         if (clazz == null)
             throw new ModelFatalException(msg.msg(
-                "ERR_InvalidNullClassInstance", "ReflectionJavaType.<init>")); //NOI18N
+                "ERR_InvalidNullClassInstance", "BaseReflectionJavaType.<init>")); //NOI18N
         this.clazz = clazz;
         this.superclass = superclass;
     }
@@ -86,8 +86,8 @@ public class ReflectionJavaType
         if (javaType == null)
             return false;
         
-        if (javaType instanceof ReflectionJavaType) {
-            ReflectionJavaType otherType = (ReflectionJavaType)javaType;
+        if (javaType instanceof BaseReflectionJavaType) {
+            BaseReflectionJavaType otherType = (BaseReflectionJavaType)javaType;
             return otherType.getJavaClass().isAssignableFrom(clazz);
         }
         
@@ -142,9 +142,9 @@ public class ReflectionJavaType
     public JavaField getJavaField(String fieldName) 
     { 
         Field field = 
-            ReflectionJavaField.getDeclaredFieldPrivileged(clazz, fieldName);
+            BaseReflectionJavaField.getDeclaredFieldPrivileged(clazz, fieldName);
         if (field != null) {
-            return new ReflectionJavaField(field, this);
+            return new BaseReflectionJavaField(field, this);
         }
         
         // check superclass, if available and other than Object
