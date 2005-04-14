@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
+<!--
+This file contains the schema information when an implementation
+has datastore identity.
+-->
 <jdo>
     <package name="org.apache.jdo.tck.pc.company">
 
-        <class name="Address"/>
+        <class name="Address">
+            <field name="addrid" persistence-modifier="none"/>
+            <field name="street"/>
+            <field name="city"/>
+            <field name="state"/>
+            <field name="zipcode"/>
+            <field name="country"/>
+        </class>
 
-        <class name="Company">
+        <class name="Company" identity-type="datastore">
+            <field name="name"/>
+            <field name="founded"/>
+            <field name="address"
+                   persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Department"/>
             </field>
-            <field name="address" embedded="true"/>                
         </class>
 
-        <class name="DentalInsurance"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.company.Insurance"/>
+        <class name="DentalInsurance" identity-type="datastore"/>
 
-        <class name="Department">
+        <class name="Department" identity-type="datastore">
+            <field name="deptid" persistence-modifier="none"/>
             <field name="employees" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>
@@ -24,8 +38,7 @@
             </field>
         </class>
 
-        <class name="Employee"
-          persistence-capable-superclass="org.apache.jdo.tck.pc.company.Person">
+        <class name="Employee" identity-type="datastore">
             <field name="reviewedProjects" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Project"/>
             </field>
@@ -40,26 +53,28 @@
             </field>
         </class>
 
-        <class name="FullTimeEmployee"
-          persistence-capable-superclass="org.apache.jdo.tck.pc.company.Employee"/>
+        <class name="FullTimeEmployee" identity-type="datastore"/>
 
-        <class name="Insurance"/>
+        <class name="Insurance" identity-type="datastore">
+            <field name="insid" persistence-modifier="none"/>
+        </class>
 
-        <class name="MedicalInsurance"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.company.Insurance"/>
+        <class name="MedicalInsurance" identity-type="datastore"/>
 
-        <class name="PartTimeEmployee"
-          persistence-capable-superclass="org.apache.jdo.tck.pc.company.Employee"/>
+        <class name="PartTimeEmployee" identity-type="datastore"/>
 
-        <class name="Person">
+        <class name="Person" identity-type="datastore">
+            <field name="personid" persistence-modifier="none"/>
             <field name="middlename" default-fetch-group="false"/>
-            <field name="address" embedded="true"/>
+            <field name="address"
+                   persistence-modifier="persistent"/>
 	    <field name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
             </field>
         </class>
 
-        <class name="Project">
+        <class name="Project" identity-type="datastore">
+            <field name="projid" persistence-modifier="none"/>
             <field name="reviewers" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>

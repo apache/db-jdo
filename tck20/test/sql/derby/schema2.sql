@@ -1,5 +1,10 @@
 -- SchemaType: datastore-identity strategy="identity"
+
 connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+
+-------------------------
+-- mylib
+-------------------------
 CREATE TABLE PCPoint (
     ID BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY,
     X INTEGER NOT NULL,
@@ -51,5 +56,110 @@ CREATE TABLE PrimitiveTypes (
     PrimitiveTypes INTEGER NOT NULL,
     CONSTRAINT PCPNT_PT PRIMARY KEY (ID)
 );
+
+-------------------------
+-- company
+-------------------------
+--CREATE TABLE addresses (
+--    ADDRID INTEGER NOT NULL,
+--    STREET VARCHAR(64) NOT NULL,
+--    CITY VARCHAR(64) NOT NULL,
+--    STATE CHAR(2) NOT NULL,
+--    ZIPCODE CHAR(5) NOT NULL,
+--    COUNTRY VARCHAR(64) NOT NULL,
+--    CONSTRAINT ADDR_PK PRIMARY KEY (ID)
+--);
+
+CREATE TABLE companies (
+    ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    NAME VARCHAR(32) NOT NULL,
+    FOUNDEDDATE VARCHAR(32) NOT NULL,
+    STREET VARCHAR(64) NOT NULL,
+    CITY VARCHAR(64) NOT NULL,
+    STATE CHAR(2) NOT NULL,
+    ZIPCODE CHAR(5) NOT NULL,
+    COUNTRY VARCHAR(64) NOT NULL,
+    CONSTRAINT COMPS_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE departments (
+    ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    NAME VARCHAR(32) NOT NULL,
+    COMPANYID INTEGER REFERENCES COMPANIES NOT NULL,
+    CONSTRAINT DEPTS_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE persons (
+    PERSONID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    FIRSTNAME VARCHAR(32) NOT NULL,
+    LASTNAME VARCHAR(32) NOT NULL,
+    MIDDLENAME VARCHAR(32),
+    BIRTHDATE VARCHAR(32) NOT NULL,
+    STREET VARCHAR(64) NOT NULL,
+    CITY VARCHAR(64) NOT NULL,
+    STATE CHAR(2) NOT NULL,
+    ZIPCODE CHAR(5) NOT NULL,
+    COUNTRY VARCHAR(64) NOT NULL,
+    HIREDATE VARCHAR(32) NOT NULL,
+    WEEKLYHOURS FLOAT NOT NULL,
+    DEPARTMENT INTEGER REFERENCES departments NOT NULL,
+    FUNDINGdEPT INTEGER REFERENCES departments NOT NULL,
+    MANAGER INTEGER REFERENCES persons NOT NULL,
+    MENTOR INTEGER REFERENCES persons NOT NULL,
+    HRADVISOR INTEGER REFERENCES persons NOT NULL,
+    SALARY FLOAT NOT NULL,
+    WAGE FLOAT NOT NULL,
+    DISCRIMINATOR varchar(64) NOT NULL,
+    CONSTRAINT EMPS_PK PRIMARY KEY (PERSONID)
+);
+
+CREATE TABLE insuranceplans (
+    INSID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    CARRIER VARCHAR(64) NOT NULL,
+    LIFETIME_ORTHO_BENEFIT DECIMAL NOT NULL,
+    PLANtYPE VARCHAR(8) NOT NULL,
+    DISCRIMINATOR VARCHAR(64) NOT NULL,
+    EMPLOYEE INTEGER REFERENCES persons,
+    CONSTRAINT INS_PK PRIMARY KEY (INSID)
+);
+
+CREATE TABLE projects (
+    PROJID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    NAME VARCHAR(32) NOT NULL,
+    BUDGET DECIMAL NOT NULL,
+    CONSTRAINT PROJS_PK PRIMARY KEY (PROJID)
+);
+
+CREATE TABLE project_reviewer (
+    projid INTEGER REFERENCES projects NOT NULL,
+    reviewer INTEGER REFERENCES persons NOT NULL
+);
+
+CREATE TABLE project_member (
+    projid INTEGER REFERENCES projects NOT NULL,
+    member INTEGER REFERENCES persons NOT NULL
+);
+
+CREATE TABLE employee_phoneno_type (
+    empid INTEGER REFERENCES persons NOT NULL,
+    phoneno VARCHAR(16) NOT NULL,
+    type VARCHAR(16) NOT NULL
+);
+
+-------------------------
+--fieldtypes
+-------------------------
+
+-------------------------
+--inheritance
+-------------------------
+
+-------------------------
+--instancecallbacks
+-------------------------
+
+-------------------------
+--lifecycle
+-------------------------
 
 disconnect;
