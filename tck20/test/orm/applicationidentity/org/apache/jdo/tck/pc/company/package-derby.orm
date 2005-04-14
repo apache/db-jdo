@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<!--
+This file contains the schema information when an implementation
+has application identity.
+-->
+<orm>
+    <package name="org.apache.jdo.tck.pc.company">
+
+        <class name="Address">
+            <field name="street"/>
+            <field name="city"/>
+            <field name="state"/>
+            <field name="zipcode"/>
+            <field name="country"/>
+        </class>
+
+        <class name="Company" table="companies">
+            <field name="companyid" column="ID" primary-key="true"/>
+            <field name="name" column="NAME"/>
+            <field name="founded" column="FOUNDEDDATE"/>
+            <field name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="departments" mapped-by="company"/>
+        </class>
+
+        <class name="Department" table="departments">
+            <field name="deptid" column="ID" primary-key="true"/>
+            <field name="name" column="NAME"/>
+            <field name="company" column="COMPANYID"/>
+            <field name="employees" mapped-by="DEPARTMENT"/>
+            <field name="fundedEmps" mapped-by="FUNDINGDEPt"/>
+        </class>
+
+        <class name="PartTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="wage" column="WAGE"/>
+        </class>
+
+        <class name="FullTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="salary" column="SALARY"/>
+        </class>
+
+        <class name="Employee">
+            <inheritance strategy="superclass-table"/>
+            <field name="hiredate" column="HIREDATE"/>
+            <field name="weeklyhours" column="WEEKLYHOURS"/>
+            <field name="dentalInsurance" mapped-by="employee"/>
+            <field name="medicalInsurance" mapped-by="employee"/>
+            <field name="department" column="DEPARTMENT">
+                        <foreign-key/>
+            </field>
+            <field name="fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </field>
+            <field name="manager" column="MANAGER">
+                        <foreign-key/>
+            </field>
+            <field name="mentor" column="MENTOR">
+                        <foreign-key/>
+            </field>
+            <field name="protege" column="PROTEGE">
+                        <foreign-key/>
+            </field>
+            <field name="hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </field>
+            <field name="reviewedProjects" mapped-by="reviewers"/>
+            <field name="projects" mapped-by="members"/>
+            <field name="team" mapped-by="manager"/>
+            <field name="hradvisees" mapped-by="hradvisor"/>
+        </class>
+
+        <class name="Person" table="persons">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="personid" column="PERSONID" primary-key="true"/>
+            <field name="firstname" column="FIRSTNAME"/>
+            <field name="lastname" column="LASTNAME"/>
+            <field name="middlename" column="MIDDLENAME"/>
+            <field name="address">
+                <embedded>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="phoneNumbers" table="employee_phoneno_type" >
+                <join column="PERSONID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </field>
+        </class>
+
+        <class name="Insurance" table="insuranceplans">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="insid" column="INSID" primary-key="true"/>
+            <field name="carrier" column="CARRIER"/>
+            <field name="employee" column="EMPID">
+                 <foreign-key/>
+            </field>
+        </class>
+
+        <class name="DentalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <field name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
+        </class>
+
+        <class name="MedicalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <field name="planType" column="PLANTYPE"/>
+        </class>
+
+        <class name="Project" table="projects">
+            <field name="projid" column="PROJID" primary-key="true"/>
+            <field name="name" column="NAME"/>
+            <field name="budget" column="BUDGET"/>
+            <field name="reviewers" table="project_reviewer">
+                <join column="PROJID"/>
+                <element column="REVIEWER"/>
+            </field>
+            <field name="members" table="project_member">
+                <join column="PROJID"/>
+                <element column="MEMBER"/>
+            </field>
+        </class>
+    </package>
+</orm>
