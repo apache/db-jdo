@@ -32,7 +32,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents information about a company.
  */
 public class Company 
-    implements Serializable, Comparable, DeepEquality {
+    implements Serializable, Comparable, DeepEquality, ICompany {
 
     private long        companyid;
     private String      name;
@@ -63,6 +63,15 @@ public class Company
      */
     public long getCompanyid() {
         return companyid;
+    }
+    
+    /** 
+     * Set the company id. This is only for the interface and should
+     * not normally be used.
+     * @param companyid the id
+     */
+    public void setCompanyid(long companyid) {
+        this.companyid = companyid;
     }
 
     /**
@@ -171,12 +180,12 @@ public class Company
      */
     public boolean deepCompareFields(DeepEquality other, 
                                      EqualityHelper helper) {
-        Company otherCompany = (Company)other;
-        return (companyid == otherCompany.companyid) &&
-            helper.equals(name, otherCompany.name) &&
-            helper.equals(founded, otherCompany.founded) &&
-            helper.deepEquals(address, otherCompany.address) &&
-            helper.deepEquals(departments, otherCompany.departments);
+        ICompany otherCompany = (ICompany)other;
+        return (companyid == otherCompany.getCompanyid()) &&
+            helper.equals(name, otherCompany.getName()) &&
+            helper.equals(founded, otherCompany.getFounded()) &&
+            helper.deepEquals(address, otherCompany.getAddress()) &&
+            helper.deepEquals(departments, otherCompany.getDepartments());
     }
     
     /** 
@@ -190,7 +199,7 @@ public class Company
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Company)o);
+        return compareTo((ICompany)o);
     }
 
     /** 
@@ -203,8 +212,8 @@ public class Company
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(Company other) {
-        long otherId = other.companyid;
+    public int compareTo(ICompany other) {
+        long otherId = other.getCompanyid();
         return (companyid < otherId ? -1 : (companyid == otherId ? 0 : 1));
     }
     
@@ -215,8 +224,8 @@ public class Company
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Company) {
-            return compareTo((Company)obj) == 0;
+        if (obj instanceof ICompany) {
+            return compareTo((ICompany)obj) == 0;
         }
         return false;
     }
