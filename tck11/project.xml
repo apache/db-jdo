@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
     Copyright 2005 The Apache Software Foundation
@@ -36,6 +36,11 @@ Request 12 JSR 12 under the auspices of the Java Community Process.
 The JDO TCK is a test suite designed to test implementations of the Java Data Objects 
 specification. In order to claim compatibility with JDO, an implementation must pass 
 all relevant tests of the JDOTCK.
+
+NOTE!! This project has a nonstandard structure. 
+The source files are located in the test directory. 
+However the build treats this directory as the source directory.  
+There are no unit tests in this project.
     </description>
     <repository/>
     <!-- ============ -->
@@ -91,47 +96,27 @@ all relevant tests of the JDOTCK.
     <!-- =================== -->
 
     <build>
-        <unitTestSourceDirectory>test/java</unitTestSourceDirectory>
-        <!-- Unit test cases -->
-        <unitTest>
-            <includes>
-                <include>**/*.java</include>
-            </includes>
-            <excludes>
-                <exclude>**/pc/**/*.java</exclude>
-                <exclude>**/util/*.java</exclude>
-                <exclude>**/JDO_Test*.java</exclude>
-                <exclude>**/TestParts.java</exclude>
-                <exclude>**/EnhancerTest.java</exclude>
-                <exclude>**/ExtentTest.java</exclude>
-                <exclude>**/QueryTest.java</exclude>
-                <exclude>**/PersistenceManagerTest.java</exclude>
-                <exclude>**/FirstSetOfTestValuesForCollection.java</exclude>
-                <exclude>**/SecondSetOfTestValuesForCollection.java</exclude>
-                <exclude>**/TestUtil.java</exclude>
-                <exclude>**/ComparisonTests.java</exclude>
-            </excludes>
-            <resources>
-                <resource>
-                    <directory>${basedir}/test/java</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                    </includes>
-                </resource>
-            </resources>
-            <resources>
-                <resource>
-                    <directory>${basedir}/test/conf</directory>
-                    <includes>
-                        <include>JDOTCKTestCases.list</include>
-                        <include>enhancement-test.properties</include>
-                        <include>commons-logging.properties</include>
-                        <include>simplelog.properties</include>
-                        <include>logging.properties</include>
-                    </includes>
-                </resource>
-            </resources>
-        </unitTest>
+        <sourceDirectory>test/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>${basedir}/test/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <resources>
+            <resource>
+                <directory>${basedir}/test/conf</directory>
+                <includes>
+                    <include>JDOTCKTestCases.list</include>
+                    <include>enhancement-test.properties</include>
+                    <include>commons-logging.properties</include>
+                    <include>simplelog.properties</include>
+                    <include>logging.properties</include>
+                </includes>
+            </resource>
+        </resources>
               
     </build>
 </project>
