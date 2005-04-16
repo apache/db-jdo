@@ -25,7 +25,7 @@
     <currentVersion>2.0</currentVersion>
     <package>org.apache.jdo.tck</package>
     <shortDescription>Java Data Object 2.0 (JDO) TCK</shortDescription>
-    <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 12 JSR 12 under the auspices of the Java Community Process.
+    <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request JSR 243 under the auspices of the Java Community Process.
 
 The JDO TCK is a test suite designed to test implementations of the Java Data Objects specification. In order to claim compatibility with JDO, an implementation must pass all relevant tests of the JDOTCK.
 
@@ -37,12 +37,6 @@ NOTE!! This project has a nonstandard structure. The source files are located in
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-            <version>2.7.3</version>
-            <url>http://www.antlr.org/download.html</url>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
@@ -53,14 +47,9 @@ NOTE!! This project has a nonstandard structure. The source files are located in
             <version>1.0.1B-rc2</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo2-api</artifactId>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>jdo</groupId>
-            <artifactId>jdo-btree</artifactId>
-            <version>1.1</version>
+            <version>SNAPSHOT</version>
         </dependency>
         <!-- You must manually download jpox until it is available from ibiblio.org -->
         <dependency>

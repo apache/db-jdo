@@ -56,12 +56,12 @@ Request 12 JSR 12 under the auspices of the Java Community Process.</description
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo1-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo-btree</artifactId>
             <version>SNAPSHOT</version>
         </dependency>

@@ -59,19 +59,19 @@ all relevant tests of the JDOTCK.
             <version>1.0.1B-rc2</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo1-api</artifactId>
-            <version>1.1</version>
+            <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo-btree</artifactId>
-            <version>1.1</version>
+            <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>jdo</groupId>
+            <groupId>apache-jdo</groupId>
             <artifactId>jdo1-ri</artifactId>
-            <version>1.1</version>
+            <version>SNAPSHOT</version>
         </dependency>
         <dependency>
             <id>commons-logging</id>
