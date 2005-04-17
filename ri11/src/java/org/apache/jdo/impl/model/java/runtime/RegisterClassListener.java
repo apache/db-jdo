@@ -165,19 +165,6 @@ public class RegisterClassListener
                                 RuntimeJavaType declaringClass)
         throws ModelException
     {
-        // Set the persistence-modifier. A field mentioned in the runtime 
-        // metadata is a managed field. It is TRANSACTIONAL only if the 
-        // XML metadata explictily defines it as TRANSACTIONAL. 
-        // Check whether the persistence-modifier is already set which might 
-        // happen in the case the XML was read before). 
-        // If yes, leave the value as it is.
-        // If no, set it to PERSISTENT. The persistence-modifier will be 
-        // overwritten by any value explictly defined in the XML.
-        if (jdoField.getPersistenceModifier() == 
-            PersistenceModifier.UNSPECIFIED) {
-            jdoField.setPersistenceModifier(PersistenceModifier.PERSISTENT);
-        }
-        
         // handle JavaField
         JavaField javaField = declaringClass.createJavaField(jdoField, 
             javaModelFactory.getJavaType(fieldType));

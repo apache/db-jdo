@@ -252,9 +252,16 @@ public class JDOFieldImplDynamic
      * @return the corresponding Java field representation
      */
     public JavaField getJavaField() {
-        return javaField;
+        if (javaField != null) {
+            // return java field, if explicitly set by the setter
+            return javaField;
+        }
+        
+        // not set => calculate
+        JavaType javaType = getDeclaringClass().getJavaType();
+        return javaType.getJavaField(getName());
     }
-
+    
     /**
      * Sets the corresponding Java field representation for this JDOField.
      * @param javaField the corresponding Java field representation
@@ -464,7 +471,8 @@ public class JDOFieldImplDynamic
      * @return JavaType representation of the type of this field.
      */
     public JavaType getType() {
-        return (javaField == null) ? null : javaField.getType();
+        JavaField field = getJavaField();
+        return (field == null) ? null : field.getType();
     }
     
     /**

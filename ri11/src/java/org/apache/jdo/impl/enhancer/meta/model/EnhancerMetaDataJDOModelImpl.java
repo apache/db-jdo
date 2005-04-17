@@ -298,10 +298,6 @@ public class EnhancerMetaDataJDOModelImpl
                 affirm(field != null,
                        "cannot create JDO field: "
                        + classPath + "." + fieldName);
-                affirm(field.getPersistenceModifier()
-                       == PersistenceModifier.UNSPECIFIED,
-                       "unknown, specified JDO field: "
-                       + classPath + "." + fieldName);
             }
             field.setJavaField(javaField);
             affirm(fieldType == field.getType());
