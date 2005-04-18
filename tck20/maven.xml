@@ -177,9 +177,9 @@
         <!-- copy metadata -->
         <copy todir="${iut.enhanced.dir}">
             <fileset dir="${basedir}/test/jdo/${identitytype}"
-                     includes="**/*.jdo, **/*.jdoTest.properties"/>
+                     includes="**/*.jdo, **/jdoTest.properties"/>
             <fileset dir="${basedir}/test/orm/${identitytype}"
-                     includes="**/*.orm, **/*.jdoTest.properties"/>
+                     includes="**/*.orm, **/jdoTest.properties"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
@@ -217,9 +217,9 @@
     </goal>
 
     <preGoal name="jdorienhance.applicationidentity">
-        <condition property="enhancement.required">
+        <condition property="jdorienhancement.required">
             <not>
-                <uptodate targetfile="${jdori.enhanced.dir}/applicationidentity.jar">
+                <uptodate targetfile="${jdo.enhanced.dir}/applicationidentity.jar">
                     <srcfiles dir="${basedir}/test/jdo/applicationidentity"
                               includes="org/apache/jdo/tck/pc/**/*.jdo, 
                                         org/apache/jdo/tck/pc/**/*.orm, 
@@ -233,14 +233,14 @@
     </preGoal>
 
     <goal name="jdorienhance.applicationidentity">
-        <j:if test="${enhancement.required}">
+        <j:if test="${jdorienhancement.required}">
             <j:set var="identitytype" value="applicationidentity"/>
-            <attainGoal name="enhance.run"/>
+            <attainGoal name="jdorienhance.run"/>
         </j:if>
     </goal>
 
     <preGoal name="jdorienhance.datastoreidentity">
-        <condition property="enhancement.required">
+        <condition property="jdorienhancement.required">
             <not>
                 <uptodate targetfile="${jdo.enhanced.dir}/datastoreidentity.jar">
                     <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
@@ -256,19 +256,20 @@
     </preGoal>
 
     <goal name="jdorienhance.datastoreidentity">
-        <j:if test="${enhancement.required}">
+        <j:if test="${jdorienhancement.required}">
             <j:set var="identitytype" value="datastoreidentity"/>
-            <attainGoal name="enhance.run"/>
+            <attainGoal name="jdorienhance.run"/>
         </j:if>
     </goal>
 
     <preGoal name="jdorienhance.run">
+        <mkdir dir="${jdo.enhanced.dir}" />
         <!-- copy metadata -->
         <copy todir="${jdo.enhanced.dir}">
             <fileset dir="${basedir}/test/jdo/${identitytype}"
-                     includes="**/*.jdo, **/*.jdoTest.properties"/>
+                     includes="**/*.jdo, **/jdoTest.properties"/>
             <fileset dir="${basedir}/test/orm/${identitytype}"
-                     includes="**/*.orm, **/*.jdoTest.properties"/>
+                     includes="**/*.orm, **/jdoTest.properties"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
@@ -280,7 +281,7 @@
     </preGoal>
 
     <goal name="jdorienhance.run">
-        <echo>Run IUT enhancer</echo>
+        <echo>Run JDORI enhancer</echo>
         <java fork="yes" failonerror="yes" 
               dir="${jdo.enhanced.dir}"
               classname="${jdo.enhancer.main}"
@@ -357,7 +358,7 @@
 
     <path id="jdori.class.path">
         <!-- Directory where jdori enhanced class files are located  -->
-        <pathelement location="${iut.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
+        <pathelement location="${jdo.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
