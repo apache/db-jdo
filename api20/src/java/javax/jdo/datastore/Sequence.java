@@ -34,11 +34,14 @@ public interface Sequence {
 
     /**
      * Returns the fully qualified name of the <code>Sequence</code>.
+     * @return the name of the sequence
      */
     String getName ();
 
     /**
-     * Returns the next sequence value object.
+     * Returns the next sequence value as an Object. If the next
+     * sequence value is not available, throw JDODataStoreException.
+     * @return the next value
      */
     Object next ();
 
@@ -48,15 +51,32 @@ public interface Sequence {
      * short order. There is no externally visible behavior of this
      * method. It is used to potentially improve the efficiency of
      * the algorithm of obtaining additional sequence value objects.
+     * @param additional the number of additional values to allocate
      */
-    void allocate ();
+    void allocate (int additional);
 
     /**
      * Returns the current sequence value object if it is
      * available. It is intended to return a sequence value object
-     * previously used. The implementation might choose to return
-     * <code>null</code> for all cases or for any cases where a
-     * sequence value object is not available.
+     * previously used. If the current sequence value is not available,
+     * throw JDODataStoreException.
+     * @return the current value
      */
     Object current ();
+    
+    /** 
+     * Returns the next sequence value as a long. If the next
+     * sequence value is not available or is not numeric, throw
+     * JDODataStoreException.
+     * @return the next value
+     */
+    long nextValue();
+    
+    /** 
+     * Returns the current sequence value as a long. If the current
+     * sequence value is not available or is not numeric, throw
+     * JDODataStoreException.
+     * @return the current value
+     */
+    long currentValue();
 }
