@@ -362,9 +362,7 @@
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
-        <!--
         <pathelement location="${jdo.jdoapi.jarfile}"/>
-        -->
         <pathelement location="${jta.jarfile}" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
@@ -386,6 +384,11 @@
     <goal name="database">
         <delete dir="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
         <mkdir dir="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
+        <copy todir="${jdo.tck.testdir}/database/${jdo.tck.database}">
+            <fileset dir="${basedir}/test/conf">
+               <include name="derby.properties"/>
+            </fileset>
+        </copy>
         <java classname="org.apache.derby.tools.ij" fork="true">
               <classpath>
                   <pathelement location="${derbytools.jarfile}"/>
