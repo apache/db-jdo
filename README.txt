@@ -39,17 +39,18 @@ button at 'Download JNDI 1.2.1 & More', accept a license agreement, download
 - jpox
 The Reference Implementation for JDO 2.0 is JPOX. To run tck20 you must
 manually add the JPOX jar file and JPOX enhancer jar file to your local
-maven repository. Download version 1.1.0-beta-2 of both jars from
+maven repository. Download both jars from
 http://www.jpox.org/docs/download.html and copy them to your local maven
-repository:
-  cp jpox-1.1.0-beta-2.jar $HOME/.maven/repository/jpox/jars
-  cp jpox-enhancer-1.1.0-beta-2.jar $HOME/.maven/repository/jpox/jars
+repository, changing the version number to "SNAPSHOT":
+  cp jpox-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-SNAPSHOT.jar
+  cp jpox-enhancer-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-enhancer-SNAPSHOT.jar
 
 - derby
 To use Derby as the datastore for tck20, download version 10.0.2.1 from
 http://incubator.apache.org/derby/derby_downloads.html and add derby.jar
 and derbytools.jar your maven repository. Rename them to include the version
-number: derby-10.0.2.1.jar and derby-tools-10.0.2.1.jar.
+number: derby-10.0.2.1.jar and derby-tools-10.0.2.1.jar.  NOTE!! Mac OSX users
+must ncomment derby.storage.fileSyncTransactionLog=true in tck20/test/conf/derby.properties.
 
 -------
 Remarks
