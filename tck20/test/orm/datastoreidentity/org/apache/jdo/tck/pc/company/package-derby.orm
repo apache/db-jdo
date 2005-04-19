@@ -35,8 +35,8 @@ has datastore identity.
             <datastore-identity strategy="identity" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
-            <field name="employees" mapped-by="DEPARTMENT"/>
-            <field name="fundedEmps" mapped-by="FUNDINGDEPt"/>
+            <field name="employees" mapped-by="department"/>
+            <field name="fundedEmps" mapped-by="fundingdept"/>
         </class>
 
         <class name="PartTimeEmployee">
@@ -107,7 +107,6 @@ has datastore identity.
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
-            <field name="insid" column="INSID" primary-key="true"/>
             <field name="carrier" column="CARRIER"/>
             <field name="employee" column="EMPID">
                  <foreign-key/>

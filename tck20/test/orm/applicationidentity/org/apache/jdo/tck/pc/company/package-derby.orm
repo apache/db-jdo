@@ -35,8 +35,8 @@ has application identity.
             <field name="deptid" column="ID" primary-key="true"/>
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
-            <field name="employees" mapped-by="DEPARTMENT"/>
-            <field name="fundedEmps" mapped-by="FUNDINGDEPt"/>
+            <field name="employees" mapped-by="department"/>
+            <field name="fundedEmps" mapped-by="fundingdept"/>
         </class>
 
         <class name="PartTimeEmployee">
