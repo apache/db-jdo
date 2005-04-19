@@ -155,8 +155,9 @@
                     <uptodate targetfile="${iut.enhanced.dir}/datastoreidentity.jar">
                         <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
                                   includes="org/apache/jdo/tck/pc/**/*.jdo, 
-                                            org/apache/jdo/tck/pc/**/*.orm, 
                                             org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                        <srcfiles dir="${basedir}/test/orm/datastoreidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.orm"/>
                         <srcfiles dir="${basedir}/test/java"
                                   includes="${jdo.tck.pcclasses.sources}
                                             ${jdo.tck.paclasses.sources}"/>
@@ -222,8 +223,9 @@
                 <uptodate targetfile="${jdo.enhanced.dir}/applicationidentity.jar">
                     <srcfiles dir="${basedir}/test/jdo/applicationidentity"
                               includes="org/apache/jdo/tck/pc/**/*.jdo, 
-                                        org/apache/jdo/tck/pc/**/*.orm, 
                                         org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                    <srcfiles dir="${basedir}/test/orm/applicationidentity"
+                              includes="org/apache/jdo/tck/pc/**/*.orm"/>
                     <srcfiles dir="${basedir}/test/java"
                               includes="${jdo.tck.pcclasses.sources}
                                         ${jdo.tck.paclasses.sources}"/>
