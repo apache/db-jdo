@@ -44,6 +44,16 @@ public class ModelVetoException
 
     /** 
      * Constructs a new <code>ModelVetoException</code> with the specified
+     * cause.
+     * @param cause the cause <code>Throwable</code>.
+     */
+    public ModelVetoException(Throwable cause) 
+    {
+        super("", cause);
+    }
+
+    /** 
+     * Constructs a new <code>ModelVetoException</code> with the specified
      * detail message and cause.
      * @param msg the detail message.
      * @param cause the cause <code>Throwable</code>.
