@@ -8,14 +8,10 @@
     -->
     <class name="PCPoint" identity-type="datastore">
       <field name="id" persistence-modifier="none"/>
-      <field name="x"/>
-      <field name="y"/>
     </class>
 
     <class name="PCPoint2" identity-type="datastore">
       <field name="id" persistence-modifier="none"/>
-      <field name="x"/>
-      <field name="y"/>
 
       <field name="clearCalled" persistence-modifier="none"/>
       <field name="loadCalled" persistence-modifier="none"/>
@@ -25,33 +21,10 @@
 
     <class name="PCRect" identity-type="datastore">
       <field name="id" persistence-modifier="none"/>
-      <field name="lowerRight"/>
-      <field name="upperLeft"/>
     </class>
 
     <class name="PrimitiveTypes" identity-type="datastore">
       <field name="id" persistence-modifier="none"/>
-      <field name="booleanNotNull"/>
-      <field name="booleanNull"/>
-      <field name="byteNotNull"/>
-      <field name="byteNull"/>
-      <field name="shortNotNull"/>
-      <field name="shortNull"/>
-      <field name="intNotNull"/>
-      <field name="intNull"/>
-      <field name="longNotNull"/>
-      <field name="longNull"/>
-      <field name="floatNotNull"/>
-      <field name="floatNull"/>
-      <field name="doubleNotNull"/>
-      <field name="doubleNull"/>
-      <field name="charNotNull"/>
-      <field name="charNull"/>
-      <field name="dateNull"/>
-      <field name="stringNull"/>
-      <field name="bigDecimal"/>
-      <field name="bigInteger"/>
-      <field name="PrimitiveTypes"/>
     </class>
 
   </package>

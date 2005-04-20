@@ -16,9 +16,11 @@ has application identity.
         </class>
 
         <class name="Company" table="companies">
-            <field name="companyid" column="ID" primary-key="true"/>
+            <field name="companyid" primary-key="true"/>
+                <column name="ID"/>
             <field name="name" column="NAME"/>
-            <field name="founded" column="FOUNDEDDATE"/>
+            <field name="founded"/>
+                <column name="FOUNDEDDATE"/>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="street" column="STREET"/>

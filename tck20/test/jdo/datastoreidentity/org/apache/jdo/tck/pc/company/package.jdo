@@ -9,16 +9,9 @@ has datastore identity.
 
         <class name="Address">
             <field name="addrid" persistence-modifier="none"/>
-            <field name="street"/>
-            <field name="city"/>
-            <field name="state"/>
-            <field name="zipcode"/>
-            <field name="country"/>
         </class>
 
         <class name="Company" identity-type="datastore">
-            <field name="name"/>
-            <field name="founded"/>
             <field name="address"
                    persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">
