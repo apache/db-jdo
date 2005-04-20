@@ -92,17 +92,9 @@ public class WeakHashSet extends HashSet {
      * @return <code>true</code> if the set contained the specified element.
      */
     public boolean remove(Object o) {
-        return super.remove(WeakElement.create(o));
-    }
-
-    /**
-     * Returns the number of elements in this set (its cardinality).
-     *
-     * @return the number of elements in this set (its cardinality).
-     */
-    public int size() {
+        boolean ret = super.remove(WeakElement.create(o));
         processQueue();
-        return super.size();
+        return ret;
     }
 
     /**
