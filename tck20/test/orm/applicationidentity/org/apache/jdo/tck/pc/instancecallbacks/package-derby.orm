@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.instancecallbacks">
+        <class name="InstanceCallbackNonPersistFdsClass" table="ICNonPersistFds">
+            <field name="keyValue" primary-key="true">
+                <column name="ICKEY"/>
+            </field>
+            <field name="d" column="D"/>
+            <field name="s" column="S"/>
+            <field name="floatValue">
+                <column name="FLOATVAL"/>
+            </field>
+            <field name="intValue">
+                <column name="INTVAL"/>
+            </field>
+        </class>
+
+        <class name="InstanceCallbackClass" table="InstanceCallbacks">
+            <field name="keyValue" primary-key="true">
+                <column name="ICKEY"/>
+            </field>
+            <field name="name" column="NAME"/>
+            <field name="timeStamp">
+                <column name="TIMEDATE"/>
+            </field>
+            <field name="nextObj">
+                <column name="NEXTOBJ"/>
+            </field>
+            <field name="children">
+                <element column="CHILD"/>
+            </field>
+            <field name="intValue">
+                <column name="INTVAL"/>
+            </field>
+            <field name="doubleValue">
+                <column name="DOUBLEVAL"/>
+            </field>
+            <field name="childToDelete">
+                <column name="CHILD2DEL"/>
+            </field>
+            <field name="charValue">
+                <column name="CHARVAL"/>
+            </field>
+        </class>
+    </package>
+</orm>

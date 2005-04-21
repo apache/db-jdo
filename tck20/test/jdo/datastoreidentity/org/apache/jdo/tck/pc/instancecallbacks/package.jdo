@@ -4,6 +4,7 @@
     <package name="org.apache.jdo.tck.pc.instancecallbacks">
         <class name="InstanceCallbackNonPersistFdsClass" 
             identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
             <field name="i" persistence-modifier="none"/>
             <field name="c" persistence-modifier="none"/>
             <field name="d" persistence-modifier="transactional"/>
@@ -13,6 +14,7 @@
         </class>
         <class name="InstanceCallbackClass" 
             identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
             <field name="nextObj" persistence-modifier="persistent" null-value="default"/>
             <field name="children" >
                 <collection element-type="org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass" />

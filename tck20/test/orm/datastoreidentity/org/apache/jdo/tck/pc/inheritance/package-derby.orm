@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.inheritance">
+        <class name="AllPersist" table="AllPersist">
+            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="intB" column="INT_B"/>
+            <field name="doubleB" column="DOUBLE_B"/>
+        </class>
+
+        <class name="AllPersist2">
+            <inheritance strategy="superclass-table"/>
+            <field name="floatE" column="FLOAT_E"/>
+        </class>
+
+        <class name="AllPersist3">
+            <inheritance strategy="superclass-table"/>
+            <field name="shortF" column="SHORT_F"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
+        </class>
+
+        <class name="AllPersist4">
+            <inheritance strategy="superclass-table"/>
+            <field name="intH" column="INT_H"/>
+        </class>
+
+        <class name="TopNonPersistB" table="TopNonPersistB">
+            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="doubleB" column="DOUBLE_B"/>
+            <field name="intB" column="INT_B"/>
+        </class>
+
+        <class name="TopNonPersistE">
+            <inheritance strategy="superclass-table"/>
+            <field name="floatE" column="FLOAT_E"/>
+        </class>
+
+        <class name="TopNonPersistF">
+            <inheritance strategy="superclass-table"/>
+            <field name="shortF" column="SHORT_F"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
+        </class>
+
+        <class name="TopNonPersistH">
+            <inheritance strategy="superclass-table"/>
+            <field name="intH" column="INT_H"/>
+        </class>
+
+        <class name="TopPersist" table="TopPersist">
+            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="doubleB" column="DOUBLE_B"/>
+            <field name="intB" column="INT_B"/>
+        </class>
+
+        <class name="TopPersistE">
+            <inheritance strategy="superclass-table"/>
+            <field name="floatE" persistence-modifier="transactional"/>
+        </class>
+
+        <class name="TopPersistF">
+            <inheritance strategy="superclass-table"/>
+            <field name="shortF" column="SHORT_F"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
+        </class>
+
+        <class name="TopPersistH">
+            <inheritance strategy="superclass-table"/>
+            <field name="intH" column="INT_H"/>
+        </class>
+
+        <class name="FieldSameName" table="FieldSameName">
+            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="n2" column="N2"/>
+            <field name="n3" column="N3"/>
+        </class>
+
+        <class name="FieldSameName2">
+            <inheritance strategy="superclass-table"/>
+            <field name="n3" column="FSN2_N3"/>
+        </class>
+
+        <class name="FieldSameName3">
+            <inheritance strategy="superclass-table"/>
+            <field name="n1" column="FSN3_N1"/>
+            <field name="n2" column="FSN3_N2"/>
+            <field name="n3" column="FSN3_N3"/>
+        </class>
+
+        <class name="FieldSameName4">
+            <inheritance strategy="superclass-table"/>
+            <field name="n3" column="FSN4_N3"/>
+        </class>
+
+</package>
+</orm>

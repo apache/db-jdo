@@ -5,6 +5,7 @@
         <class 
             name="AllPersist" 
             identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
             <field name="intA" persistence-modifier="none"/>
         </class>
 
@@ -33,9 +34,8 @@
             <field name="fourthObj" persistence-modifier="none"/>
         </class>
 
-        <class 
-            name="TopNonPersistB" 
-            identity-type="datastore">
+        <class name="TopNonPersistB" identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
         </class>
 
         <class 
@@ -59,9 +59,8 @@
             persistence-capable-superclass="org.apache.jdo.tck.pc.inheritance.TopNonPersistF">
         </class>
 
-        <class 
-            name="TopPersist" 
-            identity-type="datastore">
+        <class name="TopPersist" identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
             <field name="intA" persistence-modifier="none"/>
         </class>
 
@@ -89,6 +88,7 @@
         <class 
             name="FieldSameName" 
             identity-type="datastore">
+            <field name="keyValue" persistence-modifier="none"/>
             <field name="n1" persistence-modifier="none"/>
             <field name="n2" persistence-modifier="persistent"/>
             <field name="n3" persistence-modifier="persistent"/>
