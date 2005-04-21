@@ -36,7 +36,8 @@ has datastore identity.
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
             <field name="employees" mapped-by="department"/>
-            <field name="fundedEmps" mapped-by="fundingdept"/>
+            <field name="fundedEmps" mapped-by="fundingDept"/>
+            <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
         </class>
 
         <class name="PartTimeEmployee">
@@ -67,9 +68,7 @@ has datastore identity.
             <field name="mentor" column="MENTOR">
                         <foreign-key/>
             </field>
-            <field name="protege" column="PROTEGE">
-                        <foreign-key/>
-            </field>
+            <field name="protege" mapped-by="mentor"/>
             <field name="hradvisor" column="HRADVISOR">
                         <foreign-key/>
             </field>
