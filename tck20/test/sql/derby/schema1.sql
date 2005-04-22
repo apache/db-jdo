@@ -5,6 +5,12 @@ connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 -------------------------
 -- mylib
 -------------------------
+
+DROP TABLE PCPoint;
+DROP TABLE PCPoint2;
+DROP TABLE PCRect;
+DROP TABLE PrimitiveTypes;
+
 CREATE TABLE PCPoint (
     ID BIGINT NOT NULL,
     X INTEGER NOT NULL,
@@ -55,6 +61,15 @@ CREATE TABLE PrimitiveTypes (
 -------------------------
 -- company
 -------------------------
+
+DROP TABLE insuranceplans;
+DROP TABLE project_reviewer;
+DROP TABLE project_member;
+DROP TABLE employee_phoneno_type;
+DROP TABLE persons;
+DROP TABLE projects;
+DROP TABLE departments;
+DROP TABLE companies;
 
 CREATE TABLE companies (
     ID INTEGER NOT NULL,
@@ -133,14 +148,16 @@ CREATE TABLE employee_phoneno_type (
     TYPE VARCHAR(16) NOT NULL
 );
 
-ALTER TABLE departments (
+ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID)
-);
+;
 
 -------------------------
 --fieldtypes
 -------------------------
+
+DROP TABLE FieldsOfByte;
 
 CREATE TABLE FieldsOfByte (
     IDENTIFIER INTEGER NOT NULL,
@@ -224,6 +241,11 @@ CREATE TABLE FieldsOfByte (
 --inheritance
 -------------------------
 
+DROP TABLE AllPersist;
+DROP TABLE TopNonPersistB;
+DROP TABLE TopPersist;
+DROP TABLE FieldSameName;
+
 CREATE TABLE AllPersist (
     KEY_VALUE INTEGER NOT NULL,
     DOUBLE_B DOUBLE,
@@ -287,6 +309,9 @@ CREATE TABLE FieldSameName (
 -------------------------
 --instancecallbacks
 -------------------------
+
+DROP TABLE ICNonPersistFds;
+DROP TABLE InstanceCallbacks;
 
 CREATE TABLE ICNonPersistFds (
     ICKEY INTEGER NOT NULL,
