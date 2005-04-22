@@ -349,6 +349,8 @@
         <pathelement location="${jdo.jdoapi.jarfile}"/>
         <!-- Jar files for the implementation to be tested -->
         <path refid="test_iut_jars" />
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
