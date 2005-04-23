@@ -17,8 +17,8 @@
 
     <class name="PCRect" table="PCRect">
       <datastore-identity strategy="identity" column="ID"/>
-      <field name="lowerRight" column="LOWERRIGHT"/>
-      <field name="upperLeft" column="UPPERLEFT"/>
+      <field name="lowerRight" column="LOWER_RIGHT"/>
+      <field name="upperLeft" column="UPPER_LEFT"/>
     </class>
 
     <class name="PrimitiveTypes" table="PrimitiveTypes">
