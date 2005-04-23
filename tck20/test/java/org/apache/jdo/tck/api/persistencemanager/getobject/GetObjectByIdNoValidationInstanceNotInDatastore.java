@@ -64,18 +64,19 @@ public class GetObjectByIdNoValidationInstanceNotInDatastore extends Persistence
         deletePCPointInstance(pm, oid);
     
         try {
+            pm.currentTransaction().begin();
             PCPoint p1 = (PCPoint)pm.getObjectById(oid, false); // might throw exception here
             if (debug)
                 logger.debug ("Got object in cache, even though not in datastore.");
             p1.getX(); // if not thrown above, throws exception here
+            pm.currentTransaction().commit();
             fail(ASSERTION_FAILED,
                  "accessing unknown instance should throw JDOObjectNotFoundException");
         } 
         catch (JDOObjectNotFoundException ex) {
             // expected exception
         }
-        pm.close();
-        pm = null;
+        cleanup();
         if (debug)
             logger.debug ("END GetObjectByIdNoValidationInstanceNotInDatastore");
    }
