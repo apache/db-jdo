@@ -65,8 +65,10 @@ abstract class ExtentTest extends JDO_Test {
     /** */
     protected void checkPM() {
         try {
+            beginTransaction();
             Extent ex = getPM().getExtent(Company.class, false);
             int count = countIterator(ex.iterator());
+            commitTransaction();
             if (count == 1) {
                 if (debug) logger.debug ("Found company");
                 return;
