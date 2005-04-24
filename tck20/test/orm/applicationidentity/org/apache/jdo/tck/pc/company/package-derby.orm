@@ -34,7 +34,7 @@ has application identity.
         <class name="Department" table="departments">
             <field name="deptid" column="ID" primary-key="true"/>
             <field name="name" column="NAME"/>
-            <field name="company" column="COMPANYID"/>
+            <field name="company" column="COMPANYID" foreign-key="true"/>
             <field name="employees" mapped-by="department"/>
             <field name="fundedEmps" mapped-by="fundingDept"/>
             <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
