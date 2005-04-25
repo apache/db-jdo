@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfPrimitiveint" table="FIELDSOFPRIMITIVEINT">
+            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="int0" column="INT0"/>
+            <field name="int1" column="INT1"/>
+            <field name="int102" column="INT102"/>
+            <field name="int103" column="INT103"/>
+            <field name="int104" column="INT104"/>
+            <field name="int108" column="INT108"/>
+            <field name="int109" column="INT109"/>
+            <field name="int11" column="INT11"/>
+            <field name="int110" column="INT110"/>
+            <field name="int112" column="INT112"/>
+            <field name="int113" column="INT113"/>
+            <field name="int114" column="INT114"/>
+            <field name="int119" column="INT119"/>
+            <field name="int12" column="INT12"/>
+            <field name="int120" column="INT120"/>
+            <field name="int121" column="INT121"/>
+            <field name="int124" column="INT124"/>
+            <field name="int125" column="INT125"/>
+            <field name="int126" column="INT126"/>
+            <field name="int128" column="INT128"/>
+            <field name="int129" column="INT129"/>
+            <field name="int13" column="INT13"/>
+            <field name="int130" column="INT130"/>
+            <field name="int138" column="INT138"/>
+            <field name="int139" column="INT139"/>
+            <field name="int140" column="INT140"/>
+            <field name="int16" column="INT16"/>
+            <field name="int17" column="INT17"/>
+            <field name="int18" column="INT18"/>
+            <field name="int2" column="INT2"/>
+            <field name="int20" column="INT20"/>
+            <field name="int21" column="INT21"/>
+            <field name="int22" column="INT22"/>
+            <field name="int30" column="INT30"/>
+            <field name="int31" column="INT31"/>
+            <field name="int32" column="INT32"/>
+            <field name="int36" column="INT36"/>
+            <field name="int37" column="INT37"/>
+            <field name="int38" column="INT38"/>
+            <field name="int4" column="INT4"/>
+            <field name="int40" column="INT40"/>
+            <field name="int41" column="INT41"/>
+            <field name="int42" column="INT42"/>
+            <field name="int47" column="INT47"/>
+            <field name="int48" column="INT48"/>
+            <field name="int49" column="INT49"/>
+            <field name="int5" column="INT5"/>
+            <field name="int52" column="INT52"/>
+            <field name="int53" column="INT53"/>
+            <field name="int54" column="INT54"/>
+            <field name="int56" column="INT56"/>
+            <field name="int57" column="INT57"/>
+            <field name="int58" column="INT58"/>
+            <field name="int6" column="INT6"/>
+            <field name="int66" column="INT66"/>
+            <field name="int67" column="INT67"/>
+            <field name="int68" column="INT68"/>
+            <field name="int72" column="INT72"/>
+            <field name="int73" column="INT73"/>
+            <field name="int74" column="INT74"/>
+            <field name="int76" column="INT76"/>
+            <field name="int77" column="INT77"/>
+            <field name="int78" column="INT78"/>
+            <field name="int83" column="INT83"/>
+            <field name="int84" column="INT84"/>
+            <field name="int85" column="INT85"/>
+            <field name="int88" column="INT88"/>
+            <field name="int89" column="INT89"/>
+            <field name="int90" column="INT90"/>
+            <field name="int92" column="INT92"/>
+            <field name="int93" column="INT93"/>
+            <field name="int94" column="INT94"/>
+        </class>
+    </package>
+</orm>

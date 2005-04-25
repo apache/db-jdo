@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfCharacter" table="FIELDSOFCHARACTER">
+            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="Character0" column="CHARACTER0"/>
+            <field name="Character1" column="CHARACTER1"/>
+            <field name="Character102" column="CHARACTER102"/>
+            <field name="Character103" column="CHARACTER103"/>
+            <field name="Character104" column="CHARACTER104"/>
+            <field name="Character108" column="CHARACTER108"/>
+            <field name="Character109" column="CHARACTER109"/>
+            <field name="Character11" column="CHARACTER11"/>
+            <field name="Character110" column="CHARACTER110"/>
+            <field name="Character112" column="CHARACTER112"/>
+            <field name="Character113" column="CHARACTER113"/>
+            <field name="Character114" column="CHARACTER114"/>
+            <field name="Character119" column="CHARACTER119"/>
+            <field name="Character12" column="CHARACTER12"/>
+            <field name="Character120" column="CHARACTER120"/>
+            <field name="Character121" column="CHARACTER121"/>
+            <field name="Character124" column="CHARACTER124"/>
+            <field name="Character125" column="CHARACTER125"/>
+            <field name="Character126" column="CHARACTER126"/>
+            <field name="Character128" column="CHARACTER128"/>
+            <field name="Character129" column="CHARACTER129"/>
+            <field name="Character13" column="CHARACTER13"/>
+            <field name="Character130" column="CHARACTER130"/>
+            <field name="Character138" column="CHARACTER138"/>
+            <field name="Character139" column="CHARACTER139"/>
+            <field name="Character140" column="CHARACTER140"/>
+            <field name="Character16" column="CHARACTER16"/>
+            <field name="Character17" column="CHARACTER17"/>
+            <field name="Character18" column="CHARACTER18"/>
+            <field name="Character2" column="CHARACTER2"/>
+            <field name="Character20" column="CHARACTER20"/>
+            <field name="Character21" column="CHARACTER21"/>
+            <field name="Character22" column="CHARACTER22"/>
+            <field name="Character30" column="CHARACTER30"/>
+            <field name="Character31" column="CHARACTER31"/>
+            <field name="Character32" column="CHARACTER32"/>
+            <field name="Character36" column="CHARACTER36"/>
+            <field name="Character37" column="CHARACTER37"/>
+            <field name="Character38" column="CHARACTER38"/>
+            <field name="Character4" column="CHARACTER4"/>
+            <field name="Character40" column="CHARACTER40"/>
+            <field name="Character41" column="CHARACTER41"/>
+            <field name="Character42" column="CHARACTER42"/>
+            <field name="Character47" column="CHARACTER47"/>
+            <field name="Character48" column="CHARACTER48"/>
+            <field name="Character49" column="CHARACTER49"/>
+            <field name="Character5" column="CHARACTER5"/>
+            <field name="Character52" column="CHARACTER52"/>
+            <field name="Character53" column="CHARACTER53"/>
+            <field name="Character54" column="CHARACTER54"/>
+            <field name="Character56" column="CHARACTER56"/>
+            <field name="Character57" column="CHARACTER57"/>
+            <field name="Character58" column="CHARACTER58"/>
+            <field name="Character6" column="CHARACTER6"/>
+            <field name="Character66" column="CHARACTER66"/>
+            <field name="Character67" column="CHARACTER67"/>
+            <field name="Character68" column="CHARACTER68"/>
+            <field name="Character72" column="CHARACTER72"/>
+            <field name="Character73" column="CHARACTER73"/>
+            <field name="Character74" column="CHARACTER74"/>
+            <field name="Character76" column="CHARACTER76"/>
+            <field name="Character77" column="CHARACTER77"/>
+            <field name="Character78" column="CHARACTER78"/>
+            <field name="Character83" column="CHARACTER83"/>
+            <field name="Character84" column="CHARACTER84"/>
+            <field name="Character85" column="CHARACTER85"/>
+            <field name="Character88" column="CHARACTER88"/>
+            <field name="Character89" column="CHARACTER89"/>
+            <field name="Character90" column="CHARACTER90"/>
+            <field name="Character92" column="CHARACTER92"/>
+            <field name="Character93" column="CHARACTER93"/>
+            <field name="Character94" column="CHARACTER94"/>
+        </class>
+    </package>
+</orm>
