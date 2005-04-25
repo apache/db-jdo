@@ -3,6 +3,7 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfString" identity-type="datastore">
+<field name="identifier"  persistence-modifier="none"/>
 <field name="String1"  embedded="true">
 </field>
 <field name="String2"  embedded="false">

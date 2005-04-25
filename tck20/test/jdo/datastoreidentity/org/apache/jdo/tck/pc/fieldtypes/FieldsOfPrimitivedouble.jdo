@@ -3,6 +3,7 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfPrimitivedouble" identity-type="datastore">
+<field name="identifier"  persistence-modifier="none"/>
 <field name="double1"  embedded="true">
 </field>
 <field name="double2"  embedded="false">

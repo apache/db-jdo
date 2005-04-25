@@ -3,6 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfDouble" table="FIELDSOFDOUBLE">
+            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
             <field name="Double1" column="DOUBLE1"/>
             <field name="Double102" column="DOUBLE102"/>
             <field name="Double103" column="DOUBLE103"/>

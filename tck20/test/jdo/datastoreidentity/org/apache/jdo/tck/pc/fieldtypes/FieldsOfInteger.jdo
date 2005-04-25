@@ -3,6 +3,7 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfInteger" identity-type="datastore">
+<field name="identifier"  persistence-modifier="none"/>
 <field name="Integer1"  embedded="true">
 </field>
 <field name="Integer2"  embedded="false">

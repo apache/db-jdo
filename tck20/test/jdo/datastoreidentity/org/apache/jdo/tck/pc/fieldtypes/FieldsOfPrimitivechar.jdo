@@ -3,6 +3,7 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfPrimitivechar" identity-type="datastore">
+<field name="identifier"  persistence-modifier="none"/>
 <field name="char1"  embedded="true">
 </field>
 <field name="char2"  embedded="false">

@@ -3,6 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBoolean" table="FIELDSOFBOOLEAN">
+            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
             <field name="Boolean1" column="BOOLEAN1"/>
             <field name="Boolean102" column="BOOLEAN102"/>
             <field name="Boolean103" column="BOOLEAN103"/>
