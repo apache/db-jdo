@@ -90,6 +90,7 @@
             <sysproperty key="PMFProperties" value="${basedir}/test/conf/jdori.properties"/>
             <sysproperty key="PMF2Properties" value="${basedir}/test/conf/jdori.properties"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
+            <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.alltests}"/>
         </java>
     </goal>
@@ -110,8 +111,30 @@
             <arg line="${jdo.tck.alltests}"/>
         </java>
     </goal>
-
-
+    
+    <!-- ================ -->
+    <!-- Debug            -->
+    <!-- ================ -->
+    
+    <goal name="debug.runtck" prereqs="java:compile, enhance, testrunner.set, database, copyloggingprops">
+        <echo>Debug JDO TCK on the IUT with configuration ${jdo.tck.configuration}</echo>
+        <ant:nbjpdastart name="runtck" addressproperty="jpda.address" transport="dt_socket"/>
+        <java fork="yes" dir="${jdo.tck.testdir}" 
+              classname="${jdo.tck.testrunnerclass}">
+            <classpath refid="project.class.path"/>
+            <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
+            <sysproperty key="verbose" value="${verbose}"/>
+            <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties" value="${iut.runtck.properties}"/>
+            <jvmarg line="${iut.runtck.sysproperties}"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xnoagent"/>
+            <jvmarg value="-Djava.compiler=none"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+            <arg line="${jdo.tck.testclasses}"/>
+        </java>
+    </goal>
+    
     <!-- ================ -->
     <!-- Enhancer support -->
     <!-- ================ -->
