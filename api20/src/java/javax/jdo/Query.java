@@ -24,7 +24,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-/** The <code>Query</code> interface allows applications to obtain persistent instances
+/** The <code>Query</code> interface allows applications to obtain persistent
+ * instances, values, and aggregate data
  * from the data store.
  *
  * The {@link PersistenceManager} is the factory for <code>Query</code> instances.  There
@@ -37,7 +38,10 @@ import java.util.Map;
  * the candidate collection of instances, and the filter.
  *
  * <P>There are optional elements: parameter declarations, variable
- * declarations, import statements, and an ordering specification.
+ * declarations, import statements, ordering and grouping specifications,
+ * result and result class, the range of results,
+ * and flags indicating whether the query result
+ * is unique and whether the query can be modified.
  * <P>The query namespace is modeled after methods in Java:
  * <ul>
  * <li><code>setClass</code> corresponds to the class definition
@@ -59,18 +63,23 @@ import java.util.Map;
  * <P>The method <code>setClass</code> introduces the names of the candidate class fields.
  * <P>The method <code>declareParameters</code> introduces the names of the
  * parameters. A name introduced by <code>declareParameters</code> hides the name
- * of a candidate class field if equal. Parameter names must be unique.
+ * of a candidate class field of the same name. Parameter names must be unique.
  * <P>The method <code>declareVariables</code> introduces the names of the variables.
  * A name introduced by <code>declareVariables</code> hides the name of a candidate
  * class field if equal. Variable names must be unique and must not
  * conflict with parameter names.
+ * <P>The result of the query by default is a list of result class instances,
+ * but might be specified via <code>setResult</code>. The class of the result
+ * by default is the candidate class, but might be specified via 
+ * <code>setResultClass</code>.
  * <P>A hidden field may be accessed using the 'this' qualifier:
  * <code>this.fieldName</code>.
  * <P>The <code>Query</code> interface provides methods which execute the query
- * based on the parameters given. They return a <code>Collection</code> which the
- * user can iterate to get results. For future extension, the signature
+ * based on the parameters given. They return a single instance or a 
+ * <code>List</code> of result class instances which the
+ * user can iterate to get results. The signature
  * of the <code>execute</code> methods specifies that they return an <code>Object</code> which
- * must be cast to <code>Collection</code> by the user.
+ * must be cast to the appropriate result by the user.
  * <P>Any parameters passed to the <code>execute</code> methods are used only for
  * this execution, and are not remembered for future execution.
  * @version 2.0
@@ -358,58 +367,110 @@ public interface Query extends Serializable {
      * Specify that only the first result of the query should be
      * returned, rather than a collection. The execute method will
      * return null if the query result size is 0.
-     * @since	2.0
+     * @since 2.0
+     * @param unique if true, only one element is returned
      */
     void setUnique (boolean unique);
 
     /**
-     * Configures what type of data this query should return. If this
-     * is unset or set to <code>null</code>, this query will return a
-     * list of the query's candidate class. Otherwise, this query
-     * will return aggregate function results and / or individual
-     * field values (projections).
-     * @param data a comma-delimited list of fields, functions on fields,
-     *     or aggregate functions to return from this query
+     * Specifies what type of data this query should return. If this
+     * is unset or set to <code>null</code>, this query returns
+     * instances of the query's candidate class. If set, this query
+     * will return expressions, including field values (projections) and 
+     * aggregate function results.
+     * @param data a comma-delimited list of expressions 
+     * (fields, functions on fields, or aggregate functions) 
+     * to return from this query
      * @since 2.0
      */
     void setResult (String data);
 
     /**
-     * Specify the type of object in which the result of invoking
-     * {@link #execute} or one of its siblings. The behavior of this
-     * method depends the nature of the query being executed. In
-     * particular, if used in conjunction with {@link #setResult},
-     * the argument to this method should be
-     * <code>Object[].class</code>, a class with bean-like setters
-     * for each of the items listed in the result specification, or a
-     * class with a method called <code>put</code> with two
-     * <code>Object</code> arguments.
+     * Specify the type of object in which to return each element of
+     * the result of invoking {@link #execute} or one of its siblings. 
+     * If the result is not set or set to null, the result class defaults
+     * to the candidate class of the query. If the result consists of one
+     * expression, the result class defaults to the type of that expression.
+     * If the result consists of more than one expression, the result class
+     * defaults to Object[].
+     * The result class may be specified to be one of the java.lang classes 
+     * Character, Boolean, Byte, Short, Integer, Long, Float, Double, String, 
+     * or Object[]; or one of the java.math classes BigInteger or BigDecimal; 
+     * or the java.util class Date; or one of the java.sql classes Date, 
+     * Time, or Timestamp; or a user-defined class.
+     * <P>If there are multiple result expressions, the result class 
+     * must be able to hold all elements of the result specification 
+     * or a JDOUserException is thrown. 
+     *<P>If there is only one result expression, the result class must be 
+     * assignable from the type of the result expression or must be able 
+     * to hold all elements of the result specification. A single value 
+     * must be able to be coerced into the specified result class 
+     * (treating wrapper classes as equivalent to their unwrapped 
+     * primitive types) or by matching. If the result class does not satisfy 
+     * these conditions, a JDOUserException is thrown.
+     *<P>A constructor of a result class specified in the setResult method 
+     * will be used if the results specification matches the parameters 
+     * of the constructor by position and type. If more than one constructor 
+     * satisfies the requirements, the JDO implementation chooses one of them. 
+     * If no constructor satisfies the results requirements, or if the result 
+     * class is specified via the setResultClass method, the following 
+     * requirements apply:
+     * <ul>
+     * <li>A user-defined result class must have a no-args constructor and 
+     * one or more public <code>set</code> or <code>put</code> methods or fields. 
+     * <li>Each result expression must match one of:
+     * <ul>
+     * <li>a public field that matches the name of the result expression 
+     * and is of the type (treating wrapper types equivalent to primitive 
+     * types) of the result expression; 
+     * <li>or if no public field matches the name and type, a public 
+     * <code>set</code method that returns void and matches the name of the 
+     * result expression and takes a single parameter which is the 
+     * exact type of the result expression;
+     * <li>or if neither of the above applies,a public method must be found 
+     * with the signature <code>void put(Object, Object)</code>.
+     * During processing of the results,  
+     * the first argument is the name of the result expression and 
+     * the second argument is the value from the query result.
+     * </ul>
+     * </ul>
+     * Portable result classes do not invoke any persistence behavior 
+     * during their no-args constructor or <code>set</code methods.
+     * @param cls the result class
      * @since 2.0
      */
     void setResultClass (Class cls);
 
     /**
-     * Set the range of results to return.
+     * Set the range of results to return. The execution of the query is
+     * modified to return only a subset of results. If the filter would
+     * normally return 100 instances, and fromIncl is set to 50, and
+     * toExcl is set to 70, then the first 50 results that would have 
+     * been returned are skipped, the next 20 results are returned and the
+     * remaining 30 results are ignored. An implementation should execute
+     * the query such that the range algorithm is done at the data store.
      * @param fromIncl 0-based inclusive start index
      * @param toExcl 0-based exclusive end index, or 
-     *     {@link Integer#MAX_VALUE} for no limit.
+     *     {@link Long#MAX_VALUE} for no limit.
      * @since 2.0
      */
     void setRange (long fromIncl, long toExcl);
 
     /**
-     * Add a vendor-specific extension this query. The key and value
+     * Add a vendor-specific extension to this query. The key and value
      * are not standard.
      * An implementation must ignore keys that are not recognized.
+     * @param key the key of the extension
+     * @param value the value of the extension
      * @since 2.0
      */
     void addExtension (String key, Object value);
 
     /**
-     * Set multiple extensions, or use null to clear extensions.
+     * Set multiple extensions, or use null to clear all extensions.
      * Map keys and values are not standard.
      * An implementation must ignore entries that are not recognized.
-     * @param extensions 
+     * @param extensions the map of extensions
      * @see #addExtension
      * @since 2.0
      */
@@ -417,33 +478,58 @@ public interface Query extends Serializable {
 
     /**
      * Returns the <code>FetchPlan</code> used by this
-     * <code>Query</code>. Mutations of the returned object will not
+     * <code>Query</code>. Modifications of the returned fetch plan will not
      * cause this query's owning <code>PersistenceManager</code>'s
-     * <code>FetchPlan</code> to be mutated.
-     * @since	2.0
+     * <code>FetchPlan</code> to be modified.
+     * @since 2.0
+     * @return the fetch plan used by this query
      */
     FetchPlan getFetchPlan ();
 
     /**
      * Deletes all the instances of the candidate class that pass the
      * filter.
+     * @see #deletePersistentAll()
+     * @param parameters for the query
+     * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    Object deletePersistentAll (Object[] parameters);
+    long deletePersistentAll (Object[] parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the
      * filter.
+     * @see #deletePersistentAll()
+     * @param parameters for the query
+     * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    Object deletePersistentAll (Map parameters);
+    long deletePersistentAll (Map parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the
-     * filter.
+     * filter. Returns the number of instances of the candidate
+     * class that were deleted, specifically not including the number
+     * of dependent and embedded instances.
+     * <P>Dirty instances of affected classes in the cache are first
+     * flushed to the datastore. Instances in the cache or brought into
+     * the cache as a result of executing one of the 
+     * <code>deletePersistentAll</code>
+     * methods undergo life cycle changes as if <code>deletePersistent</code>
+     * were called on them.
+     * <P>Specifically, if the class of deleted instances implements the
+     * delete callback interface, the corresponding callback methods
+     * are called on the deleted instances. Similarly, if there are
+     * lifecycle listeners registered for delete events on affected
+     * classes, the listener is called for each appropriate deleted instance.
+     * <P>Before returning control to the application, instances of affected
+     * classes in the cache are refreshed to reflect whether they were
+     * deleted from the datastore.
+     * 
+     * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    Object deletePersistentAll ();
+    long deletePersistentAll ();
     
     /**
      * The unmodifiable flag, when set, disallows further 
