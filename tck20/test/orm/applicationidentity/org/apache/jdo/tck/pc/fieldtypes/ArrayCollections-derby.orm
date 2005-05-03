@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<!--
+Metadata for application identity
+-->
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="ArrayCollections" table="ARRAY_COLLECTIONS">
+            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="ArrayOfObject0" table="ARRAY_OF_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <element column="OBJVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfObject1" table="ARRAY_OF_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <element column="OBJVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfSimpleClass2" table="ARRAY_OF_SIMPLE_CLASS2">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfSimpleClass3" table="ARRAY_OF_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfSimpleInterface4" table="ARRAY_OF_SIMPLE_INTERFACE4">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfSimpleInterface5" table="ARRAY_OF_SIMPLE_INTERFACE5">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfString6" table="ARRAY_OF_STRING6">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfString7" table="ARRAY_OF_STRING7">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfDate8" table="ARRAY_OF_DATE8">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfDate9" table="ARRAY_OF_DATE9">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfLocale10" table="ARRAY_OF_LOCALE10">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfLocale11" table="ARRAY_OF_LOCALE11">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfBigDecimal12" table="ARRAY_OF_BIG_DECIMAL12">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfBigDecimal13" table="ARRAY_OF_BIG_DECIMAL13">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfBigInteger14" table="ARRAY_OF_BIG_INTEGER14">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfBigInteger15" table="ARRAY_OF_BIG_INTEGER15">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfByte16" table="ARRAY_OF_BYTE16">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfByte17" table="ARRAY_OF_BYTE17">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfDouble18" table="ARRAY_OF_DOUBLE18">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfDouble19" table="ARRAY_OF_DOUBLE19">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfFloat20" table="ARRAY_OF_FLOAT20">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfFloat21" table="ARRAY_OF_FLOAT21">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfInteger22" table="ARRAY_OF_INTEGER22">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfInteger23" table="ARRAY_OF_INTEGER22">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfLong24" table="ARRAY_OF_LONG24">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfLong25" table="ARRAY_OF_LONG25">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfShort26" table="ARRAY_OF_SHORT26">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayOfShort27" table="ARRAY_OF_SHORT27">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+        </class>
+    </package>
+</orm>
