@@ -22,21 +22,34 @@
  
 package org.apache.jdo.impl.pm;
 
-import java.util.*;
+import java.io.IOException;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
-import javax.jdo.*;
+import javax.jdo.JDOException;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
 import javax.jdo.spi.JDOPermission;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.jdo.ejb.EJBImplHelper;
-import org.apache.jdo.impl.jdoql.tree.Tree;
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModelFactory;
-import org.apache.jdo.jdoql.tree.QueryTree;
-import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.pm.Accessor;
 import org.apache.jdo.pm.PersistenceManagerFactoryInternal;
 import org.apache.jdo.util.I18NHelper;
@@ -1523,19 +1536,6 @@ abstract public class PersistenceManagerFactoryImpl implements
         return;
     }
 
-    /** Returns a new QueryTree instance. This instance allows to specify a 
-     * query with an API (see {@link org.apache.jdo.jdoql.tree.QueryTree} and 
-     * {@link org.apache.jdo.jdoql.tree.ExpressionFactory}) rather than as JDOQL 
-     * strings. To run you create a query object from the QueryTree (see 
-     * {@link javax.jdo.PersistenceManager#newQuery(Object compiled)}) 
-     * and call the execute method on the Query object.
-     * @return new QueryTree instance.
-     */
-    public QueryTree newQueryTree()
-    {
-        return new Tree();
-    }
-    
     public synchronized boolean equals(Object o) {
         if (o == this)
             return true;

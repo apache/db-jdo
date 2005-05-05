@@ -16,40 +16,30 @@
 
 package org.apache.jdo.impl.fostore;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.WeakHashMap;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-
-import javax.naming.NamingException;
-import javax.naming.Reference;
-import javax.naming.Referenceable;
-import javax.naming.StringRefAddr;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Properties;
+import java.util.WeakHashMap;
 
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.spi.PersistenceCapable;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.naming.Referenceable;
+import javax.naming.StringRefAddr;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModelFactory;
 import org.apache.jdo.impl.pm.PersistenceManagerFactoryImpl;
-import org.apache.jdo.impl.pm.PersistenceManagerImpl;
+import org.apache.jdo.jdoql.JDOQLQueryFactory;
+import org.apache.jdo.jdoql.tree.QueryTree;
 import org.apache.jdo.model.jdo.JDOClass;
-import org.apache.jdo.pm.PersistenceManagerFactoryInternal;
-import org.apache.jdo.pm.PersistenceManagerInternal;
 import org.apache.jdo.store.StoreManager;
 import org.apache.jdo.store.TranscriberFactory;
 import org.apache.jdo.util.I18NHelper;
@@ -102,6 +92,13 @@ public class FOStorePMF
      */
     private Properties configuredFrom = null;
     
+    /** The name of the JDOQLQueryFactory class */
+    private String jdoqlQueryFactoryClassName =  
+        "org.apache.jdo.impl.jdoql.JDOQLQueryFactoryImpl";
+
+    /** The query factory for JDOQL. */
+    private JDOQLQueryFactory jdoqlQueryFactory;
+
     /** RuntimeJavaModelFactory. */
     private static final RuntimeJavaModelFactory javaModelFactory =
         (RuntimeJavaModelFactory) AccessController.doPrivileged(
@@ -202,6 +199,45 @@ public class FOStorePMF
           }
       }
 
+    /** Sets the JDOQLQueryFactory class name used by getJDOQLQueryFactory.
+     * @param jdoqlQueryFactoryClassName the name of the JDOQLQueryFactory
+     * class.
+     */
+    public void setJDOQLQueryFactoryClassName(String jdoqlQueryFactoryClassName)
+    {
+        this.jdoqlQueryFactoryClassName = jdoqlQueryFactoryClassName;
+    }
+
+    /**
+     * Returns the JDOQLQueryFactory bound to this FOStorePMF.
+     * @return JDOQLQueryFactory
+     */
+    public synchronized JDOQLQueryFactory getJDOQLQueryFactory() {
+        if (this.jdoqlQueryFactory == null) {
+            try {
+                Class clazz = Class.forName(jdoqlQueryFactoryClassName);
+                this.jdoqlQueryFactory = (JDOQLQueryFactory) clazz.newInstance();
+            } catch (Exception ex) {
+                throw new JDOFatalException(
+                    msg.msg("EXC_CannotCreateJDOQLQueryFactory",  //NOI18N
+                            jdoqlQueryFactoryClassName), ex);
+            }
+        }
+        return this.jdoqlQueryFactory;
+    }
+
+    /** Returns a new QueryTree instance. This instance allows to specify a 
+     * query with an API (see {@link org.apache.jdo.jdoql.tree.QueryTree} and 
+     * {@link org.apache.jdo.jdoql.tree.ExpressionFactory}) rather than as JDOQL 
+     * strings. To run you create a query object from the QueryTree (see 
+     * {@link javax.jdo.PersistenceManager#newQuery(Object compiled)}) 
+     * and call the execute method on the Query object.
+     * @return new QueryTree instance.
+     */
+    public QueryTree newQueryTree() {
+        return getJDOQLQueryFactory().newTree();
+    }
+    
       /** Return the FOStore-specific accessors (the
        * properties that are not in the JDO specification).
        * @return the hash map of FOStore accessors
@@ -332,7 +368,7 @@ public class FOStorePMF
 
         PersistenceManager rc = null;
         try {
-            rc = new PersistenceManagerImpl(this, userid, password);
+            rc = new FOStorePM(this, userid, password);
             setConfigured();
         } catch (JDOException ex) {
             throw ex;

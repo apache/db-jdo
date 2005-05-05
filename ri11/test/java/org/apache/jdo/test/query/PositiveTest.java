@@ -22,16 +22,25 @@
 
 package org.apache.jdo.test.query;
 
-import java.util.*;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
-import javax.jdo.*;
+import javax.jdo.Extent;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 
+import org.apache.jdo.impl.fostore.FOStorePMF;
 import org.apache.jdo.impl.jdoql.tree.Tree;
-import org.apache.jdo.impl.pm.PersistenceManagerFactoryImpl;
 import org.apache.jdo.jdoql.tree.QueryTree;
+
 import org.apache.jdo.pc.xempdept.Company;
 import org.apache.jdo.pc.xempdept.Department;
 import org.apache.jdo.pc.xempdept.Employee;
@@ -326,8 +335,8 @@ public abstract class PositiveTest
      */
     protected QueryTree newQueryTree()
     {
-        if (pmf instanceof PersistenceManagerFactoryImpl)
-            return ((PersistenceManagerFactoryImpl)pmf).newQueryTree();
+        if (pmf instanceof FOStorePMF)
+            return ((FOStorePMF)pmf).newQueryTree();
         else
             return new Tree();
     }

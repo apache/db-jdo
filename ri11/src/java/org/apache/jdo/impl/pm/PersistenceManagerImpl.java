@@ -22,20 +22,28 @@
 
 package org.apache.jdo.impl.pm;
 
-import java.util.*;
+import java.lang.reflect.Constructor;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
-import java.lang.reflect.Constructor;
+import javax.jdo.Extent;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import javax.jdo.spi.PersistenceCapable;
 import javax.transaction.Status;
-
-import javax.jdo.*;
-import javax.jdo.spi.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.jdo.impl.jdoql.QueryImpl;
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModelFactory;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
@@ -56,8 +64,7 @@ import org.apache.jdo.util.JDORIVersion;
  * 
  * @author Marina Vatkina
  */ 
-public class PersistenceManagerImpl implements PersistenceManagerInternal {
-    private final boolean DEBUG = true;
+public abstract class PersistenceManagerImpl implements PersistenceManagerInternal {
     
     /**
      * True if this PersistenceManager is closed
@@ -206,7 +213,7 @@ public class PersistenceManagerImpl implements PersistenceManagerInternal {
     /**
      * I18N message handler
      */
-    private final static I18NHelper msg = 
+    protected final static I18NHelper msg = 
         I18NHelper.getInstance(PersistenceManagerImpl.class);
 
     /**
@@ -534,101 +541,68 @@ public class PersistenceManagerImpl implements PersistenceManagerInternal {
     //
 
     /** Create a new Query with no elements.
-    * @return a new Query instance with no elements.
-    */  
-    public Query newQuery() {
-        assertIsOpen();
-        return new QueryImpl(this);
-    }
+     * @return a new Query instance with no elements.
+     */  
+     public abstract Query newQuery();
 
-    /** Create a new Query using elements from another Query.  The other Query
-    * must have been created by the same JDO implementation.  It might be active
-    * in a different PersistenceManager or might have been serialized and
-    * restored.
-    * @return the new Query
-    * @param compiled another Query from the same JDO implementation
-    */  
-    public Query newQuery (Object compiled) {
-        assertIsOpen();
-        return new QueryImpl(this, compiled);
-    }
-
-    /** Create a new Query using the specified language.
-     * @param language the language of the query parameter
-     * @param query the query, which is of a form determined by the language
+     /** Create a new Query using elements from another Query.  The other Query
+     * must have been created by the same JDO implementation.  It might be active
+     * in a different PersistenceManager or might have been serialized and
+     * restored.
      * @return the new Query
-     */    
-    public Query newQuery (String language, Object query) {
-        assertIsOpen();
-        if ("javax.jdo.query.JDOQL".equals(language)) //NOI18N
-            return new QueryImpl(this, query);
-        throw new JDOUserException(msg.msg(
-                "EXC_UnsupportedQueryLanguage", language)); // NOI18N
-    }
-    
-    /** Create a new Query specifying the Class of the results.
-    * @param cls the Class of the results
-    * @return the new Query
-    */
-    public Query newQuery (Class cls) {
-        assertIsOpen();
-        return new QueryImpl(this, cls);
-    }
+     * @param compiled another Query from the same JDO implementation
+     */  
+     public abstract Query newQuery (Object compiled);
 
-    /** Create a new Query with the candidate Extent; the class is taken
-     * from the Extent.
-     * specified.
+     /** Create a new Query using the specified language.
+      * @param language the language of the query parameter
+      * @param query the query, which is of a form determined by the language
+      * @return the new Query
+      */    
+     public abstract Query newQuery (String language, Object query);
+     
+     /** Create a new Query specifying the Class of the results.
+     * @param cls the Class of the results
      * @return the new Query
-     * @param cln the Extent of candidate instances */  
-    public Query newQuery(Extent cln) {
-          assertIsOpen();
-          return new QueryImpl(this, cln);
-    }
+     */
+     public abstract Query newQuery (Class cls);
 
-    /** Create a new Query with the Class of the results and candidate Collection.
-    * specified.
-    * @param cls the Class of results
-    * @param cln the Collection of candidate instances
-    * @return the new Query
-    */
-    public Query newQuery (Class cls, Collection cln) {
-        assertIsOpen();
-        return new QueryImpl(this, cls, cln);
-    }
+     /** Create a new Query with the candidate Extent; the class is taken
+      * from the Extent.
+      * @return the new Query
+      * @param cln the Extent of candidate instances */  
+     public abstract Query newQuery(Extent cln);
 
-    /** Create a new Query with the Class of the results and Filter.
-    * specified.
-    * @param cls the Class of results
-    * @param filter the Filter for candidate instances
-    * @return the new Query
-    */
-    public Query newQuery (Class cls, String filter) {
-        assertIsOpen();
-        return new QueryImpl(this, cls, filter);
-    }
-
-    /** Create a new Query with the Class of the results, candidate Collection,
-    * and Filter.
-    * @param cls the Class of results
-    * @param cln the Collection of candidate instances
-    * @param filter the Filter for candidate instances
-    * @return the new Query
-    */
-    public Query newQuery (Class cls, Collection cln, String filter) {
-        assertIsOpen();
-        return new QueryImpl(this, cls, cln, filter);
-    }
-
-    /** Create a new Query with the candidate Extent and Filter.
-     * The class is taken from the Extent.
+     /** Create a new Query with the Class of the results and candidate Collection.
+     * @param cls the Class of results
+     * @param cln the Collection of candidate instances
      * @return the new Query
-     * @param cln the Extent of candidate instances
-     * @param filter the Filter for candidate instances */  
-    public Query newQuery(Extent cln, String filter) {
-          assertIsOpen();
-          return new QueryImpl(this, cln, filter);
-    }
+     */
+     public abstract Query newQuery (Class cls, Collection cln);
 
+     /** Create a new Query with the Class of the results and Filter.
+     * @param cls the Class of results
+     * @param filter the Filter for candidate instances
+     * @return the new Query
+     */
+     public abstract Query newQuery (Class cls, String filter);
+
+     /** Create a new Query with the Class of the results, candidate Collection,
+     * and Filter.
+     * @param cls the Class of results
+     * @param cln the Collection of candidate instances
+     * @param filter the Filter for candidate instances
+     * @return the new Query
+     */
+     public abstract Query newQuery (Class cls, Collection cln, String filter);
+
+     /** Create a new Query with the candidate Extent and Filter.
+      * The class is taken from the Extent.
+      * @return the new Query
+      * @param cln the Extent of candidate instances
+      * @param filter the Filter for candidate instances */  
+     public abstract Query newQuery(Extent cln, String filter);
+     
     /** The PersistenceManager may manage a collection of instances in the data
      * store based on the class of the instances.  This method returns an
      * Extent of instances in the data store that might be iterated or

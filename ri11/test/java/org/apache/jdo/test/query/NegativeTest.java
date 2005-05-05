@@ -22,18 +22,19 @@
 
 package org.apache.jdo.test.query;
 
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.Vector;
-import java.util.Iterator;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.Vector;
 
-import javax.jdo.*;
+import javax.jdo.JDOException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
 
+import org.apache.jdo.impl.fostore.FOStorePMF;
 import org.apache.jdo.impl.jdoql.tree.Tree;
-import org.apache.jdo.impl.pm.PersistenceManagerFactoryImpl;
 import org.apache.jdo.jdoql.tree.QueryTree;
 import org.apache.jdo.util.I18NHelper;
 
@@ -72,8 +73,8 @@ public abstract class NegativeTest
      */
     protected QueryTree newQueryTree()
     {
-        if (pmf instanceof PersistenceManagerFactoryImpl)
-            return ((PersistenceManagerFactoryImpl)pmf).newQueryTree();
+        if (pmf instanceof FOStorePMF)
+            return ((FOStorePMF)pmf).newQueryTree();
         else
             return new Tree();
     }
