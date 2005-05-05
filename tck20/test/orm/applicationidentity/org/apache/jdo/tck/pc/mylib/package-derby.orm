@@ -17,8 +17,12 @@
 
     <class name="PCRect" table="PCRect">
       <field name="id" column="ID" primary-key="true"/>
-      <field name="lowerRight" column="LOWER_RIGHT" foreign-key="true"/>
-      <field name="upperLeft" column="UPPER_LEFT" foreign-key="true"/>
+      <field name="lowerRight" column="LOWER_RIGHT">
+        <foreign-key/>
+      </field>
+      <field name="upperLeft" column="UPPER_LEFT">
+        <foreign-key/>
+      </field>
     </class>
 
     <class name="PrimitiveTypes" table="PrimitiveTypes">
