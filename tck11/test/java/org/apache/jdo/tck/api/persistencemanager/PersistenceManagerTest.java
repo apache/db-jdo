@@ -36,25 +36,24 @@ public abstract class PersistenceManagerTest extends JDO_Test {
 
     /** */
     protected void tearDown() {
+        Throwable cleanupFailure = null;
         try {
             cleanup();
             cleanupMylib();
-            closePMF();
         }
         catch (Throwable ex) {
-            if (debug) ex.printStackTrace();
-            if (testSucceeded) {
-                // runTest succeeded, but closePMF throws exception =>
-                // failure
-                fail("Exception during tearDown: " + ex);
-            }
-            else {
-                // runTest failed and closePMF throws exception =>
-                // just print the closePMF exception, otherwise the
-                // closePMF exception would swallow the test case failure
-                if (debug)
-                    logger.debug("Exception during tearDown: " + ex);
-            }
+            cleanupFailure = ex;
+            // set testSucceeded to false, otherwise a failure during
+            // super.tearDown would swallow this exception
+            testSucceeded = false;
+        }
+
+        // cleanup pmf
+        super.tearDown();
+
+        // fail if there was an exception during cleanup
+        if (cleanupFailure != null) {
+            fail("Exception during cleanupMylib: " + cleanupFailure);
         }
     }
     
@@ -66,12 +65,10 @@ public abstract class PersistenceManagerTest extends JDO_Test {
             pm = pmf.getPersistenceManager();
             tx = pm.currentTransaction();
             tx.begin();
-            Collection c = getAllObjects(pm, PCPoint.class);
+            // Note, remove PCRect instances first because of FK constraints
+            Collection c = getAllObjects(pm, PCRect.class);
             pm.deletePersistentAll(c);
-            tx.commit();
-        
-            tx.begin();
-            c = getAllObjects(pm, PCRect.class);
+            c = getAllObjects(pm, PCPoint.class);
             pm.deletePersistentAll(c);
             tx.commit();
         }

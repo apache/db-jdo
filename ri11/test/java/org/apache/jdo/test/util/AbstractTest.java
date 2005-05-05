@@ -47,6 +47,7 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
+import javax.jdo.JDOException;
 
 import junit.framework.TestCase;
 
@@ -297,7 +298,8 @@ public abstract class AbstractTest
      *
      */
     protected void closePMF() {
-        if (pmf != null) {
+        JDOException failure = null;
+        while (pmf != null) {
             if (debug) logger.debug("closePMF");
             try {
                 // Execute pmf.close in a privileged block, otherwise the test
@@ -307,11 +309,56 @@ public abstract class AbstractTest
                             pmf.close();
                             return null;
                         }});
-            }
-            finally {
                 pmf = null;
             }
+            catch (JDOException ex) {
+                // store failure of first call pmf.close
+                if (failure == null)
+                    failure = ex;
+                PersistenceManager[] pms = getFailedPersistenceManagers(ex);
+                for (int i = 0; i < pms.length; i++) {
+                    closePM(pms[i]);
+                }
+            }
         }
+
+        // rethrow JDOException thrown by pmf.close
+        if (failure != null)
+            throw failure;
+    }
+
+    /** 
+     * This method cleans up the specified 
+     * <code>PersistenceManager</code>. If the pm still has an open
+     * transaction, it will be rolled back, before closing the pm.
+     */
+    protected void closePM(PersistenceManager pm) 
+    {
+        if ((pm != null) && !pm.isClosed()) {
+            if (pm.currentTransaction().isActive()) {
+                pm.currentTransaction().rollback();
+            }
+            pm.close();
+        }
+    }
+
+    /** */
+    protected PersistenceManager[] getFailedPersistenceManagers(
+        JDOException ex) {
+        Throwable[] nesteds = ex.getNestedExceptions();
+        int numberOfExceptions = nesteds==null ? 0 : nesteds.length;
+        PersistenceManager[] result = new PersistenceManager[numberOfExceptions];
+        for (int i = 0; i < numberOfExceptions; ++i) {
+            JDOException exc = (JDOException)nesteds[i];
+            Object failedObject = exc.getFailedObject();
+            if (exc.getFailedObject() instanceof PersistenceManager) {
+                result[i] = (PersistenceManager)failedObject;
+            } else {
+                fail("Unexpected failed object of type: " +
+                     failedObject.getClass().getName());
+            }
+        }
+        return result;
     }
 
     /**

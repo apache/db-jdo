@@ -26,6 +26,7 @@ import java.util.Properties;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.JDOException;
 
 import junit.framework.TestCase;
 
@@ -229,10 +230,47 @@ public abstract class JDO_Test extends TestCase {
     /** Closes the pmf stored in this instance. */
     protected void closePMF()
     {
-        if (pmf != null) {
-            pmf.close();
-            pmf = null;
+        JDOException failure = null;
+        while (pmf != null) {
+            try {
+                pmf.close();
+                pmf = null;
+            }
+            catch (JDOException ex) {
+                // store failure of first call pmf.close
+                if (failure == null)
+                    failure = ex;
+                PersistenceManager[] pms = getFailedPersistenceManagers(
+                    "closePMF", ex);
+                for (int i = 0; i < pms.length; i++) {
+                    cleanupPM(pms[i]);
+                }
+            }
         }
+
+        // rethrow JDOException thrown by pmf.close
+        if (failure != null)
+            throw failure;
+    }
+
+    /** */
+    protected PersistenceManager[] getFailedPersistenceManagers(
+        String assertionFailure, JDOException ex) {
+        Throwable[] nesteds = ex.getNestedExceptions();
+        int numberOfExceptions = nesteds==null ? 0 : nesteds.length;
+        PersistenceManager[] result = new PersistenceManager[numberOfExceptions];
+        for (int i = 0; i < numberOfExceptions; ++i) {
+            JDOException exc = (JDOException)nesteds[i];
+            Object failedObject = exc.getFailedObject();
+            if (exc.getFailedObject() instanceof PersistenceManager) {
+                result[i] = (PersistenceManager)failedObject;
+            } else {
+                fail(assertionFailure,
+                     "Unexpected failed object of type: " +
+                     failedObject.getClass().getName());
+            }
+        }
+        return result;
     }
 
     /**
