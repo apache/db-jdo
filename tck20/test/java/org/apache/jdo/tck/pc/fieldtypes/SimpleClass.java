@@ -21,7 +21,7 @@ package org.apache.jdo.tck.pc.fieldtypes;
 import java.util.Date;
 import java.io.Serializable;
 
-public class SimpleClass implements SimpleInterface, Comparable {
+public class SimpleClass implements Serializable, SimpleInterface, Comparable {
 
     private static long counter = new Date().getTime();
     private static long newId() {

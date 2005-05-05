@@ -9,32 +9,32 @@ Metadata for application identity
             <field name="identifier" column="IDENTIFIER" primary-key="true"/>
             <field name="ArrayOfObject0" table="ARRAY_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
-                <element column="OBJVAL"/>
+                <element column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfObject1" table="ARRAY_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJVAL"/>
+                <element column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfSimpleClass2" table="ARRAY_OF_SIMPLE_CLASS2">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTVAL"/>
+                <element column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfSimpleClass3" table="ARRAY_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTVAL"/>
+                <element column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfSimpleInterface4" table="ARRAY_OF_SIMPLE_INTERFACE4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTVAL"/>
+                <element column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfSimpleInterface5" table="ARRAY_OF_SIMPLE_INTERFACE5">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTVAL"/>
+                <element column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayOfString6" table="ARRAY_OF_STRING6">
