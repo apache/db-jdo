@@ -167,16 +167,12 @@ public class TestArrayCollections extends JDO_Test {
 
             if(!Arrays.equals(val, compareWith)){
                 if (debug) {
-                    if ((compareWith != null) && (val != null)) {
-                        logger.debug("persistent instance = " + val.toString() +
-                                 "compareWith = " + compareWith.toString());
-                    }
-                    else {
-                        if (compareWith == null)
-                            logger.debug("Persistent instance is null."); 
-                        if (val == null)
-                            logger.debug("compareWith is null."); 
-                    }
+                    String message1 = compareWith==null?"compareWith was null!!!":
+                        compareWith.toString();
+                    String message2 = val==null?"val was null!!!":
+                        val.toString();
+                    logger.debug("compareWith: " + message1);
+                    logger.debug("val: "+ message2);
                 }
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + ArrayCollections.fieldSpecs[i]);
