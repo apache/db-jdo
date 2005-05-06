@@ -21,7 +21,6 @@
  
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
 
 /** 
  * This interface is used to notify instances of delete events.

@@ -21,20 +21,19 @@
 
 package javax.jdo.spi;
 
-import java.util.HashMap;
-import java.util.WeakHashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-import javax.jdo.spi.JDOPermission;
-import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOFatalUserException;
+import javax.jdo.spi.JDOPermission;
 
 /** This class is a helper class for JDO implementations.  It contains methods
  * to register metadata for persistence-capable classes and to perform common

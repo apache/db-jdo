@@ -22,17 +22,11 @@
 package javax.jdo;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Comparator;
-import java.lang.Class;
 
-import javax.jdo.spi.StateInterrogation;
+import javax.jdo.datastore.JDOConnection;
+import javax.jdo.datastore.Sequence;
 
 import javax.jdo.listener.InstanceLifecycleListener;
-
-import javax.jdo.datastore.Sequence;
-import javax.jdo.datastore.JDOConnection;
 
 /** <code>PersistenceManager</code> is the primary interface for JDO-aware application
  * components.  It is the factory for <code>Query</code> and <code>Transaction</code> instances,
