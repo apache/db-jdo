@@ -40,133 +40,89 @@
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
             </field>
-            <field name="CollectionOfString9" table="COLLECTION_OF_STRING9">
-                <join column="IDENTIFIER"/>
-                <element column="STRINGVAL"/>
+            <field name="CollectionOfString9" column="COLLECTION_OF_STRING9">
             </field>
-            <field name="CollectionOfString10" table="COLLECTION_OF_STRING10">
-                <join column="IDENTIFIER"/>
-                <element column="STRINGVAL"/>
+            <field name="CollectionOfString10" column="COLLECTION_OF_STRING10">
             </field>
             <field name="CollectionOfString11" table="COLLECTION_OF_STRING11">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
             </field>
-            <field name="CollectionOfDate12" table="COLLECTION_OF_DATE12">
-                <join column="IDENTIFIER"/>
-                <element column="DATEVAL"/>
+            <field name="CollectionOfDate12" column="COLLECTION_OF_DATE12">
             </field>
-            <field name="CollectionOfDate13" table="COLLECTION_OF_DATE13">
-                <join column="IDENTIFIER"/>
-                <element column="DATEVAL"/>
+            <field name="CollectionOfDate13" column="COLLECTION_OF_DATE13">
             </field>
             <field name="CollectionOfDate14" table="COLLECTION_OF_DATE14">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
             </field>
-            <field name="CollectionOfLocale15" table="COLLECTION_OF_LOCALE15">
-                <join column="IDENTIFIER"/>
-                <element column="LOCALEVAL"/>
+            <field name="CollectionOfLocale15" column="COLLECTION_OF_LOCALE15">
             </field>
-            <field name="CollectionOfLocale16" table="COLLECTION_OF_LOCALE16">
-                <join column="IDENTIFIER"/>
-                <element column="LOCALEVAL"/>
+            <field name="CollectionOfLocale16" column="COLLECTION_OF_LOCALE16">
             </field>
             <field name="CollectionOfLocale17" table="COLLECTION_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
             </field>
-            <field name="CollectionOfBigDecimal18" table="COLLECTION_OF_BIG_DECIMAL18">
-                <join column="IDENTIFIER"/>
-                <element column="BIG_DECIMALVAL"/>
+            <field name="CollectionOfBigDecimal18" column="COLLECTION_OF_BIG_DECIMAL18">
             </field>
-            <field name="CollectionOfBigDecimal19" table="COLLECTION_OF_BIG_DECIMAL19">
-                <join column="IDENTIFIER"/>
-                <element column="BIG_DECIMALVAL"/>
+            <field name="CollectionOfBigDecimal19" column="COLLECTION_OF_BIG_DECIMAL19">
             </field>
             <field name="CollectionOfBigDecimal20" table="COLLECTION_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
             </field>
-            <field name="CollectionOfBigInteger21" table="COLLECTION_OF_BIG_INTEGER21">
-                <join column="IDENTIFIER"/>
-                <element column="BIG_INTEGERVAL"/>
+            <field name="CollectionOfBigInteger21" column="COLLECTION_OF_BIG_INTEGER21">
             </field>
-            <field name="CollectionOfBigInteger22" table="COLLECTION_OF_BIG_INTEGER22">
-                <join column="IDENTIFIER"/>
-                <element column="BIG_INTEGERVAL"/>
+            <field name="CollectionOfBigInteger22" column="COLLECTION_OF_BIG_INTEGER22">
             </field>
             <field name="CollectionOfBigInteger23" table="COLLECTION_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
             </field>
-            <field name="CollectionOfByte24" table="COLLECTION_OF_BYTE24">
-                <join column="IDENTIFIER"/>
-                <element column="BYTEVAL"/>
+            <field name="CollectionOfByte24" column="COLLECTION_OF_BYTE24">
             </field>
-            <field name="CollectionOfByte25" table="COLLECTION_OF_BYTE25">
-                <join column="IDENTIFIER"/>
-                <element column="BYTEVAL"/>
+            <field name="CollectionOfByte25" column="COLLECTION_OF_BYTE25">
             </field>
             <field name="CollectionOfByte26" table="COLLECTION_OF_BYTE27">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
             </field>
-            <field name="CollectionOfDouble27" table="COLLECTION_OF_DOUBLE27">
-                <join column="IDENTIFIER"/>
-                <element column="DOUBLEVAL"/>
+            <field name="CollectionOfDouble27" column="COLLECTION_OF_DOUBLE27">
             </field>
-            <field name="CollectionOfDouble28" table="COLLECTION_OF_DOUBLE28">
-                <join column="IDENTIFIER"/>
-                <element column="DOUBLEVAL"/>
+            <field name="CollectionOfDouble28" column="COLLECTION_OF_DOUBLE28">
             </field>
             <field name="CollectionOfDouble29" table="COLLECTION_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
             </field>
-            <field name="CollectionOfFloat30" table="COLLECTION_OF_FLOAT30">
-                <join column="IDENTIFIER"/>
-                <element column="FLOATVAL"/>
+            <field name="CollectionOfFloat30" column="COLLECTION_OF_FLOAT30">
             </field>
-            <field name="CollectionOfFloat31" table="COLLECTION_OF_FLOAT31">
-                <join column="IDENTIFIER"/>
-                <element column="FLOATVAL"/>
+            <field name="CollectionOfFloat31" column="COLLECTION_OF_FLOAT31">
             </field>
             <field name="CollectionOfFloat32" table="COLLECTION_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
             </field>
-            <field name="CollectionOfInteger33" table="COLLECTION_OF_INTEGER33">
-                <join column="IDENTIFIER"/>
-                <element column="INTEGERVAL"/>
+            <field name="CollectionOfInteger33" column="COLLECTION_OF_INTEGER33">
             </field>
-            <field name="CollectionOfInteger34" table="COLLECTION_OF_INTEGER34">
-                <join column="IDENTIFIER"/>
-                <element column="INTEGERVAL"/>
+            <field name="CollectionOfInteger34" column="COLLECTION_OF_INTEGER34">
             </field>
             <field name="CollectionOfInteger35" table="COLLECTION_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
             </field>
-            <field name="CollectionOfLong36" table="COLLECTION_OF_LONG36">
-                <join column="IDENTIFIER"/>
-                <element column="LONGVAL"/>
+            <field name="CollectionOfLong36" column="COLLECTION_OF_LONG36">
             </field>
-            <field name="CollectionOfLong37" table="COLLECTION_OF_LONG37">
-                <join column="IDENTIFIER"/>
-                <element column="LONGVAL"/>
+            <field name="CollectionOfLong37" column="COLLECTION_OF_LONG37">
             </field>
             <field name="CollectionOfLong38" table="COLLECTION_OF_LONG38">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
             </field>
-            <field name="CollectionOfShort39" table="COLLECTION_OF_SHORT39">
-                <join column="IDENTIFIER"/>
-                <element column="SHORTVAL"/>
+            <field name="CollectionOfShort39" column="COLLECTION_OF_SHORT39">
             </field>
-            <field name="CollectionOfShort40" table="COLLECTION_OF_SHORT40">
-                <join column="IDENTIFIER"/>
-                <element column="SHORTVAL"/>
+            <field name="CollectionOfShort40" column="COLLECTION_OF_SHORT40">
             </field>
             <field name="CollectionOfShort41" table="COLLECTION_OF_SHORT41">
                 <join column="IDENTIFIER"/>
