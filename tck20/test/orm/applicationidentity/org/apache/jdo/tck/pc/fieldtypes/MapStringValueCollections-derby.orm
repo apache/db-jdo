@@ -2,7 +2,7 @@
 <!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
-        <class name="MapStringValue" table="MAPSTRINGVALUE_COLLECTIONS">
+        <class name="MapStringValueCollections" table="MAPSTRINGVALUE_COLLECTIONS">
             <field name="identifier" column="IDENTIFIER" primary-key="true"/>
             <field name="MapOfObject_String0" table="MAP_OF_OBJECT0_STRING">
                 <join column="IDENTIFIER"/>
