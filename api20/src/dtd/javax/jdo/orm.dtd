@@ -1,7 +1,9 @@
+<!-- The following document headers belong in the user's .orm file
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE orm
     PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN"
     "http://java.sun.com/dtd/orm_2_0.dtd">
+-->
 <!ELEMENT orm (extension*, (package|query)+, extension*)>
 <!ELEMENT package (extension*, (interface|class|sequence)+, extension*)>
 <!ATTLIST package name CDATA ''>
@@ -79,6 +81,7 @@
 <!ATTLIST field delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST field indexed (true|false|unique) #IMPLIED>
 <!ATTLIST field unique (true|false) #IMPLIED>
+<!ATTLIST field foreign-key CDATA #IMPLIED>
 <!ATTLIST field mapped-by CDATA #IMPLIED>
 <!ATTLIST field value-strategy CDATA #IMPLIED>
 <!ATTLIST field sequence CDATA #IMPLIED>
