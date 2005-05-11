@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="ListCollections" table="LIST_COLLECTIONS">
+            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <field name="ListOfObject0" table="LIST_OF_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfObject1" table="LIST_OF_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfObject2" table="LIST_OF_OBJECT2">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleClass3" table="LIST_OF_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleClass4" table="LIST_OF_SIMPLE_CLASS4">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleClass5" table="LIST_OF_SIMPLE_CLASS5">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleInterface6" table="LIST_OF_SIMPLE_INTERFACE6">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleInterface7" table="LIST_OF_SIMPLE_INTERFACE7">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfSimpleInterface8" table="LIST_OF_SIMPLE_INTERFACE8">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfString9" column="LIST_OF_STRING9">
+            </field>
+            <field name="ListOfString10" column="LIST_OF_STRING10">
+            </field>
+            <field name="ListOfString11" table="LIST_OF_STRING11">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfDate12" column="LIST_OF_DATE12">
+            </field>
+            <field name="ListOfDate13" column="LIST_OF_DATE13">
+            </field>
+            <field name="ListOfDate14" table="LIST_OF_DATE14">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfLocale15" column="LIST_OF_LOCALE15">
+            </field>
+            <field name="ListOfLocale16" column="LIST_OF_LOCALE16">
+            </field>
+            <field name="ListOfLocale17" table="LIST_OF_LOCALE17">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfBigDecimal18" column="LIST_OF_BIG_DECIMAL18">
+            </field>
+            <field name="ListOfBigDecimal19" column="LIST_OF_BIG_DECIMAL19">
+            </field>
+            <field name="ListOfBigDecimal20" table="LIST_OF_BIG_DECIMAL20">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfBigInteger21" column="LIST_OF_BIG_INTEGER21">
+            </field>
+            <field name="ListOfBigInteger22" column="LIST_OF_BIG_INTEGER22">
+            </field>
+            <field name="ListOfBigInteger23" table="LIST_OF_BIG_INTEGER23">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfByte24" column="LIST_OF_BYTE24">
+            </field>
+            <field name="ListOfByte25" column="LIST_OF_BYTE25">
+            </field>
+            <field name="ListOfByte26" table="LIST_OF_BYTE27">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfDouble27" column="LIST_OF_DOUBLE27">
+            </field>
+            <field name="ListOfDouble28" column="LIST_OF_DOUBLE28">
+            </field>
+            <field name="ListOfDouble29" table="LIST_OF_DOUBLE29">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfFloat30" column="LIST_OF_FLOAT30">
+            </field>
+            <field name="ListOfFloat31" column="LIST_OF_FLOAT31">
+            </field>
+            <field name="ListOfFloat32" table="LIST_OF_FLOAT32">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfInteger33" column="LIST_OF_INTEGER33">
+            </field>
+            <field name="ListOfInteger34" column="LIST_OF_INTEGER34">
+            </field>
+            <field name="ListOfInteger35" table="LIST_OF_INTEGER35">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfLong36" column="LIST_OF_LONG36">
+            </field>
+            <field name="ListOfLong37" column="LIST_OF_LONG37">
+            </field>
+            <field name="ListOfLong38" table="LIST_OF_LONG38">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ListOfShort39" column="LIST_OF_SHORT39">
+            </field>
+            <field name="ListOfShort40" column="LIST_OF_SHORT40">
+            </field>
+            <field name="ListOfShort41" table="LIST_OF_SHORT41">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+        </class>
+    </package>
+</orm>

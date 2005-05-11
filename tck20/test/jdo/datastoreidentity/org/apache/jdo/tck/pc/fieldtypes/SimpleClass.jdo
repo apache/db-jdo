@@ -3,7 +3,7 @@
 <jdo>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="SimpleClass" identity-type="datastore">
-            <implements name="SimpleInteface"/>
+            <implements name="SimpleInterface"/>
         </class>
     </package>
 </jdo>

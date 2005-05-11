@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="SimpleClass" table="SIMPLE_CLASS">
+            <implements name="SimpleInterface"/>
+            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <field name="intField" column="INTVAL"/>
+            <field name="stringField" column="STRINGVAL"/>
+        </class>
+    </package>
+</orm>

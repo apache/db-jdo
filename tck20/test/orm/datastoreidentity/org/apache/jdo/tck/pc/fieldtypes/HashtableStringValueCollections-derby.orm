@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="HashtableStringValueCollections" table="HASHTBLSTRINGVALUE_COLLECTIONS">
+            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <field name="HashtableOfObject_String0" table="HASHTBL_OBJECT0_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String1" table="HASHTBL_OBJECT1_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String2" table="HASHTBL_OBJECT2_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String3" table="HASHTBL_OBJECT3_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String4" table="HASHTBL_OBJECT4_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String5" table="HASHTBL_OBJECT5_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String6" table="HASHTBL_OBJECT6_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String7" table="HASHTBL_OBJECT7_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfObject_String8" table="HASHTBL_OBJECT8_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String9" table="HASHTBL_SIMPLE_CLASS9_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String10" table="HASHTBL_SIMPLE_CLASS10_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String11" table="HASHTBL_SIMPLE_CLASS11_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String12" table="HASHTBL_SIMPLE_CLASS12_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String13" table="HASHTBL_SIMPLE_CLASS13_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String14" table="HASHTBL_SIMPLE_CLASS14_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String15" table="HASHTBL_SIMPLE_CLASS15_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String16" table="HASHTBL_SIMPLE_CLASS16_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String17" table="HASHTBL_SIMPLE_CLASS17_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String18" table="HASHTBL_SIMPLE_INTERFACE18_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String19" table="HASHTBL_SIMPLE_INTERFACE19_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String20" table="HASHTBL_SIMPLE_INTERFACE20_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String21" table="HASHTBL_SIMPLE_INTERFACE21_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String22" table="HASHTBL_SIMPLE_INTERFACE22_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String23" table="HASHTBL_SIMPLE_INTERFACE23_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String24" table="HASHTBL_SIMPLE_INTERFACE24_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String25" table="HASHTBL_SIMPLE_INTERFACE25_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String26" table="HASHTBL_SIMPLE_INTERFACE26_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_String27" column="HASHTBL_STRING27_STR">
+            </field>
+            <field name="HashtableOfString_String28" column="HASHTBL_STRING28_STR">
+            </field>
+            <field name="HashtableOfString_String29" column="HASHTBL_STRING29_STR">
+            </field>
+            <field name="HashtableOfString_String30" column="HASHTBL_STRING30_STR">
+            </field>
+            <field name="HashtableOfString_String31" column="HASHTBL_STRING31_STR">
+            </field>
+            <field name="HashtableOfString_String32" column="HASHTBL_STRING32_STR">
+            </field>
+            <field name="HashtableOfString_String33" column="HASHTBL_STRING33_STR">
+            </field>
+            <field name="HashtableOfString_String34" column="HASHTBL_STRING34_STR">
+            </field>
+            <field name="HashtableOfString_String35" table="HASHTBL_STRING35_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfDate_String36" column="HASHTBL_DATE36_STR">
+            </field>
+            <field name="HashtableOfDate_String37" column="HASHTBL_DATE37_STR">
+            </field>
+            <field name="HashtableOfDate_String38" column="HASHTBL_DATE38_STR">
+            </field>
+            <field name="HashtableOfDate_String39" column="HASHTBL_DATE39_STR">
+            </field>
+            <field name="HashtableOfDate_String40" column="HASHTBL_DATE40_STR">
+            </field>
+            <field name="HashtableOfDate_String41" column="HASHTBL_DATE41_STR">
+            </field>
+            <field name="HashtableOfDate_String42" column="HASHTBL_DATE42_STR">
+            </field>
+            <field name="HashtableOfDate_String43" column="HASHTBL_DATE43_STR">
+            </field>
+            <field name="HashtableOfDate_String44" table="HASHTBL_DATE44_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfBigDecimal_String45" column="HASHTBL_BIG_DECIMAL45_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String46" column="HASHTBL_BIG_DECIMAL46_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String47" column="HASHTBL_BIG_DECIMAL47_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String48" column="HASHTBL_BIG_DECIMAL48_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String49" column="HASHTBL_BIG_DECIMAL49_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String50" column="HASHTBL_BIG_DECIMAL50_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String51" column="HASHTBL_BIG_DECIMAL51_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String52" column="HASHTBL_BIG_DECIMAL52_STR">
+            </field>
+            <field name="HashtableOfBigDecimal_String53" table="HASHTBL_BIG_DECIMAL53_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfBigInteger_String54" column="HASHTBL_BIG_INTEGER54_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String55" column="HASHTBL_BIG_INTEGER55_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String56" column="HASHTBL_BIG_INTEGER56_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String57" column="HASHTBL_BIG_INTEGER57_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String58" column="HASHTBL_BIG_INTEGER58_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String59" column="HASHTBL_BIG_INTEGER59_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String60" column="HASHTBL_BIG_INTEGER60_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String61" column="HASHTBL_BIG_INTEGER61_STR">
+            </field>
+            <field name="HashtableOfBigInteger_String62" table="HASHTBL_BIG_INTEGER62_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfByte_String63" column="HASHTBL_BYTE63_STR">
+            </field>
+            <field name="HashtableOfByte_String64" column="HASHTBL_BYTE64_STR">
+            </field>
+            <field name="HashtableOfByte_String65" column="HASHTBL_BYTE65_STR">
+            </field>
+            <field name="HashtableOfByte_String66" column="HASHTBL_BYTE66_STR">
+            </field>
+            <field name="HashtableOfByte_String67" column="HASHTBL_BYTE67_STR">
+            </field>
+            <field name="HashtableOfByte_String68" column="HASHTBL_BYTE68_STR">
+            </field>
+            <field name="HashtableOfByte_String69" column="HASHTBL_BYTE69_STR">
+            </field>
+            <field name="HashtableOfByte_String70" column="HASHTBL_BYTE70_STR">
+            </field>
+            <field name="HashtableOfByte_String71" table="HASHTBL_BYTE71_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfDouble_String72" column="HASHTBL_DOUBLE72_STR">
+            </field>
+            <field name="HashtableOfDouble_String73" column="HASHTBL_DOUBLE73_STR">
+            </field>
+            <field name="HashtableOfDouble_String74" column="HASHTBL_DOUBLE74_STR">
+            </field>
+            <field name="HashtableOfDouble_String75" column="HASHTBL_DOUBLE75_STR">
+            </field>
+            <field name="HashtableOfDouble_String76" column="HASHTBL_DOUBLE76_STR">
+            </field>
+            <field name="HashtableOfDouble_String77" column="HASHTBL_DOUBLE77_STR">
+            </field>
+            <field name="HashtableOfDouble_String78" column="HASHTBL_DOUBLE78_STR">
+            </field>
+            <field name="HashtableOfDouble_String79" column="HASHTBL_DOUBLE79_STR">
+            </field>
+            <field name="HashtableOfDouble_String80" table="HASHTBL_DOUBLE80_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfFloat_String81" column="HASHTBL_FLOAT81_STR">
+            </field>
+            <field name="HashtableOfFloat_String82" column="HASHTBL_FLOAT82_STR">
+            </field>
+            <field name="HashtableOfFloat_String83" column="HASHTBL_FLOAT83_STR">
+            </field>
+            <field name="HashtableOfFloat_String84" column="HASHTBL_FLOAT84_STR">
+            </field>
+            <field name="HashtableOfFloat_String85" column="HASHTBL_FLOAT85_STR">
+            </field>
+            <field name="HashtableOfFloat_String86" column="HASHTBL_FLOAT86_STR">
+            </field>
+            <field name="HashtableOfFloat_String87" column="HASHTBL_FLOAT87_STR">
+            </field>
+            <field name="HashtableOfFloat_String88" column="HASHTBL_FLOAT88_STR">
+            </field>
+            <field name="HashtableOfFloat_String89" table="HASHTBL_FLOAT89_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfInteger_String90" column="HASHTBL_INTEGER90_STR">
+            </field>
+            <field name="HashtableOfInteger_String91" column="HASHTBL_INTEGER91_STR">
+            </field>
+            <field name="HashtableOfInteger_String92" column="HASHTBL_INTEGER92_STR">
+            </field>
+            <field name="HashtableOfInteger_String93" column="HASHTBL_INTEGER93_STR">
+            </field>
+            <field name="HashtableOfInteger_String94" column="HASHTBL_INTEGER94_STR">
+            </field>
+            <field name="HashtableOfInteger_String95" column="HASHTBL_INTEGER95_STR">
+            </field>
+            <field name="HashtableOfInteger_String96" column="HASHTBL_INTEGER96_STR">
+            </field>
+            <field name="HashtableOfInteger_String97" column="HASHTBL_INTEGER97_STR">
+            </field>
+            <field name="HashtableOfInteger_String98" table="HASHTBL_INTEGER98_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfLong_String99" column="HASHTBL_LONG99_STR">
+            </field>
+            <field name="HashtableOfLong_String100" column="HASHTBL_LONG100_STR">
+            </field>
+            <field name="HashtableOfLong_String101" column="HASHTBL_LONG101_STR">
+            </field>
+            <field name="HashtableOfLong_String102" column="HASHTBL_LONG102_STR">
+            </field>
+            <field name="HashtableOfLong_String103" column="HASHTBL_LONG103_STR">
+            </field>
+            <field name="HashtableOfLong_String104" column="HASHTBL_LONG104_STR">
+            </field>
+            <field name="HashtableOfLong_String105" column="HASHTBL_LONG105_STR">
+            </field>
+            <field name="HashtableOfLong_String106" column="HASHTBL_LONG106_STR">
+            </field>
+            <field name="HashtableOfLong_String107" table="HASHTBL_LONG107_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfShort_String108" column="HASHTBL_SHORT108_STR">
+            </field>
+            <field name="HashtableOfShort_String109" column="HASHTBL_SHORT109_STR">
+            </field>
+            <field name="HashtableOfShort_String110" column="HASHTBL_SHORT110_STR">
+            </field>
+            <field name="HashtableOfShort_String111" column="HASHTBL_SHORT111_STR">
+            </field>
+            <field name="HashtableOfShort_String112" column="HASHTBL_SHORT112_STR">
+            </field>
+            <field name="HashtableOfShort_String113" column="HASHTBL_SHORT113_STR">
+            </field>
+            <field name="HashtableOfShort_String114" column="HASHTBL_SHORT114_STR">
+            </field>
+            <field name="HashtableOfShort_String115" column="HASHTBL_SHORT115_STR">
+            </field>
+            <field name="HashtableOfShort_String116" table="HASHTBL_SHORT116_STR">
+                <join column="IDENTIFIER"/>
+                <value column="STRING"/>
+                <key column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+        </class>
+    </package>
+</orm>

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="MapStringKeyCollections" table="MAPSTRINGKEY_COLLECTIONS">
+            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <field name="MapOfString_Object0" table="MAP_OF_STRING_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object1" table="MAP_OF_STRING_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object2" table="MAP_OF_STRING_OBJECT2">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass3" table="MAP_OF_STRING_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass4" table="MAP_OF_STRING_SIMPLE_CLASS4">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass5" table="MAP_OF_STRING_SIMPLE_CLASS5">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface6" table="MAP_OF_STRING_SIMPLE_INTERFACE6">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface7" column="MAP_OF_STRING_SIMPLE_INTERFACE7">
+            </field>
+            <field name="MapOfString_SimpleInterface8" column="MAP_OF_STRING_SIMPLE_INTERFACE8">
+            </field>
+            <field name="MapOfString_String9" column="MAP_OF_STRING_STRING9">
+            </field>
+            <field name="MapOfString_String10" column="MAP_OF_STRING_STRING10">
+            </field>
+            <field name="MapOfString_String11" column="MAP_OF_STRING_STRING11">
+            </field>
+            <field name="MapOfString_Date12" column="MAP_OF_STRING_DATE12">
+            </field>
+            <field name="MapOfString_Date13" column="MAP_OF_STRING_DATE13">
+            </field>
+            <field name="MapOfString_Date14" column="MAP_OF_STRING_DATE14">
+            </field>
+            <field name="MapOfString_Locale15" column="MAP_OF_STRING_LOCALE15">
+            </field>
+            <field name="MapOfString_Locale16" column="MAP_OF_STRING_LOCALE16">
+            </field>
+            <field name="MapOfString_Locale17" column="MAP_OF_STRING_LOCALE17">
+            </field>
+            <field name="MapOfString_BigDecimal18" column="MAP_OF_STRING_BIG_DECIMAL18">
+            </field>
+            <field name="MapOfString_BigDecimal19" column="MAP_OF_STRING_BIG_DECIMAL19">
+            </field>
+            <field name="MapOfString_BigDecimal20" column="MAP_OF_STRING_BIG_DECIMAL20">
+            </field>
+            <field name="MapOfString_BigInteger21" column="MAP_OF_STRING_BIG_INTEGER21">
+            </field>
+            <field name="MapOfString_BigInteger22" column="MAP_OF_STRING_BIG_INTEGER22">
+            </field>
+            <field name="MapOfString_BigInteger23" column="MAP_OF_STRING_BIG_INTEGER23">
+            </field>
+            <field name="MapOfString_Byte24" column="MAP_OF_STRING_BYTE24">
+            </field>
+            <field name="MapOfString_Byte25" column="MAP_OF_STRING_BYTE25">
+            </field>
+            <field name="MapOfString_Byte26" column="MAP_OF_STRING_BYTE27">
+            </field>
+            <field name="MapOfString_Double27" column="MAP_OF_STRING_DOUBLE27">
+            </field>
+            <field name="MapOfString_Double28" column="MAP_OF_STRING_DOUBLE28">
+            </field>
+            <field name="MapOfString_Double29" column="MAP_OF_STRING_DOUBLE29">
+            </field>
+            <field name="MapOfString_Float30" column="MAP_OF_STRING_FLOAT30">
+            </field>
+            <field name="MapOfString_Float31" column="MAP_OF_STRING_FLOAT31">
+            </field>
+            <field name="MapOfString_Float32" column="MAP_OF_STRING_FLOAT32">
+            </field>
+            <field name="MapOfString_Integer33" column="MAP_OF_STRING_INTEGER33">
+            </field>
+            <field name="MapOfString_Integer34" column="MAP_OF_STRING_INTEGER34">
+            </field>
+            <field name="MapOfString_Integer35" column="MAP_OF_STRING_INTEGER35">
+            </field>
+            <field name="MapOfString_Long36" column="MAP_OF_STRING_LONG36">
+            </field>
+            <field name="MapOfString_Long37" column="MAP_OF_STRING_LONG37">
+            </field>
+            <field name="MapOfString_Long38" column="MAP_OF_STRING_LONG38">
+            </field>
+            <field name="MapOfString_Short39" column="MAP_OF_STRING_SHORT39">
+            </field>
+            <field name="MapOfString_Short40" column="MAP_OF_STRING_SHORT40">
+            </field>
+            <field name="MapOfString_Short41" column="MAP_OF_STRING_SHORT41">
+            </field>
+  <field name="MapOfString_Object42" table="MAP_OF_STRING_OBJECT42">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object43" table="MAP_OF_STRING_OBJECT43">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object44" table="MAP_OF_STRING_OBJECT44">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass45" table="MAP_OF_STRING_SIMPLE_CLASS45">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass46" table="MAP_OF_STRING_SIMPLE_CLASS46">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass47" table="MAP_OF_STRING_SIMPLE_CLASS47">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface48" table="MAP_OF_STRING_SIMPLE_INTERFACE48">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface49" table="MAP_OF_STRING_SIMPLE_INTERFACE49">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface50" table="MAP_OF_STRING_SIMPLE_INTERFACE50">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_String51" column="MAP_OF_STRING_STRING51">
+            </field>
+            <field name="MapOfString_String52" column="MAP_OF_STRING_STRING52">
+            </field>
+            <field name="MapOfString_String53" column="MAP_OF_STRING_STRING53">
+            </field>
+            <field name="MapOfString_Date54" column="MAP_OF_STRING_DATE54">
+            </field>
+            <field name="MapOfString_Date55" column="MAP_OF_STRING_DATE55">
+            </field>
+            <field name="MapOfString_Date56" column="MAP_OF_STRING_DATE56">
+            </field>
+            <field name="MapOfString_Locale57" column="MAP_OF_STRING_LOCALE57">
+            </field>
+            <field name="MapOfString_Locale58" column="MAP_OF_STRING_LOCALE58">
+            </field>
+            <field name="MapOfString_Locale59" column="MAP_OF_STRING_LOCALE59">
+            </field>
+            <field name="MapOfString_BigDecimal60" column="MAP_OF_STRING_BIG_DECIMAL60">
+            </field>
+            <field name="MapOfString_BigDecimal61" column="MAP_OF_STRING_BIG_DECIMAL61">
+            </field>
+            <field name="MapOfString_BigDecimal62" column="MAP_OF_STRING_BIG_DECIMAL62">
+            </field>
+            <field name="MapOfString_BigInteger63" column="MAP_OF_STRING_BIG_INTEGER63">
+            </field>
+            <field name="MapOfString_BigInteger64" column="MAP_OF_STRING_BIG_INTEGER64">
+            </field>
+            <field name="MapOfString_BigInteger65" column="MAP_OF_STRING_BIG_INTEGER65">
+            </field>
+            <field name="MapOfString_Byte66" column="MAP_OF_STRING_BYTE66">
+            </field>
+            <field name="MapOfString_Byte67" column="MAP_OF_STRING_BYTE67">
+            </field>
+            <field name="MapOfString_Byte68" column="MAP_OF_STRING_BYTE68">
+            </field>
+            <field name="MapOfString_Double69" column="MAP_OF_STRING_DOUBLE69">
+            </field>
+            <field name="MapOfString_Double70" column="MAP_OF_STRING_DOUBLE70">
+            </field>
+            <field name="MapOfString_Double71" column="MAP_OF_STRING_DOUBLE71">
+            </field>
+            <field name="MapOfString_Float72" column="MAP_OF_STRING_FLOAT72">
+            </field>
+            <field name="MapOfString_Float73" column="MAP_OF_STRING_FLOAT73">
+            </field>
+            <field name="MapOfString_Float74" column="MAP_OF_STRING_FLOAT74">
+            </field>
+            <field name="MapOfString_Integer75" column="MAP_OF_STRING_INTEGER75">
+            </field>
+            <field name="MapOfString_Integer76" column="MAP_OF_STRING_INTEGER76">
+            </field>
+            <field name="MapOfString_Integer77" column="MAP_OF_STRING_INTEGER77">
+            </field>
+            <field name="MapOfString_Long78" column="MAP_OF_STRING_LONG78">
+            </field>
+            <field name="MapOfString_Long79" column="MAP_OF_STRING_LONG79">
+            </field>
+            <field name="MapOfString_Long80" column="MAP_OF_STRING_LONG80">
+            </field>
+            <field name="MapOfString_Short81" column="MAP_OF_STRING_SHORT81">
+            </field>
+            <field name="MapOfString_Short82" column="MAP_OF_STRING_SHORT82">
+            </field>
+            <field name="MapOfString_Short83" column="MAP_OF_STRING_SHORT83">
+            </field>
+            <field name="MapOfString_Object84" table="MAP_OF_STRING_OBJECT84">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object85" table="MAP_OF_STRING_OBJECT85">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Object86" table="MAP_OF_STRING_OBJECT86">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass87" table="MAP_OF_STRING_SIMPLE_CLASS87">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass88" table="MAP_OF_STRING_SIMPLE_CLASS88">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleClass89" table="MAP_OF_STRING_SIMPLE_CLASS89">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface90" table="MAP_OF_STRING_SIMPLE_INTERFACE90">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface91" table="MAP_OF_STRING_SIMPLE_INTERFACE91">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_SimpleInterface92" table="MAP_OF_STRING_SIMPLE_INTERFACE92">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_String93" column="MAP_OF_STRING_STRING93">
+            </field>
+            <field name="MapOfString_String94" column="MAP_OF_STRING_STRING94">
+            </field>
+            <field name="MapOfString_String95" table="MAP_OF_STRING_STRING95">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Date96" column="MAP_OF_STRING_DATE96">
+            </field>
+            <field name="MapOfString_Date97" column="MAP_OF_STRING_DATE97">
+            </field>
+            <field name="MapOfString_Date98" table="MAP_OF_STRING_DATE98">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Locale99" column="MAP_OF_STRING_LOCALE99">
+            </field>
+            <field name="MapOfString_Locale100" column="MAP_OF_STRING_LOCALE100">
+            </field>
+            <field name="MapOfString_Locale101" table="MAP_OF_STRING_LOCALE101">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_BigDecimal102" column="MAP_OF_STRING_BIG_DECIMAL102">
+            </field>
+            <field name="MapOfString_BigDecimal103" column="MAP_OF_STRING_BIG_DECIMAL103">
+            </field>
+            <field name="MapOfString_BigDecimal104" table="MAP_OF_STRING_BIG_DECIMAL104">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_BigInteger105" column="MAP_OF_STRING_BIG_INTEGER105">
+            </field>
+            <field name="MapOfString_BigInteger106" column="MAP_OF_STRING_BIG_INTEGER106">
+            </field>
+            <field name="MapOfString_BigInteger107" table="MAP_OF_STRING_BIG_INTEGER107">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Byte108" column="MAP_OF_STRING_BYTE108">
+            </field>
+            <field name="MapOfString_Byte109" column="MAP_OF_STRING_BYTE109">
+            </field>
+            <field name="MapOfString_Byte110" table="MAP_OF_STRING_BYTE110">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Double111" column="MAP_OF_STRING_DOUBLE111">
+            </field>
+            <field name="MapOfString_Double112" column="MAP_OF_STRING_DOUBLE112">
+            </field>
+            <field name="MapOfString_Double113" table="MAP_OF_STRING_DOUBLE113">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Float114" column="MAP_OF_STRING_FLOAT114">
+            </field>
+            <field name="MapOfString_Float115" column="MAP_OF_STRING_FLOAT115">
+            </field>
+            <field name="MapOfString_Float116" table="MAP_OF_STRING_FLOAT116">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Integer117" column="MAP_OF_STRING_INTEGER117">
+            </field>
+            <field name="MapOfString_Integer118" column="MAP_OF_STRING_INTEGER118">
+            </field>
+            <field name="MapOfString_Integer119" table="MAP_OF_STRING_INTEGER119">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Long120" column="MAP_OF_STRING_LONG120">
+            </field>
+            <field name="MapOfString_Long121" column="MAP_OF_STRING_LONG121">
+            </field>
+            <field name="MapOfString_Long122" table="MAP_OF_STRING_LONG122">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="MapOfString_Short123" column="MAP_OF_STRING_SHORT123">
+            </field>
+            <field name="MapOfString_Short124" column="MAP_OF_STRING_SHORT124">
+            </field>
+            <field name="MapOfString_Short125" table="MAP_OF_STRING_SHORT125">
+                <join column="IDENTIFIER"/>
+                <key column="STRING"/>
+                <value column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+        </class>
+    </package>
+</orm>
