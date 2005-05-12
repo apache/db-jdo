@@ -143,7 +143,7 @@ public class EnhancerMetaDataJDOModelImpl
             javaModel = new EnhancerJavaModel(classLoader, locator);
             final JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
             affirm(factory != null);
-            jdoModel = factory.createJDOModel(javaModel);
+            jdoModel = factory.getJDOModel(javaModel);
             affirm(jdoModel != null);
             javaModel.setJDOModel(jdoModel);
             serializableJavaType = javaModel.getJavaType("java.io.Serializable");

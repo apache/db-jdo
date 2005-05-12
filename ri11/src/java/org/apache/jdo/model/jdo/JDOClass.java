@@ -152,6 +152,20 @@ public interface JDOClass
         throws ModelException;
 
     /** 
+     * Determines whether the XML metadata for the class represented by this
+     * JDOClass has been loaded. 
+     * @return <code>true</code> if XML metadata is loaded;
+     * <code>false</code> otherwise
+     */
+    public boolean isXMLMetadataLoaded();
+
+    /**
+     * Sets the flag indicating that the class XML metadata for this
+     * JDOClass is loaded to <code>true</code>.
+     */
+    public void setXMLMetadataLoaded();
+
+    /** 
      * Remove the supplied member from the collection of members maintained by
      * this JDOClass.
      * @param member the member to be removed
@@ -457,18 +471,27 @@ public interface JDOClass
     public JDOField getDeclaredField(String fieldName);
 
     /**
-     * Returns the number of managed fields declared in this class.  
-     * This does not include inherited fields.
-     * @return number of declared fields in the Class represented by this 
-     * JDOClass
+     * Returns the number of managed fields declared in the class represented
+     * by this JDOClass. This does not include inherited fields.
+     * @return number of declared managed fields
      */
     public int getDeclaredManagedFieldCount();
 
     /**
-     * Returns the number of inherited fields for this class.  
-     * @return number of inherited fields
+     * Returns the number of inherited managed fields for the class
+     * represented by this JDOClass.
+     * @return number of inherited managed fields
      */
     public int getInheritedManagedFieldCount();
+
+    /**
+     * Returns the number of managed fields for the class represented by this
+     * JDOClass. The value returned by this method is equal to
+     * <code>getDeclaredManagedFieldCount() +
+     * getInheritedManagedFieldCount()</code>.
+     * @return number of managed fields
+     */
+    public int getManagedFieldCount();
 
     /**
      * Returns the package name including a terminating dot if this class has a 

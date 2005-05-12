@@ -30,15 +30,35 @@ public interface JDOModelFactory
 {
     /**
      * Creates a new empty JDOModel instance.
+     * The returned JDOModel instance uses the specified flag
+     * <code>loadXMLMetadataDefault</code> to set the default value for the
+     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
+     * createJDOClass and setJDOClass. 
+     * @param loadXMLMetadataDefault the default setting for the flag
+     * loadXMLMetadata.
      * @exception ModelException if impossible
      */
-    public JDOModel createJDOModel(JavaModel javaModel)
+    public JDOModel createJDOModel(JavaModel javaModel,
+                                   boolean loadXMLMetadataDefault)
         throws ModelException;
     
     /**
      * Returns the JDOModel instance for the specified JavaModel.
-     * @param javaModel the javaModel used to cache the returned JDOModel instance
+     * @param javaModel the javaModel used to cache the returned JDOModel
+     * instance.
      */
     public JDOModel getJDOModel(JavaModel javaModel);
     
+    /**
+     * Returns the JDOModel instance for the specified JavaModel.  
+     * The returned JDOModel instance uses the specified flag
+     * <code>loadXMLMetadataDefault</code> to set the default value for the
+     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
+     * createJDOClass and setJDOClass. 
+     * @param loadXMLMetadataDefault the default setting for the flag
+     * loadXMLMetadata.
+     */
+    public JDOModel getJDOModel(JavaModel javaModel, 
+                                boolean loadXMLMetadataDefault);
+
 }

@@ -62,8 +62,9 @@ public class JDOModelImplCaching extends JDOModelImplDynamic {
      * Constructor. 
      * JDOModel instances are created using the JDOModelFactory only.
      */
-    protected JDOModelImplCaching(JavaModel javaModel) {
-        super(javaModel);
+    protected JDOModelImplCaching(JavaModel javaModel, 
+                                  boolean loadXMLMetadataDefault) {
+        super(javaModel, loadXMLMetadataDefault);
     }
 
     /**

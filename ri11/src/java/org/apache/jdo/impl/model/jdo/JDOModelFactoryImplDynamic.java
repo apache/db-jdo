@@ -65,25 +65,47 @@ public class JDOModelFactoryImplDynamic implements JDOModelFactory {
     
     /**
      * Creates a new empty JDOModel instance.
+     * The returned JDOModel instance uses the specified flag
+     * <code>loadXMLMetadataDefault</code> to set the default value for the
+     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
+     * createJDOClass and setJDOClass. 
+     * @param loadXMLMetadataDefault the default setting for the flag
+     * loadXMLMetadata.
      */
-    public JDOModel createJDOModel(JavaModel javaModel) {
-        return new JDOModelImplDynamic(javaModel);
+    public JDOModel createJDOModel(JavaModel javaModel,
+                                   boolean loadXMLMetadataDefault) {
+        return new JDOModelImplDynamic(javaModel, loadXMLMetadataDefault);
     }
     
     /**
-     * Returns the JDOModel instance for the specified key.
-     * @param javaModel the javaModel used to cache the returned JDOModel instance
+     * Returns the JDOModel instance for the specified JavaModel.
+     * @param javaModel the javaModel used to cache the returned JDOModel
+     * instance.
      */
     public JDOModel getJDOModel(JavaModel javaModel) {
+        return getJDOModel(javaModel, true);
+    }
+
+    /**
+     * Returns the JDOModel instance for the specified JavaModel.  
+     * The returned JDOModel instance uses the specified flag
+     * <code>loadXMLMetadataDefault</code> to set the default value for the
+     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
+     * createJDOClass and setJDOClass. 
+     * @param loadXMLMetadataDefault the default setting for the flag
+     * loadXMLMetadata.
+     */
+    public JDOModel getJDOModel(JavaModel javaModel,
+                                boolean loadXMLMetadataDefault) {
         synchronized (this.modelCache) {
             JDOModel jdoModel = (JDOModel)modelCache.get(javaModel);
             if (jdoModel == null) {
                 // create new model and store it using the specified javaModel
-                jdoModel = createJDOModel(javaModel);
+                jdoModel = createJDOModel(javaModel, loadXMLMetadataDefault);
                 modelCache.put(javaModel, jdoModel);
             }
             return jdoModel;
         }
     }
-    
+
 }

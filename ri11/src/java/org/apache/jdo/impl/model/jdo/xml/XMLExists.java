@@ -23,6 +23,7 @@ import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModel;
 import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.impl.model.jdo.util.PrintSupport;
 import org.apache.jdo.model.ModelException;
+import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOModel;
@@ -278,12 +279,28 @@ public class XMLExists
                 throw new ModelException("Invalid key " + key + 
                                          " expected ClassLoader");
             ClassLoader classLoader = (ClassLoader)key;
-            return new RuntimeJavaModel(classLoader); 
+            JavaModel javaModel = new RuntimeJavaModel(classLoader); 
+
+            // set the JDOModel property in JavaModel
+            setJDOModelInternal(javaModel);
+
+            return javaModel;
         }
         
-        /** */
-        protected JDOModelFactory getJDOModelFactory() {
-            return JDOModelFactoryImplCaching.getInstance();
+        /**
+         * Sets the JDOModel instance for the specified JavaModel.
+         * @param javaModel the JavaModel
+         */
+        protected void setJDOModelInternal(JavaModel javaModel) {
+            JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
+            JDOModel jdoModel = factory.getJDOModel(javaModel);
+            // update the JDOModel property of the JavaModel
+            try {
+                javaModel.setJDOModel(jdoModel);
+            }
+            catch (ModelException ex) {
+                throw new ModelFatalException("Cannot set JDOModel", ex); //NOI18N
+            }
         }
     }
     

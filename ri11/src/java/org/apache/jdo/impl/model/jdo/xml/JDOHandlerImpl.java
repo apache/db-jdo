@@ -74,8 +74,8 @@ public class JDOHandlerImpl
 
     /** I18N support. */
     private static final I18NHelper msg = I18NHelper.getInstance(
-        "org.apache.jdo.impl.model.jdo.Bundle", 
-        JDOHandlerImpl.class.getClassLoader()); //NOI18N
+        "org.apache.jdo.impl.model.jdo.Bundle", //NOI18N
+        JDOHandlerImpl.class.getClassLoader());
 
     /** Logger */
     private static Log logger = LogFactory.getFactory().getInstance(
@@ -177,7 +177,7 @@ public class JDOHandlerImpl
             if ((packageName != null) && (packageName.length() > 0))
                 className = packageName + "." + className; //NOI18N
             jdoClass = model.createJDOClass(className, false);
-            skipXMLElements = isXMLProcessed(jdoClass);
+            skipXMLElements = jdoClass.isXMLMetadataLoaded();
             if (skipXMLElements) {
                 if (trace)
                     logger.trace(
@@ -251,8 +251,8 @@ public class JDOHandlerImpl
         else {
             // remove JDOClass fom context stack
             JDOClass jdoClass = (JDOClass)context.pop();
-            // set jdoClass' xmlProcessed flag
-            setXMLProcessed(jdoClass);
+            // set jdoClass' xmlMetadataLoaded flag
+            jdoClass.setXMLMetadataLoaded();
         }
     }
     
@@ -613,17 +613,4 @@ public class JDOHandlerImpl
         return handledJDOClasses;
     }
 
-    /** */
-    private boolean isXMLProcessed(JDOClass jdoClass) {
-        if (jdoClass instanceof JDOClassImplDynamic)
-            return ((JDOClassImplDynamic)jdoClass).isXMLProcessed();
-        return false;
-    }
-
-    /** */
-    private void setXMLProcessed(JDOClass jdoClass) {
-        if (jdoClass instanceof JDOClassImplDynamic)
-            ((JDOClassImplDynamic)jdoClass).setXMLProcessed();
-    }
-    
 }

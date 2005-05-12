@@ -52,9 +52,16 @@ public class JDOModelFactoryImplCaching extends JDOModelFactoryImplDynamic {
     
     /**
      * Creates a new empty JDOModel instance.
+     * The returned JDOModel instance uses the specified flag
+     * <code>loadXMLMetadataDefault</code> to set the default value for the
+     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
+     * createJDOClass and setJDOClass. 
+     * @param loadXMLMetadataDefault the default setting for the flag
+     * loadXMLMetadata.
      */
-    public JDOModel createJDOModel(JavaModel javaModel) {
-        return new JDOModelImplCaching(javaModel);
+    public JDOModel createJDOModel(JavaModel javaModel,
+                                   boolean loadXMLMetadataDefault) {
+        return new JDOModelImplCaching(javaModel, loadXMLMetadataDefault);
     }
-    
+
 }

@@ -810,6 +810,12 @@
 								concurrency 	"Sequential"
 								opExportControl 	"Public"
 								uid        	0)
+							    (object Operation "getManagedFieldCount"
+								quid       	"42832BC4029F"
+								result     	"int"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
 							    (object Operation "getPackagePrefix"
 								quid       	"3B54430D0294"
 								result     	"String"
@@ -838,7 +844,10 @@
 								type       	"boolean")
 							    (object ClassAttribute "persistenceCapableSuperclassName"
 								quid       	"3B123FE70065"
-								type       	"String"))
+								type       	"String")
+							    (object ClassAttribute "XMLMetadataLoaded"
+								quid       	"42832C130196"
+								type       	"boolean"))
 							module     	"::JDOClass"
 							quidu      	"3A3786B80138"
 							language   	"Java")
@@ -1085,7 +1094,9 @@
 								quid       	"3B136D780231"
 								parameters 	(list Parameters
 								    (object Parameter "javaModel"
-									type       	"JavaModel"))
+									type       	"JavaModel")
+								    (object Parameter "loadXMLMetadataDefault"
+									type       	"boolean"))
 								result     	"JDOModel"
 								concurrency 	"Sequential"
 								opExportControl 	"Public"
@@ -1095,6 +1106,17 @@
 								parameters 	(list Parameters
 								    (object Parameter "key"
 									type       	"JavaModel"))
+								result     	"JDOModel"
+								concurrency 	"Sequential"
+								opExportControl 	"Public"
+								uid        	0)
+							    (object Operation "getJDOModel"
+								quid       	"42832B15032C"
+								parameters 	(list Parameters
+								    (object Parameter "javaModel"
+									type       	"JavaModel")
+								    (object Parameter "loadXMLMetadataDefault"
+									type       	"boolean"))
 								result     	"JDOModel"
 								concurrency 	"Sequential"
 								opExportControl 	"Public"
@@ -1401,10 +1423,10 @@
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			ShowOperationSignature 	TRUE
-			location   	(2400, 784)
+			location   	(2400, 832)
 			label      	(object ItemLabel
 			    Parent_View 	@8
-			    location   	(1900, 646)
+			    location   	(1900, 688)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	1000
@@ -1412,7 +1434,7 @@
 			    label      	"JDOElement")
 			stereotype 	(object ItemLabel
 			    Parent_View 	@8
-			    location   	(1900, 596)
+			    location   	(1900, 643)
 			    fill_color 	13434879
 			    anchor     	10
 			    nlines     	1
@@ -1426,7 +1448,7 @@
 			quidu      	"3B0A8D7C02FA"
 			compartment 	(object Compartment
 			    Parent_View 	@8
-			    location   	(1900, 701)
+			    location   	(1900, 743)
 			    icon_style 	"Icon"
 			    fill_color 	13434879
 			    anchor     	2
@@ -1436,17 +1458,17 @@
 			height     	400
 			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$7" @9
-			location   	(2537, 1126)
+			location   	(2538, 1150)
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3B0A8EBB0349"
 			roleview_list 	(list RoleViews
 			    (object RoleView "JDOExtensions" @10
 				Parent_View 	@9
-				location   	(745, 278)
+				location   	(746, 302)
 				label      	(object SegLabel @11
 				    Parent_View 	@10
-				    location   	(2721, 1188)
+				    location   	(2716, 1188)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -1464,7 +1486,7 @@
 				line_style 	0
 				label      	(object SegLabel @12
 				    Parent_View 	@10
-				    location   	(2667, 1235)
+				    location   	(2662, 1233)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -1476,7 +1498,7 @@
 				    orientation 	0))
 			    (object RoleView "$UNNAMED$8" @13
 				Parent_View 	@9
-				location   	(745, 278)
+				location   	(746, 302)
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"3B0A8EBE01E5"
@@ -1517,22 +1539,22 @@
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			ShowOperationSignature 	TRUE
-			location   	(2448, 320)
+			location   	(2208, 224)
 			label      	(object ItemLabel
 			    Parent_View 	@15
-			    location   	(2004, 250)
+			    location   	(1459, 126)
 			    fill_color 	13434879
 			    nlines     	1
-			    max_width  	888
+			    max_width  	1498
 			    justify    	0
 			    label      	"JDOModelFactory")
 			stereotype 	(object ItemLabel
 			    Parent_View 	@15
-			    location   	(2004, 200)
+			    location   	(1459, 81)
 			    fill_color 	13434879
 			    anchor     	10
 			    nlines     	1
-			    max_width  	888
+			    max_width  	1498
 			    justify    	0
 			    label      	"<<Interface>>")
 			icon       	"Interface"
@@ -1542,14 +1564,14 @@
 			quidu      	"3B136D2C003D"
 			compartment 	(object Compartment
 			    Parent_View 	@15
-			    location   	(2004, 305)
+			    location   	(1459, 181)
 			    icon_style 	"Icon"
 			    fill_color 	13434879
 			    anchor     	2
-			    nlines     	3
-			    max_width  	962)
-			width      	906
-			height     	264
+			    nlines     	4
+			    max_width  	1496)
+			width      	1516
+			height     	308
 			autoResize 	TRUE)
 		    (object ClassView "Class" "Logical View::com::sun::jdori::model::jdo::JDORelationship" @16
 			IncludeAttribute 	TRUE
@@ -1894,10 +1916,10 @@
 			IncludeAttribute 	TRUE
 			IncludeOperation 	TRUE
 			ShowOperationSignature 	TRUE
-			location   	(1824, 432)
+			location   	(1808, 512)
 			label      	(object ItemLabel
 			    Parent_View 	@42
-			    location   	(1710, 419)
+			    location   	(1694, 493)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	228
@@ -1905,7 +1927,7 @@
 			    label      	"JavaModel")
 			stereotype 	(object ItemLabel
 			    Parent_View 	@42
-			    location   	(1710, 369)
+			    location   	(1694, 448)
 			    fill_color 	13434879
 			    anchor     	10
 			    nlines     	1
@@ -2136,17 +2158,17 @@
 				    height     	158
 				    orientation 	0))))
 		    (object AssociationViewNew "$UNNAMED$22" @57
-			location   	(1484, 432)
+			location   	(1476, 488)
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3DEB846000CB"
 			roleview_list 	(list RoleViews
 			    (object RoleView "javaModel" @58
 				Parent_View 	@57
-				location   	(812, 48)
+				location   	(804, 104)
 				label      	(object SegLabel @59
 				    Parent_View 	@58
-				    location   	(1595, 386)
+				    location   	(1586, 450)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2164,7 +2186,7 @@
 				line_style 	0
 				label      	(object SegLabel @60
 				    Parent_View 	@58
-				    location   	(1643, 480)
+				    location   	(1627, 547)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -2176,10 +2198,10 @@
 				    orientation 	1))
 			    (object RoleView "jdoModel" @61
 				Parent_View 	@57
-				location   	(812, 48)
+				location   	(804, 104)
 				label      	(object SegLabel @62
 				    Parent_View 	@61
-				    location   	(1365, 380)
+				    location   	(1365, 428)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2197,7 +2219,7 @@
 				line_style 	0
 				label      	(object SegLabel @63
 				    Parent_View 	@61
-				    location   	(1319, 472)
+				    location   	(1314, 516)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -2246,7 +2268,7 @@
 			location   	(480, 1952)
 			label      	(object ItemLabel
 			    Parent_View 	@65
-			    location   	(78, 1269)
+			    location   	(78, 1224)
 			    fill_color 	13434879
 			    nlines     	1
 			    max_width  	804
@@ -2254,7 +2276,7 @@
 			    label      	"JDOClass")
 			stereotype 	(object ItemLabel
 			    Parent_View 	@65
-			    location   	(78, 1224)
+			    location   	(78, 1179)
 			    fill_color 	13434879
 			    anchor     	10
 			    nlines     	1
@@ -2268,14 +2290,14 @@
 			quidu      	"3A264ECD0306"
 			compartment 	(object Compartment
 			    Parent_View 	@65
-			    location   	(78, 1324)
+			    location   	(78, 1279)
 			    icon_style 	"Icon"
 			    fill_color 	13434879
 			    anchor     	2
-			    nlines     	30
+			    nlines     	32
 			    max_width  	802)
 			width      	822
-			height     	1478
+			height     	1568
 			autoResize 	TRUE)
 		    (object AssociationViewNew "$UNNAMED$13" @66
 			location   	(404, 2816)
@@ -2306,7 +2328,7 @@
 				vertices   	(list Points
 				    (404, 2816)
 				    (191, 2816)
-				    (231, 2691))
+				    (217, 2736))
 				line_style 	0
 				label      	(object SegLabel @69
 				    Parent_View 	@67
@@ -2331,7 +2353,7 @@
 				vertices   	(list Points
 				    (404, 2816)
 				    (621, 2816)
-				    (599, 2691))
+				    (607, 2736))
 				line_style 	0)))
 		    (object InheritView "" @71
 			stereotype 	TRUE
@@ -2465,17 +2487,17 @@
 				supplier   	@65
 				line_style 	0)))
 		    (object AssociationViewNew "$UNNAMED$10" @84
-			location   	(605, 955)
+			location   	(608, 933)
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3B1356DE0015"
 			roleview_list 	(list RoleViews
 			    (object RoleView "declaringModel" @85
 				Parent_View 	@84
-				location   	(29, -261)
+				location   	(32, -283)
 				label      	(object SegLabel @86
 				    Parent_View 	@85
-				    location   	(801, 758)
+				    location   	(802, 754)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2493,7 +2515,7 @@
 				line_style 	0
 				label      	(object SegLabel @87
 				    Parent_View 	@85
-				    location   	(687, 816)
+				    location   	(688, 807)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -2505,10 +2527,10 @@
 				    orientation 	1))
 			    (object RoleView "declaredClasses" @88
 				Parent_View 	@84
-				location   	(29, -261)
+				location   	(32, -283)
 				label      	(object SegLabel @89
 				    Parent_View 	@88
-				    location   	(777, 1173)
+				    location   	(782, 1136)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2526,7 +2548,7 @@
 				line_style 	0
 				label      	(object SegLabel @90
 				    Parent_View 	@88
-				    location   	(658, 1112)
+				    location   	(662, 1077)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -2537,17 +2559,17 @@
 				    height     	72
 				    orientation 	0))))
 		    (object AssociationViewNew "$UNNAMED$24" @91
-			location   	(377, 1059)
+			location   	(375, 1037)
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3DFDA354037A"
 			roleview_list 	(list RoleViews
 			    (object RoleView "javaType" @92
 				Parent_View 	@91
-				location   	(-103, -893)
+				location   	(-105, -915)
 				label      	(object SegLabel @93
 				    Parent_View 	@92
-				    location   	(256, 947)
+				    location   	(256, 943)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2565,7 +2587,7 @@
 				line_style 	0
 				label      	(object SegLabel @94
 				    Parent_View 	@92
-				    location   	(442, 946)
+				    location   	(441, 939)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1
@@ -2577,10 +2599,10 @@
 				    orientation 	1))
 			    (object RoleView "jdoClass" @95
 				Parent_View 	@91
-				location   	(-103, -893)
+				location   	(-105, -915)
 				label      	(object SegLabel @96
 				    Parent_View 	@95
-				    location   	(279, 1160)
+				    location   	(276, 1125)
 				    anchor     	1
 				    anchor_loc 	1
 				    nlines     	1
@@ -2598,7 +2620,7 @@
 				line_style 	0
 				label      	(object SegLabel @97
 				    Parent_View 	@95
-				    location   	(440, 1153)
+				    location   	(436, 1116)
 				    anchor     	2
 				    anchor_loc 	1
 				    nlines     	1

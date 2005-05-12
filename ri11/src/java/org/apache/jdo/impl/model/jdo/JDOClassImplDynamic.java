@@ -96,7 +96,7 @@ public class JDOClassImplDynamic
     private JDOPackage jdoPackage;
 
     /** Flag indicating whether XML metadata is processed already. */
-    private boolean xmlProcessed = false;
+    private boolean xmlMetadataLoaded = false;
 
     /** I18N support */
     protected final static I18NHelper msg =  
@@ -302,6 +302,24 @@ public class JDOClassImplDynamic
      */
     public void setJavaType(JavaType javaType) {
         this.javaType = javaType;
+    }
+
+    /** 
+     * Determines whether the XML metadata for the class represented by this
+     * JDOClass has been loaded. 
+     * @return <code>true</code> if XML metadata is loaded;
+     * <code>false</code> otherwise
+     */
+    public boolean isXMLMetadataLoaded() {
+        return xmlMetadataLoaded;
+    }
+
+    /**
+     * Sets the flag indicating that the class XML metadata for this
+     * JDOClass is loaded to <code>true</code>.
+     */
+    public void setXMLMetadataLoaded() {
+        this.xmlMetadataLoaded = true;
     }
 
     /** 
@@ -914,18 +932,18 @@ public class JDOClassImplDynamic
     }
 
     /**
-     * Returns the number of managed fields declared in this class.  
-     * This does not include inherited fields.
-     * @return number of declared fields in the Class represented by this 
-     * JDOClass
+     * Returns the number of managed fields declared in the class represented
+     * by this JDOClass. This does not include inherited fields.
+     * @return number of declared managed fields
      */
     public int getDeclaredManagedFieldCount() {
         return getDeclaredManagedFields().length;
     }
     
     /**
-     * Returns the number of inherited managed fields for this class.  
-     * @return number of inherited fields
+     * Returns the number of inherited managed fields for the class
+     * represented by this JDOClass.
+     * @return number of inherited managed fields
      */
     public int getInheritedManagedFieldCount() {
         int count = 0;
@@ -937,6 +955,17 @@ public class JDOClassImplDynamic
         }
     
         return count;
+    }
+    
+    /**
+     * Returns the number of managed fields for the class represented by this
+     * JDOClass. The value returned by this method is equal to
+     * <code>getDeclaredManagedFieldCount() +
+     * getInheritedManagedFieldCount()</code>.
+     * @return number of managed fields
+     */
+    public int getManagedFieldCount() {
+        return getDeclaredManagedFieldCount() + getInheritedManagedFieldCount();
     }
     
     /**
@@ -968,28 +997,6 @@ public class JDOClassImplDynamic
         }
     }
     
-    //========= Helper methods used by JDOModelImpl/XML reader only ==========
-
-    /** 
-     * Determines whether the class represented by this JDOClass is activated. 
-     * A class is activated, if the class XML metadata is processed for this 
-     * JDOClass. 
-     * @return <code>true</code> if XML metadata is processed;
-     * <code>false</code> otherwise
-     */
-    public boolean isXMLProcessed() {
-        return xmlProcessed;
-    }
-
-    /**
-     * Sets the flag indicating that the class XML metadata for this
-     * JDOClass is processed to <code>true</code>.
-     */
-    public void setXMLProcessed() {
-        this.xmlProcessed = true;
-    }
-
-
     //========= Internal helper methods ==========
     
     /**

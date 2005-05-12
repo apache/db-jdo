@@ -104,11 +104,6 @@ abstract public class AbstractJavaModelFactory
                 try {
                     javaModel = createJavaModel(key);
                     modelCache.put(key, javaModel);
-                    // get the corresponding JDOModel
-                    JDOModel jdoModel = 
-                        getJDOModelFactory().getJDOModel(javaModel);
-                    // update the JDOModel property of the JavaModel
-                    javaModel.setJDOModel(jdoModel);
                 }
                 catch (ModelException ex) {
                     throw new ModelFatalException(
@@ -146,16 +141,5 @@ abstract public class AbstractJavaModelFactory
             "getJavaType")); //NOI18N
     }
     
-    //========= Internal helper methods ==========
-    
-    /**
-     * Returns the JDOModelFactory instance used to get/create JDOModel 
-     * instances.
-     * @return JDOModelFactory instance.
-     */
-    protected JDOModelFactory getJDOModelFactory()
-    {
-        return JDOModelFactoryImplDynamic.getInstance();
-    }
 }
 

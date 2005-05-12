@@ -29,6 +29,7 @@ import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModelFactory;
+import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
 import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
 import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
@@ -59,7 +60,7 @@ public class RuntimeJavaModelFactory
 
     /** I18N support */
     private final static I18NHelper msg =  
-        I18NHelper.getInstance("org.apache.jdo.impl.model.java.Bundle"); //NOI18N
+        I18NHelper.getInstance("org.apache.jdo.impl.model.java.runtime.Bundle"); //NOI18N
 
     /** */
     static
@@ -163,6 +164,10 @@ public class RuntimeJavaModelFactory
                 // ignore => parentClassLoader and parent JavaModel are null
             }
         }
+
+        // set the JDOModel property in JavaModel
+        setJDOModelInternal(javaModel);
+
         return javaModel;
     }
 
@@ -266,12 +271,20 @@ public class RuntimeJavaModelFactory
     //========= Internal helper methods ==========
     
     /**
-     * Returns the JDOModelFactory instance used to get/create JDOModel 
-     * instances.
-     * @return JDOModelFactory instance.
+     * Sets the JDOModel instance for the specified JavaModel.
+     * @param javaModel the JavaModel
      */
-    protected JDOModelFactory getJDOModelFactory()
+    protected void setJDOModelInternal(JavaModel javaModel)
     {
-        return JDOModelFactoryImplCaching.getInstance();
+        JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
+        JDOModel jdoModel = factory.getJDOModel(javaModel);
+        // update the JDOModel property of the JavaModel
+        try {
+            javaModel.setJDOModel(jdoModel);
+        }
+        catch (ModelException ex) {
+            throw new ModelFatalException("ERR_CannotSetJDOModel", ex); //NOI18N
+        }
     }
 }
+

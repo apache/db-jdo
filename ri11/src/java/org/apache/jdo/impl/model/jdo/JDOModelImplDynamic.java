@@ -111,6 +111,9 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
 
     /** The JavaModel used to get type info. */
     private JavaModel javaModel;
+
+    /** The default for loadXMLMetadata. */ 
+    private final boolean loadXMLMetadataDefault;
     
     /** I18N support */
     protected final static I18NHelper msg =
@@ -128,9 +131,11 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * Constructor. 
      * JDOModel instances are created using the JDOModelFactory only.
      */
-    protected JDOModelImplDynamic(JavaModel javaModel) {
+    protected JDOModelImplDynamic(
+        JavaModel javaModel, boolean loadXMLMetadataDefault) {
         super();
         setJavaModel(javaModel);
+        this.loadXMLMetadataDefault = loadXMLMetadataDefault;
     }
 
     /** 
@@ -184,15 +189,19 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * the existing instance is returned. Otherwise, it creates a new JDOClass 
      * instance, sets its declaringModel and returns the new instance.
      * <p>
-     * Invoking this method is method is equivalent to 
-     * <code>createJDOClass(className, true)</code>.
+     * This method delegates to the createJDOModel method taking the flag
+     * <code>loadXMLMetadata</code> and passes the default value as specified
+     * at JDOModel creation time (see flag <code>loadXMLMetadataDefault</code>
+     * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
+     * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
+     * to <code>createJDOClass(className, loadXMLMetadataDefault)</code>.
      * @param className the fully qualified class name of the JDOClass instance 
      * to be returned
      * @return a JDOClass instance for the specified class name
      * @exception ModelException if impossible
      */
     public JDOClass createJDOClass(String className) throws ModelException {
-        return createJDOClass(className, true);
+        return createJDOClass(className, loadXMLMetadataDefault);
     }
 
     /**
@@ -232,15 +241,19 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * qualified class name if present. The method returns <code>null</code> 
      * if it cannot find a JDOClass instance for the specified name. 
      * <p>
-     * Invoking this method is equivalent to 
-     * <code>getJDOClass(className, true)</code>.
+     * This method delegates to the getJDOModel method taking the flag
+     * <code>loadXMLMetadata</code> and passes the default value as specified
+     * at JDOModel creation time (see flag <code>loadXMLMetadataDefault</code>
+     * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
+     * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
+     * to <code>createJDOClass(className, loadXMLMetadataDefault)</code>.
      * @param className the fully qualified class name of the JDOClass instance 
      * to be returned
      * @return a JDOClass instance for the specified class name 
      * or <code>null</code> if not present
      */
     public JDOClass getJDOClass(String className) {
-        return getJDOClass(className, true);
+        return getJDOClass(className, loadXMLMetadataDefault);
     }
     
     /**
@@ -278,7 +291,7 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
         if (loadXMLMetadata) {
             if (jdoClass == null)
                 jdoClass = lookupXMLMetadata(className);
-            else if (!isXMLProcessed(jdoClass))
+            else if (!jdoClass.isXMLMetadataLoaded())
                 jdoClass = lookupXMLMetadata(jdoClass);
 
             if (jdoClass == null) {
@@ -356,7 +369,7 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
             try {
                 for (Iterator i = jdoClasses.values().iterator(); i.hasNext();) {
                     JDOClass next = (JDOClass)i.next();
-                    if (isXMLProcessed(next)) {
+                    if (next.isXMLMetadataLoaded()) {
                         // XML metadata is loaded => check the objectIdClass
                         if (objectIdClassName.equals(
                                 next.getDeclaredObjectIdClassName())) {
@@ -430,19 +443,6 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * @param className the name of the non-pc class
      */
     protected void knownNonPC(String className) {
-    }
-
-    /** 
-     * Return true if the specified JDOClass is activated. 
-     * A class is activated, if the class XML metadata is processed
-     * for this JDOClass. 
-     * @return <code>true</code> if XML metadata is processed;
-     * <code>false</code> otherwise
-     */
-    private boolean isXMLProcessed(JDOClass jdoClass) {
-        if (jdoClass instanceof JDOClassImplDynamic)
-            return ((JDOClassImplDynamic)jdoClass).isXMLProcessed();
-        return false;
     }
 
     /**
