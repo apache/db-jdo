@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="AllTypes" table="ALLTYPES">
+            <field name="id" column="ID" primary-key="true"/>
+            <field name="fld_boolean" column="PRIMITIVEBOOLEAN"/>
+            <field name="fld_byte" column="PRIMITIVEBYTE"/>
+            <field name="fld_char" column="PRIMITIVECHAR"/>
+            <field name="fld_double" column="PRIMITIVEDOUBLE"/>
+            <field name="fld_float" column="PRIMITIVEFLOAT"/>
+            <field name="fld_int" column="PRIMITIVEINT"/>
+            <field name="fld_long" column="PRIMITIVELONG"/>
+            <field name="fld_short" column="PRIMITIVESHORT"/>
+            <field name="fld_Boolean" column="BOOLEANVAL"/>
+            <field name="fld_Byte" column="BYTEVAL"/>
+            <field name="fld_Character" column="CHARACTERVAL"/>
+            <field name="fld_Double" column="DOUBLEVAL"/>
+            <field name="fld_Float" column="FLOATVAL"/>
+            <field name="fld_Integer" column="INTEGERVAL"/>
+            <field name="fld_Long" column="LONGVAL"/>
+            <field name="fld_Short" column="SHORTVAL"/>
+            <field name="fld_String" column="STRINGVAL"/>
+            <field name="fld_Locale" column="LOCALEVAL"/>
+            <field name="fld_Date" column="DATEVAL"/>
+            <field name="fld_BigDecimal" column="BIGDECIMALVAL"/>
+            <field name="fld_BigInteger" column="BIGINTEGERVAL"/>
+        </class>
+    </package>
+</orm>

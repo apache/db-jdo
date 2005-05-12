@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.Runtime;
 import java.util.Properties;
 
 import javax.jdo.JDOHelper;
@@ -150,6 +151,8 @@ public abstract class JDO_Test extends TestCase {
         }
         finally {
             tearDown();
+            long freeMem = Runtime.getRuntime().freeMemory();
+            if (debug) logger.debug("Free memory: " + freeMem);
         }
     }
 
