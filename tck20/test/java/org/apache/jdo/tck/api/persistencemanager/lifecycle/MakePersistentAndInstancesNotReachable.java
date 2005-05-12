@@ -23,8 +23,6 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Address;
@@ -49,7 +47,7 @@ and instances made provisionally persistent that are not
 currently reachable from persistent instances will revert to transient.
  */
 
-public class MakePersistentAndInstancesNotReachable extends JDO_Test {
+public class MakePersistentAndInstancesNotReachable extends PersistenceManagerTest {
 
     /** */
     private static final String ASSERTION_FAILED = 

@@ -20,7 +20,7 @@ package org.apache.jdo.tck.api.persistencemanager.cache;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -47,7 +47,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 
  */
 
-public class RefreshAllWithNoParameters extends JDO_Test {
+public class RefreshAllWithNoParameters extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 

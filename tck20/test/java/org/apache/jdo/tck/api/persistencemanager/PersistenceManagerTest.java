@@ -25,6 +25,8 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.company.Company;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.pc.mylib.PCRect;
@@ -40,6 +42,7 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         try {
             cleanup();
             cleanupMylib();
+            cleanupCompany();
         }
         catch (Throwable ex) {
             cleanupFailure = ex;
@@ -69,6 +72,28 @@ public abstract class PersistenceManagerTest extends JDO_Test {
             Collection c = getAllObjects(pm, PCRect.class);
             pm.deletePersistentAll(c);
             c = getAllObjects(pm, PCPoint.class);
+            pm.deletePersistentAll(c);
+            tx.commit();
+        }
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+            if ((pm != null) && pm.isClosed())
+                pm.close();
+        }
+  }
+
+     /** */
+    protected void cleanupCompany() {
+        PersistenceManager pm = getPM();
+        Transaction tx = null;
+        try {
+            pm = pmf.getPersistenceManager();
+            tx = pm.currentTransaction();
+            tx.begin();
+            Collection c = getAllObjects(pm, Department.class);
+            pm.deletePersistentAll(c);
+            c = getAllObjects(pm, Company.class);
             pm.deletePersistentAll(c);
             tx.commit();
         }
