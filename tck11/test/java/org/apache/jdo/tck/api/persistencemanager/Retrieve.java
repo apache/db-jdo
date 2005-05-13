@@ -23,8 +23,6 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.pc.mylib.PCRect;
@@ -48,7 +46,7 @@ The JDO PersistenceManager loads persistent values from the datastore into the i
 and if the class of the instance implements InstanceCallbacks calls jdoPostLoad.
  */
 
-public class Retrieve extends JDO_Test {
+public class Retrieve extends PersistenceManagerTest {
 
     /** */
     private static final String ASSERTION_FAILED = 

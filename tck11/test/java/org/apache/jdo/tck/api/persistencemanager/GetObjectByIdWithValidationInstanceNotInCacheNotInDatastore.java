@@ -20,7 +20,6 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -35,7 +34,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 Object getObjectById (Object oid, boolean validate) with validate==true. If the instance does not exist in the datastore, then a JDOObjectNotFoundException is thrown.
  */
 
-public class GetObjectByIdWithValidationInstanceNotInCacheNotInDatastore extends JDO_Test {
+public class GetObjectByIdWithValidationInstanceNotInCacheNotInDatastore extends PersistenceManagerTest {
 
     /** */
     private static final String ASSERTION_FAILED = 

@@ -23,8 +23,6 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
@@ -43,7 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 The getExtent method returns an Extent that contains all of the instances in the parameter class or interface, and if the subclasses flag is true, all of the instances of the parameter class and its subclasses.
  */
 
-public class GetExtentWithSubclasses extends JDO_Test {
+public class GetExtentWithSubclasses extends PersistenceManagerTest {
 
     /** */
     private static final String ASSERTION_FAILED = 

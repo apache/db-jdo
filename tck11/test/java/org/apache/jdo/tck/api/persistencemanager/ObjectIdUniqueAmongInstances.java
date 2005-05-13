@@ -22,7 +22,6 @@ import java.util.Iterator;
 
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -41,7 +40,7 @@ associated with the <code>PersistenceManager</code> regardless of the type of
 
  */
 
-public class ObjectIdUniqueAmongInstances extends JDO_Test {
+public class ObjectIdUniqueAmongInstances extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 

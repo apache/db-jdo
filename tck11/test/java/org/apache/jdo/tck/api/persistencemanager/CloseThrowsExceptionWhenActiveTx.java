@@ -20,7 +20,6 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -34,7 +33,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 In a non-managed environment, if the current transaction is active, close throws JDOUserException.
  */
 
-public class CloseThrowsExceptionWhenActiveTx extends JDO_Test {
+public class CloseThrowsExceptionWhenActiveTx extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 

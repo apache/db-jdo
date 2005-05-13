@@ -27,7 +27,6 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -45,7 +44,7 @@ The same classes must be supported concurrently by multiple
 
  */
 
-public class ConcurrentPersistenceManagersSameClasses extends JDO_Test {
+public class ConcurrentPersistenceManagersSameClasses extends PersistenceManagerTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
