@@ -29,13 +29,15 @@ import org.apache.jdo.model.java.JavaModel;
 public interface JDOModelFactory 
 {
     /**
-     * Creates a new empty JDOModel instance.
+     * Creates a new empty JDOModel instance. 
      * The returned JDOModel instance uses the specified flag
-     * <code>loadXMLMetadataDefault</code> to set the default value for the
-     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
-     * createJDOClass and setJDOClass. 
-     * @param loadXMLMetadataDefault the default setting for the flag
-     * loadXMLMetadata.
+     * <code>loadXMLMetadataDefault</code> to set the default behavior 
+     * for the creation of new JDOClass instances  using methods 
+     * {@link JDOModel#createJDOClass(String)} and 
+     * {@link JDOModel#getJDOClass(String)} for which the caller doesn't 
+     * explicitly specify whether to read XML metatdata or not.
+     * @param loadXMLMetadataDefault the default setting for whether to 
+     * read XML metatdata in JDOModel's methods for JDOClass creation.
      * @exception ModelException if impossible
      */
     public JDOModel createJDOModel(JavaModel javaModel,
@@ -52,11 +54,13 @@ public interface JDOModelFactory
     /**
      * Returns the JDOModel instance for the specified JavaModel.  
      * The returned JDOModel instance uses the specified flag
-     * <code>loadXMLMetadataDefault</code> to set the default value for the
-     * flag <code>loadXMLMetadata</code> used by the JDOModel methods
-     * createJDOClass and setJDOClass. 
-     * @param loadXMLMetadataDefault the default setting for the flag
-     * loadXMLMetadata.
+     * <code>loadXMLMetadataDefault</code> to set the default behavior 
+     * for the creation of new JDOClass instances  using methods 
+     * {@link JDOModel#createJDOClass(String)} and 
+     * {@link JDOModel#getJDOClass(String)} for which the caller doesn't 
+     * explicitly specify whether to read XML metatdata or not.
+     * @param loadXMLMetadataDefault the default setting for whether to 
+     * read XML metatdata in JDOModel's methods for JDOClass creation.
      */
     public JDOModel getJDOModel(JavaModel javaModel, 
                                 boolean loadXMLMetadataDefault);

@@ -70,14 +70,13 @@ public interface JDOModel
      * the existing instance is returned. Otherwise, it creates a new JDOClass 
      * instance, sets its declaringModel and returns the new instance.
      * <p>
-     * This method delegates to the createJDOModel method taking the flag
-     * <code>loadXMLMetadata</code> and passes the default value as specified
-     * at JDOModel creation time (see flag <code>loadXMLMetadataDefault</code>
+     * Whether this method reads XML metatdata or not is deteremined at
+     * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
      * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
      * to <code>createJDOClass(className, loadXMLMetadataDefault)</code>.
-     * @param className the fully qualified class name of the JDOClass instance 
-     * to be returned
+     * @param className the fully qualified class name of the JDOClass
+     * instance to be returned
      * @return a JDOClass instance for the specified class name
      * @exception ModelException if impossible
      */
@@ -106,14 +105,13 @@ public interface JDOModel
      * qualified class name if present. The method returns <code>null</code> 
      * if it cannot find a JDOClass instance for the specified name. 
      * <p>
-     * This method delegates to the getJDOModel method taking the flag
-     * <code>loadXMLMetadata</code> and passes the default value as specified
-     * at JDOModel creation time (see flag <code>loadXMLMetadataDefault</code>
+     * Whether this method reads XML metatdata or not is deteremined at
+     * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
      * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
      * to <code>createJDOClass(className, loadXMLMetadataDefault)</code>.
-     * @param className the fully qualified class name of the JDOClass instance 
-     * to be returned
+     * @param className the fully qualified class name of the JDOClass
+     * instance to be returned
      * @return a JDOClass instance for the specified class name 
      * or <code>null</code> if not present
      */
