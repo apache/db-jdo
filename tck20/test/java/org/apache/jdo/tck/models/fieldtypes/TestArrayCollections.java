@@ -150,6 +150,7 @@ public class TestArrayCollections extends JDO_Test {
     private void checkValues(Object oid, Hashtable startValue)
     {
         int i;
+        int failedCount = 0;
         ArrayCollections pi = (ArrayCollections) pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
@@ -166,17 +167,21 @@ public class TestArrayCollections extends JDO_Test {
             Object[] val = pi.get(i);
 
             if(!Arrays.equals(val, compareWith)){
+                failedCount++;
                 if (debug) {
-                    String message1 = compareWith==null?"compareWith was null!!!":
+                    logger.debug("checkValues comparison failed for field " + i);
+                    String message1 = compareWith==null?"unexpectedly null!!!":
                         compareWith.toString();
-                    String message2 = val==null?"val was null!!!":
+                    String message2 = val==null?"unexpectedly null!!!":
                         val.toString();
-                    logger.debug("compareWith: " + message1);
-                    logger.debug("val: "+ message2);
+                    logger.debug("expected: " + message1);
+                    logger.debug("actual: "+ message2);
                 }
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + ArrayCollections.fieldSpecs[i]);
             }
+        }
+        if (failedCount != 0) {
+            fail(ASSERTION_FAILED, 
+                    "TestArrayCollections " + failedCount + " fields failed to compare.");
         }
     }
 }
