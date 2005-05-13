@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
 <!--
-This file contains the schema information for persistence-aware classes.
+This file contains the schema information for persistence-aware classes 
+and SimpleClass, which is needed for several fieldtypes tests.
 -->
 <jdo> 
     <package name="org.apache.jdo.tck.models.inheritance">
@@ -24,5 +25,10 @@ This file contains the schema information for persistence-aware classes.
         <class name="ModificationOfNontransactionalNonpersistentFields" persistence-modifier="persistence-aware"/>
         <class name="NoAccessToFieldsAfterPredelete" persistence-modifier="persistence-aware"/>
         <class name="TestParts" persistence-modifier="persistence-aware"/>
+    </package>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="SimpleClass" identity-type="datastore">
+            <implements name="SimpleInterface"/>
+        </class>
     </package>
 </jdo>
