@@ -43,11 +43,21 @@ class PersistentDirtyFlushed extends PersistentDirty {
     }
 
    /**
+    * @see LifeCycleState#transitionDeletePersistent(StateManagerImpl sm)
+    */
+    protected LifeCycleState transitionDeletePersistent(StateManagerImpl sm) {
+        sm.registerTransactional();
+        sm.preDelete();
+        return changeState(P_DELETED);
+    }
+    
+   /**
     * @see LifeCycleState#transitionWriteField(StateManagerImpl sm,
     *    Transaction tx) 
     */
     protected LifeCycleState transitionWriteField(StateManagerImpl sm,
         Transaction tx) {
+        sm.registerTransactional();
         return changeState(P_DIRTY);
     }
 

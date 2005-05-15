@@ -47,6 +47,7 @@ class PersistentNewFlushed extends PersistentNew {
     * @see LifeCycleState#transitionDeletePersistent(StateManagerImpl sm)
     */
     protected LifeCycleState transitionDeletePersistent(StateManagerImpl sm) {
+        sm.registerTransactional();
         sm.preDelete();
         return changeState(P_NEW_FLUSHED_DELETED);
     }
@@ -57,6 +58,7 @@ class PersistentNewFlushed extends PersistentNew {
     */
     protected LifeCycleState transitionWriteField(StateManagerImpl sm,
         Transaction tx) { 
+        sm.registerTransactional();
         return changeState(P_NEW_FLUSHED_DIRTY); 
     }
 
