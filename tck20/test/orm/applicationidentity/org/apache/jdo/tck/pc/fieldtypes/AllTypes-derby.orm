@@ -23,7 +23,9 @@
             <field name="fld_String" column="STRINGVAL"/>
             <field name="fld_Locale" column="LOCALEVAL"/>
             <field name="fld_Date" column="DATEVAL"/>
-            <field name="fld_BigDecimal" column="BIGDECIMALVAL"/>
+            <field name="fld_BigDecimal">
+                <column name="BIGDECIMALVAL" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
             <field name="fld_BigInteger" column="BIGINTEGERVAL"/>
         </class>
     </package>

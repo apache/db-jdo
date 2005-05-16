@@ -229,7 +229,7 @@
             <field name="TreeMapOfBigDecimal_String53" table="TREEMAP_BIG_DECIMAL53_STR">
                 <join column="IDENTIFIER"/>
                 <value column="STRING"/>
-                <key column="BIG_DECIMALVAL"/>
+                <key column="BIG_DECIMALVAL" jdbc-type="DECIMAL" length="11" scale="4"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfBigInteger_String54" column="TREEMAP_BIG_INTEGER54_STR">

@@ -229,7 +229,7 @@
             <field name="MapOfBigDecimal_String53" table="MAP_OF_BIG_DECIMAL53_STRING">
                 <join column="IDENTIFIER"/>
                 <value column="STRING"/>
-                <key column="BIG_DECIMALVAL"/>
+                <key column="BIG_DECIMALVAL" jdbc-type="DECIMAL" length="11" scale="4"/>
                 <order column="INDEX"/>
             </field>
             <field name="MapOfBigInteger_String54" column="MAP_OF_BIG_INTEGER54_STRING">

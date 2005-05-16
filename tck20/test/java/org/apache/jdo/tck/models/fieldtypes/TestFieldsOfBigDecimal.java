@@ -125,10 +125,10 @@ public class TestFieldsOfBigDecimal extends JDO_Test {
         for( i = 0, value = startValue; i < n; ++i){
             if( !FieldsOfBigDecimal.isPersistent[i] ) continue;
             BigDecimal val = pi.get(i);
-            if(!val.equals(value)){
+            if(val.compareTo(value) != 0){
                 fail(ASSERTION_FAILED,
-                     "Incorrect value for " + FieldsOfBigDecimal.fieldSpecs[i] + 
-                     ", expected value " + value.toString() + 
+                     "Incorrect value for " + FieldsOfBigDecimal.fieldSpecs[i] +
+                     ", expected value " + value.toString() +
                      ", value is " + val.toString());
             }
         }

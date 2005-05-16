@@ -4,77 +4,219 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigDecimal" table="FIELDSOFBIGDECIMAL">
             <field name="identifier" primary-key="true" column="IDENTIFIER"/>
-            <field name="BigDecimal1" column="BIG_DECIMAL1"/>
-            <field name="BigDecimal102" column="BIG_DECIMAL102"/>
-            <field name="BigDecimal103" column="BIG_DECIMAL103"/>
-            <field name="BigDecimal104" column="BIG_DECIMAL104"/>
-            <field name="BigDecimal108" column="BIG_DECIMAL108"/>
-            <field name="BigDecimal109" column="BIG_DECIMAL109"/>
-            <field name="BigDecimal11" column="BIG_DECIMAL11"/>
-            <field name="BigDecimal110" column="BIG_DECIMAL110"/>
-            <field name="BigDecimal112" column="BIG_DECIMAL112"/>
-            <field name="BigDecimal113" column="BIG_DECIMAL113"/>
-            <field name="BigDecimal114" column="BIG_DECIMAL114"/>
-            <field name="BigDecimal119" column="BIG_DECIMAL119"/>
-            <field name="BigDecimal12" column="BIG_DECIMAL12"/>
-            <field name="BigDecimal120" column="BIG_DECIMAL120"/>
-            <field name="BigDecimal121" column="BIG_DECIMAL121"/>
-            <field name="BigDecimal124" column="BIG_DECIMAL124"/>
-            <field name="BigDecimal125" column="BIG_DECIMAL125"/>
-            <field name="BigDecimal126" column="BIG_DECIMAL126"/>
-            <field name="BigDecimal128" column="BIG_DECIMAL128"/>
-            <field name="BigDecimal129" column="BIG_DECIMAL129"/>
-            <field name="BigDecimal13" column="BIG_DECIMAL13"/>
-            <field name="BigDecimal130" column="BIG_DECIMAL130"/>
-            <field name="BigDecimal138" column="BIG_DECIMAL138"/>
-            <field name="BigDecimal139" column="BIG_DECIMAL139"/>
-            <field name="BigDecimal140" column="BIG_DECIMAL140"/>
-            <field name="BigDecimal16" column="BIG_DECIMAL16"/>
-            <field name="BigDecimal17" column="BIG_DECIMAL17"/>
-            <field name="BigDecimal18" column="BIG_DECIMAL18"/>
-            <field name="BigDecimal2" column="BIG_DECIMAL2"/>
-            <field name="BigDecimal20" column="BIG_DECIMAL20"/>
-            <field name="BigDecimal21" column="BIG_DECIMAL21"/>
-            <field name="BigDecimal22" column="BIG_DECIMAL22"/>
-            <field name="BigDecimal30" column="BIG_DECIMAL30"/>
-            <field name="BigDecimal31" column="BIG_DECIMAL31"/>
-            <field name="BigDecimal32" column="BIG_DECIMAL32"/>
-            <field name="BigDecimal36" column="BIG_DECIMAL36"/>
-            <field name="BigDecimal37" column="BIG_DECIMAL37"/>
-            <field name="BigDecimal38" column="BIG_DECIMAL38"/>
-            <field name="BigDecimal4" column="BIG_DECIMAL4"/>
-            <field name="BigDecimal40" column="BIG_DECIMAL40"/>
-            <field name="BigDecimal41" column="BIG_DECIMAL41"/>
-            <field name="BigDecimal42" column="BIG_DECIMAL42"/>
-            <field name="BigDecimal47" column="BIG_DECIMAL47"/>
-            <field name="BigDecimal48" column="BIG_DECIMAL48"/>
-            <field name="BigDecimal49" column="BIG_DECIMAL49"/>
-            <field name="BigDecimal5" column="BIG_DECIMAL5"/>
-            <field name="BigDecimal52" column="BIG_DECIMAL52"/>
-            <field name="BigDecimal53" column="BIG_DECIMAL53"/>
-            <field name="BigDecimal54" column="BIG_DECIMAL54"/>
-            <field name="BigDecimal56" column="BIG_DECIMAL56"/>
-            <field name="BigDecimal57" column="BIG_DECIMAL57"/>
-            <field name="BigDecimal58" column="BIG_DECIMAL58"/>
-            <field name="BigDecimal6" column="BIG_DECIMAL6"/>
-            <field name="BigDecimal66" column="BIG_DECIMAL66"/>
-            <field name="BigDecimal67" column="BIG_DECIMAL67"/>
-            <field name="BigDecimal68" column="BIG_DECIMAL68"/>
-            <field name="BigDecimal72" column="BIG_DECIMAL72"/>
-            <field name="BigDecimal73" column="BIG_DECIMAL73"/>
-            <field name="BigDecimal74" column="BIG_DECIMAL74"/>
-            <field name="BigDecimal76" column="BIG_DECIMAL76"/>
-            <field name="BigDecimal77" column="BIG_DECIMAL77"/>
-            <field name="BigDecimal78" column="BIG_DECIMAL78"/>
-            <field name="BigDecimal83" column="BIG_DECIMAL83"/>
-            <field name="BigDecimal84" column="BIG_DECIMAL84"/>
-            <field name="BigDecimal85" column="BIG_DECIMAL85"/>
-            <field name="BigDecimal88" column="BIG_DECIMAL88"/>
-            <field name="BigDecimal89" column="BIG_DECIMAL89"/>
-            <field name="BigDecimal90" column="BIG_DECIMAL90"/>
-            <field name="BigDecimal92" column="BIG_DECIMAL92"/>
-            <field name="BigDecimal93" column="BIG_DECIMAL93"/>
-            <field name="BigDecimal94" column="BIG_DECIMAL94"/>
+            <field name="BigDecimal1">
+                <column name="BIG_DECIMAL1" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal102">
+                <column name="BIG_DECIMAL102" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal103">
+                <column name="BIG_DECIMAL103" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal104">
+                <column name="BIG_DECIMAL104" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal108">
+                <column name="BIG_DECIMAL108" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal109">
+                <column name="BIG_DECIMAL109" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal11">
+                <column name="BIG_DECIMAL11" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal110">
+                <column name="BIG_DECIMAL110" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal112">
+                <column name="BIG_DECIMAL112" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal113">
+                <column name="BIG_DECIMAL113" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal114">
+                <column name="BIG_DECIMAL114" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal119">
+                <column name="BIG_DECIMAL119" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal12">
+                <column name="BIG_DECIMAL12" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal120">
+                <column name="BIG_DECIMAL120" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal121">
+                <column name="BIG_DECIMAL121" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal124">
+                <column name="BIG_DECIMAL124" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal125">
+                <column name="BIG_DECIMAL125" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal126">
+                <column name="BIG_DECIMAL126" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal128">
+                <column name="BIG_DECIMAL128" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal129">
+                <column name="BIG_DECIMAL129" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal13">
+                <column name="BIG_DECIMAL13" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal130">
+                <column name="BIG_DECIMAL130" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal138">
+                <column name="BIG_DECIMAL138" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal139">
+                <column name="BIG_DECIMAL139" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal140">
+                <column name="BIG_DECIMAL140" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal16">
+                <column name="BIG_DECIMAL16" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal17">
+                <column name="BIG_DECIMAL17" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal18">
+                <column name="BIG_DECIMAL18" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal2">
+                <column name="BIG_DECIMAL2" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal20">
+                <column name="BIG_DECIMAL20" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal21">
+                <column name="BIG_DECIMAL21" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal22">
+                <column name="BIG_DECIMAL22" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal30">
+                <column name="BIG_DECIMAL30" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal31">
+                <column name="BIG_DECIMAL31" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal32">
+                <column name="BIG_DECIMAL32" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal36">
+                <column name="BIG_DECIMAL36" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal37">
+                <column name="BIG_DECIMAL37" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal38">
+                <column name="BIG_DECIMAL38" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal4">
+                <column name="BIG_DECIMAL4" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal40">
+                <column name="BIG_DECIMAL40" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal41">
+                <column name="BIG_DECIMAL41" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal42">
+                <column name="BIG_DECIMAL42" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal47">
+                <column name="BIG_DECIMAL47" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal48">
+                <column name="BIG_DECIMAL48" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal49">
+                <column name="BIG_DECIMAL49" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal5">
+                <column name="BIG_DECIMAL5" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal52">
+                <column name="BIG_DECIMAL52" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal53">
+                <column name="BIG_DECIMAL53" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal54">
+                <column name="BIG_DECIMAL54" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal56">
+                <column name="BIG_DECIMAL56" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal57">
+                <column name="BIG_DECIMAL57" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal58">
+                <column name="BIG_DECIMAL58" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal6">
+                <column name="BIG_DECIMAL6" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal66">
+                <column name="BIG_DECIMAL66" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal67">
+                <column name="BIG_DECIMAL67" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal68">
+                <column name="BIG_DECIMAL68" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal72">
+                <column name="BIG_DECIMAL72" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal73">
+                <column name="BIG_DECIMAL73" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal74">
+                <column name="BIG_DECIMAL74" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal76">
+                <column name="BIG_DECIMAL76" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal77">
+                <column name="BIG_DECIMAL77" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal78">
+                <column name="BIG_DECIMAL78" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal83">
+                <column name="BIG_DECIMAL83" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal84">
+                <column name="BIG_DECIMAL84" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal85">
+                <column name="BIG_DECIMAL85" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal88">
+                <column name="BIG_DECIMAL88" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal89">
+                <column name="BIG_DECIMAL89" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal90">
+                <column name="BIG_DECIMAL90" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal92">
+                <column name="BIG_DECIMAL92" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal93">
+                <column name="BIG_DECIMAL93" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
+            <field name="BigDecimal94">
+                <column name="BIG_DECIMAL94" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
         </class>
     </package>
 </orm>

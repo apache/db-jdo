@@ -25,6 +25,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCRect;
+import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -77,7 +78,7 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
 
     /** */
     private PCRect getPersistentNewInstance() {
-        PCRect obj = new PCRect();
+        PCRect obj = new PCRect(0, new PCPoint(1,5), new PCPoint(7,3));
         pm.makePersistent(obj); // obj should transition to persistent-new
         int curr = currentState(obj);
         if( curr != PERSISTENT_NEW ){
