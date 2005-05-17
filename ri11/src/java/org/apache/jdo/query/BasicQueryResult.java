@@ -20,7 +20,7 @@
  * Created on March 18, 2001, 12:48 PM
  */
 
-package org.apache.jdo.jdoql;
+package org.apache.jdo.query;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -30,7 +30,7 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 
-import javax.jdo.*;
+import javax.jdo.Extent;
 import javax.jdo.spi.I18NHelper;
 
 

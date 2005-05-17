@@ -40,12 +40,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModelFactory;
-import org.apache.jdo.jdoql.BasicQueryResult;
-import org.apache.jdo.jdoql.QueryResult;
-import org.apache.jdo.jdoql.QueryResultHelper;
 import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOIdentityType;
 import org.apache.jdo.pm.PersistenceManagerInternal;
+import org.apache.jdo.query.BasicQueryResult;
+import org.apache.jdo.query.QueryResult;
+import org.apache.jdo.query.QueryResultHelper;
 import org.apache.jdo.state.StateManagerInternal;
 import org.apache.jdo.store.Connector;
 import org.apache.jdo.store.StoreManagerImpl;

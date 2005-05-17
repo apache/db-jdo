@@ -24,9 +24,9 @@ import javax.jdo.Extent;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.spi.StateManager;
 
-import org.apache.jdo.jdoql.QueryResult;
-import org.apache.jdo.jdoql.QueryResultHelper;
 import org.apache.jdo.pm.PersistenceManagerInternal;
+import org.apache.jdo.query.QueryResult;
+import org.apache.jdo.query.QueryResultHelper;
 import org.apache.jdo.state.StateManagerInternal;
 
 

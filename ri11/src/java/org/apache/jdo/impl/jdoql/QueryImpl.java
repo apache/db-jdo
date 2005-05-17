@@ -36,8 +36,8 @@ import org.apache.jdo.impl.jdoql.scope.ParameterTable;
 import org.apache.jdo.impl.jdoql.scope.VariableTable;
 import org.apache.jdo.impl.jdoql.tree.Tree;
 import org.apache.jdo.jdoql.JDOQueryException;
-import org.apache.jdo.jdoql.QueryResult;
 import org.apache.jdo.pm.PersistenceManagerInternal;
+import org.apache.jdo.query.QueryResult;
 import org.apache.jdo.store.StoreManager;
 import org.apache.jdo.util.I18NHelper;
 

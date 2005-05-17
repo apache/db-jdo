@@ -35,12 +35,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.jdo.impl.jdoql.jdoqlc.JDOQLAST;
 import org.apache.jdo.impl.jdoql.scope.ParameterTable;
 import org.apache.jdo.impl.jdoql.scope.VariableTable;
-import org.apache.jdo.jdoql.QueryResultHelper;
 import org.apache.jdo.jdoql.tree.Expression;
 import org.apache.jdo.jdoql.tree.QueryTree;
 import org.apache.jdo.jdoql.tree.TreeWalker;
 import org.apache.jdo.jdoql.tree.ValueTable;
 import org.apache.jdo.pm.PersistenceManagerInternal;
+import org.apache.jdo.query.QueryResultHelper;
 import org.apache.jdo.util.I18NHelper;
 
 /** 

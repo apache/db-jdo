@@ -15,28 +15,26 @@
  */
 
 /*
- * QueryResult.java
+ * QueryResultIterator.java
  *
- * Created on March 18, 2001, 12:33 PM
+ * Created on March 18, 2001, 12:34 PM
  */
 
-package org.apache.jdo.jdoql;
+package org.apache.jdo.query;
 
-/** An instance of this interface is returned as the result of
- * Query.execute(...).
+/** This interface is used to iterate a query result.  It is
+ * returned to the user in response to the iterator() method
+ * of the query result Collection.
  * @author Craig Russell
  * @version 0.9
  */
-public interface QueryResult extends java.util.Collection {
-    
-    /** Close this query result and invalidate all iterators
-     * that have been opened on it.  After this method completes,
-     * no more iterators can be opened; and
-     * all iterators currently open on it will return false to 
+public interface QueryResultIterator extends java.util.Iterator {
+
+    /** Close this iterator and release any resources held.  After
+     * this method completes, the iterator will return false to
      * hasNext(), and will throw NoSuchElementException to next().
-     *
      */
     void close();
-
+    
 }
 

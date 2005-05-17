@@ -20,7 +20,7 @@
  * Created on March 18, 2001, 12:35 PM
  */
 
-package org.apache.jdo.jdoql;
+package org.apache.jdo.query;
 
 import java.util.Collection;
 import java.util.List;
