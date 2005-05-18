@@ -49,7 +49,7 @@
     <!-- Running test cases -->
     <!-- ================== -->
 
-    <goal name="runtck" prereqs="java:compile, enhance, testrunner.set, database, copyloggingprops">
+    <goal name="runtck" prereqs="java:compile, enhance, testrunner.set, database, copyprops">
         <echo>Run JDO TCK on the IUT with configuration ${jdo.tck.configuration}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="${jdo.tck.testrunnerclass}">
@@ -66,7 +66,7 @@
     <!-- Run a single tck test. The property testcase defines the name of -->
     <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
     <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
-    <goal name="runtck.single" prereqs="java:compile, enhance, testrunner.set, database, copyloggingprops">
+    <goal name="runtck.single" prereqs="java:compile, enhance, testrunner.set, database, copyprops">
         <echo>Run TCK test org.apache.jdo.tck.${test} on the IUT with configuration ${jdo.tck.configuration}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="org.apache.jdo.tck.${test}">
@@ -79,7 +79,7 @@
         </java>
     </goal>
 
-    <goal name="runtck.jdori" prereqs="java:compile, jdorienhance, database, copyloggingprops">
+    <goal name="runtck.jdori" prereqs="java:compile, jdorienhance, database, copyprops">
         <echo>Run JDO TCK on the RI with configuration ${jdo.tck.configuration}</echo>
         <j:set var="jdo.tck.testrunnerclass" value="org.apache.jdo.tck.util.BatchTestRunner"/>
         <java fork="yes" dir="${jdo.tck.testdir}" 
@@ -96,7 +96,7 @@
     <!-- Run a single tck test. The property testcase defines the name of -->
     <!-- the tck test class w/o the prefix org.apache.jdo.tck, e.g.       --> 
     <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
-    <goal name="runtck.jdorisingle" prereqs="java:compile, jdorienhance, database, copyloggingprops">
+    <goal name="runtck.jdorisingle" prereqs="java:compile, jdorienhance, database, copyprops">
         <echo>Run TCK test org.apache.jdo.tck.${test} on the RI with configuration ${jdo.tck.configuration}</echo>
         <java fork="yes" dir="${jdo.tck.testdir}" 
               classname="org.apache.jdo.tck.${test}">
@@ -365,12 +365,15 @@
        </condition>
     </goal>
 
-    <goal name="copyloggingprops">
+    <goal name="copyprops">
         <copy todir="${jdo.tck.testclasses.dir}" >
             <fileset dir="${basedir}/test/conf">
                <include name="commons-logging.properties"/>
                <include name="simplelog.properties"/>
                <include name="logging.properties"/>
+            </fileset>
+            <fileset dir="${basedir}/test/java">
+                <include name="**/*.xml"/>
             </fileset>
         </copy>
     </goal>
