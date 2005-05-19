@@ -96,7 +96,7 @@ has application identity.
                 </embedded>
             </field>
             <field name="phoneNumbers" table="employee_phoneno_type" >
-                <join column="PERSONID"/>
+                <join column="EMPID"/>
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>

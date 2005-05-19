@@ -12,6 +12,7 @@ has datastore identity.
         </class>
 
         <class name="Company" identity-type="datastore">
+            <field name="companyid" persistence-modifier="none"/>
             <field name="address"
                    persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">

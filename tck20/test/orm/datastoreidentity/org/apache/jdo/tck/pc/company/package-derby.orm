@@ -96,13 +96,14 @@ has datastore identity.
                 </embedded>
             </field>
             <field name="phoneNumbers" table="employee_phoneno_type" >
-                <join column="PERSONID"/>
+                <join column="EMPID"/>
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
         </class>
 
         <class name="Insurance" table="insuranceplans">
+            <datastore-identity strategy="identity" column="INSID"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
