@@ -20,6 +20,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfDouble;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -67,8 +68,8 @@ public class TestFieldsOfDouble extends JDO_Test {
         Transaction tx = pm.currentTransaction();
         try { 
             int i, n;
-            Double firstValue = new Double(Double.MIN_VALUE);
-            Double secondValue = new Double(Double.MAX_VALUE);
+            Double firstValue = new Double(AllTypes.DOUBLE_SMALLEST);
+            Double secondValue = new Double(AllTypes.DOUBLE_LARGEST);
             tx.begin();
             FieldsOfDouble pi = new FieldsOfDouble();
             pi.identifier = 1;
