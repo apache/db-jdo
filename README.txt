@@ -1,10 +1,27 @@
 This is a prototype of the JDO maven projects:
 - api11 to build the jdo.jar which defines the JDO API version 1.1
+- ri11 the current JDO1 RI
+- tck11 the current JDO1 TCK
 - api20 to build the jdo.jar which defines the JDO API version 2.0
-- btree the Netbeans open source btree implementation used by ri 
-- ri11  the current JDORI
-- tck11 the current JDOTCK
+- core20 the JDO2 core including utility and metadata model classes
+- enhancer20 the JDO2 byte code enhancer 
+- runtime20 the JDO2 runtime classes (pm, pmf, state manager, life cycle, 
+  store manager interface, runtime meta data support)
+- query20 the JDO2 JDOQL query compiler and JDOQL query tree nodes
+- fostore20 the JDO2 file object store (fostore) datastore
 - tck20 the JDO 2.0 TCK
+- btree the Netbeans open source btree implementation used by ri11 and fostore20
+
+-------------
+Dependencies:
+-------------
+
+The JDO maven project define their dependencies in the project.xml file:
+JDO1: api11, btree, ri11, tck11
+JDO2: api20, tck20, btree, core20, enhancer20, runtime20, query20, fostore20
+Please note, the JDO2 implementation projects enhancer20, runtime20, query20, 
+and fostore20 do not yet implement the JDO2 API as defined in api20 and thus
+they still depend on api11.
 
 -------------
 Prerequisites
@@ -24,9 +41,10 @@ it to your local maven repository:
 
 - JNDI implementation
 - fscontext.jar and providerutil.jar
-The JDORI JNDI test case needs a JNDI implementation. To configure this please 
-update the property jndi in ri11/project.properties to include all jars of 
-your JNDI implementation. The properties file jndi.properties under ri11/test
+The JDORI JNDI test case in ri11 and fostore20 needs a JNDI implementation. 
+To configure this please update the property jndi in ri11/project.properties 
+and fostore20/project.properties to include all jars of your JNDI 
+implementation. The properties file jndi.properties under ri11/test
 should define all the necessary properties of your JNDI implemenation.
 The defaults setting in project.properties and jndi.properties use Sun's File 
 System Service Provider implementation (fscontext.jar and providerutil.jar) and 
@@ -73,6 +91,10 @@ host might not work if you are behind a firewall that blocks the cvs port.
 Please consult http://www.netbeans.org/community/sources for more info. 
 There is a special cvsroot if you are inside the Sun network (SWAN), please 
 check the project.properties in the btree subproject.
+
+If you do not have a cvs client installed on your system, you find a zip file 
+including the Netbeans mdr btree implementation on the JDO wiki. Go to the 
+bottom of page http://wiki.apache.org/jdo/SubversionRepository.
 
 (3) Remarks about ri11:
 - Calling 'maven build' in ri11 compiles the JDO RI sources and test classes 
