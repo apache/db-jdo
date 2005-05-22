@@ -1,0 +1,173 @@
+// This is the policy file for JDO 2.0 assuming that 
+// - the JDO API classes are in jar ${jdoapi}, 
+// - the btree implementation is in ${jdobtree},
+// - the JDO core classes are in ${jdocode},
+// - the JDO runtime classes are in ${jdoruntime},
+// - the JDO query classes are in ${jdoquery},
+// - the JDO fostore classes are in ${jdofostore},
+// - your test classes are in jar ${jdoritests},
+// - your application pc classes are in ${pcclasses},
+// - your database files are in ${testdir},
+// - junit is in ${junit},
+// - commons-logging is in ${logging},
+// - an XML parser implementation (if necessary) is in ${xmlparser}
+// - testlist is ${testlist}
+
+grant codeBase "file:${jdobtree}" { 
+	// Allow btree classes to read the properties 
+	// org.netbeans.mdr.persistence.*.
+	permission java.util.PropertyPermission "org.netbeans.mdr.persistence.*", "read";
+	permission java.util.PropertyPermission "perf.mdr.MDRCache", "read";
+	permission java.util.PropertyPermission "debug.mdr.MDRCache", "read";
+
+	// Allow btree classes to manage fostore database files.
+	permission java.io.FilePermission "${testdir}${/}*", "read,write,delete";
+       };
+
+grant codeBase "file:${jdocore}" { 
+	// Allow jdori classes to read the jdo.dtd from jdo.jar.
+	permission java.io.FilePermission "${jdoapi}", "read";
+	// Allow jdori classes to read the JDO metadata files.
+	permission java.io.FilePermission "${pcclasses}", "read";
+
+	// Allow jdori classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+
+	// Allow jdori classes to access declared members of a class 
+	// (e.g. a query accessing transient instances or non-managed fields).
+	// The query component needs access to persistent fields.
+	permission java.lang.RuntimePermission "accessDeclaredMembers";
+
+	// Allow the jdori classes to configure the JDK 1.4 logging
+	permission java.util.logging.LoggingPermission "control";
+	// Allow the jdori classes to read the JDK 1.4 logging properties file
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${jdoruntime}" { 
+	// Allow jdori classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+	// Allow jdori classes to set the state manager for a 
+	// persistence-capable class instance.
+	permission javax.jdo.spi.JDOPermission "setStateManager";
+	// Allow jdori classes to close the PersistenceManagerFactory
+	permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+
+	// Allow the jdori classes to register a JVM shutdown hook.
+	permission java.lang.RuntimePermission "shutdownHooks";
+
+	// Allow the jdori classes to configure the JDK 1.4 logging
+	permission java.util.logging.LoggingPermission "control";
+	// Allow the jdori classes to read the JDK 1.4 logging properties file
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${jdoquery}" { 
+	// Allow jdori classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+
+	// Allow jdori classes to access declared members of a class 
+	// (e.g. a query accessing transient instances or non-managed fields).
+	// The query component needs access to persistent fields.
+	permission java.lang.RuntimePermission "accessDeclaredMembers";
+	// Allow jdori classes to access transient instances or non-managed 
+	// fields during a query.
+	permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+
+	// Allow the jdori classes to configure the JDK 1.4 logging
+	permission java.util.logging.LoggingPermission "control";
+	// Allow the jdori classes to read the JDK 1.4 logging properties file
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${jdofostore}" { 
+	// Allow jdori classes to read system properties including
+	// org.netbeans.modules.mdr.btreestorage.*
+	// user.home, status.verbose, maxInstances
+	permission java.util.PropertyPermission "*", "read";
+
+	// Allow jdori classes to read the directory where 
+	// fostore database files are located.
+	permission java.io.FilePermission "${testdir}", "read";
+	// Allow jdori classes to manage fostore database files.
+	permission java.io.FilePermission "${testdir}${/}*", "read,write,delete";
+
+	// Allow jdori classes to specify a stream handler
+	// when constructing a fostore URL.
+	permission java.net.NetPermission "specifyStreamHandler";
+
+	// Allow jdori classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+	// Allow jdori classes to close the PersistenceManagerFactory
+	permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+
+	// Allow the jdori classes to register a JVM shutdown hook.
+        permission java.lang.RuntimePermission "shutdownHooks";
+
+	// Allow the jdori classes to configure the JDK 1.4 logging
+	permission java.util.logging.LoggingPermission "control";
+	// Allow the jdori classes to read the JDK 1.4 logging properties file
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${jdoapi}" { 
+	// Allow jdo classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+	// Allow jdo classes to manage metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "manageMetadata";
+	// Allow jdo classes to set the state manager for a 
+	// persistence-capable class instance.
+	permission javax.jdo.spi.JDOPermission "setStateManager";
+       };
+
+grant codeBase "file:${jdoritests}" { 
+	// Allow the test classes to read system properties.
+	permission java.util.PropertyPermission "*", "read";
+	// Allow the test classes to read test lists.
+	permission java.io.FilePermission "${testlist}", "read";
+	// Allow the query test to write a log file.
+	permission java.io.FilePermission "${testdir}", "write";
+	// Allow test classes to close the PersistenceManagerFactory
+	permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+	// Allow test classes to create a class loader
+	permission java.lang.RuntimePermission "createClassLoader";
+	// Allow test classes to get a class loader
+	permission java.lang.RuntimePermission "getClassLoader";
+	// Allow class loaders in test classes to read jar files
+	permission java.io.FilePermission "${pcclasses}", "read";
+	permission java.io.FilePermission "${fsuidjar}", "read";
+	permission java.io.FilePermission "${jdoapi}", "read";
+	// Allow test classes to manage fostore database files.
+	permission java.io.FilePermission "${testdir}${/}*", "read,write,delete";
+	// Allow test classes to get metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "getMetadata";
+	// Allow test classes to manage metadata for persistence-capable classes.
+	permission javax.jdo.spi.JDOPermission "manageMetadata";
+	// Allow test classes to access declared constructors via reflection
+	permission java.lang.RuntimePermission "accessDeclaredMembers";
+	// JUnit problem: accessing junit.properties is not privileged
+	permission java.io.FilePermission "${user.home}${/}junit.properties", "read";
+	// JUnit problem: accessing .junitsession is not privileged
+	permission java.io.FilePermission "${user.home}${/}.junitsession", "read,write";
+	// JUnit problem: accessing JUnit GUI icons is not privileged
+	permission java.io.FilePermission "${junit}", "read";
+       };
+
+grant codeBase "file:${junit}" { 
+	// Allow junit classes to read system properties
+	permission java.util.PropertyPermission "*", "read";
+	// Allow junit classes to read the default file to specify junit properties.
+	permission java.io.FilePermission "${user.home}${/}junit.properties", "read";
+	// Allow junit classes to manage a file to specify the junit session.
+	permission java.io.FilePermission "${user.home}${/}.junitsession", "read,write";
+       };
+
+grant codeBase "file:${logging}" {
+	// Allow the apache commons logging classes to read logging properties files
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${xmlparser}" { 
+	// Allow the xmlparser classes to read system properties.
+	permission java.util.PropertyPermission "*", "read";
+       };

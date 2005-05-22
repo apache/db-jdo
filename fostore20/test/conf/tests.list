@@ -1,0 +1,97 @@
+#
+# Note the following tests should not be added to the list, 
+# because they need to be run separately 
+# (see target test.all in build.xml):
+# 
+# - org.apache.jdo.test.Test_FetchInserted: 
+#     needs an existing datastore, created by a run in a separate JVM
+# - JNDI test and JNDICF test:
+#     needs an existing datastore, created by a run in a separate JVM
+# - org.apache.jdo.test.Test_GetObjectById2
+# - NonExistent
+# - EmpDeptAppIdExt: 
+#   starts the EmpDeptAppId tests insert, update, delete in separate JVMs
+#   implemented by Test_EmpDeptAppIdInsert, Test_EmpDeptAppIdUpadte, and 
+#   Test_EmpDeptAppIdDelete
+# - Generator
+# - Enhancer
+
+#fostore/Test_Dumper		Test_Rect
+
+org.apache.jdo.test.Test_JDOModel
+org.apache.jdo.impl.fostore.Test_Transcriber
+org.apache.jdo.impl.fostore.Test_FSUID
+org.apache.jdo.test.Test_ActivateClass
+org.apache.jdo.test.Test_Insert
+org.apache.jdo.test.Test_Many
+org.apache.jdo.test.Test_RollbackFlushedNew
+org.apache.jdo.test.Test_Fetch
+org.apache.jdo.test.Test_Fetch2
+org.apache.jdo.test.Test_Arrays
+org.apache.jdo.test.Test_RefArrays
+org.apache.jdo.test.Test_Interfaces
+org.apache.jdo.test.Test_Rect
+org.apache.jdo.test.Test_Primitives
+org.apache.jdo.test.Test_Stroke
+org.apache.jdo.test.Test_Cycle
+org.apache.jdo.test.Test_SCO
+org.apache.jdo.test.Test_Collections
+org.apache.jdo.test.Test_SCORollback
+org.apache.jdo.test.Test_SCOArrayList
+org.apache.jdo.test.Test_SCOArrayListOptimistic
+org.apache.jdo.test.Test_SCODate
+org.apache.jdo.test.Test_SCOHashMap
+org.apache.jdo.test.Test_SCOHashSet
+org.apache.jdo.test.Test_SCOHashtable
+org.apache.jdo.test.Test_SCOLinkedList
+org.apache.jdo.test.Test_SCOSqlDate
+org.apache.jdo.test.Test_SCOTreeMap
+org.apache.jdo.test.Test_SCOTreeSet
+org.apache.jdo.test.Test_SCOVector
+org.apache.jdo.test.Test_GetObjectById
+org.apache.jdo.test.Test_SerialPMs
+org.apache.jdo.test.Test_ParallelPMs
+org.apache.jdo.test.Test_Delete
+org.apache.jdo.test.Test_RectAppId
+org.apache.jdo.test.Test_EmpDeptAppId
+org.apache.jdo.test.Test_Extent
+org.apache.jdo.test.Test_EmpDeptSerialization
+org.apache.jdo.test.Test_HollowUpdate
+org.apache.jdo.test.Test_Reachability
+org.apache.jdo.test.Test_EmpDept
+org.apache.jdo.test.Test_Navigate
+org.apache.jdo.test.Test_LargeObj
+org.apache.jdo.test.Test_Update
+org.apache.jdo.test.Test_Rollback
+org.apache.jdo.test.Test_Serialize
+org.apache.jdo.test.Test_SerializeInher
+org.apache.jdo.test.Test_SerializeComplex
+org.apache.jdo.test.Test_NonTxAccess
+org.apache.jdo.test.Test_Insert2
+org.apache.jdo.test.Test_ObjectId
+org.apache.jdo.test.Test_Container
+org.apache.jdo.test.Test_Inheritance
+org.apache.jdo.test.Test_StringOID
+org.apache.jdo.test.Test_Optimistic
+org.apache.jdo.test.Test_FSUID2
+org.apache.jdo.test.Test_LifeCycle
+org.apache.jdo.test.Test_LifeCycle_RetF
+org.apache.jdo.test.Test_LifeCycle_Opt
+org.apache.jdo.test.Test_LifeCycle_RetFOpt
+org.apache.jdo.test.Test_NegAll
+org.apache.jdo.test.Test_PMFProperties
+org.apache.jdo.test.Test_Query
+org.apache.jdo.test.Test_4510817
+org.apache.jdo.test.Test_4515265
+org.apache.jdo.test.Test_WeakHashSet
+org.apache.jdo.test.Test_WeakValueHashMap
+org.apache.jdo.test.Test_AppId
+org.apache.jdo.test.Test_DupAppId
+org.apache.jdo.test.Test_PCDerived
+org.apache.jdo.test.Test_ClosePMF
+org.apache.jdo.test.Test_KeyFieldNull
+org.apache.jdo.test.Test_UserHashCode
+org.apache.jdo.test.Test_OptimisticNullNotNull
+org.apache.jdo.test.Test_Freezer
+org.apache.jdo.test.Test_ClassRegistration
+org.apache.jdo.test.Test_6214617
