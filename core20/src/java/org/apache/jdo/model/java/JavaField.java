@@ -25,42 +25,15 @@ import org.apache.jdo.model.jdo.JDOField;
  * available). 
  * <p>
  * Different environments (runtime, enhancer, development) will have
- * different JavaType implementations to provide answers to the various
+ * different JavaField implementations to provide answers to the various
  * methods. 
  * 
  * @author Michael Bouschen
  * @since JDO 1.0.1
+ * @version JDO 2.0
  */
-public interface JavaField 
+public interface JavaField extends JavaMember 
 {
-    /**
-     * Returns the name of the field. 
-     * @return field name
-     */
-    public String getName();
-
-    /**
-     * Returns the Java language modifiers for the field represented by
-     * this JavaField, as an integer. The java.lang.reflect.Modifier class
-     * should be used to decode the modifiers. 
-     * @return the Java language modifiers for this JavaField
-     * @see java.lang.reflect.Modifier
-     */
-    public int getModifiers();
-
-    /**
-     * Returns the JavaType representation of the field type.
-     * @return field type
-     */
-    public JavaType getType();
-
-    /**
-     * Returns the JavaType instance representing the class or interface
-     * that declares the field represented by this JavaField instance.
-     * @return the JavaType instance of the declaring class.
-     */
-    public JavaType getDeclaringClass();    
-
     /**
      * Returns the corresponding JDOField instance, if the JDOModel
      * provides any JDO metadata for the field represented by this
@@ -81,5 +54,4 @@ public interface JavaField
      * <code>null</code> otherwise.
      */
     public JDOField getJDOField();
-
 }

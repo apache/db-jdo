@@ -16,8 +16,6 @@
 
 package org.apache.jdo.impl.model.java.reflection;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.lang.reflect.Field;
 
 import org.apache.jdo.impl.model.java.BaseReflectionJavaField;
@@ -34,6 +32,7 @@ import org.apache.jdo.util.I18NHelper;
  * 
  * @author Michael Bouschen
  * @since JDO 1.1
+ * @version JDO 2.0
  */
 public class ReflectionJavaField
     extends BaseReflectionJavaField
@@ -53,18 +52,7 @@ public class ReflectionJavaField
     public ReflectionJavaField(Field field, JavaType declaringClass)
     {
         super(field, declaringClass);
-        this.type = getJavaTypeInternal(field.getType());
-    }
-    
-    /** 
-     * Constructor for fields having JDO metadata. The constructor takes
-     * the field type from the JDO metadata.
-     * @param jdoField the JDO field metadata.
-     * @param declaringClass the JavaType of the class that declares the field.
-     */
-    public ReflectionJavaField(JDOField jdoField, JavaType declaringClass)
-    {
-        this(jdoField, null, declaringClass);
+        this.type = getJavaTypeForClass(field.getType());
     }
     
     /** 
@@ -91,7 +79,7 @@ public class ReflectionJavaField
     public JavaType getType()
     {
         if (type == null) {
-            type = getJavaTypeInternal(getField().getType());
+            type = getJavaTypeForClass(getField().getType());
         }
         return type;
     }
@@ -119,12 +107,8 @@ public class ReflectionJavaField
      * This method provides a hook such that ReflectionJavaField subclasses can
      * implement their own mapping of Class objects to JavaType instances. 
      */
-    protected JavaType getJavaTypeInternal(Class clazz)
+    public JavaType getJavaTypeForClass(Class clazz)
     {
-        return ((ReflectionJavaType)getDeclaringClass()).getJavaTypeInternal(clazz);
+        return ((ReflectionJavaType)getDeclaringClass()).getJavaTypeForClass(clazz);
     }
-    
-
-    
 }
-

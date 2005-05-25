@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.impl.model.java.runtime;
+package org.apache.jdo.impl.model.java.runtime.jdk5;
 
-import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModel;
 import org.apache.jdo.model.java.JavaType;
+import org.apache.jdo.impl.model.java.runtime.*;
 
 /**
- * A reflection based JavaModel implementation used at runtime.  
+ * A reflection based JavaModel implementation used at runtime in a J2SE5.0
+ * environment. 
  * The implementation takes <code>java.lang.Class</code> and
  * <code>java.lang.reflect.Field</code> instances to get Java related
  * metadata about types and fields. 
@@ -30,15 +31,14 @@ import org.apache.jdo.model.java.JavaType;
  * any type by name. This makes sure that the type name is unique.
  *
  * @author Michael Bouschen
- * @since JDO 1.0.1
- * @version JDO 2.0
+ * @since JDO 2.0
  */
-public class RuntimeJavaModel
-    extends ReflectionJavaModel
+public class JDK5RuntimeJavaModel
+    extends RuntimeJavaModel
 {
     /** Constructor. */
-    public RuntimeJavaModel(ClassLoader classLoader, 
-                            RuntimeJavaModelFactory declaringJavaModelFactory) 
+    public JDK5RuntimeJavaModel(ClassLoader classLoader, 
+        JDK5RuntimeJavaModelFactory declaringJavaModelFactory) 
     {
         super(classLoader, declaringJavaModelFactory);
     }
@@ -52,7 +52,7 @@ public class RuntimeJavaModel
      */
     protected JavaType newJavaTypeInstance(Class clazz)
     {
-        return new RuntimeJavaType(clazz, this);
+        return new JDK5RuntimeJavaType(clazz, this);
     }
     
 }

@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
+import org.apache.jdo.model.java.JavaProperty;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.util.I18NHelper;
 
@@ -64,6 +65,22 @@ public class BaseReflectionJavaType
         this.superclass = superclass;
     }
     
+    // ===== Methods specified in JavaElement =====
+
+    /**
+     * Returns the environment specific instance wrapped by this JavaModel
+     * element. This implementation returns the
+     * <code>java.lang.Class</code> instance for this JavaType.
+     * @return the environment specific instance wrapped by this JavaModel
+     * element.
+     */
+    public Object getUnderlyingObject() 
+    {
+        return getJavaClass();
+    }
+
+    // ===== Methods specified in JavaType =====
+
     /** 
      * Determines if this JavaType object represents an interface type.
      * @return <code>true</code> if this object represents an interface type; 
@@ -154,6 +171,24 @@ public class BaseReflectionJavaType
         }
         
         return null;
+    }
+
+    /** */
+    public JavaField[] getDeclaredJavaFields()
+    {
+        throw new UnsupportedOperationException();
+    }
+    
+    /** */
+    public JavaProperty getJavaProperty(String name)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    /** */
+    public JavaProperty[] getDeclaredJavaProperties()
+    {
+        throw new UnsupportedOperationException();
     }
 
     // ===== Methods not defined in JavaType =====

@@ -36,7 +36,7 @@ import org.apache.jdo.model.jdo.JDOClass;
  * @author Michael Bouschen
  * @since JDO 1.0.1
  */
-public interface JavaType 
+public interface JavaType extends JavaElement
 {
     /** 
      * Returns <code>true</code> if this JavaType represents a primitive
@@ -282,5 +282,36 @@ public interface JavaType
      * or <code>null</code> if there is no such field.
      */
     public JavaField getJavaField(String name);
+
+    /**
+     * Returns an array of JavaField instances representing the declared
+     * fields of the class represented by this JavaType instance. Note, this
+     * method does not return JavaField instances representing inherited
+     * fields. 
+     * @return an array of declared JavaField instances. 
+     */
+    public JavaField[] getDeclaredJavaFields();
+
+    /**
+     * Returns a JavaProperty instance that reflects the property with the
+     * specified name of the class or interface represented by this
+     * JavaType instance. The method returns <code>null</code>, if the
+     * class or interface (or one of its superclasses) does not have a
+     * property with that name.
+     * @param name the name of the property 
+     * @return the JavaProperty instance for the specified property in this
+     * class or <code>null</code> if there is no such property.
+     */
+    public JavaProperty getJavaProperty(String name);
+
+    /**
+     * Returns an array of JavaProperty instances representing the declared
+     * properties of the class represented by this JavaType instance. Note,
+     * this method does not return JavaProperty instances representing inherited
+     * properties. 
+     * @return an array of declared JavaProperty instances. 
+     */
+    public JavaProperty[] getDeclaredJavaProperties();
+    
 
 }

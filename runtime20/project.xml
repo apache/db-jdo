@@ -60,6 +60,15 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- =================== -->
     <build>
         <sourceDirectory>src/java</sourceDirectory>
+        <!-- Exclude JDK5 specific classes in a non JDK5 environment. -->
+        <sourceModifications>
+            <sourceModification>
+                <className>java.lang.reflect.ParameterizedType</className>
+                <excludes>
+                    <exclude>**/jdk5/*.java</exclude>
+                </excludes>
+            </sourceModification>
+        </sourceModifications>
         <!-- J A R  R E S O U R C E S -->
         <!-- Resources that are packaged up inside the JAR file -->
         <resources>

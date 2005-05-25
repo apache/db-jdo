@@ -18,16 +18,12 @@ package org.apache.jdo.impl.model.jdo.xml;
 
 import java.util.*;
 
-import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
-import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModel;
-import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModelFactory;
 import org.apache.jdo.impl.model.jdo.util.PrintSupport;
-import org.apache.jdo.model.ModelException;
-import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaModel;
+import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOModel;
-import org.apache.jdo.model.jdo.JDOModelFactory;
 
 /**
  * This class allows to check whether there is JDO metadata for a class with 
@@ -136,7 +132,7 @@ public class XMLExists
     public boolean run(List classNames)
     {
         ClassLoader classLoader = getClass().getClassLoader();
-        XMLExistsJDOModelFactory factory = new XMLExistsJDOModelFactory();
+        JavaModelFactory factory = new JavaModelFactoryImpl();
         JavaModel javaModel = factory.getJavaModel(classLoader);
         JDOModel jdoModel = javaModel.getJDOModel();
         boolean ok = true;
@@ -267,41 +263,6 @@ public class XMLExists
      * metadata is present from a .jdo we do not want to the enhancer
      * generated metadata.
      */
-    private static class XMLExistsJDOModelFactory 
-        extends AbstractJavaModelFactory {
-
-        /** */
-        protected XMLExistsJDOModelFactory() {}
-
-        /** */
-        public JavaModel createJavaModel(Object key) throws ModelException {
-            if ((key == null) || (!(key instanceof ClassLoader)))
-                throw new ModelException("Invalid key " + key + 
-                                         " expected ClassLoader");
-            ClassLoader classLoader = (ClassLoader)key;
-            JavaModel javaModel = new RuntimeJavaModel(classLoader); 
-
-            // set the JDOModel property in JavaModel
-            setJDOModelInternal(javaModel);
-
-            return javaModel;
-        }
-        
-        /**
-         * Sets the JDOModel instance for the specified JavaModel.
-         * @param javaModel the JavaModel
-         */
-        protected void setJDOModelInternal(JavaModel javaModel) {
-            JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
-            JDOModel jdoModel = factory.getJDOModel(javaModel);
-            // update the JDOModel property of the JavaModel
-            try {
-                javaModel.setJDOModel(jdoModel);
-            }
-            catch (ModelException ex) {
-                throw new ModelFatalException("Cannot set JDOModel", ex); //NOI18N
-            }
-        }
-    }
-    
+    private static class JavaModelFactoryImpl
+        extends ReflectionJavaModelFactory { }
 }

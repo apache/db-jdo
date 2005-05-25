@@ -18,25 +18,22 @@ package org.apache.jdo.impl.model.java.reflection;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import org.apache.jdo.impl.model.java.PredefinedType;
-import org.apache.jdo.impl.model.java.BaseReflectionJavaField;
 import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
+import org.apache.jdo.impl.model.java.JavaPropertyImpl;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
+import org.apache.jdo.model.java.JavaMethod;
 import org.apache.jdo.model.java.JavaModel;
-import org.apache.jdo.model.java.JavaModelFactory;
+import org.apache.jdo.model.java.JavaProperty;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOField;
-import org.apache.jdo.model.jdo.JDOModel;
-import org.apache.jdo.util.I18NHelper;
 
-/**
 /**
  * A reflection based JavaType implementation used at runtime.  
  * The implementation takes <code>java.lang.Class</code> and
@@ -45,12 +42,13 @@ import org.apache.jdo.util.I18NHelper;
  *
  * @author Michael Bouschen
  * @since JDO 1.1
+ * @version JDO 2.0
  */
-public abstract class ReflectionJavaType
+public class ReflectionJavaType
     extends BaseReflectionJavaType
 {
-    /** The JDOModel instance to lookup JDO metadata. */
-    private JDOModel jdoModel;
+    /** The declaring JavaModel instance. */
+    protected final ReflectionJavaModel declaringJavaModel;
 
     /** Flag indicating whether the superclass is checked already. */
     private boolean superclassUnchecked = true;
@@ -62,19 +60,22 @@ public abstract class ReflectionJavaType
     private JDOClass jdoClass;
 
     /** Map of JavaField instances, key is the field name. */
-    private Map javaFields = new HashMap();
+    protected Map declaredJavaFields = new HashMap();
 
-    /** I18N support */
-    private final static I18NHelper msg =  
-        I18NHelper.getInstance("org.apache.jdo.impl.model.java.Bundle"); //NOI18N
+    /** Map of JavaProperty instances, key is the property name. */
+    protected Map declaredJavaProperties = new HashMap();
+
+    /** Flag indicating whether thsi JavaTYpe has been introspected. */
+    private boolean introspected = false;
 
     /** Constructor. */
-    public ReflectionJavaType(Class clazz, JDOModel jdoModel)
+    public ReflectionJavaType(Class clazz, 
+        ReflectionJavaModel declaringJavaModel)
     {
         // Pass null as the superclass to the super call. This allows lazy
         // evaluation of the superclass (see getSuperclass implementation).
         super(clazz, null); 
-        this.jdoModel = jdoModel;
+        this.declaringJavaModel = declaringJavaModel;
     }
 
     /**
@@ -117,7 +118,7 @@ public abstract class ReflectionJavaType
     {
         if (superclassUnchecked) {
             superclassUnchecked = false;
-            superclass = getJavaTypeInternal(clazz.getSuperclass());
+            superclass = getJavaTypeForClass(clazz.getSuperclass());
         }
         return superclass;
     }
@@ -139,7 +140,7 @@ public abstract class ReflectionJavaType
     {
         if (jdoClassUnchecked) {
             jdoClassUnchecked = false;
-            jdoClass = jdoModel.getJDOClass(getName());
+            jdoClass = declaringJavaModel.getJDOModel().getJDOClass(getName());
         }
         return jdoClass;
     }
@@ -157,7 +158,7 @@ public abstract class ReflectionJavaType
         if (isArray()) {
             Class componentClass = clazz.getComponentType();
             if (componentClass != null)
-                componentType = getJavaTypeInternal(componentClass);
+                componentType = getJavaTypeForClass(componentClass);
         }
         return componentType;
     }
@@ -186,67 +187,109 @@ public abstract class ReflectionJavaType
         return javaField;
     }
 
-    // ===== Methods not defined in JavaType =====
+    /**
+     * Returns an array of JavaField instances representing the declared
+     * fields of the class represented by this JavaType instance. Note, this
+     * method does not return JavaField instances representing inherited
+     * fields. 
+     * @return an array of declared JavaField instances. 
+     */
+    public JavaField[] getDeclaredJavaFields()
+    {
+        introspectClass();
+        return (JavaField[]) declaredJavaFields.values().toArray(
+            new JavaField[0]);
+    }
+    
+     /**
+     * Returns a JavaProperty instance that reflects the property with the
+     * specified name of the class or interface represented by this
+     * JavaType instance. The method returns <code>null</code>, if the
+     * class or interface (or one of its superclasses) does not have a
+     * field with that name.
+     * @param name the name of the property 
+     * @return the JavaProperty instance for the specified property in this
+     * class or <code>null</code> if there is no such property.
+     */
+    public JavaProperty getJavaProperty(String name)
+    {
+        JavaProperty javaProperty = getDeclaredJavaProperty(name);
+        if (javaProperty == null) {
+            // check superclass
+            JavaType superclass = getSuperclass();
+            if ((superclass != null) &&
+                (superclass != PredefinedType.objectType)) {
+                javaProperty = superclass.getJavaProperty(name);
+            }
+        }
+        return javaProperty;
+    }
 
     /**
-     * RegisterClassListener calls this method to create a ReflectionJavaField
-     * instance when processing the enhancer generated metadata.
-     * @param jdoField the JDO field metadata
-     * @param type the type of the field
-     * @return the ReflectionJavaField representation
+     * Returns an array of JavaProperty instances representing the declared
+     * properties of the class represented by this JavaType instance. Note,
+     * this method does not return JavaField instances representing inherited
+     * properties. 
+     * @return an array of declared JavaField instances. 
      */
-    public JavaField createJavaField(JDOField jdoField, JavaType type)
+    public JavaProperty[] getDeclaredJavaProperties()
     {
-        String name = jdoField.getName();
-        synchronized(javaFields) {
-            JavaField javaField = (JavaField)javaFields.get(name);
-            if (javaField != null) {
-                throw new ModelFatalException(msg.msg(
-                    "ERR_MultipleJavaField", //NOI18N
-                    "ReflectionJavaType.createJavaField", name, getName())); //NOI18N
-            }
-            javaField = new ReflectionJavaField(jdoField, type, this);
-            javaFields.put(name, javaField);
-            return javaField;
-        }
+        introspectClass();
+        return (JavaProperty[]) declaredJavaProperties.values().toArray(
+            new JavaProperty[0]);
     }
+
+    // ===== Methods not specified in JavaType =====
 
     /**
      * Returns a JavaField instance that reflects the declared field with
      * the specified name of the class or interface represented by this
      * JavaType instance. The method returns <code>null</code>, if the 
      * class or interface does not declared a field with that name. It does
-     * not check whether one of its superclasses declared such a field.
+     * not check whether one of its superclasses declares such a field.
      * @param fieldName the name of the field 
      * @return the JavaField instance for the specified field in this class
      */
-    public JavaField getDeclaredJavaField(String fieldName)
+    public synchronized JavaField getDeclaredJavaField(String fieldName)
     {
-        synchronized (javaFields) {
-            JavaField javaField = (JavaField)javaFields.get(fieldName);
-            if (javaField == null) {
-                JDOClass jdoClass = getJDOClass();
-                if (jdoClass != null) {
-                    // pc class => look for JDOField first
-                    JDOField jdoField = jdoClass.getDeclaredField(fieldName);
-                    if (jdoField != null) {
-                        javaField = new ReflectionJavaField(jdoField, this);
-                        javaFields.put(fieldName, javaField);
-                    }
-                }
-                
-                // if no field info check reflection
-                if (javaField == null) {
-                    Field field = ReflectionJavaField.getDeclaredFieldPrivileged(
-                        clazz, fieldName);
-                    if (field != null) {
-                        javaField = new ReflectionJavaField(field, this);
-                        javaFields.put(fieldName, javaField);
-                    }
+        JavaField javaField = (JavaField)declaredJavaFields.get(fieldName);
+        if (javaField == null) {
+            JDOClass jdoClass = getJDOClass();
+            if (jdoClass != null) {
+                // pc class => look for JDOField first
+                JDOField jdoField = jdoClass.getDeclaredField(fieldName);
+                if (jdoField != null) {
+                    javaField = newJavaFieldInstance(jdoField, null);
+                    declaredJavaFields.put(fieldName, javaField);
                 }
             }
-            return javaField;   
+            
+            // if no field info check reflection
+            if (javaField == null) {
+                Field field = ReflectionJavaField.getDeclaredFieldPrivileged(
+                    clazz, fieldName);
+                if (field != null) {
+                    javaField = newJavaFieldInstance(field);
+                    declaredJavaFields.put(fieldName, javaField);
+                }
+            }
         }
+        return javaField;   
+    }
+
+    /**
+     * Returns a JavaProperty instance that reflects the declared property
+     * with the specified name of the class or interface represented by this
+     * JavaType instance. The method returns <code>null</code>, if the 
+     * class or interface does not declared a property with that name. It does
+     * not check whether one of its superclasses declares such a property.
+     * @param name the name of the property 
+     * @return the JavaField instance for the specified property in this class
+     */
+    public JavaProperty getDeclaredJavaProperty(String name) 
+    {
+        introspectClass();
+        return (JavaProperty)declaredJavaProperties.get(name);
     }
 
     /** 
@@ -254,6 +297,113 @@ public abstract class ReflectionJavaType
      * This method provides a hook such that ReflectionJavaType subclasses can
      * implement their own mapping of Class objects to JavaType instances. 
      */
-    protected abstract JavaType getJavaTypeInternal(Class clazz);
+    public JavaType getJavaTypeForClass(Class clazz)
+    {
+        return declaringJavaModel.getDeclaringJavaModelFactory().getJavaType(clazz);
+    }
+
+    /** 
+     * Creates a new JavaProperty instance and adds it to the list of
+     * declared properties of this class.
+     * @param name the name of the property
+     * @param getter the getter method
+     * @param setter the setter method
+     * @param type the ytpe of the property
+     * @return a new JavaProperty declared by this class
+     */
+    public synchronized JavaProperty createJavaProperty(
+        String name, JavaMethod getter, JavaMethod setter, JavaType type)
+        throws ModelFatalException
+    {
+        JavaProperty javaProperty = 
+            newJavaPropertyInstance(name, getter, setter, type);
+        declaredJavaProperties.put(name, javaProperty);
+        return javaProperty;
+    }
+
+    /**
+     * Creates a new JavaMethod instance.
+     * @param method the java.lang.reflect.Method instance
+     * @return a new JavaMethod declared by this class
+     */
+    public JavaMethod createJavaMethod(Method method)
+    {
+        return newJavaMethodInstance(method);
+    }
+
+    /**
+     * Creates a new instance of the JavaField implementation class.
+     * <p>
+     * This implementation returns a <code>ReflectionJavaField</code>
+     * instance.
+     * @return a new JavaField instance.
+     */
+    protected JavaField newJavaFieldInstance(JDOField jdoField, JavaType type) 
+    {
+        return new ReflectionJavaField(jdoField, type, this);
+    }
     
-}
+    /**
+     * Creates a new instance of the JavaField implementation class.
+     * <p>
+     * This implementation returns a <code>ReflectionJavaField</code>
+     * instance.
+     * @return a new JavaField instance.
+     */
+    protected JavaField newJavaFieldInstance(Field field) 
+    {
+        return new ReflectionJavaField(field, this);
+    }
+    
+    /**
+     * Creates a new instance of the JavaProperty implementation class.
+     * <p>
+     * This implementation returns a <code>JavaPropertyImpl</code>
+     * instance.
+     * @return a new JavaProperty instance.
+     */
+    protected JavaProperty newJavaPropertyInstance(String name, 
+            JavaMethod getter, JavaMethod setter, JavaType type) 
+        throws ModelFatalException
+    {
+        return new JavaPropertyImpl(name, getter, setter, type, this);
+    }
+
+    /**
+     * Creates a new instance of the JavaMethod implementation class.
+     * <p>
+     * This implementation returns a <code>ReflectionJavaMethod</code>
+     * instance.
+     * @return a new JavaMethod instance.
+     */
+    protected JavaMethod newJavaMethodInstance(Method method) 
+    {
+        return new ReflectionJavaMethod(method, this);
+    }
+
+    /** 
+     * Helper method to introspect the class and set the declared fields and
+     * properties. 
+     */
+    protected synchronized void introspectClass() 
+    {
+        if (introspected)
+            // has been introspected before => return;
+            return;
+        
+        introspected = true;
+        
+        new ReflectionJavaTypeIntrospector().addDeclaredJavaProperties(this);
+
+        // now get all the declared fields
+        Field[] fields = ReflectionJavaField.getDeclaredFieldsPrivileged(clazz);
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            String fieldName = field.getName();
+            if (declaredJavaFields.get(fieldName) == null) {
+                JavaField javaField = newJavaFieldInstance(field);
+                declaredJavaFields.put(fieldName, javaField);
+            }
+        }
+    }
+} 

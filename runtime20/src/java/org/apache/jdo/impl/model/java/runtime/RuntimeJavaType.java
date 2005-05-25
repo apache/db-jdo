@@ -16,22 +16,14 @@
 
 package org.apache.jdo.impl.model.java.runtime;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
 import org.apache.jdo.impl.model.java.reflection.ReflectionJavaType;
+import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaModel;
-import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOField;
-import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.util.I18NHelper;
 
-
-
-/**
 /**
  * A reflection based JavaType implementation used at runtime.  
  * The implementation takes <code>java.lang.Class</code> and
@@ -40,39 +32,41 @@ import org.apache.jdo.util.I18NHelper;
  *
  * @author Michael Bouschen
  * @since JDO 1.0.1
+ * @version JDO 2.0
  */
 public class RuntimeJavaType
     extends ReflectionJavaType
 {
-    /** JavaModelFactory */
-    private static final RuntimeJavaModelFactory javaModelFactory =
-        (RuntimeJavaModelFactory) AccessController.doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
-                    return RuntimeJavaModelFactory.getInstance();
-                }
-            }
-        );
+    /** I18N support */
+    private final static I18NHelper msg =  
+        I18NHelper.getInstance(RuntimeJavaType.class);
 
     /** Constructor. */
-    public RuntimeJavaType(Class clazz, JDOModel jdoModel)
+    public RuntimeJavaType(Class clazz, RuntimeJavaModel javaModel)
     {
-        super(clazz, jdoModel);
+        super(clazz, javaModel);
     }
 
-    /** 
-     * Returns a JavaType instance for the specified Class object. 
-     * This method provides a hook such that RuntimeJavaType subclasses can
-     * implement their own mapping of Class objects to JavaType instances. 
-     * <p>
-     * This implementation delegates the call to the javaModelFactory. 
-     * @param clazz the Class instance representing the type
-     * @return a JavaType instance for the name of the specified class
-     * object or <code>null</code> if not present in this model instance.
+    // ===== Methods not specified in JavaType =====
+
+    /**
+     * RegisterClassListener calls this method to create a ReflectionJavaField
+     * instance when processing the enhancer generated metadata.
+     * @param jdoField the JDO field metadata
+     * @param type the type of the field
+     * @return the ReflectionJavaField representation
      */
-    protected JavaType getJavaTypeInternal(Class clazz)
+    public synchronized JavaField createJavaField(JDOField jdoField, JavaType type)
     {
-        return javaModelFactory.getJavaType(clazz);
+        String name = jdoField.getName();
+        JavaField javaField = (JavaField)declaredJavaFields.get(name);
+        if (javaField != null) {
+            throw new ModelFatalException(msg.msg(
+                "ERR_MultipleJavaField", //NOI18N
+                "RuntimeJavaType.createJavaField", name, getName())); //NOI18N
+        }
+        javaField = newJavaFieldInstance(jdoField, type);
+        declaredJavaFields.put(name, javaField);
+        return javaField;
     }
-    
 }

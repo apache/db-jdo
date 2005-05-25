@@ -17,9 +17,9 @@
 package org.apache.jdo.impl.model.java;
 
 import org.apache.jdo.model.java.JavaField;
+import org.apache.jdo.model.java.JavaProperty;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOClass;
-
 
 /**
  * Abstract super class for JavaType implementations. It provides a
@@ -35,10 +35,12 @@ import org.apache.jdo.model.jdo.JDOClass;
  *
  * @author Michael Bouschen
  * @since JDO 1.0.1
+ * @version JDO 2.0
  */
 abstract public class AbstractJavaType
     implements JavaType 
 {
+    public Object getUnderlyingObject() { return null; }
     public boolean isPrimitive() { return false; }
     public boolean isIntegral()  { return false; }
     public boolean isFloatingPoint() { return false; }
@@ -58,6 +60,9 @@ abstract public class AbstractJavaType
     public JDOClass getJDOClass() { return null; }
     public JavaType getArrayComponentType() { return null; }
     public JavaField getJavaField(String name) { return null; }
+    public JavaField[] getDeclaredJavaFields() { return null; }
+    public JavaProperty getJavaProperty(String name) { return null; }
+    public JavaProperty[] getDeclaredJavaProperties() { return null; }
     
     // ===== Methods not defined in JavaType =====
 
@@ -106,5 +111,4 @@ abstract public class AbstractJavaType
     {
         return getName();
     }
-    
 }

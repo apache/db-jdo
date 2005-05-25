@@ -16,27 +16,22 @@
 
 package org.apache.jdo.impl.model.java;
 
-import org.apache.jdo.model.java.JavaField;
+import org.apache.jdo.model.java.JavaMember;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOField;
-
 
 /**
- * Abstract super class for JavaField implementations. 
+ * Abstract super class for JavaMember implementations. 
  * It provides getters for the name and declaringClass properties which are
- * initialized in the constructor. The implementation of method getJDOField
- * always returns <code>null</code>.
+ * initialized in the constructor. 
  * <p>
- * A non-abstract subclass must implement methods
- * {@link #getModifiers()} and {@link #getType()}. Note, this
- * implementation of method {@link #getJDOField()} always returns
- * <code>null</code>, so a subclass may want to override this method.
+ * A non-abstract subclass must implement methods 
+ * {@link #getModifiers()} and {@link #getType()}.
  *
  * @author Michael Bouschen
- * @since JDO 1.0.1 
+ * @since JDO 2.0
  */
-abstract public class AbstractJavaField
-    implements JavaField 
+abstract public class AbstractJavaMember
+    implements JavaMember
 {
     /** The Field name. */
     private String name;
@@ -48,13 +43,15 @@ abstract public class AbstractJavaField
      * Constructor setting the name and declaringClass property.
      * @param name field name
      * @param declaringClass the JavaType of the class or interface that
-     * declares this JavaField.
+     * declares this JavaMember.
      */
-    public AbstractJavaField(String name, JavaType declaringClass)
+    public AbstractJavaMember(String name, JavaType declaringClass)
     {
         this.name = name;
         this.declaringClass = declaringClass;
     }
+
+    // ===== Methods specified in JavaMember =====
 
     /**
      * Returns the name of the field. 
@@ -66,23 +63,8 @@ abstract public class AbstractJavaField
     }
     
     /**
-     * Returns the Java language modifiers for the field represented by
-     * this JavaField, as an integer. The java.lang.reflect.Modifier class
-     * should be used to decode the modifiers. 
-     * @return the Java language modifiers for this JavaField
-     * @see java.lang.reflect.Modifier
-     */
-    abstract public int getModifiers();
-    
-    /**
-     * Returns the JavaType representation of the field type.
-     * @return field type
-     */
-    abstract public JavaType getType();
-
-    /**
      * Returns the JavaType instance representing the class or interface
-     * that declares the field represented by this JavaField instance.
+     * that declares the field represented by this JavaMember instance.
      * @return the JavaType instance of the declaring class.
      */
     public JavaType getDeclaringClass()
@@ -91,21 +73,40 @@ abstract public class AbstractJavaField
     }
     
     /**
-     * Returns the corresponding JDOField instance, if the JDOModel
-     * provides any JDO metadata for the field represented by this
-     * JavaField. If there is no corresponding JDOField representation, the
-     * method returns <code>null</code>. 
-     * <p>
-     * This implementation always returns <code>null</code>.
-     * @return the corresponding JDOField instance (if available);
-     * <code>null</code> otherwise.
+     * Returns the Java language modifiers for the member represented by
+     * this JavaMember, as an integer. The java.lang.reflect.Modifier class
+     * should be used to decode the modifiers. 
+     * @return the Java language modifiers for this JavaMember
+     * @see java.lang.reflect.Modifier
      */
-    public JDOField getJDOField()
-    {
-        return null;
-    }
+    abstract public int getModifiers();
+
+    /**
+     * Returns the JavaType representation of the type of the memeber.
+     * @return type of the member
+     */
+    abstract public JavaType getType();
     
-    // ===== Methods not defined in JavaField =====
+    /**
+     * Returns the JavaType representation of the component type of the type
+     * of the property, if the property type is an array or collection. The
+     * method returns <code>null</code>, if the property type is not an array
+     * or collection.
+     * @return the component type of the property type in case of an array or
+     * collection.
+     */
+    public JavaType getComponentType()
+    {
+        JavaType componentType = null;
+        JavaType type = getType();
+        if (type.isArray())
+            componentType = type.getArrayComponentType();
+        else if (type.isJDOSupportedCollection())
+            componentType = PredefinedType.objectType;
+        return componentType;
+    }
+
+    // ===== Methods not specified in JavaMember =====
 
     /**
      * Indicates whether some other object is "equal to" this one.
@@ -113,7 +114,7 @@ abstract public class AbstractJavaField
      * <p>
      * This implementation matches the declaring class and the name of the
      * specified object to the declaring class and the name of this
-     * JavaField. 
+     * JavaMember. 
      * @return <code>true</code> if this object is the same as the obj
      * argument; <code>false</code> otherwise. 
      */
@@ -122,9 +123,9 @@ abstract public class AbstractJavaField
         // return true if obj is this
         if (obj == this) return  true;
         // return false if obj does not have the correct type
-        if ((obj == null) || !(obj instanceof JavaField)) return false;
+        if ((obj == null) || !(obj instanceof JavaMember)) return false;
 
-        JavaField other = (JavaField)obj;
+        JavaMember other = (JavaMember)obj;
         // compare declaringClass and field names
         return (getDeclaringClass() == other.getDeclaringClass())
             && (getName().equals(other.getName()));
@@ -148,7 +149,6 @@ abstract public class AbstractJavaField
      */
     public String toString()
     {
-        return getDeclaringClass().getName() + "." + getName();
+        return getDeclaringClass().getName() + "." + getName(); //NOI18N
     }
 }
-

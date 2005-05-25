@@ -19,22 +19,17 @@ package org.apache.jdo.impl.model.java;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.apache.jdo.impl.model.jdo.JDOModelFactoryImplDynamic;
 import org.apache.jdo.model.ModelException;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOModel;
-import org.apache.jdo.model.jdo.JDOModelFactory;
 import org.apache.jdo.util.I18NHelper;
 
 /**
  * Abstract super class for JavaModelFactory implementations. It provides a
  * JavaModel cache and implements the JavaModel lookup method 
- * {@link #getJavaModel(Object key)}. Any JavaModel instance returned by
- * this method is automatically connected to its corresponding JDOModel
- * instance.
+ * {@link #getJavaModel(Object key)}.
  * <p>
  * A non-abstract subclass must implement method 
  * {@link #createJavaModel(Object key)}. The lookup method calls this
@@ -107,7 +102,7 @@ abstract public class AbstractJavaModelFactory
                 }
                 catch (ModelException ex) {
                     throw new ModelFatalException(
-                        "EXC_CannotCreateJavaModel", ex); //NOI18N
+                        msg.msg("EXC_CannotCreateJavaModel"), ex); //NOI18N
                 }
             } 
             return javaModel;

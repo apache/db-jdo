@@ -22,8 +22,6 @@ import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModel;
 
-
-
 /**
  * Provides some basic Java type information based on JVM descriptors.
  * 
@@ -33,16 +31,12 @@ import org.apache.jdo.model.jdo.JDOModel;
 public class EnhancerJavaType
     extends ReflectionJavaType
 {
-    /** The declaring EnhancerJavaModel instance. */
-    private JavaModel javaModel = null;
-
     /**
      * Creates an instance.
      */
-    public EnhancerJavaType(Class clazz, JDOModel jdoModel, JavaModel javaModel)
+    public EnhancerJavaType(Class clazz, EnhancerJavaModel declaringJavaModel)
     {
-        super(clazz, jdoModel);
-        this.javaModel = javaModel;
+        super(clazz, declaringJavaModel);
     }
     
     // ===== Methods not defined in JavaType =====
@@ -50,15 +44,14 @@ public class EnhancerJavaType
     /** 
      * Returns a JavaType instance for the specified Class object. 
      * <p>
-     * This implementation delegates the call to the javaModel.
+     * This implementation delegates the call to the declaringJavaModel.
      * @param clazz the Class instance representing the type
      * @return a JavaType instance for the name of the specified class
      * object or <code>null</code> if not present in this model instance.
      */
-    protected JavaType getJavaTypeInternal(Class clazz)
+    public JavaType getJavaTypeForClass(Class clazz)
     {
-        return javaModel.getJavaType(clazz);
+        return declaringJavaModel.getJavaType(clazz.getName());
     }
-    
     
 }

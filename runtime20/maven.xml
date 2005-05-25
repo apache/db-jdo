@@ -38,6 +38,15 @@
         <attainGoal name="build"/>
     </goal>
 
+    <preGoal name="java:compile">
+        <available property="jdk5" classname="java.lang.reflect.ParameterizedType"/>
+        <!-- Compile with -source 1.5 and -target 1.5 in a JDK5 environment. -->
+        <j:if test="${jdk5}">
+            <j:set var="maven.compile.source" value="1.5"/>
+            <j:set var="maven.compile.target" value="1.5"/>
+        </j:if>
+    </preGoal>
+
     <goal name="clobber" prereqs="clean">
         <delete>
             <fileset dir="." defaultexcludes="no" includes="**/*~"/>

@@ -20,7 +20,6 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.lang.reflect.Field;
 
-import org.apache.jdo.impl.model.java.AbstractJavaField;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaType;
@@ -38,9 +37,11 @@ import org.apache.jdo.util.I18NHelper;
  * @see PredefinedType
  * @author Michael Bouschen
  * @since JDO 1.1
+ * @version JDO 2.0
  */
 public class BaseReflectionJavaField
-    extends AbstractJavaField
+    extends AbstractJavaMember
+    implements JavaField
 {
     /** The wrapped java.lang.reflect.Field instance. */
     private Field field;
@@ -78,6 +79,22 @@ public class BaseReflectionJavaField
         super(fieldName, declaringClass);
     }
 
+    // ===== Methods specified in JavaElement =====
+
+    /**
+     * Returns the environment specific instance wrapped by this JavaModel
+     * element. This implementation returns the
+     * <code>java.lang.reflect.Field</code> instance for this JavaField.
+     * @return the environment specific instance wrapped by this JavaModel
+     * element.
+     */
+    public Object getUnderlyingObject() 
+    {
+        return getField();
+    }
+
+    // ===== Methods specified in JavaMember =====
+
     /**
      * Returns the Java language modifiers for the field represented by
      * this JavaField, as an integer. The java.lang.reflect.Modifier class
@@ -90,6 +107,8 @@ public class BaseReflectionJavaField
         ensureInitializedField();
         return field.getModifiers();
     }
+
+    // ===== Methods specified in JavaField =====
 
     /**
      * Returns the JavaType representation of the field type.
@@ -106,7 +125,22 @@ public class BaseReflectionJavaField
         return type;
     }
     
-    // ===== Methods not defined in JavaField =====
+    /**
+     * Returns the corresponding JDOField instance, if the JDOModel
+     * provides any JDO metadata for the field represented by this
+     * JavaField. If there is no corresponding JDOField representation, the
+     * method returns <code>null</code>.
+     * <p>
+     * This implementation always returns <code>null</code>.
+     * @return the corresponding JDOField instance (if available);
+     * <code>null</code> otherwise.
+     */
+    public JDOField getJDOField()
+    {
+        return null;
+    }
+
+    // ===== Methods not specified in JavaField =====
 
     /** 
      * Returns the java.lang.reflect.Field that is wrapped by this
@@ -120,10 +154,11 @@ public class BaseReflectionJavaField
     }
 
     /**
-     * Helper method to retrieve the java.lang.reflect.Field for this
-     * JavaField.
+     * Helper method to retrieve the java.lang.reflect.Field for the specified
+     * field name.
      * @param clazz the Class instance of the declaring class or interface
      * @param fieldName the field name
+     * @return the java.lang.reflect.Field for the specified field name.
      */
     public static Field getDeclaredFieldPrivileged(final Class clazz, 
                                                    final String fieldName)
@@ -144,6 +179,39 @@ public class BaseReflectionJavaField
                     }
                     catch (NoSuchFieldException ex) {
                         return null; // do nothing, just return null
+                    }
+                    catch (LinkageError ex) {
+                        throw new ModelFatalException(msg.msg(
+                           "EXC_ClassLoadingError", clazz.getName(), //NOI18N
+                           ex.toString()));
+                    }
+                }
+            }
+            );
+    }
+
+    /**
+     * Helper method to retrieve the declared java.lang.reflect.Field
+     * instances for the specified class.
+     * @param clazz the Class instance of the declaring class or interface
+     * @return the java.lang.reflect.Field instances for the declared fields
+     * of the specified class.
+     */
+    public static Field[] getDeclaredFieldsPrivileged(final Class clazz)
+    {
+        if (clazz == null)
+            return null;
+
+        return (Field[]) AccessController.doPrivileged(
+            new PrivilegedAction() {
+                public Object run () {
+                    try {
+                        return clazz.getDeclaredFields();
+                    }
+                    catch (SecurityException ex) {
+                        throw new ModelFatalException(
+                            msg.msg("EXC_CannotGetDeclaredFields", //NOI18N
+                                    clazz.getName()), ex); 
                     }
                     catch (LinkageError ex) {
                         throw new ModelFatalException(msg.msg(

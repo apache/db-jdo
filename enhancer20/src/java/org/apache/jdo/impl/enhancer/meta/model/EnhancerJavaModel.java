@@ -43,7 +43,7 @@ public class EnhancerJavaModel
     public EnhancerJavaModel(ClassLoader classLoader,
                              ResourceLocator locator)
     {
-        super(classLoader, false);
+        super(classLoader, false, null);
         this.locator = locator;
     }
     
@@ -71,9 +71,9 @@ public class EnhancerJavaModel
      * @param clazz the Class instance representing the type
      * @return a new JavaType instance
      */
-    protected JavaType createJavaType(Class clazz)
+    protected JavaType newJavaTypeInstance(Class clazz)
     {
-        return new EnhancerJavaType(clazz, getJDOModel(), this);
+        return new EnhancerJavaType(clazz, this);
     }
 
     /** 

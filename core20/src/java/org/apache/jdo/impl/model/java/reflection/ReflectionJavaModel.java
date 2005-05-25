@@ -23,7 +23,6 @@ import java.io.InputStream;
 import org.apache.jdo.impl.model.java.AbstractJavaModel;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.util.I18NHelper;
 
 /**
@@ -37,8 +36,9 @@ import org.apache.jdo.util.I18NHelper;
  *
  * @author Michael Bouschen
  * @since JDO 1.1
+ * @version JDO 2.0
  */
-public abstract class ReflectionJavaModel
+public class ReflectionJavaModel
     extends AbstractJavaModel
 {
     /** The ClassLoader instance used as key to cache this JavaModel. */
@@ -47,22 +47,28 @@ public abstract class ReflectionJavaModel
     /** Flag passed to the Class.forName call. */
     private final boolean initialize;
 
+    /** The declaring JavaModelFactory. */
+    protected final ReflectionJavaModelFactory declaringJavaModelFactory;
+
     /** I18N support */
     private final static I18NHelper msg =  
         I18NHelper.getInstance("org.apache.jdo.impl.model.java.Bundle"); //NOI18N
 
-    /** Constructor taking the ClassLoader. */
-    public ReflectionJavaModel(ClassLoader classLoader) 
+    /** Constructor. */
+    public ReflectionJavaModel(ClassLoader classLoader,
+        ReflectionJavaModelFactory declaringJavaModelFactory)
     {
-        this(classLoader, true);
+        this(classLoader, true, declaringJavaModelFactory);
     }
     
-    /** */
-    protected ReflectionJavaModel(ClassLoader classLoader, boolean initialize)
+    /** Constructor. */
+    protected ReflectionJavaModel(ClassLoader classLoader, boolean initialize, 
+        ReflectionJavaModelFactory declaringJavaModelFactory)
     {
         super();
         this.classLoader = classLoader;
         this.initialize = initialize;
+        this.declaringJavaModelFactory = declaringJavaModelFactory;
     }
 
     /** 
@@ -125,7 +131,7 @@ public abstract class ReflectionJavaModel
         synchronized (types) {
             JavaType javaType = (JavaType)types.get(name);
             if (javaType == null) {
-                javaType = createJavaType(clazz);
+                javaType = newJavaTypeInstance(clazz);
                 types.put(name, javaType);
             }
             return javaType;
@@ -169,14 +175,23 @@ public abstract class ReflectionJavaModel
     {
         return classLoader;
     }
+    
+    /** */
+    public ReflectionJavaModelFactory getDeclaringJavaModelFactory()
+    {
+        return declaringJavaModelFactory;
+    }
 
     /** 
-     * Creates a new JavaType instance for the specified Class object.
-     * This method provides a hook such that ReflectionJavaModel subclasses
-     * can create instances of a different JavaType implementation. 
+     * Creates a new instance of the JavaType implementation class.
+     * <p>
+     * This implementation returns a ReflectionJavaType instance.
      * @param clazz the Class instance representing the type
      * @return a new JavaType instance
      */
-    protected abstract JavaType createJavaType(Class clazz);
+    protected JavaType newJavaTypeInstance(Class clazz)
+    {
+        return new ReflectionJavaType(clazz, this);
+    }
     
 }

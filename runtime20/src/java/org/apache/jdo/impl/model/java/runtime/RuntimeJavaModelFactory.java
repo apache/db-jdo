@@ -18,21 +18,14 @@ package org.apache.jdo.impl.model.java.runtime;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.lang.reflect.Field;
 
 import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.JDOPermission;
 
-import org.apache.jdo.model.ModelException;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaModelFactory;
-import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOModelFactory;
-import org.apache.jdo.model.jdo.JDOModel;
-import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
-import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
-import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModelFactory;
 import org.apache.jdo.util.I18NHelper;
 
 /**
@@ -50,9 +43,10 @@ import org.apache.jdo.util.I18NHelper;
  * 
  * @author Michael Bouschen
  * @since JDO 1.0.1
+ * @version JDO 2.0
  */
 public class RuntimeJavaModelFactory
-    extends AbstractJavaModelFactory
+    extends ReflectionJavaModelFactory
 {    
     /** The singleton RuntimeJavaModelFactory instance. */    
     private static final RuntimeJavaModelFactory runtimeJavaModelFactory = 
@@ -60,39 +54,18 @@ public class RuntimeJavaModelFactory
 
     /** I18N support */
     private final static I18NHelper msg =  
-        I18NHelper.getInstance("org.apache.jdo.impl.model.java.runtime.Bundle"); //NOI18N
-
-    /** */
-    static
-    {
-        // initialize RuntimeJavaModelFactory singleton instance
-        try {
-            JDOImplHelper helper = 
-                (JDOImplHelper) AccessController.doPrivileged(
-                    new PrivilegedAction () {
-                        public Object run () {
-                            return JDOImplHelper.getInstance();
-                        }
-                    }
-                    );
-            // register listener to JDOImplHelpers class registration
-            RegisterClassListener crl = new RegisterClassListener(
-                helper, runtimeJavaModelFactory);
-            helper.addRegisterClassListener(crl);
-        }
-        catch (SecurityException ex) {
-            throw new ModelFatalException(
-                msg.msg("EXC_CannotGetJDOImplHelper"), ex); // NOI18N
-        }
-    }
+        I18NHelper.getInstance(RuntimeJavaModelFactory.class);
 
     /**
      * Creates a new RuntimeJavaModelFactory. This constructor should not
      * be called directly; instead, the singleton access method 
      * {@link #getInstance()} should be used.
      */
-    protected RuntimeJavaModelFactory() {}
-
+    protected RuntimeJavaModelFactory()
+    {
+        registerFactory();
+    }
+    
     /** 
      * Returns the singleton instance of RuntimeJavaModelFactory. On first
      * call it registers  a model listener at the JDOImplHelper.
@@ -106,7 +79,23 @@ public class RuntimeJavaModelFactory
     public static RuntimeJavaModelFactory getInstance()
         throws ModelFatalException
     {
-        // first check whether caller has the getMetadata permission
+        checkPermission();
+        return runtimeJavaModelFactory;
+    }
+
+    //========= Internal helper methods ==========
+
+    /**
+     * This method checks that the caller is authorized for
+     * <code>JDOPermission("getMetadata")</code>, and if not, throws 
+     * <code>ModelFatalException</code> wrapping the SecurityException.
+     * @throws ModelFatalException if the caller does not have the
+     * getMetadata permission.
+     */
+    protected static void checkPermission()
+        throws ModelFatalException
+    {
+        // check whether caller has the getMetadata permission
         SecurityManager sec = System.getSecurityManager();
         if (sec != null) { 
             try {
@@ -118,173 +107,42 @@ public class RuntimeJavaModelFactory
                     msg.msg("EXC_CannotGetRuntimeJavaModelFactory"), ex); // NOI18N
             }
         }
-
-        return runtimeJavaModelFactory;
     }
     
-    /**
-     * Creates a new empty JavaModel instance. A factory implementation may
-     * use the specified key when caching the new JavaModel instance. 
-     * <p>
-     * This implementation only accepts <code>java.lang.ClassLoader</code>
-     * instances as key and does not support <code>null</code> keys. A
-     * ModelException indicates an invalid key.
-     * <p>
-     * The method automatically sets the parent/child relationship for the
-     * created JavaModel according to the parent/child relationship of the 
-     * ClassLoader passed as key. 
-     * @param key the key that may be used to cache the returned JavaModel
-     * instance. 
-     * @return a new JavaModel instance.
-     * @exception ModelException if impossible; the key is of an
-     * inappropriate type or the key is <code>null</code> and this
-     * JavaModelFactory does not support <code>null</code> keys.
+    /** 
+     * Registers this JavaModelFactory instance at the JDOImplHelper. 
      */
-    public JavaModel createJavaModel(Object key)
-        throws ModelException
+    protected void registerFactory()
     {
-        if ((key == null) || (!(key instanceof ClassLoader)))
-            throw new ModelException(msg.msg("EXC_InvalidJavaModelKey", //NOI18N
-                (key==null?"null":key.getClass().getName())));
-        
-        ClassLoader classLoader = (ClassLoader)key;
-        JavaModel javaModel = new RuntimeJavaModel(classLoader);
-
-        // check parent <-> child relationship
-        if (classLoader != ClassLoader.getSystemClassLoader()) {
-            // if the specified classLoader is not the system class loader
-            // try to get the parent class loader and update the parent property
-            try {
-                ClassLoader parentClassLoader = classLoader.getParent();
-                if (parentClassLoader != null) {
-                    javaModel.setParent(getJavaModel(parentClassLoader));
-                }
-            }
-            catch (SecurityException ex) {
-                // ignore => parentClassLoader and parent JavaModel are null
-            }
-        }
-
-        // set the JDOModel property in JavaModel
-        setJDOModelInternal(javaModel);
-
-        return javaModel;
-    }
-
-    /**
-     * Returns the JavaModel instance for the specified key.
-     * @param key the key used to cache the returned JavaModel instance
-     */
-    public JavaModel getJavaModel(Object key)
-    {
-        if (key == null) {
-            // null classLoader might happen for classes loaded by the
-            // bootstrap class loder
-            key = ClassLoader.getSystemClassLoader();
-        }
-        return super.getJavaModel(key);
-    }
-    
-    /**
-     * Returns a JavaType instance for the specified type description
-     * (optional operation). This method is a convenience method and a
-     * short cut for <code>getJavaModel(key).getJavaType(typeName)</code>.
-     * <p>
-     * The RuntimeJavaModelFactory supports this short cut and accepts
-     * <code>java.lang.Class</code> instances as valid arguments for this
-     * method. The method throws a 
-     * {@link org.apache.jdo.model.ModelFatalException}, if the specified
-     * type descriptor is not a <code>java.lang.Class</code> instance. 
-     * @param typeDesc the type description
-     * @return a JavaType instance for the specified type.
-     * @exception ModelFatalException the specified type description is not
-     * a <code>java.lang.Class</code> instance.
-     */
-    public JavaType getJavaType(Object typeDesc)
-    {
-        if (typeDesc == null)
-            return null;
-
+        // initialize RuntimeJavaModelFactory singleton instance
         try {
-            Class clazz = (Class)typeDesc;
-            ClassLoader classLoader = getClassLoaderPrivileged(clazz);
-            return getJavaModel(classLoader).getJavaType(clazz);
-        }
-        catch (ClassCastException ex) {
-            throw new ModelFatalException(msg.msg("EXC_InvalidTypeDesc", //NOI18N
-                typeDesc.getClass().getName()));
-        }
-    }
-
-    // ===== Methods not defined in JavaModelFactory =====
-
-    /**
-     * Calls getClassLoader on the specified class instance in a
-     * doPrivileged block. Any SecurityException is wrapped into a
-     * ModelFatalException. 
-     * @return the class loader that loaded the specified class instance.
-     * @exception ModelFatalException wraps the SecurityException thrown by
-     * getClassLoader.
-     */
-    public ClassLoader getClassLoaderPrivileged(final Class clazz)
-    {
-        if (clazz == null)
-            return null;
-
-        try { 
-            return (ClassLoader) AccessController.doPrivileged(
-                new PrivilegedAction () {
-                    public Object run () {
-                        return clazz.getClassLoader();
+            JDOImplHelper helper = 
+                (JDOImplHelper) AccessController.doPrivileged(
+                    new PrivilegedAction () {
+                        public Object run () {
+                            return JDOImplHelper.getInstance();
+                        }
                     }
-                }
-                );
+                    );
+            // register listener to JDOImplHelpers class registration
+            RegisterClassListener crl = new RegisterClassListener(
+                helper, this);
+            helper.addRegisterClassListener(crl);
         }
         catch (SecurityException ex) {
             throw new ModelFatalException(
-                msg.msg("EXC_CannotGetClassLoader", clazz), ex); //NOI18N
+                msg.msg("EXC_CannotGetJDOImplHelper"), ex); // NOI18N
         }
     }
 
-    /**
-     * Returns the <code>java.lang.Class</code> wrapped in the specified 
-     * JavaType. 
-     * @return the <code>java.lang.Class</code> for the specified
-     * JavaType. 
-     * @exception ModelFatalException the specified JavaType does
-     * not wrap a <code>java.lang.Class</code> instance.
+    /** 
+     * Creates a new instance of the JavaModel implementation class.
+     * <p>
+     * This implementation returns a <code>RuntimeJavaModel</code> instance.
+     * @return a new JavaModel instance.
      */
-    public Class getJavaClass(JavaType javaType) 
-    {
-        if (javaType == null)
-            return null;
-        
-        try {
-            return ((BaseReflectionJavaType)javaType).getJavaClass();
-        }
-        catch (ClassCastException ex) {
-            throw new ModelFatalException(msg.msg(
-                "EXC_InvalidJavaType", javaType.getClass())); //NOI18N
-        }
+    protected JavaModel newJavaModelInstance(ClassLoader classLoader) {
+        return new RuntimeJavaModel(classLoader, this);
     }
 
-    //========= Internal helper methods ==========
-    
-    /**
-     * Sets the JDOModel instance for the specified JavaModel.
-     * @param javaModel the JavaModel
-     */
-    protected void setJDOModelInternal(JavaModel javaModel)
-    {
-        JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
-        JDOModel jdoModel = factory.getJDOModel(javaModel);
-        // update the JDOModel property of the JavaModel
-        try {
-            javaModel.setJDOModel(jdoModel);
-        }
-        catch (ModelException ex) {
-            throw new ModelFatalException("ERR_CannotSetJDOModel", ex); //NOI18N
-        }
-    }
 }
-
