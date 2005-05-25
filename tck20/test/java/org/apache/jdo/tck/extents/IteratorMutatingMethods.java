@@ -67,7 +67,6 @@ public class IteratorMutatingMethods extends ExtentTest {
             if (debug) logger.debug("expected exception " + ex);
         } 
         finally {
-            cleanup();
         }
     }
 }

@@ -20,7 +20,6 @@ import java.util.Iterator;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -49,6 +48,9 @@ public class MultiplePMsReturnInstancesRepresentingSamePC extends JDO_Test {
 
    	private static final int NUM_OBJECTS = 50;
 
+    /** The persistent instances of this test. */
+    private Object[] obj;
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -58,21 +60,23 @@ public class MultiplePMsReturnInstancesRepresentingSamePC extends JDO_Test {
 		BatchTestRunner.run(MultiplePMsReturnInstancesRepresentingSamePC.class);
     }
 
-    public MultiplePMsReturnInstancesRepresentingSamePC()
-    {
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        pm = getPM();
+        addTearDownClass(StateTransitionObj.class);
+        obj = generatePersistentInstances();
     }
-
+    
 	public void test() {
 		PersistenceManager pm2 = null;
 		PersistenceManager pm3 = null;
 	
 	    try {
-			pm = getPM();
 			// Get two more PMs
 			pm2 = pmf.getPersistenceManager();
 			pm3 = pmf.getPersistenceManager();
-
-			Object[] obj = generatePersistentInstances();
 
 			Extent extent = pm.getExtent(StateTransitionObj.class, false);
 			Iterator iter = extent.iterator();

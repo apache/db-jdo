@@ -83,7 +83,6 @@ public class IteratorNextAfterExtentCloseAll extends ExtentTest {
         } 
         finally  {
             rollbackTransaction();
-            cleanup();
         }
     }
     

@@ -79,7 +79,6 @@ public class CloseAll extends ExtentTest {
         } 
         finally {
             rollbackTransaction();
-            cleanup();
         }
     }
 }

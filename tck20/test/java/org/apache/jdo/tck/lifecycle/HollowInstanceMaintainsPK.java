@@ -16,16 +16,9 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.Iterator;
-
-import javax.jdo.Extent;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.mylib.PCRect;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
+import org.apache.jdo.tck.pc.mylib.PCRect;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -64,7 +57,6 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
             pm.currentTransaction().begin();
 
             PCRect obj = getPersistentNewInstance();
-
             long beforeValue=obj.getId();
             pm.currentTransaction().commit(); // obj should transition to HOLLOW
             long afterValue=obj.getId();
@@ -87,6 +79,8 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
                  "from transient instance via makePersistent(), state is " +
                  states[curr]);
         }
+        addTearDownInstance(obj);
         return obj;
     }
+
 }

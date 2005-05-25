@@ -16,11 +16,6 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.Iterator;
-
-import javax.jdo.Extent;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;

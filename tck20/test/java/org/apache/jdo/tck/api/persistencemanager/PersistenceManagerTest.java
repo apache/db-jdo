@@ -17,11 +17,7 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 
-import java.util.Collection;
-import java.util.Vector;
-
 import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -36,75 +32,18 @@ public abstract class PersistenceManagerTest extends JDO_Test {
     /** */
     protected PersistenceManagerTest() { }
 
-    /** */
-    protected void tearDown() {
-        Throwable cleanupFailure = null;
-        try {
-            cleanup();
-            cleanupMylib();
-            cleanupCompany();
-        }
-        catch (Throwable ex) {
-            cleanupFailure = ex;
-            // set testSucceeded to false, otherwise a failure during
-            // super.tearDown would swallow this exception
-            testSucceeded = false;
-        }
-
-        // cleanup pmf
-        super.tearDown();
-
-        // fail if there was an exception during cleanup
-        if (cleanupFailure != null) {
-            fail("Exception during cleanupMylib: " + cleanupFailure);
-        }
+    /** 
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        // The order of addTearDownClass calls is significant
+        // as it takes into account database FKs.
+        addTearDownClass(PCRect.class);
+        addTearDownClass(PCPoint.class);
+        addTearDownClass(Department.class);
+        addTearDownClass(Company.class);
     }
     
-    /** */
-    protected void cleanupMylib() {
-        PersistenceManager pm = getPM();
-        Transaction tx = null;
-        try {
-            pm = pmf.getPersistenceManager();
-            tx = pm.currentTransaction();
-            tx.begin();
-            // Note, remove PCRect instances first because of FK constraints
-            Collection c = getAllObjects(pm, PCRect.class);
-            pm.deletePersistentAll(c);
-            c = getAllObjects(pm, PCPoint.class);
-            pm.deletePersistentAll(c);
-            tx.commit();
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
-            if ((pm != null) && pm.isClosed())
-                pm.close();
-        }
-  }
-
-     /** */
-    protected void cleanupCompany() {
-        PersistenceManager pm = getPM();
-        Transaction tx = null;
-        try {
-            pm = pmf.getPersistenceManager();
-            tx = pm.currentTransaction();
-            tx.begin();
-            Collection c = getAllObjects(pm, Department.class);
-            pm.deletePersistentAll(c);
-            c = getAllObjects(pm, Company.class);
-            pm.deletePersistentAll(c);
-            tx.commit();
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
-            if ((pm != null) && pm.isClosed())
-                pm.close();
-        }
-    }
-  
     /** */
     protected Object createPCPointInstance(PersistenceManager pm) {
         PCPoint p1 = new PCPoint(8,8);
@@ -113,6 +52,7 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         pm.makePersistent(p1);
         Object oid = pm.getObjectId(p1);
         tx.commit();
+        addTearDownInstance(p1);
         return oid;
     }
   
@@ -123,21 +63,6 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         Object p1 = pm.getObjectById(oid, true);
         pm.deletePersistent(p1);
         tx.commit();
-    }
-
-    /** */
-    protected Collection getAllObjects(PersistenceManager pm, Class pcClass) {
-        Collection col = new Vector() ;
-        try {
-            Query query = pm.newQuery();
-            query.setClass(pcClass);
-            query.setCandidates(pm.getExtent(pcClass, false));
-            Object result = query.execute();
-            col = (Collection)result;
-        } catch (Exception e) {
-            fail("Exception in getAllObjects()" + e);
-        }
-        return col ;
     }
 
     /** */

@@ -78,7 +78,6 @@ public class InstancesDeletedPriorToIterationNotReturned extends ExtentTest {
             }
         } 
         finally {
-            cleanup();
         }
     }
 }

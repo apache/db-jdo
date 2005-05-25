@@ -91,7 +91,6 @@ public class IteratorHasNextFalseAfterExtentClose extends ExtentTest {
             }
         } 
         finally {
-            cleanup();
         }
     }
 }

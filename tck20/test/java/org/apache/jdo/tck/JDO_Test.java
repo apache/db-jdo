@@ -21,14 +21,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.lang.Runtime;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Properties;
+import java.util.Vector;
 
+import javax.jdo.JDOException;
+import javax.jdo.JDOFatalException;
 import javax.jdo.JDOHelper;
+import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.JDOException;
+import javax.jdo.Query;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
@@ -128,6 +135,24 @@ public abstract class JDO_Test extends TestCase {
     /** true if debug logging in enabled. */
     protected boolean debug = logger.isDebugEnabled();
     
+    /** 
+     * Indicates an exception thrown in method <code>tearDown</code>.
+     * At the end of method <code>tearDown</code> this field is nullified. 
+     */
+    private Throwable tearDownThrowable;
+    
+    /** 
+     * A list of registered oid instances. 
+     * Corresponding pc instances are deleted in <code>localTearDown</code>.
+     */
+    private Collection oids = new LinkedList();
+    
+    /** 
+     * A list of registered pc classes. 
+     * Th extents of these classes are deleted in <code>localTearDown</code>.
+     */
+    private Collection pcClasses = new LinkedList();
+    
     /** */
     protected JDO_Test() {
         PMFProperties = System.getProperty("PMFProperties");
@@ -136,46 +161,184 @@ public abstract class JDO_Test extends TestCase {
     /** */
     protected void setUp() throws Exception {
         pmf = getPMF();
+        localSetUp();
     }
+    
+    /**
+     * Subclasses may override this method to allocate any data and resources
+     * that they need in order to successfully execute this testcase.
+     */
+    protected void localSetUp() {}
     
     /**
      * Runs the bare test sequence.
      * @exception Throwable if any exception is thrown
      */
     public void runBare() throws Throwable {
-        setUp();
         try {
             testSucceeded = false;
+            setUp();
             runTest();
             testSucceeded = true;
         }
+        catch (AssertionFailedError e) {
+            logger.error("Exception during setUp or runtest: ", e);
+            throw e;
+        }
+        catch (Throwable t) {
+            logger.fatal("Exception during setUp or runtest: ", t);
+            throw t;
+        }
         finally {
             tearDown();
-            long freeMem = Runtime.getRuntime().freeMemory();
-            if (debug) logger.debug("Free memory: " + freeMem);
+            if (debug) {
+                logger.debug("Free memory: " + Runtime.getRuntime().freeMemory());
+            }
+        }
+    }
+
+    /**
+     * Sets field <code>tearDownThrowable</code> if it is <code>null</code>.
+     * Else, the given throwable is logged using fatal log level. 
+     * @param throwable the throwable
+     */
+    private void setTearDownThrowable(String context, Throwable throwable)
+    {
+        logger.fatal("Exception during "+context+": ", throwable);
+        if (this.tearDownThrowable == null) {
+            this.tearDownThrowable = throwable;
+        }
+    }
+    
+    /**
+     * This method clears data and resources allocated by testcases.
+     * It first closes the persistence manager of this testcase.
+     * Then it calls method <code>localTearDown</code>. 
+     * Subclasses may override that method to clear any data and resources
+     * that they have allocated in method <code>localSetUp</code>.
+     * Finally, this method closes the persistence manager factory.<p>
+     * 
+     * <b>Note:</b>These methods are called always, regardless of any exceptions.
+     * The first caught exception is kept in field <code>tearDownThrowable</code>. 
+     * That exception is thrown as a nested exception of <code>JDOFatalException</code>
+     * if and only if the testcase executed successful.
+     * Otherwise that exception is logged using fatal log level.
+     * All other exceptions are logged using fatal log level, always.
+     */
+    protected void tearDown() {
+        try {
+            cleanupPM();
+        } 
+        catch (Throwable t) {
+            setTearDownThrowable("cleanupPM", t);
+        }
+        
+        try {
+            localTearDown();
+        } 
+        catch (Throwable t) {
+            setTearDownThrowable("localTearDown", t);
+        }
+        
+        try {
+            closePMF();
+        }
+        catch (Throwable t) {
+            setTearDownThrowable("closePMF", t);
+        }
+        
+        if (this.tearDownThrowable != null) {
+            Throwable t = this.tearDownThrowable;
+            this.tearDownThrowable = null;
+            if (testSucceeded) {
+                // runTest succeeded, but this method threw exception => error
+                throw new JDOFatalException("Exception during tearDown", t);
+            }
+        }
+    }
+
+    /** 
+     * Deletes all registered pc instances and extents of all registered pc classes. 
+     * Subclasses may override this method to clear any data and resources
+     * that they have allocated in method <code>localSetUp</code>.
+     */
+    protected void localTearDown() {
+        deleteAndUnregisterPCInstances();
+        deleteAndUnregisterPCClasses();
+    }
+
+    protected void addTearDownObjectId(Object oid) {
+        // ensure that oid is not a PC instance
+        if (JDOHelper.getObjectId(oid) != null ||
+            JDOHelper.isTransactional(oid))
+            throw new IllegalArgumentException("oid");
+        this.oids.add(oid);
+    }
+    
+    protected void addTearDownInstance(Object pc) {
+        Object oid = JDOHelper.getObjectId(pc);
+        addTearDownObjectId(oid);
+    }
+    
+    protected void addTearDownClass(Class pcClass) {
+        this.pcClasses.add(pcClass);
+    }
+    
+    /**
+     * Deletes and unregistres all registered pc instances. 
+     */
+    protected void deleteAndUnregisterPCInstances() {
+        getPM();
+        try {
+            this.pm.currentTransaction().begin();
+            for (Iterator i = this.oids.iterator(); i.hasNext(); ) {
+                Object pc;
+                try {
+                    pc = this.pm.getObjectById(i.next(), true);
+                }
+                catch (JDOObjectNotFoundException e) {
+                    pc = null;
+                }
+                // we only delete those persistent instances
+                // which have not been deleted by tests already.
+                if (pc != null) {
+                    this.pm.deletePersistent(pc);
+                }
+            }
+            this.pm.currentTransaction().commit();
+        }
+        finally {
+            this.oids.clear();
+            cleanupPM();
+        }
+    }
+
+    /**
+     * Deletes extents of all registered pc instances and unregisters all pc classes. 
+     */
+    protected void deleteAndUnregisterPCClasses() {
+        getPM();
+        try {
+            this.pm.currentTransaction().begin();
+            for (Iterator i = this.pcClasses.iterator(); i.hasNext(); ) {
+                this.pm.deletePersistentAll(getAllObjects(this.pm, (Class)i.next()));
+            }
+            this.pm.currentTransaction().commit();
+        }
+        finally {
+            this.pcClasses.clear();
+            cleanupPM();
         }
     }
 
     /** */
-    protected void tearDown() {
-        try {
-            cleanup();
-            closePMF();
-        }
-        catch (Throwable ex) {
-            if (debug) ex.printStackTrace();
-            if (testSucceeded) {
-                // runTest succeeded, but closePMF throws exception =>
-                // failure
-                fail("Exception during tearDown: " + ex);
-            }
-            else {
-                // runTest failed and closePMF throws exception =>
-                // just print the closePMF exception, otherwise the
-                // closePMF exception would swallow the test case failure
-                if (debug) logger.debug("Exception during tearDown: " + ex);
-            }
-        }
+    protected Collection getAllObjects(PersistenceManager pm, Class pcClass) {
+        Collection col = new Vector() ;
+        Query query = pm.newQuery();
+        query.setClass(pcClass);
+        query.setCandidates(pm.getExtent(pcClass, false));
+        Object result = query.execute();
+        return (Collection)result;
     }
 
     /**
@@ -209,7 +372,7 @@ public abstract class JDO_Test extends TestCase {
      * multiple PersistenceManager instances around, in case the
      * PersistenceManagerFactory performs PersistenceManager pooling.  
      */
-    protected void cleanup() 
+    protected void cleanupPM() 
     {
         cleanupPM(pm);
         pm = null;
@@ -220,7 +383,7 @@ public abstract class JDO_Test extends TestCase {
      * <code>PersistenceManager</code>. If the pm still has an open
      * transaction, it will be rolled back, before closing the pm.
      */
-    protected void cleanupPM(PersistenceManager pm) 
+    protected static void cleanupPM(PersistenceManager pm) 
     {
         if ((pm != null) && !pm.isClosed()) {
             if (pm.currentTransaction().isActive()) {

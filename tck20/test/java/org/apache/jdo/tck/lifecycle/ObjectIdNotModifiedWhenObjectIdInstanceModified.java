@@ -19,8 +19,6 @@ package org.apache.jdo.tck.lifecycle;
 import java.util.Iterator;
 
 import javax.jdo.Extent;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -47,6 +45,9 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
 		
 	private static final int NUM_OBJECTS = 50;
 
+    /** The persistent instances of this test. */
+    private Object[] obj;
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -56,15 +57,16 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
 		BatchTestRunner.run(ObjectIdNotModifiedWhenObjectIdInstanceModified.class);
     }
 
-    public ObjectIdNotModifiedWhenObjectIdInstanceModified()
-    {
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        pm = getPM();
+        addTearDownClass(StateTransitionObj.class);
+        obj = generatePersistentInstances();
     }
-
+    
 	public void test() throws Exception {
-		pm = getPM();
-		
-		Object[] obj = generatePersistentInstances();
-
 		Extent extent = pm.getExtent(StateTransitionObj.class, false);
 		Iterator iter = extent.iterator();
 		if( !iter.hasNext() ){

@@ -76,7 +76,6 @@ public class GetObjectByIdNoValidationInstanceNotInDatastore extends Persistence
         catch (JDOObjectNotFoundException ex) {
             // expected exception
         }
-        cleanup();
         if (debug)
             logger.debug ("END GetObjectByIdNoValidationInstanceNotInDatastore");
    }

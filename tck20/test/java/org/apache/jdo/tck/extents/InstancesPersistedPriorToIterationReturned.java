@@ -78,7 +78,6 @@ public class InstancesPersistedPriorToIterationReturned extends ExtentTest {
             }
         } 
         finally {
-            cleanup();
         }
     }
 }

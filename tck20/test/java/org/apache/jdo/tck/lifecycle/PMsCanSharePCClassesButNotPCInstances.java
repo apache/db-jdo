@@ -67,10 +67,13 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
         BatchTestRunner.run(PMsCanSharePCClassesButNotPCInstances.class);
     }
 
-    public PMsCanSharePCClassesButNotPCInstances()
-    {
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(StateTransitionObj.class);
     }
-
+    
     public void test() {
         // test shared PC - only one PM should succeed to insert the shared PC
         threads = 0;
@@ -105,11 +108,11 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
             t.start();
         }
         
-        Thread.currentThread().yield();
+        Thread.yield();
         
         while (! attemptsComplete()) { 
             try  {
-                Thread.currentThread().sleep(100);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 logger.debug("interrupted while waiting for threads to insert");
             }
@@ -117,7 +120,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
 
         while (threads > 0) {
             try {
-                Thread.currentThread().sleep(100);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 logger.debug("interrupted while waiting for threads to finish");
             }
@@ -180,7 +183,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
 
                 while (!attemptsComplete()) {
                     try {
-                        Thread.currentThread().sleep(100);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         if (debug) logger.debug(" interrupted");
                     }

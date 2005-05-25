@@ -19,8 +19,6 @@ package org.apache.jdo.tck.lifecycle;
 import java.util.Iterator;
 
 import javax.jdo.Extent;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -230,14 +228,16 @@ public class StateTransitions extends JDO_Test {
         {   true,          false,       false }   // retrieve with active datastore transaction
     };
 
-    public StateTransitions()
-    {
-    }
-
-    public void test() {
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
         pm = getPM();
         generatePersistentInstances();
-
+        addTearDownClass(StateTransitionObj.class);
+    }
+    
+    public void test() {
         scenario = DATASTORE_TX;
         checkTransitions();
 

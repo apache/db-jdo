@@ -85,7 +85,6 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
             } 
             catch (Exception unexpected) {
                 rollbackTransaction();
-                cleanup();
                 fail(ASSERTION_FAILED,
                      "unexpected exception " + unexpected);
             }
@@ -94,9 +93,6 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
             fail(ASSERTION_FAILED,
                  "unexpected exception " + unexpected);
         } 
-        finally  {
-            cleanup();
-        }
     }
 
     /** */
