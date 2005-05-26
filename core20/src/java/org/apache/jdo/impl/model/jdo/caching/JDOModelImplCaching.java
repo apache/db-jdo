@@ -26,6 +26,8 @@ import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.impl.model.jdo.JDOModelImplDynamic;
 import org.apache.jdo.model.java.JavaType;
 
+import org.apache.jdo.util.StringHelper;
+
 /**
  * A JDOModel instance bundles a number of JDOClass instances used by an 
  * application. It provides factory methods to create and retrieve JDOClass 
@@ -40,9 +42,15 @@ import org.apache.jdo.model.java.JavaType;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOModelImplCaching extends JDOModelImplDynamic {
+
+    /**
+     * This is a mapping from short names to JDOClass instances. Key is the
+     * JDOClass short name, value is the corresponding JDOClass instance.  
+     */
+    private Map jdoClassesForShortNames = new HashMap();
 
     /** 
      * This is a mapping from ObjectId classes to its JDOClass instances.
@@ -50,7 +58,7 @@ public class JDOModelImplCaching extends JDOModelImplDynamic {
      * corresponding JDOClass instance. Note, in the case of inheritance
      * the top most persistence-capable class is stored.
      */
-    private Map jdoClassesByObjectIdClasses = new HashMap();
+    private Map jdoClassesForObjectIdClasses = new HashMap();
 
     /** 
      * Set of fully qualified names of classes known to be 
@@ -68,6 +76,43 @@ public class JDOModelImplCaching extends JDOModelImplDynamic {
     }
 
     /**
+     * The method returns the JDOClass instance for the specified short name
+     * (see {@link JDOClass#getShortName()}) or <code>null</code> if it cannot
+     * find a JDOClass instance with the specified short name. 
+     * <p>
+     * The method searches the list of JDOClasses currently managed by this
+     * JDOModel instance. It does not attempt to load any metadata if it
+     * cannot find a JDOClass instance with the specified short name. The
+     * metadata for a JDOClass returned by this method must have been loaded
+     * before by any of the methods
+     * {@link #createJDOClass(String className)},
+     * {@link #createJDOClass(String className, boolean loadXMLMetadataDefault)},
+     * {@link #getJDOClass(String className)}, or
+     * {@link #getJDOClass(String className, boolean loadXMLMetadataDefault)}.
+     * @param shortName the short name of the JDOClass instance to be returned
+     * @return a JDOClass instance for the specified short name 
+     * or <code>null</code> if not present
+     */
+    public synchronized JDOClass getJDOClassForShortName(String shortName) {
+        if (StringHelper.isEmpty(shortName))
+            return null;
+
+        // First check the cache
+        JDOClass jdoClass = 
+            (JDOClass)jdoClassesForShortNames.get(shortName);
+        if (jdoClass == null) {
+            // not found in the cache => call super
+            jdoClass = super.getJDOClassForShortName(shortName);
+            if (jdoClass != null) {
+                // found => update the cache
+                jdoClassesForShortNames.put(shortName, jdoClass);
+            }
+        }
+        
+        return jdoClass;
+    }
+
+    /**
      * This method returns the JDOClass instance that defines the specified type
      * as its objectId class. In the case of an inheritance hierarchy it returns 
      * the top most persistence-capable class of the hierarchy (see 
@@ -82,16 +127,16 @@ public class JDOModelImplCaching extends JDOModelImplDynamic {
         if (objectIdClass == null)
             return null;
 
-        synchronized (jdoClassesByObjectIdClasses) {
+        synchronized (jdoClassesForObjectIdClasses) {
             // First check the cache
             JDOClass jdoClass = 
-                (JDOClass)jdoClassesByObjectIdClasses.get(objectIdClass);
+                (JDOClass)jdoClassesForObjectIdClasses.get(objectIdClass);
             if (jdoClass == null) {
                 // not found in the cache => call super
                 jdoClass = super.getJDOClassForObjectIdClass(objectIdClass);
                 if (jdoClass != null) {
                     // found => update the cache
-                    jdoClassesByObjectIdClasses.put(objectIdClass, jdoClass);
+                    jdoClassesForObjectIdClasses.put(objectIdClass, jdoClass);
                 }
             }
             

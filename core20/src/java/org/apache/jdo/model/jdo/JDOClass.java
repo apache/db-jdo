@@ -25,11 +25,27 @@ import org.apache.jdo.model.java.JavaType;
  * class.
  *
  * @author Michael Bouschen
- * @version 1.1
+ * @version 2.0
  */
 public interface JDOClass 
     extends JDOMember 
 {
+    /** 
+     * Get the short name of this JDOClass. The short name defaults to the
+     * unqualified class name, if not explicitly set by method
+     * {@link #setShortName(String shortName)}.
+     * @return the short name of this JDOClass.
+     */
+    public String getShortName();
+    
+    /** 
+     * Set the short name of this JDOClass.
+     * @param shortName the short name.
+     * @exception ModelException if impossible
+     */
+    public void setShortName(String shortName)
+        throws ModelException;
+
     /** 
      * Get the JDO identity type of this JDOClass.
      * The identity type of the least-derived persistence-capable class defines

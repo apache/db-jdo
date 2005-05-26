@@ -47,7 +47,9 @@ import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.model.jdo.JDOModelFactory;
 import org.apache.jdo.model.jdo.JDOPackage;
+
 import org.apache.jdo.util.I18NHelper;
+import org.apache.jdo.util.StringHelper;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
@@ -88,7 +90,7 @@ import org.xml.sax.InputSource;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
 
@@ -190,7 +192,7 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * the existing instance is returned. Otherwise, it creates a new JDOClass 
      * instance, sets its declaringModel and returns the new instance.
      * <p>
-     * Whether this method reads XML metatdata or not is deteremined at
+     * Whether this method reads XML metatdata or not is determined at
      * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
      * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
@@ -241,9 +243,9 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
      * qualified class name if present. The method returns <code>null</code> 
      * if it cannot find a JDOClass instance for the specified name. 
      * <p>
-     * Whether this method reads XML metatdata or not is deteremined at
+     * Whether this method reads XML metatdata or not is determined at
      * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
-     * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
+     * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean 
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
      * to <code>createJDOClass(className, loadXMLMetadataDefault)</code>.
      * @param className the fully qualified class name of the JDOClass
@@ -301,6 +303,38 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
         }
 
         return jdoClass;
+    }
+
+    /**
+     * The method returns the JDOClass instance for the specified short name
+     * (see {@link JDOClass#getShortName()}) or <code>null</code> if it cannot
+     * find a JDOClass instance with the specified short name. 
+     * <p>
+     * The method searches the list of JDOClasses currently managed by this
+     * JDOModel instance. It does not attempt to load any metadata if it
+     * cannot find a JDOClass instance with the specified short name. The
+     * metadata for a JDOClass returned by this method must have been loaded
+     * before by any of the methods
+     * {@link #createJDOClass(String className)},
+     * {@link #createJDOClass(String className, boolean loadXMLMetadataDefault)},
+     * {@link #getJDOClass(String className)}, or
+     * {@link #getJDOClass(String className, boolean loadXMLMetadataDefault)}.
+     * @param shortName the short name of the JDOClass instance to be returned
+     * @return a JDOClass instance for the specified short name 
+     * or <code>null</code> if not present
+     */
+    public synchronized JDOClass getJDOClassForShortName(String shortName) {
+        if (StringHelper.isEmpty(shortName))
+            return null;
+
+        for (Iterator i = jdoClasses.values().iterator(); i.hasNext();) {
+            JDOClass jdoClass = (JDOClass)i.next();
+            if (shortName.equals(jdoClass.getShortName()))
+                // found => return
+                return jdoClass;
+        }
+
+        return null;
     }
 
     /**

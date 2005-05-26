@@ -29,6 +29,7 @@ import org.apache.jdo.model.java.JavaType;
  * name by different JDOModel instances.
  *
  * @author Michael Bouschen
+ * @version 2.0
  */
 public interface JDOModel
     extends JDOElement
@@ -70,7 +71,7 @@ public interface JDOModel
      * the existing instance is returned. Otherwise, it creates a new JDOClass 
      * instance, sets its declaringModel and returns the new instance.
      * <p>
-     * Whether this method reads XML metatdata or not is deteremined at
+     * Whether this method reads XML metatdata or not is determined at
      * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
      * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
@@ -105,7 +106,7 @@ public interface JDOModel
      * qualified class name if present. The method returns <code>null</code> 
      * if it cannot find a JDOClass instance for the specified name. 
      * <p>
-     * Whether this method reads XML metatdata or not is deteremined at
+     * Whether this method reads XML metatdata or not is determined at
      * JDOModel creation time (see flag <code>loadXMLMetadataDefault</code> 
      * in {@link JDOModelFactory#getJDOModel(JavaModel javaModel, boolean
      * loadXMLMetadataDefault)}). Invoking this method is method is equivalent
@@ -130,6 +131,26 @@ public interface JDOModel
      * or <code>null</code> if not present
      */
     public JDOClass getJDOClass(String className, boolean loadXMLMetadata);
+
+    /**
+     * The method returns the JDOClass instance for the specified short name
+     * (see {@link JDOClass#getShortName()}) or <code>null</code> if it cannot
+     * find a JDOClass instance with the specified short name. 
+     * <p>
+     * The method searches the list of JDOClasses currently managed by this
+     * JDOModel instance. It does not attempt to load any metadata if it
+     * cannot find a JDOClass instance with the specified short name. The
+     * metadata for a JDOClass returned by this method must have been loaded
+     * before by any of the methods
+     * {@link #createJDOClass(String className)},
+     * {@link #createJDOClass(String className, boolean loadXMLMetadataDefault)},
+     * {@link #getJDOClass(String className)}, or
+     * {@link #getJDOClass(String className, boolean loadXMLMetadataDefault)}.
+     * @param shortName the short name of the JDOClass instance to be returned
+     * @return a JDOClass instance for the specified short name 
+     * or <code>null</code> if not present
+     */
+    public JDOClass getJDOClassForShortName(String shortName);
 
     /**
      * Returns the collection of JDOClass instances declared by this JDOModel 

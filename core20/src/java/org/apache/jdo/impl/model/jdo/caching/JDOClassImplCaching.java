@@ -32,7 +32,7 @@ import org.apache.jdo.impl.model.jdo.JDOClassImplDynamic;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOClassImplCaching extends JDOClassImplDynamic
 {
@@ -93,6 +93,19 @@ public class JDOClassImplCaching extends JDOClassImplDynamic
 
     /** Flag indicating wthere field numbers are calculated already. */
     private boolean fieldNumbersCalculated = false;
+
+     /** 
+     * Get the short name of this JDOClass. The short name defaults to the
+     * unqualified class name, if not explicitly set by method
+     * {@link #setShortName(String shortName)}.
+     * @return the short name of this JDOClass.
+     */
+    public String getShortName() {
+        if (shortName == null) {
+            shortName = super.getShortName();
+        }
+        return shortName;
+    }
 
     /** 
      * Get the JDO identity type of this JDOClass.

@@ -32,6 +32,7 @@ import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.model.jdo.JDOPackage;
 
 import org.apache.jdo.util.I18NHelper;
+import org.apache.jdo.util.StringHelper;
 
 /**
  * An instance of this class represents the JDO metadata of a persistence 
@@ -47,12 +48,15 @@ import org.apache.jdo.util.I18NHelper;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOClassImplDynamic
     extends JDOMemberImpl
     implements JDOClass
 {
+    /** Property shortName. It defaults to the unqualified class name. */
+    protected String shortName;
+
     /** Property identityType. Default see {@link #getIdentityType}. */
     protected int identityType = JDOIdentityType.UNSPECIFIED;
 
@@ -102,6 +106,28 @@ public class JDOClassImplDynamic
     protected final static I18NHelper msg =  
         I18NHelper.getInstance(JDOClassImplDynamic.class);
 
+    /** 
+     * Get the short name of this JDOClass. The short name defaults to the
+     * unqualified class name, if not explicitly set by method
+     * {@link #setShortName(String shortName)}.
+     * @return the short name of this JDOClass.
+     */
+    public String getShortName() {
+        if (shortName != null)
+            // return short name, if explicitly set by the setter
+            return shortName;
+
+        return StringHelper.getShortClassName(getName());
+    }
+    
+    /** 
+     * Set the short name of this JDOClass.
+     * @param shortName the short name.
+     */
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+    
     /** 
      * Get the JDO identity type of this JDOClass.
      * The identity type of the least-derived persistence-capable class defines
