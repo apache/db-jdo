@@ -85,6 +85,7 @@ public class PrintSupport
 
         println(indent, "--> JDOClass "); //NOI18N
         println(indent+1, "name                       = " + jdoClass.getName()); //NOI18N
+        println(indent+1, "shortName                  = " + jdoClass.getShortName()); //NOI18N
         println(indent+1, "packagePrefix              = " + jdoClass.getPackagePrefix()); //NOI18N
         println(indent+1, "identityType               = " + JDOIdentityType.toString(jdoClass.getIdentityType())); //NOI18N
         println(indent+1, "objectIdClass              = " + jdoClass.getObjectIdClass()); //NOI18N
