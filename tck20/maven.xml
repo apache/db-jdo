@@ -152,8 +152,11 @@
                     <uptodate targetfile="${iut.enhanced.dir}/applicationidentity.jar">
                         <srcfiles dir="${basedir}/test/jdo/applicationidentity"
                                   includes="org/apache/jdo/tck/pc/**/*.jdo, 
-                                            org/apache/jdo/tck/pc/**/*.orm, 
                                             org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                        <srcfiles dir="${basedir}/test/orm/applicationidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.orm"/>
+                        <srcfiles dir="${basedir}/test/testdata/applicationidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.xml"/>
                         <srcfiles dir="${basedir}/test/java"
                                   includes="${jdo.tck.pcclasses.sources}
                                             ${jdo.tck.paclasses.sources}"/>
@@ -181,6 +184,8 @@
                                             org/apache/jdo/tck/pc/**/jdoTest.properties"/>
                         <srcfiles dir="${basedir}/test/orm/datastoreidentity"
                                   includes="org/apache/jdo/tck/pc/**/*.orm"/>
+                        <srcfiles dir="${basedir}/test/testdata/datastoreidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.xml"/>
                         <srcfiles dir="${basedir}/test/java"
                                   includes="${jdo.tck.pcclasses.sources}
                                             ${jdo.tck.paclasses.sources}"/>
@@ -203,7 +208,9 @@
             <fileset dir="${basedir}/test/jdo/${identitytype}"
                      includes="**/*.jdo, **/jdoTest.properties"/>
             <fileset dir="${basedir}/test/orm/${identitytype}"
-                     includes="**/*.orm, **/jdoTest.properties"/>
+                     includes="**/*.orm"/>
+            <fileset dir="${basedir}/test/testdata/${identitytype}"
+                     includes="**/*.xml"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
@@ -230,7 +237,7 @@
         <delete file="${iut.enhanced.dir}/${identitytype}.jar"/>
         <jar jarfile="${iut.enhanced.dir}/${identitytype}.jar">
             <fileset dir="${iut.enhanced.dir}" 
-                 includes="**/*.class, **/*.jdo, **/*.orm, **/jdoTest.properties"/>
+                 includes="**/*.class, **/*.jdo, **/*.orm, **/*.xml, **/jdoTest.properties"/>
         </jar>
         <delete dir="${iut.enhanced.dir}/org"/>
     </postGoal>
@@ -249,6 +256,8 @@
                                         org/apache/jdo/tck/pc/**/jdoTest.properties"/>
                     <srcfiles dir="${basedir}/test/orm/applicationidentity"
                               includes="org/apache/jdo/tck/pc/**/*.orm"/>
+                        <srcfiles dir="${basedir}/test/testdata/applicationidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.xml"/>
                     <srcfiles dir="${basedir}/test/java"
                               includes="${jdo.tck.pcclasses.sources}
                                         ${jdo.tck.paclasses.sources}"/>
@@ -270,8 +279,11 @@
                 <uptodate targetfile="${jdo.enhanced.dir}/datastoreidentity.jar">
                     <srcfiles dir="${basedir}/test/jdo/datastoreidentity"
                               includes="org/apache/jdo/tck/pc/**/*.jdo, 
-                                        org/apache/jdo/tck/pc/**/*.orm, 
                                         org/apache/jdo/tck/pc/**/jdoTest.properties"/>
+                        <srcfiles dir="${basedir}/test/orm/datastoreidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.orm"/>
+                        <srcfiles dir="${basedir}/test/testdata/datastoreidentity"
+                                  includes="org/apache/jdo/tck/pc/**/*.xml"/>
                     <srcfiles dir="${basedir}/test/java"
                               includes="${jdo.tck.pcclasses.sources}
                                         ${jdo.tck.paclasses.sources}"/>
@@ -294,7 +306,9 @@
             <fileset dir="${basedir}/test/jdo/${identitytype}"
                      includes="**/*.jdo, **/jdoTest.properties"/>
             <fileset dir="${basedir}/test/orm/${identitytype}"
-                     includes="**/*.orm, **/jdoTest.properties"/>
+                     includes="**/*.orm"/>
+            <fileset dir="${basedir}/test/testdata/${identitytype}"
+                     includes="**/*.xml"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
@@ -321,7 +335,7 @@
         <delete file="${jdo.enhanced.dir}/${identitytype}.jar"/>
         <jar jarfile="${jdo.enhanced.dir}/${identitytype}.jar">
             <fileset dir="${jdo.enhanced.dir}" 
-                 includes="**/*.class, **/*.jdo, **/*.orm, **/jdoTest.properties"/>
+                 includes="**/*.class, **/*.jdo, **/*.orm, **/*.xml, **/jdoTest.properties"/>
         </jar>
         <delete dir="${jdo.enhanced.dir}/org"/>
     </postGoal>
