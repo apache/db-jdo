@@ -108,7 +108,7 @@ has application identity.
             </inheritance>
             <field name="insid" column="INSID" primary-key="true"/>
             <field name="carrier" column="CARRIER"/>
-            <field name="employee" column="EMPID">
+            <field name="employee" column="EMPLOYEE">
                  <foreign-key/>
             </field>
         </class>
