@@ -284,6 +284,13 @@ public abstract class JDO_Test extends TestCase {
         this.pcClasses.add(pcClass);
     }
     
+    protected void addTearDownClass(Class[] pcClasses) {
+        if (pcClasses == null) return;
+        for (int i = 0; i < pcClasses.length; ++i) {
+            addTearDownClass(pcClasses[i]);
+        }
+    }
+    
     /**
      * Deletes and unregistres all registered pc instances. 
      */

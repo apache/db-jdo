@@ -38,6 +38,15 @@ public class CompanyModelReader extends XmlBeanFactory {
     /** The format of date values in the xml representation */
     public static final String DATE_PATTERN = "d/MMM/yyyy";
     
+    /** All classes in the model 
+     */
+    private static final Class[] allClasses = new Class[] {
+        Address.class, Company.class, 
+        DentalInsurance.class, Department.class, Employee.class,
+        FullTimeEmployee.class, Insurance.class, 
+        MedicalInsurance.class, Person.class, Project.class
+    };
+    
     /** 
      * Create a CompanyModelReader for the specified resourceName. 
      * @param resourceName the name of the resource
@@ -210,6 +219,10 @@ public class CompanyModelReader extends XmlBeanFactory {
      */
     public Project getProject(String name) {
         return (Project)getBean(name, Project.class);
+    }
+    
+    public Class[] getAllClasses() {
+        return allClasses;
     }
     
 }
