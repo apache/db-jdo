@@ -310,6 +310,18 @@ public abstract class Employee extends Person {
         return mentor;
     }
 
+    /* This setter is required by the SpringFramework 
+        used with the CompletenessTest */
+    /**
+     * Set the protege for this employee and also set the inverse mentor
+     * relationship.
+     * @param protege The protege for this employee.
+     */
+    public void setProtege(Employee protege) {
+        this.protege = protege;
+        protege.mentor = this;
+    }
+
     /**
      * Get the protege of this employee.
      * @return The protege of this employee.
@@ -317,6 +329,17 @@ public abstract class Employee extends Person {
     public Employee getProtege() {
         return protege;
     }
+
+    /* This setter is required by the SpringFramework 
+        used with the CompletenessTest */
+    /**
+     * Set the HR advisor for this employee.
+     * @param hradvisor The hradvisor for this employee.
+     */
+    public void setHradvisor(Employee hradvisor) {
+        this.hradvisor = hradvisor;
+    }
+
 
     /**
      * Get the HR advisor for the employee.
