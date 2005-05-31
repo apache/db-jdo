@@ -94,6 +94,16 @@ NOTE!! This project has a nonstandard structure. The source files are located in
             <artifactId>derbytools</artifactId>
             <version>10.0.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>apache-jdo</groupId>
+            <artifactId>jdo2-enhancer</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>apache-jdo</groupId>
+            <artifactId>jdo2-core</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <!-- =================== -->
     <!-- Build Specification -->

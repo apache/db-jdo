@@ -416,6 +416,8 @@
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
         <pathelement location="${derby.jarfile}" />
+        <pathelement location="${core20.jarfile}" />
+        <pathelement location="${enhancer20.jarfile}" />
     </path>
 
     <!-- ==== -->
