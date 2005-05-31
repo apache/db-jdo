@@ -126,7 +126,9 @@ has application identity.
         <class name="Project" table="projects">
             <field name="projid" column="PROJID" primary-key="true"/>
             <field name="name" column="NAME"/>
-            <field name="budget" column="BUDGET"/>
+            <field name="budget">
+               <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>
+            </field>
             <field name="reviewers" table="project_reviewer">
                 <join column="PROJID"/>
                 <element column="REVIEWER"/>
