@@ -79,10 +79,12 @@ public class CompletenessTest extends JDO_Test {
         Company companyExpected = reader.getCompany("company1");
 
         getPM();
+        pm.currentTransaction().begin();
         // compare persisted and new
         if (!companyExpected.deepCompareFields(
             (Company)pm.getObjectById(rootOid), new EqualityHelper())) {
             fail("Persistent company not equal to expected company");
         }
+        pm.currentTransaction().commit();
     }
 }
