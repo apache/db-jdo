@@ -225,13 +225,16 @@ public abstract class JDO_Test extends TestCase {
      * Otherwise that exception is logged using fatal log level.
      * All other exceptions are logged using fatal log level, always.
      */
-    protected void tearDown() {
+    protected final void tearDown() {
         try {
             cleanupPM();
         } 
         catch (Throwable t) {
             setTearDownThrowable("cleanupPM", t);
         }
+        
+        if (pmf != null && pmf.isClosed())
+            pmf = null;
         
         try {
             localTearDown();
@@ -263,8 +266,8 @@ public abstract class JDO_Test extends TestCase {
      * that they have allocated in method <code>localSetUp</code>.
      */
     protected void localTearDown() {
-        deleteAndUnregisterPCInstances();
-        deleteAndUnregisterPCClasses();
+        deleteRemoveTearDownInstances();
+        deleteRemoveTearDownClasses();
     }
 
     protected void addTearDownObjectId(Object oid) {
@@ -292,49 +295,64 @@ public abstract class JDO_Test extends TestCase {
     }
     
     /**
-     * Deletes and unregistres all registered pc instances. 
+     * Deletes and removes tear down instances.
+     * If there are no tear down instances, 
+     * the this method is a noop. 
+     * Otherwise, tear down instances are deleted 
+     * exactly in the order they have been added.
+     * Tear down instances are deleted in a separate transaction.
      */
-    protected void deleteAndUnregisterPCInstances() {
-        getPM();
-        try {
-            this.pm.currentTransaction().begin();
-            for (Iterator i = this.oids.iterator(); i.hasNext(); ) {
-                Object pc;
-                try {
-                    pc = this.pm.getObjectById(i.next(), true);
+    protected void deleteRemoveTearDownInstances() {
+        if (this.oids.size() > 0) {
+            getPM();
+            try {
+                this.pm.currentTransaction().begin();
+                for (Iterator i = this.oids.iterator(); i.hasNext(); ) {
+                    Object pc;
+                    try {
+                        pc = this.pm.getObjectById(i.next(), true);
+                    }
+                    catch (JDOObjectNotFoundException e) {
+                        pc = null;
+                    }
+                    // we only delete those persistent instances
+                    // which have not been deleted by tests already.
+                    if (pc != null) {
+                        this.pm.deletePersistent(pc);
+                    }
                 }
-                catch (JDOObjectNotFoundException e) {
-                    pc = null;
-                }
-                // we only delete those persistent instances
-                // which have not been deleted by tests already.
-                if (pc != null) {
-                    this.pm.deletePersistent(pc);
-                }
+                this.pm.currentTransaction().commit();
             }
-            this.pm.currentTransaction().commit();
-        }
-        finally {
-            this.oids.clear();
-            cleanupPM();
+            finally {
+                this.oids.clear();
+                cleanupPM();
+            }
         }
     }
 
     /**
-     * Deletes extents of all registered pc instances and unregisters all pc classes. 
+     * Deletes and removes tear down classes.
+     * If there are no tear down classes, 
+     * the this method is a noop. 
+     * Otherwise, tear down classes are deleted 
+     * exactly in the order they have been added.
+     * Tear down classes are deleted in a separate transaction.
+     * Deleting a tear down class means to delete the extent.
      */
-    protected void deleteAndUnregisterPCClasses() {
-        getPM();
-        try {
-            this.pm.currentTransaction().begin();
-            for (Iterator i = this.pcClasses.iterator(); i.hasNext(); ) {
-                this.pm.deletePersistentAll(getAllObjects(this.pm, (Class)i.next()));
+    protected void deleteRemoveTearDownClasses() {
+        if (this.pcClasses.size() > 0) {
+            getPM();
+            try {
+                this.pm.currentTransaction().begin();
+                for (Iterator i = this.pcClasses.iterator(); i.hasNext(); ) {
+                    this.pm.deletePersistentAll(getAllObjects(this.pm, (Class)i.next()));
+                }
+                this.pm.currentTransaction().commit();
             }
-            this.pm.currentTransaction().commit();
-        }
-        finally {
-            this.pcClasses.clear();
-            cleanupPM();
+            finally {
+                this.pcClasses.clear();
+                cleanupPM();
+            }
         }
     }
 
@@ -351,6 +369,8 @@ public abstract class JDO_Test extends TestCase {
     /**
      * Get the <code>PersistenceManagerFactory</code> instance 
      * for the implementation under test.
+     * @return field <code>pmf</code> if it is not <code>null</code>, 
+     * else sets field <code>pmf</code> to a new instance and returns that instance.
      */
     protected PersistenceManagerFactory getPMF()
     {
@@ -401,12 +421,12 @@ public abstract class JDO_Test extends TestCase {
     }
 
     /** Closes the pmf stored in this instance. */
-    protected void closePMF()
-    {
+    protected void closePMF() {
         JDOException failure = null;
         while (pmf != null) {
             try {
-                pmf.close();
+                if (!pmf.isClosed())
+                    pmf.close();
                 pmf = null;
             }
             catch (JDOException ex) {
