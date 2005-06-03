@@ -145,13 +145,13 @@ public abstract class JDO_Test extends TestCase {
      * A list of registered oid instances. 
      * Corresponding pc instances are deleted in <code>localTearDown</code>.
      */
-    private Collection oids = new LinkedList();
+    private Collection tearDownInstances = new LinkedList();
     
     /** 
      * A list of registered pc classes. 
      * Th extents of these classes are deleted in <code>localTearDown</code>.
      */
-    private Collection pcClasses = new LinkedList();
+    private Collection tearDownClasses = new LinkedList();
     
     /** */
     protected JDO_Test() {
@@ -233,6 +233,10 @@ public abstract class JDO_Test extends TestCase {
             setTearDownThrowable("cleanupPM", t);
         }
         
+        if ((pmf == null || pmf.isClosed()) && 
+            (this.tearDownInstances.size() > 0 || this.tearDownClasses.size() > 0))
+            throw new JDOFatalException ("PMF must not be nullified or closed when tear down instances and /or classes have been added.");
+        
         if (pmf != null && pmf.isClosed())
             pmf = null;
         
@@ -266,8 +270,8 @@ public abstract class JDO_Test extends TestCase {
      * that they have allocated in method <code>localSetUp</code>.
      */
     protected void localTearDown() {
-        deleteRemoveTearDownInstances();
-        deleteRemoveTearDownClasses();
+        deleteTearDownInstances();
+        deleteTearDownClasses();
     }
 
     protected void addTearDownObjectId(Object oid) {
@@ -275,7 +279,7 @@ public abstract class JDO_Test extends TestCase {
         if (JDOHelper.getObjectId(oid) != null ||
             JDOHelper.isTransactional(oid))
             throw new IllegalArgumentException("oid");
-        this.oids.add(oid);
+        this.tearDownInstances.add(oid);
     }
     
     protected void addTearDownInstance(Object pc) {
@@ -284,7 +288,7 @@ public abstract class JDO_Test extends TestCase {
     }
     
     protected void addTearDownClass(Class pcClass) {
-        this.pcClasses.add(pcClass);
+        this.tearDownClasses.add(pcClass);
     }
     
     protected void addTearDownClass(Class[] pcClasses) {
@@ -302,12 +306,12 @@ public abstract class JDO_Test extends TestCase {
      * exactly in the order they have been added.
      * Tear down instances are deleted in a separate transaction.
      */
-    protected void deleteRemoveTearDownInstances() {
-        if (this.oids.size() > 0) {
+    protected void deleteTearDownInstances() {
+        if (this.tearDownInstances.size() > 0) {
             getPM();
             try {
                 this.pm.currentTransaction().begin();
-                for (Iterator i = this.oids.iterator(); i.hasNext(); ) {
+                for (Iterator i = this.tearDownInstances.iterator(); i.hasNext(); ) {
                     Object pc;
                     try {
                         pc = this.pm.getObjectById(i.next(), true);
@@ -324,7 +328,7 @@ public abstract class JDO_Test extends TestCase {
                 this.pm.currentTransaction().commit();
             }
             finally {
-                this.oids.clear();
+                this.tearDownInstances.clear();
                 cleanupPM();
             }
         }
@@ -339,18 +343,18 @@ public abstract class JDO_Test extends TestCase {
      * Tear down classes are deleted in a separate transaction.
      * Deleting a tear down class means to delete the extent.
      */
-    protected void deleteRemoveTearDownClasses() {
-        if (this.pcClasses.size() > 0) {
+    protected void deleteTearDownClasses() {
+        if (this.tearDownClasses.size() > 0) {
             getPM();
             try {
                 this.pm.currentTransaction().begin();
-                for (Iterator i = this.pcClasses.iterator(); i.hasNext(); ) {
+                for (Iterator i = this.tearDownClasses.iterator(); i.hasNext(); ) {
                     this.pm.deletePersistentAll(getAllObjects(this.pm, (Class)i.next()));
                 }
                 this.pm.currentTransaction().commit();
             }
             finally {
-                this.pcClasses.clear();
+                this.tearDownClasses.clear();
                 cleanupPM();
             }
         }
