@@ -20,7 +20,6 @@ import java.lang.reflect.Field;
 
 import org.apache.jdo.impl.model.java.reflection.ReflectionJavaField;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOField;
 
 /**
  * A reflection based JavaField implementation used at runtime in a
@@ -43,14 +42,14 @@ public class JDK5RuntimeJavaField
         
     /** 
      * Constructor for fields having JDO metadata.
-     * @param jdoField the JDO field metadata.
+     * @param name the name of the field.
      * @param type the field type.
      * @param declaringClass the JavaType of the class that declares the field.
      */
-    public JDK5RuntimeJavaField(JDOField jdoField, JavaType type, 
+    public JDK5RuntimeJavaField(String name, JavaType type,
             JavaType declaringClass)
     {
-        super(jdoField, type, declaringClass);
+        super(name, type, declaringClass);
     }
     
     // ===== methods specified in JavaMember =====

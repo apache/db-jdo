@@ -22,7 +22,7 @@ package org.apache.jdo.model.java;
  * @author Michael Bouschen
  * @version JDO 2.0
  */
-public interface JavaProperty extends JavaMember 
+public interface JavaProperty extends JavaField
 {
     /**
      * Returns the JavaMethod representation of the getter method for this

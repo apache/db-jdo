@@ -22,6 +22,7 @@ import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOField;
 import org.apache.jdo.model.jdo.JDOIdentityType;
 import org.apache.jdo.model.jdo.JDOMember;
+import org.apache.jdo.model.jdo.JDOProperty;
 
 import org.apache.jdo.impl.model.jdo.JDOClassImplDynamic;
 
@@ -94,7 +95,17 @@ public class JDOClassImplCaching extends JDOClassImplDynamic
     /** Flag indicating wthere field numbers are calculated already. */
     private boolean fieldNumbersCalculated = false;
 
-     /** 
+    /** Constructor. */
+    protected JDOClassImplCaching(String name) {
+        super(name);
+    }
+
+    /** Constructor for inner classes. */
+    protected JDOClassImplCaching(String name, JDOClass declaringClass) {
+        super(name, declaringClass);
+    }
+
+    /** 
      * Get the short name of this JDOClass. The short name defaults to the
      * unqualified class name, if not explicitly set by method
      * {@link #setShortName(String shortName)}.
@@ -179,6 +190,15 @@ public class JDOClassImplCaching extends JDOClassImplDynamic
             throw new ModelException(
                 msg.msg("EXC_CannotRemoveJDOField")); //NOI18N
         }
+
+        // nullify JDOField arrays storing calculated field lists
+        declaredManagedFields = null;
+        managedFields = null;
+        persistentFields = null;
+        primaryKeyFields = null;
+        persistentRelationshipFields = null;
+        defaultFetchGroupFields = null;
+
         super.removeDeclaredMember(member);
     }
 
@@ -443,14 +463,30 @@ public class JDOClassImplCaching extends JDOClassImplDynamic
     /**
      * Returns a new instance of the JDOClass implementation class.
      */
-    protected JDOClass newJDOClassInstance() {
-        return new JDOClassImplCaching();
+    protected JDOClass newJDOClassInstance(String name) {
+        return new JDOClassImplCaching(name, this);
     }
 
     /**
      * Returns a new instance of the JDOField implementation class.
      */
-    protected JDOField newJDOFieldInstance() {
-        return new JDOFieldImplCaching();
+    protected JDOField newJDOFieldInstance(String name) {
+        return new JDOFieldImplCaching(name, this);
+    }
+
+    /**
+     * Returns a new instance of the JDOProperty implementation class.
+     */
+    protected JDOProperty newJDOPropertyInstance(String name) {
+        return new JDOPropertyImplCaching(name, this);
+    }
+
+    /**
+     * Returns a new instance of the JDOProperty implementation class.
+     */
+    protected JDOProperty newJDOPropertyInstance(
+        String name, JDOField associatedJDOField) throws ModelException {
+        return new JDOAssociatedPropertyImplCaching(
+            name, this, associatedJDOField);
     }
 }

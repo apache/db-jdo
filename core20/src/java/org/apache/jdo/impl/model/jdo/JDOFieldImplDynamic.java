@@ -25,6 +25,7 @@ import org.apache.jdo.model.ModelException;
 import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOArray;
+import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOCollection;
 import org.apache.jdo.model.jdo.JDOField;
 import org.apache.jdo.model.jdo.JDOMap;
@@ -54,7 +55,7 @@ import org.apache.jdo.util.I18NHelper;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOFieldImplDynamic
     extends JDOMemberImpl 
@@ -79,7 +80,7 @@ public class JDOFieldImplDynamic
     protected Boolean embedded;
 
     /** Property javaField. No default. */
-    private transient JavaField javaField;
+    protected transient JavaField javaField;
 
     /** Property serializable. Defaults to <code>false</code>. */
     private boolean serializable = false;
@@ -90,6 +91,11 @@ public class JDOFieldImplDynamic
     /** I18N support */
     protected final static I18NHelper msg =  
         I18NHelper.getInstance(JDOFieldImplDynamic.class);
+
+    /** Constructor. */
+    protected JDOFieldImplDynamic(String name, JDOClass declaringClass) {
+        super(name, declaringClass);
+    }
 
     /**
      * Get the persistence modifier of this JDOField.
@@ -248,7 +254,7 @@ public class JDOFieldImplDynamic
     }
     
     /**
-     * Get the corresponding Java field representation for this JDOField.
+     * Get the corresponding JavaField representation for this JDOField.
      * @return the corresponding Java field representation
      */
     public JavaField getJavaField() {
@@ -261,12 +267,12 @@ public class JDOFieldImplDynamic
         JavaType javaType = getDeclaringClass().getJavaType();
         return javaType.getJavaField(getName());
     }
-    
+
     /**
      * Sets the corresponding Java field representation for this JDOField.
      * @param javaField the corresponding Java field representation
      */
-    public void setJavaField (JavaField javaField) {
+    public void setJavaField (JavaField javaField) throws ModelException {
         this.javaField = javaField;
     }
     
@@ -467,6 +473,15 @@ public class JDOFieldImplDynamic
     }
 
     /**
+     * Convenience method to check whether this field represents a property.
+     * @return <code>true</code> if this field represents a property; 
+     * <code>false</code> otherwise
+     */
+    public boolean isProperty() {
+        return false;
+    }
+
+    /**
      * Get the JavaType representation of the type of the field.
      * @return JavaType representation of the type of this field.
      */
@@ -502,7 +517,7 @@ public class JDOFieldImplDynamic
 
     /**
      * Creates and returns a new JDOReference instance. 
-     * This method automatically sets this JDOField as the declarinmg field of 
+     * This method automatically sets this JDOField as the declaring field of 
      * the returned instance.
      * @return a new JDOReference instance bound to this JDOField
      */
@@ -515,7 +530,7 @@ public class JDOFieldImplDynamic
 
     /**
      * Creates and returns a new JDOCollection instance. 
-     * This method automatically this JDOField as the declarinmg field of 
+     * This method automatically this JDOField as the declaring field of 
      * the returned instance.
      * @return a new JDOCollection instance bound to this JDOField
      */
@@ -528,7 +543,7 @@ public class JDOFieldImplDynamic
 
     /**
      * Creates and returns a new JDOArray instance. 
-     * This method automatically this JDOField as the declarinmg field of 
+     * This method automatically this JDOField as the declaring field of 
      * the returned instance.
      * @return a new JDOArray instance bound to this JDOField
      */
@@ -541,7 +556,7 @@ public class JDOFieldImplDynamic
 
     /**
      * Creates and returns a new JDOMap instance. 
-     * This method automatically this JDOField as the declarinmg field of 
+     * This method automatically this JDOField as the declaring field of 
      * the returned instance.
      * @return a new JDOMap instance bound to this JDOField
      */

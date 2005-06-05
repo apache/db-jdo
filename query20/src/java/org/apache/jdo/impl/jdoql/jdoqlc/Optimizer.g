@@ -824,7 +824,7 @@ options
                                  Object object)
     {
         int fieldNumber = 
-            TypeSupport.getFieldNumber(javaField.getJDOField(), pm, object);
+            TypeSupport.getFieldNumber(javaField, pm, object);
         if (fieldNumber == -1) 
             return TypeSupport.getFieldValue(getAccessibleField(javaField), 
                                              object);

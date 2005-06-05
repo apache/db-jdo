@@ -21,7 +21,6 @@ import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOField;
 import org.apache.jdo.util.I18NHelper;
 
 /**
@@ -52,20 +51,19 @@ public class RuntimeJavaType
     /**
      * RegisterClassListener calls this method to create a ReflectionJavaField
      * instance when processing the enhancer generated metadata.
-     * @param jdoField the JDO field metadata
+     * @param name the name of the field
      * @param type the type of the field
      * @return the ReflectionJavaField representation
      */
-    public synchronized JavaField createJavaField(JDOField jdoField, JavaType type)
+    public synchronized JavaField createJavaField(String name, JavaType type)
     {
-        String name = jdoField.getName();
         JavaField javaField = (JavaField)declaredJavaFields.get(name);
         if (javaField != null) {
             throw new ModelFatalException(msg.msg(
                 "ERR_MultipleJavaField", //NOI18N
                 "RuntimeJavaType.createJavaField", name, getName())); //NOI18N
         }
-        javaField = newJavaFieldInstance(jdoField, type);
+        javaField = newJavaFieldInstance(name, type);
         declaredJavaFields.put(name, javaField);
         return javaField;
     }

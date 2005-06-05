@@ -30,6 +30,7 @@ import org.apache.jdo.model.jdo.JDOIdentityType;
 import org.apache.jdo.model.jdo.JDOMember;
 import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.model.jdo.JDOPackage;
+import org.apache.jdo.model.jdo.JDOProperty;
 
 import org.apache.jdo.util.I18NHelper;
 import org.apache.jdo.util.StringHelper;
@@ -88,6 +89,12 @@ public class JDOClassImplDynamic
      */
     private Map declaredFields = new HashMap();
 
+    /** 
+     * Map of properties having associated JDOField instances. Key is the
+     * unqualified field name, value is the JDOField instance. 
+     */
+    private Map associatedProperties = new HashMap();
+
     /**
      * Relationship JDOClass<->JDOMember.
      * Map of inner classes declared by this JDOClass. 
@@ -105,6 +112,16 @@ public class JDOClassImplDynamic
     /** I18N support */
     protected final static I18NHelper msg =  
         I18NHelper.getInstance(JDOClassImplDynamic.class);
+
+    /** Constructor. */
+    protected JDOClassImplDynamic(String name) {
+        super(name, null);
+    }
+
+    /** Constructor for inner classes. */
+    protected JDOClassImplDynamic(String name, JDOClass declaringClass) {
+        super(name, declaringClass);
+    }
 
     /** 
      * Get the short name of this JDOClass. The short name defaults to the
@@ -355,14 +372,35 @@ public class JDOClassImplDynamic
      * @exception ModelException if impossible
      */
     public void removeDeclaredMember(JDOMember member) throws ModelException {
+        if (member == null) {
+            throw new ModelException(
+                msg.msg("EXC_InvalidMember", "null")); //NOI18N
+        }
+        String name = member.getName();
+        if (member instanceof JDOProperty) {
+            // Check for property with associated field
+            if (associatedProperties.containsValue(member)) {
+                associatedProperties.remove(name);
+            }
+            else {
+                declaredFields.remove(name); 
+            }
+        }
         if (member instanceof JDOField) {
-            declaredFields.remove(member.getName());
+            // JDOField which is not a JDOProperty
+            declaredFields.remove(name);
+            // There might be a property with the field to be removed as
+            // associated JDOField => remove the property too.
+            JDOProperty prop = getAssociatedProperty((JDOField) member);
+            if (prop != null) {
+                removeDeclaredMember(prop);
+            }
         }
         else if (member instanceof JDOClass) {
-            declaredClasses.remove(member.getName());
+            // inner class
+            declaredClasses.remove(name);
         }
         else {
-            String name = (member == null) ? "null" : member.getName(); //NOI18N
             throw new ModelException(
                 msg.msg("EXC_InvalidMember", name)); //NOI18N
         }
@@ -462,7 +500,7 @@ public class JDOClassImplDynamic
      * This method returns a JDOField instance for the field with the specified 
      * name. If this JDOClass already declares such a field, the existing 
      * JDOField instance is returned. Otherwise, it creates a new JDOField 
-     * instance, sets its declaringClass and returns the new instance.
+     * instance, sets its declaring JDOClass and returns the new instance.
      * <P> 
      * Note, if the field numbers for the managed fields of this JDOClass are 
      * calculated, this methid will fail to create a new JDOField. Any new field
@@ -472,30 +510,91 @@ public class JDOClassImplDynamic
      */
     public JDOField createJDOField(String name) throws ModelException {
         // check whether there is a field with the specified name
-        JDOField field = (JDOField)declaredFields.get(name);
+        JDOField field = getDeclaredField(name);
         if (field == null) {
-            field = newJDOFieldInstance();
-            field.setName(name);
-            field.setDeclaringClass(this);
+            field = newJDOFieldInstance(name);
             declaredFields.put(name, field);
         }
+        else if (field instanceof JDOProperty) {
+            throw new ModelException(
+                msg.msg("EXC_ExistingJDOProperty", name)); //NOI18N
+        }
         return field;
+    }
+    
+    /**
+     * This method returns a JDOProperty instance for the property with the
+     * specified name. If this JDOClass already declares such a property, the
+     * existing JDOProperty instance is returned. Otherwise, it creates a new
+     * JDOProperty instance, sets its declaring JDOClass and returns the new
+     * instance.
+     * @param name the name of the property
+     * @return a JDOProperty instance for the specified property
+     * @exception ModelException if impossible
+     */
+    public JDOProperty createJDOProperty(String name) throws ModelException {
+        // check whether there is a field or property with the specified name
+        JDOProperty property = null;
+        JDOField field = getDeclaredField(name);
+        if (field == null) {
+            property = newJDOPropertyInstance(name);
+            declaredFields.put(name, property);
+        } 
+        else if (field instanceof JDOProperty) {
+            property = (JDOProperty) field;
+        }
+        else {
+            throw new ModelException(
+                msg.msg("EXC_ExistingJDOField", name)); //NOI18N
+        }
+        return property;
+    }
+
+    /**
+     * This method returns a JDOProperty instance for the property with the
+     * specified name and associated field. If this JDOClass already declares
+     * such a property the existing JDOProperty instance is returned. If it
+     * declares a property with the specified name but different associated
+     * field, then a ModelException is thrown. If there is no such property,
+     * the method creates a new JDOProperty instance, sets its declaring
+     * JDOClass and associated field and returns the new instance. 
+     * @param name the name of the property
+     * @param associatedField the associated JDOField 
+     * @return a JDOProperty instance for the specified property
+     * @exception ModelException if impossible
+     */
+    public JDOProperty createJDOProperty(String name, 
+                                         JDOField associatedJDOField)
+        throws ModelException
+    {
+        JDOProperty property = (JDOProperty) associatedProperties.get(name);
+        if (property == null) {
+            property = newJDOPropertyInstance(name, associatedJDOField);
+            associatedProperties.put(name, property);
+        } 
+        else {
+            if (property.getAssociatedJDOField() != associatedJDOField) {
+                throw new ModelException(
+                    msg.msg("EXC_ExistingJDOAssociatedProperty", //NOI18N
+                            name, associatedJDOField)); 
+            }
+        }
+        return property;
     }
     
     /**
      * This method returns a JDOClass instance representing an inner class of 
      * this JDOClass If this JDOClass already declares such an inner class, 
      * the existing JDOClass instance is returned. Otherwise, it creates a new 
-     * JDOClass instance, sets its declaringClass and returns the new instance.
+     * JDOClass instance, sets its declaring JDOClass and returns the new
+     * instance.
      * @param name the name of the inner class
      * @exception ModelException if impossible
      */
     public JDOClass createJDOClass(String name) throws ModelException {
         JDOClass innerClass = (JDOClass)declaredClasses.get(name);
         if (innerClass == null) {
-            innerClass = newJDOClassInstance();
-            innerClass.setName(name);
-            innerClass.setDeclaringClass(this);
+            innerClass = newJDOClassInstance(name);
             declaredClasses.put(name, innerClass);
         }
         return innerClass;
@@ -943,18 +1042,72 @@ public class JDOClassImplDynamic
     }
 
     /** 
-     * Returns JDOField metadata for a particular declared field specified by 
-     * field name. Please note, the method does not  return inherited fields.
-     * The field name must not be qualified by a class name. The method returns
-     * <code>null</code> if the field name does not denote a field declared by 
-     * JDOClass.
-     * @param fieldName the unqualified name of field for which field metadata 
+     * Returns JDOField metadata for a particular declared field for the
+     * specified name. Please note, the method does not return inherited
+     * fields. The field name must not be qualified by a class name. The
+     * method returns <code>null</code> if the field name does not denote a
+     * field declared by JDOClass.
+     * @param name the unqualified name of field for which field metadata 
      * is needed.
      * @return JDOField metadata for the field or <code>null</code>
      * if there is no such field declared by this JDOClass.
      */
-    public JDOField getDeclaredField(String fieldName) {
-        return (JDOField)declaredFields.get(fieldName);
+    public JDOField getDeclaredField(String name) {
+        return (JDOField) declaredFields.get(name);
+    }
+
+    /**
+     * Returns JDOProperty metadata for a property with the specified name
+     * having an associated JDOField. The method returns <code>null</code>, if
+     * the name does not denote a property with an associated JDOField of this
+     * JDOClass. Please note, the method does not check for properties without
+     * an associated JDOField. It will return <code>null</code> if there is
+     * a property with the specified name, but this property does not have an
+     * associated JDOField.
+     * @param name the name of property with an associated JDOField for which
+     * metadata is needed.
+     * @return JDOProperty metadata for the property with an associated
+     * JDOField or <code>null</code> if there is no such property.
+     */
+    public JDOProperty getAssociatedProperty(String name) {
+        // first check the associated properties from this class
+        JDOProperty prop = (JDOProperty) associatedProperties.get(name);
+        if (prop != null) {
+            return prop;
+        }
+        
+        // not in this class => check superclass
+        JDOClass superclass = getPersistenceCapableSuperclass();
+        if (superclass != null) {
+            return superclass.getAssociatedProperty(name);
+        }
+        
+        // not found => return null
+        return null;
+    }
+
+    /**
+     * Returns JDOProperty metadata for a property having the specified
+     * JDOField as associated JDOField. The method returns <code>null</code>,
+     * if this JDOClass does not have a property with the specified JDOField
+     * as associated JDOField.
+     * @param JDOField the assoaciated JDOField of the property for which
+     * metadata is needed.
+     * @return JDOProperty metadata for the property the specified JDOField as
+     * associated JDOField or <code>null</code> if there is no such property.
+     */
+    public JDOProperty getAssociatedProperty(JDOField field) {
+        Collection props = associatedProperties.values();
+        for (Iterator i = props.iterator(); i.hasNext();) {
+            JDOProperty prop = (JDOProperty)i.next();
+            if (prop.getAssociatedJDOField() == field) {
+                // found property => return 
+                return prop;
+            }
+        }
+
+        // not found => return null
+        return null;
     }
 
     /**
@@ -1022,9 +1175,9 @@ public class JDOClassImplDynamic
             return superclass.getPersistenceCapableRootClass();
         }
     }
-    
+
     //========= Internal helper methods ==========
-    
+
     /**
      * Returns the JDOField definition for the specified field. 
      * The method expects unqualified field names. The method 
@@ -1038,10 +1191,11 @@ public class JDOClassImplDynamic
     protected JDOField getFieldInternal(String fieldName) {
         // first check the declared fields
         JDOField field = (JDOField)declaredFields.get(fieldName);
-        if (field != null)
+        if (field != null) {
             return field;
+        }
         
-        // not in actual class => check superclass
+        // not in this class => check superclass
         JDOClassImplDynamic superclass = 
             (JDOClassImplDynamic)getPersistenceCapableSuperclass();
         if (superclass != null) {
@@ -1049,21 +1203,37 @@ public class JDOClassImplDynamic
         }
         
         // not found => return null
-        return null;    
+        return null;
     }
     
     /**
      * Returns a new instance of the JDOClass implementation class.
      */
-    protected JDOClass newJDOClassInstance() {
-        return new JDOClassImplDynamic();
+    protected JDOClass newJDOClassInstance(String name) {
+        return new JDOClassImplDynamic(name, this);
     }
 
     /**
      * Returns a new instance of the JDOField implementation class.
      */
-    protected JDOField newJDOFieldInstance() {
-        return new JDOFieldImplDynamic();
+    protected JDOField newJDOFieldInstance(String name) {
+        return new JDOFieldImplDynamic(name, this);
+    }
+
+    /**
+     * Returns a new instance of the JDOProperty implementation class.
+     */
+    protected JDOProperty newJDOPropertyInstance(String name) {
+        return new JDOPropertyImplDynamic(name, this);
+    }
+    
+    /**
+     * Returns a new instance of the JDOProperty implementation class.
+     */
+    protected JDOProperty newJDOPropertyInstance(
+        String name, JDOField associatedJDOField) throws ModelException {
+        return new JDOAssociatedPropertyImplDynamic(
+            name, this, associatedJDOField);
     }
     
 }

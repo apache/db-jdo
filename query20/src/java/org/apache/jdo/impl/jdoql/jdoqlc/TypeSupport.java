@@ -288,9 +288,20 @@ public class TypeSupport
     }
     
     /** */
+    public static JDOField getJDOField(JavaField javaField)
+    {
+        JDOField jdoField = null;
+        JDOClass jdoClass = javaField.getDeclaringClass().getJDOClass();
+        if (jdoClass != null) {
+            jdoField = jdoClass.getField(javaField.getName());
+        }
+        return jdoField;
+    }
+
+    /** */
     public static JavaType getElementType(JavaField field)
     {
-        JDOField jdoField = field.getJDOField();
+        JDOField jdoField = getJDOField(field);
         if (jdoField != null) {
             // check relationship
             try {
@@ -364,10 +375,11 @@ public class TypeSupport
      * Returns the fieldNumber of the specified field.
      * @return field number 
      */
-    public static int getFieldNumber(JDOField jdoField,
+    public static int getFieldNumber(JavaField javaField,
                                      PersistenceManager pm, 
                                      Object object)
     {
+        JDOField jdoField = getJDOField(javaField);
         if ((object == null) || // null object means static field access
             (jdoField == null) || // no jdo field info
             !jdoField.isManaged()) { // field is not managed

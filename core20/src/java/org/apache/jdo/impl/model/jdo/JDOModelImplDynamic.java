@@ -228,8 +228,7 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
             if (logger.isDebugEnabled())
                 logger.debug("JDOModel.createJDOClass: " + //NOI18N
                              "create new JDOClass instance " + className); //NOI18N
-            jdoClass = newJDOClassInstance();
-            jdoClass.setName(className);
+            jdoClass = newJDOClassInstance(className);
             jdoClass.setDeclaringModel(this);
             jdoClasses.put(className, jdoClass);
             // create the corresponding JDOPackage
@@ -451,8 +450,8 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
     //========= Internal helper methods ==========
     
     /** Returns a new instance of the JDOClass implementation class. */
-    protected JDOClass newJDOClassInstance() {
-        return new JDOClassImplDynamic();
+    protected JDOClass newJDOClassInstance(String name) {
+        return new JDOClassImplDynamic(name);
     }
 
     /**

@@ -166,7 +166,7 @@ public class RegisterClassListener
         throws ModelException
     {
         // handle JavaField
-        JavaField javaField = declaringClass.createJavaField(jdoField, 
+        JavaField javaField = declaringClass.createJavaField(jdoField.getName(),
             javaModelFactory.getJavaType(fieldType));
         jdoField.setJavaField(javaField);
         

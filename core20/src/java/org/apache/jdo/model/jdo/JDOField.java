@@ -265,6 +265,13 @@ public interface JDOField
     public boolean isRelationship();
 
     /**
+     * Convenience method to check whether this field represents a property.
+     * @return <code>true</code> if this field represents a property; 
+     * <code>false</code> otherwise
+     */
+    public boolean isProperty();
+
+    /**
      * Get the JavaType representation of the type of the field.
      * @return JavaType representation of the type of this field.
      */

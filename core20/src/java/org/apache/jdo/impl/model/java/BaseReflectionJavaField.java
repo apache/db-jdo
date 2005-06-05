@@ -125,21 +125,6 @@ public class BaseReflectionJavaField
         return type;
     }
     
-    /**
-     * Returns the corresponding JDOField instance, if the JDOModel
-     * provides any JDO metadata for the field represented by this
-     * JavaField. If there is no corresponding JDOField representation, the
-     * method returns <code>null</code>.
-     * <p>
-     * This implementation always returns <code>null</code>.
-     * @return the corresponding JDOField instance (if available);
-     * <code>null</code> otherwise.
-     */
-    public JDOField getJDOField()
-    {
-        return null;
-    }
-
     // ===== Methods not specified in JavaField =====
 
     /** 

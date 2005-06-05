@@ -33,27 +33,10 @@ public interface JDOMember
      */
     public String getName();
 
-    /**
-     * Sets the name of this JDOMember.
-     * @param name the name
-     * @exception ModelException if impossible
-     */
-    public void setName(String name)
-        throws ModelException;
-
     /** 
      * Get the declaring class of this JDOMember.
      * @return the class that owns this JDOMember, or <code>null</code>
      * if the element is not attached to any class
      */
     public JDOClass getDeclaringClass();
-
-    /** 
-     * Set the declaring class of this JDOMember.
-     * @param declaringClass the declaring class of this member element
-     * @exception ModelException if impossible
-     */
-    public void setDeclaringClass(JDOClass declaringClass)
-        throws ModelException;
-
 }

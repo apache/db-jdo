@@ -135,7 +135,7 @@ public final class FieldAccessExpr
      */
     public Object getFieldValue(PersistenceManager pm, Object object)
     {   JavaField javaField = getFieldInfo();
-        int fieldNumber = TypeSupport.getFieldNumber( javaField.getJDOField(), 
+        int fieldNumber = TypeSupport.getFieldNumber( javaField, 
                                                       pm, object );
         if (fieldNumber == -1) {
             return TypeSupport.getFieldValue( getField(), object );

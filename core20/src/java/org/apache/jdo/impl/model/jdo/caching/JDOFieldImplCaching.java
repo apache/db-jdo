@@ -17,7 +17,9 @@
 package org.apache.jdo.impl.model.jdo.caching;
 
 import org.apache.jdo.model.ModelException;
+import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.jdo.JDOArray;
+import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOCollection;
 import org.apache.jdo.model.jdo.JDOMap;
 import org.apache.jdo.model.jdo.JDOReference;
@@ -39,12 +41,17 @@ import org.apache.jdo.impl.model.jdo.JDOFieldImplDynamic;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOFieldImplCaching extends JDOFieldImplDynamic {
 
     /** Relative field number. */
     private int relativeFieldNumber = -1;
+
+    /** Constructor. */
+    protected JDOFieldImplCaching(String name, JDOClass declaringClass) {
+        super(name, declaringClass);
+    }
 
     /**
      * Get the persistence modifier of this JDOField.
@@ -98,6 +105,17 @@ public class JDOFieldImplCaching extends JDOFieldImplDynamic {
         return (embedded == null) ? false : embedded.booleanValue();
     }
     
+    /**
+     * Get the corresponding JavaField representation for this JDOField.
+     * @return the corresponding Java field representation
+     */
+    public JavaField getJavaField() {
+        if (javaField == null) {
+            javaField = super.getJavaField();
+        }
+        return javaField;
+    }
+
     /**
      * Get the relationship information for this JDOField. The method 
      * returns null if the field is not part of a relationship 

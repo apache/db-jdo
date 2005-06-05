@@ -20,7 +20,6 @@ import org.apache.jdo.model.java.JavaField;
 import org.apache.jdo.model.java.JavaMethod;
 import org.apache.jdo.model.java.JavaProperty;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOField;
 
 import java.lang.reflect.Field;
 import org.apache.jdo.impl.model.java.runtime.*;
@@ -47,13 +46,13 @@ public class JDK5RuntimeJavaType
    /**
      * Creates a new instance of the JavaField implementation class.
      * <p>
-     * This implementation returns a <code>ReflectionJavaField</code>
+     * This implementation returns a <code>JDK5RuntimeJavaField</code>
      * instance.
      * @return a new JavaField instance.
      */
-    protected JavaField newJavaFieldInstance(JDOField jdoField, JavaType type) 
+    protected JavaField newJavaFieldInstance(String name, JavaType type) 
     {
-        return new JDK5RuntimeJavaField(jdoField, type, this);
+        return new JDK5RuntimeJavaField(name, type, this);
     }
     
     /**

@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.model.java;
+package org.apache.jdo.model.jdo;
 
 /**
- * A JavaField instance represents a field declared by a class. It allows
- * to get detailed information about the field such as name, modifiers,
- * type, declaring class and the JDO meta data for the field (if
- * available). 
- * <p>
- * Different environments (runtime, enhancer, development) will have
- * different JavaField implementations to provide answers to the various
- * methods. 
- * 
+ * A JDOProperty instance represents the JDO metadata of a property of a
+ * persistence-capable class. 
+ *
  * @author Michael Bouschen
- * @since JDO 1.0.1
- * @version JDO 2.0
  */
-public interface JavaField extends JavaMember 
+public interface JDOProperty
+    extends JDOField
 {
+    /** 
+     * Return the JDOField instance associated with this property, if
+     * available. If there is no JDOField instance associated, then the method
+     * returns <code>null</code>.
+     * @return associated JDOField instance or <code>null</code> if not
+     * available.
+     */
+    public JDOField getAssociatedJDOField();
 }

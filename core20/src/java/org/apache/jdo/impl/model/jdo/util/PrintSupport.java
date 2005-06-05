@@ -136,8 +136,12 @@ public class PrintSupport
     {
         if (jdoField == null)
             return;
+        boolean isProperty = jdoField.isProperty();
 
-        println(indent, "--> JDOField "); //NOI18N
+        if (isProperty)
+            println(indent, "--> JDOProperty"); //NOI18N
+        else
+            println(indent, "--> JDOField"); //NOI18N
         println(indent+1, "name                = " + jdoField.getName()); //NOI18N
         println(indent+1, "declaringClass      = " + jdoField.getDeclaringClass().getName()); //NOI18N
         println(indent+1, "persistenceModifier = " + PersistenceModifier.toString(jdoField.getPersistenceModifier())); //NOI18N
@@ -151,9 +155,13 @@ public class PrintSupport
         println(indent+1, "serializable        = " + jdoField.isSerializable()); //NOI18N
         println(indent+1, "fieldNumber         = " + jdoField.getFieldNumber()); //NOI18N
         println(indent+1, "relativeFieldNumber = " + jdoField.getRelativeFieldNumber()); //NOI18N
+        println(indent+1, "isProperty          = " + jdoField.isProperty()); //NOI18N
         printJDORelationship(indent+1, jdoField.getRelationship()); //NOI18N
         printJDOExtensions(indent+1, jdoField.getJDOExtensions()); //NOI18N
-        println(indent, "<-- JDOField "); //NOI18N
+        if (isProperty)
+            println(indent, "<-- JDOProperty "); //NOI18N
+        else
+            println(indent, "<-- JDOField "); //NOI18N
     }
     
     private static void printJDORelationship(int indent, 

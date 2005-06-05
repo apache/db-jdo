@@ -243,21 +243,52 @@ public interface JDOClass
     public void setJDOPackage(JDOPackage jdoPackage);
 
     /**
-     * This method returns a JDOField instance for the field with the specified 
+     * This method returns a JDOField instance for the field with the specified
      * name. If this JDOClass already declares such a field, the existing 
      * JDOField instance is returned. Otherwise, it creates a new JDOField 
-     * instance, sets its declaringClass and returns the new instance.
+     * instance, sets its declaring JDOClass and returns the new instance.
      * @param name the name of the field
+     * @return a JDOField instance for the specified field name
      * @exception ModelException if impossible
      */
     public JDOField createJDOField(String name)
         throws ModelException;
 
     /**
+     * This method returns a JDOProperty instance for the property with the
+     * specified name. If this JDOClass already declares such a property, the
+     * existing JDOProperty instance is returned. Otherwise, it creates a new
+     * JDOProperty instance, sets its declaring JDOClass and returns the new
+     * instance.
+     * @param name the name of the property
+     * @return a JDOProperty instance for the specified property
+     * @exception ModelException if impossible
+     */
+    public JDOProperty createJDOProperty(String name)
+        throws ModelException;
+
+    /**
+     * This method returns a JDOProperty instance for the property with the
+     * specified name and associated field. If this JDOClass already declares
+     * such a property the existing JDOProperty instance is returned. If it
+     * declares a property with the specified name but different associated
+     * field, then a ModelException is thrown. If there is no such property,
+     * the method creates a new JDOProperty instance, sets its declaring
+     * JDOClass and associated field and returns the new instance.
+     * @param name the name of the property
+     * @param associatedField the associated JDOField 
+     * @return a JDOProperty instance for the specified property
+     * @exception ModelException if impossible
+     */
+    public JDOProperty createJDOProperty(String name, JDOField associatedField)
+        throws ModelException;
+
+    /**
      * This method returns a JDOClass instance representing an inner class of 
      * this JDOClass If this JDOClass already declares such an inner class, 
      * the existing JDOClass instance is returned. Otherwise, it creates a new 
-     * JDOClass instance, sets its declaringClass and returns the new instance.
+     * JDOClass instance, sets its declaring JDOClass and returns the new
+     * instance.
      * @param name the name of the inner class
      * @exception ModelException if impossible
      */
@@ -485,6 +516,33 @@ public interface JDOClass
      * if there is no such field declared by this JDOClass.
      */
     public JDOField getDeclaredField(String fieldName);
+
+    /**
+     * Returns JDOProperty metadata for a property with the specified name
+     * having an associated JDOField. The method returns <code>null</code>, if
+     * the name does not denote a property with an associated JDOField of this
+     * JDOClass. Please note, the method does not check for properties without
+     * an associated JDOField. It will return <code>null</code> if there is
+     * a property with the specified name, but this property does not have an
+     * associated JDOField.
+     * @param name the name of property with an associated JDOField for which
+     * metadata is needed.
+     * @return JDOProperty metadata for the property with an associated
+     * JDOField or <code>null</code> if there is no such property.
+     */
+    public JDOProperty getAssociatedProperty(String name);
+
+    /**
+     * Returns JDOProperty metadata for a property having the specified
+     * JDOField as associated JDOField. The method returns <code>null</code>,
+     * if this JDOClass does not have a property with the specified JDOField
+     * as associated JDOField.
+     * @param JDOField the assoaciated JDOField of the property for which
+     * metadata is needed.
+     * @return JDOProperty metadata for the property the specified JDOField as
+     * associated JDOField or <code>null</code> if there is no such property.
+     */
+    public JDOProperty getAssociatedProperty(JDOField field);
 
     /**
      * Returns the number of managed fields declared in the class represented

@@ -37,9 +37,6 @@ import org.apache.jdo.util.I18NHelper;
 public class ReflectionJavaField
     extends BaseReflectionJavaField
 {
-    /** The corresponding JDO metadata. */
-    protected JDOField jdoField;
-
     /** I18N support */
     private final static I18NHelper msg =  
         I18NHelper.getInstance("org.apache.jdo.impl.model.java.Bundle"); //NOI18N
@@ -57,18 +54,14 @@ public class ReflectionJavaField
     
     /** 
      * Constructor for fields having JDO metadata.
-     * @param jdoField the JDO field metadata.
+     * @param fieldName the name of the field.
      * @param type the field type.
      * @param declaringClass the JavaType of the class that declares the field.
      */
-    public ReflectionJavaField(JDOField jdoField, JavaType type, JavaType declaringClass)
+    public ReflectionJavaField(String fieldName, JavaType type, 
+                               JavaType declaringClass)
     {
-        super((jdoField == null) ? null : jdoField.getName(), declaringClass);
-        if (jdoField == null)
-            throw new ModelFatalException(msg.msg(
-                "ERR_InvalidNullFieldInstance", //NOI18N
-                "ReflectionJavaField.<init>")); //NOI18N
-        this.jdoField = jdoField;
+        super(fieldName, declaringClass);
         this.type = type;
     }
     
@@ -82,22 +75,6 @@ public class ReflectionJavaField
             type = getJavaTypeForClass(getField().getType());
         }
         return type;
-    }
-
-    /**
-     * Returns the JDOField instance if this JavaField represents a
-     * managed field of a persistence capable class. The method returns
-     * <code>null</code>, if this JavaField does not represent a managed
-     * field. 
-     * <p>
-     * The method throws a {@link org.apache.jdo.model.ModelFatalException},
-     * if there is a problem accessing the JDO meta data for this JavaField. 
-     * @return the JDOField instance if this JavaField represents a managed
-     * field; <code>null</code> otherwise.
-     */
-    public JDOField getJDOField()
-    {
-        return jdoField;
     }
 
     // ===== Methods not defined in JavaField =====

@@ -145,8 +145,8 @@ public class JDOModelImplCaching extends JDOModelImplDynamic {
     }
 
     /** Returns a new instance of the JDOClass implementation class. */
-    protected JDOClass newJDOClassInstance() {
-        return new JDOClassImplCaching();
+    protected JDOClass newJDOClassInstance(String name) {
+        return new JDOClassImplCaching(name);
     }
 
     /**

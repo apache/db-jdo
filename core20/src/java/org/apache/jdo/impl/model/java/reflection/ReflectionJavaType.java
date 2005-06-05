@@ -257,9 +257,10 @@ public class ReflectionJavaType
             JDOClass jdoClass = getJDOClass();
             if (jdoClass != null) {
                 // pc class => look for JDOField first
-                JDOField jdoField = jdoClass.getDeclaredField(fieldName);
-                if (jdoField != null) {
-                    javaField = newJavaFieldInstance(jdoField, null);
+                if (jdoClass.getDeclaredField(fieldName) != null) {
+                    // Use JDO metadata and create a JavaField skeleton to
+                    // avoid unnecessary reflection access.
+                    javaField = newJavaFieldInstance(fieldName, null);
                     declaredJavaFields.put(fieldName, javaField);
                 }
             }
@@ -338,9 +339,9 @@ public class ReflectionJavaType
      * instance.
      * @return a new JavaField instance.
      */
-    protected JavaField newJavaFieldInstance(JDOField jdoField, JavaType type) 
+    protected JavaField newJavaFieldInstance(String fieldName, JavaType type) 
     {
-        return new ReflectionJavaField(jdoField, type, this);
+        return new ReflectionJavaField(fieldName, type, this);
     }
     
     /**

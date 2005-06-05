@@ -16,8 +16,6 @@
 
 package org.apache.jdo.impl.model.jdo;
 
-import java.text.Collator;
-
 import org.apache.jdo.model.jdo.JDOClass;
 import org.apache.jdo.model.jdo.JDOMember;
 
@@ -37,6 +35,13 @@ public class JDOMemberImpl
     /** Relationship JDOClass<->JDOMember. */
     private JDOClass declaringClass;
 
+    /** Constructor. */
+    protected JDOMemberImpl(String name, JDOClass declaringClass)
+    {
+        this.name = name;
+        this.declaringClass = declaringClass;
+    }
+
     /**
      * Returns the name of this JDOMember.
      * @return the name
@@ -44,15 +49,6 @@ public class JDOMemberImpl
     public String getName()
     {
         return name;
-    }
-
-    /**
-     * Sets the name of this JDOMember.
-     * @param name the name
-     */
-    public void setName(String name)
-    {
-        this.name = name;
     }
 
     /** 
@@ -63,15 +59,6 @@ public class JDOMemberImpl
     public JDOClass getDeclaringClass()
     {
         return declaringClass;
-    }
-
-    /** 
-     * Set the declaring class of this JDOMember.
-     * @param declaringClass the declaring class of this member element
-     */
-    public void setDeclaringClass(JDOClass declaringClass)
-    {
-        this.declaringClass = declaringClass;
     }
 
     //================= redefinition of java.lang.Object methods ================
