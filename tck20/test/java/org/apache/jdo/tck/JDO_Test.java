@@ -576,7 +576,7 @@ public abstract class JDO_Test extends TestCase {
     /** Reports whether Non-Durable Identity is supported. */
     public boolean isNonDurableIdentitySupported() {
         return getPMF().supportedOptions().contains(
-            "javax.jdo.option.NonDatastoreIdentity");
+            "javax.jdo.option.NonDurableIdentity");
     }
 
     /** Reports whether an <code>ArrayList</code> collection is supported. */
@@ -649,6 +649,18 @@ public abstract class JDO_Test extends TestCase {
     public boolean isChangeApplicationIdentitySupported() {
         return getPMF().supportedOptions().contains(
             "javax.jdo.option.ChangeApplicationIdentity");
+    }
+
+    /** Reports whether Binary Compatibility is supported. */
+    public boolean isBinaryCompatibilitySupported() {
+        return getPMF().supportedOptions().contains(
+            "javax.jdo.option.BinaryCompatibility");
+    }
+
+    /** Reports whether UnconstrainedVariables is supported. */
+    public boolean isUnconstrainedVariablesSupported() {
+        return getPMF().supportedOptions().contains(
+            "javax.jdo.option.UnconstrainedVariables");
     }
 
     /**
