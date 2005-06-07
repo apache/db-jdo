@@ -51,6 +51,7 @@ org.apache.jdo.tck.api.jdohelper.MakeDirtyNotPersistenceCapable \
 org.apache.jdo.tck.api.persistencemanager.close.AfterCloseAllMethodsThrowException \
 org.apache.jdo.tck.api.persistencemanager.cache.CallingEvictAllWithCollectionContainingNulls \
 org.apache.jdo.tck.api.persistencemanager.cache.CallingRefreshAllWithCollectionContainingNulls \
+org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithNoParameters \
 org.apache.jdo.tck.api.persistencemanager.ChangingObjectIdHasNoEffectOnInstance \
 org.apache.jdo.tck.api.persistencemanager.close.CloseThrowsExceptionWhenActiveTx \
 org.apache.jdo.tck.api.persistencemanager.ConcurrentPersistenceManagers \
@@ -124,11 +125,6 @@ org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToEvictAllThrowsExcep
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToEvictHasNoEffect \
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToRefreshAllThrowsException \
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToRefreshHasNoEffect \
-org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllNoParameterSideEffects \
-org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithArraySideEffects \
-org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithCollectionSideEffects \
-org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithNoParameters \
-org.apache.jdo.tck.api.persistencemanager.cache.RefreshSideEffects \
 org.apache.jdo.tck.api.persistencemanager.cache.Retrieve \
 org.apache.jdo.tck.api.persistencemanager.SameTransactionInstanceForAllCallsToCurrentTransaction \
 org.apache.jdo.tck.api.persistencemanager.flags.SetIgnoreCacheToFalse \
