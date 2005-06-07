@@ -75,6 +75,12 @@ public class SetNonTransactionalWrite extends JDO_Test {
 
     /** set NonTransactionalWrite to true or false and use getNonTransactionalWrite value to verify */ 
     public void test () {
+        if (!isNontransactionalWriteSupported()) {
+            if (debug)
+                logger.debug("\n SetNonTransactionalWrite() passed: this implementation does not support NontransactionalWrite.");
+            return;
+        }
+       
         Properties props = loadProperties(PMFProperties);
         pmfClass = props.getProperty(PMFCLASS);  
         url      = props.getProperty(URL);
