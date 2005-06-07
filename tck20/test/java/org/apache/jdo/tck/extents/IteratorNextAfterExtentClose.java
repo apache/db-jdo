@@ -76,15 +76,17 @@ public class IteratorNextAfterExtentClose extends ExtentTest {
                 tryNext(it3);
                 rollbackTransaction();
     
+                beginTransaction();
                 Iterator it4 = ex.iterator();
                 int count4 = countIterator(it4);
+                commitTransaction();
+                
                 if (count4 != 2) {
                     fail(ASSERTION_FAILED,
                          "Iterator4 after rollback: " + count4 + "; should be 2");
                 }
             } 
             catch (Exception unexpected) {
-                rollbackTransaction();
                 fail(ASSERTION_FAILED,
                      "unexpected exception " + unexpected);
             }
