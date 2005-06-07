@@ -3,7 +3,6 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="SimpleClass" table="SIMPLE_CLASS">
-            <implements name="SimpleInterface"/>
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="id" column="IDENTIFIER"/>
             <field name="intField" column="INTVAL"/>
