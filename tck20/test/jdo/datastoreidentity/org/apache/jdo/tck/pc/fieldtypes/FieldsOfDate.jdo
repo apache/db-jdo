@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfDate" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="Date1"  embedded="true">
 </field>
 <field name="Date2"  embedded="false">

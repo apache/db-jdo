@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="TreeSetCollections" table="TREESET_COLLECTIONS">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="TreeSetOfObject0" table="TREESET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>

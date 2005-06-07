@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfDouble" table="FIELDSOFDOUBLE">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Double1" column="DOUBLE1"/>
             <field name="Double102" column="DOUBLE102"/>
             <field name="Double103" column="DOUBLE103"/>

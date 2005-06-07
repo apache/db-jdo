@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="HashtableStringKeyCollections" table="HASHTABLESTRINGKEY_COLLECTIONS">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="HashtableOfString_Object0" table="HASHTBL_OF_STR_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <key column="STRING"/>

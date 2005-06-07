@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivefloat" table="FIELDSOFPRIMITIVEFLOAT">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="float0" column="FLOAT0"/>
             <field name="float1" column="FLOAT1"/>
             <field name="float102" column="FLOAT102"/>

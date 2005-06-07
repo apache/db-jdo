@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="TreeMapStringValueCollections" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="TreeMapOfObject_String0" >
 <map  key-type="Object" value-type="String">
 </map>

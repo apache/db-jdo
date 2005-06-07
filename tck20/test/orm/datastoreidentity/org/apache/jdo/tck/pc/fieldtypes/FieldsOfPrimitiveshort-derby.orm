@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitiveshort" table="FIELDSOFPRIMITIVESHORT">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="short0" column="SHORT0"/>
             <field name="short1" column="SHORT1"/>
             <field name="short102" column="SHORT102"/>

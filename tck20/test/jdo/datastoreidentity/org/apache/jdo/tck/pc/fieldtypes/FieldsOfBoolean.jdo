@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfBoolean" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="Boolean1"  embedded="true">
 </field>
 <field name="Boolean2"  embedded="false">

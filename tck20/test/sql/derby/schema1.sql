@@ -39,8 +39,8 @@ CREATE TABLE PrimitiveTypes (
     byteNotNull SMALLINT NOT NULL,
     byteNull SMALLINT,
     shortNotNull SMALLINT NOT NULL,
-    shortNull SMALLINT NOT NULL,
-    intNotNull INTEGER,
+    shortNull SMALLINT,
+    intNotNull INTEGER NOT NULL,
     intNull INTEGER,
     longNotNull INTEGER NOT NULL,
     longNull INTEGER,
@@ -52,9 +52,9 @@ CREATE TABLE PrimitiveTypes (
     charNull CHAR,
     dateNull DATE,
     stringNull VARCHAR (256),
-    bigDecimal DECIMAL NOT NULL,
-    bigInteger INTEGER NOT NULL,
-    PrimitiveTypes INTEGER NOT NULL,
+    bigDecimal DECIMAL,
+    bigInteger INTEGER,
+    PrimitiveTypes INTEGER,
     CONSTRAINT PT_CONST PRIMARY KEY (ID)
 );
 
@@ -7076,5 +7076,13 @@ CREATE TABLE InstanceCallbacks (
 -------------------------
 --lifecycle
 -------------------------
+
+DROP TABLE STATETRANSITIONOBJ;
+
+CREATE TABLE STATETRANSITIONOBJ (
+    ID INTEGER NOT NULL,
+    INT_FIELD INTEGER NOT NULL,
+    CONSTRAINT ICNP_PK PRIMARY KEY (ID)
+);
 
 disconnect;

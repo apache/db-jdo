@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigInteger" table="FIELDSOFBIGINTEGER">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="BigInteger1" column="BIG_INTEGER1"/>
             <field name="BigInteger102" column="BIG_INTEGER102"/>
             <field name="BigInteger103" column="BIG_INTEGER103"/>

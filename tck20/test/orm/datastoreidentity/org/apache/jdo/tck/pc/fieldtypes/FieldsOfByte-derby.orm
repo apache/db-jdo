@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfByte" table="FieldsOfByte">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Byte0" column="BYTE0"/>
             <field name="Byte1" column="BYTE1"/>
             <field name="Byte2" column="BYTE2"/>

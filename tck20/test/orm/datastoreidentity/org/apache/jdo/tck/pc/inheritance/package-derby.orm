@@ -3,12 +3,13 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.inheritance">
         <class name="AllPersist" table="AllPersist">
-            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
             <field name="intB" column="INT_B"/>
             <field name="doubleB" column="DOUBLE_B"/>
+            <field name="keyValue" column="KEY_VALUE"/>
         </class>
 
         <class name="AllPersist2">
@@ -29,10 +30,11 @@
         </class>
 
         <class name="TopNonPersistB" table="TopNonPersistB">
-            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
+            <field name="keyValue" column="KEY_VALUE"/>
             <field name="doubleB" column="DOUBLE_B"/>
             <field name="intB" column="INT_B"/>
         </class>
@@ -55,12 +57,13 @@
         </class>
 
         <class name="TopPersist" table="TopPersist">
-            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
             <field name="doubleB" column="DOUBLE_B"/>
             <field name="intB" column="INT_B"/>
+            <field name="keyValue" column="KEY_VALUE"/>
         </class>
 
         <class name="TopPersistE">
@@ -81,12 +84,13 @@
         </class>
 
         <class name="FieldSameName" table="FieldSameName">
-            <datastore-identity strategy="identity" column="KEY_VALUE"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
             <field name="n2" column="N2"/>
             <field name="n3" column="N3"/>
+            <field name="keyValue" column="KEY_VALUE"/>
         </class>
 
         <class name="FieldSameName2">

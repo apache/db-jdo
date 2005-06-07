@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="MapStringKeyCollections" table="MAPSTRINGKEY_COLLECTIONS">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="MapOfString_Object0" table="MAP_OF_STRING_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <key column="STRING"/>

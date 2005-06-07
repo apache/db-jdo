@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+  <package name="org.apache.jdo.tck.pc.lifecycle">
+    <class name="StateTransitionObj" table="STATETRANSITIONOBJ">
+       <field name="id" column="ID" primary-key="true"/>
+       <field name="int_field" column="INT_FIELD"/>
+    </class>
+  </package>
+</orm>

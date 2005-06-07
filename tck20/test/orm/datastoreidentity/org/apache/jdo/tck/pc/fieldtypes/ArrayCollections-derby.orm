@@ -6,7 +6,8 @@ Metadata for application identity
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="ArrayCollections" table="ARRAY_COLLECTIONS">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="ArrayOfObject0" column="ARRAY_OF_OBJECT0"/>
             <field name="ArrayOfObject1" column="ARRAY_OF_OBJECT1"/>
             <field name="ArrayOfSimpleClass2" column="ARRAY_OF_SIMPLE_CLASS2"/>

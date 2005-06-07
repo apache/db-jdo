@@ -5,7 +5,6 @@
         <class 
             name="AllPersist" 
             identity-type="datastore">
-            <field name="keyValue" persistence-modifier="none"/>
             <field name="intA" persistence-modifier="none"/>
         </class>
 
@@ -35,7 +34,6 @@
         </class>
 
         <class name="TopNonPersistB" identity-type="datastore">
-            <field name="keyValue" persistence-modifier="none"/>
         </class>
 
         <class 
@@ -60,7 +58,6 @@
         </class>
 
         <class name="TopPersist" identity-type="datastore">
-            <field name="keyValue" persistence-modifier="none"/>
             <field name="intA" persistence-modifier="none"/>
         </class>
 
@@ -88,7 +85,6 @@
         <class 
             name="FieldSameName" 
             identity-type="datastore">
-            <field name="keyValue" persistence-modifier="none"/>
             <field name="n1" persistence-modifier="none"/>
             <field name="n2" persistence-modifier="persistent"/>
             <field name="n3" persistence-modifier="persistent"/>

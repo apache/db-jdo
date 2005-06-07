@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitiveboolean" table="FIELDSOFPRIMITIVEBOOLEAN">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="boolean0" column="BOOLEAN0"/>
             <field name="boolean1" column="BOOLEAN1"/>
             <field name="boolean102" column="BOOLEAN102"/>

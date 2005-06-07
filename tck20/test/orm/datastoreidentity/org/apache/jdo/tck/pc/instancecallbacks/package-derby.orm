@@ -4,13 +4,9 @@
     <package name="org.apache.jdo.tck.pc.instancecallbacks">
         <class name="InstanceCallbackNonPersistFdsClass" table="ICNonPersistFds">
             <datastore-identity strategy="identity">
-                <column name="ICKEY"/>
+                <column name="DATASTORE_IDENTITY"/>
             </datastore-identity>
-            <!--
-            <field name="keyValue">
-                <column name="ICKEY"/>
-            </field>
-            -->
+            <field name="keyValue" column="ICKEY"/>
             <field name="d" column="D"/>
             <field name="s" column="S"/>
             <field name="floatValue">
@@ -23,8 +19,9 @@
 
         <class name="InstanceCallbackClass" table="InstanceCallbacks">
             <datastore-identity strategy="identity">
-                <column name="ICKEY"/>
+                <column name="DATASTORE_IDENTITY"/>
             </datastore-identity>
+            <field name="keyValue" column="ICKEY"/>
             <field name="name" column="NAME"/>
             <field name="timeStamp">
                 <column name="TIMEDATE"/>

@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfSimpleInterface" table="FIELDSOFSIMPLEINTERFACE">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="SimpleInterface1" column="SIMPLEINTERFACE1"/>
             <field name="SimpleInterface102" column="SIMPLEINTERFACE102"/>
             <field name="SimpleInterface103" column="SIMPLEINTERFACE103"/>

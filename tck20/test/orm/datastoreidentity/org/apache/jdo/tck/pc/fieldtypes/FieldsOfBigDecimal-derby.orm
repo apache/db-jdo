@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigDecimal" table="FIELDSOFBIGDECIMAL">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="BigDecimal1">
                 <column name="BIG_DECIMAL1" jdbc-type="DECIMAL" length="11" scale="4"/>
             </field>

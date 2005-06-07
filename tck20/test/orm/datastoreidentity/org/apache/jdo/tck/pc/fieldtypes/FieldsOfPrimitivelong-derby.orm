@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivelong" table="FIELDSOFPRIMITIVELONG">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="long0" column="LONG0"/>
             <field name="long1" column="LONG1"/>
             <field name="long102" column="LONG102"/>

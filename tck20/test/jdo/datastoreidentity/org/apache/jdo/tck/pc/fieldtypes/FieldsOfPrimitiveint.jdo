@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfPrimitiveint" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="int1"  embedded="true">
 </field>
 <field name="int2"  embedded="false">

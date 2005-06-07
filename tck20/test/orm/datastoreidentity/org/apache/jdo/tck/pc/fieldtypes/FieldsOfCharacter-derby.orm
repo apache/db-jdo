@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfCharacter" table="FIELDSOFCHARACTER">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Character0" column="CHARACTER0"/>
             <field name="Character1" column="CHARACTER1"/>
             <field name="Character102" column="CHARACTER102"/>

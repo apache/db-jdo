@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfBigInteger" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="BigInteger1"  embedded="true">
 </field>
 <field name="BigInteger2"  embedded="false">

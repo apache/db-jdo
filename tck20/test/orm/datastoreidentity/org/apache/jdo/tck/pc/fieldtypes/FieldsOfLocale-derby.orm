@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfLocale" table="FIELDSOFLOCALE">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Locale0" column="LOCALE0"/>
             <field name="Locale1" column="LOCALE1"/>
             <field name="Locale102" column="LOCALE102"/>

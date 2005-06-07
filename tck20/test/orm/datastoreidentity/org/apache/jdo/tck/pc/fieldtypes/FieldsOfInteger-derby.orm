@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfInteger" table="FIELDSOFINTEGER">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Integer0" column="INTEGER0"/>
             <field name="Integer1" column="INTEGER1"/>
             <field name="Integer102" column="INTEGER102"/>

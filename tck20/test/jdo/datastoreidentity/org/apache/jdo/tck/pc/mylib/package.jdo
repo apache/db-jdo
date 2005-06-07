@@ -6,26 +6,18 @@
     <!-- This will not be required once the JDOModel is fixed so that
          the defaults defined in section 18.4 of the spec are working
     -->
-    <class name="PCPoint" identity-type="datastore">
-      <field name="id" persistence-modifier="none"/>
-    </class>
+    <class name="PCPoint" identity-type="datastore"/>
 
     <class name="PCPoint2" identity-type="datastore">
-      <field name="id" persistence-modifier="none"/>
-
       <field name="clearCalled" persistence-modifier="none"/>
       <field name="loadCalled" persistence-modifier="none"/>
       <field name="storeCalled" persistence-modifier="none"/>
       <field name="deleteCalled" persistence-modifier="none"/>
     </class>
 
-    <class name="PCRect" identity-type="datastore">
-      <field name="id" persistence-modifier="none"/>
-    </class>
+    <class name="PCRect" identity-type="datastore"/>
 
-    <class name="PrimitiveTypes" identity-type="datastore">
-      <field name="id" persistence-modifier="none"/>
-    </class>
+    <class name="PrimitiveTypes" identity-type="datastore"/>
 
   </package>
 </jdo>

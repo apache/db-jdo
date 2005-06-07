@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivebyte" table="FIELDSOFPRIMITIVEBYTE">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="byte0" column="BYTE0"/>
             <field name="byte1" column="BYTE1"/>
             <field name="byte102" column="BYTE102"/>

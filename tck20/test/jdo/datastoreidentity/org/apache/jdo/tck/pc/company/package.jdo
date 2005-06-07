@@ -7,12 +7,8 @@ has datastore identity.
 <jdo>
     <package name="org.apache.jdo.tck.pc.company">
 
-        <class name="Address">
-            <field name="addrid" persistence-modifier="none"/>
-        </class>
-
+        <class name="Address"/>
         <class name="Company" identity-type="datastore">
-            <field name="companyid" persistence-modifier="none"/>
             <field name="address"
                    persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">
@@ -23,7 +19,6 @@ has datastore identity.
         <class name="DentalInsurance" identity-type="datastore"/>
 
         <class name="Department" identity-type="datastore">
-            <field name="deptid" persistence-modifier="none"/>
             <field name="employees" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>
@@ -50,7 +45,6 @@ has datastore identity.
         <class name="FullTimeEmployee" identity-type="datastore"/>
 
         <class name="Insurance" identity-type="datastore">
-            <field name="insid" persistence-modifier="none"/>
         </class>
 
         <class name="MedicalInsurance" identity-type="datastore"/>
@@ -58,7 +52,6 @@ has datastore identity.
         <class name="PartTimeEmployee" identity-type="datastore"/>
 
         <class name="Person" identity-type="datastore">
-            <field name="personid" persistence-modifier="none"/>
             <field name="middlename" default-fetch-group="false"/>
             <field name="address"
                    persistence-modifier="persistent"/>
@@ -68,7 +61,6 @@ has datastore identity.
         </class>
 
         <class name="Project" identity-type="datastore">
-            <field name="projid" persistence-modifier="none"/>
             <field name="reviewers" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>

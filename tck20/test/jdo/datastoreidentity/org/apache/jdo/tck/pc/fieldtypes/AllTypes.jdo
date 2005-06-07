@@ -3,7 +3,6 @@
 <jdo>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="AllTypes">
-            <field name="id"  persistence-modifier="none"/>
         </class>
     </package>
 </jdo>

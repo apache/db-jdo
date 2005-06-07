@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfSimpleInterface" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="SimpleInterface1"  embedded="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface2"  embedded="false" persistence-modifier="persistent">

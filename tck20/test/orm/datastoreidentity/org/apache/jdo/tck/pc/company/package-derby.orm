@@ -16,7 +16,8 @@ has datastore identity.
         </class>
 
         <class name="Company" table="companies">
-            <datastore-identity strategy="identity" column="ID"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="companyid" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="founded" column="FOUNDEDDATE"/>
             <field name="address">
@@ -32,7 +33,8 @@ has datastore identity.
         </class>
 
         <class name="Department" table="departments">
-            <datastore-identity strategy="identity" column="ID"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="deptid" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID" foreign-key="true"/>
             <field name="employees" mapped-by="department"/>
@@ -79,10 +81,11 @@ has datastore identity.
         </class>
 
         <class name="Person" table="persons">
-            <datastore-identity strategy="identity" column="PERSONID"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
+            <field name="personid" column="PERSONID"/>
             <field name="firstname" column="FIRSTNAME"/>
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename" column="MIDDLENAME"/>
@@ -103,10 +106,11 @@ has datastore identity.
         </class>
 
         <class name="Insurance" table="insuranceplans">
-            <datastore-identity strategy="identity" column="INSID"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
+            <field name="insid" column="INSID"/>
             <field name="carrier" column="CARRIER"/>
             <field name="employee" column="EMPLOYEE">
                  <foreign-key/>
@@ -124,7 +128,8 @@ has datastore identity.
         </class>
 
         <class name="Project" table="projects">
-            <datastore-identity strategy="identity" column="PROJID"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="projid" column="PROJID"/>
             <field name="name" column="NAME"/>
             <field name="budget">
                <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>

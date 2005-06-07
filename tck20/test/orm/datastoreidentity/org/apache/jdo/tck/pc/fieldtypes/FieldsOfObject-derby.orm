@@ -3,7 +3,8 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfObject" table="FIELDSOFOBJECT">
-            <datastore-identity strategy="identity" column="IDENTIFIER"/>
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Object1" column="OBJECT1"/>
             <field name="Object102" column="OBJECT102"/>
             <field name="Object103" column="OBJECT103"/>

@@ -3,7 +3,6 @@
 <jdo>
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfFloat" identity-type="datastore">
-<field name="identifier"  persistence-modifier="none"/>
 <field name="Float1"  embedded="true">
 </field>
 <field name="Float2"  embedded="false">
