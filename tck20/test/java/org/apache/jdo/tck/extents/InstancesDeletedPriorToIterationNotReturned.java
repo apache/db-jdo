@@ -64,9 +64,11 @@ public class InstancesDeletedPriorToIterationNotReturned extends ExtentTest {
             Iterator it2 = ex.iterator();
             int count = countIterator(it2);
             rollbackTransaction();
-    
+
+            beginTransaction();
             Iterator it3 = ex.iterator();
             int count3 = countIterator(it3);
+            commitTransaction();
     
             if (count != 1) {
                 fail(ASSERTION_FAILED,

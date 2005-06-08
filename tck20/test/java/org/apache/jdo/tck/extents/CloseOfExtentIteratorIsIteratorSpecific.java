@@ -58,6 +58,7 @@ public class CloseOfExtentIteratorIsIteratorSpecific extends ExtentTest {
     /** */
     public void test() {
         Extent ex = getExtent();
+        beginTransaction();
         Iterator it1 = ex.iterator();
         ex.close(it1);
         int count = countIterator(ex.iterator());
@@ -68,6 +69,7 @@ public class CloseOfExtentIteratorIsIteratorSpecific extends ExtentTest {
         Query q = getPM().newQuery(ex);
         Collection c = (Collection)q.execute();
         int count2 = countIterator(c.iterator());
+        commitTransaction();
         if (count2 != 2) {
             fail(ASSERTION_FAILED,
                  "in query after closing iterator; counted " + count + " instances; should be 2");

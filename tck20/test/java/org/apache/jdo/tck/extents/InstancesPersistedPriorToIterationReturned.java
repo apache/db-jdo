@@ -64,9 +64,11 @@ public class InstancesPersistedPriorToIterationReturned extends ExtentTest {
             Iterator it = ex.iterator();
             int count = countIterator(it);
             rollbackTransaction();
-    
+
+            beginTransaction();
             Iterator it2 = ex.iterator();
             int count2 = countIterator(it2);
+            commitTransaction();
     
             if (count != 3) {
                 fail(ASSERTION_FAILED,

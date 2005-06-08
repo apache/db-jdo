@@ -54,6 +54,7 @@ public class IteratorMutatingMethods extends ExtentTest {
 
     /** */
     public void test() {
+        beginTransaction();
         Extent ex = getExtent();
         Iterator it = ex.iterator();
         it.next();
@@ -68,5 +69,6 @@ public class IteratorMutatingMethods extends ExtentTest {
         } 
         finally {
         }
+        commitTransaction();
     }
 }
