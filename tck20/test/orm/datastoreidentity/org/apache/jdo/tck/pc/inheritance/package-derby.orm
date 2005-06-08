@@ -68,7 +68,7 @@
 
         <class name="TopPersistE">
             <inheritance strategy="superclass-table"/>
-            <field name="floatE" persistence-modifier="transactional"/>
+            <field name="floatE" column="FLOAT_E"/>
         </class>
 
         <class name="TopPersistF">
