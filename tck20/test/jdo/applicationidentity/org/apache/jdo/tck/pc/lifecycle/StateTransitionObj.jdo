@@ -3,8 +3,10 @@
 <jdo>
   <package name="org.apache.jdo.tck.pc.lifecycle">
 
-      <class name="StateTransitionObj" identity-type="application">
-          <field name="int_field" primary-key="true"/>
-      </class>
+    <class name="StateTransitionObj" 
+           identity-type="application"
+           objectid-class="org.apache.jdo.tck.pc.lifecycle.StateTransitionObj$Oid">
+        <field name="id" primary-key="true"/>
+    </class>
   </package>
 </jdo>

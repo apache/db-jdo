@@ -16,8 +16,19 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.*;
-import javax.jdo.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.jdo.Extent;
+import javax.jdo.JDOException;
+import javax.jdo.JDOFatalException;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
+
+import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
@@ -74,14 +85,16 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
         addTearDownClass(StateTransitionObj.class);
     }
     
-    public void test() {
+    public void testSharedPC() {
         // test shared PC - only one PM should succeed to insert the shared PC
         threads = 0;
         attempts = 0;
         insertedCount = 0;
         insertedCountExpected = 1;
         insertObjects(true);
-        
+    }
+
+    public void testNonSharedPC() {
         // test non-shared PCs - each PM should succeed to insert its own non-shared PC
         threads = 0;
         attempts = 0;
@@ -125,6 +138,19 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                 logger.debug("interrupted while waiting for threads to finish");
             }
         }
+        
+        Collection exceptions = threadGroup.getAllUncaughtExceptions();
+        for (Iterator i = exceptions.iterator(); i.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) i.next();
+            Thread thread = (Thread)entry.getKey();
+            Throwable throwable = (Throwable)entry.getValue();
+            String message = "Uncaught exception " + throwable + " in thread " + thread;
+            if( throwable instanceof AssertionFailedError )
+                fail(ASSERTION_FAILED, message);
+            else
+                throw new JDOFatalException(message, throwable);
+        }
+        
     }
 
     synchronized void signal() {
@@ -176,10 +202,10 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                         throw ex;
                 }
                 finally {
+                    incrAttempts();
                     if (tx != null && tx.isActive())
                         tx.rollback();
                 }
-                incrAttempts();
 
                 while (!attemptsComplete()) {
                     try {
@@ -201,11 +227,13 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                 int objCount = 0;
                 if (debug)
                     logger.debug("getting Extent of " + instanceClass.getName());
+                tx.begin();
                 Extent e = pm.getExtent(instanceClass, false);
                 for (Iterator i = e.iterator(); i.hasNext();) {
                     Object instance = (Object)i.next();
                     objCount++;
                 }
+                tx.commit();
 
                 //Verify that the number of inserted objects matches the number of objects in the extent
                 if (insertedCount!=objCount)

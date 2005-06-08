@@ -17,16 +17,23 @@
 
 package org.apache.jdo.tck.pc.lifecycle;
 
+import java.io.Serializable;
+
 public class StateTransitionObj {
+    private static int counter = 0;
+    
+    private int      id;
     private int      int_field;
     private transient int nonmanaged_field;
     
     public StateTransitionObj()
     {
+        id = ++counter;
         int_field = 0;
     }
     public StateTransitionObj(int v)
     {
+        this();
         int_field = v;
     }
     public int readField()
@@ -46,4 +53,73 @@ public class StateTransitionObj {
     {
         nonmanaged_field = value;
     }
+    /**
+     * @return Returns the id.
+     */
+    public int getId() {
+        return id;
+    }
+    /**
+     * @param id The id to set.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * The class to be used as the application identifier
+     * for the <code>StateTransitionObj</code> class.
+     */
+    public static class Oid implements Serializable, Comparable {
+
+        /**
+         * This field is part of the identifier and should match in name
+         * and type with a field in the <code>StateTransitionObj</code> class.
+         */
+        public int id;
+
+        /** The required public no-arg constructor. */
+        public Oid() { }
+
+        /**
+         * Initialize the identifier.
+         * @param companyid The id of the company.
+         */
+        public Oid(int id) {
+            this.id = id;
+        }
+        
+        public Oid(String s) { id = Integer.parseInt(justTheId(s)); }
+
+        public String toString() { return this.getClass().getName() + ": "  + id;}
+
+        
+        /** */
+        public boolean equals(Object obj) {
+            if (obj==null || !this.getClass().equals(obj.getClass())) 
+                return false;
+            Oid o = (Oid) obj;
+            if (this.id != o.id) 
+                return false;
+            return true;
+        }
+
+        /** */
+        public int hashCode() {
+            return id;
+        }
+        
+        protected static String justTheId(String str) {
+            return str.substring(str.indexOf(':') + 1);
+        }
+
+        /** */
+        public int compareTo(Object obj) {
+            // may throw ClassCastException which the user must handle
+            Oid other = (Oid) obj;
+            return id - other.id;
+        }
+        
+    }
+
 }

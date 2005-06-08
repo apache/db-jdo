@@ -171,6 +171,7 @@ org.apache.jdo.tck.lifecycle.HollowInstanceMaintainsPK \
 org.apache.jdo.tck.lifecycle.MultiplePMsReturnInstancesRepresentingSamePC \
 org.apache.jdo.tck.lifecycle.ObjectIdNotModifiedWhenObjectIdInstanceModified \
 org.apache.jdo.tck.lifecycle.PMReturnsIdenticalInstancesForEqualObjIds \
+org.apache.jdo.tck.lifecycle.PMsCanSharePCClassesButNotPCInstances \
 org.apache.jdo.tck.lifecycle.StateTransitions \
 org.apache.jdo.tck.lifecycle.TransientTransactionalStateCommit \
 org.apache.jdo.tck.lifecycle.TransientTransactionalStateRollback \
