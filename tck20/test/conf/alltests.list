@@ -176,6 +176,7 @@ org.apache.jdo.tck.lifecycle.StateTransitions \
 org.apache.jdo.tck.lifecycle.TransientTransactionalStateCommit \
 org.apache.jdo.tck.lifecycle.TransientTransactionalStateRollback \
 org.apache.jdo.tck.lifecycle.nontransactional.ModificationOfNontransactionalInstanceOutsideTransaction \
+org.apache.jdo.tck.mapping.CompletenessTest \
 org.apache.jdo.tck.models.embedded.SecondClassObjectsTrackTheirChanges  \
 org.apache.jdo.tck.models.fieldtypes.TestArrayCollections \
 org.apache.jdo.tck.models.fieldtypes.TestArrayListCollections \
