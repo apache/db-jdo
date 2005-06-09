@@ -72,26 +72,16 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         if (debug) 
             logger.debug("\nExecuting test MultipleActiveQueryInstanceInSamePersistenceManager()...");
 
-        Transaction tx = pm.currentTransaction();
-        try {
-            tx.begin();
+        executeQueries(pm);
 
-            executeQueries(pm);
-
-            if (debug)
-                logger.debug("Test MultipleActiveQueryInstanceInSamePersistenceManager: Passed");
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
-        }
+        if (debug)
+            logger.debug("Test MultipleActiveQueryInstanceInSamePersistenceManager: Passed");
     }
 
     /** */
     void executeQueries(PersistenceManager pm) {
         // query selecting all point instances
+        pm.currentTransaction().begin();
         Query query = pm.newQuery();
         query.setClass(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
@@ -123,6 +113,7 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         expected2.add(new PCPoint(0, 0));
         expected2 = getFromInserted(expected2);
         checkQueryResultWithoutOrder(ASSERTION_FAILED, results2, expected2);
+        pm.currentTransaction().commit();
     }
 }
 
