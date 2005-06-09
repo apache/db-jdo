@@ -27,5 +27,14 @@ import org.apache.jdo.model.jdo.JDOReference;
 public class JDOReferenceImpl extends JDORelationshipImpl 
     implements JDOReference
 {
-    // empty implementation
+    /**
+     * Determines whether this JDORelationship represents a reference
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOReference instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * reference relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOReference() {
+        return true;
+    }
 }

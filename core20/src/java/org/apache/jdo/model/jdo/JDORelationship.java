@@ -100,4 +100,40 @@ public interface JDORelationship
     public void setInverseRelationship(JDORelationship inverseRelationship)
         throws ModelException;
 
+    /**
+     * Determines whether this JDORelationship represents a reference
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOReference instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * reference relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOReference();
+    
+    /**
+     * Determines whether this JDORelationship represents a collection
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOCollection instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * collection relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOCollection();
+
+    /**
+     * Determines whether this JDORelationship represents an array
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOArray instance.
+     * @return <code>true</code> if this JDORelationship represents an 
+     * array relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOArray();
+
+    /**
+     * Determines whether this JDORelationship represents a map 
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOMap instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * map relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOMap();
+
 }

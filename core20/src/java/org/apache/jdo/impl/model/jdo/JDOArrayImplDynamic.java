@@ -76,5 +76,15 @@ public class JDOArrayImplDynamic extends JDORelationshipImpl
         return (fieldType != null) ? fieldType.getArrayComponentType() : null;
     }
 
-}
+    /**
+     * Determines whether this JDORelationship represents an array
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOArray instance.
+     * @return <code>true</code> if this JDORelationship represents an 
+     * array relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOArray() {
+        return true;
+    }
 
+}

@@ -106,4 +106,48 @@ public abstract class JDORelationshipImpl extends JDOElementImpl
         this.inverse = inverseRelationship;
     }
 
+    /**
+     * Determines whether this JDORelationship represents a reference
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOReference instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * reference relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOReference() {
+        return false;
+    }
+    
+    /**
+     * Determines whether this JDORelationship represents a collection
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOCollection instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * collection relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOCollection() {
+        return false;
+    }
+
+    /**
+     * Determines whether this JDORelationship represents an array
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOArray instance.
+     * @return <code>true</code> if this JDORelationship represents an 
+     * array relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOArray() {
+        return false;
+    }
+
+    /**
+     * Determines whether this JDORelationship represents a map 
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOMap instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * map relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOMap() {
+        return false;
+    }
+
 }

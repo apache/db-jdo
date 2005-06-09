@@ -99,7 +99,7 @@ public class JDOCollectionImplDynamic extends JDORelationshipImpl
                                            jdoClass.getPackagePrefix());
             if (type == null) {
                 throw new ModelFatalException(
-                    msg.msg("EXC_CannotResolveElementType", elementTypeName,
+                    msg.msg("EXC_CannotResolveElementType", elementTypeName, //NOI18N
                             jdoField.getName(), jdoClass.getName())); //NOI18N
             }
         }
@@ -134,5 +134,16 @@ public class JDOCollectionImplDynamic extends JDORelationshipImpl
     public void setElementTypeName(String elementTypeName) {
         this.elementTypeName = elementTypeName;
     }
-    
+
+    /**
+     * Determines whether this JDORelationship represents a collection
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOCollection instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * collection relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOCollection() {
+        return true;
+    }
+
 }

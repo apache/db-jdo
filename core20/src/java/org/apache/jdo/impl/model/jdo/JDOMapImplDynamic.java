@@ -107,8 +107,8 @@ public class JDOMapImplDynamic extends JDORelationshipImpl implements JDOMap {
                                            jdoClass.getPackagePrefix());
             if (type == null) {
                 throw new ModelFatalException(
-                    msg.msg("EXC_CannotResolveKeyType", keyTypeName,
-                            jdoField.getName(), jdoClass.getName())); //NOI18N
+                    msg.msg("EXC_CannotResolveKeyType", keyTypeName, //NOI18N
+                            jdoField.getName(), jdoClass.getName()));
             }
         }
         
@@ -190,8 +190,8 @@ public class JDOMapImplDynamic extends JDORelationshipImpl implements JDOMap {
                                            jdoClass.getPackagePrefix());
             if (type == null) {
                 throw new ModelFatalException(
-                    msg.msg("EXC_CannotResolveValueType", valueTypeName,
-                            jdoField.getName(), jdoClass.getName())); //NOI18N
+                    msg.msg("EXC_CannotResolveValueType", valueTypeName, //NOI18N
+                            jdoField.getName(), jdoClass.getName()));
             }
         }
         
@@ -223,6 +223,17 @@ public class JDOMapImplDynamic extends JDORelationshipImpl implements JDOMap {
      */
     public void setValueTypeName(String valueTypeName) {
         this.valueTypeName = valueTypeName;
+    }
+
+    /**
+     * Determines whether this JDORelationship represents a map 
+     * relationship or not. A return of <code>true</code> means this
+     * JDORelationship is a JDOMap instance.
+     * @return <code>true</code> if this JDORelationship represents a
+     * map relationship; <code>false</code> otherwise.
+     */
+    public boolean isJDOMap() {
+        return true;
     }
 
 }
