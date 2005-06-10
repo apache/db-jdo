@@ -131,6 +131,7 @@ public class Rollback
                 fail(ASSERTION_FAILED,
                      "P-NEW instance should transition to HOLLOW or P-NONTX and then it should not be dirty, JDOHelper.isDirty returns true.");
             }
+            tx.setSynchronization(null);
             tx.begin();
             int x = p1.getX();
             tx.commit();
