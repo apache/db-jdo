@@ -182,11 +182,13 @@ public abstract class JDO_Test extends TestCase {
             testSucceeded = true;
         }
         catch (AssertionFailedError e) {
-            logger.error("Exception during setUp or runtest: ", e);
+            if (logger.isInfoEnabled())
+                logger.info("Exception during setUp or runtest: ", e);
             throw e;
         }
         catch (Throwable t) {
-            logger.fatal("Exception during setUp or runtest: ", t);
+            if (logger.isInfoEnabled())
+                logger.info("Exception during setUp or runtest: ", t);
             throw t;
         }
         finally {
@@ -204,7 +206,8 @@ public abstract class JDO_Test extends TestCase {
      */
     private void setTearDownThrowable(String context, Throwable throwable)
     {
-        logger.fatal("Exception during "+context+": ", throwable);
+        if (logger.isInfoEnabled())
+            logger.info("Exception during "+context+": ", throwable);
         if (this.tearDownThrowable == null) {
             this.tearDownThrowable = throwable;
         }

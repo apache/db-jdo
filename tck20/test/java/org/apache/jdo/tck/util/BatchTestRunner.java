@@ -16,10 +16,17 @@
 
 package org.apache.jdo.tck.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -47,7 +54,16 @@ public class BatchTestRunner
     
     /** Default of the system property ResultPrinterClass. */
     public static final String RESULTPRINTER_DEFAULT = BatchResultPrinter.class.getName();
-    
+
+    /** Redirect System.out and System.err to an ConsoleFileOutput instance. */
+    static {
+        if (!Boolean.getBoolean("noLogFile")) {
+            PrintStream printStream = new PrintStream(new ConsoleFileOutput());
+            System.setErr(printStream);
+            System.setOut(printStream);
+        }
+    }
+
     /** 
      * Constructor. 
      * It creates a result printer instance based on the system property
@@ -171,5 +187,54 @@ public class BatchTestRunner
      */
     protected ResultPrinter getDefaultResultPrinter() {
         return new BatchResultPrinter(System.out);
+    }
+    
+    private static class ConsoleFileOutput extends OutputStream {
+
+        private static String outDir = "logs";
+        private static String fileNamePrefix = "TCKLog-";
+        private static String fileNameSuffix = ".txt";
+        private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
+            
+        private PrintStream systemOut = System.out;
+        private FileOutputStream fileOut;
+        
+        private ConsoleFileOutput() {
+            String fileName = fileNamePrefix+simpleDateFormat.format(new Date())+fileNameSuffix;
+            File dir = new File(outDir);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            
+            try {
+                fileOut = new FileOutputStream(new File(dir, fileName));
+            } catch (FileNotFoundException e) {
+                System.err.println("Cannot create log file "+fileName+". "+e);
+            }
+        }
+        
+        /* 
+         * @see java.io.OutputStream#write(int)
+         */
+        public void write(int b) throws IOException {
+            this.systemOut.write(b);
+            this.fileOut.write(b);
+        }
+        
+        /**
+         * @see java.io.OutputStream#close()
+         */
+        public void close()  throws IOException {
+            this.fileOut.close();
+            this.systemOut.close();
+        }
+    
+        /**
+         * @see java.io.OutputStream#flush()
+         */
+        public void flush()  throws IOException {
+            this.systemOut.flush();
+            this.fileOut.flush();
+        }        
     }
 }
