@@ -23,11 +23,8 @@ import org.apache.jdo.model.ModelException;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
-import org.apache.jdo.model.jdo.JDOModelFactory;
-import org.apache.jdo.model.jdo.JDOModel;
 import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
 import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
-import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.util.I18NHelper;
 
 /**
@@ -89,9 +86,6 @@ public abstract class ReflectionJavaModelFactory
                 // ignore => parentClassLoader and parent JavaModel are null
             }
         }
-
-        // set the JDOModel property in JavaModel
-        setJDOModelInternal(javaModel);
 
         return javaModel;
     }
@@ -205,22 +199,5 @@ public abstract class ReflectionJavaModelFactory
     protected JavaModel newJavaModelInstance(ClassLoader classLoader) {
         return new ReflectionJavaModel(classLoader, this);
     }
-    
-    /**
-     * Sets the JDOModel instance for the specified JavaModel.
-     * @param javaModel the JavaModel
-     */
-    protected void setJDOModelInternal(JavaModel javaModel)
-    {
-        JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
-        JDOModel jdoModel = factory.getJDOModel(javaModel);
-        // update the JDOModel property of the JavaModel
-        try {
-            javaModel.setJDOModel(jdoModel);
-        }
-        catch (ModelException ex) {
-            throw new ModelFatalException(
-                msg.msg("ERR_CannotSetJDOModel"), ex); //NOI18N
-        }
-    }
+
 }

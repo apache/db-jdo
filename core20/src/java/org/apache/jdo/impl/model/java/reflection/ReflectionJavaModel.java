@@ -21,8 +21,11 @@ import java.security.PrivilegedAction;
 import java.io.InputStream;
 
 import org.apache.jdo.impl.model.java.AbstractJavaModel;
+import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.model.ModelFatalException;
 import org.apache.jdo.model.java.JavaType;
+import org.apache.jdo.model.jdo.JDOModel;
+import org.apache.jdo.model.jdo.JDOModelFactory;
 import org.apache.jdo.util.I18NHelper;
 
 /**
@@ -163,6 +166,19 @@ public class ReflectionJavaModel
                 }
             }
             );
+    }
+
+    /**
+     * Returns the corresponding JDOModel instance.
+     * @return the corresponding JDOModel.
+     */
+    public JDOModel getJDOModel()
+    {
+        if (jdoModel == null) {
+            JDOModelFactory factory = JDOModelFactoryImplCaching.getInstance();
+            jdoModel = factory.getJDOModel(this);
+        }
+        return jdoModel;
     }
 
     // ===== Methods not defined in JavaModel =====

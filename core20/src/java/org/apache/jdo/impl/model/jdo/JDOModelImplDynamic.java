@@ -139,6 +139,12 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
         super();
         setJavaModel(javaModel);
         this.loadXMLMetadataDefault = loadXMLMetadataDefault;
+        try {
+            javaModel.setJDOModel(this);
+        }
+        catch (ModelException ex) {
+            throw new ModelFatalException(msg.msg("ERR_CannotSetJDOModel"), ex); //NOI18N
+        }
     }
 
     /** 
