@@ -106,6 +106,7 @@ public class GetSynchronization
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
+            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             
             tx.setSynchronization(this);

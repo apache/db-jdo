@@ -83,6 +83,9 @@ public class WhenNontransactionalReadIsFalse extends JDO_Test {
             tx.begin();
             Company c = new Company(1L, "MyCompany", new Date(), null);
             Department d = new Department(999, "MyDepartment", c);
+            addTearDownInstance((Object)c);
+            addTearDownInstance((Object)d);
+            
             pm.makePersistent(c);
             pm.makePersistent(d);
             if (tx.getNontransactionalRead()) {

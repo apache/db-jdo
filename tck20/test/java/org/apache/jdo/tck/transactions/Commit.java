@@ -110,6 +110,7 @@ public class Commit extends JDO_Test implements Synchronization {
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
+            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             if (!JDOHelper.isDirty(p1)) {
                 fail(ASSERTION_FAILED,
