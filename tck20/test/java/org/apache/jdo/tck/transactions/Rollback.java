@@ -131,7 +131,9 @@ public class Rollback
                 fail(ASSERTION_FAILED,
                      "P-NEW instance should transition to HOLLOW or P-NONTX and then it should not be dirty, JDOHelper.isDirty returns true.");
             }
+            tx.begin();
             int x = p1.getX();
+            tx.commit();
             if (x != 1) {
                 fail(ASSERTION_FAILED,
                      "tx.rollback should rollback change of ip1.x, expected 1, got " + x);
