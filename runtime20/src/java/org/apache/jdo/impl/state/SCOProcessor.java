@@ -32,6 +32,7 @@ import org.apache.jdo.impl.sco.SqlTimestamp;
 import org.apache.jdo.model.jdo.JDOCollection;
 import org.apache.jdo.model.jdo.JDOField;
 import org.apache.jdo.model.jdo.JDOMap;
+import org.apache.jdo.model.jdo.JDORelationship;
 import org.apache.jdo.pm.PersistenceManagerInternal;
 import org.apache.jdo.sco.SCO;
 import org.apache.jdo.sco.SCOCollection;
@@ -288,8 +289,8 @@ class SCOProcessor {
             boolean allowNulls = true;
 
             Collection c = (Collection)o;
-            Object rl = jdoField.getRelationship();
-            if (rl != null && rl instanceof JDOCollection) {
+            JDORelationship rl = jdoField.getRelationship();
+            if (rl != null && rl.isJDOCollection()) {
                 el = javaModelFactory.getJavaClass(((JDOCollection)rl).
                                                    getElementType());
             }
@@ -314,8 +315,8 @@ class SCOProcessor {
             Class c = ((SCOCollection)o).getElementType();
 
             Class el = null;
-            Object rl = jdoField.getRelationship(); 
-            if (rl != null && rl instanceof JDOCollection) { 
+            JDORelationship rl = jdoField.getRelationship(); 
+            if (rl != null && rl.isJDOCollection()) { 
                 el = javaModelFactory.getJavaClass(((JDOCollection)rl).
                                                    getElementType()); 
             }
@@ -389,8 +390,8 @@ class SCOProcessor {
             // Key/value types:
             Class el = null;
             Class k = null;
-            Object rl = jdoField.getRelationship();
-            if (rl != null && rl instanceof JDOMap) {
+            JDORelationship rl = jdoField.getRelationship();
+            if (rl != null && rl.isJDOMap()) {
                 el = javaModelFactory.getJavaClass(((JDOMap)rl).getValueType());
                 k =  javaModelFactory.getJavaClass(((JDOMap)rl).getKeyType());
             }
@@ -409,8 +410,8 @@ class SCOProcessor {
          */  
         void assertSCOElementType(Object o, JDOField jdoField) { 
             SCOMap m = (SCOMap)o;
-            Object rl = jdoField.getRelationship();
-            if (rl != null && rl instanceof JDOMap) {
+            JDORelationship rl = jdoField.getRelationship();
+            if (rl != null && rl.isJDOMap()) {
                 JDOMap rm = (JDOMap) rl;
 
                 Class c = m.getValueType();

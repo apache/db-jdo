@@ -170,13 +170,13 @@ public class PrintSupport
         if (jdoRelationship == null) 
             return;
 
-        if (jdoRelationship instanceof JDOReference)
+        if (jdoRelationship.isJDOReference())
             printJDOReference(indent, (JDOReference)jdoRelationship);
-        else if (jdoRelationship instanceof JDOCollection)
+        else if (jdoRelationship.isJDOCollection())
             printJDOCollection(indent, (JDOCollection)jdoRelationship);
-        else if (jdoRelationship instanceof JDOArray)
+        else if (jdoRelationship.isJDOArray())
             printJDOArray(indent, (JDOArray)jdoRelationship);
-        else if (jdoRelationship instanceof JDOMap)
+        else if (jdoRelationship.isJDOMap())
             printJDOMap(indent, (JDOMap)jdoRelationship);
     }
     
