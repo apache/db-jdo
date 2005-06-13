@@ -78,7 +78,9 @@ public class MultiplePMsReturnInstancesRepresentingSamePC extends JDO_Test {
 			pm2 = pmf.getPersistenceManager();
 			pm3 = pmf.getPersistenceManager();
 
-			Extent extent = pm.getExtent(StateTransitionObj.class, false);
+            pm.currentTransaction().begin();
+
+            Extent extent = pm.getExtent(StateTransitionObj.class, false);
 			Iterator iter = extent.iterator();
 			if( !iter.hasNext() ){
 				fail(ASSERTION_FAILED,
@@ -110,8 +112,14 @@ public class MultiplePMsReturnInstancesRepresentingSamePC extends JDO_Test {
 						 "Object Ids are not equal. objId1=" + objId1 + " objId2= " + objId2 + " objId3= " + objId3);
 				}
 			}
+            
+            pm.currentTransaction().commit();
 	    }
 	    finally {
+            if (pm!=null && pm.currentTransaction().isActive())
+            {
+                pm.currentTransaction().rollback();
+            }
 	    	if (pm2!=null && !pm2.isClosed())
 	    	{
 	    	    pm2.close();

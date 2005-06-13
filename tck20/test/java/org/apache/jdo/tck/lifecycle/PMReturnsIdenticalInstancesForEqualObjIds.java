@@ -67,25 +67,33 @@ public class PMReturnsIdenticalInstancesForEqualObjIds extends JDO_Test {
     }
     
 	public void test() {
-    	Extent extent = pm.getExtent(StateTransitionObj.class, false);
-    	Iterator iter = extent.iterator();
-    	if( !iter.hasNext() ){
-    		fail(ASSERTION_FAILED,
-				 "Extent for StateTransitionObj should not be empty");
-    	}
-		extent.close(iter);
-
-		for (int i=0; i<NUM_OBJECTS; i++)
-		{
-			Object objId=pm.getObjectId(obj[i]);
-			// check that getObjectById returns identical instance
-			Object obj2 = pm.getObjectById(objId, true);
-			if (!(obj2==obj[i]))
-			{
-				fail(ASSERTION_FAILED,
-					 "objects with OId = " + objId + " are not identical");
-			}
-		}
+        pm.currentTransaction().begin();
+        try {
+        	Extent extent = pm.getExtent(StateTransitionObj.class, false);
+        	Iterator iter = extent.iterator();
+        	if( !iter.hasNext() ){
+        		fail(ASSERTION_FAILED,
+    				 "Extent for StateTransitionObj should not be empty");
+        	}
+    		extent.close(iter);
+    
+    		for (int i=0; i<NUM_OBJECTS; i++)
+    		{
+    			Object objId=pm.getObjectId(obj[i]);
+    			// check that getObjectById returns identical instance
+    			Object obj2 = pm.getObjectById(objId, true);
+    			if (!(obj2==obj[i]))
+    			{
+    				fail(ASSERTION_FAILED,
+    					 "objects with OId = " + objId + " are not identical");
+    			}
+    		}
+            pm.currentTransaction().commit();
+        } finally {
+            if (pm!=null && pm.currentTransaction().isActive()) {
+                pm.currentTransaction().rollback();
+            }
+        }
 	}
 
 	private Object[] generatePersistentInstances()
