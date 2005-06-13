@@ -125,6 +125,10 @@ org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToEvictAllThrowsExcep
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToEvictHasNoEffect \
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToRefreshAllThrowsException \
 org.apache.jdo.tck.api.persistencemanager.cache.PassingNullToRefreshHasNoEffect \
+org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllNoParameterSideEffects \
+org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithArraySideEffects \
+org.apache.jdo.tck.api.persistencemanager.cache.RefreshAllWithCollectionSideEffects \
+org.apache.jdo.tck.api.persistencemanager.cache.RefreshSideEffects \
 org.apache.jdo.tck.api.persistencemanager.cache.Retrieve \
 org.apache.jdo.tck.api.persistencemanager.SameTransactionInstanceForAllCallsToCurrentTransaction \
 org.apache.jdo.tck.api.persistencemanager.flags.SetIgnoreCacheToFalse \

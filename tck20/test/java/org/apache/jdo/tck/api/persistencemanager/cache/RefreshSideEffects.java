@@ -16,9 +16,12 @@
 
 package org.apache.jdo.tck.api.persistencemanager.cache;
 
+import javax.jdo.JDOFatalException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
+
+import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
@@ -84,9 +87,9 @@ public class RefreshSideEffects extends PersistenceManagerTest {
 
         ThreadExceptionHandler group = new ThreadExceptionHandler();
         RefreshThreadT1 thread1 = new RefreshThreadT1(pm1);
-        Thread T1 = new Thread(group, thread1);
+        Thread T1 = new Thread(group, thread1, "T1");
         RefreshThreadT2 thread2 = new RefreshThreadT2(pm2);
-        Thread T2 = new Thread(group, thread2);
+        Thread T2 = new Thread(group, thread2, "T2");
         thread1.setOther(thread2);
         thread2.setOther(thread1);
 
@@ -98,21 +101,17 @@ public class RefreshSideEffects extends PersistenceManagerTest {
         
         Throwable t1Problem = group.getUncaughtException(T1);
         if (t1Problem != null) {
-            if (debug) {
-                logger.debug("RefreshAllNoParameterSideEffects ThreadT1 results in uncaught exception");
-                t1Problem.printStackTrace();
-            }
-            fail(ASSERTION_FAILED,
-                 "ThreadT1 results in exception " + t1Problem);
+            if (t1Problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)t1Problem;
+            else
+                throw new JDOFatalException( "Thread "+T1.getName()+" results in exception ", t1Problem );
         }
         Throwable t2Problem = group.getUncaughtException(T2);
         if (t2Problem != null) {
-            if (debug) {
-                logger.debug("RefreshAllNoParameterSideEffects ThreadT2 results in uncaught exception");
-                t2Problem.printStackTrace();
-            }
-            fail(ASSERTION_FAILED,
-                 "ThreadT2 results in exception " + t2Problem);
+            if (t2Problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)t2Problem;
+            else
+                throw new JDOFatalException( "Thread "+T2.getName()+" results in exception ", t2Problem );
         }
 
         if (debug) logger.debug ("END RefreshSideEffects");
@@ -171,6 +170,7 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                     "  ThreadT1: commit finished.");
             }
             finally {
+                commitDone = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
@@ -230,6 +230,7 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                     "  ThreadT2: commit finished.");
             } 
             finally {
+                done = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
