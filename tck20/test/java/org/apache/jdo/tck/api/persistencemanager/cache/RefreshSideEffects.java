@@ -51,9 +51,6 @@ public class RefreshSideEffects extends PersistenceManagerTest {
     /** */
     static final int DELAY = 100;
 
-    /** This object is used for synchronizing concurrent makePersistentAll calls. */
-    private static final Object synchronizationObject = new Object();
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -153,9 +150,7 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                 RefreshSideEffects.this.logger.debug("  ThreadT1: START");
                 tx.begin();
                 n1.setX(500);
-                synchronized (synchronizationObject) {
-                    pm.makePersistent(n1);
-                }
+                pm.makePersistent(n1);
                 pm.refresh(n1);
 
                 RefreshSideEffects.this.logger.debug(
@@ -176,7 +171,6 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                     "  ThreadT1: commit finished.");
             }
             finally {
-                commitDone = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
@@ -216,9 +210,7 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                 RefreshSideEffects.this.logger.debug("  ThreadT2: START");
                 tx.begin();
                 p1.setX(201);
-                synchronized (synchronizationObject) {
-                    pm.makePersistent(p1);
-                }
+                pm.makePersistent(p1);
                 pm.refresh(p1);
                 done = true;
 
@@ -238,7 +230,6 @@ public class RefreshSideEffects extends PersistenceManagerTest {
                     "  ThreadT2: commit finished.");
             } 
             finally {
-                done = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }

@@ -55,9 +55,6 @@ public class RefreshAllWithCollectionSideEffects extends PersistenceManagerTest 
     /** */
     static final int DELAY = 100;
 
-    /** This object is used for synchronizing concurrent makePersistentAll calls. */
-    private static final Object synchronizationObject = new Object();
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -163,9 +160,7 @@ public class RefreshAllWithCollectionSideEffects extends PersistenceManagerTest 
                 col1.add(n1);
                 col1.add(n2);
 
-                synchronized (synchronizationObject) {
-                    pm.makePersistentAll(col1);
-                }
+                pm.makePersistentAll(col1);
                 pm.refreshAll(col1);
                 RefreshAllWithCollectionSideEffects.this.logger.debug(
                     "  ThreadT1: waiting for ThreadT2.done");
@@ -186,7 +181,6 @@ public class RefreshAllWithCollectionSideEffects extends PersistenceManagerTest 
                     "  ThreadT1: commit finished.");
             } 
             finally {
-                commitDone = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
@@ -231,9 +225,7 @@ public class RefreshAllWithCollectionSideEffects extends PersistenceManagerTest 
                 Collection col1 = new HashSet();
                 col1.add(p1);
                 col1.add(p2);
-                synchronized (synchronizationObject) {
-                    pm.makePersistentAll(col1);
-                }
+                pm.makePersistentAll(col1);
                 pm.refreshAll(col1);
                 done = true;
 
@@ -253,7 +245,6 @@ public class RefreshAllWithCollectionSideEffects extends PersistenceManagerTest 
                     "  ThreadT2: commit finished.");
             } 
             finally {
-                done = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
