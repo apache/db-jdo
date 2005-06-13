@@ -55,6 +55,9 @@ public class RefreshAllWithArraySideEffects extends PersistenceManagerTest {
     /** */
     static final int DELAY = 100;
 
+    /** This object is used for synchronizing concurrent makePersistentAll calls. */
+    private static final Object synchronizationObject = new Object();
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -155,12 +158,14 @@ public class RefreshAllWithArraySideEffects extends PersistenceManagerTest {
                 tx.begin();
                 n1.setX(500);
                 n2.setX(501);
-
+                
                 Collection col1 = new HashSet();
                 col1.add(n1);
                 col1.add(n2);
-
-                pm.makePersistentAll(col1);
+                
+                synchronized (synchronizationObject) {
+                    pm.makePersistentAll(col1);
+                }
                 pm.refreshAll(col1.toArray());
                 RefreshAllWithArraySideEffects.this.logger.debug(
                     "  ThreadT1: waiting for ThreadT2.done");
@@ -181,6 +186,7 @@ public class RefreshAllWithArraySideEffects extends PersistenceManagerTest {
                     "  ThreadT1: commit finished.");
             } 
             finally {
+                commitDone = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
@@ -222,16 +228,20 @@ public class RefreshAllWithArraySideEffects extends PersistenceManagerTest {
                 tx.begin();
                 p1.setX(200);
                 p2.setX(201);
-
+                
                 Collection col1 = new HashSet();
                 col1.add(p1);
                 col1.add(p2);
-                pm.makePersistentAll(col1);
+                
+                synchronized (synchronizationObject) {
+                    pm.makePersistentAll(col1);
+                }
                 pm.refreshAll(col1.toArray());
                 done = true;
-
+                
                 RefreshAllWithArraySideEffects.this.logger.debug(
                     "  ThreadT2: waiting for commit of ThreadT1");
+
                 while (!other.isCommitDone()) {
                     try {
                         Thread.sleep(DELAY);
@@ -246,6 +256,7 @@ public class RefreshAllWithArraySideEffects extends PersistenceManagerTest {
                     "  ThreadT2: commit finished.");
             } 
             finally {
+                done = true;
                 if ((tx != null) && tx.isActive())
                     tx.rollback();
             }
