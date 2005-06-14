@@ -50,6 +50,13 @@ public class TestFieldsOfPrimitivebyte extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfPrimitivebyte.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfPrimitivebyte.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

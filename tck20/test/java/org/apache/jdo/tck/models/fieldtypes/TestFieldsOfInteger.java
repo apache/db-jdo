@@ -51,6 +51,13 @@ public class TestFieldsOfInteger extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfInteger.class);
     } 
     
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfInteger.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

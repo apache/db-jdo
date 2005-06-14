@@ -53,6 +53,13 @@ public class TestFieldsOfDate extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfDate.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfDate.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

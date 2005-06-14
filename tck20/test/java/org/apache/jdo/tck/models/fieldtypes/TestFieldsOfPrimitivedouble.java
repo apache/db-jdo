@@ -50,6 +50,13 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfPrimitivedouble.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfPrimitivedouble.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

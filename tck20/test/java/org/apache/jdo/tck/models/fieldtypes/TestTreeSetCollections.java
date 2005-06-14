@@ -60,6 +60,13 @@ public class TestTreeSetCollections extends JDO_Test {
         BatchTestRunner.run(TestTreeSetCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(TreeSetCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

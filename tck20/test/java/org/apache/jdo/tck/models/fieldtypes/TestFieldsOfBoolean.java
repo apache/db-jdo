@@ -51,6 +51,13 @@ public class TestFieldsOfBoolean extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfBoolean.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfBoolean.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

@@ -58,6 +58,13 @@ public class TestListCollections extends JDO_Test {
         BatchTestRunner.run(Commit.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(ListCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

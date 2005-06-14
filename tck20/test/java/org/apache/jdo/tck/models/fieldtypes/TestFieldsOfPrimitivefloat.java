@@ -50,6 +50,13 @@ public class TestFieldsOfPrimitivefloat extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfPrimitivefloat.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfPrimitivefloat.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

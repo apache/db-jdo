@@ -53,6 +53,13 @@ public class TestFieldsOfLocale extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfLocale.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfLocale.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

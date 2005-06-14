@@ -53,6 +53,13 @@ public class TestFieldsOfSimpleInterface extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfSimpleInterface.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfSimpleInterface.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

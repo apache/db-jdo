@@ -49,6 +49,13 @@ public class TestFieldsOfPrimitiveboolean extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfPrimitiveboolean.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfPrimitiveboolean.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

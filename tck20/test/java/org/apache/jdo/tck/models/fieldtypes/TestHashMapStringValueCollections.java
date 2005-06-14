@@ -55,6 +55,13 @@ public class TestHashMapStringValueCollections extends JDO_Test {
         BatchTestRunner.run(TestHashMapStringValueCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(HashMapStringValueCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

@@ -49,6 +49,13 @@ public class TestFieldsOfPrimitiveshort extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfPrimitiveshort.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfPrimitiveshort.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

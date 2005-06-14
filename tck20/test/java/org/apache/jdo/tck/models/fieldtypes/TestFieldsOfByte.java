@@ -52,6 +52,13 @@ public class TestFieldsOfByte extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfByte.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfByte.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

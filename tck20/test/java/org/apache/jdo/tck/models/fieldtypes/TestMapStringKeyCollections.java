@@ -56,6 +56,13 @@ public class TestMapStringKeyCollections extends JDO_Test {
         BatchTestRunner.run(TestMapStringKeyCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(MapStringKeyCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

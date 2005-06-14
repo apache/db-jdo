@@ -53,6 +53,13 @@ public class TestFieldsOfBigDecimal extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfBigDecimal.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfBigDecimal.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

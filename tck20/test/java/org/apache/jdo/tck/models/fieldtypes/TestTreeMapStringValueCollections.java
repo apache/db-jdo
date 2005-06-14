@@ -55,6 +55,13 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
         BatchTestRunner.run(TestTreeMapStringValueCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(TreeMapStringValueCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

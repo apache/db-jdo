@@ -56,6 +56,13 @@ public class TestHashSetCollections extends JDO_Test {
         BatchTestRunner.run(TestHashSetCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(HashSetCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

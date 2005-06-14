@@ -52,6 +52,13 @@ public class TestFieldsOfFloat extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfFloat.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfFloat.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

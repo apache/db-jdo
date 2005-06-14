@@ -53,6 +53,13 @@ public class TestFieldsOfBigInteger extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfBigInteger.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfBigInteger.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

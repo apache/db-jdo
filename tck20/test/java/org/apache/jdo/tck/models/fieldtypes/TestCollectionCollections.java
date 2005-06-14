@@ -55,6 +55,13 @@ public class TestCollectionCollections extends JDO_Test {
         BatchTestRunner.run(TestCollectionCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(CollectionCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

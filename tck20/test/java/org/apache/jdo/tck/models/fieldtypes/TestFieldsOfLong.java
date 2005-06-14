@@ -52,6 +52,13 @@ public class TestFieldsOfLong extends JDO_Test {
         BatchTestRunner.run(TestFieldsOfLong.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfLong.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

@@ -56,6 +56,13 @@ public class TestTreeMapStringKeyCollections extends JDO_Test {
         BatchTestRunner.run(TestTreeMapStringKeyCollections.class);
     }   
 
+    /**
+     * @see JDO_Test#addTearDownClass(Class)
+     */
+    protected void localSetUp() {
+        addTearDownClass(TreeMapStringKeyCollections.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();
