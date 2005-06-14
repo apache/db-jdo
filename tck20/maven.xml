@@ -100,7 +100,7 @@
     <!--   maven -Dtest=api.jdohelper.GetObjectId runtck.single       -->
     <goal name="runtck.jdorisingle" prereqs="java:compile, jdorienhance, copyprops">
         <echo>Run TCK test org.apache.jdo.tck.${test} on the RI with configuration ${jdo.tck.configuration}</echo>
-        <java fork="yes" dir="${jdo.tck.testdir}" 
+        <java fork="yes" dir="${jdo.tck.testdir}"
               classname="org.apache.jdo.tck.${test}">
             <classpath refid="jdori.class.path"/>
             <sysproperty key="ResultPrinterClass" value="${jdo.tck.resultprinterclass}"/>
@@ -418,6 +418,13 @@
         <pathelement location="${derby.jarfile}" />
         <pathelement location="${core20.jarfile}" />
         <pathelement location="${enhancer20.jarfile}" />
+        <!-- Jar files for connection pooling -->
+        <pathelement location="${jpox.dbcp.jarfile}" />
+        <pathelement location="${jpox.c3p0.jarfile}" />
+        <pathelement location="${c3p0.jarfile}"/>
+        <pathelement location="${dbcp.jarfile}"/>
+        <pathelement location="${pool.jarfile}"/>
+        <pathelement location="${collections.jarfile}"/>
     </path>
 
     <!-- ==== -->

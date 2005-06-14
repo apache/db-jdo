@@ -54,14 +54,20 @@ button at 'Download JNDI 1.2.1 & More', accept a license agreement, download
 'File System Service Provider, 1.2 Beta 3' and then unpack the downloaded zip.
  It includes the jars fscontext.jar and providerutil.jar.
 
-- jpox
+- JPOX
 The Reference Implementation for JDO 2.0 is JPOX. To run tck20 you must
 manually add the JPOX jar file and JPOX enhancer jar file to your local
 maven repository. Download both jars from
 http://www.jpox.org/docs/download.html and copy them to your local maven
-repository, changing the version number to "SNAPSHOT":
+repository, changing the version number to "SNAPSHOT".  You must also
+download the jpox plug-ins jpox-c3p0-<version>.jar and jpox-dbcp-<version>.jar
+for connection pooling.
   cp jpox-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-SNAPSHOT.jar
   cp jpox-enhancer-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-enhancer-SNAPSHOT.jar
+  cp jpox-c3p0-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-c3p0-SNAPSHOT.jar
+  cp jpox-dbcp-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-dbcp-SNAPSHOT.jar
+
+Finally, you must download c3p0-0.9.0-pre6.bin.zip, unzip it and copy c3p0-0.9.0-pre6.jar to $HOME/.maven/repository/c3p0/jars.
 
 - derby
 To use Derby as the datastore for tck20, download version 10.0.2.1 from

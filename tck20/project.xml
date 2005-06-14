@@ -104,6 +104,40 @@ NOTE!! This project has a nonstandard structure. The source files are located in
             <artifactId>jdo2-core</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
+        <!-- dependencies for connection pooling -->
+        <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox-c3p0</artifactId>
+            <version>SNAPSHOT</version>
+            <url>http://www.jpox.org/docs/download.html</url>
+        </dependency>
+        <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox-dbcp</artifactId>
+            <version>SNAPSHOT</version>
+            <url>http://www.jpox.org/docs/download.html</url>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.0-pre6</version>
+            <url>http://prdownloads.sourceforge.net/c3p0/c3p0-0.9.0-pre6.bin.zip?use_mirror=easynews</url>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
     </dependencies>
     <!-- =================== -->
     <!-- Build Specification -->
