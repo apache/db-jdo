@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
 <orm>
-<package name="org.apache.jdo.tck.pc.fieldtypes">
-<class name="TreeMapStringValueCollections" identity-type="application"
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
-<orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="TreeMapStringValueCollections" table="TREEMAPSTRINGVALUE_COLLECTIONS">
             <field name="identifier" column="IDENTIFIER" primary-key="true"/>
