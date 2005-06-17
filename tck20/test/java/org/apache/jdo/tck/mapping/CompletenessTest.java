@@ -48,7 +48,7 @@ public class CompletenessTest extends JDO_Test {
     protected Object rootOid;
     
         // todo: get filename from property
-    protected String inputFilename = "org/apache/jdo/tck/pc/company/company.xml";
+    protected String inputFilename = "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
     
     /**
      * The <code>main</code> is called when the class
