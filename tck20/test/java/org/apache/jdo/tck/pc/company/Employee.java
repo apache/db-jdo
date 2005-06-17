@@ -57,6 +57,22 @@ public abstract class Employee extends Person {
      * @param lastname The last name of the employee.
      * @param middlename The middle name of the employee.
      * @param birthdate The birth date of the employee.
+     * @param hiredate The date that the employee was hired.
+     */
+    public Employee(long personid, String firstname, String lastname, 
+                    String middlename, Date birthdate,
+                    Date hiredate) {
+        super(personid, firstname, lastname, middlename, birthdate);
+        this.hiredate = hiredate;
+    }
+
+    /**
+     * Initialize an <code>Employee</code> instance.
+     * @param personid The identifier for the person.
+     * @param firstname The first name of the employee.
+     * @param lastname The last name of the employee.
+     * @param middlename The middle name of the employee.
+     * @param birthdate The birth date of the employee.
      * @param address The address of the employee.
      * @param hiredate The date that the employee was hired.
      */

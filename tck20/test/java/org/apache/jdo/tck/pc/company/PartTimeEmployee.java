@@ -37,6 +37,23 @@ public class PartTimeEmployee extends Employee {
      * @param last The person's last name.
      * @param middle The person's middle name.
      * @param born The person's birthdate.
+     * @param hired The date the person was hired.
+     * @param wage The person's wage.
+     */
+    public PartTimeEmployee(long personid, String first, String last,
+                            String middle, Date born,
+                            Date hired, double wage ) {
+        super(personid, first, last, middle, born, hired);
+        this.wage = wage;
+    }
+
+    /**
+     * Initialize a part-time employee.
+     * @param personid The identifier for the person.
+     * @param first The person's first name.
+     * @param last The person's last name.
+     * @param middle The person's middle name.
+     * @param born The person's birthdate.
      * @param addr The person's address.
      * @param hired The date the person was hired.
      * @param wage The person's wage.

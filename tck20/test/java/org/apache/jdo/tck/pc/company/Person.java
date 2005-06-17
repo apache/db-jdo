@@ -59,16 +59,29 @@ public class Person
      * @param lastname The person's last name.
      * @param middlename The person's middle name.
      * @param birthdate The person's birthdate.
-     * @param address The person's address.
      */
     public Person(long personid, String firstname, String lastname, 
-                  String middlename, Date birthdate, Address address) {
+                  String middlename, Date birthdate) {
         this.personid = personid;
         this.firstname = firstname;
         this.lastname = lastname;
         this.middlename = middlename;
-        this.address = address;
         this.birthdate = birthdate;
+    }
+
+    /**
+     * Initialize a <code>Person</code> instance.
+     * @param personid The person identifier.
+     * @param firstname The person's first name.
+     * @param lastname The person's last name.
+     * @param middlename The person's middle name.
+     * @param birthdate The person's birthdate.
+     * @param address The person's address.
+     */
+    public Person(long personid, String firstname, String lastname, 
+                  String middlename, Date birthdate, Address address) {
+        this(personid, firstname, lastname, middlename, birthdate);
+        this.address = address;
     }
 
     /**

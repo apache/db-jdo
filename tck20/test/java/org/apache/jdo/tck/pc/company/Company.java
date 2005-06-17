@@ -48,12 +48,22 @@ public class Company
      * @param companyid The company id.
      * @param name The company name.
      * @param founded The date the company was founded.
-     * @param addr The company's address.
      */
-    public Company(long companyid, String name, Date founded, Address addr) {
+    public Company(long companyid, String name, Date founded) {
         this.companyid = companyid;
         this.name = name;
         this.founded = founded;
+    }
+
+    /** 
+     * Initialize the <code>Company</code> instance.
+     * @param companyid The company id.
+     * @param name The company name.
+     * @param founded The date the company was founded.
+     * @param addr The company's address.
+     */
+    public Company(long companyid, String name, Date founded, Address addr) {
+        this(companyid, name, founded);
         this.address = addr;
     }
 

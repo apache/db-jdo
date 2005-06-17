@@ -38,6 +38,23 @@ public class FullTimeEmployee extends Employee {
      * @param last The person's last name.
      * @param middle The person's middle name.
      * @param born The person's birthdate.
+     * @param hired The date that the person was hired.
+     * @param sal The salary of the full-time employee.
+     */
+    public FullTimeEmployee(long personid, String first, String last,
+                            String middle, Date born,
+                            Date hired, double sal) {
+        super(personid, first, last, middle, born, hired);
+        salary = sal;
+    }
+
+    /**
+     * Initialize a full-time employee.
+     * @param personid The person identifier.
+     * @param first The person's first name.
+     * @param last The person's last name.
+     * @param middle The person's middle name.
+     * @param born The person's birthdate.
      * @param addr The person's address.
      * @param hired The date that the person was hired.
      * @param sal The salary of the full-time employee.
