@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.jdo.Extent;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalException;
 import javax.jdo.JDOHelper;
@@ -368,7 +369,15 @@ public abstract class JDO_Test extends TestCase {
         Collection col = new Vector() ;
         Query query = pm.newQuery();
         query.setClass(pcClass);
-        query.setCandidates(pm.getExtent(pcClass, false));
+        Extent candidates = null;
+        try {
+            candidates = pm.getExtent(pcClass, false);
+        } catch (JDOException ex) {
+            if (debug) logger.debug("Exception thrown for getExtent of class " +
+                    pcClass.getName());
+            return col;
+        }
+        query.setCandidates(candidates);
         Object result = query.execute();
         return (Collection)result;
     }
