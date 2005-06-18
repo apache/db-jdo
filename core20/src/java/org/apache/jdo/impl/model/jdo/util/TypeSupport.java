@@ -21,13 +21,14 @@
 
 package org.apache.jdo.impl.model.jdo.util;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.apache.jdo.model.java.JavaModel;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModel;
-
 
 /**
  *
@@ -35,21 +36,58 @@ import org.apache.jdo.model.jdo.JDOModel;
 public class TypeSupport
 {
     /** */
-    private static Set primitiveTypeNames = new HashSet();
+    private final static Set primitiveTypeNames = new HashSet();
+
+    /** */
+    private final static Map singleFieldObjectIdClassNames = new HashMap();
 
     static 
     {
         // initialize set of names of primitive types
-        primitiveTypeNames.add("byte");
-        primitiveTypeNames.add("short");
-        primitiveTypeNames.add("int");
-        primitiveTypeNames.add("long");
-        primitiveTypeNames.add("char");
-        primitiveTypeNames.add("float");
-        primitiveTypeNames.add("double");
-        primitiveTypeNames.add("boolean");
+        primitiveTypeNames.add("byte"); // NOI18N
+        primitiveTypeNames.add("short"); // NOI18N
+        primitiveTypeNames.add("int"); // NOI18N
+        primitiveTypeNames.add("long"); // NOI18N
+        primitiveTypeNames.add("char"); // NOI18N
+        primitiveTypeNames.add("float"); // NOI18N
+        primitiveTypeNames.add("double"); // NOI18N
+        primitiveTypeNames.add("boolean"); // NOI18N
+
+        // initialize map of singleFieldObjectIdClassNames
+        singleFieldObjectIdClassNames.put(
+            "byte", //NOI18N
+            "com.sun.persistence.support.identity.ByteIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.Byte", //NOI18N
+            "com.sun.persistence.support.identity.ByteIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "char", //NOI18N
+            "com.sun.persistence.support.identity.CharIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.Char", //NOI18N
+            "com.sun.persistence.support.identity.CharIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "int", //NOI18N
+            "com.sun.persistence.support.identity.IntIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.Integer",  //NOI18N
+            "com.sun.persistence.support.identity.IntIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "long",  //NOI18N
+            "com.sun.persistence.support.identity.LongIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.Long",  //NOI18N
+            "com.sun.persistence.support.identity.LongIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "short", //NOI18N
+            "com.sun.persistence.support.identity.ShortIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.Short", //NOI18N
+            "com.sun.persistence.support.identity.ShortIdentity"); //NOI18N
+        singleFieldObjectIdClassNames.put(
+            "java.lang.String", //NOI18N
+            "com.sun.persistence.support.identity.StringIdentity"); //NOI18N
     }
-    
 
     /** 
      * Returns <code>true</code> if the persistence-modifier of a field
@@ -147,7 +185,17 @@ public class TypeSupport
         return false;
     }
     
-    
+    /** 
+     * Returns the name of a single field ObjectId class, if the specified
+     * type name denotes a type that is suitable for single fiedl identity.
+     * @param typeName the type to be checked
+     */
+    public static String getSingleFieldObjectIdClassName(String typeName) {
+        if (typeName == null)
+            return null;
+        return (String) singleFieldObjectIdClassNames.get(typeName);
+    }
+
     //========= Internal helper methods ==========
     
     /**

@@ -251,6 +251,19 @@ public class JDOClassImplDynamic
                 this.declaredObjectIdClassName = type.getName();
             }
         }
+        else {
+            // not declared, check for single field ObjectId class
+            JDOField[] declaredPKFields = getDeclaredPrimaryKeyFields();
+            if ((declaredPKFields != null) && (declaredPKFields.length == 1)) {
+                // there is one pk field declared by this class => 
+                // check the type
+                JavaType fieldType = declaredPKFields[0].getType();
+                if (fieldType != null) {
+                    return TypeSupport.getSingleFieldObjectIdClassName(
+                        fieldType.getName());
+                }
+            }
+        }
         return declaredObjectIdClassName;
     }
     
@@ -1206,6 +1219,31 @@ public class JDOClassImplDynamic
         return null;
     }
     
+    /**
+     * Returns the collection of identifying declared fields of this JDOClass
+     * in the form of an array. The method returns the JDOField instances
+     * declared by this JDOClass defined as primary key fields (see {@link
+     * JDOField#isPrimaryKey}). 
+     * @return the identifying fields of this JDOClass
+     */
+    protected JDOField[] getDeclaredPrimaryKeyFields() {
+        JDOField[] fields = getDeclaredFields();
+        JDOField[] tmp = new JDOField[fields.length];
+        int length = 0;
+        for (int i = 0; i < fields.length; i++) {
+            JDOField field = fields[i];
+            if (field.isManaged() && field.isPrimaryKey()) {
+                tmp[length++] = field;
+            }
+        }
+        // now fill the returned array 
+        // the array should have the correct length
+        JDOField[] result = new JDOField[length];
+        System.arraycopy(tmp, 0, result, 0, length);
+
+        return result;
+    }
+
     /**
      * Returns a new instance of the JDOClass implementation class.
      */
