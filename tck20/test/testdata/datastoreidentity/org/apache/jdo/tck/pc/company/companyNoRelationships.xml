@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <description>Company instances for CompletenessTest</description>
+
+    <bean id="company1" class="org.apache.jdo.tck.pc.company.Company">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Sun Microsystems, Inc.</value></constructor-arg>
+        <constructor-arg index="2" type="java.util.Date"><value>11/Apr/1952</value></constructor-arg>
+    </bean>
+
+    <bean id="dept1" class="org.apache.jdo.tck.pc.company.Department">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
+    </bean>
+
+    <bean id="dept2" class="org.apache.jdo.tck.pc.company.Department">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" ><value>Human Resources</value></constructor-arg>
+    </bean>
+
+    <bean id="emp1" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp1First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp1Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp1Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>10/Jun/1970</value></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>1/Jan/1999</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>20000</value></constructor-arg>
+        <property name="weeklyhours"><value>40</value></property>
+    </bean>
+    <bean id="emp2" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp2First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp2Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp2Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>22/Dec/1975</value></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>1/Jul/2003</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>10000</value></constructor-arg>
+        <property name="weeklyhours"><value>40</value></property>
+    </bean>
+    <bean id="emp3" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp3First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp3Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp3Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>5/Sep/1972</value></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>15000</value></constructor-arg>
+        <property name="weeklyhours"><value>19</value></property>
+    </bean>
+    <bean id="emp4" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
+        <constructor-arg index="0" type="long"><value>4</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp4First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp4Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp4Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>6/Sep/1973</value></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>15/Apr/2001</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>13000</value></constructor-arg>
+    </bean>
+    <bean id="emp5" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+        <constructor-arg index="0" type="long"><value>5</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp5First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp5Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp5Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>5/Jul/1962</value></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>15/Aug/1998</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>45000</value></constructor-arg>
+    </bean>
+
+    <bean id="medicalIns1" class="org.apache.jdo.tck.pc.company.MedicalInsurance">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier1</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>PPO</value></constructor-arg>
+    </bean>
+
+    <bean id="medicalIns2" class="org.apache.jdo.tck.pc.company.MedicalInsurance">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier2</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>HMO</value></constructor-arg>
+    </bean>
+
+    <bean id="medicalIns3" class="org.apache.jdo.tck.pc.company.MedicalInsurance">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier2</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>HMO</value></constructor-arg>
+    </bean>
+
+    <bean id="dentalIns1" class="org.apache.jdo.tck.pc.company.DentalInsurance">
+        <constructor-arg index="0" type="long"><value>4</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier2</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
+    </bean>
+
+    <bean id="proj1" class="org.apache.jdo.tck.pc.company.Project">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>orange</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>2500000.99</value></constructor-arg>
+    </bean>
+    <bean id="proj2" class="org.apache.jdo.tck.pc.company.Project">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>blue</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>50000.00</value></constructor-arg>
+    </bean>
+    <bean id="proj3" class="org.apache.jdo.tck.pc.company.Project">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>green</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>2000.99</value></constructor-arg>
+    </bean>
+</beans>
