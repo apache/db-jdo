@@ -57,6 +57,11 @@
 
         <j:set var="zeroval" value="0"/>
 
+        <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
+        <j:if test="${cfglist == null}">
+            <u:properties file="${basedir}/test/conf/configurations.list"/>
+        </j:if>
+
         <echo>Configurations for this run are ${jdo.tck.cfglist}</echo>
         <u:tokenize var="jdo.tck.cfglist" delim=" ">
             ${jdo.tck.cfglist}
