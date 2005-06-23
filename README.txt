@@ -156,11 +156,56 @@ capable classes in org.apache.jdo.tck.pc.mylib run without error.
 
 - See Prerequisites concerning JPOX and Derby.
 
-- Select test configuration (application or datastore) in project.properties, as described above.
+- Run "maven build" to build the tck.  This will compile, enhance, install the schemas, and run all the tests on all supported databases and identitytypes.
 
-- Run "maven build" to build the tck.  This will run all the tests.
+You may use the following custom goals and command line options
+with tck20/maven:
 
-- Run "maven runtck.jdori" to run all tests or "maven -Dtest=<test name> runtck.jdorisingle to run one test, e.g. transactions.Commit.
+Custom Goals:
+    * runtck.jdori - runs the TCK on the JDO Reference Implementation
+    * runtck.iut - runs the TCK on the implementation under test
+    * installSchema - installs the database schema
+    * enhance.jdori - enhances the class files using the JDO RI enhancer
+    * enhance.iut - enhances the class files using the
+                    implementation under test's enhancer
+
+Command Line Options:
+    -Djdo.tck.cfglist=<configuration file list>
+          Overrides test/conf/configuration.list by supplying
+          one or more space-separated test configuration files
+
+      -Djdo.tck.dblist=<database list>
+          Overrides the property value in project.properties by supplying
+          one or more space-separated database names
+
+      -Djdo.tck.identitytypes=<identity type list>
+            Overrides the property value in project.properties by supplying
+            one or more space-separated identity types (applicationidentity
+            or datastoreidentity) to use for this run.
+
+
+Maven looks for the following configuration files in test/conf:
+    * configurations.list
+          A list of files. Each file listed is a test configuration file.
+    * test configuration files
+          Each of these files sets values for
+                jdo.tck.testdescription - an optional string describing
+                    the purpose of these tests
+                jdo.tck.classes - a list of one or more test classes.
+                jdo.tck.testdata - fully qualified file name
+                    (not required by all tests)
+                jdo.tck.standarddata - fully qualified file name
+                    (not required by all tests)
+                jdo.tck.mapping - file designator that maven.xml uses
+                    to build a javax.jdo.option.Mapping value and
+                    corresponding schema name
+    * exclude.list
+          A list of test classes NOT to execute during a TCK test run
+          [Not yet fully implemented]
+
+For example, run "maven runtck.jdori" to run all tests or
+"maven -Djdo.tck.cfg=<configuration file name> runtck.jdori"
+to run one configuration.
 
 (6) Logging
 Apache JDO uses the apache commons logging package for logging.
