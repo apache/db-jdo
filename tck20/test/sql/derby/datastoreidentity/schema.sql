@@ -2,6 +2,9 @@
 
 connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
+CREATE SCHEMA datastoreidentity0;
+SET SCHEMA datastoreidentity0;
+
 -------------------------
 -- mylib
 -------------------------

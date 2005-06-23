@@ -67,6 +67,8 @@ public class BatchResultPrinter
     /** */
     protected void printHeader(long runTime) {
         getWriter().println("Time: "+elapsedTimeAsString(runTime));
+        getWriter().println("Description: " +
+                            System.getProperty("jdo.tck.description"));
     }
         
     /** */

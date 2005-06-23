@@ -192,15 +192,24 @@ public class BatchTestRunner
     private static class ConsoleFileOutput extends OutputStream {
 
         private static String outDir = "logs";
-        private static String fileNamePrefix = "TCKLog-";
         private static String fileNameSuffix = ".txt";
         private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
-            
         private PrintStream systemOut = System.out;
         private FileOutputStream fileOut;
         
         private ConsoleFileOutput() {
-            String fileName = fileNamePrefix+simpleDateFormat.format(new Date())+fileNameSuffix;
+            String identityType =  System.getProperty("jdo.tck.identitytype");
+            String db =  System.getProperty("jdo.tck.database");
+            String testConfig =  System.getProperty("jdo.tck.cfg");
+            if (identityType.equals("applicationidentity"))
+                identityType = "app";
+            else identityType = "dsid";
+            testConfig = testConfig.substring(0, testConfig.indexOf('.'));
+            String fileName = db + "-"
+                              + identityType + "-"
+                              + testConfig + "-"
+                              + simpleDateFormat.format(new Date())
+                              + fileNameSuffix;
             File dir = new File(outDir);
             if (!dir.exists()) {
                 dir.mkdir();

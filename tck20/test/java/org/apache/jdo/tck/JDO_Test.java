@@ -114,6 +114,18 @@ public abstract class JDO_Test extends TestCase {
         {   true,           false,              false,      false,      false}
     };
   
+    /** identitytype value for applicationidentity. */
+    public static final String APPLICATION_IDENTITY = "applicationidentity";
+
+    /** identitytype value for datastoreidentity. */
+    public static final String DATASTORE_IDENTITY = "datastoreidentity";
+
+    /** 
+     * String indicating the type of identity used for the current test case.
+     * The value is either "applicationidentity" or "datastoreidentity".
+     */
+    protected final String identitytype;
+
     /** Name of the file contaninig the properties for the PMF. */
     protected static String PMFProperties;
 
@@ -150,13 +162,14 @@ public abstract class JDO_Test extends TestCase {
     
     /** 
      * A list of registered pc classes. 
-     * Th extents of these classes are deleted in <code>localTearDown</code>.
+     * The extents of these classes are deleted in <code>localTearDown</code>.
      */
     private Collection tearDownClasses = new LinkedList();
     
     /** */
     protected JDO_Test() {
         PMFProperties = System.getProperty("PMFProperties");
+        identitytype = System.getProperty("jdo.tck.identitytype");
     }
 
     /** */
@@ -785,4 +798,15 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
+    /**
+     * Returns <code>true</code> if the current test runs with application
+     * identity. This means the system property jdo.tck.identitytype has the
+     * value applicationidentity.
+     * @return <code>true</code> if current test runs with application
+     * identity; <code>false</code> otherwise:
+     */
+    public boolean runsWithApplicationIdentity() {
+        return APPLICATION_IDENTITY.equals(identitytype);
+    }
+    
 }
