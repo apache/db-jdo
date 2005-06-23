@@ -32,7 +32,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents information about a company.
  */
 public class Company 
-    implements Serializable, Comparable, DeepEquality, ICompany {
+    implements Serializable, Comparable, DeepEquality {
 
     private long        companyid;
     private String      name;
@@ -190,7 +190,7 @@ public class Company
      */
     public boolean deepCompareFields(DeepEquality other, 
                                      EqualityHelper helper) {
-        ICompany otherCompany = (ICompany)other;
+        Company otherCompany = (Company)other;
         return (companyid == otherCompany.getCompanyid()) &&
             helper.equals(name, otherCompany.getName()) &&
             helper.equals(founded, otherCompany.getFounded()) &&
@@ -209,7 +209,7 @@ public class Company
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((ICompany)o);
+        return compareTo((Company)o);
     }
 
     /** 
@@ -222,7 +222,7 @@ public class Company
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(ICompany other) {
+    public int compareTo(Company other) {
         long otherId = other.getCompanyid();
         return (companyid < otherId ? -1 : (companyid == otherId ? 0 : 1));
     }
@@ -234,8 +234,8 @@ public class Company
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof ICompany) {
-            return compareTo((ICompany)obj) == 0;
+        if (obj instanceof Company) {
+            return compareTo((Company)obj) == 0;
         }
         return false;
     }

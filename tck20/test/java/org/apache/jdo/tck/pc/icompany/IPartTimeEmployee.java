@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.pc.company;
-
-import java.util.Date;
-import java.util.Set;
+package org.apache.jdo.tck.pc.icompany;
 
 /**
- * This interface represents the persistent state of Company.
+ * This interface represents the persistent state of PartTimeEmployee.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-public interface ICompany {
-    Address getAddress();
-    long getCompanyid();
-    Set getDepartments();
-    Date getFounded();
-    String getName();
-    
-    void setAddress(Address a);
-    void setCompanyid(long id);
-    void setDepartments(Set depts);
-    void setFounded(Date date);
-    void setName(String string);
+public interface IPartTimeEmployee {
+
+    double getWage();
+    void setWage(double wage);
 }
