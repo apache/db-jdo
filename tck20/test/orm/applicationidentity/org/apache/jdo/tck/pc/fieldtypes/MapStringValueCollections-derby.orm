@@ -34,19 +34,7 @@
                 <value column="STRING"/>
                 <order column="INDEX"/>
             </field>
-            <field name="MapOfObject_String5" table="MAP_OF_OBJECT5_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="OBJREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
             <field name="MapOfObject_String6" table="MAP_OF_OBJECT6_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="OBJREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="MapOfObject_String7" table="MAP_OF_OBJECT7_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="OBJREF"/>
                 <value column="STRING"/>
@@ -88,19 +76,7 @@
                 <value column="STRING"/>
                 <order column="INDEX"/>
             </field>
-            <field name="MapOfSimpleClass_String14" table="MAP_OF_SIMPLE_CLASS14_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="SIMPCLSREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
             <field name="MapOfSimpleClass_String15" table="MAP_OF_SIMPLE_CLASS15_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="SIMPCLSREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="MapOfSimpleClass_String16" table="MAP_OF_SIMPLE_CLASS16_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="SIMPCLSREF"/>
                 <value column="STRING"/>
@@ -142,19 +118,7 @@
                 <value column="STRING"/>
                 <order column="INDEX"/>
             </field>
-            <field name="MapOfSimpleInterface_String23" table="MAP_OF_SIMPLE_INTERFACE23_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="SIMPINTREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
             <field name="MapOfSimpleInterface_String24" table="MAP_OF_SIMPLE_INTERFACE24_STRING">
-                <join column="IDENTIFIER"/>
-                <key column="SIMPINTREF"/>
-                <value column="STRING"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="MapOfSimpleInterface_String25" table="MAP_OF_SIMPLE_INTERFACE25_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="SIMPINTREF"/>
                 <value column="STRING"/>
@@ -176,11 +140,7 @@
             </field>
             <field name="MapOfString_String31" column="MAP_OF_STRING31_STRING">
             </field>
-            <field name="MapOfString_String32" column="MAP_OF_STRING32_STRING">
-            </field>
             <field name="MapOfString_String33" column="MAP_OF_STRING33_STRING">
-            </field>
-            <field name="MapOfString_String34" column="MAP_OF_STRING34_STRING">
             </field>
             <field name="MapOfString_String35" table="MAP_OF_STRING35_STRING">
                 <join column="IDENTIFIER"/>
@@ -198,11 +158,7 @@
             </field>
             <field name="MapOfDate_String40" column="MAP_OF_DATE40_STRING">
             </field>
-            <field name="MapOfDate_String41" column="MAP_OF_DATE41_STRING">
-            </field>
             <field name="MapOfDate_String42" column="MAP_OF_DATE42_STRING">
-            </field>
-            <field name="MapOfDate_String43" column="MAP_OF_DATE43_STRING">
             </field>
             <field name="MapOfDate_String44" table="MAP_OF_DATE44_STRING">
                 <join column="IDENTIFIER"/>
@@ -220,11 +176,7 @@
             </field>
             <field name="MapOfBigDecimal_String49" column="MAP_OF_BIG_DECIMAL49_STRING">
             </field>
-            <field name="MapOfBigDecimal_String50" column="MAP_OF_BIG_DECIMAL50_STRING">
-            </field>
             <field name="MapOfBigDecimal_String51" column="MAP_OF_BIG_DECIMAL51_STRING">
-            </field>
-            <field name="MapOfBigDecimal_String52" column="MAP_OF_BIG_DECIMAL52_STRING">
             </field>
             <field name="MapOfBigDecimal_String53" table="MAP_OF_BIG_DECIMAL53_STRING">
                 <join column="IDENTIFIER"/>
@@ -244,11 +196,7 @@
             </field>
             <field name="MapOfBigInteger_String58" column="MAP_OF_BIG_INTEGER58_STRING">
             </field>
-            <field name="MapOfBigInteger_String59" column="MAP_OF_BIG_INTEGER59_STRING">
-            </field>
             <field name="MapOfBigInteger_String60" column="MAP_OF_BIG_INTEGER60_STRING">
-            </field>
-            <field name="MapOfBigInteger_String61" column="MAP_OF_BIG_INTEGER61_STRING">
             </field>
             <field name="MapOfBigInteger_String62" table="MAP_OF_BIG_INTEGER62_STRING">
                 <join column="IDENTIFIER"/>
@@ -266,11 +214,7 @@
             </field>
             <field name="MapOfByte_String67" column="MAP_OF_BYTE67_STRING">
             </field>
-            <field name="MapOfByte_String68" column="MAP_OF_BYTE68_STRING">
-            </field>
             <field name="MapOfByte_String69" column="MAP_OF_BYTE69_STRING">
-            </field>
-            <field name="MapOfByte_String70" column="MAP_OF_BYTE70_STRING">
             </field>
             <field name="MapOfByte_String71" table="MAP_OF_BYTE71_STRING">
                 <join column="IDENTIFIER"/>
@@ -288,11 +232,7 @@
             </field>
             <field name="MapOfDouble_String76" column="MAP_OF_DOUBLE76_STRING">
             </field>
-            <field name="MapOfDouble_String77" column="MAP_OF_DOUBLE77_STRING">
-            </field>
             <field name="MapOfDouble_String78" column="MAP_OF_DOUBLE78_STRING">
-            </field>
-            <field name="MapOfDouble_String79" column="MAP_OF_DOUBLE79_STRING">
             </field>
             <field name="MapOfDouble_String80" table="MAP_OF_DOUBLE80_STRING">
                 <join column="IDENTIFIER"/>
@@ -310,11 +250,7 @@
             </field>
             <field name="MapOfFloat_String85" column="MAP_OF_FLOAT85_STRING">
             </field>
-            <field name="MapOfFloat_String86" column="MAP_OF_FLOAT86_STRING">
-            </field>
             <field name="MapOfFloat_String87" column="MAP_OF_FLOAT87_STRING">
-            </field>
-            <field name="MapOfFloat_String88" column="MAP_OF_FLOAT88_STRING">
             </field>
             <field name="MapOfFloat_String89" table="MAP_OF_FLOAT89_STRING">
                 <join column="IDENTIFIER"/>
@@ -332,11 +268,7 @@
             </field>
             <field name="MapOfInteger_String94" column="MAP_OF_INTEGER94_STRING">
             </field>
-            <field name="MapOfInteger_String95" column="MAP_OF_INTEGER95_STRING">
-            </field>
             <field name="MapOfInteger_String96" column="MAP_OF_INTEGER96_STRING">
-            </field>
-            <field name="MapOfInteger_String97" column="MAP_OF_INTEGER97_STRING">
             </field>
             <field name="MapOfInteger_String98" table="MAP_OF_INTEGER98_STRING">
                 <join column="IDENTIFIER"/>
@@ -354,11 +286,7 @@
             </field>
             <field name="MapOfLong_String103" column="MAP_OF_LONG103_STRING">
             </field>
-            <field name="MapOfLong_String104" column="MAP_OF_LONG104_STRING">
-            </field>
             <field name="MapOfLong_String105" column="MAP_OF_LONG105_STRING">
-            </field>
-            <field name="MapOfLong_String106" column="MAP_OF_LONG106_STRING">
             </field>
             <field name="MapOfLong_String107" table="MAP_OF_LONG107_STRING">
                 <join column="IDENTIFIER"/>
@@ -376,11 +304,7 @@
             </field>
             <field name="MapOfShort_String112" column="MAP_OF_SHORT112_STRING">
             </field>
-            <field name="MapOfShort_String113" column="MAP_OF_SHORT113_STRING">
-            </field>
             <field name="MapOfShort_String114" column="MAP_OF_SHORT114_STRING">
-            </field>
-            <field name="MapOfShort_String115" column="MAP_OF_SHORT115_STRING">
             </field>
             <field name="MapOfShort_String116" table="MAP_OF_SHORT116_STRING">
                 <join column="IDENTIFIER"/>

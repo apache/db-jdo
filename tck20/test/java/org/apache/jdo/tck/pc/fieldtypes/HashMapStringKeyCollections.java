@@ -65,87 +65,59 @@ public class HashMapStringKeyCollections {
   public HashMap HashMapOfString_Short41;
   public HashMap HashMapOfString_Object42;
   public HashMap HashMapOfString_Object43;
-  public HashMap HashMapOfString_Object44;
   public HashMap HashMapOfString_SimpleClass45;
   public HashMap HashMapOfString_SimpleClass46;
-  public HashMap HashMapOfString_SimpleClass47;
   public HashMap HashMapOfString_SimpleInterface48;
   public HashMap HashMapOfString_SimpleInterface49;
-  public HashMap HashMapOfString_SimpleInterface50;
   public HashMap HashMapOfString_String51;
   public HashMap HashMapOfString_String52;
-  public HashMap HashMapOfString_String53;
   public HashMap HashMapOfString_Date54;
   public HashMap HashMapOfString_Date55;
-  public HashMap HashMapOfString_Date56;
   public HashMap HashMapOfString_Locale57;
   public HashMap HashMapOfString_Locale58;
-  public HashMap HashMapOfString_Locale59;
   public HashMap HashMapOfString_BigDecimal60;
   public HashMap HashMapOfString_BigDecimal61;
-  public HashMap HashMapOfString_BigDecimal62;
   public HashMap HashMapOfString_BigInteger63;
   public HashMap HashMapOfString_BigInteger64;
-  public HashMap HashMapOfString_BigInteger65;
   public HashMap HashMapOfString_Byte66;
   public HashMap HashMapOfString_Byte67;
-  public HashMap HashMapOfString_Byte68;
   public HashMap HashMapOfString_Double69;
   public HashMap HashMapOfString_Double70;
-  public HashMap HashMapOfString_Double71;
   public HashMap HashMapOfString_Float72;
   public HashMap HashMapOfString_Float73;
-  public HashMap HashMapOfString_Float74;
   public HashMap HashMapOfString_Integer75;
   public HashMap HashMapOfString_Integer76;
-  public HashMap HashMapOfString_Integer77;
   public HashMap HashMapOfString_Long78;
   public HashMap HashMapOfString_Long79;
-  public HashMap HashMapOfString_Long80;
   public HashMap HashMapOfString_Short81;
   public HashMap HashMapOfString_Short82;
-  public HashMap HashMapOfString_Short83;
   public HashMap HashMapOfString_Object84;
-  public HashMap HashMapOfString_Object85;
   public HashMap HashMapOfString_Object86;
   public HashMap HashMapOfString_SimpleClass87;
-  public HashMap HashMapOfString_SimpleClass88;
   public HashMap HashMapOfString_SimpleClass89;
   public HashMap HashMapOfString_SimpleInterface90;
-  public HashMap HashMapOfString_SimpleInterface91;
   public HashMap HashMapOfString_SimpleInterface92;
   public HashMap HashMapOfString_String93;
-  public HashMap HashMapOfString_String94;
   public HashMap HashMapOfString_String95;
   public HashMap HashMapOfString_Date96;
-  public HashMap HashMapOfString_Date97;
   public HashMap HashMapOfString_Date98;
   public HashMap HashMapOfString_Locale99;
-  public HashMap HashMapOfString_Locale100;
   public HashMap HashMapOfString_Locale101;
   public HashMap HashMapOfString_BigDecimal102;
-  public HashMap HashMapOfString_BigDecimal103;
   public HashMap HashMapOfString_BigDecimal104;
   public HashMap HashMapOfString_BigInteger105;
-  public HashMap HashMapOfString_BigInteger106;
   public HashMap HashMapOfString_BigInteger107;
   public HashMap HashMapOfString_Byte108;
-  public HashMap HashMapOfString_Byte109;
   public HashMap HashMapOfString_Byte110;
   public HashMap HashMapOfString_Double111;
-  public HashMap HashMapOfString_Double112;
   public HashMap HashMapOfString_Double113;
   public HashMap HashMapOfString_Float114;
-  public HashMap HashMapOfString_Float115;
   public HashMap HashMapOfString_Float116;
   public HashMap HashMapOfString_Integer117;
-  public HashMap HashMapOfString_Integer118;
   public HashMap HashMapOfString_Integer119;
   public HashMap HashMapOfString_Long120;
-  public HashMap HashMapOfString_Long121;
   public HashMap HashMapOfString_Long122;
   public HashMap HashMapOfString_Short123;
-  public HashMap HashMapOfString_Short124;
   public HashMap HashMapOfString_Short125;
 
   public static final String [] fieldSpecs = { 
@@ -193,87 +165,59 @@ public class HashMapStringKeyCollections {
   "embedded-value=false public HashMap HashMapOfString_Short41",
   "embedded-key=true  public HashMap HashMapOfString_Object42",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Object43",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Object44",
   "embedded-key=true  public HashMap HashMapOfString_SimpleClass45",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_SimpleClass46",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_SimpleClass47",
   "embedded-key=true  public HashMap HashMapOfString_SimpleInterface48",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_SimpleInterface49",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_SimpleInterface50",
   "embedded-key=true  public HashMap HashMapOfString_String51",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_String52",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_String53",
   "embedded-key=true  public HashMap HashMapOfString_Date54",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Date55",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Date56",
   "embedded-key=true  public HashMap HashMapOfString_Locale57",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Locale58",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Locale59",
   "embedded-key=true  public HashMap HashMapOfString_BigDecimal60",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_BigDecimal61",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_BigDecimal62",
   "embedded-key=true  public HashMap HashMapOfString_BigInteger63",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_BigInteger64",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_BigInteger65",
   "embedded-key=true  public HashMap HashMapOfString_Byte66",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Byte67",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Byte68",
   "embedded-key=true  public HashMap HashMapOfString_Double69",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Double70",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Double71",
   "embedded-key=true  public HashMap HashMapOfString_Float72",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Float73",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Float74",
   "embedded-key=true  public HashMap HashMapOfString_Integer75",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Integer76",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Integer77",
   "embedded-key=true  public HashMap HashMapOfString_Long78",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Long79",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Long80",
   "embedded-key=true  public HashMap HashMapOfString_Short81",
   "embedded-key=true embedded-value=true public HashMap HashMapOfString_Short82",
-  "embedded-key=true embedded-value=false public HashMap HashMapOfString_Short83",
   "embedded-key=false  public HashMap HashMapOfString_Object84",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Object85",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Object86",
   "embedded-key=false  public HashMap HashMapOfString_SimpleClass87",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_SimpleClass88",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_SimpleClass89",
   "embedded-key=false  public HashMap HashMapOfString_SimpleInterface90",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_SimpleInterface91",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_SimpleInterface92",
   "embedded-key=false  public HashMap HashMapOfString_String93",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_String94",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_String95",
   "embedded-key=false  public HashMap HashMapOfString_Date96",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Date97",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Date98",
   "embedded-key=false  public HashMap HashMapOfString_Locale99",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Locale100",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Locale101",
   "embedded-key=false  public HashMap HashMapOfString_BigDecimal102",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_BigDecimal103",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_BigDecimal104",
   "embedded-key=false  public HashMap HashMapOfString_BigInteger105",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_BigInteger106",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_BigInteger107",
   "embedded-key=false  public HashMap HashMapOfString_Byte108",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Byte109",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Byte110",
   "embedded-key=false  public HashMap HashMapOfString_Double111",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Double112",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Double113",
   "embedded-key=false  public HashMap HashMapOfString_Float114",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Float115",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Float116",
   "embedded-key=false  public HashMap HashMapOfString_Integer117",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Integer118",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Integer119",
   "embedded-key=false  public HashMap HashMapOfString_Long120",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Long121",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Long122",
   "embedded-key=false  public HashMap HashMapOfString_Short123",
-  "embedded-key=false embedded-value=true public HashMap HashMapOfString_Short124",
   "embedded-key=false embedded-value=false public HashMap HashMapOfString_Short125"
   };
   public int getLength()
@@ -372,168 +316,112 @@ public class HashMapStringKeyCollections {
         return HashMapOfString_Object42;
       case(43):
         return HashMapOfString_Object43;
-      case(44):
-        return HashMapOfString_Object44;
       case(45):
         return HashMapOfString_SimpleClass45;
       case(46):
         return HashMapOfString_SimpleClass46;
-      case(47):
-        return HashMapOfString_SimpleClass47;
       case(48):
         return HashMapOfString_SimpleInterface48;
       case(49):
         return HashMapOfString_SimpleInterface49;
-      case(50):
-        return HashMapOfString_SimpleInterface50;
       case(51):
         return HashMapOfString_String51;
       case(52):
         return HashMapOfString_String52;
-      case(53):
-        return HashMapOfString_String53;
       case(54):
         return HashMapOfString_Date54;
       case(55):
         return HashMapOfString_Date55;
-      case(56):
-        return HashMapOfString_Date56;
       case(57):
         return HashMapOfString_Locale57;
       case(58):
         return HashMapOfString_Locale58;
-      case(59):
-        return HashMapOfString_Locale59;
       case(60):
         return HashMapOfString_BigDecimal60;
       case(61):
         return HashMapOfString_BigDecimal61;
-      case(62):
-        return HashMapOfString_BigDecimal62;
       case(63):
         return HashMapOfString_BigInteger63;
       case(64):
         return HashMapOfString_BigInteger64;
-      case(65):
-        return HashMapOfString_BigInteger65;
       case(66):
         return HashMapOfString_Byte66;
       case(67):
         return HashMapOfString_Byte67;
-      case(68):
-        return HashMapOfString_Byte68;
       case(69):
         return HashMapOfString_Double69;
       case(70):
         return HashMapOfString_Double70;
-      case(71):
-        return HashMapOfString_Double71;
       case(72):
         return HashMapOfString_Float72;
       case(73):
         return HashMapOfString_Float73;
-      case(74):
-        return HashMapOfString_Float74;
       case(75):
         return HashMapOfString_Integer75;
       case(76):
         return HashMapOfString_Integer76;
-      case(77):
-        return HashMapOfString_Integer77;
       case(78):
         return HashMapOfString_Long78;
       case(79):
         return HashMapOfString_Long79;
-      case(80):
-        return HashMapOfString_Long80;
       case(81):
         return HashMapOfString_Short81;
       case(82):
         return HashMapOfString_Short82;
-      case(83):
-        return HashMapOfString_Short83;
       case(84):
         return HashMapOfString_Object84;
-      case(85):
-        return HashMapOfString_Object85;
       case(86):
         return HashMapOfString_Object86;
       case(87):
         return HashMapOfString_SimpleClass87;
-      case(88):
-        return HashMapOfString_SimpleClass88;
       case(89):
         return HashMapOfString_SimpleClass89;
       case(90):
         return HashMapOfString_SimpleInterface90;
-      case(91):
-        return HashMapOfString_SimpleInterface91;
       case(92):
         return HashMapOfString_SimpleInterface92;
       case(93):
         return HashMapOfString_String93;
-      case(94):
-        return HashMapOfString_String94;
       case(95):
         return HashMapOfString_String95;
       case(96):
         return HashMapOfString_Date96;
-      case(97):
-        return HashMapOfString_Date97;
       case(98):
         return HashMapOfString_Date98;
       case(99):
         return HashMapOfString_Locale99;
-      case(100):
-        return HashMapOfString_Locale100;
       case(101):
         return HashMapOfString_Locale101;
       case(102):
         return HashMapOfString_BigDecimal102;
-      case(103):
-        return HashMapOfString_BigDecimal103;
       case(104):
         return HashMapOfString_BigDecimal104;
       case(105):
         return HashMapOfString_BigInteger105;
-      case(106):
-        return HashMapOfString_BigInteger106;
       case(107):
         return HashMapOfString_BigInteger107;
       case(108):
         return HashMapOfString_Byte108;
-      case(109):
-        return HashMapOfString_Byte109;
       case(110):
         return HashMapOfString_Byte110;
       case(111):
         return HashMapOfString_Double111;
-      case(112):
-        return HashMapOfString_Double112;
       case(113):
         return HashMapOfString_Double113;
       case(114):
         return HashMapOfString_Float114;
-      case(115):
-        return HashMapOfString_Float115;
       case(116):
         return HashMapOfString_Float116;
       case(117):
         return HashMapOfString_Integer117;
-      case(118):
-        return HashMapOfString_Integer118;
       case(119):
         return HashMapOfString_Integer119;
       case(120):
         return HashMapOfString_Long120;
-      case(121):
-        return HashMapOfString_Long121;
       case(122):
         return HashMapOfString_Long122;
       case(123):
         return HashMapOfString_Short123;
-      case(124):
-        return HashMapOfString_Short124;
       case(125):
         return HashMapOfString_Short125;
       default:
@@ -678,17 +566,11 @@ public class HashMapStringKeyCollections {
       case(43):
         HashMapOfString_Object43= value;
          break;
-      case(44):
-        HashMapOfString_Object44= value;
-         break;
       case(45):
         HashMapOfString_SimpleClass45= value;
          break;
       case(46):
         HashMapOfString_SimpleClass46= value;
-         break;
-      case(47):
-        HashMapOfString_SimpleClass47= value;
          break;
       case(48):
         HashMapOfString_SimpleInterface48= value;
@@ -696,17 +578,11 @@ public class HashMapStringKeyCollections {
       case(49):
         HashMapOfString_SimpleInterface49= value;
          break;
-      case(50):
-        HashMapOfString_SimpleInterface50= value;
-         break;
       case(51):
         HashMapOfString_String51= value;
          break;
       case(52):
         HashMapOfString_String52= value;
-         break;
-      case(53):
-        HashMapOfString_String53= value;
          break;
       case(54):
         HashMapOfString_Date54= value;
@@ -714,17 +590,11 @@ public class HashMapStringKeyCollections {
       case(55):
         HashMapOfString_Date55= value;
          break;
-      case(56):
-        HashMapOfString_Date56= value;
-         break;
       case(57):
         HashMapOfString_Locale57= value;
          break;
       case(58):
         HashMapOfString_Locale58= value;
-         break;
-      case(59):
-        HashMapOfString_Locale59= value;
          break;
       case(60):
         HashMapOfString_BigDecimal60= value;
@@ -732,17 +602,11 @@ public class HashMapStringKeyCollections {
       case(61):
         HashMapOfString_BigDecimal61= value;
          break;
-      case(62):
-        HashMapOfString_BigDecimal62= value;
-         break;
       case(63):
         HashMapOfString_BigInteger63= value;
          break;
       case(64):
         HashMapOfString_BigInteger64= value;
-         break;
-      case(65):
-        HashMapOfString_BigInteger65= value;
          break;
       case(66):
         HashMapOfString_Byte66= value;
@@ -750,17 +614,11 @@ public class HashMapStringKeyCollections {
       case(67):
         HashMapOfString_Byte67= value;
          break;
-      case(68):
-        HashMapOfString_Byte68= value;
-         break;
       case(69):
         HashMapOfString_Double69= value;
          break;
       case(70):
         HashMapOfString_Double70= value;
-         break;
-      case(71):
-        HashMapOfString_Double71= value;
          break;
       case(72):
         HashMapOfString_Float72= value;
@@ -768,17 +626,11 @@ public class HashMapStringKeyCollections {
       case(73):
         HashMapOfString_Float73= value;
          break;
-      case(74):
-        HashMapOfString_Float74= value;
-         break;
       case(75):
         HashMapOfString_Integer75= value;
          break;
       case(76):
         HashMapOfString_Integer76= value;
-         break;
-      case(77):
-        HashMapOfString_Integer77= value;
          break;
       case(78):
         HashMapOfString_Long78= value;
@@ -786,23 +638,14 @@ public class HashMapStringKeyCollections {
       case(79):
         HashMapOfString_Long79= value;
          break;
-      case(80):
-        HashMapOfString_Long80= value;
-         break;
       case(81):
         HashMapOfString_Short81= value;
          break;
       case(82):
         HashMapOfString_Short82= value;
          break;
-      case(83):
-        HashMapOfString_Short83= value;
-         break;
       case(84):
         HashMapOfString_Object84= value;
-         break;
-      case(85):
-        HashMapOfString_Object85= value;
          break;
       case(86):
         HashMapOfString_Object86= value;
@@ -810,17 +653,11 @@ public class HashMapStringKeyCollections {
       case(87):
         HashMapOfString_SimpleClass87= value;
          break;
-      case(88):
-        HashMapOfString_SimpleClass88= value;
-         break;
       case(89):
         HashMapOfString_SimpleClass89= value;
          break;
       case(90):
         HashMapOfString_SimpleInterface90= value;
-         break;
-      case(91):
-        HashMapOfString_SimpleInterface91= value;
          break;
       case(92):
         HashMapOfString_SimpleInterface92= value;
@@ -828,17 +665,11 @@ public class HashMapStringKeyCollections {
       case(93):
         HashMapOfString_String93= value;
          break;
-      case(94):
-        HashMapOfString_String94= value;
-         break;
       case(95):
         HashMapOfString_String95= value;
          break;
       case(96):
         HashMapOfString_Date96= value;
-         break;
-      case(97):
-        HashMapOfString_Date97= value;
          break;
       case(98):
         HashMapOfString_Date98= value;
@@ -846,17 +677,11 @@ public class HashMapStringKeyCollections {
       case(99):
         HashMapOfString_Locale99= value;
          break;
-      case(100):
-        HashMapOfString_Locale100= value;
-         break;
       case(101):
         HashMapOfString_Locale101= value;
          break;
       case(102):
         HashMapOfString_BigDecimal102= value;
-         break;
-      case(103):
-        HashMapOfString_BigDecimal103= value;
          break;
       case(104):
         HashMapOfString_BigDecimal104= value;
@@ -864,17 +689,11 @@ public class HashMapStringKeyCollections {
       case(105):
         HashMapOfString_BigInteger105= value;
          break;
-      case(106):
-        HashMapOfString_BigInteger106= value;
-         break;
       case(107):
         HashMapOfString_BigInteger107= value;
          break;
       case(108):
         HashMapOfString_Byte108= value;
-         break;
-      case(109):
-        HashMapOfString_Byte109= value;
          break;
       case(110):
         HashMapOfString_Byte110= value;
@@ -882,17 +701,11 @@ public class HashMapStringKeyCollections {
       case(111):
         HashMapOfString_Double111= value;
          break;
-      case(112):
-        HashMapOfString_Double112= value;
-         break;
       case(113):
         HashMapOfString_Double113= value;
          break;
       case(114):
         HashMapOfString_Float114= value;
-         break;
-      case(115):
-        HashMapOfString_Float115= value;
          break;
       case(116):
         HashMapOfString_Float116= value;
@@ -900,26 +713,17 @@ public class HashMapStringKeyCollections {
       case(117):
         HashMapOfString_Integer117= value;
          break;
-      case(118):
-        HashMapOfString_Integer118= value;
-         break;
       case(119):
         HashMapOfString_Integer119= value;
          break;
       case(120):
         HashMapOfString_Long120= value;
          break;
-      case(121):
-        HashMapOfString_Long121= value;
-         break;
       case(122):
         HashMapOfString_Long122= value;
          break;
       case(123):
         HashMapOfString_Short123= value;
-         break;
-      case(124):
-        HashMapOfString_Short124= value;
          break;
       case(125):
         HashMapOfString_Short125= value;

@@ -23,16 +23,8 @@
 <map  key-type="Object" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfObject_String5" >
-<map  key-type="Object" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfObject_String6" >
 <map  key-type="Object" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfObject_String7" >
-<map  key-type="Object" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfObject_String8" >
@@ -59,16 +51,8 @@
 <map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfSimpleClass_String14" >
-<map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfSimpleClass_String15" >
 <map  key-type="SimpleClass" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfSimpleClass_String16" >
-<map  key-type="SimpleClass" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleClass_String17" >
@@ -95,16 +79,8 @@
 <map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfSimpleInterface_String23" >
-<map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfSimpleInterface_String24" >
 <map  key-type="SimpleInterface" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfSimpleInterface_String25" >
-<map  key-type="SimpleInterface" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleInterface_String26" >
@@ -131,16 +107,8 @@
 <map  key-type="String" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfString_String32" >
-<map  key-type="String" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfString_String33" >
 <map  key-type="String" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfString_String34" >
-<map  key-type="String" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfString_String35" >
@@ -167,16 +135,8 @@
 <map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfDate_String41" >
-<map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfDate_String42" >
 <map  key-type="java.util.Date" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfDate_String43" >
-<map  key-type="java.util.Date" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfDate_String44" >
@@ -203,16 +163,8 @@
 <map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfBigDecimal_String50" >
-<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfBigDecimal_String51" >
 <map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfBigDecimal_String52" >
-<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfBigDecimal_String53" >
@@ -239,16 +191,8 @@
 <map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfBigInteger_String59" >
-<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfBigInteger_String60" >
 <map  key-type="java.math.BigInteger" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfBigInteger_String61" >
-<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfBigInteger_String62" >
@@ -275,16 +219,8 @@
 <map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfByte_String68" >
-<map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfByte_String69" >
 <map  key-type="Byte" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfByte_String70" >
-<map  key-type="Byte" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfByte_String71" >
@@ -311,16 +247,8 @@
 <map  key-type="Double" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfDouble_String77" >
-<map  key-type="Double" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfDouble_String78" >
 <map  key-type="Double" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfDouble_String79" >
-<map  key-type="Double" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfDouble_String80" >
@@ -347,16 +275,8 @@
 <map  key-type="Float" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfFloat_String86" >
-<map  key-type="Float" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfFloat_String87" >
 <map  key-type="Float" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfFloat_String88" >
-<map  key-type="Float" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfFloat_String89" >
@@ -383,16 +303,8 @@
 <map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfInteger_String95" >
-<map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfInteger_String96" >
 <map  key-type="Integer" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfInteger_String97" >
-<map  key-type="Integer" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfInteger_String98" >
@@ -419,16 +331,8 @@
 <map  key-type="Long" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfLong_String104" >
-<map  key-type="Long" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfLong_String105" >
 <map  key-type="Long" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfLong_String106" >
-<map  key-type="Long" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfLong_String107" >
@@ -455,16 +359,8 @@
 <map  key-type="Short" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="MapOfShort_String113" >
-<map  key-type="Short" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="MapOfShort_String114" >
 <map  key-type="Short" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="MapOfShort_String115" >
-<map  key-type="Short" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="MapOfShort_String116" >

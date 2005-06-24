@@ -65,87 +65,59 @@ public class HashtableStringKeyCollections {
   public Hashtable HashtableOfString_Short41;
   public Hashtable HashtableOfString_Object42;
   public Hashtable HashtableOfString_Object43;
-  public Hashtable HashtableOfString_Object44;
   public Hashtable HashtableOfString_SimpleClass45;
   public Hashtable HashtableOfString_SimpleClass46;
-  public Hashtable HashtableOfString_SimpleClass47;
   public Hashtable HashtableOfString_SimpleInterface48;
   public Hashtable HashtableOfString_SimpleInterface49;
-  public Hashtable HashtableOfString_SimpleInterface50;
   public Hashtable HashtableOfString_String51;
   public Hashtable HashtableOfString_String52;
-  public Hashtable HashtableOfString_String53;
   public Hashtable HashtableOfString_Date54;
   public Hashtable HashtableOfString_Date55;
-  public Hashtable HashtableOfString_Date56;
   public Hashtable HashtableOfString_Locale57;
   public Hashtable HashtableOfString_Locale58;
-  public Hashtable HashtableOfString_Locale59;
   public Hashtable HashtableOfString_BigDecimal60;
   public Hashtable HashtableOfString_BigDecimal61;
-  public Hashtable HashtableOfString_BigDecimal62;
   public Hashtable HashtableOfString_BigInteger63;
   public Hashtable HashtableOfString_BigInteger64;
-  public Hashtable HashtableOfString_BigInteger65;
   public Hashtable HashtableOfString_Byte66;
   public Hashtable HashtableOfString_Byte67;
-  public Hashtable HashtableOfString_Byte68;
   public Hashtable HashtableOfString_Double69;
   public Hashtable HashtableOfString_Double70;
-  public Hashtable HashtableOfString_Double71;
   public Hashtable HashtableOfString_Float72;
   public Hashtable HashtableOfString_Float73;
-  public Hashtable HashtableOfString_Float74;
   public Hashtable HashtableOfString_Integer75;
   public Hashtable HashtableOfString_Integer76;
-  public Hashtable HashtableOfString_Integer77;
   public Hashtable HashtableOfString_Long78;
   public Hashtable HashtableOfString_Long79;
-  public Hashtable HashtableOfString_Long80;
   public Hashtable HashtableOfString_Short81;
   public Hashtable HashtableOfString_Short82;
-  public Hashtable HashtableOfString_Short83;
   public Hashtable HashtableOfString_Object84;
-  public Hashtable HashtableOfString_Object85;
   public Hashtable HashtableOfString_Object86;
   public Hashtable HashtableOfString_SimpleClass87;
-  public Hashtable HashtableOfString_SimpleClass88;
   public Hashtable HashtableOfString_SimpleClass89;
   public Hashtable HashtableOfString_SimpleInterface90;
-  public Hashtable HashtableOfString_SimpleInterface91;
   public Hashtable HashtableOfString_SimpleInterface92;
   public Hashtable HashtableOfString_String93;
-  public Hashtable HashtableOfString_String94;
   public Hashtable HashtableOfString_String95;
   public Hashtable HashtableOfString_Date96;
-  public Hashtable HashtableOfString_Date97;
   public Hashtable HashtableOfString_Date98;
   public Hashtable HashtableOfString_Locale99;
-  public Hashtable HashtableOfString_Locale100;
   public Hashtable HashtableOfString_Locale101;
   public Hashtable HashtableOfString_BigDecimal102;
-  public Hashtable HashtableOfString_BigDecimal103;
   public Hashtable HashtableOfString_BigDecimal104;
   public Hashtable HashtableOfString_BigInteger105;
-  public Hashtable HashtableOfString_BigInteger106;
   public Hashtable HashtableOfString_BigInteger107;
   public Hashtable HashtableOfString_Byte108;
-  public Hashtable HashtableOfString_Byte109;
   public Hashtable HashtableOfString_Byte110;
   public Hashtable HashtableOfString_Double111;
-  public Hashtable HashtableOfString_Double112;
   public Hashtable HashtableOfString_Double113;
   public Hashtable HashtableOfString_Float114;
-  public Hashtable HashtableOfString_Float115;
   public Hashtable HashtableOfString_Float116;
   public Hashtable HashtableOfString_Integer117;
-  public Hashtable HashtableOfString_Integer118;
   public Hashtable HashtableOfString_Integer119;
   public Hashtable HashtableOfString_Long120;
-  public Hashtable HashtableOfString_Long121;
   public Hashtable HashtableOfString_Long122;
   public Hashtable HashtableOfString_Short123;
-  public Hashtable HashtableOfString_Short124;
   public Hashtable HashtableOfString_Short125;
 
   public static final String [] fieldSpecs = { 
@@ -193,87 +165,59 @@ public class HashtableStringKeyCollections {
   "embedded-value=false public Hashtable HashtableOfString_Short41",
   "embedded-key=true  public Hashtable HashtableOfString_Object42",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Object43",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Object44",
   "embedded-key=true  public Hashtable HashtableOfString_SimpleClass45",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_SimpleClass46",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_SimpleClass47",
   "embedded-key=true  public Hashtable HashtableOfString_SimpleInterface48",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_SimpleInterface49",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_SimpleInterface50",
   "embedded-key=true  public Hashtable HashtableOfString_String51",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_String52",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_String53",
   "embedded-key=true  public Hashtable HashtableOfString_Date54",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Date55",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Date56",
   "embedded-key=true  public Hashtable HashtableOfString_Locale57",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Locale58",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Locale59",
   "embedded-key=true  public Hashtable HashtableOfString_BigDecimal60",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_BigDecimal61",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_BigDecimal62",
   "embedded-key=true  public Hashtable HashtableOfString_BigInteger63",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_BigInteger64",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_BigInteger65",
   "embedded-key=true  public Hashtable HashtableOfString_Byte66",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Byte67",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Byte68",
   "embedded-key=true  public Hashtable HashtableOfString_Double69",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Double70",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Double71",
   "embedded-key=true  public Hashtable HashtableOfString_Float72",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Float73",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Float74",
   "embedded-key=true  public Hashtable HashtableOfString_Integer75",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Integer76",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Integer77",
   "embedded-key=true  public Hashtable HashtableOfString_Long78",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Long79",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Long80",
   "embedded-key=true  public Hashtable HashtableOfString_Short81",
   "embedded-key=true embedded-value=true public Hashtable HashtableOfString_Short82",
-  "embedded-key=true embedded-value=false public Hashtable HashtableOfString_Short83",
   "embedded-key=false  public Hashtable HashtableOfString_Object84",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Object85",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Object86",
   "embedded-key=false  public Hashtable HashtableOfString_SimpleClass87",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_SimpleClass88",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_SimpleClass89",
   "embedded-key=false  public Hashtable HashtableOfString_SimpleInterface90",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_SimpleInterface91",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_SimpleInterface92",
   "embedded-key=false  public Hashtable HashtableOfString_String93",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_String94",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_String95",
   "embedded-key=false  public Hashtable HashtableOfString_Date96",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Date97",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Date98",
   "embedded-key=false  public Hashtable HashtableOfString_Locale99",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Locale100",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Locale101",
   "embedded-key=false  public Hashtable HashtableOfString_BigDecimal102",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_BigDecimal103",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_BigDecimal104",
   "embedded-key=false  public Hashtable HashtableOfString_BigInteger105",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_BigInteger106",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_BigInteger107",
   "embedded-key=false  public Hashtable HashtableOfString_Byte108",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Byte109",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Byte110",
   "embedded-key=false  public Hashtable HashtableOfString_Double111",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Double112",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Double113",
   "embedded-key=false  public Hashtable HashtableOfString_Float114",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Float115",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Float116",
   "embedded-key=false  public Hashtable HashtableOfString_Integer117",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Integer118",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Integer119",
   "embedded-key=false  public Hashtable HashtableOfString_Long120",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Long121",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Long122",
   "embedded-key=false  public Hashtable HashtableOfString_Short123",
-  "embedded-key=false embedded-value=true public Hashtable HashtableOfString_Short124",
   "embedded-key=false embedded-value=false public Hashtable HashtableOfString_Short125"
   };
   public int getLength()
@@ -372,168 +316,112 @@ public class HashtableStringKeyCollections {
         return HashtableOfString_Object42;
       case(43):
         return HashtableOfString_Object43;
-      case(44):
-        return HashtableOfString_Object44;
       case(45):
         return HashtableOfString_SimpleClass45;
       case(46):
         return HashtableOfString_SimpleClass46;
-      case(47):
-        return HashtableOfString_SimpleClass47;
       case(48):
         return HashtableOfString_SimpleInterface48;
       case(49):
         return HashtableOfString_SimpleInterface49;
-      case(50):
-        return HashtableOfString_SimpleInterface50;
       case(51):
         return HashtableOfString_String51;
       case(52):
         return HashtableOfString_String52;
-      case(53):
-        return HashtableOfString_String53;
       case(54):
         return HashtableOfString_Date54;
       case(55):
         return HashtableOfString_Date55;
-      case(56):
-        return HashtableOfString_Date56;
       case(57):
         return HashtableOfString_Locale57;
       case(58):
         return HashtableOfString_Locale58;
-      case(59):
-        return HashtableOfString_Locale59;
       case(60):
         return HashtableOfString_BigDecimal60;
       case(61):
         return HashtableOfString_BigDecimal61;
-      case(62):
-        return HashtableOfString_BigDecimal62;
       case(63):
         return HashtableOfString_BigInteger63;
       case(64):
         return HashtableOfString_BigInteger64;
-      case(65):
-        return HashtableOfString_BigInteger65;
       case(66):
         return HashtableOfString_Byte66;
       case(67):
         return HashtableOfString_Byte67;
-      case(68):
-        return HashtableOfString_Byte68;
       case(69):
         return HashtableOfString_Double69;
       case(70):
         return HashtableOfString_Double70;
-      case(71):
-        return HashtableOfString_Double71;
       case(72):
         return HashtableOfString_Float72;
       case(73):
         return HashtableOfString_Float73;
-      case(74):
-        return HashtableOfString_Float74;
       case(75):
         return HashtableOfString_Integer75;
       case(76):
         return HashtableOfString_Integer76;
-      case(77):
-        return HashtableOfString_Integer77;
       case(78):
         return HashtableOfString_Long78;
       case(79):
         return HashtableOfString_Long79;
-      case(80):
-        return HashtableOfString_Long80;
       case(81):
         return HashtableOfString_Short81;
       case(82):
         return HashtableOfString_Short82;
-      case(83):
-        return HashtableOfString_Short83;
       case(84):
         return HashtableOfString_Object84;
-      case(85):
-        return HashtableOfString_Object85;
       case(86):
         return HashtableOfString_Object86;
       case(87):
         return HashtableOfString_SimpleClass87;
-      case(88):
-        return HashtableOfString_SimpleClass88;
       case(89):
         return HashtableOfString_SimpleClass89;
       case(90):
         return HashtableOfString_SimpleInterface90;
-      case(91):
-        return HashtableOfString_SimpleInterface91;
       case(92):
         return HashtableOfString_SimpleInterface92;
       case(93):
         return HashtableOfString_String93;
-      case(94):
-        return HashtableOfString_String94;
       case(95):
         return HashtableOfString_String95;
       case(96):
         return HashtableOfString_Date96;
-      case(97):
-        return HashtableOfString_Date97;
       case(98):
         return HashtableOfString_Date98;
       case(99):
         return HashtableOfString_Locale99;
-      case(100):
-        return HashtableOfString_Locale100;
       case(101):
         return HashtableOfString_Locale101;
       case(102):
         return HashtableOfString_BigDecimal102;
-      case(103):
-        return HashtableOfString_BigDecimal103;
       case(104):
         return HashtableOfString_BigDecimal104;
       case(105):
         return HashtableOfString_BigInteger105;
-      case(106):
-        return HashtableOfString_BigInteger106;
       case(107):
         return HashtableOfString_BigInteger107;
       case(108):
         return HashtableOfString_Byte108;
-      case(109):
-        return HashtableOfString_Byte109;
       case(110):
         return HashtableOfString_Byte110;
       case(111):
         return HashtableOfString_Double111;
-      case(112):
-        return HashtableOfString_Double112;
       case(113):
         return HashtableOfString_Double113;
       case(114):
         return HashtableOfString_Float114;
-      case(115):
-        return HashtableOfString_Float115;
       case(116):
         return HashtableOfString_Float116;
       case(117):
         return HashtableOfString_Integer117;
-      case(118):
-        return HashtableOfString_Integer118;
       case(119):
         return HashtableOfString_Integer119;
       case(120):
         return HashtableOfString_Long120;
-      case(121):
-        return HashtableOfString_Long121;
       case(122):
         return HashtableOfString_Long122;
       case(123):
         return HashtableOfString_Short123;
-      case(124):
-        return HashtableOfString_Short124;
       case(125):
         return HashtableOfString_Short125;
       default:
@@ -678,17 +566,11 @@ public class HashtableStringKeyCollections {
       case(43):
         HashtableOfString_Object43= value;
          break;
-      case(44):
-        HashtableOfString_Object44= value;
-         break;
       case(45):
         HashtableOfString_SimpleClass45= value;
          break;
       case(46):
         HashtableOfString_SimpleClass46= value;
-         break;
-      case(47):
-        HashtableOfString_SimpleClass47= value;
          break;
       case(48):
         HashtableOfString_SimpleInterface48= value;
@@ -696,17 +578,11 @@ public class HashtableStringKeyCollections {
       case(49):
         HashtableOfString_SimpleInterface49= value;
          break;
-      case(50):
-        HashtableOfString_SimpleInterface50= value;
-         break;
       case(51):
         HashtableOfString_String51= value;
          break;
       case(52):
         HashtableOfString_String52= value;
-         break;
-      case(53):
-        HashtableOfString_String53= value;
          break;
       case(54):
         HashtableOfString_Date54= value;
@@ -714,17 +590,11 @@ public class HashtableStringKeyCollections {
       case(55):
         HashtableOfString_Date55= value;
          break;
-      case(56):
-        HashtableOfString_Date56= value;
-         break;
       case(57):
         HashtableOfString_Locale57= value;
          break;
       case(58):
         HashtableOfString_Locale58= value;
-         break;
-      case(59):
-        HashtableOfString_Locale59= value;
          break;
       case(60):
         HashtableOfString_BigDecimal60= value;
@@ -732,17 +602,11 @@ public class HashtableStringKeyCollections {
       case(61):
         HashtableOfString_BigDecimal61= value;
          break;
-      case(62):
-        HashtableOfString_BigDecimal62= value;
-         break;
       case(63):
         HashtableOfString_BigInteger63= value;
          break;
       case(64):
         HashtableOfString_BigInteger64= value;
-         break;
-      case(65):
-        HashtableOfString_BigInteger65= value;
          break;
       case(66):
         HashtableOfString_Byte66= value;
@@ -750,17 +614,11 @@ public class HashtableStringKeyCollections {
       case(67):
         HashtableOfString_Byte67= value;
          break;
-      case(68):
-        HashtableOfString_Byte68= value;
-         break;
       case(69):
         HashtableOfString_Double69= value;
          break;
       case(70):
         HashtableOfString_Double70= value;
-         break;
-      case(71):
-        HashtableOfString_Double71= value;
          break;
       case(72):
         HashtableOfString_Float72= value;
@@ -768,17 +626,11 @@ public class HashtableStringKeyCollections {
       case(73):
         HashtableOfString_Float73= value;
          break;
-      case(74):
-        HashtableOfString_Float74= value;
-         break;
       case(75):
         HashtableOfString_Integer75= value;
          break;
       case(76):
         HashtableOfString_Integer76= value;
-         break;
-      case(77):
-        HashtableOfString_Integer77= value;
          break;
       case(78):
         HashtableOfString_Long78= value;
@@ -786,23 +638,14 @@ public class HashtableStringKeyCollections {
       case(79):
         HashtableOfString_Long79= value;
          break;
-      case(80):
-        HashtableOfString_Long80= value;
-         break;
       case(81):
         HashtableOfString_Short81= value;
          break;
       case(82):
         HashtableOfString_Short82= value;
          break;
-      case(83):
-        HashtableOfString_Short83= value;
-         break;
       case(84):
         HashtableOfString_Object84= value;
-         break;
-      case(85):
-        HashtableOfString_Object85= value;
          break;
       case(86):
         HashtableOfString_Object86= value;
@@ -810,17 +653,11 @@ public class HashtableStringKeyCollections {
       case(87):
         HashtableOfString_SimpleClass87= value;
          break;
-      case(88):
-        HashtableOfString_SimpleClass88= value;
-         break;
       case(89):
         HashtableOfString_SimpleClass89= value;
          break;
       case(90):
         HashtableOfString_SimpleInterface90= value;
-         break;
-      case(91):
-        HashtableOfString_SimpleInterface91= value;
          break;
       case(92):
         HashtableOfString_SimpleInterface92= value;
@@ -828,17 +665,11 @@ public class HashtableStringKeyCollections {
       case(93):
         HashtableOfString_String93= value;
          break;
-      case(94):
-        HashtableOfString_String94= value;
-         break;
       case(95):
         HashtableOfString_String95= value;
          break;
       case(96):
         HashtableOfString_Date96= value;
-         break;
-      case(97):
-        HashtableOfString_Date97= value;
          break;
       case(98):
         HashtableOfString_Date98= value;
@@ -846,17 +677,11 @@ public class HashtableStringKeyCollections {
       case(99):
         HashtableOfString_Locale99= value;
          break;
-      case(100):
-        HashtableOfString_Locale100= value;
-         break;
       case(101):
         HashtableOfString_Locale101= value;
          break;
       case(102):
         HashtableOfString_BigDecimal102= value;
-         break;
-      case(103):
-        HashtableOfString_BigDecimal103= value;
          break;
       case(104):
         HashtableOfString_BigDecimal104= value;
@@ -864,17 +689,11 @@ public class HashtableStringKeyCollections {
       case(105):
         HashtableOfString_BigInteger105= value;
          break;
-      case(106):
-        HashtableOfString_BigInteger106= value;
-         break;
       case(107):
         HashtableOfString_BigInteger107= value;
          break;
       case(108):
         HashtableOfString_Byte108= value;
-         break;
-      case(109):
-        HashtableOfString_Byte109= value;
          break;
       case(110):
         HashtableOfString_Byte110= value;
@@ -882,17 +701,11 @@ public class HashtableStringKeyCollections {
       case(111):
         HashtableOfString_Double111= value;
          break;
-      case(112):
-        HashtableOfString_Double112= value;
-         break;
       case(113):
         HashtableOfString_Double113= value;
          break;
       case(114):
         HashtableOfString_Float114= value;
-         break;
-      case(115):
-        HashtableOfString_Float115= value;
          break;
       case(116):
         HashtableOfString_Float116= value;
@@ -900,26 +713,17 @@ public class HashtableStringKeyCollections {
       case(117):
         HashtableOfString_Integer117= value;
          break;
-      case(118):
-        HashtableOfString_Integer118= value;
-         break;
       case(119):
         HashtableOfString_Integer119= value;
          break;
       case(120):
         HashtableOfString_Long120= value;
          break;
-      case(121):
-        HashtableOfString_Long121= value;
-         break;
       case(122):
         HashtableOfString_Long122= value;
          break;
       case(123):
         HashtableOfString_Short123= value;
-         break;
-      case(124):
-        HashtableOfString_Short124= value;
          break;
       case(125):
         HashtableOfString_Short125= value;

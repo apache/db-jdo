@@ -25,16 +25,8 @@
 <map  key-type="Object" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfObject_String5" >
-<map  key-type="Object" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfObject_String6" >
 <map  key-type="Object" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfObject_String7" >
-<map  key-type="Object" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfObject_String8" >
@@ -61,16 +53,8 @@
 <map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfSimpleClass_String14" >
-<map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfSimpleClass_String15" >
 <map  key-type="SimpleClass" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfSimpleClass_String16" >
-<map  key-type="SimpleClass" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleClass_String17" >
@@ -97,16 +81,8 @@
 <map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfSimpleInterface_String23" >
-<map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfSimpleInterface_String24" >
 <map  key-type="SimpleInterface" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfSimpleInterface_String25" >
-<map  key-type="SimpleInterface" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleInterface_String26" >
@@ -133,16 +109,8 @@
 <map  key-type="String" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfString_String32" >
-<map  key-type="String" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfString_String33" >
 <map  key-type="String" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfString_String34" >
-<map  key-type="String" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfString_String35" >
@@ -169,16 +137,8 @@
 <map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfDate_String41" >
-<map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfDate_String42" >
 <map  key-type="java.util.Date" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfDate_String43" >
-<map  key-type="java.util.Date" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfDate_String44" >
@@ -205,16 +165,8 @@
 <map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfBigDecimal_String50" >
-<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfBigDecimal_String51" >
 <map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfBigDecimal_String52" >
-<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfBigDecimal_String53" >
@@ -241,16 +193,8 @@
 <map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfBigInteger_String59" >
-<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfBigInteger_String60" >
 <map  key-type="java.math.BigInteger" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfBigInteger_String61" >
-<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfBigInteger_String62" >
@@ -277,16 +221,8 @@
 <map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfByte_String68" >
-<map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfByte_String69" >
 <map  key-type="Byte" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfByte_String70" >
-<map  key-type="Byte" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfByte_String71" >
@@ -313,16 +249,8 @@
 <map  key-type="Double" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfDouble_String77" >
-<map  key-type="Double" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfDouble_String78" >
 <map  key-type="Double" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfDouble_String79" >
-<map  key-type="Double" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfDouble_String80" >
@@ -349,16 +277,8 @@
 <map  key-type="Float" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfFloat_String86" >
-<map  key-type="Float" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfFloat_String87" >
 <map  key-type="Float" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfFloat_String88" >
-<map  key-type="Float" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfFloat_String89" >
@@ -385,16 +305,8 @@
 <map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfInteger_String95" >
-<map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfInteger_String96" >
 <map  key-type="Integer" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfInteger_String97" >
-<map  key-type="Integer" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfInteger_String98" >
@@ -421,16 +333,8 @@
 <map  key-type="Long" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfLong_String104" >
-<map  key-type="Long" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfLong_String105" >
 <map  key-type="Long" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfLong_String106" >
-<map  key-type="Long" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfLong_String107" >
@@ -457,16 +361,8 @@
 <map  key-type="Short" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="HashtableOfShort_String113" >
-<map  key-type="Short" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="HashtableOfShort_String114" >
 <map  key-type="Short" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="HashtableOfShort_String115" >
-<map  key-type="Short" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfShort_String116" >

@@ -23,16 +23,8 @@
 <map  key-type="Object" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfObject_String5" >
-<map  key-type="Object" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfObject_String6" >
 <map  key-type="Object" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfObject_String7" >
-<map  key-type="Object" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfObject_String8" >
@@ -59,16 +51,8 @@
 <map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfSimpleClass_String14" >
-<map  key-type="SimpleClass" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfSimpleClass_String15" >
 <map  key-type="SimpleClass" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfSimpleClass_String16" >
-<map  key-type="SimpleClass" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleClass_String17" >
@@ -95,16 +79,8 @@
 <map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfSimpleInterface_String23" >
-<map  key-type="SimpleInterface" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfSimpleInterface_String24" >
 <map  key-type="SimpleInterface" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfSimpleInterface_String25" >
-<map  key-type="SimpleInterface" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String26" >
@@ -131,16 +107,8 @@
 <map  key-type="String" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfString_String32" >
-<map  key-type="String" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfString_String33" >
 <map  key-type="String" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfString_String34" >
-<map  key-type="String" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfString_String35" >
@@ -167,16 +135,8 @@
 <map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfDate_String41" >
-<map  key-type="java.util.Date" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfDate_String42" >
 <map  key-type="java.util.Date" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfDate_String43" >
-<map  key-type="java.util.Date" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfDate_String44" >
@@ -203,16 +163,8 @@
 <map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfBigDecimal_String50" >
-<map  key-type="java.math.BigDecimal" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfBigDecimal_String51" >
 <map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfBigDecimal_String52" >
-<map  key-type="java.math.BigDecimal" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfBigDecimal_String53" >
@@ -239,16 +191,8 @@
 <map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfBigInteger_String59" >
-<map  key-type="java.math.BigInteger" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfBigInteger_String60" >
 <map  key-type="java.math.BigInteger" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfBigInteger_String61" >
-<map  key-type="java.math.BigInteger" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfBigInteger_String62" >
@@ -275,16 +219,8 @@
 <map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfByte_String68" >
-<map  key-type="Byte" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfByte_String69" >
 <map  key-type="Byte" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfByte_String70" >
-<map  key-type="Byte" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfByte_String71" >
@@ -311,16 +247,8 @@
 <map  key-type="Double" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfDouble_String77" >
-<map  key-type="Double" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfDouble_String78" >
 <map  key-type="Double" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfDouble_String79" >
-<map  key-type="Double" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfDouble_String80" >
@@ -347,16 +275,8 @@
 <map  key-type="Float" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfFloat_String86" >
-<map  key-type="Float" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfFloat_String87" >
 <map  key-type="Float" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfFloat_String88" >
-<map  key-type="Float" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfFloat_String89" >
@@ -383,16 +303,8 @@
 <map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfInteger_String95" >
-<map  key-type="Integer" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfInteger_String96" >
 <map  key-type="Integer" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfInteger_String97" >
-<map  key-type="Integer" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfInteger_String98" >
@@ -419,16 +331,8 @@
 <map  key-type="Long" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfLong_String104" >
-<map  key-type="Long" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfLong_String105" >
 <map  key-type="Long" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfLong_String106" >
-<map  key-type="Long" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfLong_String107" >
@@ -455,16 +359,8 @@
 <map  key-type="Short" embedded-key="true" value-type="String" embedded-value="true">
 </map>
 </field>
-<field name="TreeMapOfShort_String113" >
-<map  key-type="Short" embedded-key="true" value-type="String" embedded-value="false">
-</map>
-</field>
 <field name="TreeMapOfShort_String114" >
 <map  key-type="Short" embedded-key="false" value-type="String">
-</map>
-</field>
-<field name="TreeMapOfShort_String115" >
-<map  key-type="Short" embedded-key="false" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfShort_String116" >
