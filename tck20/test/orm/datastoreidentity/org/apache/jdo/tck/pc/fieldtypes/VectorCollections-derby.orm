@@ -50,7 +50,10 @@
                 <element column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfString9" column="VECTOR_OF_STRING9">
+            <field name="VectorOfString9" table="VECTOR_OF_STRING9">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfString10" column="VECTOR_OF_STRING10">
             </field>
@@ -59,7 +62,10 @@
                 <element column="STRINGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfDate12" column="VECTOR_OF_DATE12">
+            <field name="VectorOfDate12" table="VECTOR_OF_DATE12">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfDate13" column="VECTOR_OF_DATE13">
             </field>
@@ -68,7 +74,10 @@
                 <element column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfLocale15" column="VECTOR_OF_LOCALE15">
+            <field name="VectorOfLocale15" table="VECTOR_OF_LOCALE15">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfLocale16" column="VECTOR_OF_LOCALE16">
             </field>
@@ -77,7 +86,10 @@
                 <element column="LOCALEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfBigDecimal18" column="VECTOR_OF_BIG_DECIMAL18">
+            <field name="VectorOfBigDecimal18" table="VECTOR_OF_BIG_DECIMAL18">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfBigDecimal19" column="VECTOR_OF_BIG_DECIMAL19">
             </field>
@@ -86,7 +98,10 @@
                 <element column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfBigInteger21" column="VECTOR_OF_BIG_INTEGER21">
+            <field name="VectorOfBigInteger21" table="VECTOR_OF_BIG_INTEGER21">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfBigInteger22" column="VECTOR_OF_BIG_INTEGER22">
             </field>
@@ -95,7 +110,10 @@
                 <element column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfByte24" column="VECTOR_OF_BYTE24">
+            <field name="VectorOfByte24" table="VECTOR_OF_BYTE24">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfByte25" column="VECTOR_OF_BYTE25">
             </field>
@@ -104,7 +122,10 @@
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfDouble27" column="VECTOR_OF_DOUBLE27">
+            <field name="VectorOfDouble27" table="VECTOR_OF_DOUBLE27">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfDouble28" column="VECTOR_OF_DOUBLE28">
             </field>
@@ -113,7 +134,10 @@
                 <element column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfFloat30" column="VECTOR_OF_FLOAT30">
+            <field name="VectorOfFloat30" table="VECTOR_OF_FLOAT30">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfFloat31" column="VECTOR_OF_FLOAT31">
             </field>
@@ -122,7 +146,10 @@
                 <element column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfInteger33" column="VECTOR_OF_INTEGER33">
+            <field name="VectorOfInteger33" table="VECTOR_OF_INTEGER33">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfInteger34" column="VECTOR_OF_INTEGER34">
             </field>
@@ -131,7 +158,10 @@
                 <element column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfLong36" column="VECTOR_OF_LONG36">
+            <field name="VectorOfLong36" table="VECTOR_OF_LONG36">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfLong37" column="VECTOR_OF_LONG37">
             </field>
@@ -140,7 +170,10 @@
                 <element column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfShort39" column="VECTOR_OF_SHORT39">
+            <field name="VectorOfShort39" table="VECTOR_OF_SHORT39">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="VectorOfShort40" column="VECTOR_OF_SHORT40">
             </field>

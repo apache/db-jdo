@@ -40,7 +40,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
             </field>
-            <field name="CollectionOfString9" column="COLLECTION_OF_STRING9">
+            <field name="CollectionOfString9" table="COLLECTION_OF_STRING9">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
             </field>
             <field name="CollectionOfString10" column="COLLECTION_OF_STRING10">
             </field>
@@ -48,7 +50,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
             </field>
-            <field name="CollectionOfDate12" column="COLLECTION_OF_DATE12">
+            <field name="CollectionOfDate12" table="COLLECTION_OF_DATE12">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
             </field>
             <field name="CollectionOfDate13" column="COLLECTION_OF_DATE13">
             </field>
@@ -56,7 +60,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
             </field>
-            <field name="CollectionOfLocale15" column="COLLECTION_OF_LOCALE15">
+            <field name="CollectionOfLocale15" table="COLLECTION_OF_LOCALE15">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
             </field>
             <field name="CollectionOfLocale16" column="COLLECTION_OF_LOCALE16">
             </field>
@@ -64,7 +70,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
             </field>
-            <field name="CollectionOfBigDecimal18" column="COLLECTION_OF_BIG_DECIMAL18">
+            <field name="CollectionOfBigDecimal18" table="COLLECTION_OF_BIG_DECIMAL18">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
             </field>
             <field name="CollectionOfBigDecimal19" column="COLLECTION_OF_BIG_DECIMAL19">
             </field>
@@ -72,7 +80,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
             </field>
-            <field name="CollectionOfBigInteger21" column="COLLECTION_OF_BIG_INTEGER21">
+            <field name="CollectionOfBigInteger21" table="COLLECTION_OF_BIG_INTEGER21">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
             </field>
             <field name="CollectionOfBigInteger22" column="COLLECTION_OF_BIG_INTEGER22">
             </field>
@@ -80,7 +90,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
             </field>
-            <field name="CollectionOfByte24" column="COLLECTION_OF_BYTE24">
+            <field name="CollectionOfByte24" table="COLLECTION_OF_BYTE24">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
             </field>
             <field name="CollectionOfByte25" column="COLLECTION_OF_BYTE25">
             </field>
@@ -88,7 +100,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
             </field>
-            <field name="CollectionOfDouble27" column="COLLECTION_OF_DOUBLE27">
+            <field name="CollectionOfDouble27" table="COLLECTION_OF_DOUBLE27">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
             </field>
             <field name="CollectionOfDouble28" column="COLLECTION_OF_DOUBLE28">
             </field>
@@ -96,7 +110,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
             </field>
-            <field name="CollectionOfFloat30" column="COLLECTION_OF_FLOAT30">
+            <field name="CollectionOfFloat30" table="COLLECTION_OF_FLOAT30">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
             </field>
             <field name="CollectionOfFloat31" column="COLLECTION_OF_FLOAT31">
             </field>
@@ -104,7 +120,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
             </field>
-            <field name="CollectionOfInteger33" column="COLLECTION_OF_INTEGER33">
+            <field name="CollectionOfInteger33" table="COLLECTION_OF_INTEGER33">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
             </field>
             <field name="CollectionOfInteger34" column="COLLECTION_OF_INTEGER34">
             </field>
@@ -112,7 +130,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
             </field>
-            <field name="CollectionOfLong36" column="COLLECTION_OF_LONG36">
+            <field name="CollectionOfLong36" table="COLLECTION_OF_LONG36">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
             </field>
             <field name="CollectionOfLong37" column="COLLECTION_OF_LONG37">
             </field>
@@ -120,7 +140,9 @@
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
             </field>
-            <field name="CollectionOfShort39" column="COLLECTION_OF_SHORT39">
+            <field name="CollectionOfShort39" table="COLLECTION_OF_SHORT39">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
             </field>
             <field name="CollectionOfShort40" column="COLLECTION_OF_SHORT40">
             </field>

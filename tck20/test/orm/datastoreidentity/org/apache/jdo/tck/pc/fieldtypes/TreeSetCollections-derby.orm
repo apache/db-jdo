@@ -50,7 +50,10 @@
                 <element column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfString9" column="TREESET_OF_STRING9">
+            <field name="TreeSetOfString9" table="TREESET_OF_STRING9">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfString10" column="TREESET_OF_STRING10">
             </field>
@@ -59,7 +62,10 @@
                 <element column="STRINGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfDate12" column="TREESET_OF_DATE12">
+            <field name="TreeSetOfDate12" table="TREESET_OF_DATE12">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfDate13" column="TREESET_OF_DATE13">
             </field>
@@ -68,7 +74,10 @@
                 <element column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfBigDecimal15" column="TREESET_OF_BIG_DECIMAL15">
+            <field name="TreeSetOfBigDecimal15" table="TREESET_OF_BIG_DECIMAL15">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfBigDecimal16" column="TREESET_OF_BIG_DECIMAL16">
             </field>
@@ -77,7 +86,10 @@
                 <element column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfBigInteger18" column="TREESET_OF_BIG_INTEGER18">
+            <field name="TreeSetOfBigInteger18" table="TREESET_OF_BIG_INTEGER18">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfBigInteger19" column="TREESET_OF_BIG_INTEGER19">
             </field>
@@ -86,7 +98,10 @@
                 <element column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfByte21" column="TREESET_OF_BYTE21">
+            <field name="TreeSetOfByte21" table="TREESET_OF_BYTE21">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfByte22" column="TREESET_OF_BYTE22">
             </field>
@@ -95,7 +110,10 @@
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfDouble24" column="TREESET_OF_DOUBLE24">
+            <field name="TreeSetOfDouble24" table="TREESET_OF_DOUBLE24">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfDouble25" column="TREESET_OF_DOUBLE25">
             </field>
@@ -104,7 +122,10 @@
                 <element column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfFloat27" column="TREESET_OF_FLOAT27">
+            <field name="TreeSetOfFloat27" table="TREESET_OF_FLOAT27">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfFloat28" column="TREESET_OF_FLOAT28">
             </field>
@@ -113,7 +134,10 @@
                 <element column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfInteger30" column="TREESET_OF_INTEGER30">
+            <field name="TreeSetOfInteger30" table="TREESET_OF_INTEGER30">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfInteger31" column="TREESET_OF_INTEGER31">
             </field>
@@ -122,7 +146,10 @@
                 <element column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfLong33" column="TREESET_OF_LONG33">
+            <field name="TreeSetOfLong33" table="TREESET_OF_LONG33">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfLong34" column="TREESET_OF_LONG34">
             </field>
@@ -131,7 +158,10 @@
                 <element column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeSetOfShort36" column="TREESET_OF_SHORT36">
+            <field name="TreeSetOfShort36" table="TREESET_OF_SHORT36">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeSetOfShort37" column="TREESET_OF_SHORT37">
             </field>

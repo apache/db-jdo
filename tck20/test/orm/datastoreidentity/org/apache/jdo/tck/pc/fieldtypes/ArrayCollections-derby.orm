@@ -9,32 +9,33 @@ Metadata for application identity
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
             <field name="ArrayOfObject0" column="ARRAY_OF_OBJECT0"/>
-            <field name="ArrayOfObject1" column="ARRAY_OF_OBJECT1"/>
+            <field name="ArrayOfObject1" table="ARRAY_OF_OBJECT1"/>
             <field name="ArrayOfSimpleClass2" column="ARRAY_OF_SIMPLE_CLASS2"/>
-            <field name="ArrayOfSimpleClass3" column="ARRAY_OF_SIMPLE_CLASS3"/>
+            <field name="ArrayOfSimpleClass3" table="ARRAY_OF_SIMPLE_CLASS3"/>
             <field name="ArrayOfSimpleInterface4" column="ARRAY_OF_SIMPLE_INTERFACE4"/>
-            <field name="ArrayOfSimpleInterface5" column="ARRAY_OF_SIMPLE_INTERFACE5"/>
+            <field name="ArrayOfSimpleInterface5" table="ARRAY_OF_SIMPLE_INTERFACE5"/>
             <field name="ArrayOfString6" column="ARRAY_OF_STRING6"/>
-            <field name="ArrayOfString7" column="ARRAY_OF_STRING7"/>
+            <field name="ArrayOfString7" table="ARRAY_OF_STRING7"/>
             <field name="ArrayOfDate8" column="ARRAY_OF_DATE8"/>
-            <field name="ArrayOfDate9" column="ARRAY_OF_DATE9"/>
+            <field name="ArrayOfDate9" table="ARRAY_OF_DATE9"/>
             <field name="ArrayOfLocale10" column="ARRAY_OF_LOCALE10"/>
-            <field name="ArrayOfLocale11" column="ARRAY_OF_LOCALE11"/>
+            <field name="ArrayOfLocale11" table="ARRAY_OF_LOCALE11"/>
             <field name="ArrayOfBigDecimal12" column="ARRAY_OF_BIG_DECIMAL12"/>
-            <field name="ArrayOfBigDecimal13" column="ARRAY_OF_BIG_DECIMAL13"/>
+            <field name="ArrayOfBigDecimal13" table="ARRAY_OF_BIG_DECIMAL13"/>
             <field name="ArrayOfBigInteger14" column="ARRAY_OF_BIG_INTEGER14"/>
-            <field name="ArrayOfBigInteger15" column="ARRAY_OF_BIG_INTEGER15"/>
+            <field name="ArrayOfBigInteger15" table="ARRAY_OF_BIG_INTEGER15"/>
             <field name="ArrayOfByte16" column="ARRAY_OF_BYTE16"/>
-            <field name="ArrayOfByte17" column="ARRAY_OF_BYTE17"/>
+            <field name="ArrayOfByte17" table="ARRAY_OF_BYTE17"/>
             <field name="ArrayOfDouble18" column="ARRAY_OF_DOUBLE18"/>
-            <field name="ArrayOfDouble19" column="ARRAY_OF_DOUBLE19"/>
+            <field name="ArrayOfDouble19" table="ARRAY_OF_DOUBLE19"/>
             <field name="ArrayOfFloat20" column="ARRAY_OF_FLOAT20"/>
-            <field name="ArrayOfFloat21" column="ARRAY_OF_FLOAT21"/>
+            <field name="ArrayOfFloat21" table="ARRAY_OF_FLOAT21"/>
             <field name="ArrayOfInteger22" column="ARRAY_OF_INTEGER22"/>
-            <field name="ArrayOfInteger23" column="ARRAY_OF_INTEGER23"/>
-            <field name="ArrayOfLong25" column="ARRAY_OF_LONG25"/>
+            <field name="ArrayOfInteger23" table="ARRAY_OF_INTEGER23"/>
+            <field name="ArrayOfLong24" column="ARRAY_OF_LONG24"/>
+            <field name="ArrayOfLong25" table="ARRAY_OF_LONG25"/>
             <field name="ArrayOfShort26" column="ARRAY_OF_SHORT26"/>
-            <field name="ArrayOfShort27" column="ARRAY_OF_SHORT27"/>
+            <field name="ArrayOfShort27" table="ARRAY_OF_SHORT27"/>
         </class>
     </package>
 </orm>
