@@ -70,6 +70,13 @@ public class ModificationOfNontransactionalInstanceOutsideTransaction extends JD
      */
     private int originalValue;
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(StateTransitionObj.class);
+    }
+    
     /** */
     public void testDifferentPM() {
         if (!isNontransactionalWriteSupported()) {

@@ -23,6 +23,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -60,6 +61,14 @@ public class IgnoreCacheFalse extends QueryTest {
         BatchTestRunner.run(IgnoreCacheFalse.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        super.localSetUp();
+        addTearDownClass(PrimitiveTypes.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();
@@ -73,7 +82,6 @@ public class IgnoreCacheFalse extends QueryTest {
             runTestModifiedInstance(pm);
         }
         finally {
-            cleanupDatabase(pm, PrimitiveTypes.class);
             pm.close();
             pm = null;
         }

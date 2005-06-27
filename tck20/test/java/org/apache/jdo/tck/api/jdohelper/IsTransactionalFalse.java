@@ -55,6 +55,13 @@ public class IsTransactionalFalse extends JDO_Test {
         BatchTestRunner.run(IsTransactionalFalse.class);
     }
  
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.IsTransactionalFalse(Object pc)
      *  
      */

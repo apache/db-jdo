@@ -16,14 +16,9 @@
 
 package org.apache.jdo.tck.mapping;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Company;
+import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -59,6 +54,9 @@ public class CompletenessTest extends JDO_Test {
         BatchTestRunner.run(CompletenessTest.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
     protected void localSetUp() {
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
             // persist test data
@@ -66,11 +64,12 @@ public class CompletenessTest extends JDO_Test {
         pm.currentTransaction().begin();
         Object root = reader.getCompany("company1");
         pm.makePersistent(root);
-        addTearDownClass(reader.getAllClasses());
+        addTearDownClass(reader.getTearDownClasses());
         rootOid = pm.getObjectId(root);
         pm.currentTransaction().commit();
         cleanupPM();
     }
+
     /** */
     public void test() {
         

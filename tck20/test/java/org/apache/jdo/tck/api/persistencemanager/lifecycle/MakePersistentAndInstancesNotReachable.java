@@ -16,19 +16,16 @@
 
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
-import java.util.Iterator;
 import java.util.Date;
 
-import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
+import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
-import org.apache.jdo.tck.pc.company.Address;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 /**
  *<B>Title:</B> MakePersistent And Instances Not Reachable

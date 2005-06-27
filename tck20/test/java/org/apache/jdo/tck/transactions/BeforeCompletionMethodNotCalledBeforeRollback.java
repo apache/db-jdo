@@ -64,6 +64,13 @@ public class BeforeCompletionMethodNotCalledBeforeRollback
         BatchTestRunner.run(BeforeCompletionMethodNotCalledBeforeRollback.class);
     }   
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

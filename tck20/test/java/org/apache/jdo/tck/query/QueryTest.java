@@ -25,9 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.jdo.PersistenceManager;
 import javax.jdo.Extent;
 import javax.jdo.JDOFatalInternalException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
@@ -53,6 +53,13 @@ public abstract class QueryTest extends JDO_Test {
     protected List inserted = new ArrayList();
 
     // Helper methods to create persistent PCPoint instances
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
     
     /** */
     public void initDatabase(PersistenceManager pm, Class cls){

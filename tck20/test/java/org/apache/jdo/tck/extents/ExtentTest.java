@@ -33,10 +33,10 @@ import javax.jdo.PersistenceManagerFactory;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
+import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
-import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.Project;
@@ -51,6 +51,20 @@ abstract class ExtentTest extends JDO_Test {
     protected Class extentClass = Employee.class;
     protected Company company;
     protected Object companyOID;
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(DentalInsurance.class);
+        addTearDownClass(MedicalInsurance.class);
+        addTearDownClass(Project.class);
+        addTearDownClass(FullTimeEmployee.class);
+        addTearDownClass(PartTimeEmployee.class);
+        addTearDownClass(Employee.class);
+        addTearDownClass(Department.class);
+        addTearDownClass(Company.class);
+    }
     
     /** Creates new ExtentTest */
     public ExtentTest() {

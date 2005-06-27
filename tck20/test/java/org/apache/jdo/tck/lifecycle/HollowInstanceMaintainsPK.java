@@ -47,6 +47,14 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
         BatchTestRunner.run(HollowInstanceMaintainsPK.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCRect.class);
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void test() {
         if (!isApplicationIdentitySupported()) {
@@ -79,7 +87,6 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
                  "from transient instance via makePersistent(), state is " +
                  states[curr]);
         }
-        addTearDownInstance(obj);
         return obj;
     }
 

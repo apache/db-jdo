@@ -19,12 +19,11 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Address;
+import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -53,6 +52,13 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(GetPersistenceManagerFactoryByPropertiesInstance.class);
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(Company.class);
     }
 
     /** */

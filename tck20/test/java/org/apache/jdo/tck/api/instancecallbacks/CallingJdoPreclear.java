@@ -25,6 +25,7 @@ import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -64,6 +65,13 @@ public class CallingJdoPreclear extends TestParts {
         BatchTestRunner.run(CallingJdoPreclear.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -72,9 +80,6 @@ public class CallingJdoPreclear extends TestParts {
         t.setRetainValues(false);  // instances transition to hollow after commit
 
         InstanceCallbackClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
         
         t.begin();
         Calendar cal = Calendar.getInstance();

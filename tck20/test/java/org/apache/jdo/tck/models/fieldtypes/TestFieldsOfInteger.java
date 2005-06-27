@@ -52,7 +52,7 @@ public class TestFieldsOfInteger extends JDO_Test {
     } 
     
     /**
-     * @see JDO_Test#addTearDownClass(Class)
+     * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(FieldsOfInteger.class);

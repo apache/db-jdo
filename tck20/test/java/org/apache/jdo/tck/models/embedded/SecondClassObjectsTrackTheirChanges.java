@@ -17,15 +17,14 @@
 
 package org.apache.jdo.tck.models.embedded;
 
-import javax.jdo.PersistenceManager;
 import java.util.Date;
 import java.util.Set;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Address;
+import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B> Embedded Objects Track Their Changes
@@ -57,6 +56,13 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
         BatchTestRunner.run(SecondClassObjectsTrackTheirChanges.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(Company.class);
+    }
+
     /** This tests that persistence-capable instances track changes or notify their owning instance that they are dirty */
     public void testPCInstance() {
         pm = getPM();

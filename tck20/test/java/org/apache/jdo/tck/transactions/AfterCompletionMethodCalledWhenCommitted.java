@@ -18,7 +18,6 @@ package org.apache.jdo.tck.transactions;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
 
@@ -66,6 +65,13 @@ public class AfterCompletionMethodCalledWhenCommitted
     public static void main(String[] args) {
         BatchTestRunner.run(AfterCompletionMethodCalledWhenCommitted.class);
     }   
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
     
     /** */
     public void test() {

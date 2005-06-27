@@ -21,6 +21,7 @@ import java.util.Date;
 
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -64,6 +65,13 @@ public class AccessOtherInstancesInPrestore extends TestParts {
         BatchTestRunner.run(AccessOtherInstancesInPrestore.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -71,9 +79,6 @@ public class AccessOtherInstancesInPrestore extends TestParts {
         Transaction t = pm.currentTransaction();
         
         InstanceCallbackClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
 
         InstanceCallbackClass.performPreStoreTests = true;
         t.begin();

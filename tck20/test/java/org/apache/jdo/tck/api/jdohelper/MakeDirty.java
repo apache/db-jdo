@@ -56,6 +56,13 @@ public class MakeDirty extends JDO_Test {
         BatchTestRunner.run(MakeDirty.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.MakeDirty(Object pc)
      *  
      */

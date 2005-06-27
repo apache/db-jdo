@@ -51,7 +51,7 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
     }   
 
     /**
-     * @see JDO_Test#addTearDownClass(Class)
+     * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(FieldsOfPrimitivedouble.class);

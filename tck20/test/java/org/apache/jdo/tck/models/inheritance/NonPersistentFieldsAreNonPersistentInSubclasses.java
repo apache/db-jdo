@@ -23,6 +23,7 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.inheritance.AllPersist4;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -55,6 +56,13 @@ public class NonPersistentFieldsAreNonPersistentInSubclasses extends TestParts {
         BatchTestRunner.run(NonPersistentFieldsAreNonPersistentInSubclasses.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(AllPersist4.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();
@@ -72,9 +80,6 @@ public class NonPersistentFieldsAreNonPersistentInSubclasses extends TestParts {
         try {
             t.setRestoreValues(true);
         
-            t.begin();
-            removeAllInstances(pm); // always start fresh with no instances
-            t.commit();
             t.begin();
             // create new objects and make persistent
             AllPersist4 c = new AllPersist4(Constants.intA_V[8], Constants.doubleB_V[8], Constants.intB_V[8], Constants.charC_V[8], Constants.booleanD_V[8], Constants.floatE_V[8], Constants.shortF_V[8], Constants.shortG_V[8], Constants.intH_V[8]);

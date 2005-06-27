@@ -73,6 +73,13 @@ public class CallingJdoPrestore extends JDO_Test {
         BatchTestRunner.run(CallingJdoPrestore.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackNonPersistFdsClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -80,9 +87,6 @@ public class CallingJdoPrestore extends JDO_Test {
         Transaction t = pm.currentTransaction(); 
 
         InstanceCallbackClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackNonPersistFdsClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
 
         InstanceCallbackClass.performPreStoreTests = true;
         t.begin();        

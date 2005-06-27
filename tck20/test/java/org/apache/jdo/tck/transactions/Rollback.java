@@ -76,6 +76,13 @@ public class Rollback
         BatchTestRunner.run(BoundParameterCheck.class);
     }
    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void beforeCompletion(){
         beforeCompletionCalled = true;
@@ -111,7 +118,6 @@ public class Rollback
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
-            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             tx.commit();
           

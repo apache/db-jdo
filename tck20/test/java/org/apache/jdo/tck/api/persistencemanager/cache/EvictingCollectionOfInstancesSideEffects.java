@@ -22,6 +22,7 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -62,6 +63,14 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
     private PCPoint2 pnt2 = null;
     private PCPoint2 p1 = null;
     private PCPoint2 p2 = null;
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        super.localSetUp();
+        addTearDownClass(PCPoint2.class);
+    }
 
     /** */
     public void testEvictingCollectionOfInstancesSideEffects() {

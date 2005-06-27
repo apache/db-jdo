@@ -16,20 +16,19 @@
 
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
-import java.util.Iterator;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-
-import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
-
+import org.apache.jdo.tck.pc.company.PartTimeEmployee;
+import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -56,6 +55,16 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(GetExtentWithSubclasses.class);
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(FullTimeEmployee.class);
+        addTearDownClass(PartTimeEmployee.class);
+        addTearDownClass(Person.class);
+        super.localSetUp();
     }
 
     /** */

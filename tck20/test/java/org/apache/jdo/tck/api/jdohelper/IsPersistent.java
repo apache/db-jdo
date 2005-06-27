@@ -56,6 +56,13 @@ public class IsPersistent extends JDO_Test {
         BatchTestRunner.run(IsPersistent.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.isPersistent(Object pc)
      *  
      */

@@ -64,6 +64,13 @@ public class GetSynchronization
         BatchTestRunner.run(GetSynchronization.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void beforeCompletion(){
         try {
@@ -106,7 +113,6 @@ public class GetSynchronization
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
-            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             
             tx.setSynchronization(this);

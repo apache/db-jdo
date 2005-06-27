@@ -62,6 +62,13 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
         BatchTestRunner.run(NoAccessToFieldsAfterPredelete.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -69,9 +76,6 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
         Transaction t = pm.currentTransaction(); 
 
         InstanceCallbackClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
         
         t.begin();
         // make intValue outside the range of zero to arraySize-1 to skip most jdoPreDelete() code.

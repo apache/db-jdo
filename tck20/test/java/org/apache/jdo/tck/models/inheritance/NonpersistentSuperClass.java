@@ -24,6 +24,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.inheritance.Constants;
 import org.apache.jdo.tck.pc.inheritance.TopNonPersistH;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -55,6 +56,13 @@ public class NonpersistentSuperClass extends TestParts {
         BatchTestRunner.run(NonpersistentSuperClass.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(TopNonPersistH.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();
@@ -72,9 +80,6 @@ public class NonpersistentSuperClass extends TestParts {
     	try {
     		t.setRestoreValues(true);
         
-            t.begin();
-            removeAllInstances(pm); // always start fresh with no instances
-            t.commit();
             t.begin();
             TopNonPersistH refa = new TopNonPersistH(Constants.intA_V[1], Constants.doubleB_V[1], Constants.intB_V[1], Constants.charC_V[1], Constants.booleanD_V[1], Constants.floatE_V[1], Constants.shortF_V[1], Constants.shortG_V[1], Constants.intH_V[1]);
             pm.makePersistent(refa);

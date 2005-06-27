@@ -56,6 +56,13 @@ public class IsNew extends JDO_Test {
         BatchTestRunner.run(IsNew.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.isNew(Object pc)
      *  
      */

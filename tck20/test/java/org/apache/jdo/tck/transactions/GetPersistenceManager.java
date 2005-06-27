@@ -59,6 +59,13 @@ public class GetPersistenceManager extends JDO_Test {
         BatchTestRunner.run(GetPersistenceManager.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();
@@ -75,7 +82,6 @@ public class GetPersistenceManager extends JDO_Test {
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
-            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             PersistenceManager pm1 = tx.getPersistenceManager();
             tx.commit();

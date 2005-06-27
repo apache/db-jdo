@@ -56,6 +56,13 @@ public class IsDirtyFalse extends JDO_Test {
         BatchTestRunner.run(IsDirtyFalse.class);
     }
  
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.isDirty(Object pc)
      *  
      */

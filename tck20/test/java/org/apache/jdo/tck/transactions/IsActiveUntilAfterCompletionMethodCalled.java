@@ -63,6 +63,13 @@ public class IsActiveUntilAfterCompletionMethodCalled
         BatchTestRunner.run(IsActiveUntilAfterCompletionMethodCalled.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void beforeCompletion() {
         try {
@@ -107,7 +114,6 @@ public class IsActiveUntilAfterCompletionMethodCalled
         try {
             tx.begin();
             PCPoint p1 = new PCPoint(1,3);
-            addTearDownInstance((Object)p1);
             pm.makePersistent(p1);
             tx.setSynchronization(this);
             if (!tx.isActive()) {

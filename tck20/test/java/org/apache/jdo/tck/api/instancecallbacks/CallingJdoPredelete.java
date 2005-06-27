@@ -69,6 +69,13 @@ public class CallingJdoPredelete extends JDO_Test {
         BatchTestRunner.run(CallingJdoPredelete.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -76,9 +83,6 @@ public class CallingJdoPredelete extends JDO_Test {
         Transaction t = pm.currentTransaction();
         
         InstanceCallbackClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
 
         InstanceCallbackClass.performPreDeleteTests = true; // enabling PreDelete tests
         t.begin();

@@ -52,7 +52,6 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         pm.makePersistent(p1);
         Object oid = pm.getObjectId(p1);
         tx.commit();
-        addTearDownInstance(p1);
         return oid;
     }
   

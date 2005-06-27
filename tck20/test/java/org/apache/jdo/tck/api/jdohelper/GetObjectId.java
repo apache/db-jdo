@@ -57,6 +57,13 @@ public class GetObjectId extends JDO_Test {
         BatchTestRunner.run(GetObjectId.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.getObjectId(Object pc)
      *  
      */

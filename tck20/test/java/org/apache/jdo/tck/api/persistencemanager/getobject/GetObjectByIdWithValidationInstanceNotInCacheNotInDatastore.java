@@ -17,7 +17,6 @@
 package org.apache.jdo.tck.api.persistencemanager.getobject;
 
 import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;

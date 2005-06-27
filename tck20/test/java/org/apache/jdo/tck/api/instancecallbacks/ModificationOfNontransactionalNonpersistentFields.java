@@ -64,6 +64,13 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
         BatchTestRunner.run(ModificationOfNontransactionalNonpersistentFields.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(InstanceCallbackNonPersistFdsClass.class);
+    }
+    
     /** */
     public void test() throws Exception
     {
@@ -71,9 +78,6 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
         Transaction t = pm.currentTransaction(); 
 
         InstanceCallbackNonPersistFdsClass.initializeStaticsForTest();
-        t.begin();
-        InstanceCallbackNonPersistFdsClass.removeAllInstances(pm); // always start fresh with no instances
-        t.commit();
         
         t.begin();
         // create instance

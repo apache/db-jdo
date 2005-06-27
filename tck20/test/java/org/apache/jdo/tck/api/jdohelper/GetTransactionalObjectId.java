@@ -57,6 +57,13 @@ public class GetTransactionalObjectId extends JDO_Test {
         BatchTestRunner.run(GetTransactionalObjectId.class);
     }
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test JDOHelper.getTransactionalObjectId(Object pc)
      *  
      */

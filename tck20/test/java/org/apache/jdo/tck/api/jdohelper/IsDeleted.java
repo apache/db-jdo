@@ -57,6 +57,13 @@ public class IsDeleted extends JDO_Test {
         BatchTestRunner.run(IsDeleted.class);
     }
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /* test jdohelper.isDeleted(Object pc)
      *  
      */

@@ -67,6 +67,13 @@ public class AfterCompletionMethodCalledWhenRolledback
         BatchTestRunner.run(AfterCompletionMethodCalledWhenRolledback.class);
     }   
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+    
     /** */
     public void test() {
         pm = getPM();

@@ -44,7 +44,16 @@ public class CompanyModelReader extends XmlBeanFactory {
         Address.class, Company.class, 
         DentalInsurance.class, Department.class, Employee.class,
         FullTimeEmployee.class, Insurance.class, 
-        MedicalInsurance.class, Person.class, Project.class
+        MedicalInsurance.class, PartTimeEmployee.class, Person.class, 
+        Project.class
+    };
+    
+    /** All classes in the model 
+     */
+    private static final Class[] tearDownClasses = new Class[] {
+        DentalInsurance.class, MedicalInsurance.class,
+        Person.class, Employee.class, PartTimeEmployee.class, FullTimeEmployee.class,  
+        Project.class, Department.class, Company.class
     };
     
     /** 
@@ -225,5 +234,11 @@ public class CompanyModelReader extends XmlBeanFactory {
         return allClasses;
     }
     
+    /**
+     * @return Returns the tearDownClasses.
+     */
+    public Class[] getTearDownClasses() {
+        return tearDownClasses;
+    }
 }
 
