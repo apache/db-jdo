@@ -118,6 +118,10 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
     /** The default for loadXMLMetadata. */ 
     private final boolean loadXMLMetadataDefault;
     
+    /** */
+    private final UnresolvedRelationshipHelper unresolvedRelationshipHelper = 
+        new UnresolvedRelationshipHelper();
+
     /** I18N support */
     protected final static I18NHelper msg =
         I18NHelper.getInstance(JDOModelImplDynamic.class);
@@ -659,6 +663,15 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
     }
     
     /**
+     * Returns the UnresolvedRelationshipHelper instance for this JDOModel
+     * instance. 
+     * @return the current UnresolvedRelationshipHelper
+     */
+    UnresolvedRelationshipHelper getUnresolvedRelationshipHelper() {
+        return unresolvedRelationshipHelper;
+    }
+
+    /**
      * This Iterator implementation iterates resource names of possible JDO
      * metadata files for the specified class name. Chapter 18 of the JDO
      * specification defines the search order as follows: 
@@ -753,4 +766,5 @@ public class JDOModelImplDynamic extends JDOElementImpl implements JDOModel {
         }
         
     }
+
 }

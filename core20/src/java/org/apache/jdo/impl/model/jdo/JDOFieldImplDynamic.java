@@ -85,6 +85,9 @@ public class JDOFieldImplDynamic
     /** Property serializable. Defaults to <code>false</code>. */
     private boolean serializable = false;
 
+    /** Property mappedByName. Defaults to <code>null</code>. */
+    private String mappedByName = null;
+
     /** Relationship JDOField<->JDORelationship. */
     protected JDORelationship relationship;
     
@@ -255,7 +258,7 @@ public class JDOFieldImplDynamic
     
     /**
      * Get the corresponding JavaField representation for this JDOField.
-     * @return the corresponding Java field representation
+     * @return the corresponding JavaField representation
      */
     public JavaField getJavaField() {
         if (javaField != null) {
@@ -293,6 +296,42 @@ public class JDOFieldImplDynamic
      */
     public void setSerializable(boolean serializable) throws ModelException {
         this.serializable = serializable;
+    }
+
+    /** 
+     * Get the name of the field specified in a mappedBy attribute in the
+     * metadata. The method returns <code>null</code> if the metadata for this
+     * field does not specify the mappedBy attribute.  Note that this 
+     * can be provided at the field level to help population of the model, 
+     * but should only be specified on a field that has a corresponding
+     * relationship.
+     * @return the mappedBy field name if available; <code>null</code>
+     * otherwise.
+     */
+    public String getMappedByName() {
+        return mappedByName;
+    }
+
+    /**
+     * Set the name of the field specified in a mappedBy attribute in the
+     * metadata.  Note that this can be provided at the field level to 
+     * help population of the model, but should only be specified on a 
+     * field that has a corresponding relationship.
+     * @param mappedByName the mappedBy field name.
+     * @exception ModelException if impossible
+     */
+    public void setMappedByName(String mappedByName) throws ModelException {
+        String oldMappedByName = this.mappedByName;
+        this.mappedByName = mappedByName;
+        UnresolvedRelationshipHelper info = getUnresolvedRelationshipHelper();
+        if (oldMappedByName != null) {
+            // remove old mappedByName from unresolved relationship helper
+            info.remove(oldMappedByName, this);
+        }
+        if (mappedByName != null) {
+            // update unresolved relationship helper
+            info.register(mappedByName, this);
+        }
     }
 
     /**
@@ -342,7 +381,12 @@ public class JDOFieldImplDynamic
      * Set the relationship information for this JDOField.
      * @param relationship the JDORelationship instance
      */
-    public void setRelationship(JDORelationship relationship) {
+    public void setRelationship(JDORelationship relationship) 
+        throws ModelException {
+        JDORelationship old = this.relationship;
+        if (old != null) {
+            old.setInverseRelationship(null);
+        }
         this.relationship = relationship;
     }
 
@@ -522,7 +566,7 @@ public class JDOFieldImplDynamic
      * @return a new JDOReference instance bound to this JDOField
      */
     protected JDOReference createJDOReferenceInternal() {
-        JDOReferenceImpl ref = new JDOReferenceImpl();
+        JDOReferenceImplDynamic ref = new JDOReferenceImplDynamic();
         // update relationship JDORelationship->JDOField
         ref.setDeclaringField(this);
         return ref;
@@ -576,6 +620,16 @@ public class JDOFieldImplDynamic
     private boolean nameHasJDOPrefix() {
         String name = getName();
         return (name != null) && name.startsWith("jdo"); //NOI18N
+    }
+
+    /** 
+     * Returns the UnresolvedRelationshipHelper instance from the declaring
+     * JDOModel instacne of the declaring JDOClass.
+     * @return the current UnresolvedRelationshipHelper
+     */
+    UnresolvedRelationshipHelper getUnresolvedRelationshipHelper() {
+        return ((JDOModelImplDynamic) getDeclaringClass().getDeclaringModel()).
+            getUnresolvedRelationshipHelper();
     }
     
 }

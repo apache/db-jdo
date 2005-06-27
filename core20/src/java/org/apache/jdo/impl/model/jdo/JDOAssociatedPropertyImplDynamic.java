@@ -187,6 +187,18 @@ public class JDOAssociatedPropertyImplDynamic
     }
 
     /** Deletegate to associatedJDOField. */
+    public String getMappedByName() {
+        return associatedJDOField.getMappedByName();
+    }
+
+    /** Throws ModelException. */
+    public void setMappedByName(String mappedByName)
+        throws ModelException {
+        throw new ModelException (
+            msg.msg("EXC_CannotModifyJDOProperty")); //NOI18N
+    }
+
+    /** Deletegate to associatedJDOField. */
     public JDORelationship getRelationship() {
         return associatedJDOField.getRelationship();
     }

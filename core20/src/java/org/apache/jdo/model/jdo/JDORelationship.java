@@ -87,18 +87,70 @@ public interface JDORelationship
         throws ModelException;
 
     /**
-     * Get the inverse JDORelationship in the case of a managed relationship.
+     * Get the JDOClass corresponding to the type or element of this 
+     * relationship.
+     * @return the related class
+     */
+    public JDOClass getRelatedJDOClass();
+
+    /** 
+     * Get the mappedBy relationship. If there is no mappedBy relationship
+     * set, the method checks the mappedBy name as specified in the declaring
+     * field and resolves the relationship. The method return
+     * <code>null</code> if there is no mappedBy relationship set and there
+     * is no mappedBy name specified on the declaring field.
+     * @return the mappedBy relationship if available; <code>null</code>
+     * otherwise.
+     */
+    public JDORelationship getMappedBy();
+
+    /**
+     * Set the mappedBy relationship for this relationship. This method
+     * automatically updates the mappedBy name of the declaring field of this
+     * relationship.
+     * @param mappedBy the mappedBy relationship.
+     * @exception ModelException if impossible
+     */
+    public void setMappedBy(JDORelationship mappedBy) throws ModelException;
+
+    /** 
+     * Get the relative name of the inverse relationship field for this
+     * relationship.  In the case of two-way relationships, the two
+     * relationships involved are inverses of each other.  If this
+     * relationship element does not participate in a two-way relationship,
+     * this returns <code>null</code>.  Note that it is possible to have
+     * this method return a value, but because of the combination of
+     * related class and lookup, there may be no corresponding
+     * JDORelationship which can be found.
+     * @return the relative name of the inverse JDORelationship
+     * @see #getInverseRelationship
+     */
+    public String getInverseRelationshipName();
+
+    /**
+     * Get the inverse JDORelationship in the case of a two-way relationship.
      * @return the inverse relationship
      */
     public JDORelationship getInverseRelationship();
 
     /**
-     * Set the inverse JDORelationship in the case of a managed relationship.
+     * Set the inverse JDORelationship in the case of a two-way relationship.
+     * The two relationship elements involved are set as inverses of each 
+     * other and the old inverse is unset.
      * @param inverseRelationship the inverse relationship
      * @exception ModelException if impossible
+     * @deprecated - call setMappedBy instead
      */
     public void setInverseRelationship(JDORelationship inverseRelationship)
         throws ModelException;
+
+    /**
+     * Determines whether this side of a two-way relationship is the
+     * owning side.
+     * @return <code>true</code> if this side is the owning side;
+     * <code>false</code> otherwise. 
+     */
+    public boolean isOwner();
 
     /**
      * Determines whether this JDORelationship represents a reference

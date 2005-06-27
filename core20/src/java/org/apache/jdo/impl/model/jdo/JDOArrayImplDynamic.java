@@ -28,7 +28,7 @@ import org.apache.jdo.model.jdo.JDOField;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOArrayImplDynamic extends JDORelationshipImpl 
     implements JDOArray {
@@ -85,6 +85,18 @@ public class JDOArrayImplDynamic extends JDORelationshipImpl
      */
     public boolean isJDOArray() {
         return true;
+    }
+
+    //========= Internal helper methods ==========
+
+    /** 
+     * Get the type representation of the relationship. This will be 
+     * the JavaType for references, the element type for collections
+     * and arrays, and the value type for maps.
+     * @return the relationship type
+     */
+    public JavaType getRelatedJavaType() {
+        return getElementType();
     }
 
 }

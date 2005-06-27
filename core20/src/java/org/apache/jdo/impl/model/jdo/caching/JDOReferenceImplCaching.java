@@ -16,22 +16,21 @@
 
 package org.apache.jdo.impl.model.jdo.caching;
 
-import org.apache.jdo.impl.model.jdo.JDOCollectionImplDynamic;
 import org.apache.jdo.model.jdo.JDORelationship;
-import org.apache.jdo.model.java.JavaType;
+import org.apache.jdo.impl.model.jdo.JDOReferenceImplDynamic;
 
 /**
  * An instance of this class represents the JDO relationship metadata 
- * of a collection relationship field. This caching implementation
+ * of a reference relationship field. This caching implementation
  * caches any calulated value to avoid re-calculating it if it is
  * requested again. 
  *
  * @author Michael Bouschen
- * @since 1.1
+ * @since 2.0
  * @version 2.0
  */
-public class JDOCollectionImplCaching extends JDOCollectionImplDynamic {
-
+public class JDOReferenceImplCaching extends JDOReferenceImplDynamic {
+    
     /** 
      * Get the mappedBy relationship. If there is no mappedBy relationship
      * set, the method checks the mappedBy name as specified in the declaring
@@ -58,33 +57,4 @@ public class JDOCollectionImplCaching extends JDOCollectionImplDynamic {
         }
         return inverse;
     }
-
-    /**
-     * Determines whether the values of the elements should be stored if 
-     * possible as part of the instance instead of as their own instances 
-     * in the datastore.
-     * @return <code>true</code> if the elements should be stored as part of 
-     * the instance; <code>false</code> otherwise
-     */
-    public boolean isEmbeddedElement() {
-        if (embeddedElement == null) {
-            embeddedElement = 
-                super.isEmbeddedElement() ? Boolean.TRUE : Boolean.FALSE;
-        }
-        return (embeddedElement == null) ? false : 
-            embeddedElement.booleanValue();
-    }
-    
-    /** 
-     * Get the type representation of the collection elements. 
-     * @return the element type
-     */
-    public JavaType getElementType()
-    {
-        if (elementType == null) {
-            elementType = super.getElementType();
-        }
-        return elementType;
-    }
-
 }

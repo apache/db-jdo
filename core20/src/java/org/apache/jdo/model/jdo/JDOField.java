@@ -140,6 +140,28 @@ public interface JDOField
     public void setSerializable(boolean serializable)
         throws ModelException;
 
+    /** 
+     * Get the name of the field specified in a mappedBy attribute in the
+     * metadata. The method returns <code>null</code> if the metadata for this
+     * field does not specify the mappedBy attribute.  Note that this 
+     * can be provided at the field level to help population of the model, 
+     * but should only be specified on a field that has a corresponding
+     * relationship.
+     * @return the mappedBy field name if available; <code>null</code>
+     * otherwise.
+     */
+    public String getMappedByName();
+
+    /**
+     * Set the name of the field specified in a mappedBy attribute in the
+     * metadata.  Note that this can be provided at the field level to 
+     * help population of the model, but should only be specified on a 
+     * field that has a corresponding relationship.
+     * @param mappedByName the mappedBy field name.
+     * @exception ModelException if impossible
+     */
+    public void setMappedByName(String mappedByName) throws ModelException;
+
     /**
      * Get the corresponding Java field representation for this JDOField.
      * @return the corresponding Java field representation

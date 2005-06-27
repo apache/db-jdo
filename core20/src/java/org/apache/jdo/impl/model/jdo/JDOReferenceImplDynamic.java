@@ -16,6 +16,7 @@
 
 package org.apache.jdo.impl.model.jdo;
 
+import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOReference;
 
 /**
@@ -24,9 +25,10 @@ import org.apache.jdo.model.jdo.JDOReference;
  *
  * @author Michael Bouschen
  */
-public class JDOReferenceImpl extends JDORelationshipImpl 
+public class JDOReferenceImplDynamic extends JDORelationshipImpl 
     implements JDOReference
 {
+
     /**
      * Determines whether this JDORelationship represents a reference
      * relationship or not. A return of <code>true</code> means this
@@ -37,4 +39,17 @@ public class JDOReferenceImpl extends JDORelationshipImpl
     public boolean isJDOReference() {
         return true;
     }
+
+    //========= Internal helper methods ==========
+
+    /** 
+     * Get the type representation of the relationship. This will be 
+     * the JavaType for references, the element type for collections
+     * and arrays, and the value type for maps.
+     * @return the relationship type
+     */
+    public JavaType getRelatedJavaType() {
+        return getDeclaringField().getType();
+    }
+
 }

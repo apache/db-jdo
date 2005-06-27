@@ -213,6 +213,19 @@ public class JDOFieldImplCaching extends JDOFieldImplDynamic {
     //========= Internal helper methods ==========
 
     /**
+     * Creates and returns a new JDOReference instance. 
+     * This method automatically sets this JDOField as the declaring field of 
+     * the returned instance.
+     * @return a new JDOReference instance bound to this JDOField
+     */
+    protected JDOReference createJDOReferenceInternal() {
+        JDOReferenceImplCaching ref = new JDOReferenceImplCaching();
+        // update relationship JDORelationship->JDOField
+        ref.setDeclaringField(this);
+        return ref;
+    }
+
+    /**
      * Creates and returns a new JDOCollection instance. 
      * This method automatically this JDOField as the declarinmg field of 
      * the returned instance.

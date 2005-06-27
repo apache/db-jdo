@@ -153,6 +153,7 @@ public class PrintSupport
         //println(indent+1, "typeName            = " + jdoField.getTypeName()); //NOI18N
         println(indent+1, "javaField           = " + jdoField.getJavaField()); //NOI18N
         println(indent+1, "serializable        = " + jdoField.isSerializable()); //NOI18N
+        println(indent+1, "mappedByName        = " + jdoField.getMappedByName()); //NOI18N
         println(indent+1, "fieldNumber         = " + jdoField.getFieldNumber()); //NOI18N
         println(indent+1, "relativeFieldNumber = " + jdoField.getRelativeFieldNumber()); //NOI18N
         println(indent+1, "isProperty          = " + jdoField.isProperty()); //NOI18N
@@ -185,9 +186,14 @@ public class PrintSupport
         if (jdoRelationship == null)
             return;
 
+        JDORelationship mappedBy = jdoRelationship.getMappedBy();
         JDORelationship inverse = jdoRelationship.getInverseRelationship();
         println(indent+1, "declaringField  = " + jdoRelationship.getDeclaringField().getName()); //NOI18N
         println(indent+1, "bounds          = " + jdoRelationship.getLowerBound() + " / " +  jdoRelationship.getUpperBound()); //NOI18N
+        println(indent+1, "mappedBy        = " + ((mappedBy==null) ? "null" : //NOI18N
+            mappedBy.getDeclaringField().getDeclaringClass().getName() + "." + //NOI18N
+            mappedBy.getDeclaringField().getName()));
+        println(indent+1, "inverseName     = " + jdoRelationship.getInverseRelationshipName());
         println(indent+1, "inverse         = " + ((inverse==null) ? "null" : //NOI18N
             inverse.getDeclaringField().getDeclaringClass().getName() + "." + //NOI18N
             inverse.getDeclaringField().getName()));

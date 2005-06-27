@@ -17,6 +17,7 @@
 package org.apache.jdo.impl.model.jdo.caching;
 
 import org.apache.jdo.model.java.JavaType;
+import org.apache.jdo.model.jdo.JDORelationship;
 import org.apache.jdo.impl.model.jdo.JDOArrayImplDynamic;
 
 /**
@@ -27,13 +28,40 @@ import org.apache.jdo.impl.model.jdo.JDOArrayImplDynamic;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOArrayImplCaching extends JDOArrayImplDynamic {
     
     /** Type of the array element. */
     private transient JavaType elementType;
     
+    /** 
+     * Get the mappedBy relationship. If there is no mappedBy relationship
+     * set, the method checks the mappedBy name as specified in the declaring
+     * field and resolves the relationship. The method returns
+     * <code>null</code> if there is no mappedBy relationship set and there
+     * is no mappedBy name specified on the declaring field.
+     * @return the mappedBy relationship if available; <code>null</code>
+     * otherwise.
+     */
+    public JDORelationship getMappedBy() {
+        if (mappedBy == null) {
+            mappedBy = super.getMappedBy();
+        }
+        return mappedBy;
+    }
+
+    /**
+     * Get the inverse JDORelationship in the case of a two-way relationship.
+     * @return the inverse relationship
+     */
+    public JDORelationship getInverseRelationship() {
+        if (inverse == null) {
+            inverse = super.getInverseRelationship();
+        }
+        return inverse;
+    }
+
     /**
      * Determines whether the values of the elements should be stored 
      * if possible as part of the instance instead of as their own instances 

@@ -390,21 +390,22 @@ public class JDOClassImplDynamic
                 msg.msg("EXC_InvalidMember", "null")); //NOI18N
         }
         String name = member.getName();
-        if (member instanceof JDOProperty) {
-            // Check for property with associated field
+        if (member instanceof JDOField) {
+            JDOField field = (JDOField) member;
+            // nullify mappedByName which removes mappedBy info 
+            field.setMappedByName(null);
+            // nullify relationship which updates its inverse
+            field.setRelationship(null);
             if (associatedProperties.containsValue(member)) {
                 associatedProperties.remove(name);
             }
             else {
                 declaredFields.remove(name); 
             }
-        }
-        if (member instanceof JDOField) {
-            // JDOField which is not a JDOProperty
-            declaredFields.remove(name);
+
             // There might be a property with the field to be removed as
             // associated JDOField => remove the property too.
-            JDOProperty prop = getAssociatedProperty((JDOField) member);
+            JDOProperty prop = getAssociatedProperty(field);
             if (prop != null) {
                 removeDeclaredMember(prop);
             }
