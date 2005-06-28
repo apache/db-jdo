@@ -809,4 +809,23 @@ public abstract class JDO_Test extends TestCase {
         return APPLICATION_IDENTITY.equals(identitytype);
     }
     
+    /** 
+     * Prints a message (if debug is true) saying the test with the
+     * specified name is not executed, because the JDO implementation under
+     * test is run for an inapplicable identity type. 
+     * @param testName the name of the test method that is skipped.
+     * @param requiredIdentityType the name of the required identity type.
+     */
+    protected void printNonApplicableIdentityType(
+        String testName, String requiredIdentityType) {
+        if (debug) {
+            logger.debug(
+                "Test " + testName + 
+                " was not run, because it is only applicable for identity type " + 
+                requiredIdentityType + 
+                ". The identity type of the current configuration is " +
+                identitytype);
+        }
+    }
+
 }

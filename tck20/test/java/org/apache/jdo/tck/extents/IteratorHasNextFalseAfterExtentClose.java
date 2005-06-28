@@ -69,8 +69,10 @@ public class IteratorHasNextFalseAfterExtentClose extends ExtentTest {
             ex.close(it3);
             rollbackTransaction();
     
+            beginTransaction();
             Iterator it4 = ex.iterator();
             int count4 = countIterator(it4);
+            rollbackTransaction();
             if (debug) logger.debug ("Iterator4 after rollback: " + count4);
     
             if (it1.hasNext()) {

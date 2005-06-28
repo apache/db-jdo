@@ -98,6 +98,7 @@ public class Retrieve extends PersistenceManagerTest {
             pm.retrieve(p3);
             pm.retrieve(rect);
             pm.makeTransient(p1);
+            pm.makeTransient(p3);
             pm.makeTransient(rect);
             tx.commit();
             tx = null;

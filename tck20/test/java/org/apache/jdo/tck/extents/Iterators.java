@@ -57,10 +57,12 @@ public class Iterators extends ExtentTest {
         Extent ex = getExtent();
     
         int count = 0;
+        beginTransaction();
         for (Iterator it = ex.iterator(); it.hasNext();++count) {
             Object emp = it.next();
             if (debug) logger.debug(emp.toString());
         }
+        rollbackTransaction();
     
         if (count != 2) {
             fail(ASSERTION_FAILED,

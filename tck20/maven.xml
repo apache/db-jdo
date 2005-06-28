@@ -409,7 +409,7 @@
         <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}/${jdo.tck.identitytype}.jar"/>
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
-        <!-- <pathelement location="${jdo.tck.testclasses.dir}"/> -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
         <pathelement location="${jdo.jdoapi.jarfile}"/>
         <!-- Jar files for the implementation to be tested -->

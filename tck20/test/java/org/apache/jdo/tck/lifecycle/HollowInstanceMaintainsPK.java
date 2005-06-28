@@ -58,7 +58,13 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
     /** */
     public void test() {
         if (!isApplicationIdentitySupported()) {
-            if (debug) logger.debug("Application Identity is not supported");
+            printUnsupportedOptionalFeatureNotTested(
+                    "HollowInstanceMaintainsPK", 
+                    "javax.jdo.option.ApplicationIdentity");
+        } else if (!runsWithApplicationIdentity()) {
+            printNonApplicableIdentityType(
+                    "HollowInstanceMaintainsPK", 
+                    "javax.jdo.option.ApplicationIdentity");
         }
         else {
             pm = getPM();
@@ -67,6 +73,10 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
             PCRect obj = getPersistentNewInstance();
             long beforeValue=obj.getId();
             pm.currentTransaction().commit(); // obj should transition to HOLLOW
+            //The next call obj.getId() is a primary key access.
+            //The method must not be called inside a transaction,
+            //because a JDO implementation must allow primary key accesses
+            //outside of transactions.
             long afterValue=obj.getId();
             if (beforeValue!=afterValue) {
                 fail(ASSERTION_FAILED,
