@@ -159,6 +159,9 @@
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
                     <j:set var="mapping" value="${jdo.tck.mapping}"/>
+                    <j:if test="${mapping == zeroval}">
+                       <j:set var="jdo.tck.mapping" value=""/>
+                    </j:if>
                     <j:set var="schemaname">
                         <j:expr value="${schemaname.concat(id)}"/>
                         <j:expr value="${schemaname.concat(mapping)}"/>
@@ -184,6 +187,9 @@
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
                     <j:set var="mapping" value="${jdo.tck.mapping}"/>
+                    <j:if test="${mapping == zeroval}">
+                       <j:set var="jdo.tck.mapping" value=""/>
+                    </j:if>
                     <j:set var="schemaname">
                         <j:expr value="${schemaname.concat(id)}"/>
                         <j:expr value="${schemaname.concat(mapping)}"/>
@@ -201,15 +207,26 @@
             <path refid="project.class.path"/>
         </path>
         <j:set var="jdo.tck.testrunnerclass"
-             value="org.apache.jdo.tck.util.BatchTestRunner"/>
+               value="org.apache.jdo.tck.util.BatchTestRunner"/>
+         <u:loadText file="${basedir}/test/conf/${iut.runtck.properties}"
+                    var="PMFProps"/>
+        <j:file name="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"
+                omitXmlDeclaration="true">
+            ${PMFProps}
+            ### Properties below added by maven goal doRuntck.jdori
+            javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
+            org.jpox.identifier.defaultSchemaName=${schemaname}
+        </j:file>
         <java fork="yes" dir="${jdo.tck.testdir}"
               classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.project.class.path"/>
             <sysproperty key="ResultPrinterClass"
                          value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
-            <sysproperty key="PMFProperties" value="${iut.runtck.properties}"/>
-            <sysproperty key="PMF2Properties" value="${iut.runtck.properties}"/>
+            <sysproperty key="PMFProperties"
+                         value="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"/>
+            <sysproperty key="PMF2Properties"
+                         value="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"/>
             <sysproperty key="jdo.tck.testdata" value="${jdo.tck.testdata}"/>
             <sysproperty key="jdo.tck.standarddata"
                          value="${jdo.tck.standarddata}"/>
@@ -223,11 +240,7 @@
                          value="${jdo.tck.cfg}"/>
             <sysproperty key="jdo.tck.excludelist"
                          value="${jdo.tck.excludelist}"/>
-            <sysproperty key="javax.jdo.option.Mapping"
-                         value="${jdo.tck.mapping}"/>
-            <sysproperty key="org.jpox.identifier.defaultSchemaName"
-                         value="${schemaname}"/>
-            <jvmarg line="${iut.runtck.sysproperties}"/>
+            <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
         </java>
@@ -238,6 +251,15 @@
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="jdori.class.path"/>
         </path>
+        <u:loadText file="${basedir}/test/conf/${PMFProperties}"
+                    var="PMFProps"/>
+        <j:file name="${jdo.tck.testclasses.dir}/${PMFProperties}"
+                omitXmlDeclaration="true">
+            ${PMFProps}
+            ### Properties below added by maven goal doRuntck.jdori
+            javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
+            org.jpox.identifier.defaultSchemaName=${schemaname}
+        </j:file>
         <j:set var="jdo.tck.testrunnerclass"
                value="org.apache.jdo.tck.util.BatchTestRunner"/>
         <java fork="yes" dir="${jdo.tck.testdir}"
@@ -247,9 +269,9 @@
                          value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
             <sysproperty key="PMFProperties"
-                         value="${basedir}/test/conf/jdori.properties"/>
+                         value="${jdo.tck.testclasses.dir}/${PMFProperties}"/>
             <sysproperty key="PMF2Properties"
-                         value="${basedir}/test/conf/jdori.properties"/>
+                         value="${jdo.tck.testclasses.dir}/${PMFProperties}"/>
             <sysproperty key="jdo.tck.testdata" value="${jdo.tck.testdata}"/>
             <sysproperty key="jdo.tck.standarddata"
                          value="${jdo.tck.standarddata}"/>
@@ -263,10 +285,6 @@
                          value="${jdo.tck.cfg}"/>
             <sysproperty key="jdo.tck.excludelist"
                          value="${jdo.tck.excludelist}"/>
-            <sysproperty key="javax.jdo.option.Mapping"
-                         value="${jdo.tck.Mapping}"/>
-            <sysproperty key="org.jpox.identifier.defaultSchemaName"
-                         value="${schemaname}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
