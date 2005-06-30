@@ -205,10 +205,10 @@ public class BatchTestRunner
                 identityType = "app";
             else identityType = "dsid";
             testConfig = testConfig.substring(0, testConfig.indexOf('.'));
-            String fileName = db + "-"
+            String fileName = simpleDateFormat.format(new Date()) + "-"
+                              + db + "-"
                               + identityType + "-"
-                              + testConfig + "-"
-                              + simpleDateFormat.format(new Date())
+                              + testConfig
                               + fileNameSuffix;
             File dir = new File(outDir);
             if (!dir.exists()) {
