@@ -215,7 +215,7 @@
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
             javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
-            org.jpox.identifier.defaultSchemaName=${schemaname}
+            javax.jdo.mapping.Schema=${schemaname}
         </j:file>
         <java fork="yes" dir="${jdo.tck.testdir}"
               classname="${jdo.tck.testrunnerclass}">
@@ -258,7 +258,7 @@
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
             javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
-            org.jpox.identifier.defaultSchemaName=${schemaname}
+            javax.jdo.mapping.Schema=${schemaname}
         </j:file>
         <j:set var="jdo.tck.testrunnerclass"
                value="org.apache.jdo.tck.util.BatchTestRunner"/>
