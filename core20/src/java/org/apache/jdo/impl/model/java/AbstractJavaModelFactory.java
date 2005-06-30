@@ -16,6 +16,7 @@
 
 package org.apache.jdo.impl.model.java;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -41,7 +42,8 @@ import org.apache.jdo.util.I18NHelper;
  * ModelFatalException.
  * 
  * @author Michael Bouschen
- * @since JDO 1.0.1
+ * @since 1.0.1
+ * @version 2.0
  */
 abstract public class AbstractJavaModelFactory
     implements JavaModelFactory
@@ -92,7 +94,7 @@ abstract public class AbstractJavaModelFactory
      */
     public JavaModel getJavaModel(Object key)
     {
-        synchronized (this.modelCache) {
+        synchronized (modelCache) {
             JavaModel javaModel = (JavaModel)modelCache.get(key);
             if (javaModel == null) {
                 // create new model and store it using the specified key
@@ -107,6 +109,45 @@ abstract public class AbstractJavaModelFactory
             } 
             return javaModel;
          }
+    }
+
+    /**
+     * Removes the specified javaModel from the JavaModel cache. Note, if
+     * there are multiple entries in the cache with the specified javaModel
+     * as value, then all of them get removed. The method does not have an
+     * effect, if this factory does not have the specified javaModel.
+     * @param javaModel the JavaModel to be removed.
+     * @since 2.0
+     */
+    public void removeJavaModel(JavaModel javaModel) {
+        if (javaModel == null) {
+            // nothing to be removed => return
+            return;
+        }
+        
+        synchronized (modelCache) {
+            for (Iterator i = modelCache.entrySet().iterator(); i.hasNext();) {
+                Map.Entry entry = (Map.Entry) i.next();
+                Object value = entry.getValue();
+                if ((javaModel == value) || javaModel.equals(value)) {
+                    // found javaModel => remove the entry
+                    i.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes the JavaModel for the specified key from the JavaModel
+     * cache. The method does not have an effect, if this factory does not 
+     * have a JavaModel for the the specified key.
+     * @param key the key used to find the JavaModel instance to be removed.
+     * @since 2.0
+     */
+    public void removeJavaModel(Object key) {
+        synchronized (modelCache) {
+            modelCache.remove(key);
+        } 
     }
 
     /**

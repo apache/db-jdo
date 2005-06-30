@@ -25,6 +25,7 @@ import org.apache.jdo.model.java.JavaModel;
  * JDOModel instances per user defined keys.
  * 
  * @author Michael Bouschen
+ * @version 2.0
  */
 public interface JDOModelFactory 
 {
@@ -45,14 +46,14 @@ public interface JDOModelFactory
         throws ModelException;
     
     /**
-     * Returns the JDOModel instance for the specified JavaModel.
+     * Returns the JDOModel instance for the specified javaModel.
      * @param javaModel the javaModel used to cache the returned JDOModel
      * instance.
      */
     public JDOModel getJDOModel(JavaModel javaModel);
     
     /**
-     * Returns the JDOModel instance for the specified JavaModel.  
+     * Returns the JDOModel instance for the specified javaModel.  
      * The returned JDOModel instance uses the specified flag
      * <code>loadXMLMetadataDefault</code> to set the default behavior 
      * for the creation of new JDOClass instances  using methods 
@@ -64,5 +65,27 @@ public interface JDOModelFactory
      */
     public JDOModel getJDOModel(JavaModel javaModel, 
                                 boolean loadXMLMetadataDefault);
+
+    /**
+     * Removes the specified jdoModel from the JDOModel cache. Note, if
+     * there are multiple entries in the cache with the specified jdoModel
+     * as value, then all of them get removed. The method does not have an
+     * effect, if this factory does not have the specified jdoModel.
+     * @param jdoModel the JDOModel to be removed.
+     * @since 2.0
+     */
+    public void removeJDOModel(JDOModel jdoModel)
+        throws ModelException;
+
+    /**
+     * Removes the JDOModel for the specified javaModel from the JDOModel
+     * cache. The method does not have an effect, if this factory does not
+     * have a JDOModel for the the specified javaModel.
+     * @param javaModel the javaModel used to find the JDOModel instance to be
+     * removed.
+     * @since 2.0
+     */
+    public void removeJDOModel(JavaModel javaModel)
+        throws ModelException;
 
 }

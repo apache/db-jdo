@@ -26,7 +26,8 @@ import org.apache.jdo.model.ModelFatalException;
  * JavaType by an implementation specific type description. 
  * 
  * @author Michael Bouschen
- * @since JDO 1.0.1
+ * @since 1.0.1
+ * @version 2.0
  */
 public interface JavaModelFactory 
 {
@@ -67,6 +68,27 @@ public interface JavaModelFactory
      */
     public JavaModel getJavaModel(Object key)
         throws ModelFatalException;
+
+    /**
+     * Removes the specified javaModel from the JavaModel cache. Note, if
+     * there are multiple entries in the cache with the specified javaModel
+     * as value, then all of them get removed. The method does not have an
+     * effect, if this factory does not have the specified javaModel.
+     * @param javaModel the JavaModel to be removed.
+     * @since 2.0
+     */
+    public void removeJavaModel(JavaModel javaModel)
+        throws ModelException;
+
+    /**
+     * Removes the JavaModel for the specified key from the JavaModel
+     * cache. The method does not have an effect, if this factory does not 
+     * have a JavaModel for the the specified key.
+     * @param key the key used to find the JavaModel instance to be removed.
+     * @since 2.0
+     */
+    public void removeJavaModel(Object key)
+        throws ModelException;
 
     /**
      * Returns a JavaType instance for the specified type description

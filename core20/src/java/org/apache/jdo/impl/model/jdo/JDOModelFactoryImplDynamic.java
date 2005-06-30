@@ -16,6 +16,7 @@
 
 package org.apache.jdo.impl.model.jdo;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -34,7 +35,7 @@ import org.apache.jdo.model.jdo.JDOModelFactory;
  *
  * @author Michael Bouschen
  * @since 1.1
- * @version 1.1
+ * @version 2.0
  */
 public class JDOModelFactoryImplDynamic implements JDOModelFactory {
 
@@ -80,7 +81,7 @@ public class JDOModelFactoryImplDynamic implements JDOModelFactory {
     }
     
     /**
-     * Returns the JDOModel instance for the specified JavaModel.
+     * Returns the JDOModel instance for the specified javaModel.
      * @param javaModel the javaModel used to cache the returned JDOModel
      * instance.
      */
@@ -89,7 +90,7 @@ public class JDOModelFactoryImplDynamic implements JDOModelFactory {
     }
 
     /**
-     * Returns the JDOModel instance for the specified JavaModel.  
+     * Returns the JDOModel instance for the specified javaModel.  
      * The returned JDOModel instance uses the specified flag
      * <code>loadXMLMetadataDefault</code> to set the default behavior 
      * for the creation of new JDOClass instances  using methods 
@@ -101,7 +102,7 @@ public class JDOModelFactoryImplDynamic implements JDOModelFactory {
      */
     public JDOModel getJDOModel(JavaModel javaModel,
                                 boolean loadXMLMetadataDefault) {
-        synchronized (this.modelCache) {
+        synchronized (modelCache) {
             JDOModel jdoModel = (JDOModel)modelCache.get(javaModel);
             if (jdoModel == null) {
                 // create new model and store it using the specified javaModel
@@ -112,4 +113,43 @@ public class JDOModelFactoryImplDynamic implements JDOModelFactory {
         }
     }
 
+    /**
+     * Removes the specified jdoModel from the JDOModel cache. Note, if
+     * there are multiple entries in the cache with the specified jdoModel
+     * as value, then all of them get removed. The method does not have an
+     * effect, if this factory does not have the specified jdoModel.
+     * @param jdoModel the JDOModel to be removed.
+     * @since 2.0
+     */
+    public void removeJDOModel(JDOModel jdoModel) {
+        if (jdoModel == null) {
+            // nothing to be removed => return
+            return;
+        }
+        
+        synchronized (modelCache) {
+            for (Iterator i = modelCache.entrySet().iterator(); i.hasNext();) {
+                Map.Entry entry = (Map.Entry) i.next();
+                Object value = entry.getValue();
+                if (jdoModel.equals(value)) {
+                    // found jdoModel => remove the entry
+                    i.remove();
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes the JDOModel for the specified javaModel from the JDOModel
+     * cache. The method does not have an effect, if this factory does not
+     * have a JDOModel for the the specified javaModel.
+     * @param javaModel the javaModel used to find the JDOModel instance to be
+     * removed.
+     * @since 2.0
+     */
+    public void removeJDOModel(JavaModel javaModel) {
+        synchronized (modelCache) {
+            modelCache.remove(javaModel);
+        }
+    }
 }
