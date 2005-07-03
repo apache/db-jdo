@@ -20,10 +20,18 @@ package org.apache.jdo.tck;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -749,53 +757,74 @@ public abstract class JDO_Test extends TestCase {
         return NUM_STATES;
     }
 
-    /** This method mangles an object by changing all its public fields
+    /** This method mangles an object by changing all its non-static, 
+     *  non-final fields.
+     *  It returns true if the object was mangled, and false if there
+     *  are no fields to mangle.
      */
-    protected void mangleObject (Object oid) 
+    protected boolean mangleObject (Object oid) 
         throws Exception {
-        Class oidClass = oid.getClass();
-        Field[] fields = oidClass.getFields();
+        Field[] fields = getModifiableFields(oid);
+        if (fields.length == 0) return false;
         for (int i = 0; i < fields.length; ++i) {
             Field field = fields[i];
-            field.setAccessible(true);
-            if (debug) 
-                logger.debug("field" + i + " has name: " + field.getName() +
-                             " type: " + field.getType());
             Class fieldType = field.getType();
             if (fieldType == long.class) {
-                field.setLong(oid, 10000L);
-            }
-            if (fieldType == int.class) {
-                field.setInt(oid, 10000);
-            }
-            if (fieldType == short.class) {
-                field.setShort(oid, (short)10000);
-            }
-            if (fieldType == byte.class) {
-                field.setByte(oid, (byte)100);
-            }
-            if (fieldType == char.class) {
-                field.setChar(oid, '0');
-            }
-            if (fieldType == String.class) {
-                field.set(oid, "This is certainly a challenge");
-            }
-            if (fieldType == Integer.class) {
-                field.set(oid, new Integer(10000));
-            }
-            if (fieldType == Long.class) {
-                field.set(oid, new Long(10000L));
-            }
-            if (fieldType == Short.class) {
-                field.set(oid, new Short((short)10000));
-            }
-            if (fieldType == Byte.class) {
-                field.set(oid, new Byte((byte)100));
-            }
-            if (fieldType == Character.class) {
-                field.set(oid, new Character('0'));
+                field.setLong(oid, 10000L + field.getLong(oid));
+            } else if (fieldType == int.class) {
+                field.setInt(oid, 10000 + field.getInt(oid));
+            } else if (fieldType == short.class) {
+                field.setShort(oid, (short)(10000 + field.getShort(oid)));
+            } else if (fieldType == byte.class) {
+                field.setByte(oid, (byte)(100 + field.getByte(oid)));
+            } else if (fieldType == char.class) {
+                field.setChar(oid, (char)(10 + field.getChar(oid)));
+            } else if (fieldType == String.class) {
+                field.set(oid, "This is certainly a challenge" + (String)field.get(oid));
+            } else if (fieldType == Integer.class) {
+                field.set(oid, new Integer(10000 + ((Integer)field.get(oid)).intValue()));
+            } else if (fieldType == Long.class) {
+                field.set(oid, new Long(10000L + ((Long)field.get(oid)).longValue()));
+            } else if (fieldType == Short.class) {
+                field.set(oid, new Short((short)(10000 + ((Short)field.get(oid)).shortValue())));
+            } else if (fieldType == Byte.class) {
+                field.set(oid, new Byte((byte)(100 + ((Byte)field.get(oid)).byteValue())));
+            } else if (fieldType == Character.class) {
+                field.set(oid, new Character((char)(10 + ((Character)(field.get(oid))).charValue())));
             }
         }
+        return true;
+    }
+    
+    /** Returns modifiable Fields of the class of the parameter. 
+     * Fields are considered modifiable if they are not static or final.
+     * This method requires several permissions in order to run with
+     * a SecurityManager, hence the doPrivileged block:
+     * <ul>
+     * <li>ReflectPermission("suppressAccessChecks")</li>
+     * <li>RuntimePermission("accessDeclaredMembers")</li>
+     * </ul>
+     */
+    protected Field[] getModifiableFields(final Object obj) {
+        return (Field[])AccessController.doPrivileged(
+            new PrivilegedAction () {
+                public Object run () {
+                    Class cls = obj.getClass();
+                    List result = new ArrayList();
+                    Field[] fields = cls.getFields();
+                    for (int i = 0; i < fields.length; ++i) {
+                        Field field = fields[i];
+                        int modifiers = field.getModifiers();
+                        if (Modifier.isFinal(modifiers) ||
+                                Modifier.isStatic(modifiers))
+                            continue;
+                        field.setAccessible(true);
+                        result.add(field);
+                    }
+                    return result.toArray(new Field[result.size()]);
+                }
+            }
+        );
     }
 
     /**

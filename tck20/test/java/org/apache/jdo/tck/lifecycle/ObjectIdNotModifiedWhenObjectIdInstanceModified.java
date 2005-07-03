@@ -16,7 +16,9 @@
  
 package org.apache.jdo.tck.lifecycle;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.Transaction;
@@ -76,16 +78,45 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
     				 "Extent for StateTransitionObj should not be empty");
     		}
     		extent.close(iter);
-    
-    		for (int i=0; i<NUM_OBJECTS; i++)
-    		{
-    			Object objId=pm.getObjectId(obj[i]);
-    			mangleObject(objId);
-    			Object objId2 = pm.getObjectId(obj[i]); // get another ObjectId copy
-    			if (objId.equals(objId2))
-    				fail(ASSERTION_FAILED,
-    					 "object Id has been changed");
+            int failures = 0;
+            StringBuffer report = new StringBuffer("Failures comparing oids.\n");
+    		for (int i=0; i<NUM_OBJECTS; i++) {
+    			Object objId1=pm.getObjectId(obj[i]);
+                String before=objId1.toString();
+                int objId1HashCode = objId1.hashCode();
+                Object objId2=pm.getObjectId(obj[i]);
+    			if (!mangleObject(objId2)) {
+                    /* The object id class is immutable, so the test succeeds. */
+                    break;
+                }
+                int objId2HashCode = objId2.hashCode();
+    			Object objId3 = pm.getObjectId(obj[i]); // get another ObjectId copy
+    			if (!(objId1.equals(objId3) && objId1HashCode != objId2HashCode)) {
+                    /* The object id obtained after mangling the second object id
+                     * must equal the original object id, and the mangling must
+                     * have changed the mangled id.
+                     */
+                    report.append("Index= ");
+                    report.append(i);
+                    report.append("\n");
+                    report.append(" before= ");
+                    report.append(before);
+                    report.append("\n");
+                    report.append("mangled= ");
+                    report.append(objId2.toString());
+                    report.append("\n");
+                    report.append("  after= ");
+                    report.append(objId3.toString());
+                    report.append("\n");
+                    ++failures;
+                }
     		}
+            if (failures != 0) {
+                if (debug) {
+                    logger.debug(report.toString());
+                }
+                fail(ASSERTION_FAILED, "Failed to compare " + failures + " object ids.");
+            }
             pm.currentTransaction().commit();
         } finally {
             if (pm!=null && pm.currentTransaction().isActive()) {
