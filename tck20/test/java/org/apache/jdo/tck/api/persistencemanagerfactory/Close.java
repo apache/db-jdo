@@ -16,6 +16,7 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
+import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -59,8 +60,14 @@ public class Close extends JDO_Test {
                 "JDOUserException was not thrown when calling pmf.getPersistenceManager() after pmf was closed");
         } catch (JDOUserException ex) {
             // expected exception
-            if (debug)
+            if (debug) {
                 logger.debug("caught expected exception " + ex.toString());
+            }
+        } catch (JDOFatalUserException ex) {
+            // unexpected exception
+            fail(ASSERTION_FAILED, 
+                "Wrong exception thrown from getPersistenceManager after close.\n" +
+                    "Expected JDOUserException, got JDOFatalUserException.");
         }
     }
 }
