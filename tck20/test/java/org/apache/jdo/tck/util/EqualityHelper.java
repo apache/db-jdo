@@ -27,6 +27,9 @@ import java.util.Map;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This is a utility class to support equality checking. An EqualityHelper
  * object defines the context of a deepEquals call, because it keeps track
@@ -40,6 +43,13 @@ import java.math.BigDecimal;
  * @since 1.1 
  */
 public class EqualityHelper {
+    
+    /** Logger */
+    protected Log logger = 
+        LogFactory.getFactory().getInstance("org.apache.jdo.tck");
+
+    /** true if debug logging in enabled. */
+    protected boolean debug = logger.isDebugEnabled();
     
     /** Used when comparing float values close enough. */
     public static float FLOAT_EPSILON = (float)Math.pow(2.0, -20.0);
