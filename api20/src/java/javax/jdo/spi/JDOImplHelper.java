@@ -182,15 +182,15 @@ public class JDOImplHelper extends java.lang.Object {
     }
     
     /** Create a new instance of the ObjectId class of this <code>PersistenceCapable</code>
-     * class, using the <code>String</code> form of the constructor.
+     * class, using the <code>Object</code> form of the constructor.
      * @return the new ObjectId instance, or <code>null</code> if the class is not registered.
-     * @param str the <code>String</code> form of the object id
+     * @param obj the <code>Object</code> form of the object id
      * @param pcClass the <code>PersistenceCapable</code> class.
      */    
-    public Object newObjectIdInstance (Class pcClass, String str) {
+    public Object newObjectIdInstance (Class pcClass, Object obj) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
-        return pcInstance == null?null:pcInstance.jdoNewObjectIdInstance(str);
+        return (pcInstance == null)?null:pcInstance.jdoNewObjectIdInstance(obj);
     }
     
     /** Copy fields from an outside source to the key fields in the ObjectId.
