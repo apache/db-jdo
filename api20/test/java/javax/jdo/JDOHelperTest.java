@@ -16,11 +16,19 @@
 
 package javax.jdo;
 
+import java.io.File;
+import java.io.InputStream;
+
+import java.util.Map;
 import java.util.Properties;
 
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  * Tests class javax.jdo.JDOHelper.
@@ -121,10 +129,236 @@ public class JDOHelperTest extends AbstractTest {
 
         // TBD test JDOHelper.isDeleted(pc) for persistent instance
     }
+    
+    /** Test null String resource with no class loader.
+     */
+    public void testGetPMFNullResource() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((String)null);
+            fail("Null resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
 
-    /** */
-    public void testGetPMF() {
-        // test missing property javax.jdo.PersistenceManagerFactoryClass
+    /** Test null String resource with good class loader.
+     */
+    public void testGetPMFNullResourceGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((String)null, this.getClass().getClassLoader());
+            fail("Null resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad String resource with no class loader.
+     */
+    public void testGetPMFBadResource() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory("Whatever");
+            fail("Null resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null String resource with good class loader.
+     */
+    public void testGetPMFBadResourceGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", this.getClass().getClassLoader());
+            fail("Null resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null File resource with no class loader.
+     */
+    public void testGetPMFNullFile() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((File)null);
+            fail("Null file should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null File resource with good class loader.
+     */
+    public void testGetPMFNullFileGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((File)null, this.getClass().getClassLoader());
+            fail("Null file should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad File resource with no class loader.
+     */
+    public void testGetPMFBadFile() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(new File("Whatever"));
+            fail("Null file should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad File resource with good class loader.
+     */
+    public void testGetPMFBadFileGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(new File("Whatever"), this.getClass().getClassLoader());
+            fail("Null file should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null JNDI resource name with no class loader.
+     */
+    public void testGetPMFNullJNDI() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext());
+            fail("Null JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null JNDI resource name with good class loader.
+     */
+    public void testGetPMFNullJNDIGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext(), this.getClass().getClassLoader());
+            fail("Null JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad JNDI resource name with no class loader.
+     */
+    public void testGetPMFBadJNDI() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext());
+            fail("Bad JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad JNDI resource name with good class loader.
+     */
+    public void testGetPMFBadJNDIGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext(), this.getClass().getClassLoader());
+            fail("Bad JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null stream with no class loader.
+     */
+    public void testGetPMFNullStream() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((InputStream)null);
+            fail("Null JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null stream with good class loader.
+     */
+    public void testGetPMFNullStreamGoodClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory((InputStream)null, this.getClass().getClassLoader());
+            fail("Null JNDI resource name should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test null ClassLoader.
+     */
+    public void testGetPMFNullClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory
+                    ("Whatever", (ClassLoader)null);
+            fail("Null ClassLoader should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test both null ClassLoaders.
+     */
+    public void testGetPMFBothNullClassLoader() {
+        PersistenceManagerFactory pmf = null;
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory
+                    ("Whatever", (ClassLoader)null, (ClassLoader)null);
+            fail("Null ClassLoader should result in JDOFatalUserException");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test missing property javax.jdo.PersistenceManagerFactoryClass.
+     */
+    public void testGetPMFNoClassNameProperty() {
         PersistenceManagerFactory pmf = null;
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(new Properties());
@@ -134,9 +368,99 @@ public class JDOHelperTest extends AbstractTest {
             if (verbose)
                 println("Caught expected exception " + ex);
         }
-
-        // TBD: valid PMF class
     }
 
-}
+    /** Test bad PMF class does not exist.
+     */
+    public void testBadPMFClassNotFound() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "ThisClassDoesNotExist");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("Bad PersistenceManagerFactoryClass should result in JDOFatalUserException ");
+        }
+        catch (JDOFatalUserException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
 
+    /** Test bad PMF class no method getPersistenceManagerFactory.
+     */
+    public void testBadPMFNoGetPMFMethod() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("Bad PersistenceManagerFactoryClass should result in JDOFatalUserException ");
+        }
+        catch (JDOFatalInternalException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad PMF class non-static getPMF method.
+     */
+    public void testBadPMFNonStaticGetPMFMethod() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFNonStaticGetPMFMethod");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("Bad PersistenceManagerFactoryClass should result in JDOFatalInternalException ");
+        }
+        catch (JDOFatalInternalException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    /** Test bad PMF class doesn't implement PMF.
+     */
+    public void testBadPMFWrongReturnType() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFWrongReturnType");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("Bad PersistenceManagerFactoryClass should result in JDOFatalInternalException ");
+        }
+        catch (JDOFatalInternalException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
+    private Context getInitialContext() {
+        try {
+            return new InitialContext();
+        } catch (NamingException ne) {
+            fail("Could not get Initial Context");
+            return null;
+        }
+    }
+    
+    private class BadPMFNoGetPMFMethod {
+    }
+
+    private class BadPMFNonStaticGetPMFMethod {
+        public BadPMFNonStaticGetPMFMethod 
+                getPersistenceManagerFactory(Map props) {
+            return new BadPMFNonStaticGetPMFMethod();
+        }
+    }
+        
+    private static class BadPMFWrongReturnType {
+        public static BadPMFWrongReturnType 
+                getPersistenceManagerFactory(Map props) {
+            return new BadPMFWrongReturnType();
+        }
+    }
+}
