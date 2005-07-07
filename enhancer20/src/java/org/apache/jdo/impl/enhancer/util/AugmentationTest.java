@@ -331,7 +331,7 @@ public class AugmentationTest
         affirm(ERROR < NEGATIVE && NEGATIVE < AFFIRMATIVE);
         affirm(classObject);
 
-        final int nofFeatures = 16;
+        final int nofFeatures = 18;
         final int[] r = new int[nofFeatures];
         {
             int i = 0;
@@ -388,6 +388,13 @@ public class AugmentationTest
             r[i++] = hasMethod(
                 out,
                 Modifier.PUBLIC | Modifier.FINAL,
+                Object.class,
+                "jdoGetVersion",
+                new Class[]{});
+
+            r[i++] = hasMethod(
+                out,
+                Modifier.PUBLIC | Modifier.FINAL,
                 boolean.class,
                 "jdoIsPersistent",
                 new Class[]{});
@@ -414,6 +421,12 @@ public class AugmentationTest
                 Modifier.PUBLIC | Modifier.FINAL,
                 boolean.class,
                 "jdoIsDirty",
+                new Class[]{});
+            r[i++] = hasMethod(
+                out,
+                Modifier.PUBLIC | Modifier.FINAL,
+                boolean.class,
+                "jdoIsDetached",
                 new Class[]{});
 
             r[i++] = hasMethod(
@@ -593,7 +606,7 @@ public class AugmentationTest
                 Modifier.PUBLIC,
                 Object.class,
                 "jdoNewObjectIdInstance",
-                new Class[]{String.class});
+                new Class[]{Object.class});
 
             r[i++] = hasMethod(
                 out,

@@ -296,11 +296,13 @@ final class Augmenter
         builder.addJDOIsNewMethod();
         builder.addJDOIsDeletedMethod();
         builder.addJDOIsDirtyMethod();        
+        builder.addJDOIsDetachedMethod();       
         builder.addJDOMakeDirtyMethod();
         builder.addJDOPreSerializeMethod();
         builder.addJDOGetPersistenceManagerMethod();
         builder.addJDOGetObjectIdMethod();
         builder.addJDOGetTransactionalObjectIdMethod();
+        builder.addJDOGetVersionMethod();
         builder.addJDOReplaceStateManager();
         builder.addJDOProvideFieldsMethod();
         builder.addJDOReplaceFieldsMethod();
@@ -340,7 +342,7 @@ final class Augmenter
         if (analyzer.isAugmentableAsRoot()
             || analyzer.getKeyClassName() != null) {
             builder.addJDONewObjectIdInstanceMethod();
-            builder.addJDONewObjectIdInstanceStringMethod();
+            builder.addJDONewObjectIdInstanceObjectMethod();
             builder.addJDOCopyKeyFieldsToObjectIdMethod();
             builder.addJDOCopyKeyFieldsFromObjectIdMethod();
             builder.addJDOCopyKeyFieldsToObjectIdOIFSMethod();

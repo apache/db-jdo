@@ -212,6 +212,8 @@ public class JDOHandlerImpl
                     }
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<class>", //NOI18N
                                 name, value)); 
@@ -219,6 +221,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " +  //NOI18N
                                      "JDOHandlerImpl.start_class:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<class>", name, value)); //NOI18N
                 }
             }
         }
@@ -303,6 +309,8 @@ public class JDOHandlerImpl
                         Boolean.valueOf(value).booleanValue());
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<field>", //NOI18N
                                 name, value)); 
@@ -310,6 +318,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " + //NOI18N
                                      "JDOHandlerImpl.start_field:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<field>", name, value)); //NOI18N
                 }
             }
         }
@@ -369,6 +381,8 @@ public class JDOHandlerImpl
                         Boolean.valueOf(value).booleanValue());
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<collection>", //NOI18N
                                 name, value)); 
@@ -376,6 +390,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " + //NOI18N
                                      "JDOHandlerImpl.start_collection:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<collection>", name, value)); //NOI18N
                 }
             }
         }
@@ -432,6 +450,8 @@ public class JDOHandlerImpl
                         Boolean.valueOf(value).booleanValue());
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<array>", //NOI18N
                                 name, value)); 
@@ -439,6 +459,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " + //NOI18N
                                      "JDOHandlerImpl.start_array:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<array>", name, value)); //NOI18N
                 }
             }
         }
@@ -504,6 +528,8 @@ public class JDOHandlerImpl
                         Boolean.valueOf(value).booleanValue());
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<map>", //NOI18N
                                 name, value)); 
@@ -511,6 +537,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " + //NOI18N
                                      "JDOHandlerImpl.start_map:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<map>", name, value)); //NOI18N
                 }
             }
         }
@@ -573,6 +603,8 @@ public class JDOHandlerImpl
                     jdoExtension.setValue(value);
                 }
                 else {
+                    /* JDO2 metadata not yet fully supported => 
+                       do not throw exception now
                     SAXException e = new SAXException(
                         msg.msg("EXC_UnknownAttribute", "<extension>", //NOI18N
                                 name, value));
@@ -580,6 +612,10 @@ public class JDOHandlerImpl
                         logger.trace("Throwing exception in " + //NOI18N
                                      "JDOHandlerImpl.start_extension:", e); //NOI18N
                     throw e;
+                    */
+                    if (trace)
+                        logger.trace(msg.msg("EXC_UnknownAttribute", //NOI18N
+                                             "<extension>", name, value)); //NOI18N
                 }
             }
         }

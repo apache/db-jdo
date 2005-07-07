@@ -104,6 +104,8 @@ final class ImplHelper
     = "jdoGetObjectId";
     static final String METHODNAME_JDO_GET_TRANSACTIONAL_OBJECT_ID
     = "jdoGetTransactionalObjectId";
+    static final String METHODNAME_JDO_GET_VERSION
+    = "jdoGetVersion";
     static final String METHODNAME_JDO_IS_PERSISTENT
     = "jdoIsPersistent";
     static final String METHODNAME_JDO_IS_TRANSACTIONAL
@@ -114,6 +116,8 @@ final class ImplHelper
     = "jdoIsDirty";
     static final String METHODNAME_JDO_IS_DELETED
     = "jdoIsDeleted";
+    static final String METHODNAME_JDO_IS_DETACHED
+    = "jdoIsDetached";
     static final String METHODNAME_JDO_COPY_KEY_FIELDS_TO_OID
     = "jdoCopyKeyFieldsToObjectId";
     static final String METHODNAME_JDO_COPY_KEY_FIELDS_FROM_OID
@@ -385,14 +389,12 @@ final class ImplHelper
     }
 
     static List getJDONewOidInstanceImpl(String oidclassname,
-                                         String str)
+                                         String o)
     {
         final List impl = new ArrayList(5);
-        if (oidclassname == null) {
-            impl.add("return null;");
-        } else {
-            impl.add("return new " + oidclassname + "(" + str + ");");
-        }
+        // TODO: generate real method body
+        String msg = "Method jdoNewObjectIdInstance not yet supported";
+        impl.add("throw new UnsupportedOperationException(\"" + msg + "\");");
         return impl;
     }
 
@@ -933,6 +935,14 @@ final class ImplHelper
             }
         }
         impl.add("return true;");
+        return impl;
+    }
+
+    static List getNotYetImplemented(String methodName)
+    {
+        final List impl = new ArrayList(5);
+        String msg = "Method " + methodName + " not yet implemented";
+        impl.add("throw new UnsupportedOperationException(\"" + msg + "\");");
         return impl;
     }
 

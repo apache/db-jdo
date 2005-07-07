@@ -615,6 +615,16 @@ public final class Main
             ImplHelper.getJDOStateManagerObjectDelegationImpl("getTransactionalObjectId(this)"),
             ImplHelper.COMMENT_ENHANCER_ADDED);
 
+        // jdoGetVersion
+        writer.writeMethod(
+            ImplHelper.METHODNAME_JDO_GET_VERSION,
+            Modifier.PUBLIC | Modifier.FINAL,
+            Object.class.getName(), null, null, null,
+            // TODO: generate real method body
+            ImplHelper.getNotYetImplemented(
+                ImplHelper.METHODNAME_JDO_GET_VERSION),
+            ImplHelper.COMMENT_ENHANCER_ADDED);
+
         // is-methods
         writer.writeMethod(
             ImplHelper.METHODNAME_JDO_IS_PERSISTENT,
@@ -649,6 +659,15 @@ public final class Main
             Modifier.PUBLIC | Modifier.FINAL,
             "boolean", null, null, null,
             ImplHelper.getJDOStateManagerBooleanDelegationImpl("isDirty(this)"),
+            ImplHelper.COMMENT_ENHANCER_ADDED);
+
+        writer.writeMethod(
+            ImplHelper.METHODNAME_JDO_IS_DETACHED,
+            Modifier.PUBLIC | Modifier.FINAL,
+            "boolean", null, null, null,
+            // TODO: generate real method body
+            ImplHelper.getNotYetImplemented(
+                ImplHelper.METHODNAME_JDO_IS_DETACHED),
             ImplHelper.COMMENT_ENHANCER_ADDED);
 
         // makeDirty
@@ -922,11 +941,11 @@ public final class Main
             ImplHelper.METHODNAME_JDO_NEW_OID_INSTANCE,
             Modifier.PUBLIC,
             Object.class.getName(),
-            new String[]{ "str" },
-            new String[]{ "String" },
+            new String[]{ "o" },
+            new String[]{ "Object" },
             null,
             ImplHelper.getJDONewOidInstanceImpl(oidClassName,
-                                                "str"),
+                                                "o"),
             ImplHelper.COMMENT_ENHANCER_ADDED);
 
         // jdoCopyKeyFieldsTo/FromOid

@@ -993,6 +993,17 @@ class Builder
     }
     
     /**
+     * Build an interrogative method for the class.
+     */
+    public void addJDOIsDetachedMethod()
+    {
+        // TODO: generate real method body
+        addNotYetImplementedMethod(JDO_PC_jdoIsDetached_Name,
+                                   JDO_PC_jdoIsDetached_Sig,
+                                   JDO_PC_jdoIsDetached_Mods);
+    }
+    
+    /**
      * Build an interrogative method named methodName for the class.
      *
      * public boolean isXXX() {
@@ -1093,6 +1104,17 @@ class Builder
                                 JDO_PC_jdoGetTransactionalObjectId_Mods,
                                 JDO_SM_getTransactionalObjectId_Name,
                                 JDO_SM_getTransactionalObjectId_Sig);
+    }
+
+    /**
+     * Build an object query method for the class.
+     */
+    public void addJDOGetVersionMethod()
+    {
+        // TODO: generate real method body
+        addNotYetImplementedMethod(JDO_PC_jdoGetVersion_Name,
+                                   JDO_PC_jdoGetVersion_Sig,
+                                   JDO_PC_jdoGetVersion_Mods);
     }
 
     /**
@@ -3007,67 +3029,19 @@ class Builder
     /**
      * Build the jdoNewObjectIdInstance method for the class.
      *
-     * public java.lang.Object jdoNewObjectIdInstance(String str)
+     * public java.lang.Object jdoNewObjectIdInstance(Object o)
      * {
-     *     return new XXX(str);
+     *     throw new UnsupportedOperationException(
+     *        "Method jdoNewObjectIdInstance not yet implemented");
      * }
      */
-    public void addJDONewObjectIdInstanceStringMethod()
+    public void addJDONewObjectIdInstanceObjectMethod()
     {
-        final String methodName = JDO_PC_jdoNewObjectIdInstance_String_Name;
-        final String methodSig = JDO_PC_jdoNewObjectIdInstance_String_Sig;
-        final int accessFlags = JDO_PC_jdoNewObjectIdInstance_String_Mods;
-        final ExceptionsAttribute exceptAttr = null;
-
-        // begin of method body
-        final InsnTarget begin = new InsnTarget();
-        Insn insn = begin;
-
-        // generate empty method in case of datastore identity
-        final String keyClassName = analyzer.getKeyClassName();
-        if (keyClassName == null){
-            // end of method body
-            insn = insn.append(Insn.create(opc_aconst_null));
-            insn = insn.append(Insn.create(opc_areturn));
-
-            final CodeAttribute codeAttr
-                = new CodeAttribute(getCodeAttributeUtf8(),
-                                    1, // maxStack
-                                    2, // maxLocals
-                                    begin,
-                                    new ExceptionTable(),
-                                    new AttributeVector());
-            augmenter.addMethod(methodName, methodSig, accessFlags,
-                                codeAttr, exceptAttr);
-            return;
-        }
-        affirm(keyClassName != null);
-
-        // push a newly created an instance of this class
-        insn = insn.append(
-            Insn.create(opc_new,
-                        pool.addClass(keyClassName)));
-        insn = insn.append(Insn.create(opc_dup));
-        insn = insn.append(Insn.create(opc_aload_1));
-        insn = insn.append(
-            Insn.create(opc_invokespecial,
-                        pool.addMethodRef(
-                            keyClassName,
-                            NameHelper.constructorName(),
-                            NameHelper.constructorSig(JAVA_String_Sig))));
-
-        // end of method body
-        insn = insn.append(Insn.create(opc_areturn));
-
-        final CodeAttribute codeAttr
-            = new CodeAttribute(getCodeAttributeUtf8(),
-                                3, // maxStack
-                                2, // maxLocals
-                                begin,
-                                new ExceptionTable(),
-                                new AttributeVector());
-        augmenter.addMethod(methodName, methodSig, accessFlags,
-                            codeAttr, exceptAttr);
+        final String methodName = JDO_PC_jdoNewObjectIdInstance_Object_Name;
+        final String methodSig = JDO_PC_jdoNewObjectIdInstance_Object_Sig;
+        final int accessFlags = JDO_PC_jdoNewObjectIdInstance_Object_Mods;
+        // TODO: generate real method body
+        addNotYetImplementedMethod(methodName, methodSig, accessFlags);
     }
 
     // ----------------------------------------------------------------------
@@ -4713,4 +4687,40 @@ class Builder
         augmenter.addMethod(methodName, methodSig, accessFlags,
                             codeAttr, exceptAttr);
     }
+
+    /**
+     * Builds a method throwing an UnsupportedOperationException.
+     *
+     * public void XXX() {
+     *    throw new UnsupportedOperationException(
+     *        "Method XXX not yet implemented");
+     * }
+     */
+    public void addNotYetImplementedMethod(final String methodName,
+                                           final String methodSig,
+                                           final int accessFlags)
+    {
+        // assumed nonstatic call; otherwise subtract 'this' from maxStack
+        affirm((accessFlags & ACCStatic) == 0);
+        final ExceptionsAttribute exceptAttr = null;
+
+        // begin of method body
+        final InsnTarget begin = new InsnTarget();
+        Insn insn = begin;
+
+        insn = appendThrowJavaException(
+            insn, JAVA_UnsupportedOperationException_Path, 
+            "Method " + methodName + " not yet implemented");
+
+        final CodeAttribute codeAttr
+            = new CodeAttribute(getCodeAttributeUtf8(),
+                                3, // maxStack
+                                countMethodArgWords(methodSig), // maxLocals
+                                begin,
+                                new ExceptionTable(),
+                                new AttributeVector());
+        augmenter.addMethod(methodName, methodSig, accessFlags,
+                            codeAttr, exceptAttr);
+    }
+    
 }

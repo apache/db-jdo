@@ -386,6 +386,15 @@ interface JAVA_ClassConstants
     String JAVA_IllegalArgumentException_Type
         = NameHelper.typeForPath(JAVA_IllegalArgumentException_Path);
 
+    String JAVA_UnsupportedOperationException_Name
+        = "UnsupportedOperationException";
+    String JAVA_UnsupportedOperationException_Path
+        = NameHelper.javaLangPathForType(JAVA_UnsupportedOperationException_Name);
+    String JAVA_UnsupportedOperationException_Sig
+        = NameHelper.sigForPath(JAVA_UnsupportedOperationException_Path);
+    String JAVA_UnsupportedOperationException_Type
+        = NameHelper.typeForPath(JAVA_UnsupportedOperationException_Path);
+
     String JAVA_IllegalStateException_Name
         = "IllegalStateException";
     String JAVA_IllegalStateException_Path
@@ -707,6 +716,14 @@ interface JDO_PC_MemberConstants
     int JDO_PC_jdoGetTransactionalObjectId_Mods
         = (ACCPublic | ACCFinal);
 
+    // Object jdoGetVersion()
+    String JDO_PC_jdoGetVersion_Name
+        = "jdoGetVersion";
+    String JDO_PC_jdoGetVersion_Sig
+        = "()" + JAVA_Object_Sig;
+    int JDO_PC_jdoGetVersion_Mods
+        = (ACCPublic | ACCFinal);
+
     // boolean jdoIsPersistent()
     String JDO_PC_jdoIsPersistent_Name
         = "jdoIsPersistent";
@@ -745,6 +762,14 @@ interface JDO_PC_MemberConstants
     String JDO_PC_jdoIsDirty_Sig
         = "()Z";
     int JDO_PC_jdoIsDirty_Mods
+        = (ACCPublic | ACCFinal);
+
+    // boolean jdoIsDetached()
+    String JDO_PC_jdoIsDetached_Name
+        = "jdoIsDetached";
+    String JDO_PC_jdoIsDetached_Sig
+        = "()Z";
+    int JDO_PC_jdoIsDetached_Mods
         = (ACCPublic | ACCFinal);
 
     // void jdoMakeDirty(String)
@@ -887,12 +912,12 @@ interface JDO_PC_MemberConstants
     int JDO_PC_jdoNewObjectIdInstance_Mods
         = (ACCPublic);
 
-    // Object jdoNewObjectIdInstance(String)
-    String JDO_PC_jdoNewObjectIdInstance_String_Name
+    // Object jdoNewObjectIdInstance(Object)
+    String JDO_PC_jdoNewObjectIdInstance_Object_Name
         = "jdoNewObjectIdInstance";
-    String JDO_PC_jdoNewObjectIdInstance_String_Sig
-        = "(" + JAVA_String_Sig + ")" + JAVA_Object_Sig;
-    int JDO_PC_jdoNewObjectIdInstance_String_Mods
+    String JDO_PC_jdoNewObjectIdInstance_Object_Sig
+        = "(" + JAVA_Object_Sig + ")" + JAVA_Object_Sig;
+    int JDO_PC_jdoNewObjectIdInstance_Object_Mods
         = (ACCPublic);
 
     // void jdoCopyKeyFieldsToObjectId(Object)
