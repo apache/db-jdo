@@ -89,14 +89,20 @@ public class JDOImplHelper extends java.lang.Object {
      */
     private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
     
+    /** The DateFormat pattern.
+     */
+    private static String dateFormatPattern;
+
     /** The default DateFormat instance.
      */
-    static DateFormat dateFormat = DateFormat.getDateTimeInstance();
+    private static DateFormat dateFormat;
 
-    /** The DateFormat pattern, set to the default.
+    /** Register the default DateFormat instance.
      */
-    static String dateFormatPattern = "MMM d, yyyy hh:mm:ss a";  //NOI18N
-
+    static {
+        jdoImplHelper.registerDateFormat(DateFormat.getDateTimeInstance());
+    }
+    
     /** Creates new JDOImplHelper */
     private JDOImplHelper() {
     }
@@ -631,7 +637,7 @@ public class JDOImplHelper extends java.lang.Object {
      * for error messages.
      * @param df the DateFormat instance to use
      */
-    synchronized void registerDateFormat(DateFormat df) {
+    public synchronized void registerDateFormat(DateFormat df) {
         dateFormat = df;
         if (df instanceof SimpleDateFormat) {
             dateFormatPattern = ((SimpleDateFormat)df).toPattern();

@@ -27,18 +27,39 @@ import java.lang.reflect.InvocationTargetException;
 import java.io.Serializable;
 
 import java.math.BigDecimal;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.JDONullIdentityException;
+
+import javax.jdo.spi.JDOImplHelper;
+
 import javax.jdo.util.BatchTestRunner;
 
 /**
  *
  */
 public class ObjectIdentityTest extends SingleFieldIdentityTest {
+    
+    /** The JDOImplHelper instance used for Date formatting.
+     */
+    private static JDOImplHelper helper = (JDOImplHelper)
+        AccessController.doPrivileged(
+            new PrivilegedAction () {
+                public Object run () {
+                    return JDOImplHelper.getInstance();
+                }
+            }
+        );
     
     /** Creates a new instance of ObjectIdentityTest */
     public ObjectIdentityTest() {
@@ -199,8 +220,19 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
 
     public void testStringDateConstructor() {
+        SimpleDateFormat usDateFormat = new SimpleDateFormat
+                ("MMM dd, yyyy hh:mm:ss a", Locale.US);
+        helper.registerDateFormat(usDateFormat);
         Object c1 = new ObjectIdentity(Object.class, 
             "java.util.Date:Jan 01, 1970 00:00:00 AM");
+        helper.registerDateFormat(DateFormat.getDateTimeInstance());
+    }
+
+    public void testStringDefaultDateConstructor() {
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        String rightNow = dateFormat.format(new Date());
+        Object c1 = new ObjectIdentity(Object.class, 
+            "java.util.Date:" + rightNow);
     }
 
     public void testBadStringDateConstructor() {
