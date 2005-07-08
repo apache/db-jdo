@@ -62,17 +62,17 @@
             <u:properties file="${basedir}/test/conf/configurations.list"/>
         </j:if>
 
-        <echo>Configurations for this run are ${jdo.tck.cfglist}</echo>
+        <echo>Configurations for this run are "${jdo.tck.cfglist}". To override this, use -Djdo.tck.cfglist=xxx on the maven command line.</echo>
         <u:tokenize var="jdo.tck.cfglist" delim=" ">
             ${jdo.tck.cfglist}
         </u:tokenize>
 
-        <echo>Databases for this run are ${jdo.tck.dblist}</echo>
+        <echo>Databases for this run are "${jdo.tck.dblist}". To override this, use -Djdo.tck.dblist=xxx on the maven command line.</echo>
         <u:tokenize var="jdo.tck.dblist" delim=" ">
             ${jdo.tck.dblist}
         </u:tokenize>
 
-        <echo>Identity types for this run are ${jdo.tck.identitytypes}</echo>
+        <echo>Identity types for this run are "${jdo.tck.identitytypes}". To override this, use -Djdo.tck.identitytypes=xxx on the maven command line.</echo>
         <u:tokenize var="jdo.tck.identitytypes" delim=" ">
             ${jdo.tck.identitytypes}
         </u:tokenize>
