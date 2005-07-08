@@ -26,6 +26,11 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDONullIdentityException;
+
+import javax.jdo.spi.I18NHelper;
+
 /** This class is the abstract base class for all single field identity
  * classes. A common case of application identity uses exactly one 
  * persistent field in the class to represent identity. In this case, 
@@ -36,6 +41,10 @@ import java.io.ObjectOutput;
 public abstract class SingleFieldIdentity
     implements Externalizable {
     
+    /** The Internationalization message helper.
+     */
+    protected static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+
     /** The class of the target object.
      */
     transient private Class targetClass;
@@ -47,6 +56,10 @@ public abstract class SingleFieldIdentity
     /** The hashCode.
      */
     protected int hashCode;
+    
+    /** The key as an Object.
+     */
+    protected Object keyAsObject;
 
     /** Constructor with target class.
      * @param pcClass the class of the target
@@ -64,6 +77,24 @@ public abstract class SingleFieldIdentity
     public SingleFieldIdentity () {
     }
 
+    /** Set the given key as the key for this instance. 
+     * Compute the hash code for the instance.
+     */
+    protected void setKeyAsObject(Object key) {
+        assertKeyNotNull(key);
+        keyAsObject = key;
+    }
+
+    /** Assert that the key is not null. Throw a JDONullIdentityException
+     * if the given key is null.
+     */ 
+    protected void assertKeyNotNull(Object key) {
+        if (key == null) {
+            throw new JDONullIdentityException(
+                msg.msg("EXC_SingleFieldIdentityNullParameter")); //NOI18N
+        }
+    }
+    
     /** Return the target class.
      * @return the target class.
      * @since 2.0
@@ -80,6 +111,27 @@ public abstract class SingleFieldIdentity
         return targetClassName;
     }
 
+    /** Return the key as an Object. The method is synchronized to avoid
+     * race conditions in multi-threaded environments.
+     * @return the key as an Object.
+     * @since 2.0
+     */
+    public synchronized Object getKeyAsObject() {
+        if (keyAsObject == null) {
+            keyAsObject = createKeyAsObject();
+        }
+        return keyAsObject;
+    }
+    
+    /** Create the key as an Object.
+     * @return the key as an Object;
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        throw new JDOFatalInternalException
+                (msg.msg("EXC_CreateKeyAsObjectMustNotBeCalled"));
+    }
+    
     /** Check the class and class name and object type. If restored
      * from serialization, class will be null so compare class name.
      * @param obj the other object

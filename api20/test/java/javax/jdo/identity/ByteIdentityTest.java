@@ -21,6 +21,8 @@
 
 package javax.jdo.identity;
 
+import javax.jdo.JDONullIdentityException;
+
 import javax.jdo.util.BatchTestRunner;
 
 /**
@@ -95,4 +97,33 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
         assertFalse ("Not equal ByteIdentity instances compare equal.", sc1.equals(sc3));
         assertFalse ("Not equal ByteIdentity instances compare equal.", sc3.equals(sc1));
     }
+    
+    public void testGetKeyAsObjectPrimitive() {
+        ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Byte((byte)1));
+    }
+
+    public void testGetKeyAsObject() {
+        ByteIdentity c1 = new ByteIdentity(Object.class, new Byte((byte)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Byte((byte)1));
+    }
+
+    public void testBadConstructorNullByteParam() {
+        try {
+            ByteIdentity c1 = new ByteIdentity(Object.class, (Byte)null);
+        } catch (JDONullIdentityException ex) {
+            return;
+        }
+        fail ("Failed to catch expected exception.");
+    }
+
+    public void testBadConstructorNullStringParam() {
+        try {
+            ByteIdentity c1 = new ByteIdentity(Object.class, (String)null);
+        } catch (JDONullIdentityException ex) {
+            return;
+        }
+        fail ("Failed to catch expected exception.");
+    }
+
 }

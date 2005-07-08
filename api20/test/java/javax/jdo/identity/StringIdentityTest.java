@@ -21,6 +21,9 @@
 
 package javax.jdo.identity;
 
+import javax.jdo.JDONullIdentityException;
+import javax.jdo.JDOUserException;
+
 import javax.jdo.util.BatchTestRunner;
 
 /**
@@ -70,4 +73,19 @@ public class StringIdentityTest extends SingleFieldIdentityTest {
         assertFalse ("Not equal StringIdentity instances compare equal.", sc1.equals(sc3));
         assertFalse ("Not equal StringIdentity instances compare equal.", sc3.equals(sc1));
     }
+
+    public void testGetKeyAsObject() {
+        StringIdentity c1 = new StringIdentity(Object.class, "1");
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), "1");
+    }
+
+    public void testBadConstructorNullParam() {
+        try {
+            StringIdentity c1 = new StringIdentity(Object.class, null);
+        } catch (JDONullIdentityException ex) {
+            return;
+        }
+        fail ("Failed to catch expected exception.");
+    }
+
 }

@@ -29,16 +29,21 @@ import java.io.ObjectOutput;
  * @version 2.0
  */
 public class IntIdentity extends SingleFieldIdentity {
+
     private int key;
+
+    private void construct(int key) {
+        this.key = key;
+        hashCode = hashClassName() ^ key;
+    }
 
     /** Constructor with class and key.
      * @param pcClass the class
      * @param key the key
      */
     public IntIdentity (Class pcClass, int key) {
-        super (pcClass);
-        this.key = key;
-        hashCode = hashClassName() ^ key;
+        super(pcClass);
+        construct(key);
 	}
 
     /** Constructor with class and key.
@@ -46,7 +51,9 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param key the key
      */
     public IntIdentity (Class pcClass, Integer key) {
-        this (pcClass, key.intValue ());
+        super(pcClass);
+        setKeyAsObject(key);
+        construct(key.intValue ());
     }
 
 
@@ -55,7 +62,9 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param str the key
      */
     public IntIdentity (Class pcClass, String str) {
-        this (pcClass, Integer.parseInt(str));
+        super(pcClass);
+        assertKeyNotNull(str);
+        construct(Integer.parseInt(str));
     }
 
     /** Constructor only for Externalizable.
@@ -92,6 +101,14 @@ public class IntIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Create the key as an Object.
+     * @return the key as an Object
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        return new Integer(key);
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */
@@ -107,6 +124,5 @@ public class IntIdentity extends SingleFieldIdentity {
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
         key = in.readInt();
-        hashCode = hashClassName() ^ key;
     }
 }

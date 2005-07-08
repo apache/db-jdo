@@ -34,12 +34,7 @@ public class LongIdentity extends SingleFieldIdentity {
      */
     private long key;
 
-    /** Constructor with class and key.
-     * @param pcClass the class
-     * @param key the key
-     */
-    public LongIdentity (Class pcClass, long key) {
-        super (pcClass);
+    private void construct(long key) {
         this.key = key;
         hashCode = hashClassName() ^ (int)key;
     }
@@ -48,8 +43,19 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
+    public LongIdentity (Class pcClass, long key) {
+        super (pcClass);
+        construct(key);
+    }
+
+    /** Constructor with class and key.
+     * @param pcClass the class
+     * @param key the key
+     */
     public LongIdentity (Class pcClass, Long key) {
-        this (pcClass, key.longValue ());
+        super(pcClass);
+        setKeyAsObject(key);
+        construct(key.longValue());
     }
 
     /** Constructor with class and key.
@@ -57,7 +63,9 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param str the key
      */
     public LongIdentity (Class pcClass, String str) {
-        this (pcClass, Long.parseLong(str));
+        super(pcClass);
+        assertKeyNotNull(str);
+        construct(Long.parseLong(str));
     }
 
     /** Constructor only for Externalizable.
@@ -94,6 +102,14 @@ public class LongIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Create the key as an Object.
+     * @return the key as an Object
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        return new Long(key);
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */
@@ -109,6 +125,6 @@ public class LongIdentity extends SingleFieldIdentity {
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
         key = in.readLong();
-        hashCode = hashClassName() ^ (int)key;
     }
+
 }

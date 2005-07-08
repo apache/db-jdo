@@ -40,14 +40,18 @@ public class CharIdentity extends SingleFieldIdentity {
      */
     private char key;
 
+    private void construct(char key) {
+        this.key = key;
+        hashCode = hashClassName() ^ key;
+    }
+
     /** Constructor with class and key.
      * @param pcClass the target class
      * @param key the key
      */
     public CharIdentity (Class pcClass, char key) {
         super (pcClass);
-        this.key = key;
-        computeHashCode();
+        construct(key);
     }
 
     /** Constructor with class and key.
@@ -55,7 +59,9 @@ public class CharIdentity extends SingleFieldIdentity {
      * @param key the key
      */
     public CharIdentity (Class pcClass, Character key) {
-        this (pcClass, key.charValue ());
+        super (pcClass);
+        setKeyAsObject(key);
+        construct(key.charValue());
     }
 
     /** Constructor with class and key. The String must have exactly one
@@ -65,11 +71,11 @@ public class CharIdentity extends SingleFieldIdentity {
      */
     public CharIdentity (Class pcClass, String str) {
         super(pcClass);
+        assertKeyNotNull(str);
         if (str.length() != 1) 
             throw new IllegalArgumentException(
-                    msg.msg("EXC_StringWrongLength"));
-        this.key = str.charAt(0);
-        computeHashCode();
+                msg.msg("EXC_StringWrongLength")); //NOI18N
+        construct(str.charAt(0));
     }
 
     /** Constructor only for Externalizable.
@@ -104,6 +110,14 @@ public class CharIdentity extends SingleFieldIdentity {
             CharIdentity other = (CharIdentity) obj;
             return key == other.key;
         }
+    }
+
+    /** Create the key as an Object.
+     * @return the key as an Object
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        return new Character(key);
     }
 
     /** Write this object. Write the superclass first.

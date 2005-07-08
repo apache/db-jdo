@@ -25,25 +25,23 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import javax.jdo.JDOUserException;
+
 /** This class is for identity with a single String field.
  * @version 2.0
  */
 public class StringIdentity extends SingleFieldIdentity {
     
-    /** The key.
+    /** The key is stored in the superclass field keyAsObject.
      */
-    private String key;
-
-
+    
     /** Constructor with class and key.
      * @param pcClass the class
      * @param key the key
      */
     public StringIdentity (Class pcClass, String key) {
         super (pcClass);
-        if (key == null)
-            throw new NullPointerException ();
-        this.key = key;
+        setKeyAsObject(key);
         hashCode = hashClassName() ^ key.hashCode();
     }
 
@@ -56,14 +54,14 @@ public class StringIdentity extends SingleFieldIdentity {
      * @return the key
      */
     public String getKey () {
-        return key;
+        return (String)keyAsObject;
     }
 
     /** Return the String form of the key.
      * @return the String form of the key
      */
     public String toString () {
-        return key;
+        return (String)keyAsObject;
     }
 
     /** Determine if the other object represents the same object id.
@@ -77,7 +75,7 @@ public class StringIdentity extends SingleFieldIdentity {
             return false;
         } else {
             StringIdentity other = (StringIdentity) obj;
-            return key.equals(other.key);
+            return keyAsObject.equals(other.keyAsObject);
         }
     }
 
@@ -86,7 +84,7 @@ public class StringIdentity extends SingleFieldIdentity {
      */
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal (out);
-        out.writeObject(key);
+        out.writeObject(keyAsObject);
     }
 
     /** Read this object. Read the superclass first.
@@ -95,7 +93,6 @@ public class StringIdentity extends SingleFieldIdentity {
     public void readExternal(ObjectInput in)
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
-        key = (String)in.readObject();
-        hashCode = hashClassName() ^ key.hashCode();
+        keyAsObject = (String)in.readObject();
     }
 }

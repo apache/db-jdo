@@ -34,12 +34,9 @@ public class ByteIdentity extends SingleFieldIdentity {
      */
     private byte key;
     
-    /** Constructor with class and key.
-     * @param pcClass the target class
-     * @param key the key
+    /** Construct this instance with the key value.
      */
-    public ByteIdentity(Class pcClass, byte key) {
-        super (pcClass);
+    private void construct(byte key) {
         this.key = key;
         hashCode = super.hashClassName() ^ key;
     }
@@ -48,8 +45,19 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param key the key
      */
+    public ByteIdentity(Class pcClass, byte key) {
+        super(pcClass);
+        construct(key);
+    }
+    
+    /** Constructor with class and key.
+     * @param pcClass the target class
+     * @param key the key
+     */
     public ByteIdentity(Class pcClass, Byte key) {
-        this (pcClass, key.byteValue());
+        super(pcClass);
+        setKeyAsObject(key);
+        construct(key.byteValue());
     }
 
     /** Constructor with class and key.
@@ -57,7 +65,9 @@ public class ByteIdentity extends SingleFieldIdentity {
      * @param str the key
      */
     public ByteIdentity(Class pcClass, String str) {
-        this (pcClass, Byte.parseByte(str));
+        super(pcClass);
+        assertKeyNotNull(str);
+        construct(Byte.parseByte(str));
     }
 
     /** Constructor only for Externalizable.
@@ -94,6 +104,14 @@ public class ByteIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Create the key as an Object.
+     * @return the key as an Object
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        return new Byte(key);
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */
@@ -109,6 +127,5 @@ public class ByteIdentity extends SingleFieldIdentity {
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
         key = in.readByte ();
-        hashCode = super.hashCode() ^ key;
     }
 }

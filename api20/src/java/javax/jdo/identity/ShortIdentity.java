@@ -33,13 +33,7 @@ public class ShortIdentity
 {
 	private short key;
 
-
-    /** Constructor with class and key.
-     * @param pcClass the class
-     * @param key the key
-     */
-    public ShortIdentity (Class pcClass, short key) {
-        super (pcClass);
+    private void construct(short key) {
         this.key = key;
         hashCode = hashClassName() ^ key;
     }
@@ -48,8 +42,19 @@ public class ShortIdentity
      * @param pcClass the class
      * @param key the key
      */
+    public ShortIdentity (Class pcClass, short key) {
+        super(pcClass);
+        construct(key);
+    }
+
+    /** Constructor with class and key.
+     * @param pcClass the class
+     * @param key the key
+     */
     public ShortIdentity (Class pcClass, Short key) {
-        this (pcClass, key.shortValue ());
+        super(pcClass);
+        setKeyAsObject(key);
+        construct(key.shortValue());
     }
 
     /** Constructor with class and key.
@@ -57,7 +62,9 @@ public class ShortIdentity
      * @param str the key
      */
     public ShortIdentity (Class pcClass, String str) {
-        this (pcClass, Short.parseShort (str));
+        super(pcClass);
+        assertKeyNotNull(str);
+        construct(Short.parseShort (str));
     }
 
     /** Constructor only for Externalizable.
@@ -94,6 +101,14 @@ public class ShortIdentity
         }
     }
 
+    /** Create the key as an Object.
+     * @return the key as an Object
+     * @since 2.0
+     */
+    protected Object createKeyAsObject() {
+        return new Short(key);
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */
@@ -109,6 +124,5 @@ public class ShortIdentity
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
         key = in.readShort();
-        hashCode = hashClassName() ^ key;
     }
 }

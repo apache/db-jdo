@@ -21,6 +21,8 @@
 
 package javax.jdo.identity;
 
+import javax.jdo.JDONullIdentityException;
+
 import javax.jdo.util.BatchTestRunner;
 
 /**
@@ -95,4 +97,32 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
         assertFalse ("Not equal ShortIdentity instances compare equal.", sc1.equals(sc3));
         assertFalse ("Not equal ShortIdentity instances compare equal.", sc3.equals(sc1));
     }
+    public void testGetKeyAsObjectPrimitive() {
+        ShortIdentity c1 = new ShortIdentity(Object.class, (short)1);
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Short((short)1));
+    }
+
+    public void testGetKeyAsObject() {
+        ShortIdentity c1 = new ShortIdentity(Object.class, new Short((short)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Short((short)1));
+    }
+
+    public void testBadConstructorNullShortParam() {
+        try {
+            ShortIdentity c1 = new ShortIdentity(Object.class, (Short)null);
+        } catch (JDONullIdentityException ex) {
+            return;
+        }
+        fail ("Failed to catch expected exception.");
+    }
+
+    public void testBadConstructorNullStringParam() {
+        try {
+            ShortIdentity c1 = new ShortIdentity(Object.class, (String)null);
+        } catch (JDONullIdentityException ex) {
+            return;
+        }
+        fail ("Failed to catch expected exception.");
+    }
+
 }

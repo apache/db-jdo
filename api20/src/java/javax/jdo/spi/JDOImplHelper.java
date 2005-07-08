@@ -21,18 +21,29 @@
 
 package javax.jdo.spi;
 
+import java.lang.reflect.Constructor;
+
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOUserException;
 import javax.jdo.spi.JDOPermission;
 
 /** This class is a helper class for JDO implementations.  It contains methods
@@ -76,8 +87,16 @@ public class JDOImplHelper extends java.lang.Object {
     
     /** The Internationalization message helper.
      */
-    private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle");
+    private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
     
+    /** The default DateFormat instance.
+     */
+    static DateFormat dateFormat = DateFormat.getDateTimeInstance();
+
+    /** The DateFormat pattern, set to the default.
+     */
+    static String dateFormatPattern = "MMM d, yyyy hh:mm:ss a";  //NOI18N
+
     /** Creates new JDOImplHelper */
     private JDOImplHelper() {
     }
@@ -267,7 +286,7 @@ public class JDOImplHelper extends java.lang.Object {
             byte[] fieldFlags, Class persistenceCapableSuperclass,
             PersistenceCapable pc) {
         if (pcClass == null) 
-            throw new NullPointerException(msg.msg("ERR_NullClass"));
+            throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
         Meta meta = new Meta (fieldNames, fieldTypes, 
             fieldFlags, persistenceCapableSuperclass, pc);
         registeredClasses.put (pcClass, meta);
@@ -333,7 +352,7 @@ public class JDOImplHelper extends java.lang.Object {
     public void unregisterClass (Class pcClass)
     {
         if (pcClass == null) 
-            throw new NullPointerException(msg.msg("ERR_NullClass"));
+            throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
         SecurityManager sec = System.getSecurityManager();
         if (sec != null) { 
             // throws exception if caller is not authorized
@@ -413,7 +432,7 @@ public class JDOImplHelper extends java.lang.Object {
     public static void registerAuthorizedStateManagerClass (Class smClass) 
         throws SecurityException {
         if (smClass == null) 
-            throw new NullPointerException(msg.msg("ERR_NullClass"));
+            throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
@@ -442,7 +461,7 @@ public class JDOImplHelper extends java.lang.Object {
                     Object smClass = it.next();
                     if (!(smClass instanceof Class)) {
                         throw new ClassCastException(
-                            msg.msg("ERR_StateManagerClassCast", 
+                            msg.msg("ERR_StateManagerClassCast", //NOI18N
                                 smClass.getClass().getName()));
                     }
                     registerAuthorizedStateManagerClass((Class)it.next());
@@ -484,9 +503,141 @@ public class JDOImplHelper extends java.lang.Object {
                 return;
             }
         }
-
         // if not already authorized, perform "long" security checking.
         scm.checkPermission(JDOPermission.SET_STATE_MANAGER);
+    }
+
+    /** 
+     * Construct an instance of a key class using a String as input.
+     * This is a helper interface for use with ObjectIdentity.
+     * Classes without a String constructor (such as those in java.lang
+     * and java.util) will use this interface for constructing new instances.
+     * The result might be a singleton or use some other strategy.
+     */
+    public interface StringConstructor {
+        /**
+         * Construct an instance of the class for which this instance
+         * is registered.
+         * @param s the parameter for construction
+         * @return the constructed object
+         */
+        public Object construct(String s);
+    }
+    
+    /** 
+     * Special StringConstructor instances for use with specific
+     * classes that have no public String constructor. The Map is
+     * keyed on class instance and the value is an instance of 
+     * StringConstructor.
+     */
+    static Map stringConstructorMap = new HashMap();
+
+    /**
+     * 
+     * Register special StringConstructor instances. These instances
+     * are for constructing instances from String parameters where there
+     * is no String constructor for them.
+     * @param cls the class to register a StringConstructor for
+     * @param sc the StringConstructor instance
+     * @return the previous StringConstructor registered for this class
+     */
+    public Object registerStringConstructor(Class cls, StringConstructor sc) {
+        return stringConstructorMap.put(cls, sc);
+    }
+
+    /** Register the default special StringConstructor instances.
+     */
+    static {
+        JDOImplHelper helper = getInstance();
+        helper.registerStringConstructor(Currency.class, new StringConstructor() {
+            public Object construct(String s) {
+                try {
+                    return Currency.getInstance(s);
+                } catch (IllegalArgumentException ex) {
+                    throw new javax.jdo.JDOUserException(
+                        msg.msg("EXC_CurrencyStringConstructorIllegalArgument", s), ex); //NOI18N
+                } catch (Exception ex) {
+                    throw new JDOUserException(
+                        msg.msg("EXC_CurrencyStringConstructorException"), ex); //NOI18N
+                }
+            }
+        });
+        helper.registerStringConstructor(Locale.class, new StringConstructor() {
+            public Object construct(String s) {
+                try {
+                    return new Locale(s);
+                } catch (Exception ex) {
+                    throw new JDOUserException(
+                        msg.msg("EXC_LocaleStringConstructorException"), ex); //NOI18N
+                }
+            }
+        });
+        helper.registerStringConstructor(Date.class, new StringConstructor() {
+            public synchronized Object construct(String s) {
+                ParsePosition pp = new ParsePosition(0);
+                Date result = dateFormat.parse(s, pp);
+                if (result == null) {
+                    throw new JDOUserException (
+                        msg.msg("EXC_DateStringConstructor", new Object[] //NOI18N
+                        {s, new Integer(pp.getErrorIndex()), dateFormatPattern}));
+                }
+                return result;
+            }
+        });
+    }
+    
+    /**
+     * Construct an instance of the parameter class, using the keyString
+     * as an argument to the constructor. If the class has a StringConstructor
+     * instance registered, use it. If not, try to find a constructor for
+     * the class with a single String argument. Otherwise, throw a
+     * JDOUserException.
+     * @param className the name of the class
+     * @param keyString the String parameter for the constructor
+     * @return the result of construction
+     */
+    public Object construct(String className, String keyString) {
+        synchronized(stringConstructorMap) {
+            try {
+                Class keyClass = Class.forName(className);
+                StringConstructor stringConstructor = 
+                        (StringConstructor) stringConstructorMap.get(keyClass);
+                if (stringConstructor == null) {
+                    Constructor keyConstructor = 
+                        keyClass.getConstructor(new Class[]{String.class});
+                    return keyConstructor.newInstance(new Object[]{keyString});
+                } else {
+                    return stringConstructor.construct(keyString);
+                }
+            } catch (JDOException ex) {
+                throw ex;
+            } catch (Exception ex) {
+                 /* ClassNotFoundException,
+                    NoSuchMethodException,
+                    InstantiationException,
+                    IllegalAccessException,
+                    InvocationTargetException */
+                throw new JDOUserException(
+                    msg.msg("EXC_ObjectIdentityStringConstruction",  //NOI18N
+                    new Object[] {ex.toString(), className, keyString}), ex);
+            }
+        }
+    }
+
+    /**
+     * Register a DateFormat instance for use with constructing Date 
+     * instances. The default is the default DateFormat instance.
+     * If the new instance implements SimpleDateFormat, get its pattern
+     * for error messages.
+     * @param df the DateFormat instance to use
+     */
+    synchronized void registerDateFormat(DateFormat df) {
+        dateFormat = df;
+        if (df instanceof SimpleDateFormat) {
+            dateFormatPattern = ((SimpleDateFormat)df).toPattern();
+        } else {
+            dateFormatPattern = msg.msg("MSG_unknown"); //NOI18N
+        }
     }
 
     /** This is a helper class to manage metadata per persistence-capable
