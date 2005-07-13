@@ -80,7 +80,7 @@ has application identity.
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename" column="MIDDLENAME"/>
             <field name="address">
-                <embedded>
+                <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>
                     <field name="street" column="STREET"/>
                     <field name="city" column="CITY"/>
