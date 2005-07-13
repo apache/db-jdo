@@ -7,20 +7,13 @@ has application identity.
 <orm>
     <package name="org.apache.jdo.tck.pc.company">
 
-        <class name="Address">
-            <field name="street"/>
-            <field name="city"/>
-            <field name="state"/>
-            <field name="zipcode"/>
-            <field name="country"/>
-        </class>
-
         <class name="Company" table="companies">
             <field name="companyid" column="ID" primary-key="true"/>
             <field name="name" column="NAME"/>
             <field name="founded" column="FOUNDEDDATE"/>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
                     <field name="street" column="STREET"/>
                     <field name="city" column="CITY"/>
                     <field name="state" column="STATE"/>
@@ -88,6 +81,7 @@ has application identity.
             <field name="middlename" column="MIDDLENAME"/>
             <field name="address">
                 <embedded>
+                    <field name="addrid" column="ADDRID"/>
                     <field name="street" column="STREET"/>
                     <field name="city" column="CITY"/>
                     <field name="state" column="STATE"/>
