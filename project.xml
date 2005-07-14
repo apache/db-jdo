@@ -16,7 +16,6 @@
     limitations under the License.
 
 -->
-
 <project>
     <pomVersion>3</pomVersion>
     <!-- ============== -->
@@ -30,10 +29,10 @@
         <logo>http://incubator.apache.org/images/apache-incubator-logo.png</logo>
     </organization>
     <inceptionYear>2005</inceptionYear>
-    <shortDescription>Java Data Object (JDO)</shortDescription>
+    <shortDescription>Java Data Objects (JDO)</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
-Request 12 JSR 12 under the auspices of the Java Community Process.</description>
+Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
     <url>http://wiki.apache.org/jdo</url>
     <mailingLists>
         <mailingList>
@@ -53,21 +52,66 @@ Request 12 JSR 12 under the auspices of the Java Community Process.</description
     <developers>
         <developer>
             <name>Craig Russell</name>
+            <id>0</id>
             <email>Craig.Russell@Sun.COM</email>
             <timezone>-8</timezone>
-            <organization>Sun Micrsystems</organization>
+            <organization>Sun Microsystems</organization>
         </developer>
         <developer>
             <name>Michael Bouschen</name>
+            <id>1</id>
             <email>mbo.tech@spree.de</email>
             <organization>Tech@Spree Engineering GmbH</organization>
             <timezone>1</timezone>
         </developer>
         <developer>
+            <name>Michael Watzek</name>
+            <id>4</id>
+            <email>mwa.tech@spree.de</email>
+            <organization>Tech@Spree Engineering GmbH</organization>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
             <name>Michelle Caisse</name>
+            <id>2</id>
             <email>Michelle.Caisse@Sun.COM</email>
-            <organization>Sun Micrsystems</organization>
+            <organization>Sun Microsystems</organization>
             <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <name>Matthew Adams</name>
+            <id>3</id>
+            <email>matthew.adams@xcalia.com</email>
+            <timezone>-8</timezone>
+            <organization>Xcalia</organization>
+        </developer>
+        <developer>
+            <name>Martin Zaun</name>
+            <id>5</id>
+            <email>martin.zaun@Sun.COM</email>
+            <timezone>-8</timezone>
+            <organization>Sun Microsystems</organization>
+        </developer>
+        <developer>
+            <name>Erik Bengtson</name>
+            <id>6</id>
+            <email>erik@jpox.org</email>
+            <timezone>1</timezone>
+            <organization>Sun Micrsystems</organization>
+        </developer>
+        <developer>
+            <name>Geir Magnusson</name>
+            <id>7</id>
+            <email>geirm@apache.org</email>
+            <timezone>-8</timezone>
+            <organization>Apache.org</organization>
+        </developer>
+        <developer>
+            <name>Brian McCallister</name>
+            <id>8</id>
+            <email>brianm@apache.org</email>
+            <timezone>-8</timezone>
+            <organization>Apache.org</organization>
         </developer>
     </developers>
 </project>
