@@ -43,8 +43,15 @@ import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 
 public abstract class QueryTest extends JDO_Test {
 
-   /** */
+    /** */
     public static final String SERIALZED_QUERY = "query.ser";
+
+    /** */
+    public static final String COMPANY_TESTDATA = 
+        "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
+
+    /** */
+    public static final String ROOT_NAME = "root";
     
     /** 
      * List of inserted instances (see methods insertPCPoints and
@@ -123,12 +130,9 @@ public abstract class QueryTest extends JDO_Test {
         CompanyModelReader reader = new CompanyModelReader(filename);
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        String[] names = reader.getBeanDefinitionNames();
-        for (int i = 0; i < names.length; i++) {
-            Object bean = reader.getBean(names[i]);
-            pm.makePersistent(bean);
-            if (debug) logger.debug("inserted " + bean);
-        }
+        List rootList = (List)reader.getBean(ROOT_NAME);
+        pm.makePersistentAll(rootList);
+        if (debug) logger.debug("inserted " + rootList);
         tx.commit();
         tx = null;
         return reader;

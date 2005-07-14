@@ -418,6 +418,26 @@ public abstract class Employee extends Person {
         hradvisees = new HashSet();
     }
 
+    /**
+     * Return a String representation of a <code>Employee</code> object.
+     * @return a String representation of a <code>Employee</code> object.
+     */
+    public String toString() {
+        return "Employee(" + getFieldRepr() + ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(super.getFieldRepr());
+        rc.append(", hired ").append(formatter.format(hiredate));
+        rc.append(", weeklyhours ").append(weeklyhours);
+        return rc.toString();
+    }
+
     /** 
      * Returns <code>true</code> if all the fields of this instance are
      * deep equal to the corresponding fields of the specified Employee.

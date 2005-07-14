@@ -240,6 +240,25 @@ public class Department
             helper.deepEquals(fundedEmps, otherDept.fundedEmps);
     }
     
+    /**
+     * Returns a String representation of a <code>Department</code> object.
+     * @return a String representation of a <code>Department</code> object.
+     */
+    public String toString() {
+        return "Department(" + getFieldRepr()+ ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(deptid);
+        rc.append(", name ").append(name);
+        return rc.toString();
+    }
+
     /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less

@@ -63,8 +63,7 @@ public class StartsWithAndEndsWith extends QueryTest {
                 
         try {
             // read test data
-            CompanyModelReader reader = 
-                loadCompanyModel(pm, "org/apache/jdo/tck/query/company.xml");
+            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
             runTest(pm, reader);
         }
         finally {

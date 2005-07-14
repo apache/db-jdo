@@ -82,11 +82,22 @@ public class FullTimeEmployee extends Employee {
         this.salary = salary;
     }
     
-    /** */
+    /**
+     * Return a String representation of a <code>FullTimeEmployee</code> object.
+     * @return a String representation of a <code>FullTimeEmployee</code> object.
+     */
     public String toString() {
-        StringBuffer rc = new StringBuffer("FullTimeEmployee: ");
-        rc.append(super.toString());
-        rc.append(" $" + salary);
+        return "FullTimeEmployee(" + getFieldRepr() + ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    public String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(super.getFieldRepr());
+        rc.append(", $").append(salary);
         return rc.toString();
     }
 

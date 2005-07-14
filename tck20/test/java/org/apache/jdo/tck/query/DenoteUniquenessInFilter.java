@@ -68,8 +68,8 @@ public class DenoteUniquenessInFilter extends QueryTest {
         
         try {
             // read test data
-            CompanyModelReader reader = loadCompanyModel(
-                pm, "org/apache/jdo/tck/query/company.xml", Department.class);
+            CompanyModelReader reader = 
+                loadCompanyModel(pm, COMPANY_TESTDATA, Department.class);
             runTest(pm, reader);
         }
         finally {

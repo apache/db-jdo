@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
+
 import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
@@ -39,6 +41,9 @@ public class Company
     private Date        founded;
     private Address     address;
     private transient Set departments = new HashSet(); // element type is Department
+
+    protected static SimpleDateFormat formatter =
+        new SimpleDateFormat("d/MMM/yyyy");
 
     /** This is the JDO-required no-args constructor */
     protected Company() {}
@@ -175,6 +180,26 @@ public class Company
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         departments = new HashSet();
+    }
+
+    /**
+     * Returns a String representation of a <code>Company</code> object.
+     * @return a String representation of a <code>Company</code> object.
+     */
+    public String toString() {
+        return "Company(" + getFieldRepr()+ ")";
+    }
+    
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(companyid);
+        rc.append(", name ").append(name);
+        rc.append(", founded ").append(formatter.format(founded));
+        return rc.toString();
     }
 
     /** 

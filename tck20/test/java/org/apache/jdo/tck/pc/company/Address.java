@@ -145,6 +145,29 @@ public class Address
         this.country = country;
     }
 
+    /**
+     * Returns a String representation of a <code>Adress</code> object.
+     * @return a String representation of a <code>Adress</code> object.
+     */
+    public String toString() {
+        return "Adress(" + getFieldRepr() + ")";
+    }
+    
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(addrid);
+        rc.append(", street ").append(street);
+        rc.append(", city ").append(city);
+        rc.append(", state ").append(state);
+        rc.append(", zipcode ").append(zipcode);
+        rc.append(", country ").append(country);
+        return rc.toString();
+    }
+
     /** 
      * Returns <code>true</code> if all the fields of this instance are
      * deep equal to the coresponding fields of the specified Person.

@@ -232,16 +232,24 @@ public class Person
     }
 
     /**
-     * Return a String representation of a <code>Person</code> object.
+     * Returns a String representation of a <code>Person</code> object.
+     * @return a string representation of a <code>Person</code> object.
      */
     public String toString() {
-        StringBuffer rc = new StringBuffer("Person: ");
+        return "Person(" + getFieldRepr() + ")";
+    }
+    
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
         rc.append(personid);
-        rc.append(", ");
-        rc.append(lastname);
-        rc.append(", " + firstname);
-        rc.append(", born " + formatter.format(birthdate));
-        rc.append(", phone " + phoneNumbers);
+        rc.append(", ").append(lastname);
+        rc.append(", ").append(firstname);
+        rc.append(", born ").append(formatter.format(birthdate));
+        rc.append(", phone ").append(phoneNumbers);
         return rc.toString();
     }
 

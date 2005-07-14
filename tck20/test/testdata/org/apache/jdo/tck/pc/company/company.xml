@@ -4,6 +4,14 @@
 <beans>
     <description>Company instances for CompletenessTest</description>
 
+    <bean id="root" class="java.util.ArrayList">
+        <constructor-arg index="0">
+            <list>
+                <ref local="company1"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
     <bean id="company1" class="org.apache.jdo.tck.pc.company.Company">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Sun Microsystems, Inc.</value></constructor-arg>

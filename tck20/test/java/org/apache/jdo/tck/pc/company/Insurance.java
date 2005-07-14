@@ -105,6 +105,25 @@ public abstract class Insurance
         this.employee = employee;
     }
 
+    /**
+     * Returns a String representation of a <code>Insurance</code> object.
+     * @return a String representation of a <code>Insurance</code> object.
+     */
+    public String toString() {
+        return "Insurance(" + getFieldRepr() + ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(insid);
+        rc.append(", carrier ").append(carrier);
+        return rc.toString();
+    }
+
     /** 
      * Returns <code>true</code> if all the fields of this instance are
      * deep equal to the coresponding fields of the specified Person.

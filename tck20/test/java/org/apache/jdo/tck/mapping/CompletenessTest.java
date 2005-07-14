@@ -16,10 +16,15 @@
 
 package org.apache.jdo.tck.mapping;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
+import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 //import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -40,7 +45,11 @@ public class CompletenessTest extends JDO_Test {
     private static final String ASSERTION_FAILED = 
         "Assertion A18-[not identified] failed: ";
     
-    protected Object rootOid;
+    /** */
+    public static final String ROOT_NAME = "root";
+    
+    /** */
+    protected List rootOids;
     
         // todo: get filename from property
     protected String inputFilename = "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
@@ -59,13 +68,17 @@ public class CompletenessTest extends JDO_Test {
      */
     protected void localSetUp() {
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
-            // persist test data
+        // persist test data
         getPM();
         pm.currentTransaction().begin();
-        Object root = reader.getCompany("company1");
-        pm.makePersistent(root);
+        List rootList = (List)reader.getBean(ROOT_NAME);
+        pm.makePersistentAll(rootList);
         addTearDownClass(reader.getTearDownClasses());
-        rootOid = pm.getObjectId(root);
+        rootOids = new ArrayList();
+        for (Iterator i = rootList.iterator(); i.hasNext(); ) {
+            Object pc = i.next();
+            rootOids.add(pm.getObjectId(pc));
+        }
         pm.currentTransaction().commit();
         cleanupPM();
     }
@@ -75,15 +88,29 @@ public class CompletenessTest extends JDO_Test {
         
         // get new obj graph
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
-        Company companyExpected = reader.getCompany("company1");
-
+        List rootList = (List)reader.getBean(ROOT_NAME);
+        
         getPM();
         pm.currentTransaction().begin();
         // compare persisted and new
-        if (!companyExpected.deepCompareFields(
-            (Company)pm.getObjectById(rootOid), new EqualityHelper())) {
-            fail("Persistent company not equal to expected company");
+        int size = rootList.size();
+        StringBuffer msg = new StringBuffer();
+        for (int i = 0; i < size; i++) {
+            DeepEquality expected = (DeepEquality) rootList.get(i);
+            Object oid = rootOids.get(i);
+            DeepEquality persisted = (DeepEquality) pm.getObjectById(oid);
+            if (!expected.deepCompareFields(persisted, new EqualityHelper())) {
+                if (msg.length() > 0) {
+                    msg.append("\n");
+                }
+                msg.append("  Persistent instance " + persisted + 
+                           " not equal to expected instance " + expected);
+            }
         }
         pm.currentTransaction().commit();
+        // fail test if at least one of the instances is not the expected one
+        if (msg.length() > 0) {
+            fail("CompletenessTest failed; see list of failed instances below:", msg.toString());
+        }
     }
 }

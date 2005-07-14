@@ -4,6 +4,28 @@
 <beans>
     <description>Company instances for CompletenessTest</description>
 
+    <bean id="root" class="java.util.ArrayList">
+        <constructor-arg index="0">
+            <list>
+                <ref local="company1"/>
+                <ref local="dept1"/>
+                <ref local="dept2"/>
+                <ref local="emp1"/>
+                <ref local="emp2"/>
+                <ref local="emp3"/>
+                <ref local="emp4"/>
+                <ref local="emp5"/>
+                <ref local="medicalIns1"/>
+                <ref local="medicalIns2"/>
+                <ref local="medicalIns3"/>
+                <ref local="dentalIns1"/>
+                <ref local="proj1"/>
+                <ref local="proj2"/>
+                <ref local="proj3"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
     <bean id="company1" class="org.apache.jdo.tck.pc.company.Company">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Sun Microsystems, Inc.</value></constructor-arg>
@@ -26,8 +48,8 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp1Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp1Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>10/Jun/1970</value></constructor-arg>
-        <constructor-arg index="6" type="java.util.Date"><value>1/Jan/1999</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>20000</value></constructor-arg>
+        <constructor-arg index="5" type="java.util.Date"><value>1/Jan/1999</value></constructor-arg>
+        <constructor-arg index="6" type="double"><value>20000</value></constructor-arg>
         <property name="weeklyhours"><value>40</value></property>
     </bean>
     <bean id="emp2" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
@@ -36,8 +58,8 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp2Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp2Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>22/Dec/1975</value></constructor-arg>
-        <constructor-arg index="6" type="java.util.Date"><value>1/Jul/2003</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>10000</value></constructor-arg>
+        <constructor-arg index="5" type="java.util.Date"><value>1/Jul/2003</value></constructor-arg>
+        <constructor-arg index="6" type="double"><value>10000</value></constructor-arg>
         <property name="weeklyhours"><value>40</value></property>
     </bean>
     <bean id="emp3" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
@@ -46,8 +68,8 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp3Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp3Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>5/Sep/1972</value></constructor-arg>
-        <constructor-arg index="6" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>15000</value></constructor-arg>
+        <constructor-arg index="5" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
+        <constructor-arg index="6" type="double"><value>15000</value></constructor-arg>
         <property name="weeklyhours"><value>19</value></property>
     </bean>
     <bean id="emp4" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
@@ -56,8 +78,8 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp4Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp4Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>6/Sep/1973</value></constructor-arg>
-        <constructor-arg index="6" type="java.util.Date"><value>15/Apr/2001</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>13000</value></constructor-arg>
+        <constructor-arg index="5" type="java.util.Date"><value>15/Apr/2001</value></constructor-arg>
+        <constructor-arg index="6" type="double"><value>13000</value></constructor-arg>
     </bean>
     <bean id="emp5" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
         <constructor-arg index="0" type="long"><value>5</value></constructor-arg>
@@ -65,8 +87,8 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp5Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp5Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>5/Jul/1962</value></constructor-arg>
-        <constructor-arg index="6" type="java.util.Date"><value>15/Aug/1998</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>45000</value></constructor-arg>
+        <constructor-arg index="5" type="java.util.Date"><value>15/Aug/1998</value></constructor-arg>
+        <constructor-arg index="6" type="double"><value>45000</value></constructor-arg>
     </bean>
 
     <bean id="medicalIns1" class="org.apache.jdo.tck.pc.company.MedicalInsurance">

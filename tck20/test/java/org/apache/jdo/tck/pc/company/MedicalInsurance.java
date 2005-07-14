@@ -76,6 +76,27 @@ public class MedicalInsurance extends Insurance {
     }
 
     /**
+     * Returns a String representation of a <code>MedicalInsurance</code>
+     * object.
+     * @return a String representation of a <code>MedicalInsurance</code>
+     * object.
+     */
+    public String toString() {
+        return "MedicalInsurance(" + getFieldRepr() + ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(super.getFieldRepr());
+        rc.append(", planType ").append(planType);
+        return rc.toString();
+    }
+
+    /**
      * Indicates whether some other object is "deep equal to" this one.
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have

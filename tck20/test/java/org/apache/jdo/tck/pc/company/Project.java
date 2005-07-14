@@ -173,6 +173,26 @@ public class Project
         members = new HashSet();
     }
 
+    /**
+     * Returns a String representation of a <code>Project</code> object.
+     * @return a String representation of a <code>Project</code> object.
+     */
+    public String toString() {
+        return "Project(" + getFieldRepr() + ")";
+    }
+    
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(projid);
+        rc.append(", name ").append(name);
+        rc.append(", budget ").append(budget);
+        return rc.toString();
+    }
+
     /** 
      * Returns <code>true</code> if all the fields of this instance are
      * deep equal to the coresponding fields of the specified Person.

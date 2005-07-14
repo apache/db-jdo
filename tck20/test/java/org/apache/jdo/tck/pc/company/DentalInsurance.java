@@ -73,6 +73,27 @@ public class DentalInsurance extends Insurance {
         this.lifetimeOrthoBenefit = lifetimeOrthoBenefit;
     }
 
+    /**
+     * Returns a String representation of a <code>DentalInsurance</code>
+     * object.
+     * @return a String representation of a <code>DentalInsurance</code>
+     * object.
+     */
+    public String toString() {
+        return "DentalInsurance(" + getFieldRepr()+ ")";
+    }
+
+    /**
+     * Returns a String representation of the non-relationship fields.
+     * @return a String representation of the non-relationship fields.
+     */
+    protected String getFieldRepr() {
+        StringBuffer rc = new StringBuffer();
+        rc.append(super.getFieldRepr());
+        rc.append(", lifetimeOrthoBenefit ").append(lifetimeOrthoBenefit);
+        return rc.toString();
+    }
+
     /** 
      * Returns <code>true</code> if all the fields of this instance are
      * deep equal to the coresponding fields of the specified Person.
