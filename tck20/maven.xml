@@ -519,6 +519,8 @@
         <pathelement location="${dbcp.jarfile}"/>
         <pathelement location="${pool.jarfile}"/>
         <pathelement location="${collections.jarfile}"/>
+        <!-- Jar files for jndi -->
+        <pathelement path="${jndi}"/>
     </path>
 
     <!-- ==== -->
@@ -544,6 +546,7 @@
                <include name="commons-logging.properties"/>
                <include name="simplelog.properties"/>
                <include name="logging.properties"/>
+               <include name="jndi.properties"/>
             </fileset>
             <fileset dir="${basedir}/test/java">
                 <include name="**/*.xml"/>

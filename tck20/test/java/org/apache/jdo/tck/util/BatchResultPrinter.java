@@ -17,10 +17,16 @@
 package org.apache.jdo.tck.util;
 
 import java.io.PrintStream;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestFailure;
 import junit.framework.TestResult;
 import junit.textui.ResultPrinter;
 
@@ -32,6 +38,9 @@ import junit.textui.ResultPrinter;
 public class BatchResultPrinter
     extends ResultPrinter
 {
+    /** */
+    private long runtime;
+    
     /** */
     public BatchResultPrinter(PrintStream writer) {
         super(writer);
@@ -61,14 +70,15 @@ public class BatchResultPrinter
         else {
             testName = test.toString();
         }
-        getWriter().print("RUN " + testName);
+        getWriter().print("RUN " + testName + '\t');
+        getWriter().flush();
     }
         
     /** */
     protected void printHeader(long runTime) {
+        this.runtime = runTime;
+        getWriter().println("Description: " + System.getProperty("jdo.tck.description"));    
         getWriter().println("Time: "+elapsedTimeAsString(runTime));
-        getWriter().println("Description: " +
-                            System.getProperty("jdo.tck.description"));
     }
         
     /** */
@@ -79,9 +89,11 @@ public class BatchResultPrinter
                 
         } else {
             getWriter().println("FAILURES!!!");
+            printErrorSummery(result);
             getWriter().println("Tests run: "+result.runCount()+ 
                                 ",  Failures: "+result.failureCount()+
-                                ",  Errors: "+result.errorCount());
+                                ",  Errors: "+result.errorCount()+
+                                ", Time: "+elapsedTimeAsString(this.runtime)+" seconds.");
         }
     }
         
@@ -100,6 +112,85 @@ public class BatchResultPrinter
         return className;
     }
         
+    private void printErrorSummery(TestResult result) {
+        Object[] array = getSortedArrayOfErrorSummeryEntries(result);
+        if (array.length>0) {
+            getWriter().println("Error summery:");
+            for (int i=0; i<array.length; i++) {
+                getWriter().println(array[i]);
+            }
+        }
+    }
+    
+    private static Object[] getSortedArrayOfErrorSummeryEntries(TestResult result) {
+        Map map = new HashMap();
+        for (Enumeration e=result.errors(); e.hasMoreElements(); ) {
+            TestFailure testFailure = (TestFailure) e.nextElement();
+            Throwable t = testFailure.thrownException();
+            String message = getRootCause(t).toString();
+            ErrorSummeryEntry errorSummeryEntry = (ErrorSummeryEntry) map.get(message);
+            if (errorSummeryEntry==null ) {
+                errorSummeryEntry = new ErrorSummeryEntry(t);
+                map.put(message, errorSummeryEntry);
+            }
+            errorSummeryEntry.count++;   
+        }
+        
+        Object[] array = map.values().toArray();
+        Arrays.sort(array);
+        return array;
+    }
+    
+    private static Throwable getRootCause(Throwable t) {
+        while (t.getCause()!=null) {
+            t = t.getCause();
+        }
+        return t;
+    }
+    
+    private static class ErrorSummeryEntry implements Comparable {
+        private static DecimalFormat decimalFormat = new DecimalFormat("000");
+        private int count = 0;
+        private Throwable t;
+        
+        private ErrorSummeryEntry(Throwable t) {
+            this.t = t;
+        }
+        
+        public boolean equals(Object o) {
+            return compareTo(o)==0;
+        }
+        
+        public int hashCode() {
+            return this.count;
+        }
+        
+        public int compareTo(Object o) {
+            int result = this.count - ((ErrorSummeryEntry)o).count;
+            if (result==0) {
+                String message1 = getRootCause().toString();
+                String message2 = 
+                    ((ErrorSummeryEntry)o).getRootCause().toString();
+                result = message1.compareTo(message2);
+            }
+            return result;
+        }
+        
+        public String toString() {
+            StringBuffer buffer = 
+                new StringBuffer(decimalFormat.format(count));
+            buffer.append(" error" );
+            if (this.count!=1) {
+                buffer.append("s: ");
+            } else {
+                buffer.append(":  ");
+            }
+            buffer.append(getRootCause());
+            return buffer.toString();
+        }
+        
+        private Throwable getRootCause() {
+            return BatchResultPrinter.getRootCause(this.t);
+        }
+    }
 }
-
-

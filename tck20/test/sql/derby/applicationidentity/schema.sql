@@ -62,6 +62,67 @@ CREATE TABLE PrimitiveTypes (
 );
 
 -------------------------
+-- singlefieldidentity
+-------------------------
+
+DROP TABLE PCPointSingleFieldByte;
+DROP TABLE PCPointSingleFieldChar;
+DROP TABLE PCPointSingleFieldInteger;
+DROP TABLE PCPointSingleFieldLong;
+DROP TABLE PCPointSingleFieldShort;
+DROP TABLE PCPointSingleFieldString;
+DROP TABLE PCPointSingleFieldDate;
+
+CREATE TABLE PCPointSingleFieldByte (
+    ID DECIMAL(3) NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFB_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldChar (
+    ID INTEGER NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFC_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldInteger (
+    ID INTEGER NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFI_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldLong (
+    ID BIGINT NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFL_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldShort (
+    ID SMALLINT NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFS_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldString (
+    ID VARCHAR(100) NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFSTR_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCPointSingleFieldDate (
+    ID DATE NOT NULL,
+    X INTEGER NOT NULL,
+    Y INTEGER,
+    CONSTRAINT PCPNT_SFSTR_PK PRIMARY KEY (ID)
+);
+
+-------------------------
 -- company
 -------------------------
 

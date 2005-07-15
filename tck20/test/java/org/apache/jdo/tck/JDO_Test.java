@@ -132,10 +132,10 @@ public abstract class JDO_Test extends TestCase {
      * String indicating the type of identity used for the current test case.
      * The value is either "applicationidentity" or "datastoreidentity".
      */
-    protected final String identitytype;
+    protected final String identitytype = System.getProperty("jdo.tck.identitytype");
 
     /** Name of the file contaninig the properties for the PMF. */
-    protected static String PMFProperties;
+    protected static String PMFProperties = System.getProperty("PMFProperties");
 
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
@@ -174,12 +174,6 @@ public abstract class JDO_Test extends TestCase {
      */
     private Collection tearDownClasses = new LinkedList();
     
-    /** */
-    protected JDO_Test() {
-        PMFProperties = System.getProperty("PMFProperties");
-        identitytype = System.getProperty("jdo.tck.identitytype");
-    }
-
     /** */
     protected void setUp() throws Exception {
         pmf = getPMF();

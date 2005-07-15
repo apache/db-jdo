@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+  <package name="org.apache.jdo.tck.pc.singlefieldidentity">
+
+    <class name="PCPointSingleFieldPrimitivebyte" table="PCPointSingleFieldByte">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldByte" table="PCPointSingleFieldByte">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldPrimitivechar" table="PCPointSingleFieldChar">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldCharacter" table="PCPointSingleFieldChar">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldPrimitiveint" table="PCPointSingleFieldInteger">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldInteger" table="PCPointSingleFieldInteger">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldPrimitivelong" table="PCPointSingleFieldLong">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldLong" table="PCPointSingleFieldLong">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldPrimitiveshort" table="PCPointSingleFieldShort">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldShort" table="PCPointSingleFieldShort">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldString" table="PCPointSingleFieldString">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+    <class name="PCPointSingleFieldDate" table="PCPointSingleFieldDate">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
+  </package>
+</orm>
+
