@@ -126,15 +126,31 @@ public class TestFieldsOfObject extends JDO_Test {
         int i;
         FieldsOfObject pi = (FieldsOfObject) pm.getObjectById(oid, true);
         int n = pi.getLength();
+        StringBuffer buffer = new StringBuffer();
         for( i = 0; i < n; ++i){
             if( !FieldsOfObject.isPersistent[i] ) continue;
             Object val = pi.get(i);
-            if(!val.equals(startValue) ){
-                fail(ASSERTION_FAILED,
-                        "Incorrect value for " + FieldsOfObject.fieldSpecs[i] +
-                        ", expected value " + startValue.toString() +
-                        ", value is " + val.toString());
+            if (val == null) {
+                buffer.append("Field ");
+                buffer.append(FieldsOfObject.fieldSpecs[i]);
+                buffer.append(" is null. Expected ");
+                buffer.append(startValue.toString());
+                buffer.append(".\n");
+                continue;
             }
+            if(!val.equals(startValue) ){
+                buffer.append("Field ");
+                buffer.append(FieldsOfObject.fieldSpecs[i]);
+                buffer.append(" has wrong value: expected ");
+                buffer.append(startValue.toString());
+                buffer.append(" actual ");
+                buffer.append(val.toString());
+                buffer.append(".\n");
+            }
+        }
+        if (buffer.length() > 0) {
+            fail(ASSERTION_FAILED,
+                buffer.toString());
         }
     }
 }
