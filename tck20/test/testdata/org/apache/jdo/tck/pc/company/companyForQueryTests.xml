@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <description>Company instances for query testing</description>
+
+    <bean id="root" class="java.util.ArrayList">
+        <constructor-arg index="0">
+            <list>
+                <ref local="dept1"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dept1" class="org.apache.jdo.tck.pc.company.Department">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
+        <property name="employees">
+            <set>
+                <ref local="emp1"/>
+                <ref local="emp2"/>
+                <ref local="emp3"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="emp1" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp1First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp1Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp1Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>10/Jun/1970</value></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr1"/></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>1/Jan/1999</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>20000</value></constructor-arg>
+        <property name="department"><ref bean="dept1"/></property>
+        <property name="medicalInsurance"><ref bean="medicalIns1"/></property>
+        <property name="phoneNumbers">
+	    <map>
+                <entry key="home"><value>1111</value></entry>
+                <entry key="work"><value>123456-1</value></entry>
+            </map>
+	</property>
+    </bean>
+    <bean id="emp2" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp2First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp2Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp2Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>22/Dec/1975</value></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr2"/></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>1/Jul/2003</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>10000</value></constructor-arg>
+        <property name="department"><ref bean="dept1"/></property>
+        <property name="phoneNumbers">
+	    <map>
+                <entry key="home"><value>2222</value></entry>
+                <entry key="work"><value>123456-2</value></entry>
+            </map>
+	</property>
+    </bean>
+    <bean id="emp3" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>emp3First</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>emp3Last</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value>emp3Middle</value></constructor-arg>
+        <constructor-arg index="4" type="java.util.Date"><value>5/Sep/1972</value></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr3"/></constructor-arg>
+        <constructor-arg index="6" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>15000</value></constructor-arg>
+        <property name="department"><ref bean="dept1"/></property>
+        <property name="phoneNumbers">
+	    <map>
+                <entry key="home"><value>3333</value></entry>
+                <entry key="work"><value>123456-3</value></entry>
+            </map>
+	</property>
+    </bean>
+
+    <bean id="addr1" class="org.apache.jdo.tck.pc.company.Address">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Unter den Linden 1</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>Berlin</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value></value></constructor-arg>
+        <constructor-arg index="4" type="java.lang.String"><value>12345</value></constructor-arg>
+        <constructor-arg index="5" type="java.lang.String"><value>Germany</value></constructor-arg>
+    </bean>
+    <bean id="addr2" class="org.apache.jdo.tck.pc.company.Address">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Broadway 1</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>New York</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value></value></constructor-arg>
+        <constructor-arg index="4" type="java.lang.String"><value>10000</value></constructor-arg>
+        <constructor-arg index="5" type="java.lang.String"><value>USA</value></constructor-arg>
+    </bean>
+    <bean id="addr3" class="org.apache.jdo.tck.pc.company.Address">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Market St.</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>San Francisco</value></constructor-arg>
+        <constructor-arg index="3" type="java.lang.String"><value></value></constructor-arg>
+        <constructor-arg index="4" type="java.lang.String"><value>94102</value></constructor-arg>
+        <constructor-arg index="5" type="java.lang.String"><value>USA</value></constructor-arg>
+    </bean>
+
+    <bean id="medicalIns1" class="org.apache.jdo.tck.pc.company.MedicalInsurance">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier1</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>PPO</value></constructor-arg>
+        <property name="employee"><ref bean="emp1"/></property>
+    </bean>
+</beans>
