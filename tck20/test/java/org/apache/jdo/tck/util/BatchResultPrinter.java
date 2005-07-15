@@ -89,7 +89,7 @@ public class BatchResultPrinter
                 
         } else {
             getWriter().println("FAILURES!!!");
-            printErrorSummery(result);
+            printErrorSummary(result);
             getWriter().println("Tests run: "+result.runCount()+ 
                                 ",  Failures: "+result.failureCount()+
                                 ",  Errors: "+result.errorCount()+
@@ -112,28 +112,28 @@ public class BatchResultPrinter
         return className;
     }
         
-    private void printErrorSummery(TestResult result) {
-        Object[] array = getSortedArrayOfErrorSummeryEntries(result);
+    private void printErrorSummary(TestResult result) {
+        Object[] array = getSortedArrayOfErrorSummaryEntries(result);
         if (array.length>0) {
-            getWriter().println("Error summery:");
+            getWriter().println("Error summary:");
             for (int i=0; i<array.length; i++) {
                 getWriter().println(array[i]);
             }
         }
     }
     
-    private static Object[] getSortedArrayOfErrorSummeryEntries(TestResult result) {
+    private static Object[] getSortedArrayOfErrorSummaryEntries(TestResult result) {
         Map map = new HashMap();
         for (Enumeration e=result.errors(); e.hasMoreElements(); ) {
             TestFailure testFailure = (TestFailure) e.nextElement();
             Throwable t = testFailure.thrownException();
             String message = getRootCause(t).toString();
-            ErrorSummeryEntry errorSummeryEntry = (ErrorSummeryEntry) map.get(message);
-            if (errorSummeryEntry==null ) {
-                errorSummeryEntry = new ErrorSummeryEntry(t);
-                map.put(message, errorSummeryEntry);
+            ErrorSummaryEntry errorSummaryEntry = (ErrorSummaryEntry) map.get(message);
+            if (errorSummaryEntry==null ) {
+                errorSummaryEntry = new ErrorSummaryEntry(t);
+                map.put(message, errorSummaryEntry);
             }
-            errorSummeryEntry.count++;   
+            errorSummaryEntry.count++;   
         }
         
         Object[] array = map.values().toArray();
@@ -148,12 +148,12 @@ public class BatchResultPrinter
         return t;
     }
     
-    private static class ErrorSummeryEntry implements Comparable {
+    private static class ErrorSummaryEntry implements Comparable {
         private static DecimalFormat decimalFormat = new DecimalFormat("000");
         private int count = 0;
         private Throwable t;
         
-        private ErrorSummeryEntry(Throwable t) {
+        private ErrorSummaryEntry(Throwable t) {
             this.t = t;
         }
         
@@ -166,11 +166,11 @@ public class BatchResultPrinter
         }
         
         public int compareTo(Object o) {
-            int result = this.count - ((ErrorSummeryEntry)o).count;
+            int result = this.count - ((ErrorSummaryEntry)o).count;
             if (result==0) {
                 String message1 = getRootCause().toString();
                 String message2 = 
-                    ((ErrorSummeryEntry)o).getRootCause().toString();
+                    ((ErrorSummaryEntry)o).getRootCause().toString();
                 result = message1.compareTo(message2);
             }
             return result;
