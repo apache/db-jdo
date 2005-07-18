@@ -87,7 +87,7 @@ public class ReflectionJavaTypeIntrospector
      * @return array of PropertyDescriptor instances for declared public
      * properties.
      */
-    public PropertyDescriptor[] getPublicPropertyDescriptors(Class clazz) {
+    private PropertyDescriptor[] getPublicPropertyDescriptors(Class clazz) {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(
                 clazz, clazz.getSuperclass());
@@ -108,7 +108,7 @@ public class ReflectionJavaTypeIntrospector
      * @return array of PropertyDescriptor instances for declared public and
      * protected properties.
      */
-    public PropertyDescriptor[] getPublicAndProtectedPropertyDescriptors(
+    private PropertyDescriptor[] getPublicAndProtectedPropertyDescriptors(
         Class clazz) {
         return new PropertyStore(clazz).getPropertyDescriptors();
     }
@@ -118,7 +118,7 @@ public class ReflectionJavaTypeIntrospector
      * The class provides a public method {@link #getPropertyDescriptors()}
      * returning an array of PropertyDescriptors. Each PropertyDescriptor 
      * represents a public or protected property of the class specified as
-     * constructor argument. This code is inpired by the implementation
+     * constructor argument. This code is inspired by the implementation
      * of java.beans.Introspector class. 
      * <p>
      * Class PropertyStore uses the following algorithm to identify the
@@ -144,11 +144,11 @@ public class ReflectionJavaTypeIntrospector
     static class PropertyStore extends HashMap {
 
         private static final String GET_PREFIX = "get";    //NOI18N
-        private static final int    GET_PREFIX_LENGTH = 3; //NOI18N
+        private static final int    GET_PREFIX_LENGTH = 3;
         private static final String SET_PREFIX = "set";    //NOI18N
-        private static final int    SET_PREFIX_LENGTH = 3; //NOI18N
+        private static final int    SET_PREFIX_LENGTH = 3;
         private static final String IS_PREFIX = "is";      //NOI18N
-        private static final int    IS_PREFIX_LENGTH = 2;  //NOI18N
+        private static final int    IS_PREFIX_LENGTH = 2;
 
         /** The declared method instances for the specified class. */
         private final Method[] declaredMethods;
@@ -387,6 +387,6 @@ public class ReflectionJavaTypeIntrospector
             return setter;
         }
     }
-
+    
 }
 
