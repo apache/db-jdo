@@ -39,20 +39,19 @@ version 2.7.3 from http://www.antlr.org/download/antlr-2.7.3.jar and copy
 it to your local maven repository:
   cp antlr-2.7.3.jar $HOME/.maven/repository/antlr/jars/antlr-2.7.3.jar
 
-- JNDI implementation
-- fscontext.jar and providerutil.jar
-The JDORI JNDI test case in ri11 and fostore20 needs a JNDI implementation. 
-To configure this please update the property jndi in ri11/project.properties 
-and fostore20/project.properties to include all jars of your JNDI 
-implementation. The properties file jndi.properties under ri11/test
-should define all the necessary properties of your JNDI implemenation.
-The defaults setting in project.properties and jndi.properties use Sun's File 
-System Service Provider implementation (fscontext.jar and providerutil.jar) and 
-assume to find both jars in the directory ri11. For donwload please go to 
-http://java.sun.com/products/jndi/downloads/index.html, click the Download 
-button at 'Download JNDI 1.2.1 & More', accept a license agreement, download 
-'File System Service Provider, 1.2 Beta 3' and then unpack the downloaded zip.
- It includes the jars fscontext.jar and providerutil.jar.
+- JNDI implementation (fscontext.jar and providerutil.jar)
+The JNDI test cases in ri11, fostore20 and tck20 need a JNDI implementation.
+To configure this please check the property jndi in project.properties of ri11,
+fostore20 and tck20. It lists all jars of your JNDI implementation in a 
+path-like syntax. Furthermore, the three subprojects have a properties file 
+test/conf/jndi.properties defining all the necessary properties of the JNDI 
+implemenation. The default setting in project.properties and jndi.properties 
+use Sun's File System Service Provider implementation (fscontext.jar and 
+providerutil.jar) and assume to find both jars in the directory trunk/lib/ext. 
+For donwload please go to http://java.sun.com/products/jndi/downloads/index.html,
+click the Download button at 'Download JNDI 1.2.1 & More', accept a license 
+agreement, download 'File System Service Provider, 1.2 Beta 3' and then unpack
+the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 
 - JPOX
 The Reference Implementation for JDO 2.0 is JPOX. To run tck20 you must
@@ -67,7 +66,8 @@ for connection pooling.
   cp jpox-c3p0-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-c3p0-SNAPSHOT.jar
   cp jpox-dbcp-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-dbcp-SNAPSHOT.jar
 
-Finally, you must download c3p0-0.9.0-pre6.bin.zip, unzip it and copy c3p0-0.9.0-pre6.jar to $HOME/.maven/repository/c3p0/jars.
+Finally, you must download c3p0-0.9.0-pre6.bin.zip, unzip it and copy 
+c3p0-0.9.0-pre6.jar to $HOME/.maven/repository/c3p0/jars.
 
 - derby
 To use Derby as the datastore for tck20, download version 10.0.2.1 from
