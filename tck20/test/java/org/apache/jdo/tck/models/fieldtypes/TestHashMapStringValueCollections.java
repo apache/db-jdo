@@ -161,6 +161,9 @@ public class TestHashMapStringValueCollections extends JDO_Test {
             tx.commit();
             tx = null;
         }
+        catch (IndexOutOfBoundsException e) {
+            logger.error(e.getMessage());
+        }
         finally {
             if ((tx != null) && tx.isActive())
                 tx.rollback();

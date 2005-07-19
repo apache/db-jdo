@@ -83,7 +83,7 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
         }
         
         Transaction tx = pm.currentTransaction();
-        try {
+        try {;
             int i, j, n;
             FirstSetOfTestValuesForCollection firstValue =
                 new FirstSetOfTestValuesForCollection();
@@ -159,6 +159,9 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
             pm.deletePersistent(pi);
             tx.commit();
             tx = null;
+        }
+        catch (IndexOutOfBoundsException e) {
+                logger.error(e.getMessage());
         }
         finally {
             if ((tx != null) && tx.isActive())

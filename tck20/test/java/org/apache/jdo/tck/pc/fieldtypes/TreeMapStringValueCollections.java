@@ -226,175 +226,175 @@ public class TreeMapStringValueCollections {
         return TreeMapOfObject_String4;
       case(6):
         return TreeMapOfObject_String6;
-      case(8):
+      case(7):
         return TreeMapOfObject_String8;
-      case(9):
+      case(8):
         return TreeMapOfSimpleClass_String9;
-      case(10):
+      case(9):
         return TreeMapOfSimpleClass_String10;
-      case(11):
+      case(10):
         return TreeMapOfSimpleClass_String11;
-      case(12):
+      case(11):
         return TreeMapOfSimpleClass_String12;
-      case(13):
+      case(12):
         return TreeMapOfSimpleClass_String13;
-      case(15):
+      case(13):
         return TreeMapOfSimpleClass_String15;
-      case(17):
+      case(14):
         return TreeMapOfSimpleClass_String17;
-      case(18):
+      case(15):
         return TreeMapOfSimpleInterface_String18;
-      case(19):
+      case(16):
         return TreeMapOfSimpleInterface_String19;
-      case(20):
+      case(17):
         return TreeMapOfSimpleInterface_String20;
-      case(21):
+      case(18):
         return TreeMapOfSimpleInterface_String21;
-      case(22):
+      case(19):
         return TreeMapOfSimpleInterface_String22;
-      case(24):
+      case(20):
         return TreeMapOfSimpleInterface_String24;
-      case(26):
+      case(21):
         return TreeMapOfSimpleInterface_String26;
-      case(27):
+      case(22):
         return TreeMapOfString_String27;
-      case(28):
+      case(23):
         return TreeMapOfString_String28;
-      case(29):
+      case(24):
         return TreeMapOfString_String29;
-      case(30):
+      case(25):
         return TreeMapOfString_String30;
-      case(31):
+      case(26):
         return TreeMapOfString_String31;
-      case(33):
+      case(27):
         return TreeMapOfString_String33;
-      case(35):
+      case(28):
         return TreeMapOfString_String35;
-      case(36):
+      case(29):
         return TreeMapOfDate_String36;
-      case(37):
+      case(30):
         return TreeMapOfDate_String37;
-      case(38):
+      case(31):
         return TreeMapOfDate_String38;
-      case(39):
+      case(32):
         return TreeMapOfDate_String39;
-      case(40):
+      case(33):
         return TreeMapOfDate_String40;
-      case(42):
+      case(34):
         return TreeMapOfDate_String42;
-      case(44):
+      case(35):
         return TreeMapOfDate_String44;
-      case(45):
+      case(36):
         return TreeMapOfBigDecimal_String45;
-      case(46):
+      case(37):
         return TreeMapOfBigDecimal_String46;
-      case(47):
+      case(38):
         return TreeMapOfBigDecimal_String47;
-      case(48):
+      case(39):
         return TreeMapOfBigDecimal_String48;
-      case(49):
+      case(40):
         return TreeMapOfBigDecimal_String49;
-      case(51):
+      case(41):
         return TreeMapOfBigDecimal_String51;
-      case(53):
+      case(42):
         return TreeMapOfBigDecimal_String53;
-      case(54):
+      case(43):
         return TreeMapOfBigInteger_String54;
-      case(55):
+      case(44):
         return TreeMapOfBigInteger_String55;
-      case(56):
+      case(45):
         return TreeMapOfBigInteger_String56;
-      case(57):
+      case(46):
         return TreeMapOfBigInteger_String57;
-      case(58):
+      case(47):
         return TreeMapOfBigInteger_String58;
-      case(60):
+      case(48):
         return TreeMapOfBigInteger_String60;
-      case(62):
+      case(49):
         return TreeMapOfBigInteger_String62;
-      case(63):
+      case(50):
         return TreeMapOfByte_String63;
-      case(64):
+      case(51):
         return TreeMapOfByte_String64;
-      case(65):
+      case(52):
         return TreeMapOfByte_String65;
-      case(66):
+      case(53):
         return TreeMapOfByte_String66;
-      case(67):
+      case(54):
         return TreeMapOfByte_String67;
-      case(69):
+      case(55):
         return TreeMapOfByte_String69;
-      case(71):
+      case(56):
         return TreeMapOfByte_String71;
-      case(72):
+      case(57):
         return TreeMapOfDouble_String72;
-      case(73):
+      case(58):
         return TreeMapOfDouble_String73;
-      case(74):
+      case(59):
         return TreeMapOfDouble_String74;
-      case(75):
+      case(60):
         return TreeMapOfDouble_String75;
-      case(76):
+      case(61):
         return TreeMapOfDouble_String76;
-      case(78):
+      case(62):
         return TreeMapOfDouble_String78;
-      case(80):
+      case(63):
         return TreeMapOfDouble_String80;
-      case(81):
+      case(64):
         return TreeMapOfFloat_String81;
-      case(82):
+      case(65):
         return TreeMapOfFloat_String82;
-      case(83):
+      case(66):
         return TreeMapOfFloat_String83;
-      case(84):
+      case(67):
         return TreeMapOfFloat_String84;
-      case(85):
+      case(68):
         return TreeMapOfFloat_String85;
-      case(87):
+      case(69):
         return TreeMapOfFloat_String87;
-      case(89):
+      case(70):
         return TreeMapOfFloat_String89;
-      case(90):
+      case(71):
         return TreeMapOfInteger_String90;
-      case(91):
+      case(72):
         return TreeMapOfInteger_String91;
-      case(92):
+      case(73):
         return TreeMapOfInteger_String92;
-      case(93):
+      case(74):
         return TreeMapOfInteger_String93;
-      case(94):
+      case(75):
         return TreeMapOfInteger_String94;
-      case(96):
+      case(76):
         return TreeMapOfInteger_String96;
-      case(98):
+      case(77):
         return TreeMapOfInteger_String98;
-      case(99):
+      case(78):
         return TreeMapOfLong_String99;
-      case(100):
+      case(79):
         return TreeMapOfLong_String100;
-      case(101):
+      case(80):
         return TreeMapOfLong_String101;
-      case(102):
+      case(81):
         return TreeMapOfLong_String102;
-      case(103):
+      case(82):
         return TreeMapOfLong_String103;
-      case(105):
+      case(83):
         return TreeMapOfLong_String105;
-      case(107):
+      case(84):
         return TreeMapOfLong_String107;
-      case(108):
+      case(85):
         return TreeMapOfShort_String108;
-      case(109):
+      case(86):
         return TreeMapOfShort_String109;
-      case(110):
+      case(87):
         return TreeMapOfShort_String110;
-      case(111):
+      case(88):
         return TreeMapOfShort_String111;
-      case(112):
+      case(89):
         return TreeMapOfShort_String112;
-      case(114):
+      case(90):
         return TreeMapOfShort_String114;
-      case(116):
+      case(91):
         return TreeMapOfShort_String116;
       default:
         throw new IndexOutOfBoundsException();
@@ -424,259 +424,259 @@ public class TreeMapStringValueCollections {
       case(6):
         TreeMapOfObject_String6= value;
          break;
-      case(8):
+      case(7):
         TreeMapOfObject_String8= value;
          break;
-      case(9):
+      case(8):
         TreeMapOfSimpleClass_String9= value;
          break;
-      case(10):
+      case(9):
         TreeMapOfSimpleClass_String10= value;
          break;
-      case(11):
+      case(10):
         TreeMapOfSimpleClass_String11= value;
          break;
-      case(12):
+      case(11):
         TreeMapOfSimpleClass_String12= value;
          break;
-      case(13):
+      case(12):
         TreeMapOfSimpleClass_String13= value;
          break;
-      case(15):
+      case(13):
         TreeMapOfSimpleClass_String15= value;
          break;
-      case(17):
+      case(14):
         TreeMapOfSimpleClass_String17= value;
          break;
-      case(18):
+      case(15):
         TreeMapOfSimpleInterface_String18= value;
          break;
-      case(19):
+      case(16):
         TreeMapOfSimpleInterface_String19= value;
          break;
-      case(20):
+      case(17):
         TreeMapOfSimpleInterface_String20= value;
          break;
-      case(21):
+      case(18):
         TreeMapOfSimpleInterface_String21= value;
          break;
-      case(22):
+      case(19):
         TreeMapOfSimpleInterface_String22= value;
          break;
-      case(24):
+      case(20):
         TreeMapOfSimpleInterface_String24= value;
          break;
-      case(26):
+      case(21):
         TreeMapOfSimpleInterface_String26= value;
          break;
-      case(27):
+      case(22):
         TreeMapOfString_String27= value;
          break;
-      case(28):
+      case(23):
         TreeMapOfString_String28= value;
          break;
-      case(29):
+      case(24):
         TreeMapOfString_String29= value;
          break;
-      case(30):
+      case(25):
         TreeMapOfString_String30= value;
          break;
-      case(31):
+      case(26):
         TreeMapOfString_String31= value;
          break;
-      case(33):
+      case(27):
         TreeMapOfString_String33= value;
          break;
-      case(35):
+      case(28):
         TreeMapOfString_String35= value;
          break;
-      case(36):
+      case(29):
         TreeMapOfDate_String36= value;
          break;
-      case(37):
+      case(30):
         TreeMapOfDate_String37= value;
          break;
-      case(38):
+      case(31):
         TreeMapOfDate_String38= value;
          break;
-      case(39):
+      case(32):
         TreeMapOfDate_String39= value;
          break;
-      case(40):
+      case(33):
         TreeMapOfDate_String40= value;
          break;
-      case(42):
+      case(34):
         TreeMapOfDate_String42= value;
          break;
-      case(44):
+      case(35):
         TreeMapOfDate_String44= value;
          break;
-      case(45):
+      case(36):
         TreeMapOfBigDecimal_String45= value;
          break;
-      case(46):
+      case(37):
         TreeMapOfBigDecimal_String46= value;
          break;
-      case(47):
+      case(38):
         TreeMapOfBigDecimal_String47= value;
          break;
-      case(48):
+      case(39):
         TreeMapOfBigDecimal_String48= value;
          break;
-      case(49):
+      case(40):
         TreeMapOfBigDecimal_String49= value;
          break;
-      case(51):
+      case(41):
         TreeMapOfBigDecimal_String51= value;
          break;
-      case(53):
+      case(42):
         TreeMapOfBigDecimal_String53= value;
          break;
-      case(54):
+      case(43):
         TreeMapOfBigInteger_String54= value;
          break;
-      case(55):
+      case(44):
         TreeMapOfBigInteger_String55= value;
          break;
-      case(56):
+      case(45):
         TreeMapOfBigInteger_String56= value;
          break;
-      case(57):
+      case(46):
         TreeMapOfBigInteger_String57= value;
          break;
-      case(58):
+      case(47):
         TreeMapOfBigInteger_String58= value;
          break;
-      case(60):
+      case(48):
         TreeMapOfBigInteger_String60= value;
          break;
-      case(62):
+      case(49):
         TreeMapOfBigInteger_String62= value;
          break;
-      case(63):
+      case(50):
         TreeMapOfByte_String63= value;
          break;
-      case(64):
+      case(51):
         TreeMapOfByte_String64= value;
          break;
-      case(65):
+      case(52):
         TreeMapOfByte_String65= value;
          break;
-      case(66):
+      case(53):
         TreeMapOfByte_String66= value;
          break;
-      case(67):
+      case(54):
         TreeMapOfByte_String67= value;
          break;
-      case(69):
+      case(55):
         TreeMapOfByte_String69= value;
          break;
-      case(71):
+      case(56):
         TreeMapOfByte_String71= value;
          break;
-      case(72):
+      case(57):
         TreeMapOfDouble_String72= value;
          break;
-      case(73):
+      case(58):
         TreeMapOfDouble_String73= value;
          break;
-      case(74):
+      case(59):
         TreeMapOfDouble_String74= value;
          break;
-      case(75):
+      case(60):
         TreeMapOfDouble_String75= value;
          break;
-      case(76):
+      case(61):
         TreeMapOfDouble_String76= value;
          break;
-      case(78):
+      case(62):
         TreeMapOfDouble_String78= value;
          break;
-      case(80):
+      case(63):
         TreeMapOfDouble_String80= value;
          break;
-      case(81):
+      case(64):
         TreeMapOfFloat_String81= value;
          break;
-      case(82):
+      case(65):
         TreeMapOfFloat_String82= value;
          break;
-      case(83):
+      case(66):
         TreeMapOfFloat_String83= value;
          break;
-      case(84):
+      case(67):
         TreeMapOfFloat_String84= value;
          break;
-      case(85):
+      case(68):
         TreeMapOfFloat_String85= value;
          break;
-      case(87):
+      case(69):
         TreeMapOfFloat_String87= value;
          break;
-      case(89):
+      case(70):
         TreeMapOfFloat_String89= value;
          break;
-      case(90):
+      case(71):
         TreeMapOfInteger_String90= value;
          break;
-      case(91):
+      case(72):
         TreeMapOfInteger_String91= value;
          break;
-      case(92):
+      case(73):
         TreeMapOfInteger_String92= value;
          break;
-      case(93):
+      case(74):
         TreeMapOfInteger_String93= value;
          break;
-      case(94):
+      case(75):
         TreeMapOfInteger_String94= value;
          break;
-      case(96):
+      case(76):
         TreeMapOfInteger_String96= value;
          break;
-      case(98):
+      case(77):
         TreeMapOfInteger_String98= value;
          break;
-      case(99):
+      case(78):
         TreeMapOfLong_String99= value;
          break;
-      case(100):
+      case(79):
         TreeMapOfLong_String100= value;
          break;
-      case(101):
+      case(80):
         TreeMapOfLong_String101= value;
          break;
-      case(102):
+      case(81):
         TreeMapOfLong_String102= value;
          break;
-      case(103):
+      case(82):
         TreeMapOfLong_String103= value;
          break;
-      case(105):
+      case(83):
         TreeMapOfLong_String105= value;
          break;
-      case(107):
+      case(84):
         TreeMapOfLong_String107= value;
          break;
-      case(108):
+      case(85):
         TreeMapOfShort_String108= value;
          break;
-      case(109):
+      case(86):
         TreeMapOfShort_String109= value;
          break;
-      case(110):
+      case(87):
         TreeMapOfShort_String110= value;
          break;
-      case(111):
+      case(88):
         TreeMapOfShort_String111= value;
          break;
-      case(112):
+      case(89):
         TreeMapOfShort_String112= value;
          break;
-      case(114):
+      case(90):
         TreeMapOfShort_String114= value;
          break;
-      case(116):
+      case(91):
         TreeMapOfShort_String116= value;
          break;
       default:

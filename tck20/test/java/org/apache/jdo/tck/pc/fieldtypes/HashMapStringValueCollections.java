@@ -224,177 +224,177 @@ public class HashMapStringValueCollections {
         return HashMapOfObject_String3;
       case(4):
         return HashMapOfObject_String4;
-      case(6):
+      case(5):
         return HashMapOfObject_String6;
-      case(8):
+      case(6):
         return HashMapOfObject_String8;
-      case(9):
+      case(7):
         return HashMapOfSimpleClass_String9;
-      case(10):
+      case(8):
         return HashMapOfSimpleClass_String10;
-      case(11):
+      case(9):
         return HashMapOfSimpleClass_String11;
-      case(12):
+      case(10):
         return HashMapOfSimpleClass_String12;
-      case(13):
+      case(11):
         return HashMapOfSimpleClass_String13;
-      case(15):
+      case(12):
         return HashMapOfSimpleClass_String15;
-      case(17):
+      case(13):
         return HashMapOfSimpleClass_String17;
-      case(18):
+      case(14):
         return HashMapOfSimpleInterface_String18;
-      case(19):
+      case(15):
         return HashMapOfSimpleInterface_String19;
-      case(20):
+      case(16):
         return HashMapOfSimpleInterface_String20;
-      case(21):
+      case(17):
         return HashMapOfSimpleInterface_String21;
-      case(22):
+      case(18):
         return HashMapOfSimpleInterface_String22;
-      case(24):
+      case(19):
         return HashMapOfSimpleInterface_String24;
-      case(26):
+      case(20):
         return HashMapOfSimpleInterface_String26;
-      case(27):
+      case(21):
         return HashMapOfString_String27;
-      case(28):
+      case(22):
         return HashMapOfString_String28;
-      case(29):
+      case(23):
         return HashMapOfString_String29;
-      case(30):
+      case(24):
         return HashMapOfString_String30;
-      case(31):
+      case(25):
         return HashMapOfString_String31;
-      case(33):
+      case(26):
         return HashMapOfString_String33;
-      case(35):
+      case(27):
         return HashMapOfString_String35;
-      case(36):
+      case(28):
         return HashMapOfDate_String36;
-      case(37):
+      case(29):
         return HashMapOfDate_String37;
-      case(38):
+      case(30):
         return HashMapOfDate_String38;
-      case(39):
+      case(31):
         return HashMapOfDate_String39;
-      case(40):
+      case(32):
         return HashMapOfDate_String40;
-      case(42):
+      case(33):
         return HashMapOfDate_String42;
-      case(44):
+      case(34):
         return HashMapOfDate_String44;
-      case(45):
+      case(35):
         return HashMapOfBigDecimal_String45;
-      case(46):
+      case(36):
         return HashMapOfBigDecimal_String46;
-      case(47):
+      case(37):
         return HashMapOfBigDecimal_String47;
-      case(48):
+      case(38):
         return HashMapOfBigDecimal_String48;
-      case(49):
+      case(39):
         return HashMapOfBigDecimal_String49;
-      case(51):
+      case(40):
         return HashMapOfBigDecimal_String51;
-      case(53):
+      case(41):
         return HashMapOfBigDecimal_String53;
-      case(54):
+      case(42):
         return HashMapOfBigInteger_String54;
-      case(55):
+      case(43):
         return HashMapOfBigInteger_String55;
-      case(56):
+      case(44):
         return HashMapOfBigInteger_String56;
-      case(57):
+      case(45):
         return HashMapOfBigInteger_String57;
-      case(58):
+      case(46):
         return HashMapOfBigInteger_String58;
-      case(60):
+      case(47):
         return HashMapOfBigInteger_String60;
-      case(62):
+      case(48):
         return HashMapOfBigInteger_String62;
-      case(63):
+      case(49):
         return HashMapOfByte_String63;
-      case(64):
+      case(50):
         return HashMapOfByte_String64;
-      case(65):
+      case(51):
         return HashMapOfByte_String65;
-      case(66):
+      case(52):
         return HashMapOfByte_String66;
-      case(67):
+      case(53):
         return HashMapOfByte_String67;
-      case(69):
+      case(54):
         return HashMapOfByte_String69;
-      case(71):
+      case(55):
         return HashMapOfByte_String71;
-      case(72):
+      case(56):
         return HashMapOfDouble_String72;
-      case(73):
+      case(57):
         return HashMapOfDouble_String73;
-      case(74):
+      case(58):
         return HashMapOfDouble_String74;
-      case(75):
+      case(59):
         return HashMapOfDouble_String75;
-      case(76):
+      case(60):
         return HashMapOfDouble_String76;
-      case(78):
+      case(61):
         return HashMapOfDouble_String78;
-      case(80):
+      case(62):
         return HashMapOfDouble_String80;
-      case(81):
+      case(63):
         return HashMapOfFloat_String81;
-      case(82):
+      case(64):
         return HashMapOfFloat_String82;
-      case(83):
+      case(65):
         return HashMapOfFloat_String83;
-      case(84):
+      case(66):
         return HashMapOfFloat_String84;
-      case(85):
+      case(67):
         return HashMapOfFloat_String85;
-      case(87):
+      case(68):
         return HashMapOfFloat_String87;
-      case(89):
+      case(69):
         return HashMapOfFloat_String89;
-      case(90):
+      case(70):
         return HashMapOfInteger_String90;
-      case(91):
+      case(71):
         return HashMapOfInteger_String91;
-      case(92):
+      case(72):
         return HashMapOfInteger_String92;
-      case(93):
+      case(73):
         return HashMapOfInteger_String93;
-      case(94):
+      case(74):
         return HashMapOfInteger_String94;
-      case(96):
+      case(75):
         return HashMapOfInteger_String96;
-      case(98):
+      case(76):
         return HashMapOfInteger_String98;
-      case(99):
+      case(77):
         return HashMapOfLong_String99;
-      case(100):
+      case(78):
         return HashMapOfLong_String100;
-      case(101):
+      case(79):
         return HashMapOfLong_String101;
-      case(102):
+      case(80):
         return HashMapOfLong_String102;
-      case(103):
+      case(81):
         return HashMapOfLong_String103;
-      case(105):
+      case(82):
         return HashMapOfLong_String105;
-      case(107):
+      case(83):
         return HashMapOfLong_String107;
-      case(108):
+      case(84):
         return HashMapOfShort_String108;
-      case(109):
+      case(85):
         return HashMapOfShort_String109;
-      case(110):
+      case(86):
         return HashMapOfShort_String110;
-      case(111):
+      case(87):
         return HashMapOfShort_String111;
-      case(112):
+      case(88):
         return HashMapOfShort_String112;
-      case(114):
+      case(89):
         return HashMapOfShort_String114;
-      case(116):
+      case(90):
         return HashMapOfShort_String116;
       default:
         throw new IndexOutOfBoundsException();
@@ -421,262 +421,262 @@ public class HashMapStringValueCollections {
       case(4):
         HashMapOfObject_String4= value;
          break;
-      case(6):
+      case(5):
         HashMapOfObject_String6= value;
          break;
-      case(8):
+      case(6):
         HashMapOfObject_String8= value;
          break;
-      case(9):
+      case(7):
         HashMapOfSimpleClass_String9= value;
          break;
-      case(10):
+      case(8):
         HashMapOfSimpleClass_String10= value;
          break;
-      case(11):
+      case(9):
         HashMapOfSimpleClass_String11= value;
          break;
-      case(12):
+      case(10):
         HashMapOfSimpleClass_String12= value;
          break;
-      case(13):
+      case(11):
         HashMapOfSimpleClass_String13= value;
          break;
-      case(15):
+      case(12):
         HashMapOfSimpleClass_String15= value;
          break;
-      case(17):
+      case(13):
         HashMapOfSimpleClass_String17= value;
          break;
-      case(18):
+      case(14):
         HashMapOfSimpleInterface_String18= value;
          break;
-      case(19):
+      case(15):
         HashMapOfSimpleInterface_String19= value;
          break;
-      case(20):
+      case(16):
         HashMapOfSimpleInterface_String20= value;
          break;
-      case(21):
+      case(17):
         HashMapOfSimpleInterface_String21= value;
          break;
-      case(22):
+      case(18):
         HashMapOfSimpleInterface_String22= value;
          break;
-      case(24):
+      case(19):
         HashMapOfSimpleInterface_String24= value;
          break;
-      case(26):
+      case(20):
         HashMapOfSimpleInterface_String26= value;
          break;
-      case(27):
+      case(21):
         HashMapOfString_String27= value;
          break;
-      case(28):
+      case(22):
         HashMapOfString_String28= value;
          break;
-      case(29):
+      case(23):
         HashMapOfString_String29= value;
          break;
-      case(30):
+      case(24):
         HashMapOfString_String30= value;
          break;
-      case(31):
+      case(25):
         HashMapOfString_String31= value;
          break;
-      case(33):
+      case(26):
         HashMapOfString_String33= value;
          break;
-      case(35):
+      case(27):
         HashMapOfString_String35= value;
          break;
-      case(36):
+      case(28):
         HashMapOfDate_String36= value;
          break;
-      case(37):
+      case(29):
         HashMapOfDate_String37= value;
          break;
-      case(38):
+      case(30):
         HashMapOfDate_String38= value;
          break;
-      case(39):
+      case(31):
         HashMapOfDate_String39= value;
          break;
-      case(40):
+      case(32):
         HashMapOfDate_String40= value;
          break;
-      case(42):
+      case(33):
         HashMapOfDate_String42= value;
          break;
-      case(44):
+      case(34):
         HashMapOfDate_String44= value;
          break;
-      case(45):
+      case(35):
         HashMapOfBigDecimal_String45= value;
          break;
-      case(46):
+      case(36):
         HashMapOfBigDecimal_String46= value;
          break;
-      case(47):
+      case(37):
         HashMapOfBigDecimal_String47= value;
          break;
-      case(48):
+      case(38):
         HashMapOfBigDecimal_String48= value;
          break;
-      case(49):
+      case(39):
         HashMapOfBigDecimal_String49= value;
          break;
-      case(51):
+      case(40):
         HashMapOfBigDecimal_String51= value;
          break;
-      case(53):
+      case(41):
         HashMapOfBigDecimal_String53= value;
          break;
-      case(54):
+      case(42):
         HashMapOfBigInteger_String54= value;
          break;
-      case(55):
+      case(43):
         HashMapOfBigInteger_String55= value;
          break;
-      case(56):
+      case(44):
         HashMapOfBigInteger_String56= value;
          break;
-      case(57):
+      case(45):
         HashMapOfBigInteger_String57= value;
          break;
-      case(58):
+      case(46):
         HashMapOfBigInteger_String58= value;
          break;
-      case(60):
+      case(47):
         HashMapOfBigInteger_String60= value;
          break;
-      case(62):
+      case(48):
         HashMapOfBigInteger_String62= value;
          break;
-      case(63):
+      case(49):
         HashMapOfByte_String63= value;
          break;
-      case(64):
+      case(50):
         HashMapOfByte_String64= value;
          break;
-      case(65):
+      case(51):
         HashMapOfByte_String65= value;
          break;
-      case(66):
+      case(52):
         HashMapOfByte_String66= value;
          break;
-      case(67):
+      case(53):
         HashMapOfByte_String67= value;
          break;
-      case(69):
+      case(54):
         HashMapOfByte_String69= value;
          break;
-      case(71):
+      case(55):
         HashMapOfByte_String71= value;
          break;
-      case(72):
+      case(56):
         HashMapOfDouble_String72= value;
          break;
-      case(73):
+      case(57):
         HashMapOfDouble_String73= value;
          break;
-      case(74):
+      case(58):
         HashMapOfDouble_String74= value;
          break;
-      case(75):
+      case(59):
         HashMapOfDouble_String75= value;
          break;
-      case(76):
+      case(60):
         HashMapOfDouble_String76= value;
          break;
-      case(78):
+      case(61):
         HashMapOfDouble_String78= value;
          break;
-      case(80):
+      case(62):
         HashMapOfDouble_String80= value;
          break;
-      case(81):
+      case(63):
         HashMapOfFloat_String81= value;
          break;
-      case(82):
+      case(64):
         HashMapOfFloat_String82= value;
          break;
-      case(83):
+      case(65):
         HashMapOfFloat_String83= value;
          break;
-      case(84):
+      case(66):
         HashMapOfFloat_String84= value;
          break;
-      case(85):
+      case(67):
         HashMapOfFloat_String85= value;
          break;
-      case(87):
+      case(68):
         HashMapOfFloat_String87= value;
          break;
-      case(89):
+      case(69):
         HashMapOfFloat_String89= value;
          break;
-      case(90):
+      case(70):
         HashMapOfInteger_String90= value;
          break;
-      case(91):
+      case(71):
         HashMapOfInteger_String91= value;
          break;
-      case(92):
+      case(72):
         HashMapOfInteger_String92= value;
          break;
-      case(93):
+      case(73):
         HashMapOfInteger_String93= value;
          break;
-      case(94):
+      case(74):
         HashMapOfInteger_String94= value;
          break;
-      case(96):
+      case(75):
         HashMapOfInteger_String96= value;
          break;
-      case(98):
+      case(76):
         HashMapOfInteger_String98= value;
          break;
-      case(99):
+      case(77):
         HashMapOfLong_String99= value;
          break;
-      case(100):
+      case(78):
         HashMapOfLong_String100= value;
          break;
-      case(101):
+      case(79):
         HashMapOfLong_String101= value;
          break;
-      case(102):
+      case(80):
         HashMapOfLong_String102= value;
          break;
-      case(103):
+      case(81):
         HashMapOfLong_String103= value;
          break;
-      case(105):
+      case(82):
         HashMapOfLong_String105= value;
          break;
-      case(107):
+      case(83):
         HashMapOfLong_String107= value;
          break;
-      case(108):
+      case(84):
         HashMapOfShort_String108= value;
          break;
-      case(109):
+      case(85):
         HashMapOfShort_String109= value;
          break;
-      case(110):
+      case(86):
         HashMapOfShort_String110= value;
          break;
-      case(111):
+      case(87):
         HashMapOfShort_String111= value;
          break;
-      case(112):
+      case(88):
         HashMapOfShort_String112= value;
          break;
-      case(114):
+      case(89):
         HashMapOfShort_String114= value;
          break;
-      case(116):
+      case(90):
         HashMapOfShort_String116= value;
          break;
       default:

@@ -316,113 +316,113 @@ public class MapStringKeyCollections {
         return MapOfString_Object42;
       case(43):
         return MapOfString_Object43;
-      case(45):
+      case(44):
         return MapOfString_SimpleClass45;
-      case(46):
+      case(45):
         return MapOfString_SimpleClass46;
-      case(48):
+      case(46):
         return MapOfString_SimpleInterface48;
-      case(49):
+      case(47):
         return MapOfString_SimpleInterface49;
-      case(51):
+      case(48):
         return MapOfString_String51;
-      case(52):
+      case(49):
         return MapOfString_String52;
-      case(54):
+      case(50):
         return MapOfString_Date54;
-      case(55):
+      case(51):
         return MapOfString_Date55;
-      case(57):
+      case(52):
         return MapOfString_Locale57;
-      case(58):
+      case(53):
         return MapOfString_Locale58;
-      case(60):
+      case(54):
         return MapOfString_BigDecimal60;
-      case(61):
+      case(55):
         return MapOfString_BigDecimal61;
-      case(63):
+      case(56):
         return MapOfString_BigInteger63;
-      case(64):
+      case(57):
         return MapOfString_BigInteger64;
-      case(66):
+      case(58):
         return MapOfString_Byte66;
-      case(67):
+      case(59):
         return MapOfString_Byte67;
-      case(69):
+      case(60):
         return MapOfString_Double69;
-      case(70):
+      case(61):
         return MapOfString_Double70;
-      case(72):
+      case(62):
         return MapOfString_Float72;
-      case(73):
+      case(63):
         return MapOfString_Float73;
-      case(75):
+      case(64):
         return MapOfString_Integer75;
-      case(76):
+      case(65):
         return MapOfString_Integer76;
-      case(78):
+      case(66):
         return MapOfString_Long78;
-      case(79):
+      case(67):
         return MapOfString_Long79;
-      case(81):
+      case(68):
         return MapOfString_Short81;
-      case(82):
+      case(69):
         return MapOfString_Short82;
-      case(84):
+      case(70):
         return MapOfString_Object84;
-      case(86):
+      case(71):
         return MapOfString_Object86;
-      case(87):
+      case(72):
         return MapOfString_SimpleClass87;
-      case(89):
+      case(73):
         return MapOfString_SimpleClass89;
-      case(90):
+      case(74):
         return MapOfString_SimpleInterface90;
-      case(92):
+      case(75):
         return MapOfString_SimpleInterface92;
-      case(93):
+      case(76):
         return MapOfString_String93;
-      case(95):
+      case(77):
         return MapOfString_String95;
-      case(96):
+      case(78):
         return MapOfString_Date96;
-      case(98):
+      case(79):
         return MapOfString_Date98;
-      case(99):
+      case(80):
         return MapOfString_Locale99;
-      case(101):
+      case(81):
         return MapOfString_Locale101;
-      case(102):
+      case(82):
         return MapOfString_BigDecimal102;
-      case(104):
+      case(83):
         return MapOfString_BigDecimal104;
-      case(105):
+      case(84):
         return MapOfString_BigInteger105;
-      case(107):
+      case(85):
         return MapOfString_BigInteger107;
-      case(108):
+      case(86):
         return MapOfString_Byte108;
-      case(110):
+      case(87):
         return MapOfString_Byte110;
-      case(111):
+      case(88):
         return MapOfString_Double111;
-      case(113):
+      case(89):
         return MapOfString_Double113;
-      case(114):
+      case(90):
         return MapOfString_Float114;
-      case(116):
+      case(91):
         return MapOfString_Float116;
-      case(117):
+      case(92):
         return MapOfString_Integer117;
-      case(119):
+      case(93):
         return MapOfString_Integer119;
-      case(120):
+      case(94):
         return MapOfString_Long120;
-      case(122):
+      case(95):
         return MapOfString_Long122;
-      case(123):
+      case(96):
         return MapOfString_Short123;
-      case(125):
+      case(97):
         return MapOfString_Short125;
       default:
         throw new IndexOutOfBoundsException();
@@ -566,166 +566,166 @@ public class MapStringKeyCollections {
       case(43):
         MapOfString_Object43= value;
          break;
-      case(45):
+      case(44):
         MapOfString_SimpleClass45= value;
          break;
-      case(46):
+      case(45):
         MapOfString_SimpleClass46= value;
          break;
-      case(48):
+      case(46):
         MapOfString_SimpleInterface48= value;
          break;
-      case(49):
+      case(47):
         MapOfString_SimpleInterface49= value;
          break;
-      case(51):
+      case(48):
         MapOfString_String51= value;
          break;
-      case(52):
+      case(49):
         MapOfString_String52= value;
          break;
-      case(54):
+      case(50):
         MapOfString_Date54= value;
          break;
-      case(55):
+      case(51):
         MapOfString_Date55= value;
          break;
-      case(57):
+      case(52):
         MapOfString_Locale57= value;
          break;
-      case(58):
+      case(53):
         MapOfString_Locale58= value;
          break;
-      case(60):
+      case(54):
         MapOfString_BigDecimal60= value;
          break;
-      case(61):
+      case(55):
         MapOfString_BigDecimal61= value;
          break;
-      case(63):
+      case(56):
         MapOfString_BigInteger63= value;
          break;
-      case(64):
+      case(57):
         MapOfString_BigInteger64= value;
          break;
-      case(66):
+      case(58):
         MapOfString_Byte66= value;
          break;
-      case(67):
+      case(59):
         MapOfString_Byte67= value;
          break;
-      case(69):
+      case(60):
         MapOfString_Double69= value;
          break;
-      case(70):
+      case(61):
         MapOfString_Double70= value;
          break;
-      case(72):
+      case(62):
         MapOfString_Float72= value;
          break;
-      case(73):
+      case(63):
         MapOfString_Float73= value;
          break;
-      case(75):
+      case(64):
         MapOfString_Integer75= value;
          break;
-      case(76):
+      case(65):
         MapOfString_Integer76= value;
          break;
-      case(78):
+      case(66):
         MapOfString_Long78= value;
          break;
-      case(79):
+      case(67):
         MapOfString_Long79= value;
          break;
-      case(81):
+      case(68):
         MapOfString_Short81= value;
          break;
-      case(82):
+      case(69):
         MapOfString_Short82= value;
          break;
-      case(84):
+      case(70):
         MapOfString_Object84= value;
          break;
-      case(86):
+      case(71):
         MapOfString_Object86= value;
          break;
-      case(87):
+      case(72):
         MapOfString_SimpleClass87= value;
          break;
-      case(89):
+      case(73):
         MapOfString_SimpleClass89= value;
          break;
-      case(90):
+      case(74):
         MapOfString_SimpleInterface90= value;
          break;
-      case(92):
+      case(75):
         MapOfString_SimpleInterface92= value;
          break;
-      case(93):
+      case(76):
         MapOfString_String93= value;
          break;
-      case(95):
+      case(77):
         MapOfString_String95= value;
          break;
-      case(96):
+      case(78):
         MapOfString_Date96= value;
          break;
-      case(98):
+      case(79):
         MapOfString_Date98= value;
          break;
-      case(99):
+      case(80):
         MapOfString_Locale99= value;
          break;
-      case(101):
+      case(81):
         MapOfString_Locale101= value;
          break;
-      case(102):
+      case(82):
         MapOfString_BigDecimal102= value;
          break;
-      case(104):
+      case(83):
         MapOfString_BigDecimal104= value;
          break;
-      case(105):
+      case(84):
         MapOfString_BigInteger105= value;
          break;
-      case(107):
+      case(85):
         MapOfString_BigInteger107= value;
          break;
-      case(108):
+      case(86):
         MapOfString_Byte108= value;
          break;
-      case(110):
+      case(87):
         MapOfString_Byte110= value;
          break;
-      case(111):
+      case(88):
         MapOfString_Double111= value;
          break;
-      case(113):
+      case(89):
         MapOfString_Double113= value;
          break;
-      case(114):
+      case(90):
         MapOfString_Float114= value;
          break;
-      case(116):
+      case(91):
         MapOfString_Float116= value;
          break;
-      case(117):
+      case(92):
         MapOfString_Integer117= value;
          break;
-      case(119):
+      case(93):
         MapOfString_Integer119= value;
          break;
-      case(120):
+      case(94):
         MapOfString_Long120= value;
          break;
-      case(122):
+      case(95):
         MapOfString_Long122= value;
          break;
-      case(123):
+      case(96):
         MapOfString_Short123= value;
          break;
-      case(125):
+      case(97):
         MapOfString_Short125= value;
          break;
       default:

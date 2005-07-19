@@ -224,180 +224,180 @@ public class HashtableStringValueCollections {
         return HashtableOfObject_String3;
       case(4):
         return HashtableOfObject_String4;
-      case(6):
+      case(5):
         return HashtableOfObject_String6;
-      case(8):
+      case(6):
         return HashtableOfObject_String8;
-      case(9):
+      case(7):
         return HashtableOfSimpleClass_String9;
-      case(10):
+      case(8):
         return HashtableOfSimpleClass_String10;
-      case(11):
+      case(9):
         return HashtableOfSimpleClass_String11;
-      case(12):
+      case(10):
         return HashtableOfSimpleClass_String12;
-      case(13):
+      case(11):
         return HashtableOfSimpleClass_String13;
-      case(15):
+      case(12):
         return HashtableOfSimpleClass_String15;
-      case(17):
+      case(13):
         return HashtableOfSimpleClass_String17;
-      case(18):
+      case(14):
         return HashtableOfSimpleInterface_String18;
-      case(19):
+      case(15):
         return HashtableOfSimpleInterface_String19;
-      case(20):
+      case(16):
         return HashtableOfSimpleInterface_String20;
-      case(21):
+      case(17):
         return HashtableOfSimpleInterface_String21;
-      case(22):
+      case(18):
         return HashtableOfSimpleInterface_String22;
-      case(24):
+      case(19):
         return HashtableOfSimpleInterface_String24;
-      case(26):
+      case(20):
         return HashtableOfSimpleInterface_String26;
-      case(27):
+      case(21):
         return HashtableOfString_String27;
-      case(28):
+      case(22):
         return HashtableOfString_String28;
-      case(29):
+      case(23):
         return HashtableOfString_String29;
-      case(30):
+      case(24):
         return HashtableOfString_String30;
-      case(31):
+      case(25):
         return HashtableOfString_String31;
-      case(33):
+      case(26):
         return HashtableOfString_String33;
-      case(35):
+      case(27):
         return HashtableOfString_String35;
-      case(36):
+      case(28):
         return HashtableOfDate_String36;
-      case(37):
+      case(29):
         return HashtableOfDate_String37;
-      case(38):
+      case(30):
         return HashtableOfDate_String38;
-      case(39):
+      case(31):
         return HashtableOfDate_String39;
-      case(40):
+      case(32):
         return HashtableOfDate_String40;
-      case(42):
+      case(33):
         return HashtableOfDate_String42;
-      case(44):
+      case(34):
         return HashtableOfDate_String44;
-      case(45):
+      case(35):
         return HashtableOfBigDecimal_String45;
-      case(46):
+      case(36):
         return HashtableOfBigDecimal_String46;
-      case(47):
+      case(37):
         return HashtableOfBigDecimal_String47;
-      case(48):
+      case(38):
         return HashtableOfBigDecimal_String48;
-      case(49):
+      case(39):
         return HashtableOfBigDecimal_String49;
-      case(51):
+      case(40):
         return HashtableOfBigDecimal_String51;
-      case(53):
+      case(41):
         return HashtableOfBigDecimal_String53;
-      case(54):
+      case(42):
         return HashtableOfBigInteger_String54;
-      case(55):
+      case(43):
         return HashtableOfBigInteger_String55;
-      case(56):
+      case(44):
         return HashtableOfBigInteger_String56;
-      case(57):
+      case(45):
         return HashtableOfBigInteger_String57;
-      case(58):
+      case(46):
         return HashtableOfBigInteger_String58;
-      case(60):
+      case(47):
         return HashtableOfBigInteger_String60;
-      case(62):
+      case(48):
         return HashtableOfBigInteger_String62;
-      case(63):
+      case(49):
         return HashtableOfByte_String63;
-      case(64):
+      case(50):
         return HashtableOfByte_String64;
-      case(65):
+      case(51):
         return HashtableOfByte_String65;
-      case(66):
+      case(52):
         return HashtableOfByte_String66;
-      case(67):
+      case(53):
         return HashtableOfByte_String67;
-      case(69):
+      case(54):
         return HashtableOfByte_String69;
-      case(71):
+      case(55):
         return HashtableOfByte_String71;
-      case(72):
+      case(56):
         return HashtableOfDouble_String72;
-      case(73):
+      case(57):
         return HashtableOfDouble_String73;
-      case(74):
+      case(58):
         return HashtableOfDouble_String74;
-      case(75):
+      case(59):
         return HashtableOfDouble_String75;
-      case(76):
+      case(60):
         return HashtableOfDouble_String76;
-      case(78):
+      case(61):
         return HashtableOfDouble_String78;
-      case(80):
+      case(62):
         return HashtableOfDouble_String80;
-      case(81):
+      case(63):
         return HashtableOfFloat_String81;
-      case(82):
+      case(64):
         return HashtableOfFloat_String82;
-      case(83):
+      case(65):
         return HashtableOfFloat_String83;
-      case(84):
+      case(66):
         return HashtableOfFloat_String84;
-      case(85):
+      case(67):
         return HashtableOfFloat_String85;
-      case(87):
+      case(68):
         return HashtableOfFloat_String87;
-      case(89):
+      case(69):
         return HashtableOfFloat_String89;
-      case(90):
+      case(70):
         return HashtableOfInteger_String90;
-      case(91):
+      case(71):
         return HashtableOfInteger_String91;
-      case(92):
+      case(72):
         return HashtableOfInteger_String92;
-      case(93):
+      case(73):
         return HashtableOfInteger_String93;
-      case(94):
+      case(74):
         return HashtableOfInteger_String94;
-      case(96):
+      case(75):
         return HashtableOfInteger_String96;
-      case(98):
+      case(76):
         return HashtableOfInteger_String98;
-      case(99):
+      case(77):
         return HashtableOfLong_String99;
-      case(100):
+      case(78):
         return HashtableOfLong_String100;
-      case(101):
+      case(79):
         return HashtableOfLong_String101;
-      case(102):
+      case(80):
         return HashtableOfLong_String102;
-      case(103):
+      case(81):
         return HashtableOfLong_String103;
-      case(105):
+      case(82):
         return HashtableOfLong_String105;
-      case(107):
+      case(83):
         return HashtableOfLong_String107;
-      case(108):
+      case(84):
         return HashtableOfShort_String108;
-      case(109):
+      case(85):
         return HashtableOfShort_String109;
-      case(110):
+      case(86):
         return HashtableOfShort_String110;
-      case(111):
+      case(87):
         return HashtableOfShort_String111;
-      case(112):
+      case(88):
         return HashtableOfShort_String112;
-      case(114):
+      case(89):
         return HashtableOfShort_String114;
-      case(116):
+      case(90):
         return HashtableOfShort_String116;
       default:
-        throw new IndexOutOfBoundsException();
+        throw new IndexOutOfBoundsException("Bad index " + index);
     }
   }
   public boolean set(int index,Hashtable value)
@@ -421,266 +421,266 @@ public class HashtableStringValueCollections {
       case(4):
         HashtableOfObject_String4= value;
          break;
-      case(6):
+      case(5):
         HashtableOfObject_String6= value;
          break;
-      case(8):
+      case(6):
         HashtableOfObject_String8= value;
          break;
-      case(9):
+      case(7):
         HashtableOfSimpleClass_String9= value;
          break;
-      case(10):
+      case(8):
         HashtableOfSimpleClass_String10= value;
          break;
-      case(11):
+      case(9):
         HashtableOfSimpleClass_String11= value;
          break;
-      case(12):
+      case(10):
         HashtableOfSimpleClass_String12= value;
          break;
-      case(13):
+      case(11):
         HashtableOfSimpleClass_String13= value;
          break;
-      case(15):
+      case(12):
         HashtableOfSimpleClass_String15= value;
          break;
-      case(17):
+      case(13):
         HashtableOfSimpleClass_String17= value;
          break;
-      case(18):
+      case(14):
         HashtableOfSimpleInterface_String18= value;
          break;
-      case(19):
+      case(15):
         HashtableOfSimpleInterface_String19= value;
          break;
-      case(20):
+      case(16):
         HashtableOfSimpleInterface_String20= value;
          break;
-      case(21):
+      case(17):
         HashtableOfSimpleInterface_String21= value;
          break;
-      case(22):
+      case(18):
         HashtableOfSimpleInterface_String22= value;
          break;
-      case(24):
+      case(19):
         HashtableOfSimpleInterface_String24= value;
          break;
-      case(26):
+      case(20):
         HashtableOfSimpleInterface_String26= value;
          break;
-      case(27):
+      case(21):
         HashtableOfString_String27= value;
          break;
-      case(28):
+      case(22):
         HashtableOfString_String28= value;
          break;
-      case(29):
+      case(23):
         HashtableOfString_String29= value;
          break;
-      case(30):
+      case(24):
         HashtableOfString_String30= value;
          break;
-      case(31):
+      case(25):
         HashtableOfString_String31= value;
          break;
-      case(33):
+      case(26):
         HashtableOfString_String33= value;
          break;
-      case(35):
+      case(27):
         HashtableOfString_String35= value;
          break;
-      case(36):
+      case(28):
         HashtableOfDate_String36= value;
          break;
-      case(37):
+      case(29):
         HashtableOfDate_String37= value;
          break;
-      case(38):
+      case(30):
         HashtableOfDate_String38= value;
          break;
-      case(39):
+      case(31):
         HashtableOfDate_String39= value;
          break;
-      case(40):
+      case(32):
         HashtableOfDate_String40= value;
          break;
-      case(42):
+      case(33):
         HashtableOfDate_String42= value;
          break;
-      case(44):
+      case(34):
         HashtableOfDate_String44= value;
          break;
-      case(45):
+      case(35):
         HashtableOfBigDecimal_String45= value;
          break;
-      case(46):
+      case(36):
         HashtableOfBigDecimal_String46= value;
          break;
-      case(47):
+      case(37):
         HashtableOfBigDecimal_String47= value;
          break;
-      case(48):
+      case(38):
         HashtableOfBigDecimal_String48= value;
          break;
-      case(49):
+      case(39):
         HashtableOfBigDecimal_String49= value;
          break;
-      case(51):
+      case(40):
         HashtableOfBigDecimal_String51= value;
          break;
-      case(53):
+      case(41):
         HashtableOfBigDecimal_String53= value;
          break;
-      case(54):
+      case(42):
         HashtableOfBigInteger_String54= value;
          break;
-      case(55):
+      case(43):
         HashtableOfBigInteger_String55= value;
          break;
-      case(56):
+      case(44):
         HashtableOfBigInteger_String56= value;
          break;
-      case(57):
+      case(45):
         HashtableOfBigInteger_String57= value;
          break;
-      case(58):
+      case(46):
         HashtableOfBigInteger_String58= value;
          break;
-      case(60):
+      case(47):
         HashtableOfBigInteger_String60= value;
          break;
-      case(62):
+      case(48):
         HashtableOfBigInteger_String62= value;
          break;
-      case(63):
+      case(49):
         HashtableOfByte_String63= value;
          break;
-      case(64):
+      case(50):
         HashtableOfByte_String64= value;
          break;
-      case(65):
+      case(51):
         HashtableOfByte_String65= value;
          break;
-      case(66):
+      case(52):
         HashtableOfByte_String66= value;
          break;
-      case(67):
+      case(53):
         HashtableOfByte_String67= value;
          break;
-      case(69):
+      case(54):
         HashtableOfByte_String69= value;
          break;
-      case(71):
+      case(55):
         HashtableOfByte_String71= value;
          break;
-      case(72):
+      case(56):
         HashtableOfDouble_String72= value;
          break;
-      case(73):
+      case(57):
         HashtableOfDouble_String73= value;
          break;
-      case(74):
+      case(58):
         HashtableOfDouble_String74= value;
          break;
-      case(75):
+      case(59):
         HashtableOfDouble_String75= value;
          break;
-      case(76):
+      case(60):
         HashtableOfDouble_String76= value;
          break;
-      case(78):
+      case(61):
         HashtableOfDouble_String78= value;
          break;
-      case(80):
+      case(62):
         HashtableOfDouble_String80= value;
          break;
-      case(81):
+      case(63):
         HashtableOfFloat_String81= value;
          break;
-      case(82):
+      case(64):
         HashtableOfFloat_String82= value;
          break;
-      case(83):
+      case(65):
         HashtableOfFloat_String83= value;
          break;
-      case(84):
+      case(66):
         HashtableOfFloat_String84= value;
          break;
-      case(85):
+      case(67):
         HashtableOfFloat_String85= value;
          break;
-      case(87):
+      case(68):
         HashtableOfFloat_String87= value;
          break;
-      case(89):
+      case(69):
         HashtableOfFloat_String89= value;
          break;
-      case(90):
+      case(70):
         HashtableOfInteger_String90= value;
          break;
-      case(91):
+      case(71):
         HashtableOfInteger_String91= value;
          break;
-      case(92):
+      case(72):
         HashtableOfInteger_String92= value;
          break;
-      case(93):
+      case(73):
         HashtableOfInteger_String93= value;
          break;
-      case(94):
+      case(74):
         HashtableOfInteger_String94= value;
          break;
-      case(96):
+      case(75):
         HashtableOfInteger_String96= value;
          break;
-      case(98):
+      case(76):
         HashtableOfInteger_String98= value;
          break;
-      case(99):
+      case(77):
         HashtableOfLong_String99= value;
          break;
-      case(100):
+      case(78):
         HashtableOfLong_String100= value;
          break;
-      case(101):
+      case(79):
         HashtableOfLong_String101= value;
          break;
-      case(102):
+      case(80):
         HashtableOfLong_String102= value;
          break;
-      case(103):
+      case(81):
         HashtableOfLong_String103= value;
          break;
-      case(105):
+      case(82):
         HashtableOfLong_String105= value;
          break;
-      case(107):
+      case(83):
         HashtableOfLong_String107= value;
          break;
-      case(108):
+      case(84):
         HashtableOfShort_String108= value;
          break;
-      case(109):
+      case(85):
         HashtableOfShort_String109= value;
          break;
-      case(110):
+      case(86):
         HashtableOfShort_String110= value;
          break;
-      case(111):
+      case(87):
         HashtableOfShort_String111= value;
          break;
-      case(112):
+      case(88):
         HashtableOfShort_String112= value;
          break;
-      case(114):
+      case(89):
         HashtableOfShort_String114= value;
          break;
-      case(116):
+      case(90):
         HashtableOfShort_String116= value;
          break;
       default:
-        throw new IndexOutOfBoundsException();
+        throw new IndexOutOfBoundsException("Bad index " + index);
     }
     return true;
   }
