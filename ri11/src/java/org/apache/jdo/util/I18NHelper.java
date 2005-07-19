@@ -248,8 +248,8 @@ public class I18NHelper {
     private void assertBundle () {
         if (failure != null)
             throw new RuntimeException (
-                "No resources could be found for bundle:\"" + 
-                bundle + "\" " + failure);
+                "No resources could be found for bundle:\"" + //NOI18N
+                bundle + "\" " + failure); //NOI18N
     }
     
     /** Assert resources available
@@ -261,8 +261,8 @@ public class I18NHelper {
     private void assertBundle (String key) {
         if (failure != null)
             throw new RuntimeException (
-                "No resources could be found to annotate error message key:\"" + 
-                key + "\" " + failure);
+                "No resources could be found to annotate error message key:\"" + //NOI18N
+                key + "\" " + failure); //NOI18N
     }
 
     /**
