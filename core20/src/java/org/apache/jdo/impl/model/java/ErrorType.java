@@ -58,7 +58,7 @@ public class ErrorType
      */
     public String getName()
     {
-        return "<error type>";
+        return "<error type>"; //NOI18N
     }
 
 }

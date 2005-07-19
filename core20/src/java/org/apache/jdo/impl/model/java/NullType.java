@@ -58,7 +58,7 @@ public class NullType
      */
     public String getName()
     {
-        return "<null type>";
+        return "<null type>"; //NOI18N
     }
 
 }
