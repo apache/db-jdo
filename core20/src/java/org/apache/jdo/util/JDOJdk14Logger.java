@@ -40,7 +40,7 @@ public class JDOJdk14Logger
     extends Jdk14Logger
 {
     /** Logging properties file name. */
-    public static final String PROPERIES_FILE = "logging.properties";
+    public static final String PROPERIES_FILE = "logging.properties"; //NOI18N
     
     /** Indicates whether JDK 1.4 logging has been configured by this class. */
     private static boolean configured = false;
