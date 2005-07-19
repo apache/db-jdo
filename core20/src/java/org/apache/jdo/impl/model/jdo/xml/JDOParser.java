@@ -274,9 +274,9 @@ public class JDOParser
         implements EntityResolver 
     {
         private static final String RECOGNIZED_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN"; //NOI18N
         private static final String RECOGNIZED_SYSTEM_ID = 
-            "file:/javax/jdo/jdo.dtd";
+            "file:/javax/jdo/jdo.dtd"; //NOI18N
 
         public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException 
