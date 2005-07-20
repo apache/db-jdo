@@ -161,15 +161,13 @@
             </field>
             <field name="HashMapOfString_Date55" column="HASHMAP_STR_DATE55">
             </field>
-            <field name="HashMapOfString_Date56" column="HASHMAP_STR_DATE56">
+            <field name="HashMapOfString_Locale57" column="HASHMAP_STR_LOCALE57">
             </field>
             <field name="HashMapOfString_Locale58" column="HASHMAP_STR_LOCALE58">
             </field>
-            <field name="HashMapOfString_Locale59" column="HASHMAP_STR_LOCALE59">
-            </field>
             <field name="HashMapOfString_BigDecimal60" column="HASHMAP_STR_BIG_DECIMAL60">
             </field>
-            <field name="HashMapOfString_BigDecimal62" column="HASHMAP_STR_BIG_DECIMAL62">
+            <field name="HashMapOfString_BigDecimal61" column="HASHMAP_STR_BIG_DECIMAL61">
             </field>
             <field name="HashMapOfString_BigInteger63" column="HASHMAP_STR_BIG_INTEGER63">
             </field>
@@ -179,15 +177,13 @@
             </field>
             <field name="HashMapOfString_Byte67" column="HASHMAP_STR_BYTE67">
             </field>
-            <field name="HashMapOfString_Byte68" column="HASHMAP_STR_BYTE68">
+            <field name="HashMapOfString_Double69" column="HASHMAP_STR_DOUBLE69">
             </field>
             <field name="HashMapOfString_Double70" column="HASHMAP_STR_DOUBLE70">
             </field>
-            <field name="HashMapOfString_Double71" column="HASHMAP_STR_DOUBLE71">
-            </field>
             <field name="HashMapOfString_Float72" column="HASHMAP_STR_FLOAT72">
             </field>
-            <field name="HashMapOfString_Float74" column="HASHMAP_STR_FLOAT74">
+            <field name="HashMapOfString_Float73" column="HASHMAP_STR_FLOAT73">
             </field>
             <field name="HashMapOfString_Integer75" column="HASHMAP_STR_INTEGER75">
             </field>
@@ -199,9 +195,9 @@
             </field>
             <field name="HashMapOfString_Long80" column="HASHMAP_STR_LONG80">
             </field>
-            <field name="HashMapOfString_Short82" column="HASHMAP_STR_SHORT82">
+            <field name="HashMapOfString_Short81" column="HASHMAP_STR_SHORT81">
             </field>
-            <field name="HashMapOfString_Short83" column="HASHMAP_STR_SHORT83">
+            <field name="HashMapOfString_Short82" column="HASHMAP_STR_SHORT82">
             </field>
             <field name="HashMapOfString_Object84" table="HASHMAP_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
