@@ -65,7 +65,11 @@ has application identity.
             <field name="hradvisor" column="HRADVISOR">
                         <foreign-key/>
             </field>
-            <field name="reviewedProjects" mapped-by="reviewers"/>
+            <field name="reviewedProjects" mapped-by="reviewers">
+                <element>
+                    <foreign-key name="PR_PROJ_FK"/>
+                </element>
+            </field>
             <field name="projects" mapped-by="members"/>
             <field name="team" mapped-by="manager"/>
             <field name="hradvisees" mapped-by="hradvisor"/>
@@ -125,7 +129,9 @@ has application identity.
             </field>
             <field name="reviewers" table="project_reviewer">
                 <join column="PROJID"/>
-                <element column="REVIEWER"/>
+                <element column="REVIEWER">
+                    <foreign-key name="PR_PROJ_FK"/>
+                </element>
             </field>
             <field name="members" table="project_member">
                 <join column="PROJID"/>
