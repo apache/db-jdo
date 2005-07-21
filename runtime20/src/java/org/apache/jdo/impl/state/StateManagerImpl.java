@@ -18,7 +18,6 @@
  * StateManagerImpl.java
  *
  * Created on September 1, 2000, 2:29 PM
- * @version 1.0.1
  */
 
 package org.apache.jdo.impl.state;
@@ -54,7 +53,7 @@ import org.apache.jdo.util.I18NHelper;
  * requests to LifeCycleState.
  *
  * @author  Marina Vatkina
- * @version 1.0.1
+ * @version 2.0
  */
 class StateManagerImpl implements StateManagerInternal {
 
@@ -315,6 +314,15 @@ class StateManagerImpl implements StateManagerInternal {
 
             loadedFields.set(pkfields[i]);
         }
+    }
+
+    /** Clears the loaded field bits and marks only the key fields, if
+     * any, as loaded.  Note: The key fields must always be marked as
+     * loaded for Application Identity.
+     */
+    private void clearLoadedFields() {
+        loadedFields.andNot(loadedFields);
+        markPKFieldsAsLoaded();
     }
 
     //
@@ -671,14 +679,14 @@ class StateManagerImpl implements StateManagerInternal {
      * Returns <code>true</code>, if a before image must be created. The
      * decision is based on the current lifecycle state plus other conditions
      * e.g. transaction type, restore values flag, etc.
-     * @see org.apache.jdo.state.StateManagerInternal#isBeforeImageRequired()
+     * @see org.apache.jdo.state.StateManagerInternal#isBeforeImageRequired ()
      * @return <code>true</code> if a before image must be created.
      */
     public boolean isBeforeImageRequired() {
-        boolean isTransientTransactional = 
+        boolean isTransientTransactional =
             !myLC.isPersistent() && myLC.isTransactional();
         return (tx.getOptimistic() || tx.getRestoreValues() ||
-                isTransientTransactional);
+            isTransientTransactional);
     }
 
     //
@@ -790,8 +798,8 @@ class StateManagerImpl implements StateManagerInternal {
         myPC.jdoReplaceFields(jdoClass.getPersistentNonPrimaryKeyFieldNumbers());
         expectedProvider = null; // No expected request.
 
-        loadedFields.andNot(loadedFields);
-        markPKFieldsAsLoaded();
+        // Mark only the key fields as loaded for Application Identity
+        clearLoadedFields();
     }
 
     /** Disconnect StateManager and PC. Called by LifeCycle when
@@ -839,7 +847,9 @@ class StateManagerImpl implements StateManagerInternal {
             // until fetch.
             resetDirtyFields();
             fields = getFieldNums(loadedFields);
-            loadedFields.andNot(loadedFields);
+
+            // Mark only the key fields as loaded for Application Identity
+            clearLoadedFields();
         }
 
         fetch (myPM.getStoreManager(), fields);
@@ -985,9 +995,9 @@ class StateManagerImpl implements StateManagerInternal {
                 } else {
                     try {
                         java.lang.reflect.Method m = 
-                            o.getClass().getMethod("clone", null); // NOI18N
+                            o.getClass().getMethod("clone", (Class[]) null); // NOI18N
                         if (m != null) {
-                            clone = m.invoke(o, null);
+                            clone = m.invoke(o, (Object[]) null);
                         }
                     } catch (Exception e) {
                         throw new JDOFatalInternalException(
@@ -1495,7 +1505,7 @@ class StateManagerImpl implements StateManagerInternal {
             myPC = jdoImplHelper.newInstance (myPCClass, this, objectId);
         }
         markPKFieldsAsLoaded();
-    }	
+    }
 
     /**
     * Helper method to define the list of fields to be loaded
