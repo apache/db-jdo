@@ -7,7 +7,7 @@ has application identity.
 <jdo>
     <package name="org.apache.jdo.tck.pc.company">
 
-        <class name="Address" requires-extent="false"/>
+        <class name="Address" embedded-only="true" requires-extent="false"/>
 
         <class name="Company"
             identity-type="application"
