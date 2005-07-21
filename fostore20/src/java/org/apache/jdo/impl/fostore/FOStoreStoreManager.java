@@ -497,24 +497,24 @@ class FOStoreStoreManager extends StoreManagerImpl {
     }
 
     /** 
-     * This method returns an object id instance corresponding to the Class 
-     * and String arguments. The String argument might have been the 
-     * result of executing toString on an object id instance. 
-     * @param pcClass the Class of the persistence-capable instance
-     * @param str the String form of the object id
+     * This method returns an object id instance corresponding to the pcClass
+     * and key arguments.
+     * @param pcClass the <code>Class</code> of the persistence-capable instance
+     * @param key the value of the key field for single-field identity.
      * @return an instance of the object identity class
      */
-    public Object newObjectIdInstance (Class pcClass, String str) {
+    public Object newObjectIdInstance (Class pcClass, Object key) {
         Object rc = null;
         FOStoreModel model = pmf.getModel();
         JDOClass jdoClass = model.getJDOClass(pcClass);
         switch (jdoClass.getIdentityType()) {
           case JDOIdentityType.APPLICATION:
             //No need to create an AID here - it will not be used.
-            rc = jdoImplHelper.newObjectIdInstance(pcClass, str);
+            rc = jdoImplHelper.newObjectIdInstance(pcClass, key);
             break;
           case JDOIdentityType.DATASTORE:
-            rc = new OID(str);
+              // TBD: String representation to be passed to OID constructor
+              rc = new OID(key.toString());
             break;
           default:
             break;

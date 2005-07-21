@@ -38,12 +38,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.jdo.FetchPlan;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
+import javax.jdo.datastore.DataStoreCache;
+import javax.jdo.listener.InstanceLifecycleListener;
 import javax.jdo.spi.JDOPermission;
 
 import org.apache.commons.logging.Log;
@@ -383,6 +386,26 @@ abstract public class PersistenceManagerFactoryImpl implements
         return multithreaded;
     }
 
+    /** Set the Mapping setting for this factory. This is used to find the 
+     * object-datastore mapping file(s).
+     *
+     * @param mapping the Mapping setting.
+     */
+    public void setMapping (String mapping) {
+        throw new UnsupportedOperationException(
+            "Method setMapping(String) is not yet implemented.");
+    }
+  
+    /** Get the Mapping setting for this factory.  This is used to find the 
+     * object-datastore mapping file(s).
+     *
+     * @return the Mapping setting.
+     */
+    public String getMapping () {
+        throw new UnsupportedOperationException(
+            "Method getMapping() is not yet implemented.");
+    }
+
     /**
      * Set the default Optimistic setting for all PersistenceManager instances
      * obtained from this factory.  Setting Optimistic to true also sets
@@ -631,6 +654,63 @@ abstract public class PersistenceManagerFactoryImpl implements
      */    
     public Collection supportedOptions() {
         return Collections.unmodifiableList(Arrays.asList(getOptionArray()));
+    }
+
+    /**
+     * Return the {@link DataStoreCache} that this factory uses for
+     * controlling a second-level cache. If this factory does not use
+     * a second-level cache, the returned instance does nothing. This
+     * method never returns <code>null</code>.
+     * @since 2.0
+     */
+    public DataStoreCache getDataStoreCache () {
+        throw new UnsupportedOperationException(
+            "Method getDataStoreCache() not yet implemented");
+    }
+
+    /**
+     * Add the parameter listener to the list of
+     * instance lifecycle event listeners set as the initial listeners
+     * for each PersistenceManager created by this PersistenceManagerFactory. 
+     * The <code>addInstanceLifecycleListener</code> and 
+     * <code>removeInstanceLifecycleListener</code>
+     * methods are considered to be configuration methods and
+     * can only be called when the PersistenceManagerFactory
+     * is configurable (before the first time {@link #getPersistenceManager}
+     * is called).
+     * <p>The <code>classes</code> parameter identifies all
+     * of the classes of interest. If the <code>classes</code>
+     * parameter is specified as <code>null</code>, events for all
+     * persistent classes and interfaces will be sent to the listener.</p>
+     * <p>The listener will be called for each event for which it
+     * implements the corresponding {@link InstanceLifecycleListener}
+     * interface.</p>
+     * @param listener the lifecycle listener
+     * @param classes the classes of interest to the listener
+     * @since 2.0
+     */
+    public void addInstanceLifecycleListener (
+        InstanceLifecycleListener listener, Class[] classes) {
+        throw new UnsupportedOperationException(
+            "Method addInstanceLifecycleListener(InstanceLifecycleListener, Class[]) not yet implemented");
+    }
+
+    /**
+     * Remove the parameter listener instance from the list of
+     * instance lifecycle event listeners set as the initial listeners
+     * for each PersistenceManager created by this PersistenceManagerFactory. 
+     * The <code>addInstanceLifecycleListener</code> and 
+     * <code>removeInstanceLifecycleListener</code>
+     * methods are considered to be configuration methods and
+     * can only be called when the PersistenceManagerFactory
+     * is configurable (before the first time {@link #getPersistenceManager}
+     * is called).
+     * @param listener the listener instance to be removed
+     * @since 2.0
+     */
+    public void removeInstanceLifecycleListener (InstanceLifecycleListener listener) {
+        throw new UnsupportedOperationException(
+            "Method removeInstanceLifecycleListener(InstanceLifecycleListener) not yet implemented");
     }
 
     /**
@@ -1607,6 +1687,19 @@ abstract public class PersistenceManagerFactoryImpl implements
         }
     }
     
+    /** 
+     * A <code>PersistenceManagerFactory</code> instance can be used 
+     * until it is closed.
+     * @return <code>true</code> if this <code>PersistenceManagerFactory</code>
+     * has been closed.
+     * @see #close()
+     * @since 2.0
+     */
+    public boolean isClosed() {
+        throw new UnsupportedOperationException(
+            "Method isClosed() is not yet implemented.");
+    }
+
     /** Assert that this PersistenceManagerFactory is not closed.  This
      * assertion precedes all getPersistenceManager calls.  "set" methods
      * are already protected by the configured flag.

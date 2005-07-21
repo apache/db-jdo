@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javax.jdo.Extent;
+import javax.jdo.FetchPlan;
 import javax.jdo.JDOHelper;
 import javax.jdo.JDOException;
 import javax.jdo.JDOUserException;
@@ -149,6 +150,15 @@ private final RequestFactory rf;
                 iterators.remove(fit);
             }
         }
+    }
+
+    /** Get the fetch plan associated with this Extent.
+     * @return the fetch plan
+     * @since 2.0
+     */
+    public FetchPlan getFetchPlan() {
+        throw new UnsupportedOperationException(
+            "Method getFetchPlan() not yet implemented");
     }
 
     /**

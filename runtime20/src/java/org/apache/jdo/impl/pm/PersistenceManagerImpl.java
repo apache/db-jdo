@@ -528,19 +528,18 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     }
 
     /** 
-     * This method returns an object id instance corresponding to the Class 
-     * and String arguments. The String argument might have been the 
-     * result of executing toString on an object id instance. 
-     * @param pcClass the Class of the persistence-capable instance
-     * @param str the String form of the object id
+     * This method returns an object id instance corresponding to the pcClass
+     * and key arguments.
+     * @param pcClass the <code>Class</code> of the persistence-capable instance
+     * @param key the value of the key field for single-field identity.
      * @return an instance of the object identity class
      */
-    public Object newObjectIdInstance (Class pcClass, String str) {
+    public Object newObjectIdInstance (Class pcClass, Object key) {
         if (debugging())
-            debug("newObjectIdInstance for: " + pcClass + ", and " + str); // NOI18N
+            debug("newObjectIdInstance for: " + pcClass + ", and " + key); // NOI18N
 
         assertIsOpen();
-        return this.getStoreManager().newObjectIdInstance (pcClass, str);
+        return this.getStoreManager().newObjectIdInstance (pcClass, key);
     }
     
     /**

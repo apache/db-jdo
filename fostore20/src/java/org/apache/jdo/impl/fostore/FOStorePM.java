@@ -76,6 +76,17 @@ public class FOStorePM extends PersistenceManagerImpl
          return this.jdoqlQueryFactory.newQuery(this, compiled);
      }
 
+    /** Create a Construct a new query instance using the specified String 
+     * as the single-string representation of the query.
+     * @param query the single-string query
+     * @return the new <code>Query</code>
+     * @since 2.0
+     */
+    public Query newQuery (String query) {
+        throw new UnsupportedOperationException(
+            "Method newQuery(String) not yet implemented");
+    }
+    
      /** Create a new Query using the specified language.
       * @param language the language of the query parameter
       * @param query the query, which is of a form determined by the language
@@ -157,4 +168,16 @@ public class FOStorePM extends PersistenceManagerImpl
            return this.jdoqlQueryFactory.newQuery(this, cln, filter);
      }
 
+    /**
+     * Create a new <code>Query</code> with the given candidate class
+     * from a named query. The query name given must be the name of a
+     * query defined in metadata.
+     * @param cls the <code>Class</code> of candidate instances
+     * @param queryName the name of the query to look up in metadata
+     * @return the new <code>Query</code>
+     */
+    public Query newNamedQuery (Class cls, String queryName) {
+        throw new UnsupportedOperationException(
+            "Method newNamedQuery(Class, String) not yet implemented");
+    }
 }
