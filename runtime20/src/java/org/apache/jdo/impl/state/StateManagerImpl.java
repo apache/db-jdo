@@ -679,6 +679,20 @@ class StateManagerImpl implements StateManagerInternal {
         return myLC.isNew();
     }
 
+    /**
+     * Returns <code>true</code>, if a before image must be created. The
+     * decision is based on the current lifecycle state plus other conditions
+     * e.g. transaction type, restore values flag, etc.
+     * @see org.apache.jdo.state.StateManagerInternal#isBeforeImageRequired()
+     * @return <code>true</code> if a before image must be created.
+     */
+    public boolean isBeforeImageRequired() {
+        boolean isTransientTransactional = 
+            !myLC.isPersistent() && myLC.isTransactional();
+        return (tx.getOptimistic() || tx.getRestoreValues() ||
+                isTransientTransactional);
+    }
+
     //
     // LifeCycleState transition requests
     //
@@ -936,11 +950,8 @@ class StateManagerImpl implements StateManagerInternal {
             debug("createBeforeImage: new " + (beforeImage == null) + // NOI18N
                 " Tx is active: " + tx.isActive()); // NOI18N
 
-        boolean isTransientTransactional = 
-            !myLC.isPersistent() && myLC.isTransactional();
-        if (beforeImage == null && tx.isActive() && 
-            (tx.getOptimistic() || tx.getRestoreValues() || 
-             isTransientTransactional)) {
+        if (beforeImage == null && tx.isActive() &&
+            isBeforeImageRequired()) {
 
             beforeImage = jdoImplHelper.newInstance (myPCClass, this);
             int[] fields = getFieldNums(loadedFields);
@@ -1349,11 +1360,7 @@ class StateManagerImpl implements StateManagerInternal {
         if (debugging())
             debug("createBeforeImage"); // NOI18N
 
-        boolean isTransientTransactional = 
-            !myLC.isPersistent() && myLC.isTransactional();
-        if (tx.getOptimistic() || tx.getRestoreValues() ||
-            isTransientTransactional) {
-
+        if (isBeforeImageRequired()) {
             beforeImage = jdoImplHelper.newInstance (myPCClass, this);
             beforeImage.jdoCopyFields(myPC, getFieldNums(loadedFields));
             biFields.or(loadedFields);

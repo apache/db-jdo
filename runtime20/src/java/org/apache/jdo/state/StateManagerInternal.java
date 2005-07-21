@@ -272,4 +272,12 @@ public interface StateManagerInternal extends StateManager {
      */
     public boolean isNew();
 
+    /**
+     * Returns <code>true</code>, if a before image must be created. The
+     * decision is based on the current lifecycle state plus other conditions
+     * e.g. transaction type, restore values flag, etc.
+     * @return <code>true</code> if a before image must be created.
+     */
+    public boolean isBeforeImageRequired();
+    
 }
