@@ -29,6 +29,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Extent;
 import javax.jdo.Transaction;
+import javax.jdo.FetchPlan;
 
 import org.apache.jdo.impl.jdoql.jdoqlc.JDOQLAST;
 import org.apache.jdo.impl.jdoql.jdoqlc.JDOQLC;
@@ -648,6 +649,243 @@ public class QueryImpl
             queryResult.close();
         }
         openQueryResults.clear();
+    }
+
+    /**
+     * Set the grouping expressions, optionally including a "having"
+     * clause. When grouping is specified, each result expression
+     * must either be an expression contained in the grouping, or an
+     * aggregate evaluated once per group.
+     * 
+     * @param	group	a comma-delimited list of expressions, optionally
+     * followed by the "having" keyword and a boolean expression
+     * @since	2.0
+     */
+    public void setGrouping (String group) {
+        throw new UnsupportedOperationException(
+            "method setGrouping(String) is not yet implemented");
+    }
+
+    /**
+     * Specify that only the first result of the query should be
+     * returned, rather than a collection. The execute method will
+     * return null if the query result size is 0.
+     * @since 2.0
+     * @param unique if true, only one element is returned
+     */
+    public void setUnique (boolean unique) {
+        throw new UnsupportedOperationException(
+            "method setUnique(boolean) is not yet implemented");
+    }
+
+    /**
+     * Specifies what type of data this query should return. If this
+     * is unset or set to <code>null</code>, this query returns
+     * instances of the query's candidate class. If set, this query
+     * will return expressions, including field values (projections) and 
+     * aggregate function results.
+     * @param data a comma-delimited list of expressions 
+     * (fields, functions on fields, or aggregate functions) 
+     * to return from this query
+     * @since 2.0
+     */
+    public void setResult (String data) {
+        throw new UnsupportedOperationException(
+            "method setResult(String) is not yet implemented");
+    }
+
+    /**
+     * Specify the type of object in which to return each element of
+     * the result of invoking {@link #execute} or one of its siblings. 
+     * If the result is not set or set to null, the result class defaults
+     * to the candidate class of the query. If the result consists of one
+     * expression, the result class defaults to the type of that expression.
+     * If the result consists of more than one expression, the result class
+     * defaults to Object[].
+     * The result class may be specified to be one of the java.lang classes 
+     * Character, Boolean, Byte, Short, Integer, Long, Float, Double, String, 
+     * or Object[]; or one of the java.math classes BigInteger or BigDecimal; 
+     * or the java.util class Date; or one of the java.sql classes Date, 
+     * Time, or Timestamp; or a user-defined class.
+     * <P>If there are multiple result expressions, the result class 
+     * must be able to hold all elements of the result specification 
+     * or a JDOUserException is thrown. 
+     *<P>If there is only one result expression, the result class must be 
+     * assignable from the type of the result expression or must be able 
+     * to hold all elements of the result specification. A single value 
+     * must be able to be coerced into the specified result class 
+     * (treating wrapper classes as equivalent to their unwrapped 
+     * primitive types) or by matching. If the result class does not satisfy 
+     * these conditions, a JDOUserException is thrown.
+     *<P>A constructor of a result class specified in the setResult method 
+     * will be used if the results specification matches the parameters 
+     * of the constructor by position and type. If more than one constructor 
+     * satisfies the requirements, the JDO implementation chooses one of them. 
+     * If no constructor satisfies the results requirements, or if the result 
+     * class is specified via the setResultClass method, the following 
+     * requirements apply:
+     * <ul>
+     * <li>A user-defined result class must have a no-args constructor and 
+     * one or more public <code>set</code> or <code>put</code> methods or fields. 
+     * <li>Each result expression must match one of:
+     * <ul>
+     * <li>a public field that matches the name of the result expression 
+     * and is of the type (treating wrapper types equivalent to primitive 
+     * types) of the result expression; 
+     * <li>or if no public field matches the name and type, a public 
+     * <code>set</code method that returns void and matches the name of the 
+     * result expression and takes a single parameter which is the 
+     * exact type of the result expression;
+     * <li>or if neither of the above applies,a public method must be found 
+     * with the signature <code>void put(Object, Object)</code>.
+     * During processing of the results,  
+     * the first argument is the name of the result expression and 
+     * the second argument is the value from the query result.
+     * </ul>
+     * </ul>
+     * Portable result classes do not invoke any persistence behavior 
+     * during their no-args constructor or <code>set</code methods.
+     * @param cls the result class
+     * @since 2.0
+     */
+    public void setResultClass (Class cls) {
+        throw new UnsupportedOperationException(
+            "method setResultClass(Class) is not yet implemented");
+    }
+
+    /**
+     * Set the range of results to return. The execution of the query is
+     * modified to return only a subset of results. If the filter would
+     * normally return 100 instances, and fromIncl is set to 50, and
+     * toExcl is set to 70, then the first 50 results that would have 
+     * been returned are skipped, the next 20 results are returned and the
+     * remaining 30 results are ignored. An implementation should execute
+     * the query such that the range algorithm is done at the data store.
+     * @param fromIncl 0-based inclusive start index
+     * @param toExcl 0-based exclusive end index, or 
+     *     {@link Long#MAX_VALUE} for no limit.
+     * @since 2.0
+     */
+    public void setRange (long fromIncl, long toExcl) {
+        throw new UnsupportedOperationException(
+            "method setRange(long. long) is not yet implemented");
+    }
+
+    /**
+     * Add a vendor-specific extension to this query. The key and value
+     * are not standard.
+     * An implementation must ignore keys that are not recognized.
+     * @param key the key of the extension
+     * @param value the value of the extension
+     * @since 2.0
+     */
+    public void addExtension (String key, Object value) {
+        throw new UnsupportedOperationException(
+            "method addExtension(String, Object) is not yet implemented");
+    }
+
+    /**
+     * Set multiple extensions, or use null to clear all extensions.
+     * Map keys and values are not standard.
+     * An implementation must ignore entries that are not recognized.
+     * @param extensions the map of extensions
+     * @see #addExtension
+     * @since 2.0
+     */
+    public void setExtensions (Map extensions) {
+        throw new UnsupportedOperationException(
+            "method setExtensions(Map) is not yet implemented");
+    }
+
+    /**
+     * Returns the <code>FetchPlan</code> used by this
+     * <code>Query</code>. Modifications of the returned fetch plan will not
+     * cause this query's owning <code>PersistenceManager</code>'s
+     * <code>FetchPlan</code> to be modified.
+     * @since 2.0
+     * @return the fetch plan used by this query
+     */
+    public FetchPlan getFetchPlan () {
+        throw new UnsupportedOperationException(
+            "method getFetchPlan() is not yet implemented");
+    }
+
+    /**
+     * Deletes all the instances of the candidate class that pass the
+     * filter.
+     * @see #deletePersistentAll()
+     * @param parameters for the query
+     * @return the number of instances of the candidate class that were deleted
+     * @since 2.0
+     */
+    public long deletePersistentAll (Object[] parameters) {
+        throw new UnsupportedOperationException(
+            "method deletePersistentAll(Object[]) is not yet implemented");
+    }
+
+    /**
+     * Deletes all the instances of the candidate class that pass the
+     * filter.
+     * @see #deletePersistentAll()
+     * @param parameters for the query
+     * @return the number of instances of the candidate class that were deleted
+     * @since 2.0
+     */
+    public long deletePersistentAll (Map parameters) {
+        throw new UnsupportedOperationException(
+            "method deletePersistentAll(Map) is not yet implemented");
+    }
+
+    /**
+     * Deletes all the instances of the candidate class that pass the
+     * filter. Returns the number of instances of the candidate
+     * class that were deleted, specifically not including the number
+     * of dependent and embedded instances.
+     * <P>Dirty instances of affected classes in the cache are first
+     * flushed to the datastore. Instances in the cache or brought into
+     * the cache as a result of executing one of the 
+     * <code>deletePersistentAll</code>
+     * methods undergo life cycle changes as if <code>deletePersistent</code>
+     * were called on them.
+     * <P>Specifically, if the class of deleted instances implements the
+     * delete callback interface, the corresponding callback methods
+     * are called on the deleted instances. Similarly, if there are
+     * lifecycle listeners registered for delete events on affected
+     * classes, the listener is called for each appropriate deleted instance.
+     * <P>Before returning control to the application, instances of affected
+     * classes in the cache are refreshed to reflect whether they were
+     * deleted from the datastore.
+     * 
+     * @return the number of instances of the candidate class that were deleted
+     * @since 2.0
+     */
+    public long deletePersistentAll () {
+        throw new UnsupportedOperationException(
+            "method deletePersistentAll() is not yet implemented");
+    }
+    
+    /**
+     * The unmodifiable flag, when set, disallows further 
+     * modification of the query, except for specifying the range, 
+     * result class, and ignoreCache option.
+     * The unmodifiable flag can also be set in metadata.
+     * @since 2.0
+      */
+    public void setUnmodifiable() {
+        throw new UnsupportedOperationException(
+            "method setUnmodifiable() is not yet implemented");
+    }
+
+    /**
+     * The unmodifiable flag, when set, disallows further 
+     * modification of the query, except for specifying the range, 
+     * result class, and ignoreCache option.
+     * @return the current setting of the flag
+     * @since 2.0
+      */
+    public boolean isUnmodifiable() {
+        throw new UnsupportedOperationException(
+            "method isUnmodifiable() is not yet implemented");
     }
 
     //========= Internal helper methods ==========

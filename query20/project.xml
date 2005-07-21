@@ -37,7 +37,7 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <dependencies>
         <dependency>
             <groupId>apache-jdo</groupId>
-            <artifactId>jdo1-api</artifactId>
+            <artifactId>jdo2-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
