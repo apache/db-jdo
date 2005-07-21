@@ -430,6 +430,13 @@ class FOStoreStoreManager extends StoreManagerImpl {
     }
 
     /**
+     * @see org.apache.jdo.store.StoreManager#isMediationRequiredToCopyOid
+     */
+    public boolean isMediationRequiredToCopyOid() {
+        return true;
+    }
+
+    /**
     * @see org.apache.jdo.store.StoreManager#getPCClassForOid
     */
     public synchronized Class getPCClassForOid(Object objectId,

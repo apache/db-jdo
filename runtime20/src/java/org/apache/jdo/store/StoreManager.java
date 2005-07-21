@@ -210,6 +210,13 @@ public interface StoreManager {
     */
     public Class getPCClassForOid(Object oid, PersistenceManagerInternal pm);
 
+    /**
+     * Indicates whether mediation from store manager is required to copy oid.
+     * @return <code>true</code> if mediation is required; <code>false</code>
+     * otherwise.
+     */
+    public boolean isMediationRequiredToCopyOid();
+
     /**  
     * Returns true if actual Class for a PersistenceCapable instance can be
     * resolved only in the database.

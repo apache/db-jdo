@@ -251,8 +251,12 @@ class StateManagerImpl implements StateManagerInternal {
 
         if (uoid == null) { // Requested by the store.
             initializePC();
-            myPC = jdoImplHelper.newInstance (myPCClass, this);
-            srm.copyKeyFieldsFromObjectId(this, myPCClass);
+            if (srm.isMediationRequiredToCopyOid()) {
+                myPC = jdoImplHelper.newInstance (myPCClass, this);
+                srm.copyKeyFieldsFromObjectId(this, myPCClass);
+            } else {
+                myPC = jdoImplHelper.newInstance (myPCClass, this, ioid);
+            }
             markPKFieldsAsLoaded();
 
         } else if (srm.hasActualPCClass(ioid)){
