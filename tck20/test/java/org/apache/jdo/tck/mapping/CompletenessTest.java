@@ -46,9 +46,6 @@ public class CompletenessTest extends JDO_Test {
         "Assertion A18-[not identified] failed: ";
     
     /** */
-    public static final String ROOT_NAME = "root";
-    
-    /** */
     protected List rootOids;
     
         // todo: get filename from property
@@ -71,7 +68,7 @@ public class CompletenessTest extends JDO_Test {
         // persist test data
         getPM();
         pm.currentTransaction().begin();
-        List rootList = (List)reader.getBean(ROOT_NAME);
+        List rootList = reader.getRootList();
         pm.makePersistentAll(rootList);
         addTearDownClass(reader.getTearDownClasses());
         rootOids = new ArrayList();
@@ -88,7 +85,7 @@ public class CompletenessTest extends JDO_Test {
         
         // get new obj graph
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
-        List rootList = (List)reader.getBean(ROOT_NAME);
+        List rootList = reader.getRootList();
         
         getPM();
         pm.currentTransaction().begin();

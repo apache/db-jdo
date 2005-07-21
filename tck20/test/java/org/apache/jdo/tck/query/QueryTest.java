@@ -50,9 +50,6 @@ public abstract class QueryTest extends JDO_Test {
     public static final String COMPANY_TESTDATA = 
         "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
 
-    /** */
-    public static final String ROOT_NAME = "root";
-    
     /** 
      * List of inserted instances (see methods insertPCPoints and
      * getFromInserted). 
@@ -130,7 +127,7 @@ public abstract class QueryTest extends JDO_Test {
         CompanyModelReader reader = new CompanyModelReader(filename);
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        List rootList = (List)reader.getBean(ROOT_NAME);
+        List rootList = (List)reader.getRootList();
         pm.makePersistentAll(rootList);
         if (debug) logger.debug("inserted " + rootList);
         tx.commit();
@@ -138,30 +135,6 @@ public abstract class QueryTest extends JDO_Test {
         return reader;
     }
     
-    /** 
-     * Reads a graph of company model objects from the specified xml file. This 
-     * methods calls makePersistent for all instances of the specified 
-     * pcRootClass which then runs the reachability algorithm. 
-     * The method returns the CompanyModelReader instance allowing to access 
-     * a compay model instance by name.
-     */
-    public CompanyModelReader loadCompanyModel(PersistenceManager pm,            
-                                               String filename,
-                                               Class pcRootClass) {
-        CompanyModelReader reader = new CompanyModelReader(filename);
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        Map rootBeans = reader.getBeansOfType(pcRootClass);
-        for (Iterator i = rootBeans.values().iterator(); i.hasNext();) {
-            Object bean = i.next();
-            pm.makePersistent(bean);
-            if (debug) logger.debug("inserted " + bean);
-        }
-        tx.commit();
-        tx = null;
-        return reader;
-    }
-
     /** */
     public void cleanupCompanyModel(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();

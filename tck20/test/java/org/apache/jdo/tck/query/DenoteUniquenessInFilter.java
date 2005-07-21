@@ -69,7 +69,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         try {
             // read test data
             CompanyModelReader reader = 
-                loadCompanyModel(pm, COMPANY_TESTDATA, Department.class);
+                loadCompanyModel(pm, COMPANY_TESTDATA);
             runTest(pm, reader);
         }
         finally {

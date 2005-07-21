@@ -19,6 +19,7 @@ package org.apache.jdo.tck.pc.company;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -37,6 +38,9 @@ public class CompanyModelReader extends XmlBeanFactory {
 
     /** The format of date values in the xml representation */
     public static final String DATE_PATTERN = "d/MMM/yyyy";
+
+    /** The name of the root list bean. */
+    public static final String ROOT_LIST_NAME = "root";
     
     /** All classes in the model 
      */
@@ -81,6 +85,15 @@ public class CompanyModelReader extends XmlBeanFactory {
     public CompanyModelReader(InputStream stream) {
         super(new InputStreamResource(stream));
         configureFactory();
+    }
+
+    /** 
+     * Returns a list of root objects. The method expects to find a bean
+     * called "root" of type list in the xml and returns it.
+     * @return a list of root instances
+     */
+    public List getRootList() {
+        return (List)getBean(ROOT_LIST_NAME);
     }
     
     /** 

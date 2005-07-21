@@ -63,8 +63,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         
         try {
             // read test data
-            CompanyModelReader reader = loadCompanyModel(
-                pm, "org/apache/jdo/tck/pc/company/companyForQueryTests.xml");
+            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
             runTest(pm, reader);
         }
         finally {
