@@ -498,13 +498,25 @@ class TransactionImpl implements javax.jdo.Transaction {
         }
     }
 
-    //
-    // ----- Other public methods ------
-    //
+    /**
+     * Returns the rollback-only status of the transaction. When
+     * begun, the rollback-only status is false. Either the 
+     * application or the JDO implementation may set this flag
+     * using setRollbackOnly.
+     * @return <code>true</code> if the transaction has been
+     * marked for rollback.
+     * @since 2.0
+     */
+    public boolean getRollbackOnly() {
+        throw new UnsupportedOperationException(
+            "Method getRollbackOnly not yet implemented");
+    }
 
     /**
-     * Modify the transaction object such that the only possible outcome of
-     * the transaction is to roll back.
+     * Sets the rollback-only status of the transaction to <code>true</code>.
+     * After this flag is set to <code>true</code>, the transaction 
+     * can no longer be committed, and any attempt to commit the 
+     * transaction will throw <code>JDOUserException<code>.
      */
     public void setRollbackOnly() {
         if (debugging())
@@ -530,6 +542,10 @@ class TransactionImpl implements javax.jdo.Transaction {
         }
 
     }
+
+    //
+    // ----- Other public methods ------
+    //
 
     /**
      * Obtain the status of this transaction object.

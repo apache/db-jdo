@@ -1720,6 +1720,16 @@ class StateManagerImpl implements StateManagerInternal {
         return getTransactionalObjectId();
     }
 
+    /** Return the object representing the version 
+     * of the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @return the object representing the version of the calling instance
+     * @since 2.0
+     */    
+    public Object getVersion (PersistenceCapable pc) {
+        throw new UnsupportedOperationException(
+            "Method getVersion(PersistenceCapable) not yet implemented");
+    }
 
     /** Tests whether this object is dirty.
      *   
@@ -2300,6 +2310,70 @@ class StateManagerImpl implements StateManagerInternal {
     public Object replacingObjectField(PersistenceCapable pc, int field) {
         loadingField(pc, field);
         return fieldManager.fetchObjectField(field);
+    }
+
+    /** The replacing value of the object id in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param oid the current value of the oid
+     * @return the new value for the oid
+     * @since 2.0
+     */
+    public Object replacingObjectId (PersistenceCapable pc, Object oid) {
+        throw new UnsupportedOperationException(
+            "Method replacingObjectId(PersistenceCapable, Object) not yet implemented");
+    }
+
+    /** The replacing value of the version in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param version the current value of the version
+     * @return the new value for the version
+     * @since 2.0
+     */
+    public Object replacingVersion (PersistenceCapable pc, Object version) {
+        throw new UnsupportedOperationException(
+            "Method replacingVersion(PersistenceCapable, Object) not yet implemented");
+    }
+
+    /** The provided value of the loaded field list in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param loaded the current value of the loaded field list
+     * @since 2.0
+     */
+    public void providedLoadedFieldList (PersistenceCapable pc, BitSet loaded) {
+        throw new UnsupportedOperationException(
+            "Method providedLoadedFieldList(PersistenceCapable, BitSet) not yet implemented");
+    }
+
+    /** The replacing value of the loaded field list in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param loaded the current value of the loaded field list
+     * @return the replacement value for the loaded field list
+     * @since 2.0
+     */
+    public BitSet replacingLoadedFieldList (PersistenceCapable pc, BitSet loaded) {
+        throw new UnsupportedOperationException(
+            "Method replacingLoadedFieldList(PersistenceCapable, BitSet) not yet implemented");
+    }
+
+    /** The provided value of the modified field list in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param modified the current value of the modified field list
+     * @since 2.0
+     */
+    public void providedModifiedFieldList (PersistenceCapable pc, BitSet modified) {
+        throw new UnsupportedOperationException(
+            "Method providedModifiedFieldList(PersistenceCapable, BitSet) not yet implemented");
+    }
+
+    /** The replacing value of the modified field list in the calling instance.
+     * @param pc the calling <code>PersistenceCapable</code> instance
+     * @param modified the current value of the modified field list
+     * @return the replacement value for the modified field list
+     * @since 2.0
+     */
+    public BitSet replacingModifiedFieldList (PersistenceCapable pc, BitSet modified) {
+        throw new UnsupportedOperationException(
+            "Method replacingModifiedFieldList(PersistenceCapable, BitSet) not yet implemented");
     }
 
     //

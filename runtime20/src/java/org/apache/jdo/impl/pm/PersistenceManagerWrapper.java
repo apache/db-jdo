@@ -25,6 +25,9 @@ package org.apache.jdo.impl.pm;
 import java.util.*;
 
 import javax.jdo.*;
+import javax.jdo.datastore.JDOConnection;
+import javax.jdo.datastore.Sequence;
+import javax.jdo.listener.InstanceLifecycleListener;
 
 import org.apache.jdo.pm.PersistenceManagerInternal;
 import org.apache.jdo.util.I18NHelper;
@@ -244,6 +247,18 @@ public class PersistenceManagerWrapper implements PersistenceManager {
         }
     }
 
+    /**
+     * @see javax.jdo.PersistenceManager#refreshAll(JDOException jdoe)
+     */
+    public  void refreshAll(JDOException jdoe) {
+        if (isValid) {
+            pm.refreshAll(jdoe);
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
     /** 
      * @see javax.jdo.PersistenceManager#newQuery()
      */
@@ -254,7 +269,8 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
+
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Object compiled)
      */
@@ -265,8 +281,20 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
+    /** 
+     * @see javax.jdo.PersistenceManager#newQuery(String query)
+     */
+    public Query newQuery(String query){
+        if (isValid) { 
+            return pm.newQuery(query);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Class cls)
      */
@@ -277,7 +305,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Extent cln)
@@ -289,7 +317,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Class cls,Collection cln)
@@ -313,7 +341,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Class cls, String filter)
@@ -325,7 +353,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Class cls, Collection cln, String filter)
@@ -337,7 +365,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#newQuery(Extent cln, String filter)
@@ -349,7 +377,19 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#newNamedQuery(Class cls, String queryName)
+     */
+    public Query newNamedQuery(Class cls, String queryName) {
+        if (isValid) { 
+            return pm.newNamedQuery(cls, queryName);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#getExtent(Class persistenceCapableClass,
@@ -362,7 +402,19 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getExtent(Class persistenceCapableClass)
+     */
+    public Extent getExtent(Class persistenceCapableClass){
+        if (isValid) { 
+            return pm.getExtent(persistenceCapableClass);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
 
     /** 
      * @see javax.jdo.PersistenceManager#getObjectById(Object oid, boolean validate)
@@ -374,7 +426,31 @@ public class PersistenceManagerWrapper implements PersistenceManager {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectById(Class cls, Object key)
+     */
+    public Object getObjectById(Class cls, Object key){
+        if (isValid) { 
+            return pm.getObjectById(cls, key);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectById(Object oid)
+     */
+    public Object getObjectById(Object oid){
+        if (isValid) { 
+            return pm.getObjectById(oid);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
     
     /** 
      * @see javax.jdo.PersistenceManager#getObjectId(Object pc)
@@ -401,17 +477,65 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#newObjectIdInstance (Class pcClass, String str)
+     * @see javax.jdo.PersistenceManager#newObjectIdInstance (Class pcClass, Object key)
      */
-    public Object newObjectIdInstance (Class pcClass, String str) {
+    public Object newObjectIdInstance (Class pcClass, Object key) {
         if (isValid) { 
-            return pm.newObjectIdInstance (pcClass, str);
+            return pm.newObjectIdInstance (pcClass, key);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
         } 
-   }
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectsById (Collection oids, boolean validate)
+     */
+    public Collection getObjectsById (Collection oids, boolean validate) {
+        if (isValid) { 
+            return pm.getObjectsById (oids, validate);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
     
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectsById (Collection oids)
+     */
+    public Collection getObjectsById (Collection oids) {
+        if (isValid) { 
+            return pm.getObjectsById (oids);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectsById (Object[] oids, boolean validate)
+     */
+    public Object[] getObjectsById (Object[] oids, boolean validate) {
+        if (isValid) { 
+            return pm.getObjectsById (oids, validate);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getObjectsById (Object[] oids)
+     */
+    public Object[] getObjectsById (Object[] oids) {
+        if (isValid) { 
+            return pm.getObjectsById (oids);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
     /** 
      * @see javax.jdo.PersistenceManager#makePersistent(Object pc)
      */
@@ -722,6 +846,214 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     public Class getObjectIdClass(Class cls){
         if (isValid) { 
             return pm.getObjectIdClass(cls);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#detachCopy (Object pc)
+     */
+    public Object detachCopy (Object pc) {
+        if (isValid) { 
+            return pm.detachCopy(pc);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#detachCopyAll (Collection pcs)
+     */
+    public Collection detachCopyAll (Collection pcs) {
+        if (isValid) { 
+            return pm.detachCopyAll(pcs);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#detachCopyAll (Object [] pcs)
+     */
+    public Object[] detachCopyAll (Object [] pcs) {
+        if (isValid) { 
+            return pm.detachCopyAll(pcs);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#attachCopy (Object pc, boolean makeTransactional)
+     */
+    public Object attachCopy (Object pc, boolean makeTransactional) {
+        if (isValid) { 
+            return pm.attachCopy(pc, makeTransactional);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#attachCopyAll (Collection pcs, boolean makeTransactional)
+     */
+    public Collection attachCopyAll (Collection pcs, boolean makeTransactional) {
+        if (isValid) { 
+            return pm.attachCopyAll(pcs, makeTransactional);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#attachCopyAll (Object[] pcs, boolean makeTransactional)
+     */
+    public Object[] attachCopyAll (Object[] pcs, boolean makeTransactional) {
+        if (isValid) { 
+            return pm.attachCopyAll(pcs, makeTransactional);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#putUserObject (Object key, Object val)
+     */
+    public Object putUserObject (Object key, Object val) {
+        if (isValid) { 
+            return pm.putUserObject(key, val);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getUserObject (Object key)
+     */
+    public Object getUserObject (Object key) {
+        if (isValid) { 
+            return pm.getUserObject(key);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#removeUserObject (Object key)
+     */
+    public Object removeUserObject (Object key) {
+        if (isValid) { 
+            return pm.removeUserObject(key);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#flush ()
+     */
+    public void flush () {
+        if (isValid) { 
+            pm.flush();
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#checkConsistency ()
+     */
+    public void checkConsistency () {
+        if (isValid) { 
+            pm.checkConsistency();
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getFetchPlan ()
+     */
+    public FetchPlan getFetchPlan () {
+        if (isValid) { 
+            return pm.getFetchPlan();
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#newInstance (Class pcClass)
+     */
+    public Object newInstance (Class pcClass) {
+        if (isValid) { 
+            return pm.newInstance(pcClass);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getSequence (String name)
+     */
+    public Sequence getSequence (String name) {
+        if (isValid) { 
+            return pm.getSequence(name);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#getDataStoreConnection ()
+     */
+    public JDOConnection getDataStoreConnection () {
+        if (isValid) { 
+            return pm.getDataStoreConnection();
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#addInstanceLifecycleListener (
+     * InstanceLifecycleListener listener, Class[] classes)
+     */
+    public void addInstanceLifecycleListener (
+        InstanceLifecycleListener listener, Class[] classes) {
+        if (isValid) { 
+            pm.addInstanceLifecycleListener(listener, classes);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+
+    /** 
+     * @see javax.jdo.PersistenceManager#removeInstanceLifecycleListener (
+     * InstanceLifecycleListener listener)
+     */
+    public void removeInstanceLifecycleListener (
+        InstanceLifecycleListener listener) {
+        if (isValid) { 
+            pm.removeInstanceLifecycleListener(listener);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N

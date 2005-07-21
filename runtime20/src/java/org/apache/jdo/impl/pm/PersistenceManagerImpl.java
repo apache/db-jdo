@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.jdo.Extent;
+import javax.jdo.FetchPlan;
+import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
@@ -39,6 +41,9 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.jdo.datastore.JDOConnection;
+import javax.jdo.datastore.Sequence;
+import javax.jdo.listener.InstanceLifecycleListener;
 import javax.jdo.spi.PersistenceCapable;
 import javax.transaction.Status;
 
@@ -368,6 +373,29 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
 
         return _txCache.getObjectById(oid, validate);
     }
+    /**
+     * Looks up the instance of the given type with the given key.
+     * @param cls The type of object to load
+     * @param key either the string representation of the object id, or
+     * an object representation of a single field identity key
+     * @return the corresponding persistent instance
+     * @since 2.0
+     */
+    public Object getObjectById (Class cls, Object key) {
+        throw new UnsupportedOperationException(
+            "Method getObjectById(Class,Object) not yet implemented");
+    }
+
+    /**
+     * Looks up the instance corresponding to the specified oid. This is
+     * equivalent to <code>getObjectById(oid, true);
+     * @param oid The object id of the object to load
+     * @return the corresponding persistent instance
+     * @since 2.0
+     */
+    public Object getObjectById (Object oid) {
+        return getObjectById(oid, true);
+    }
 
     /** The ObjectId returned by this method represents the JDO identity of
     * the instance.  The ObjectId is a copy (clone) of the internal state
@@ -515,6 +543,64 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         return this.getStoreManager().newObjectIdInstance (pcClass, str);
     }
     
+    /**
+     * Return the objects with the given oids.
+     * @param oids the oids of the objects to return
+     * @param validate if true, the existance of the objects in
+     *     the datastore will be validated.
+     * @return the objects that were looked up, in the
+     *     same order as the oids parameter.
+     * @see #getObjectById(Object,boolean)
+     * @since 2.0
+     */
+    public Collection getObjectsById (Collection oids, boolean validate) {
+        throw new UnsupportedOperationException(
+            "Method getObjectsById(Collection,boolean) not yet implemented");
+    }
+
+    /**
+     * Return the objects with the given oids. This method is equivalent 
+     * to calling {@link #getObjectsById(Collection, boolean)}
+     * with the validate flag true.
+     * @param oids the oids of the objects to return
+     * @return the objects that were looked up, in the
+     *     same order as the oids parameter.
+     * @see #getObjectsById(Collection,boolean)
+     * @since 2.0
+     */
+    public Collection getObjectsById (Collection oids) {
+        return getObjectsById(oids, true);
+    }
+
+    /**
+     * Return the objects with the given oids.
+     * @param oids the oids of the objects to return
+     * @param validate if true, the existance of the objects in
+     *     the datastore will be validated.
+     * @return the objects that were looked up, in the
+     *     same order as the oids parameter.
+     * @see #getObjectById(Object,boolean)
+     * @since 2.0
+     */
+    public Object[] getObjectsById (Object[] oids, boolean validate) {
+        throw new UnsupportedOperationException(
+            "Method getObjectsById(Object[],boolean) not yet implemented");
+    }
+
+    /**
+     * Return the objects with the given oids. This method is equivalent
+     * to calling {@link #getObjectsById(Object[],boolean)} 
+     * with the validate flag true.
+     * @param oids the oids of the objects to return
+     * @return the objects that were looked up, in the
+     *     same order as the oids parameter.
+     * @see #getObjectsById(Object[],boolean)
+     * @since 2.0
+     */
+    public Object[] getObjectsById (Object[] oids) {
+        return getObjectsById(oids, true);
+    }
+
     /** Return the Class that implements the JDO Identity for the
     * specified PersistenceCapable Class.  The application can use the
     * returned Class to construct a JDO Identity instance for
@@ -553,6 +639,14 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
      * @param compiled another Query from the same JDO implementation
      */  
      public abstract Query newQuery (Object compiled);
+
+    /** Create a Construct a new query instance using the specified String 
+     * as the single-string representation of the query.
+     * @param query the single-string query
+     * @return the new <code>Query</code>
+     * @since 2.0
+     */
+    public abstract Query newQuery (String query);
 
      /** Create a new Query using the specified language.
       * @param language the language of the query parameter
@@ -603,6 +697,17 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
       * @param filter the Filter for candidate instances */  
      public abstract Query newQuery(Extent cln, String filter);
      
+    /**
+     * Create a new <code>Query</code> with the given candidate class
+     * from a named query. The query name given must be the name of a
+     * query defined in metadata.
+     * @param cls the <code>Class</code> of candidate instances
+     * @param queryName the name of the query to look up in metadata
+     * @return the new <code>Query</code>
+     * @since 2.0
+     */
+    public abstract Query newNamedQuery (Class cls, String queryName);
+
     /** The PersistenceManager may manage a collection of instances in the data
      * store based on the class of the instances.  This method returns an
      * Extent of instances in the data store that might be iterated or
@@ -633,6 +738,16 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         return rc;
     }
 
+    /**
+     * Equivalent to <code>getExtent (persistenceCapableClass,
+     * true)</code>.
+     * @see #getExtent(Class,boolean)
+     * @since 2.0
+     */
+    public Extent getExtent (Class persistenceCapableClass) {
+        return getExtent(persistenceCapableClass, true);
+    }
+
     class EmptyExtent implements Extent {
         private final Class cls;
         private final boolean subclasses;
@@ -654,6 +769,10 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         }
         public void closeAll() { }
         public void close(Iterator it) { }
+        public FetchPlan getFetchPlan() {
+            throw new UnsupportedOperationException(
+                "Method getFetchPlan not yet implemented");
+        }
     }
 
     //
@@ -1004,6 +1123,16 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         }
     }
 
+    /**
+     * Refreshes all instances in the exception that failed verification.
+     *
+     * @since 2.0
+     */
+    public void refreshAll(JDOException jdoe) {
+        throw new UnsupportedOperationException(
+            "Method refreshAll(JDOException) not yet implemented");
+    }
+
     /** Retrieve field values of an instance from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
      * instance, and its field values must be retrieved.
@@ -1117,6 +1246,263 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         return _userObject;
     }
      
+    /**
+     * Detach the specified object from the <code>PersistenceManager</code>.
+     * @param pc the instance to detach
+     * @return the detached instance
+     * @see #detachCopyAll(Object[])
+     * @since 2.0
+     */
+    public Object detachCopy (Object pc) {
+        throw new UnsupportedOperationException(
+            "Method detachCopy(Object) not yet implemented");
+    }
+
+    /**
+     * Detach the specified objects from the <code>PersistenceManager</code>.
+     * @param pcs the instances to detach
+     * @return the detached instances
+     * @see #detachCopyAll(Object[])
+     * @since 2.0
+     */
+    public Collection detachCopyAll (Collection pcs) {
+        throw new UnsupportedOperationException(
+            "Method detachCopy(Collection) not yet implemented");
+    }
+
+    /**
+     * Detach the specified objects from the
+     * <code>PersistenceManager</code>. The objects returned can be
+     * manipulated and re-attached with 
+     * {@link #attachCopyAll(Object[], boolean)}. 
+     * The detached instances will be
+     * unmanaged copies of the specified parameters, and are suitable
+     * for serialization and manipulation outside of a JDO
+     * environment. When detaching instances, only fields in the
+     * current {@link FetchPlan} will be traversed. Thus, to detach a
+     * graph of objects, relations to other persistent instances must
+     * either be in the <code>default-fetch-group</code>, or in the
+     * current custom {@link FetchPlan}.
+     * @param pcs the instances to detach
+     * @return the detached instances
+     * @throws JDOUserException if any of the instances do not
+     * @see #attachCopyAll(Object[], boolean)
+     * @see #getFetchPlan
+     * @since 2.0
+     */
+    public Object[] detachCopyAll (Object [] pcs) {
+        throw new UnsupportedOperationException(
+            "Method detachCopy(Object[]) not yet implemented");
+    }
+
+    /**
+     * Import the specified object into the
+     * <code>PersistenceManager</code>.
+     * @param pc instance to import
+     * @param makeTransactional if <code>true</code>, this method will
+     *     mark transactional the persistent instances corresponding
+     *     to all instances in the closure of the detached graph.
+     * @return the re-attached instance
+     * @see #attachCopyAll(Object[],boolean)
+     * @since		2.0
+     */
+    public Object attachCopy (Object pc, boolean makeTransactional) {
+        throw new UnsupportedOperationException(
+            "Method attachCopy(Object,boolean) not yet implemented");
+    }
+
+    /**
+     * Import the specified objects into the
+     * <code>PersistenceManager</code>.
+     * @param pcs Collection of instances to import
+     * @param makeTransactional if <code>true</code>, this method will
+     *     mark transactional the persistent instances corresponding
+     *     to all instances in the closure of the detached graph.
+     * @return the re-attached instances
+     * @see #attachCopyAll(Object[],boolean)
+     * @since 2.0
+     */
+    public Collection attachCopyAll (Collection pcs, boolean makeTransactional) {
+        throw new UnsupportedOperationException(
+            "Method attachCopyAll(Collection,boolean) not yet implemented");
+    }
+
+    /**
+     * Import the specified objects into the
+     * <code>PersistenceManager</code>. Instances that were
+     * previously detached from this or another
+     * <code>PersistenceManager</code> will have their changed merged
+     * into the persistent instances. Instances that are new will be
+     * persisted as new instances.
+     * @param pcs array of instances to import
+     * @param makeTransactional	if <code>true</code>, this method will
+     *     mark transactional the persistent instances corresponding
+     *     to all instances in the closure of the detached graph.
+     * @return the re-attached instances
+     * @see #detachCopyAll(Object[])
+     * @since 2.0
+     */
+    public Object[] attachCopyAll (Object[] pcs, boolean makeTransactional) {
+        throw new UnsupportedOperationException(
+            "Method attachCopyAll(Object[],boolean) not yet implemented");
+    }
+
+    /**
+     * Put the specified key-value pair into the map of user objects.
+     * @since 2.0
+     */
+    public Object putUserObject (Object key, Object val) {
+        throw new UnsupportedOperationException(
+            "Method putUserObject(Object,Object) not yet implemented");
+    }
+
+    /**
+     * Get the value for the specified key from the map of user objects.
+     * @param key the key of the object to be returned
+     * @return the object 
+     * @since 2.0
+     */
+    public Object getUserObject (Object key) {
+        throw new UnsupportedOperationException(
+            "Method getUserObject(Object) not yet implemented");
+    }
+
+    /**
+     * Remove the specified key and its value from the map of user objects.
+     * @param key the key of the object to be removed
+     * @since 2.0
+     */
+    public Object removeUserObject (Object key) {
+        throw new UnsupportedOperationException(
+            "Method removeUserObject(Object) not yet implemented");
+    }
+
+    /**
+     * Flushes all dirty, new, and deleted instances to the data
+     * store. It has no effect if a transaction is not active.
+     * <p>If a datastore transaction is active, this method
+     * synchronizes the cache with the datastore and reports any
+     * exceptions.</p>
+     * <p>If an optimistic transaction is active, this method obtains
+     * a datastore connection, synchronizes the cache with the
+     * datastore using this connection and reports any
+     * exceptions. The connection obtained by this method is held
+     * until the end of the transaction.</p>
+     * <p>If exceptions occur during flush, the implementation will
+     * set the current transaction's <code>RollbackOnly</code> flag
+     * (see {@link Transaction#setRollbackOnly}).</p>
+     * @since	2.0
+     */
+    public synchronized void flush () {
+        if (debugging())
+            debug("flush"); // NOI18N
+
+        _transaction.internalFlush();
+    }
+
+    /**
+     * Validates the <code>PersistenceManager</code> cache with the
+     * datastore. This method has no effect if a transaction is not
+     * active.
+     * <p>If a datastore transaction is active, this method verifies
+     * the consistency of instances in the cache against the
+     * datastore. An implementation might flush instances as if
+     * {@link #flush} were called, but it is not required to do
+     * so.</p>
+     * <p>If an optimistic transaction is active, this method obtains
+     * a datastore connection and verifies the consistency of the
+     * instances in the cache against the datastore. If any
+     * inconsistencies are detected, a {@link
+     * JDOOptimisticVerificationException} is thrown. This exception
+     * contains a nested {@link JDOOptimisticVerificationException}
+     * for each object that failed the consistency check. No
+     * datastore resources acquired during the execution of this
+     * method are held beyond the scope of this method.</p>
+     * @since 2.0
+     */
+    public void checkConsistency () {
+        throw new UnsupportedOperationException(
+            "Method checkConsistency() not yet implemented");
+    }
+
+    /**
+     * Returns the <code>FetchPlan</code> used by this
+     * <code>PersistenceManager</code>.
+     * @return the FetchPlan
+     * @since 2.0
+     */
+    public FetchPlan getFetchPlan () {
+        throw new UnsupportedOperationException(
+            "Method getFetchPlan() not yet implemented");
+    }
+
+    /**
+     * Creates an instance of a persistence-capable interface or
+     * abstract class. The returned instance is transient.
+     * @param pcClass Must be an abstract class or interface 
+     *     that is declared in the metadata.
+     * @return the created instance
+     * @since 2.0
+     */
+    public Object newInstance (Class pcClass) {
+        throw new UnsupportedOperationException(
+            "Method newInstance(Class) not yet implemented");
+    }
+
+    /**
+     * Returns the sequence identified by <code>name</code>.
+     * @param name the name of the Sequence
+     * @return the Sequence
+     * @since 2.0
+     */
+    public Sequence getSequence (String name) {
+        throw new UnsupportedOperationException(
+            "Method getSequence(String) not yet implemented");
+    }
+
+    /**
+     * If this method is called while a datastore transaction is
+     * active, the object returned will be enlisted in the current
+     * transaction. If called in an optimistic transaction or outside
+     * an active transaction, the object returned will not be
+     * enlisted in any transaction.
+     * @return the JDOConnection instance
+     * @since 2.0
+     */
+    public JDOConnection getDataStoreConnection () {
+        throw new UnsupportedOperationException(
+            "Method getDataStoreConnection() not yet implemented");
+    };
+
+    /**
+     * Adds the listener instance to the list of lifecycle event
+     * listeners. The <code>classes</code> parameter identifies all
+     * of the classes of interest. If the <code>classes</code>
+     * parameter is specified as <code>null</code>, events for all
+     * persistent classes and interfaces will be sent to
+     * <code>listenerInstance</code>.
+     * <p>The listenerInstance will be called for each event for which it
+     * implements the corresponding listenerInstance interface.</p>
+     * @param listener the lifecycle listener
+     * @param classes the classes of interest to the listener
+     * @since 2.0
+     */
+    public void addInstanceLifecycleListener (InstanceLifecycleListener listener,
+        Class[] classes) {
+        throw new UnsupportedOperationException(
+            "Method addInstanceLifecycleListener(InstanceLifecycleListener) not yet implemented");
+    };
+
+    /**
+     * Removes the listener instance from the list of lifecycle event listeners.
+     * @param listener the listener instance to be removed
+     * @since 2.0
+     */
+    public void removeInstanceLifecycleListener (InstanceLifecycleListener listener) {
+        throw new UnsupportedOperationException(
+            "Method removeInstanceLifecycleListener(InstanceLifecycleListener) not yet implemented");
+    }
+
     /** The JDO vendor might store certain non-operational properties and
     * make those properties available to applications (for troubleshooting).
     *   
@@ -1689,20 +2075,6 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
              (status == Status.STATUS_MARKED_ROLLBACK));
         _txCache.afterCompletion(abort);
         _flushing = false;
-    }
-
-    /**
-     * Called by Query or Extent to flush updates to the database
-     * in a datastore transaction. Delegates to TransactionImpl to do
-     * the processing that will call internaly flushInstances() to do actual
-     * flush.
-     * @see #flushInstances()
-     */
-    public synchronized void flush() {
-        if (debugging())
-            debug("flush"); // NOI18N
-
-        _transaction.internalFlush();
     }
 
     /**
