@@ -227,7 +227,7 @@ class StateManagerImpl implements StateManagerInternal {
         myPC = pc;
         myPCClass = pc.getClass();
         initializePM(pm);
-        initializePC();
+        initializePCInfo();
     }
 
     /** Constructs a new <code>StateManagerImpl</code> when requested
@@ -250,17 +250,10 @@ class StateManagerImpl implements StateManagerInternal {
         myPCClass = clazz; 
 
         if (uoid == null) { // Requested by the store.
-            initializePC();
-            if (srm.isMediationRequiredToCopyOid()) {
-                myPC = jdoImplHelper.newInstance (myPCClass, this);
-                srm.copyKeyFieldsFromObjectId(this, myPCClass);
-            } else {
-                myPC = jdoImplHelper.newInstance (myPCClass, this, ioid);
-            }
-            markPKFieldsAsLoaded();
+            initializePC(srm);
 
         } else if (srm.hasActualPCClass(ioid)){
-            initializePC();
+            initializePCInfo();
             myPC = jdoImplHelper.newInstance (myPCClass, this, uoid);
             markPKFieldsAsLoaded();
 
@@ -280,9 +273,9 @@ class StateManagerImpl implements StateManagerInternal {
 
     /** Initialize PC Class information.
      */
-    private void initializePC() {
+    private void initializePCInfo() {
         if (debugging())
-            debug("initializePC"); // NOI18N
+            debug("initializePCInfo"); // NOI18N
 
         jdoClass = javaModelFactory.getJavaType(myPCClass).getJDOClass();
 
@@ -659,12 +652,7 @@ class StateManagerImpl implements StateManagerInternal {
                 debug("setPCClass " + myLC + " for: " + pcClass); // NOI18N
 
             myPCClass = pcClass; 
-            initializePC();
-
-            myPC = jdoImplHelper.newInstance (myPCClass, this);
-            StoreManager srm = myPM.getStoreManager();
-            srm.copyKeyFieldsFromObjectId(this, myPCClass);
-            markPKFieldsAsLoaded();
+            initializePC(myPM.getStoreManager());
         }
     }
 
@@ -1494,6 +1482,20 @@ class StateManagerImpl implements StateManagerInternal {
     private void fetch(StoreManager srm, int[] fetchFields) {
         srm.fetch(this, fetchFields);
     }
+
+    /**
+     * Create a new PC instance with key fields copied from objectId
+     */
+    private void initializePC(StoreManager srm) {
+        initializePCInfo();
+        if(srm.isMediationRequiredToCopyOid()) {
+            myPC = jdoImplHelper.newInstance (myPCClass, this);
+            srm.copyKeyFieldsFromObjectId(this, myPCClass);
+        } else {
+            myPC = jdoImplHelper.newInstance (myPCClass, this, objectId);
+        }
+        markPKFieldsAsLoaded();
+    }	
 
     /**
     * Helper method to define the list of fields to be loaded
