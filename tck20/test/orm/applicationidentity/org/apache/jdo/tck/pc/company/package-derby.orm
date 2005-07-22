@@ -66,9 +66,6 @@ has application identity.
                         <foreign-key/>
             </field>
             <field name="reviewedProjects" mapped-by="reviewers">
-                <element>
-                    <foreign-key name="PR_PROJ_FK"/>
-                </element>
             </field>
             <field name="projects" mapped-by="members"/>
             <field name="team" mapped-by="manager"/>
@@ -77,7 +74,8 @@ has application identity.
 
         <class name="Person" table="persons">
             <inheritance strategy="new-table">
-                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+                <discriminator strategy="class-name" column="DISCRIMINATOR"
+                    indexed="true"/>
             </inheritance>
             <field name="personid" column="PERSONID" primary-key="true"/>
             <field name="firstname" column="FIRSTNAME"/>
@@ -102,7 +100,9 @@ has application identity.
 
         <class name="Insurance" table="insuranceplans">
             <inheritance strategy="new-table">
-                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+                <discriminator strategy="class-name" column="DISCRIMINATOR">
+                    <index name="INS_DISCRIMINATOR_INDEX" unique="false"/>
+                </discriminator>
             </inheritance>
             <field name="insid" column="INSID" primary-key="true"/>
             <field name="carrier" column="CARRIER"/>
@@ -128,9 +128,11 @@ has application identity.
                <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>
             </field>
             <field name="reviewers" table="project_reviewer">
-                <join column="PROJID"/>
-                <element column="REVIEWER">
+                <join column="PROJID">
                     <foreign-key name="PR_PROJ_FK"/>
+                </join>
+                <element column="REVIEWER">
+                    <foreign-key name="PR_REV_FK"/>
                 </element>
             </field>
             <field name="members" table="project_member">
