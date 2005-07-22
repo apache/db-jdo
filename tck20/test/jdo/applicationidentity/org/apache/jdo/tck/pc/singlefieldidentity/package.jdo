@@ -59,6 +59,11 @@
       <field name="id" primary-key="true"/>
     </class>
 
+    <class name="PCPointSingleFieldDate"
+           identity-type="application" objectid-class="javax.jdo.identity.ObjectIdentity">
+      <field name="id" primary-key="true"/>
+    </class>
+
   </package>
 </jdo>
 
