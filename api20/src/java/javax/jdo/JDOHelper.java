@@ -279,7 +279,10 @@ public class JDOHelper extends Object {
      * <BR>"javax.jdo.option.ConnectionPassword",
      * <BR>"javax.jdo.option.ConnectionURL",
      * <BR>"javax.jdo.option.ConnectionFactoryName",
-     * <BR>"javax.jdo.option.ConnectionFactory2Name".
+     * <BR>"javax.jdo.option.ConnectionFactory2Name",
+     * <BR>"javax.jdo.option.Mapping",
+     * <BR>"javax.jdo.mapping.Catalog",
+     * <BR>"javax.jdo.mapping.Schema".
      * </code><P>JDO implementations
      * are permitted to define key values of their own.  Any key values not
      * recognized by the implementation must be ignored.  Key values that are
@@ -302,45 +305,10 @@ public class JDOHelper extends Object {
         if (pmfClassName == null) {
             throw new JDOFatalUserException (msg.msg("EXC_GetPMFNoClassNameProperty")); // NOI18N
         }
-        Method propsMethod = null;
-        Exception propsGetMethodException = null;
-        Method mapMethod = null;
-        Exception mapGetMethodException = null;
-        Method pmfMethod = null;
         try {
             Class pmfClass = cl.loadClass (pmfClassName);
-            try {
-                propsMethod = pmfClass.getMethod("getPersistenceManagerFactory",  //NOI18N
-                    new Class[] {Properties.class});
-            } catch (NoSuchMethodException nsme) {
-                propsGetMethodException = new JDOFatalInternalException 
-                        (msg.msg("EXC_GetPMFNoSuchMethod"), nsme); //NOI18Nnsme;
-            }
-            try {
-                mapMethod = pmfClass.getMethod("getPersistenceManagerFactory",  //NOI18N
+            Method pmfMethod = pmfClass.getMethod("getPersistenceManagerFactory",  //NOI18N
                     new Class[] {Map.class});
-            } catch (NoSuchMethodException nsme) {
-                mapGetMethodException = new JDOFatalInternalException 
-                        (msg.msg("EXC_GetPMFNoSuchMethod"), nsme); //NOI18Nnsme;
-            }
-            /* If the parameter is not a Properties, 
-             * we need a mapMethod or else throw an exception.
-             */
-            if (!(props instanceof Properties)) {
-                if (mapMethod != null) {
-                    pmfMethod = mapMethod;
-                } else {
-                    throw mapGetMethodException;
-                }
-            } else { // the parameter is a Properties; use either method.
-                if (mapMethod != null) {
-                    pmfMethod = mapMethod;
-                } else if (propsMethod != null) {
-                    pmfMethod = propsMethod;
-                } else {
-                    throw mapGetMethodException;
-                }
-            }
             return (PersistenceManagerFactory) pmfMethod.invoke (null, new Object[] {props});
         } catch (ClassNotFoundException cnfe) {
             throw new JDOFatalUserException (msg.msg("EXC_GetPMFClassNotFound", pmfClassName), cnfe); //NOI18N

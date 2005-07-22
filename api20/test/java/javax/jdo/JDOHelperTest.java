@@ -19,6 +19,7 @@ package javax.jdo;
 import java.io.File;
 import java.io.InputStream;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -387,20 +388,51 @@ public class JDOHelperTest extends AbstractTest {
         }
     }
 
-    /** Test bad PMF class no method getPersistenceManagerFactory.
+    /** Test bad PMF class no method getPersistenceManagerFactory(Properties).
      */
-    public void testBadPMFNoGetPMFMethod() {
+    public void testBadPMFNoGetPMFPropertiesMethod() {
         PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(props);
-            fail("Bad PersistenceManagerFactoryClass should result in JDOFatalUserException ");
+            fail("Bad PersistenceManagerFactory should result in JDOFatalInternalException ");
         }
         catch (JDOFatalInternalException ex) {
-            if (verbose)
-                println("Caught expected exception " + ex);
+            if (ex.getCause() instanceof NoSuchMethodException) {
+                if (verbose)
+                    println("Caught expected exception " + ex);
+            } else {
+                fail("Bad PersistenceManagerFactory should result in " +
+                        "JDOFatalInternalException with nested " +
+                        "NoSuchMethodException. " +
+                        "Actual nested exception was " + ex);
+            }
+        }
+    }
+
+    /** Test bad PMF class no method getPersistenceManagerFactory(Map).
+     */
+    public void testBadPMFNoGetPMFMapMethod() {
+        PersistenceManagerFactory pmf = null;
+        Map props = new HashMap();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("Bad PersistenceManagerFactory should result in JDOFatalInternalException ");
+        }
+        catch (JDOFatalInternalException ex) {
+            if (ex.getCause() instanceof NoSuchMethodException) {
+                if (verbose)
+                    println("Caught expected exception " + ex);
+            } else {
+                fail("Bad PersistenceManagerFactory should result in " +
+                        "JDOFatalInternalException with nested " +
+                        "NoSuchMethodException. " +
+                        "Actual nested exception was " + ex);
+            }
         }
     }
 
@@ -438,6 +470,25 @@ public class JDOHelperTest extends AbstractTest {
         }
     }
 
+    /** Test bad PMF class getPersistenceManagerFactory throws Exception.
+     */
+    public void testBadPMFGetPMFMethodThrowsJDOException() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFGetPMFMethodThrowsJDOException");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("BadPMFGetPMFMethodThrowsJDOException.GetPersistenceManagerFactory " +
+                    "should result in JDOUnsupportedOptionException. " +
+                    "No exception was thrown.");
+        }
+        catch (JDOUnsupportedOptionException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
     private Context getInitialContext() {
         try {
             return new InitialContext();
@@ -461,6 +512,14 @@ public class JDOHelperTest extends AbstractTest {
         public static BadPMFWrongReturnType 
                 getPersistenceManagerFactory(Map props) {
             return new BadPMFWrongReturnType();
+        }
+    }
+    
+    private static class BadPMFGetPMFMethodThrowsJDOException {
+        public static PersistenceManagerFactory
+                getPersistenceManagerFactory(Map props) {
+            throw new JDOUnsupportedOptionException(
+                    "GetPMF method throws JDOUnsupportedOptionException");
         }
     }
 }
