@@ -555,19 +555,21 @@ public class JDOImplHelper extends java.lang.Object {
      */
     static {
         JDOImplHelper helper = getInstance();
-        helper.registerStringConstructor(Currency.class, new StringConstructor() {
-            public Object construct(String s) {
-                try {
-                    return Currency.getInstance(s);
-                } catch (IllegalArgumentException ex) {
-                    throw new javax.jdo.JDOUserException(
-                        msg.msg("EXC_CurrencyStringConstructorIllegalArgument", s), ex); //NOI18N
-                } catch (Exception ex) {
-                    throw new JDOUserException(
-                        msg.msg("EXC_CurrencyStringConstructorException"), ex); //NOI18N
+        if (isClassLoadable("java.util.Currency")) {
+            helper.registerStringConstructor(Currency.class, new StringConstructor() {
+                public Object construct(String s) {
+                    try {
+                        return Currency.getInstance(s);
+                    } catch (IllegalArgumentException ex) {
+                        throw new javax.jdo.JDOUserException(
+                            msg.msg("EXC_CurrencyStringConstructorIllegalArgument", s), ex); //NOI18N
+                    } catch (Exception ex) {
+                        throw new JDOUserException(
+                            msg.msg("EXC_CurrencyStringConstructorException"), ex); //NOI18N
+                    }
                 }
-            }
-        });
+            });
+        }
         helper.registerStringConstructor(Locale.class, new StringConstructor() {
             public Object construct(String s) {
                 try {
@@ -590,6 +592,18 @@ public class JDOImplHelper extends java.lang.Object {
                 return result;
             }
         });
+    }
+    
+    /**
+     * Determine if a class is loadable in the current environment.
+     */
+    public static boolean isClassLoadable(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        }
     }
     
     /**

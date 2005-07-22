@@ -113,6 +113,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testCurrencyConstructor() {
+        if (!helper.isClassLoadable("java.util.Currency")) return;
         ObjectIdentity c1 = new ObjectIdentity(Object.class, 
                 Currency.getInstance(Locale.US));
         ObjectIdentity c2 = new ObjectIdentity(Object.class, 
@@ -251,11 +252,13 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
 
     public void testStringCurrencyConstructor() {
+        if (!helper.isClassLoadable("java.util.Currency")) return;
         Object c1 = new ObjectIdentity(Object.class, 
                     "java.util.Currency:USD");
     }
 
     public void testBadStringCurrencyConstructor() {
+        if (!helper.isClassLoadable("java.util.Currency")) return;
         try {
             ObjectIdentity c1 = new ObjectIdentity(Object.class, 
                     "java.util.Currency:NowhereInTheWorld");
@@ -303,6 +306,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testSerializedCurrency() {
+        if (!helper.isClassLoadable("java.util.Currency")) return;
         ObjectIdentity c1 = new ObjectIdentity(Object.class, Currency.getInstance(Locale.US));
         ObjectIdentity c2 = new ObjectIdentity(Object.class, Currency.getInstance(Locale.US));
         ObjectIdentity c3 = new ObjectIdentity(Object.class, Currency.getInstance(Locale.GERMANY));
