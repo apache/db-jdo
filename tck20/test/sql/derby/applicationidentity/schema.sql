@@ -119,7 +119,7 @@ CREATE TABLE PCPointSingleFieldDate (
     ID DATE NOT NULL,
     X INTEGER NOT NULL,
     Y INTEGER,
-    CONSTRAINT PCPNT_SFSTR_PK PRIMARY KEY (ID)
+    CONSTRAINT PCPNT_SFD_PK PRIMARY KEY (ID)
 );
 
 -------------------------
@@ -127,8 +127,8 @@ CREATE TABLE PCPointSingleFieldDate (
 -------------------------
 
 ALTER TABLE departments DROP CONSTRAINT EMP_MO_FK;
-ALTER TABLE project_reviewer DROP CONSTRAINT PR_PROJ_FK FOREIGN KEY;
-ALTER TABLE project_reviewer DROP CONSTRAINT PR_REV_FK FOREIGN KEY;
+ALTER TABLE project_reviewer DROP CONSTRAINT PR_PROJ_FK;
+ALTER TABLE project_reviewer DROP CONSTRAINT PR_REV_FK;
 DROP TABLE insuranceplans;
 DROP TABLE project_reviewer;
 DROP TABLE project_member;
@@ -219,15 +219,15 @@ CREATE TABLE employee_phoneno_type (
 
 ALTER TABLE project_reviewer 
     ADD CONSTRAINT PR_PROJ_FK FOREIGN KEY
-        (PROJID) REFERENCES projects(PROJID)
+        (PROJID) REFERENCES projects(PROJID);
+
+ALTER TABLE project_reviewer 
     ADD CONSTRAINT PR_REV_FK FOREIGN KEY
-        (REVIEWER) REFERENCES persons(PERSONID)
-;
+        (REVIEWER) REFERENCES persons(PERSONID);
 
 ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
-        (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID)
-;
+        (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID);
 
 -------------------------
 --fieldtypes
