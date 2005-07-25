@@ -2,7 +2,7 @@
 <!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
-        <class name="ArrayListCollections" table="LIST_COLLECTIONS">
+        <class name="ArrayListCollections" table="ARRAYLIST_COLLECTIONS">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
             <field name="ArrayListOfObject0" table="ARRAYLIST_OF_OBJECT0">

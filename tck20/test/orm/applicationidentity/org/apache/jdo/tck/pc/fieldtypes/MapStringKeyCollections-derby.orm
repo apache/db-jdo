@@ -84,7 +84,7 @@
             </field>
             <field name="MapOfString_Byte25" column="MAP_OF_STRING_BYTE25">
             </field>
-            <field name="MapOfString_Byte26" column="MAP_OF_STRING_BYTE27">
+            <field name="MapOfString_Byte26" column="MAP_OF_STRING_BYTE26">
             </field>
             <field name="MapOfString_Double27" column="MAP_OF_STRING_DOUBLE27">
             </field>

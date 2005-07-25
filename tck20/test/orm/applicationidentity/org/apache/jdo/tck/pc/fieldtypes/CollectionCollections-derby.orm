@@ -96,7 +96,7 @@
             </field>
             <field name="CollectionOfByte25" column="COLLECTION_OF_BYTE25">
             </field>
-            <field name="CollectionOfByte26" table="COLLECTION_OF_BYTE27">
+            <field name="CollectionOfByte26" table="COLLECTION_OF_BYTE26">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
             </field>

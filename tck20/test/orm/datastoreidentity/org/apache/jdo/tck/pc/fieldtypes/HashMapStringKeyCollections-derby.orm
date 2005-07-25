@@ -193,8 +193,6 @@
             </field>
             <field name="HashMapOfString_Long79" column="HASHMAP_STR_LONG79">
             </field>
-            <field name="HashMapOfString_Long80" column="HASHMAP_STR_LONG80">
-            </field>
             <field name="HashMapOfString_Short81" column="HASHMAP_STR_SHORT81">
             </field>
             <field name="HashMapOfString_Short82" column="HASHMAP_STR_SHORT82">
