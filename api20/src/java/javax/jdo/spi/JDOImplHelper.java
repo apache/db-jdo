@@ -573,7 +573,7 @@ public class JDOImplHelper extends java.lang.Object {
         helper.registerStringConstructor(Locale.class, new StringConstructor() {
             public Object construct(String s) {
                 try {
-                    return new Locale(s);
+                    return getLocale(s);
                 } catch (Exception ex) {
                     throw new JDOUserException(
                         msg.msg("EXC_LocaleStringConstructorException"), ex); //NOI18N
@@ -582,18 +582,46 @@ public class JDOImplHelper extends java.lang.Object {
         });
         helper.registerStringConstructor(Date.class, new StringConstructor() {
             public synchronized Object construct(String s) {
-                ParsePosition pp = new ParsePosition(0);
-                Date result = dateFormat.parse(s, pp);
-                if (result == null) {
-                    throw new JDOUserException (
-                        msg.msg("EXC_DateStringConstructor", new Object[] //NOI18N
-                        {s, new Integer(pp.getErrorIndex()), dateFormatPattern}));
+                try {
+                    // first, try the String as a Long
+                    return new Date(Long.parseLong(s));
+                } catch (NumberFormatException ex) {
+                    // not a Long; try the formatted date
+                    ParsePosition pp = new ParsePosition(0);
+                    Date result = dateFormat.parse(s, pp);
+                    if (result == null) {
+                        throw new JDOUserException (
+                            msg.msg("EXC_DateStringConstructor", new Object[] //NOI18N
+                            {s, new Integer(pp.getErrorIndex()), dateFormatPattern}));
+                    }
+                    return result;
                 }
-                return result;
             }
         });
     }
     
+    /**
+     * Parse the String to a Locale.
+     */
+    private static Locale getLocale(String s) {
+        String lang = s;
+        int firstUnderbar = s.indexOf('_');
+        if (firstUnderbar == -1) {
+            // nothing but language
+            return new Locale(lang);
+        }
+        lang = s.substring(0, firstUnderbar);
+        String country;
+        int secondUnderbar = s.indexOf('_', firstUnderbar + 1);
+        if (secondUnderbar == -1) {
+            // nothing but language, country
+            country = s.substring(firstUnderbar + 1);
+            return new Locale(lang, country);
+        }
+        country = s.substring(firstUnderbar + 1, secondUnderbar);
+        String variant = s.substring(secondUnderbar + 1);
+        return new Locale(lang, country, variant);
+    }
     /**
      * Determine if a class is loadable in the current environment.
      */

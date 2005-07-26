@@ -246,14 +246,34 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected Exception.");
     }
 
-    public void testStringLocaleConstructor() {
-        Object c1 = new ObjectIdentity(Object.class, 
-                    "java.util.Locale:en_us");
+    public void testStringLocaleConstructorLanguage() {
+        if (!helper.isClassLoadable("java.util.Currency")) return;
+        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+                    "java.util.Locale:en");
+        assertEquals(new Locale("en"), c1.getKeyAsObject());
+    }
+
+    public void testStringLocaleConstructorCountry() {
+        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+                    "java.util.Locale:_US");
+        assertEquals(new Locale("","US"), c1.getKeyAsObject());
+    }
+
+    public void testStringLocaleConstructorLanguageCountry() {
+        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+                    "java.util.Locale:en_US");
+        assertEquals(new Locale("en","US"), c1.getKeyAsObject());
+    }
+
+    public void testStringLocaleConstructorLanguageCountryVariant() {
+        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
+                    "java.util.Locale:en_US_MAC");
+        assertEquals(new Locale("en","US","MAC"), c1.getKeyAsObject());
     }
 
     public void testStringCurrencyConstructor() {
         if (!helper.isClassLoadable("java.util.Currency")) return;
-        Object c1 = new ObjectIdentity(Object.class, 
+        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
                     "java.util.Currency:USD");
     }
 
@@ -326,7 +346,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testSerializedDate() {
         ObjectIdentity c1 = new ObjectIdentity(Object.class, new Date(1));
-        ObjectIdentity c2 = new ObjectIdentity(Object.class, new Date(1));
+        ObjectIdentity c2 = new ObjectIdentity(Object.class, "java.util.Date:1");
         ObjectIdentity c3 = new ObjectIdentity(Object.class, new Date(2));
         Object[] scis = writeReadSerialized(new Object[] {c1, c2, c3});
         Object sc1 = scis[0];
@@ -343,9 +363,9 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testSerializedLocale() {
-        ObjectIdentity c1 = new ObjectIdentity(Object.class, new Locale("EN_US"));
-        ObjectIdentity c2 = new ObjectIdentity(Object.class, new Locale("en_us"));
-        ObjectIdentity c3 = new ObjectIdentity(Object.class, new Locale("EN_GB"));
+        ObjectIdentity c1 = new ObjectIdentity(Object.class, Locale.US);
+        ObjectIdentity c2 = new ObjectIdentity(Object.class, Locale.US);
+        ObjectIdentity c3 = new ObjectIdentity(Object.class, Locale.GERMANY);
         Object[] scis = writeReadSerialized(new Object[] {c1, c2, c3});
         Object sc1 = scis[0];
         Object sc2 = scis[1];

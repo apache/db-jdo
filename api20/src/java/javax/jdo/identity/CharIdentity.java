@@ -94,7 +94,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @return the String form of the key
      */
     public String toString () {
-        return Character.toString(key);
+        return String.valueOf(key);
     }
 
     /** Determine if the other object represents the same object id.
