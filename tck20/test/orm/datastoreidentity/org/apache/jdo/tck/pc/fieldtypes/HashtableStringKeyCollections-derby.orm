@@ -5,319 +5,393 @@
         <class name="HashtableStringKeyCollections" table="HASHTABLESTRINGKEY_COLLECTIONS">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
-            <field name="HashtableOfString_Object0" table="HASHTBL_OF_STR_OBJECT0">
+            <field name="HashtableOfString_Object0" table="HASHTBL_STR_OBJECT0">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Object1" table="HASHTBL_OF_STR_OBJECT1">
+            <field name="HashtableOfString_Object1" table="HASHTBL_STR_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Object2" table="HASHTBL_OF_STR_OBJECT2">
+            <field name="HashtableOfString_Object2" table="HASHTBL_STR_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleClass3" table="HASHTBL_OF_STR_SIMPLE_CLASS3">
+            <field name="HashtableOfString_SimpleClass3" table="HASHTBL_STR_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleClass4" table="HASHTBL_OF_STR_SIMPLE_CLASS4">
+            <field name="HashtableOfString_SimpleClass4" table="HASHTBL_STR_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleClass5" table="HASHTBL_OF_STR_SIMPLE_CLASS5">
+            <field name="HashtableOfString_SimpleClass5" table="HASHTBL_STR_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleInterface6" table="HASHTBL_OF_STR_SIMPLE_INTERFACE6">
+            <field name="HashtableOfString_SimpleInterface6" table="HASHTBL_STR_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleInterface7" column="HASHTBL_STR_SIMPLE_INTERFACE7">
-            </field>
-            <field name="HashtableOfString_SimpleInterface8" column="HASHTBL_STR_SIMPLE_INTERFACE8">
-            </field>
-            <field name="HashtableOfString_String9" column="HASHTBL_STR_STRING9">
-            </field>
-            <field name="HashtableOfString_String10" column="HASHTBL_STR_STRING10">
-            </field>
-            <field name="HashtableOfString_String11" column="HASHTBL_STR_STRING11">
-            </field>
-            <field name="HashtableOfString_Date12" column="HASHTBL_STR_DATE12">
-            </field>
-            <field name="HashtableOfString_Date13" column="HASHTBL_STR_DATE13">
-            </field>
-            <field name="HashtableOfString_Date14" column="HASHTBL_STR_DATE14">
-            </field>
-            <field name="HashtableOfString_Locale15" column="HASHTBL_STR_LOCALE15">
-            </field>
-            <field name="HashtableOfString_Locale16" column="HASHTBL_STR_LOCALE16">
-            </field>
-            <field name="HashtableOfString_Locale17" column="HASHTBL_STR_LOCALE17">
-            </field>
-            <field name="HashtableOfString_BigDecimal18" column="HASHTBL_STR_BIG_DECIMAL18">
-            </field>
-            <field name="HashtableOfString_BigDecimal19" column="HASHTBL_STR_BIG_DECIMAL19">
-            </field>
-            <field name="HashtableOfString_BigDecimal20" column="HASHTBL_STR_BIG_DECIMAL20">
-            </field>
-            <field name="HashtableOfString_BigInteger21" column="HASHTBL_STR_BIG_INTEGER21">
-            </field>
-            <field name="HashtableOfString_BigInteger22" column="HASHTBL_STR_BIG_INTEGER22">
-            </field>
-            <field name="HashtableOfString_BigInteger23" column="HASHTBL_STR_BIG_INTEGER23">
-            </field>
-            <field name="HashtableOfString_Byte24" column="HASHTBL_STR_BYTE24">
-            </field>
-            <field name="HashtableOfString_Byte25" column="HASHTBL_STR_BYTE25">
-            </field>
-            <field name="HashtableOfString_Byte26" column="HASHTBL_STR_BYTE27">
-            </field>
-            <field name="HashtableOfString_Double27" column="HASHTBL_STR_DOUBLE27">
-            </field>
-            <field name="HashtableOfString_Double28" column="HASHTBL_STR_DOUBLE28">
-            </field>
-            <field name="HashtableOfString_Double29" column="HASHTBL_STR_DOUBLE29">
-            </field>
-            <field name="HashtableOfString_Float30" column="HASHTBL_STR_FLOAT30">
-            </field>
-            <field name="HashtableOfString_Float31" column="HASHTBL_STR_FLOAT31">
-            </field>
-            <field name="HashtableOfString_Float32" column="HASHTBL_STR_FLOAT32">
-            </field>
-            <field name="HashtableOfString_Integer33" column="HASHTBL_STR_INTEGER33">
-            </field>
-            <field name="HashtableOfString_Integer34" column="HASHTBL_STR_INTEGER34">
-            </field>
-            <field name="HashtableOfString_Integer35" column="HASHTBL_STR_INTEGER35">
-            </field>
-            <field name="HashtableOfString_Long36" column="HASHTBL_STR_LONG36">
-            </field>
-            <field name="HashtableOfString_Long37" column="HASHTBL_STR_LONG37">
-            </field>
-            <field name="HashtableOfString_Long38" column="HASHTBL_STR_LONG38">
-            </field>
-            <field name="HashtableOfString_Short39" column="HASHTBL_STR_SHORT39">
-            </field>
-            <field name="HashtableOfString_Short40" column="HASHTBL_STR_SHORT40">
-            </field>
-            <field name="HashtableOfString_Short41" column="HASHTBL_STR_SHORT41">
-            </field>
-  <field name="HashtableOfString_Object42" table="HASHTBL_OF_STR_OBJECT42">
+            <field name="HashtableOfString_SimpleInterface7" table="HASHTBL_STR_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
-                <value column="OBJREF"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="HashtableOfString_Object43" table="HASHTBL_OF_STR_OBJECT43">
-                <join column="IDENTIFIER"/>
-                <key column="STRING"/>
-                <value column="OBJREF"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="HashtableOfString_SimpleClass45" table="HASHTBL_OF_STR_SIMPLE_CLASS45">
-                <join column="IDENTIFIER"/>
-                <key column="STRING"/>
-                <value column="SIMPCLSREF"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="HashtableOfString_SimpleClass46" table="HASHTBL_OF_STR_SIMPLE_CLASS46">
-                <join column="IDENTIFIER"/>
-                <key column="STRING"/>
-                <value column="SIMPCLSREF"/>
-                <order column="INDEX"/>
-            </field>
-            <field name="HashtableOfString_SimpleInterface48" table="HASHTBL_OF_STR_SIMPLE_INTERFACE48">
-                <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleInterface49" table="HASHTBL_OF_STR_SIMPLE_INTERFACE49">
+            <field name="HashtableOfString_SimpleInterface8" table="HASHTBL_STR_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_String51" column="HASHTBL_STR_STRING51">
+            <field name="HashtableOfString_String9" column="HASHTBL_STR_STRING9"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_String52" column="HASHTBL_STR_STRING52">
+            <field name="HashtableOfString_String10" column="HASHTBL_STR_STRING10"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Date54" column="HASHTBL_STR_DATE54">
+            <field name="HashtableOfString_String11" column="HASHTBL_STR_STRING11"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Date55" column="HASHTBL_STR_DATE55">
+            <field name="HashtableOfString_Date12" column="HASHTBL_STR_DATE12"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Locale57" column="HASHTBL_STR_LOCALE57">
+            <field name="HashtableOfString_Date13" column="HASHTBL_STR_DATE13"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Locale58" column="HASHTBL_STR_LOCALE58">
+            <field name="HashtableOfString_Date14" column="HASHTBL_STR_DATE14"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigDecimal60" column="HASHTBL_STR_BIG_DECIMAL60">
+            <field name="HashtableOfString_Locale15" column="HASHTBL_STR_LOCALE15"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigDecimal61" column="HASHTBL_STR_BIG_DECIMAL61">
+            <field name="HashtableOfString_Locale16" column="HASHTBL_STR_LOCALE16"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigInteger63" column="HASHTBL_STR_BIG_INTEGER63">
+            <field name="HashtableOfString_Locale17" column="HASHTBL_STR_LOCALE17"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigInteger64" column="HASHTBL_STR_BIG_INTEGER64">
+            <field name="HashtableOfString_BigDecimal18" column="HASHTBL_STR_BIG_DECIMAL18"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Byte66" column="HASHTBL_STR_BYTE66">
+            <field name="HashtableOfString_BigDecimal19" column="HASHTBL_STR_BIG_DECIMAL19"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Byte67" column="HASHTBL_STR_BYTE67">
+            <field name="HashtableOfString_BigDecimal20" column="HASHTBL_STR_BIG_DECIMAL20"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Double69" column="HASHTBL_STR_DOUBLE69">
+            <field name="HashtableOfString_BigInteger21" column="HASHTBL_STR_BIG_INTEGER21"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Double70" column="HASHTBL_STR_DOUBLE70">
+            <field name="HashtableOfString_BigInteger22" column="HASHTBL_STR_BIG_INTEGER22"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Float72" column="HASHTBL_STR_FLOAT72">
+            <field name="HashtableOfString_BigInteger23" column="HASHTBL_STR_BIG_INTEGER23"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Float73" column="HASHTBL_STR_FLOAT73">
+            <field name="HashtableOfString_Byte24" column="HASHTBL_STR_BYTE24"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Integer75" column="HASHTBL_STR_INTEGER75">
+            <field name="HashtableOfString_Byte25" column="HASHTBL_STR_BYTE25"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Integer76" column="HASHTBL_STR_INTEGER76">
+            <field name="HashtableOfString_Byte26" column="HASHTBL_STR_BYTE26"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Long78" column="HASHTBL_STR_LONG78">
+            <field name="HashtableOfString_Double27" column="HASHTBL_STR_DOUBLE27"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Long79" column="HASHTBL_STR_LONG79">
+            <field name="HashtableOfString_Double28" column="HASHTBL_STR_DOUBLE28"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Short81" column="HASHTBL_STR_SHORT81">
+            <field name="HashtableOfString_Double29" column="HASHTBL_STR_DOUBLE29"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Short82" column="HASHTBL_STR_SHORT82">
+            <field name="HashtableOfString_Float30" column="HASHTBL_STR_FLOAT30"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Object84" table="HASHTBL_OF_STR_OBJECT84">
+            <field name="HashtableOfString_Float31" column="HASHTBL_STR_FLOAT31"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Float32" column="HASHTBL_STR_FLOAT32"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Integer33" column="HASHTBL_STR_INTEGER33"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Integer34" column="HASHTBL_STR_INTEGER34"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Integer35" column="HASHTBL_STR_INTEGER35"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Long36" column="HASHTBL_STR_LONG36"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Long37" column="HASHTBL_STR_LONG37"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Long38" column="HASHTBL_STR_LONG38"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Short39" column="HASHTBL_STR_SHORT39"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Short40" column="HASHTBL_STR_SHORT40"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Short41" column="HASHTBL_STR_SHORT41"
+                   serialized="true">
+            </field>
+  <field name="HashtableOfString_Object42" table="HASHTBL_STR_OBJECT42">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Object86" table="HASHTBL_OF_STR_OBJECT86">
+            <field name="HashtableOfString_Object43" table="HASHTBL_STR_OBJECT43">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleClass87" table="HASHTBL_OF_STR_SIMPLE_CLASS87">
+            <field name="HashtableOfString_SimpleClass45" table="HASHTBL_STR_SIMPLE_CLASS45">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleClass89" table="HASHTBL_OF_STR_SIMPLE_CLASS89">
+            <field name="HashtableOfString_SimpleClass46" table="HASHTBL_STR_SIMPLE_CLASS46">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleInterface90" table="HASHTBL_OF_STR_SIMPLE_INTERFACE90">
+            <field name="HashtableOfString_SimpleInterface48" table="HASHTBL_STR_SIMPLE_INTERFACE48">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_SimpleInterface92" table="HASHTBL_OF_STR_SIMPLE_INTERFACE92">
+            <field name="HashtableOfString_SimpleInterface49" table="HASHTBL_STR_SIMPLE_INTERFACE49">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_String93" column="HASHTBL_STR_STRING93">
+            <field name="HashtableOfString_String51" column="HASHTBL_STR_STRING51"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_String95" table="HASHTBL_OF_STR_STRING95">
+            <field name="HashtableOfString_String52" column="HASHTBL_STR_STRING52"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Date54" column="HASHTBL_STR_DATE54"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Date55" column="HASHTBL_STR_DATE55"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Locale57" column="HASHTBL_STR_LOCALE57"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Locale58" column="HASHTBL_STR_LOCALE58"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_BigDecimal60" column="HASHTBL_STR_BIG_DECIMAL60"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_BigDecimal61" column="HASHTBL_STR_BIG_DECIMAL61"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_BigInteger63" column="HASHTBL_STR_BIG_INTEGER63"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_BigInteger64" column="HASHTBL_STR_BIG_INTEGER64"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Byte66" column="HASHTBL_STR_BYTE66"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Byte67" column="HASHTBL_STR_BYTE67"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Double69" column="HASHTBL_STR_DOUBLE69"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Double70" column="HASHTBL_STR_DOUBLE70"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Float72" column="HASHTBL_STR_FLOAT72"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Float73" column="HASHTBL_STR_FLOAT73"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Integer75" column="HASHTBL_STR_INTEGER75"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Integer76" column="HASHTBL_STR_INTEGER76"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Long78" column="HASHTBL_STR_LONG78"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Long79" column="HASHTBL_STR_LONG79"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Short81" column="HASHTBL_STR_SHORT81"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Short82" column="HASHTBL_STR_SHORT82"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Object84" table="HASHTBL_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
-                <value column="STRINGVAL"/>
+                <key column="KEYVAL"/>
+                <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Date96" column="HASHTBL_STR_DATE96">
-            </field>
-            <field name="HashtableOfString_Date98" table="HASHTBL_OF_STR_DATE98">
+            <field name="HashtableOfString_Object86" table="HASHTBL_STR_OBJECT86">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
+                <value column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_SimpleClass87" table="HASHTBL_STR_SIMPLE_CLASS87">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_SimpleClass89" table="HASHTBL_STR_SIMPLE_CLASS89">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_SimpleInterface90" table="HASHTBL_STR_SIMPLE_INTERFACE90">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_SimpleInterface92" table="HASHTBL_STR_SIMPLE_INTERFACE92">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_String93" column="HASHTBL_STR_STRING93"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_String95" table="HASHTBL_STR_STRING95">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="KEYVALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="HashtableOfString_Date96" column="HASHTBL_STR_DATE96"
+                   serialized="true">
+            </field>
+            <field name="HashtableOfString_Date98" table="HASHTBL_STR_DATE98">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
                 <value column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Locale99" column="HASHTBL_STR_LOCALE99">
+            <field name="HashtableOfString_Locale99" column="HASHTBL_STR_LOCALE99"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Locale101" table="HASHTBL_OF_STR_LOCALE101">
+            <field name="HashtableOfString_Locale101" table="HASHTBL_STR_LOCALE101">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="LOCALEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_BigDecimal102" column="HASHTBL_STR_BIG_DECIMAL102">
+            <field name="HashtableOfString_BigDecimal102" column="HASHTBL_STR_BIG_DECIMAL102"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigDecimal104" table="HASHTBL_OF_STR_BIG_DECIMAL104">
+            <field name="HashtableOfString_BigDecimal104" table="HASHTBL_STR_BIG_DECIMAL104">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_BigInteger105" column="HASHTBL_STR_BIG_INTEGER105">
+            <field name="HashtableOfString_BigInteger105" column="HASHTBL_STR_BIG_INTEGER105"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_BigInteger107" table="HASHTBL_OF_STR_BIG_INTEGER107">
+            <field name="HashtableOfString_BigInteger107" table="HASHTBL_STR_BIG_INTEGER107">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Byte108" column="HASHTBL_STR_BYTE108">
+            <field name="HashtableOfString_Byte108" column="HASHTBL_STR_BYTE108"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Byte110" table="HASHTBL_OF_STR_BYTE110">
+            <field name="HashtableOfString_Byte110" table="HASHTBL_STR_BYTE110">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Double111" column="HASHTBL_STR_DOUBLE111">
+            <field name="HashtableOfString_Double111" column="HASHTBL_STR_DOUBLE111"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Double113" table="HASHTBL_OF_STR_DOUBLE113">
+            <field name="HashtableOfString_Double113" table="HASHTBL_STR_DOUBLE113">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Float114" column="HASHTBL_STR_FLOAT114">
+            <field name="HashtableOfString_Float114" column="HASHTBL_STR_FLOAT114"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Float116" table="HASHTBL_OF_STR_FLOAT116">
+            <field name="HashtableOfString_Float116" table="HASHTBL_STR_FLOAT116">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Integer117" column="HASHTBL_STR_INTEGER117">
+            <field name="HashtableOfString_Integer117" column="HASHTBL_STR_INTEGER117"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Integer119" table="HASHTBL_OF_STR_INTEGER119">
+            <field name="HashtableOfString_Integer119" table="HASHTBL_STR_INTEGER119">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Long120" column="HASHTBL_STR_LONG120">
+            <field name="HashtableOfString_Long120" column="HASHTBL_STR_LONG120"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Long122" table="HASHTBL_OF_STR_LONG122">
+            <field name="HashtableOfString_Long122" table="HASHTBL_STR_LONG122">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="HashtableOfString_Short123" column="HASHTBL_STR_SHORT123">
+            <field name="HashtableOfString_Short123" column="HASHTBL_STR_SHORT123"
+                   serialized="true">
             </field>
-            <field name="HashtableOfString_Short125" table="HASHTBL_OF_STR_SHORT125">
+            <field name="HashtableOfString_Short125" table="HASHTBL_STR_SHORT125">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SHORTVAL"/>
                 <order column="INDEX"/>
             </field>

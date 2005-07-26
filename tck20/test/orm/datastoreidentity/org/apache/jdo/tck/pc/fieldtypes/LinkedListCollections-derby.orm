@@ -55,7 +55,8 @@
                 <element column="STRINGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfString10" column="LINKEDLIST_OF_STRING10">
+            <field name="LinkedListOfString10" column="LINKEDLIST_OF_STRING10"
+                   serialized="true">
             </field>
             <field name="LinkedListOfString11" table="LINKEDLIST_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -67,7 +68,8 @@
                 <element column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfDate13" column="LINKEDLIST_OF_DATE13">
+            <field name="LinkedListOfDate13" column="LINKEDLIST_OF_DATE13"
+                   serialized="true">
             </field>
             <field name="LinkedListOfDate14" table="LINKEDLIST_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -79,7 +81,8 @@
                 <element column="LOCALEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfLocale16" column="LINKEDLIST_OF_LOCALE16">
+            <field name="LinkedListOfLocale16" column="LINKEDLIST_OF_LOCALE16"
+                   serialized="true">
             </field>
             <field name="LinkedListOfLocale17" table="LINKEDLIST_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -91,7 +94,8 @@
                 <element column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfBigDecimal19" column="LINKEDLIST_OF_BIG_DECIMAL19">
+            <field name="LinkedListOfBigDecimal19" column="LINKEDLIST_OF_BIG_DECIMAL19"
+                   serialized="true">
             </field>
             <field name="LinkedListOfBigDecimal20" table="LINKEDLIST_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -103,7 +107,8 @@
                 <element column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfBigInteger22" column="LINKEDLIST_OF_BIG_INTEGER22">
+            <field name="LinkedListOfBigInteger22" column="LINKEDLIST_OF_BIG_INTEGER22"
+                   serialized="true">
             </field>
             <field name="LinkedListOfBigInteger23" table="LINKEDLIST_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -115,9 +120,10 @@
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfByte25" column="LINKEDLIST_OF_BYTE25">
+            <field name="LinkedListOfByte25" column="LINKEDLIST_OF_BYTE25"
+                   serialized="true">
             </field>
-            <field name="LinkedListOfByte26" table="LINKEDLIST_OF_BYTE27">
+            <field name="LinkedListOfByte26" table="LINKEDLIST_OF_BYTE26">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
@@ -127,7 +133,8 @@
                 <element column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfDouble28" column="LINKEDLIST_OF_DOUBLE28">
+            <field name="LinkedListOfDouble28" column="LINKEDLIST_OF_DOUBLE28"
+                   serialized="true">
             </field>
             <field name="LinkedListOfDouble29" table="LINKEDLIST_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -139,7 +146,8 @@
                 <element column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfFloat31" column="LINKEDLIST_OF_FLOAT31">
+            <field name="LinkedListOfFloat31" column="LINKEDLIST_OF_FLOAT31"
+                   serialized="true">
             </field>
             <field name="LinkedListOfFloat32" table="LINKEDLIST_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -151,7 +159,8 @@
                 <element column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfInteger34" column="LINKEDLIST_OF_INTEGER34">
+            <field name="LinkedListOfInteger34" column="LINKEDLIST_OF_INTEGER34"
+                   serialized="true">
             </field>
             <field name="LinkedListOfInteger35" table="LINKEDLIST_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -163,7 +172,8 @@
                 <element column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfLong37" column="LINKEDLIST_OF_LONG37">
+            <field name="LinkedListOfLong37" column="LINKEDLIST_OF_LONG37"
+                   serialized="true">
             </field>
             <field name="LinkedListOfLong38" table="LINKEDLIST_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -175,7 +185,8 @@
                 <element column="SHORTVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="LinkedListOfShort40" column="LINKEDLIST_OF_SHORT40">
+            <field name="LinkedListOfShort40" column="LINKEDLIST_OF_SHORT40"
+                   serialized="true">
             </field>
             <field name="LinkedListOfShort41" table="LINKEDLIST_OF_SHORT41">
                 <join column="IDENTIFIER"/>

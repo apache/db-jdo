@@ -54,7 +54,8 @@
                 <element column="STRINGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfString10" column="VECTOR_OF_STRING10">
+            <field name="VectorOfString10" column="VECTOR_OF_STRING10"
+                   serialized="true">
             </field>
             <field name="VectorOfString11" table="VECTOR_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -66,7 +67,8 @@
                 <element column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfDate13" column="VECTOR_OF_DATE13">
+            <field name="VectorOfDate13" column="VECTOR_OF_DATE13"
+                   serialized="true">
             </field>
             <field name="VectorOfDate14" table="VECTOR_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -78,7 +80,8 @@
                 <element column="LOCALEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfLocale16" column="VECTOR_OF_LOCALE16">
+            <field name="VectorOfLocale16" column="VECTOR_OF_LOCALE16"
+                   serialized="true">
             </field>
             <field name="VectorOfLocale17" table="VECTOR_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -90,7 +93,8 @@
                 <element column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfBigDecimal19" column="VECTOR_OF_BIG_DECIMAL19">
+            <field name="VectorOfBigDecimal19" column="VECTOR_OF_BIG_DECIMAL19"
+                   serialized="true">
             </field>
             <field name="VectorOfBigDecimal20" table="VECTOR_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -102,7 +106,8 @@
                 <element column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfBigInteger22" column="VECTOR_OF_BIG_INTEGER22">
+            <field name="VectorOfBigInteger22" column="VECTOR_OF_BIG_INTEGER22"
+                   serialized="true">
             </field>
             <field name="VectorOfBigInteger23" table="VECTOR_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -114,9 +119,10 @@
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfByte25" column="VECTOR_OF_BYTE25">
+            <field name="VectorOfByte25" column="VECTOR_OF_BYTE25"
+                   serialized="true">
             </field>
-            <field name="VectorOfByte26" table="VECTOR_OF_BYTE27">
+            <field name="VectorOfByte26" table="VECTOR_OF_BYTE26">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
                 <order column="INDEX"/>
@@ -126,7 +132,8 @@
                 <element column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfDouble28" column="VECTOR_OF_DOUBLE28">
+            <field name="VectorOfDouble28" column="VECTOR_OF_DOUBLE28"
+                   serialized="true">
             </field>
             <field name="VectorOfDouble29" table="VECTOR_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -138,7 +145,8 @@
                 <element column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfFloat31" column="VECTOR_OF_FLOAT31">
+            <field name="VectorOfFloat31" column="VECTOR_OF_FLOAT31"
+                   serialized="true">
             </field>
             <field name="VectorOfFloat32" table="VECTOR_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -150,7 +158,8 @@
                 <element column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfInteger34" column="VECTOR_OF_INTEGER34">
+            <field name="VectorOfInteger34" column="VECTOR_OF_INTEGER34"
+                   serialized="true">
             </field>
             <field name="VectorOfInteger35" table="VECTOR_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -162,7 +171,8 @@
                 <element column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfLong37" column="VECTOR_OF_LONG37">
+            <field name="VectorOfLong37" column="VECTOR_OF_LONG37"
+                   serialized="true">
             </field>
             <field name="VectorOfLong38" table="VECTOR_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -174,7 +184,8 @@
                 <element column="SHORTVAL"/>
                 <order column="INDEX"/>
             </field>
-            <field name="VectorOfShort40" column="VECTOR_OF_SHORT40">
+            <field name="VectorOfShort40" column="VECTOR_OF_SHORT40"
+                   serialized="true">
             </field>
             <field name="VectorOfShort41" table="VECTOR_OF_SHORT41">
                 <join column="IDENTIFIER"/>

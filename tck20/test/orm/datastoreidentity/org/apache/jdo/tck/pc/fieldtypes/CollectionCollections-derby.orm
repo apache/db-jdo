@@ -45,7 +45,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
             </field>
-            <field name="CollectionOfString10" column="COLLECTION_OF_STRING10">
+            <field name="CollectionOfString10" column="COLLECTION_OF_STRING10"
+                   serialized="true">
             </field>
             <field name="CollectionOfString11" table="COLLECTION_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -55,7 +56,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
             </field>
-            <field name="CollectionOfDate13" column="COLLECTION_OF_DATE13">
+            <field name="CollectionOfDate13" column="COLLECTION_OF_DATE13"
+                   serialized="true">
             </field>
             <field name="CollectionOfDate14" table="COLLECTION_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -65,7 +67,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
             </field>
-            <field name="CollectionOfLocale16" column="COLLECTION_OF_LOCALE16">
+            <field name="CollectionOfLocale16" column="COLLECTION_OF_LOCALE16"
+                   serialized="true">
             </field>
             <field name="CollectionOfLocale17" table="COLLECTION_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -75,7 +78,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
             </field>
-            <field name="CollectionOfBigDecimal19" column="COLLECTION_OF_BIG_DECIMAL19">
+            <field name="CollectionOfBigDecimal19" column="COLLECTION_OF_BIG_DECIMAL19"
+                   serialized="true">
             </field>
             <field name="CollectionOfBigDecimal20" table="COLLECTION_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -85,7 +89,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
             </field>
-            <field name="CollectionOfBigInteger22" column="COLLECTION_OF_BIG_INTEGER22">
+            <field name="CollectionOfBigInteger22" column="COLLECTION_OF_BIG_INTEGER22"
+                   serialized="true">
             </field>
             <field name="CollectionOfBigInteger23" table="COLLECTION_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -95,7 +100,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
             </field>
-            <field name="CollectionOfByte25" column="COLLECTION_OF_BYTE25">
+            <field name="CollectionOfByte25" column="COLLECTION_OF_BYTE25"
+                   serialized="true">
             </field>
             <field name="CollectionOfByte26" table="COLLECTION_OF_BYTE26">
                 <join column="IDENTIFIER"/>
@@ -105,7 +111,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
             </field>
-            <field name="CollectionOfDouble28" column="COLLECTION_OF_DOUBLE28">
+            <field name="CollectionOfDouble28" column="COLLECTION_OF_DOUBLE28"
+                   serialized="true">
             </field>
             <field name="CollectionOfDouble29" table="COLLECTION_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -115,7 +122,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
             </field>
-            <field name="CollectionOfFloat31" column="COLLECTION_OF_FLOAT31">
+            <field name="CollectionOfFloat31" column="COLLECTION_OF_FLOAT31"
+                   serialized="true">
             </field>
             <field name="CollectionOfFloat32" table="COLLECTION_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -125,7 +133,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
             </field>
-            <field name="CollectionOfInteger34" column="COLLECTION_OF_INTEGER34">
+            <field name="CollectionOfInteger34" column="COLLECTION_OF_INTEGER34"
+                   serialized="true">
             </field>
             <field name="CollectionOfInteger35" table="COLLECTION_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -135,7 +144,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
             </field>
-            <field name="CollectionOfLong37" column="COLLECTION_OF_LONG37">
+            <field name="CollectionOfLong37" column="COLLECTION_OF_LONG37"
+                   serialized="true">
             </field>
             <field name="CollectionOfLong38" table="COLLECTION_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -145,7 +155,8 @@
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
             </field>
-            <field name="CollectionOfShort40" column="COLLECTION_OF_SHORT40">
+            <field name="CollectionOfShort40" column="COLLECTION_OF_SHORT40"
+                   serialized="true">
             </field>
             <field name="CollectionOfShort41" table="COLLECTION_OF_SHORT41">
                 <join column="IDENTIFIER"/>

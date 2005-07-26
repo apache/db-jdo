@@ -84,7 +84,7 @@
             </field>
             <field name="TreeMapOfString_Byte25" column="TREEMAP_STR_BYTE25">
             </field>
-            <field name="TreeMapOfString_Byte26" column="TREEMAP_STR_BYTE27">
+            <field name="TreeMapOfString_Byte26" column="TREEMAP_STR_BYTE26">
             </field>
             <field name="TreeMapOfString_Double27" column="TREEMAP_STR_DOUBLE27">
             </field>
