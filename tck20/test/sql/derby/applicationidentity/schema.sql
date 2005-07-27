@@ -207,8 +207,8 @@ CREATE TABLE project_reviewer (
 );
 
 CREATE TABLE project_member (
-    PROJID INTEGER NOT NULL,
-    MEMBER INTEGER NOT NULL
+    PROJID INTEGER REFERENCES projects NOT NULL,
+    MEMBER INTEGER REFERENCES persons NOT NULL
 );
 
 CREATE TABLE employee_phoneno_type (
