@@ -95,6 +95,7 @@ public class BatchResultPrinter
                                 ",  Errors: "+result.errorCount()+
                                 ", Time: "+elapsedTimeAsString(this.runtime)+" seconds.");
         }
+        getWriter().println("Excluded tests: " + System.getProperty("jdo.tck.exclude"));
     }
         
     // helper method

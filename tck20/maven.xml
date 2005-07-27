@@ -81,6 +81,8 @@
         <echo>setProps:</echo>
 
         <j:set var="zeroval" value="0"/>
+        <j:set var="spaceval" value=" "/>
+        <j:set var="nullval" value=""/>
 
         <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
         <j:if test="${cfglist == null}">
@@ -101,6 +103,33 @@
         <u:tokenize var="jdo.tck.identitytypes" delim=" ">
             ${jdo.tck.identitytypes}
         </u:tokenize>
+
+    </goal>
+
+    <goal name="exclude">
+
+        <j:new var="testclasses" className="java.util.Vector"/>
+        <u:tokenize var="jdo.tck.classes" delim=" ">
+            ${jdo.tck.classes}
+        </u:tokenize>
+        <j:forEach var="class" items="${jdo.tck.classes}">
+            <j:set var="foo" value="${testclasses.add(class)}"/>
+        </j:forEach>
+
+        <u:properties file="${jdo.tck.excludelist}"/>
+        <u:tokenize var="jdo.tck.exclude" delim=" ">
+            ${jdo.tck.exclude}
+        </u:tokenize>
+        <j:forEach var="excludedclass" items="${jdo.tck.exclude}">
+            <j:set var="foo" value="${testclasses.remove(excludedclass)}"/>
+        </j:forEach>
+
+        <j:new var="strbuf" className="java.lang.StringBuffer"/>
+        <j:forEach var="class" items="${testclasses}">
+            <j:set var="foo" value="${strbuf.append(class)}"/>
+            <j:set var="foo" value="${strbuf.append(spaceval)}"/>
+        </j:forEach>
+        <j:set var="jdo.tck.classes" value="${strbuf}"/>
 
     </goal>
 
@@ -181,6 +210,7 @@
                     <!-- get jdo.tck.classes (list of testclasses),
                          jdo.tck.testdata, jdo.tck.mapping -->
                     <u:properties file="${basedir}/test/conf/${jdo.tck.cfg}"/>
+                    <attainGoal name="exclude"/>
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
                     <j:set var="mapping" value="${jdo.tck.mapping}"/>
@@ -209,6 +239,7 @@
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
                 <j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
                     <u:properties file="${basedir}/test/conf/${jdo.tck.cfg}"/>
+                    <attainGoal name="exclude"/>
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
                     <j:set var="mapping" value="${jdo.tck.mapping}"/>
@@ -263,8 +294,8 @@
                          value="${jdo.tck.database}"/>
             <sysproperty key="jdo.tck.cfg"
                          value="${jdo.tck.cfg}"/>
-            <sysproperty key="jdo.tck.excludelist"
-                         value="${jdo.tck.excludelist}"/>
+            <sysproperty key="jdo.tck.exclude"
+                         value="${jdo.tck.exclude}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
@@ -308,8 +339,8 @@
                          value="${jdo.tck.database}"/>
             <sysproperty key="jdo.tck.cfg"
                          value="${jdo.tck.cfg}"/>
-            <sysproperty key="jdo.tck.excludelist"
-                         value="${jdo.tck.excludelist}"/>
+            <sysproperty key="jdo.tck.exclude"
+                         value="${jdo.tck.exclude}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
