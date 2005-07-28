@@ -19,6 +19,7 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.util.*;
 import java.math.*;
 
+import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 
 public class SecondSetOfTestValuesForCollection extends Hashtable {
@@ -98,19 +99,19 @@ public class SecondSetOfTestValuesForCollection extends Hashtable {
     put("Byte", byteVector);
 
     Vector doubleVector = new Vector();
-    doubleVector.add(0, new Double(Double.MAX_VALUE - 343434));
-    doubleVector.add(1, new Double(Double.MIN_VALUE));
-    doubleVector.add(2, new Double(Double.MAX_VALUE));
-    doubleVector.add(3, new Double(Double.MAX_VALUE - 65423445.436664));
-    doubleVector.add(4, new Double(Double.MAX_VALUE - 7235.236764677));
+    doubleVector.add(0, new Double(AllTypes.DOUBLE_LARGEST - 343434));
+    doubleVector.add(1, new Double(AllTypes.DOUBLE_SMALLEST));
+    doubleVector.add(2, new Double(AllTypes.DOUBLE_LARGEST));
+    doubleVector.add(3, new Double(AllTypes.DOUBLE_LARGEST - 65423445.436664));
+    doubleVector.add(4, new Double(AllTypes.DOUBLE_LARGEST - 7235.236764677));
     put("Double", doubleVector);
 
     Vector floatVector = new Vector();
-    floatVector.add(0, new Float(Float.MAX_VALUE - 5452));
-    floatVector.add(1, new Float(Float.MIN_VALUE));
-    floatVector.add(2, new Float(Float.MAX_VALUE - 6564560.54));
-    floatVector.add(3, new Float(Float.MAX_VALUE));
-    floatVector.add(4, new Float(Float.MAX_VALUE - 9756.634));
+    floatVector.add(0, new Float(AllTypes.FLOAT_LARGEST - 5452));
+    floatVector.add(1, new Float(AllTypes.FLOAT_SMALLEST));
+    floatVector.add(2, new Float(AllTypes.FLOAT_LARGEST - 6564560.54));
+    floatVector.add(3, new Float(AllTypes.FLOAT_LARGEST));
+    floatVector.add(4, new Float(AllTypes.FLOAT_LARGEST - 9756.634));
     put("Float", floatVector);
 
     Vector integerVector = new Vector();

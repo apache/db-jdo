@@ -20,6 +20,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfFloat;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -75,8 +76,8 @@ public class TestFieldsOfFloat extends JDO_Test {
         Transaction tx = pm.currentTransaction();
         try { 
             int i, n;
-            Float firstValue = new Float(Float.MIN_VALUE);
-            Float secondValue = new Float(Float.MAX_VALUE);
+            Float firstValue = new Float(AllTypes.FLOAT_SMALLEST);
+            Float secondValue = new Float(AllTypes.FLOAT_LARGEST);
             tx.begin();
             FieldsOfFloat pi = new FieldsOfFloat();
             pi.identifier = 1;
