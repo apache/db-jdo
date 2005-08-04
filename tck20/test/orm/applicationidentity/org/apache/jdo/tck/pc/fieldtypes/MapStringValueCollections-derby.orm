@@ -8,127 +8,106 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String1" table="MAP_OF_OBJECT1_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String2" table="MAP_OF_OBJECT2_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String3" table="MAP_OF_OBJECT3_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String4" table="MAP_OF_OBJECT4_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String6" table="MAP_OF_OBJECT6_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfObject_String8" table="MAP_OF_OBJECT8_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String9" table="MAP_OF_SIMPLE_CLASS9_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String10" table="MAP_OF_SIMPLE_CLASS10_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String11" table="MAP_OF_SIMPLE_CLASS11_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String12" table="MAP_OF_SIMPLE_CLASS12_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String13" table="MAP_OF_SIMPLE_CLASS13_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String15" table="MAP_OF_SIMPLE_CLASS15_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleClass_String17" table="MAP_OF_SIMPLE_CLASS17_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String18" table="MAP_OF_SIMPLE_INTERFACE18_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String19" table="MAP_OF_SIMPLE_INTERFACE19_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String20" table="MAP_OF_SIMPLE_INTERFACE20_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String21" table="MAP_OF_SIMPLE_INTERFACE21_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String22" table="MAP_OF_SIMPLE_INTERFACE22_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String24" table="MAP_OF_SIMPLE_INTERFACE24_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfSimpleInterface_String26" table="MAP_OF_SIMPLE_INTERFACE26_STRING">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfString_String27" column="MAP_OF_STRING27_STRING"
                    serialized="true">
@@ -152,7 +131,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfDate_String36" column="MAP_OF_DATE36_STRING"
                    serialized="true">
@@ -176,7 +154,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfBigDecimal_String45" column="MAP_OF_BIG_DECIMAL45_STRING"
                    serialized="true">
@@ -199,10 +176,9 @@
             <field name="MapOfBigDecimal_String53" table="MAP_OF_BIG_DECIMAL53_STRING">
                 <join column="IDENTIFIER"/>
                 <key>
-                    <column name="KEYVAL" jdbc-type="DECIMAL" length="11" scale="4"/>
+                    <column name="KEYVAL" jdbc-type="DECIMAL" length="17" scale="6"/>
                 </key>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfBigInteger_String54" column="MAP_OF_BIG_INTEGER54_STRING"
                    serialized="true">
@@ -226,7 +202,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfByte_String63" column="MAP_OF_BYTE63_STRING"
                    serialized="true">
@@ -250,7 +225,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfDouble_String72" column="MAP_OF_DOUBLE72_STRING"
                    serialized="true">
@@ -274,7 +248,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfFloat_String81" column="MAP_OF_FLOAT81_STRING"
                    serialized="true">
@@ -298,7 +271,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfInteger_String90" column="MAP_OF_INTEGER90_STRING"
                    serialized="true">
@@ -322,7 +294,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfLong_String99" column="MAP_OF_LONG99_STRING"
                    serialized="true">
@@ -346,7 +317,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="MapOfShort_String108" column="MAP_OF_SHORT108_STRING"
                    serialized="true">
@@ -370,7 +340,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
         </class>
     </package>

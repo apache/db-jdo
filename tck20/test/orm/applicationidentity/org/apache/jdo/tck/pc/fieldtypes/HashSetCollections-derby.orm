@@ -7,52 +7,42 @@
             <field name="HashSetOfObject0" table="HASHSET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfObject1" table="HASHSET_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfObject2" table="HASHSET_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleClass3" table="HASHSET_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleClass4" table="HASHSET_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleClass5" table="HASHSET_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleInterface6" table="HASHSET_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleInterface7" table="HASHSET_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfSimpleInterface8" table="HASHSET_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfString9" table="HASHSET_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfString10"
                    column="HASHSET_OF_STRING10"
@@ -61,12 +51,10 @@
             <field name="HashSetOfString11" table="HASHSET_OF_STRING11">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfDate12" table="HASHSET_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfDate13" column="HASHSET_OF_DATE13"
             serialized="true">
@@ -74,12 +62,10 @@
             <field name="HashSetOfDate14" table="HASHSET_OF_DATE14">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfLocale15" table="HASHSET_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfLocale16" column="HASHSET_OF_LOCALE16"
             serialized="true">
@@ -87,12 +73,10 @@
             <field name="HashSetOfLocale17" table="HASHSET_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfBigDecimal18" table="HASHSET_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfBigDecimal19" column="HASHSET_OF_BIG_DECIMAL19"
             serialized="true">
@@ -100,12 +84,10 @@
             <field name="HashSetOfBigDecimal20" table="HASHSET_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfBigInteger21" table="HASHSET_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfBigInteger22" column="HASHSET_OF_BIG_INTEGER22"
             serialized="true">
@@ -113,12 +95,10 @@
             <field name="HashSetOfBigInteger23" table="HASHSET_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfByte24" table="HASHSET_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfByte25" column="HASHSET_OF_BYTE25"
             serialized="true">
@@ -126,12 +106,10 @@
             <field name="HashSetOfByte26" table="HASHSET_OF_BYTE26">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfDouble27" table="HASHSET_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfDouble28" column="HASHSET_OF_DOUBLE28"
             serialized="true">
@@ -139,12 +117,10 @@
             <field name="HashSetOfDouble29" table="HASHSET_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfFloat30" table="HASHSET_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfFloat31" column="HASHSET_OF_FLOAT31"
                    serialized="true">
@@ -152,12 +128,10 @@
             <field name="HashSetOfFloat32" table="HASHSET_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfInteger33" table="HASHSET_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfInteger34" column="HASHSET_OF_INTEGER34"
                    serialized="true">
@@ -165,12 +139,10 @@
             <field name="HashSetOfInteger35" table="HASHSET_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfLong36" table="HASHSET_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfLong37" column="HASHSET_OF_LONG37"
                    serialized="true">
@@ -178,12 +150,10 @@
             <field name="HashSetOfLong38" table="HASHSET_OF_LONG38">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfShort39" table="HASHSET_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashSetOfShort40" column="HASHSET_OF_SHORT40"
                    serialized="true">
@@ -191,7 +161,6 @@
             <field name="HashSetOfShort41" table="HASHSET_OF_SHORT41">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
             </field>
         </class>
     </package>

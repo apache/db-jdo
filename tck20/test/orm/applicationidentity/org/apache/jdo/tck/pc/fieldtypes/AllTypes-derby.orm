@@ -6,7 +6,9 @@
             <field name="id" column="ID" primary-key="true"/>
             <field name="fld_boolean" column="PRIMITIVEBOOLEAN"/>
             <field name="fld_byte" column="PRIMITIVEBYTE"/>
-            <field name="fld_char" column="PRIMITIVECHAR"/>
+            <field name="fld_char">
+                <column name="PRIMITIVECHAR" jdbc-type="INTEGER"/>
+            </field>
             <field name="fld_double" column="PRIMITIVEDOUBLE"/>
             <field name="fld_float" column="PRIMITIVEFLOAT"/>
             <field name="fld_int" column="PRIMITIVEINT"/>
@@ -14,7 +16,9 @@
             <field name="fld_short" column="PRIMITIVESHORT"/>
             <field name="fld_Boolean" column="BOOLEANVAL"/>
             <field name="fld_Byte" column="BYTEVAL"/>
-            <field name="fld_Character" column="CHARACTERVAL"/>
+            <field name="fld_Character">
+                <column name="CHARACTERVAL" jdbc-type="INTEGER"/>
+            </field>
             <field name="fld_Double" column="DOUBLEVAL"/>
             <field name="fld_Float" column="FLOATVAL"/>
             <field name="fld_Integer" column="INTEGERVAL"/>

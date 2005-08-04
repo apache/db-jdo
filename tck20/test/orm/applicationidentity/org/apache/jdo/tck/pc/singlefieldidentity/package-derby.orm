@@ -16,13 +16,17 @@
     </class>
 
     <class name="PCPointSingleFieldPrimitivechar" table="PCPointSingleFieldChar">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" primary-key="true">
+        <column name="ID" jdbc-type="INTEGER"/>
+      </field>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldCharacter" table="PCPointSingleFieldChar">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" primary-key="true">
+        <column name="ID" jdbc-type="INTEGER"/>
+      </field>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
