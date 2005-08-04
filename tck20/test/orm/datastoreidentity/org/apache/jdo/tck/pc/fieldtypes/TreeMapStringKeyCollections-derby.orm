@@ -7,49 +7,57 @@
             <field name="identifier" column="IDENTIFIER"/>
             <field name="TreeMapOfString_Object0" table="TREEMAP_STR_OBJECT0">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_Object1" table="TREEMAP_STR_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_Object2" table="TREEMAP_STR_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass3" table="TREEMAP_STR_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass4" table="TREEMAP_STR_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass5" table="TREEMAP_STR_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface6" table="TREEMAP_STR_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
-            <field name="TreeMapOfString_SimpleInterface7" column="TREEMAP_STR_SIMPLE_INTERFACE7">
+            <field name="TreeMapOfString_SimpleInterface7" table="TREEMAP_STR_SIMPLE_INTERFACE7">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
             </field>
-            <field name="TreeMapOfString_SimpleInterface8" column="TREEMAP_STR_SIMPLE_INTERFACE8">
+            <field name="TreeMapOfString_SimpleInterface8" table="TREEMAP_STR_SIMPLE_INTERFACE8">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+                <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_String9" column="TREEMAP_STR_STRING9">
             </field>
@@ -117,39 +125,39 @@
             </field>
             <field name="TreeMapOfString_Short41" column="TREEMAP_STR_SHORT41">
             </field>
-  <field name="TreeMapOfString_Object42" table="TREEMAP_STR_OBJECT42">
+            <field name="TreeMapOfString_Object42" table="TREEMAP_STR_OBJECT42">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_Object43" table="TREEMAP_STR_OBJECT43">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass45" table="TREEMAP_STR_SIMPLE_CLASS45">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass46" table="TREEMAP_STR_SIMPLE_CLASS46">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface48" table="TREEMAP_STR_SIMPLE_INTERFACE48">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface49" table="TREEMAP_STR_SIMPLE_INTERFACE49">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
@@ -199,37 +207,37 @@
             </field>
             <field name="TreeMapOfString_Object84" table="TREEMAP_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_Object86" table="TREEMAP_STR_OBJECT86">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="OBJREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass87" table="TREEMAP_STR_SIMPLE_CLASS87">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleClass89" table="TREEMAP_STR_SIMPLE_CLASS89">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPCLSREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface90" table="TREEMAP_STR_SIMPLE_INTERFACE90">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface92" table="TREEMAP_STR_SIMPLE_INTERFACE92">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SIMPINTREF"/>
                 <order column="INDEX"/>
             </field>
@@ -237,7 +245,7 @@
             </field>
             <field name="TreeMapOfString_String95" table="TREEMAP_STR_STRING95">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="STRINGVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -245,7 +253,7 @@
             </field>
             <field name="TreeMapOfString_Date98" table="TREEMAP_STR_DATE98">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="DATEVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -253,7 +261,7 @@
             </field>
             <field name="TreeMapOfString_Locale101" table="TREEMAP_STR_LOCALE101">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="LOCALEVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -261,7 +269,7 @@
             </field>
             <field name="TreeMapOfString_BigDecimal104" table="TREEMAP_STR_BIG_DECIMAL104">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BIG_DECIMALVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -269,7 +277,7 @@
             </field>
             <field name="TreeMapOfString_BigInteger107" table="TREEMAP_STR_BIG_INTEGER107">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BIG_INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -277,7 +285,7 @@
             </field>
             <field name="TreeMapOfString_Byte110" table="TREEMAP_STR_BYTE110">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="BYTEVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -285,7 +293,7 @@
             </field>
             <field name="TreeMapOfString_Double113" table="TREEMAP_STR_DOUBLE113">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="DOUBLEVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -293,7 +301,7 @@
             </field>
             <field name="TreeMapOfString_Float116" table="TREEMAP_STR_FLOAT116">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="FLOATVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -301,7 +309,7 @@
             </field>
             <field name="TreeMapOfString_Integer119" table="TREEMAP_STR_INTEGER119">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="INTEGERVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -309,7 +317,7 @@
             </field>
             <field name="TreeMapOfString_Long122" table="TREEMAP_STR_LONG122">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="LONGVAL"/>
                 <order column="INDEX"/>
             </field>
@@ -317,7 +325,7 @@
             </field>
             <field name="TreeMapOfString_Short125" table="TREEMAP_STR_SHORT125">
                 <join column="IDENTIFIER"/>
-                <key column="STRING"/>
+                <key column="KEYVAL"/>
                 <value column="SHORTVAL"/>
                 <order column="INDEX"/>
             </field>

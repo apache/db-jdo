@@ -8,52 +8,42 @@
             <field name="SetOfObject0" table="SET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfObject1" table="SET_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfObject2" table="SET_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleClass3" table="SET_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleClass4" table="SET_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleClass5" table="SET_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleInterface6" table="SET_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleInterface7" table="SET_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfSimpleInterface8" table="SET_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfString9" table="SET_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfString10" column="SET_OF_STRING10"
                    serialized="true">
@@ -61,12 +51,10 @@
             <field name="SetOfString11" table="SET_OF_STRING11">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfDate12" table="SET_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfDate13" column="SET_OF_DATE13"
                    serialized="true">
@@ -74,12 +62,10 @@
             <field name="SetOfDate14" table="SET_OF_DATE14">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfLocale15" table="SET_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfLocale16" column="SET_OF_LOCALE16"
                    serialized="true">
@@ -87,12 +73,10 @@
             <field name="SetOfLocale17" table="SET_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfBigDecimal18" table="SET_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfBigDecimal19" column="SET_OF_BIG_DECIMAL19"
                    serialized="true">
@@ -100,12 +84,10 @@
             <field name="SetOfBigDecimal20" table="SET_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfBigInteger21" table="SET_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfBigInteger22" column="SET_OF_BIG_INTEGER22"
                    serialized="true">
@@ -113,12 +95,10 @@
             <field name="SetOfBigInteger23" table="SET_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfByte24" table="SET_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfByte25" column="SET_OF_BYTE25"
                    serialized="true">
@@ -126,12 +106,10 @@
             <field name="SetOfByte26" table="SET_OF_BYTE26">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfDouble27" table="SET_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfDouble28" column="SET_OF_DOUBLE28"
                    serialized="true">
@@ -139,12 +117,10 @@
             <field name="SetOfDouble29" table="SET_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfFloat30" table="SET_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfFloat31" column="SET_OF_FLOAT31"
                    serialized="true">
@@ -152,12 +128,10 @@
             <field name="SetOfFloat32" table="SET_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfInteger33" table="SET_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfInteger34" column="SET_OF_INTEGER34"
                    serialized="true">
@@ -165,12 +139,10 @@
             <field name="SetOfInteger35" table="SET_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfLong36" table="SET_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfLong37" column="SET_OF_LONG37"
                    serialized="true">
@@ -178,12 +150,10 @@
             <field name="SetOfLong38" table="SET_OF_LONG38">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfShort39" table="SET_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="SetOfShort40" column="SET_OF_SHORT40"
                    serialized="true">
@@ -191,7 +161,6 @@
             <field name="SetOfShort41" table="SET_OF_SHORT41">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
             </field>
         </class>
     </package>

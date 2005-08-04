@@ -9,127 +9,106 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String1" table="HASHMAP_OBJECT1_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String2" table="HASHMAP_OBJECT2_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String3" table="HASHMAP_OBJECT3_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String4" table="HASHMAP_OBJECT4_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String6" table="HASHMAP_OBJECT6_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfObject_String8" table="HASHMAP_OBJECT8_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String9" table="HASHMAP_SIMPLE_CLASS9_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String10" table="HASHMAP_SIMPLE_CLASS10_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String11" table="HASHMAP_SIMPLE_CLASS11_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String12" table="HASHMAP_SIMPLE_CLASS12_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String13" table="HASHMAP_SIMPLE_CLASS13_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String15" table="HASHMAP_SIMPLE_CLASS15_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleClass_String17" table="HASHMAP_SIMPLE_CLASS17_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String18" table="HASHMAP_SIMPLE_INTERFACE18_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String19" table="HASHMAP_SIMPLE_INTERFACE19_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String20" table="HASHMAP_SIMPLE_INTERFACE20_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String21" table="HASHMAP_SIMPLE_INTERFACE21_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String22" table="HASHMAP_SIMPLE_INTERFACE22_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String24" table="HASHMAP_SIMPLE_INTERFACE24_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfSimpleInterface_String26" table="HASHMAP_SIMPLE_INTERFACE26_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfString_String27" column="HASHMAP_STRING27_STR"
                    serialized="true">
@@ -153,7 +132,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfDate_String36" column="HASHMAP_DATE36_STR"
                    serialized="true">
@@ -177,7 +155,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfBigDecimal_String45" column="HASHMAP_BIG_DECIMAL45_STR"
                    serialized="true">
@@ -200,10 +177,12 @@
             <field name="HashMapOfBigDecimal_String53" table="HASHMAP_BIG_DECIMAL53_STR">
                 <join column="IDENTIFIER"/>
                 <key>
-                    <column name="KEYVAL" jdbc-type="DECIMAL" length="11" scale="4"/>
+                    <column name="KEYVAL"
+                            jdbc-type="DECIMAL"
+                            length="17"
+                            scale="6"/>
                 </key>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfBigInteger_String54" column="HASHMAP_BIG_INTEGER54_STR"
                    serialized="true">
@@ -227,7 +206,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfByte_String63" column="HASHMAP_BYTE63_STR"
                    serialized="true">
@@ -251,7 +229,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfDouble_String72" column="HASHMAP_DOUBLE72_STR"
                    serialized="true">
@@ -275,7 +252,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfFloat_String81" column="HASHMAP_FLOAT81_STR"
                    serialized="true">
@@ -299,7 +275,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfInteger_String90" column="HASHMAP_INTEGER90_STR"
                    serialized="true">
@@ -323,7 +298,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfLong_String99" column="HASHMAP_LONG99_STR"
                    serialized="true">
@@ -347,7 +321,6 @@
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
             <field name="HashMapOfShort_String108" column="HASHMAP_SHORT108_STR"
                    serialized="true">
@@ -364,14 +337,12 @@
             <field name="HashMapOfShort_String112" column="HASHMAP_SHORT112_STR"
                    serialized="true">
             </field>
-            <field name="HashMapOfShort_String114" column="HASHMAP_SHORT114_STR"
-                   serialized="true">
+            <field name="HashMapOfShort_String114" column="HASHMAP_SHORT114_STR">
             </field>
             <field name="HashMapOfShort_String116" table="HASHMAP_SHORT116_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
                 <value column="VALUEVAL"/>
-                <order column="INDEX"/>
             </field>
         </class>
     </package>

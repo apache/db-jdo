@@ -5,78 +5,222 @@
         <class name="FieldsOfCharacter" table="FIELDSOFCHARACTER">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
-            <field name="Character0" column="CHARACTER0"/>
-            <field name="Character1" column="CHARACTER1"/>
-            <field name="Character102" column="CHARACTER102"/>
-            <field name="Character103" column="CHARACTER103"/>
-            <field name="Character104" column="CHARACTER104"/>
-            <field name="Character108" column="CHARACTER108"/>
-            <field name="Character109" column="CHARACTER109"/>
-            <field name="Character11" column="CHARACTER11"/>
-            <field name="Character110" column="CHARACTER110"/>
-            <field name="Character112" column="CHARACTER112"/>
-            <field name="Character113" column="CHARACTER113"/>
-            <field name="Character114" column="CHARACTER114"/>
-            <field name="Character119" column="CHARACTER119"/>
-            <field name="Character12" column="CHARACTER12"/>
-            <field name="Character120" column="CHARACTER120"/>
-            <field name="Character121" column="CHARACTER121"/>
-            <field name="Character124" column="CHARACTER124"/>
-            <field name="Character125" column="CHARACTER125"/>
-            <field name="Character126" column="CHARACTER126"/>
-            <field name="Character128" column="CHARACTER128"/>
-            <field name="Character129" column="CHARACTER129"/>
-            <field name="Character13" column="CHARACTER13"/>
-            <field name="Character130" column="CHARACTER130"/>
-            <field name="Character138" column="CHARACTER138"/>
-            <field name="Character139" column="CHARACTER139"/>
-            <field name="Character140" column="CHARACTER140"/>
-            <field name="Character16" column="CHARACTER16"/>
-            <field name="Character17" column="CHARACTER17"/>
-            <field name="Character18" column="CHARACTER18"/>
-            <field name="Character2" column="CHARACTER2"/>
-            <field name="Character20" column="CHARACTER20"/>
-            <field name="Character21" column="CHARACTER21"/>
-            <field name="Character22" column="CHARACTER22"/>
-            <field name="Character30" column="CHARACTER30"/>
-            <field name="Character31" column="CHARACTER31"/>
-            <field name="Character32" column="CHARACTER32"/>
-            <field name="Character36" column="CHARACTER36"/>
-            <field name="Character37" column="CHARACTER37"/>
-            <field name="Character38" column="CHARACTER38"/>
-            <field name="Character4" column="CHARACTER4"/>
-            <field name="Character40" column="CHARACTER40"/>
-            <field name="Character41" column="CHARACTER41"/>
-            <field name="Character42" column="CHARACTER42"/>
-            <field name="Character47" column="CHARACTER47"/>
-            <field name="Character48" column="CHARACTER48"/>
-            <field name="Character49" column="CHARACTER49"/>
-            <field name="Character5" column="CHARACTER5"/>
-            <field name="Character52" column="CHARACTER52"/>
-            <field name="Character53" column="CHARACTER53"/>
-            <field name="Character54" column="CHARACTER54"/>
-            <field name="Character56" column="CHARACTER56"/>
-            <field name="Character57" column="CHARACTER57"/>
-            <field name="Character58" column="CHARACTER58"/>
-            <field name="Character6" column="CHARACTER6"/>
-            <field name="Character66" column="CHARACTER66"/>
-            <field name="Character67" column="CHARACTER67"/>
-            <field name="Character68" column="CHARACTER68"/>
-            <field name="Character72" column="CHARACTER72"/>
-            <field name="Character73" column="CHARACTER73"/>
-            <field name="Character74" column="CHARACTER74"/>
-            <field name="Character76" column="CHARACTER76"/>
-            <field name="Character77" column="CHARACTER77"/>
-            <field name="Character78" column="CHARACTER78"/>
-            <field name="Character83" column="CHARACTER83"/>
-            <field name="Character84" column="CHARACTER84"/>
-            <field name="Character85" column="CHARACTER85"/>
-            <field name="Character88" column="CHARACTER88"/>
-            <field name="Character89" column="CHARACTER89"/>
-            <field name="Character90" column="CHARACTER90"/>
-            <field name="Character92" column="CHARACTER92"/>
-            <field name="Character93" column="CHARACTER93"/>
-            <field name="Character94" column="CHARACTER94"/>
+            <field name="Character0">
+                <column name="CHARACTER0" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character1">
+                <column name="CHARACTER1" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character102">
+                <column name="CHARACTER102" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character103">
+                <column name="CHARACTER103" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character104">
+                <column name="CHARACTER104" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character108">
+                <column name="CHARACTER108" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character109">
+                <column name="CHARACTER109" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character11">
+                <column name="CHARACTER11" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character110">
+                <column name="CHARACTER110" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character112">
+                <column name="CHARACTER112" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character113">
+                <column name="CHARACTER113" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character114">
+                <column name="CHARACTER114" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character119">
+                <column name="CHARACTER119" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character12">
+                <column name="CHARACTER12" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character120">
+                <column name="CHARACTER120" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character121">
+                <column name="CHARACTER121" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character124">
+                <column name="CHARACTER124" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character125">
+                <column name="CHARACTER125" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character126">
+                <column name="CHARACTER126" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character128">
+                <column name="CHARACTER128" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character129">
+                <column name="CHARACTER129" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character13">
+                <column name="CHARACTER13" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character130">
+                <column name="CHARACTER130" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character138">
+                <column name="CHARACTER138" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character139">
+                <column name="CHARACTER139" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character140">
+                <column name="CHARACTER140" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character16">
+                <column name="CHARACTER16" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character17">
+                <column name="CHARACTER17" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character18">
+                <column name="CHARACTER18" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character2">
+                <column name="CHARACTER2" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character20">
+                <column name="CHARACTER20" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character21">
+                <column name="CHARACTER21" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character22">
+                <column name="CHARACTER22" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character30">
+                <column name="CHARACTER30" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character31">
+                <column name="CHARACTER31" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character32">
+                <column name="CHARACTER32" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character36">
+                <column name="CHARACTER36" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character37">
+                <column name="CHARACTER37" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character38">
+                <column name="CHARACTER38" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character4">
+                <column name="CHARACTER4" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character40">
+                <column name="CHARACTER40" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character41">
+                <column name="CHARACTER41" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character42">
+                <column name="CHARACTER42" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character47">
+                <column name="CHARACTER47" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character48">
+                <column name="CHARACTER48" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character49">
+                <column name="CHARACTER49" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character5">
+                <column name="CHARACTER5" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character52">
+                <column name="CHARACTER52" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character53">
+                <column name="CHARACTER53" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character54">
+                <column name="CHARACTER54" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character56">
+                <column name="CHARACTER56" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character57">
+                <column name="CHARACTER57" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character58">
+                <column name="CHARACTER58" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character6">
+                <column name="CHARACTER6" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character66">
+                <column name="CHARACTER66" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character67">
+                <column name="CHARACTER67" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character68">
+                <column name="CHARACTER68" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character72">
+                <column name="CHARACTER72" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character73">
+                <column name="CHARACTER73" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character74">
+                <column name="CHARACTER74" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character76">
+                <column name="CHARACTER76" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character77">
+                <column name="CHARACTER77" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character78">
+                <column name="CHARACTER78" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character83">
+                <column name="CHARACTER83" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character84">
+                <column name="CHARACTER84" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character85">
+                <column name="CHARACTER85" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character88">
+                <column name="CHARACTER88" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character89">
+                <column name="CHARACTER89" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character90">
+                <column name="CHARACTER90" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character92">
+                <column name="CHARACTER92" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character93">
+                <column name="CHARACTER93" jdbc-type="INTEGER"/>
+            </field>
+            <field name="Character94">
+                <column name="CHARACTER94" jdbc-type="INTEGER"/>
+            </field>
         </class>
     </package>
 </orm>
