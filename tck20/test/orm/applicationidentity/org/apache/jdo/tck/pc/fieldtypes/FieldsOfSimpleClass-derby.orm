@@ -4,214 +4,314 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfSimpleClass" table="FIELDSOFSIMPLECLASS">
             <field name="identifier" primary-key="true" column="IDENTIFIER"/>
-            <field name="SimpleClass0"  column="SIMPLECLASS0">
-            </field>
-            <field name="SimpleClass1"  column="SIMPLECLASS1">
-            </field>
-            <field name="SimpleClass2" column="SIMPLECLASS2">
-            </field>
-            <field name="SimpleClass3" column="SIMPLECLASS3">
-            </field>
-            <field name="SimpleClass4" column="SIMPLECLASS4">
-            </field>
-            <field name="SimpleClass5" column="SIMPLECLASS5">
-            </field>
-            <field name="SimpleClass6" column="SIMPLECLASS6">
-            </field>
-            <field name="SimpleClass7" column="SIMPLECLASS7">
-            </field>
-            <field name="SimpleClass10" column="SIMPLECLASS10">
-            </field>
-            <field name="SimpleClass11" column="SIMPLECLASS11">
-            </field>
-            <field name="SimpleClass12" column="SIMPLECLASS12">
-            </field>
-            <field name="SimpleClass13" column="SIMPLECLASS13">
-            </field>
-            <field name="SimpleClass14" column="SIMPLECLASS14">
-            </field>
-            <field name="SimpleClass16" column="SIMPLECLASS16">
-            </field>
-            <field name="SimpleClass17" column="SIMPLECLASS17">
-            </field>
-            <field name="SimpleClass18" column="SIMPLECLASS18">
-            </field>
-            <field name="SimpleClass19" column="SIMPLECLASS19">
-            </field>
-            <field name="SimpleClass20" column="SIMPLECLASS20">
-            </field>
-            <field name="SimpleClass21" column="SIMPLECLASS21">
-            </field>
-            <field name="SimpleClass22" column="SIMPLECLASS22">
-            </field>
-            <field name="SimpleClass23" column="SIMPLECLASS23">
-            </field>
-            <field name="SimpleClass29" column="SIMPLECLASS29">
-            </field>
-            <field name="SimpleClass30" column="SIMPLECLASS30">
-            </field>
-            <field name="SimpleClass31" column="SIMPLECLASS31">
-            </field>
-            <field name="SimpleClass32" column="SIMPLECLASS32">
-            </field>
-            <field name="SimpleClass33" column="SIMPLECLASS33">
-            </field>
-            <field name="SimpleClass36" column="SIMPLECLASS36">
-            </field>
-            <field name="SimpleClass37" column="SIMPLECLASS37">
-            </field>
-            <field name="SimpleClass38" column="SIMPLECLASS38">
-            </field>
-            <field name="SimpleClass39" column="SIMPLECLASS39">
-            </field>
-            <field name="SimpleClass40" column="SIMPLECLASS40">
-            </field>
-            <field name="SimpleClass41" column="SIMPLECLASS41">
-            </field>
-            <field name="SimpleClass42" column="SIMPLECLASS42">
-            </field>
-            <field name="SimpleClass43" column="SIMPLECLASS43">
-            </field>
-            <field name="SimpleClass46" column="SIMPLECLASS46">
-            </field>
-            <field name="SimpleClass47" column="SIMPLECLASS47">
-            </field>
-            <field name="SimpleClass48" column="SIMPLECLASS48">
-            </field>
-            <field name="SimpleClass49" column="SIMPLECLASS49">
-            </field>
-            <field name="SimpleClass50" column="SIMPLECLASS50">
-            </field>
-            <field name="SimpleClass52" column="SIMPLECLASS52">
-            </field>
-            <field name="SimpleClass53" column="SIMPLECLASS53">
-            </field>
-            <field name="SimpleClass54" column="SIMPLECLASS54">
-            </field>
-            <field name="SimpleClass55" column="SIMPLECLASS55">
-            </field>
-            <field name="SimpleClass56" column="SIMPLECLASS56">
-            </field>
-            <field name="SimpleClass57" column="SIMPLECLASS57">
-            </field>
-            <field name="SimpleClass58" column="SIMPLECLASS58">
-            </field>
-            <field name="SimpleClass59" column="SIMPLECLASS59">
-            </field>
-            <field name="SimpleClass65" column="SIMPLECLASS65">
-            </field>
-            <field name="SimpleClass66" column="SIMPLECLASS66">
-            </field>
-            <field name="SimpleClass67" column="SIMPLECLASS67">
-            </field>
-            <field name="SimpleClass68" column="SIMPLECLASS68">
-            </field>
-            <field name="SimpleClass69" column="SIMPLECLASS69">
-            </field>
-            <field name="SimpleClass72" column="SIMPLECLASS72">
-            </field>
-            <field name="SimpleClass73" column="SIMPLECLASS73">
-            </field>
-            <field name="SimpleClass74" column="SIMPLECLASS74">
-            </field>
-            <field name="SimpleClass75" column="SIMPLECLASS75">
-            </field>
-            <field name="SimpleClass76" column="SIMPLECLASS76">
-            </field>
-            <field name="SimpleClass77" column="SIMPLECLASS77">
-            </field>
-            <field name="SimpleClass78" column="SIMPLECLASS78">
-            </field>
-            <field name="SimpleClass79" column="SIMPLECLASS79">
-            </field>
-            <field name="SimpleClass82" column="SIMPLECLASS82">
-            </field>
-            <field name="SimpleClass83" column="SIMPLECLASS83">
-            </field>
-            <field name="SimpleClass84" column="SIMPLECLASS84">
-            </field>
-            <field name="SimpleClass85" column="SIMPLECLASS85">
-            </field>
-            <field name="SimpleClass86" column="SIMPLECLASS86">
-            </field>
-            <field name="SimpleClass88" column="SIMPLECLASS88">
-            </field>
-            <field name="SimpleClass89" column="SIMPLECLASS89">
-            </field>
-            <field name="SimpleClass90" column="SIMPLECLASS90">
-            </field>
-            <field name="SimpleClass91" column="SIMPLECLASS91">
-            </field>
-            <field name="SimpleClass92" column="SIMPLECLASS92">
-            </field>
-            <field name="SimpleClass93" column="SIMPLECLASS93">
-            </field>
-            <field name="SimpleClass94" column="SIMPLECLASS94">
-            </field>
-            <field name="SimpleClass95" column="SIMPLECLASS95">
-            </field>
-            <field name="SimpleClass101" column="SIMPLECLASS101">
+            <field name="SimpleClass0" column="SIMPLECLASS0">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass1">
+                <embedded>
+                    <field name="id" column="ID1"/>
+                    <field name="intField" column="INTFIELD1"/>
+                    <field name="stringField" column="STRINGFIELD1"/>
+                </embedded>
             </field>
             <field name="SimpleClass102" column="SIMPLECLASS102">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass103" column="SIMPLECLASS103">
+            <field name="SimpleClass103">
+                <embedded>
+                    <field name="id" column="ID103"/>
+                    <field name="intField" column="INTFIELD103"/>
+                    <field name="stringField" column="STRINGFIELD103"/>
+                </embedded>
             </field>
             <field name="SimpleClass104" column="SIMPLECLASS104">
-            </field>
-            <field name="SimpleClass105" column="SIMPLECLASS105">
+                <foreign-key/>
             </field>
             <field name="SimpleClass108" column="SIMPLECLASS108">
+                <foreign-key/>
             </field>
             <field name="SimpleClass109" column="SIMPLECLASS109">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass11" column="SIMPLECLASS11">
+                <foreign-key/>
             </field>
             <field name="SimpleClass110" column="SIMPLECLASS110">
-            </field>
-            <field name="SimpleClass111" column="SIMPLECLASS111">
+                <foreign-key/>
             </field>
             <field name="SimpleClass112" column="SIMPLECLASS112">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass113" column="SIMPLECLASS113">
+            <field name="SimpleClass113">
+                <embedded>
+                    <field name="id" column="ID113"/>
+                    <field name="intField" column="INTFIELD113"/>
+                    <field name="stringField" column="STRINGFIELD113"/>
+                </embedded>
             </field>
             <field name="SimpleClass114" column="SIMPLECLASS114">
-            </field>
-            <field name="SimpleClass115" column="SIMPLECLASS115">
-            </field>
-            <field name="SimpleClass118" column="SIMPLECLASS118">
+                <foreign-key/>
             </field>
             <field name="SimpleClass119" column="SIMPLECLASS119">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass120" column="SIMPLECLASS120">
+            <field name="SimpleClass12">
+                <embedded>
+                    <field name="id" column="ID12"/>
+                    <field name="intField" column="INTFIELD12"/>
+                    <field name="stringField" column="STRINGFIELD12"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass120">
+                <embedded>
+                    <field name="id" column="ID120"/>
+                    <field name="intField" column="INTFIELD120"/>
+                    <field name="stringField" column="STRINGFIELD120"/>
+                </embedded>
             </field>
             <field name="SimpleClass121" column="SIMPLECLASS121">
-            </field>
-            <field name="SimpleClass122" column="SIMPLECLASS122">
+                <foreign-key/>
             </field>
             <field name="SimpleClass124" column="SIMPLECLASS124">
+                <foreign-key/>
             </field>
             <field name="SimpleClass125" column="SIMPLECLASS125">
+                <foreign-key/>
             </field>
             <field name="SimpleClass126" column="SIMPLECLASS126">
-            </field>
-            <field name="SimpleClass127" column="SIMPLECLASS127">
+                <foreign-key/>
             </field>
             <field name="SimpleClass128" column="SIMPLECLASS128">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass129" column="SIMPLECLASS129">
+            <field name="SimpleClass129">
+                <embedded>
+                    <field name="id" column="ID129"/>
+                    <field name="intField" column="INTFIELD129"/>
+                    <field name="stringField" column="STRINGFIELD129"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass13" column="SIMPLECLASS13">
+                <foreign-key/>
             </field>
             <field name="SimpleClass130" column="SIMPLECLASS130">
-            </field>
-            <field name="SimpleClass131" column="SIMPLECLASS131">
-            </field>
-            <field name="SimpleClass137" column="SIMPLECLASS137">
+                <foreign-key/>
             </field>
             <field name="SimpleClass138" column="SIMPLECLASS138">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass139" column="SIMPLECLASS139">
+            <field name="SimpleClass139">
+                <embedded>
+                    <field name="id" column="ID139"/>
+                    <field name="intField" column="INTFIELD139"/>
+                    <field name="stringField" column="STRINGFIELD139"/>
+                </embedded>
             </field>
             <field name="SimpleClass140" column="SIMPLECLASS140">
+                <foreign-key/>
             </field>
-            <field name="SimpleClass141" column="SIMPLECLASS141">
+            <field name="SimpleClass16" column="SIMPLECLASS16">
+                <foreign-key/>
             </field>
+            <field name="SimpleClass17" column="SIMPLECLASS17">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass18" column="SIMPLECLASS18">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass2" column="SIMPLECLASS2">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass20" column="SIMPLECLASS20">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass21">
+                <embedded>
+                    <field name="id" column="ID21"/>
+                    <field name="intField" column="INTFIELD21"/>
+                    <field name="stringField" column="STRINGFIELD21"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass22" column="SIMPLECLASS22">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass30" column="SIMPLECLASS30">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass31">
+                <embedded>
+                    <field name="id" column="ID31"/>
+                    <field name="intField" column="INTFIELD31"/>
+                    <field name="stringField" column="STRINGFIELD31"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass32" column="SIMPLECLASS32">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass36" column="SIMPLECLASS36">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass37" column="SIMPLECLASS37">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass38" column="SIMPLECLASS38">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass4" column="SIMPLECLASS4">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass40" column="SIMPLECLASS40">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass41">
+                <embedded>
+                    <field name="id" column="ID41"/>
+                    <field name="intField" column="INTFIELD41"/>
+                    <field name="stringField" column="STRINGFIELD41"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass42" column="SIMPLECLASS42">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass47" column="SIMPLECLASS47">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass48">
+                <embedded>
+                    <field name="id" column="ID48"/>
+                    <field name="intField" column="INTFIELD48"/>
+                    <field name="stringField" column="STRINGFIELD48"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass49" column="SIMPLECLASS49">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass5">
+                <embedded>
+                    <field name="id" column="ID5"/>
+                    <field name="intField" column="INTFIELD5"/>
+                    <field name="stringField" column="STRINGFIELD5"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass52" column="SIMPLECLASS52">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass53" column="SIMPLECLASS53">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass54" column="SIMPLECLASS54">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass56" column="SIMPLECLASS56">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass57">
+                <embedded>
+                    <field name="id" column="ID57"/>
+                    <field name="intField" column="INTFIELD57"/>
+                    <field name="stringField" column="STRINGFIELD57"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass58" column="SIMPLECLASS58">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass6" column="SIMPLECLASS6">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass66" column="SIMPLECLASS66">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass67">
+                <embedded>
+                    <field name="id" column="ID67"/>
+                    <field name="intField" column="INTFIELD67"/>
+                    <field name="stringField" column="STRINGFIELD67"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass68" column="SIMPLECLASS68">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass72" column="SIMPLECLASS72">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass73" column="SIMPLECLASS73">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass74" column="SIMPLECLASS74">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass76" column="SIMPLECLASS76">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass77">
+                <embedded>
+                    <field name="id" column="ID77"/>
+                    <field name="intField" column="INTFIELD77"/>
+                    <field name="stringField" column="STRINGFIELD77"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass78" column="SIMPLECLASS78">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass83" column="SIMPLECLASS83">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass84">
+                <embedded>
+                    <field name="id" column="ID84"/>
+                    <field name="intField" column="INTFIELD84"/>
+                    <field name="stringField" column="STRINGFIELD84"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass85" column="SIMPLECLASS85">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass88" column="SIMPLECLASS88">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass89" column="SIMPLECLASS89">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass90" column="SIMPLECLASS90">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass92" column="SIMPLECLASS92">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass93">
+                <embedded>
+                    <field name="id" column="ID93"/>
+                    <field name="intField" column="INTFIELD93"/>
+                    <field name="stringField" column="STRINGFIELD93"/>
+                </embedded>
+            </field>
+            <field name="SimpleClass94" column="SIMPLECLASS94">
+                <foreign-key/>
+            </field>
+            <field name="SimpleClass144" column="SIMPLECLASS144"/>
+            <field name="SimpleClass145" column="SIMPLECLASS145"/>
+            <field name="SimpleClass146" column="SIMPLECLASS146"/>
+            <field name="SimpleClass147" column="SIMPLECLASS147"/>
+            <field name="SimpleClass148" column="SIMPLECLASS148"/>
+            <field name="SimpleClass149" column="SIMPLECLASS149"/>
+            <field name="SimpleClass150" column="SIMPLECLASS150"/>
+            <field name="SimpleClass151" column="SIMPLECLASS151"/>
+            <field name="SimpleClass152" column="SIMPLECLASS152"/>
+            <field name="SimpleClass153" column="SIMPLECLASS153"/>
+            <field name="SimpleClass154" column="SIMPLECLASS154"/>
+            <field name="SimpleClass155" column="SIMPLECLASS155"/>
+            <field name="SimpleClass156" column="SIMPLECLASS156"/>
+            <field name="SimpleClass157" column="SIMPLECLASS157"/>
+            <field name="SimpleClass158" column="SIMPLECLASS158"/>
+            <field name="SimpleClass159" column="SIMPLECLASS159"/>
+            <field name="SimpleClass160" column="SIMPLECLASS160"/>
+            <field name="SimpleClass161" column="SIMPLECLASS161"/>
+            <field name="SimpleClass162" column="SIMPLECLASS162"/>
+            <field name="SimpleClass163" column="SIMPLECLASS163"/>
+            <field name="SimpleClass164" column="SIMPLECLASS164"/>
+            <field name="SimpleClass165" column="SIMPLECLASS165"/>
+            <field name="SimpleClass166" column="SIMPLECLASS166"/>
+            <field name="SimpleClass167" column="SIMPLECLASS167"/>
         </class>
     </package>
 </orm>

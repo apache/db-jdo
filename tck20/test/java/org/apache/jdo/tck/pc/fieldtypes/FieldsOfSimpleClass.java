@@ -164,23 +164,49 @@ public class FieldsOfSimpleClass {
   transient volatile SimpleClass SimpleClass141;
   static transient final SimpleClass SimpleClass142 = new SimpleClass();
   static transient volatile SimpleClass SimpleClass143;
+  private SimpleClass SimpleClass144;
+  private SimpleClass SimpleClass145;
+  private transient SimpleClass SimpleClass146;
+  private volatile SimpleClass SimpleClass147;
+  private volatile SimpleClass SimpleClass148;
+  private transient volatile SimpleClass SimpleClass149;
+  public SimpleClass SimpleClass150;
+  public SimpleClass SimpleClass151;
+  public transient SimpleClass SimpleClass152;
+  public volatile SimpleClass SimpleClass153;
+  public volatile SimpleClass SimpleClass154;
+  public transient volatile SimpleClass SimpleClass155;
+  protected SimpleClass SimpleClass156;
+  protected SimpleClass SimpleClass157;
+  protected transient SimpleClass SimpleClass158;
+  protected volatile SimpleClass SimpleClass159;
+  protected volatile SimpleClass SimpleClass160;
+  protected transient volatile SimpleClass SimpleClass161;
+  SimpleClass SimpleClass162;
+  SimpleClass SimpleClass163;
+  transient SimpleClass SimpleClass164;
+  volatile SimpleClass SimpleClass165;
+  volatile SimpleClass SimpleClass166;
+  transient volatile SimpleClass SimpleClass167;
 
 public static final boolean [] isPersistent = { 
-true,true,true,false,true,true,true,false,false,false,
-false,true,true,true,false,false,true,true,true,false,
-true,true,true,false,false,false,false,false,false,false,
-true,true,true,false,false,false,true,true,true,false,
-true,true,true,false,false,false,false,true,true,true,
-false,false,true,true,true,false,true,true,true,false,
-false,false,false,false,false,false,true,true,true,false,
-false,false,true,true,true,false,true,true,true,false,
-false,false,false,true,true,true,false,false,true,true,
-true,false,true,true,true,false,false,false,false,false,
-false,false,true,true,true,false,false,false,true,true,
-true,false,true,true,true,false,false,false,false,true,
-true,true,false,false,true,true,true,false,true,true,
-true,false,false,false,false,false,false,false,true,true,
-true,false,false,false
+false, true, true, false, true, true, true, false, false, false, 
+false, true, true, true, false, false, true, true, true, false, 
+true, true, true, false, false, false, false, false, false, false, 
+true, true, true, false, false, false, false, true, true, false, 
+true, true, true, false, false, false, false, true, true, true, 
+false, false, true, true, true, false, true, true, true, false, 
+false, false, false, false, false, false, true, true, true, false, 
+false, false, false, true, true, false, true, true, true, false, 
+false, false, false, true, true, true, false, false, true, true, 
+true, false, true, true, true, false, false, false, false, false, 
+false, false, true, true, true, false, false, false, false, true, 
+true, false, true, true, true, false, false, false, false, true, 
+true, true, false, false, true, true, true, false, true, true, 
+true, false, false, false, false, false, false, false, true, true, 
+true, false, false, false, true, true, true, true, true, true, 
+true, true, true, true, true, true, true, true, true, true, 
+true, true, true, true, true, true, true, true
  };
 
 public static final boolean [] isStatic = { 
@@ -198,7 +224,9 @@ false,false,false,false,false,false,true,true,false,false,
 false,false,false,false,false,false,true,false,false,false,
 false,false,false,false,false,false,false,false,false,false,
 false,false,true,true,true,false,false,false,false,false,
-false,false,true,true
+false,false,true,true,false,false,false,false,false,false,
+false,false,false,false,false,false,false,false,false,false,
+false,false,false,false,false,false,false,false
  };
 
 public static final boolean [] isFinal = { 
@@ -216,7 +244,9 @@ false,false,false,false,false,false,true,false,false,false,
 false,false,false,false,false,false,false,false,false,false,
 false,false,false,true,false,false,false,false,false,false,
 false,false,false,true,false,true,false,false,false,false,
-false,false,true,false
+false,false,true,false,false,false,false,false,false,false,
+false,false,false,false,false,false,false,false,false,false,
+false,false,false,false,false,false,false,false
  };
 
   public static final String [] fieldSpecs = { 
@@ -363,7 +393,31 @@ false,false,true,false
   "persistence-modifier= persistent  embedded= false   transient volatile SimpleClass SimpleClass140",
   "persistence-modifier= transactional    transient volatile SimpleClass SimpleClass141",
   "static transient final SimpleClass SimpleClass142",
-  "static transient volatile SimpleClass SimpleClass143"
+  "static transient volatile SimpleClass SimpleClass143",
+  "serialized= true   private SimpleClass SimpleClass144",
+  "persistence-modifier= persistent  serialized= true   private SimpleClass SimpleClass145",
+  "persistence-modifier= persistent  serialized= true   private transient SimpleClass SimpleClass146",
+  "serialized= true   private volatile SimpleClass SimpleClass147",
+  "persistence-modifier= persistent  serialized= true   private volatile SimpleClass SimpleClass148",
+  "persistence-modifier= persistent  serialized= true   private transient volatile SimpleClass SimpleClass149",
+  "serialized= true   public SimpleClass SimpleClass150",
+  "persistence-modifier= persistent  serialized= true   public SimpleClass SimpleClass151",
+  "persistence-modifier= persistent  serialized= true   public transient SimpleClass SimpleClass152",
+  "serialized= true   public volatile SimpleClass SimpleClass153",
+  "persistence-modifier= persistent  serialized= true   public volatile SimpleClass SimpleClass154",
+  "persistence-modifier= persistent  serialized= true   public transient volatile SimpleClass SimpleClass155",
+  "serialized= true   protected SimpleClass SimpleClass156",
+  "persistence-modifier= persistent  serialized= true   protected SimpleClass SimpleClass157",
+  "persistence-modifier= persistent  serialized= true   protected transient SimpleClass SimpleClass158",
+  "serialized= true   protected volatile SimpleClass SimpleClass159",
+  "persistence-modifier= persistent  serialized= true   protected volatile SimpleClass SimpleClass160",
+  "persistence-modifier= persistent  serialized= true   protected transient volatile SimpleClass SimpleClass161",
+  "serialized= true   SimpleClass SimpleClass162",
+  "persistence-modifier= persistent  serialized= true   SimpleClass SimpleClass163",
+  "persistence-modifier= persistent  serialized= true   transient SimpleClass SimpleClass164",
+  "serialized= true   volatile SimpleClass SimpleClass165",
+  "persistence-modifier= persistent  serialized= true   volatile SimpleClass SimpleClass166",
+  "persistence-modifier= persistent  serialized= true   transient volatile SimpleClass SimpleClass167"
   };
   public int getLength()
   {
@@ -661,6 +715,54 @@ false,false,true,false
         return SimpleClass142;
       case(143):
         return SimpleClass143;
+      case(144):
+        return SimpleClass144;
+      case(145):
+        return SimpleClass145;
+      case(146):
+        return SimpleClass146;
+      case(147):
+        return SimpleClass147;
+      case(148):
+        return SimpleClass148;
+      case(149):
+        return SimpleClass149;
+      case(150):
+        return SimpleClass150;
+      case(151):
+        return SimpleClass151;
+      case(152):
+        return SimpleClass152;
+      case(153):
+        return SimpleClass153;
+      case(154):
+        return SimpleClass154;
+      case(155):
+        return SimpleClass155;
+      case(156):
+        return SimpleClass156;
+      case(157):
+        return SimpleClass157;
+      case(158):
+        return SimpleClass158;
+      case(159):
+        return SimpleClass159;
+      case(160):
+        return SimpleClass160;
+      case(161):
+        return SimpleClass161;
+      case(162):
+        return SimpleClass162;
+      case(163):
+        return SimpleClass163;
+      case(164):
+        return SimpleClass164;
+      case(165):
+        return SimpleClass165;
+      case(166):
+        return SimpleClass166;
+      case(167):
+        return SimpleClass167;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -1055,6 +1157,78 @@ false,false,true,false
       case(143):
         SimpleClass143= value;
          break;
+      case(144):
+        SimpleClass144= value;
+         break;
+      case(145):
+        SimpleClass145= value;
+         break;
+      case(146):
+        SimpleClass146= value;
+         break;
+      case(147):
+        SimpleClass147= value;
+         break;
+      case(148):
+        SimpleClass148= value;
+         break;
+      case(149):
+        SimpleClass149= value;
+         break;
+      case(150):
+        SimpleClass150= value;
+         break;
+      case(151):
+        SimpleClass151= value;
+         break;
+      case(152):
+        SimpleClass152= value;
+         break;
+      case(153):
+        SimpleClass153= value;
+         break;
+      case(154):
+        SimpleClass154= value;
+         break;
+      case(155):
+        SimpleClass155= value;
+         break;
+      case(156):
+        SimpleClass156= value;
+         break;
+      case(157):
+        SimpleClass157= value;
+         break;
+      case(158):
+        SimpleClass158= value;
+         break;
+      case(159):
+        SimpleClass159= value;
+         break;
+      case(160):
+        SimpleClass160= value;
+         break;
+      case(161):
+        SimpleClass161= value;
+         break;
+      case(162):
+        SimpleClass162= value;
+         break;
+      case(163):
+        SimpleClass163= value;
+         break;
+      case(164):
+        SimpleClass164= value;
+         break;
+      case(165):
+        SimpleClass165= value;
+         break;
+      case(166):
+        SimpleClass166= value;
+         break;
+      case(167):
+        SimpleClass167= value;
+         break;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -1087,3 +1261,4 @@ false,false,true,false
 
     }   
 }
+

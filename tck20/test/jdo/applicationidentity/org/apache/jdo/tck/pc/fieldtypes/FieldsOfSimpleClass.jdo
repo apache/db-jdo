@@ -197,6 +197,55 @@
 </field>
 <field name="SimpleClass141" persistence-modifier="transactional" >
 </field>
+<field name="SimpleClass144"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass145" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass146" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass147"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass148" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass149" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass150"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass151" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass152" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass153"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass154" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass155" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass156"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass157" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass158" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass159"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass160" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass161" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass162"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass163" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass164" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass165"  persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass166" persistence-modifier="persistent" serialized="true">
+</field>
+<field name="SimpleClass167" persistence-modifier="persistent" serialized="true">
+</field>
+
 </class>
 </package>
 </jdo>
