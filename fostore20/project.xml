@@ -24,7 +24,7 @@
     <!-- ============== -->
     <name>JDO2 Implementation (FOStore)</name>
     <artifactId>jdo2-fostore</artifactId>
-    <currentVersion>2.0</currentVersion>
+    <currentVersion>2.0-SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Object 2.0 (JDO) Core</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
@@ -82,7 +82,7 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
-            <version>2.7.3</version>
+            <version>2.7.5</version>
             <url>http://www.antlr.org/download.html</url>
         </dependency>
     </dependencies>
