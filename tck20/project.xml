@@ -120,8 +120,8 @@ NOTE!! This project has a nonstandard structure. The source files are located in
         <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.0-pre6</version>
-            <url>http://prdownloads.sourceforge.net/c3p0/c3p0-0.9.0-pre6.bin.zip?use_mirror=easynews</url>
+            <version>0.9.0</version>
+            <url>http://prdownloads.sourceforge.net/c3p0/c3p0-0.9.0.bin.zip?use_mirror=unc</url>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
