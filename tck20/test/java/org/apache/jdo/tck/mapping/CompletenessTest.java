@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
@@ -48,8 +47,7 @@ public class CompletenessTest extends JDO_Test {
     /** */
     protected List rootOids;
     
-        // todo: get filename from property
-    protected String inputFilename = "org/apache/jdo/tck/pc/company/companyNoRelationships.xml";
+    protected String inputFilename = System.getProperty("jdo.tck.testdata");
     
     /**
      * The <code>main</code> is called when the class

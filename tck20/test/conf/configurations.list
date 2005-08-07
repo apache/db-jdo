@@ -1,3 +1,9 @@
 jdo.tck.cfglist = \
                  alltests.conf \
-                 cfg2.conf
+                 companyNoRelationships.conf \
+                 companyEmbedded.conf \
+                 company1-1Relationships.conf \
+                 company1-MRelationships.conf \
+                 companyM-MRelationships.conf \
+                 companyAllRelationships.conf
+
