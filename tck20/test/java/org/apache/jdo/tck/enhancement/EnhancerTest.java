@@ -71,14 +71,14 @@ public abstract class EnhancerTest extends JDO_Test {
          */
         Properties classesToTest = getProperties("enhancement-test.properties"); //NOI18N
         
-        Enumeration enum = classesToTest.propertyNames();
+        Enumeration enumeration = classesToTest.propertyNames();
         int numberOfPackages = 0;
         
         /** Each key is a package name; the value is a list of class names to test.
          */
-        while (enum.hasMoreElements()) {
+        while (enumeration.hasMoreElements()) {
             ++numberOfPackages;
-            String packageName = (String) enum.nextElement();
+            String packageName = (String) enumeration.nextElement();
             if (debug) logger.debug("EnhancerTest Package: " + packageName);
             String classNames = (String) classesToTest.get(packageName);
             if (debug) logger.debug("EnhancerTest Classes: " + classNames);
