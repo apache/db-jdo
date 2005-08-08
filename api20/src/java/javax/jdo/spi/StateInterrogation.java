@@ -27,7 +27,25 @@ import javax.jdo.PersistenceManager;
  * This interface is implemented by a non-binary-compatible JDO implementation
  * to provide state interrogation for non-enhanced persistent classes.
  *
- * An instance that implements this interface is registered with the
+ * <P>A call to JDOHelper to get the status of an instance is handled
+ * internally if the parameter instance implements PersistenceCapable. 
+ * For non-binary-compatible implementations, there is no requirement
+ * that persistent instances implement PersistenceCapable. Therefore,
+ * if the parameter does not implement PersistenceCapable, JDOHelper
+ * delegates to all registered instances of StateInterrogation until
+ * an instance can handle the request.
+ * <P>For JDOHelper isXXX methods, which return boolean, the 
+ * corresponding method in StateInterrogation returns Boolean. If the
+ * return value is <code>null</code> then the StateInterrogation does
+ * not recognize the parameter as being handled by it. A non-null return
+ * value indicates that the implementation has determined the answer.
+ * <P>For JDOHelper getXXX methods, which return an Object, each
+ * registered StateInterrogation is given the parameter until one of 
+ * them returns a non-null value, which is passed to the caller.
+ * <P>For JDOHelper makeDirty, each
+ * registered StateInterrogation is given the parameter until one of 
+ * them returns true, indicating that it has handled the call.
+ * An instance that implements this interface must be registered with the
  * {@link JDOImplHelper}.
  * @version 2.0
  * @since 2.0
@@ -38,138 +56,193 @@ public interface StateInterrogation {
     /** Tests whether the parameter instance is persistent.
      *
      * Instances that represent persistent objects in the data store 
-     * return <code>true</code>. 
+     * return <code>Boolean.TRUE</code>. 
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
-     *<P>
+     * <P>Instances known by the implementation to be non-persistent
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
      * @see PersistenceManager#makePersistent(Object pc)
      * @see PersistenceCapable#jdoIsPersistent()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance is persistent.
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance is persistent.
      */
-	Boolean isPersistent (Object pc);
+    Boolean isPersistent (Object pc);
 
     /** Tests whether the parameter instance is transactional.
      *
      * Instances whose state is associated with the current transaction 
-     * return true. 
+     * return <code>Boolean.TRUE</code>. 
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     * <P>Instances known by the implementation to be non-transactional
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
      * @see PersistenceCapable#jdoIsTransactional()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance is transactional.
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance is transactional.
      */
-	Boolean isTransactional (Object pc);
+    Boolean isTransactional (Object pc);
     
     /** Tests whether the parameter instance is dirty.
      *
-     * Instances that have been modified, deleted, or newly 
-     * made persistent in the current transaction return <code>true</code>.
+     * Instances that have been modified, deleted, newly 
+     * made persistent in the current transaction,
+     * or modified while detached return <code>Boolean.TRUE</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
-     *<P>
+     * <P>Instances known by the implementation to be non-dirty
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
      * @see StateManager#makeDirty(PersistenceCapable pc, String fieldName)
      * @see PersistenceCapable#jdoIsDirty()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance has been modified in the current transaction.
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance has been modified
+     * in the current transaction, or while detached.
      */
-	Boolean isDirty (Object pc);
+    Boolean isDirty (Object pc);
 
     /** Tests whether the parameter instance has been newly made persistent.
      *
      * Instances that have been made persistent in the current transaction 
-     * return <code>true</code>.
+     * return <code>Boolean.TRUE</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
-     *<P>
+     * <P>Instances known by the implementation to be non-new
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
      * @see PersistenceManager#makePersistent(Object pc)
      * @see PersistenceCapable#jdoIsNew()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance was made persistent
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance was made persistent
      * in the current transaction.
      */
-	Boolean isNew (Object pc);
+    Boolean isNew (Object pc);
 
     /** Tests whether the parameter instance has been deleted.
      *
-     * Instances that have been deleted in the current transaction return <code>true</code>.
+     * Instances that have been deleted in the current transaction 
+     * return <code>Boolean.TRUE</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
-     *<P>
+     * <P>Instances known by the implementation to be non-deleted
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
      * @see PersistenceManager#deletePersistent(Object pc)
      * @see PersistenceCapable#jdoIsDeleted()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance was deleted
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance was deleted
      * in the current transaction.
      */
-	Boolean isDeleted (Object pc);
-        
+    Boolean isDeleted (Object pc);
+
+    /** Tests whether the parameter instance is detached.
+     *
+     * Instances that are detached return <code>Boolean.TRUE</code>.
+     *
+     * <P>Instances known by the implementation to be non-detached
+     * return <code>Boolean.FALSE</code>.
+     *
+     * <P>Instances not recognized by the implementation return
+     * <code>null</code>.
+     *
+     * @see PersistenceManager#detachCopy(Object pc)
+     * @see PersistenceCapable#jdoIsDeleted()
+     * @param pc the instance.
+     * @return <code>Boolean.TRUE</code> if the parameter instance is detached.
+     */
+    Boolean isDetached (Object pc);
+
     /** Return the associated <code>PersistenceManager</code> if there is one.
      * Transactional and persistent instances return the associated
      * <code>PersistenceManager</code>.  
      *
-     * <P>Transient non-transactional instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>null</code>.
+     * <P>Transient non-transactional instances return <code>null</code>.
+     * <P>Instances unknown by the implementation return <code>null</code>.
      * @see PersistenceCapable#jdoGetPersistenceManager()
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return the <code>PersistenceManager</code> associated with the parameter instance.
+     * @param pc the instance.
+     * @return the <code>PersistenceManager</code> associated with the 
+     * parameter instance.
      */
 	PersistenceManager getPersistenceManager (Object pc);
     
-    /** Return a copy of the JDO identity associated with the parameter instance.
+    /** Return a copy of the JDO identity associated with the parameter 
+     * instance.
      *
-     * <P>Persistent instances of <code>PersistenceCapable</code> classes have a JDO identity
-     * managed by the <code>PersistenceManager</code>.  This method returns a copy of the
+     * <P>Persistent instances of <code>PersistenceCapable</code> classes 
+     * have a JDO identity
+     * managed by the <code>PersistenceManager</code>.  This method returns 
+     * a copy of the
      * ObjectId that represents the JDO identity.  
      * 
-     * <P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>null</code>.
-     *
+     * <P>Instances unknown by the implementation return <code>null</code>.
      * <P>The ObjectId may be serialized
-     * and later restored, and used with a <code>PersistenceManager</code> from the same JDO
+     * and later restored, and used with a <code>PersistenceManager</code> 
+     * from the same JDO
      * implementation to locate a persistent instance with the same data store
      * identity.
      *
-     * <P>If the JDO identity is managed by the application, then the ObjectId may
-     * be used with a <code>PersistenceManager</code> from any JDO implementation that supports
+     * <P>If the JDO identity is managed by the application, then the ObjectId
+     * may be used with a <code>PersistenceManager</code> from any JDO 
+     * implementation that supports
      * the <code>PersistenceCapable</code> class.
      *
-     * <P>If the JDO identity is not managed by the application or the data store,
-     * then the ObjectId returned is only valid within the current transaction.
+     * <P>If the JDO identity is not managed by the application or the data 
+     * store, then the ObjectId returned is only valid within the current 
+     * transaction.
      *<P>
      * @see PersistenceManager#getObjectId(Object pc)
      * @see PersistenceCapable#jdoGetObjectId()
      * @see PersistenceManager#getObjectById(Object oid, boolean validate)
-     * @param pc the PersistenceCapable instance.
-     * @return a copy of the ObjectId of the parameter instance as of the beginning of the transaction.
+     * @param pc the instance.
+     * @return a copy of the ObjectId of the parameter instance as of the 
+     * beginning of the transaction.
      */
 	Object getObjectId (Object pc);
 
-    /** Return a copy of the JDO identity associated with the parameter instance.
+    /** Return a copy of the JDO identity associated with the parameter 
+     * instance.
      *
+     * <P>Instances unknown by the implementation return <code>null</code>.
      * @see PersistenceCapable#jdoGetTransactionalObjectId()
      * @see PersistenceManager#getObjectById(Object oid, boolean validate)
-     * @param pc the <code>PersistenceCapable</code> instance.
-     * @return a copy of the ObjectId of the parameter instance as modified in this transaction.
+     * @param pc the instance.
+     * @return a copy of the ObjectId of the parameter instance as modified 
+     * in this transaction.
      */
 	Object getTransactionalObjectId (Object pc);
     
+    /** Return the version of the parameter instance.
+     *
+     * <P>Instances unknown by the implementation return <code>null</code>.
+     * @see PersistenceCapable#jdoGetVersion()
+     * @param pc the instance.
+     * @return a copy of the ObjectId of the parameter instance as modified 
+     * in this transaction.
+     */
+	Object getVersion (Object pc);
+    
     /** Explicitly mark the parameter instance and field dirty.
-     * Normally, <code>PersistenceCapable</code> classes are able to detect changes made
+     * Normally, <code>PersistenceCapable</code> classes are able to detect 
+     * changes made
      * to their fields.  However, if a reference to an array is given to a
      * method outside the class, and the array is modified, then the
      * persistent instance is not aware of the change.  This API allows the
      * application to notify the instance that a change was made to a field.
      *
-     * <P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> ignore this method.
+     * <P>Instances unknown by the implementation are unaffected.
      * @see PersistenceCapable#jdoMakeDirty(String fieldName)
-     * @param pc the <code>PersistenceCapable</code> instance.
+     * @param pc the instance.
      * @param fieldName the name of the field to be marked dirty.
      */
 	boolean makeDirty (Object pc, String fieldName);

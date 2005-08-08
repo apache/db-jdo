@@ -80,6 +80,10 @@ public class JDOImplHelper extends java.lang.Object {
     /** This list contains the registered listeners for <code>RegisterClassEvent</code>s.
      */
     private static List listeners = new ArrayList();
+    
+    /** The list of registered StateInterrogation instances
+     */
+    private static List stateInterrogations = new ArrayList();
 
     /** The singleton <code>JDOImplHelper</code> instance.
      */    
@@ -781,5 +785,93 @@ public class JDOImplHelper extends java.lang.Object {
         public String toString() {
             return "Meta-" + pc.getClass().getName(); //NOI18N
         }
+    }
+    
+    /** Add a StateInterrogation to the list. Create a new list
+     * in case there is an iterator open on the original list.
+     */
+    public synchronized void addStateInterrogation(StateInterrogation si) {
+        List newList = new ArrayList(stateInterrogations);
+        newList.add(si);
+        stateInterrogations = newList;
+    }
+    
+    /** Remove a StateInterrogation from the list. Create a new list
+     * in case there is an iterator open on the original list.
+     */
+    public synchronized void removeStateInterrogation(StateInterrogation si) {
+        List newList = new ArrayList(stateInterrogations);
+        newList.remove(si);
+        stateInterrogations = newList;
+    }
+    
+    /** Return an Iterator over all StateInterrogation instances.
+     * Synchronize to avoid add/remove/iterate conflicts.
+     */
+    private synchronized Iterator getStateInterrogationIterator() {
+        return stateInterrogations.iterator();
+    }
+    
+    /** Mark a non-binary-compatible instance dirty. Delegate to all
+     * registered StateInterrogation instances until one of them
+     * handles the call.
+     */
+    public void nonBinaryCompatibleMakeDirty(Object pc, String fieldName) {
+        Iterator sit = getStateInterrogationIterator();
+        while (sit.hasNext()) {
+            StateInterrogation si = (StateInterrogation)sit.next();
+            if (si.makeDirty(pc, fieldName)) return;
+        }
+    }
+    
+    /** Determine the state of a non-binary-compatible instance.
+     * Delegate to all registered StateInterrogation instances until
+     * one of them handles the call (returns a non-null Boolean 
+     * with the answer).
+     * The caller provides the stateless "method object" that does 
+     * the actual call to the StateInterrogation instance.
+     */
+    public boolean nonBinaryCompatibleIs(Object pc, 
+            StateInterrogationBooleanReturn sibr) {
+        Iterator sit = getStateInterrogationIterator();
+        while (sit.hasNext()) {
+            StateInterrogation si = (StateInterrogation)sit.next();
+            Boolean result = sibr.is(pc, si);
+            if (result != null) return result.booleanValue();
+        }
+        return false;
+    }
+    
+    /** Return an object associated with a non-binary-compatible instance.
+     * Delegate to all registered StateInterrogation instances until
+     * one of them handles the call (returns a non-null answer).
+     * The caller provides the stateless "method object" that does 
+     * the actual call to the StateInterrogation instance.
+     */
+    public Object nonBinaryCompatibleGet(Object pc, 
+            StateInterrogationObjectReturn sibr) {
+        Iterator sit = getStateInterrogationIterator();
+        while (sit.hasNext()) {
+            StateInterrogation si = (StateInterrogation)sit.next();
+            Object result = sibr.get(pc, si);
+            if (result != null) return result;
+        }
+        return null;
+    }
+    
+    /** This is an interface used to interrogate the state of an instance
+     * that does not implement PersistenceCapable. It is used for the
+     * methods that return a boolean value.
+     */
+    public static interface StateInterrogationBooleanReturn {
+        public Boolean is(Object pc, StateInterrogation si);
+    }
+    
+    /** This is an interface used to interrogate the state of an instance
+     * that does not implement PersistenceCapable. It is used for the
+     * methods that return an Object value.
+     */
+    public static interface StateInterrogationObjectReturn {
+        public Object get(Object pc, StateInterrogation si);
     }
 }

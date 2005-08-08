@@ -37,7 +37,11 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 import javax.jdo.spi.I18NHelper;
+import javax.jdo.spi.JDOImplHelper;
+import javax.jdo.spi.JDOImplHelper.StateInterrogationBooleanReturn;
+import javax.jdo.spi.JDOImplHelper.StateInterrogationObjectReturn;
 import javax.jdo.spi.PersistenceCapable;
+import javax.jdo.spi.StateInterrogation;
 import javax.jdo.spi.StateManager; // for javadoc
 
 import javax.naming.Context;
@@ -67,6 +71,118 @@ public class JDOHelper extends Object {
      */
     private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
+    /** The JDOImplHelper instance used for handling non-binary-compatible
+     *  implementations.
+     */
+    private static JDOImplHelper implHelper = (JDOImplHelper)
+        AccessController.doPrivileged(
+            new PrivilegedAction () {
+                public Object run () {
+                    return JDOImplHelper.getInstance();
+                }
+            }
+        );
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of getPersistenceManager.
+    */
+    static StateInterrogationObjectReturn getPersistenceManager =
+        new StateInterrogationObjectReturn() {
+            public Object get(Object pc, StateInterrogation si) {
+                return si.getPersistenceManager(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of getObjectId.
+    */
+    static StateInterrogationObjectReturn getObjectId =
+        new StateInterrogationObjectReturn() {
+            public Object get(Object pc, StateInterrogation si) {
+                return si.getObjectId(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of getTransactionalObjectId.
+    */
+    static StateInterrogationObjectReturn getTransactionalObjectId =
+        new StateInterrogationObjectReturn() {
+            public Object get(Object pc, StateInterrogation si) {
+                return si.getTransactionalObjectId(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of getVersion.
+    */
+    static StateInterrogationObjectReturn getVersion =
+        new StateInterrogationObjectReturn() {
+            public Object get(Object pc, StateInterrogation si) {
+                return si.getVersion(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isPersistent.
+    */
+    static StateInterrogationBooleanReturn isPersistent =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isPersistent(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isTransactional.
+    */
+    static StateInterrogationBooleanReturn isTransactional =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isTransactional(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isDirty.
+    */
+    static StateInterrogationBooleanReturn isDirty =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isDirty(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isNew.
+    */
+    static StateInterrogationBooleanReturn isNew =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isNew(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isDeleted.
+    */
+    static StateInterrogationBooleanReturn isDeleted =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isDeleted(pc);
+            }
+        };
+
+   /** The stateless instance used for handling non-binary-compatible
+    *  implementations of isDetached.
+    */
+    static StateInterrogationBooleanReturn isDetached =
+        new StateInterrogationBooleanReturn() {
+            public Boolean is(Object pc, StateInterrogation si) {
+                return si.isDetached(pc);
+            }
+        };
+
     /** Return the associated <code>PersistenceManager</code> if there is one.
      * Transactional and persistent instances return the associated
      * <code>PersistenceManager</code>.  
@@ -78,7 +194,12 @@ public class JDOHelper extends Object {
      * @return the <code>PersistenceManager</code> associated with the parameter instance.
      */
      public static PersistenceManager getPersistenceManager(Object pc) {
-        return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoGetPersistenceManager():null;
+        if (pc instanceof PersistenceCapable) {
+            return ((PersistenceCapable)pc).jdoGetPersistenceManager();
+        } else {
+            return (PersistenceManager)
+                implHelper.nonBinaryCompatibleGet(pc, getPersistenceManager);
+        }
       }
     
     /** Explicitly mark the parameter instance and field dirty.
@@ -95,8 +216,11 @@ public class JDOHelper extends Object {
      * @param fieldName the name of the field to be marked dirty.
      */
     public static void makeDirty(Object pc, String fieldName) {
-     if (pc instanceof PersistenceCapable) 
-      ((PersistenceCapable)pc).jdoMakeDirty(fieldName);
+        if (pc instanceof PersistenceCapable) {
+            ((PersistenceCapable)pc).jdoMakeDirty(fieldName);
+        } else {
+             implHelper.nonBinaryCompatibleMakeDirty(pc, fieldName);
+        }
     }
     
     /** Return a copy of the JDO identity associated with the parameter instance.
@@ -127,7 +251,11 @@ public class JDOHelper extends Object {
      * @return a copy of the ObjectId of the parameter instance as of the beginning of the transaction.
      */
     public static Object getObjectId(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoGetObjectId():null;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoGetObjectId();
+        } else {
+            return implHelper.nonBinaryCompatibleGet(pc, getObjectId);
+        }
     }
     
     /** Return a copy of the JDO identity associated with the parameter instance.
@@ -138,7 +266,11 @@ public class JDOHelper extends Object {
      * @return a copy of the ObjectId of the parameter instance as modified in this transaction.
      */
     public static Object getTransactionalObjectId(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoGetTransactionalObjectId():null;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoGetTransactionalObjectId();
+        } else {
+            return implHelper.nonBinaryCompatibleGet(pc, getTransactionalObjectId);
+        }
     }
     
     /**
@@ -148,7 +280,11 @@ public class JDOHelper extends Object {
      * @return the version of the instance
      */
     public static Object getVersion (Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoGetVersion():null;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoGetVersion();
+        } else {
+            return implHelper.nonBinaryCompatibleGet(pc, getVersion);
+        }
     }
     /** Tests whether the parameter instance is dirty.
      *
@@ -164,7 +300,11 @@ public class JDOHelper extends Object {
      * @return <code>true</code> if the parameter instance has been modified in the current transaction.
      */
     public static boolean isDirty(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsDirty():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsDirty();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isDirty);
+        }
     }
 
     /** Tests whether the parameter instance is transactional.
@@ -179,7 +319,11 @@ public class JDOHelper extends Object {
      * @return <code>true</code> if the parameter instance is transactional.
      */
     public static boolean isTransactional(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsTransactional():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsTransactional();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isTransactional);
+        }
     }
 
     /** Tests whether the parameter instance is persistent.
@@ -196,7 +340,11 @@ public class JDOHelper extends Object {
      * @return <code>true</code> if the parameter instance is persistent.
      */
     public static boolean isPersistent(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsPersistent():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsPersistent();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isPersistent);
+        }
     }
 
     /** Tests whether the parameter instance has been newly made persistent.
@@ -214,7 +362,11 @@ public class JDOHelper extends Object {
      * in the current transaction.
      */
     public static boolean isNew(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsNew():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsNew();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isNew);
+        }
     }
 
     /** Tests whether the parameter instance has been deleted.
@@ -231,7 +383,11 @@ public class JDOHelper extends Object {
      * in the current transaction.
      */
     public static boolean isDeleted(Object pc) {
-      return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsDeleted():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsDeleted();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isDeleted);
+        }
     }
     
     /**
@@ -247,7 +403,11 @@ public class JDOHelper extends Object {
      * @param pc the instance
      */
     public static boolean isDetached(Object pc) {
-        return pc instanceof PersistenceCapable?((PersistenceCapable)pc).jdoIsDetached():false;
+      if (pc instanceof PersistenceCapable) {
+          return ((PersistenceCapable)pc).jdoIsDetached();
+        } else {
+            return implHelper.nonBinaryCompatibleIs(pc, isDetached);
+        }
     }
     
     /** Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code> instance, using
