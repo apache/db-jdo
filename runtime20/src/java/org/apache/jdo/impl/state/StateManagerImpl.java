@@ -28,6 +28,7 @@ import java.security.PrivilegedAction;
 
 import javax.jdo.*;
 
+import javax.jdo.spi.Detachable;
 import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.spi.StateManager;
@@ -66,6 +67,10 @@ class StateManagerImpl implements StateManagerInternal {
 
     // Associated PersistenceCapable object
     private PersistenceCapable myPC = null;
+    
+    /** Detached state of Detachable instance.
+     */
+    private Object[] detachedState = null;
 
     // LifeCycle state to handle state transition requests.
     private LifeCycleState myLC = null;
@@ -2523,7 +2528,33 @@ class StateManagerImpl implements StateManagerInternal {
         this.fieldManager = null;
     }
      
-    /**
+   /**
+    * Replace the detached state of the caller with the return value.
+    * This method is called only in response to this StateManager
+    * calling jdoReplaceDetachedState().
+    * <P>This method performs two functions: 
+    * <ul><li>it gets the detached state from
+    * a Detachable instance when attaching it. In this case, after
+    * this call, the detachedState in the StateManager instance will
+    * have the value from the Detachable instance.
+    * </li><li>it sets the detached state in a Detachable instance
+    * prior to detaching (or serializing) it. In this case,
+    * the caller of the replaceDetachedState method must first set
+    * the detachedState in the StateManager instance to the value to be 
+    * replaced in the Detachable instance.
+    * </li></ul>
+    */
+    public Object[] replacingDetachedState(Detachable pc, Object[] detachedState) {
+        if (detachedState == null) {
+            // replace the null value in Detachable
+            return this.detachedState;
+        } else {
+            // replace this value with the value from Detachable
+            this.detachedState = detachedState;
+            return detachedState;
+        }
+    }
+   /**
     * For replacing field values in a PC with one that is provided by 
     * the FieldManager. This method does not replace fields that are
     * already loaded, even if their field number are included in the
