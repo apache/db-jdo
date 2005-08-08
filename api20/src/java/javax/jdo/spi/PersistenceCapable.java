@@ -20,22 +20,15 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.JDOHelper; // for javadoc
 
 /**
- *
- * @version 2.0
- */
-
-/**
- * A class that can be managed by a JDO implementation must implement this interface.
- *
- * <P>Every class whose instances can be managed by a JDO PersistenceManager must
- * implement the PersistenceCapable interface.
+ * A class that can be managed by a binary-compatible JDO implementation 
+ * must implement this interface.
  *
  * <P>This interface defines methods that allow the implementation to manage
  * the instances.  It also defines methods that allow a JDO aware
  * application to examine the runtime state of instances.  For example,
  * an application can discover whether the instance is persistent, transactional,
- * dirty, new, or deleted; and to get its associated
- * PersistenceManager if it has one.
+ * dirty, new, deleted, or detached; and to get its associated
+ * PersistenceManager, object identity, and version if it has one.
  *
  * <P>In the Reference Implementation, the JDO Enhancer modifies the class
  * to implement PersistenceCapable prior to loading the class into the runtime
@@ -50,6 +43,7 @@ import javax.jdo.JDOHelper; // for javadoc
  * <P>The PersistenceCapable interface is designed to avoid name conflicts
  * in the scope of user-defined classes.  All of its declared method
  * names are prefixed with 'jdo'.
+ * @version 2.0
  */
 public interface PersistenceCapable {
     /** If jdoFlags is set to READ_WRITE_OK, then the fields in the default fetch group
@@ -61,13 +55,6 @@ public interface PersistenceCapable {
      * cannot be accessed for read or write without notifying the StateManager.
      */
     static final byte LOAD_REQUIRED = 1;
-    
-    /** If jdoFlags is set to DETACHED, then fields identified as loadedFields
-     * can be read and written without having a StateManager. Fields modified
-     * while detached are kept track of as modifiedFields.
-     * @since 2.0
-     */
-    static final byte DETACHED = 2;
     
     /** If jdoFlags is set to READ_OK, then the fields in the default fetch group
      * can be accessed for read without notifying the StateManager.
@@ -347,8 +334,18 @@ public interface PersistenceCapable {
      */
     PersistenceCapable jdoNewInstance(StateManager sm, Object oid);
     
-    /** Create a new instance of the ObjectId class for this PersistenceCapable class.
-     * The fields will have their Java default values.
+    /** Create a new instance of the 
+     * ObjectId class for this PersistenceCapable class.
+     * This method creates a new instance of the class used for JDO identity.
+     * It is intended only for application identity. If the class has been 
+     * enhanced for datastore identity, or if the class is abstract, 
+     * null is returned.
+     * <P>For classes using single field identity, this method must be called 
+     * on an instance of a persistence-capable class with its primary key 
+     * field initialized (not null), or a 
+     * <code>JDONullIdentityException</code> is thrown.
+     * <P>The instance returned is initialized with the value(s) of the 
+     * primary key field(s) of the instance on which the method is called.
      * @return the new instance created.
      */
     Object jdoNewObjectIdInstance();
@@ -359,41 +356,63 @@ public interface PersistenceCapable {
      * instance returned has no relationship with the values of the primary key
      * fields of the persistence-capable instance on which the method is called.
      * If the key is the wrong class for the object id class, null is returned.
+     * <P>For classes that use single field identity, if the parameter is of one 
+     * of the following types, the behavior must be as specified:
+     * <ul><li><code>Number</code>: the numeric value of the proper type 
+     * is extracted from
+     * the parameter and passed to the single field identity constructor
+     * </li><li><code>ObjectIdFieldProvider</code>: the numeric value 
+     * of the proper type
+     * is fetched from the <code>ObjectIdFieldProvider</code> and passed to the 
+     * single field identity constructor
+     * </li><li><code>String</code>: the String is passed to the 
+     * single field identity constructor
+     * </li></ul>
      * @return the new instance created.
-     * @param o the String form of the object identity
+     * @param o the object identity constructor parameter
      * @since 2.0
      */
     Object jdoNewObjectIdInstance(Object o);
     
-    /** Copy fields from this PersistenceCapable instance to the Object Id instance.
+    /** Copy fields from this PersistenceCapable instance to the Object Id 
+     * instance. For classes using single field identity, this method always
+     * throws <code>JDOUserException</code>.
      * @param oid the ObjectId target of the key fields
      */
     void jdoCopyKeyFieldsToObjectId(Object oid);
     
     /** Copy fields from an outside source to the key fields in the ObjectId.
-     * This method is generated in the PersistenceCapable class to generate
+     * This method is generated in the <code>PersistenceCapable</code>
+     * class to generate
      * a call to the field manager for each key field in the ObjectId.  For
-     * example, an ObjectId class that has three key fields (int id,
-     * String name, and Float salary) would have the method generated:
+     * example, an ObjectId class that has three key fields <code>(int id,
+     * String name, and Float salary)</code> would have the method generated:
+     * <code>
      * <P>void jdoCopyKeyFieldsToObjectId
-     * <P>        (ObjectIdFieldSupplier fm, Object objectId) {
-     * <P>    EmployeeKey oid = (EmployeeKey)objectId;
-     * <P>    oid.id = fm.fetchIntField (0);
-     * <P>    oid.name = fm.fetchStringField (1);
-     * <P>    oid.salary = fm.fetchObjectField (2);
+     * <P>(ObjectIdFieldSupplier fm, Object objectId) {
+     * <P>EmployeeKey oid = (EmployeeKey)objectId;
+     * <P>oid.id = fm.fetchIntField (0);
+     * <P>oid.name = fm.fetchStringField (1);
+     * <P>oid.salary = fm.fetchObjectField (2);
      * <P>}
+     * </code>
      * <P>The implementation is responsible for implementing the
-     * ObjectIdFieldSupplier to produce the values for the key fields.
+     * <code>ObjectIdFieldSupplier</code> to produce the values 
+     * for the key fields.
+     * <P>For classes using single field identity, this method always
+     * throws <code>JDOUserException</code>.
      * @param oid the ObjectId target of the copy.
      * @param fm the field supplier that supplies the field values.
      */
     void jdoCopyKeyFieldsToObjectId(ObjectIdFieldSupplier fm, Object oid);
     
-    /** Copy fields to an outside source from the key fields in the ObjectId.
-     * This method is generated in the PersistenceCapable class to generate
+    /** Copy fields to an outside consumer from the key fields in the ObjectId.
+     * This method is generated in the <code>PersistenceCapable</code>
+     * class to generate
      * a call to the field manager for each key field in the ObjectId.  For
-     * example, an ObjectId class that has three key fields (int id,
-     * String name, and Float salary) would have the method generated:
+     * example, an ObjectId class that has three key fields <code>(int id,
+     * String name, and Float salary)</code> would have the method generated:
+     * <code>
      * <P>void copyKeyFieldsFromObjectId
      * <P>        (ObjectIdFieldConsumer fm, Object objectId) {
      * <P>     EmployeeKey oid = (EmployeeKey)objectId;
@@ -401,15 +420,18 @@ public interface PersistenceCapable {
      * <P>     fm.storeStringField (1, oid.name);
      * <P>     fm.storeObjectField (2, oid.salary);
      * <P>}
+     * </code>
      * <P>The implementation is responsible for implementing the
-     * ObjectIdFieldManager to store the values for the key fields.
+     * <code>ObjectIdFieldConsumer</code> to store the values for the 
+     * key fields.
      * @param oid the ObjectId source of the copy.
      * @param fm the field manager that receives the field values.
      */
     void jdoCopyKeyFieldsFromObjectId(ObjectIdFieldConsumer fm, Object oid);
     
     /** This interface is a convenience interface that allows an instance to
-     * implement both ObjectIdFieldSupplier and ObjectIdFieldConsumer.
+     * implement both <code>ObjectIdFieldSupplier</code> and 
+     * <code>ObjectIdFieldConsumer</code>.
      */
     static interface ObjectIdFieldManager extends ObjectIdFieldConsumer, ObjectIdFieldSupplier {}
     

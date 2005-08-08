@@ -397,120 +397,82 @@ public interface StateManager {
      */    
     void providedObjectField (PersistenceCapable pc, int field, Object currentValue);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @return the new value for the field
      */    
     boolean replacingBooleanField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     char replacingCharField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     byte replacingByteField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     short replacingShortField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     int replacingIntField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     long replacingLongField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     float replacingFloatField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     double replacingDoubleField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     String replacingStringField (PersistenceCapable pc, int field);
 
-    /** The replacing value of the field in the calling instance
+    /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @return the new value for the field
      */    
     Object replacingObjectField (PersistenceCapable pc, int field);
-
-    /** The replacing value of the object id in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param oid the current value of the oid
-     * @return the new value for the oid
-     * @since 2.0
-     */
-    Object replacingObjectId (PersistenceCapable pc, Object oid);
     
-    /** The replacing value of the version in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param version the current value of the version
-     * @return the new value for the version
+    /** The replacement value of the detached state in the calling instance.
+     * @param pc the calling <code>Detachable</code> instance
+     * @param state the current value of the detached state
+     * @return the replacement value for the detached state
      * @since 2.0
      */
-    Object replacingVersion (PersistenceCapable pc, Object version);
-
-    /** The provided value of the loaded field list in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param loaded the current value of the loaded field list
-     * @since 2.0
-     */
-    void providedLoadedFieldList (PersistenceCapable pc, BitSet loaded);
-
-    /** The replacing value of the loaded field list in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param loaded the current value of the loaded field list
-     * @return the replacement value for the loaded field list
-     * @since 2.0
-     */
-    BitSet replacingLoadedFieldList (PersistenceCapable pc, BitSet loaded);
-
-    /** The provided value of the modified field list in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param modified the current value of the modified field list
-     * @since 2.0
-     */
-    void providedModifiedFieldList (PersistenceCapable pc, BitSet modified);
-
-    /** The replacing value of the modified field list in the calling instance.
-     * @param pc the calling <code>PersistenceCapable</code> instance
-     * @param modified the current value of the modified field list
-     * @return the replacement value for the modified field list
-     * @since 2.0
-     */
-    BitSet replacingModifiedFieldList (PersistenceCapable pc, BitSet modified);
+    Object[] replacingDetachedState (Detachable pc, Object[] state);
 }
 
