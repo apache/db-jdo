@@ -21,6 +21,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.WeakHashMap;
 
@@ -788,7 +789,16 @@ public class FOStorePMF
     protected static HashMap hashMapByFilteredProperties = new HashMap();
     
     /** 
-     * Construct a Properties instance from the given Properties.  Only
+     * This is a hack until a proper implementation of the method
+     * can be done.
+     */
+    public static PersistenceManagerFactoryImpl 
+            getPersistenceManagerFactory (Map props) {
+        return getPersistenceManagerFactory((Properties) props);
+    }
+    
+    /** 
+     * Construct a PersistenceManagerFactory instance from the given Properties.  Only
      * those property entries recognized by this implementation will be 
      * stored in the internal Properties instance.
      *
@@ -797,6 +807,7 @@ public class FOStorePMF
      * properties are considered when trying to find a match.
      *
      * <P>This method cannot be implemented by the superclass because 
+     * it doesn't have any information about the implementation.
      */
     public static PersistenceManagerFactoryImpl getPersistenceManagerFactory (Properties props) {
         initPropsAccessors();
