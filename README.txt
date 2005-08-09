@@ -31,14 +31,6 @@ Prerequisites
 You need Maven version 1.0.1 or 1.0.2. You can download maven from 
 http://maven.apache.org/start/download.html
 
-- antlr
-The JDORI uses antlr version 2.7.3 to implement the query compiler. We asked to 
-add this version to the maven repository, but until this happens you need to 
-manually add antlr 2.7.3 to your local maven repository. Please download 
-version 2.7.3 from http://www.antlr.org/download/antlr-2.7.3.jar and copy 
-it to your local maven repository:
-  cp antlr-2.7.3.jar $HOME/.maven/repository/antlr/jars/antlr-2.7.3.jar
-
 - JNDI implementation (fscontext.jar and providerutil.jar)
 The JNDI test cases in ri11, fostore20 and tck20 need a JNDI implementation.
 To configure this please check the property jndi in project.properties of ri11,
