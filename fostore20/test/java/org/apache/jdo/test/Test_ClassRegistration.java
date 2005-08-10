@@ -125,11 +125,23 @@ public class Test_ClassRegistration extends AbstractTest {
     }
 
     /** */
-    private Class getImplHelperClass(ClassLoader cl)
-        throws Exception
+    private Class getImplHelperClass(final ClassLoader cl)
+        throws Throwable
     {
-        Class implHelperClass = 
-            Class.forName("javax.jdo.spi.JDOImplHelper", true, cl);
+        Class implHelperClass = null;
+        try {
+            implHelperClass = (Class)AccessController.doPrivileged(
+                new PrivilegedExceptionAction () {
+                    public Object run () throws Exception {
+                        return Class.forName("javax.jdo.spi.JDOImplHelper", true, cl);
+                    }});
+        }
+        catch (PrivilegedActionException pae) {
+            Throwable e = pae.getException();
+            if (e instanceof InvocationTargetException)
+                e = ((InvocationTargetException)e).getTargetException();
+            throw e;
+        }
         assertEquals("JDOImplHelper loaded by wrong class loader", 
                      cl, getClassLoaderForClass(implHelperClass));
         return implHelperClass;
