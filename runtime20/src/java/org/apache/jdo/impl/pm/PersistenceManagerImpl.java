@@ -103,6 +103,11 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     private CacheManagerImpl _txCache = null;
 
     /**
+     * Reference to the StoreManager
+     */
+    private StoreManager _storeManager = null;
+    
+    /**
      * Flag for Query. 
      * Constructor defaults it to the PMF setting.
      */
@@ -1532,10 +1537,19 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     }
 
     /**
-    * @see org.apache.jdo.pm.PersistenceManagerInternal#getStoreManager()
-    */
+     * @see org.apache.jdo.pm.PersistenceManagerInternal#getStoreManager()
+     */
     public StoreManager getStoreManager() {
-        return pmf.getStoreManager(this);
+        return (_storeManager != null) ? _storeManager : 
+            pmf.getStoreManager(this);
+    }
+
+    /**
+     * @see org.apache.jdo.pm.PersistenceManagerInternal#setStoreManager(StoreManager)
+     */
+    public void setStoreManager(StoreManager storeManager) {
+        _storeManager = storeManager;
+        
     }
 
     //

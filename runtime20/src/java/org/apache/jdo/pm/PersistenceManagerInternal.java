@@ -52,6 +52,14 @@ public interface PersistenceManagerInternal extends PersistenceManager {
     public StoreManager getStoreManager();
 
     /**
+     * Sets a StoreManager that is ready to accept operations on it such
+     * as insert, etc.
+     * @param storeManager the StoreManager to be used by this
+     * PersistenceManager
+     */
+    public void setStoreManager(StoreManager storeManager);
+
+    /**
     * Provides a StateManagerInternal for the given Object Id.
     * @param oid the given Object Id.
     * @param pcClass Class of a PersistenceCapable instance to be created

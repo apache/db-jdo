@@ -1696,8 +1696,9 @@ abstract public class PersistenceManagerFactoryImpl implements
      * @since 2.0
      */
     public boolean isClosed() {
-        throw new UnsupportedOperationException(
-            "Method isClosed() is not yet implemented.");
+        synchronized(closeLock) {
+            return closed;
+        }
     }
 
     /** Assert that this PersistenceManagerFactory is not closed.  This
