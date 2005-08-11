@@ -552,7 +552,9 @@ public class JDOImplHelper extends java.lang.Object {
      * @return the previous StringConstructor registered for this class
      */
     public Object registerStringConstructor(Class cls, StringConstructor sc) {
-        return stringConstructorMap.put(cls, sc);
+        synchronized(stringConstructorMap) {
+            return stringConstructorMap.put(cls, sc);
+        }
     }
 
     /** Register the default special StringConstructor instances.
@@ -648,31 +650,32 @@ public class JDOImplHelper extends java.lang.Object {
      * @param keyString the String parameter for the constructor
      * @return the result of construction
      */
-    public Object construct(String className, String keyString) {
-        synchronized(stringConstructorMap) {
-            try {
-                Class keyClass = Class.forName(className);
-                StringConstructor stringConstructor = 
+    public static Object construct(String className, String keyString) {
+        StringConstructor stringConstructor;
+        try {
+            Class keyClass = Class.forName(className);
+            synchronized(stringConstructorMap) {
+                stringConstructor = 
                         (StringConstructor) stringConstructorMap.get(keyClass);
-                if (stringConstructor == null) {
-                    Constructor keyConstructor = 
-                        keyClass.getConstructor(new Class[]{String.class});
-                    return keyConstructor.newInstance(new Object[]{keyString});
-                } else {
-                    return stringConstructor.construct(keyString);
-                }
-            } catch (JDOException ex) {
-                throw ex;
-            } catch (Exception ex) {
-                 /* ClassNotFoundException,
-                    NoSuchMethodException,
-                    InstantiationException,
-                    IllegalAccessException,
-                    InvocationTargetException */
-                throw new JDOUserException(
-                    msg.msg("EXC_ObjectIdentityStringConstruction",  //NOI18N
-                    new Object[] {ex.toString(), className, keyString}), ex);
             }
+            if (stringConstructor != null) {
+                return stringConstructor.construct(keyString);
+            } else {
+                Constructor keyConstructor = 
+                    keyClass.getConstructor(new Class[]{String.class});
+                return keyConstructor.newInstance(new Object[]{keyString});
+            }
+        } catch (JDOException ex) {
+            throw ex;
+        } catch (Exception ex) {
+             /* ClassNotFoundException,
+                NoSuchMethodException,
+                InstantiationException,
+                IllegalAccessException,
+                InvocationTargetException */
+            throw new JDOUserException(
+                msg.msg("EXC_ObjectIdentityStringConstruction",  //NOI18N
+                new Object[] {ex.toString(), className, keyString}), ex);
         }
     }
 
