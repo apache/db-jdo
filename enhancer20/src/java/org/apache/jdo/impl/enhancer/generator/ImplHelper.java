@@ -392,9 +392,12 @@ final class ImplHelper
                                          String o)
     {
         final List impl = new ArrayList(5);
-        // TODO: generate real method body
-        String msg = "Method jdoNewObjectIdInstance not yet supported";
-        impl.add("throw new UnsupportedOperationException(\"" + msg + "\");");
+        if (oidclassname == null) {
+            impl.add("return null;");
+        } else {
+            // TODO: support for single field identity
+            impl.add("return new " + oidclassname + "((String)" + o + ");");
+        }
         return impl;
     }
 

@@ -3040,8 +3040,61 @@ class Builder
         final String methodName = JDO_PC_jdoNewObjectIdInstance_Object_Name;
         final String methodSig = JDO_PC_jdoNewObjectIdInstance_Object_Sig;
         final int accessFlags = JDO_PC_jdoNewObjectIdInstance_Object_Mods;
-        // TODO: generate real method body
-        addNotYetImplementedMethod(methodName, methodSig, accessFlags);
+        final ExceptionsAttribute exceptAttr = null;
+
+        // begin of method body
+        final InsnTarget begin = new InsnTarget();
+        Insn insn = begin;
+
+        // generate empty method in case of datastore identity
+        final String keyClassName = analyzer.getKeyClassName();
+        if (keyClassName == null){
+            // end of method body
+            insn = insn.append(Insn.create(opc_aconst_null));
+            insn = insn.append(Insn.create(opc_areturn));
+
+            final CodeAttribute codeAttr
+                = new CodeAttribute(getCodeAttributeUtf8(),
+                                    1, // maxStack
+                                    2, // maxLocals
+                                    begin,
+                                    new ExceptionTable(),
+                                    new AttributeVector());
+            augmenter.addMethod(methodName, methodSig, accessFlags,
+                                codeAttr, exceptAttr);
+            return;
+        }
+        affirm(keyClassName != null);
+
+        // TODO: support for single field identity
+
+        // push a newly created an instance of this class
+        insn = insn.append(
+            Insn.create(opc_new,
+                        pool.addClass(keyClassName)));
+        insn = insn.append(Insn.create(opc_dup));
+        insn = insn.append(Insn.create(opc_aload_1));
+        insn = insn.append(Insn.create(opc_checkcast, 
+                                       pool.addClass(JAVA_String_Path)));
+        insn = insn.append(
+            Insn.create(opc_invokespecial,
+                        pool.addMethodRef(
+                            keyClassName,
+                            NameHelper.constructorName(),
+                            NameHelper.constructorSig(JAVA_String_Sig))));
+
+        // end of method body
+        insn = insn.append(Insn.create(opc_areturn));
+
+        final CodeAttribute codeAttr
+            = new CodeAttribute(getCodeAttributeUtf8(),
+                                3, // maxStack
+                                2, // maxLocals
+                                begin,
+                                new ExceptionTable(),
+                                new AttributeVector());
+        augmenter.addMethod(methodName, methodSig, accessFlags,
+                            codeAttr, exceptAttr);
     }
 
     // ----------------------------------------------------------------------
