@@ -5,7 +5,7 @@
 <class name="FieldsOfObject" identity-type="application"
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfObject$Oid">
 <field name="identifier" primary-key="true"/>
-<field name="Object1"  embedded="true" persistence-modifier="persistent">
+<field name="Object1"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object2"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -13,7 +13,7 @@
 </field>
 <field name="Object4" persistence-modifier="persistent" >
 </field>
-<field name="Object5" persistence-modifier="persistent" embedded="true">
+<field name="Object5" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object6" persistence-modifier="persistent" embedded="false">
 </field>
@@ -23,13 +23,13 @@
 </field>
 <field name="Object11" persistence-modifier="persistent" >
 </field>
-<field name="Object12" persistence-modifier="persistent" embedded="true">
+<field name="Object12" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object13" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object14" persistence-modifier="transactional" >
 </field>
-<field name="Object17"  embedded="true" persistence-modifier="persistent">
+<field name="Object17"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object18"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -37,7 +37,7 @@
 </field>
 <field name="Object20" persistence-modifier="persistent" >
 </field>
-<field name="Object21" persistence-modifier="persistent" embedded="true">
+<field name="Object21" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object22" persistence-modifier="persistent" embedded="false">
 </field>
@@ -47,13 +47,13 @@
 </field>
 <field name="Object30" persistence-modifier="persistent" >
 </field>
-<field name="Object31" persistence-modifier="persistent" embedded="true">
+<field name="Object31" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object32" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object33" persistence-modifier="transactional" >
 </field>
-<field name="Object37"  embedded="true" persistence-modifier="persistent">
+<field name="Object37"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object38"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -61,7 +61,7 @@
 </field>
 <field name="Object40" persistence-modifier="persistent" >
 </field>
-<field name="Object41" persistence-modifier="persistent" embedded="true">
+<field name="Object41" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object42" persistence-modifier="persistent" embedded="false">
 </field>
@@ -71,13 +71,13 @@
 </field>
 <field name="Object47" persistence-modifier="persistent" >
 </field>
-<field name="Object48" persistence-modifier="persistent" embedded="true">
+<field name="Object48" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object49" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object50" persistence-modifier="transactional" >
 </field>
-<field name="Object53"  embedded="true" persistence-modifier="persistent">
+<field name="Object53"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object54"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -85,7 +85,7 @@
 </field>
 <field name="Object56" persistence-modifier="persistent" >
 </field>
-<field name="Object57" persistence-modifier="persistent" embedded="true">
+<field name="Object57" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object58" persistence-modifier="persistent" embedded="false">
 </field>
@@ -95,13 +95,13 @@
 </field>
 <field name="Object66" persistence-modifier="persistent" >
 </field>
-<field name="Object67" persistence-modifier="persistent" embedded="true">
+<field name="Object67" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object68" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object69" persistence-modifier="transactional" >
 </field>
-<field name="Object73"  embedded="true" persistence-modifier="persistent">
+<field name="Object73"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object74"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -109,7 +109,7 @@
 </field>
 <field name="Object76" persistence-modifier="persistent" >
 </field>
-<field name="Object77" persistence-modifier="persistent" embedded="true">
+<field name="Object77" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object78" persistence-modifier="persistent" embedded="false">
 </field>
@@ -119,13 +119,13 @@
 </field>
 <field name="Object83" persistence-modifier="persistent" >
 </field>
-<field name="Object84" persistence-modifier="persistent" embedded="true">
+<field name="Object84" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object85" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object86" persistence-modifier="transactional" >
 </field>
-<field name="Object89"  embedded="true" persistence-modifier="persistent">
+<field name="Object89"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object90"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -133,7 +133,7 @@
 </field>
 <field name="Object92" persistence-modifier="persistent" >
 </field>
-<field name="Object93" persistence-modifier="persistent" embedded="true">
+<field name="Object93" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object94" persistence-modifier="persistent" embedded="false">
 </field>
@@ -143,13 +143,13 @@
 </field>
 <field name="Object102" persistence-modifier="persistent" >
 </field>
-<field name="Object103" persistence-modifier="persistent" embedded="true">
+<field name="Object103" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object104" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object105" persistence-modifier="transactional" >
 </field>
-<field name="Object109"  embedded="true" persistence-modifier="persistent">
+<field name="Object109"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object110"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -157,7 +157,7 @@
 </field>
 <field name="Object112" persistence-modifier="persistent" >
 </field>
-<field name="Object113" persistence-modifier="persistent" embedded="true">
+<field name="Object113" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object114" persistence-modifier="persistent" embedded="false">
 </field>
@@ -167,13 +167,13 @@
 </field>
 <field name="Object119" persistence-modifier="persistent" >
 </field>
-<field name="Object120" persistence-modifier="persistent" embedded="true">
+<field name="Object120" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object121" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="Object122" persistence-modifier="transactional" >
 </field>
-<field name="Object125"  embedded="true" persistence-modifier="persistent">
+<field name="Object125"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="Object126"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -181,7 +181,7 @@
 </field>
 <field name="Object128" persistence-modifier="persistent" >
 </field>
-<field name="Object129" persistence-modifier="persistent" embedded="true">
+<field name="Object129" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object130" persistence-modifier="persistent" embedded="false">
 </field>
@@ -191,7 +191,7 @@
 </field>
 <field name="Object138" persistence-modifier="persistent" >
 </field>
-<field name="Object139" persistence-modifier="persistent" embedded="true">
+<field name="Object139" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="Object140" persistence-modifier="persistent" embedded="false">
 </field>

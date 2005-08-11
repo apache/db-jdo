@@ -5,7 +5,7 @@
 <class name="FieldsOfSimpleInterface" identity-type="application"
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleInterface$Oid">
 <field name="identifier" primary-key="true"/>
-<field name="SimpleInterface1"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface1"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface2"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -13,7 +13,7 @@
 </field>
 <field name="SimpleInterface4" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface5" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface5" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface6" persistence-modifier="persistent" embedded="false">
 </field>
@@ -23,13 +23,13 @@
 </field>
 <field name="SimpleInterface11" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface12" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface12" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface13" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface14" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface17"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface17"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface18"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -37,7 +37,7 @@
 </field>
 <field name="SimpleInterface20" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface21" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface21" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface22" persistence-modifier="persistent" embedded="false">
 </field>
@@ -47,13 +47,13 @@
 </field>
 <field name="SimpleInterface30" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface31" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface31" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface32" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface33" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface37"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface37"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface38"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -61,7 +61,7 @@
 </field>
 <field name="SimpleInterface40" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface41" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface41" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface42" persistence-modifier="persistent" embedded="false">
 </field>
@@ -71,13 +71,13 @@
 </field>
 <field name="SimpleInterface47" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface48" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface48" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface49" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface50" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface53"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface53"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface54"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -85,7 +85,7 @@
 </field>
 <field name="SimpleInterface56" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface57" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface57" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface58" persistence-modifier="persistent" embedded="false">
 </field>
@@ -95,13 +95,13 @@
 </field>
 <field name="SimpleInterface66" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface67" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface67" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface68" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface69" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface73"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface73"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface74"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -109,7 +109,7 @@
 </field>
 <field name="SimpleInterface76" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface77" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface77" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface78" persistence-modifier="persistent" embedded="false">
 </field>
@@ -119,13 +119,13 @@
 </field>
 <field name="SimpleInterface83" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface84" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface84" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface85" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface86" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface89"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface89"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface90"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -133,7 +133,7 @@
 </field>
 <field name="SimpleInterface92" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface93" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface93" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface94" persistence-modifier="persistent" embedded="false">
 </field>
@@ -143,13 +143,13 @@
 </field>
 <field name="SimpleInterface102" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface103" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface103" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface104" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface105" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface109"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface109"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface110"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -157,7 +157,7 @@
 </field>
 <field name="SimpleInterface112" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface113" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface113" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface114" persistence-modifier="persistent" embedded="false">
 </field>
@@ -167,13 +167,13 @@
 </field>
 <field name="SimpleInterface119" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface120" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface120" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface121" persistence-modifier="persistent" embedded="false">
 </field>
 <field name="SimpleInterface122" persistence-modifier="transactional" >
 </field>
-<field name="SimpleInterface125"  embedded="true" persistence-modifier="persistent">
+<field name="SimpleInterface125"  serialized="true" persistence-modifier="persistent">
 </field>
 <field name="SimpleInterface126"  embedded="false" persistence-modifier="persistent">
 </field>
@@ -181,7 +181,7 @@
 </field>
 <field name="SimpleInterface128" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface129" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface129" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface130" persistence-modifier="persistent" embedded="false">
 </field>
@@ -191,7 +191,7 @@
 </field>
 <field name="SimpleInterface138" persistence-modifier="persistent" >
 </field>
-<field name="SimpleInterface139" persistence-modifier="persistent" embedded="true">
+<field name="SimpleInterface139" persistence-modifier="persistent" serialized="true">
 </field>
 <field name="SimpleInterface140" persistence-modifier="persistent" embedded="false">
 </field>
