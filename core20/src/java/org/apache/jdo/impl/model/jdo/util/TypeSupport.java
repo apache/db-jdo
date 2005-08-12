@@ -56,39 +56,43 @@ public class TypeSupport
         // initialize map of singleFieldObjectIdClassNames
         singleFieldObjectIdClassNames.put(
             "byte", //NOI18N
-            "com.sun.persistence.support.identity.ByteIdentity"); //NOI18N
+            "javax.jdo.identity.ByteIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.Byte", //NOI18N
-            "com.sun.persistence.support.identity.ByteIdentity"); //NOI18N
+            "javax.jdo.identity.ByteIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "char", //NOI18N
-            "com.sun.persistence.support.identity.CharIdentity"); //NOI18N
+            "javax.jdo.identity.CharIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.Char", //NOI18N
-            "com.sun.persistence.support.identity.CharIdentity"); //NOI18N
+            "javax.jdo.identity.CharIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "int", //NOI18N
-            "com.sun.persistence.support.identity.IntIdentity"); //NOI18N
+            "javax.jdo.identity.IntIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.Integer",  //NOI18N
-            "com.sun.persistence.support.identity.IntIdentity"); //NOI18N
+            "javax.jdo.identity.IntIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "long",  //NOI18N
-            "com.sun.persistence.support.identity.LongIdentity"); //NOI18N
+            "javax.jdo.identity.LongIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.Long",  //NOI18N
-            "com.sun.persistence.support.identity.LongIdentity"); //NOI18N
+            "javax.jdo.identity.LongIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "short", //NOI18N
-            "com.sun.persistence.support.identity.ShortIdentity"); //NOI18N
+            "javax.jdo.identity.ShortIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.Short", //NOI18N
-            "com.sun.persistence.support.identity.ShortIdentity"); //NOI18N
+            "javax.jdo.identity.ShortIdentity"); //NOI18N
         singleFieldObjectIdClassNames.put(
             "java.lang.String", //NOI18N
-            "com.sun.persistence.support.identity.StringIdentity"); //NOI18N
+            "javax.jdo.identity.StringIdentity"); //NOI18N
     }
 
+    /** Fully qualified class name of the ObjectIdentity class. */
+    private static final String OBJECT_IDENTITY_NAME =  
+        "javax.jdo.identity.ObjectIdentity"; //NOI18N
+    
     /** 
      * Returns <code>true</code> if the persistence-modifier of a field
      * having the specified type defaults to <code>true</code>. 
@@ -187,13 +191,17 @@ public class TypeSupport
     
     /** 
      * Returns the name of a single field ObjectId class, if the specified
-     * type name denotes a type that is suitable for single fiedl identity.
+     * type name denotes a type that is suitable for single field identity.
      * @param typeName the type to be checked
      */
     public static String getSingleFieldObjectIdClassName(String typeName) {
         if (typeName == null)
             return null;
-        return (String) singleFieldObjectIdClassNames.get(typeName);
+        String singleFieldObjectIdClassName = 
+            (String) singleFieldObjectIdClassNames.get(typeName);
+        if (singleFieldObjectIdClassName == null)
+            singleFieldObjectIdClassName = OBJECT_IDENTITY_NAME;
+        return singleFieldObjectIdClassName;
     }
 
     //========= Internal helper methods ==========
