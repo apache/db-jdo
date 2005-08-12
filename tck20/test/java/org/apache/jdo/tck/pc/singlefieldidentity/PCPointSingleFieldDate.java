@@ -18,8 +18,8 @@ package org.apache.jdo.tck.pc.singlefieldidentity;
 
 import java.util.Date;
 
+import javax.jdo.identity.ObjectIdentity;
 import javax.jdo.identity.SingleFieldIdentity;
-import javax.jdo.identity.StringIdentity;
 
 /**
  * The PC class for testing <code>ObjectIdentity</code>.
@@ -98,7 +98,7 @@ public class PCPointSingleFieldDate extends AbstractPCPointSingleField {
      * of this class.
      */
     public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
-        return this.id.equals(((StringIdentity)singleFieldIdentity).getKey());
+        return this.id.equals(((ObjectIdentity)singleFieldIdentity).getKey());
     }
     
     public String toString() {
