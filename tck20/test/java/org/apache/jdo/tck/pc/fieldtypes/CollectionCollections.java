@@ -63,6 +63,7 @@ public class CollectionCollections {
   public Collection CollectionOfShort39;
   public Collection CollectionOfShort40;
   public Collection CollectionOfShort41;
+  public Collection CollectionOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Collection CollectionOfObject0",
@@ -106,7 +107,8 @@ public class CollectionCollections {
   "embedded-element=false public Collection CollectionOfLong38",
   "public Collection CollectionOfShort39",
   "embedded-element=true public Collection CollectionOfShort40",
-  "embedded-element=false public Collection CollectionOfShort41"
+  "embedded-element=false public Collection CollectionOfShort41",
+  "serialized-element=true public Collection CollectionOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,6 +202,8 @@ public class CollectionCollections {
         return CollectionOfShort40;
       case(41):
         return CollectionOfShort41;
+      case(42):
+        return CollectionOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -335,6 +339,9 @@ public class CollectionCollections {
          break;
       case(41):
         CollectionOfShort41= value;
+         break;
+      case(42):
+        CollectionOfSimpleClass42= value;
          break;
       default:
         throw new IndexOutOfBoundsException();

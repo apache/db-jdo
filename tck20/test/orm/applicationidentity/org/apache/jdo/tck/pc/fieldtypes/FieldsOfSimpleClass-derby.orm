@@ -31,7 +31,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass109" column="SIMPLECLASS109">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID109"/>
+                    <field name="intField" column="INTFIELD109"/>
+                    <field name="stringField" column="STRINGFIELD109"/>
+                </embedded>
             </field>
             <field name="SimpleClass11" column="SIMPLECLASS11">
                 <foreign-key/>
@@ -76,7 +80,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass125" column="SIMPLECLASS125">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID125"/>
+                    <field name="intField" column="INTFIELD125"/>
+                    <field name="stringField" column="STRINGFIELD125"/>
+                </embedded>
             </field>
             <field name="SimpleClass126" column="SIMPLECLASS126">
                 <foreign-key/>
@@ -114,7 +122,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass17" column="SIMPLECLASS17">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID17"/>
+                    <field name="intField" column="INTFIELD17"/>
+                    <field name="stringField" column="STRINGFIELD17"/>
+                </embedded>
             </field>
             <field name="SimpleClass18" column="SIMPLECLASS18">
                 <foreign-key/>
@@ -152,7 +164,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass37" column="SIMPLECLASS37">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID37"/>
+                    <field name="intField" column="INTFIELD37"/>
+                    <field name="stringField" column="STRINGFIELD37"/>
+                </embedded>
             </field>
             <field name="SimpleClass38" column="SIMPLECLASS38">
                 <foreign-key/>
@@ -197,7 +213,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass53" column="SIMPLECLASS53">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID53"/>
+                    <field name="intField" column="INTFIELD53"/>
+                    <field name="stringField" column="STRINGFIELD53"/>
+                </embedded>
             </field>
             <field name="SimpleClass54" column="SIMPLECLASS54">
                 <foreign-key/>
@@ -235,7 +255,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass73" column="SIMPLECLASS73">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID73"/>
+                    <field name="intField" column="INTFIELD73"/>
+                    <field name="stringField" column="STRINGFIELD73"/>
+                </embedded>
             </field>
             <field name="SimpleClass74" column="SIMPLECLASS74">
                 <foreign-key/>
@@ -270,7 +294,11 @@
                 <foreign-key/>
             </field>
             <field name="SimpleClass89" column="SIMPLECLASS89">
-                <foreign-key/>
+                <embedded>
+                    <field name="id" column="ID89"/>
+                    <field name="intField" column="INTFIELD89"/>
+                    <field name="stringField" column="STRINGFIELD89"/>
+                </embedded>
             </field>
             <field name="SimpleClass90" column="SIMPLECLASS90">
                 <foreign-key/>
