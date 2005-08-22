@@ -21,6 +21,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfObject;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -77,8 +78,8 @@ public class TestFieldsOfObject extends JDO_Test {
         Transaction tx = pm.currentTransaction();
         try { 
             int i, n;
-            Object firstValue = new String("Hello");
-            Object secondValue = new Integer("420");
+            Object firstValue = new SimpleClass(1, "Hello");
+            Object secondValue = new SimpleClass(333, "420");
             tx.begin();
             FieldsOfObject pi = new FieldsOfObject();
             pi.identifier = 1;
