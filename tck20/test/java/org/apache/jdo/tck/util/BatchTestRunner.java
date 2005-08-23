@@ -17,16 +17,13 @@
 package org.apache.jdo.tck.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -54,15 +51,6 @@ public class BatchTestRunner
     
     /** Default of the system property ResultPrinterClass. */
     public static final String RESULTPRINTER_DEFAULT = BatchResultPrinter.class.getName();
-
-    /** Redirect System.out and System.err to an ConsoleFileOutput instance. */
-    static {
-        if (!Boolean.getBoolean("noLogFile")) {
-            PrintStream printStream = new PrintStream(new ConsoleFileOutput());
-            System.setErr(printStream);
-            System.setOut(printStream);
-        }
-    }
 
     /** 
      * Constructor. 
@@ -146,8 +134,11 @@ public class BatchTestRunner
                     Constructor ctor = clazz.getConstructor(
                         new Class[] { PrintStream.class } );
                     // create instance
+                    PrintStream stream = !Boolean.getBoolean("no.log.file") ?
+                        new PrintStream(new ConsoleFileOutput()) :
+                        System.out;
                     return (ResultPrinter)ctor.newInstance(
-                        new Object[] { System.out });
+                        new Object[] { stream });
                 }
                 catch (ClassNotFoundException ex) {
                     // specified ResultPrinter class not 
@@ -189,36 +180,25 @@ public class BatchTestRunner
         return new BatchResultPrinter(System.out);
     }
     
+    /**
+     * Creates an output stream that delegates to
+     * {@link System#out} and to a file output stream.
+     * The file name of the file output stream is determined
+     * by method {@link BatchTestRunner#getFileName()}.
+     */
     private static class ConsoleFileOutput extends OutputStream {
 
-        private static String outDir = "logs";
-        private static String fileNameSuffix = ".txt";
-        private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        private String fileName;
         private PrintStream systemOut = System.out;
         private FileOutputStream fileOut;
         
         private ConsoleFileOutput() {
-            String identityType =  System.getProperty("jdo.tck.identitytype");
-            String db =  System.getProperty("jdo.tck.database");
-            String testConfig =  System.getProperty("jdo.tck.cfg");
-            if (identityType.equals("applicationidentity"))
-                identityType = "app";
-            else identityType = "dsid";
-            testConfig = testConfig.substring(0, testConfig.indexOf('.'));
-            String fileName = simpleDateFormat.format(new Date()) + "-"
-                              + db + "-"
-                              + identityType + "-"
-                              + testConfig
-                              + fileNameSuffix;
-            File dir = new File(outDir);
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
-            
             try {
-                fileOut = new FileOutputStream(new File(dir, fileName));
-            } catch (FileNotFoundException e) {
-                System.err.println("Cannot create log file "+fileName+". "+e);
+                this.fileName = getFileName();
+                this.fileOut = new FileOutputStream(this.fileName);
+            } catch (IOException e) {
+                if (this.fileName!=null)
+                    System.err.println("Cannot create log file "+this.fileName+". "+e);
             }
         }
         
@@ -245,5 +225,95 @@ public class BatchTestRunner
             this.systemOut.flush();
             this.fileOut.flush();
         }        
+    }
+    
+    /**
+     * Returns a file name which is determined by method
+     * {@link BatchTestRunner#changeFileName(String)}.
+     * The file name has suffix <code>.txt</code>.
+     * @return the file name
+     * @throws IOException
+     */
+    public static String getFileName() {
+        return changeFileName(".txt");
+    }
+    
+    /**
+     * Returns a file name which is constructed by values
+     * of some system properties and by the given file name.
+     * The system properties evaluated are:
+     * <ul>
+     * <li>jdo.tck.log.directory: Specifies the directory for the file.</li>
+     * <li>jdo.tck.database, jdo.tck.cfg: 
+     * The values of these properties prepend the given file name.</li>
+     * <li>jdo.tck.identitytype: The value of this property is replaced by
+     * <code>"app"</code> if it equals <code>"applicationidentity"</code>, 
+     * else it is replaced by <code>"dsid"</code>.</li>
+     * </ul>
+     * The returned file name is constructed as follows:<br>
+     * <jdo.tck.log.directory>/<jdo.tck.database>-<jdo.tck.identitytype>-<jdo.tck.cfg><given file name>
+     * Values of properties which do not exist are given by <code>""</code>. 
+     * @param fileName the file name
+     * @return the changed file name
+     */
+    public static String changeFileName(String fileName) {
+        String directory = System.getProperty("jdo.tck.log.directory");
+        if (directory!=null &&
+            !directory.endsWith(File.separator)) {
+            directory += File.separator;
+        }
+
+        String db = System.getProperty("jdo.tck.database");
+        
+        String identityType = System.getProperty("jdo.tck.identitytype");
+        if (identityType!=null) {
+            if (identityType.equals("applicationidentity")) {
+                identityType = "app";
+            } else { 
+                identityType = "dsid";
+            }
+        }
+        
+        String configuration = System.getProperty("jdo.tck.cfg");
+        if (configuration!=null) {
+            int index = configuration.indexOf('.');
+            if (index!=-1) {
+                configuration = configuration.substring(0, index);
+            }
+        }
+        
+        directory = fixPartialFileName(directory);
+        db = fixPartialFileName(db, '-',
+                new String[]{identityType, configuration, fileName});
+        identityType = fixPartialFileName(identityType, '-',
+                new String[]{configuration, fileName});
+        configuration = fixPartialFileName(configuration, '-',
+                new String[]{fileName});
+
+        return directory + db + identityType + configuration + fileName;
+    }
+    
+    private static String fixPartialFileName(String str) {
+        if (str==null) {
+            str = "";
+        }
+        return str;
+    }
+    
+    private static String fixPartialFileName(String str, char c, 
+            String[] values) {
+        str = fixPartialFileName(str);
+        if (!str.equals("")) {
+            for (int i = 0; i < values.length; i++) {
+                String value = values[i];
+                if (value!=null &&
+                    !value.equals("") &&
+                    !value.startsWith(".")) {
+                    str += c;
+                    break;
+                }
+            }
+        }
+        return str;
     }
 }

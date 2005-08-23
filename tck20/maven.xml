@@ -142,6 +142,7 @@
     </goal>
 
     <goal name="privateInstallSchema">
+        <mkdir dir="${jdo.tck.log.directory.database}"/>
         <!-- load mappings into a HashSet to unique them -->
         <j:new var="uniqueMappings" className="java.util.HashSet"/>
         <j:forEach var="cfg" items="${jdo.tck.cfglist}">
@@ -197,12 +198,17 @@
     <!-- ================== -->
 
     <goal name="runtck.iut" prereqs="setProps">
+        <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.iut"/>
     </goal>
 
     <goal name="privateRuntck.iut"
           prereqs="java:compile, testrunner.set, copyprops, doEnhance.iut, package.iut">
         <!-- Run tests for all databases, identity types, and configurations -->
+        <tstamp>
+            <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
+        </tstamp>
+        <mkdir dir="${jdo.tck.log.directory}/${timestamp}"/>
         <echo>Run all configurations on iut</echo>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
@@ -228,12 +234,17 @@
     </goal>
 
     <goal name="runtck.jdori" prereqs="setProps">
+        <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.jdori"/>
     </goal>
 
     <goal name="privateRuntck.jdori"
           prereqs="java:compile, testrunner.set, copyprops, doEnhance.jdori, package.jdori">
         <!-- Run tests for all databases, identity types, and configurations -->
+        <tstamp>
+            <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
+        </tstamp>
+        <mkdir dir="${jdo.tck.log.directory}/${timestamp}"/>
         <echo>Run all configurations on jdori</echo>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
@@ -296,6 +307,8 @@
                          value="${jdo.tck.cfg}"/>
             <sysproperty key="jdo.tck.exclude"
                          value="${jdo.tck.exclude}"/>
+            <sysproperty key="jdo.tck.log.directory"
+                         value="${jdo.tck.log.directory}/${timestamp}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
@@ -341,6 +354,8 @@
                          value="${jdo.tck.cfg}"/>
             <sysproperty key="jdo.tck.exclude"
                          value="${jdo.tck.exclude}"/>
+            <sysproperty key="jdo.tck.log.directory"
+                         value="${jdo.tck.log.directory}/${timestamp}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
@@ -375,7 +390,7 @@
         </condition>
     </goal>
 
-    <goal name="enhance.prepare">
+    <goal name="enhance.prepare" prereqs="java:compile, copyprops">
         <!-- copy metadata -->
         <mkdir dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}" />
         <copy todir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}">
@@ -398,6 +413,7 @@
     </goal>
 
     <goal name="doEnhance.iut">
+        <mkdir dir="${jdo.tck.log.directory.enhancer}"/>
         <j:set var="jdo.tck.enhanced.dir" value="${iut.enhanced.dir}"/>
         <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
             <attainGoal name="enhance.check"/>
@@ -410,6 +426,10 @@
                       dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"
                       classname="${iut.enhancer.main}"
                       classpathref="this.enhance.class.path">
+                     <sysproperty key="jdo.tck.identitytype"
+                                  value="${jdo.tck.identitytype}"/>
+                     <sysproperty key="jdo.tck.log.directory"
+                                  value="${jdo.tck.log.directory.enhancer}"/>
                      <jvmarg line="${iut.enhancer.sysproperties}"/>
                      <arg line="${iut.enhancer.options}"/>
                      <arg line="${iut.enhancer.args}"/>
@@ -420,6 +440,7 @@
     </goal>
 
     <goal name="doEnhance.jdori">
+        <mkdir dir="${jdo.tck.log.directory.enhancer}"/>
         <j:set var="jdo.tck.enhanced.dir" value="${jdo.enhanced.dir}"/>
         <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
             <attainGoal name="enhance.check"/>
@@ -432,6 +453,10 @@
                       dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"
                       classname="${jdo.enhancer.main}"
                       classpathref="this.enhance.class.path">
+                     <sysproperty key="jdo.tck.identitytype"
+                                  value="${jdo.tck.identitytype}"/>
+                     <sysproperty key="jdo.tck.log.directory"
+                                  value="${jdo.tck.log.directory.enhancer}"/>
                      <jvmarg line="${jdo.enhancer.sysproperties}"/>
                      <arg line="${jdo.enhancer.options}"/>
                      <arg line="${jdo.enhancer.args}"/>
@@ -577,6 +602,7 @@
                <include name="commons-logging.properties"/>
                <include name="simplelog.properties"/>
                <include name="logging.properties"/>
+               <include name="log4j.properties"/>
                <include name="jndi.properties"/>
             </fileset>
             <fileset dir="${basedir}/test/java">
