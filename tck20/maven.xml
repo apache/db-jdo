@@ -200,6 +200,7 @@
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.iut"/>
+        <attainGoal name="result"/>
     </goal>
 
     <goal name="privateRuntck.iut"
@@ -236,6 +237,7 @@
     <goal name="runtck.jdori" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.jdori"/>
+        <attainGoal name="result"/>
     </goal>
 
     <goal name="privateRuntck.jdori"
@@ -361,6 +363,14 @@
             <arg line="${jdo.tck.classes}"/>
         </java>
         <echo>Finished run with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+    </goal>
+
+    <goal name="result">
+        <java fork="yes" dir="${jdo.tck.testdir}"
+               classname="org.apache.jdo.tck.util.ResultSummary">
+            <classpath refid="jdori.class.path"/>
+            <arg line="${jdo.tck.log.directory}/${timestamp}"/>
+        </java>
     </goal>
 
     <!-- ================== -->

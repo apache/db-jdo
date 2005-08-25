@@ -38,9 +38,20 @@ import junit.textui.ResultPrinter;
 public class BatchResultPrinter
     extends ResultPrinter
 {
-    /** */
+    private static final DecimalFormat THREE_DIGITS_FORMATTER = new DecimalFormat("000");
+
+    /** The stream to delegate the output. */
+    private ConsoleFileOutput consoleFileOutput;
+    
+    /** The time elapsed to run a test suite. */
     private long runtime;
     
+    /** */
+    public BatchResultPrinter(ConsoleFileOutput consoleFileOutput) {
+        this(new PrintStream(consoleFileOutput));
+        this.consoleFileOutput = consoleFileOutput;
+    }
+        
     /** */
     public BatchResultPrinter(PrintStream writer) {
         super(writer);
@@ -74,6 +85,13 @@ public class BatchResultPrinter
         getWriter().flush();
     }
         
+    /**
+     * @see ResultPrinter#elapsedTimeAsString(long)
+     */
+    protected String elapsedTimeAsString(long runTime) {
+        return THREE_DIGITS_FORMATTER.format((double)runTime/1000);
+    }
+
     /** */
     protected void printHeader(long runTime) {
         this.runtime = runTime;
@@ -83,22 +101,57 @@ public class BatchResultPrinter
         
     /** */
     protected void printFooter(TestResult result) {
-        if (result.wasSuccessful()) {
-            getWriter().print("OK");
-            getWriter().println (" (" + result.runCount() + " test" + (result.runCount() == 1 ? "": "s") + ")");
-                
+        String message = null;
+        if (this.consoleFileOutput != null) { 
+            message = getResultMessage(result, this.consoleFileOutput);
+            String directory = this.consoleFileOutput.getDirectory();
+            ResultSummary.appendTCKResultMessage(directory, message);
+            ResultSummary.save(directory, result);
         } else {
+            message = getResultMessage(result);
+        }
+        
+        if (!result.wasSuccessful()) {
             getWriter().println("FAILURES!!!");
             printErrorSummary(result);
-            getWriter().println("Tests run: "+result.runCount()+ 
-                                ",  Failures: "+result.failureCount()+
-                                ",  Errors: "+result.errorCount()+
-                                ", Time: "+elapsedTimeAsString(this.runtime)+" seconds.");
         }
+        
+        getWriter().println(message);
         getWriter().println("Excluded tests: " + System.getProperty("jdo.tck.exclude"));
     }
         
     // helper method
+    
+    /**
+     * Returns the result message for the given result instance and
+     * the given console file output instance.
+     * @param result the result instance
+     * @param consoleFileOutput the console file output instance
+     * @return the result message
+     */
+    private String getResultMessage(TestResult result, ConsoleFileOutput consoleFileOutput) {
+        String message = this.consoleFileOutput.getFileName() + ':';
+        message += System.getProperty("line.separator") + "    ";
+        message += getResultMessage(result);
+        return message;
+    }
+        
+    /**
+     * Returns the result message for the given result instance.
+     * @param result the result instance
+     * @return the result message
+     */
+    private String getResultMessage(TestResult result) {
+        boolean success = result.wasSuccessful();
+        String message = success ? "OK " : "** ";
+        message += "Tests run: " + THREE_DIGITS_FORMATTER.format(result.runCount()) + 
+                   ", Time: "+elapsedTimeAsString(this.runtime)+" seconds.";
+        if (!success) {
+            message += " Failures: "+result.failureCount() + 
+                       ", Errors: "+result.errorCount();
+        }
+        return message;
+    }
         
     /** 
      * @return Name of the class of the given object without package prefix
@@ -150,7 +203,6 @@ public class BatchResultPrinter
     }
     
     private static class ErrorSummaryEntry implements Comparable {
-        private static DecimalFormat decimalFormat = new DecimalFormat("000");
         private int count = 0;
         private Throwable t;
         
@@ -179,7 +231,7 @@ public class BatchResultPrinter
         
         public String toString() {
             StringBuffer buffer = 
-                new StringBuffer(decimalFormat.format(count));
+                new StringBuffer(THREE_DIGITS_FORMATTER.format(count));
             buffer.append(" error" );
             if (this.count!=1) {
                 buffer.append("s: ");

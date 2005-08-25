@@ -17,7 +17,6 @@
 package org.apache.jdo.tck.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -130,13 +129,29 @@ public class BatchTestRunner
                 try {
                     // get class instance
                     Class clazz = Class.forName(className);
-                    // constructor taking PrintStream arg
-                    Constructor ctor = clazz.getConstructor(
-                        new Class[] { PrintStream.class } );
-                    // create instance
-                    PrintStream stream = !Boolean.getBoolean("no.log.file") ?
-                        new PrintStream(new ConsoleFileOutput()) :
-                        System.out;
+                    
+                    Constructor ctor = null;
+                    OutputStream stream = null;
+
+                    // choose constructor taking ConsoleFileOutput arg
+                    if (!Boolean.getBoolean("no.log.file")) {
+                        try {
+                            ctor = clazz.getConstructor(
+                            new Class[] { ConsoleFileOutput.class } );
+                            stream = new ConsoleFileOutput();
+                        }
+                        catch (NoSuchMethodException ex) {
+                            ctor = null;
+                        }
+                    }
+                    
+                    // choose constructor taking PrintStream arg
+                    if (ctor == null) {
+                        ctor = clazz.getConstructor(
+                                new Class[] { PrintStream.class } );
+                        stream = System.out;
+                    }
+                        
                     return (ResultPrinter)ctor.newInstance(
                         new Object[] { stream });
                 }
@@ -178,53 +193,6 @@ public class BatchTestRunner
      */
     protected ResultPrinter getDefaultResultPrinter() {
         return new BatchResultPrinter(System.out);
-    }
-    
-    /**
-     * Creates an output stream that delegates to
-     * {@link System#out} and to a file output stream.
-     * The file name of the file output stream is determined
-     * by method {@link BatchTestRunner#getFileName()}.
-     */
-    private static class ConsoleFileOutput extends OutputStream {
-
-        private String fileName;
-        private PrintStream systemOut = System.out;
-        private FileOutputStream fileOut;
-        
-        private ConsoleFileOutput() {
-            try {
-                this.fileName = getFileName();
-                this.fileOut = new FileOutputStream(this.fileName);
-            } catch (IOException e) {
-                if (this.fileName!=null)
-                    System.err.println("Cannot create log file "+this.fileName+". "+e);
-            }
-        }
-        
-        /* 
-         * @see java.io.OutputStream#write(int)
-         */
-        public void write(int b) throws IOException {
-            this.systemOut.write(b);
-            this.fileOut.write(b);
-        }
-        
-        /**
-         * @see java.io.OutputStream#close()
-         */
-        public void close()  throws IOException {
-            this.fileOut.close();
-            this.systemOut.close();
-        }
-    
-        /**
-         * @see java.io.OutputStream#flush()
-         */
-        public void flush()  throws IOException {
-            this.systemOut.flush();
-            this.fileOut.flush();
-        }        
     }
     
     /**
