@@ -28,9 +28,16 @@
     <bean id="dept1" class="org.apache.jdo.tck.pc.company.Department">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
+        <property name="company"><ref bean="company1"/></property>
         <property name="employees">
             <set>
                 <ref local="emp1"/>
+                <ref local="emp2"/>
+                <ref local="emp3"/>
+            </set>
+        </property>
+        <property name="fundedEmps">
+            <set>
                 <ref local="emp2"/>
                 <ref local="emp3"/>
             </set>
@@ -40,8 +47,16 @@
     <bean id="dept2" class="org.apache.jdo.tck.pc.company.Department">
         <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" ><value>Human Resources</value></constructor-arg>
+        <property name="company"><ref bean="company1"/></property>
         <property name="employees">
             <set>
+                <ref local="emp4"/>
+                <ref local="emp5"/>
+            </set>
+        </property>
+        <property name="fundedEmps">
+            <set>
+                <ref local="emp1"/>
                 <ref local="emp4"/>
                 <ref local="emp5"/>
             </set>
@@ -101,7 +116,7 @@
                 <entry key="work"><value>123456-2</value></entry>
             </map>
 	    </property>
-        <property name="department"><ref bean="dept2"/></property>
+        <property name="department"><ref bean="dept1"/></property>
         <property name="fundingDept"><ref bean="dept1"/></property>
         <property name="mentor"><ref bean="emp3"/></property>
         <property name="protege"><ref bean="emp1"/></property>
@@ -327,11 +342,6 @@
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>orange</value></constructor-arg>
         <constructor-arg index="2" type="java.math.BigDecimal"><value>2500000.99</value></constructor-arg>
-        <property name="reviewers">
-            <set>
-                <ref local="emp5"/>
-            </set>
-        </property>
         <property name="members">
             <set>
                 <ref local="emp1"/>
@@ -347,6 +357,7 @@
         <property name="reviewers">
             <set>
                 <ref local="emp4"/>
+                <ref local="emp5"/>
             </set>
         </property>
         <property name="members">
