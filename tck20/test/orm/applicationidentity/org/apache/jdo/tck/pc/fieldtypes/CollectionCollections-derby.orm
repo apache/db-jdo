@@ -19,6 +19,7 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfObject2"
                    table="COLLECTION_OF_OBJECT2">
@@ -40,6 +41,7 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleClass5"
                    table="COLLECTION_OF_SIMPLE_CLASS5">
@@ -64,6 +66,7 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleInterface8"
                    table="COLLECTION_OF_SIMPLE_INTERFACE8">
