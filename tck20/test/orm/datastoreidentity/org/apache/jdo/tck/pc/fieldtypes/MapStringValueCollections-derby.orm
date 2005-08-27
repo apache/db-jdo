@@ -111,22 +111,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_String27" column="MAP_OF_STRING27_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String28" column="MAP_OF_STRING28_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String29" column="MAP_OF_STRING29_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String30" column="MAP_OF_STRING30_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String31" column="MAP_OF_STRING31_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String33" column="MAP_OF_STRING33_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfString_String35" table="MAP_OF_STRING35_STRING">
                 <join column="IDENTIFIER"/>
@@ -134,22 +134,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfDate_String36" column="MAP_OF_DATE36_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String37" column="MAP_OF_DATE37_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String38" column="MAP_OF_DATE38_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String39" column="MAP_OF_DATE39_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String40" column="MAP_OF_DATE40_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String42" column="MAP_OF_DATE42_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDate_String44" table="MAP_OF_DATE44_STRING">
                 <join column="IDENTIFIER"/>
@@ -157,22 +157,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfBigDecimal_String45" column="MAP_OF_BIG_DECIMAL45_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String46" column="MAP_OF_BIG_DECIMAL46_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String47" column="MAP_OF_BIG_DECIMAL47_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String48" column="MAP_OF_BIG_DECIMAL48_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String49" column="MAP_OF_BIG_DECIMAL49_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String51" column="MAP_OF_BIG_DECIMAL51_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigDecimal_String53" table="MAP_OF_BIG_DECIMAL53_STRING">
                 <join column="IDENTIFIER"/>
@@ -182,22 +182,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfBigInteger_String54" column="MAP_OF_BIG_INTEGER54_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String55" column="MAP_OF_BIG_INTEGER55_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String56" column="MAP_OF_BIG_INTEGER56_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String57" column="MAP_OF_BIG_INTEGER57_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String58" column="MAP_OF_BIG_INTEGER58_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String60" column="MAP_OF_BIG_INTEGER60_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfBigInteger_String62" table="MAP_OF_BIG_INTEGER62_STRING">
                 <join column="IDENTIFIER"/>
@@ -205,22 +205,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfByte_String63" column="MAP_OF_BYTE63_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String64" column="MAP_OF_BYTE64_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String65" column="MAP_OF_BYTE65_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String66" column="MAP_OF_BYTE66_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String67" column="MAP_OF_BYTE67_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String69" column="MAP_OF_BYTE69_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfByte_String71" table="MAP_OF_BYTE71_STRING">
                 <join column="IDENTIFIER"/>
@@ -228,22 +228,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfDouble_String72" column="MAP_OF_DOUBLE72_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String73" column="MAP_OF_DOUBLE73_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String74" column="MAP_OF_DOUBLE74_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String75" column="MAP_OF_DOUBLE75_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String76" column="MAP_OF_DOUBLE76_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String78" column="MAP_OF_DOUBLE78_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfDouble_String80" table="MAP_OF_DOUBLE80_STRING">
                 <join column="IDENTIFIER"/>
@@ -251,22 +251,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfFloat_String81" column="MAP_OF_FLOAT81_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String82" column="MAP_OF_FLOAT82_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String83" column="MAP_OF_FLOAT83_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String84" column="MAP_OF_FLOAT84_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String85" column="MAP_OF_FLOAT85_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String87" column="MAP_OF_FLOAT87_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfFloat_String89" table="MAP_OF_FLOAT89_STRING">
                 <join column="IDENTIFIER"/>
@@ -274,22 +274,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfInteger_String90" column="MAP_OF_INTEGER90_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String91" column="MAP_OF_INTEGER91_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String92" column="MAP_OF_INTEGER92_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String93" column="MAP_OF_INTEGER93_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String94" column="MAP_OF_INTEGER94_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String96" column="MAP_OF_INTEGER96_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfInteger_String98" table="MAP_OF_INTEGER98_STRING">
                 <join column="IDENTIFIER"/>
@@ -297,22 +297,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfLong_String99" column="MAP_OF_LONG99_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String100" column="MAP_OF_LONG100_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String101" column="MAP_OF_LONG101_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String102" column="MAP_OF_LONG102_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String103" column="MAP_OF_LONG103_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String105" column="MAP_OF_LONG105_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfLong_String107" table="MAP_OF_LONG107_STRING">
                 <join column="IDENTIFIER"/>
@@ -320,22 +320,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfShort_String108" column="MAP_OF_SHORT108_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String109" column="MAP_OF_SHORT109_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String110" column="MAP_OF_SHORT110_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String111" column="MAP_OF_SHORT111_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String112" column="MAP_OF_SHORT112_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String114" column="MAP_OF_SHORT114_STRING"
-                   serialized="true">
+                   >
             </field>
             <field name="MapOfShort_String116" table="MAP_OF_SHORT116_STRING">
                 <join column="IDENTIFIER"/>

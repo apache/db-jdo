@@ -56,7 +56,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfString10" column="ARRAYLIST_OF_STRING10"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfString11" table="ARRAYLIST_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -69,7 +69,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfDate13" column="ARRAYLIST_OF_DATE13"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfDate14" table="ARRAYLIST_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -82,7 +82,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfLocale16" column="ARRAYLIST_OF_LOCALE16"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfLocale17" table="ARRAYLIST_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -95,7 +95,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfBigDecimal19" column="ARRAYLIST_OF_BIG_DECIMAL19"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfBigDecimal20" table="ARRAYLIST_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -108,7 +108,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfBigInteger22" column="ARRAYLIST_OF_BIG_INTEGER22"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfBigInteger23" table="ARRAYLIST_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -121,7 +121,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfByte25" column="ARRAYLIST_OF_BYTE25"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfByte26" table="ARRAYLIST_OF_BYTE26">
                 <join column="IDENTIFIER"/>
@@ -134,7 +134,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfDouble28" column="ARRAYLIST_OF_DOUBLE28"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfDouble29" table="ARRAYLIST_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -147,7 +147,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfFloat31" column="ARRAYLIST_OF_FLOAT31"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfFloat32" table="ARRAYLIST_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -160,7 +160,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfInteger34" column="ARRAYLIST_OF_INTEGER34"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfInteger35" table="ARRAYLIST_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -173,7 +173,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfLong37" column="ARRAYLIST_OF_LONG37"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfLong38" table="ARRAYLIST_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -186,7 +186,7 @@
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfShort40" column="ARRAYLIST_OF_SHORT40"
-                   serialized="true">
+                   >
             </field>
             <field name="ArrayListOfShort41" table="ARRAYLIST_OF_SHORT41">
                 <join column="IDENTIFIER"/>
