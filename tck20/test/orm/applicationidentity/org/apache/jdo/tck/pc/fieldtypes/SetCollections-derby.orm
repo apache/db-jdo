@@ -45,7 +45,7 @@
                 <element column="STRINGVAL"/>
             </field>
             <field name="SetOfString10" column="SET_OF_STRING10"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfString11" table="SET_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -56,7 +56,7 @@
                 <element column="DATEVAL"/>
             </field>
             <field name="SetOfDate13" column="SET_OF_DATE13"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfDate14" table="SET_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -67,7 +67,7 @@
                 <element column="LOCALEVAL"/>
             </field>
             <field name="SetOfLocale16" column="SET_OF_LOCALE16"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfLocale17" table="SET_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -78,7 +78,7 @@
                 <element column="BIG_DECIMALVAL"/>
             </field>
             <field name="SetOfBigDecimal19" column="SET_OF_BIG_DECIMAL19"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfBigDecimal20" table="SET_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -89,7 +89,7 @@
                 <element column="BIG_INTEGERVAL"/>
             </field>
             <field name="SetOfBigInteger22" column="SET_OF_BIG_INTEGER22"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfBigInteger23" table="SET_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -100,7 +100,7 @@
                 <element column="BYTEVAL"/>
             </field>
             <field name="SetOfByte25" column="SET_OF_BYTE25"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfByte26" table="SET_OF_BYTE26">
                 <join column="IDENTIFIER"/>
@@ -111,7 +111,7 @@
                 <element column="DOUBLEVAL"/>
             </field>
             <field name="SetOfDouble28" column="SET_OF_DOUBLE28"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfDouble29" table="SET_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -122,7 +122,7 @@
                 <element column="FLOATVAL"/>
             </field>
             <field name="SetOfFloat31" column="SET_OF_FLOAT31"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfFloat32" table="SET_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -133,7 +133,7 @@
                 <element column="INTEGERVAL"/>
             </field>
             <field name="SetOfInteger34" column="SET_OF_INTEGER34"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfInteger35" table="SET_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -144,7 +144,7 @@
                 <element column="LONGVAL"/>
             </field>
             <field name="SetOfLong37" column="SET_OF_LONG37"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfLong38" table="SET_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -155,7 +155,7 @@
                 <element column="SHORTVAL"/>
             </field>
             <field name="SetOfShort40" column="SET_OF_SHORT40"
-                   serialized="true">
+                   >
             </field>
             <field name="SetOfShort41" table="SET_OF_SHORT41">
                 <join column="IDENTIFIER"/>

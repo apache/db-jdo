@@ -54,135 +54,135 @@
             </field>
             <field name="HashMapOfString_String9"
                    column="HASHMAP_STR_STRING9"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_String10"
                    column="HASHMAP_STR_STRING10"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_String11"
                    column="HASHMAP_STR_STRING11"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date12"
                    column="HASHMAP_STR_DATE12"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date13"
                    column="HASHMAP_STR_DATE13"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date14"
                    column="HASHMAP_STR_DATE14"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale15"
                    column="HASHMAP_STR_LOCALE15"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale16"
                    column="HASHMAP_STR_LOCALE16"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale17"
                    column="HASHMAP_STR_LOCALE17"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal18"
                    column="HASHMAP_STR_BIG_DECIMAL18"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal19"
                    column="HASHMAP_STR_BIG_DECIMAL19"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal20"
                    column="HASHMAP_STR_BIG_DECIMAL20"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger21"
                    column="HASHMAP_STR_BIG_INTEGER21"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger22"
                    column="HASHMAP_STR_BIG_INTEGER22"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger23"
                    column="HASHMAP_STR_BIG_INTEGER23"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte24"
                    column="HASHMAP_STR_BYTE24"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte25"
                    column="HASHMAP_STR_BYTE25"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte26"
                    column="HASHMAP_STR_BYTE26"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Double27"
                    column="HASHMAP_STR_DOUBLE27"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Double28"
                    column="HASHMAP_STR_DOUBLE28"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Double29"
                    column="HASHMAP_STR_DOUBLE29"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Float30"
                    column="HASHMAP_STR_FLOAT30"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Float31"
                    column="HASHMAP_STR_FLOAT31"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Float32"
                    column="HASHMAP_STR_FLOAT32"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer33"
                    column="HASHMAP_STR_INTEGER33"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer34"
                    column="HASHMAP_STR_INTEGER34"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer35"
                    column="HASHMAP_STR_INTEGER35"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Long36"
                    column="HASHMAP_STR_LONG36"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Long37"
                    column="HASHMAP_STR_LONG37"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Long38"
                    column="HASHMAP_STR_LONG38"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short39"
                    column="HASHMAP_STR_SHORT39"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short40"
                    column="HASHMAP_STR_SHORT40"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short41"
                    column="HASHMAP_STR_SHORT41"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Object42" table="HASHMAP_STR_OBJECT42">
                 <join column="IDENTIFIER"/>
@@ -216,91 +216,91 @@
             </field>
             <field name="HashMapOfString_String51"
                    column="HASHMAP_STR_STRING51"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_String52"
                    column="HASHMAP_STR_STRING52"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date54"
                    column="HASHMAP_STR_DATE54"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date55"
                    column="HASHMAP_STR_DATE55"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale57"
                    column="HASHMAP_STR_LOCALE57"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale58"
                    column="HASHMAP_STR_LOCALE58"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal60"
                    column="HASHMAP_STR_BIG_DECIMAL60"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal61"
                    column="HASHMAP_STR_BIG_DECIMAL61"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger63"
                    column="HASHMAP_STR_BIG_INTEGER63"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger64"
                    column="HASHMAP_STR_BIG_INTEGER64"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte66"
                    column="HASHMAP_STR_BYTE66"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte67"
                    column="HASHMAP_STR_BYTE67"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Double69"
                    column="HASHMAP_STR_DOUBLE69"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Double70"
                    column="HASHMAP_STR_DOUBLE70"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Float72"
                    column="HASHMAP_STR_FLOAT72"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Float73"
                    column="HASHMAP_STR_FLOAT73"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer75"
                    column="HASHMAP_STR_INTEGER75"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer76"
                    column="HASHMAP_STR_INTEGER76"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Long78"
                    column="HASHMAP_STR_LONG78"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Long79"
                    column="HASHMAP_STR_LONG79"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short81"
                    column="HASHMAP_STR_SHORT81"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short82"
                    column="HASHMAP_STR_SHORT82"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Object84" table="HASHMAP_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
@@ -334,7 +334,7 @@
             </field>
             <field name="HashMapOfString_String93"
                    column="HASHMAP_STR_STRING93"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_String95" table="HASHMAP_STR_STRING95">
                 <join column="IDENTIFIER"/>
@@ -343,7 +343,7 @@
             </field>
             <field name="HashMapOfString_Date96"
                    column="HASHMAP_STR_DATE96"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Date98" table="HASHMAP_STR_DATE98">
                 <join column="IDENTIFIER"/>
@@ -352,7 +352,7 @@
             </field>
             <field name="HashMapOfString_Locale99"
                    column="HASHMAP_STR_LOCALE99"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Locale101" table="HASHMAP_STR_LOCALE101">
                 <join column="IDENTIFIER"/>
@@ -361,7 +361,7 @@
             </field>
             <field name="HashMapOfString_BigDecimal102"
                    column="HASHMAP_STR_BIG_DECIMAL102"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigDecimal104" table="HASHMAP_STR_BIG_DECIMAL104">
                 <join column="IDENTIFIER"/>
@@ -370,7 +370,7 @@
             </field>
             <field name="HashMapOfString_BigInteger105"
                    column="HASHMAP_STR_BIG_INTEGER105"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_BigInteger107" table="HASHMAP_STR_BIG_INTEGER107">
                 <join column="IDENTIFIER"/>
@@ -379,7 +379,7 @@
             </field>
             <field name="HashMapOfString_Byte108"
                    column="HASHMAP_STR_BYTE108"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Byte110" table="HASHMAP_STR_BYTE110">
                 <join column="IDENTIFIER"/>
@@ -387,7 +387,7 @@
                 <value column="BYTEVAL"/>
             </field>
             <field name="HashMapOfString_Double111" 
-                   serialized="true"
+                   
                    column="HASHMAP_STR_DOUBLE111">
             </field>
             <field name="HashMapOfString_Double113" table="HASHMAP_STR_DOUBLE113">
@@ -405,7 +405,7 @@
             </field>
             <field name="HashMapOfString_Integer117"
                    column="HASHMAP_STR_INTEGER117"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Integer119" table="HASHMAP_STR_INTEGER119">
                 <join column="IDENTIFIER"/>
@@ -413,7 +413,7 @@
                 <value column="INTEGERVAL"/>
             </field>
             <field name="HashMapOfString_Long120"
-                   serialized="true"
+                   
                     column="HASHMAP_STR_LONG120">
             </field>
             <field name="HashMapOfString_Long122" table="HASHMAP_STR_LONG122">
@@ -423,7 +423,7 @@
             </field>
             <field name="HashMapOfString_Short123"
                    column="HASHMAP_STR_SHORT123"
-                   serialized="true">
+                   >
             </field>
             <field name="HashMapOfString_Short125" table="HASHMAP_STR_SHORT125">
                 <join column="IDENTIFIER"/>

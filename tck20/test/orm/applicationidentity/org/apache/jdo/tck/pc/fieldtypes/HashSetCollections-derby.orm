@@ -46,7 +46,7 @@
             </field>
             <field name="HashSetOfString10"
                    column="HASHSET_OF_STRING10"
-                   serialized="true">
+                   >
             </field>
             <field name="HashSetOfString11" table="HASHSET_OF_STRING11">
                 <join column="IDENTIFIER"/>
@@ -57,7 +57,7 @@
                 <element column="DATEVAL"/>
             </field>
             <field name="HashSetOfDate13" column="HASHSET_OF_DATE13"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfDate14" table="HASHSET_OF_DATE14">
                 <join column="IDENTIFIER"/>
@@ -68,7 +68,7 @@
                 <element column="LOCALEVAL"/>
             </field>
             <field name="HashSetOfLocale16" column="HASHSET_OF_LOCALE16"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfLocale17" table="HASHSET_OF_LOCALE17">
                 <join column="IDENTIFIER"/>
@@ -79,7 +79,7 @@
                 <element column="BIG_DECIMALVAL"/>
             </field>
             <field name="HashSetOfBigDecimal19" column="HASHSET_OF_BIG_DECIMAL19"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfBigDecimal20" table="HASHSET_OF_BIG_DECIMAL20">
                 <join column="IDENTIFIER"/>
@@ -90,7 +90,7 @@
                 <element column="BIG_INTEGERVAL"/>
             </field>
             <field name="HashSetOfBigInteger22" column="HASHSET_OF_BIG_INTEGER22"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfBigInteger23" table="HASHSET_OF_BIG_INTEGER23">
                 <join column="IDENTIFIER"/>
@@ -101,7 +101,7 @@
                 <element column="BYTEVAL"/>
             </field>
             <field name="HashSetOfByte25" column="HASHSET_OF_BYTE25"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfByte26" table="HASHSET_OF_BYTE26">
                 <join column="IDENTIFIER"/>
@@ -112,7 +112,7 @@
                 <element column="DOUBLEVAL"/>
             </field>
             <field name="HashSetOfDouble28" column="HASHSET_OF_DOUBLE28"
-            serialized="true">
+            >
             </field>
             <field name="HashSetOfDouble29" table="HASHSET_OF_DOUBLE29">
                 <join column="IDENTIFIER"/>
@@ -123,7 +123,7 @@
                 <element column="FLOATVAL"/>
             </field>
             <field name="HashSetOfFloat31" column="HASHSET_OF_FLOAT31"
-                   serialized="true">
+                   >
             </field>
             <field name="HashSetOfFloat32" table="HASHSET_OF_FLOAT32">
                 <join column="IDENTIFIER"/>
@@ -134,7 +134,7 @@
                 <element column="INTEGERVAL"/>
             </field>
             <field name="HashSetOfInteger34" column="HASHSET_OF_INTEGER34"
-                   serialized="true">
+                   >
             </field>
             <field name="HashSetOfInteger35" table="HASHSET_OF_INTEGER35">
                 <join column="IDENTIFIER"/>
@@ -145,7 +145,7 @@
                 <element column="LONGVAL"/>
             </field>
             <field name="HashSetOfLong37" column="HASHSET_OF_LONG37"
-                   serialized="true">
+                   >
             </field>
             <field name="HashSetOfLong38" table="HASHSET_OF_LONG38">
                 <join column="IDENTIFIER"/>
@@ -156,7 +156,7 @@
                 <element column="SHORTVAL"/>
             </field>
             <field name="HashSetOfShort40" column="HASHSET_OF_SHORT40"
-                   serialized="true">
+                   >
             </field>
             <field name="HashSetOfShort41" table="HASHSET_OF_SHORT41">
                 <join column="IDENTIFIER"/>

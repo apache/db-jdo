@@ -110,22 +110,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_String27" column="HASHTBL_STRING27_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String28" column="HASHTBL_STRING28_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String29" column="HASHTBL_STRING29_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String30" column="HASHTBL_STRING30_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String31" column="HASHTBL_STRING31_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String33" column="HASHTBL_STRING33_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfString_String35" table="HASHTBL_STRING35_STR">
                 <join column="IDENTIFIER"/>
@@ -133,22 +133,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfDate_String36" column="HASHTBL_DATE36_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String37" column="HASHTBL_DATE37_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String38" column="HASHTBL_DATE38_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String39" column="HASHTBL_DATE39_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String40" column="HASHTBL_DATE40_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String42" column="HASHTBL_DATE42_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDate_String44" table="HASHTBL_DATE44_STR">
                 <join column="IDENTIFIER"/>
@@ -156,22 +156,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfBigDecimal_String45" column="HASHTBL_BIG_DECIMAL45_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String46" column="HASHTBL_BIG_DECIMAL46_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String47" column="HASHTBL_BIG_DECIMAL47_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String48" column="HASHTBL_BIG_DECIMAL48_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String49" column="HASHTBL_BIG_DECIMAL49_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String51" column="HASHTBL_BIG_DECIMAL51_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigDecimal_String53" table="HASHTBL_BIG_DECIMAL53_STR">
                 <join column="IDENTIFIER"/>
@@ -184,22 +184,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfBigInteger_String54" column="HASHTBL_BIG_INTEGER54_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String55" column="HASHTBL_BIG_INTEGER55_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String56" column="HASHTBL_BIG_INTEGER56_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String57" column="HASHTBL_BIG_INTEGER57_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String58" column="HASHTBL_BIG_INTEGER58_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String60" column="HASHTBL_BIG_INTEGER60_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfBigInteger_String62" table="HASHTBL_BIG_INTEGER62_STR">
                 <join column="IDENTIFIER"/>
@@ -207,22 +207,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfByte_String63" column="HASHTBL_BYTE63_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String64" column="HASHTBL_BYTE64_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String65" column="HASHTBL_BYTE65_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String66" column="HASHTBL_BYTE66_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String67" column="HASHTBL_BYTE67_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String69" column="HASHTBL_BYTE69_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfByte_String71" table="HASHTBL_BYTE71_STR">
                 <join column="IDENTIFIER"/>
@@ -230,22 +230,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfDouble_String72" column="HASHTBL_DOUBLE72_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String73" column="HASHTBL_DOUBLE73_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String74" column="HASHTBL_DOUBLE74_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String75" column="HASHTBL_DOUBLE75_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String76" column="HASHTBL_DOUBLE76_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String78" column="HASHTBL_DOUBLE78_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfDouble_String80" table="HASHTBL_DOUBLE80_STR">
                 <join column="IDENTIFIER"/>
@@ -253,22 +253,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfFloat_String81" column="HASHTBL_FLOAT81_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String82" column="HASHTBL_FLOAT82_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String83" column="HASHTBL_FLOAT83_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String84" column="HASHTBL_FLOAT84_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String85" column="HASHTBL_FLOAT85_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String87" column="HASHTBL_FLOAT87_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfFloat_String89" table="HASHTBL_FLOAT89_STR">
                 <join column="IDENTIFIER"/>
@@ -276,22 +276,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfInteger_String90" column="HASHTBL_INTEGER90_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String91" column="HASHTBL_INTEGER91_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String92" column="HASHTBL_INTEGER92_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String93" column="HASHTBL_INTEGER93_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String94" column="HASHTBL_INTEGER94_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String96" column="HASHTBL_INTEGER96_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfInteger_String98" table="HASHTBL_INTEGER98_STR">
                 <join column="IDENTIFIER"/>
@@ -299,19 +299,19 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfLong_String99" column="HASHTBL_LONG99_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfLong_String100" column="HASHTBL_LONG100_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfLong_String101" column="HASHTBL_LONG101_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfLong_String102" column="HASHTBL_LONG102_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfLong_String103" column="HASHTBL_LONG103_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfLong_String105" column="HASHTBL_LONG105_STR">
             </field>
@@ -321,22 +321,22 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfShort_String108" column="HASHTBL_SHORT108_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String109" column="HASHTBL_SHORT109_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String110" column="HASHTBL_SHORT110_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String111" column="HASHTBL_SHORT111_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String112" column="HASHTBL_SHORT112_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String114" column="HASHTBL_SHORT114_STR"
-                   serialized="true">
+                   >
             </field>
             <field name="HashtableOfShort_String116" table="HASHTBL_SHORT116_STR">
                 <join column="IDENTIFIER"/>
