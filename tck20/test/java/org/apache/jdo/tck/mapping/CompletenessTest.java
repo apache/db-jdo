@@ -93,13 +93,18 @@ public class CompletenessTest extends JDO_Test {
         for (int i = 0; i < size; i++) {
             DeepEquality expected = (DeepEquality) rootList.get(i);
             Object oid = rootOids.get(i);
-            DeepEquality persisted = (DeepEquality) pm.getObjectById(oid);
-            if (!expected.deepCompareFields(persisted, new EqualityHelper())) {
+            Object persisted = pm.getObjectById(oid);
+            EqualityHelper equalityHelper = new EqualityHelper();
+            if (!expected.deepCompareFields(persisted, equalityHelper)) {
                 if (msg.length() > 0) {
                     msg.append("\n");
                 }
-                msg.append("  Persistent instance " + persisted + 
-                           " not equal to expected instance " + expected);
+                msg.append("Expected this  instance:\n    " + 
+                        expected + "\n" +
+                        "Got persistent instance:" + "\n    " + 
+                        persisted + "\n" +
+                        "Detailed list of differences follows...\n");
+                msg.append(equalityHelper.getUnequalBuffer());
             }
         }
         pm.currentTransaction().commit();

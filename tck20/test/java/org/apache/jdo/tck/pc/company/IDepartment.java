@@ -13,27 +13,30 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
+ 
+package org.apache.jdo.tck.pc.company;
 
-package org.apache.jdo.tck.pc.icompany;
+import java.util.Set;
 
 /**
- * This interface represents the persistent state of Address.
+ * This interface represents the persistent state of Department.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-public interface IAddress {
+public interface IDepartment {
 
-    long getAddrid();
-    String getStreet();
-    String getCity();
-    String getState();
-    String getZipcode();
-    String getCountry();
+    long getDeptid();
+    String getName();
+    ICompany getCompany();
+    IEmployee getEmployeeOfTheMonth();
+    Set getEmployees();
+    Set getFundedEmps();
     
-    void setAddrid(long addrid);
-    void setStreet(String street);
-    void setCity(String city);
-    void setState(String state);
-    void setZipcode(String zipcode);
-    void setCountry(String country);
+    void setDeptid(long deptid);
+    void setName(String name);
+    void setCompany(ICompany company);
+    void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
+    void setEmployees(Set employees);
+    void setFundedEmps(Set employees);
+
 }

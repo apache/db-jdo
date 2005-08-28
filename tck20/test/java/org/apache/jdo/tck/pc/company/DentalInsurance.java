@@ -25,7 +25,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a dental insurance carrier selection for a
  * particular <code>Employee</code>.
  */
-public class DentalInsurance extends Insurance {
+public class DentalInsurance extends Insurance implements IDentalInsurance {
 
     private BigDecimal lifetimeOrthoBenefit;
 
@@ -33,7 +33,7 @@ public class DentalInsurance extends Insurance {
     protected DentalInsurance() {}
 
     /**
-     * Initialize a <code>DentalInsurance</code> instance.
+     * Construct a <code>DentalInsurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      * @param lifetimeOrthoBenefit The lifetimeOrthoBenefit.
@@ -45,7 +45,7 @@ public class DentalInsurance extends Insurance {
     }
 
     /**
-     * Initialize a <code>DentalInsurance</code> instance.
+     * Construct a <code>DentalInsurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      * @param employee The employee associated with this insurance.
@@ -96,7 +96,7 @@ public class DentalInsurance extends Insurance {
 
     /** 
      * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the coresponding fields of the specified Person.
+     * deep equal to the coresponding fields of the other Object.
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have
      * already been processed. 
@@ -105,12 +105,14 @@ public class DentalInsurance extends Insurance {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        DentalInsurance otherIns = (DentalInsurance)other;
-        return super.deepCompareFields(otherIns, helper) &&
+        IDentalInsurance otherIns = (IDentalInsurance)other;
+        String where = "DentalInsurance<" + getInsid() + ">";
+        return super.deepCompareFields(otherIns, helper) &
             helper.equals(lifetimeOrthoBenefit, 
-                          otherIns.lifetimeOrthoBenefit);
+                          otherIns.getLifetimeOrthoBenefit(), where + ".lifetimeOrthoBenefit");
     }
+
 }
 

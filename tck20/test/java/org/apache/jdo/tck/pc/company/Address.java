@@ -17,6 +17,7 @@
 package org.apache.jdo.tck.pc.company;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -25,7 +26,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a postal address.
  */
 public class Address 
-    implements Serializable, Comparable, DeepEquality {
+    implements IAddress, Serializable, Comparable, Comparator, DeepEquality {
 
     private long    addrid;
     private String  street;
@@ -65,6 +66,14 @@ public class Address
         return addrid;
     }
 
+    /**
+     * Set the id associated with this object.
+     * @param id the id.
+     */
+    public void setAddrid(long id) {
+        throw new IllegalStateException("Id is already set.");
+    }
+
     /** 
      * Get the street component of the address.
      * @return The street component of the address.
@@ -85,7 +94,7 @@ public class Address
      * Get the city.
      * @return The city component of the address.
      */
-    public String getCity(String city) {
+    public String getCity() {
         return city;
     }
 
@@ -179,17 +188,26 @@ public class Address
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Address otherAddress = (Address)other;
-        return (addrid == otherAddress.addrid) &&
-            helper.equals(street, otherAddress.street) &&
-            helper.equals(city, otherAddress.city) &&
-            helper.equals(state, otherAddress.state) &&
-            helper.equals(zipcode, otherAddress.zipcode) &&
-            helper.equals(country, otherAddress.country);
+        IAddress otherAddress = (IAddress)other;
+        String where = "Address<" + addrid + ">";
+        return
+            helper.equals(addrid, otherAddress.getAddrid(), where + ".addrid") &
+            helper.equals(street, otherAddress.getStreet(), where + ".street") &
+            helper.equals(city, otherAddress.getCity(), where + ".city") &
+            helper.equals(state, otherAddress.getState(), where + ".state") &
+            helper.equals(zipcode, otherAddress.getZipcode(), where + ".zipcode") &
+            helper.equals(country, otherAddress.getCountry(), where + ".country");
     }
     
+    /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Address)o1).compareTo(o2);
+    }
+
     /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -201,7 +219,7 @@ public class Address
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Address)o);
+        return compareTo((IAddress)o);
     }
 
     /** 
@@ -214,8 +232,8 @@ public class Address
      * object is less than, equal to, or greater than the specified Address
      * object. 
      */
-    public int compareTo(Address other) {
-        long otherId = other.addrid;
+    public int compareTo(IAddress other) {
+        long otherId = other.getAddrid();
         return (addrid < otherId ? -1 : (addrid == otherId ? 0 : 1));
     }
     
@@ -226,12 +244,12 @@ public class Address
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Address) {
-            return compareTo((Address)obj) == 0;
+        if (obj instanceof IAddress) {
+            return compareTo((IAddress)obj) == 0;
         }
         return false;
     }
-        
+
     /**
      * Returns a hash code value for the object. 
      * @return a hash code value for this object.

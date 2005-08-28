@@ -25,7 +25,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a dental insurance carrier selection for a
  * particular <code>Employee</code>.
  */
-public class MedicalInsurance extends Insurance {
+public class MedicalInsurance extends Insurance implements IMedicalInsurance {
 
     private String planType; // possible values: "PPO", "EPO", "NPO" 
 
@@ -33,7 +33,7 @@ public class MedicalInsurance extends Insurance {
     protected MedicalInsurance() {}
 
     /**
-     * Initialize a <code>MedicalInsurance</code> instance.
+     * Construct a <code>MedicalInsurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      * @param planType The planType.
@@ -46,14 +46,14 @@ public class MedicalInsurance extends Insurance {
     }
 
     /**
-     * Initialize a <code>MedicalInsurance</code> instance.
+     * Construct a <code>MedicalInsurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      * @param employee The employee associated with this insurance.
      * @param planType The planType.
      */
     public MedicalInsurance(long insid, String carrier, 
-                            Employee employee, String planType)
+                            IEmployee employee, String planType)
     {
         super(insid, carrier, employee);
         this.planType = planType;
@@ -96,28 +96,9 @@ public class MedicalInsurance extends Insurance {
         return rc.toString();
     }
 
-    /**
-     * Indicates whether some other object is "deep equal to" this one.
-     * @param other the object with which to compare.
-     * @param helper EqualityHelper to keep track of instances that have
-     * already been processed. 
-     * @return <code>true</code> if this object is deep equal to the
-     * specified object; <code>false</code> otherwise. 
-     */
-    public boolean deepEquals(DeepEquality other, EqualityHelper helper) {
-        if (this == other)
-            return true;
-        if (!(other instanceof MedicalInsurance))
-            return false;
-        if (helper.isProcessed(this))
-            return true;
-        helper.markProcessed(this);
-        return deepCompareFields((MedicalInsurance)other, helper);
-    }
-    
     /** 
      * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the coresponding fields of the specified Person.
+     * deep equal to the coresponding fields of the other Object.
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have
      * already been processed. 
@@ -126,11 +107,12 @@ public class MedicalInsurance extends Insurance {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        MedicalInsurance otherIns = (MedicalInsurance)other;
-        return super.deepCompareFields(otherIns, helper) &&
-            helper.equals(planType, otherIns.planType);
+        IMedicalInsurance otherIns = (IMedicalInsurance)other;
+        String where = "MedicalInsurance<" + getInsid() + ">";
+        return super.deepCompareFields(otherIns, helper) &
+            helper.equals(planType, otherIns.getPlanType(), where + ".planType");
     }
 }
 

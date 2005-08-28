@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <description>Company instances for CompletenessTest</description>
+    <description>Company instances for CompletenessTest with embedded relationships</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
@@ -30,7 +30,7 @@
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Sun Microsystems, Inc.</value></constructor-arg>
         <constructor-arg index="2" type="java.util.Date"><value>11/Apr/1952</value></constructor-arg>
-        <constructor-arg index="3" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr1"/></constructor-arg>
+        <constructor-arg index="3" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr1"/></constructor-arg>
     </bean>
 
     <bean id="dept1" class="org.apache.jdo.tck.pc.company.Department">
@@ -49,7 +49,7 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp1Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp1Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>10/Jun/1970</value></constructor-arg>
-        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr1"/></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr1"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>1/Jan/1999</value></constructor-arg>
         <constructor-arg index="7" type="double"><value>20000</value></constructor-arg>
         <property name="weeklyhours"><value>40</value></property>
@@ -66,7 +66,7 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp2Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp2Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>22/Dec/1975</value></constructor-arg>
-        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr2"/></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr2"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>1/Jul/2003</value></constructor-arg>
         <constructor-arg index="7" type="double"><value>10000</value></constructor-arg>
         <property name="weeklyhours"><value>40</value></property>
@@ -83,7 +83,7 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp3Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp3Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>5/Sep/1972</value></constructor-arg>
-        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr3"/></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
         <constructor-arg index="7" type="double"><value>15000</value></constructor-arg>
         <property name="weeklyhours"><value>19</value></property>
@@ -100,7 +100,7 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp4Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp4Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>6/Sep/1973</value></constructor-arg>
-        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr3"/></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>15/Apr/2001</value></constructor-arg>
         <constructor-arg index="7" type="double"><value>13000</value></constructor-arg>
         <property name="phoneNumbers">
@@ -116,7 +116,7 @@
         <constructor-arg index="2" type="java.lang.String"><value>emp5Last</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value>emp5Middle</value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>5/Jul/1962</value></constructor-arg>
-        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.Address"><ref local="addr3"/></constructor-arg>
+        <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>15/Aug/1998</value></constructor-arg>
         <constructor-arg index="7" type="double"><value>45000</value></constructor-arg>
         <property name="phoneNumbers">

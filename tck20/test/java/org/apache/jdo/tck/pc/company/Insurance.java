@@ -18,6 +18,8 @@ package org.apache.jdo.tck.pc.company;
 
 import java.io.Serializable;
 
+import java.util.Comparator;
+
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -26,7 +28,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * <code>Employee</code>.
  */
 public abstract class Insurance 
-    implements Serializable, Comparable, DeepEquality  {
+    implements IInsurance, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long     insid;
     private String   carrier;
@@ -36,7 +38,7 @@ public abstract class Insurance
     protected Insurance() {}
 
     /**
-     * Initialize an <code>Insurance</code> instance.
+     * Construct an <code>Insurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      */
@@ -46,15 +48,15 @@ public abstract class Insurance
     }
 
     /**
-     * Initialize an <code>Insurance</code> instance.
+     * Construct an <code>Insurance</code> instance.
      * @param insid The insurance instance identifier.
      * @param carrier The insurance carrier.
      * @param employee The employee associated with this insurance. 
      */
-    protected Insurance(long insid, String carrier, Employee employee) {
+    protected Insurance(long insid, String carrier, IEmployee employee) {
         this.insid = insid;
         this.carrier = carrier;
-        this.employee = employee;
+        this.employee = (Employee)employee;
     }
 
     /**
@@ -70,7 +72,7 @@ public abstract class Insurance
      * @param insid The insurance ID value.
      */
     public void setInsid(long insid) {
-        this.insid = insid;
+        throw new IllegalStateException("Id is already set.");
     }
 
     /**
@@ -93,7 +95,7 @@ public abstract class Insurance
      * Get the associated employee.
      * @return The employee for this insurance.
      */
-    public Employee getEmployee() {
+    public IEmployee getEmployee() {
         return employee;
     }
 
@@ -101,8 +103,8 @@ public abstract class Insurance
      * Set the associated employee.
      * @param employee The associated employee.
      */
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(IEmployee employee) {
+        this.employee = (Employee)employee;
     }
 
     /**
@@ -126,7 +128,7 @@ public abstract class Insurance
 
     /** 
      * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the coresponding fields of the specified Person.
+     * deep equal to the coresponding fields of the other Object.
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have
      * already been processed. 
@@ -135,14 +137,23 @@ public abstract class Insurance
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Insurance otherInd = (Insurance)other;
-        return (insid == otherInd.insid) && 
-            helper.equals(carrier, otherInd.carrier) && 
-            helper.deepEquals(employee, otherInd.employee);
+        IInsurance otherIns = (IInsurance)other;
+        String where = "Insurance<" + insid + ">";
+        return
+            helper.equals(insid, otherIns.getInsid(), where + ".insid") &
+            helper.equals(carrier, otherIns.getCarrier(), where + ".carrier") &
+            helper.deepEquals(employee, otherIns.getEmployee(), where + ".employee");
     }
     
+    /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Insurance)o1).compareTo(o2);
+    }
+
     /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -154,7 +165,7 @@ public abstract class Insurance
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Insurance)o);
+        return compareTo((IInsurance)o);
     }
 
     /** 
@@ -167,8 +178,8 @@ public abstract class Insurance
      * object is less than, equal to, or greater than the specified
      * Insurance object. 
      */
-    public int compareTo(Insurance other) {
-        long otherId = other.insid;
+    public int compareTo(IInsurance other) {
+        long otherId = other.getInsid();
         return (insid < otherId ? -1 : (insid == otherId ? 0 : 1));
     }
     
@@ -180,8 +191,8 @@ public abstract class Insurance
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Insurance) {
-            return compareTo((Insurance)obj) == 0;
+        if (obj instanceof IInsurance) {
+            return compareTo((IInsurance)obj) == 0;
         }
         return false;
     }

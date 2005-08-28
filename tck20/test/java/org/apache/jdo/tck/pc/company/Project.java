@@ -21,6 +21,7 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
@@ -33,7 +34,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * employees working on it.
  */
 public class Project 
-    implements Serializable, Comparable, DeepEquality  {
+    implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long       projid;
     private String     name;
@@ -54,6 +55,14 @@ public class Project
         this.projid = projid;
         this.name = name;
         this.budget = budget;
+    }
+
+    /**
+     * Set the id associated with this object.
+     * @param id the id.
+     */
+    public void setProjid(long id) {
+        throw new IllegalStateException("Id is already set.");
     }
 
     /**
@@ -204,16 +213,25 @@ public class Project
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Project otherProject = (Project)other;
-        return (projid == otherProject.projid) &&
-            helper.equals(name, otherProject.name) &&
-            helper.equals(budget, otherProject.budget) &&
-            helper.deepEquals(reviewers, otherProject.reviewers) &&
-            helper.deepEquals(members, otherProject.members);
+        IProject otherProject = (IProject)other;
+        String where = "Project<" + projid + ">";
+        return 
+            helper.equals(projid, otherProject.getProjid(), where + ".projid") &
+            helper.equals(name, otherProject.getName(), where + ".name") &
+            helper.equals(budget, otherProject.getBudget(), where + ".budget") &
+            helper.deepEquals(reviewers, otherProject.getReviewers(), where + ".reviewers") &
+            helper.deepEquals(members, otherProject.getMembers(), where + ".members");
     }
     
+    /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Project)o1).compareTo(o2);
+    }
+
     /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -225,7 +243,7 @@ public class Project
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Project)o);
+        return compareTo((IProject)o);
     }
 
     /** 
@@ -238,12 +256,11 @@ public class Project
      * object is less than, equal to, or greater than the specified Project
      * object. 
      */
-    public int compareTo(Project other) {
-        long otherId = other.projid;
+    public int compareTo(IProject other) {
+        long otherId = other.getProjid();
         return (projid < otherId ? -1 : (projid == otherId ? 0 : 1));
     }
-    
-    
+
     /** 
      * Indicates whether some other object is "equal to" this one.
      * @param obj the object with which to compare.
@@ -251,8 +268,8 @@ public class Project
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Project) {
-            return compareTo((Project)obj) == 0;
+        if (obj instanceof IProject) {
+            return compareTo((IProject)obj) == 0;
         }
         return false;
     }

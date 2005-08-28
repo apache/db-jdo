@@ -30,7 +30,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents an employee.
  */
-public abstract class Employee extends Person {
+public abstract class Employee extends Person implements IEmployee {
 
     private Date             hiredate;
     private double           weeklyhours;
@@ -51,7 +51,7 @@ public abstract class Employee extends Person {
     protected Employee() {}
 
     /**
-     * Initialize an <code>Employee</code> instance.
+     * Construct an <code>Employee</code> instance.
      * @param personid The identifier for the person.
      * @param firstname The first name of the employee.
      * @param lastname The last name of the employee.
@@ -67,7 +67,7 @@ public abstract class Employee extends Person {
     }
 
     /**
-     * Initialize an <code>Employee</code> instance.
+     * Construct an <code>Employee</code> instance.
      * @param personid The identifier for the person.
      * @param firstname The first name of the employee.
      * @param lastname The last name of the employee.
@@ -77,7 +77,7 @@ public abstract class Employee extends Person {
      * @param hiredate The date that the employee was hired.
      */
     public Employee(long personid, String firstname, String lastname, 
-                    String middlename, Date birthdate, Address address,
+                    String middlename, Date birthdate, IAddress address,
                     Date hiredate) {
         super(personid, firstname, lastname, middlename, birthdate, address);
         this.hiredate = hiredate;
@@ -190,7 +190,7 @@ public abstract class Employee extends Person {
      * Get the dental insurance of the employee.
      * @return The employee's dental insurance.
      */
-    public DentalInsurance getDentalInsurance() {
+    public IDentalInsurance getDentalInsurance() {
         return dentalInsurance;
     }
 
@@ -199,14 +199,14 @@ public abstract class Employee extends Person {
      * @param dentalInsurance The dental insurance object to associate with
      * the employee. 
      */
-    public void setDentalInsurance(DentalInsurance dentalInsurance) {
-        this.dentalInsurance = dentalInsurance;
+    public void setDentalInsurance(IDentalInsurance dentalInsurance) {
+        this.dentalInsurance = (DentalInsurance)dentalInsurance;
     }
     /**
      * Get the medical insurance of the employee.
      * @return The employee's medical insurance.
      */
-    public MedicalInsurance getMedicalInsurance() {
+    public IMedicalInsurance getMedicalInsurance() {
         return medicalInsurance;
     }
 
@@ -215,15 +215,15 @@ public abstract class Employee extends Person {
      * @param medicalInsurance The medical insurance object to associate
      * with the employee. 
      */
-    public void setMedicalInsurance(MedicalInsurance medicalInsurance) {
-        this.medicalInsurance = medicalInsurance;
+    public void setMedicalInsurance(IMedicalInsurance medicalInsurance) {
+        this.medicalInsurance = (MedicalInsurance)medicalInsurance;
     }
 
     /**
      * Get the employee's department.
      * @return The department associated with the employee.
      */
-    public Department getDepartment() {
+    public IDepartment getDepartment() {
         return department;
     }
 
@@ -231,15 +231,15 @@ public abstract class Employee extends Person {
      * Set the employee's department.
      * @param department The department.
      */
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartment(IDepartment department) {
+        this.department = (Department)department;
     }
 
     /**
      * Get the employee's funding department.
      * @return The funding department associated with the employee.
      */
-    public Department getFundingDept() {
+    public IDepartment getFundingDept() {
         return fundingDept;
     }
 
@@ -247,15 +247,15 @@ public abstract class Employee extends Person {
      * Set the employee's funding department.
      * @param department The funding department.
      */
-    public void setFundingDept(Department department) {
-        this.fundingDept = department;
+    public void setFundingDept(IDepartment department) {
+        this.fundingDept = (Department)department;
     }
 
     /**
      * Get the employee's manager.
      * @return The employee's manager.
      */
-    public Employee getManager() {
+    public IEmployee getManager() {
         return manager;
     }
 
@@ -263,8 +263,8 @@ public abstract class Employee extends Person {
      * Set the employee's manager.
      * @param manager The employee's manager.
      */
-    public void setManager(Employee manager) {
-        this.manager = manager;
+    public void setManager(IEmployee manager) {
+        this.manager = (Employee)manager;
     }
 
     /**
@@ -309,59 +309,50 @@ public abstract class Employee extends Person {
     }
 
     /**
-     * Set the mentor for this employee and also set the inverse protege
-     * relationship. 
+     * Set the mentor for this employee. 
      * @param mentor The mentor for this employee.
      */
-    public void setMentor(Employee mentor) {
-        this.mentor = mentor;
-        mentor.protege = this;
+    public void setMentor(IEmployee mentor) {
+        this.mentor = (Employee)mentor;
     }
 
     /**
      * Get the mentor for this employee.
      * @return The mentor.
      */
-    public Employee getMentor() {
+    public IEmployee getMentor() {
         return mentor;
     }
 
-    /* This setter is required by the SpringFramework 
-        used with the CompletenessTest */
     /**
-     * Set the protege for this employee and also set the inverse mentor
-     * relationship.
+     * Set the protege for this employee.
      * @param protege The protege for this employee.
      */
-    public void setProtege(Employee protege) {
-        this.protege = protege;
-        protege.mentor = this;
+    public void setProtege(IEmployee protege) {
+        this.protege = (Employee)protege;
     }
 
     /**
      * Get the protege of this employee.
      * @return The protege of this employee.
      */
-    public Employee getProtege() {
+    public IEmployee getProtege() {
         return protege;
     }
 
-    /* This setter is required by the SpringFramework 
-        used with the CompletenessTest */
     /**
      * Set the HR advisor for this employee.
      * @param hradvisor The hradvisor for this employee.
      */
-    public void setHradvisor(Employee hradvisor) {
-        this.hradvisor = hradvisor;
+    public void setHradvisor(IEmployee hradvisor) {
+        this.hradvisor = (Employee)hradvisor;
     }
-
 
     /**
      * Get the HR advisor for the employee.
      * @return The HR advisor.
      */
-    public Employee getHradvisor() {
+    public IEmployee getHradvisor() {
         return hradvisor;
     }
 
@@ -449,24 +440,25 @@ public abstract class Employee extends Person {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Employee otherEmp = (Employee)other;
-        return super.deepCompareFields(otherEmp, helper) &&
-            helper.equals(hiredate, otherEmp.hiredate) &&
-            helper.closeEnough(weeklyhours, otherEmp.weeklyhours) &&
-            helper.deepEquals(dentalInsurance, otherEmp.dentalInsurance) &&
-            helper.deepEquals(medicalInsurance, otherEmp.medicalInsurance) &&
-            helper.deepEquals(department, otherEmp.department) &&
-            helper.deepEquals(fundingDept, otherEmp.fundingDept) &&
-            helper.deepEquals(manager, otherEmp.manager) &&
-            helper.deepEquals(mentor, otherEmp.mentor) &&
-            helper.deepEquals(protege, otherEmp.protege) &&
-            helper.deepEquals(hradvisor, otherEmp.hradvisor) &&
-            helper.deepEquals(reviewedProjects, otherEmp.reviewedProjects) &&
-            helper.deepEquals(projects, otherEmp.projects) &&
-            helper.deepEquals(team, otherEmp.team) &&
-            helper.deepEquals(hradvisees, otherEmp.hradvisees);
+        IEmployee otherEmp = (IEmployee)other;
+        String where = "Employee<" + getPersonid() + ">";
+        return super.deepCompareFields(otherEmp, helper) &
+            helper.equals(hiredate, otherEmp.getHiredate(),  where + ".hiredate") &
+            helper.closeEnough(weeklyhours, otherEmp.getWeeklyhours(), where + ".weeklyhours") &
+            helper.deepEquals(dentalInsurance, otherEmp.getDentalInsurance(), where + ".dentalInsurance") &
+            helper.deepEquals(medicalInsurance, otherEmp.getMedicalInsurance(), where + ".medicalInsurance") &
+            helper.deepEquals(department, otherEmp.getDepartment(), where + ".department") &
+            helper.deepEquals(fundingDept, otherEmp.getFundingDept(), where + ".fundingDept") &
+            helper.deepEquals(manager, otherEmp.getManager(), where + ".manager") &
+            helper.deepEquals(mentor, otherEmp.getMentor(), where + ".mentor") &
+            helper.deepEquals(protege, otherEmp.getProtege(), where + ".protege") &
+            helper.deepEquals(hradvisor, otherEmp.getHradvisor(), where + ".hradvisor") &
+            helper.deepEquals(reviewedProjects, otherEmp.getReviewedProjects(), where + ".reviewedProjects") &
+            helper.deepEquals(projects, otherEmp.getProjects(), where + ".projects") &
+            helper.deepEquals(team, otherEmp.getTeam(), where + ".team") &
+            helper.deepEquals(hradvisees, otherEmp.getHradvisees(), where + ".hradvisees");
     }
 
 }

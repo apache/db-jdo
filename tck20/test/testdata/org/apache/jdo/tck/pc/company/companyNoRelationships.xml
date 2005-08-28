@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <description>Company instances for CompletenessTest</description>
+    <description>Company instances for CompletenessTest with no relationships</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">

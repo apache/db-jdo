@@ -122,7 +122,7 @@ public class WhenNontransactionalReadIsFalse extends JDO_Test {
             }
             try {
                 // navigate from department to company
-                c = d.getCompany();
+                c = (Company)d.getCompany();
                 fail(ASSERTION_FAILED,
                      "Navigation permitted outside an active transaction when NontransactionalRead is false.");
             } catch (JDOUserException juex) {

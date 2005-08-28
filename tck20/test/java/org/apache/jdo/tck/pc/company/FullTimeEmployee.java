@@ -24,7 +24,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a full-time employee.
  */
-public class FullTimeEmployee extends Employee {
+public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
 
     private double  salary;
 
@@ -32,7 +32,7 @@ public class FullTimeEmployee extends Employee {
     protected FullTimeEmployee() {}
 
     /**
-     * Initialize a full-time employee.
+     * Construct a full-time employee.
      * @param personid The person identifier.
      * @param first The person's first name.
      * @param last The person's last name.
@@ -49,7 +49,7 @@ public class FullTimeEmployee extends Employee {
     }
 
     /**
-     * Initialize a full-time employee.
+     * Construct a full-time employee.
      * @param personid The person identifier.
      * @param first The person's first name.
      * @param last The person's last name.
@@ -60,7 +60,7 @@ public class FullTimeEmployee extends Employee {
      * @param sal The salary of the full-time employee.
      */
     public FullTimeEmployee(long personid, String first, String last,
-                            String middle, Date born, Address addr, 
+                            String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
         super(personid, first, last, middle, born, addr, hired);
         salary = sal;
@@ -113,11 +113,12 @@ public class FullTimeEmployee extends Employee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
         FullTimeEmployee otherEmp = (FullTimeEmployee)other;
-        return super.deepCompareFields(otherEmp, helper) &&
-            helper.closeEnough(salary, otherEmp.salary);
+        String where = "FullTimeEmployee<" + getPersonid() + ">";
+        return super.deepCompareFields(otherEmp, helper) &
+            helper.closeEnough(salary, otherEmp.getSalary(), where + ".salary");
     }
     
 }

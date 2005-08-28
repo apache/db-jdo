@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a person.
  */
 public class Person 
-    implements Serializable, Comparable, DeepEquality  {
+    implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long    personid;
     private String  firstname;
@@ -53,7 +54,7 @@ public class Person
     protected Person() {}
 
     /**
-     * Initialize a <code>Person</code> instance.
+     * Construct a <code>Person</code> instance.
      * @param personid The person identifier.
      * @param firstname The person's first name.
      * @param lastname The person's last name.
@@ -70,7 +71,7 @@ public class Person
     }
 
     /**
-     * Initialize a <code>Person</code> instance.
+     * Construct a <code>Person</code> instance.
      * @param personid The person identifier.
      * @param firstname The person's first name.
      * @param lastname The person's last name.
@@ -79,9 +80,17 @@ public class Person
      * @param address The person's address.
      */
     public Person(long personid, String firstname, String lastname, 
-                  String middlename, Date birthdate, Address address) {
+                  String middlename, Date birthdate, IAddress address) {
         this(personid, firstname, lastname, middlename, birthdate);
-        this.address = address;
+        this.address = (Address)address;
+    }
+
+    /**
+     * Set the id associated with this object.
+     * @param id the id.
+     */
+    public void setPersonid(long id) {
+        throw new IllegalStateException("Id is already set.");
     }
 
     /**
@@ -152,7 +161,7 @@ public class Person
      * Get the address.
      * @return The address.
      */
-    public Address getAddress() {
+    public IAddress getAddress() {
         return address;
     }
 
@@ -160,8 +169,8 @@ public class Person
      * Set the address.
      * @param address The address.
      */
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(IAddress address) {
+        this.address = (Address)address;
     }
 
     /**
@@ -264,19 +273,28 @@ public class Person
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Person otherPerson = (Person)other;
-        return (personid == otherPerson.personid) &&
-            helper.equals(firstname, otherPerson.firstname) &&
-            helper.equals(lastname, otherPerson.lastname) &&
-            helper.equals(middlename, otherPerson.middlename) &&
-            helper.equals(birthdate, otherPerson.birthdate) &&
-            helper.deepEquals(address, otherPerson.address) &&
-            helper.deepEquals(phoneNumbers, otherPerson.phoneNumbers);
+        IPerson otherPerson = (IPerson)other;
+        String where = "Person<" + personid + ">";
+        return 
+            helper.equals(personid, otherPerson.getPersonid(), where + ".personid") &
+            helper.equals(firstname, otherPerson.getFirstname(), where + ".firstname") &
+            helper.equals(lastname, otherPerson.getLastname(), where + ".lastname") &
+            helper.equals(middlename, otherPerson.getMiddlename(), where + ".middlename") &
+            helper.equals(birthdate, otherPerson.getBirthdate(), where + ".birthdate") &
+            helper.deepEquals(address, otherPerson.getAddress(), where + ".address") &
+            helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
-    /** 
+     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Person)o1).compareTo(o2);
+    }
+
+   /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -287,7 +305,7 @@ public class Person
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Person)o);
+        return compareTo((IPerson)o);
     }
 
     /** 
@@ -300,8 +318,8 @@ public class Person
      * object is less than, equal to, or greater than the specified Person 
      * object. 
      */
-    public int compareTo(Person other) {
-        long otherId = other.personid;
+    public int compareTo(IPerson other) {
+        long otherId = other.getPersonid();
         return (personid < otherId ? -1 : (personid == otherId ? 0 : 1));
     }
     
@@ -313,8 +331,8 @@ public class Person
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Person) {
-            return compareTo((Person)obj) == 0;
+        if (obj instanceof IPerson) {
+            return compareTo((IPerson)obj) == 0;
         }
         return false;
     }

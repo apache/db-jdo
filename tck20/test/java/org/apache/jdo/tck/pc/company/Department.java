@@ -21,6 +21,7 @@ import java.io.ObjectInputStream;
 import java.io.IOException;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a department within a company.
  */
 public class Department
-    implements Serializable, Comparable, DeepEquality {
+    implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 
     private long    deptid;
     private String  name;
@@ -44,7 +45,7 @@ public class Department
     protected Department() {}
 
     /**
-     * Initialize a <code>Department</code> instance.
+     * Construct a <code>Department</code> instance.
      * @param deptid The department id.
      * @param name The name of the department.
      */
@@ -54,31 +55,39 @@ public class Department
     }
 
     /**
-     * Initialize a <code>Department</code> instance.
+     * Construct a <code>Department</code> instance.
      * @param deptid The department id.
      * @param name The name of the department.
      * @param company The company that the department is associated with. 
      */
-    public Department(long deptid, String name, Company company) {
+    public Department(long deptid, String name, ICompany company) {
         this.deptid = deptid;
         this.name = name;
-        this.company = company;
+        this.company = (Company)company;
     }
 
     /**
-     * Initialize a <code>Department</code> instance.
+     * Construct a <code>Department</code> instance.
      * @param deptid The department id.
      * @param name The name of the department.
      * @param company The company that the department is associated with.
      * @param employeeOfTheMonth The employee of the month the
      * department is associated with.
      */
-    public Department(long deptid, String name, Company company, 
-                      Employee employeeOfTheMonth) {
+    public Department(long deptid, String name, ICompany company, 
+                      IEmployee employeeOfTheMonth) {
         this.deptid = deptid;
         this.name = name;
-        this.company = company;
-        this.employeeOfTheMonth = employeeOfTheMonth;
+        this.company = (Company)company;
+        this.employeeOfTheMonth = (Employee)employeeOfTheMonth;
+    }
+
+    /**
+     * Set the id associated with this object.
+     * @param id the id.
+     */
+    public void setDeptid(long id) {
+        throw new IllegalStateException("Id is already set.");
     }
 
     /**
@@ -109,7 +118,7 @@ public class Department
      * Get the company associated with the department.
      * @return The company.
      */
-    public Company getCompany() {
+    public ICompany getCompany() {
         return company;
     }
 
@@ -117,15 +126,15 @@ public class Department
      * Set the company for the department.
      * @param company The company to associate with the department.
      */
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompany(ICompany company) {
+        this.company = (Company)company;
     }
 
     /**
      * Get the employee of the month associated with the department.
      * @return The employee of the month.
      */
-    public Employee getEmployeeOfTheMonth() {
+    public IEmployee getEmployeeOfTheMonth() {
         return employeeOfTheMonth;
     }
 
@@ -134,8 +143,8 @@ public class Department
      * @param employeeOfTheMonth The employee of the month to
      * associate with the department. 
      */
-    public void setEmployeeOfTheMonth(Employee employeeOfTheMonth) {
-        this.employeeOfTheMonth = employeeOfTheMonth;
+    public void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth) {
+        this.employeeOfTheMonth = (Employee)employeeOfTheMonth;
     }
 
     /**
@@ -220,7 +229,7 @@ public class Department
 
     /** 
      * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the coresponding fields of the specified Person.
+     * deep equal to the coresponding fields of the other Department.
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have
      * already been processed. 
@@ -229,15 +238,17 @@ public class Department
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
         Department otherDept = (Department)other;
-        return (deptid == otherDept.deptid) && 
-            helper.equals(name, otherDept.name) &&
-            helper.deepEquals(company, otherDept.company) &&
-            helper.deepEquals(employeeOfTheMonth, otherDept.employeeOfTheMonth) &&
-            helper.deepEquals(employees, otherDept.employees) &&
-            helper.deepEquals(fundedEmps, otherDept.fundedEmps);
+        String where = "Department<" + deptid + ">";
+        return 
+            helper.equals(deptid, otherDept.getDeptid(), where + ".deptid") & 
+            helper.equals(name, otherDept.getName(), where + ".name") &
+            helper.deepEquals(company, otherDept.getCompany(), where + ".company") &
+            helper.deepEquals(employeeOfTheMonth, otherDept.getEmployeeOfTheMonth(), where + ".employeeOfTheMonth") &
+            helper.deepEquals(employees, otherDept.getEmployees(), where + ".employees") &
+            helper.deepEquals(fundedEmps, otherDept.getFundedEmps(), where + ".fundedEmps");
     }
     
     /**
@@ -270,7 +281,14 @@ public class Department
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Department)o);
+        return compareTo((IDepartment)o);
+    }
+
+    /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Department)o1).compareTo(o2);
     }
 
     /** 
@@ -283,8 +301,8 @@ public class Department
      * object is less than, equal to, or greater than the specified
      * Department object. 
      */
-    public int compareTo(Department other) {
-        long otherId = other.deptid;
+    public int compareTo(IDepartment other) {
+        long otherId = other.getDeptid();
         return (deptid < otherId ? -1 : (deptid == otherId ? 0 : 1));
     }
     
@@ -295,8 +313,8 @@ public class Department
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Department) {
-            return compareTo((Department)obj) == 0;
+        if (obj instanceof IDepartment) {
+            return compareTo((IDepartment)obj) == 0;
         }
         return false;
     }

@@ -73,7 +73,7 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
 		pm.currentTransaction().begin();
 		makePersistentCleanInstance(comp);
 
-		Address addr = comp.getAddress();
+		Address addr = (Address)comp.getAddress();
 		addr.setStreet("200 Orange Street"); // comp or addr should transition to persistent-dirty
 		int currComp = currentState(comp);
 		int currAddr = currentState(addr);

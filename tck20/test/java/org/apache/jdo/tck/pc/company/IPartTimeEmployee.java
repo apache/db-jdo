@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.pc.icompany;
+package org.apache.jdo.tck.pc.company;
 
 /**
- * This interface represents the persistent state of Address.
+ * This interface represents the persistent state of PartTimeEmployee.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-public interface IAddress {
+public interface IPartTimeEmployee extends IEmployee {
 
-    long getAddrid();
-    String getStreet();
-    String getCity();
-    String getState();
-    String getZipcode();
-    String getCountry();
-    
-    void setAddrid(long addrid);
-    void setStreet(String street);
-    void setCity(String city);
-    void setState(String state);
-    void setZipcode(String zipcode);
-    void setCountry(String country);
+    double getWage();
+    void setWage(double wage);
 }

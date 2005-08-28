@@ -127,7 +127,7 @@ public class SetNontransactionalRead extends JDO_Test {
             }
 
             // navigate from department to company
-            c = d.getCompany();
+            c = (Company)d.getCompany();
             if (c == null) {
                  fail("Navigating from department to company outside of a transaction returns null.");
             }

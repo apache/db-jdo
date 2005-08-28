@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.pc.icompany;
+package org.apache.jdo.tck.pc.company;
 
 /**
  * This interface represents the persistent state of Address.

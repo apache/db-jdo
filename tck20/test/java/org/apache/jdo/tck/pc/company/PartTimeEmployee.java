@@ -24,14 +24,14 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a part-time employee.
  */
-public class PartTimeEmployee extends Employee {
+public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
     private double wage;
 
     /** This is the JDO-required no-args constructor. */
     protected PartTimeEmployee() {}
 
     /**
-     * Initialize a part-time employee.
+     * Construct a part-time employee.
      * @param personid The identifier for the person.
      * @param first The person's first name.
      * @param last The person's last name.
@@ -48,7 +48,7 @@ public class PartTimeEmployee extends Employee {
     }
 
     /**
-     * Initialize a part-time employee.
+     * Construct a part-time employee.
      * @param personid The identifier for the person.
      * @param first The person's first name.
      * @param last The person's last name.
@@ -59,7 +59,7 @@ public class PartTimeEmployee extends Employee {
      * @param wage The person's wage.
      */
     public PartTimeEmployee(long personid, String first, String last,
-                            String middle, Date born, Address addr, 
+                            String middle, Date born, IAddress addr, 
                             Date hired, double wage ) {
         super(personid, first, last, middle, born, addr, hired);
         this.wage = wage;
@@ -112,10 +112,11 @@ public class PartTimeEmployee extends Employee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(PartTimeEmployee other, 
+    public boolean deepCompareFields(Object other, 
                                         EqualityHelper helper) {
-        PartTimeEmployee otherEmp = (PartTimeEmployee)other;
-        return super.deepCompareFields(otherEmp, helper) &&
-            helper.closeEnough(wage, otherEmp.wage);
+        IPartTimeEmployee otherEmp = (IPartTimeEmployee)other;
+        String where = "PartTimeEmployee<" + getPersonid() + ">";
+        return super.deepCompareFields(otherEmp, helper) &
+            helper.closeEnough(wage, otherEmp.getWage(), where + ".wage");
     }
 }

@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.util;
 
+import java.util.Comparator;
+
 /**
  * This <code>DeepEquality</code> interface defines a method indicating
  * whether some other object is "deep equal to" this object.
@@ -54,7 +56,11 @@ public interface DeepEquality {
 
     /** 
      * Returns <code>true</code> if all the fields of this instance are
-     * deep equal to the corresponding fields of the specified Employee.
+     * deep equal to the corresponding fields of the other Object. This
+     * means that all non-relationship fields are equal to the
+     * corresponging fields in the other Object, and all relationship
+     * fields are deep equal. Recursion is stopped in the equality helper
+     * method that compares objects. 
      * @param other the object with which to compare.
      * @param helper EqualityHelper to keep track of instances that have
      * already been processed. 
@@ -63,5 +69,6 @@ public interface DeepEquality {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, EqualityHelper helper);
+    public boolean deepCompareFields(Object other, EqualityHelper helper);
+    
 }

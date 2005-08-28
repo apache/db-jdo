@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Date;
@@ -34,7 +35,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents information about a company.
  */
 public class Company 
-    implements Serializable, Comparable, DeepEquality {
+    implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
 
     private long        companyid;
     private String      name;
@@ -67,9 +68,9 @@ public class Company
      * @param founded The date the company was founded.
      * @param addr The company's address.
      */
-    public Company(long companyid, String name, Date founded, Address addr) {
+    public Company(long companyid, String name, Date founded, IAddress addr) {
         this(companyid, name, founded);
-        this.address = addr;
+        this.address = (Address)addr;
     }
 
     /**
@@ -81,12 +82,11 @@ public class Company
     }
     
     /** 
-     * Set the company id. This is only for the interface and should
-     * not normally be used.
-     * @param companyid the id
+     * Set the id associated with this object.
+     * @param id the id.
      */
-    public void setCompanyid(long companyid) {
-        this.companyid = companyid;
+    public void setCompanyid(long id) {
+        throw new IllegalStateException("Id is already set.");
     }
 
     /**
@@ -125,7 +125,7 @@ public class Company
      * Get the address of the company.
      * @return The primary address of the company.
      */
-    public Address getAddress() {
+    public IAddress getAddress() {
         return address;
     }
     
@@ -133,8 +133,8 @@ public class Company
      * Set the primary address for the company.
      * @param address The address to set for the company.
      */
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(IAddress address) {
+        this.address = (Address)address;
     }
 
     /**
@@ -213,16 +213,25 @@ public class Company
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(DeepEquality other, 
+    public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Company otherCompany = (Company)other;
-        return (companyid == otherCompany.getCompanyid()) &&
-            helper.equals(name, otherCompany.getName()) &&
-            helper.equals(founded, otherCompany.getFounded()) &&
-            helper.deepEquals(address, otherCompany.getAddress()) &&
-            helper.deepEquals(departments, otherCompany.getDepartments());
+        ICompany otherCompany = (ICompany)other;
+        String where = "Company<" + companyid + ">";
+        return 
+            helper.equals(companyid, otherCompany.getCompanyid(), where + ".companyid") &
+            helper.equals(name, otherCompany.getName(), where + ".name") &
+            helper.equals(founded, otherCompany.getFounded(), where + ".founded") &
+            helper.deepEquals(address, otherCompany.getAddress(), where + ".address") &
+            helper.deepEquals(departments, otherCompany.getDepartments(), where + ".departments");
     }
     
+    /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return ((Company)o1).compareTo(o2);
+    }
+
     /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
@@ -234,7 +243,7 @@ public class Company
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((Company)o);
+        return compareTo((ICompany)o);
     }
 
     /** 
@@ -247,7 +256,7 @@ public class Company
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(Company other) {
+    public int compareTo(ICompany other) {
         long otherId = other.getCompanyid();
         return (companyid < otherId ? -1 : (companyid == otherId ? 0 : 1));
     }
@@ -259,8 +268,8 @@ public class Company
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof Company) {
-            return compareTo((Company)obj) == 0;
+        if (obj instanceof ICompany) {
+            return compareTo((ICompany)obj) == 0;
         }
         return false;
     }
