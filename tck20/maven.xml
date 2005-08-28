@@ -60,6 +60,7 @@
         <attainGoal name="setProps"/>
         <attainGoal name="privateInstallSchema"/>
         <attainGoal name="privateRuntck.jdori"/>
+        <attainGoal name="result"/>
     </goal>
 
     <goal name="rebuild">
