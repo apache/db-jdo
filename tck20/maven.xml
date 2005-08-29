@@ -207,7 +207,7 @@
     </goal>
 
     <goal name="privateRuntck.iut"
-          prereqs="java:compile, testrunner.set, copyprops, doEnhance.iut, package.iut">
+          prereqs="java:compile, testrunner.set, copyprops, doEnhance.iut">
         <!-- Run tests for all databases, identity types, and configurations -->
         <tstamp>
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
@@ -244,7 +244,7 @@
     </goal>
 
     <goal name="privateRuntck.jdori"
-          prereqs="java:compile, testrunner.set, copyprops, doEnhance.jdori, package.jdori">
+          prereqs="java:compile, testrunner.set, copyprops, doEnhance.jdori">
         <!-- Run tests for all databases, identity types, and configurations -->
         <tstamp>
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
