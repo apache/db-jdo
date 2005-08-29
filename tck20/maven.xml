@@ -149,7 +149,9 @@
         <j:forEach var="cfg" items="${jdo.tck.cfglist}">
             <u:properties file="${basedir}/test/conf/${cfg}"/>
             <j:set var="mapping" value="${jdo.tck.mapping}"/>
-            <expr value="${uniqueMappings.add(mapping)}"/>
+            <j:set var="foo">
+                <j:expr value="${uniqueMappings.add(mapping)}"/>
+            </j:set>
         </j:forEach>
 
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
