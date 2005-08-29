@@ -51,7 +51,7 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
      * @param employee The employee associated with this insurance.
      * @param lifetimeOrthoBenefit The lifetimeOrthoBenefit.
      */
-    public DentalInsurance(long insid, String carrier, Employee employee,
+    public DentalInsurance(long insid, String carrier, IEmployee employee,
                            BigDecimal lifetimeOrthoBenefit) {
         super(insid, carrier, employee);
         this.lifetimeOrthoBenefit = lifetimeOrthoBenefit;
