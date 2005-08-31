@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<!--
+This file contains the schema information when an implementation
+has datastore identity.
+
+Inheritance mapping: 
+Separate table for each class in the inheritance hierarchy.
+No tables for abstract classes.
+Each table contains columns for all fields.
+Managers, mentors, hradvisors, and employees of the month 
+are fulltime employees.
+Only fulltime employees can have insurances, can be project members,
+and can be project reviewers.
+Separate phone number type tables for persons, fulltime employees,
+and parttime employees.
+Inheritance strategy: 
+    Employee, Insurance: subclass-table.
+    all other classes:   new-table.
+-->
+<orm>
+    <package name="org.apache.jdo.tck.pc.company">
+
+        <class name="Company" table="companies">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="companyid" column="ID"/>
+            <field name="name" column="NAME"/>
+            <field name="founded" column="FOUNDEDDATE"/>
+            <field name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="departments" mapped-by="company"/>
+        </class>
+
+        <class name="Department" table="departments">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="deptid" column="ID"/>
+            <field name="name" column="NAME"/>
+            <field name="company" column="COMPANYID" foreign-key="true"/>
+            <field name="employees" mapped-by="department"/>
+            <field name="fundedEmps" mapped-by="fundingDept"/>
+            <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
+        </class>
+
+        <class name="PartTimeEmployee" table="parttimeemployees">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table"/>
+            <field name="Person.personid" column="PERSONID"/>
+            <field name="Person.firstname" column="FIRSTNAME"/>
+            <field name="Person.lastname" column="LASTNAME"/>
+            <field name="Person.middlename" column="MIDDLENAME"/>
+            <field name="Person.address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="Person.phoneNumbers" table="parttime_employee_phoneno_type" >
+                <join column="EMPID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </field>
+            <field name="Employee.hiredate" column="HIREDATE"/>
+            <field name="Employee.weeklyhours" column="WEEKLYHOURS"/>
+            <field name="Employee.dentalInsurance" mapped-by="employee"/>
+            <field name="Employee.medicalInsurance" mapped-by="employee"/>
+            <field name="Employee.department" column="DEPARTMENT">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.manager" column="MANAGER">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.mentor" column="MENTOR">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.protege" mapped-by="mentor"/>
+            <field name="Employee.hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.reviewedProjects" mapped-by="reviewers">
+                <element>
+                    <foreign-key name="PR_PROJ_FK"/>
+                </element>
+            </field>
+            <field name="Employee.projects" mapped-by="members"/>
+            <field name="Employee.team" mapped-by="manager"/>
+            <field name="Employee.hradvisees" mapped-by="hradvisor"/>
+            <field name="wage" column="WAGE"/>
+        </class>
+
+        <class name="FullTimeEmployee" table="fulltimeemployees">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table"/>
+            <field name="Person.personid" column="PERSONID"/>
+            <field name="Person.firstname" column="FIRSTNAME"/>
+            <field name="Person.lastname" column="LASTNAME"/>
+            <field name="Person.middlename" column="MIDDLENAME"/>
+            <field name="Person.address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="Person.phoneNumbers" table="fulltime_employee_phoneno_type" >
+                <join column="EMPID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </field>
+            <field name="Employee.hiredate" column="HIREDATE"/>
+            <field name="Employee.weeklyhours" column="WEEKLYHOURS"/>
+            <field name="Employee.dentalInsurance" mapped-by="employee"/>
+            <field name="Employee.medicalInsurance" mapped-by="employee"/>
+            <field name="Employee.department" column="DEPARTMENT">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.manager" column="MANAGER">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.mentor" column="MENTOR">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.protege" mapped-by="mentor"/>
+            <field name="Employee.hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </field>
+            <field name="Employee.reviewedProjects" mapped-by="reviewers">
+                <element>
+                    <foreign-key name="PR_PROJ_FK"/>
+                </element>
+            </field>
+            <field name="Employee.projects" mapped-by="members"/>
+            <field name="Employee.team" mapped-by="manager"/>
+            <field name="Employee.hradvisees" mapped-by="hradvisor"/>
+            <field name="salary" column="SALARY"/>
+        </class>
+
+        <class name="Employee">
+            <inheritance strategy="subclass-table"/>
+        </class>
+
+        <class name="Person" table="persons">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table"/>
+            <field name="personid" column="PERSONID"/>
+            <field name="firstname" column="FIRSTNAME"/>
+            <field name="lastname" column="LASTNAME"/>
+            <field name="middlename" column="MIDDLENAME"/>
+            <field name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="phoneNumbers" table="employee_phoneno_type" >
+                <join column="EMPID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </field>
+        </class>
+
+        <class name="Insurance">
+            <inheritance strategy="subclass-table"/>
+        </class>
+
+        <class name="DentalInsurance" table="dentalinsurance">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table"/>
+            <field name="Insurance.insid" column="INSID"/>
+            <field name="Insurance.carrier" column="CARRIER"/>
+            <field name="Insurance.employee" column="EMPLOYEE">
+                 <foreign-key/>
+            </field>
+            <field name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
+        </class>
+
+        <class name="MedicalInsurance" table="medicalinsurance">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table"/>
+            <field name="Insurance.insid" column="INSID"/>
+            <field name="Insurance.carrier" column="CARRIER"/>
+            <field name="Insurance.employee" column="EMPLOYEE">
+                 <foreign-key/>
+            </field>
+            <field name="planType" column="PLANTYPE"/>
+        </class>
+
+        <class name="Project" table="projects">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="projid" column="PROJID"/>
+            <field name="name" column="NAME"/>
+            <field name="budget">
+               <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>
+            </field>
+            <field name="reviewers" table="project_reviewer">
+                <join column="PROJID"/>
+                <element column="REVIEWER">
+                    <foreign-key name="PR_REV_FK"/>
+                </element>
+            </field>
+            <field name="members" table="project_member">
+                <join column="PROJID"/>
+                <element column="MEMBER"/>
+            </field>
+        </class>
+    </package>
+</orm>
