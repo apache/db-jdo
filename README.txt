@@ -18,10 +18,7 @@ Dependencies:
 
 The JDO maven project define their dependencies in the project.xml file:
 JDO1: api11, btree, ri11, tck11
-JDO2: api20, tck20, btree, core20, enhancer20, runtime20, query20, fostore20
-Please note, the JDO2 implementation projects enhancer20, runtime20, query20, 
-and fostore20 do not yet implement the JDO2 API as defined in api20 and thus
-they still depend on api11.
+JDO2: api20, core20, enhancer20, tck20, btree, runtime20, query20, fostore20
 
 -------------
 Prerequisites
@@ -47,7 +44,7 @@ the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 
 - JPOX
 The Reference Implementation for JDO 2.0 is JPOX. The tck20 subproject 
-automatically downloads the latest JPPOX snapshot.
+automatically downloads the latest JPOX snapshot.
 
 - derby
 The default datastore for tck20 is derby. The tck20 subproject 
@@ -58,10 +55,6 @@ in tck20/test/conf/derby.properties.
 -------
 Remarks
 -------
-
-ToDo:
-- building ri
-- no useapplicationidentity and usedatastoreidentity anymore
 
 (1) Please note, maven uses the user.home system property for the location
 of the maven local repostitory: ${user.home}/.maven/repository.
