@@ -46,27 +46,14 @@ agreement, download 'File System Service Provider, 1.2 Beta 3' and then unpack
 the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 
 - JPOX
-The Reference Implementation for JDO 2.0 is JPOX. To run tck20 you must
-manually add the JPOX jar file and JPOX enhancer jar file to your local
-maven repository. Download both jars from
-http://www.jpox.org/docs/download.html and copy them to your local maven
-repository, changing the version number to "SNAPSHOT".  You must also
-download the jpox plug-ins jpox-c3p0-<version>.jar and jpox-dbcp-<version>.jar
-for connection pooling.
-  cp jpox-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-SNAPSHOT.jar
-  cp jpox-enhancer-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-enhancer-SNAPSHOT.jar
-  cp jpox-c3p0-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-c3p0-SNAPSHOT.jar
-  cp jpox-dbcp-<version>.jar $HOME/.maven/repository/jpox/jars/jpox-dbcp-SNAPSHOT.jar
-
-Finally, you must download c3p0-0.9.0-pre6.bin.zip, unzip it and copy 
-c3p0-0.9.0-pre6.jar to $HOME/.maven/repository/c3p0/jars.
+The Reference Implementation for JDO 2.0 is JPOX. The tck20 subproject 
+automatically downloads the latest JPPOX snapshot.
 
 - derby
-To use Derby as the datastore for tck20, download version 10.0.2.1 from
-http://incubator.apache.org/derby/derby_downloads.html and add derby.jar
-and derbytools.jar your maven repository. Rename them to include the version
-number: derby-10.0.2.1.jar and derby-tools-10.0.2.1.jar.  NOTE!! Mac OSX users
-must ncomment derby.storage.fileSyncTransactionLog=true in tck20/test/conf/derby.properties.
+The default datastore for tck20 is derby. The tck20 subproject 
+automatically downloads version 10.1.1.0 of derby and derbytools.
+NOTE!! Mac OSX users must uncomment derby.storage.fileSyncTransactionLog=true 
+in tck20/test/conf/derby.properties.
 
 -------
 Remarks

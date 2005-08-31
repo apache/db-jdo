@@ -36,16 +36,46 @@ NOTE!! This project has a nonstandard structure. The source files are located in
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <groupId>apache-jdo</groupId>
+            <artifactId>jdo2-api</artifactId>
+            <version>SNAPSHOT</version>
         </dependency>
-        <!-- You must manually download jpox until it is available from ibiblio.org -->
+        <dependency>
+            <groupId>apache-jdo</groupId>
+            <artifactId>jdo2-enhancer</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>apache-jdo</groupId>
+            <artifactId>jdo2-core</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox</artifactId>
             <version>SNAPSHOT</version>
             <url>http://www.jpox.org/docs/download.html</url>
+        </dependency>
+        <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox-enhancer</artifactId>
+            <version>SNAPSHOT</version>
+            <url>http://www.jpox.org/docs/download.html</url>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbytools</artifactId>
+            <version>10.1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
         </dependency>
         <dependency>
             <groupId>bcel</groupId>
@@ -64,45 +94,14 @@ NOTE!! This project has a nonstandard structure. The source files are located in
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.0.2.1</version>
-        </dependency>
-        <dependency>
             <groupId>geronimo-spec</groupId>
             <artifactId>geronimo-spec-jta</artifactId>
             <version>1.0.1B-rc2</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-api</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-enhancer</artifactId>
-            <version>SNAPSHOT</version>
-            <url>http://www.jpox.org/docs/download.html</url>
-        </dependency>
-        <dependency>
             <groupId>springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>1.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.0.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-enhancer</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-core</artifactId>
-            <version>SNAPSHOT</version>
         </dependency>
         <!-- dependencies for connection pooling -->
         <dependency>
