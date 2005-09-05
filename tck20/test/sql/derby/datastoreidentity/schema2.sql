@@ -159,8 +159,8 @@ CREATE TABLE project_reviewer (
 );
 
 CREATE TABLE project_member (
-    PROJID INTEGER REFERENCES projects NOT NULL,
-    MEMBER INTEGER REFERENCES fulltimeemployees NOT NULL
+    PROJID INTEGER NOT NULL,
+    MEMBER INTEGER NOT NULL
 );
 
 CREATE TABLE employee_phoneno_type (
@@ -183,14 +183,22 @@ CREATE TABLE parttime_employee_phoneno_type (
 
 ALTER TABLE project_reviewer 
     ADD CONSTRAINT PR_PROJ_FK FOREIGN KEY
-        (PROJID) REFERENCES projects(PROJID);
+        (PROJID) REFERENCES projects;
 
 ALTER TABLE project_reviewer 
     ADD CONSTRAINT PR_REV_FK FOREIGN KEY
-        (REVIEWER) REFERENCES fulltimeemployees(PERSONID);
+        (REVIEWER) REFERENCES fulltimeemployees;
+
+ALTER TABLE project_member 
+    ADD CONSTRAINT PM_PROJ_FK FOREIGN KEY
+        (PROJID) REFERENCES projects;
+
+ALTER TABLE project_member 
+    ADD CONSTRAINT PM_MEMB_FK FOREIGN KEY
+        (MEMBER) REFERENCES fulltimeemployees;
 
 ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
-        (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees(DATASTORE_IDENTITY);
+        (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees;
 
 disconnect;
