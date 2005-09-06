@@ -203,12 +203,12 @@ public class BatchTestRunner
      * @throws IOException
      */
     public static String getFileName() {
-        return changeFileName(".txt");
+        return changeFileName("junit.txt");
     }
     
     /**
      * Returns a file name which is constructed by values
-     * of some system properties and by the given file name.
+     * of some system properties appended by the given file name.
      * The system properties evaluated are:
      * <ul>
      * <li>jdo.tck.log.directory: Specifies the directory for the file.</li>
@@ -220,7 +220,7 @@ public class BatchTestRunner
      * </ul>
      * The returned file name is constructed as follows:<br>
      * <jdo.tck.log.directory>/<jdo.tck.database>-<jdo.tck.identitytype>-<jdo.tck.cfg><given file name>
-     * Values of properties which do not exist are given by <code>""</code>. 
+     * Values of properties which do not exist default to <code>""</code>. 
      * @param fileName the file name
      * @return the changed file name
      */

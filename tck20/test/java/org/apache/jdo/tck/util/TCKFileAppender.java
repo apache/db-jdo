@@ -25,6 +25,8 @@ import org.apache.log4j.Layout;
  *  TCKFileAppender appends log events to a file.
  *  Overrides {@link FileAppender#setFile(java.lang.String, boolean, boolean, int)}
  *  changing the given file name.
+ *  For details on the construction of the changed file name see method
+ *  {@link BatchTestRunner#changeFileName(String)}.
  */
 public class TCKFileAppender extends FileAppender {
 
