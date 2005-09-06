@@ -9,5 +9,7 @@ jdo.tck.cfglist = \
                  inheritance1.conf \
                  inheritance2.conf \
                  inheritance3.conf \
-                 inheritance4.conf
-
+                 inheritance4.conf \
+                 schemaAttributeClass.conf \
+                 schemaAttributeORM.conf \
+                 schemaAttributePackage.conf
