@@ -41,7 +41,11 @@ public class CompanyModelReader extends XmlBeanFactory {
 
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
-    
+
+    /** The bean-factory name in the xml input files.
+     */
+    public static final String BEAN_FACTORY_NAME = "companyFactory";
+
     /** All classes in the model 
      */
     private static final Class[] allClasses = new Class[] {
@@ -107,6 +111,7 @@ public class CompanyModelReader extends XmlBeanFactory {
         CustomDateEditor dateEditor = 
             new CustomDateEditor(formatter, true);
         registerCustomEditor(Date.class, dateEditor);
+        addSingleton(BEAN_FACTORY_NAME, CompanyFactoryRegistry.getInstance());
     }
     
     // Convenience methods

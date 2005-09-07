@@ -12,7 +12,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="dept1" class="org.apache.jdo.tck.pc.company.Department">
+    <bean id="dept1" factory-bean="companyFactory" factory-method="newDepartment">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
         <property name="employees">
@@ -24,7 +24,7 @@
         </property>
     </bean>
 
-    <bean id="emp1" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+    <bean id="emp1" factory-bean="companyFactory" factory-method="newFullTimeEmployee">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>emp1First</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>emp1Last</value></constructor-arg>
@@ -42,7 +42,7 @@
             </map>
 	</property>
     </bean>
-    <bean id="emp2" class="org.apache.jdo.tck.pc.company.FullTimeEmployee">
+    <bean id="emp2" factory-bean="companyFactory" factory-method="newFullTimeEmployee">
         <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>emp2First</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>emp2Last</value></constructor-arg>
@@ -59,7 +59,7 @@
             </map>
 	</property>
     </bean>
-    <bean id="emp3" class="org.apache.jdo.tck.pc.company.PartTimeEmployee">
+    <bean id="emp3" factory-bean="companyFactory" factory-method="newPartTimeEmployee">
         <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>emp3First</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>emp3Last</value></constructor-arg>
@@ -77,7 +77,7 @@
 	</property>
     </bean>
 
-    <bean id="addr1" class="org.apache.jdo.tck.pc.company.Address">
+    <bean id="addr1" factory-bean="companyFactory" factory-method="newAddress">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Unter den Linden 1</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>Berlin</value></constructor-arg>
@@ -85,7 +85,7 @@
         <constructor-arg index="4" type="java.lang.String"><value>12345</value></constructor-arg>
         <constructor-arg index="5" type="java.lang.String"><value>Germany</value></constructor-arg>
     </bean>
-    <bean id="addr2" class="org.apache.jdo.tck.pc.company.Address">
+    <bean id="addr2" factory-bean="companyFactory" factory-method="newAddress">
         <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Broadway 1</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>New York</value></constructor-arg>
@@ -93,7 +93,7 @@
         <constructor-arg index="4" type="java.lang.String"><value>10000</value></constructor-arg>
         <constructor-arg index="5" type="java.lang.String"><value>USA</value></constructor-arg>
     </bean>
-    <bean id="addr3" class="org.apache.jdo.tck.pc.company.Address">
+    <bean id="addr3" factory-bean="companyFactory" factory-method="newAddress">
         <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Market St.</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>San Francisco</value></constructor-arg>
@@ -102,7 +102,7 @@
         <constructor-arg index="5" type="java.lang.String"><value>USA</value></constructor-arg>
     </bean>
 
-    <bean id="medicalIns1" class="org.apache.jdo.tck.pc.company.MedicalInsurance">
+    <bean id="medicalIns1" factory-bean="companyFactory" factory-method="newMedicalInsurance">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Carrier1</value></constructor-arg>
         <constructor-arg index="2" type="java.lang.String"><value>PPO</value></constructor-arg>

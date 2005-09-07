@@ -16,12 +16,21 @@
 
 package org.apache.jdo.tck.mapping;
 
+import java.lang.reflect.Constructor;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.JDOException;
+
 import org.apache.jdo.tck.JDO_Test;
+
+import org.apache.jdo.tck.pc.company.CompanyFactory;
+import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -62,9 +71,10 @@ public class CompletenessTest extends JDO_Test {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
+        getPM();
+        CompanyFactoryRegistry.registerFactory(pm);
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
         // persist test data
-        getPM();
         pm.currentTransaction().begin();
         List rootList = reader.getRootList();
         pm.makePersistentAll(rootList);
@@ -81,7 +91,9 @@ public class CompletenessTest extends JDO_Test {
     /** */
     public void test() {
         
-        // get new obj graph
+        // register the default factory
+        CompanyFactoryRegistry.registerFactory();
+        // get new obj graph to compare persistent graph with
         CompanyModelReader reader = new CompanyModelReader(inputFilename);
         List rootList = reader.getRootList();
         
@@ -110,7 +122,8 @@ public class CompletenessTest extends JDO_Test {
         pm.currentTransaction().commit();
         // fail test if at least one of the instances is not the expected one
         if (msg.length() > 0) {
-            fail("CompletenessTest failed; see list of failed instances below:", msg.toString());
+            fail("CompletenessTest failed; see list of failures below:", 
+                    msg.toString());
         }
     }
 }
