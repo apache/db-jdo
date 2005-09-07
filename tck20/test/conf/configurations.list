@@ -11,5 +11,5 @@ jdo.tck.cfglist = \
                  inheritance3.conf \
                  inheritance4.conf \
                  schemaAttributeClass.conf \
-                 schemaAttributeORM.conf \
+                 schemaAttributeOrm.conf \
                  schemaAttributePackage.conf
