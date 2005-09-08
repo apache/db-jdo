@@ -29,6 +29,7 @@
     </goal>
 
     <goal name="build">
+        <attainGoal name="javadoc"/>
         <attainGoal name="default"/>
     </goal>
 
