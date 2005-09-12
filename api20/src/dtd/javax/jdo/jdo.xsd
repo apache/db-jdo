@@ -10,7 +10,12 @@
                 </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
+            <xs:attributeGroup ref="attlist.jdo"/>
         </xs:complexType>
+    <xs:attributeGroup name="attlist.jdo">
+        <xs:attribute name="catalog"/>
+        <xs:attribute name="schema"/>
+    </xs:attributeGroup>
     </xs:element>
     <xs:element name="package">
         <xs:complexType>
@@ -28,12 +33,15 @@
     </xs:element>
     <xs:attributeGroup name="attlist.package">
         <xs:attribute name="name" default=""/>
+        <xs:attribute name="catalog"/>
+        <xs:attribute name="schema"/>
     </xs:attributeGroup>
     <xs:element name="interface">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
                 <xs:element minOccurs="0" ref="datastore-identity"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
                 <xs:element minOccurs="0" ref="inheritance"/>
                 <xs:element minOccurs="0" ref="version"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="join"/>
@@ -77,6 +85,8 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="catalog"/>
+        <xs:attribute name="schema"/>
     </xs:attributeGroup>
     <xs:element name="property">
         <xs:complexType>
@@ -197,6 +207,7 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
                 <xs:element minOccurs="0" ref="datastore-identity"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
                 <xs:element minOccurs="0" ref="inheritance"/>
                 <xs:element minOccurs="0" ref="version"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="join"/>
@@ -258,11 +269,28 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="catalog"/>
+        <xs:attribute name="schema"/>
+    </xs:attributeGroup>
+    <xs:element name="primary-key">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.primary-key"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.primary-key">
+        <xs:attribute name="name"/>
+        <xs:attribute name="column"/>
     </xs:attributeGroup>
     <xs:element name="join">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
                 <xs:element minOccurs="0" ref="foreign-key"/>
                 <xs:element minOccurs="0" ref="index"/>
@@ -421,6 +449,7 @@
         <xs:attribute name="scale"/>
         <xs:attribute name="allows-null"/>
         <xs:attribute name="default-value"/>
+        <xs:attribute name="insert-value"/>
     </xs:attributeGroup>
     <xs:element name="field">
         <xs:complexType>
@@ -438,7 +467,6 @@
                 <xs:element minOccurs="0" ref="value"/>
                 <xs:element minOccurs="0" ref="order"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" ref="foreign-key"/>
                 <xs:element minOccurs="0" ref="index"/>
                 <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
@@ -623,6 +651,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="serialized-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="map">
         <xs:complexType>
@@ -650,6 +686,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="serialized-key">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="value-type"/>
         <xs:attribute name="embedded-value">
             <xs:simpleType>
@@ -660,6 +704,14 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="dependent-value">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized-value">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -685,14 +737,6 @@
     <xs:attributeGroup name="attlist.key">
         <xs:attribute name="column"/>
         <xs:attribute name="table"/>
-        <xs:attribute name="serialized">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="delete-action">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -721,6 +765,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="value">
         <xs:complexType>
@@ -737,14 +782,6 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.value">
-        <xs:attribute name="serialized">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
         <xs:attribute name="delete-action">
@@ -775,6 +812,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="array">
         <xs:complexType>
@@ -801,6 +839,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="serialized-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="element">
         <xs:complexType>
@@ -819,14 +865,6 @@
     <xs:attributeGroup name="attlist.element">
         <xs:attribute name="column"/>
         <xs:attribute name="table"/>
-        <xs:attribute name="serialized">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="delete-action">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -856,6 +894,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="order">
         <xs:complexType>
@@ -982,6 +1021,15 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="unique" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="result-class"/>
     </xs:attributeGroup>
     <xs:element name="unique">
         <xs:complexType>

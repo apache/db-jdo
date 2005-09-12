@@ -1,26 +1,38 @@
-<!-- The following document headers belong in the user's .orm file
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- The DOCTYPE should be as follows for metadata documents.
 <!DOCTYPE orm
     PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN"
     "http://java.sun.com/dtd/orm_2_0.dtd">
 -->
 <!ELEMENT orm (extension*, (package|query)+, extension*)>
+<!ATTLIST orm catalog CDATA #IMPLIED>
+<!ATTLIST orm schema CDATA #IMPLIED>
 <!ELEMENT package (extension*, (interface|class|sequence)+, extension*)>
 <!ATTLIST package name CDATA ''>
+<!ATTLIST package catalog CDATA #IMPLIED>
+<!ATTLIST package schema CDATA #IMPLIED>
 
-<!ELEMENT interface (extension*, datastore-identity?, inheritance?, version?, join*, foreign-key*, index*, unique*, property*, query*, extension*)>
+<!ELEMENT interface (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, property*, query*, extension*)>
 <!ATTLIST interface name CDATA #REQUIRED>
 <!ATTLIST interface table #CDATA #IMPLIED>
+<!ATTLIST interface catalog CDATA #IMPLIED>
+<!ATTLIST interface schema CDATA #IMPLIED>
 
-<!ELEMENT property (join?, element?, key?, value?, order?, column)? , extension*)>
+<!ELEMENT property (extension*, (join?, element?, key?, value?, order?, column)? , extension*)>
 <!ATTLIST property name CDATA #REQUIRED>
 <!ATTLIST property column CDATA #IMPLIED>
 
-<!ELEMENT class (extension*, datastore-identity?, inheritance?, version?, join*, foreign-key*, index*, unique*, field*, query*, extension*)>
+<!ELEMENT class (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, query*, extension*)>
 <!ATTLIST class name CDATA #REQUIRED>
 <!ATTLIST class table CDATA #IMPLIED>
+<!ATTLIST class catalog CDATA #IMPLIED>
+<!ATTLIST class schema CDATA #IMPLIED>
 
-<!ELEMENT join (extension*, column*, foreign-key?, index?, unique?, extension*)>
+<!ELEMENT primary-key (extension*, column*, extension*)>
+<!ATTLIST primary-key name CDATA #IMPLIED>
+<!ATTLIST primary-key column CDATA #IMPLIED>
+
+<!ELEMENT join (extension*, primary-key?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST join table CDATA #IMPLIED>
 <!ATTLIST join column CDATA #IMPLIED>
 <!ATTLIST join outer (true|false) 'false'>
@@ -60,6 +72,7 @@
 <!ATTLIST column scale CDATA #IMPLIED>
 <!ATTLIST column allows-null CDATA #IMPLIED>
 <!ATTLIST column default-value CDATA #IMPLIED>
+<!ATTLIST column insert-value CDATA #IMPLIED>
 
 <!ELEMENT property (extension*, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST property name CDATA #REQUIRED>
@@ -81,7 +94,6 @@
 <!ATTLIST field delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST field indexed (true|false|unique) #IMPLIED>
 <!ATTLIST field unique (true|false) #IMPLIED>
-<!ATTLIST field foreign-key CDATA #IMPLIED>
 <!ATTLIST field mapped-by CDATA #IMPLIED>
 <!ATTLIST field value-strategy CDATA #IMPLIED>
 <!ATTLIST field sequence CDATA #IMPLIED>
@@ -97,23 +109,22 @@
 <!ELEMENT key (column*, index?, embedded?, foreign-key?, extension*)>
 <!ATTLIST key column CDATA #IMPLIED>
 <!ATTLIST key table CDATA #IMPLIED>
-<!ATTLIST key serialized (true|false) #IMPLIED>
 <!ATTLIST key delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST key indexed (true|false|unique) #IMPLIED>
 <!ATTLIST key unique (true|false) #IMPLIED>
+<!ATTLIST key mapped-by CDATA #IMPLIED>
 
 <!ELEMENT value (extension*, embedded?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST value column CDATA #IMPLIED>
 <!ATTLIST value table CDATA #IMPLIED>
-<!ATTLIST value serialized (true|false) #IMPLIED>
 <!ATTLIST value delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST value indexed (true|false|unique) #IMPLIED>
 <!ATTLIST value unique (true|false) #IMPLIED>
+<!ATTLIST value mapped-by CDATA #IMPLIED>
 
 <!ELEMENT element (extension*, embedded?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST element column CDATA #IMPLIED>
 <!ATTLIST element table CDATA #IMPLIED>
-<!ATTLIST element serialized (true|false) #IMPLIED>
 <!ATTLIST element delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST element indexed (true|false|unique) #IMPLIED>
 <!ATTLIST element unique (true|false) #IMPLIED>
@@ -121,6 +132,7 @@
 <!ELEMENT order (extension*, column*, index?, extension*)>
 <!ATTLIST order column CDATA #IMPLIED>
 <!ATTLIST order indexed (true|false|unique) #IMPLIED>
+<!ATTLIST order mapped-by CDATA #IMPLIED>
 
 <!ELEMENT embedded (extension*, field*, extension*)>
 <!ATTLIST embedded null-indicator-column CDATA #IMPLIED>
@@ -147,9 +159,10 @@
 <!ATTLIST query name CDATA #IMPLIED>
 <!ATTLIST query language CDATA #IMPLIED>
 <!ATTLIST query unmodifiable (true|false) 'false'>
+<!ATTLIST query unique (true|false) 'false'>
+<!ATTLIST query result-class CDATA #IMPLIED>
 
 <!ELEMENT extension ANY>
 <!ATTLIST extension vendor-name CDATA #REQUIRED>
 <!ATTLIST extension key CDATA #IMPLIED>
 <!ATTLIST extension value CDATA #IMPLIED>
-
