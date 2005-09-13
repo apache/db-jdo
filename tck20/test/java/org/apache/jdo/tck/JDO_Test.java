@@ -134,9 +134,16 @@ public abstract class JDO_Test extends TestCase {
      */
     protected final String identitytype = System.getProperty("jdo.tck.identitytype");
 
-    /** Name of the file contaninig the properties for the PMF. */
+    /** Name of the file containing the properties for the PMF. */
     protected static String PMFProperties = System.getProperty("PMFProperties");
 
+    /** Flag indicating whether to clean up data after tests or not.
+     * If false then test will not clean up data from database.
+     * The default value is true.
+     */
+    protected static boolean cleanupData = 
+       System.getProperty("jdo.tck.cleanupaftertest", "true").equalsIgnoreCase("true");
+    
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
 
@@ -260,7 +267,9 @@ public abstract class JDO_Test extends TestCase {
             pmf = null;
         
         try {
-            localTearDown();
+            if (cleanupData) {
+                localTearDown();
+            }
         } 
         catch (Throwable t) {
             setTearDownThrowable("localTearDown", t);

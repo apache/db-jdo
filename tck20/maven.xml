@@ -42,6 +42,7 @@
         <echo>  -Djdo.tck.cfglist=xxx - a list of configuration files (must be in test/conf)</echo>
         <echo>  -Djdo.tck.dblist=xxx - a list of databases</echo>
         <echo>  -Djdo.tck.identitytypes=xxx - a list of identity types (applicationidentity, datastoreidentity)</echo>
+        <echo>  -Djdo.tck.cleanupaftertest=xxx - true/false. Setting it to false will retain data in database after test. This will allow inspection of data after test is run. Default is true</echo>
         <echo></echo>
         <echo>Examples:</echo>
         <echo>  maven -Djdo.tck.identitytypes=datastoreidentity installSchema</echo>
@@ -314,6 +315,8 @@
                          value="${jdo.tck.exclude}"/>
             <sysproperty key="jdo.tck.log.directory"
                          value="${jdo.tck.log.directory}/${timestamp}"/>
+            <sysproperty key="jdo.tck.cleanupaftertest"
+                         value="${jdo.tck.cleanupaftertest}"/>             
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
@@ -361,6 +364,8 @@
                          value="${jdo.tck.exclude}"/>
             <sysproperty key="jdo.tck.log.directory"
                          value="${jdo.tck.log.directory}/${timestamp}"/>
+            <sysproperty key="jdo.tck.cleanupaftertest"
+                         value="${jdo.tck.cleanupaftertest}"/>                         
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
