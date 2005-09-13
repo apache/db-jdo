@@ -383,7 +383,9 @@ public interface PersistenceManager {
      * This method returns an object id instance corresponding to the pcClass
      * and key arguments.
      * @param pcClass the <code>Class</code> of the persistence-capable instance
-     * @param key the value of the key field for single-field identity.
+     * @param key for single-field identity, the parameter for the
+     * constructor; for non-single-field application identity, the result 
+     * of toString() on the object id instance.
      * @return an instance of the object identity class
      */
     Object newObjectIdInstance (Class pcClass, Object key);
