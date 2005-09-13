@@ -201,8 +201,15 @@ public class JDOImplHelper extends java.lang.Object {
     
     /** Create a new instance of the ObjectId class of this
      * <code>PersistenceCapable</code> class.
+     * It is intended only for application identity. This method should
+     * not be called for classes that use single field identity;
+     * newObjectIdInstance(Class, Object) should be used instead. 
+     * If the class has been 
+     * enhanced for datastore identity, or if the class is abstract, 
+     * null is returned.
      * @param pcClass the <code>PersistenceCapable</code> class.
-     * @return the new ObjectId instance, or <code>null</code> if the class is not registered.
+     * @return the new ObjectId instance, or <code>null</code> if the class 
+     * is not registered.
      */    
     public Object newObjectIdInstance (Class pcClass) {
         Meta meta = getMeta (pcClass);
@@ -210,12 +217,31 @@ public class JDOImplHelper extends java.lang.Object {
         return pcInstance == null?null:pcInstance.jdoNewObjectIdInstance();
     }
     
-    /** Create a new instance of the ObjectId class of this <code>PersistenceCapable</code>
-     * class, using the <code>Object</code> form of the constructor.
-     * @return the new ObjectId instance, or <code>null</code> if the class is not registered.
+    /** Create a new instance of the class used by the parameter Class
+     * for JDO identity, using the
+     * key constructor of the object id class. It is intended for single
+     * field identity. The identity
+     * instance returned has no relationship with the values of the primary key
+     * fields of the persistence-capable instance on which the method is called.
+     * If the key is the wrong class for the object id class, null is returned.
+     * <P>For classes that use single field identity, if the parameter is 
+     * of one of the following types, the behavior must be as specified:
+     * <ul><li><code>Number</code> or <code>Character</code>: the 
+     * parameter must be the single field
+     * type or the wrapper class of the primitive field type; the parameter
+     * is passed to the single field identity constructor
+     * </li><li><code>ObjectIdFieldSupplier</code>: the field value
+     * is fetched from the <code>ObjectIdFieldSupplier</code> and passed to the 
+     * single field identity constructor
+     * </li><li><code>String</code>: the String is passed to the 
+     * single field identity constructor
+     * </li></ul>
+     * @return the new ObjectId instance, or <code>null</code> 
+     * if the class is not registered.
      * @param obj the <code>Object</code> form of the object id
      * @param pcClass the <code>PersistenceCapable</code> class.
-     */    
+     * @since 2.0
+     */
     public Object newObjectIdInstance (Class pcClass, Object obj) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();

@@ -335,7 +335,8 @@ public interface PersistenceCapable {
     PersistenceCapable jdoNewInstance(StateManager sm, Object oid);
     
     /** Create a new instance of the 
-     * ObjectId class for this PersistenceCapable class.
+     * ObjectId class for this PersistenceCapable class and initialize
+     * the key fields from the instance on which this method is called.
      * This method creates a new instance of the class used for JDO identity.
      * It is intended only for application identity. If the class has been 
      * enhanced for datastore identity, or if the class is abstract, 
@@ -351,19 +352,19 @@ public interface PersistenceCapable {
     Object jdoNewObjectIdInstance();
     
     /** Create a new instance of the class used for JDO identity, using the
-     * key constructor of the object id class. It is intended only for single
+     * key constructor of the object id class. It is intended for single
      * field identity. The identity
      * instance returned has no relationship with the values of the primary key
      * fields of the persistence-capable instance on which the method is called.
      * If the key is the wrong class for the object id class, null is returned.
-     * <P>For classes that use single field identity, if the parameter is of one 
-     * of the following types, the behavior must be as specified:
-     * <ul><li><code>Number</code>: the numeric value of the proper type 
-     * is extracted from
-     * the parameter and passed to the single field identity constructor
-     * </li><li><code>ObjectIdFieldProvider</code>: the numeric value 
-     * of the proper type
-     * is fetched from the <code>ObjectIdFieldProvider</code> and passed to the 
+     * <P>For classes that use single field identity, if the parameter is 
+     * of one of the following types, the behavior must be as specified:
+     * <ul><li><code>Number</code> or <code>Character</code>: the 
+     * parameter must be the single field
+     * type or the wrapper class of the primitive field type; the parameter
+     * is passed to the single field identity constructor
+     * </li><li><code>ObjectIdFieldSupplier</code>: the field value
+     * is fetched from the <code>ObjectIdFieldSupplier</code> and passed to the 
      * single field identity constructor
      * </li><li><code>String</code>: the String is passed to the 
      * single field identity constructor

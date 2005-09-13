@@ -73,12 +73,14 @@ public abstract class SingleFieldIdentity
     }
 
     /** Constructor only for Externalizable.
+     * @since 2.0
      */
     public SingleFieldIdentity () {
     }
 
     /** Set the given key as the key for this instance. 
      * Compute the hash code for the instance.
+     * @since 2.0
      */
     protected void setKeyAsObject(Object key) {
         assertKeyNotNull(key);
@@ -87,6 +89,7 @@ public abstract class SingleFieldIdentity
 
     /** Assert that the key is not null. Throw a JDONullIdentityException
      * if the given key is null.
+     * @since 2.0
      */ 
     protected void assertKeyNotNull(Object key) {
         if (key == null) {
@@ -136,7 +139,6 @@ public abstract class SingleFieldIdentity
      * from serialization, class will be null so compare class name.
      * @param obj the other object
      * @return true if the class or class name is the same
-     * @since 2.0
      */
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -153,6 +155,7 @@ public abstract class SingleFieldIdentity
 
     /** Return the hash code of the class name.
      * @return the hash code of the class name
+     * @since 2.0
      */
     protected int hashClassName() {
         return targetClassName.hashCode();
@@ -174,8 +177,7 @@ public abstract class SingleFieldIdentity
     }
 
     /** Read from the input stream.
-     * @return a new instance with the target class name set
-     * @since 2.0
+     * Creates a new instance with the target class name set
      */
     public void readExternal(ObjectInput in)
             throws IOException, ClassNotFoundException {

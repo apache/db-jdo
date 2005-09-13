@@ -55,19 +55,22 @@ public interface FetchPlan {
     public static final String ALL = "all";
 
     /**
-     * For use with {@link #addGroup}, {@link #removeGroup}, and the
-     * various {@link #setGroups} calls. Value: <code>values</code>.
+     * For use with {@link PersistenceManager#detachCopy} and
+     * {@link #setDetachmentOptions}. Specifies that
+     * fields that are loaded but not in the current fetch plan should
+     * be unloaded prior to detachment.
      * @since 2.0
      */
-    public static final String VALUES = "values";
+    public static final int DETACH_UNLOAD_FIELDS = 2;
 
     /**
-     * For use with {@link #addGroup}, {@link #removeGroup}, and the
-     * various {@link #setGroups} calls. Value: <code>none</code>.
-     * ### this is not mentioned in 12.7.2. It is referred to in 12.7's text.
+     * For use with {@link PersistenceManager#detachCopy} and
+     * {@link #setDetachmentOptions}. Specifies that
+     * fields that are not loaded but are in the current fetch plan should
+     * be loaded prior to detachment.
      * @since 2.0
      */
-    public static final String NONE = "none";
+    public static final int DETACH_LOAD_FIELDS = 1;
 
     /**
      * For use with {@link #setFetchSize}. Value: -1.
@@ -151,4 +154,17 @@ public interface FetchPlan {
      * @since 2.0
      */
     int getFetchSize(); 
+    
+    /**
+     * Set options to be used during detachment. Options are {@link
+     * #DETACH_LOAD_FIELDS} and {@link #DETACH_UNLOAD_FIELDS}.
+     */
+    FetchPlan setDetachmentOptions(int options);
+    
+    /**
+     * Get options used during detachment.
+     */
+    int getDetachmentOptions();
+    
 }
+
