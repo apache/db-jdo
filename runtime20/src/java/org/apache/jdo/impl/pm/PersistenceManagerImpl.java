@@ -1576,10 +1576,10 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         Object obj = null;
 
         try {
-            Constructor constr = newType.getConstructor(null);
+            Constructor constr = newType.getConstructor((Class[])null);
 
             if (constr != null) {
-                obj = constr.newInstance(null);
+                obj = constr.newInstance((Object[])null);
             }
         } catch (Exception e) {
             throw new JDOUserException(msg.msg(
