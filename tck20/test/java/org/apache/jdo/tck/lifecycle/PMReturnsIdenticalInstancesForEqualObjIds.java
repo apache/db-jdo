@@ -30,7 +30,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> lifecycle getObjectById
  *<BR>
- *<B>Assertion IDs:</B> A5.4-2, A5.4-8, A5.4-10
+ *<B>Assertion IDs:</B> A5.4-2, A5.4-8
  *<BR>
  *<B>Assertion Description: </B>
  Any instances returned by any calls to getObjectById(Object) with the same object id instance to the same
@@ -41,7 +41,7 @@ public class PMReturnsIdenticalInstancesForEqualObjIds extends JDO_Test {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertions A5.4-2, A5.4-8, A5.4-10 (PMReturnsIdenticalInstancesForEqualObjIds) failed: ";
+        "Assertions A5.4-2, A5.4-8 (PMReturnsIdenticalInstancesForEqualObjIds) failed: ";
     
 	private static final int NUM_OBJECTS = 50;
 
