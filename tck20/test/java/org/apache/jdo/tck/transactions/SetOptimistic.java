@@ -62,14 +62,51 @@ public class SetOptimistic extends JDO_Test {
     public void test() {
         pm = getPM();
           
-        runTestSetOptimistic(pm);   
+        runTestSetOptimistic(pm);
+        runTestSetOptimisticToInverse(pm);   
 
         pm.close(); 
         pm = null;
     }
 
     /** */
-    void runTestSetOptimistic(PersistenceManager pm) {
+    public void runTestSetOptimistic(PersistenceManager pm) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            if (isOptimisticSupported()) {
+                tx.setOptimistic(true);
+                tx.begin();
+                if (!tx.getOptimistic()) {
+                    fail(ASSERTION_FAILED,
+                         "tx.getOptimistic() returns false after setting the flag to true.");
+                }
+                tx.commit();
+                if (!tx.getOptimistic()) {
+                    fail(ASSERTION_FAILED,
+                         "tx.getOptimistic() returns false after setting the flag to true.");
+                }
+            }
+            
+            tx.setOptimistic(false);
+            tx.begin();
+            if (tx.getOptimistic()) {
+                fail(ASSERTION_FAILED,
+                     "tx.getOptimistic() returns true after setting the flag to false.");
+            }
+            tx.commit();
+            if (tx.getOptimistic()) {
+                fail(ASSERTION_FAILED,
+                     "tx.getOptimistic() returns true after setting the flag to false.");
+            }
+        }
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** */
+    void runTestSetOptimisticToInverse(PersistenceManager pm) {
         if (!isOptimisticSupported()) {
             if (debug) logger.debug("Optimistic not supported.");
             return;

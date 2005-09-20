@@ -364,7 +364,6 @@ org.apache.jdo.tck.transactions.AfterCompletionMethodCalledWhenRolledback
 org.apache.jdo.tck.transactions.BeforeCompletionMethodCalled
 org.apache.jdo.tck.transactions.BeforeCompletionMethodNotCalledBeforeRollback
 org.apache.jdo.tck.transactions.Commit
-org.apache.jdo.tck.transactions.GetOptimistic
 org.apache.jdo.tck.transactions.GetPersistenceManager
 org.apache.jdo.tck.transactions.GetRetainValues
 org.apache.jdo.tck.transactions.GetSynchronization

@@ -25,7 +25,6 @@ import javax.transaction.Synchronization;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.query.BoundParameterCheck;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 
@@ -37,16 +36,15 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion ID:</B> A13.4.4-2.
  *<BR>
  *<B>Assertion Description: </B>
- The <code>commit</code> method performs the following operations:
+ The <code>rollback</code> method performs the following operations:
  <UL>
+ <LI>rolls back changes made in this transaction from the data store;</LI>
  <LI>transitions persistent instances
  according to the life cycle specification;</LI>
- <LI>rolls back changes made in this transaction from the data store;</LI>
  <LI>calls the <code>afterCompletion</code> method of the
  <code>Synchronization</code> instance registered with the
  <code>Transaction</code>.</LI>
  </UL>
-
  */
 
 
@@ -65,7 +63,7 @@ public class Rollback
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A13.4.4-2 (BoundParameterCheck) failed: ";
+        "Assertion A13.4.4-2 (Rollback) failed: ";
     
     /**
      * The <code>main</code> is called when the class
@@ -73,7 +71,7 @@ public class Rollback
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(BoundParameterCheck.class);
+        BatchTestRunner.run(Rollback.class);
     }
    
     /**
