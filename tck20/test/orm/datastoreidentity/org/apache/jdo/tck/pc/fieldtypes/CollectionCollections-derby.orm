@@ -9,6 +9,7 @@
                    table="COLLECTION_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfObject1"
                    table="COLLECTION_OF_OBJECT1">
@@ -26,11 +27,13 @@
                    table="COLLECTION_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleClass3"
                    table="COLLECTION_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleClass4"
                    table="COLLECTION_OF_SIMPLE_CLASS4">
@@ -48,6 +51,7 @@
                    table="COLLECTION_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleClass42"
                    column="COLLECTION_OF_SIMPLE_CLASS42">
@@ -56,6 +60,7 @@
                    table="COLLECTION_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfSimpleInterface7"
                    table="COLLECTION_OF_SIMPLE_INTERFACE7">
@@ -73,11 +78,13 @@
                    table="COLLECTION_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfString9"
                    table="COLLECTION_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfString11"
                    column="COLLECTION_OF_STRING11">
@@ -86,11 +93,13 @@
                    table="COLLECTION_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfDate12"
                    table="COLLECTION_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfDate14"
                    column="COLLECTION_OF_DATE14">
@@ -99,11 +108,13 @@
                    table="COLLECTION_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfLocale15"
                    table="COLLECTION_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfLocale17"
                    column="COLLECTION_OF_LOCALE17">
@@ -112,11 +123,13 @@
                    table="COLLECTION_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfBigDecimal18"
                    table="COLLECTION_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfBigDecimal20"
                    column="COLLECTION_OF_BIG_DECIMAL20">
@@ -125,11 +138,13 @@
                    table="COLLECTION_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfBigInteger21"
                    table="COLLECTION_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfBigInteger23"
                    column="COLLECTION_OF_BIG_INTEGER23">
@@ -138,11 +153,13 @@
                    table="COLLECTION_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfByte24"
                    table="COLLECTION_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfByte26"
                    column="COLLECTION_OF_BYTE26">
@@ -151,11 +168,13 @@
                    table="COLLECTION_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfDouble27"
                    table="COLLECTION_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfDouble29"
                    column="COLLECTION_OF_DOUBLE29">
@@ -164,11 +183,13 @@
                    table="COLLECTION_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfFloat30"
                    table="COLLECTION_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfFloat32"
                    column="COLLECTION_OF_FLOAT32">
@@ -177,11 +198,13 @@
                    table="COLLECTION_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfInteger33"
                    table="COLLECTION_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfInteger35"
                    column="COLLECTION_OF_INTEGER35">
@@ -190,11 +213,13 @@
                    table="COLLECTION_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfLong36"
                    table="COLLECTION_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfLong38"
                    column="COLLECTION_OF_LONG38">
@@ -203,11 +228,13 @@
                    table="COLLECTION_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfShort39"
                    table="COLLECTION_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="CollectionOfShort41"
                    column="COLLECTION_OF_SHORT41">
@@ -216,6 +243,7 @@
                    table="COLLECTION_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>
