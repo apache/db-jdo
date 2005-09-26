@@ -42,4 +42,16 @@ public interface JDOConnection {
      * @since 2.0
      */
     Object getNativeConnection ();
+    
+    /**
+     * Returns this connection to the JDO implementation.
+     * The object must be returned to the JDO implementation prior to
+     * calling any JDO method or performing any action on any persistent
+     * instance that might require the JDO implementation to use a
+     * connection. If the object has not been returned and the JDO
+     * implementation needs a connection, a <code>JDOUserException</code>
+     * is thrown.
+     * @since 2.0
+     */
+    void close();
 }
