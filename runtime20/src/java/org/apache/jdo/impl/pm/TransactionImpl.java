@@ -404,6 +404,11 @@ class TransactionImpl implements javax.jdo.Transaction {
  
         // Proceede with non-managed environment call.
         synchronized (this) {
+            if (persistenceManager.getDetachAllOnCommit()) {
+                throw new JDOUnsupportedOptionException(msg.msg(
+                    "notsupported", "commit"));
+            }
+        
             //
             // Disallow parallel transaction completion calls:
             //

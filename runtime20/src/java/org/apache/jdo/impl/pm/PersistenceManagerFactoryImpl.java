@@ -105,6 +105,7 @@ abstract public class PersistenceManagerFactoryImpl implements
     private boolean nontransactionalRead = true;
     private boolean nontransactionalWrite = false;
     private boolean ignoreCache = true;
+    private boolean detachAllOnCommit = true;
     
     private int queryTimeout = 0;
     private int updateTimeout = 0;
@@ -524,6 +525,25 @@ abstract public class PersistenceManagerFactoryImpl implements
      */
     public boolean getIgnoreCache () {
         return ignoreCache;
+    }
+
+    /**
+     * Set the default DetachAllOnCommit setting for all PersistenceManager instances
+     * obtained from this factory.
+     * @param flag the default DetachAllOnCommit setting.
+     */
+    public void setDetachAllOnCommit(boolean flag) {
+        assertConfigurable();
+        detachAllOnCommit = flag;
+    }
+
+    /**
+     * Get the default DetachAllOnCommit setting for all PersistenceManager instances
+     * obtained from this factory.
+     * @return the default DetachAllOnCommit setting.
+     */
+    public boolean getDetachAllOnCommit() {
+        return detachAllOnCommit;
     }
 
     /** Set the default MsWait setting for all PersistenceManager instances

@@ -311,7 +311,22 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     boolean getIgnoreCache ();
   
-    /** Return non-configurable properties of this <code>PersistenceManagerFactory</code>.
+   /** Gets the detachAllOnCommit setting.
+    * @see #setDetachAllOnCommit(boolean)
+    * @since 2.0
+    * @return the default detachAllOnCommit setting.
+    */
+   boolean getDetachAllOnCommit();
+
+   /** Sets the default detachAllOnCommit setting for all
+    * <code>PersistenceMmanager</code> instances obtained from this
+    * factory.
+    * @see #getDetachAllOnCommit(boolean)
+    * @since 2.0
+    */
+   void setDetachAllOnCommit(boolean flag);
+
+   /** Return non-configurable properties of this <code>PersistenceManagerFactory</code>.
      * Properties with keys <code>VendorName</code> and <code>VersionNumber</code> are required.  Other
      * keys are optional.
      * @return the non-configurable properties of this

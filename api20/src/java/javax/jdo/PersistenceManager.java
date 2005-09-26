@@ -694,6 +694,35 @@ public interface PersistenceManager {
      * @return the ignoreCache setting.
      */
    boolean getIgnoreCache();
+   
+   /** Gets the detachAllOnCommit setting.
+    * @see #setDetachAllOnCommit(boolean)
+    * @since 2.0
+    * @return the detachAllOnCommit setting.
+    */
+   boolean getDetachAllOnCommit();
+
+   /** Sets the detachAllOnCommit setting.
+    *
+    * <P>DetachAllOnCommit set to <code>false</code> specifies that the
+    * state of persistent instances in the cache after commit is defined
+    * by the <code>retainValues</code> flag. With this flag set to true,
+    * during beforeCompletion all cached instances are prepared for
+    * detachment according to the fetch plan in effect at commit. Loading
+    * fields and unloading fields required by the fetch plan is done after
+    * calling the user's <code>beforeCompletion</code> callback. During
+    * <code>afterCompletion</code>, before calling the user's
+    * <code>afterCompletion</code> callback, all detachable persistent
+    * instances in the cache transition to detached; non-detachable
+    * persistent instances transition to transient; and detachable
+    * instances can be serialized as detached instances. Transient
+    * transactional instances are unaffected by this flag.
+    *
+    * @see #getDetachAllOnCommit(boolean)
+    * @since 2.0
+    */
+   void setDetachAllOnCommit(boolean flag);
+   
     /**
      * Detach the specified object from the <code>PersistenceManager</code>.
      * @param pc the instance to detach

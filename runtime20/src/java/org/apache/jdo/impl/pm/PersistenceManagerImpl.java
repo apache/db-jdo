@@ -114,6 +114,12 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     private boolean _ignoreCache;
 
     /**
+     * Flag for detaching all objects upon PM commit. 
+     * Constructor defaults it to the PMF setting.
+     */
+    private boolean _detachAllOnCommit;
+
+    /**
      * Flag for active transaction
      */
     private boolean _activeTransaction = false;
@@ -260,6 +266,7 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
 
         optimistic = pmf.getOptimistic();
         _ignoreCache = pmf.getIgnoreCache();
+        _detachAllOnCommit = pmf.getDetachAllOnCommit();
 
         _isClosed = false;
 
@@ -282,6 +289,24 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     public boolean getIgnoreCache() {
         assertIsOpen();
         return _ignoreCache;
+    }
+
+    /**
+     * @see javax.jdo.PersistenceManager#setDetachAllOnCommit(boolean flag)
+     * @param flag the detachAllOnCommit value
+     */
+    public void setDetachAllOnCommit(boolean flag) {
+        assertIsOpen();
+        _detachAllOnCommit = flag;
+    }
+
+    /** Get the value of the detachAllOnCommit flag.
+     * @see javax.jdo.PersistenceManager#getDetachAllOnCommit()
+     * @return the DetachAllOnCommit flag
+     */
+    public boolean getDetachAllOnCommit() {
+        assertIsOpen();
+        return _detachAllOnCommit;
     }
 
     /** Set the Multithreaded flag for this PersistenceManager.  Applications

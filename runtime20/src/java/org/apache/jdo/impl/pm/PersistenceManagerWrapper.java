@@ -128,6 +128,30 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /**
+     * @see javax.jdo.PersistenceManager#setIgnoreCache(boolean flag)
+     */
+    public void setDetachAllOnCommit(boolean flag) {
+        if (isValid) {
+            pm.setDetachAllOnCommit(flag);
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
+    /**
+     * @see javax.jdo.PersistenceManager#getIgnoreCache()
+     */
+    public boolean getDetachAllOnCommit() {
+        if (isValid) {
+            return pm.getDetachAllOnCommit();
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
+    /**
      * @see javax.jdo.PersistenceManager#getMultithreaded()
      */
     public boolean getMultithreaded() {
