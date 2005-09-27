@@ -137,5 +137,6 @@ public class CallingJdoPreclear extends TestParts {
         checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ", 3, "ternaryObj", stillLaterDate, 3.3, (short)-30, '3');
         pm.close();
         pm = null;
+        InstanceCallbackClass.performPreClearTests = false;
     }
 }
