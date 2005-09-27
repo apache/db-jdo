@@ -105,7 +105,7 @@ abstract public class PersistenceManagerFactoryImpl implements
     private boolean nontransactionalRead = true;
     private boolean nontransactionalWrite = false;
     private boolean ignoreCache = true;
-    private boolean detachAllOnCommit = true;
+    private boolean detachAllOnCommit = false;
     
     private int queryTimeout = 0;
     private int updateTimeout = 0;
