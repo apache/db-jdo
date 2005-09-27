@@ -718,7 +718,7 @@ public interface PersistenceManager {
     * instances can be serialized as detached instances. Transient
     * transactional instances are unaffected by this flag.
     *
-    * @see #getDetachAllOnCommit(boolean)
+    * @see #getDetachAllOnCommit()
     * @since 2.0
     */
    void setDetachAllOnCommit(boolean flag);

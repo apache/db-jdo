@@ -319,9 +319,9 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
    boolean getDetachAllOnCommit();
 
    /** Sets the default detachAllOnCommit setting for all
-    * <code>PersistenceMmanager</code> instances obtained from this
+    * <code>PersistenceManager</code> instances obtained from this
     * factory.
-    * @see #getDetachAllOnCommit(boolean)
+    * @see #getDetachAllOnCommit()
     * @since 2.0
     */
    void setDetachAllOnCommit(boolean flag);
