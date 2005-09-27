@@ -1177,6 +1177,20 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         retrieveInternal(pc, false);
     }
     
+    /** Retrieve field values of an instance from the store.  
+     * <P>The <code>PersistenceManager</code> might use policy information 
+     * about the class to retrieve associated instances.
+     * @param pc the instance
+     * @param FGOnly whether to retrieve only the fields in the fetch plan
+     */
+    public void retrieve(Object pc, boolean FGOnly) {
+        if (debugging())
+            debug("retrieve, FGOnly: " + FGOnly); // NOI18N
+
+        assertIsOpen();
+        retrieveInternal(pc, FGOnly);
+    }
+    
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
      * instances, and all field values must be retrieved.
@@ -1196,15 +1210,15 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fields in the fetch plan
      * @since 1.0.1
      */
-    public void retrieveAll (Object[] pcs, boolean DFGOnly) {
+    public void retrieveAll (Object[] pcs, boolean FGOnly) {
         if (debugging())
-            debug("retrieveAll, DFGOnly: " + DFGOnly); // NOI18N
+            debug("retrieveAll, FGOnly: " + FGOnly); // NOI18N
 
         assertIsOpen();
-        retrieveAllInternal(pcs, DFGOnly);
+        retrieveAllInternal(pcs, FGOnly);
     }
 
            
@@ -1227,15 +1241,15 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fields in the fetch plan
      * @since 1.0.1
      */
-    public void retrieveAll (Collection pcs, boolean DFGOnly) {
+    public void retrieveAll (Collection pcs, boolean FGOnly) {
         if (debugging())
-            debug("retrieveAll, DFGOnly: " + DFGOnly); // NOI18N
+            debug("retrieveAll, DFGOnly: " + FGOnly); // NOI18N
 
         assertIsOpen();
-        retrieveAllInternal(pcs.toArray(), DFGOnly);
+        retrieveAllInternal(pcs.toArray(), FGOnly);
     }
 
     //

@@ -571,7 +571,7 @@ public interface PersistenceManager {
      * @see #makeNontransactional(Object pc)
      */
     void makeNontransactionalAll (Collection pcs);
-    
+
     /** Retrieve field values of an instance from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
      * instance, and its field values must be retrieved.
@@ -580,6 +580,17 @@ public interface PersistenceManager {
      * @param pc the instance
      */
     void retrieve (Object pc);
+    
+    /** Retrieve field values of an instance from the store.  This tells
+     * the <code>PersistenceManager</code> that the application intends to use the
+     * instance, and its field values must be retrieved.
+     * <P>The <code>PersistenceManager</code> might use policy information about the
+     * class to retrieve associated instances.
+     * @param pc the instance
+     * @param FGOnly whether to only retrieve the fields in the current fetch group
+     * @since 2.0
+     */
+    void retrieve (Object pc, boolean FGOnly);
     
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
@@ -593,15 +604,15 @@ public interface PersistenceManager {
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
      * instances, and their field values should be retrieved.  The fields
-     * in the default fetch group must be retrieved, and the implementation
-     * might retrieve more fields than the default fetch group.
+     * in the current fetch group must be retrieved, and the implementation
+     * might retrieve more fields than the current fetch group.
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fields in the current fetch group
      * @since 1.0.1
      */
-    void retrieveAll (Collection pcs, boolean DFGOnly);
+    void retrieveAll (Collection pcs, boolean FGOnly);
     
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
@@ -615,15 +626,15 @@ public interface PersistenceManager {
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use the
      * instances, and their field values should be retrieved.  The fields
-     * in the default fetch group must be retrieved, and the implementation
-     * might retrieve more fields than the default fetch group.
+     * in the current fetch group must be retrieved, and the implementation
+     * might retrieve more fields than the current fetch group.
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fields in the current fetch group
      * @since 1.0.1
      */
-    void retrieveAll (Object[] pcs, boolean DFGOnly);
+    void retrieveAll (Object[] pcs, boolean FGOnly);
            
     /** The application can manage the <code>PersistenceManager</code> instances
      * more easily by having an application object associated with each

@@ -740,15 +740,33 @@ public class PersistenceManagerWrapper implements PersistenceManager {
         } 
    }
     
-    /** Retrieve an instance from the store.  This is only a hint to
-     * the PersistenceManager that the application intends to use the
-     * instance, and its field values should be retrieved.
+    /** Retrieve all field values of an instance from the store. 
      * <P>The PersistenceManager might use policy information about the
      * class to retrieve associated instances.
+     * @param pc the instance to retrieve
      */
     public void retrieve(Object pc) {
         if (isValid) { 
             pm.retrieve(pc);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+    }
+    
+    /** Retrieve field values of an instance from the store. If the FGOnly
+     * flag is false, retrieve all field values. If the FGOnly flag is true,
+     * retrieve only fields defined in the fetch plan.
+     * <P>The PersistenceManager might use policy information about the
+     * class to retrieve associated instances.
+     * @param pc the instance to retrieve
+     * @param FGOnly whether to retrieve only the fetch group fields defined
+     * in the fetch plan
+     * @since 2.0
+     */
+    public void retrieve(Object pc, boolean FGOnly) {
+        if (isValid) { 
+            pm.retrieve(pc, FGOnly);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
@@ -779,12 +797,13 @@ public class PersistenceManagerWrapper implements PersistenceManager {
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fetch group fields defined
+     * in the fetch plan
      * @since 1.0.1
      */
-    public void retrieveAll (Object[] pcs, boolean DFGOnly) {
+    public void retrieveAll (Object[] pcs, boolean FGOnly) {
         if (isValid) { 
-            pm.retrieveAll(pcs, DFGOnly);
+            pm.retrieveAll(pcs, FGOnly);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
@@ -815,12 +834,13 @@ public class PersistenceManagerWrapper implements PersistenceManager {
      * <P>The <code>PersistenceManager</code> might use policy information about the
      * class to retrieve associated instances.
      * @param pcs the instances
-     * @param DFGOnly whether to retrieve only the default fetch group fields
+     * @param FGOnly whether to retrieve only the fetch group fields defined
+     * in the fetch plan
      * @since 1.0.1
      */
-    public void retrieveAll (Collection pcs, boolean DFGOnly) {
+    public void retrieveAll (Collection pcs, boolean FGOnly) {
         if (isValid) {
-            pm.retrieveAll(pcs, DFGOnly);
+            pm.retrieveAll(pcs, FGOnly);
         } else {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
