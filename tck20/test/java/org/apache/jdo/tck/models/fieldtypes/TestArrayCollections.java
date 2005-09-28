@@ -17,7 +17,7 @@
 package org.apache.jdo.tck.models.fieldtypes;
 
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.Collection;
 import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
@@ -75,17 +75,13 @@ public class TestArrayCollections extends JDO_Test {
     {
         if (!isArraySupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support optional feature Array");
+                logger.debug("JDO Implementation does not support" +
+                        "optional feature Array");
             return;
         }
 
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            FirstSetOfTestValuesForCollection firstSetOfValues =
-                new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondSetOfValues =
-                new SecondSetOfTestValuesForCollection();
+        ArrayCollections expectedValue = new ArrayCollections();
 
             // turn on datastore transactions
             tx.setOptimistic(false);
@@ -94,46 +90,23 @@ public class TestArrayCollections extends JDO_Test {
             pi.identifier = 1;
             pm.makePersistent(pi);
             Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
             // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(
-                    ArrayCollections.fieldSpecs[i]);
-                //create an array of initial values for each value type
-                Object[] firstValueArray = null;
-                Vector firstValueVector =  (Vector)firstSetOfValues.get(valueType);
-                firstValueArray = (Object[])java.lang.reflect.Array.newInstance(firstValueVector.get(0).getClass(),
-                                                                                firstValueVector.size());
-                for (int j=0; j<firstValueVector.size(); j++) {
-                    firstValueArray[j] = firstValueVector.get(j);
-                }
+            setValues(pi, 1);
 
-                //set the initial set of values
-                pi.set( i, firstValueArray);
-            }
             tx.commit();
             // cache will be flushed
             pi = null;
             System.gc();
 
             tx.begin();
+            setValues(expectedValue, 1);
 
-            checkValues(oid, firstSetOfValues); // check if persistent fields have values set
+            // check if persistent fields have values set
+            checkValues(oid, expectedValue);
             pi = (ArrayCollections) pm.getObjectById(oid, true);
 
             // Provide new set of values
-            for( i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(ArrayCollections.fieldSpecs[i]);
-                //create an array of second set of values for each value type
-                Object[] secondValueArray = null;
-                Vector secondValueVector =  (Vector)secondSetOfValues.get(valueType);
-                secondValueArray = (Object[])java.lang.reflect.Array.newInstance(secondValueVector.get(0).getClass(),
-                                                                                 secondValueVector.size());
-                for (int j=0; j<secondValueVector.size(); j++) {
-                    secondValueArray[j] = secondValueVector.get(j);
-                }
-                pi.set( i, secondValueArray);
-            }
+            setValues(pi, 2);
             tx.commit();
             // cache will be flushed
             pi = null;
@@ -141,54 +114,52 @@ public class TestArrayCollections extends JDO_Test {
 
             tx.begin();
             // check new values
-            checkValues(oid, secondSetOfValues);
-            pi = (ArrayCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
+            setValues(expectedValue, 2);
+            checkValues(oid, expectedValue);
             tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+    }
+
+    /** */
+    private void setValues(ArrayCollections collect, int order)
+    {
+        Vector value;
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            String valueType = TestUtil.getFieldSpecs(
+                    ArrayCollections.fieldSpecs[i]);
+            Object[] valueArray = null;
+            value = TestUtil.makeNewVectorInstance(valueType, order);
+            value.copyInto(valueArray);
+            collect.set(i, valueArray);
+            if (debug)
+                logger.debug("Set " + i + "th value to: "
+                        + valueArray.toString());
         }
     }
 
     /** */
-    private void checkValues(Object oid, Hashtable startValue)
+    private void checkValues(Object oid, ArrayCollections expectedValue)
     {
-        int i;
-        int failedCount = 0;
+        StringBuffer sbuf = new StringBuffer();
         ArrayCollections pi = (ArrayCollections) pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for (i = 0; i < n; ++i) {
-            String valueType = TestUtil.getFieldSpecs(ArrayCollections.fieldSpecs[i]);
-            //build the compareWith array
-            Object[] compareWith = null;
-            Vector compareWithVector =  (Vector)startValue.get(valueType);
-            compareWith = (Object[])java.lang.reflect.Array.newInstance(compareWithVector.get(0).getClass(),
-                                                                        compareWithVector.size());
-            for (int j=0; j<compareWithVector.size(); j++) {
-                compareWith[j] = compareWithVector.get(j);
+        for (int i = 0; i < n; ++i) {
+            Object [] compareWith = expectedValue.get(i);
+            Object [] val = pi.get(i);
+            if (val.length != compareWith.length) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.length + ", actual size = " + val.length
+                        + " . ");
+                continue;
             }
-
-            Object[] val = pi.get(i);
-
-            if(!Arrays.equals(val, compareWith)){
-                failedCount++;
-                if (debug) {
-                    logger.debug("checkValues comparison failed for field " + i);
-                    String message1 = compareWith==null?"unexpectedly null!!!":
-                        compareWith.toString();
-                    String message2 = val==null?"unexpectedly null!!!":
-                        val.toString();
-                    logger.debug("expected: " + message1);
-                    logger.debug("actual: "+ message2);
-                }
+            if (! Arrays.equals(val, compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
             }
         }
-        if (failedCount != 0) {
-            fail(ASSERTION_FAILED, 
-                    "TestArrayCollections " + failedCount + " fields failed to compare.");
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
         }
     }
 }

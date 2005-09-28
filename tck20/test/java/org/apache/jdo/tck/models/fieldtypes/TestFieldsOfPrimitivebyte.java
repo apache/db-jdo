@@ -71,63 +71,56 @@ public class TestFieldsOfPrimitivebyte extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, n;
-            byte value;
-            tx.begin();
-            FieldsOfPrimitivebyte pi = new FieldsOfPrimitivebyte();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0, value = 10; i < n; ++i){
-                pi.set( i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfPrimitivebyte) pm.getObjectById(oid, true);
-            checkValues(oid, (byte)10); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0, value = 127; i < n; ++i){
-                pi.set(i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, (byte)127);
-            pi = (FieldsOfPrimitivebyte) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        byte value;
+        tx.begin();
+        FieldsOfPrimitivebyte pi = new FieldsOfPrimitivebyte();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0, value = 10; i < n; ++i){
+            pi.set( i, value);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfPrimitivebyte) pm.getObjectById(oid, true);
+        checkValues(oid, (byte)10);
+
+        // Provide new set of values
+        for( i = 0, value = 127; i < n; ++i){
+            pi.set(i, value);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, (byte)127);
+        tx.commit();
     }
 
     /** */
     private void checkValues(Object oid, byte startValue){
         int i;
-        FieldsOfPrimitivebyte pi = (FieldsOfPrimitivebyte) pm.getObjectById(oid, true);
+        FieldsOfPrimitivebyte pi = (FieldsOfPrimitivebyte)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
         for( i = 0; i < n; ++i){
             if( !FieldsOfPrimitivebyte.isPersistent[i] ) continue;
             byte val = pi.get(i);
             if( val != startValue ){
                 fail(ASSERTION_FAILED,
-                        "Incorrect value for " + FieldsOfPrimitivebyte.fieldSpecs[i] +
+                        "Incorrect value for " +
+                        FieldsOfPrimitivebyte.fieldSpecs[i] +
                         ", expected value " + startValue +
                         ", value is " + val);
             }

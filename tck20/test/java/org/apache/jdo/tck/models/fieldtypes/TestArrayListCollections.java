@@ -18,7 +18,7 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -77,81 +77,89 @@ public class TestArrayListCollections extends JDO_Test {
     {
         if (!isArrayListSupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support optional feature ArrayList");
+                logger.debug("JDO Implementation does not support optional " +
+                        "feature ArrayList");
             return;
         }
         
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            FirstSetOfTestValuesForCollection firstValue =
-                new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondValue =
-                new SecondSetOfTestValuesForCollection();
+        ArrayListCollections expectedValue = new ArrayListCollections();
 
-            // turn on datastore transactions
-            tx.setOptimistic(false);
-            tx.begin();
-            ArrayListCollections pi = new ArrayListCollections();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(ArrayListCollections.fieldSpecs[i]);
-                pi.set( i, new ArrayList((Collection)firstValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-            
-            tx.begin();
+        // turn on datastore transactions
+        tx.setOptimistic(false);
+        tx.begin();
+        ArrayListCollections pi = new ArrayListCollections();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        // Provide initial set of values
+        setValues(pi, 1);
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
 
-            checkValues(oid, firstValue); // check if persistent fields have values set
-            pi = (ArrayListCollections) pm.getObjectById(oid, true);
+        setValues(expectedValue, 1);
+        checkValues(oid, expectedValue);
+        pi = (ArrayListCollections) pm.getObjectById(oid, true);
 
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(ArrayListCollections.fieldSpecs[i]);
-                pi.set( i, new ArrayList((Collection)secondValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-            
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (ArrayListCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        // Provide new set of values
+        setValues(pi, 2);
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
+        tx.commit();
+    }
+
+    /** */
+    private void setValues(ArrayListCollections collect, int order)
+    {
+        Collection value;
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            String valueType = TestUtil.getFieldSpecs(
+                    ArrayListCollections.fieldSpecs[i]);
+            value = (Collection)TestUtil.makeNewVectorInstance(
+                    valueType, order);
+            collect.set(i, (ArrayList) value);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + value.toString());
         }
     }
 
     /** */
-    private void checkValues(Object oid, Hashtable startValue)
+    private void checkValues(Object oid, ArrayListCollections expectedValue)
     {
         int i;
-        ArrayListCollections pi = (ArrayListCollections) pm.getObjectById(oid, true);
+        StringBuffer sbuf = new StringBuffer();
+        ArrayListCollections pi = (ArrayListCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for( i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(ArrayListCollections.fieldSpecs[i]);
-            ArrayList compareWith = new ArrayList((Collection)startValue.get(valueType));
-            
-            ArrayList val = pi.get(i);
-            
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + ArrayListCollections.fieldSpecs[i]);
+        for (i = 0; i < n; ++i) {
+            Collection compareWith = expectedValue.get(i);
+            Collection val = pi.get(i);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
             }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
+            }
+        }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
         }
     }
 }

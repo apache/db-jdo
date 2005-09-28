@@ -71,63 +71,56 @@ public class TestFieldsOfPrimitivedouble extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, n;
-            double value;
-            tx.begin();
-            FieldsOfPrimitivedouble pi = new FieldsOfPrimitivedouble();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0, value = (double)10.15; i < n; ++i){
-                pi.set( i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfPrimitivedouble) pm.getObjectById(oid, true);
-            checkValues(oid, (double)10.15); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0, value = (double)68000.15; i < n; ++i){
-                pi.set(i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, (double)68000.15);
-            pi = (FieldsOfPrimitivedouble) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        double value;
+        tx.begin();
+        FieldsOfPrimitivedouble pi = new FieldsOfPrimitivedouble();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0, value = (double)10.15; i < n; ++i){
+            pi.set( i, value);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfPrimitivedouble) pm.getObjectById(oid, true);
+        checkValues(oid, (double)10.15);
+
+        // Provide new set of values
+        for( i = 0, value = (double)68000.15; i < n; ++i){
+            pi.set(i, value);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, (double)68000.15);
+        tx.commit();
     }
 
     /** */
     private void checkValues(Object oid, double startValue){
         int i;
-        FieldsOfPrimitivedouble pi = (FieldsOfPrimitivedouble) pm.getObjectById(oid, true);
+        FieldsOfPrimitivedouble pi = (FieldsOfPrimitivedouble)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
         for( i = 0; i < n; ++i){
             if( !FieldsOfPrimitivedouble.isPersistent[i] ) continue;
             double val = pi.get(i);
             if( val != startValue ){
                 fail(ASSERTION_FAILED,
-                        "Incorrect value for " + FieldsOfPrimitivedouble.fieldSpecs[i] +
+                        "Incorrect value for " +
+                        FieldsOfPrimitivedouble.fieldSpecs[i] +
                         ", expected value " + startValue +
                         ", value is " + val);
             }

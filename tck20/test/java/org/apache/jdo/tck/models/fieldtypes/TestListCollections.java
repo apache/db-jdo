@@ -17,7 +17,7 @@
 package org.apache.jdo.tck.models.fieldtypes;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.Vector;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,87 +79,97 @@ public class TestListCollections extends JDO_Test {
     void runTest(PersistenceManager pm) {
         if (!isListSupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support the optional feature List");
+                logger.debug("JDO Implementation does not support " +
+                        "the optional feature List");
             return;
         }
 
         if (!isLinkedListSupported() && !isArrayListSupported()) {
             fail(ASSERTION_FAILED,
-                 "JDO Implementation supports List, but neither ArrayList nor LinkedList.");
+                     "JDO Implementation supports List, but neither " +
+                     "ArrayList nor LinkedList.");
         }
-        
+
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            FirstSetOfTestValuesForCollection firstValue =
-                new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondValue =
-                new SecondSetOfTestValuesForCollection();
+        ListCollections expectedValue = new ListCollections();
+        
+        // turn on datastore transactions
+        tx.setOptimistic(false);
+        tx.begin();
+        ListCollections pi = new ListCollections();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        // Provide initial set of values
+        setValues(pi, 1);
+        tx.commit();
 
-            // turn on datastore transactions
-            tx.setOptimistic(false);
-            tx.begin();
-            ListCollections pi = new ListCollections();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(ListCollections.fieldSpecs[i]);
-                pi.set( i, new LinkedList((Collection)firstValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
+        setValues(expectedValue, 1);
+        // check if persistent fields have values set
+        checkValues(oid, expectedValue);
+        pi = (ListCollections) pm.getObjectById(oid, true);
+        // Provide new set of values
+        setValues(pi, 2);
+        tx.commit();
 
-            tx.begin();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
+        tx.commit();
+    }
 
-            checkValues(oid, firstValue); // check if persistent fields have values set
-            pi = (ListCollections) pm.getObjectById(oid, true);
-
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(ListCollections.fieldSpecs[i]);
-                pi.set( i, new LinkedList((Collection)secondValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (ListCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+    /** */
+    private void setValues(ListCollections collect, int order)
+    {
+        Vector value;
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            String valueType = TestUtil.getFieldSpecs(
+                    ListCollections.fieldSpecs[i]);
+            value = TestUtil.makeNewVectorInstance(valueType, order);
+            collect.set( i, value);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + value.toString());
         }
     }
 
-    private void checkValues(Object oid, Hashtable startValue)
+    /** */
+    private void checkValues(Object oid, ListCollections expectedValue)
     {
         int i;
-
-        ListCollections pi = (ListCollections) pm.getObjectById(oid, true);
+        StringBuffer sbuf = new StringBuffer();
+        ListCollections pi = (ListCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for( i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(ListCollections.fieldSpecs[i]);
-            List compareWith = new LinkedList((Collection)startValue.get(valueType));
-
-            List val = pi.get(i);
-
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + ListCollections.fieldSpecs[i]);
+        for (i = 0; i < n; ++i) {
+            Collection compareWith = expectedValue.get(i);
+            Collection val = pi.get(i);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
+            }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
             }
         }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
+        }
     }
+
 
 }

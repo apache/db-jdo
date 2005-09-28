@@ -18,8 +18,8 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -75,76 +75,86 @@ public class TestSetCollections extends JDO_Test {
     /** */
     void runTest(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            FirstSetOfTestValuesForCollection firstValue = new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondValue = new SecondSetOfTestValuesForCollection();
+        SetCollections expectedValue = new SetCollections();
 
-            int ret = 0;
-            // turn on datastore transactions
-            tx.setOptimistic(false);
-            tx.begin();
-            SetCollections pi = new SetCollections();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(SetCollections.fieldSpecs[i]);
-                pi.set( i, new HashSet((Collection)firstValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
+        // turn on datastore transactions
+        tx.setOptimistic(false);
+        tx.begin();
+        SetCollections pi = new SetCollections();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        // Provide initial set of values
+        setValues(pi, 1);
+        tx.commit();
 
-            tx.begin();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
+        setValues(expectedValue, 1);
+        // check if persistent fields have values set
+        checkValues(oid, expectedValue);
+        pi = (SetCollections) pm.getObjectById(oid, true);
+        // Provide new set of values
+        setValues(pi, 2);
+        tx.commit();
 
-            checkValues(oid, firstValue); // check if persistent fields have values set
-            pi = (SetCollections) pm.getObjectById(oid, true);
+        // cache will be flushed
+        pi = null;
+        System.gc();
+        
+        tx.begin();
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
+        tx.commit();
+    }
 
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                String valueType = TestUtil.getFieldSpecs(SetCollections.fieldSpecs[i]);
-                pi.set( i, new HashSet((Collection)secondValue.get(valueType)));
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (SetCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+    /** */
+    private void setValues(SetCollections collect, int order)
+    {
+        Collection value;
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            String valueType = TestUtil.getFieldSpecs(
+                    SetCollections.fieldSpecs[i]);
+            value = (Collection)TestUtil.makeNewVectorInstance(
+                    valueType, order);
+            collect.set(i, (Set)value);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + value.toString());
         }
     }
 
-    private void checkValues(Object oid, Hashtable startValue)
+    /** */
+    private void checkValues(Object oid, SetCollections expectedValue)
     {
         int i;
-
-        SetCollections pi = (SetCollections) pm.getObjectById(oid, true);
+        StringBuffer sbuf = new StringBuffer();
+        SetCollections pi = (SetCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for( i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(SetCollections.fieldSpecs[i]);
-            Set compareWith = new HashSet((Collection)startValue.get(valueType));
-
-            Set val = pi.get(i);
-
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + SetCollections.fieldSpecs[i]);
+        for (i = 0; i < n; ++i) {
+            Collection compareWith = expectedValue.get(i);
+            Collection val = pi.get(i);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
+            }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
             }
         }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
+        }
     }
+
 
 }

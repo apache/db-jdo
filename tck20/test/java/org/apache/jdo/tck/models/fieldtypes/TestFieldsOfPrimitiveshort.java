@@ -70,63 +70,56 @@ public class TestFieldsOfPrimitiveshort extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, n;
-            short value;
-            tx.begin();
-            FieldsOfPrimitiveshort pi = new FieldsOfPrimitiveshort();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0, value = 10; i < n; ++i){
-                pi.set( i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfPrimitiveshort) pm.getObjectById(oid, true);
-            checkValues(oid, (short)10); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0, value = 32000; i < n; ++i){
-                pi.set(i, value);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, (short)32000);
-            pi = (FieldsOfPrimitiveshort) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        short value;
+        tx.begin();
+        FieldsOfPrimitiveshort pi = new FieldsOfPrimitiveshort();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0, value = 10; i < n; ++i){
+            pi.set( i, value);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfPrimitiveshort) pm.getObjectById(oid, true);
+        checkValues(oid, (short)10);
+
+        // Provide new set of values
+        for( i = 0, value = 32000; i < n; ++i){
+            pi.set(i, value);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, (short)32000);
+        tx.commit();
     }
 
     /** */
     private void checkValues(Object oid, short startValue){
         int i;
-        FieldsOfPrimitiveshort pi = (FieldsOfPrimitiveshort) pm.getObjectById(oid, true);
+        FieldsOfPrimitiveshort pi = (FieldsOfPrimitiveshort)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
         for( i = 0; i < n; ++i){
             if( !FieldsOfPrimitiveshort.isPersistent[i] ) continue;
             short val = pi.get(i);
             if( val != startValue ){
                 fail(ASSERTION_FAILED,
-                        "Incorrect value for " + FieldsOfPrimitiveshort.fieldSpecs[i] +
+                        "Incorrect value for " +
+                        FieldsOfPrimitiveshort.fieldSpecs[i] +
                         ", expected value " + startValue +
                         ", value is " + val);
             }

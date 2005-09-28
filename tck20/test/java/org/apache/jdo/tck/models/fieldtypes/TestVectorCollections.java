@@ -16,7 +16,7 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
-import java.util.Hashtable;
+import java.util.Collection;
 import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
@@ -77,17 +77,13 @@ public class TestVectorCollections extends JDO_Test {
     {
         if (!isVectorSupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support the optional feature Vector");
+                logger.debug("JDO Implementation does not support " +
+                        "the optional feature Vector");
             return;
         }
         
         Transaction tx = pm.currentTransaction();
-        try {
-        int i, n;
-        FirstSetOfTestValuesForCollection firstValue =
-            new FirstSetOfTestValuesForCollection();
-        SecondSetOfTestValuesForCollection secondValue =
-            new SecondSetOfTestValuesForCollection();
+        VectorCollections expectedValue = new VectorCollections();
 
         // turn on datastore transactions
         tx.setOptimistic(false);
@@ -96,61 +92,73 @@ public class TestVectorCollections extends JDO_Test {
         pi.identifier = 1;
         pm.makePersistent(pi);
         Object oid = pm.getObjectId(pi);
-        n = pi.getLength();
-// Provide initial set of values
-        for(i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(VectorCollections.fieldSpecs[i]);
-            pi.set( i, (Vector)firstValue.get(valueType));
-        }
+        // Provide initial set of values
+        setValues(pi, 1);
         tx.commit();
-// cache will be flushed
+
+        // cache will be flushed
         pi = null;
         System.gc();
-
+        
         tx.begin();
-
-        checkValues(oid, firstValue); // check if persistent fields have values set
+        setValues(expectedValue, 1);
+        // check if persistent fields have values set
+        checkValues(oid, expectedValue);
         pi = (VectorCollections) pm.getObjectById(oid, true);
-
-// Provide new set of values
-        for( i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(VectorCollections.fieldSpecs[i]);
-            pi.set( i, (Vector)secondValue.get(valueType));
-        }
+        // Provide new set of values
+        setValues(pi, 2);
         tx.commit();
-// cache will be flushed
+
+        // cache will be flushed
         pi = null;
         System.gc();
-
+        
         tx.begin();
-// check new values
-        checkValues(oid, secondValue);
-        pi = (VectorCollections) pm.getObjectById(oid, true);
-        pm.deletePersistent(pi);
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
         tx.commit();
-        tx = null;
-    }
-    finally {
-        if ((tx != null) && tx.isActive())
-            tx.rollback();
-    }
     }
 
-    private void checkValues(Object oid, Hashtable startValue)
+    /** */
+    private void setValues(VectorCollections collect, int order)
     {
-        int i;
-        VectorCollections pi = (VectorCollections) pm.getObjectById(oid, true);
+        Vector value;
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            String valueType = TestUtil.getFieldSpecs(
+                    VectorCollections.fieldSpecs[i]);
+            value = TestUtil.makeNewVectorInstance(valueType, order);
+            collect.set(i, value);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + value.toString());
+        }
+    }
+
+    /** */
+    private void checkValues(Object oid, VectorCollections expectedValue)
+    {
+        StringBuffer sbuf = new StringBuffer();
+        VectorCollections pi = (VectorCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for( i = 0; i < n; ++i){
-            String valueType = TestUtil.getFieldSpecs(VectorCollections.fieldSpecs[i]);
-            Vector compareWith = (Vector)startValue.get(valueType);
-
-            Vector val = pi.get(i);
-
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + VectorCollections.fieldSpecs[i]);
+        for (int i = 0; i < n; ++i) {
+            Collection compareWith = expectedValue.get(i);
+            Collection val = pi.get(i);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
             }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
+            }
+        }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
         }
     }
 }

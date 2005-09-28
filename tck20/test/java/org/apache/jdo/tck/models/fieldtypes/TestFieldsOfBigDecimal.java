@@ -74,57 +74,46 @@ public class TestFieldsOfBigDecimal extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try {
-        	int i, n;
-            BigDecimal firstValue = new BigDecimal("20079.0237");
-            BigDecimal secondValue = new BigDecimal("8907489.658");
-            int ret = 0;
-            tx.begin();
-            FieldsOfBigDecimal pi = new FieldsOfBigDecimal();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0; i < n; ++i){
-                pi.set( i, firstValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfBigDecimal) pm.getObjectById(oid, true);
-            checkValues(oid, firstValue); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                pi.set(i, secondValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (FieldsOfBigDecimal) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+    	int i, n;
+        BigDecimal firstValue = new BigDecimal("20079.0237");
+        BigDecimal secondValue = new BigDecimal("8907489.658");
+        tx.begin();
+        FieldsOfBigDecimal pi = new FieldsOfBigDecimal();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0; i < n; ++i){
+            pi.set( i, firstValue);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfBigDecimal) pm.getObjectById(oid, true);
+        checkValues(oid, firstValue);
+
+        // Provide new set of values
+        for( i = 0; i < n; ++i){
+            pi.set(i, secondValue);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, secondValue);
+        tx.commit();
     }
 
     /** */
     private void checkValues(Object oid, BigDecimal startValue){
-        int ret = 0;
         int i;
         BigDecimal value;
         FieldsOfBigDecimal pi = (FieldsOfBigDecimal) pm.getObjectById(oid, true);

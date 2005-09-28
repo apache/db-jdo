@@ -16,7 +16,6 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
-import java.util.Hashtable;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -77,122 +76,97 @@ public class TestTreeMapStringKeyCollections extends JDO_Test {
     void runTest(PersistenceManager pm) {
         if (!isTreeMapSupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support the optional feature TreeMap");
+                logger.debug("JDO Implementation does not support " +
+                        "the optional feature TreeMap");
             return;
         }
 
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, j, n;
-            FirstSetOfTestValuesForCollection firstValue =
-                new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondValue =
-                new SecondSetOfTestValuesForCollection();
+        TreeMapStringKeyCollections expectedValue =
+                new TreeMapStringKeyCollections();
+        
+        // turn on datastore transactions
+        tx.setOptimistic(false);
+        tx.begin();
+        TreeMapStringKeyCollections pi = new TreeMapStringKeyCollections();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        // Provide initial set of values
+        setValues(pi, 1);
+        tx.commit();
 
-            // turn on datastore transactions
-            tx.setOptimistic(false);
-            tx.begin();
-            TreeMapStringKeyCollections pi = new TreeMapStringKeyCollections();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                Vector fieldSpecs = TestUtil.getFieldSpecsForMap(TreeMapStringKeyCollections.fieldSpecs[i]);
-                String fieldType = (String)fieldSpecs.get(0);
-                String valueType = (String)fieldSpecs.get(1);
-                TreeMap map = new TreeMap();
-                Vector keys = (Vector) firstValue.get(fieldType);
-                Vector values = (Vector) secondValue.get(valueType);
+        // cache will be flushed
+        pi = null;
+        System.gc();
 
-                for (j = 0; j< keys.size(); j++) {
-                    map.put(keys.get(j), values.get(j));
-                }
+        tx.begin();
+        setValues(expectedValue, 1);
+        checkValues(oid, expectedValue);
+        pi = (TreeMapStringKeyCollections) pm.getObjectById(oid, true);
+        setValues(pi, 2);
+        tx.commit();
 
-                pi.set(i, map);
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
+        tx.commit();
+    }
+
+    /** */
+    private void setValues(TreeMapStringKeyCollections collect, int order)
+    {
+        int keyOrder = order;
+        int valueOrder = (order == 1) ? 2 : 1; // why??
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
+                    TreeMapStringKeyCollections.fieldSpecs[i]);
+            Vector key = TestUtil.makeNewVectorInstance(
+                    (String)fieldSpecs.get(0), keyOrder);
+            Vector value = TestUtil.makeNewVectorInstance(
+                    (String)fieldSpecs.get(1), valueOrder);
+
+            TreeMap map = new TreeMap();
+            for (int j = 0; j< key.size(); j++) {
+                map.put(key.get(j), value.get(j));
             }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            Hashtable firstSet = new Hashtable();
-            firstSet.put("keys", firstValue);
-            firstSet.put("values", secondValue);
-
-            checkValues(oid, firstSet); // check if persistent fields have values set
-            pi = (TreeMapStringKeyCollections) pm.getObjectById(oid, true);
-
-            // Provide new set of values     -- reverse the keys and values
-            for(i = 0; i < n; ++i){
-                Vector fieldSpecs = TestUtil.getFieldSpecsForMap(TreeMapStringKeyCollections.fieldSpecs[i]);
-                String fieldType = (String)fieldSpecs.get(0);
-                String valueType = (String)fieldSpecs.get(1);
-                TreeMap map = new TreeMap();
-                Vector keys = (Vector) secondValue.get(fieldType);
-                Vector values = (Vector) firstValue.get(valueType);
-
-                for (j = 0; j< keys.size(); j++) {
-                    map.put(keys.get(j), values.get(j));
-                }
-
-                pi.set(i, map);
-            }
-
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            Hashtable secondSet = new Hashtable();
-            secondSet.put("keys", secondValue);
-            secondSet.put("values", firstValue);
-
-            checkValues(oid, secondSet);
-            pi = (TreeMapStringKeyCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+            collect.set(i, map);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + map.toString());
         }
     }
 
-    private void checkValues(Object oid, Hashtable startValue){
-        int i, j;
-
-        TreeMapStringKeyCollections pi = (TreeMapStringKeyCollections) pm.getObjectById(oid, true);
+    /** */
+    private void checkValues(Object oid,
+            TreeMapStringKeyCollections expectedValue)
+    {
+        StringBuffer sbuf = new StringBuffer();
+        TreeMapStringKeyCollections pi = (TreeMapStringKeyCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-
-        Hashtable keySet = (Hashtable) startValue.get("keys");
-        Hashtable valueSet = (Hashtable) startValue.get("values");
-
-        for( i = 0; i < n; ++i){
-            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(TreeMapStringKeyCollections.fieldSpecs[i]);
-            String fieldType = (String)fieldSpecs.get(0);
-            String valueType = (String)fieldSpecs.get(1);
-            TreeMap compareWith = new TreeMap();
-
-            Vector keys = (Vector) keySet.get(fieldType);
-            Vector values = (Vector) valueSet.get(valueType);
-            
-            for (j = 0; j< keys.size(); j++) {
-                compareWith.put(keys.get(j), values.get(j));
-            }
-
+        for (int i = 0; i < n; ++i) {
+            TreeMap compareWith = expectedValue.get(i);
             TreeMap val = pi.get(i);
-
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + TreeMapStringKeyCollections.fieldSpecs[i]);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
             }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
+            }
+        }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
         }
     }
 }

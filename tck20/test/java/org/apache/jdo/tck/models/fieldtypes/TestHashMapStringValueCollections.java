@@ -77,133 +77,99 @@ public class TestHashMapStringValueCollections extends JDO_Test {
     {
         if (!isHashMapSupported()) {
             if (debug)
-                logger.debug("JDO Implementation does not support the optional feature HashMap");
+                logger.debug("JDO Implementation does not support " +
+                        "the optional feature HashMap");
             return;
         }
         
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, j, n;
-            FirstSetOfTestValuesForCollection firstValue = 
-                    new FirstSetOfTestValuesForCollection();
-            SecondSetOfTestValuesForCollection secondValue = 
-                    new SecondSetOfTestValuesForCollection();
+        HashMapStringValueCollections expectedValue =
+                new HashMapStringValueCollections();
 
-            // turn on datastore transactions
-            tx.setOptimistic(false);
-            tx.begin();
-            HashMapStringValueCollections pi = new HashMapStringValueCollections();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for(i = 0; i < n; ++i){
-                Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
+        // turn on datastore transactions
+        tx.setOptimistic(false);
+        tx.begin();
+        HashMapStringValueCollections pi = new HashMapStringValueCollections();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        // Provide initial set of values
+        setValues(pi, 1);
+        tx.commit();
+
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        setValues(expectedValue, 1);
+        checkValues(oid, expectedValue);
+        pi = (HashMapStringValueCollections) pm.getObjectById(oid, true);
+        // Provide new set of values     -- reverse the keys and values
+        setValues(pi, 2);
+        tx.commit();
+
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        setValues(expectedValue, 2);
+        checkValues(oid, expectedValue);
+        pi = (HashMapStringValueCollections) pm.getObjectById(oid, true);
+        tx.commit();
+    }
+
+    /** */
+    private void setValues(HashMapStringValueCollections collect, int order)
+    {
+        int keyOrder = order;
+        int valueOrder = (order == 1) ? 2 : 1; // why??
+        int n = collect.getLength();
+        for (int i = 0; i < n; ++i) {
+            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
                     HashMapStringValueCollections.fieldSpecs[i]);
-                String fieldType = (String)fieldSpecs.get(0);
-                String valueType = (String)fieldSpecs.get(1);
-                HashMap map = new HashMap();
-                Vector keys = (Vector) firstValue.get(fieldType);
-                Vector values = (Vector) secondValue.get(valueType);
+            Vector key = TestUtil.makeNewVectorInstance(
+                    (String)fieldSpecs.get(0), keyOrder);
+            Vector value = TestUtil.makeNewVectorInstance(
+                    (String)fieldSpecs.get(1), valueOrder);
 
-                for (j = 0; j< keys.size(); j++) {
-                    map.put(keys.get(j), values.get(j));
-                }
-
-                pi.set(i, map);
+            HashMap map = new HashMap();
+            for (int j = 0; j< key.size(); j++) {
+                map.put(key.get(j), value.get(j));
             }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            Hashtable firstSet = new Hashtable();
-            firstSet.put("keys", firstValue);
-            firstSet.put("values", secondValue);
-
-            checkValues(oid, firstSet); // check if persistent fields have values set
-            pi = (HashMapStringValueCollections) pm.getObjectById(oid, true);
-
-            // Provide new set of values     -- reverse the keys and values
-            for(i = 0; i < n; ++i){
-                Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
-                    HashMapStringValueCollections.fieldSpecs[i]);
-                String fieldType = (String)fieldSpecs.get(0);
-                String valueType = (String)fieldSpecs.get(1);
-                HashMap map = new HashMap();
-                Vector keys = (Vector) secondValue.get(fieldType);
-                Vector values = (Vector) firstValue.get(valueType);
-
-                for (j = 0; j< keys.size(); j++) {
-                    map.put(keys.get(j), values.get(j));
-                }
-
-                pi.set(i, map);
-            }
-
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            Hashtable secondSet = new Hashtable();
-            secondSet.put("keys", secondValue);
-            secondSet.put("values", firstValue);
-
-            checkValues(oid, secondSet);
-            pi = (HashMapStringValueCollections) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
-        }
-        catch (IndexOutOfBoundsException e) {
-            logger.error(e.getMessage());
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+            collect.set(i, map);
+            if (debug)
+                logger.debug("Set " + i + "th value to: " + map.toString());
         }
     }
 
     /** */
-    private void checkValues(Object oid, Hashtable startValue)
+    private void checkValues(Object oid,
+            HashMapStringValueCollections expectedValue)
     {
-        int ret = 0;
-        int i, j;
-
-        HashMapStringValueCollections pi = 
-            (HashMapStringValueCollections) pm.getObjectById(oid, true);
+        StringBuffer sbuf = new StringBuffer();
+        HashMapStringValueCollections pi = (HashMapStringValueCollections)
+                pm.getObjectById(oid, true);
         int n = pi.getLength();
-
-        Hashtable keySet = (Hashtable) startValue.get("keys");
-        Hashtable valueSet = (Hashtable) startValue.get("values");
-
-        for( i = 0; i < n; ++i){
-            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
-                HashMapStringValueCollections.fieldSpecs[i]);
-            String fieldType = (String)fieldSpecs.get(0);
-            String valueType = (String)fieldSpecs.get(1);
-            HashMap compareWith = new HashMap();
-
-            Vector keys = (Vector) keySet.get(fieldType);
-            Vector values = (Vector) valueSet.get(valueType);
-            
-            for (j = 0; j< keys.size(); j++) {
-                compareWith.put(keys.get(j), values.get(j));
-            }
-
+        for (int i = 0; i < n; ++i) {
+            HashMap compareWith = expectedValue.get(i);
             HashMap val = pi.get(i);
-
-            if(!val.equals(compareWith)){
-                fail(ASSERTION_FAILED,
-                     "Incorrect value for " + HashMapStringValueCollections.fieldSpecs[i]);
+            if (val.size() != compareWith.size()) {
+                sbuf.append("\nFor element " + i + ", expected size = " +
+                        compareWith.size() + ", actual size = " + val.size()
+                        + " . ");
+                continue;
+            }
+            if (! val.equals(compareWith)) {
+                sbuf.append("\nFor element " + i + ", expected = " +
+                        compareWith + ", actual = " + val + " . ");
             }
         }
+        if (sbuf.length() > 0) {
+            fail(ASSERTION_FAILED,
+                 "Expected and observed do not match!!" + sbuf.toString());
+        }
     }
-
 }

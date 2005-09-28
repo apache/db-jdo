@@ -71,61 +71,54 @@ public class TestFieldsOfPrimitiveint extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, n, value;
-            tx.begin();
-            FieldsOfPrimitiveint pi = new FieldsOfPrimitiveint();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0, value = 0; i < n; ++i, ++value ){
-                pi.set( i, value);            
-            }
-            tx.commit();
-            // cache will be flushed        
-            pi = null;
-            System.gc();
-        
-            tx.begin();
-            pi = (FieldsOfPrimitiveint) pm.getObjectById(oid, true);
-            checkValues(oid, 0); // check if persistent fields have values set
+        int i, n, value;
+        tx.begin();
+        FieldsOfPrimitiveint pi = new FieldsOfPrimitiveint();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0, value = 0; i < n; ++i, ++value ){
+            pi.set( i, value);            
+        }
+        tx.commit();
+        // cache will be flushed        
+        pi = null;
+        System.gc();
     
-            // Provide new set of values 
-            for( i = 0, value = 1000; i < n; ++i, ++value ){
-                pi.set(i, value);
-            }
-            tx.commit();
-            // cache will be flushed        
-            pi = null;
-            System.gc();
-        
-            tx.begin();
-            // check new values
-            checkValues(oid, 1000);
-            pi = (FieldsOfPrimitiveint) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        tx.begin();
+        pi = (FieldsOfPrimitiveint) pm.getObjectById(oid, true);
+        checkValues(oid, 0); // check if persistent fields have values set
+
+        // Provide new set of values 
+        for( i = 0, value = 1000; i < n; ++i, ++value ){
+            pi.set(i, value);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
-        }
+        tx.commit();
+        // cache will be flushed        
+        pi = null;
+        System.gc();
+    
+        tx.begin();
+        // check new values
+        checkValues(oid, 1000);
+        tx.commit();
     }
     
     /** */
     private void checkValues(Object oid, int startValue){
         int i, value;
-        FieldsOfPrimitiveint pi = (FieldsOfPrimitiveint) pm.getObjectById(oid, true);
+        FieldsOfPrimitiveint pi = (FieldsOfPrimitiveint)
+            pm.getObjectById(oid, true);
         int n = pi.getLength();
         for( i = 0, value = startValue; i < n; ++i, ++value){
             if( !FieldsOfPrimitiveint.isPersistent[i] ) continue;
             int val = pi.get(i);
             if( val != value ){
                 fail(ASSERTION_FAILED,
-                        "Incorrect value for " + FieldsOfPrimitiveint.fieldSpecs[i] +
+                        "Incorrect value for " +
+                        FieldsOfPrimitiveint.fieldSpecs[i] +
                         ", expected value " + startValue +
                         ", value is " + val);
             }

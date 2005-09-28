@@ -72,51 +72,42 @@ public class TestFieldsOfBoolean extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            Boolean firstValue = new Boolean(true);
-            Boolean secondValue = new Boolean(false);
-            tx.begin();
-            FieldsOfBoolean pi = new FieldsOfBoolean();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0; i < n; ++i){
-                pi.set( i, firstValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfBoolean) pm.getObjectById(oid, true);
-            checkValues(oid, firstValue); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                pi.set(i, secondValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (FieldsOfBoolean) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        Boolean firstValue = new Boolean(true);
+        Boolean secondValue = new Boolean(false);
+        tx.begin();
+        FieldsOfBoolean pi = new FieldsOfBoolean();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0; i < n; ++i){
+            pi.set( i, firstValue);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfBoolean) pm.getObjectById(oid, true);
+        checkValues(oid, firstValue);
+
+        // Provide new set of values
+        for( i = 0; i < n; ++i){
+            pi.set(i, secondValue);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, secondValue);
+        tx.commit();
     }
 
     /** */

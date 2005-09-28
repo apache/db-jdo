@@ -74,56 +74,46 @@ public class TestFieldsOfBigInteger extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try {
-            int i, n;
-            BigInteger firstValue = new BigInteger("2007908");
-            BigInteger secondValue = new BigInteger("896738");
-            tx.begin();
-            FieldsOfBigInteger pi = new FieldsOfBigInteger();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0; i < n; ++i){
-                pi.set( i, firstValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfBigInteger) pm.getObjectById(oid, true);
-            checkValues(oid, firstValue); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                pi.set(i, secondValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (FieldsOfBigInteger) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        BigInteger firstValue = new BigInteger("2007908");
+        BigInteger secondValue = new BigInteger("896738");
+        tx.begin();
+        FieldsOfBigInteger pi = new FieldsOfBigInteger();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0; i < n; ++i){
+            pi.set( i, firstValue);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfBigInteger) pm.getObjectById(oid, true);
+        checkValues(oid, firstValue);
+
+        // Provide new set of values
+        for( i = 0; i < n; ++i){
+            pi.set(i, secondValue);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, secondValue);
+        tx.commit();
     }
 
     /** */
     private void checkValues(Object oid, BigInteger startValue){
-        int ret = 0;
         int i;
         BigInteger value = startValue;
         FieldsOfBigInteger pi = (FieldsOfBigInteger) pm.getObjectById(oid, true);

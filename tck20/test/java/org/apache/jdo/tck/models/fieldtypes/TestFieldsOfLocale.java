@@ -74,51 +74,42 @@ public class TestFieldsOfLocale extends JDO_Test {
     void runTest(PersistenceManager pm)
     {
         Transaction tx = pm.currentTransaction();
-        try { 
-            int i, n;
-            Locale firstValue = Locale.CHINA;
-            Locale secondValue = Locale.JAPANESE;
-            tx.begin();
-            FieldsOfLocale pi = new FieldsOfLocale();
-            pi.identifier = 1;
-            pm.makePersistent(pi);
-            Object oid = pm.getObjectId(pi);
-            n = pi.getLength();
-            // Provide initial set of values
-            for( i = 0; i < n; ++i){
-                pi.set( i, firstValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-
-            pi = (FieldsOfLocale) pm.getObjectById(oid, true);
-            checkValues(oid, firstValue); // check if persistent fields have values set
-
-            // Provide new set of values
-            for( i = 0; i < n; ++i){
-                pi.set(i, secondValue);
-            }
-            tx.commit();
-            // cache will be flushed
-            pi = null;
-            System.gc();
-
-            tx.begin();
-            // check new values
-            checkValues(oid, secondValue);
-            pi = (FieldsOfLocale) pm.getObjectById(oid, true);
-            pm.deletePersistent(pi);
-            tx.commit();
-            tx = null;
+        int i, n;
+        Locale firstValue = Locale.CHINA;
+        Locale secondValue = Locale.JAPANESE;
+        tx.begin();
+        FieldsOfLocale pi = new FieldsOfLocale();
+        pi.identifier = 1;
+        pm.makePersistent(pi);
+        Object oid = pm.getObjectId(pi);
+        n = pi.getLength();
+        // Provide initial set of values
+        for( i = 0; i < n; ++i){
+            pi.set( i, firstValue);
         }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+
+        pi = (FieldsOfLocale) pm.getObjectById(oid, true);
+        checkValues(oid, firstValue);
+
+        // Provide new set of values
+        for( i = 0; i < n; ++i){
+            pi.set(i, secondValue);
         }
+        tx.commit();
+        // cache will be flushed
+        pi = null;
+        System.gc();
+
+        tx.begin();
+        // check new values
+        checkValues(oid, secondValue);
+        tx.commit();
     }
 
     /** */
