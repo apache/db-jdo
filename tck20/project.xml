@@ -155,7 +155,6 @@ NOTE!! This project has a nonstandard structure. The source files are located in
             <resource>
                 <directory>${basedir}/test/conf</directory>
                 <includes>
-                    <include>JDOTCKTestCases.list</include>
                     <include>enhancement-test.properties</include>
                     <include>commons-logging.properties</include>
                     <include>simplelog.properties</include>

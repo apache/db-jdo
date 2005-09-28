@@ -30,6 +30,8 @@ import junit.framework.TestSuite;
 import junit.textui.ResultPrinter;
 import junit.textui.TestRunner;
 
+import javax.jdo.JDOFatalException;
+
 /**
  * TestRunner class for running a single test or a test suite in batch
  * mode. The format of the test output is specified by the result printer
@@ -86,7 +88,7 @@ public class BatchTestRunner
     /** 
      * Runs in batch mode and sets an exit code. If the specified String
      * array includes a single fully qualified class name, this test class
-     * is executed. If it is empty it runs the TestListSuite.
+     * is executed.
      */
     public static void main(String args[]) {
         try {
@@ -104,15 +106,37 @@ public class BatchTestRunner
     public TestResult start(String[] args) {
         Test suite = null;
         if ((args == null) || args.length == 0) {
-            suite = getTest(TestListSuite.class.getName());
+            String conf = System.getProperty("jdo.tck.cfg");
+            throw new JDOFatalException(
+                "Missing JDO TCK test classes for configuration '" + conf + 
+                "'. Please check the property 'jdo.tck.classes'.");
         }
         else if (args.length == 1) {
             suite = getTest(args[0]);
         }
         else {
-            suite = new TestListSuite("JDO TCK", Arrays.asList(args));
+            suite = getTestSuite(args);
         }
         return doRun(suite);
+    }
+    
+    /**
+     * Returns a JUnit TestSuite instance for the classes of the specified
+     * list of class names.
+     */
+    protected TestSuite getTestSuite(String[] classNames) {
+        TestSuite testSuite = new TestSuite();
+        for (int i = 0; i < classNames.length; i++) {
+            String className = classNames[i];
+            try {
+                testSuite.addTestSuite(Class.forName(className));
+            }
+            catch (ClassNotFoundException ex) {
+                System.out.println(
+                    "Cannot find test class '" + className + "'.");
+            }
+        }
+        return testSuite;
     }
 
     /** 
