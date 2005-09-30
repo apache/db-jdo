@@ -535,7 +535,8 @@
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Spring jar files -->
-        <pathelement location="${spring.jarfile}"/>
+        <pathelement location="${springcore.jarfile}"/>
+        <pathelement location="${springbeans.jarfile}"/>
         <pathelement location="${logging.jarfile}"/>
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
@@ -576,7 +577,8 @@
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Spring jar files -->
-        <pathelement location="${spring.jarfile}"/>
+        <pathelement location="${springcore.jarfile}"/>
+        <pathelement location="${springbeans.jarfile}"/>
         <pathelement location="${logging.jarfile}"/>
         <!-- Jar files for the reference implementation -->
         <pathelement location="${jpox.jdori.jarfile}" />
