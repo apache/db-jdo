@@ -96,8 +96,8 @@ public class ReflectionJavaModel
                     // loaded, Class.forName will load the class which
                     // calls RegisterClassListener.registerClass.
                     // This will create a new JavaType entry in the cache.
-                    javaType = getJavaType(Class.forName(name, initialize, 
-                                                         classLoader));
+                    javaType = getJavaTypeInternal(
+                        Class.forName(name, initialize, classLoader));
                 }
                 catch (ClassNotFoundException ex) {
                     // cannot find class => return null
@@ -130,15 +130,21 @@ public class ReflectionJavaModel
      */
     public JavaType getJavaType(Class clazz)
     {
-        String name = clazz.getName();
-        synchronized (types) {
-            JavaType javaType = (JavaType)types.get(name);
-            if (javaType == null) {
-                javaType = newJavaTypeInstance(clazz);
-                types.put(name, javaType);
+        if (clazz == null)
+            return null;
+        
+        if (initialize) {
+            try {
+                // make sure the class is initialized
+                Class.forName(clazz.getName(), initialize, 
+                    ReflectionJavaModelFactory.getClassLoaderPrivileged(clazz));
             }
-            return javaType;
+            catch (ClassNotFoundException ex) {
+                // ignore, since class has already been loaded 
+            }
         }
+
+        return getJavaTypeInternal(clazz);
     }
 
     /**
@@ -190,6 +196,28 @@ public class ReflectionJavaModel
     public ClassLoader getClassLoader()
     {
         return classLoader;
+    }
+
+    /**
+     * The method returns the JavaType instance for the type name of the
+     * specified class object. It first checks the cache and if there is no
+     * entry for the type name in the cache then it creates a new JavaType
+     * instance for the specified Class object.
+     * @param clazz the Class instance representing the type
+     * @return a JavaType instance for the name of the specified class
+     * object or <code>null</code> if not present in this model instance.
+     */
+    protected JavaType getJavaTypeInternal(Class clazz)
+    {
+        String name = clazz.getName();
+        synchronized (types) {
+            JavaType javaType = (JavaType)types.get(name);
+            if (javaType == null) {
+                javaType = newJavaTypeInstance(clazz);
+                types.put(name, javaType);
+            }
+            return javaType;
+        }
     }
     
     /** */

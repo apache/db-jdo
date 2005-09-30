@@ -30,8 +30,8 @@ import org.apache.jdo.model.java.JavaModelFactory;
 import org.apache.jdo.model.java.JavaType;
 import org.apache.jdo.model.jdo.JDOModelFactory;
 import org.apache.jdo.model.jdo.JDOModel;
-import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
 import org.apache.jdo.impl.model.java.BaseReflectionJavaType;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModelFactory;
 import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.util.I18NHelper;
 
@@ -52,7 +52,7 @@ import org.apache.jdo.util.I18NHelper;
  * @since JDO 1.0.1
  */
 public class RuntimeJavaModelFactory
-    extends AbstractJavaModelFactory
+    extends ReflectionJavaModelFactory
 {    
     /** The singleton RuntimeJavaModelFactory instance. */    
     private static final RuntimeJavaModelFactory runtimeJavaModelFactory = 
@@ -219,34 +219,6 @@ public class RuntimeJavaModelFactory
     // ===== Methods not defined in JavaModelFactory =====
 
     /**
-     * Calls getClassLoader on the specified class instance in a
-     * doPrivileged block. Any SecurityException is wrapped into a
-     * ModelFatalException. 
-     * @return the class loader that loaded the specified class instance.
-     * @exception ModelFatalException wraps the SecurityException thrown by
-     * getClassLoader.
-     */
-    public ClassLoader getClassLoaderPrivileged(final Class clazz)
-    {
-        if (clazz == null)
-            return null;
-
-        try { 
-            return (ClassLoader) AccessController.doPrivileged(
-                new PrivilegedAction () {
-                    public Object run () {
-                        return clazz.getClassLoader();
-                    }
-                }
-                );
-        }
-        catch (SecurityException ex) {
-            throw new ModelFatalException(
-                msg.msg("EXC_CannotGetClassLoader", clazz), ex); //NOI18N
-        }
-    }
-
-    /**
      * Returns the <code>java.lang.Class</code> wrapped in the specified 
      * JavaType. 
      * @return the <code>java.lang.Class</code> for the specified
@@ -283,7 +255,8 @@ public class RuntimeJavaModelFactory
             javaModel.setJDOModel(jdoModel);
         }
         catch (ModelException ex) {
-            throw new ModelFatalException("ERR_CannotSetJDOModel", ex); //NOI18N
+            throw new ModelFatalException(
+                msg.msg("ERR_CannotSetJDOModel"), ex); //NOI18N
         }
     }
 }

@@ -35,7 +35,7 @@ import org.apache.jdo.util.I18NHelper;
  * instances per ClassLoader.
  * 
  * @author Michael Bouschen
- * @since JDO 2.0
+ * @since JDO 1.1
  */
 public abstract class ReflectionJavaModelFactory
     extends AbstractJavaModelFactory
@@ -145,7 +145,7 @@ public abstract class ReflectionJavaModelFactory
      * @exception ModelFatalException wraps the SecurityException thrown by
      * getClassLoader.
      */
-    public ClassLoader getClassLoaderPrivileged(final Class clazz)
+    public static ClassLoader getClassLoaderPrivileged(final Class clazz)
     {
         if (clazz == null)
             return null;
