@@ -5,193 +5,245 @@
         <class name="ListCollections" table="LIST_COLLECTIONS">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
-            <field name="ListOfObject0" table="LIST_OF_OBJECT0">
+            <field name="ListOfObject0"
+                   table="LIST_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfObject1" table="LIST_OF_OBJECT1">
+            <field name="ListOfObject1"
+                   table="LIST_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfObject2" table="LIST_OF_OBJECT2">
+            <field name="ListOfObject2"
+                   table="LIST_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleClass3" table="LIST_OF_SIMPLE_CLASS3">
+            <field name="ListOfSimpleClass3"
+                   table="LIST_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleClass4" table="LIST_OF_SIMPLE_CLASS4">
+            <field name="ListOfSimpleClass4"
+                   table="LIST_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleClass5" table="LIST_OF_SIMPLE_CLASS5">
+            <field name="ListOfSimpleClass5"
+                   table="LIST_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleInterface6" table="LIST_OF_SIMPLE_INTERFACE6">
+            <field name="ListOfSimpleClass42"
+                   column="LIST_OF_SIMPLE_CLASS42">
+            </field>
+            <field name="ListOfSimpleInterface6"
+                   table="LIST_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleInterface7" table="LIST_OF_SIMPLE_INTERFACE7">
+            <field name="ListOfSimpleInterface7"
+                   table="LIST_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfSimpleInterface8" table="LIST_OF_SIMPLE_INTERFACE8">
+            <field name="ListOfSimpleInterface8"
+                   table="LIST_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfString9" table="LIST_OF_STRING9">
+            <field name="ListOfString9"
+                   table="LIST_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfString10" column="LIST_OF_STRING10"
-                   >
+            <field name="ListOfString11"
+                   column="LIST_OF_STRING11">
             </field>
-            <field name="ListOfString11" table="LIST_OF_STRING11">
+            <field name="ListOfString10"
+                   table="LIST_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfDate12" table="LIST_OF_DATE12">
+            <field name="ListOfDate12"
+                   table="LIST_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfDate13" column="LIST_OF_DATE13"
-                   >
+            <field name="ListOfDate14"
+                   column="LIST_OF_DATE14">
             </field>
-            <field name="ListOfDate14" table="LIST_OF_DATE14">
+            <field name="ListOfDate13"
+                   table="LIST_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfLocale15" table="LIST_OF_LOCALE15">
+            <field name="ListOfLocale15"
+                   table="LIST_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfLocale16" column="LIST_OF_LOCALE16"
-                   >
+            <field name="ListOfLocale17"
+                   column="LIST_OF_LOCALE17">
             </field>
-            <field name="ListOfLocale17" table="LIST_OF_LOCALE17">
+            <field name="ListOfLocale16"
+                   table="LIST_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfBigDecimal18" table="LIST_OF_BIG_DECIMAL18">
+            <field name="ListOfBigDecimal18"
+                   table="LIST_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfBigDecimal19" column="LIST_OF_BIG_DECIMAL19"
-                   >
+            <field name="ListOfBigDecimal20"
+                   column="LIST_OF_BIG_DECIMAL20">
             </field>
-            <field name="ListOfBigDecimal20" table="LIST_OF_BIG_DECIMAL20">
+            <field name="ListOfBigDecimal19"
+                   table="LIST_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfBigInteger21" table="LIST_OF_BIG_INTEGER21">
+            <field name="ListOfBigInteger21"
+                   table="LIST_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfBigInteger22" column="LIST_OF_BIG_INTEGER22"
-                   >
+            <field name="ListOfBigInteger23"
+                   column="LIST_OF_BIG_INTEGER23">
             </field>
-            <field name="ListOfBigInteger23" table="LIST_OF_BIG_INTEGER23">
+            <field name="ListOfBigInteger22"
+                   table="LIST_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfByte24" table="LIST_OF_BYTE24">
+            <field name="ListOfByte24"
+                   table="LIST_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfByte25" column="LIST_OF_BYTE25"
-                   >
+            <field name="ListOfByte26"
+                   column="LIST_OF_BYTE26">
             </field>
-            <field name="ListOfByte26" table="LIST_OF_BYTE26">
+            <field name="ListOfByte25"
+                   table="LIST_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfDouble27" table="LIST_OF_DOUBLE27">
+            <field name="ListOfDouble27"
+                   table="LIST_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfDouble28" column="LIST_OF_DOUBLE28"
-                   >
+            <field name="ListOfDouble29"
+                   column="LIST_OF_DOUBLE29">
             </field>
-            <field name="ListOfDouble29" table="LIST_OF_DOUBLE29">
+            <field name="ListOfDouble28"
+                   table="LIST_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfFloat30" table="LIST_OF_FLOAT30">
+            <field name="ListOfFloat30"
+                   table="LIST_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfFloat31" column="LIST_OF_FLOAT31"
-                   >
+            <field name="ListOfFloat32"
+                   column="LIST_OF_FLOAT32">
             </field>
-            <field name="ListOfFloat32" table="LIST_OF_FLOAT32">
+            <field name="ListOfFloat31"
+                   table="LIST_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfInteger33" table="LIST_OF_INTEGER33">
+            <field name="ListOfInteger33"
+                   table="LIST_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfInteger34" column="LIST_OF_INTEGER34"
-                   >
+            <field name="ListOfInteger35"
+                   column="LIST_OF_INTEGER35">
             </field>
-            <field name="ListOfInteger35" table="LIST_OF_INTEGER35">
+            <field name="ListOfInteger34"
+                   table="LIST_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfLong36" table="LIST_OF_LONG36">
+            <field name="ListOfLong36"
+                   table="LIST_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfLong37" column="LIST_OF_LONG37"
-                   >
+            <field name="ListOfLong38"
+                   column="LIST_OF_LONG38">
             </field>
-            <field name="ListOfLong38" table="LIST_OF_LONG38">
+            <field name="ListOfLong37"
+                   table="LIST_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfShort39" table="LIST_OF_SHORT39">
+            <field name="ListOfShort39"
+                   table="LIST_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="ListOfShort40" column="LIST_OF_SHORT40"
-                   >
+            <field name="ListOfShort41"
+                   column="LIST_OF_SHORT41">
             </field>
-            <field name="ListOfShort41" table="LIST_OF_SHORT41">
+            <field name="ListOfShort40"
+                   table="LIST_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>

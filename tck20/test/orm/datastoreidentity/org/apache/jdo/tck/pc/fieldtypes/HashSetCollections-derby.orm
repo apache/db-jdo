@@ -5,163 +5,245 @@
         <class name="HashSetCollections" table="HASHSET_COLLECTIONS">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
-            <field name="HashSetOfObject0" table="HASHSET_OF_OBJECT0">
+            <field name="HashSetOfObject0"
+                   table="HASHSET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfObject1" table="HASHSET_OF_OBJECT1">
+            <field name="HashSetOfObject1"
+                   table="HASHSET_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfObject2" table="HASHSET_OF_OBJECT2">
+            <field name="HashSetOfObject2"
+                   table="HASHSET_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleClass3" table="HASHSET_OF_SIMPLE_CLASS3">
+            <field name="HashSetOfSimpleClass3"
+                   table="HASHSET_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleClass4" table="HASHSET_OF_SIMPLE_CLASS4">
+            <field name="HashSetOfSimpleClass4"
+                   table="HASHSET_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleClass5" table="HASHSET_OF_SIMPLE_CLASS5">
+            <field name="HashSetOfSimpleClass5"
+                   table="HASHSET_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleInterface6" table="HASHSET_OF_SIMPLE_INTERFACE6">
+            <field name="HashSetOfSimpleClass42"
+                   column="HASHSET_OF_SIMPLE_CLASS42">
+            </field>
+            <field name="HashSetOfSimpleInterface6"
+                   table="HASHSET_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleInterface7" table="HASHSET_OF_SIMPLE_INTERFACE7">
+            <field name="HashSetOfSimpleInterface7"
+                   table="HASHSET_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfSimpleInterface8" table="HASHSET_OF_SIMPLE_INTERFACE8">
+            <field name="HashSetOfSimpleInterface8"
+                   table="HASHSET_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfString9" table="HASHSET_OF_STRING9">
+            <field name="HashSetOfString9"
+                   table="HASHSET_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
+            </field>
+            <field name="HashSetOfString11"
+                   column="HASHSET_OF_STRING11">
             </field>
             <field name="HashSetOfString10"
-                   column="HASHSET_OF_STRING10"
-                   >
-            </field>
-            <field name="HashSetOfString11" table="HASHSET_OF_STRING11">
+                   table="HASHSET_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfDate12" table="HASHSET_OF_DATE12">
+            <field name="HashSetOfDate12"
+                   table="HASHSET_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfDate13" column="HASHSET_OF_DATE13"
-            >
+            <field name="HashSetOfDate14"
+                   column="HASHSET_OF_DATE14">
             </field>
-            <field name="HashSetOfDate14" table="HASHSET_OF_DATE14">
+            <field name="HashSetOfDate13"
+                   table="HASHSET_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfLocale15" table="HASHSET_OF_LOCALE15">
+            <field name="HashSetOfLocale15"
+                   table="HASHSET_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfLocale16" column="HASHSET_OF_LOCALE16"
-            >
+            <field name="HashSetOfLocale17"
+                   column="HASHSET_OF_LOCALE17">
             </field>
-            <field name="HashSetOfLocale17" table="HASHSET_OF_LOCALE17">
+            <field name="HashSetOfLocale16"
+                   table="HASHSET_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfBigDecimal18" table="HASHSET_OF_BIG_DECIMAL18">
+            <field name="HashSetOfBigDecimal18"
+                   table="HASHSET_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfBigDecimal19" column="HASHSET_OF_BIG_DECIMAL19"
-            >
+            <field name="HashSetOfBigDecimal20"
+                   column="HASHSET_OF_BIG_DECIMAL20">
             </field>
-            <field name="HashSetOfBigDecimal20" table="HASHSET_OF_BIG_DECIMAL20">
+            <field name="HashSetOfBigDecimal19"
+                   table="HASHSET_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfBigInteger21" table="HASHSET_OF_BIG_INTEGER21">
+            <field name="HashSetOfBigInteger21"
+                   table="HASHSET_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfBigInteger22" column="HASHSET_OF_BIG_INTEGER22"
-            >
+            <field name="HashSetOfBigInteger23"
+                   column="HASHSET_OF_BIG_INTEGER23">
             </field>
-            <field name="HashSetOfBigInteger23" table="HASHSET_OF_BIG_INTEGER23">
+            <field name="HashSetOfBigInteger22"
+                   table="HASHSET_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfByte24" table="HASHSET_OF_BYTE24">
+            <field name="HashSetOfByte24"
+                   table="HASHSET_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfByte25" column="HASHSET_OF_BYTE25"
-            >
+            <field name="HashSetOfByte26"
+                   column="HASHSET_OF_BYTE26">
             </field>
-            <field name="HashSetOfByte26" table="HASHSET_OF_BYTE26">
+            <field name="HashSetOfByte25"
+                   table="HASHSET_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfDouble27" table="HASHSET_OF_DOUBLE27">
+            <field name="HashSetOfDouble27"
+                   table="HASHSET_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfDouble28" column="HASHSET_OF_DOUBLE28"
-            >
+            <field name="HashSetOfDouble29"
+                   column="HASHSET_OF_DOUBLE29">
             </field>
-            <field name="HashSetOfDouble29" table="HASHSET_OF_DOUBLE29">
+            <field name="HashSetOfDouble28"
+                   table="HASHSET_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfFloat30" table="HASHSET_OF_FLOAT30">
+            <field name="HashSetOfFloat30"
+                   table="HASHSET_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfFloat31" column="HASHSET_OF_FLOAT31"
-                   >
+            <field name="HashSetOfFloat32"
+                   column="HASHSET_OF_FLOAT32">
             </field>
-            <field name="HashSetOfFloat32" table="HASHSET_OF_FLOAT32">
+            <field name="HashSetOfFloat31"
+                   table="HASHSET_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfInteger33" table="HASHSET_OF_INTEGER33">
+            <field name="HashSetOfInteger33"
+                   table="HASHSET_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfInteger34" column="HASHSET_OF_INTEGER34"
-                   >
+            <field name="HashSetOfInteger35"
+                   column="HASHSET_OF_INTEGER35">
             </field>
-            <field name="HashSetOfInteger35" table="HASHSET_OF_INTEGER35">
+            <field name="HashSetOfInteger34"
+                   table="HASHSET_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfLong36" table="HASHSET_OF_LONG36">
+            <field name="HashSetOfLong36"
+                   table="HASHSET_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfLong37" column="HASHSET_OF_LONG37"
-                   >
+            <field name="HashSetOfLong38"
+                   column="HASHSET_OF_LONG38">
             </field>
-            <field name="HashSetOfLong38" table="HASHSET_OF_LONG38">
+            <field name="HashSetOfLong37"
+                   table="HASHSET_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfShort39" table="HASHSET_OF_SHORT39">
+            <field name="HashSetOfShort39"
+                   table="HASHSET_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="HashSetOfShort40" column="HASHSET_OF_SHORT40"
-                   >
+            <field name="HashSetOfShort41"
+                   column="HASHSET_OF_SHORT41">
             </field>
-            <field name="HashSetOfShort41" table="HASHSET_OF_SHORT41">
+            <field name="HashSetOfShort40"
+                   table="HASHSET_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>

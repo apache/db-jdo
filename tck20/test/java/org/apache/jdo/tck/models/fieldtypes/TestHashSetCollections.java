@@ -16,9 +16,12 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
+
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Vector;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -124,7 +127,8 @@ public class TestHashSetCollections extends JDO_Test {
                     HashSetCollections.fieldSpecs[i]);
             value = (Collection)TestUtil.makeNewVectorInstance(
                     valueType, order);
-            collect.set( i, (HashSet)value);
+            HashSet lvalue = new HashSet(value);
+            collect.set(i, lvalue);
             if (debug)
                 logger.debug("Set " + i + "th value to: " + value.toString());
         }
@@ -139,17 +143,38 @@ public class TestHashSetCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Collection compareWith = expectedValue.get(i);
-            Collection val = pi.get(i);
+            HashSet compareWith = expectedValue.get(i);
+            HashSet val = pi.get(i);
             if (val.size() != compareWith.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         compareWith.size() + ", actual size = " + val.size()
                         + " . ");
-                continue;
             }
-            if (! val.equals(compareWith)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (! val.equals(compareWith)) {
+                if (TestUtil.getFieldSpecs(HashSetCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+                    // sort values for comparison
+                    TreeSet compareTS = new TreeSet(compareWith);
+                    TreeSet valTS = new TreeSet(val);
+                    Iterator compareIter = compareTS.iterator();
+                    Iterator valIter = valTS.iterator();
+                    for (int j=0; j < compareTS.size(); j++) {
+                        BigDecimal bigDecCompareWith =
+                                (BigDecimal)(compareIter.next());
+                        BigDecimal bigDecVal = (BigDecimal)(valIter.next());
+                                bigDecVal.setScale(bigDecCompareWith.scale());
+                        if ((bigDecCompareWith.compareTo(bigDecVal)) != 0)  {
+                            sbuf.append("\nFor element " + i + "(" + j +
+                                    "), expected = " + bigDecCompareWith +
+                                    ", actual = " + bigDecVal);
+                        }
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         compareWith + ", actual = " + val + " . ");
+                }
+
             }
         }
         if (sbuf.length() > 0) {
@@ -157,6 +182,4 @@ public class TestHashSetCollections extends JDO_Test {
                  "Expected and observed do not match!!" + sbuf.toString());
         }
     }
-
-
 }

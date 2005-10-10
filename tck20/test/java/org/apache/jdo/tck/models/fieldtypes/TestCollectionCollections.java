@@ -16,9 +16,9 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Vector;
-import java.util.Hashtable;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -143,11 +143,27 @@ public class TestCollectionCollections extends JDO_Test {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         compareWith.size() + ", actual size = " + val.size()
                         + " . ");
-                continue;
             }
-            if (! val.equals(compareWith)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (! val.equals(compareWith)) {
+                if (TestUtil.getFieldSpecs(CollectionCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+                    Vector compareWithV = (Vector)compareWith;
+                    Vector valV = (Vector)val;
+                    for (int j = 0; j < val.size(); ++j) {
+                        BigDecimal bigDecCompareWith =
+                            (BigDecimal)compareWithV.elementAt(j);
+                        Object bigDecVal = valV.elementAt(j);
+                        if ((bigDecCompareWith.compareTo(bigDecVal) != 0)) {
+                            sbuf.append("\nFor element " + i + "(" + j +
+                                    "), expected = " + compareWith +
+                                    ", actual = " + val + " . ");
+                        }
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         compareWith + ", actual = " + val + " . ");
+                }
             }
         }
         if (sbuf.length() > 0) {

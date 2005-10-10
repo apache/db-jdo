@@ -16,8 +16,10 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
+
 import java.util.Collection;
-import java.util.Vector;
+import java.util.ListIterator;
 import java.util.LinkedList;
 
 import javax.jdo.PersistenceManager;
@@ -131,7 +133,8 @@ public class TestLinkedListCollections extends JDO_Test {
                     LinkedListCollections.fieldSpecs[i]);
             value = (Collection)TestUtil.makeNewVectorInstance(
                     valueType, order);
-            collect.set( i, (LinkedList)value);
+            LinkedList lvalue = new LinkedList(value);
+            collect.set(i, lvalue);
             if (debug)
                 logger.debug("Set " + i + "th value to: " + value.toString());
         }
@@ -146,19 +149,37 @@ public class TestLinkedListCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Collection compareWith = expectedValue.get(i);
-            Collection val = pi.get(i);
+            LinkedList compareWith = expectedValue.get(i);
+            LinkedList val = pi.get(i);
             if (val.size() != compareWith.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         compareWith.size() + ", actual size = " + val.size()
                         + " . ");
-                continue;
             }
-            if (! val.equals(compareWith)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (! val.equals(compareWith)) {
+                if (TestUtil.getFieldSpecs(LinkedListCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+                    ListIterator compareWithIt = compareWith.listIterator();
+                    ListIterator valIt = val.listIterator();
+                    int index = 0;
+                    while (compareWithIt.hasNext()) {
+                        BigDecimal bigDecCompareWith =
+                                (BigDecimal)(compareWithIt.next());
+                        BigDecimal bigDecVal = (BigDecimal)(valIt.next());
+                        if ((bigDecCompareWith.compareTo(bigDecVal)) != 0)  {
+                            sbuf.append("\nFor element " + i + "(" + index +
+                                    "), expected = " + bigDecCompareWith +
+                                    ", actual = " + bigDecVal);
+                        }
+                        index++;
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         compareWith + ", actual = " + val + " . ");
-            }
-        }
+                }
+
+            }        }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
                  "Expected and observed do not match!!" + sbuf.toString());

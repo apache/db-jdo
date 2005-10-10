@@ -16,6 +16,8 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
+
 import java.util.Collection;
 import java.util.Vector;
 
@@ -142,19 +144,39 @@ public class TestVectorCollections extends JDO_Test {
         VectorCollections pi = (VectorCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
-        for (int i = 0; i < n; ++i) {
-            Collection compareWith = expectedValue.get(i);
-            Collection val = pi.get(i);
+        for (int i = 0; i < n; i++) {
+            Vector compareWith = expectedValue.get(i);
+            Vector val = pi.get(i);
             if (val.size() != compareWith.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         compareWith.size() + ", actual size = " + val.size()
                         + " . ");
-                continue;
             }
-            if (! val.equals(compareWith)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (! val.equals(compareWith)) {
+                if (debug) {
+                    logger.debug("Field number is " + i);
+                    logger.debug("Persisted vector is " + val);
+                    logger.debug("Expected vector is " + compareWith);
+                }
+                if (TestUtil.getFieldSpecs(VectorCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+                    for (int j = 0; j < val.size(); j++) {
+                        BigDecimal bigDecVal = (BigDecimal)val.elementAt(j);
+                        BigDecimal bigDecCompareWith =
+                            (BigDecimal)compareWith.elementAt(j);
+                        if ((bigDecCompareWith.compareTo(bigDecVal) != 0)) {
+                            sbuf.append("\nFor element " + i + "(" + j +
+                                    "), expected = " + compareWith +
+                                    ", actual = " + val + " . ");
+                        }
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         compareWith + ", actual = " + val + " . ");
+                }
             }
+
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,

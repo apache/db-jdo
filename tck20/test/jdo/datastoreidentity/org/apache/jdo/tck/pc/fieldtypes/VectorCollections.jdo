@@ -4,16 +4,16 @@
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="VectorCollections" identity-type="datastore">
 <field name="VectorOfObject0" >
-<collection element-type="java.lang.Object">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="VectorOfObject1" >
-<collection element-type="java.lang.Object" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="VectorOfObject2" >
-<collection element-type="java.lang.Object" embedded-element="false">
-</collection>
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
 </field>
 <field name="VectorOfSimpleClass3" >
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
@@ -24,20 +24,25 @@
 </collection>
 </field>
 <field name="VectorOfSimpleClass5" >
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
+</field>
+<field name="VectorOfSimpleClass42" serialized="true">
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="VectorOfSimpleInterface6" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="VectorOfSimpleInterface7" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfSimpleInterface8" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
-</collection>
+<field name="VectorOfSimpleInterface8">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
+              serialized-element="true">
+  </collection>
 </field>
 <field name="VectorOfString9" >
 <collection element-type="java.lang.String">
@@ -47,7 +52,7 @@
 <collection element-type="java.lang.String" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfString11" >
+<field name="VectorOfString11" serialized="true">
 <collection element-type="java.lang.String" embedded-element="false">
 </collection>
 </field>
@@ -59,7 +64,7 @@
 <collection element-type="java.util.Date" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfDate14" >
+<field name="VectorOfDate14" serialized="true">
 <collection element-type="java.util.Date" embedded-element="false">
 </collection>
 </field>
@@ -71,7 +76,7 @@
 <collection element-type="java.util.Locale" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfLocale17" >
+<field name="VectorOfLocale17" serialized="true">
 <collection element-type="java.util.Locale" embedded-element="false">
 </collection>
 </field>
@@ -83,7 +88,7 @@
 <collection element-type="java.math.BigDecimal" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfBigDecimal20" >
+<field name="VectorOfBigDecimal20" serialized="true">
 <collection element-type="java.math.BigDecimal" embedded-element="false">
 </collection>
 </field>
@@ -95,7 +100,7 @@
 <collection element-type="java.math.BigInteger" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfBigInteger23" >
+<field name="VectorOfBigInteger23" serialized="true">
 <collection element-type="java.math.BigInteger" embedded-element="false">
 </collection>
 </field>
@@ -107,7 +112,7 @@
 <collection element-type="java.lang.Byte" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfByte26" >
+<field name="VectorOfByte26" serialized="true">
 <collection element-type="java.lang.Byte" embedded-element="false">
 </collection>
 </field>
@@ -119,7 +124,7 @@
 <collection element-type="java.lang.Double" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfDouble29" >
+<field name="VectorOfDouble29" serialized="true">
 <collection element-type="java.lang.Double" embedded-element="false">
 </collection>
 </field>
@@ -131,7 +136,7 @@
 <collection element-type="java.lang.Float" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfFloat32" >
+<field name="VectorOfFloat32" serialized="true">
 <collection element-type="java.lang.Float" embedded-element="false">
 </collection>
 </field>
@@ -143,7 +148,7 @@
 <collection element-type="java.lang.Integer" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfInteger35" >
+<field name="VectorOfInteger35" serialized="true">
 <collection element-type="java.lang.Integer" embedded-element="false">
 </collection>
 </field>
@@ -155,7 +160,7 @@
 <collection element-type="java.lang.Long" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfLong38" >
+<field name="VectorOfLong38" serialized="true">
 <collection element-type="java.lang.Long" embedded-element="false">
 </collection>
 </field>
@@ -167,7 +172,7 @@
 <collection element-type="java.lang.Short" embedded-element="true">
 </collection>
 </field>
-<field name="VectorOfShort41" >
+<field name="VectorOfShort41" serialized="true">
 <collection element-type="java.lang.Short" embedded-element="false">
 </collection>
 </field>

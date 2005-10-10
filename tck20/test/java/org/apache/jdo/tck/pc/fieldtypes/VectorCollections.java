@@ -63,6 +63,7 @@ public class VectorCollections {
   public Vector VectorOfShort39;
   public Vector VectorOfShort40;
   public Vector VectorOfShort41;
+  public Vector VectorOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Vector VectorOfObject0",
@@ -106,7 +107,8 @@ public class VectorCollections {
   "embedded-element=false public Vector VectorOfLong38",
   "public Vector VectorOfShort39",
   "embedded-element=true public Vector VectorOfShort40",
-  "embedded-element=false public Vector VectorOfShort41"
+  "embedded-element=false public Vector VectorOfShort41",
+  "serialized=true public Vector VectorOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,6 +202,8 @@ public class VectorCollections {
         return VectorOfShort40;
       case(41):
         return VectorOfShort41;
+      case(42):
+        return VectorOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -336,6 +340,9 @@ public class VectorCollections {
       case(41):
         VectorOfShort41= value;
          break;
+      case(42):
+        VectorOfSimpleClass42= value;
+         break;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -350,7 +357,8 @@ public class VectorCollections {
 
         public Oid(String s) { identifier = Integer.parseInt(justTheId(s)); }
 
-        public String toString() { return this.getClass().getName() + ": "  + identifier;}
+        public String toString() { return this.getClass().getName() +
+                ": "  + identifier;}
 
         public int hashCode() { return (int)identifier ; }
 

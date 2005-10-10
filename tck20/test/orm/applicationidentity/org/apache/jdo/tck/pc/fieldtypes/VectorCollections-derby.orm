@@ -4,193 +4,245 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="VectorCollections" table="VECTOR_COLLECTIONS">
             <field name="identifier" column="IDENTIFIER" primary-key="true"/>
-            <field name="VectorOfObject0" table="VECTOR_OF_OBJECT0">
+            <field name="VectorOfObject0"
+                   table="VECTOR_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfObject1" table="VECTOR_OF_OBJECT1">
+            <field name="VectorOfObject1"
+                   table="VECTOR_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfObject2" table="VECTOR_OF_OBJECT2">
+            <field name="VectorOfObject2"
+                   table="VECTOR_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleClass3" table="VECTOR_OF_SIMPLE_CLASS3">
+            <field name="VectorOfSimpleClass3"
+                   table="VECTOR_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleClass4" table="VECTOR_OF_SIMPLE_CLASS4">
+            <field name="VectorOfSimpleClass4"
+                   table="VECTOR_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleClass5" table="VECTOR_OF_SIMPLE_CLASS5">
+            <field name="VectorOfSimpleClass5"
+                   table="VECTOR_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleInterface6" table="VECTOR_OF_SIMPLE_INTERFACE6">
+            <field name="VectorOfSimpleClass42"
+                   column="VECTOR_OF_SIMPLE_CLASS42">
+            </field>
+            <field name="VectorOfSimpleInterface6"
+                   table="VECTOR_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleInterface7" table="VECTOR_OF_SIMPLE_INTERFACE7">
+            <field name="VectorOfSimpleInterface7"
+                   table="VECTOR_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfSimpleInterface8" table="VECTOR_OF_SIMPLE_INTERFACE8">
+            <field name="VectorOfSimpleInterface8"
+                   table="VECTOR_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfString9" table="VECTOR_OF_STRING9">
+            <field name="VectorOfString9"
+                   table="VECTOR_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfString10" column="VECTOR_OF_STRING10"
-                   >
+            <field name="VectorOfString11"
+                   column="VECTOR_OF_STRING11">
             </field>
-            <field name="VectorOfString11" table="VECTOR_OF_STRING11">
+            <field name="VectorOfString10"
+                   table="VECTOR_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfDate12" table="VECTOR_OF_DATE12">
+            <field name="VectorOfDate12"
+                   table="VECTOR_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfDate13" column="VECTOR_OF_DATE13"
-                   >
+            <field name="VectorOfDate14"
+                   column="VECTOR_OF_DATE14">
             </field>
-            <field name="VectorOfDate14" table="VECTOR_OF_DATE14">
+            <field name="VectorOfDate13"
+                   table="VECTOR_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfLocale15" table="VECTOR_OF_LOCALE15">
+            <field name="VectorOfLocale15"
+                   table="VECTOR_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfLocale16" column="VECTOR_OF_LOCALE16"
-                   >
+            <field name="VectorOfLocale17"
+                   column="VECTOR_OF_LOCALE17">
             </field>
-            <field name="VectorOfLocale17" table="VECTOR_OF_LOCALE17">
+            <field name="VectorOfLocale16"
+                   table="VECTOR_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfBigDecimal18" table="VECTOR_OF_BIG_DECIMAL18">
+            <field name="VectorOfBigDecimal18"
+                   table="VECTOR_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfBigDecimal19" column="VECTOR_OF_BIG_DECIMAL19"
-                   >
+            <field name="VectorOfBigDecimal20"
+                   column="VECTOR_OF_BIG_DECIMAL20">
             </field>
-            <field name="VectorOfBigDecimal20" table="VECTOR_OF_BIG_DECIMAL20">
+            <field name="VectorOfBigDecimal19"
+                   table="VECTOR_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfBigInteger21" table="VECTOR_OF_BIG_INTEGER21">
+            <field name="VectorOfBigInteger21"
+                   table="VECTOR_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfBigInteger22" column="VECTOR_OF_BIG_INTEGER22"
-                   >
+            <field name="VectorOfBigInteger23"
+                   column="VECTOR_OF_BIG_INTEGER23">
             </field>
-            <field name="VectorOfBigInteger23" table="VECTOR_OF_BIG_INTEGER23">
+            <field name="VectorOfBigInteger22"
+                   table="VECTOR_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfByte24" table="VECTOR_OF_BYTE24">
+            <field name="VectorOfByte24"
+                   table="VECTOR_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfByte25" column="VECTOR_OF_BYTE25"
-                   >
+            <field name="VectorOfByte26"
+                   column="VECTOR_OF_BYTE26">
             </field>
-            <field name="VectorOfByte26" table="VECTOR_OF_BYTE26">
+            <field name="VectorOfByte25"
+                   table="VECTOR_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfDouble27" table="VECTOR_OF_DOUBLE27">
+            <field name="VectorOfDouble27"
+                   table="VECTOR_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfDouble28" column="VECTOR_OF_DOUBLE28"
-                   >
+            <field name="VectorOfDouble29"
+                   column="VECTOR_OF_DOUBLE29">
             </field>
-            <field name="VectorOfDouble29" table="VECTOR_OF_DOUBLE29">
+            <field name="VectorOfDouble28"
+                   table="VECTOR_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfFloat30" table="VECTOR_OF_FLOAT30">
+            <field name="VectorOfFloat30"
+                   table="VECTOR_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfFloat31" column="VECTOR_OF_FLOAT31"
-                   >
+            <field name="VectorOfFloat32"
+                   column="VECTOR_OF_FLOAT32">
             </field>
-            <field name="VectorOfFloat32" table="VECTOR_OF_FLOAT32">
+            <field name="VectorOfFloat31"
+                   table="VECTOR_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfInteger33" table="VECTOR_OF_INTEGER33">
+            <field name="VectorOfInteger33"
+                   table="VECTOR_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfInteger34" column="VECTOR_OF_INTEGER34"
-                   >
+            <field name="VectorOfInteger35"
+                   column="VECTOR_OF_INTEGER35">
             </field>
-            <field name="VectorOfInteger35" table="VECTOR_OF_INTEGER35">
+            <field name="VectorOfInteger34"
+                   table="VECTOR_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfLong36" table="VECTOR_OF_LONG36">
+            <field name="VectorOfLong36"
+                   table="VECTOR_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfLong37" column="VECTOR_OF_LONG37"
-                   >
+            <field name="VectorOfLong38"
+                   column="VECTOR_OF_LONG38">
             </field>
-            <field name="VectorOfLong38" table="VECTOR_OF_LONG38">
+            <field name="VectorOfLong37"
+                   table="VECTOR_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfShort39" table="VECTOR_OF_SHORT39">
+            <field name="VectorOfShort39"
+                   table="VECTOR_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="VectorOfShort40" column="VECTOR_OF_SHORT40"
-                   >
+            <field name="VectorOfShort41"
+                   column="VECTOR_OF_SHORT41">
             </field>
-            <field name="VectorOfShort41" table="VECTOR_OF_SHORT41">
+            <field name="VectorOfShort40"
+                   table="VECTOR_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>

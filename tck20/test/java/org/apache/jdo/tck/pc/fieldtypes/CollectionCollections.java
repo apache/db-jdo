@@ -108,7 +108,7 @@ public class CollectionCollections {
   "public Collection CollectionOfShort39",
   "embedded-element=true public Collection CollectionOfShort40",
   "embedded-element=false public Collection CollectionOfShort41",
-  "serialized-element=true public Collection CollectionOfSimpleClass42"
+  "serialized=true public Collection CollectionOfSimpleClass42"
   };
   public int getLength()
   {

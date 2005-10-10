@@ -63,6 +63,7 @@ public class ListCollections {
   public List ListOfShort39;
   public List ListOfShort40;
   public List ListOfShort41;
+  public List ListOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public List ListOfObject0",
@@ -106,7 +107,8 @@ public class ListCollections {
   "embedded-element=false public List ListOfLong38",
   "public List ListOfShort39",
   "embedded-element=true public List ListOfShort40",
-  "embedded-element=false public List ListOfShort41"
+  "embedded-element=false public List ListOfShort41",
+  "serialized=true public List ListOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,11 +202,13 @@ public class ListCollections {
         return ListOfShort40;
       case(41):
         return ListOfShort41;
+      case(42):
+        return ListOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,List value)
+  public boolean set(int index, List value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -335,6 +339,9 @@ public class ListCollections {
          break;
       case(41):
         ListOfShort41= value;
+         break;
+      case(42):
+        ListOfSimpleClass42= value;
          break;
       default:
         throw new IndexOutOfBoundsException();

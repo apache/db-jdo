@@ -4,16 +4,16 @@
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="HashSetCollections" identity-type="datastore">
 <field name="HashSetOfObject0" >
-<collection element-type="java.lang.Object">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="HashSetOfObject1" >
-<collection element-type="java.lang.Object" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="HashSetOfObject2" >
-<collection element-type="java.lang.Object" embedded-element="false">
-</collection>
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
 </field>
 <field name="HashSetOfSimpleClass3" >
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
@@ -24,20 +24,25 @@
 </collection>
 </field>
 <field name="HashSetOfSimpleClass5" >
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
+</field>
+<field name="HashSetOfSimpleClass42" serialized="true">
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="HashSetOfSimpleInterface6" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="HashSetOfSimpleInterface7" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfSimpleInterface8" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
-</collection>
+<field name="HashSetOfSimpleInterface8">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
+              serialized-element="true">
+  </collection>
 </field>
 <field name="HashSetOfString9" >
 <collection element-type="java.lang.String">
@@ -47,7 +52,7 @@
 <collection element-type="java.lang.String" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfString11" >
+<field name="HashSetOfString11" serialized="true">
 <collection element-type="java.lang.String" embedded-element="false">
 </collection>
 </field>
@@ -59,7 +64,7 @@
 <collection element-type="java.util.Date" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfDate14" >
+<field name="HashSetOfDate14" serialized="true">
 <collection element-type="java.util.Date" embedded-element="false">
 </collection>
 </field>
@@ -71,7 +76,7 @@
 <collection element-type="java.util.Locale" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfLocale17" >
+<field name="HashSetOfLocale17" serialized="true">
 <collection element-type="java.util.Locale" embedded-element="false">
 </collection>
 </field>
@@ -83,7 +88,7 @@
 <collection element-type="java.math.BigDecimal" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfBigDecimal20" >
+<field name="HashSetOfBigDecimal20" serialized="true">
 <collection element-type="java.math.BigDecimal" embedded-element="false">
 </collection>
 </field>
@@ -95,7 +100,7 @@
 <collection element-type="java.math.BigInteger" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfBigInteger23" >
+<field name="HashSetOfBigInteger23" serialized="true">
 <collection element-type="java.math.BigInteger" embedded-element="false">
 </collection>
 </field>
@@ -107,7 +112,7 @@
 <collection element-type="java.lang.Byte" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfByte26" >
+<field name="HashSetOfByte26" serialized="true">
 <collection element-type="java.lang.Byte" embedded-element="false">
 </collection>
 </field>
@@ -119,7 +124,7 @@
 <collection element-type="java.lang.Double" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfDouble29" >
+<field name="HashSetOfDouble29" serialized="true">
 <collection element-type="java.lang.Double" embedded-element="false">
 </collection>
 </field>
@@ -131,7 +136,7 @@
 <collection element-type="java.lang.Float" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfFloat32" >
+<field name="HashSetOfFloat32" serialized="true">
 <collection element-type="java.lang.Float" embedded-element="false">
 </collection>
 </field>
@@ -143,7 +148,7 @@
 <collection element-type="java.lang.Integer" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfInteger35" >
+<field name="HashSetOfInteger35" serialized="true">
 <collection element-type="java.lang.Integer" embedded-element="false">
 </collection>
 </field>
@@ -155,7 +160,7 @@
 <collection element-type="java.lang.Long" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfLong38" >
+<field name="HashSetOfLong38" serialized="true">
 <collection element-type="java.lang.Long" embedded-element="false">
 </collection>
 </field>
@@ -167,7 +172,7 @@
 <collection element-type="java.lang.Short" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfShort41" >
+<field name="HashSetOfShort41" serialized="true">
 <collection element-type="java.lang.Short" embedded-element="false">
 </collection>
 </field>

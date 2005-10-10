@@ -4,193 +4,245 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="LinkedListCollections" table="LINKEDLIST_COLLECTIONS">
             <field name="identifier" column="IDENTIFIER" primary-key="true"/>
-            <field name="LinkedListOfObject0" table="LINKEDLIST_OF_OBJECT0">
+            <field name="LinkedListOfObject0"
+                   table="LINKEDLIST_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfObject1" table="LINKEDLIST_OF_OBJECT1">
+            <field name="LinkedListOfObject1"
+                   table="LINKEDLIST_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfObject2" table="LINKEDLIST_OF_OBJECT2">
+            <field name="LinkedListOfObject2"
+                   table="LINKEDLIST_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleClass3" table="LINKEDLIST_OF_SIMPLE_CLASS3">
+            <field name="LinkedListOfSimpleClass3"
+                   table="LINKEDLIST_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleClass4" table="LINKEDLIST_OF_SIMPLE_CLASS4">
+            <field name="LinkedListOfSimpleClass4"
+                   table="LINKEDLIST_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleClass5" table="LINKEDLIST_OF_SIMPLE_CLASS5">
+            <field name="LinkedListOfSimpleClass5"
+                   table="LINKEDLIST_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleInterface6" table="LINKEDLIST_OF_SIMPLE_INTERFACE6">
+            <field name="LinkedListOfSimpleClass42"
+                   column="LINKEDLIST_OF_SIMPLE_CLASS42">
+            </field>
+            <field name="LinkedListOfSimpleInterface6"
+                   table="LINKEDLIST_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleInterface7" table="LINKEDLIST_OF_SIMPLE_INTERFACE7">
+            <field name="LinkedListOfSimpleInterface7"
+                   table="LINKEDLIST_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfSimpleInterface8" table="LINKEDLIST_OF_SIMPLE_INTERFACE8">
+            <field name="LinkedListOfSimpleInterface8"
+                   table="LINKEDLIST_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
-                <order column="INDEX"/>
+                <element column="COLLVAL"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfString9" table="LINKEDLIST_OF_STRING9">
+            <field name="LinkedListOfString9"
+                   table="LINKEDLIST_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfString10" column="LINKEDLIST_OF_STRING10"
-                   >
+            <field name="LinkedListOfString11"
+                   column="LINKEDLIST_OF_STRING11">
             </field>
-            <field name="LinkedListOfString11" table="LINKEDLIST_OF_STRING11">
+            <field name="LinkedListOfString10"
+                   table="LINKEDLIST_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfDate12" table="LINKEDLIST_OF_DATE12">
+            <field name="LinkedListOfDate12"
+                   table="LINKEDLIST_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfDate13" column="LINKEDLIST_OF_DATE13"
-                   >
+            <field name="LinkedListOfDate14"
+                   column="LINKEDLIST_OF_DATE14">
             </field>
-            <field name="LinkedListOfDate14" table="LINKEDLIST_OF_DATE14">
+            <field name="LinkedListOfDate13"
+                   table="LINKEDLIST_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfLocale15" table="LINKEDLIST_OF_LOCALE15">
+            <field name="LinkedListOfLocale15"
+                   table="LINKEDLIST_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfLocale16" column="LINKEDLIST_OF_LOCALE16"
-                   >
+            <field name="LinkedListOfLocale17"
+                   column="LINKEDLIST_OF_LOCALE17">
             </field>
-            <field name="LinkedListOfLocale17" table="LINKEDLIST_OF_LOCALE17">
+            <field name="LinkedListOfLocale16"
+                   table="LINKEDLIST_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfBigDecimal18" table="LINKEDLIST_OF_BIG_DECIMAL18">
+            <field name="LinkedListOfBigDecimal18"
+                   table="LINKEDLIST_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfBigDecimal19" column="LINKEDLIST_OF_BIG_DECIMAL19"
-                   >
+            <field name="LinkedListOfBigDecimal20"
+                   column="LINKEDLIST_OF_BIG_DECIMAL20">
             </field>
-            <field name="LinkedListOfBigDecimal20" table="LINKEDLIST_OF_BIG_DECIMAL20">
+            <field name="LinkedListOfBigDecimal19"
+                   table="LINKEDLIST_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfBigInteger21" table="LINKEDLIST_OF_BIG_INTEGER21">
+            <field name="LinkedListOfBigInteger21"
+                   table="LINKEDLIST_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfBigInteger22" column="LINKEDLIST_OF_BIG_INTEGER22"
-                   >
+            <field name="LinkedListOfBigInteger23"
+                   column="LINKEDLIST_OF_BIG_INTEGER23">
             </field>
-            <field name="LinkedListOfBigInteger23" table="LINKEDLIST_OF_BIG_INTEGER23">
+            <field name="LinkedListOfBigInteger22"
+                   table="LINKEDLIST_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfByte24" table="LINKEDLIST_OF_BYTE24">
+            <field name="LinkedListOfByte24"
+                   table="LINKEDLIST_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfByte25" column="LINKEDLIST_OF_BYTE25"
-                   >
+            <field name="LinkedListOfByte26"
+                   column="LINKEDLIST_OF_BYTE26">
             </field>
-            <field name="LinkedListOfByte26" table="LINKEDLIST_OF_BYTE26">
+            <field name="LinkedListOfByte25"
+                   table="LINKEDLIST_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfDouble27" table="LINKEDLIST_OF_DOUBLE27">
+            <field name="LinkedListOfDouble27"
+                   table="LINKEDLIST_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfDouble28" column="LINKEDLIST_OF_DOUBLE28"
-                   >
+            <field name="LinkedListOfDouble29"
+                   column="LINKEDLIST_OF_DOUBLE29">
             </field>
-            <field name="LinkedListOfDouble29" table="LINKEDLIST_OF_DOUBLE29">
+            <field name="LinkedListOfDouble28"
+                   table="LINKEDLIST_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfFloat30" table="LINKEDLIST_OF_FLOAT30">
+            <field name="LinkedListOfFloat30"
+                   table="LINKEDLIST_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfFloat31" column="LINKEDLIST_OF_FLOAT31"
-                   >
+            <field name="LinkedListOfFloat32"
+                   column="LINKEDLIST_OF_FLOAT32">
             </field>
-            <field name="LinkedListOfFloat32" table="LINKEDLIST_OF_FLOAT32">
+            <field name="LinkedListOfFloat31"
+                   table="LINKEDLIST_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfInteger33" table="LINKEDLIST_OF_INTEGER33">
+            <field name="LinkedListOfInteger33"
+                   table="LINKEDLIST_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfInteger34" column="LINKEDLIST_OF_INTEGER34"
-                   >
+            <field name="LinkedListOfInteger35"
+                   column="LINKEDLIST_OF_INTEGER35">
             </field>
-            <field name="LinkedListOfInteger35" table="LINKEDLIST_OF_INTEGER35">
+            <field name="LinkedListOfInteger34"
+                   table="LINKEDLIST_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfLong36" table="LINKEDLIST_OF_LONG36">
+            <field name="LinkedListOfLong36"
+                   table="LINKEDLIST_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfLong37" column="LINKEDLIST_OF_LONG37"
-                   >
+            <field name="LinkedListOfLong38"
+                   column="LINKEDLIST_OF_LONG38">
             </field>
-            <field name="LinkedListOfLong38" table="LINKEDLIST_OF_LONG38">
+            <field name="LinkedListOfLong37"
+                   table="LINKEDLIST_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfShort39" table="LINKEDLIST_OF_SHORT39">
+            <field name="LinkedListOfShort39"
+                   table="LINKEDLIST_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
-            <field name="LinkedListOfShort40" column="LINKEDLIST_OF_SHORT40"
-                   >
+            <field name="LinkedListOfShort41"
+                   column="LINKEDLIST_OF_SHORT41">
             </field>
-            <field name="LinkedListOfShort41" table="LINKEDLIST_OF_SHORT41">
+            <field name="LinkedListOfShort40"
+                   table="LINKEDLIST_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="INDEX"/>
+                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>

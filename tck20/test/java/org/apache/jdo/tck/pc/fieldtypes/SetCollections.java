@@ -63,6 +63,7 @@ public class SetCollections {
   public Set SetOfShort39;
   public Set SetOfShort40;
   public Set SetOfShort41;
+  public Set SetOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public Set SetOfObject0",
@@ -106,7 +107,8 @@ public class SetCollections {
   "embedded-element=false public Set SetOfLong38",
   "public Set SetOfShort39",
   "embedded-element=true public Set SetOfShort40",
-  "embedded-element=false public Set SetOfShort41"
+  "embedded-element=false public Set SetOfShort41",
+  "serialized=true public Set SetOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,6 +202,8 @@ public class SetCollections {
         return SetOfShort40;
       case(41):
         return SetOfShort41;
+      case(42):
+        return SetOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -335,6 +339,9 @@ public class SetCollections {
          break;
       case(41):
         SetOfShort41= value;
+         break;
+      case(42):
+        SetOfSimpleClass42= value;
          break;
       default:
         throw new IndexOutOfBoundsException();

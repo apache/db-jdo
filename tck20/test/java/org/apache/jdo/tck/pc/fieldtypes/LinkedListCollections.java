@@ -63,6 +63,7 @@ public class LinkedListCollections {
   public LinkedList LinkedListOfShort39;
   public LinkedList LinkedListOfShort40;
   public LinkedList LinkedListOfShort41;
+  public LinkedList LinkedListOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public LinkedList LinkedListOfObject0",
@@ -106,7 +107,8 @@ public class LinkedListCollections {
   "embedded-element=false public LinkedList LinkedListOfLong38",
   "public LinkedList LinkedListOfShort39",
   "embedded-element=true public LinkedList LinkedListOfShort40",
-  "embedded-element=false public LinkedList LinkedListOfShort41"
+  "embedded-element=false public LinkedList LinkedListOfShort41",
+  "serialized=true public LinkedList LinkedListOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,6 +202,8 @@ public class LinkedListCollections {
         return LinkedListOfShort40;
       case(41):
         return LinkedListOfShort41;
+      case(42):
+        return LinkedListOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -335,6 +339,9 @@ public class LinkedListCollections {
          break;
       case(41):
         LinkedListOfShort41= value;
+         break;
+      case(42):
+        LinkedListOfSimpleClass42= value;
          break;
       default:
         throw new IndexOutOfBoundsException();

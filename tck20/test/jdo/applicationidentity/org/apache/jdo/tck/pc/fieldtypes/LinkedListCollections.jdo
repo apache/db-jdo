@@ -6,16 +6,16 @@
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.LinkedListCollections$Oid">
 <field name="identifier" primary-key="true"/>
 <field name="LinkedListOfObject0" >
-<collection element-type="java.lang.Object">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="LinkedListOfObject1" >
-<collection element-type="java.lang.Object" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="LinkedListOfObject2" >
-<collection element-type="java.lang.Object" embedded-element="false">
-</collection>
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
 </field>
 <field name="LinkedListOfSimpleClass3" >
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
@@ -26,20 +26,25 @@
 </collection>
 </field>
 <field name="LinkedListOfSimpleClass5" >
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
+</field>
+<field name="LinkedListOfSimpleClass42" serialized="true">
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="LinkedListOfSimpleInterface6" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="LinkedListOfSimpleInterface7" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfSimpleInterface8" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
-</collection>
+<field name="LinkedListOfSimpleInterface8">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
+              serialized-element="true">
+  </collection>
 </field>
 <field name="LinkedListOfString9" >
 <collection element-type="java.lang.String">
@@ -49,7 +54,7 @@
 <collection element-type="java.lang.String" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfString11" >
+<field name="LinkedListOfString11" serialized="true">
 <collection element-type="java.lang.String" embedded-element="false">
 </collection>
 </field>
@@ -61,7 +66,7 @@
 <collection element-type="java.util.Date" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfDate14" >
+<field name="LinkedListOfDate14" serialized="true">
 <collection element-type="java.util.Date" embedded-element="false">
 </collection>
 </field>
@@ -73,7 +78,7 @@
 <collection element-type="java.util.Locale" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfLocale17" >
+<field name="LinkedListOfLocale17" serialized="true">
 <collection element-type="java.util.Locale" embedded-element="false">
 </collection>
 </field>
@@ -85,7 +90,7 @@
 <collection element-type="java.math.BigDecimal" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfBigDecimal20" >
+<field name="LinkedListOfBigDecimal20" serialized="true">
 <collection element-type="java.math.BigDecimal" embedded-element="false">
 </collection>
 </field>
@@ -97,7 +102,7 @@
 <collection element-type="java.math.BigInteger" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfBigInteger23" >
+<field name="LinkedListOfBigInteger23" serialized="true">
 <collection element-type="java.math.BigInteger" embedded-element="false">
 </collection>
 </field>
@@ -109,7 +114,7 @@
 <collection element-type="java.lang.Byte" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfByte26" >
+<field name="LinkedListOfByte26" serialized="true">
 <collection element-type="java.lang.Byte" embedded-element="false">
 </collection>
 </field>
@@ -121,7 +126,7 @@
 <collection element-type="java.lang.Double" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfDouble29" >
+<field name="LinkedListOfDouble29" serialized="true">
 <collection element-type="java.lang.Double" embedded-element="false">
 </collection>
 </field>
@@ -133,7 +138,7 @@
 <collection element-type="java.lang.Float" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfFloat32" >
+<field name="LinkedListOfFloat32" serialized="true">
 <collection element-type="java.lang.Float" embedded-element="false">
 </collection>
 </field>
@@ -145,7 +150,7 @@
 <collection element-type="java.lang.Integer" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfInteger35" >
+<field name="LinkedListOfInteger35" serialized="true">
 <collection element-type="java.lang.Integer" embedded-element="false">
 </collection>
 </field>
@@ -157,7 +162,7 @@
 <collection element-type="java.lang.Long" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfLong38" >
+<field name="LinkedListOfLong38" serialized="true">
 <collection element-type="java.lang.Long" embedded-element="false">
 </collection>
 </field>
@@ -169,7 +174,7 @@
 <collection element-type="java.lang.Short" embedded-element="true">
 </collection>
 </field>
-<field name="LinkedListOfShort41" >
+<field name="LinkedListOfShort41" serialized="true">
 <collection element-type="java.lang.Short" embedded-element="false">
 </collection>
 </field>

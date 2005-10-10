@@ -63,6 +63,7 @@ public class HashSetCollections {
   public HashSet HashSetOfShort39;
   public HashSet HashSetOfShort40;
   public HashSet HashSetOfShort41;
+  public HashSet HashSetOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public HashSet HashSetOfObject0",
@@ -106,7 +107,8 @@ public class HashSetCollections {
   "embedded-element=false public HashSet HashSetOfLong38",
   "public HashSet HashSetOfShort39",
   "embedded-element=true public HashSet HashSetOfShort40",
-  "embedded-element=false public HashSet HashSetOfShort41"
+  "embedded-element=false public HashSet HashSetOfShort41",
+  "serialized=true public HashSet HashSetOfSimpleClass42"
   };
   public int getLength()
   {
@@ -200,6 +202,8 @@ public class HashSetCollections {
         return HashSetOfShort40;
       case(41):
         return HashSetOfShort41;
+      case(42):
+        return HashSetOfSimpleClass42;
       default:
         throw new IndexOutOfBoundsException();
     }
@@ -335,6 +339,9 @@ public class HashSetCollections {
          break;
       case(41):
         HashSetOfShort41= value;
+         break;
+      case(42):
+        HashSetOfSimpleClass42= value;
          break;
       default:
         throw new IndexOutOfBoundsException();
