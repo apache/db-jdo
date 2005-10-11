@@ -27,12 +27,15 @@
 
     <goal name="help">
         <echo>Custom goals for this project are:</echo>
-        <echo>  jdo11.build - builds all JDO1 projects</echo>
-        <echo>  jdo11.clean - cleans all JDO1 projects</echo>
-        <echo>  jdo20.build - builds all JDO2 projects</echo>
-        <echo>  jdo20.clean - cleans all JDO2 projects</echo>
-        <echo>  tck20.build - builds tck20 and dependent JDO2 projects</echo>
-        <echo>  tck20.clean - cleans tck20 and dependent JDO2 projects</echo>
+        <echo>  jdo11.build   - builds all JDO1 projects</echo>
+        <echo>  jdo11.default - calls the default goal for all JDO1 projects</echo>
+        <echo>  jdo11.clean   - cleans all JDO1 projects</echo>
+        <echo>  jdo20.build   - builds all JDO2 projects</echo>
+        <echo>  jdo20.default - calls the default goal for  all JDO2 projects</echo>
+        <echo>  jdo20.clean   - cleans all JDO2 projects</echo>
+        <echo>  tck20.build   - builds tck20 and dependent JDO2 projects</echo>
+        <echo>  tck20.default - calls the default goal for tck20 and dependent JDO2 projects</echo>
+        <echo>  tck20.clean   - cleans tck20 and dependent JDO2 projects</echo>
         <echo>Please check README.txt for more details.</echo>
     </goal>
 
@@ -44,6 +47,13 @@
           description="Builds all JDO1 projects">
         <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
         <j:set var="goal">build</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="jdo11.default" 
+          description="Calls the default goal for all JDO1 projects">
+        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+        <j:set var="goal">default</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
@@ -64,6 +74,13 @@
         <attainGoal name="multiproject:goal"/>
     </goal>
 
+    <goal name="jdo20.default"
+          description="Calls the default goal for all JDO2 projects">
+        <j:set var="maven.multiproject.includes">${jdo20.projects}</j:set>
+        <j:set var="goal">default</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
     <goal name="jdo20.clean"
           description="Cleans all JDO2 projects">
         <j:set var="maven.multiproject.includes">${jdo20.projects}</j:set>
@@ -74,6 +91,13 @@
           description="Builds tck20 and dependent JDO2 projects">
         <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
         <j:set var="goal">build</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="tck20.default"
+          description="Calls the default goal for tck20 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+        <j:set var="goal">default</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
