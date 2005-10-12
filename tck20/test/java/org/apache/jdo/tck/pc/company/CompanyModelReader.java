@@ -248,14 +248,14 @@ public class CompanyModelReader extends XmlBeanFactory {
         return (Project)getBean(name, Project.class);
     }
     
-    public Class[] getAllClasses() {
+    public static Class[] getAllClasses() {
         return allClasses;
     }
     
     /**
      * @return Returns the tearDownClasses.
      */
-    public Class[] getTearDownClasses() {
+    public static Class[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

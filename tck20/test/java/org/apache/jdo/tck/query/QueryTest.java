@@ -19,14 +19,15 @@ package org.apache.jdo.tck.query;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -153,6 +154,21 @@ public abstract class QueryTest extends JDO_Test {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+    
+    /**
+     * Returns an array of company mode instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of company mode instances.
+     * @return the array of company model instances. 
+     */
+    protected Object[] getCompanyModelInstances(String[] beanNames) {
+        CompanyModelReader reader = new CompanyModelReader(COMPANY_TESTDATA);
+        Object[] result = new Object[beanNames.length];
+        for (int i = 0; i < beanNames.length; i++) {
+            result[i] = reader.getBean(beanNames[i]);
+        }
+        return result;
     }
     
     // PrimitiveTypes helper methods (creation and query)
@@ -351,6 +367,20 @@ public abstract class QueryTest extends JDO_Test {
         }
     }
 
+    /** */
+    protected void checkUniqueResult(String assertion, 
+                                     Object result, 
+                                     Object expected) {
+        if ((result != null && expected == null) ||
+            (result == null && expected != null) || 
+            (result != null && expected != null && !result.equals(expected))) {
+            String lf = System.getProperty("line.separator");
+            fail(assertion, "Wrong query result: " + lf +
+                    "query returns: " + result + lf +
+                    "expected result: " + expected);
+        }
+    }
+
     // Debugging helper methods
      
     /** */
@@ -380,5 +410,281 @@ public abstract class QueryTest extends JDO_Test {
             pcp = (PCPoint)iter.next();
             logger.debug("X = " + pcp.getX() + "\tY = " + pcp.getY());
         }
+    }
+    
+    // compile query methods
+
+    /**
+     * Compiles the given query element holder instance as a JDO API query.
+     * Argument <code>positive</code> determines if the compilation is supposed
+     * to succeed or to fail. If <code>true</code> and the compilation fails,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * If <code>false</code> and the compilation succeeds,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Otherwise the test case succeeds. 
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param positive determines if the compilation is supposed
+     * to succeed or to fail.
+     */
+    protected void compileAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, boolean positive) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Compiling API query: " + queryElementHolder);
+        }
+        compile(assertion, queryElementHolder, false, null, positive);
+    }
+
+    /**
+     * Compiles the given query element holder instance 
+     * as a JDO single string query.
+     * Argument <code>positive</code> determines if the compilation is supposed
+     * to succeed or to fail. If <code>true</code> and the compilation fails,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * If <code>false</code> and the compilation succeeds,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Otherwise the test case succeeds. 
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param positive determines if the compilation is supposed
+     * to succeed or to fail.
+     */
+    protected void compileSingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, boolean positive) {
+        if (logger.isDebugEnabled())
+            logger.debug("Compiling single string query: " + 
+                    queryElementHolder);
+        compile(assertion, queryElementHolder, true, null, positive);
+    }
+    
+    /**
+     * Compiles the given single string query.
+     * Argument <code>positive</code> determines if the compilation is supposed
+     * to succeed or to fail. If <code>true</code> and the compilation fails,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * If <code>false</code> and the compilation succeeds,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Otherwise the test case succeeds. 
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param singleStringQuery the single string query
+     * @param positive determines if the compilation is supposed
+     * to succeed or to fail.
+     */
+    protected void compileSingleStringQuery(String assertion, 
+            String singleStringQuery, boolean positive) {
+        if (logger.isDebugEnabled())
+            logger.debug("Compiling single string query: " + 
+                    singleStringQuery);
+        compile(assertion, null, true, singleStringQuery, positive);
+    }
+
+    /**
+     * Compiles the given query element holder instance 
+     * as a JDO API query or single string query, 
+     * depending on argument <code>asSingleString</code>.
+     * Argument <code>singleStringQuery</code> exists to support queries
+     * which cannot be expressed as query element holder instances.
+     * That argument is ignored if argument <code>queryElementHolder</code> 
+     * is set.
+     * Argument <code>positive</code> determines if the compilation is supposed
+     * to succeed or to fail. If <code>true</code> and the compilation fails,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * If <code>false</code> and the compilation succeeds,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Otherwise the test case succeeds. 
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to compile.
+     * @param asSingleString determines if the query specified by 
+     * <code>queryElementHolder</code> is compiled as single string query 
+     * or as API query. 
+     * @param singleStringQuery the query to compile 
+     * as a JDO single string query if there is no query element holder.
+     * @param positive determines if the compilation is supposed
+     * to succeed or to fail.
+     */
+    private void compile(String assertion, 
+            QueryElementHolder queryElementHolder, boolean asSingleString,  
+            String singleStringQuery, boolean positive) {
+        PersistenceManager pm = getPM();
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+            Query query;
+            if (queryElementHolder != null) {
+                if (asSingleString) {
+                    query = queryElementHolder.getSingleStringQuery(pm);
+                } else {
+                    query = queryElementHolder.getAPIQuery(pm);
+                }
+            } else {
+                query = getPM().newQuery(singleStringQuery);
+            }
+            query.compile();
+            if (!positive) {
+                String queryText = queryElementHolder != null ? 
+                        queryElementHolder.toString() :
+                        singleStringQuery;
+                fail(assertion + 
+                        "Query compilation must throw JDOUserException: " + 
+                        queryText);
+            }
+        } catch (JDOUserException e) {
+            if (positive) {
+                String queryText = queryElementHolder != null ? 
+                        queryElementHolder.toString() :
+                        singleStringQuery;
+                fail(assertion + "Query '" + queryText +
+                        "' must be compilable. The exception message is: " + 
+                        e.getMessage());
+            }
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+    
+    // execute query methods
+    
+    /**
+     * Executes the given query element holder instance as a JDO API query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the result collection 
+     * returned by {@link Query#execute()}.
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, Object[] expectedResult) {
+        executeAPIQuery(assertion, queryElementHolder, null, expectedResult);
+    }
+
+    /**
+     * Executes the given query element holder instance as a JDO API query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the result collection 
+     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
+     * Argument <code>parameters</code> is passed as the parameter 
+     * to that method.
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object[] parameters, Object[] expectedResult) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Executing API query: " + queryElementHolder);
+        }
+        execute(assertion, queryElementHolder, false, 
+                parameters, expectedResult);
+    }
+    
+    /**
+     * Executes the given query element holder instance 
+     * as a JDO single string query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the result collection 
+     * returned by {@link Query#execute()}.
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeSingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, Object[] expectedResult) {
+        executeSingleStringQuery(assertion, queryElementHolder, 
+                null, expectedResult);
+    }
+    
+    /**
+     * Executes the given query element holder instance 
+     * as a JDO single string query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the result collection 
+     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
+     * Argument <code>parameters</code> is passed as the parameter 
+     * to that method.
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeSingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object[] parameters, Object[] expectedResult) {
+        if (logger.isDebugEnabled())
+            logger.debug("Executing single string query: " + 
+                    queryElementHolder);
+        execute(assertion, queryElementHolder, true, 
+                parameters, expectedResult);
+    }
+    
+    /**
+     * Executes the given query element holder instance 
+     * as a JDO API query of a single string query,
+     * depending on argument <code>asSingleString</code>.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the result collection 
+     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
+     * Argument <code>parameters</code> is passed as the parameter 
+     * to that method.
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param asSingleString determines if the query is executed as
+     * single string query or as API query.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     * @return
+     */
+    private Object execute(String assertion, 
+            QueryElementHolder queryElementHolder, boolean asSingleString,
+            Object[] parameters, Object[] expectedResult) {
+        Object result;
+        PersistenceManager pm = getPM();
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+            Query query = asSingleString ?
+                    queryElementHolder.getSingleStringQuery(pm) :
+                        queryElementHolder.getAPIQuery(pm);
+            result = parameters != null ? 
+                    query.executeWithArray(parameters) : query.execute();
+
+            if (queryElementHolder.isUnique()) {
+                checkUniqueResult(assertion, result, expectedResult[0]);
+            } else if (queryElementHolder.hasOrdering()) {
+                List expectedResultList = 
+                    Arrays.asList(expectedResult);
+                checkQueryResultWithOrder(assertion, result, 
+                        expectedResultList);
+            } else {
+                Collection expectedResultCollection = 
+                    Arrays.asList(expectedResult);
+                checkQueryResultWithoutOrder(assertion, result, 
+                        expectedResultCollection);
+            }
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+        return result;
     }
 }
