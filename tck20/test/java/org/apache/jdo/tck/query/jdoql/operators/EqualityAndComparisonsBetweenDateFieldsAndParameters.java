@@ -113,6 +113,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         expected.add(reader.getFullTimeEmployee("emp1"));
         expected.add(reader.getFullTimeEmployee("emp2"));
         expected.add(reader.getPartTimeEmployee("emp3"));
+        expected.add(reader.getPartTimeEmployee("emp4"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
             
         // date parameter < date field

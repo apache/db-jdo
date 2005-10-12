@@ -113,6 +113,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         q.declareVariables("Employee e1; Employee e2");
         result = q.execute();
         expected = new HashSet();
+        expected.add(reader.getDepartment("dept1"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         // Changed second contains to look for null medicalInsurance => 
@@ -125,7 +126,6 @@ public class DenoteUniquenessInFilter extends QueryTest {
         q.declareVariables("Employee e1; Employee e2");
         result = q.execute();
         expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         tx.commit();

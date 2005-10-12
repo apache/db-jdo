@@ -95,6 +95,8 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         result = q.execute();
         expected = new HashSet();
         expected.add(reader.getMedicalInsurance("medicalIns1"));
+        expected.add(reader.getMedicalInsurance("medicalIns2"));
+        expected.add(reader.getMedicalInsurance("medicalIns3"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         tx.commit();

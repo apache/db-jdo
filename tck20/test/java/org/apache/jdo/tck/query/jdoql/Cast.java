@@ -87,6 +87,7 @@ public class Cast extends QueryTest {
         result = q.execute();
         expected = new HashSet();
         expected.add(reader.getFullTimeEmployee("emp1"));
+        expected.add(reader.getFullTimeEmployee("emp5"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         q = pm.newQuery(Department.class);
@@ -96,6 +97,7 @@ public class Cast extends QueryTest {
         result = q.execute();
         expected = new HashSet();
         expected.add(reader.getDepartment("dept1"));
+        expected.add(reader.getDepartment("dept2"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         tx.commit();

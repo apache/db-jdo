@@ -89,14 +89,16 @@ public class SupportedCollectionMethods extends QueryTest {
         result = q.execute();
         expected = new HashSet();
         expected.add(reader.getDepartment("dept1"));
+        expected.add(reader.getDepartment("dept2"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
 
         q = pm.newQuery(Employee.class, "team.isEmpty()");
         result = q.execute();
         expected = new HashSet();
         expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getFullTimeEmployee("emp2"));
         expected.add(reader.getPartTimeEmployee("emp3"));
+        expected.add(reader.getPartTimeEmployee("emp4"));
+        expected.add(reader.getFullTimeEmployee("emp5"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
         
         tx.commit();

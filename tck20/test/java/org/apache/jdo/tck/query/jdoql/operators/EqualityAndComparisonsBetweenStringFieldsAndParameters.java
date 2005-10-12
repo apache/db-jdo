@@ -98,6 +98,8 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         expected.add(reader.getFullTimeEmployee("emp1"));
         expected.add(reader.getFullTimeEmployee("emp2"));
         expected.add(reader.getPartTimeEmployee("emp3"));
+        expected.add(reader.getPartTimeEmployee("emp4"));
+        expected.add(reader.getFullTimeEmployee("emp5"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
             
         // string parameter < stringe field
@@ -106,6 +108,8 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         result = q.execute("emp2First");
         expected = new HashSet();
         expected.add(reader.getPartTimeEmployee("emp3"));
+        expected.add(reader.getPartTimeEmployee("emp4"));
+        expected.add(reader.getFullTimeEmployee("emp5"));
         checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
 
         tx.commit();
