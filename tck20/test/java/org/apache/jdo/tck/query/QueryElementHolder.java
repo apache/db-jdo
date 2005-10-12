@@ -83,7 +83,7 @@ public class QueryElementHolder {
             Boolean excludeSubClasses, String filter,
             String variables, String parameters, String imports, 
             String grouping, String ordering, String from, String to) {
-        if (from != null ^ to == null) {
+        if (from == null ^ to == null) {
             throw new IllegalArgumentException(
                     "Arguments from and to must both be null, " +
                     "or must not be null both.");
