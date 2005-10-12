@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm>
+  <package name="org.apache.jdo.tck.pc.query">
+
+    <class name="JDOQLKeywordsAsFieldNames" table="JDOQLKeywordsAsFieldNames">
+      <field name="select" column="ID" primary-key="true"/>
+    </class>
+
+  </package>
+</orm>
+

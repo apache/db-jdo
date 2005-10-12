@@ -66,6 +66,18 @@ CREATE TABLE PrimitiveTypes (
 );
 
 -------------------------
+-- query
+-------------------------
+
+DROP TABLE JDOQLKeywordsAsFieldNames;
+
+CREATE TABLE JDOQLKeywordsAsFieldNames (
+    DATASTORE_IDENTITY INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    ID VARCHAR(64) NOT NULL,
+    CONSTRAINT KEYWORDS_PK PRIMARY KEY (DATASTORE_IDENTITY)
+);
+
+-------------------------
 -- company
 -------------------------
 

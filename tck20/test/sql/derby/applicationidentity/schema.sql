@@ -62,6 +62,17 @@ CREATE TABLE PrimitiveTypes (
 );
 
 -------------------------
+-- query
+-------------------------
+
+DROP TABLE JDOQLKeywordsAsFieldNames;
+
+CREATE TABLE JDOQLKeywordsAsFieldNames (
+    ID VARCHAR(64) NOT NULL,
+    CONSTRAINT KEYWORDS_PK PRIMARY KEY (ID)
+);
+
+-------------------------
 -- singlefieldidentity
 -------------------------
 
