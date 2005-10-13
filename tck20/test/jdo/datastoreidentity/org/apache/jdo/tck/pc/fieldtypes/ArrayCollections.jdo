@@ -4,7 +4,7 @@
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="ArrayCollections" identity-type="datastore">
 <field name="ArrayOfObject0" persistence-modifier="persistent">
-<array embedded-element="true">
+<array serialized-element="true">
 </array>
 </field>
 <field name="ArrayOfObject1" persistence-modifier="persistent">
@@ -12,7 +12,7 @@
 </array>
 </field>
 <field name="ArrayOfSimpleClass2" >
-<array embedded-element="true">
+<array serialized-element="true">
 </array>
 </field>
 <field name="ArrayOfSimpleClass3" >
@@ -20,99 +20,99 @@
 </array>
 </field>
 <field name="ArrayOfSimpleInterface4" persistence-modifier="persistent">
-<array embedded-element="true">
+<array serialized-element="true">
 </array>
 </field>
 <field name="ArrayOfSimpleInterface5" persistence-modifier="persistent">
 <array embedded-element="false">
 </array>
 </field>
-<field name="ArrayOfString6" >
-<array embedded-element="true">
+<field name="ArrayOfString6" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfString7" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfDate8" >
-<array embedded-element="true">
+<field name="ArrayOfDate8" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfDate9" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfLocale10" >
-<array embedded-element="true">
+<field name="ArrayOfLocale10" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfLocale11" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfBigDecimal12" >
-<array embedded-element="true">
+<field name="ArrayOfBigDecimal12" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfBigDecimal13" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfBigInteger14" >
-<array embedded-element="true">
+<field name="ArrayOfBigInteger14" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfBigInteger15" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfByte16" >
-<array embedded-element="true">
+<field name="ArrayOfByte16" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfByte17" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfDouble18" >
-<array embedded-element="true">
+<field name="ArrayOfDouble18" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfDouble19" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfFloat20" >
-<array embedded-element="true">
+<field name="ArrayOfFloat20" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfFloat21" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfInteger22" >
-<array embedded-element="true">
+<field name="ArrayOfInteger22" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfInteger23" >
-<array embedded-element="false">
+<array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfLong24" >
-<array embedded-element="true">
+<field name="ArrayOfLong24" serialized="true">
+<array embedded-element="false">
 </array>
 </field>
 <field name="ArrayOfLong25" >
-<array embedded-element="false">
-</array>
-</field>
-<field name="ArrayOfShort26" >
 <array embedded-element="true">
 </array>
 </field>
-<field name="ArrayOfShort27" >
+<field name="ArrayOfShort26" serialized="true">
 <array embedded-element="false">
+</array>
+</field>
+<field name="ArrayOfShort27" >
+<array embedded-element="true">
 </array>
 </field>
 </class>
