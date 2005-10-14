@@ -28,6 +28,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.HashSetCollections;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -64,6 +65,7 @@ public class TestHashSetCollections extends JDO_Test {
      */
     protected void localSetUp() {
         addTearDownClass(HashSetCollections.class);
+        addTearDownClass(SimpleClass.class);
     }
     
     /** */

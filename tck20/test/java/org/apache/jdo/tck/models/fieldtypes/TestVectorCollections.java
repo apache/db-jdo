@@ -26,6 +26,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.VectorCollections;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -62,6 +63,7 @@ public class TestVectorCollections extends JDO_Test {
      */
     protected void localSetUp() {
         addTearDownClass(VectorCollections.class);
+        addTearDownClass(SimpleClass.class);
     }
     
     /** */

@@ -25,6 +25,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.MapStringKeyCollections;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -60,6 +61,7 @@ public class TestMapStringKeyCollections extends JDO_Test {
      */
     protected void localSetUp() {
         addTearDownClass(MapStringKeyCollections.class);
+        addTearDownClass(SimpleClass.class);
     }
     
     /** */

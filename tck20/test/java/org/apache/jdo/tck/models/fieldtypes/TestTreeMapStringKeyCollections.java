@@ -24,6 +24,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.TreeMapStringKeyCollections;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -60,6 +61,7 @@ public class TestTreeMapStringKeyCollections extends JDO_Test {
      */
     protected void localSetUp() {
         addTearDownClass(TreeMapStringKeyCollections.class);
+        addTearDownClass(SimpleClass.class);
     }
     
     /** */

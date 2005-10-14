@@ -29,6 +29,7 @@ import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.SetCollections;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -64,6 +65,7 @@ public class TestSetCollections extends JDO_Test {
      */
     protected void localSetUp() {
         addTearDownClass(SetCollections.class);
+        addTearDownClass(SimpleClass.class);
     }
     
     /** */
