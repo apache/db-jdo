@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<!--
+This file contains the schema information when an implementation
+has application identity.
+-->
+<orm>
+    <package name="org.apache.jdo.tck.api.instancecallbacks">
+
+        <class name="InstanceLifecycleListenerAttach$PC" 
+                table="LIFECYCLELISTENERATTACH">
+            <field name="id" column="ID" primary-key="true"/>
+        </class>
+        <class name="InstanceLifecycleListenerClear$PC" 
+                table="LIFECYCLELISTENERCLEAR">
+            <field name="id" column="ID" primary-key="true"/>
+        </class>
+        <class name="InstanceLifecycleListenerDelete$PC" 
+                table="LIFECYCLELISTENERDELETE">
+            <field name="id" column="ID" primary-key="true"/>
+        </class>
+        <class name="InstanceLifecycleListenerDetach$PC" 
+                table="LIFECYCLELISTENERDETACH">
+            <field name="id" column="ID" primary-key="true"/>
+        </class>
+        <class name="InstanceLifecycleListenerLoad$PC" 
+                table="LIFECYCLELISTENERLOAD">
+            <field name="id" column="ID" primary-key="true"/>
+            <field name="value" column="VALUE"/>
+        </class>
+        <class name="InstanceLifecycleListenerStore$PC" 
+                table="LIFECYCLELISTENERSTORE">
+            <field name="id" column="ID" primary-key="true"/>
+        </class>
+    </package>
+</orm>

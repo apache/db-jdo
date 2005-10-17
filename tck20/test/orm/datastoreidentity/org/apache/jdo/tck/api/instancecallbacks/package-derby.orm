@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<!--
+This file contains the schema information when an implementation
+has datastore identity.
+-->
+<orm>
+    <package name="org.apache.jdo.tck.api.instancecallbacks">
+
+        <class name="InstanceLifecycleListenerAttach$PC" 
+                table="LIFECYCLELISTENERATTACH">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+        <class name="InstanceLifecycleListenerClear$PC" 
+                table="LIFECYCLELISTENERCLEAR">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+        <class name="InstanceLifecycleListenerDelete$PC" 
+                table="LIFECYCLELISTENERDELETE">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+        <class name="InstanceLifecycleListenerDetach$PC" 
+                table="LIFECYCLELISTENERDETACH">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+        <class name="InstanceLifecycleListenerLoad$PC" 
+                table="LIFECYCLELISTENERLOAD">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+            <field name="value" column="VALUE"/>
+        </class>
+        <class name="InstanceLifecycleListenerStore$PC" 
+                table="LIFECYCLELISTENERSTORE">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+    </package>
+</orm>
