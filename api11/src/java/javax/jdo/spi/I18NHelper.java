@@ -236,7 +236,13 @@ public class I18NHelper {
 
         if (messages == null) //not found as loaded - add
         {
-            messages = ResourceBundle.getBundle(bundleName, locale, loader);
+            if (loader != null) {
+                messages = ResourceBundle.getBundle(bundleName, locale, loader);
+            } else {
+                // the JDO library is loaded by the boostrap class loader
+                messages = ResourceBundle.getBundle(bundleName, locale,
+                        getSystemClassLoaderPrivileged());
+            }
             bundles.put(bundleName, messages);
         }
         return messages;
@@ -374,5 +380,19 @@ public class I18NHelper {
     { 
         final int index = className.lastIndexOf('.');
         return ((index != -1) ? className.substring(0, index) : ""); // NOI18N
+    }
+
+    /**
+     * Get the system class loader. This must be done in a doPrivileged 
+     * block because of security.
+     */
+    private static ClassLoader getSystemClassLoaderPrivileged() {
+        return (ClassLoader) AccessController.doPrivileged (
+            new PrivilegedAction () {
+                public Object run () {
+                    return ClassLoader.getSystemClassLoader();
+                }
+            }
+        );
     }
 }
