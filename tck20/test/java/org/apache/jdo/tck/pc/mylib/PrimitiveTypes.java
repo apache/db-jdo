@@ -61,6 +61,74 @@ public class PrimitiveTypes implements Serializable {
     public String toString() { 
         return "PrimitiveTypes(" + id + ")";
     }
+    
+    public int hashCode() {
+        int hashCode = 0;
+        hashCode += id;
+        hashCode += booleanNotNull ? 
+                Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
+        hashCode += booleanNull != null ? booleanNull.hashCode() : 0;
+        hashCode += byteNotNull;
+        hashCode += byteNull != null ? byteNull.hashCode() : 0;
+        hashCode += shortNotNull;
+        hashCode += shortNull != null ? shortNull.hashCode() : 0;
+        hashCode += intNotNull;
+        hashCode += intNull != null ? intNull.hashCode() : 0;
+        hashCode += longNotNull;
+        hashCode += longNull != null ? longNull.hashCode() : 0;
+        hashCode += floatNotNull;
+        hashCode += floatNull != null ? floatNull.hashCode() : 0;
+        hashCode += doubleNotNull;
+        hashCode += doubleNull != null ? doubleNull.hashCode() : 0;
+        hashCode += charNotNull;
+        hashCode += charNull != null ? charNull.hashCode() : 0;
+        hashCode += dateNull != null ? dateNull.hashCode() : 0;
+        hashCode += stringNull != null ? stringNull.hashCode() : 0;
+        hashCode += bigDecimal != null ? bigDecimal.hashCode() : 0;
+        hashCode += bigInteger != null ? bigDecimal.hashCode() : 0;
+        hashCode += PrimitiveTypes != null ? PrimitiveTypes.hashCode() : 0;
+        return hashCode;
+    }
+
+    public boolean equals(Object o) {
+        PrimitiveTypes p = (PrimitiveTypes) o;
+        if (id != p.id) return false;
+        if (booleanNotNull != p.booleanNotNull) return false;
+        if (booleanNull != null) return booleanNull.equals(p.booleanNull);
+        else if (p.booleanNull != null) return false;
+        if (byteNotNull != p.byteNotNull) return false;
+        if (byteNull != null) return byteNull.equals(p.byteNull);
+        else if (p.byteNull != null) return false;
+        if (shortNotNull != p.shortNotNull) return false;
+        if (shortNull != null) return shortNull.equals(p.shortNull);
+        else if (p.shortNull != null) return false;
+        if (intNotNull != p.intNotNull) return false;
+        if (intNull != null) return intNull.equals(p.intNull);
+        else if (p.intNull != null) return false;
+        if (longNotNull != p.longNotNull) return false;
+        if (longNull != null) return longNull.equals(p.longNull);
+        else if (p.longNull != null) return false;
+        if (floatNotNull != p.floatNotNull) return false;
+        if (floatNull != null) return floatNull.equals(p.floatNull);
+        else if (p.floatNull != null) return false;
+        if (doubleNotNull != p.doubleNotNull) return false;
+        if (doubleNull != null) return doubleNull.equals(p.doubleNull);
+        else if (p.doubleNull != null) return false;
+        if (charNotNull != p.charNotNull) return false;
+        if (charNull != null) return charNull.equals(p.charNull);
+        else if (p.charNull != null) return false;
+        if (dateNull != null) return dateNull.equals(p.dateNull);
+        else if (p.dateNull != null) return false;
+        if (stringNull != null) return stringNull.equals(p.stringNull);
+        else if (p.stringNull != null) return false;
+        if (bigDecimal != null) return bigDecimal.equals(p.bigDecimal);
+        else if (p.bigDecimal != null) return false;
+        if (bigInteger != null) return bigInteger.equals(p.bigInteger);
+        else if (p.bigInteger != null) return false;
+        if (PrimitiveTypes != null) return PrimitiveTypes.equals(p.PrimitiveTypes);
+        else if (p.PrimitiveTypes != null) return false;
+        return true;
+    }
 
     public PrimitiveTypes() {
     }

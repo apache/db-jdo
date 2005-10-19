@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <description>Mylib instances for query testing</description>
+
+    <bean id="root" class="java.util.ArrayList">
+        <constructor-arg index="0">
+            <list>
+                <ref local="primitiveTypesPositive"/>
+                <ref local="primitiveTypesNegative"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="primitiveTypesPositive" class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
+        <property name="id"><value>1</value></property>
+        <property name="intNotNull"><value>4</value></property>
+        <property name="intNull"><value>4</value></property>
+        <property name="longNotNull"><value>4</value></property>
+        <property name="longNull"><value>4</value></property>
+        <property name="floatNotNull"><value>4.0</value></property>
+        <property name="floatNull"><value>4.0</value></property>
+        <property name="doubleNotNull"><value>4.0</value></property>
+        <property name="doubleNull"><value>4.0</value></property>
+    </bean>
+
+    <bean id="primitiveTypesNegative" class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
+        <property name="id"><value>2</value></property>
+        <property name="intNotNull"><value>-4</value></property>
+        <property name="intNull"><value>-4</value></property>
+        <property name="longNotNull"><value>-4</value></property>
+        <property name="longNull"><value>-4</value></property>
+        <property name="floatNotNull"><value>-4.0</value></property>
+        <property name="floatNull"><value>-4.0</value></property>
+        <property name="doubleNotNull"><value>-4.0</value></property>
+        <property name="doubleNull"><value>-4.0</value></property>
+    </bean>
+
+</beans>
+

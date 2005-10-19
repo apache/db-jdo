@@ -39,6 +39,7 @@ import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Project;
+import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 
@@ -50,6 +51,10 @@ public abstract class QueryTest extends JDO_Test {
     /** */
     public static final String COMPANY_TESTDATA = 
         "org/apache/jdo/tck/pc/company/companyForQueryTests.xml";
+
+    /** */
+    public static final String MYLIB_TESTDATA = 
+        "org/apache/jdo/tck/pc/mylib/mylibForQueryTests.xml";
 
     /** 
      * List of inserted instances (see methods insertPCPoints and
@@ -136,6 +141,24 @@ public abstract class QueryTest extends JDO_Test {
         return reader;
     }
     
+    /** 
+     * Reads a graph of company model objects from the specified xml file. This 
+     * methods explictly calls makePersistent for all named instances using the
+     * specified PersistenceManager. The method returns the CompanyModelReader 
+     * instance allowing to access a compay model instance by name.
+     */
+    public MylibReader loadMylib(PersistenceManager pm, String filename) {
+        MylibReader reader = new MylibReader(filename);
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        List rootList = (List)reader.getRootList();
+        pm.makePersistentAll(rootList);
+        if (debug) logger.debug("inserted " + rootList);
+        tx.commit();
+        tx = null;
+        return reader;
+    }
+    
     /** */
     public void cleanupCompanyModel(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
@@ -157,13 +180,28 @@ public abstract class QueryTest extends JDO_Test {
     }
     
     /**
-     * Returns an array of company mode instances for beans names 
+     * Returns an array of company model instances for beans names 
      * in the given argument.
      * @param beanNames the bean names of company mode instances.
      * @return the array of company model instances. 
      */
     protected Object[] getCompanyModelInstances(String[] beanNames) {
         CompanyModelReader reader = new CompanyModelReader(COMPANY_TESTDATA);
+        Object[] result = new Object[beanNames.length];
+        for (int i = 0; i < beanNames.length; i++) {
+            result[i] = reader.getBean(beanNames[i]);
+        }
+        return result;
+    }
+    
+    /**
+     * Returns an array of mylib instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of mylib instances.
+     * @return the array of mylib instances. 
+     */
+    protected Object[] getMylibInstances(String[] beanNames) {
+        MylibReader reader = new MylibReader(MYLIB_TESTDATA);
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
             result[i] = reader.getBean(beanNames[i]);
@@ -664,21 +702,25 @@ public abstract class QueryTest extends JDO_Test {
             Query query = asSingleString ?
                     queryElementHolder.getSingleStringQuery(pm) :
                         queryElementHolder.getAPIQuery(pm);
-            result = parameters != null ? 
-                    query.executeWithArray(parameters) : query.execute();
-
-            if (queryElementHolder.isUnique()) {
-                checkUniqueResult(assertion, result, expectedResult[0]);
-            } else if (queryElementHolder.hasOrdering()) {
-                List expectedResultList = 
-                    Arrays.asList(expectedResult);
-                checkQueryResultWithOrder(assertion, result, 
-                        expectedResultList);
-            } else {
-                Collection expectedResultCollection = 
-                    Arrays.asList(expectedResult);
-                checkQueryResultWithoutOrder(assertion, result, 
-                        expectedResultCollection);
+            try {
+                result = parameters != null ? 
+                        query.executeWithArray(parameters) : query.execute();
+    
+                if (queryElementHolder.isUnique()) {
+                    checkUniqueResult(assertion, result, expectedResult[0]);
+                } else if (queryElementHolder.hasOrdering()) {
+                    List expectedResultList = 
+                        Arrays.asList(expectedResult);
+                    checkQueryResultWithOrder(assertion, result, 
+                            expectedResultList);
+                } else {
+                    Collection expectedResultCollection = 
+                        Arrays.asList(expectedResult);
+                    checkQueryResultWithoutOrder(assertion, result, 
+                            expectedResultCollection);
+                }
+            } finally {
+                query.closeAll();
             }
         } finally {
             if (tx.isActive()) {
