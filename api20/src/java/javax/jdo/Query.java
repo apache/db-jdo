@@ -457,6 +457,27 @@ public interface Query extends Serializable {
     void setRange (long fromIncl, long toExcl);
 
     /**
+     * Set the range of results to return. The parameter is a String
+     * containing a comma-separated fromIncl and toExcl. The fromIncl and
+     * toExcl can be either String representations of long values, or can
+     * be parameters identified with a leading ":". For example, 
+     * <code>setRange("50, 70");</code> or 
+     * <code>setRange(":from, :to");</code> or 
+     * <code>setRange("50, :to");</code>.
+     * The execution of the query is
+     * modified to return only a subset of results. If the filter would
+     * normally return 100 instances, and fromIncl is set to 50, and
+     * toExcl is set to 70, then the first 50 results that would have 
+     * been returned are skipped, the next 20 results are returned and the
+     * remaining 30 results are ignored. An implementation should execute
+     * the query such that the range algorithm is done at the data store.
+     * @param fromInclToExcl comma-separated fromIncl and toExcl values
+     * @see #setRange(long, long)
+     * @since 2.0
+     */
+    void setRange (String fromInclToExcl);
+
+    /**
      * Add a vendor-specific extension to this query. The key and value
      * are not standard.
      * An implementation must ignore keys that are not recognized.
