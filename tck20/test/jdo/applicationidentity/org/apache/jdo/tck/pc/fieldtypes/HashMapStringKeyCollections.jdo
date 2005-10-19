@@ -358,80 +358,80 @@
 <map key-type="String" value-type="java.util.Date">
 </map>
 </field>
-<field name="HashMapOfString_Date98" >
-<map key-type="String" value-type="java.util.Date" serialized="true">
+<field name="HashMapOfString_Date98" serialized="true">
+<map key-type="String" value-type="java.util.Date">
 </map>
 </field>
 <field name="HashMapOfString_Locale99" >
 <map key-type="String" value-type="java.util.Locale">
 </map>
 </field>
-<field name="HashMapOfString_Locale101" >
-<map key-type="String" value-type="java.util.Locale" serialized="true">
+<field name="HashMapOfString_Locale101" serialized="true">
+<map key-type="String" value-type="java.util.Locale" >
 </map>
 </field>
 <field name="HashMapOfString_BigDecimal102" >
 <map key-type="String" value-type="java.math.BigDecimal">
 </map>
 </field>
-<field name="HashMapOfString_BigDecimal104" >
-<map key-type="String" value-type="java.math.BigDecimal" serialized="true">
+<field name="HashMapOfString_BigDecimal104" serialized="true">
+<map key-type="String" value-type="java.math.BigDecimal" >
 </map>
 </field>
 <field name="HashMapOfString_BigInteger105" >
 <map key-type="String" value-type="java.math.BigInteger">
 </map>
 </field>
-<field name="HashMapOfString_BigInteger107" >
-<map key-type="String" value-type="java.math.BigInteger" serialized="true">
+<field name="HashMapOfString_BigInteger107" serialized="true">
+<map key-type="String" value-type="java.math.BigInteger" >
 </map>
 </field>
 <field name="HashMapOfString_Byte108" >
 <map key-type="String" value-type="Byte">
 </map>
 </field>
-<field name="HashMapOfString_Byte110" >
-<map key-type="String" value-type="Byte" serialized="true">
+<field name="HashMapOfString_Byte110" serialized="true">
+<map key-type="String" value-type="Byte" >
 </map>
 </field>
 <field name="HashMapOfString_Double111" >
 <map key-type="String" value-type="Double">
 </map>
 </field>
-<field name="HashMapOfString_Double113" >
-<map key-type="String" value-type="Double" serialized="true">
+<field name="HashMapOfString_Double113" serialized="true">
+<map key-type="String" value-type="Double" >
 </map>
 </field>
 <field name="HashMapOfString_Float114" >
 <map key-type="String" value-type="Float">
 </map>
 </field>
-<field name="HashMapOfString_Float116" >
-<map key-type="String" value-type="Float" serialized="true">
+<field name="HashMapOfString_Float116" serialized="true">
+<map key-type="String" value-type="Float" >
 </map>
 </field>
 <field name="HashMapOfString_Integer117" >
 <map key-type="String" value-type="Integer">
 </map>
 </field>
-<field name="HashMapOfString_Integer119" >
-<map key-type="String" value-type="Integer" serialized="true">
+<field name="HashMapOfString_Integer119" serialized="true">
+<map key-type="String" value-type="Integer" >
 </map>
 </field>
 <field name="HashMapOfString_Long120" >
 <map key-type="String" value-type="Long">
 </map>
 </field>
-<field name="HashMapOfString_Long122" >
-<map key-type="String" value-type="Long" serialized="true">
+<field name="HashMapOfString_Long122" serialized="true">
+<map key-type="String" value-type="Long" >
 </map>
 </field>
 <field name="HashMapOfString_Short123" >
 <map key-type="String" value-type="Short">
 </map>
 </field>
-<field name="HashMapOfString_Short125" >
-<map key-type="String" value-type="Short" serialized="true">
+<field name="HashMapOfString_Short125" serialized="true">
+<map key-type="String" value-type="Short" >
 </map>
 </field>
 </class>
