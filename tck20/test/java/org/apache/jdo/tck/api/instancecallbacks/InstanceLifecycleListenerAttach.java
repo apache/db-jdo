@@ -94,12 +94,13 @@ public class InstanceLifecycleListenerAttach
     public void testAttach() {
 
         // set up the persistent instance
-        PC pc = new PC(listener);
+        PC pc = new PC();
 
         getPM();
         pm.currentTransaction().begin();
         pm.makePersistent(pc);
         PC detached = (PC)pm.detachCopy(pc);
+        detached.listener = listener;
         pm.currentTransaction().commit();
         pm.currentTransaction().begin();
         listener.setExpectedSource(detached);
