@@ -277,8 +277,10 @@ public interface PersistenceManager {
      * <P>If the validate flag is <code>false</code>, and the instance does not exist in
      * the data store, then this method might not fail. It is an
      * implementation choice whether to fail immediately with a
-     * <code>JDODataStoreException</code>. But a subsequent access of the fields of the
-     * instance will throw a <code>JDODataStoreException</code> if the instance does not
+     * <code>JDOObjectNotFoundException</code>. But a subsequent access
+     * of the fields of the
+     * instance will throw a <code>JDOObjectNotFoundException</code>
+     * if the instance does not
      * exist at that time. Further, if a relationship is established to this
      * instance, then the transaction in which the association was made will
      * fail.
@@ -289,7 +291,8 @@ public interface PersistenceManager {
      * <P>If there is an instance already in the cache with the same JDO
      * identity as the <code>oid</code> parameter, but the instance is not transactional,
      * then it must be verified in the data store. If the instance does not
-     * exist in the datastore, then a <code>JDODataStoreException</code> is thrown.
+     * exist in the datastore, then a <code>JDOObjectNotFoundException</code>
+     * is thrown.
      * <P>If there is not an instance already in the cache with the same JDO
      * identity as the <code>oid</code> parameter, then this method creates an instance
      * with the specified JDO identity, verifies that it exists in the data
