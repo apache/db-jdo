@@ -33,6 +33,9 @@ grant codeBase "file:${jdocore}" {
 	// Allow jdori classes to get metadata for persistence-capable classes.
 	permission javax.jdo.spi.JDOPermission "getMetadata";
 
+	// Allow jdo model classes to get a class loader
+	permission java.lang.RuntimePermission "getClassLoader";
+
 	// Allow jdori classes to access declared members of a class 
 	// (e.g. a query accessing transient instances or non-managed fields).
 	// The query component needs access to persistent fields.

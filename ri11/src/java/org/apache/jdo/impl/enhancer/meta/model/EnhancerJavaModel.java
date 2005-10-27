@@ -43,7 +43,7 @@ public class EnhancerJavaModel
     public EnhancerJavaModel(ClassLoader classLoader,
                              ResourceLocator locator)
     {
-        super(classLoader, false);
+        super(classLoader, null);
         this.locator = locator;
     }
     

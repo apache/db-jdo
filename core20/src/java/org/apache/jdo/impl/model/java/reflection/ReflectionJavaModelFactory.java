@@ -18,6 +18,8 @@ package org.apache.jdo.impl.model.java.reflection;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 
 import org.apache.jdo.model.ModelException;
 import org.apache.jdo.model.ModelFatalException;
@@ -34,8 +36,7 @@ import org.apache.jdo.util.I18NHelper;
  * metadata about types and fields. This implementation caches JavaModel
  * instances per ClassLoader.
  * 
- * @author Michael Bouschen
- * @since JDO 1.1
+ * @since 1.1
  */
 public abstract class ReflectionJavaModelFactory
     extends AbstractJavaModelFactory
@@ -49,8 +50,7 @@ public abstract class ReflectionJavaModelFactory
      * use the specified key when caching the new JavaModel instance. 
      * <p>
      * This implementation only accepts <code>java.lang.ClassLoader</code>
-     * instances as key and does not support <code>null</code> keys. A
-     * ModelException indicates an invalid key.
+     * instances as key. A ModelException indicates an invalid key.
      * <p>
      * The method automatically sets the parent/child relationship for the
      * created JavaModel according to the parent/child relationship of the 
@@ -59,22 +59,21 @@ public abstract class ReflectionJavaModelFactory
      * instance. 
      * @return a new JavaModel instance.
      * @exception ModelException if impossible; the key is of an
-     * inappropriate type or the key is <code>null</code> and this
-     * JavaModelFactory does not support <code>null</code> keys.
+     * inappropriate type.
      */
     public JavaModel createJavaModel(Object key)
         throws ModelException
     {
-        if ((key == null) || (!(key instanceof ClassLoader)))
+        if ((key != null) && (!(key instanceof ClassLoader)))
             throw new ModelException(msg.msg("EXC_InvalidJavaModelKey", //NOI18N
-                (key==null?"null":key.getClass().getName()))); //NOI18N
+                                             key.getClass().getName()));
         
         ClassLoader classLoader = (ClassLoader)key;
         JavaModel javaModel = newJavaModelInstance(classLoader);
 
         // check parent <-> child relationship
-        if (classLoader != ClassLoader.getSystemClassLoader()) {
-            // if the specified classLoader is not the system class loader
+        if (classLoader != null) {
+            // if the specified classLoader is not null,
             // try to get the parent class loader and update the parent property
             try {
                 ClassLoader parentClassLoader = classLoader.getParent();
@@ -90,20 +89,6 @@ public abstract class ReflectionJavaModelFactory
         return javaModel;
     }
 
-    /**
-     * Returns the JavaModel instance for the specified key.
-     * @param key the key used to cache the returned JavaModel instance
-     */
-    public JavaModel getJavaModel(Object key)
-    {
-        if (key == null) {
-            // null classLoader might happen for classes loaded by the
-            // bootstrap class loder
-            key = ClassLoader.getSystemClassLoader();
-        }
-        return super.getJavaModel(key);
-    }
-    
     /**
      * Returns a JavaType instance for the specified type description
      * (optional operation). This method is a convenience method and a
@@ -138,10 +123,11 @@ public abstract class ReflectionJavaModelFactory
     // ===== Methods not defined in JavaModelFactory =====
 
     /**
-     * Calls getClassLoader on the specified class instance in a
+     * Calls getClassLoader on the specified Class instance in a
      * doPrivileged block. Any SecurityException is wrapped into a
      * ModelFatalException. 
-     * @return the class loader that loaded the specified class instance.
+     * @param clazz the class to get the ClassLoader from.
+     * @return the class loader that loaded the specified Class instance.
      * @exception ModelFatalException wraps the SecurityException thrown by
      * getClassLoader.
      */
@@ -162,6 +148,41 @@ public abstract class ReflectionJavaModelFactory
         catch (SecurityException ex) {
             throw new ModelFatalException(
                 msg.msg("EXC_CannotGetClassLoader", clazz), ex); //NOI18N
+        }
+    }
+
+    /**
+     * Calls Class.forName in a doPrivileged block. Any SecurityException is
+     * wrapped into a ModelFatalException.
+     * @param name fully qualified name of the desired class
+     * @param initialize whether the class must be initialized
+     * @param loader class loader from which the class must be loaded
+     * @return class object representing the desired class.
+     * @exception ModelFatalException wraps the SecurityException thrown by
+     * getClassLoader.
+     * @exception ClassNotFoundException if the class cannot be located by the
+     * specified class loader.
+     */
+    public static Class forNamePrivileged(final String name, 
+                                          final boolean initialize, 
+                                          final ClassLoader loader)
+        throws ClassNotFoundException
+    {
+        try { 
+            return (Class) AccessController.doPrivileged(
+                new PrivilegedExceptionAction () {
+                    public Object run () throws ClassNotFoundException {
+                        return Class.forName(name, initialize, loader);
+                    }
+                }
+                );
+        }
+        catch (PrivilegedActionException pae) {
+            throw (ClassNotFoundException) pae.getException();
+        }
+        catch (SecurityException ex) {
+            throw new ModelFatalException(
+                msg.msg("EXC_CannotGetClassInstance", name, loader), ex);
         }
     }
 

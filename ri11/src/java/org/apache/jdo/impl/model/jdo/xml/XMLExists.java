@@ -18,7 +18,7 @@ package org.apache.jdo.impl.model.jdo.xml;
 
 import java.util.*;
 
-import org.apache.jdo.impl.model.java.AbstractJavaModelFactory;
+import org.apache.jdo.impl.model.java.reflection.ReflectionJavaModelFactory;
 import org.apache.jdo.impl.model.java.runtime.RuntimeJavaModel;
 import org.apache.jdo.impl.model.jdo.caching.JDOModelFactoryImplCaching;
 import org.apache.jdo.impl.model.jdo.util.PrintSupport;
@@ -268,18 +268,18 @@ public class XMLExists
      * generated metadata.
      */
     private static class XMLExistsJDOModelFactory 
-        extends AbstractJavaModelFactory {
+        extends ReflectionJavaModelFactory {
 
         /** */
         protected XMLExistsJDOModelFactory() {}
 
         /** */
         public JavaModel createJavaModel(Object key) throws ModelException {
-            if ((key == null) || (!(key instanceof ClassLoader)))
+            if ((key != null) && (!(key instanceof ClassLoader)))
                 throw new ModelException("Invalid key " + key + 
                                          " expected ClassLoader");
             ClassLoader classLoader = (ClassLoader)key;
-            JavaModel javaModel = new RuntimeJavaModel(classLoader); 
+            JavaModel javaModel = new RuntimeJavaModel(classLoader, this);
 
             // set the JDOModel property in JavaModel
             setJDOModelInternal(javaModel);

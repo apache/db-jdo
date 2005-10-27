@@ -145,11 +145,6 @@ public class BaseReflectionJavaField
                     catch (NoSuchFieldException ex) {
                         return null; // do nothing, just return null
                     }
-                    catch (LinkageError ex) {
-                        throw new ModelFatalException(msg.msg(
-                           "EXC_ClassLoadingError", clazz.getName(), //NOI18N
-                           ex.toString()));
-                    }
                 }
             }
             );
