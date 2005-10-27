@@ -4,6 +4,7 @@
 <jdo>
   <package name="org.apache.jdo.tck.pc.query">
     <class name="JDOQLKeywordsAsFieldNames" identity-type="datastore"/>
+    <class name="NoExtent" requires-extent="false" identity-type="datastore"/>
   </package>
 </jdo>
 

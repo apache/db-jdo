@@ -9,6 +9,11 @@
       <field name="select" primary-key="true"/>
     </class>
 
+    <class name="NoExtent" requires-extent="false"
+           identity-type="application" objectid-class="javax.jdo.identity.IntIdentity">
+      <field name="id" primary-key="true"/>
+    </class>
+
   </package>
 </jdo>
 

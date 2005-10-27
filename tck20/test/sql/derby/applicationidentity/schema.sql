@@ -66,10 +66,16 @@ CREATE TABLE PrimitiveTypes (
 -------------------------
 
 DROP TABLE JDOQLKeywordsAsFieldNames;
+DROP TABLE NoExtent;
 
 CREATE TABLE JDOQLKeywordsAsFieldNames (
     ID VARCHAR(64) NOT NULL,
     CONSTRAINT KEYWORDS_PK PRIMARY KEY (ID)
+);
+
+CREATE TABLE NoExtent (
+    ID INTEGER NOT NULL,
+    CONSTRAINT NOEXTENT_PK PRIMARY KEY (ID)
 );
 
 -------------------------

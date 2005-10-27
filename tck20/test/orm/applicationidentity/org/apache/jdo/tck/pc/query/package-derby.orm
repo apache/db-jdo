@@ -7,6 +7,10 @@
       <field name="select" column="ID" primary-key="true"/>
     </class>
 
+    <class name="NoExtent" table="NoExtent">
+      <field name="id" column="ID" primary-key="true"/>
+    </class>
+
   </package>
 </orm>
 

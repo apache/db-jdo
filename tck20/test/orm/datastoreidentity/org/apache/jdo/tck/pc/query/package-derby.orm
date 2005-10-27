@@ -12,5 +12,10 @@ has datastore identity.
             <field name="select" column="ID"/>
         </class>
 
+        <class name="NoExtent" table="NoExtent">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="id" column="ID"/>
+        </class>
+
     </package>
 </orm>
