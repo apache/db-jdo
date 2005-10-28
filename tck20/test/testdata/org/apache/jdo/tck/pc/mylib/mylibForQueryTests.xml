@@ -9,11 +9,13 @@
             <list>
                 <ref local="primitiveTypesPositive"/>
                 <ref local="primitiveTypesNegative"/>
+                <ref local="primitiveTypesCharacterStringLiterals"/>
             </list>
         </constructor-arg>
     </bean>
 
-    <bean id="primitiveTypesPositive" class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
+    <bean id="primitiveTypesPositive" 
+        class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
         <property name="id"><value>1</value></property>
         <property name="intNotNull"><value>4</value></property>
         <property name="intNull"><value>4</value></property>
@@ -25,7 +27,8 @@
         <property name="doubleNull"><value>4.0</value></property>
     </bean>
 
-    <bean id="primitiveTypesNegative" class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
+    <bean id="primitiveTypesNegative" 
+        class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
         <property name="id"><value>2</value></property>
         <property name="intNotNull"><value>-4</value></property>
         <property name="intNull"><value>-4</value></property>
@@ -37,5 +40,12 @@
         <property name="doubleNull"><value>-4.0</value></property>
     </bean>
 
-</beans>
+    <bean id="primitiveTypesCharacterStringLiterals" 
+        class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
+        <property name="id"><value>3</value></property>
+        <property name="charNotNull"><value>O</value></property>
+        <property name="charNull"><value>O</value></property>
+        <property name="stringNull"><value>Even</value></property>
+    </bean>
 
+</beans>
