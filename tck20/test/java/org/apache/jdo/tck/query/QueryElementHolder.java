@@ -318,10 +318,10 @@ public class QueryElementHolder {
      * @param query the query instance
      */
     private void rangeToAPI(Query query) {
-        /*TODO if (this.fromString != null && this.toString != null) {
+        if (this.fromString != null && this.toString != null) {
             query.setRange(this.fromString + ',' + this.toString);
         } 
-        else*/ if (this.fromLong != null && this.toLong != null) {
+        else if (this.fromLong != null && this.toLong != null) {
             query.setRange(this.fromLong.longValue(), this.toLong.longValue());
         }
     }
