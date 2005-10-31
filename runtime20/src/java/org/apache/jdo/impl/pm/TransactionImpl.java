@@ -406,7 +406,7 @@ class TransactionImpl implements javax.jdo.Transaction {
         synchronized (this) {
             if (persistenceManager.getDetachAllOnCommit()) {
                 throw new JDOUnsupportedOptionException(msg.msg(
-                    "notsupported", "commit"));
+                    "notsupported", "DetachAllOnCommit"));
             }
         
             //
