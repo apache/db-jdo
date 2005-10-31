@@ -157,7 +157,9 @@ public class InstanceLifecycleListenerDelete
         static int counter = (int)(new Date().getTime());
 
         public void jdoPreDelete() {
-            listener.notifyEvent(listener.PRE_DELETE_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.PRE_DELETE_CALLBACK);
+            }
         }
     }
 

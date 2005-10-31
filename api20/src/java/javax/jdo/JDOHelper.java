@@ -30,6 +30,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -257,7 +260,47 @@ public class JDOHelper extends Object {
             return implHelper.nonBinaryCompatibleGet(pc, getObjectId);
         }
     }
-    
+
+    /** Get object ids for a collection of instances. For each instance
+     * in the parameter, the getObjectId method is called. This method
+     * returns one identity instance for each element 
+     * in the parameter. The order of iteration of the returned
+     * Collection exactly matches the order of iteration of the
+     * parameter Collection.
+     * @param pcs the persistence-capable instances
+     * @return the object ids of the parameters
+     * @see #getObjectId(Object pc)
+     * @see #getObjectIds(Object[] pcs)
+     * @since 2.0
+     */
+    public static Collection getObjectIds(Collection pcs) {
+        ArrayList result = new ArrayList();
+        for (Iterator it = pcs.iterator(); it.hasNext();) {
+            result.add(getObjectId(it.next()));
+        }
+        return result;
+    }
+
+    /** Get object ids for an array of instances. For each instance
+     * in the parameter, the getObjectId method is called. This method
+     * returns one identity instance for each element 
+     * in the parameter. The order of instances of the returned
+     * array exactly matches the order of instances of the
+     * parameter array.
+     * @param pcs the persistence-capable instances
+     * @return the object ids of the parameters
+     * @see #getObjectId(Object pc)
+     * @see #getObjectIds(Collection pcs)
+     * @since 2.0
+     */
+    public static Object[] getObjectIds(Object[] pcs) {
+        Object[] result = new Object[pcs.length];
+        for (int i = 0; i < pcs.length; ++i) {
+            result[i] = getObjectId(pcs[i]);
+        }
+        return result;
+    }
+
     /** Return a copy of the JDO identity associated with the parameter instance.
      *
      * @see PersistenceCapable#jdoGetTransactionalObjectId()

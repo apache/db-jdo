@@ -155,7 +155,9 @@ public class InstanceLifecycleListenerClear
         static int counter = (int)(new Date().getTime());
 
         public void jdoPreClear() {
-            listener.notifyEvent(listener.PRE_CLEAR_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.PRE_CLEAR_CALLBACK);
+            }
         }
     }
 

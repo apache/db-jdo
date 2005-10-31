@@ -151,7 +151,9 @@ public class InstanceLifecycleListenerStore
         static int counter = (int)(new Date().getTime());
 
         public void jdoPreStore() {
-            listener.notifyEvent(listener.PRE_STORE_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.PRE_STORE_CALLBACK);
+            }
         }
     }
 

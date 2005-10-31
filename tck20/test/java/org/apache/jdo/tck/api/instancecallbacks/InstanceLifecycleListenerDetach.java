@@ -168,9 +168,9 @@ public class InstanceLifecycleListenerDetach
         }
  
         public void jdoPreDetach() {
-            if (listener == null)
-                return;
-            listener.notifyEvent(listener.PRE_DETACH_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.PRE_DETACH_CALLBACK);
+            }
         }
         public void jdoPostDetach(Object obj) {
             postDetachCalled = true;

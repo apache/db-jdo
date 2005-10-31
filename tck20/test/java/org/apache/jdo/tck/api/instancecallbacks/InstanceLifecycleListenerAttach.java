@@ -169,9 +169,9 @@ public class InstanceLifecycleListenerAttach
         static int counter = (int)(new Date().getTime());
 
         public void jdoPreAttach() {
-            if (listener == null)
-                return;
-            listener.notifyEvent(listener.PRE_ATTACH_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.PRE_ATTACH_CALLBACK);
+            }
         }
         public void jdoPostAttach(Object obj) {
             postAttachCalled = true;

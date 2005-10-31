@@ -145,7 +145,9 @@ public class InstanceLifecycleListenerLoad
         static int counter = (int)(new Date().getTime());
 
         public void jdoPostLoad() {
-            listener.notifyEvent(listener.POST_LOAD_CALLBACK);
+            if (listener != null) {
+                listener.notifyEvent(listener.POST_LOAD_CALLBACK);
+            }
         }
     }
 

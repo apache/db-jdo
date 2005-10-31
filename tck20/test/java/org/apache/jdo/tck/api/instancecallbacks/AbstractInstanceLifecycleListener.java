@@ -208,7 +208,8 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
      * Unregister the LifecycleListener.
      */
     protected void localTearDown() {
-        removeListener();
+        removeListener(); // no callbacks for teardown
+        super.localTearDown();
     }
 
     /** 
