@@ -60,7 +60,7 @@ public class ClassFileEnhancerHelper
     /**
      *  Enhances a zip file. The zip file is given as a uip input stream.
      *  It's entries are read and - if necessary - individually enhanced.
-     *  The output stream has the same compressíon (if any) as the input
+     *  The output stream has the same compression (if any) as the input
      *  stream.
      *
      *  @param  enhancer  The enhancer.

@@ -68,7 +68,7 @@ final class Augmenter
     //
     //     4.7.8 The LineNumberTable Attribute
     //     The LineNumberTable attribute is an optional variable-length
-    //     attribute in the attributes table of a Code (§4.7.3)
+    //     attribute in the attributes table of a Code (4.7.3)
     //     attribute. It may be used by debuggers to determine which
     //     part of the Java virtual machine code array corresponds to a
     //     given line number in the original source file. ... Furthermore,
