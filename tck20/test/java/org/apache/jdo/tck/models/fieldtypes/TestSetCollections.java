@@ -143,36 +143,37 @@ public class TestSetCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Set compareWith = expectedValue.get(i);
-            Set val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            Set expected = expectedValue.get(i);
+            Set actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
             }
-            else if (! val.equals(compareWith)) {
+            else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecs(SetCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
                     // sort values for comparison
-                    TreeSet compareTS = new TreeSet(compareWith);
-                    TreeSet valTS = new TreeSet(val);
-                    Iterator compareIter = compareTS.iterator();
-                    Iterator valIter = valTS.iterator();
-                    for (int j=0; j < compareTS.size(); j++) {
-                        BigDecimal bigDecCompareWith =
-                                (BigDecimal)(compareIter.next());
-                        BigDecimal bigDecVal = (BigDecimal)(valIter.next());
-                                bigDecVal.setScale(bigDecCompareWith.scale());
-                        if ((bigDecCompareWith.compareTo(bigDecVal)) != 0)  {
+                    TreeSet expectedTS = new TreeSet(expected);
+                    TreeSet actualTS = new TreeSet(actual);
+                    Iterator expectedIter = expectedTS.iterator();
+                    Iterator actualIter = actualTS.iterator();
+                    for (int j=0; j < expectedTS.size(); j++) {
+                        BigDecimal bigDecExpected =
+                                (BigDecimal)(expectedIter.next());
+                        BigDecimal bigDecActual =
+                                (BigDecimal)(actualIter.next());
+                                bigDecActual.setScale(bigDecExpected.scale());
+                        if ((bigDecExpected.compareTo(bigDecActual)) != 0)  {
                             sbuf.append("\nFor element " + i + "(" + j +
-                                    "), expected = " + bigDecCompareWith +
-                                    ", actual = " + bigDecVal);
+                                    "), expected = " + bigDecExpected +
+                                    ", actual = " + bigDecActual);
                         }
                     }
                 }
                 else {
                     sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
                 }
 
             }

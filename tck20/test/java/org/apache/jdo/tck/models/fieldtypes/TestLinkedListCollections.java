@@ -151,34 +151,34 @@ public class TestLinkedListCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            LinkedList compareWith = expectedValue.get(i);
-            LinkedList val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            LinkedList expected = expectedValue.get(i);
+            LinkedList actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
             }
-            else if (! val.equals(compareWith)) {
+            else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecs(LinkedListCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
-                    ListIterator compareWithIt = compareWith.listIterator();
-                    ListIterator valIt = val.listIterator();
+                    ListIterator expectedIT = expected.listIterator();
+                    ListIterator actualIt = actual.listIterator();
                     int index = 0;
-                    while (compareWithIt.hasNext()) {
-                        BigDecimal bigDecCompareWith =
-                                (BigDecimal)(compareWithIt.next());
-                        BigDecimal bigDecVal = (BigDecimal)(valIt.next());
-                        if ((bigDecCompareWith.compareTo(bigDecVal)) != 0)  {
+                    while (expectedIT.hasNext()) {
+                        BigDecimal bigDecExpected =
+                                (BigDecimal)(expectedIT.next());
+                        BigDecimal bigDecActual = (BigDecimal)(actualIt.next());
+                        if ((bigDecExpected.compareTo(bigDecActual)) != 0)  {
                             sbuf.append("\nFor element " + i + "(" + index +
-                                    "), expected = " + bigDecCompareWith +
-                                    ", actual = " + bigDecVal);
+                                    "), expected = " + bigDecExpected +
+                                    ", actual = " + bigDecActual);
                         }
                         index++;
                     }
                 }
                 else {
                     sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
                 }
 
             }        }

@@ -147,35 +147,36 @@ public class TestVectorCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; i++) {
-            Vector compareWith = expectedValue.get(i);
-            Vector val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            Vector expected = expectedValue.get(i);
+            Vector actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
             }
-            else if (! val.equals(compareWith)) {
+            else if (! expected.equals(actual)) {
                 if (debug) {
                     logger.debug("Field number is " + i);
-                    logger.debug("Persisted vector is " + val);
-                    logger.debug("Expected vector is " + compareWith);
+                    logger.debug("Persisted vector is " + actual);
+                    logger.debug("Expected vector is " + expected);
                 }
                 if (TestUtil.getFieldSpecs(VectorCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
-                    for (int j = 0; j < val.size(); j++) {
-                        BigDecimal bigDecVal = (BigDecimal)val.elementAt(j);
-                        BigDecimal bigDecCompareWith =
-                            (BigDecimal)compareWith.elementAt(j);
-                        if ((bigDecCompareWith.compareTo(bigDecVal) != 0)) {
+                    for (int j = 0; j < actual.size(); j++) {
+                        BigDecimal bigDecActual =
+                                (BigDecimal)actual.elementAt(j);
+                        BigDecimal bigDecExpected =
+                            (BigDecimal)expected.elementAt(j);
+                        if ((bigDecExpected.compareTo(bigDecActual) != 0)) {
                             sbuf.append("\nFor element " + i + "(" + j +
-                                    "), expected = " + compareWith +
-                                    ", actual = " + val + " . ");
+                                    "), expected = " + expected +
+                                    ", actual = " + actual + " . ");
                         }
                     }
                 }
                 else {
                     sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
                 }
             }
 

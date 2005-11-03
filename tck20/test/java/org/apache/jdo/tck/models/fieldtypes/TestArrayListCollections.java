@@ -146,17 +146,17 @@ public class TestArrayListCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            Collection compareWith = expectedValue.get(i);
-            Collection val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            Collection expected = expectedValue.get(i);
+            Collection actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
                 continue;
             }
-            if (! val.equals(compareWith)) {
+            if (! expected.equals(actual)) {
                 sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
             }
         }
         if (sbuf.length() > 0) {

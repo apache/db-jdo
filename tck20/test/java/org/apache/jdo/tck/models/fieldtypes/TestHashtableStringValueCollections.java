@@ -154,17 +154,17 @@ public class TestHashtableStringValueCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Hashtable compareWith = expectedValue.get(i);
-            Hashtable val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            Hashtable expected = expectedValue.get(i);
+            Hashtable actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
                 continue;
             }
-            if (! val.equals(compareWith)) {
+            if (! expected.equals(actual)) {
                 sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
             }
         }
         if (sbuf.length() > 0) {

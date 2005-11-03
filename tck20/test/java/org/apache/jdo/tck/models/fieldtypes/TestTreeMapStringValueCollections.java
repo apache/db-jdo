@@ -152,17 +152,17 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            TreeMap compareWith = expectedValue.get(i);
-            TreeMap val = pi.get(i);
-            if (val.size() != compareWith.size()) {
+            TreeMap expected = expectedValue.get(i);
+            TreeMap actual = pi.get(i);
+            if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
-                        compareWith.size() + ", actual size = " + val.size()
+                        expected.size() + ", actual size = " + actual.size()
                         + " . ");
                 continue;
             }
-            if (! val.equals(compareWith)) {
+            if (! expected.equals(actual)) {
                 sbuf.append("\nFor element " + i + ", expected = " +
-                        compareWith + ", actual = " + val + " . ");
+                        expected + ", actual = " + actual + " . ");
             }
         }
         if (sbuf.length() > 0) {
