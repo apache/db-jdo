@@ -303,10 +303,10 @@ public class QueryElementHolder {
     private String rangeToString() {
         String result = "";
         if (this.fromString != null && this.toString != null) { 
-            result = "RANGE " + this.fromString + " TO " + this.toString;
+            result = "RANGE " + this.fromString + ',' + this.toString;
         }
         else if (this.fromLong != null && this.toLong != null) {
-            result = "RANGE " + this.fromLong + " TO " + this.toLong;
+            result = "RANGE " + this.fromLong + ',' + this.toLong;
         }
         return result;
     }
