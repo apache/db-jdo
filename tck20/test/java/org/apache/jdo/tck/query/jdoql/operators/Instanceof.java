@@ -77,8 +77,8 @@ public class Instanceof extends QueryTest {
 
     /** The expected results of valid queries. */
     private static String[][] expectedResult = {
-        {"emp3", "emp4"},
-        {"emp3", "emp4"}
+        {"emp2", "emp3"},
+        {"emp2", "emp3"}
     };
             
     /**
