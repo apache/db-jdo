@@ -6,15 +6,15 @@
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.TreeSetCollections$Oid">
 <field name="identifier" primary-key="true"/>
 <field name="TreeSetOfObject0" >
-<collection element-type="java.lang.Object">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="TreeSetOfObject1" >
-<collection element-type="java.lang.Object" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="TreeSetOfObject2" >
-<collection element-type="java.lang.Object" embedded-element="false">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="TreeSetOfSimpleClass3" >
@@ -30,15 +30,15 @@
 </collection>
 </field>
 <field name="TreeSetOfSimpleInterface6" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="TreeSetOfSimpleInterface7" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="TreeSetOfSimpleInterface8" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="TreeSetOfString9" >

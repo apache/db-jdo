@@ -6,33 +6,33 @@
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.TreeMapStringValueCollections$Oid">
 <field name="identifier" primary-key="true"/>
 <field name="TreeMapOfObject_String0" >
-<map  key-type="Object" value-type="String">
+<map  key-type="SimpleClass" value-type="String">
 </map>
 </field>
 <field name="TreeMapOfObject_String1" >
-<map  key-type="Object" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfObject_String2" >
-<map  key-type="Object" value-type="String"
+<map  key-type="SimpleClass" value-type="String"
       embedded-key="false" embedded-value="false">
 </map>
 </field>
 <field name="TreeMapOfObject_String3" >
-<map  key-type="Object" value-type="String"
+<map  key-type="SimpleClass" value-type="String"
       embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfObject_String4" >
-<map  key-type="Object" value-type="String" embedded-key="true">
+<map  key-type="SimpleClass" value-type="String" embedded-key="true">
 </map>
 </field>
 <field name="TreeMapOfObject_String6" >
-<map  key-type="Object" embedded-value="true" value-type="String">
+<map  key-type="SimpleClass" embedded-value="true" value-type="String">
 </map>
 </field>
 <field name="TreeMapOfObject_String8" serialized="true">
-<map  key-type="Object" value-type="String">
+<map  key-type="SimpleClass" value-type="String">
 </map>
 </field>
 <field name="TreeMapOfSimpleClass_String9" >
@@ -66,33 +66,33 @@
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String18" >
-<map  key-type="SimpleInterface" value-type="String">
+<map  key-type="SimpleClass" value-type="String">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String19" >
-<map  key-type="SimpleInterface" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String20" >
-<map  key-type="SimpleInterface" value-type="String"
+<map  key-type="SimpleClass" value-type="String"
       embedded-key="false" embedded-value="false">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String21" >
-<map  key-type="SimpleInterface" value-type="String"
+<map  key-type="SimpleClass" value-type="String"
       embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String22" >
-<map  key-type="SimpleInterface" value-type="String" embedded-key="true">
+<map  key-type="SimpleClass" value-type="String" embedded-key="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String24" >
-<map  key-type="SimpleInterface" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfSimpleInterface_String26" serialized="true">
-<map  key-type="SimpleInterface" value-type="String">
+<map  key-type="SimpleClass" value-type="String">
 </map>
 </field>
 <field name="TreeMapOfString_String27" >

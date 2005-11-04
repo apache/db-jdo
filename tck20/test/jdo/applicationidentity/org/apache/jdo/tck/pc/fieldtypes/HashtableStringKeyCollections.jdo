@@ -211,12 +211,12 @@
 </map>
 </field>
 <field name="HashtableOfString_SimpleInterface48" >
-<map key-type="String" value-type="SimpleInterface"
+<map key-type="String" value-type="SimpleClass"
    embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfString_SimpleInterface49" >
-<map key-type="String" value-type="SimpleInterface"
+<map key-type="String" value-type="SimpleClass"
    embedded-value="true">
 </map>
 </field>

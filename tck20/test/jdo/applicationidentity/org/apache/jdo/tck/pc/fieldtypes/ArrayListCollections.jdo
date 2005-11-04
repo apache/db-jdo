@@ -6,15 +6,15 @@
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.ArrayListCollections$Oid">
 <field name="identifier" primary-key="true"/>
 <field name="ArrayListOfObject0" >
-<collection element-type="java.lang.Object">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="ArrayListOfObject1" >
-<collection element-type="java.lang.Object" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="ArrayListOfObject2" >
-<collection element-type="java.lang.Object" embedded-element="false">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="ArrayListOfSimpleClass3" >
@@ -30,15 +30,15 @@
 </collection>
 </field>
 <field name="ArrayListOfSimpleInterface6" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </collection>
 </field>
 <field name="ArrayListOfSimpleInterface7" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
 <field name="ArrayListOfSimpleInterface8" >
-<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleInterface" embedded-element="false">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
 </collection>
 </field>
 <field name="ArrayListOfString9" >
