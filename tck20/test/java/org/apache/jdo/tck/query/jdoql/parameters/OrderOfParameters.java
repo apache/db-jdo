@@ -58,32 +58,16 @@ public class OrderOfParameters extends QueryTest {
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname == :param2 & lastname == :param1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
         /*TO*/          null)
     };
     
     /** The expected results of valid queries. */
     private static String[][] expectedResult = {
-        {"emp1"},
-        {}
+        {"emp1"}
     };
             
     /** Parameters of valid queries. */
     private static Object[][] parameters = {
-        {"emp1First", "emp1Last"},
         {"emp1First", "emp1Last"}
     };
             
