@@ -209,12 +209,12 @@
 </map>
 </field>
 <field name="TreeMapOfString_SimpleInterface48" >
-<map key-type="String" value-type="SimpleInterface"
+<map key-type="String" value-type="SimpleClass"
    embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="TreeMapOfString_SimpleInterface49" >
-<map key-type="String" value-type="SimpleInterface"
+<map key-type="String" value-type="SimpleClass"
    embedded-value="true">
 </map>
 </field>
