@@ -68,7 +68,7 @@ public class ImplicitParameters extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Person.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname = :param",
+        /*WHERE*/       "firstname == :param",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
