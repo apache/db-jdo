@@ -65,11 +65,10 @@ public class Instanceof extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "mentor instanceof " +
-                        "PartTimeEmployee",
+        /*WHERE*/       "mentor instanceof PartTimeEmployee",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
-        /*IMPORTS*/     "IMPORT org.apache.jdo.tck.pc.company.PartTimeEmployee",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.PartTimeEmployee",
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
@@ -78,7 +77,8 @@ public class Instanceof extends QueryTest {
 
     /** The expected results of valid queries. */
     private static String[][] expectedResult = {
-            {"emp2", "emp3"}
+        {"emp3", "emp4"},
+        {"emp3", "emp4"}
     };
             
     /**
