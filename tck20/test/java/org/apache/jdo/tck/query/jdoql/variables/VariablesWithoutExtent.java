@@ -58,7 +58,7 @@ public class VariablesWithoutExtent extends QueryTest {
         /*WHERE*/       "this.personid = noExtent.id",
         /*VARIABLES*/   "NoExtent noExtent",
         /*PARAMETERS*/  null,
-        /*IMPORTS*/     "IMPORT org.apache.jdo.tck.pc.query.NoExtent;",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.query.NoExtent;",
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
