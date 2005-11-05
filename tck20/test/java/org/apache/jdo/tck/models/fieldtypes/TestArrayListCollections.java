@@ -16,7 +16,9 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -131,7 +133,8 @@ public class TestArrayListCollections extends JDO_Test {
                     ArrayListCollections.fieldSpecs[i]);
             value = (Collection)TestUtil.makeNewVectorInstance(
                     valueType, order);
-            collect.set(i, (ArrayList) value);
+            ArrayList arrayListValue = new ArrayList(value);
+            collect.set(i, arrayListValue);
             if (debug)
                 logger.debug("Set " + i + "th value to: " + value.toString());
         }
@@ -154,9 +157,32 @@ public class TestArrayListCollections extends JDO_Test {
                         + " . ");
                 continue;
             }
-            if (! expected.equals(actual)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (! expected.equals(actual)) {
+                if (TestUtil.getFieldSpecs(ArrayListCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+            	    if (debug) {
+                	logger.debug("Field is " + i + " Class name is "
+                          +  actual.getClass().getName()
+			  + "   isInstance of Vector is "
+			  + actual.getClass().isInstance((Object)new Vector()));
+		    }
+                    List expectedL = (List)expected;
+                    List actualL = (List)actual;
+                    for (int j = 0; j < actualL.size(); ++j) {
+                        BigDecimal bigDecCompareWith =
+                            (BigDecimal)expectedL.get(j);
+                        Object bigDecVal = actualL.get(j);
+                        if ((bigDecCompareWith.compareTo(bigDecVal) != 0)) {
+                            sbuf.append("\nFor element " + i + "(" + j +
+                                    "), expected = " + expected +
+                                    ", actual = " + actualL + " . ");
+                        }
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         expected + ", actual = " + actual + " . ");
+                }
             }
         }
         if (sbuf.length() > 0) {
