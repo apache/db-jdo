@@ -1,0 +1,103 @@
+/*
+ * Copyright 2005 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at 
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+
+package org.apache.jdo.tck.query.api;
+
+import java.math.BigDecimal;
+
+import javax.jdo.Query;
+
+import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.query.result.classes.FullName;
+import org.apache.jdo.tck.util.BatchTestRunner;
+
+/**
+ *<B>Title:</B> Change Query.
+ *<BR>
+ *<B>Keywords:</B> query
+ *<BR>
+ *<B>Assertion ID:</B> A14.5-15.
+ *<BR>
+ *<B>Assertion Description: </B>
+ * The Query instance returned from this method can be modified 
+ * by the application, just like any other Query instance.
+ */
+public class ChangeQuery extends QueryTest {
+
+    /** */
+    private static final String ASSERTION_FAILED = 
+        "Assertion A14.5-15 (ChangeQuery) failed: ";
+    
+    /**
+     * The <code>main</code> is called when the class
+     * is directly executed from the command line.
+     * @param args The arguments passed to the program.
+     */
+    public static void main(String[] args) {
+        BatchTestRunner.run(ChangeQuery.class);
+    }
+    
+    /** */
+    public void testPositive() {
+        Query query = getPM().newNamedQuery(Person.class, "changeQuery");
+        
+        // change query
+        query.setResult("firstname, lastname");
+        query.setResultClass(FullName.class);
+        query.setClass(FullTimeEmployee.class);
+        String filter = "salary > 1000 & projects.contains(project) & " +
+                        "project.budget > limit";
+        query.setFilter(filter);
+        String imports = "import org.apache.jdo.tck.pc.company.Project; " +
+                         "import java.math.BigDecimal;";
+        query.declareImports(imports);
+        query.declareVariables("Project project");
+        query.declareParameters("BigDecimal limit");
+        query.setOrdering("personid ASCENDING");
+        query.setRange(0, 5);
+        String singleStringQuery = 
+            "SELECT firstname, lastname INTO FullName FROM FullTimeEmployee " +
+            "WHERE salary > 1000 & projects.contains(project) & " +
+            "project.budget > limit " +
+            "VARIABLES Project project PARAMETERS BigDecimal limit " +
+            "ORDER BY personid ASCENDING RANGE 0, 5";
+
+        // query parameters
+        Object[] parameters = {new BigDecimal("2000")};        
+        // expected result
+        Object[] expectedResult = {
+            new FullName("emp1First", "emp1Last"), 
+            new FullName("emp2First", "emp2Last"),
+            new FullName("emp5First", "emp5Last")
+        };
+
+        // execute query
+        execute(ASSERTION_FAILED, query, singleStringQuery, false, true, 
+                parameters, expectedResult);
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
+    }
+}

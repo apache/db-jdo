@@ -13,6 +13,7 @@ DROP TABLE PCRect;
 DROP TABLE PCPoint;
 DROP TABLE PCPoint2;
 DROP TABLE PrimitiveTypes;
+DROP TABLE PCClass;
 
 CREATE TABLE PCPoint (
     ID BIGINT NOT NULL,
@@ -59,6 +60,13 @@ CREATE TABLE PrimitiveTypes (
     bigInteger INTEGER,
     PrimitiveTypes INTEGER,
     CONSTRAINT PT_CONST PRIMARY KEY (ID)
+);
+
+CREATE TABLE PCClass (
+    ID BIGINT NOT NULL,
+    NUMBER1 INTEGER,
+    NUMBER2 INTEGER,
+    CONSTRAINT PCCLASS_CONST PRIMARY KEY (ID)
 );
 
 -------------------------

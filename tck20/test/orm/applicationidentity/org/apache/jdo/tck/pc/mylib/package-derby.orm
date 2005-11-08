@@ -50,6 +50,12 @@
       <field name="PrimitiveTypes" column="PrimitiveTypes"/>
     </class>
 
+    <class name="PCClass" table="PCClass">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="number1" column="NUMBER1"/>
+      <field name="number2" column="NUMBER2"/>
+    </class>
+
   </package>
 </orm>
 

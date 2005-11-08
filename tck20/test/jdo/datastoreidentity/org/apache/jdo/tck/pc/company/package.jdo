@@ -56,9 +56,39 @@ has datastore identity.
             <field name="middlename" default-fetch-group="false"/>
             <field name="address"
                    persistence-modifier="persistent"/>
-	    <field name="phoneNumbers" persistence-modifier="persistent">
+            <field name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
             </field>
+            <query name="validNotUnique">
+                SELECT firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="validUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.Person 
+                WHERE firstname == 'emp1First'
+            </query>
+            <query name="invalidUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="unmodifiable" unmodifiable="true">
+                SELECT firstname, lastname 
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="packageJDO">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+                WHERE personid > 1
+            </query>
+            <query name="changeQuery">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="invalidQuery">
+                SeLeCt FrOm org.apache.jdo.tck.pc.company.Person
+            </query>
         </class>
 
         <class name="Project" identity-type="datastore">

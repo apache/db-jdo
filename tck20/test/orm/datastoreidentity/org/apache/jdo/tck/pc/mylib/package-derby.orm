@@ -54,6 +54,13 @@
       <field name="PrimitiveTypes" column="PrimitiveTypes"/>
     </class>
 
+    <class name="PCClass" table="PCClass">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="number1" column="NUMBER1"/>
+      <field name="number2" column="NUMBER2"/>
+    </class>
+
   </package>
 </orm>
 

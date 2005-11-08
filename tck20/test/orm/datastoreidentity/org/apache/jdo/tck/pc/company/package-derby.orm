@@ -117,6 +117,10 @@ has datastore identity.
                 <key column="TYPE"/>
                 <value column="PHONENO"/>
             </field>
+            <query name="packageORM">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+                WHERE personid > 2
+            </query>
         </class>
 
         <class name="Insurance" table="insuranceplans">

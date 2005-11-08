@@ -43,7 +43,7 @@ public class MylibReader extends XmlBeanFactory {
     /** Teardown classes 
      */
     private static final Class[] tearDownClasses = new Class[] {
-        PrimitiveTypes.class
+        PrimitiveTypes.class, PCClass.class
     };
     
     /** 

@@ -9,6 +9,8 @@
             <list>
                 <ref local="primitiveTypesPositive"/>
                 <ref local="primitiveTypesNegative"/>
+                <ref local="pcClass1"/>
+                <ref local="pcClass2"/>
                 <ref local="primitiveTypesCharacterStringLiterals"/>
             </list>
         </constructor-arg>
@@ -40,6 +42,18 @@
         <property name="doubleNull"><value>-4.0</value></property>
     </bean>
 
+    <bean id="pcClass1" class="org.apache.jdo.tck.pc.mylib.PCClass">
+        <property name="id"><value>1</value></property>
+        <property name="number1"><value>10</value></property>
+        <property name="number2"><value>10</value></property>
+    </bean>
+
+    <bean id="pcClass2" class="org.apache.jdo.tck.pc.mylib.PCClass">
+        <property name="id"><value>2</value></property>
+        <property name="number1"><value>20</value></property>
+        <property name="number2"><value>20</value></property>
+    </bean>
+
     <bean id="primitiveTypesCharacterStringLiterals" 
         class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes">
         <property name="id"><value>3</value></property>
@@ -47,5 +61,4 @@
         <property name="charNull"><value>O</value></property>
         <property name="stringNull"><value>Even</value></property>
     </bean>
-
 </beans>

@@ -694,33 +694,93 @@ public abstract class QueryTest extends JDO_Test {
     private Object execute(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
             Object[] parameters, Object[] expectedResult) {
-        Object result;
+        Query query = asSingleString ?
+                queryElementHolder.getSingleStringQuery(pm) :
+                    queryElementHolder.getAPIQuery(pm);
+        Object result = execute(assertion, query, queryElementHolder.toString(),
+                queryElementHolder.isUnique(), queryElementHolder.hasOrdering(),
+                parameters, expectedResult);
+        return result;
+    }
+
+    /**
+     * Executes the given query instance.
+     * Argument <code>parameters</code> is passed as an argument
+     * to the method {@link Query#executeWithArray(java.lang.Object[])}.
+     * If <code>parameters</code> are <code>null</code>,
+     * then method {@link Query#execute()} is called 
+     * on the given query instance instead.<p>
+     * 
+     * The result of query execution is compared against the argument 
+     * <code>expectedResult</code>. The array elements of that argument
+     * must match the content of the query result collection,
+     * otherwise this method throws an {@link AssertionFailedError} and 
+     * the calling test case fails prompting argument 
+     * <code>assertion</code>.<p>
+     * 
+     * In case of a unique query, only the first element 
+     * of the result collection is compared against the first array element 
+     * of argument <code>expectedResult</code>. 
+     * A <code>null</code> as the first element indicates, that the given query 
+     * has no results, e.g. the filter does not match 
+     * any persistent instances.<p>
+     * 
+     * If argument <code>expectedResult</code> is <code>null</code>,
+     * then the test case invoking this method is considered to be
+     * a negative test case. 
+     * Then, query execution is expected to throw a {@link JDOUserException}.
+     * If query execution succeeds in this case, then this method throws
+     * an {@link AssertionFailedError} and the calling test case fails
+     * prompting argument <code>assertion</code>.<p>
+     * 
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param query the query to execute.
+     * @param asSingleString the single string representation of the query.
+     * This parameter is only used as part of the falure message.
+     * @param isUnique indicates if the query has a unique result.
+     * @param hasOrdering indicates if the query has an ordering clause.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     * @return the result collection
+     */
+    protected Object execute(String assertion, Query query, 
+            String singleStringQuery,
+            boolean isUnique, boolean hasOrdering,
+            Object[] parameters, Object[] expectedResult) {
+        boolean positive = expectedResult != null;
+        Object result = null;
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
-            Query query = asSingleString ?
-                    queryElementHolder.getSingleStringQuery(pm) :
-                        queryElementHolder.getAPIQuery(pm);
             try {
                 result = parameters != null ? 
                         query.executeWithArray(parameters) : query.execute();
     
-                if (queryElementHolder.isUnique()) {
-                    checkUniqueResult(assertion, result, expectedResult[0]);
-                } else if (queryElementHolder.hasOrdering()) {
-                    List expectedResultList = 
-                        Arrays.asList(expectedResult);
-                    checkQueryResultWithOrder(assertion, result, 
-                            expectedResultList);
+                if (positive) {
+                    if (isUnique) {
+                        checkUniqueResult(assertion, result, expectedResult[0]);
+                    } else if (hasOrdering) {
+                        List expectedResultList = 
+                            Arrays.asList(expectedResult);
+                        checkQueryResultWithOrder(assertion, result, 
+                                expectedResultList);
+                    } else {
+                        Collection expectedResultCollection = 
+                            Arrays.asList(expectedResult);
+                        checkQueryResultWithoutOrder(assertion, result, 
+                                expectedResultCollection);
+                    }
                 } else {
-                    Collection expectedResultCollection = 
-                        Arrays.asList(expectedResult);
-                    checkQueryResultWithoutOrder(assertion, result, 
-                            expectedResultCollection);
+                    fail(assertion + "Query must throw JDOUserException: " + 
+                            singleStringQuery);
                 }
             } finally {
-                query.closeAll();
+                query.close(result);
+            }
+        } catch (JDOUserException e) {
+            if (positive) {
+                throw e;
             }
         } finally {
             if (tx.isActive()) {
