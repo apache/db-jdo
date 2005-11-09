@@ -484,7 +484,7 @@
                 </value>
             </field>
             <field name="HashMapOfString_SimpleClass89"
-                   column="HASHMAP_STR_SIMPLE_CLASS89">
+                   column="HASHMAP_STR_SIMPLECLASS89">
             </field>
             <field name="HashMapOfString_SimpleInterface90"
                    table="HASHMAP_STR_SIMPLE_INTERFACE90">
@@ -499,7 +499,7 @@
                 </value>
             </field>
             <field name="HashMapOfString_SimpleInterface92"
-                   column="HASHMAP_STR_SIMPLE_INTERFACE92">
+                   column="HASHMAP_STR_SIMPLEINTERFACE92">
             </field>
             <field name="HashMapOfString_String93"
                    table="HASHMAP_STR_STRING93">
@@ -535,7 +535,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfString_BigDecimal104"
-                   column="HASHMAP_STR_BIG_DECIMAL104">
+                   column="HASHMAP_STR_BIGDECIMAL104">
             </field>
             <field name="HashMapOfString_BigInteger105"
                    table="HASHMAP_STR_BIG_INTEGER105">
@@ -544,7 +544,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfString_BigInteger107"
-                   column="HASHMAP_STR_BIG_INTEGER107">
+                   column="HASHMAP_STR_BIGINTEGER107">
             </field>
             <field name="HashMapOfString_Byte108"
                    table="HASHMAP_STR_BYTE108">

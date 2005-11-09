@@ -483,7 +483,7 @@
                 </value>
             </field>
             <field name="MapOfString_SimpleClass89"
-                   column="MAP_OF_STRING_SIMPLE_CLASS89">
+                   column="MAP_OF_STRING_SIMPLECLASS89">
             </field>
             <field name="MapOfString_SimpleInterface90"
                    table="MAP_OF_STRING_SIMPLE_INTERFACE90">
@@ -498,7 +498,7 @@
                 </value>
             </field>
             <field name="MapOfString_SimpleInterface92"
-                   column="MAP_OF_STRING_SIMPLE_INTERFACE92">
+                   column="MAP_OF_STRING_SIMPLEINTERFACE92">
             </field>
             <field name="MapOfString_String93"
                    table="MAP_OF_STRING_STRING93">
@@ -534,7 +534,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_BigDecimal104"
-                   column="MAP_OF_STRING_BIG_DECIMAL104">
+                   column="MAP_OF_STRING_BIGDECIMAL104">
             </field>
             <field name="MapOfString_BigInteger105"
                    table="MAP_OF_STRING_BIG_INTEGER105">
@@ -543,7 +543,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_BigInteger107"
-                   column="MAP_OF_STRING_BIG_INTEGER107">
+                   column="MAP_OF_STRING_BIGINTEGER107">
             </field>
             <field name="MapOfString_Byte108"
                    table="MAP_OF_STRING_BYTE108">

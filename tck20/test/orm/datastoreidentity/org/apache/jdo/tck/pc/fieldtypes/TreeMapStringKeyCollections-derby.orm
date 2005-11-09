@@ -486,7 +486,7 @@
                 </value>
             </field>
             <field name="TreeMapOfString_SimpleClass89"
-                   column="TREEMAP_STR_SIMPLE_CLASS89">
+                   column="TREEMAP_STR_SIMPLECLASS89">
             </field>
             <field name="TreeMapOfString_SimpleInterface90"
                    table="TREEMAP_STR_SIMPLE_INTERFACE90">
@@ -501,7 +501,7 @@
                 </value>
             </field>
             <field name="TreeMapOfString_SimpleInterface92"
-                   column="TREEMAP_STR_SIMPLE_INTERFACE92">
+                   column="TREEMAP_STR_SIMPLEINTERFACE92">
             </field>
             <field name="TreeMapOfString_String93"
                    table="TREEMAP_STR_STRING93">
@@ -537,7 +537,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfString_BigDecimal104"
-                   column="TREEMAP_STR_BIG_DECIMAL104">
+                   column="TREEMAP_STR_BIGDECIMAL104">
             </field>
             <field name="TreeMapOfString_BigInteger105"
                    table="TREEMAP_STR_BIG_INTEGER105">
@@ -546,7 +546,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfString_BigInteger107"
-                   column="TREEMAP_STR_BIG_INTEGER107">
+                   column="TREEMAP_STR_BIGINTEGER107">
             </field>
             <field name="TreeMapOfString_Byte108"
                    table="TREEMAP_STR_BYTE108">

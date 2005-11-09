@@ -488,7 +488,7 @@
                 </value>
             </field>
             <field name="HashtableOfString_SimpleClass89"
-                   column="HASHTBL_STR_SIMPLE_CLASS89">
+                   column="HASHTBL_STR_SIMPLECLASS89">
             </field>
             <field name="HashtableOfString_SimpleInterface90"
                    table="HASHTBL_STR_SIMPLE_INTERFACE90">
@@ -503,7 +503,7 @@
                 </value>
             </field>
             <field name="HashtableOfString_SimpleInterface92"
-                   column="HASHTBL_STR_SIMPLE_INTERFACE92">
+                   column="HASHTBL_STR_SIMPLEINTERFACE92">
             </field>
             <field name="HashtableOfString_String93"
                    table="HASHTBL_STR_STRING93">
@@ -539,7 +539,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_BigDecimal104"
-                   column="HASHTBL_STR_BIG_DECIMAL104">
+                   column="HASHTBL_STR_BIGDECIMAL104">
             </field>
             <field name="HashtableOfString_BigInteger105"
                    table="HASHTBL_STR_BIG_INTEGER105">
@@ -548,7 +548,7 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_BigInteger107"
-                   column="HASHTBL_STR_BIG_INTEGER107">
+                   column="HASHTBL_STR_BIGINTEGER107">
             </field>
             <field name="HashtableOfString_Byte108"
                    table="HASHTBL_STR_BYTE108">
