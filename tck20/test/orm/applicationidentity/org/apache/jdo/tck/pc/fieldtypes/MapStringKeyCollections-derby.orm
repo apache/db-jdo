@@ -459,13 +459,7 @@
             <field name="MapOfString_Object84" table="MAP_OF_STRING_OBJECT84">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_Object86"
                    column="MAP_OF_STRING_OBJECT86">
@@ -474,13 +468,7 @@
                    table="MAP_OF_STRING_SIMPLE_CLASS87">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_SimpleClass89"
                    column="MAP_OF_STRING_SIMPLECLASS89">
@@ -489,13 +477,7 @@
                    table="MAP_OF_STRING_SIMPLE_INTERFACE90">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="MapOfString_SimpleInterface92"
                    column="MAP_OF_STRING_SIMPLEINTERFACE92">

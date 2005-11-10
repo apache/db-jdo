@@ -2,8 +2,10 @@
 <!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
-        <class name="HashMapStringKeyCollections" table="HASHMAPSTRINGKEY_COLLECTIONS">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+        <class name="HashMapStringKeyCollections"
+               table="HASHMAPSTRINGKEY_COLLECTIONS">
+            <datastore-identity strategy="identity"
+                                column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
             <field name="HashMapOfString_Object0" table="HASHMAP_STR_OBJECT0">
                 <join column="IDENTIFIER"/>
@@ -460,13 +462,7 @@
             <field name="HashMapOfString_Object84" table="HASHMAP_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfString_Object86"
                    column="HASHMAP_STR_OBJECT86">
@@ -475,13 +471,7 @@
                    table="HASHMAP_STR_SIMPLE_CLASS87">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfString_SimpleClass89"
                    column="HASHMAP_STR_SIMPLECLASS89">
@@ -490,13 +480,7 @@
                    table="HASHMAP_STR_SIMPLE_INTERFACE90">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfString_SimpleInterface92"
                    column="HASHMAP_STR_SIMPLEINTERFACE92">

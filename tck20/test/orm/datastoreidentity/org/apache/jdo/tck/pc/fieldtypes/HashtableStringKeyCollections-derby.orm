@@ -464,13 +464,7 @@
                    table="HASHTBL_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_Object86"
                    column="HASHTBL_STR_OBJECT86">
@@ -479,13 +473,7 @@
                    table="HASHTBL_STR_SIMPLE_CLASS87">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_SimpleClass89"
                    column="HASHTBL_STR_SIMPLECLASS89">
@@ -494,13 +482,7 @@
                    table="HASHTBL_STR_SIMPLE_INTERFACE90">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfString_SimpleInterface92"
                    column="HASHTBL_STR_SIMPLEINTERFACE92">

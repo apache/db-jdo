@@ -460,13 +460,7 @@
             <field name="TreeMapOfString_Object84" table="TREEMAP_STR_OBJECT84">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfString_Object86"
                    column="TREEMAP_STR_OBJECT86">
@@ -475,13 +469,7 @@
                    table="TREEMAP_STR_SIMPLE_CLASS87">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfString_SimpleClass89"
                    column="TREEMAP_STR_SIMPLECLASS89">
@@ -490,13 +478,7 @@
                    table="TREEMAP_STR_SIMPLE_INTERFACE90">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </value>
+                <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfString_SimpleInterface92"
                    column="TREEMAP_STR_SIMPLEINTERFACE92">
