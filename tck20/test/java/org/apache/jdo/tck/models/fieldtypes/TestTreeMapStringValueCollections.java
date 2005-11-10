@@ -16,6 +16,10 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.math.BigDecimal;
+
+import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -158,12 +162,32 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
                         + " . ");
-                continue;
             }
-            if (! expected.equals(actual)) {
+            else if (! expected.equals(actual)) {
+                if (TestUtil.getFieldSpecsForMap(
+                            TreeMapStringValueCollections.fieldSpecs[i]
+                            ).get(1).equals("BigDecimal")) {
+                    Set keys = expected.keySet();
+                    Iterator iter = keys.iterator();
+                    while (iter.hasNext()) {
+                        Object nextKey = iter.next();
+                        BigDecimal expectedMapValue = 
+                                (BigDecimal)expected.get(nextKey);
+                        BigDecimal actualMapValue = 
+                                (BigDecimal)actual.get(nextKey);
+                        if ((expectedMapValue.compareTo(actualMapValue) != 0)) {
+                            sbuf.append("\nFor element " + i + "(" 
+                                    + (String)nextKey +
+                                    "), expected = " + expectedMapValue +
+                                    ", actual = " + actualMapValue + " . ");
+                    }
+                }
+            }
+            else {
                 sbuf.append("\nFor element " + i + ", expected = " +
-                        expected + ", actual = " + actual + " . ");
+                    expected + ", actual = " + actual + " . ");
             }
+          }
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
