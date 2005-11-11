@@ -179,6 +179,8 @@
                includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
                destdir="${iut.enhanced.dir}"
                debug="on"
+	       target="${maven.compile.target}"
+	       source="${maven.compile.source}"
                classpathref="project.class.path">
         </javac>
     </preGoal>
@@ -269,6 +271,8 @@
                includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
                destdir="${jdo.enhanced.dir}"
                debug="on"
+	       target="${maven.compile.target}"
+	       source="${maven.compile.source}"
                classpathref="jdori.class.path">
         </javac>
     </preGoal>
