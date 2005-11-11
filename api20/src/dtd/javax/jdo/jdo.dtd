@@ -162,6 +162,7 @@
 <!ATTLIST value mapped-by CDATA #IMPLIED>
 
 <!ELEMENT array (extension*)>
+<!ATTLIST array element-type CDATA #IMPLIED>
 <!ATTLIST array embedded-element (true|false) #IMPLIED>
 <!ATTLIST array dependent-element (true|false) #IMPLIED>
 <!ATTLIST array serialized-element (true|false) #IMPLIED>
