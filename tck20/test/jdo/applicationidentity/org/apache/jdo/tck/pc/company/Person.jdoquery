@@ -7,7 +7,7 @@ This file contains a named query for class Person.
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Person">
-            <query name="packageJDOQuery">
+            <query name="classJDOQuery">
                 SELECT FROM org.apache.jdo.tck.pc.company.Person
                 WHERE personid > 3
             </query>

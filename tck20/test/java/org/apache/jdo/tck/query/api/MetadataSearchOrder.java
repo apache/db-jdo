@@ -101,11 +101,11 @@ public class MetadataSearchOrder extends QueryTest {
     }
     
     /** */
-    public void testPackageJDOQuery() {
+    public void testClassJDOQuery() {
         int index = 4;
         Object[] expectedResultValues = 
             getCompanyModelInstances(expectedResult[index]);
-        executeNamedQuery(Person.class, "packageJDOQuery", 
+        executeNamedQuery(Person.class, "classJDOQuery", 
                 false, expectedResultValues);
     }
 

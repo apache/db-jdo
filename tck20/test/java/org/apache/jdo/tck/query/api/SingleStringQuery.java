@@ -58,19 +58,18 @@ public class SingleStringQuery extends QueryTest {
         "      firstname == 'emp1First' " +
         "VARIABLES Project project " +
         "PARAMETERS BigDecimal limit " +
-        "IMPORTS IMPORT org.apache.jdo.tck.query.result.classes.FullName; " +
-        "        IMPORT org.apache.jdo.tck.pc.company.Person; " +
-        "        IMPORT org.apache.jdo.tck.pc.company.Project; " +
-        "        IMPORT java.math.BigDecimal; " +
-        "ORDER BY personid ASCENDING" +
+        "IMPORTS import org.apache.jdo.tck.query.result.classes.FullName; " +
+        "        import org.apache.jdo.tck.pc.company.Person; " +
+        "        import org.apache.jdo.tck.pc.company.Project; " +
+        "        import java.math.BigDecimal; " +
         "GROUP BY firstname, lastname " +
-        "RANGE 0 TO 5";
+        "ORDER BY personid ASCENDING " +
+        "RANGE 0,5";
 
     /** The expected results of valid queries. */
     private static Object[][] expectedResult = {
         {new FullName("emp1First", "emp1Last")},
-        //Note: These are no bean names!
-        {"emp1First", "emp2First", "emp5First"} 
+        new String[]{"emp1", "emp2", "emp5"} 
     };
             
     /** Parameters of valid queries. */
@@ -95,8 +94,7 @@ public class SingleStringQuery extends QueryTest {
                 true, true, parameters[index], expectedResult[index]);
         
         index = 1;
-        String singleStringQuery = 
-            "SELECT firstName FROM org.apache.jdo.tck.pc.company.FullTimeEmployee";
+        String singleStringQuery = "SELECT FROM FullTimeEmployee";
         query.setUnique(false);
         query.setResult(null);
         query.setResultClass(null);
@@ -107,9 +105,9 @@ public class SingleStringQuery extends QueryTest {
         query.declareImports(null);
         query.setGrouping(null);
         query.setOrdering(null);
-        query.setRange(0, 0);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, parameters[index], expectedResult[index]);
+        query.setRange(null);
+        execute(ASSERTION_FAILED, query, singleStringQuery, false, false, null, 
+                getCompanyModelInstances((String[])expectedResult[index]));
     }
     
     /**

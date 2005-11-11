@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOFatalInternalException;
@@ -31,6 +32,8 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+
+import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Company;
@@ -42,6 +45,8 @@ import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
+import org.apache.jdo.tck.util.ConversionHelper;
+import org.apache.jdo.tck.util.EqualityHelper;
 
 public abstract class QueryTest extends JDO_Test {
 
@@ -189,7 +194,8 @@ public abstract class QueryTest extends JDO_Test {
         CompanyModelReader reader = new CompanyModelReader(COMPANY_TESTDATA);
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
-            result[i] = reader.getBean(beanNames[i]);
+            result[i] = beanNames[i] == null ? 
+                    null : reader.getBean(beanNames[i]);
         }
         return result;
     }
@@ -345,6 +351,10 @@ public abstract class QueryTest extends JDO_Test {
         }
         if (!compareOrderedResults((Collection)result, expected)) {
             String lf = System.getProperty("line.separator");
+            result = 
+                ConversionHelper.convertObjectArrayElements(result);
+            expected = 
+                ConversionHelper.convertsElementsOfTypeObjectArray(expected);
             fail(assertion,
                  "Wrong query result: " + lf +
                  "query returns: " + result + lf +
@@ -368,11 +378,7 @@ public abstract class QueryTest extends JDO_Test {
                 }
                 Object firstObject = firstIterator.next();
                 Object secondObject = secondIterator.next();
-                if (firstObject == null) {
-                    if (secondObject != null) {
-                        return false;
-                    }
-                } else if (!firstObject.equals(secondObject)) {
+                if (!equals(firstObject, secondObject)) {
                     return false;
                 }
             }
@@ -397,11 +403,14 @@ public abstract class QueryTest extends JDO_Test {
                  result.getClass().getName());
         }
 
-        if (((Collection)result).size() != expected.size() ||
-            !((Collection)result).containsAll(expected)) {
+        if (!equalsCollection((Collection)result, expected)) {
+            result = 
+                ConversionHelper.convertObjectArrayElements(result);
+            expected = 
+                ConversionHelper.convertsElementsOfTypeObjectArray(expected);
             fail(assertion, "Wrong query result" + 
-                 "\nexpected: " + new ArrayList(expected) +
-                 "\ngot:      " + new ArrayList((Collection)result));
+                "\nexpected: " + expected +
+                "\ngot:      " + result);
         }
     }
 
@@ -411,12 +420,194 @@ public abstract class QueryTest extends JDO_Test {
                                      Object expected) {
         if ((result != null && expected == null) ||
             (result == null && expected != null) || 
-            (result != null && expected != null && !result.equals(expected))) {
-            String lf = System.getProperty("line.separator");
-            fail(assertion, "Wrong query result: " + lf +
-                    "query returns: " + result + lf +
-                    "expected result: " + expected);
+            (result != null && expected != null)) {
+            if (!equals(result, expected)) {
+                String lf = System.getProperty("line.separator");
+                result = ConversionHelper.
+                convertObjectArrayElements(result);
+                expected = ConversionHelper.
+                convertObjectArrayElements(expected);
+                fail(assertion, "Wrong query result: " + lf +
+                        "query returns: " + result + lf +
+                        "expected result: " + expected);
+            }
         }
+    }
+
+    /**
+     * Returns <code>true</code> 
+     * if <code>o1</code> and <code>o2</code> equal.
+     * This method is capable to compare object arrays, 
+     * collections of object arrays, maps of object arrays.
+     * This method implements a narrowing in case of floating point values.
+     * In case of big decimals it calls 
+     * {@link BigDecimal#compareTo(java.lang.Object)}.
+     * It allows <code>o1</code> and/or <code>o2</code>
+     * to be <code>null</code>. 
+     * @param o1 the first object
+     * @param o2 the second object
+     * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
+     */
+    private boolean equals(Object o1, Object o2) {
+        boolean result;
+        if (o1 == o2) {
+            result = true;
+        } if ((o1 instanceof Object[]) && (o2 instanceof Object[])) {
+            result = equalsObjectArray((Object[])o1, (Object[])o2);
+        } else if ((o1 instanceof Collection) && (o2 instanceof Collection)) {
+            result = equalsCollection((Collection)o1, (Collection)o2);
+        } else if ((o1 instanceof Map) && (o2 instanceof Map)) {
+            result = equalsMap((Map)o1, (Map)o2);
+        }else if ((o1 instanceof Float) && (o2 instanceof Float)) {
+            result = closeEnough(((Float)o1).floatValue(), 
+                    ((Float)o2).floatValue());
+        } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
+            result = closeEnough(((Double)o1).floatValue(), 
+                    ((Double)o2).floatValue());
+        } else if ((o1 instanceof BigDecimal) && (o2 instanceof BigDecimal)) {
+            result = ((BigDecimal)o1).compareTo(o2) == 0;
+        } else if (o1 != null) {
+            result = o1.equals(o2);
+        } else {
+            // Due to the first if and the last if we have:
+            // o1 == null && o2 != null
+            result = false;
+        }
+        return result;
+    }
+    
+    /**
+     * Returns <code>true</code> 
+     * if <code>o1</code> and <code>o2</code> equal.
+     * This method iterates over both object arrays and calls
+     * {@link QueryTest#equals(Object, Object)} passing
+     * corresponding instances.
+     * This method does not allow <code>o1</code> and <code>o2</code>
+     * to be <code>null</code> both. 
+     * @param o1 the first object array
+     * @param o2 the second object array
+     * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
+     */
+    private boolean equalsObjectArray(Object[] o1, Object[] o2) {
+        boolean result = true;
+        if (o1.length != o2.length) {
+            result = false;
+        } else {
+            for (int i = 0; i < o1.length; i++ ) {
+                if (!equals(o1[i], o2[i])) {
+                    result = false;
+                    break;
+                }
+            }
+        } 
+        return result;
+    }
+
+    /**
+     * Returns <code>true</code> 
+     * if <code>o1</code> and <code>o2</code> equal.
+     * This method iterates over the first collection and 
+     * checks if each instance is contained in the second collection
+     * by calling {@link QueryTest#contains(Collection, Object)}.
+     * This method does not allow <code>o1</code> and <code>o2</code>
+     * to be <code>null</code> both. 
+     * @param o1 the first collection
+     * @param o2 the second collection
+     * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
+     */
+    private boolean equalsCollection(Collection o1, Collection o2) {
+        boolean result = true;
+        if (o1.size() != o2.size()) {
+            result = false;
+        } else {
+            for (Iterator i = o1.iterator(); i.hasNext(); ) {
+                Object oo1 = i.next();
+                if (!contains(o2, oo1)) {
+                    result = false;
+                    break;
+                }
+            }
+        } 
+        return result;
+    }
+    
+    /**
+     * Returns <code>true</code> 
+     * if <code>o1</code> and <code>o2</code> equal.
+     * This method checks if the key sets and the value sets of both
+     * maps equal calling 
+     * {@link QueryTest#equalsCollection(Collection, Collection).
+     * This method does not allow <code>o1</code> and <code>o2</code>
+     * to be <code>null</code> both. 
+     * @param o1 the first map
+     * @param o2 the second map
+     * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
+     */
+    private boolean equalsMap(Map o1, Map o2) {
+        boolean result = true;
+        if (o1.size() != o2.size()) {
+            result = false;
+        } else if (!equalsCollection(o1.keySet(), o2.keySet()) ||
+                   !equalsCollection(o1.values(), o2.values())) {
+            result = false;
+        } 
+        return result;
+    }
+    
+    /**
+     * Returns <code>true</code> if <code>o</code> is contained
+     * in the given collection.
+     * This method iterates the given collection and calls
+     * {@link QueryTest#equals(Object, Object)} for each instance.
+     * @param col the collection
+     * @param o the object
+     * @return <code>true</code> if <code>o</code> is contained
+     * in the given collection.
+     */
+    private boolean contains(Collection col, Object o) {
+        for (Iterator i = col.iterator(); i.hasNext(); ) {
+            if (equals(o, i.next())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /** Returns <code>true</code> if the specified float values are close
+     * enough to be considered to be equal for a deep equals
+     * comparison. Floating point values are not exact, so comparing them
+     * using <code>==</code> might not return useful results. This method
+     * checks that both double values are within some percent of each
+     * other. 
+     * @param d1 one double to be tested for close enough 
+     * @param d2 the other double to be tested for close enough 
+     * @return <code>true</code> if the specified values are close enough.
+     */
+    public boolean closeEnough(double d1, double d2) {
+        if (d1 == d2)
+            return true;
+
+        double diff = Math.abs(d1 - d2);
+        return diff < Math.abs((d1 + d2) * EqualityHelper.DOUBLE_EPSILON);
+    }
+
+    /**
+     * Returns <code>true</code> if the specified float values are close
+     * enough to be considered to be equal for a deep equals
+     * comparison. Floating point values are not exact, so comparing them 
+     * using <code>==</code> might not return useful results. This method
+     * checks that both float values are within some percent of each
+     * other. 
+     * @param f1 one float to be tested for close enough 
+     * @param f2 the other float to be tested for close enough 
+     * @return <code>true</code> if the specified values are close enough.
+     */
+    public boolean closeEnough(float f1, float f2) {
+        if (f1 == f2)
+            return true;
+
+        float diff = Math.abs(f1 - f2);
+        return diff < Math.abs((f1 + f2) * EqualityHelper.FLOAT_EPSILON);
     }
 
     // Debugging helper methods

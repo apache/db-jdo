@@ -399,6 +399,7 @@
                 <uptodate targetfile="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar">
                     <srcfiles dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
                           includes="org/apache/jdo/tck/**/*.jdo, 
+                                    org/apache/jdo/tck/**/*.jdoquery,
                                     org/apache/jdo/tck/**/jdoTest.properties"/>
                     <srcfiles dir="${basedir}/test/java"
                           includes="${jdo.tck.pcclasses.sources},
@@ -413,7 +414,7 @@
         <mkdir dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}" />
         <copy todir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}">
             <fileset dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
-                     includes="**/*.jdo, **/jdoTest.properties"/>
+                     includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
@@ -506,7 +507,7 @@
         <delete file="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
         <jar jarfile="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar">
             <fileset dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}" 
-                 includes="**/*.class, **/*.jdo, **/*.orm, **/*.xml, **/jdoTest.properties"/>
+                 includes="**/*.class, **/*.jdo, **/*.jdoquery **/*.orm, **/*.xml, **/jdoTest.properties"/>
         </jar>
     </goal>
 
