@@ -48,6 +48,8 @@ public class InsnConstOp extends Insn {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+            /* @olsen: JDK1.5: support for new opcode invokedynamic */
+        case opc_invokedynamic:
             /* handle interface invoke too */
         case opc_invokeinterface:
         {
@@ -79,6 +81,8 @@ public class InsnConstOp extends Insn {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+            /* @olsen: JDK1.5: support for new opcode invokedynamic */
+        case opc_invokedynamic:
             /* handle interface invoke too */
         case opc_invokeinterface:
         {
@@ -106,6 +110,8 @@ public class InsnConstOp extends Insn {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+            /* @olsen: JDK1.5: support for new opcode invokedynamic */
+        case opc_invokedynamic:
             /* handle interface invoke too */
         case opc_invokeinterface:
         {
@@ -127,6 +133,8 @@ public class InsnConstOp extends Insn {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+            /* @olsen: JDK1.5: support for new opcode invokedynamic */
+        case opc_invokedynamic:
             /* handle interface invoke too */
         case opc_invokeinterface:
         {
@@ -279,6 +287,8 @@ public class InsnConstOp extends Insn {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+            /* @olsen: JDK1.5: support for new opcode invokedynamic */
+        case opc_invokedynamic:
             /* ConstMethodRef */
             if (operand == null ||
                 (! (operand instanceof ConstMethodRef)))

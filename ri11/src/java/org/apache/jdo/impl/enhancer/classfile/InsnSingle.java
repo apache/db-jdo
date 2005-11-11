@@ -254,7 +254,6 @@ public class InsnSingle extends Insn {
         case opc_dreturn:
         case opc_areturn:
         case opc_return:
-        case opc_xxxunusedxxx:
         case opc_arraylength:
         case opc_athrow:
         case opc_monitorenter:

@@ -426,6 +426,9 @@ public class ConstantPool implements VMConstants {
             case CONSTANTNameAndType:
                 nameAndTypeTable.addElement(c);
                 break;
+            default:
+                throw new ClassFormatError("Don't know this constant type: " +
+                                           c.toString());
             }
         }
     }

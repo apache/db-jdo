@@ -23,7 +23,8 @@ import java.util.Stack;
 /**
  * Class representing a class reference in the constant pool
  */
-public class ConstClass extends ConstBasic {
+//@olsen: JDK1.5: extend ConstValue to allow for class refs as constants
+public class ConstClass extends ConstValue {
     /* The tag associated with ConstClass entries */
     public static final int MyTag = CONSTANTClass;
 
@@ -46,6 +47,15 @@ public class ConstClass extends ConstBasic {
      */
     public ConstUtf8 className() {
         return theClassName;
+    }
+
+    /**
+     * Return the descriptor string for the constant type.
+     */
+    //@olsen: added method
+    public String descriptor() {
+        String cname = asString();
+        return (cname.startsWith("[") ? cname : "L" + cname + ";");
     }
 
     /**
@@ -81,7 +91,7 @@ public class ConstClass extends ConstBasic {
     /**
      * Compares this instance with another for structural equality.
      */
-    //@olsen: added method
+    //@olsen: JDK1.5: added method
     public boolean isEqual(Stack msg, Object obj) {
         if (!(obj instanceof ConstClass)) {
             msg.push("obj/obj.getClass() = "

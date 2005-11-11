@@ -25,19 +25,26 @@ package org.apache.jdo.impl.enhancer.classfile;
  */
 public interface VMConstants {
     /* Access types */
-    static final int ACCPublic        = 0x0001;
-    static final int ACCPrivate       = 0x0002;
-    static final int ACCProtected     = 0x0004;
-    static final int ACCStatic        = 0x0008;
-    static final int ACCFinal         = 0x0010;
-    static final int ACCSuper         = 0x0020;   /* For Class file */
-    static final int ACCSynchronized  = 0x0020;   /* For methods    */
-    static final int ACCVolatile      = 0x0040;
-    static final int ACCTransient     = 0x0080;
-    static final int ACCNative        = 0x0100;
-    static final int ACCInterface     = 0x0200;
-    static final int ACCAbstract      = 0x0400;
-
+    //@olsen: JDK1.5: support for new flags: ACCVarargs, ACCBridge,
+    // ACCEnum, and ACCAnnotation
+    static final int ACCPublic        = 0x0001;  // class, field, method
+    static final int ACCPrivate       = 0x0002;  // field, method
+    static final int ACCProtected     = 0x0004;  // field, method
+    static final int ACCStatic        = 0x0008;  // field, method
+    static final int ACCFinal         = 0x0010;  // class, field, method
+    static final int ACCSuper         = 0x0020;  // class
+    static final int ACCSynchronized  = 0x0020;  // method
+    static final int ACCVolatile      = 0x0040;  // field
+    static final int ACCBridge        = 0x0040;  // method
+    static final int ACCTransient     = 0x0080;  // field
+    static final int ACCVarargs       = 0x0080;  // method
+    static final int ACCNative        = 0x0100;  // method
+    static final int ACCInterface     = 0x0200;  // class
+    static final int ACCAbstract      = 0x0400;  // class, method
+    static final int ACCStrict        = 0x0800;  // method
+    static final int ACCSynthetic     = 0x1000;  // class, field, method
+    static final int ACCAnnotation    = 0x2000;  // class
+    static final int ACCEnum          = 0x4000;  // class, field
 
     /* Primitive Types */
     /* These correspond to the values used by newarray */
@@ -73,8 +80,6 @@ public interface VMConstants {
     static final int CONSTANTMethodRef = 10;
     static final int CONSTANTInterfaceMethodRef = 11;
     static final int CONSTANTNameAndType = 12;
-
-
 
     /* Java VM opcodes */
     final static int opc_nop = 0;
@@ -263,7 +268,8 @@ public interface VMConstants {
     final static int opc_invokespecial = 183;
     final static int opc_invokestatic = 184;
     final static int opc_invokeinterface = 185;
-    final static int opc_xxxunusedxxx = 186;
+    //@olsen: JDK1.5: support for new opcode invokedynamic
+    final static int opc_invokedynamic = 186;
     final static int opc_new = 187;
     final static int opc_newarray = 188;
     final static int opc_anewarray = 189;

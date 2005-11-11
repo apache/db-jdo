@@ -80,6 +80,13 @@ public abstract class ClassAttribute implements VMConstants {
         String attrName = attrName8.asString();
         int attrLength = data.readInt();
 
+        //@olsen: The attributes predefined by the VM Spec as appearing
+        // in the attributes table of a ClassFile, ClassMethod, or
+        // ClassField structure are: SourceFile, ConstantValue, Code,
+        // Exceptions, InnerClasses, EnclosingMethod, Synthetic, Signature,
+        // and Deprecated.
+        //^olsen: to support InnerClasses, EnclosingMethod, and Deprecated
+
         if (attrName.equals(CodeAttribute.expectedAttrName)) {
             /* The old style code attribute reader uses more memory and
                cpu when the instructions don't need to be examined than the
@@ -104,11 +111,19 @@ public abstract class ClassAttribute implements VMConstants {
         else if (attrName.equals(AnnotatedClassAttribute.expectedAttrName)) {
             attr = AnnotatedClassAttribute.read(attrName8, data, pool);
         }
+        //@olsen: fix 4467428, added support for synthetic code attribute
+        else if (attrName.equals(SyntheticAttribute.expectedAttrName)) {
+            attr = SyntheticAttribute.read(attrName8, data, pool);
+        }
+        //@olsen: JDK1.5: added support for signature attribute
+        else if (attrName.equals(SignatureAttribute.expectedAttrName)) {
+            attr = SignatureAttribute.read(attrName8, data, pool);
+        }
         else {
             /* Unrecognized method attribute */
             byte attrBytes[] = new byte[attrLength];
             data.readFully(attrBytes);
-            attr = new GenericAttribute (attrName8, attrBytes);
+            attr = new GenericAttribute(attrName8, attrBytes);
         }
 
         return attr;
@@ -126,6 +141,10 @@ public abstract class ClassAttribute implements VMConstants {
         String attrName = attrName8.asString();
         int attrLength = data.readInt();
 
+        //@olsen: The attributes predefined by the VM Spec as
+        // appearing in the Code attribute of a method: LineNumberTable
+        // and LocalVariableTable
+
         if (attrName.equals(LineNumberTableAttribute.expectedAttrName)) {
             attr = LineNumberTableAttribute.read(attrName8, data, env);
         }
@@ -135,15 +154,11 @@ public abstract class ClassAttribute implements VMConstants {
         else if (attrName.equals(AnnotatedMethodAttribute.expectedAttrName)) {
             attr = AnnotatedMethodAttribute.read(attrName8, data, env);
         }
-        //@olsen: fix 4467428, added support for synthetic code attribute
-        else if (attrName.equals(SyntheticAttribute.expectedAttrName)) {
-            attr = SyntheticAttribute.read(attrName8, data, env.pool());
-        }
         else {
             /* Unrecognized method attribute */
             byte attrBytes[] = new byte[attrLength];
             data.readFully(attrBytes);
-            attr = new GenericAttribute (attrName8, attrBytes);
+            attr = new GenericAttribute(attrName8, attrBytes);
         }
 
         return attr;

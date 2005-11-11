@@ -26,7 +26,15 @@ import java.io.*;
  * A SyntheticAttribute is a fixed-length attribute in the attributes table
  * of ClassFile, ClassField, and ClassMethod structures.  A class member
  * that does not appear in the source code must be marked using a
- * SyntheticAttribute. 
+ * SyntheticAttribute, or else it must have its ACC_SYNTHETIC bit set. The
+ * only exceptions to this requirement are for default constructors and the
+ * class initialization method.
+ *
+ * The SyntheticAttribute has the following format:
+ *     Synthetic_attribute {
+ *         u2 attribute_name_index;
+ *         u4 attribute_length;
+ *     }
  */
 public class SyntheticAttribute extends ClassAttribute {
     /* The expected name of this attribute */
@@ -37,7 +45,6 @@ public class SyntheticAttribute extends ClassAttribute {
      */
     public SyntheticAttribute(ConstUtf8 attrName) {
         super(attrName);
-        //System.out.println("new SyntheticAttribute()");
     }
 
     /* package local methods */

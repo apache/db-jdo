@@ -476,7 +476,6 @@ abstract public class Insn implements VMConstants {
         case opc_dreturn:
         case opc_areturn:
         case opc_return:
-        case opc_xxxunusedxxx:
         case opc_arraylength:
         case opc_athrow:
         case opc_monitorenter:
@@ -496,6 +495,8 @@ abstract public class Insn implements VMConstants {
         case opc_invokevirtual:
         case opc_invokespecial:
         case opc_invokestatic:
+        //@olsen: JDK1.5: support for new opcode invokedynamic
+        case opc_invokedynamic:
         case opc_new:
         case opc_anewarray:
         case opc_checkcast:

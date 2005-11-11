@@ -474,8 +474,9 @@ public class VMOp implements VMConstants {
         new VMOp(opc_invokestatic, "invokestatic", -1, -1, "?", "?"),
         /* idxbyte1, idxbyte2, nargs, rsvd | ..., objectref, [args] => ... */
         new VMOp(opc_invokeinterface, "invokeinterface", -1, -1, "A?", "?"),
-        /* */
-        new VMOp(opc_xxxunusedxxx, "xxxunusedxxx", 0, 0, "", ""),
+	/* @olsen: JDK1.5: support for new opcode invokedynamic */
+        /* idxbyte1, idxbyte2 | ..., objectref, [args] => ... */
+        new VMOp(opc_invokedynamic, "invokedynamic", -1, -1, "A?", "?"),
         /* idxbyte1, idxbyte2 | ... => ..., objectref */
         new VMOp(opc_new, "new", 0, 1, "", "A"),
         /* atype | ..., size => ..., result */

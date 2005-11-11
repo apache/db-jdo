@@ -43,8 +43,7 @@ public class ClassMethod extends ClassMember {
     private ConstUtf8 methodSignature;
 
     /* The attributes associated with the field */
-    private AttributeVector methodAttributes;
-  
+    private AttributeVector methodAttributes;  
   
     /* public accessors */
 
@@ -109,6 +108,16 @@ public class ClassMethod extends ClassMember {
      */
     public AttributeVector attributes() {
         return methodAttributes;
+    }
+
+    /**
+     * Returns the SignatureAttribute, if there's any, for this method.
+     */
+    //@olsen: JDK1.5: added method
+    public SignatureAttribute getSignatureAttribute() {
+        final String name = SignatureAttribute.expectedAttrName;
+        final ClassAttribute attr = methodAttributes.findAttribute(name);
+        return (SignatureAttribute)attr;
     }
 
     /**

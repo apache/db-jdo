@@ -40,11 +40,19 @@ final public class ClassFile implements VMConstants, Serializable {
     
     /*@craig added more flexible version checking.
      */
-    public static final short[] [] jdkMajorMinorVersions = new short[][] {
+    public static final short[][] jdkMajorMinorVersions = new short[][] {
+        //@olsen: JDK1.5: support for classfile version 49.0
+	// JDK 1.0.2:  [45.0 .. 45.3]
+	// JDK 1.1:    [45.0 .. 45.65535]
+	// JDK 1.2:    [45.0 .. 46.0]
+	// JDK 1.3:    [45.0 .. 47.0]
+	// JDK 1.4:    [45.0 .. 48.0]
+	// JDK 1.5:    [45.0 .. 49.0]
         new short[] {45,3}, // jdk 1.1
         new short[] {46,0}, // jdk 1.2
         new short[] {47,0}, // jdk 1.3
-        new short[] {48,0}  // jdk 1.4
+        new short[] {48,0}, // jdk 1.4
+        new short[] {49,0}  // jdk 1.5
     };
     public static final List jdkVersions = 
         convertMajorMinorVersions(jdkMajorMinorVersions);
@@ -116,8 +124,6 @@ final public class ClassFile implements VMConstants, Serializable {
 
     /* public accessors */
 
-
-
     /**
      * Return the constant pool for the class file
      */
@@ -159,7 +165,6 @@ final public class ClassFile implements VMConstants, Serializable {
     final public boolean isAbstract() {
         return (accessFlags & ACCAbstract) != 0;
     }
-
 
     /**
      * Set the access flags for the class - see VMConstants
@@ -290,11 +295,20 @@ final public class ClassFile implements VMConstants, Serializable {
     }
 
     /**
+     * Returns the SignatureAttribute, if there's any, for this class.
+     */
+    //@olsen: JDK1.5: added method
+    public SignatureAttribute getSignatureAttribute() {
+        final String name = SignatureAttribute.expectedAttrName;
+        final ClassAttribute attr = classAttributes.findAttribute(name);
+        return (SignatureAttribute)attr;
+    }
+
+    /**
      * Returns the class name in user ('.' delimited) form.
      */
     //@olsen: moved from ClassControl to ClassFile
-    public String userClassName()
-    {
+    public String userClassName() {
         return userClassFromVMClass(classNameString());
     }
   
@@ -302,8 +316,7 @@ final public class ClassFile implements VMConstants, Serializable {
      * Returns the class name in user ('.' delimited) form.
      */
     //@olsen: moved from ClassControl to ClassFile
-    static public String userClassFromVMClass(String vmName)
-    {
+    static public String userClassFromVMClass(String vmName) {
         return vmName.replace('/', '.');
     }
   
@@ -311,8 +324,7 @@ final public class ClassFile implements VMConstants, Serializable {
      * Returns the class name in VM ('/' delimited) form.
      */
     //@olsen: moved from ClassControl to ClassFile
-    static public String vmClassFromUserClass(String userName)
-    {
+    static public String vmClassFromUserClass(String userName) {
         return userName.replace('.', '/');
     }
   
@@ -384,9 +396,6 @@ final public class ClassFile implements VMConstants, Serializable {
             throw new ClassFormatError("IOException during reading: " + 
                                        e.getMessage());
         }
-        //@olsen: added println() for debugging
-        //System.out.println("ClassFile(): new class = " + 
-        //thisClassName.asString());
     }
 
     /**
@@ -395,16 +404,12 @@ final public class ClassFile implements VMConstants, Serializable {
     public ClassFile(String cname, String supername) {
         thisClassName = constantPool.addClass(cname);
         superClassName = constantPool.addClass(supername);
-        //@olsen: added println() for debugging
-        //System.out.println("ClassFile(): new bare class file = " + 
-        //thisClassName);
     }
 
     /**
      * Write the Class file to the data output stream
      */
-    public
-    void write (DataOutputStream buff) throws IOException {
+    public void write (DataOutputStream buff) throws IOException {
         buff.writeInt(magic);
         buff.writeShort(minorVersion);
         buff.writeShort(majorVersion);

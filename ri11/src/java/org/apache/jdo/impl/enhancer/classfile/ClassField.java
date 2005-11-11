@@ -23,120 +23,128 @@ import java.io.*;
  * ClassField models the static and non-static fields of a class within
  * a class file.
  */
-
 final public class ClassField extends ClassMember {
-  /* access flag bit mask - see VMConstants */
-  private int accessFlags;
+    /* access flag bit mask - see VMConstants */
+    private int accessFlags;
 
-  /* The name of the field */
-  private ConstUtf8 fieldName;
+    /* The name of the field */
+    private ConstUtf8 fieldName;
 
-  /* The type signature of the field */
-  private ConstUtf8 fieldSignature;
+    /* The type signature of the field */
+    private ConstUtf8 fieldSignature;
 
-  /* The attributes associated with the field */
-  private AttributeVector fieldAttributes;
-  
+    /* The attributes associated with the field */
+    private AttributeVector fieldAttributes;  
 
-  /* public accessors */
+    /* public accessors */
 
-  /**
-   * Is the field transient?
-   */
-  public boolean isTransient() {
-    return (accessFlags & ACCTransient) != 0;
-  }
+    /**
+     * Is the field transient?
+     */
+    public boolean isTransient() {
+        return (accessFlags & ACCTransient) != 0;
+    }
 
-  /**
-   * Return the access flags for the field - see VMConstants
-   */
-  public int access() {
-    return accessFlags;
-  }
+    /**
+     * Return the access flags for the field - see VMConstants
+     */
+    public int access() {
+        return accessFlags;
+    }
 
-  /**
-   * Update the access flags for the field - see VMConstants
-   */
-  public void setAccess(int newFlags) {
-    accessFlags = newFlags;
-  }
+    /**
+     * Update the access flags for the field - see VMConstants
+     */
+    public void setAccess(int newFlags) {
+        accessFlags = newFlags;
+    }
 
-  /**
-   * Return the name of the field
-   */
-  public ConstUtf8 name() {
-    return fieldName;
-  }
+    /**
+     * Return the name of the field
+     */
+    public ConstUtf8 name() {
+        return fieldName;
+    }
 
-  /**
-   * Change the name of the field
-   */
-  public void changeName(ConstUtf8 name) {
-    fieldName = name;
-  }
+    /**
+     * Change the name of the field
+     */
+    public void changeName(ConstUtf8 name) {
+        fieldName = name;
+    }
 
-  /**
-   * Return the type signature of the field
-   */
-  public ConstUtf8 signature() {
-    return fieldSignature;
-  }
+    /**
+     * Return the type signature of the field
+     */
+    public ConstUtf8 signature() {
+        return fieldSignature;
+    }
 
-  /**
-   * Change the type signature of the field
-   */
-  public void changeSignature(ConstUtf8 newSig) {
-    fieldSignature = newSig;
-  }
+    /**
+     * Change the type signature of the field
+     */
+    public void changeSignature(ConstUtf8 newSig) {
+        fieldSignature = newSig;
+    }
 
-  /**
-   * Return the attributes associated with the field
-   */
-  public AttributeVector attributes() {
-    return fieldAttributes;
-  }
+    /**
+     * Return the attributes associated with the field
+     */
+    public AttributeVector attributes() {
+        return fieldAttributes;
+    }
 
-  /**
-   * Construct a class field object
-   */
-  public ClassField(int accFlags, ConstUtf8 name, ConstUtf8 sig,
-                    AttributeVector field_attrs) {
-    accessFlags = accFlags;
-    fieldName = name;
-    fieldSignature = sig;
-    fieldAttributes = field_attrs;
-  }
+    /**
+     * Returns the SignatureAttribute, if there's any, for this field.
+     */
+    //@olsen: JDK1.5: added field
+    public SignatureAttribute getSignatureAttribute() {
+        final String name = SignatureAttribute.expectedAttrName;
+        final ClassAttribute attr = fieldAttributes.findAttribute(name);
+        return (SignatureAttribute)attr;
+    }
 
-  /* package local methods */
+    /**
+     * Construct a class field object
+     */
+    public ClassField(int accFlags, ConstUtf8 name, ConstUtf8 sig,
+                      AttributeVector field_attrs) {
+        accessFlags = accFlags;
+        fieldName = name;
+        fieldSignature = sig;
+        fieldAttributes = field_attrs;
+    }
 
-  static ClassField read(DataInputStream data, ConstantPool pool) 
-    throws IOException {
-    ClassField f = null;
-    int accessFlags = data.readUnsignedShort();
-    int name_index = data.readUnsignedShort();
-    int sig_index = data.readUnsignedShort();
-    AttributeVector fieldAttribs = AttributeVector.readAttributes(data, pool);
-    f = new ClassField(accessFlags, 
-		       (ConstUtf8) pool.constantAt(name_index),
-		       (ConstUtf8) pool.constantAt(sig_index),
-		       fieldAttribs);
-    return f;
-  }
+    /* package local methods */
 
-  void write (DataOutputStream data) throws IOException {
-    data.writeShort(accessFlags);
-    data.writeShort(fieldName.getIndex());
-    data.writeShort(fieldSignature.getIndex());
-    fieldAttributes.write(data);
-  }
+    static ClassField read(DataInputStream data, ConstantPool pool) 
+        throws IOException {
+        ClassField f = null;
+        int accessFlags = data.readUnsignedShort();
+        int name_index = data.readUnsignedShort();
+        int sig_index = data.readUnsignedShort();
+        AttributeVector fieldAttribs = AttributeVector.readAttributes(data, pool);
+        f = new ClassField(accessFlags, 
+                           (ConstUtf8) pool.constantAt(name_index),
+                           (ConstUtf8) pool.constantAt(sig_index),
+                           fieldAttribs);
+        return f;
+    }
 
-  void print(PrintStream out, int indent) {
-    ClassPrint.spaces(out, indent);
-    out.print("'" + fieldName.asString() + "'");
-    out.print(" sig = " + fieldSignature.asString());
-    out.print(" access_flags = " + Integer.toString(accessFlags));
-    out.println(" attributes:");
-    fieldAttributes.print(out, indent+2);
-  }
+    void write (DataOutputStream data) throws IOException {
+        data.writeShort(accessFlags);
+        data.writeShort(fieldName.getIndex());
+        data.writeShort(fieldSignature.getIndex());
+        fieldAttributes.write(data);
+    }
+    
+    void print(PrintStream out, int indent) {
+        ClassPrint.spaces(out, indent);
+        out.print("'" + fieldName.asString() + "'");
+        out.print(" sig = " + fieldSignature.asString());
+        out.print(" access_flags = " + Integer.toString(accessFlags));
+        out.println(" attributes:");
+        fieldAttributes.print(out, indent+2);
+    }
 }
 
