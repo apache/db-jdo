@@ -9,28 +9,21 @@
             <field name="identifier" column="IDENTIFIER"/>
             <field name="HashMapOfObject_String0" table="HASHMAP_OBJECT0_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfObject_String1" table="HASHMAP_OBJECT1_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfObject_String2" table="HASHMAP_OBJECT2_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfObject_String3" table="HASHMAP_OBJECT3_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -40,19 +33,26 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashMapOfObject_String3" table="HASHMAP_OBJECT3_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashMapOfObject_String4" table="HASHMAP_OBJECT4_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfObject_String6" table="HASHMAP_OBJECT6_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfObject_String8" column="HASHMAP_OBJECT8_STR">
@@ -60,30 +60,24 @@
             <field name="HashMapOfSimpleClass_String9"
                    table="HASHMAP_SIMPLE_CLASS9_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String10"
                    table="HASHMAP_SIMPLE_CLASS10_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String11"
                    table="HASHMAP_SIMPLE_CLASS11_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfSimpleClass_String12"
+                   table="HASHMAP_SIMPLE_CLASS12_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -93,22 +87,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashMapOfSimpleClass_String12"
-                   table="HASHMAP_SIMPLE_CLASS12_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashMapOfSimpleClass_String13"
                    table="HASHMAP_SIMPLE_CLASS13_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String15"
                    table="HASHMAP_SIMPLE_CLASS15_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String17"
@@ -117,30 +117,24 @@
             <field name="HashMapOfSimpleInterface_String18"
                    table="HASHMAP_SIMPLE_INTERFACE18_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleInterface_String19"
                    table="HASHMAP_SIMPLE_INTERFACE19_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleInterface_String20"
                    table="HASHMAP_SIMPLE_INTERFACE20_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfSimpleInterface_String21"
+                   table="HASHMAP_SIMPLE_INTERFACE21_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -150,22 +144,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashMapOfSimpleInterface_String21"
-                   table="HASHMAP_SIMPLE_INTERFACE21_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashMapOfSimpleInterface_String22"
                    table="HASHMAP_SIMPLE_INTERFACE22_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleInterface_String24"
                    table="HASHMAP_SIMPLE_INTERFACE24_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleInterface_String26"

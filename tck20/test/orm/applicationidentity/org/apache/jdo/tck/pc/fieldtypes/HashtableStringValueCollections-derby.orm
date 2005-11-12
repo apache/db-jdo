@@ -8,30 +8,24 @@
             <field name="HashtableOfObject_String0"
                    table="HASHTBL_OBJECT0_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfObject_String1"
                    table="HASHTBL_OBJECT1_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfObject_String2"
                    table="HASHTBL_OBJECT2_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashtableOfObject_String3"
+                   table="HASHTBL_OBJECT3_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -41,22 +35,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashtableOfObject_String3"
-                   table="HASHTBL_OBJECT3_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashtableOfObject_String4"
                    table="HASHTBL_OBJECT4_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfObject_String6"
                    table="HASHTBL_OBJECT6_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfObject_String8"
@@ -65,30 +65,24 @@
             <field name="HashtableOfSimpleClass_String9"
                    table="HASHTBL_SIMPLE_CLASS9_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleClass_String10"
                    table="HASHTBL_SIMPLE_CLASS10_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleClass_String11"
                    table="HASHTBL_SIMPLE_CLASS11_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashtableOfSimpleClass_String12"
+                   table="HASHTBL_SIMPLE_CLASS12_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -98,22 +92,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashtableOfSimpleClass_String12"
-                   table="HASHTBL_SIMPLE_CLASS12_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashtableOfSimpleClass_String13"
                    table="HASHTBL_SIMPLE_CLASS13_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleClass_String15"
                    table="HASHTBL_SIMPLE_CLASS15_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleClass_String17"
@@ -122,30 +122,23 @@
             <field name="HashtableOfSimpleInterface_String18"
                    table="HASHTBL_SIMPLE_INTERFACE18_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleInterface_String19"
                    table="HASHTBL_SIMPLE_INTERFACE19_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleInterface_String20"
                    table="HASHTBL_SIMPLE_INTERFACE20_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashtableOfSimpleInterface_String21"
+                   table="HASHTBL_SIMPLE_INTERFACE21_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -155,22 +148,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="HashtableOfSimpleInterface_String21"
-                   table="HASHTBL_SIMPLE_INTERFACE21_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="HashtableOfSimpleInterface_String22"
                    table="HASHTBL_SIMPLE_INTERFACE22_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleInterface_String24"
                    table="HASHTBL_SIMPLE_INTERFACE24_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashtableOfSimpleInterface_String26"

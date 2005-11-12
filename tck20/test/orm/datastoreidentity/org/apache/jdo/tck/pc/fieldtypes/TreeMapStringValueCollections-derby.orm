@@ -9,53 +9,53 @@
             <field name="identifier" column="IDENTIFIER"/>
             <field name="TreeMapOfObject_String0" table="TREEMAP_OBJECT0_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String1" table="TREEMAP_OBJECT1_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String2" table="TREEMAP_OBJECT2_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String3"
                    table="TREEMAP_OBJECT3_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String4"
                    table="TREEMAP_OBJECT4_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String6"
                    table="TREEMAP_OBJECT6_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfObject_String8"
@@ -64,30 +64,24 @@
             <field name="TreeMapOfSimpleClass_String9"
                    table="TREEMAP_SIMPLE_CLASS9_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleClass_String10"
                    table="TREEMAP_SIMPLE_CLASS10_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleClass_String11"
                    table="TREEMAP_SIMPLE_CLASS11_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="TreeMapOfSimpleClass_String12"
+                   table="TREEMAP_SIMPLE_CLASS12_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -97,22 +91,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="TreeMapOfSimpleClass_String12"
-                   table="TREEMAP_SIMPLE_CLASS12_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="TreeMapOfSimpleClass_String13"
                    table="TREEMAP_SIMPLE_CLASS13_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleClass_String15"
                    table="TREEMAP_SIMPLE_CLASS15_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleClass_String17"
@@ -121,30 +121,24 @@
             <field name="TreeMapOfSimpleInterface_String18"
                    table="TREEMAP_SIMPLE_INTERFACE18_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleInterface_String19"
                    table="TREEMAP_SIMPLE_INTERFACE19_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleInterface_String20"
                    table="TREEMAP_SIMPLE_INTERFACE20_STR">
                 <join column="IDENTIFIER"/>
+                <key column="KEYREF"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="TreeMapOfSimpleInterface_String21"
+                   table="TREEMAP_SIMPLE_INTERFACE21_STR">
+                <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
                         <field name="id" column="ID"/>
@@ -154,22 +148,28 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="TreeMapOfSimpleInterface_String21"
-                   table="TREEMAP_SIMPLE_INTERFACE21_STR">
-                <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
-                <value column="VALUEVAL"/>
-            </field>
             <field name="TreeMapOfSimpleInterface_String22"
                    table="TREEMAP_SIMPLE_INTERFACE22_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleInterface_String24"
                    table="TREEMAP_SIMPLE_INTERFACE24_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="TreeMapOfSimpleInterface_String26"
