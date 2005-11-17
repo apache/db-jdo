@@ -15,7 +15,7 @@
 </field>
 <field name="HashtableOfObject_String2" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfObject_String3" >
@@ -28,7 +28,8 @@
 </map>
 </field>
 <field name="HashtableOfObject_String6" >
-<map  key-type="SimpleClass" embedded-value="true" value-type="String">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfObject_String8" serialized="true">
@@ -45,7 +46,7 @@
 </field>
 <field name="HashtableOfSimpleClass_String11" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleClass_String12" >
@@ -58,7 +59,8 @@
 </map>
 </field>
 <field name="HashtableOfSimpleClass_String15" >
-<map  key-type="SimpleClass" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleClass_String17" serialized="true">
@@ -75,7 +77,7 @@
 </field>
 <field name="HashtableOfSimpleInterface_String20" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleInterface_String21" >
@@ -88,7 +90,8 @@
 </map>
 </field>
 <field name="HashtableOfSimpleInterface_String24" >
-<map  key-type="SimpleClass" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="HashtableOfSimpleInterface_String26" serialized="true">

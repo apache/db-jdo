@@ -58,13 +58,7 @@
             <field name="HashMapOfSimpleClass_String9"
                    table="HASHMAP_SIMPLE_CLASS9_STR">
                 <join column="IDENTIFIER"/>
-                <key>
-                    <embedded>
-                        <field name="id" column="ID"/>
-                        <field name="intField" column="INTVAL"/>
-                        <field name="stringField" column="STRINGVAL"/>
-                    </embedded>
-                </key>
+                <key column="KEYREF"/>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String10"
@@ -82,7 +76,13 @@
             <field name="HashMapOfSimpleClass_String12"
                    table="HASHMAP_SIMPLE_CLASS12_STR">
                 <join column="IDENTIFIER"/>
-                <key column="KEYREF"/>
+                <key>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </key>
                 <value column="VALUEVAL"/>
             </field>
             <field name="HashMapOfSimpleClass_String13"

@@ -13,7 +13,7 @@
 </field>
 <field name="MapOfObject_String2" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="MapOfObject_String3" >
@@ -26,7 +26,8 @@
 </map>
 </field>
 <field name="MapOfObject_String6" >
-<map  key-type="SimpleClass" embedded-value="true" value-type="String">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="MapOfObject_String8" serialized="true">
@@ -43,7 +44,7 @@
 </field>
 <field name="MapOfSimpleClass_String11" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleClass_String12" >
@@ -56,7 +57,8 @@
 </map>
 </field>
 <field name="MapOfSimpleClass_String15" >
-<map  key-type="SimpleClass" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleClass_String17" serialized="true">
@@ -73,7 +75,7 @@
 </field>
 <field name="MapOfSimpleInterface_String20" >
 <map  key-type="SimpleClass" value-type="String"
-      embedded-key="false" embedded-value="false">
+      embedded-key="false" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleInterface_String21" >
@@ -86,7 +88,8 @@
 </map>
 </field>
 <field name="MapOfSimpleInterface_String24" >
-<map  key-type="SimpleClass" value-type="String" embedded-value="true">
+<map  key-type="SimpleClass" value-type="String"
+      embedded-key="true" embedded-value="true">
 </map>
 </field>
 <field name="MapOfSimpleInterface_String26" serialized="true">
