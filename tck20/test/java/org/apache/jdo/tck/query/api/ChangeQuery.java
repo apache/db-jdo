@@ -17,6 +17,8 @@
 package org.apache.jdo.tck.query.api;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.jdo.Query;
 
@@ -82,15 +84,14 @@ public class ChangeQuery extends QueryTest {
         // query parameters
         Object[] parameters = {new BigDecimal("2000")};        
         // expected result
-        Object[] expectedResult = {
+        List expectedResult = Arrays.asList(new Object[] {
             new FullName("emp1First", "emp1Last"), 
             new FullName("emp2First", "emp2Last"),
-            new FullName("emp5First", "emp5Last")
-        };
+            new FullName("emp5First", "emp5Last")});
 
         // execute query
-        execute(ASSERTION_FAILED, query, singleStringQuery, false, true, 
-                parameters, expectedResult);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, true, 
+                parameters, expectedResult, true);
     }
 
     /**

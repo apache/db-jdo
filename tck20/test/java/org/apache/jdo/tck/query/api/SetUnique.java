@@ -41,10 +41,13 @@ public class SetUnique extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-18 (SetUnique) failed: ";
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstance("emp1"),
+        getCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -59,25 +62,20 @@ public class SetUnique extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        boolean unique = true;
         Query query = getPM().newQuery(Person.class);
-        query.setUnique(unique);
+        query.setUnique(true);
         query.setFilter("lastname == 'emp1Last'");
         String singleStringQuery = 
             "SELECT FROM Person WHERE lastname == 'emp1Last'";
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                unique, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
 
         index = 1;
-        unique = false;
         query = getPM().newQuery(Person.class);
-        query.setUnique(unique);
+        query.setUnique(false);
         singleStringQuery = "SELECT FROM Person";
-        expectedResultValues = getCompanyModelInstances(expectedResult[index]);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                unique, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /**

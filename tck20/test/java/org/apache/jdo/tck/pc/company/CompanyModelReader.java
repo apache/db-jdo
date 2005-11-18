@@ -23,8 +23,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.apache.jdo.tck.util.ConversionHelper;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 
@@ -257,6 +258,10 @@ public class CompanyModelReader extends XmlBeanFactory {
      */
     public static Class[] getTearDownClasses() {
         return tearDownClasses;
+    }
+    
+    public static Date stringToUtilDate(String value) {
+        return ConversionHelper.toUtilDate(DATE_PATTERN, "America/New_York", Locale.US, value);
     }
 }
 

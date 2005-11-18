@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
+import java.util.Arrays;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
@@ -106,12 +108,14 @@ public class NegativeRange extends QueryTest {
         /*TO*/          3)
     };
 
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {},
-        {},
-        {null},
-        {null}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[]{}),
+        Arrays.asList(new Object[]{}),
+        null,
+        null
     };
             
     /**
@@ -124,8 +128,18 @@ public class NegativeRange extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
+    public void testNonUnique() {
+        for (int i = 0; i < 2; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+        }
+    }
+
+    /** */
+    public void testUnique() {
+        for (int i = 2; i < 4; i++) {
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
                     expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 

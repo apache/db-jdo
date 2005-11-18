@@ -42,9 +42,12 @@ public class SetRange extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-20 (SetRange) failed: ";
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1", "emp2", "emp3", "emp4", "emp5"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -63,10 +66,8 @@ public class SetRange extends QueryTest {
         query.setRange(0, 5);
         String singleStringQuery = 
             "SELECT FROM Person RANGE 0, 5";
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /**

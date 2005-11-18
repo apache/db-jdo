@@ -16,7 +16,8 @@
 
 package org.apache.jdo.tck.query.api;
 
-import javax.jdo.JDOException;
+import java.util.Arrays;
+
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -43,14 +44,17 @@ public class NewNamedQuery extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.5-12 (NewNamedQuery) failed: ";
     
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {new FullName("emp1First", "emp1Last"), 
-            new FullName("emp2First", "emp2Last"),
-            new FullName("emp3First", "emp3Last"), 
-            new FullName("emp4First", "emp4Last"),
-            new FullName("emp5First", "emp5Last")},
-        {new FullName("emp1First", "emp1Last")}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[] {
+                new FullName("emp1First", "emp1Last"), 
+                new FullName("emp2First", "emp2Last"),
+                new FullName("emp3First", "emp3Last"), 
+                new FullName("emp4First", "emp4Last"),
+                new FullName("emp5First", "emp5Last")}),
+        new FullName("emp1First", "emp1Last")
     };
             
     /**
@@ -66,23 +70,23 @@ public class NewNamedQuery extends QueryTest {
     public void testPositive() {
         int index = 0;
         executeNamedQuery(Person.class, "validNotUnique", 
-                false, expectedResult[index]);
+                expectedResult[index], true);
 
         index = 1;
         executeNamedQuery(Person.class, "validUnique", 
-                true, expectedResult[index]);
+                expectedResult[index], true);
     }
 
     /** */
     public void testNegative() {
-        executeNamedQuery(Person.class, "invalidUnique", true, null);
+        executeNamedQuery(Person.class, "invalidUnique", null, false);
     }
 
     private void executeNamedQuery(Class candidateClass, String namedQuery,
-            boolean isUnique, Object[] expectedResultValues) {
+            Object expectedResult, boolean positive) {
         Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
-        execute(ASSERTION_FAILED, query, "Named query " + namedQuery,
-                isUnique, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
+                false, null, expectedResult, positive);
     }
     
     /**

@@ -46,13 +46,20 @@ public class MetadataSearchOrder extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.5-13 (MetadataSearchOrder) failed: ";
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp2", "emp3", "emp4", "emp5"},
-        {"pcClass1", "pcClass2"},
-        {"emp3", "emp4", "emp5"},
-        {"emp4", "emp5"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp2", "emp3", "emp4", "emp5"}),
+        getMylibInstancesAsList(new String[]{
+                "pcClass1", "pcClass2"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp4", "emp5"})
     };
             
     /**
@@ -67,53 +74,43 @@ public class MetadataSearchOrder extends QueryTest {
     /** */
     public void testPackageJDOInDefaultPackage() {
         int index = 0;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
         executeNamedQuery(null, "packageJDOInDefaultPackage", 
-                false, expectedResultValues);
+                expectedResult[index]);
     }
     
     /** */
     public void testPackageJDO() {
         int index = 1;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
         executeNamedQuery(Person.class, "packageJDO", 
-                false, expectedResultValues);
+                expectedResult[index]);
     }
     
     /** */
     public void testClassJDO() {
         int index = 2;
-        Object[] expectedResultValues = 
-            getMylibInstances(expectedResult[index]);
         executeNamedQuery(PCClass.class, "classJDO", 
-                false, expectedResultValues);
+                expectedResult[index]);
     }
     
     /** */
     public void testPackageORM() {
         int index = 3;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
         executeNamedQuery(Person.class, "packageORM", 
-                false, expectedResultValues);
+                expectedResult[index]);
     }
     
     /** */
     public void testClassJDOQuery() {
         int index = 4;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
         executeNamedQuery(Person.class, "classJDOQuery", 
-                false, expectedResultValues);
+                expectedResult[index]);
     }
 
     private void executeNamedQuery(Class candidateClass, String namedQuery,
-            boolean isUnique, Object[] expectedResultValues) {
+            Object expectedResult) {
         Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
-        execute(ASSERTION_FAILED, query, "Named query " + namedQuery,
-                isUnique, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
+                false, null, expectedResult, true);
     }
     
     /**

@@ -16,6 +16,9 @@
 
 package org.apache.jdo.tck.query.jdoql.parameters;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -106,12 +109,20 @@ public class ImplicitParameters extends QueryTest {
         /*TO*/          ":five")
     };
     
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1"},
-        {"Development"}, /* Note: this is not a bean name! */
-        {"emp1", "emp2", "emp3", "emp4", "emp5"}
+    private static String parameter = "parameterInResult";
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getExpectedResultOfFirstQuery(
+                getCompanyModelInstancesAsList(new String[] {
+                "emp1", "emp2", "emp3", "emp4", "emp5"})),
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        /* Note: "Development" is not a bean name! */
+        Arrays.asList(new Object[]{"Development"}),
+        getCompanyModelInstancesAsList(new String[] {
+                "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -126,37 +137,26 @@ public class ImplicitParameters extends QueryTest {
     /** */
     public void testResult() {
         int index = 0;
-        Object[] pcInstances = 
-            getCompanyModelInstances(toStringArray(expectedResult[index]));
-        Object[] expectedResultValues = new Object[pcInstances.length];
-        String parameter = "parameterInResult";
-        for (int i = 0; i < expectedResultValues.length; i++) {
-            expectedResultValues[i] = new Object[] {pcInstances[i], parameter};
-        }
-        executeQuery(index, new Object[] {parameter}, expectedResultValues);
+        executeQuery(index, new Object[] {parameter});
     }
     
     /** */
     public void testFilter() {
         int index = 1;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(toStringArray(expectedResult[index]));
-        executeQuery(index, new Object[] {"emp1First"}, expectedResultValues);
+        executeQuery(index, new Object[] {"emp1First"});
     }
     
     /** */
     public void testGrouping() {
         int index = 2;
-        executeQuery(index, new Object[] {new Long(3)}, expectedResult[index]);
+        executeQuery(index, new Object[] {new Long(3)});
     }
     
     /** */
     public void testRange() {
         int index = 3;
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(toStringArray(expectedResult[index]));
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                new Object[] {new Long(0), new Long(5)}, expectedResultValues);
+                new Object[] {new Long(0), new Long(5)}, expectedResult[index]);
     }
     
     /**
@@ -168,17 +168,18 @@ public class ImplicitParameters extends QueryTest {
     }
 
     /** */
-    private void executeQuery(int index, Object[] parameters, Object[] expectedResultValues) {
+    private void executeQuery(int index, Object[] parameters) {
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResultValues);
+                parameters, expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResultValues);
+                parameters, expectedResult[index]);
     }
     
-    /** */
-    private String[] toStringArray(Object[] array) {
-        String[] result = new String[array.length];
-        System.arraycopy(array, 0, result, 0, result.length);
-        return result;
+    private List getExpectedResultOfFirstQuery(List instances) {
+        Object[] expectedResult = new Object[instances.size()];
+        for (int i = 0; i < expectedResult.length; i++) {
+            expectedResult[i] = new Object[] {instances.get(i), parameter};
+        }
+        return Arrays.asList(expectedResult);
     }
 }

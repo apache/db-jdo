@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.api;
 
+import java.util.Arrays;
+
 import javax.jdo.JDOUserException;
 import javax.jdo.Query;
 
@@ -42,9 +44,12 @@ public class SetResult extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-16 (SetResult) failed: ";
     
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {"emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[] {
+                "emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last"})
     };
             
     /**
@@ -62,8 +67,8 @@ public class SetResult extends QueryTest {
         Query query = getPM().newQuery(Person.class);
         query.setResult("lastname");
         String singleStringQuery = "SELECT lastname FROM Person";
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResult[index]);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /** */

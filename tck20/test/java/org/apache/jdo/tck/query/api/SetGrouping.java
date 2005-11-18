@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.api;
 
+import java.util.Arrays;
+
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -41,9 +43,12 @@ public class SetGrouping extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-17 (SetGrouping) failed: ";
     
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {"emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[] {
+                "emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last"})
     };
             
     /**
@@ -62,8 +67,8 @@ public class SetGrouping extends QueryTest {
         query.setResult("lastname");
         query.setGrouping("lastname");
         String singleStringQuery = "SELECT lastname FROM Person GROUP BY lastname";
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResult[index]);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /**

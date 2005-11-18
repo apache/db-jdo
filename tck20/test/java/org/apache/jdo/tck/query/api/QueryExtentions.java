@@ -47,9 +47,12 @@ public class QueryExtentions extends QueryTest {
     private static String singleStringQuery = 
         "SELECT FROM " + Person.class.getName();
 
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1", "emp2", "emp3", "emp4", "emp5"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -69,10 +72,8 @@ public class QueryExtentions extends QueryTest {
         extentions.put("unknown key 1", "unknown value 1");
         query.setExtensions(extentions);
         query.addExtension("unknown key 2", "unknown value 2");
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResultValues);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /**

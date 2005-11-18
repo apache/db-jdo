@@ -16,7 +16,8 @@
 
 package org.apache.jdo.tck.query.api;
 
-import javax.jdo.JDOException;
+import java.util.Arrays;
+
 import javax.jdo.JDOUserException;
 import javax.jdo.Query;
 
@@ -49,13 +50,16 @@ public class UnmodifiableQuery extends QueryTest {
     private static String singleStringQuery = 
         "SELECT firstname, lastname FROM org.apache.jdo.tck.pc.company.Person";
 
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {new FullName("emp1First", "emp1Last"), 
-            new FullName("emp2First", "emp2Last"),
-            new FullName("emp3First", "emp3Last"),
-            new FullName("emp4First", "emp4Last"),
-            new FullName("emp5First", "emp5Last")}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[] {
+                new FullName("emp1First", "emp1Last"), 
+                new FullName("emp2First", "emp2Last"),
+                new FullName("emp3First", "emp3Last"),
+                new FullName("emp4First", "emp4Last"),
+                new FullName("emp5First", "emp5Last")})
     };
             
     /**
@@ -75,15 +79,15 @@ public class UnmodifiableQuery extends QueryTest {
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResult[index]);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
 
         query = getPM().newNamedQuery(Person.class, "unmodifiable");
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                false, false, null, expectedResult[index]);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                false, null, expectedResult[index], true);
     }
     
     /** */

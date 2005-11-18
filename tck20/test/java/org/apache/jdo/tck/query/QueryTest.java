@@ -66,6 +66,18 @@ public abstract class QueryTest extends JDO_Test {
      * getFromInserted). 
      */
     protected List inserted = new ArrayList();
+    
+    /**
+     * The company model reader is used 
+     * to read company model instances from an XML file.
+     */
+    private CompanyModelReader companyModelReader = 
+        new CompanyModelReader(COMPANY_TESTDATA);
+
+    /**
+     * The mylib reader is used to read mylib instances from an XML file.
+     */
+    private MylibReader mylibReader = new MylibReader(MYLIB_TESTDATA);
 
     // Helper methods to create persistent PCPoint instances
     
@@ -185,19 +197,48 @@ public abstract class QueryTest extends JDO_Test {
     }
     
     /**
-     * Returns an array of company model instances for beans names 
+     * Returns a company model instance for the given bean name.
+     * @param beanName the bean name.
+     * @return the company model instance. 
+     */
+    protected Object getCompanyModelInstance(String beanName) {
+        return beanName == null ? 
+                null : companyModelReader.getBean(beanName);
+    }
+    
+    /**
+     * Returns an array of company model instances for bean names 
      * in the given argument.
      * @param beanNames the bean names of company mode instances.
      * @return the array of company model instances. 
      */
     protected Object[] getCompanyModelInstances(String[] beanNames) {
-        CompanyModelReader reader = new CompanyModelReader(COMPANY_TESTDATA);
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
-            result[i] = beanNames[i] == null ? 
-                    null : reader.getBean(beanNames[i]);
+            result[i] = getCompanyModelInstance(beanNames[i]);
         }
         return result;
+    }
+    
+    /**
+     * Returns a list of company model instances instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of company model instances.
+     * @return the list of company model instances. 
+     */
+    protected List getCompanyModelInstancesAsList(String[] beanNames) {
+        return new ArrayList(
+                Arrays.asList(getCompanyModelInstances(beanNames)));
+    }
+    
+    /**
+     * Returns a mylib instance for the given bean name.
+     * @param beanName the bean name.
+     * @return the mylib instance. 
+     */
+    protected Object getMylibInstance(String beanName) {
+        return beanName == null ? 
+                null : mylibReader.getBean(beanName);
     }
     
     /**
@@ -207,12 +248,21 @@ public abstract class QueryTest extends JDO_Test {
      * @return the array of mylib instances. 
      */
     protected Object[] getMylibInstances(String[] beanNames) {
-        MylibReader reader = new MylibReader(MYLIB_TESTDATA);
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
-            result[i] = reader.getBean(beanNames[i]);
+            result[i] = getMylibInstance(beanNames[i]);
         }
         return result;
+    }
+    
+    /**
+     * Returns a list of mylib instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of mylib instances.
+     * @return the list of mylib instances. 
+     */
+    protected List getMylibInstancesAsList(String[] beanNames) {
+        return Arrays.asList(getMylibInstances(beanNames));
     }
     
     // PrimitiveTypes helper methods (creation and query)
@@ -335,103 +385,46 @@ public abstract class QueryTest extends JDO_Test {
         }
     }
     
-    // Helper methods to checka query result
+    // Helper methods to check query result
     
     /** */
     protected void checkQueryResultWithOrder(String assertion, 
                                              Object result, 
-                                             Collection expected) {
-        if (result == null) {
-            fail(assertion, "Query returns null");
-        }
-        if (!(result instanceof Collection)) {
-            fail(assertion, 
-                 "Query result is not a collection: " + 
-                 result.getClass().getName());
-        }
-        if (!compareOrderedResults((Collection)result, expected)) {
-            String lf = System.getProperty("line.separator");
-            result = 
-                ConversionHelper.convertObjectArrayElements(result);
-            expected = 
-                ConversionHelper.convertsElementsOfTypeObjectArray(expected);
-            fail(assertion,
-                 "Wrong query result: " + lf +
-                 "query returns: " + result + lf +
-                 "expected result: " + expected);
+                                             Object expected) {
+        if (!equals(result, expected)) {
+            queryFailed(assertion, result, expected);
         }
     }
     
-    /** This method implements the semantics of AbstractList.equals but
-     * does not require that the parameters actually be Lists.
-     */
-    protected boolean compareOrderedResults(Collection first, Collection second) {
-        if (first == second) {
-            return true;
-        } else {
-            Iterator firstIterator = first.iterator();
-            Iterator secondIterator = second.iterator();
-            while (firstIterator.hasNext()) {
-                if (!secondIterator.hasNext()) {
-                    // semantics of first.size() != second.size() without using size()
-                    return false;
-                }
-                Object firstObject = firstIterator.next();
-                Object secondObject = secondIterator.next();
-                if (!equals(firstObject, secondObject)) {
-                    return false;
-                }
-            }
-            if (secondIterator.hasNext()) {
-                // semantics of first.size() != second.size() without using size()
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-                        
     /** */
     protected void checkQueryResultWithoutOrder(String assertion, 
                                                 Object result, 
-                                                Collection expected) {
-        if (result == null) {
-            fail(assertion, "Query returns null");
-        }
-        if (!(result instanceof Collection)) {
-            fail(assertion, "Query result is not a collection: " +
-                 result.getClass().getName());
-        }
-
-        if (!equalsCollection((Collection)result, expected)) {
-            result = 
-                ConversionHelper.convertObjectArrayElements(result);
-            expected = 
-                ConversionHelper.convertsElementsOfTypeObjectArray(expected);
-            fail(assertion, "Wrong query result" + 
-                "\nexpected: " + expected +
-                "\ngot:      " + result);
-        }
-    }
-
-    /** */
-    protected void checkUniqueResult(String assertion, 
-                                     Object result, 
-                                     Object expected) {
-        if ((result != null && expected == null) ||
-            (result == null && expected != null) || 
-            (result != null && expected != null)) {
+                                                Object expected) {
+        // We need to explicitly check on collections passed as parameters
+        // because equals(Object, Object) checks on lists and afterwards 
+        // on collections. This ensures, lists are compared without order
+        // for queries without an ordering specification.
+        if (result instanceof Collection && expected instanceof Collection) {
+            if (!equalsCollection((Collection)result, (Collection)expected)) {
+                queryFailed(assertion, result, expected);
+            }
+        } else {
             if (!equals(result, expected)) {
-                String lf = System.getProperty("line.separator");
-                result = ConversionHelper.
-                convertObjectArrayElements(result);
-                expected = ConversionHelper.
-                convertObjectArrayElements(expected);
-                fail(assertion, "Wrong query result: " + lf +
-                        "query returns: " + result + lf +
-                        "expected result: " + expected);
+                queryFailed(assertion, result, expected);
             }
         }
+    }
+    
+    private void queryFailed(String assertion, Object result, Object expected) {
+        String lf = System.getProperty("line.separator");
+        result = 
+            ConversionHelper.convertObjectArrayElements(result);
+        expected = 
+            ConversionHelper.convertObjectArrayElements(expected);
+        fail(assertion,
+             "Wrong query result: " + lf +
+             "expected: " + expected + lf +
+             "got:      " + result);
     }
 
     /**
@@ -452,13 +445,15 @@ public abstract class QueryTest extends JDO_Test {
         boolean result;
         if (o1 == o2) {
             result = true;
-        } if ((o1 instanceof Object[]) && (o2 instanceof Object[])) {
+        } else if ((o1 instanceof Object[]) && (o2 instanceof Object[])) {
             result = equalsObjectArray((Object[])o1, (Object[])o2);
+        } else if ((o1 instanceof List) && (o2 instanceof List)) {
+            result = equalsList((List)o1, (List)o2);
         } else if ((o1 instanceof Collection) && (o2 instanceof Collection)) {
             result = equalsCollection((Collection)o1, (Collection)o2);
         } else if ((o1 instanceof Map) && (o2 instanceof Map)) {
             result = equalsMap((Map)o1, (Map)o2);
-        }else if ((o1 instanceof Float) && (o2 instanceof Float)) {
+        } else if ((o1 instanceof Float) && (o2 instanceof Float)) {
             result = closeEnough(((Float)o1).floatValue(), 
                     ((Float)o2).floatValue());
         } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
@@ -469,7 +464,7 @@ public abstract class QueryTest extends JDO_Test {
         } else if (o1 != null) {
             result = o1.equals(o2);
         } else {
-            // Due to the first if and the last if we have:
+            // Due to the first if and due to the last if, we have:
             // o1 == null && o2 != null
             result = false;
         }
@@ -482,6 +477,10 @@ public abstract class QueryTest extends JDO_Test {
      * This method iterates over both object arrays and calls
      * {@link QueryTest#equals(Object, Object)} passing
      * corresponding instances.
+     * {@link QueryTest#equals(Object, Object)} is called rather than
+     * {@link Object#equals(java.lang.Object)} because object arrays
+     * having equal elements cannot be compared calling  
+     * {@link Object#equals(java.lang.Object)}.
      * This method does not allow <code>o1</code> and <code>o2</code>
      * to be <code>null</code> both. 
      * @param o1 the first object array
@@ -490,19 +489,57 @@ public abstract class QueryTest extends JDO_Test {
      */
     private boolean equalsObjectArray(Object[] o1, Object[] o2) {
         boolean result = true;
-        if (o1.length != o2.length) {
-            result = false;
-        } else {
-            for (int i = 0; i < o1.length; i++ ) {
-                if (!equals(o1[i], o2[i])) {
-                    result = false;
-                    break;
+        if (o1 != o2) {
+            if (o1.length != o2.length) {
+                result = false;
+            } else {
+                for (int i = 0; i < o1.length; i++ ) {
+                    if (!equals(o1[i], o2[i])) {
+                        result = false;
+                        break;
+                    }
                 }
-            }
-        } 
+            } 
+        }
         return result;
     }
 
+    /**
+     * Returns <code>true</code> 
+     * if <code>o1</code> and <code>o2</code> equal.
+     * This method iterates both lists and 
+     * calls {@link QueryTest#equals(Object, Object)} on corresponding elements.
+     * {@link QueryTest#equals(Object, Object)} is called rather than
+     * {@link Object#equals(java.lang.Object)} because object arrays
+     * having equal elements cannot be compared calling  
+     * {@link Object#equals(java.lang.Object)}.
+     * This method does not allow <code>o1</code> and <code>o2</code>
+     * to be <code>null</code> both. 
+     * @param o1 the first list
+     * @param o2 the second list
+     * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
+     */
+    private boolean equalsList(List o1, List o2) {
+        boolean result = true;
+        if (o1 != o2) {
+            if (o1.size() != o2.size()) {
+                result = false;
+            } else {
+                Iterator i = o1.iterator();
+                Iterator ii = o2.iterator();
+                while (i.hasNext()) {
+                    Object firstObject = i.next();
+                    Object secondObject = ii.next();
+                    if (!equals(firstObject, secondObject)) {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+                        
     /**
      * Returns <code>true</code> 
      * if <code>o1</code> and <code>o2</code> equal.
@@ -517,17 +554,19 @@ public abstract class QueryTest extends JDO_Test {
      */
     private boolean equalsCollection(Collection o1, Collection o2) {
         boolean result = true;
-        if (o1.size() != o2.size()) {
-            result = false;
-        } else {
-            for (Iterator i = o1.iterator(); i.hasNext(); ) {
-                Object oo1 = i.next();
-                if (!contains(o2, oo1)) {
-                    result = false;
-                    break;
+        if (o1 != o2) {
+            if (o1.size() != o2.size()) {
+                result = false;
+            } else {
+                for (Iterator i = o1.iterator(); i.hasNext(); ) {
+                    Object oo1 = i.next();
+                    if (!contains(o2, oo1)) {
+                        result = false;
+                        break;
+                    }
                 }
-            }
-        } 
+            } 
+        }
         return result;
     }
     
@@ -545,12 +584,22 @@ public abstract class QueryTest extends JDO_Test {
      */
     private boolean equalsMap(Map o1, Map o2) {
         boolean result = true;
-        if (o1.size() != o2.size()) {
-            result = false;
-        } else if (!equalsCollection(o1.keySet(), o2.keySet()) ||
-                   !equalsCollection(o1.values(), o2.values())) {
-            result = false;
-        } 
+        if (o1 != o2) {
+            if (o1.size() != o2.size()) {
+                result = false;
+            } else {
+                for (Iterator i = o1.entrySet().iterator(); i.hasNext(); ) {
+                    Map.Entry entry = (Map.Entry) i.next();
+                    Object key = entry.getKey();
+                    Object value = entry.getValue();
+                    Object value2 = o2.get(key);
+                    if (!equals(value, value2)) {
+                        result = false;
+                        break;
+                    }
+                }
+            } 
+        }
         return result;
     }
     
@@ -559,6 +608,10 @@ public abstract class QueryTest extends JDO_Test {
      * in the given collection.
      * This method iterates the given collection and calls
      * {@link QueryTest#equals(Object, Object)} for each instance.
+     * {@link QueryTest#equals(Object, Object)} is called rather than
+     * {@link Object#equals(java.lang.Object)} because object arrays
+     * having equal elements cannot be compared calling  
+     * {@link Object#equals(java.lang.Object)}.
      * @param col the collection
      * @param o the object
      * @return <code>true</code> if <code>o</code> is contained
@@ -778,14 +831,13 @@ public abstract class QueryTest extends JDO_Test {
     /**
      * Executes the given query element holder instance as a JDO API query.
      * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the result collection 
-     * returned by {@link Query#execute()}.
+     * <code>expectedResult</code>. 
      * If the expected result does not match the returned query result,
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
      * @param expectedResult the expected query result.
+     * @deprecated
      */
     protected void executeAPIQuery(String assertion,
             QueryElementHolder queryElementHolder, Object[] expectedResult) {
@@ -795,11 +847,41 @@ public abstract class QueryTest extends JDO_Test {
     /**
      * Executes the given query element holder instance as a JDO API query.
      * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the result collection 
-     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
-     * Argument <code>parameters</code> is passed as the parameter 
-     * to that method.
+     * <code>expectedResult</code>. 
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     * @deprecated
+     */
+    protected void executeAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object[] parameters, Object[] expectedResult) {
+        executeAPIQuery(assertion, queryElementHolder, 
+                parameters, Arrays.asList(expectedResult));
+    }
+    
+    /**
+     * Executes the given query element holder instance as a JDO API query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. 
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, Object expectedResult) {
+        executeAPIQuery(assertion, queryElementHolder, null, expectedResult);
+    }
+
+    /**
+     * Executes the given query element holder instance as a JDO API query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. 
      * If the expected result does not match the returned query result,
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
@@ -809,7 +891,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected void executeAPIQuery(String assertion,
             QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object[] expectedResult) {
+            Object[] parameters, Object expectedResult) {
         if (logger.isDebugEnabled()) {
             logger.debug("Executing API query: " + queryElementHolder);
         }
@@ -821,14 +903,13 @@ public abstract class QueryTest extends JDO_Test {
      * Executes the given query element holder instance 
      * as a JDO single string query.
      * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the result collection 
-     * returned by {@link Query#execute()}.
+     * <code>expectedResult</code>. 
      * If the expected result does not match the returned query result,
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
      * @param expectedResult the expected query result.
+     * @deprecated
      */
     protected void executeSingleStringQuery(String assertion,
             QueryElementHolder queryElementHolder, Object[] expectedResult) {
@@ -840,11 +921,44 @@ public abstract class QueryTest extends JDO_Test {
      * Executes the given query element holder instance 
      * as a JDO single string query.
      * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the result collection 
-     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
-     * Argument <code>parameters</code> is passed as the parameter 
-     * to that method.
+     * <code>expectedResult</code>. 
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     * @deprecated
+     */
+    protected void executeSingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object[] parameters, Object[] expectedResult) {
+        executeSingleStringQuery(assertion, queryElementHolder, 
+                parameters, Arrays.asList(expectedResult));
+    }
+    
+    /**
+     * Executes the given query element holder instance 
+     * as a JDO single string query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. 
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param expectedResult the expected query result.
+     */
+    protected void executeSingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, Object expectedResult) {
+        executeSingleStringQuery(assertion, queryElementHolder, 
+                null, expectedResult);
+    }
+    
+    /**
+     * Executes the given query element holder instance 
+     * as a JDO single string query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. 
      * If the expected result does not match the returned query result,
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
@@ -854,7 +968,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected void executeSingleStringQuery(String assertion,
             QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object[] expectedResult) {
+            Object[] parameters, Object expectedResult) {
         if (logger.isDebugEnabled())
             logger.debug("Executing single string query: " + 
                     queryElementHolder);
@@ -863,35 +977,55 @@ public abstract class QueryTest extends JDO_Test {
     }
     
     /**
-     * Executes the given query element holder instance 
-     * as a JDO API query of a single string query,
-     * depending on argument <code>asSingleString</code>.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the result collection 
-     * returned by {@link Query#executeWithArray(java.lang.Object[])}.
-     * Argument <code>parameters</code> is passed as the parameter 
-     * to that method.
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
+     * Converts the given query element holder instance 
+     * to a JDO query instance,
+     * based on argument <code>asSingleString</code>.
+     * Afterwards, delegates to method 
+     * {@link QueryTest#execute(String, Query, String, boolean, Object[], Object, boolean)}.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
      * @param asSingleString determines if the query is executed as
      * single string query or as API query.
      * @param parameters the parmaters of the query.
      * @param expectedResult the expected query result.
-     * @return
+     * @return the query result
      */
     private Object execute(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
-            Object[] parameters, Object[] expectedResult) {
+            Object[] parameters, Object expectedResult) {
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
-        Object result = execute(assertion, query, queryElementHolder.toString(),
-                queryElementHolder.isUnique(), queryElementHolder.hasOrdering(),
-                parameters, expectedResult);
+        Object result = execute(assertion, query, 
+                queryElementHolder.toString(), 
+                queryElementHolder.hasOrdering(), parameters, 
+                expectedResult, true);
         return result;
+    }
+
+    /**
+     * Executes the given query instance delegating to
+     * {@link QueryTest#execute(String, Query, String, boolean, Object[], Object, boolean).
+     * Logs argument <code>singleStringQuery</code> 
+     * if debug logging is enabled.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param query the query to execute.
+     * @param singleStringQuery the single string representation of the query.
+     * This parameter is only used as part of the falure message.
+     * @param hasOrdering indicates if the query has an ordering clause.
+     * @param parameters the parmaters of the query.
+     * @param expectedResult the expected query result.
+     * @param positive indicates if query execution is supposed to fail
+     * @return the query result
+     */
+    protected Object executeJDOQuery(String assertion, Query query, 
+            String singleStringQuery, boolean hasOrdering,
+            Object[] parameters, Object expectedResult, boolean positive) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Executing JDO query: " + singleStringQuery);
+        }
+        return execute(assertion, query, singleStringQuery, hasOrdering,
+                parameters, expectedResult, positive);
     }
 
     /**
@@ -903,20 +1037,12 @@ public abstract class QueryTest extends JDO_Test {
      * on the given query instance instead.<p>
      * 
      * The result of query execution is compared against the argument 
-     * <code>expectedResult</code>. The array elements of that argument
-     * must match the content of the query result collection,
-     * otherwise this method throws an {@link AssertionFailedError} and 
+     * <code>expectedResult</code>. If the two values differ, 
+     * then this method throws an {@link AssertionFailedError} and 
      * the calling test case fails prompting argument 
      * <code>assertion</code>.<p>
      * 
-     * In case of a unique query, only the first element 
-     * of the result collection is compared against the first array element 
-     * of argument <code>expectedResult</code>. 
-     * A <code>null</code> as the first element indicates, that the given query 
-     * has no results, e.g. the filter does not match 
-     * any persistent instances.<p>
-     * 
-     * If argument <code>expectedResult</code> is <code>null</code>,
+     * If argument <code>positive</code> is <code>false</code>,
      * then the test case invoking this method is considered to be
      * a negative test case. 
      * Then, query execution is expected to throw a {@link JDOUserException}.
@@ -926,19 +1052,17 @@ public abstract class QueryTest extends JDO_Test {
      * 
      * @param assertion the assertion to prompt if the test case fails.
      * @param query the query to execute.
-     * @param asSingleString the single string representation of the query.
+     * @param singleStringQuery the single string representation of the query.
      * This parameter is only used as part of the falure message.
-     * @param isUnique indicates if the query has a unique result.
      * @param hasOrdering indicates if the query has an ordering clause.
      * @param parameters the parmaters of the query.
      * @param expectedResult the expected query result.
-     * @return the result collection
+     * @param positive indicates if query execution is supposed to fail
+     * @return the query result
      */
-    protected Object execute(String assertion, Query query, 
-            String singleStringQuery,
-            boolean isUnique, boolean hasOrdering,
-            Object[] parameters, Object[] expectedResult) {
-        boolean positive = expectedResult != null;
+    private Object execute(String assertion, Query query, 
+            String singleStringQuery, boolean hasOrdering,
+            Object[] parameters, Object expectedResult, boolean positive) {
         Object result = null;
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
@@ -947,20 +1071,18 @@ public abstract class QueryTest extends JDO_Test {
             try {
                 result = parameters != null ? 
                         query.executeWithArray(parameters) : query.execute();
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Query result: " + ConversionHelper.
+                        convertObjectArrayElements(result));
+                }
     
                 if (positive) {
-                    if (isUnique) {
-                        checkUniqueResult(assertion, result, expectedResult[0]);
-                    } else if (hasOrdering) {
-                        List expectedResultList = 
-                            Arrays.asList(expectedResult);
+                    if (hasOrdering) {
                         checkQueryResultWithOrder(assertion, result, 
-                                expectedResultList);
+                                expectedResult);
                     } else {
-                        Collection expectedResultCollection = 
-                            Arrays.asList(expectedResult);
                         checkQueryResultWithoutOrder(assertion, result, 
-                                expectedResultCollection);
+                                expectedResult);
                     }
                 } else {
                     fail(assertion + "Query must throw JDOUserException: " + 

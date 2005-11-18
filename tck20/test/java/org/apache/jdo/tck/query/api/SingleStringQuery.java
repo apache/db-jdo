@@ -17,6 +17,7 @@
 package org.apache.jdo.tck.query.api;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import javax.jdo.Query;
 
@@ -66,10 +67,12 @@ public class SingleStringQuery extends QueryTest {
         "ORDER BY personid ASCENDING " +
         "RANGE 0,5";
 
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {new FullName("emp1First", "emp1Last")},
-        new String[]{"emp1", "emp2", "emp5"} 
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        new FullName("emp1First", "emp1Last"),
+        getCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp5"}) 
     };
             
     /** Parameters of valid queries. */
@@ -90,8 +93,8 @@ public class SingleStringQuery extends QueryTest {
     public void testPositive() {
         int index = 0;
         Query query = getPM().newQuery(singleStringQuery);
-        execute(ASSERTION_FAILED, query, singleStringQuery, 
-                true, true, parameters[index], expectedResult[index]);
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+                true, parameters[index], expectedResult[index], true);
         
         index = 1;
         String singleStringQuery = "SELECT FROM FullTimeEmployee";
@@ -106,8 +109,8 @@ public class SingleStringQuery extends QueryTest {
         query.setGrouping(null);
         query.setOrdering(null);
         query.setRange(null);
-        execute(ASSERTION_FAILED, query, singleStringQuery, false, false, null, 
-                getCompanyModelInstances((String[])expectedResult[index]));
+        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, false, null, 
+                expectedResult[index], true);
     }
     
     /**
