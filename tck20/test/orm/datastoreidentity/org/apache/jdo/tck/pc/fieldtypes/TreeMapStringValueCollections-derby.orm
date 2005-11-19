@@ -27,7 +27,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -39,7 +39,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -51,7 +51,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -84,7 +84,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -96,7 +96,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -108,7 +108,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -141,7 +141,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -153,7 +153,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -165,7 +165,7 @@
                 <join column="IDENTIFIER"/>
                 <key>
                     <embedded>
-                        <field name="id" column="ID"/>
+                        <field name="id" primary-key="true" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
