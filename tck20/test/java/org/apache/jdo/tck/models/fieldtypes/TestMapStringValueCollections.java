@@ -173,22 +173,31 @@ public class TestMapStringValueCollections extends JDO_Test {
             else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecsForMap(
                             MapStringValueCollections.fieldSpecs[i]
-                            ).get(1).equals("BigDecimal")) {
-                    Set keys = expected.keySet();
-                    Iterator iter = keys.iterator();
-                    while (iter.hasNext()) {
-                        Object nextKey = iter.next();
-                        BigDecimal expectedMapValue = 
-                                (BigDecimal)expected.get(nextKey);
-                        BigDecimal actualMapValue = 
-                                (BigDecimal)actual.get(nextKey);
-                        if ((expectedMapValue.compareTo(actualMapValue) != 0)) {
-                            sbuf.append("\nFor element " + i + "(" 
-                                    + (String)nextKey +
-                                    "), expected = " + expectedMapValue +
-                                    ", actual = " + actualMapValue + " . ");
+                            ).get(0).equals("BigDecimal")) {
+                    Set expectedKeySet = expected.keySet();
+                    Set actualKeySet = actual.keySet();
+                    Iterator expectedIter = expectedKeySet.iterator();
+                    while (expectedIter.hasNext()) {
+                        BigDecimal expectedKey = (BigDecimal) expectedIter.next();
+                        // compare keys
+                        if (!TestUtil.containsBigDecimalKey(expectedKey, actualKeySet)) {
+                            sbuf.append("\nFor element " + i +
+                                    " expected key = " + expectedKey +
+                                    " not found in actual Map.  Actual keyset is "
+                                    + actualKeySet.toString());
+                        // compare values
+                        } else {
+                            String expectedVal = (String) expected.get(expectedKey);
+                            String actualValue = (String)
+                               actual.get(TestUtil.getBigDecimalKey(expectedKey,
+                                                                    actualKeySet));
+                            if (!expectedVal.equals(actualValue)) {
+                                sbuf.append("\nFor element " + i +
+                                    " expected value = " + expectedVal +
+                                    " actual Value = " + actualValue);
+                           }
+                       }
                     }
-                }
             }
             else {
                 sbuf.append("\nFor element " + i + ", expected = " +

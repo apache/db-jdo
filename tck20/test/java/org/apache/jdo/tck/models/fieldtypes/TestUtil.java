@@ -319,5 +319,31 @@ public class TestUtil {
           default:
                throw new IndexOutOfBoundsException();
           }
-      }
+    }
+
+    protected static boolean containsBigDecimalKey(BigDecimal keyValue,
+                                                Set bigDecimalKeySet)
+    {
+        Iterator iter = bigDecimalKeySet.iterator();
+        while (iter.hasNext()) {
+            BigDecimal nextVal = (BigDecimal) iter.next();
+            if (keyValue.compareTo(nextVal) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected static BigDecimal getBigDecimalKey(BigDecimal keyValue,
+                                                Set bigDecimalKeySet)
+    {
+        Iterator iter = bigDecimalKeySet.iterator();
+        while (iter.hasNext()) {
+            BigDecimal nextVal = (BigDecimal) iter.next();
+            if (keyValue.compareTo(nextVal) == 0) {
+                return nextVal;
+            }
+        }
+        return null;
+    }
 }
