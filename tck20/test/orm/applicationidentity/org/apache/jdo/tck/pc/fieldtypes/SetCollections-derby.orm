@@ -8,7 +8,6 @@
                    table="SET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJREF"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfObject1"
                    table="SET_OF_OBJECT1">
@@ -20,19 +19,16 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfObject2"
                    table="SET_OF_OBJECT2">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleClass3"
                    table="SET_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPCLSREF"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleClass4"
                    table="SET_OF_SIMPLE_CLASS4">
@@ -44,13 +40,11 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleClass5"
                    table="SET_OF_SIMPLE_CLASS5">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleClass42"
                    column="SET_OF_SIMPLE_CLASS42">
@@ -59,7 +53,6 @@
                    table="SET_OF_SIMPLE_INTERFACE6">
                 <join column="IDENTIFIER"/>
                 <element column="SIMPINTREF"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleInterface7"
                    table="SET_OF_SIMPLE_INTERFACE7">
@@ -71,19 +64,16 @@
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
                 </element>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfSimpleInterface8"
                    table="SET_OF_SIMPLE_INTERFACE8">
                 <join column="IDENTIFIER"/>
                 <element column="COLLVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfString9"
                    table="SET_OF_STRING9">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfString11"
                    column="SET_OF_STRING11">
@@ -92,13 +82,11 @@
                    table="SET_OF_STRING10">
                 <join column="IDENTIFIER"/>
                 <element column="STRINGVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfDate12"
                    table="SET_OF_DATE12">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfDate14"
                    column="SET_OF_DATE14">
@@ -107,13 +95,11 @@
                    table="SET_OF_DATE13">
                 <join column="IDENTIFIER"/>
                 <element column="DATEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfLocale15"
                    table="SET_OF_LOCALE15">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfLocale17"
                    column="SET_OF_LOCALE17">
@@ -122,13 +108,11 @@
                    table="SET_OF_LOCALE16">
                 <join column="IDENTIFIER"/>
                 <element column="LOCALEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfBigDecimal18"
                    table="SET_OF_BIG_DECIMAL18">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfBigDecimal20"
                    column="SET_OF_BIG_DECIMAL20">
@@ -137,13 +121,11 @@
                    table="SET_OF_BIG_DECIMAL19">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_DECIMALVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfBigInteger21"
                    table="SET_OF_BIG_INTEGER21">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfBigInteger23"
                    column="SET_OF_BIG_INTEGER23">
@@ -152,13 +134,11 @@
                    table="SET_OF_BIG_INTEGER22">
                 <join column="IDENTIFIER"/>
                 <element column="BIG_INTEGERVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfByte24"
                    table="SET_OF_BYTE24">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfByte26"
                    column="SET_OF_BYTE26">
@@ -167,13 +147,11 @@
                    table="SET_OF_BYTE25">
                 <join column="IDENTIFIER"/>
                 <element column="BYTEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfDouble27"
                    table="SET_OF_DOUBLE27">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfDouble29"
                    column="SET_OF_DOUBLE29">
@@ -182,13 +160,11 @@
                    table="SET_OF_DOUBLE28">
                 <join column="IDENTIFIER"/>
                 <element column="DOUBLEVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfFloat30"
                    table="SET_OF_FLOAT30">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfFloat32"
                    column="SET_OF_FLOAT32">
@@ -197,13 +173,11 @@
                    table="SET_OF_FLOAT31">
                 <join column="IDENTIFIER"/>
                 <element column="FLOATVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfInteger33"
                    table="SET_OF_INTEGER33">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfInteger35"
                    column="SET_OF_INTEGER35">
@@ -212,13 +186,11 @@
                    table="SET_OF_INTEGER34">
                 <join column="IDENTIFIER"/>
                 <element column="INTEGERVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfLong36"
                    table="SET_OF_LONG36">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfLong38"
                    column="SET_OF_LONG38">
@@ -227,13 +199,11 @@
                    table="SET_OF_LONG37">
                 <join column="IDENTIFIER"/>
                 <element column="LONGVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfShort39"
                    table="SET_OF_SHORT39">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
             <field name="SetOfShort41"
                    column="SET_OF_SHORT41">
@@ -242,7 +212,6 @@
                    table="SET_OF_SHORT40">
                 <join column="IDENTIFIER"/>
                 <element column="SHORTVAL"/>
-                <order column="ALLOW_DUPLICATES"/>
             </field>
         </class>
     </package>
