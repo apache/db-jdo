@@ -16,6 +16,8 @@
  
 package org.apache.jdo.tck.query.result.classes;
 
+import org.apache.jdo.tck.util.EqualityHelper;
+
 /**
  * JDOQL result class having bean properties <code>firstname</code>,
  * <code>firstName</code>, <code>lastname</code>, and <code>lastName</code>.
@@ -51,15 +53,11 @@ public class FullName {
      * @see Object#equals(java.lang.Object)
      */
     public boolean equals(Object o) {
+        if (!(o instanceof FullName))
+            return false;
         FullName other = (FullName) o;
-        if (this.firstName == null) {
-            return other.firstName == null;
-        }
-        if (this.lastName == null) {
-            return other.lastName == null;
-        }
-        return this.firstName.equals(other.firstName) &&
-               this.lastName.equals(other.lastName);
+        return EqualityHelper.equals(this.firstName, other.firstName) &&
+               EqualityHelper.equals(this.lastName, other.lastName);
     }
     
     /**

@@ -746,6 +746,23 @@ public class EqualityHelper {
         return true;
     }
 
+    /** Returns <code>true</code> if the specified objects are equal. 
+     * This is a helper method checking for identical and <code>null</code>
+     * objects before delegating to the regular equals method.
+     * @param o1 one object to be tested for equality
+     * @param o2 the other object to be tested for equality
+     * @return <code>true</code> if the specified objects are equal.
+     */
+    public static boolean equals(Object o1, Object o2) {
+        if (o1 == o2) {
+            return true;
+        }
+        if (o1 == null || o2 == null) {
+            return false;
+        }
+        return o1.equals(o2);
+    }
+    
     // Methods to support "close enough" comparison
 
     /** Returns <code>true</code> if the specified objects are close
