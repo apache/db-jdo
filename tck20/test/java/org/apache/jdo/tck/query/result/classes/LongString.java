@@ -29,7 +29,7 @@ public class LongString {
     
     public LongString() {}
     
-    public LongString(int l, String s) {
+    public LongString(long l, String s) {
         this.l = l;
         this.s = s;
     }
@@ -73,7 +73,7 @@ public class LongString {
     /**
      * @param l The l to set.
      */
-    public void setL(int l) {
+    public void setL(long l) {
         this.l = l;
     }
 
