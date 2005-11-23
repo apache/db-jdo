@@ -698,6 +698,13 @@ public abstract class JDO_Test extends TestCase {
         return getPMF().supportedOptions().contains(
             "javax.jdo.option.UnconstrainedVariables");
     }
+    
+    /** Reports whether SQL queries are supported. */
+    public boolean isSQLSupported() {
+        return getPMF().supportedOptions().contains(
+            "javax.jdo.query.SQL");
+    }
+    
 
     /**
      * This utility method returns a <code>String</code> that indicates the
@@ -860,4 +867,13 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
+    /**
+     * Returns the value of the PMF property 
+     * given by argument <code>key</code>.
+     * @param key the key
+     * @return the value
+     */
+    protected String getPMFProperty(String key) {
+        return PMFPropertiesObject.getProperty(key);
+    }
 }

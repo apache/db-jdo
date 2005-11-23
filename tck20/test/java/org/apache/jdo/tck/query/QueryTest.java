@@ -18,6 +18,7 @@ package org.apache.jdo.tck.query;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -764,7 +765,7 @@ public abstract class QueryTest extends JDO_Test {
      * Compiles the given query element holder instance 
      * as a JDO API query or single string query, 
      * depending on argument <code>asSingleString</code>.
-     * Argument <code>singleStringQuery</code> exists to support queries
+     * Argument <code>singleStringQuery</code> is used to support queries
      * which cannot be expressed as query element holder instances.
      * That argument is ignored if argument <code>queryElementHolder</code> 
      * is set.
@@ -788,33 +789,49 @@ public abstract class QueryTest extends JDO_Test {
             QueryElementHolder queryElementHolder, boolean asSingleString,  
             String singleStringQuery, boolean positive) {
         PersistenceManager pm = getPM();
+        Query query;
+        if (queryElementHolder != null) {
+            if (asSingleString) {
+                query = queryElementHolder.getSingleStringQuery(pm);
+            } else {
+                query = queryElementHolder.getAPIQuery(pm);
+            }
+        } else {
+            query = getPM().newQuery(singleStringQuery);
+        }
+        compile(assertion, query, singleStringQuery, positive);
+    }
+    
+    /**
+     * Compiles the given query instance.
+     * Argument <code>positive</code> determines if the compilation is supposed
+     * to succeed or to fail. 
+     * If <code>true</code> and the compilation fails,
+     * then the test case fails prompting arguments <code>assertion</code>
+     * and <code>queryText</code>. 
+     * If <code>false</code> and the compilation succeeds,
+     * then the test case fails prompting argument <code>assertion</code>
+     * and <code>queryText</code>. 
+     * Otherwise the test case succeeds. 
+     * @param assertion
+     * @param query
+     * @param queryText
+     * @param positive
+     */
+    protected void compile(String assertion, 
+            Query query, String queryText, boolean positive) {
+        PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
-            Query query;
-            if (queryElementHolder != null) {
-                if (asSingleString) {
-                    query = queryElementHolder.getSingleStringQuery(pm);
-                } else {
-                    query = queryElementHolder.getAPIQuery(pm);
-                }
-            } else {
-                query = getPM().newQuery(singleStringQuery);
-            }
             query.compile();
             if (!positive) {
-                String queryText = queryElementHolder != null ? 
-                        queryElementHolder.toString() :
-                        singleStringQuery;
                 fail(assertion + 
                         "Query compilation must throw JDOUserException: " + 
                         queryText);
             }
         } catch (JDOUserException e) {
             if (positive) {
-                String queryText = queryElementHolder != null ? 
-                        queryElementHolder.toString() :
-                        singleStringQuery;
                 fail(assertion + "Query '" + queryText +
                         "' must be compilable. The exception message is: " + 
                         e.getMessage());
@@ -975,7 +992,7 @@ public abstract class QueryTest extends JDO_Test {
         execute(assertion, queryElementHolder, true, 
                 parameters, expectedResult);
     }
-    
+
     /**
      * Converts the given query element holder instance 
      * to a JDO query instance,
@@ -1026,6 +1043,47 @@ public abstract class QueryTest extends JDO_Test {
         }
         return execute(assertion, query, singleStringQuery, hasOrdering,
                 parameters, expectedResult, positive);
+    }
+
+    /**
+     * Executes the given SQL string as a JDO SQL query.
+     * The result of that query is compared against the given argument 
+     * <code>expectedResult</code>. 
+     * If the expected result does not match the returned query result,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Argument <code>unique</code> indicates, if the query is supposed
+     * to return a single result.
+     * Argument <code>sql</code> may contain the substring <code>"{0}"</code>.
+     * All occurences of this substring are replaced 
+     * by the value of PMF property <code>"javax.jdo.mapping.Schema"</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param sql the SQL string.
+     * @param candidateClass the candidate class.
+     * @param resultClass the result class.
+     * @param parameters the parameters of the query.
+     * @param expectedResult the expected query result.
+     * @param unique indicates, if the query is supposed 
+     * to return a single result.
+     */
+    protected void executeSQLQuery(String assertion, String sql, 
+            Class candidateClass, Class resultClass, 
+            Object[] parameters, Object expectedResult, boolean unique) {
+        String schema = getPMFProperty("javax.jdo.mapping.Schema");
+        sql = MessageFormat.format(sql, new Object[]{schema});
+        if (logger.isDebugEnabled())
+            logger.debug("Executing SQL query: " + sql);
+        Query query = getPM().newQuery("javax.jdo.query.SQL", sql);
+        if (unique) {
+            query.setUnique(unique);
+        }
+        if (candidateClass != null) {
+            query.setClass(candidateClass);
+        }
+        if (resultClass != null) {
+            query.setResultClass(resultClass);
+        }
+        execute(assertion, query, sql, false, 
+                parameters, expectedResult, true);
     }
 
     /**

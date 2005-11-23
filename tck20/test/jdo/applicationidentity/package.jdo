@@ -8,4 +8,7 @@ calling pm.newNamedQuery(null, "packageJDOInDefaultPackage").
     <query name="packageJDOInDefaultPackage">
         SELECT FROM org.apache.jdo.tck.pc.company.Person
     </query>
+    <query name="SQLQuery" language="javax.jdo.query.SQL">
+        SELECT FIRSTNAME, LASTNAME FROM applicationidentity0.persons
+    </query>
 </jdo>

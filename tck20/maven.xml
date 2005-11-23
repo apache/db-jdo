@@ -398,9 +398,7 @@
             <not>
                 <uptodate targetfile="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar">
                     <srcfiles dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
-                          includes="org/apache/jdo/tck/**/*.jdo, 
-                                    org/apache/jdo/tck/**/*.jdoquery,
-                                    org/apache/jdo/tck/**/jdoTest.properties"/>
+                          includes="**/*.jdo, **/*.jdoquery, **/*.jdoTest.properties"/>
                     <srcfiles dir="${basedir}/test/java"
                           includes="${jdo.tck.pcclasses.sources},
                                     ${jdo.tck.paclasses.sources}"/>
