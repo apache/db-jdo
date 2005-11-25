@@ -109,7 +109,8 @@ public class SupportedJDOHelperMethods extends QueryTest {
         expectedResult = getExpectedResult(false, Person.class, "personid == 1");
         // The query above returns a collection of size 1.
         // The collection element is the parameter of the query below.
-        Object[] parameters = new Object[]{expectedResult[0]};
+        Object[] parameters = new Object[]{
+                JDOHelper.getObjectId(expectedResult[0])};
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
