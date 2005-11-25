@@ -106,7 +106,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
 
         // query 2
         index = 1;
-        expectedResult = getExpectedResult(false, Person.class, "personid = 1");
+        expectedResult = getExpectedResult(false, Person.class, "personid == 1");
         Object[] parameters = new Object[expectedResult.length];
         for (int i = 0; i < parameters.length; i++) {
             parameters[i] = JDOHelper.getObjectId(expectedResult);
