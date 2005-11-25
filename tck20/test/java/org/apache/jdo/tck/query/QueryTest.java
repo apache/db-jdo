@@ -789,17 +789,28 @@ public abstract class QueryTest extends JDO_Test {
             QueryElementHolder queryElementHolder, boolean asSingleString,  
             String singleStringQuery, boolean positive) {
         PersistenceManager pm = getPM();
-        Query query;
-        if (queryElementHolder != null) {
-            if (asSingleString) {
-                query = queryElementHolder.getSingleStringQuery(pm);
+        try {
+            Query query;
+            if (queryElementHolder != null) {
+                if (asSingleString) {
+                    query = queryElementHolder.getSingleStringQuery(pm);
+                } else {
+                    query = queryElementHolder.getAPIQuery(pm);
+                }
             } else {
-                query = queryElementHolder.getAPIQuery(pm);
+                query = getPM().newQuery(singleStringQuery);
             }
-        } else {
-            query = getPM().newQuery(singleStringQuery);
+            compile(assertion, query, singleStringQuery, positive);
+        } catch (JDOUserException e) {
+            // This exception handler considers a JDOUserException
+            // to be thrown in newQuery methods.
+            // A JDOUserException may be expected in case of negative tests. 
+            if (positive) {
+                fail(assertion + "Query '" + queryElementHolder +
+                        "' must be compilable. The exception message is: " + 
+                        e.getMessage());
+            }
         }
-        compile(assertion, query, singleStringQuery, positive);
     }
     
     /**
