@@ -30,7 +30,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Disctinct Query.
+ *<B>Title:</B> Distinct Candidate Instances.
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
@@ -43,7 +43,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * the distinct keyword removes duplicates from the candidate collection 
  * in this case.
  */
-public class DistintCandidateInstances extends QueryTest {
+public class DistinctCandidateInstances extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -90,7 +90,7 @@ public class DistintCandidateInstances extends QueryTest {
     private Object[] expectedResult = {
         addAll(getCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-               getCompanyModelInstancesAsList(new String[]{
+        getCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"})),
         getCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"})
@@ -102,7 +102,7 @@ public class DistintCandidateInstances extends QueryTest {
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(DistintCandidateInstances.class);
+        BatchTestRunner.run(DistinctCandidateInstances.class);
     }
     
     /** */
@@ -121,7 +121,7 @@ public class DistintCandidateInstances extends QueryTest {
     public void testCollectionQueries() {
         String singleStringQuery = "SELECT FROM " + Person.class.getName();
         String singleStringDistinctQuery = 
-            "SELECT DISTNICT FROM " + Person.class.getName();
+            "SELECT DISTINCT FROM " + Person.class.getName();
         
         Query query = getPM().newQuery();
         query.setClass(Person.class);
