@@ -26,7 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Candidate Class.
+ *<B>Title:</B> No Candidate Class.
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
@@ -38,7 +38,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * specifying the class as null, 
  * or can be constructed without a candidate class.
  */
-public class CandidateClass extends QueryTest {
+public class NoCandidateClass extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -50,7 +50,7 @@ public class CandidateClass extends QueryTest {
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(CandidateClass.class);
+        BatchTestRunner.run(NoCandidateClass.class);
     }
     
     /** The array of valid SQL queries. */
