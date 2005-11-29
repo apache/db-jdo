@@ -53,7 +53,7 @@ public class AggregateResult extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] VALID_QUERIES = {
-        // COUNT
+        // COUNT(this)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "COUNT(this)",
@@ -69,7 +69,7 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // COUNT
+        // COUNT(this)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "COUNT(this)",
@@ -85,10 +85,42 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // COUNT
+        // COUNT(manager)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "COUNT(manager)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // COUNT(manager.personid)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "COUNT(manager.personid)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // COUNT(DISTINCT manager)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "COUNT(DISTINCT manager)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -149,7 +181,7 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // SUM
+        // SUM(budget)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "SUM(budget)",
@@ -157,6 +189,38 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        Project.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       "projid == 0",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // SUM(manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "SUM(manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // SUM(DISTINCT manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "SUM(DISTINCT manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -213,7 +277,7 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // MIN
+        // MIN(budget)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "MIN(budget)",
@@ -221,6 +285,22 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        Project.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       "projid == 0",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // MIN(manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "MIN(manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -277,7 +357,7 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // MAX
+        // MAX(budget)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "MAX(budget)",
@@ -285,6 +365,22 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        Project.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       "projid == 0",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // MAX(manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "MAX(manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -341,7 +437,7 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
 
-        // AVG
+        // AVG(lifetimeOrthoBenefit)
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
@@ -349,6 +445,38 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       "insid == 0",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // AVG(manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "AVG(manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // AVG(DISTINCT manager.salary)
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "AVG(DISTINCT manager.salary)",
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -385,12 +513,16 @@ public class AggregateResult extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        // COUNT
+        // COUNT(this)
         new Long(3),
-        // COUNT
+        // COUNT(this)
         new Long(0),
-        // COUNT
+        // COUNT(manager)
         new Long(2),
+        // COUNT(manager.personid)
+        new Long(2),
+        // COUNT(DISTINCT manager)
+        new Long(1),
         // SUM(long)
         new Long(1+2+5),
         // SUM(double)
@@ -398,32 +530,44 @@ public class AggregateResult extends QueryTest {
         // SUM(BigDecimal)
         new BigDecimal("2500000.99").add
             (new BigDecimal("50000.00")).add(new BigDecimal("2000.99")),
-        // SUM
+        // SUM(budget)
         null,
+        // SUM(manager.salary)
+        new Double(20000),
+        // SUM(DISTINCT manager.salary)
+        new Double(10000),
         // MIN(long)
         new Long(1),
         // MIN(double)
         new Double(10000.0),
         // MIN(BigDecimal)
         new BigDecimal("2000.99"),
-        // MIN
+        // MIN(budget)
         null,
+        // MIN(manager.salary)
+        new Double(10000),
         // MAX(long)
         new Long(5),
         // MAX(double)
         new Double(45000.0),
         // MAX(BigDecimal)
         new BigDecimal("2500000.99"),
-        // MAX
+        // MAX(budget)
         null,
+        // MAX(manager.salary)
+        new Double(10000),
         // AVG(long)
         new Long(3),
         // AVG(double)
         new Double(25000.0),
         // AVG(BigDecimal)
         new BigDecimal("99.999"),
-        // AVG
-        null
+        // AVG(lifetimeOrthoBenefit)
+        null,
+        // AVG(manager.salary)
+        new Double(10000),
+        // AVG(DISTINCT manager.salary)
+        new Double(10000)
     };
             
     /**
@@ -437,35 +581,35 @@ public class AggregateResult extends QueryTest {
     
     /** */
     public void testCount() {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 5; i++) {
             executeQuery(i);
         }
     }
 
     /** */
     public void testSUM() {
-        for(int i = 3; i < 7; i++) {
+        for(int i = 5; i < 11; i++) {
             executeQuery(i);
         }
     }
 
     /** */
     public void testMIN() {
-        for(int i = 7; i < 11; i++) {
+        for(int i = 11; i < 16; i++) {
             executeQuery(i);
         }
     }
 
     /** */
     public void testMAX() {
-        for(int i = 11; i < 15; i++) {
+        for(int i = 16; i < 21; i++) {
             executeQuery(i);
         }
     }
 
     /** */
     public void testAVG() {
-        for(int i = 15; i < 19; i++) {
+        for(int i = 21; i < 27; i++) {
             executeQuery(i);
         }
     }
