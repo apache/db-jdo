@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
+import java.util.ArrayList;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
@@ -36,6 +38,8 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <li> get(Object)
  * <li> containsKey(Object)
  * <li> containsValue(Object)
+ * <li> isEmpty()
+ * <li> size()
  * </ul>
  */
 public class SupportedMapMethods extends QueryTest {
@@ -49,6 +53,7 @@ public class SupportedMapMethods extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] VALID_QUERIES = {
+        // get
         new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
@@ -63,6 +68,7 @@ public class SupportedMapMethods extends QueryTest {
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
                 /*TO*/          null),
+        // containsKey
         new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
@@ -77,6 +83,7 @@ public class SupportedMapMethods extends QueryTest {
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
                 /*TO*/          null),
+        // containsValue
         new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
@@ -90,14 +97,55 @@ public class SupportedMapMethods extends QueryTest {
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
+                /*TO*/          null),
+        // isEmpty
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "phoneNumbers.isEmpty()",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        // size
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "phoneNumbers.size() == 2",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
                 /*TO*/          null)
     };
 
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // get
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // containsKey
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        // containsValue
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // isEmpty
+        new ArrayList(),
+        // size
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -112,19 +160,46 @@ public class SupportedMapMethods extends QueryTest {
     /** */
     public void testGet() {
         int index = 0;
-        executeQuery(index);
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
     }
     
     /** */
     public void testContainsKey() {
         int index = 1;
-        executeQuery(index);
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
     }
 
     /** */
     public void testContainsValue() {
         int index = 2;
-        executeQuery(index);
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testIsEmpty() {
+        int index = 3;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testSize() {
+        int index = 4;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
     }
 
     /**
@@ -134,15 +209,4 @@ public class SupportedMapMethods extends QueryTest {
         loadCompanyModel(getPM(), COMPANY_TESTDATA);
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
-
-    /** */
-    private void executeQuery(int index) {
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResultValues);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResultValues);
-    }
-
 }

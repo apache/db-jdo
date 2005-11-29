@@ -16,16 +16,15 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -41,6 +40,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <UL>
  * <LI>isEmpty</LI>
  * <LI>contains</LI>
+ * <LI>size</LI>
  * </UL>
  */
 
@@ -50,6 +50,105 @@ public class SupportedCollectionMethods extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-36 (SupportedCollectionMethods) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // contains(VARIABLE)
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && e.personid == 1",
+                /*VARIABLES*/   "Employee e",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        // contains(PARAMETER)
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Employee e",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        // !isEmpty
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "!employees.isEmpty()",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        // isEmpty
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "team.isEmpty()",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        // size
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.size() == 3",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null)
+    };
+
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // contains(VARIABLE)
+        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        // contains(PARAMETER)
+        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        // !isEmpty
+        getCompanyModelInstancesAsList(new String[]{"dept1", "dept2"}),
+        // isEmpty
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp3", "emp4", "emp5"}),
+        // size
+        getCompanyModelInstancesAsList(new String[]{"dept1"})
+    };
+            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -60,67 +159,72 @@ public class SupportedCollectionMethods extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
+    public void testContains() {
+        int index = 0;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
         
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTestIsEmpty(pm, reader);
-            runTestContains(pm, reader);
+        index++;
+        Object[] parameters = new Object[]{
+                getParameter(Employee.class, "personid == 1", true)};
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                parameters, expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                parameters, expectedResult[index]);
+    }
+
+    /** */
+    public void testIsEmpty() {
+        for (int index = 2; index < 4; index++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                    expectedResult[index]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                    expectedResult[index]);
         }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
-        }
+    }
+
+    /** */
+    public void testSize() {
+        int index = 4;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
     
     /** */
-    void runTestIsEmpty(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
+    private Object getParameter(
+            Class candidateClass, String filter, boolean unique) {
         Object result;
-        Collection expected;
-
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-
-        q = pm.newQuery(Department.class, "!employees.isEmpty()");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        expected.add(reader.getDepartment("dept2"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-
-        q = pm.newQuery(Employee.class, "team.isEmpty()");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getPartTimeEmployee("emp3"));
-        expected.add(reader.getPartTimeEmployee("emp4"));
-        expected.add(reader.getFullTimeEmployee("emp5"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
-    }
-
-    /** */
-    void runTestContains(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-
-        q = pm.newQuery(Department.class);
-        q.setFilter("employees.contains(e) && e.personid == 1");
-        q.declareVariables("Employee e");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+        PersistenceManager pm = getPM();
+        Transaction transaction = pm.currentTransaction();
+        transaction.begin();
+        try {
+            Query query = filter == null ? pm.newQuery(candidateClass) :
+                pm.newQuery(candidateClass, filter);
+            if (unique) {
+                query.setUnique(unique);
+            }
+            try {
+                result = query.execute();
+            } finally {
+                query.closeAll();
+            }
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return result;
     }
 }
