@@ -161,6 +161,22 @@ public class ResultClassRequirements extends QueryTest {
         /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
+        /*IMPORTS*/     "import org.apache.jdo.tck.query.result.classes.LongString;",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        
+        // constructor without constructor call
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "personid, lastname",
+        /*INTO*/        LongString.class, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
@@ -205,22 +221,6 @@ public class ResultClassRequirements extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] INVALID_QUERIES = {
-        // TCK class, invalid property
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid, lastname",
-        /*INTO*/        LongString.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
         // JDK class
         new QueryElementHolder(
         /*UNIQUE*/      null,
@@ -279,7 +279,7 @@ public class ResultClassRequirements extends QueryTest {
         /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
+        /*IMPORTS*/     "import org.apache.jdo.tck.query.result.classes.LongString;",
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
@@ -368,6 +368,11 @@ public class ResultClassRequirements extends QueryTest {
                 new LongString(1, "emp1Last"), 
                 new LongString(2, "emp2Last"), 
                 new LongString(5, "emp5Last")}),
+        // constructor without constructor call
+        Arrays.asList(new Object[]{
+                new LongString(1, "emp1Last"), 
+                new LongString(2, "emp2Last"), 
+                new LongString(5, "emp5Last")}),
         // public fields
         Arrays.asList(new Object[]{
                 new PublicLongField(1), 
@@ -429,17 +434,19 @@ public class ResultClassRequirements extends QueryTest {
     public void testConstructor() {
         int index = 6;
         executeQuery(index);
+        index++;
+        executeQuery(index);
     }
 
     /** */
     public void testFields() {
-        int index = 7;
+        int index = 8;
         executeQuery(index);
     }
 
     /** */
     public void testPut() {
-        int index = 8;
+        int index = 9;
         executeQuery(index);
     }
 
