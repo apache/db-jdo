@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.jdoql.variables;
 
+import java.util.LinkedList;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -124,13 +126,15 @@ public class VariablesAndFields extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp2"},
-        {"emp2"},
-        {"emp1"},
-        {"emp2"},
-        {}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getCompanyModelInstancesAsList(new String[]{"emp2"}),
+        new LinkedList()
     };
             
     /**
@@ -145,12 +149,10 @@ public class VariablesAndFields extends QueryTest {
     /** */
     public void testPositive() {
         for (int i = 0; i < VALID_QUERIES.length; i++) {
-            Object[] expectedResultValues = 
-                getCompanyModelInstances(expectedResult[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
         }
     }
 

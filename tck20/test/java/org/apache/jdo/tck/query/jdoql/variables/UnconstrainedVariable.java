@@ -62,9 +62,12 @@ public class UnconstrainedVariable extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp2", "emp3", "emp4"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{
+                "emp2", "emp3", "emp4"})
     };
             
     /** Parameters of valid queries. */
@@ -85,12 +88,10 @@ public class UnconstrainedVariable extends QueryTest {
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
             for (int i = 0; i < VALID_QUERIES.length; i++) {
-                Object[] expectedResultValues = 
-                    getCompanyModelInstances(expectedResult[i]);
                 executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        parameters[i], expectedResultValues);
+                        parameters[i], expectedResult[i]);
                 executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        parameters[i], expectedResultValues);
+                        parameters[i], expectedResult[i]);
             }
         }
     }

@@ -99,10 +99,12 @@ public class MixedVariables extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp2"},
-        {"emp2"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getCompanyModelInstancesAsList(new String[]{"emp2"})
     };
             
     /**
@@ -117,12 +119,10 @@ public class MixedVariables extends QueryTest {
     /** */
     public void testPositive() {
         for (int i = 0; i < VALID_QUERIES.length; i++) {
-            Object[] expectedResultValues = 
-                getCompanyModelInstances(expectedResult[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
         }
     }
 

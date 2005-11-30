@@ -16,8 +16,10 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -98,7 +100,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
     public void testGetObjectById() {
         // query 1
         int index = 0;
-        Object[] expectedResult = getExpectedResult(true, Person.class);
+        List expectedResult = getExpectedResult(true, Person.class);
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
@@ -108,9 +110,10 @@ public class SupportedJDOHelperMethods extends QueryTest {
         index = 1;
         expectedResult = getExpectedResult(false, Person.class, "personid == 1");
         // The query above returns a collection of size 1.
-        // The collection element is the parameter of the query below.
+        // The collection element is a pc instances 
+        // whose oid is the parameter of the query below.
         Object[] parameters = new Object[]{
-                JDOHelper.getObjectId(expectedResult[0])};
+                JDOHelper.getObjectId(expectedResult.get(0))};
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
@@ -126,14 +129,14 @@ public class SupportedJDOHelperMethods extends QueryTest {
     }
 
     /** */
-    private Object[] getExpectedResult(boolean oidsWanted, Class candidateClass) {
+    private List getExpectedResult(boolean oidsWanted, Class candidateClass) {
         return getExpectedResult(oidsWanted, candidateClass, null);
     }
     
     /** */
-    private Object[] getExpectedResult(boolean oidsWanted, 
+    private List getExpectedResult(boolean oidsWanted, 
             Class candidateClass, String filter) {
-        Object[] expectedResult;
+        List expectedResult;
         PersistenceManager pm = getPM();
         Transaction transaction = pm.currentTransaction();
         transaction.begin();
@@ -142,15 +145,13 @@ public class SupportedJDOHelperMethods extends QueryTest {
                 pm.newQuery(candidateClass, filter);
             try {
                 Collection result = (Collection) query.execute();
-                expectedResult = new Object[result.size()];
-                int j = 0;
-                for (Iterator i = result.iterator(); i.hasNext(); ) {
-                    Object o = i.next();
-                    if (oidsWanted) {
-                        expectedResult[j++] = JDOHelper.getObjectId(o);
-                    } else {
-                        expectedResult[j++] = o;
+                if (oidsWanted) {
+                    expectedResult = new ArrayList();
+                    for (Iterator i = result.iterator(); i.hasNext(); ) {
+                        expectedResult.add(JDOHelper.getObjectId(i.next()));
                     }
+                } else {
+                    expectedResult = new ArrayList(result);
                 }
             } finally {
                 query.closeAll();

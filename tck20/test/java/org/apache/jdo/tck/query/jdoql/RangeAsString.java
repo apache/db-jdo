@@ -102,12 +102,18 @@ public class RangeAsString extends QueryTest {
         /*TO*/          "4")
     };
 
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1", "emp2", "emp3", "emp4"},
-        {"emp2", "emp3", "emp4", "emp5"},
-        {"emp2", "emp3", "emp4"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp2", "emp3", "emp4"})
     };
             
     /**
@@ -122,12 +128,10 @@ public class RangeAsString extends QueryTest {
     /** */
     public void testPositive() {
         for (int i = 0; i < VALID_QUERIES.length; i++) {
-            Object[] expectedResultValues = 
-                getCompanyModelInstances(expectedResult[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
         }
     }
 

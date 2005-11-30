@@ -66,9 +66,11 @@ public class Modulo extends QueryTest {
         /*TO*/          null)
     };
 
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-            {"emp2", "emp4"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{"emp2", "emp4"})
     };
             
     /**
@@ -83,12 +85,10 @@ public class Modulo extends QueryTest {
     /** */
     public void testPositive() {
         for (int i = 0; i < VALID_QUERIES.length; i++) {
-            Object[] expectedResultValues = 
-                getCompanyModelInstances(expectedResult[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResultValues);
+                    expectedResult[i]);
         }
         
         runTestUsingPrimitiveTypes();

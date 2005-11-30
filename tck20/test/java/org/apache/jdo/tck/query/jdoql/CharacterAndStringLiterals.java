@@ -114,9 +114,12 @@ public class CharacterAndStringLiterals extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"primitiveTypesCharacterStringLiterals"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getMylibInstancesAsList(new String[]{
+            "primitiveTypesCharacterStringLiterals"})
     };
     
     /**
@@ -132,12 +135,10 @@ public class CharacterAndStringLiterals extends QueryTest {
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
             for (int i = 0; i < VALID_QUERIES.length; i++) {
-                Object[] expectedResultValues = 
-                    getMylibInstances(expectedResult[i]);
                 executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResultValues);
+                        expectedResult[i]);
                 executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResultValues);
+                        expectedResult[i]);
             }
         }
     }

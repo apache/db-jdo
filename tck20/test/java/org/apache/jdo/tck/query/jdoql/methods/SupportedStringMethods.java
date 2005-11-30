@@ -214,20 +214,25 @@ public class SupportedStringMethods extends QueryTest {
 
     /** 
      * The expected results of valid queries.
-     * The strings are names of bean instances loaded by spring.  
      */
-    private static String[][] expectedResult = {
-        {"emp1"},
-        {"emp1"},
-        {"dept1"},
-        {"dept1"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"},
-        {"emp1", "emp2", "emp3", "emp4", "emp5"}
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
     /**
@@ -305,11 +310,9 @@ public class SupportedStringMethods extends QueryTest {
 
     /** */
     private void executeQuery(int index) {
-        Object[] expectedResultValues = 
-            getCompanyModelInstances(expectedResult[index]);
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResultValues);
+                expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResultValues);
+                expectedResult[index]);
     }
 }

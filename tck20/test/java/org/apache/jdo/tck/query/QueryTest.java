@@ -865,41 +865,6 @@ public abstract class QueryTest extends JDO_Test {
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
      * @param expectedResult the expected query result.
-     * @deprecated
-     */
-    protected void executeAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object[] expectedResult) {
-        executeAPIQuery(assertion, queryElementHolder, null, expectedResult);
-    }
-
-    /**
-     * Executes the given query element holder instance as a JDO API query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
-     * @param expectedResult the expected query result.
-     * @deprecated
-     */
-    protected void executeAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object[] expectedResult) {
-        executeAPIQuery(assertion, queryElementHolder, 
-                parameters, Arrays.asList(expectedResult));
-    }
-    
-    /**
-     * Executes the given query element holder instance as a JDO API query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param expectedResult the expected query result.
      */
     protected void executeAPIQuery(String assertion,
             QueryElementHolder queryElementHolder, Object expectedResult) {
@@ -925,44 +890,6 @@ public abstract class QueryTest extends JDO_Test {
         }
         execute(assertion, queryElementHolder, false, 
                 parameters, expectedResult);
-    }
-    
-    /**
-     * Executes the given query element holder instance 
-     * as a JDO single string query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param expectedResult the expected query result.
-     * @deprecated
-     */
-    protected void executeSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object[] expectedResult) {
-        executeSingleStringQuery(assertion, queryElementHolder, 
-                null, expectedResult);
-    }
-    
-    /**
-     * Executes the given query element holder instance 
-     * as a JDO single string query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
-     * @param expectedResult the expected query result.
-     * @deprecated
-     */
-    protected void executeSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object[] expectedResult) {
-        executeSingleStringQuery(assertion, queryElementHolder, 
-                parameters, Arrays.asList(expectedResult));
     }
     
     /**

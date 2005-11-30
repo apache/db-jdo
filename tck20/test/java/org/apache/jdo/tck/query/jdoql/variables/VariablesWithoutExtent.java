@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.jdoql.variables;
 
+import java.util.LinkedList;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
@@ -65,9 +67,11 @@ public class VariablesWithoutExtent extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        new LinkedList()
     };
     
     /**

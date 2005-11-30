@@ -61,9 +61,11 @@ public class OrderOfParameters extends QueryTest {
         /*TO*/          null)
     };
     
-    /** The expected results of valid queries. */
-    private static String[][] expectedResult = {
-        {"emp1"}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getCompanyModelInstancesAsList(new String[]{"emp1"})
     };
             
     /** Parameters of valid queries. */
@@ -83,12 +85,10 @@ public class OrderOfParameters extends QueryTest {
     /** */
     public void testPositive() {
         for (int i = 0; i < VALID_QUERIES.length; i++) {
-            Object[] expectedResultValues = 
-                getCompanyModelInstances(expectedResult[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResultValues);
+                    parameters[i], expectedResult[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResultValues);
+                    parameters[i], expectedResult[i]);
         }
     }
     

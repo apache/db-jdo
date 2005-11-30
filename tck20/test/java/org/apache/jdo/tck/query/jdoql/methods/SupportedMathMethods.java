@@ -239,28 +239,46 @@ public class SupportedMathMethods extends QueryTest {
                 /*TO*/          null),
     };
 
-    /** The expected results of valid queries testing Math.abs. */
-    private static String[][] expectedResultABS = {
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"},
-        {"primitiveTypesPositive", "primitiveTypesNegative"}
+    /** 
+     * The expected results of valid queries testing Math.abs.
+     */
+    private Object[] expectedResultABS = {
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive", "primitiveTypesNegative"})
     };
         
     /** The expected results of valid queries testing Math.sqrt. */
-    private static String[][] expectedResultSQRT = {
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"},
-        {"primitiveTypesPositive"}
+    private Object[] expectedResultSQRT = {
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"}),
+            getMylibInstancesAsList(new String[]{
+                    "primitiveTypesPositive"})
     };
             
     /**
@@ -275,24 +293,20 @@ public class SupportedMathMethods extends QueryTest {
     /** */
     public void testAbs() {
         for (int i = 0; i < VALID_QUERIES_ABS.length; i++) {
-            Object[] expectedResultValues = 
-                getMylibInstances(expectedResultABS[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES_ABS[i], 
-                    expectedResultValues);
+                    expectedResultABS[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES_ABS[i], 
-                    expectedResultValues);
+                    expectedResultABS[i]);
         }
     }
     
     /** */
     public void testSqrt() {
         for (int i = 0; i < VALID_QUERIES_SQRT.length; i++) {
-            Object[] expectedResultValues = 
-                getMylibInstances(expectedResultSQRT[i]);
             executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES_SQRT[i], 
-                    expectedResultValues);
+                    expectedResultSQRT[i]);
             executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES_SQRT[i], 
-                    expectedResultValues);
+                    expectedResultSQRT[i]);
         }
     }
 

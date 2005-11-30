@@ -17,7 +17,6 @@
 package org.apache.jdo.tck.query.api;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import javax.jdo.Query;
 

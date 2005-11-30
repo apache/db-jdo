@@ -17,6 +17,7 @@
 package org.apache.jdo.tck.query.jdoql.keywords;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -66,11 +67,14 @@ public class SingleString extends QueryTest {
         /*TO*/          3)
     };
     
-    /** The expected results of valid queries. */
-    private static Object[][] expectedResult = {
-        {new FullName("emp1First", "emp1Last"), 
-         new FullName("emp2First", "emp2Last"),
-         new FullName("emp5First", "emp5Last")}
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        Arrays.asList(new Object[]{
+                new FullName("emp1First", "emp1Last"), 
+                new FullName("emp2First", "emp2Last"),
+                new FullName("emp5First", "emp5Last")})
     };
             
     /** Parameters of valid queries. */
