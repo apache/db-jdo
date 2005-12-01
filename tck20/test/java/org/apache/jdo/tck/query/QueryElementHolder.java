@@ -230,7 +230,7 @@ public class QueryElementHolder {
      * Returns the unique JDOQL query element.
      * @return the unique JDOQL query element.
      */
-    protected boolean isUnique() {
+    public boolean isUnique() {
         return this.unique != null && this.unique.booleanValue();
     }
 
@@ -238,8 +238,16 @@ public class QueryElementHolder {
      * Returns the unique JDOQL query element.
      * @return the unique JDOQL query element.
      */
-    protected boolean hasOrdering() {
+    public boolean hasOrdering() {
         return this.ordering != null;
+    }
+    
+    /**
+     * Returns the candtidate class JDOQL query element.
+     * @return the candtidate class JDOQL query element.
+     */
+    public Class getCandidateClass() {
+        return this.candidateClass;
     }
 
     /**

@@ -442,7 +442,7 @@ public abstract class QueryTest extends JDO_Test {
      * @param o2 the second object
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    private boolean equals(Object o1, Object o2) {
+    protected boolean equals(Object o1, Object o2) {
         boolean result;
         if (o1 == o2) {
             result = true;
@@ -488,7 +488,7 @@ public abstract class QueryTest extends JDO_Test {
      * @param o2 the second object array
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    private boolean equalsObjectArray(Object[] o1, Object[] o2) {
+    protected boolean equalsObjectArray(Object[] o1, Object[] o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.length != o2.length) {
@@ -520,7 +520,7 @@ public abstract class QueryTest extends JDO_Test {
      * @param o2 the second list
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    private boolean equalsList(List o1, List o2) {
+    protected boolean equalsList(List o1, List o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
@@ -553,7 +553,7 @@ public abstract class QueryTest extends JDO_Test {
      * @param o2 the second collection
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    private boolean equalsCollection(Collection o1, Collection o2) {
+    protected boolean equalsCollection(Collection o1, Collection o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
@@ -583,7 +583,7 @@ public abstract class QueryTest extends JDO_Test {
      * @param o2 the second map
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
-    private boolean equalsMap(Map o1, Map o2) {
+    protected boolean equalsMap(Map o1, Map o2) {
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
@@ -837,13 +837,13 @@ public abstract class QueryTest extends JDO_Test {
         try {
             query.compile();
             if (!positive) {
-                fail(assertion + 
+                fail(assertion, 
                         "Query compilation must throw JDOUserException: " + 
                         queryText);
             }
         } catch (JDOUserException e) {
             if (positive) {
-                fail(assertion + "Query '" + queryText +
+                fail(assertion, "Query '" + queryText +
                         "' must be compilable. The exception message is: " + 
                         e.getMessage());
             }
@@ -947,7 +947,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     private Object execute(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
-            Object[] parameters, Object expectedResult) {
+            Object parameters, Object expectedResult) {
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
@@ -1058,15 +1058,24 @@ public abstract class QueryTest extends JDO_Test {
      */
     private Object execute(String assertion, Query query, 
             String singleStringQuery, boolean hasOrdering,
-            Object[] parameters, Object expectedResult, boolean positive) {
+            Object parameters, Object expectedResult, boolean positive) {
         Object result = null;
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
             try {
-                result = parameters != null ? 
-                        query.executeWithArray(parameters) : query.execute();
+                if (parameters == null) {
+                    result = query.execute();
+                } else if (parameters instanceof Object[]) {
+                    result = query.executeWithArray((Object[])parameters);
+                } else if (parameters instanceof Map) {
+                    result = query.executeWithMap((Map)parameters);
+                } else {
+                    throw new IllegalArgumentException("Argument parameters " +
+                            "must be instance of Object[], Map, or null.");
+                }
+                
                 if (logger.isDebugEnabled()) {
                     logger.debug("Query result: " + ConversionHelper.
                         convertObjectArrayElements(result));
@@ -1081,7 +1090,7 @@ public abstract class QueryTest extends JDO_Test {
                                 expectedResult);
                     }
                 } else {
-                    fail(assertion + "Query must throw JDOUserException: " + 
+                    fail(assertion, "Query must throw JDOUserException: " + 
                             singleStringQuery);
                 }
             } finally {
@@ -1097,5 +1106,154 @@ public abstract class QueryTest extends JDO_Test {
             }
         }
         return result;
+    }
+
+    /**
+     * Converts the given query element holder instance to a
+     * JDO query instance.
+     * Calls {@link Query#deletePersistentAll()}, or
+     * {@link Query#deletePersistentAll(java.util.Map), or
+     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * depending on the type of argument <code>parameters</code>.
+     * If the number of deleted objects does not 
+     * match <code>expectedNrOfDeletedObjects</code>,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedNrOfDeletedObjects the expected number of deleted objects.
+     */
+    protected void deletePersistentAllByAPIQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object parameters, long expectedNrOfDeletedObjects) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Deleting persistent by API query: " + 
+                    queryElementHolder);
+        }
+        delete(assertion, queryElementHolder, false, 
+                parameters, expectedNrOfDeletedObjects);
+    }
+    
+    /**
+     * Converts the given query element holder instance to a
+     * JDO query instance.
+     * Calls {@link Query#deletePersistentAll()}, or
+     * {@link Query#deletePersistentAll(java.util.Map), or
+     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * depending on the type of argument <code>parameters</code>.
+     * If the number of deleted objects does not 
+     * match <code>expectedNrOfDeletedObjects</code>,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param parameters the parmaters of the query.
+     * @param expectedNrOfDeletedObjects the expected number of deleted objects.
+     */
+    protected void deletePersistentAllBySingleStringQuery(String assertion,
+            QueryElementHolder queryElementHolder, 
+            Object parameters, long expectedNrOfDeletedObjects) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Deleting persistent by single string query: " + 
+                    queryElementHolder);
+        }
+        delete(assertion, queryElementHolder, true, 
+                parameters, expectedNrOfDeletedObjects);
+    }
+
+    /**
+     * Converts the given query element holder instance to a
+     * JDO query based on argument <code>asSingleString</code>.
+     * Calls {@link Query#deletePersistentAll()}, or
+     * {@link Query#deletePersistentAll(java.util.Map), or
+     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * depending on the type of argument <code>parameters</code>.
+     * If the number of deleted objects does not 
+     * match <code>expectedNrOfDeletedObjects</code>,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param queryElementHolder the query to execute.
+     * @param asSingleString determines if the query is executed as
+     * single string query or as API query.
+     * @param parameters the parmaters of the query.
+     * @param expectedNrOfDeletedObjects the expected number of deleted objects.
+     */
+    private void delete(String assertion, 
+            QueryElementHolder queryElementHolder, boolean asSingleString,
+            Object parameters, long expectedNrOfDeletedObjects) {
+        Query query = asSingleString ?
+                queryElementHolder.getSingleStringQuery(pm) :
+                    queryElementHolder.getAPIQuery(pm);
+        delete(assertion, query, queryElementHolder.toString(), 
+                parameters, expectedNrOfDeletedObjects);
+        boolean positive = expectedNrOfDeletedObjects >= 0;
+        if (positive) {
+            execute(assertion, queryElementHolder, asSingleString, parameters, 
+                    queryElementHolder.isUnique() ? null : new ArrayList());
+        }
+    }
+
+    /**
+     * Calls {@link Query#deletePersistentAll()}, or
+     * {@link Query#deletePersistentAll(java.util.Map), or
+     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * depending on the type of argument <code>parameters</code>.
+     * If the number of deleted objects does not 
+     * match <code>expectedNrOfDeletedObjects</code>,
+     * then the test case fails prompting argument <code>assertion</code>.
+     * Argument <code>singleStringQuery</code> is only used as part
+     * of the failure message.
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param query the query to execute.
+     * @param singleStringQuery the single string representation of the query.
+     * @param parameters the parmaters of the query.
+     * @param expectedNrOfDeletedObjects the expected number of deleted objects.
+     */
+    private void delete(String assertion, Query query, 
+            String singleStringQuery, Object parameters, 
+            long expectedNrOfDeletedObjects) {
+        boolean positive = expectedNrOfDeletedObjects >= 0;
+        PersistenceManager pm = getPM();
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+            try {
+                long nr;
+                if (parameters == null) {
+                    nr = query.deletePersistentAll();
+                } else if (parameters instanceof Object[]) {
+                    nr = query.deletePersistentAll((Object[])parameters);
+                } else if (parameters instanceof Map) {
+                    nr = query.deletePersistentAll((Map)parameters);
+                } else {
+                    throw new IllegalArgumentException("Argument parameters " +
+                            "must be instance of Object[], Map, or null.");
+                }
+                if (logger.isDebugEnabled()) {
+                    logger.debug(nr + " objects deleted.");
+                }
+                
+                if (positive) {
+                    if (nr != expectedNrOfDeletedObjects) {
+                        fail(assertion, "deletePersistentAll returned " + nr +
+                                ", expected is " + expectedNrOfDeletedObjects + 
+                                ". Query: " +singleStringQuery);
+                    }
+                } else {
+                    fail(assertion, "deletePersistentAll must throw JDOUserException: " + 
+                            singleStringQuery);
+                }
+            } finally {
+                query.closeAll();
+            }
+            tx.commit();
+        } catch (JDOUserException e) {
+            if (positive) {
+                throw e;
+            }
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 }
