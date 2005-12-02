@@ -116,12 +116,12 @@ public class ImplicitParameters extends QueryTest {
      */
     private Object[] expectedResult = {
         getExpectedResultOfFirstQuery(
-                getCompanyModelInstancesAsList(new String[] {
+                getTransientCompanyModelInstancesAsList(new String[] {
                 "emp1", "emp2", "emp3", "emp4", "emp5"})),
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         /* Note: "Development" is not a bean name! */
         Arrays.asList(new Object[]{"Development"}),
-        getCompanyModelInstancesAsList(new String[] {
+        getTransientCompanyModelInstancesAsList(new String[] {
                 "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
@@ -163,7 +163,7 @@ public class ImplicitParameters extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 

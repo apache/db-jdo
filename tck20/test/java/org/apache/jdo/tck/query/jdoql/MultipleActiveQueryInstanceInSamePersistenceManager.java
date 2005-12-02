@@ -22,8 +22,8 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -56,20 +56,8 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         BatchTestRunner.run(MultipleActiveQueryInstanceInSamePersistenceManager.class);
     }
 
-    /** */
-    public void test() {
-        pm = getPM();
-
-        initDatabase(pm, PCPoint.class);
-        runTestMultipleActiveQueryInstanceInSamePersistenceManager(pm);
-
-        pm.close();
-        pm = null;
-    }
-
-    /** */
-    void runTestMultipleActiveQueryInstanceInSamePersistenceManager(
-        PersistenceManager pm) {
+    public void testPositive() {
+        PersistenceManager pm = getPM();
         if (debug) 
             logger.debug("\nExecuting test MultipleActiveQueryInstanceInSamePersistenceManager()...");
 
@@ -115,6 +103,14 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         expected2 = getFromInserted(expected2);
         checkQueryResultWithoutOrder(ASSERTION_FAILED, results2, expected2);
         pm.currentTransaction().commit();
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }
 

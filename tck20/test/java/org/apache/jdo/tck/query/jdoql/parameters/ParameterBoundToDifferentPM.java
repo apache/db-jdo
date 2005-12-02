@@ -16,13 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql.parameters;
 
-import java.util.Collection;
 import javax.jdo.JDOUserException;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -57,34 +55,23 @@ public class ParameterBoundToDifferentPM extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
+    public void testNegative() {
+        // get parameter dept1
+        getPM().currentTransaction().begin();
+        Department dept1 = (Department) getPersistentCompanyModelInstance("dept1");
+        getPM().currentTransaction().commit();
         
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
-        }
-    }
-    
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        Department dept1 = reader.getDepartment("dept1");
-        tx.commit();
-        
+        // pass parameter dept1 to query of different pm
         PersistenceManager pm2 = pmf.getPersistenceManager();
+        pm2.currentTransaction().begin();
         try {
-            pm2.currentTransaction().begin();
             Query q = pm2.newQuery(Employee.class, "department == d");
-            q.declareParameters("Department d");  
-            Collection result = (Collection)q.execute(dept1);
+            q.declareParameters("Department d"); 
+            try {
+                q.execute(dept1);
+            } finally {
+                q.closeAll();
+            }
             fail(ASSERTION_FAILED,
                  "Query.execute should throw a JDOUserException if a query " + 
                  "parameter is bound to a different PersistenceManager");
@@ -101,5 +88,13 @@ public class ParameterBoundToDifferentPM extends QueryTest {
                 pm2.close();
             }
         }
+    }
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

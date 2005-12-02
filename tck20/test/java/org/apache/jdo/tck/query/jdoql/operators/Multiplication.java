@@ -21,6 +21,7 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -62,22 +63,8 @@ public class Multiplication extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-
-        try {
-            loadPrimitiveTypes(pm);
-            runTest(pm);
-        }
-        finally {
-            cleanupDatabase(pm, PrimitiveTypes.class);
-            pm.close();
-            pm = null;
-        }
-    }
-    
-    /** */
-    void runTest(PersistenceManager pm) {
+    public void testPositive() {
+        PersistenceManager pm = getPM();
         if (debug) logger.debug("\nExecuting test Multiplication() ...");
 
         Transaction tx = pm.currentTransaction();
@@ -118,5 +105,13 @@ public class Multiplication extends QueryTest {
                                      pm, instance4, ASSERTION_FAILED);
 
         tx.commit();
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPrimitiveTypes(getPM());
+        addTearDownClass(PrimitiveTypes.class);
     }
 }

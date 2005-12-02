@@ -97,7 +97,7 @@ public class NullResults extends QueryTest {
     private Object[] expectedResult = {
         null,
         Arrays.asList(new Object[]{null}),
-        getCompanyModelInstancesAsList(new String[]{"emp2", null}) 
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2", null}) 
     };
             
     /**
@@ -140,7 +140,7 @@ public class NullResults extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

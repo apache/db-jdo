@@ -16,16 +16,13 @@
 
 package org.apache.jdo.tck.query.api;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -47,6 +44,70 @@ public class SetterReplacePreviousValues extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.15 (SetterReplacePreviousValues) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // replace parameter declaration
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "deptid == param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "String x",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // replace filter setting
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "personid == 1L",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "String x",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // replace variable declaration
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e) && e.personid == 1",
+        /*VARIABLES*/   "Employee e1; Employee e2",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+        
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // replace parameter declaration
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        // replace filter setting
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
+        // replace variable declaration
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -57,57 +118,47 @@ public class SetterReplacePreviousValues extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-                
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
-        }
+    public void testPositive() {
+        // replace parameter declaration
+        int index = 0;
+        Query query = VALID_QUERIES[index].getAPIQuery(getPM());
+        query.declareParameters("long param");
+        Object[] parameters = new Object[] {new Long(1)};
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
+        query = VALID_QUERIES[index].getSingleStringQuery(getPM());
+        query.declareParameters("long param");
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
+        
+        // replace filter setting
+        index++;
+        query = VALID_QUERIES[index].getAPIQuery(getPM());
+        query.setFilter("personid == 2L");
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
+        query = VALID_QUERIES[index].getSingleStringQuery(getPM());
+        query.setFilter("personid == 2L");
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
+        
+        // replace variable declaration
+        index++;
+        query = VALID_QUERIES[index].getAPIQuery(getPM());
+        query.declareVariables("Employee e");
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
+        query = VALID_QUERIES[index].getSingleStringQuery(getPM());
+        query.declareVariables("Employee e");
+        executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
+                parameters, expectedResult[index], true);
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Collection result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        
-        // replace parameter declaration
-        q = pm.newQuery(Department.class, "deptid == param");
-        q.declareParameters("String x");
-        q.declareParameters("long param");
-        result = (Collection)q.execute(new Long(1));
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-       
-        // replace filter setting
-        q = pm.newQuery(Employee.class, "personid == 1L");
-        q.setFilter("personid == 2L");
-        result = (Collection)q.execute();
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp2"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        // repalce variable declaration
-        q = pm.newQuery(Department.class);
-        q.declareVariables("Employee e1; Employee e2");
-        q.declareVariables("Employee e");
-        q.setFilter("employees.contains(e) && e.personid == 1");
-        result = (Collection)q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.rollback();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

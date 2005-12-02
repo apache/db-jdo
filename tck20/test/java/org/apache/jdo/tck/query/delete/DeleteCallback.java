@@ -109,9 +109,9 @@ public class DeleteCallback extends QueryTest {
      * The expected results of valid queries.
      */
     private List[] expectedResult = {
-            getCompanyModelInstancesAsList(new String[]{
+            getTransientCompanyModelInstancesAsList(new String[]{
                     "emp1", "emp2", "emp3", "emp4", "emp5"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", 
                     "primitiveTypesNegative",
                     "primitiveTypesCharacterStringLiterals"})
@@ -150,9 +150,9 @@ public class DeleteCallback extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
     

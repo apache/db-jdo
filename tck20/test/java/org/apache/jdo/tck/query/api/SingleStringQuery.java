@@ -71,11 +71,11 @@ public class SingleStringQuery extends QueryTest {
      */
     private Object[] expectedResult = {
         new FullName("emp1First", "emp1Last"),
-        getCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp5"}) 
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp5"}) 
     };
             
     /** Parameters of valid queries. */
-    private static Object[][] parameters = {
+    private Object[][] parameters = {
         {new BigDecimal("2000")}
     };
             
@@ -116,7 +116,7 @@ public class SingleStringQuery extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

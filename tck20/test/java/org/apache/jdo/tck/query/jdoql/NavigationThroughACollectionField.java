@@ -16,15 +16,10 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -47,6 +42,34 @@ public class NavigationThroughACollectionField extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-10 (NavigationThroughACollectionField) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e) && e.firstname == \"emp1First\"",
+        /*VARIABLES*/   "Employee e",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+        
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -57,38 +80,20 @@ public class NavigationThroughACollectionField extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        
-        q = pm.newQuery(Department.class);
-        q.declareVariables("Employee e");
-        q.setFilter("employees.contains(e) && e.firstname == \"emp1First\"");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

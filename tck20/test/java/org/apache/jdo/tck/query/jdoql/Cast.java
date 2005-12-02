@@ -16,16 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -47,6 +42,49 @@ public class Cast extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-38 (Cast) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "((FullTimeEmployee)this).salary > 15000.0",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e) && ((FullTimeEmployee)e).salary > 15000.0",
+        /*VARIABLES*/   "Employee e",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+        
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -57,49 +95,20 @@ public class Cast extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-                
-        q = pm.newQuery(Employee.class);
-        q.declareImports("import org.apache.jdo.tck.pc.company.FullTimeEmployee");
-        q.setFilter("((FullTimeEmployee)this).salary > 15000.0");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getFullTimeEmployee("emp5"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        q = pm.newQuery(Department.class);
-        q.declareVariables("Employee e");
-        q.declareImports("import org.apache.jdo.tck.pc.company.FullTimeEmployee");
-        q.setFilter("employees.contains(e) && ((FullTimeEmployee)e).salary > 15000.0");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        expected.add(reader.getDepartment("dept2"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

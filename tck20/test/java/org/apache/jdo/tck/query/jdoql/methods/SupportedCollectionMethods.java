@@ -137,16 +137,16 @@ public class SupportedCollectionMethods extends QueryTest {
      */
     private Object[] expectedResult = {
         // contains(VARIABLE)
-        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
         // contains(PARAMETER)
-        getCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
         // !isEmpty
-        getCompanyModelInstancesAsList(new String[]{"dept1", "dept2"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"}),
         // isEmpty
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp3", "emp4", "emp5"}),
         // size
-        getCompanyModelInstancesAsList(new String[]{"dept1"})
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
     };
             
     /**
@@ -198,7 +198,7 @@ public class SupportedCollectionMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
     

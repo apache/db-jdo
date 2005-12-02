@@ -21,6 +21,7 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -62,22 +63,8 @@ public class UnaryPlus extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-
-        try {
-            loadPrimitiveTypes(pm);
-            runTestBinaryAddition(pm);
-        }
-        finally {
-            cleanupDatabase(pm, PrimitiveTypes.class);
-            pm.close();
-            pm = null;
-        }
-    }
-
-    /** */
-    void runTestBinaryAddition(PersistenceManager pm) {
+    public void testPositive() {
+        PersistenceManager pm = getPM();
         if (debug) logger.debug("\nExecuting test BinaryAddition() ...");
 
         Transaction tx = pm.currentTransaction();
@@ -89,5 +76,13 @@ public class UnaryPlus extends QueryTest {
         runSimplePrimitiveTypesQuery("+id == 9", 
                                      pm, instance9, ASSERTION_FAILED);
         tx.commit();
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPrimitiveTypes(getPM());
+        addTearDownClass(PrimitiveTypes.class);
     }
 }

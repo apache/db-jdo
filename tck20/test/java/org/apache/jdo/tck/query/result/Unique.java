@@ -100,9 +100,9 @@ public class Unique extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstance("emp1"),
+        getTransientCompanyModelInstance("emp1"),
         null,
-        getCompanyModelInstance("emp1")
+        getTransientCompanyModelInstance("emp1")
     };
             
     /**
@@ -141,7 +141,7 @@ public class Unique extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

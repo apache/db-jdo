@@ -27,8 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.jdo.Extent;
-import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -37,12 +35,7 @@ import javax.jdo.Transaction;
 import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Department;
-import org.apache.jdo.tck.pc.company.Insurance;
-import org.apache.jdo.tck.pc.company.Person;
-import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -71,32 +64,36 @@ public abstract class QueryTest extends JDO_Test {
     /**
      * The company model reader is used 
      * to read company model instances from an XML file.
+     * Instances refered by this reader are made persistent by
+     * {@link QueryTest#loadAndPersistCompanyModel(PersistenceManager)}.
      */
-    private CompanyModelReader companyModelReader = 
-        new CompanyModelReader(COMPANY_TESTDATA);
+    private CompanyModelReader companyModelReaderForPersistentInstances;
+
+    /**
+     * The company model reader is used 
+     * to read company model instances from an XML file.
+     * Instances refered by this reader remain transient.
+     */
+    private CompanyModelReader companyModelReaderForTransientInstances;
 
     /**
      * The mylib reader is used to read mylib instances from an XML file.
+     * Instances refered by this reader are made persistent by
+     * {@link QueryTest#loadAndPersistMylib(PersistenceManager)}.
      */
-    private MylibReader mylibReader = new MylibReader(MYLIB_TESTDATA);
+    private MylibReader mylibReaderForPersistentInstances;
+
+    /**
+     * The mylib reader is used to read mylib instances from an XML file.
+     * Instances refered by this reader are made persistent by
+     */
+    private MylibReader mylibReaderForTransientInstances;
 
     // Helper methods to create persistent PCPoint instances
     
-    /**
-     * @see JDO_Test#localSetUp()
-     */
-    protected void localSetUp() {
-        addTearDownClass(PCPoint.class);
-    }
-    
     /** */
-    public void initDatabase(PersistenceManager pm, Class cls){
-        cleanupDatabase(pm, cls);
-        if (cls == PCPoint.class)
-            insertPCPoints(pm, 5);
-        else
-            throw new JDOFatalInternalException(
-                "Unsupported pc class for initDatabase " + cls);
+    public void loadAndPersistPCPoints(PersistenceManager pm) {
+        insertPCPoints(pm, 5);
     }
 
     /** */
@@ -138,139 +135,247 @@ public abstract class QueryTest extends JDO_Test {
         return result;
     }
     
-    // Company model helper methods
+    // Company model and mylib helper methods
+    
+    /**
+     * Initializes and returns the company model reader 
+     * for persistent instances.
+     * @return the company model reader for persistent instances.
+     */
+    private CompanyModelReader 
+    getCompanyModelReaderForPersistentInstances() {
+        if (companyModelReaderForPersistentInstances == null) {
+            companyModelReaderForPersistentInstances = 
+                new CompanyModelReader(COMPANY_TESTDATA);
+        }
+        return companyModelReaderForPersistentInstances;
+    }
+    
+    /**
+     * Initializes and returns the company model reader 
+     * for transient instances.
+     * @return the company model reader for transient instances.
+     */
+    private CompanyModelReader 
+    getCompanyModelReaderForTransientInstances() {
+        if (companyModelReaderForTransientInstances == null) {
+            companyModelReaderForTransientInstances = 
+                new CompanyModelReader(COMPANY_TESTDATA);
+        }
+        return companyModelReaderForTransientInstances;
+    }
+    
+    /**
+     * Initializes and returns the mylib reader 
+     * for persistent instances.
+     * @return the mylib reader for persistent instances.
+     */
+    private MylibReader getMylibReaderForPersistentInstances() {
+        if (mylibReaderForPersistentInstances == null) {
+            mylibReaderForPersistentInstances = 
+                new MylibReader(MYLIB_TESTDATA);
+        }
+        return mylibReaderForPersistentInstances;
+    }
+    
+    /**
+     * Initializes and returns the mylib reader 
+     * for transient instances.
+     * @return the mylib reader for transient instances.
+     */
+    private MylibReader getMylibReaderForTransientInstances() {
+        if (mylibReaderForTransientInstances == null) {
+            mylibReaderForTransientInstances = 
+                new MylibReader(MYLIB_TESTDATA);
+        }
+        return mylibReaderForTransientInstances;
+    }
     
     /** 
-     * Reads a graph of company model objects from the specified xml file. This 
+     * Reads a graph of company model objects from the internal reader. This 
      * methods explictly calls makePersistent for all named instances using the
      * specified PersistenceManager. The method returns the CompanyModelReader 
      * instance allowing to access a compay model instance by name.
      */
-    public CompanyModelReader loadCompanyModel(PersistenceManager pm, 
-                                               String filename) {
-        CompanyModelReader reader = new CompanyModelReader(filename);
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        List rootList = (List)reader.getRootList();
-        pm.makePersistentAll(rootList);
-        if (debug) logger.debug("inserted " + rootList);
-        tx.commit();
-        tx = null;
-        return reader;
+    public CompanyModelReader loadAndPersistCompanyModel(PersistenceManager pm) {
+        makePersistentAll(
+                getCompanyModelReaderForPersistentInstances().getRootList());
+        return getCompanyModelReaderForPersistentInstances();
     }
     
     /** 
-     * Reads a graph of company model objects from the specified xml file. This 
+     * Reads a graph of mylib objects from the internal reader. This 
      * methods explictly calls makePersistent for all named instances using the
      * specified PersistenceManager. The method returns the CompanyModelReader 
      * instance allowing to access a compay model instance by name.
      */
-    public MylibReader loadMylib(PersistenceManager pm, String filename) {
-        MylibReader reader = new MylibReader(filename);
+    public MylibReader loadAndPersistMylib(PersistenceManager pm) {
+        makePersistentAll(getMylibReaderForPersistentInstances().getRootList());
+        return getMylibReaderForPersistentInstances();
+    }
+
+    /**
+     * Persists the given pc instances.
+     * @param pcInstances the pc instances to persist
+     */
+    private void makePersistentAll(List pcInstances) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        List rootList = (List)reader.getRootList();
-        pm.makePersistentAll(rootList);
-        if (debug) logger.debug("inserted " + rootList);
-        tx.commit();
-        tx = null;
-        return reader;
-    }
-    
-    /** */
-    public void cleanupCompanyModel(PersistenceManager pm) {
-        Transaction tx = pm.currentTransaction();
-        if (tx.isActive()) tx.rollback();
         try {
-            tx.begin();
-            cleanupDatabaseInternal(pm, Company.class);
-            cleanupDatabaseInternal(pm, Department.class);
-            cleanupDatabaseInternal(pm, Person.class);
-            cleanupDatabaseInternal(pm, Insurance.class);
-            cleanupDatabaseInternal(pm, Project.class);
+            pm.makePersistentAll(pcInstances);
+            if (debug) logger.debug("inserted " + pcInstances);
             tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
+        } finally {
+            if (tx.isActive()) {
                 tx.rollback();
+            }
         }
     }
     
     /**
-     * Returns a company model instance for the given bean name.
+     * Returns a persistent company model instance for the given bean name.
      * @param beanName the bean name.
-     * @return the company model instance. 
+     * @return the persistent company model instance. 
      */
-    protected Object getCompanyModelInstance(String beanName) {
-        return beanName == null ? 
-                null : companyModelReader.getBean(beanName);
+    protected Object getPersistentCompanyModelInstance(String beanName) {
+        return beanName == null ? null :
+            getCompanyModelReaderForPersistentInstances().getBean(beanName);
     }
     
     /**
-     * Returns an array of company model instances for bean names 
+     * Returns a transient company model instance for the given bean name.
+     * @param beanName the bean name.
+     * @return the transient company model instance. 
+     */
+    protected Object getTransientCompanyModelInstance(String beanName) {
+        return beanName == null ? null :
+            getCompanyModelReaderForTransientInstances().getBean(beanName);
+    }
+    
+    /**
+     * Returns an array of persistent company model instances for bean names 
      * in the given argument.
      * @param beanNames the bean names of company mode instances.
-     * @return the array of company model instances. 
+     * @return the array of persistent company model instances. 
      */
-    protected Object[] getCompanyModelInstances(String[] beanNames) {
+    protected Object[] getPersistentCompanyModelInstances(String[] beanNames) {
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getCompanyModelInstance(beanNames[i]);
+            result[i] = getPersistentCompanyModelInstance(beanNames[i]);
         }
         return result;
     }
     
     /**
-     * Returns a list of company model instances instances for beans names 
+     * Returns an array of transient company model instances for bean names 
      * in the given argument.
+     * @param beanNames the bean names of company mode instances.
+     * @return the array of transient company model instances. 
+     */
+    protected Object[] getTransientCompanyModelInstances(String[] beanNames) {
+        Object[] result = new Object[beanNames.length];
+        for (int i = 0; i < beanNames.length; i++) {
+            result[i] = getTransientCompanyModelInstance(beanNames[i]);
+        }
+        return result;
+    }
+    
+    /**
+     * Returns a list of persistent company model instances instances 
+     * for beans names in the given argument.
      * @param beanNames the bean names of company model instances.
-     * @return the list of company model instances. 
+     * @return the list of persistent company model instances. 
      */
-    protected List getCompanyModelInstancesAsList(String[] beanNames) {
+    protected List getPersistentCompanyModelInstancesAsList(
+            String[] beanNames) {
         return new ArrayList(
-                Arrays.asList(getCompanyModelInstances(beanNames)));
+                Arrays.asList(getPersistentCompanyModelInstances(beanNames)));
     }
     
     /**
-     * Returns a mylib instance for the given bean name.
-     * @param beanName the bean name.
-     * @return the mylib instance. 
+     * Returns a list of transient company model instances instances 
+     * for beans names in the given argument.
+     * @param beanNames the bean names of company model instances.
+     * @return the list of transient company model instances. 
      */
-    protected Object getMylibInstance(String beanName) {
-        return beanName == null ? 
-                null : mylibReader.getBean(beanName);
+    protected List getTransientCompanyModelInstancesAsList(
+            String[] beanNames) {
+        return new ArrayList(
+                Arrays.asList(getTransientCompanyModelInstances(beanNames)));
     }
     
     /**
-     * Returns an array of mylib instances for beans names 
+     * Returns a persistent mylib instance for the given bean name.
+     * @param beanName the bean name.
+     * @return the persistent mylib instance. 
+     */
+    protected Object getPersistentMylibInstance(String beanName) {
+        return beanName == null ? 
+                null : getMylibReaderForPersistentInstances().getBean(beanName);
+    }
+    
+    /**
+     * Returns a transient mylib instance for the given bean name.
+     * @param beanName the bean name.
+     * @return the transient mylib instance. 
+     */
+    protected Object getTransientMylibInstance(String beanName) {
+        return beanName == null ? 
+                null : getMylibReaderForTransientInstances().getBean(beanName);
+    }
+    
+    /**
+     * Returns an array of persistent mylib instances for beans names 
      * in the given argument.
      * @param beanNames the bean names of mylib instances.
-     * @return the array of mylib instances. 
+     * @return the array of persistent mylib instances. 
      */
-    protected Object[] getMylibInstances(String[] beanNames) {
+    protected Object[] getPersistentMylibInstances(String[] beanNames) {
         Object[] result = new Object[beanNames.length];
         for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getMylibInstance(beanNames[i]);
+            result[i] = getPersistentMylibInstance(beanNames[i]);
         }
         return result;
     }
     
     /**
-     * Returns a list of mylib instances for beans names 
+     * Returns an array of transient mylib instances for beans names 
      * in the given argument.
      * @param beanNames the bean names of mylib instances.
-     * @return the list of mylib instances. 
+     * @return the array of transient mylib instances. 
      */
-    protected List getMylibInstancesAsList(String[] beanNames) {
-        return Arrays.asList(getMylibInstances(beanNames));
+    protected Object[] getTransientMylibInstances(String[] beanNames) {
+        Object[] result = new Object[beanNames.length];
+        for (int i = 0; i < beanNames.length; i++) {
+            result[i] = getTransientMylibInstance(beanNames[i]);
+        }
+        return result;
+    }
+    
+    /**
+     * Returns a list of persistent mylib instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of mylib instances.
+     * @return the list of persistent mylib instances. 
+     */
+    protected List getPersistentMylibInstancesAsList(String[] beanNames) {
+        return Arrays.asList(getPersistentMylibInstances(beanNames));
+    }
+    
+    /**
+     * Returns a list of transient mylib instances for beans names 
+     * in the given argument.
+     * @param beanNames the bean names of mylib instances.
+     * @return the list of transient mylib instances. 
+     */
+    protected List getTransientMylibInstancesAsList(String[] beanNames) {
+        return Arrays.asList(getTransientMylibInstances(beanNames));
     }
     
     // PrimitiveTypes helper methods (creation and query)
 
     /** */
-    public void loadPrimitiveTypes(PersistenceManager pm) {
-        cleanupDatabase(pm, PrimitiveTypes.class);
+    public void loadAndPersistPrimitiveTypes(PersistenceManager pm) {
         insertPrimitiveTypes(pm);
     }
 
@@ -356,36 +461,6 @@ public abstract class QueryTest extends JDO_Test {
         checkQueryResultWithoutOrder(assertion, results, expected);
     }
 
-    // Helper methods to cleanup the datastore
-    
-    /** */
-    public void cleanupDatabase(PersistenceManager pm, Class cls) {
-        Transaction tx = pm.currentTransaction();
-        if (tx.isActive()) tx.rollback();
-        try {
-            tx.begin();
-            cleanupDatabaseInternal(pm, cls);
-            tx.commit();
-            tx = null;
-        }
-        finally {
-            if ((tx != null) && tx.isActive())
-                tx.rollback();
-        }
-    }
-    
-    /** */
-    protected void cleanupDatabaseInternal(PersistenceManager pm, Class cls) {
-        Extent e = pm.getExtent(cls, true);
-        for (Iterator i = e.iterator(); i.hasNext();) {
-            Object pc = i.next();
-            if (debug) 
-                logger.debug("Deleted the existing " + cls.getName() +
-                             " object " + pc);
-            pm.deletePersistent(pc);
-        }
-    }
-    
     // Helper methods to check query result
     
     /** */
@@ -461,7 +536,7 @@ public abstract class QueryTest extends JDO_Test {
             result = closeEnough(((Double)o1).floatValue(), 
                     ((Double)o2).floatValue());
         } else if ((o1 instanceof BigDecimal) && (o2 instanceof BigDecimal)) {
-            result = ((BigDecimal)o1).compareTo(o2) == 0;
+            result = ((BigDecimal)o1).compareTo((BigDecimal)o2) == 0;
         } else if (o1 != null) {
             result = o1.equals(o2);
         } else {
@@ -1026,9 +1101,16 @@ public abstract class QueryTest extends JDO_Test {
 
     /**
      * Executes the given query instance.
-     * Argument <code>parameters</code> is passed as an argument
+     * If argument <code>parameters</code> is an object array,
+     * then it is passed as an argument
      * to the method {@link Query#executeWithArray(java.lang.Object[])}.
-     * If <code>parameters</code> are <code>null</code>,
+     * If argument <code>parameters</code> is a map,
+     * then it is passed as an argument
+     * to the method {@link Query#executeWithMap(java.util.Map)}.
+     * If argument <code>parameters</code> is a list,
+     * then the list elements are passed as arguments
+     * to the execute methods taking actual parameter values.
+     * If argument <code>parameters</code> is <code>null</code>,
      * then method {@link Query#execute()} is called 
      * on the given query instance instead.<p>
      * 
@@ -1071,9 +1153,27 @@ public abstract class QueryTest extends JDO_Test {
                     result = query.executeWithArray((Object[])parameters);
                 } else if (parameters instanceof Map) {
                     result = query.executeWithMap((Map)parameters);
+                } else if (parameters instanceof List) {
+                    List list = (List) parameters;
+                    switch (list.size()) {
+                        case 1:
+                            result = query.execute(list.get(0));
+                            break;
+                        case 2:
+                            result = query.execute(list.get(0), list.get(1));
+                            break;
+                        case 3:
+                            result = query.execute(
+                                    list.get(0), list.get(1), list.get(2));
+                            break;
+                        default:
+                            throw new IllegalArgumentException(
+                                "Argument parameters is a list " +
+                                "and must have 1, 2, or 3 elements.");
+                    }
                 } else {
                     throw new IllegalArgumentException("Argument parameters " +
-                            "must be instance of Object[], Map, or null.");
+                            "must be instance of List, Map, Object[], or null.");
                 }
                 
                 if (logger.isDebugEnabled()) {

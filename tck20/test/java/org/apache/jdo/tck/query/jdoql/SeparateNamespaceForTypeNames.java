@@ -16,17 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -49,6 +43,61 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.4-1 (SeparateNamespaceForTypeNames) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // query having a parameter with the same name as a type
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "department == Department",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "Department Department",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Department",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // query having a parameter with the same name as a type
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(Employee) && Employee.firstname == \"emp1First\"",
+        /*VARIABLES*/   "Employee Employee",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Employee",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // query having a parameter with the same name as a type
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"}),
+        // query having a parameter with the same name as a type
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+    };
+    
+    /** Parameters of valid queries. */
+    private Object[][] parameters = {
+        // query having a parameter with the same name as a type
+        {getPersistentCompanyModelInstance("dept1")},
+        // query having a parameter with the same name as a type
+        null
+    };
+            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -59,53 +108,20 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     }
 
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
         }
     }
-
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        Department dept1 = reader.getDepartment("dept1");
-
-
-        // query having a parameter with the same name as a type
-        Query query = pm.newQuery(Employee.class);
-        query.declareImports("import org.apache.jdo.tck.pc.company.Department");
-        query.declareParameters("Department Department");
-        query.setFilter("department == Department");
-        Object results = query.execute(dept1);
-
-        Collection expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getFullTimeEmployee("emp2"));
-        expected.add(reader.getPartTimeEmployee("emp3"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
-
-        // query having a parameter with the same name as a type
-        query = pm.newQuery(Department.class);
-        query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
-        query.declareVariables("Employee Employee");
-        query.setFilter("employees.contains(Employee) && Employee.firstname == \"emp1First\"");
-        results = query.execute();
-
-        expected = new ArrayList();
-        expected.add(dept1);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
-
-        tx.commit();
-        tx = null;
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

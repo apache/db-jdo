@@ -130,10 +130,10 @@ public class VariablesAndFields extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
         new LinkedList()
     };
             
@@ -160,7 +160,7 @@ public class VariablesAndFields extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

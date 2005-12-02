@@ -216,22 +216,22 @@ public class SupportedStringMethods extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getCompanyModelInstancesAsList(new String[]{"dept1"}),
-        getCompanyModelInstancesAsList(new String[]{"dept1"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
@@ -304,7 +304,7 @@ public class SupportedStringMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 

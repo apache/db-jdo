@@ -16,15 +16,10 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -54,6 +49,89 @@ public class DenoteUniquenessInFilter extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-2 (DenoteUniquenessInFilter) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // Uniqueness not specified.
+        // emp1 qualifies for both contains clause => result is dept1
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e1) && (e1.personid == 1 && " +
+                        "(employees.contains(e2) && (e2.weeklyhours == 40)))",
+        /*VARIABLES*/   "Employee e1; Employee e2",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // Uniqueness specified.
+        // Only emp3 qualifies for both contains clause.
+        // Condition e1 != e2 violated => result is empty
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e1) && (e1.personid == 3 && " +
+                        "(employees.contains(e2) && (e2.weeklyhours == 19 && " +
+                        "e1 != e2)))",
+        /*VARIABLES*/   "Employee e1; Employee e2",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // Uniqueness specified.
+        // Only emp1 matches the first contains clause.
+        // emp1 and emp2 match the second contains clause.
+        // Thus, there are two different values for e1 and e2
+        // satifying the entire filter => result is dept1
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e1) && (e1.personid == 1 && " +
+                        "(employees.contains(e2) && (e2.weeklyhours == 40 && " +
+                        "e1 != e2)))",
+        /*VARIABLES*/   "Employee e1; Employee e2",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+        
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // Uniqueness not specified.
+        // emp1 qualifies for both contains clause => result is dept1
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        // Uniqueness specified.
+        // Only emp3 qualifies for both contains clause.
+        // Condition e1 != e2 violated => result is empty
+        getTransientCompanyModelInstancesAsList(new String[]{}),
+        // Uniqueness specified.
+        // Only emp1 matches the first contains clause.
+        // emp1 and emp2 match the second contains clause.
+        // Thus, there are two different values for e1 and e2
+        // satifying the entire filter => result is dept1
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -64,70 +142,20 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = 
-                loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        String filter;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        
-        // Scenario: only employee with personid 1 has a medicalInsurance
-        
-        // Uniqueness not specified => employee 1 qualifies => return dept1
-        filter = 
-            "employees.contains(e1) && (e1.personid == 1 && " +
-            "(employees.contains(e2) && (e2.medicalInsurance != null)))";
-        q = pm.newQuery(Department.class, filter);
-        q.declareVariables("Employee e1; Employee e2");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        // Uniqueness specified => there is only a single employee qualifying =>
-        // e1 != e2 does not apply => result is empty
-        filter = 
-            "employees.contains(e1) && (e1.personid == 1 && " +
-            "(employees.contains(e2) && (e2.medicalInsurance != null &&" + 
-            "e1 != e2)))";
-        q = pm.newQuery(Department.class, filter);
-        q.declareVariables("Employee e1; Employee e2");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getDepartment("dept1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        // Changed second contains to look for null medicalInsurance => 
-        // employee 1 and 2 match the two conditions => return dept1
-        filter = 
-            "employees.contains(e1) && (e1.personid == 1 && " +
-            "(employees.contains(e2) && (e2.medicalInsurance == null &&" + 
-            "e1 != e2)))";
-        q = pm.newQuery(Department.class, filter);
-        q.declareVariables("Employee e1; Employee e2");
-        result = q.execute();
-        expected = new HashSet();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

@@ -45,8 +45,8 @@ public class SetUnique extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstance("emp1"),
-        getCompanyModelInstancesAsList(
+        getTransientCompanyModelInstance("emp1"),
+        getTransientCompanyModelInstancesAsList(
                 new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
@@ -82,7 +82,7 @@ public class SetUnique extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

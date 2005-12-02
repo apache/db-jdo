@@ -24,6 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -56,18 +57,8 @@ public class SetCandidateExtent extends QueryTest {
     }
 
     /** */
-    public void test() {
-        pm = getPM();
-
-        initDatabase(pm, PCPoint.class);
-        runTestSetCandidateExtent(pm);
-
-        pm.close();
-        pm = null;
-    }
-
-    /** */
-    void runTestSetCandidateExtent(PersistenceManager pm) {
+    public void testPositive() {
+        PersistenceManager pm = getPM();
         if (debug) logger.debug("\nExecuting test SetCandidateExtent()...");
 
         Transaction tx = pm.currentTransaction();
@@ -102,5 +93,13 @@ public class SetCandidateExtent extends QueryTest {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }

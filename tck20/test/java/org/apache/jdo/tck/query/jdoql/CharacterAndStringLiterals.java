@@ -118,7 +118,7 @@ public class CharacterAndStringLiterals extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getMylibInstancesAsList(new String[]{
+        getTransientMylibInstancesAsList(new String[]{
             "primitiveTypesCharacterStringLiterals"})
     };
     
@@ -156,7 +156,7 @@ public class CharacterAndStringLiterals extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 }

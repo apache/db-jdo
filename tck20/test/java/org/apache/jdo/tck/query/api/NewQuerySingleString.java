@@ -65,7 +65,7 @@ public class NewQuerySingleString extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
@@ -90,7 +90,7 @@ public class NewQuerySingleString extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

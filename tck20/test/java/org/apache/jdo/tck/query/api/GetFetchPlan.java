@@ -158,7 +158,7 @@ public class GetFetchPlan extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 }

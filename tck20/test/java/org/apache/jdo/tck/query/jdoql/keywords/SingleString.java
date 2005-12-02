@@ -78,7 +78,7 @@ public class SingleString extends QueryTest {
     };
             
     /** Parameters of valid queries. */
-    private static Object[][] parameters = {
+    private Object[][] parameters = {
         {new BigDecimal("2000")}
     };
             
@@ -105,7 +105,7 @@ public class SingleString extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

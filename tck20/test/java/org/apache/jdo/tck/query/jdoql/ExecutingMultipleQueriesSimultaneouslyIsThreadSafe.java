@@ -25,6 +25,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
@@ -62,19 +63,8 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     }
 
     /** */
-    public void test() {
-        pm = getPM();
-
-        if (debug) logger.debug("\ninitDatabase");
-        initDatabase(pm, PCPoint.class);
-        executeMultipleQueries(pm);
-        
-        pm.close();
-        pm = null;
-    }
-    
-    /** */
-    void executeMultipleQueries(PersistenceManager pm) {
+    public void testPositive() {
+        PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
@@ -185,5 +175,13 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
         public void run() {
             ExecutingMultipleQueriesSimultaneouslyIsThreadSafe.this.executeQueries(pm);
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }

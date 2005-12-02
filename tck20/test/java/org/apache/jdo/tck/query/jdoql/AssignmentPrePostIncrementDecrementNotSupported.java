@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
@@ -56,10 +55,8 @@ public class AssignmentPrePostIncrementDecrementNotSupported extends QueryTest {
     }
 
     /** */
-    public void test() {
-        PersistenceManagerFactory pmf = getPMF();
-        pm = pmf.getPersistenceManager();
-        initDatabase(pm, PCPoint.class);
+    public void testNegative() {
+        PersistenceManager pm = getPM();
         
         runTestUnsupportedOperators01(pm, "x = 1");
         runTestUnsupportedOperators01(pm, "x += 1");

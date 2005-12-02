@@ -99,7 +99,7 @@ public class VariablesWithoutExtent extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         NoExtent noExtent = new NoExtent(1);
         makePersistent(noExtent);

@@ -73,12 +73,12 @@ public class AllowedAPIMethods extends QueryTest {
      * The expected results of valid SQL queries.
      */
     private Object[] expectedResult = {
-        getMylibInstancesAsList(new String[]{
+        getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", 
                 "primitiveTypesNegative",
                 "primitiveTypesCharacterStringLiterals"}),
-        getCompanyModelInstancesAsList(new String[]{"dept1", "dept2"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         new Object[]{"emp1First", "emp1Last"},
         Arrays.asList(new Object[]{
@@ -217,9 +217,9 @@ public class AllowedAPIMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 }

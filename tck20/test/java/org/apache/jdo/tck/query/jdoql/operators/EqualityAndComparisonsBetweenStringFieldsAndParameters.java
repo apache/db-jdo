@@ -16,16 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
+import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -48,6 +43,82 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-5 (EqualityAndComparisonsBetweenStringFieldsAndParameters) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // string field == string parameter
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "firstname == param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.lang.String param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // string field >= string parameter
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "firstname >= param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.lang.String param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // string parameter < string field
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "param < firstname",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.lang.String param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // string field == string parameter
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // string field >= string parameter
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        // string parameter < string field
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "emp3", "emp4", "emp5"}),
+    };
+    
+    /** Parameters of valid queries. */
+    private Object[][] parameters = {
+        // string field == string parameter
+        {"emp1First"},
+        // string field >= string parameter
+        {"emp1First"},
+        // string parameter < string field
+        {"emp2First"}
+    };
+            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -58,60 +129,20 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-                
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-
-        // string field == string parameter
-        q = pm.newQuery(Employee.class, "firstname == param");
-        q.declareParameters("java.lang.String param");
-        result = q.execute("emp1First");
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-            
-        // string field >= string parameter
-        q = pm.newQuery(Employee.class, "firstname >= param");
-        q.declareParameters("java.lang.String param");
-        result = q.execute("emp1First");
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getFullTimeEmployee("emp2"));
-        expected.add(reader.getPartTimeEmployee("emp3"));
-        expected.add(reader.getPartTimeEmployee("emp4"));
-        expected.add(reader.getFullTimeEmployee("emp5"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-            
-        // string parameter < stringe field
-        q = pm.newQuery(Employee.class, "param < firstname");
-        q.declareParameters("java.lang.String param");
-        result = q.execute("emp2First");
-        expected = new HashSet();
-        expected.add(reader.getPartTimeEmployee("emp3"));
-        expected.add(reader.getPartTimeEmployee("emp4"));
-        expected.add(reader.getFullTimeEmployee("emp5"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

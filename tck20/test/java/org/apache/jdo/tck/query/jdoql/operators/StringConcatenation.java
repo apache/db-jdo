@@ -16,16 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
+import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -47,6 +42,61 @@ public class StringConcatenation extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-27 (StringConcatenation) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // string literal + string literal 
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "firstname == \"emp1\" + \"First\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // string field + string literal 
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "firstname + \"Ext\" == param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "String param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // string literal + string literal 
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // string field + string literal 
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
+    };
+    
+    /** Parameters of valid queries. */
+    private Object[][] parameters = {
+        // string literal + string literal 
+        null,
+        // string field + string literal 
+        {"emp1FirstExt"}
+    };
+            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -57,47 +107,20 @@ public class StringConcatenation extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-                
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-
-        // string literal + string literal 
-        q = pm.newQuery(Employee.class);
-        q.setFilter("firstname == \"emp1\" + \"First\"");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        // string field + string literal 
-        q = pm.newQuery(Employee.class);
-        q.declareParameters("String param");
-        q.setFilter("firstname + \"Ext\" == param");
-        result = q.execute("emp1FirstExt");
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

@@ -16,15 +16,10 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -46,6 +41,36 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-34 (NullCollectionsAndIsEmpty) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // isEmpty
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "personid == 1 && projects.isEmpty()",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // isEmpty
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -56,43 +81,24 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-                
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        Employee emp1 = reader.getFullTimeEmployee("emp1");
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        getPM().currentTransaction().begin();
+        Employee emp1 = (Employee) getPersistentCompanyModelInstance("emp1");
         emp1.setProjects(null);
-        tx.commit();
-        
-        tx = pm.currentTransaction();
-        tx.begin();
-        
-        // isEmpty
-        q = pm.newQuery(Employee.class, "personid == 1 && projects.isEmpty()");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(emp1);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-            
-        tx.commit();
+        getPM().currentTransaction().commit();
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

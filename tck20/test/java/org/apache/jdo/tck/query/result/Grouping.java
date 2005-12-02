@@ -93,8 +93,8 @@ public class Grouping extends QueryTest {
      */
     private Object[] expectedResult = {
         Arrays.asList(new Object[] {
-            new Object[] {getCompanyModelInstance("dept1"), new Double(45000.0)},
-            new Object[] {getCompanyModelInstance("dept2"), new Double(58000.0)}})
+            new Object[] {getTransientCompanyModelInstance("dept1"), new Double(45000.0)},
+            new Object[] {getTransientCompanyModelInstance("dept2"), new Double(58000.0)}})
     };
         
     /**
@@ -129,7 +129,7 @@ public class Grouping extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

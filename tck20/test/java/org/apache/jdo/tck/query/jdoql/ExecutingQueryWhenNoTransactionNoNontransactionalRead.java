@@ -17,7 +17,10 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import javax.jdo.*;
+import javax.jdo.Extent;
+import javax.jdo.JDOUserException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
@@ -54,15 +57,11 @@ public class ExecutingQueryWhenNoTransactionNoNontransactionalRead
     }
 
     /** */
-    public void test() {
-        pm = getPM();
+    public void testNegative() {
+        PersistenceManager pm = getPM();
         
-        initDatabase(pm, PCPoint.class);
         pm.currentTransaction().setNontransactionalRead(false);
         runTestNewQuery(pm);
-
-        pm.close();
-        pm = null;
     }
 
     /** */

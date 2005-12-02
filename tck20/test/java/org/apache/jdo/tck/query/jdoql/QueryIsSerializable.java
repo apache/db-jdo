@@ -29,6 +29,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -62,16 +63,12 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
-    public void test() throws Exception {
-        pm = getPM();
+    public void testPositive() throws Exception {
+        PersistenceManager pm = getPM();
 
-        initDatabase(pm, PCPoint.class);
         runTestQueryIsSerializable01(pm);
         runTestQueryIsSerializable02(pm);
         runTestQueryIsSerializable03(pm);
-        
-        pm.close();
-        pm = null;
     }
 
     /** */
@@ -182,6 +179,14 @@ public class QueryIsSerializable extends QueryTest {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }
 

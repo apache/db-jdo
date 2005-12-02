@@ -16,12 +16,14 @@
  
 package org.apache.jdo.tck.query.jdoql;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -56,10 +58,9 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
     Collection expected = null; 
     
     /** */
-    public void test() {
-        pm = getPM();
+    public void testPositive() {
+        PersistenceManager pm = getPM();
 
-        initDatabase(pm, PCPoint.class);
         initExpectedResult(pm, "x == 0");
 
         // Escape Sequence
@@ -94,6 +95,10 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter(filter);
             expected = (Collection) query.execute();
+            // Create a new collection for the expected result.
+            // This ensures that the expected result may be iterated
+            // outside of the scope of the current transaction.
+            expected = new ArrayList(expected);
 
             tx.commit();
             tx = null;
@@ -130,5 +135,13 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }

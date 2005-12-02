@@ -23,9 +23,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -55,22 +57,83 @@ public class MultipleIdenticalImports extends QueryTest {
         BatchTestRunner.run(MultipleIdenticalImports.class);
     }
 
-    /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
-        }
-    }
-
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // Import Department twice
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "department == d",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "Department d",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Department; " +
+                        "import org.apache.jdo.tck.pc.company.Department;",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // Import Department explictly and per type-import-on-demand
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "department == d",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "Department d",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Department; " +
+                        "import org.apache.jdo.tck.pc.company.*",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // type-import-on-demand twice
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "department == d",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "Department d",
+        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.*; " +
+                        "import org.apache.jdo.tck.pc.company.*",
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // Import Department twice
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"}),
+        // Import Department explictly and per type-import-on-demand
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"}),
+        // type-import-on-demand twice
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"})
+    };
+    
+    /** Parameters of valid queries. */
+    private Object[][] parameters = {
+        // Import Department twice
+        {getPersistentCompanyModelInstance("dept1")},
+        // Import Department explictly and per type-import-on-demand
+        {getPersistentCompanyModelInstance("dept1")},
+        // type-import-on-demand twice
+        {getPersistentCompanyModelInstance("dept1")}
+    };
+            
     /** */
     void runTest(PersistenceManager pm, CompanyModelReader reader) {
         Query query;
@@ -111,5 +174,23 @@ public class MultipleIdenticalImports extends QueryTest {
 
         tx.commit();
         tx = null;
+    }
+    
+    /** */
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+        }
+    }
+    
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

@@ -79,11 +79,11 @@ public class ShapeOfResult extends QueryTest {
      */
     private Object[] expectedResult = {
         // candidate class
-        getMylibInstancesAsList(new String[]{
+        getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", "primitiveTypesNegative",
                 "primitiveTypesCharacterStringLiterals"}),
         // candidate class, unique
-        getMylibInstance("primitiveTypesPositive"),
+        getTransientMylibInstance("primitiveTypesPositive"),
         // single column
         Arrays.asList(new Object[]{"emp1First", "emp2First", "emp3First", 
             "emp4First", "emp5First"}),
@@ -176,9 +176,9 @@ public class ShapeOfResult extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 }

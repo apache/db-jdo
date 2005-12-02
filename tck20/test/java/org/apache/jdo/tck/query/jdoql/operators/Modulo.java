@@ -70,7 +70,7 @@ public class Modulo extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{"emp2", "emp4"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp4"})
     };
             
     /**
@@ -132,9 +132,9 @@ public class Modulo extends QueryTest {
      */
     protected void localSetUp() {
         PersistenceManager pm = getPM();
-        loadCompanyModel(pm, COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(pm);
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadPrimitiveTypes(pm);
+        loadAndPersistPrimitiveTypes(pm);
         addTearDownClass(PrimitiveTypes.class);
     }
 }

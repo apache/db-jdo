@@ -21,6 +21,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -52,16 +53,12 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
     }
 
     /** */
-    public void test() {
-        pm = getPM();
+    public void testNegative() {
+        PersistenceManager pm = getPM();
 
-        initDatabase(pm, PCPoint.class);
         runTestUnsupportedOperators01(pm, "this.getX() == 1");
         runTestUnsupportedOperators01(pm, "y.intValue() == 1");
         runTestUnsupportedOperators01(pm, "y == new Integer(1)");
-        
-        pm.close();
-        pm = null;
     }
 
     /** */

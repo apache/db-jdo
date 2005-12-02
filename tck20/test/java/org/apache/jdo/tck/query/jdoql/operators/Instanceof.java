@@ -79,8 +79,8 @@ public class Instanceof extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{"emp2", "emp3"}),
-        getCompanyModelInstancesAsList(new String[]{"emp2", "emp3"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"})
     };
             
     /**
@@ -106,7 +106,7 @@ public class Instanceof extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

@@ -50,15 +50,15 @@ public class MetadataSearchOrder extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp2", "emp3", "emp4", "emp5"}),
-        getMylibInstancesAsList(new String[]{
+        getTransientMylibInstancesAsList(new String[]{
                 "pcClass1", "pcClass2"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp3", "emp4", "emp5"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp4", "emp5"})
     };
             
@@ -117,9 +117,9 @@ public class MetadataSearchOrder extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 }

@@ -24,6 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -55,10 +56,9 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
     }
 
     /** */
-    public void test() {
-        pm = getPM();
+    public void testPositive() {
+        PersistenceManager pm = getPM();
 
-        initDatabase(pm, PCPoint.class);
         runTestParenthesesMarkOperatorPrecedence01(pm);
         runTestParenthesesMarkOperatorPrecedence02(pm);
         runTestParenthesesMarkOperatorPrecedence03(pm);
@@ -68,9 +68,6 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         runTestParenthesesMarkOperatorPrecedence07(pm);
         runTestParenthesesMarkOperatorPrecedence08(pm);
         runTestParenthesesMarkOperatorPrecedence09(pm);
-
-        pm.close();
-        pm = null;
     }
 
     /** */
@@ -375,6 +372,14 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }
 

@@ -17,19 +17,15 @@
 package org.apache.jdo.tck.query.jdoql.operators;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.TimeZone;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryElementHolder;
+import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -51,9 +47,73 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-4 (EqualityAndComparisonsBetweenDateFieldsAndParameters) failed: ";
 
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // date field == date parameter
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "hiredate == param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.util.Date param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // date field >= date parameter
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "hiredate >= param",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.util.Date param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // date field >= date parameter
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "param < birthdate",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  "java.util.Date param",
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // date field == date parameter
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // date field >= date parameter
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4"}),
+        // date field >= date parameter
+        getTransientCompanyModelInstancesAsList(new String[]{})
+    };
+    
     /** */
     private static final Date FIRST_OF_JAN_1999;
-
     static {
         // initialize static field FIRST_OF_JAN_1999
         Calendar cal = new GregorianCalendar(
@@ -63,6 +123,16 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         FIRST_OF_JAN_1999 = cal.getTime();
     }
     
+    /** Parameters of valid queries. */
+    private Object[][] parameters = {
+        // date field == date parameter
+        {FIRST_OF_JAN_1999},
+        // date field >= date parameter
+        {FIRST_OF_JAN_1999},
+        // date field >= date parameter
+        {FIRST_OF_JAN_1999}
+    };
+            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -73,57 +143,20 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    parameters[i], expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-
-        // date field == date parameter
-        q = pm.newQuery(Employee.class, "hiredate == param");
-        q.declareParameters("java.util.Date param");
-        result = q.execute(FIRST_OF_JAN_1999);
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-            
-        // date field >= date parameter
-        q = pm.newQuery(Employee.class, "hiredate >= param");
-        q.declareParameters("java.util.Date param");
-        result = q.execute(FIRST_OF_JAN_1999);
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        expected.add(reader.getFullTimeEmployee("emp2"));
-        expected.add(reader.getPartTimeEmployee("emp3"));
-        expected.add(reader.getPartTimeEmployee("emp4"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-            
-        // date parameter < date field
-        q = pm.newQuery(Employee.class, "param < birthdate");
-        q.declareParameters("java.util.Date param");
-        result = q.execute(FIRST_OF_JAN_1999);
-        expected = new HashSet();
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
-        
 }

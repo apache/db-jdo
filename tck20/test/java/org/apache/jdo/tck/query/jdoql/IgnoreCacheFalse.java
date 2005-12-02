@@ -67,6 +67,7 @@ public class IgnoreCacheFalse extends QueryTest {
      */
     protected void localSetUp() {
         super.localSetUp();
+        loadAndPersistPrimitiveTypes(getPM());
         addTearDownClass(PrimitiveTypes.class);
     }
     
@@ -75,7 +76,6 @@ public class IgnoreCacheFalse extends QueryTest {
         pm = getPM();
         
         try {
-            loadPrimitiveTypes(pm);
             // set ignoreCache flag
             pm.setIgnoreCache(false);
             runTestNewInstance(pm);

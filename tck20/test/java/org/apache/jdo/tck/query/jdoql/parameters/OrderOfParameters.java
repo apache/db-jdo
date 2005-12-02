@@ -65,11 +65,11 @@ public class OrderOfParameters extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{"emp1"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
     };
             
     /** Parameters of valid queries. */
-    private static Object[][] parameters = {
+    private Object[][] parameters = {
         {"emp1First", "emp1Last"}
     };
             
@@ -96,7 +96,7 @@ public class OrderOfParameters extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

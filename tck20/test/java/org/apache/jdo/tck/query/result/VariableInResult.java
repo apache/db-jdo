@@ -85,7 +85,7 @@ public class VariableInResult extends QueryTest {
      */
     private Object[] expectedResult = {
         // this
-        getCompanyModelInstancesAsList(new String[]{"proj1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
         // Note: "orange" is not a bean name!
         Arrays.asList(new Object[]{new Object[]{new Long(1), "orange"}})
     };
@@ -121,7 +121,7 @@ public class VariableInResult extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

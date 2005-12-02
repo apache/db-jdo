@@ -66,12 +66,12 @@ public class UnconstrainedVariable extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp2", "emp3", "emp4"})
     };
             
     /** Parameters of valid queries. */
-    private static Object[][] parameters = {
+    private Object[][] parameters = {
         {new Integer(1)},
     };
             
@@ -100,7 +100,7 @@ public class UnconstrainedVariable extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

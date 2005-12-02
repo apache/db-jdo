@@ -16,16 +16,11 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -47,6 +42,54 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-13 (NavigationThroughReferencesUsesDotOperator) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // navigation through one relationship
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "medicalInsurance.carrier == \"Carrier1\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // navigation through multiple relationships
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        MedicalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "this.employee.department.name == \"Development\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+        
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // navigation through one relationship
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // navigation through multiple relationships
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "medicalIns1", "medicalIns2", "medicalIns3"})
+    };
+    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -57,48 +100,20 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     }
     
     /** */
-    public void test() {
-        pm = getPM();
-        
-        try {
-            // read test data
-            CompanyModelReader reader = loadCompanyModel(pm, COMPANY_TESTDATA);
-            runTest(pm, reader);
-        }
-        finally {
-            cleanupCompanyModel(pm);
-            pm.close();
-            pm = null;
+    public void testPositive() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
+                    expectedResult[i]);
         }
     }
     
-    /** */
-    void runTest(PersistenceManager pm, CompanyModelReader reader) {
-        Query q;
-        Object result;
-        Collection expected;
-        
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        
-        // navigation through one relationship
-        q = pm.newQuery(Employee.class);
-        q.setFilter("medicalInsurance.carrier == \"Carrier1\"");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getFullTimeEmployee("emp1"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        // navigation through multiple relationships
-        q = pm.newQuery(MedicalInsurance.class);
-        q.setFilter("this.employee.department.name == \"Development\"");
-        result = q.execute();
-        expected = new HashSet();
-        expected.add(reader.getMedicalInsurance("medicalIns1"));
-        expected.add(reader.getMedicalInsurance("medicalIns2"));
-        expected.add(reader.getMedicalInsurance("medicalIns3"));
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
-        
-        tx.commit();
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistCompanyModel(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

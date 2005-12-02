@@ -326,7 +326,7 @@ public class ResultExpressions extends QueryTest {
      */
     private Object[] expectedResult = {
         // this
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // field
         Arrays.asList(new Object[]{new Long(1), new Long(2), 
@@ -334,7 +334,7 @@ public class ResultExpressions extends QueryTest {
         // variable.field
         Arrays.asList(new Object[]{new Long(1)}),
         // variable
-        getCompanyModelInstancesAsList(new String[]{"proj1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
         // COUNT(this)
         new Long(5),
         // COUNT(variable)
@@ -360,9 +360,9 @@ public class ResultExpressions extends QueryTest {
         // navigational expression field
         Arrays.asList(new Object[]{new Long(1)}),
         // parameter
-        getCompanyModelInstancesAsList(new String[]{"proj1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
         // cast
-        getCompanyModelInstancesAsList(new String[]{"emp2"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
     };
             
     /**
@@ -455,7 +455,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testNavigationalExpressionParameter() {
         int index = 13;
-        Object[] parameters = getCompanyModelInstances(new String[]{"proj1"});
+        Object[] parameters = getPersistentCompanyModelInstances(new String[]{"proj1"});
         executeQuery(index, parameters);
     }
 
@@ -468,7 +468,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testParameter() {
         int index = 15;
-        Object[] parameters = getCompanyModelInstances(new String[]{"proj1"});
+        Object[] parameters = getPersistentCompanyModelInstances(new String[]{"proj1"});
         executeQuery(index, parameters);
     }
 
@@ -490,7 +490,7 @@ public class ResultExpressions extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

@@ -110,9 +110,9 @@ public class DistinctQuery extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "dept1", "dept1", "dept1", "dept2", "dept2"}),
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "dept1", "dept2"}),
         Arrays.asList(new Object[] {
                 new Object[]{new Long(1),"Development"},
@@ -148,7 +148,7 @@ public class DistinctQuery extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

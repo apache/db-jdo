@@ -243,41 +243,41 @@ public class SupportedMathMethods extends QueryTest {
      * The expected results of valid queries testing Math.abs.
      */
     private Object[] expectedResultABS = {
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive", "primitiveTypesNegative"})
     };
         
     /** The expected results of valid queries testing Math.sqrt. */
     private Object[] expectedResultSQRT = {
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"}),
-            getMylibInstancesAsList(new String[]{
+            getTransientMylibInstancesAsList(new String[]{
                     "primitiveTypesPositive"})
     };
             
@@ -314,7 +314,7 @@ public class SupportedMathMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadMylib(getPM(), MYLIB_TESTDATA);
+        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
     }
 

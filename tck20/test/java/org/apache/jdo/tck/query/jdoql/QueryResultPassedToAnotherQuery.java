@@ -25,6 +25,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -58,10 +59,9 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
     Collection resultCln;
 
     /** */
-    public void test() {
-        pm = getPM();
+    public void testPositive() {
+        PersistenceManager pm = getPM();
 
-        initDatabase(pm, PCPoint.class);
         setResultCollection(pm);
         runTestQueryResultPassedToAnotherQuery01(pm);
         runTestQueryResultPassedToAnotherQuery02(pm);
@@ -81,6 +81,10 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             resultCln = (Collection)query.execute();
+            // Create a new collection for the result collection.
+            // This ensures that the result collection may be iterated
+            // outside of the scope of the current transaction.
+            resultCln = new ArrayList(resultCln);
             
             tx.commit();
             tx = null;
@@ -186,5 +190,13 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
             if ((tx != null) && tx.isActive())
                 tx.rollback();
         }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        loadAndPersistPCPoints(getPM());
+        addTearDownClass(PCPoint.class);
     }
 }

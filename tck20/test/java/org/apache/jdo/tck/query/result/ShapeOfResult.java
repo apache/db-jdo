@@ -214,15 +214,15 @@ public class ShapeOfResult extends QueryTest {
      */
     private Object[] expectedResult = {
         // result: null
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // result: this AS C
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // result: null, unique: true
-        getCompanyModelInstance("emp1"),
+        getTransientCompanyModelInstance("emp1"),
         // result: this AS C, unique: true
-        getCompanyModelInstance("emp1"),
+        getTransientCompanyModelInstance("emp1"),
         // result: expression of type T
         Arrays.asList(new Object[]{"emp1First", "emp2First", 
                 "emp3First", "emp4First", "emp5First"}),
@@ -328,7 +328,7 @@ public class ShapeOfResult extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

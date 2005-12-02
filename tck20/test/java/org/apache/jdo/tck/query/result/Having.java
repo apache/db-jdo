@@ -89,9 +89,9 @@ public class Having extends QueryTest {
      */
     private Object[] expectedResult = {
             Arrays.asList(new Object[] {
-                    getCompanyModelInstance("dept1"),
+                    getTransientCompanyModelInstance("dept1"),
                     new Double(45000.0),
-                    getCompanyModelInstance("dept2"),
+                    getTransientCompanyModelInstance("dept2"),
                     new Double(58000.0)})
     };
         
@@ -127,7 +127,7 @@ public class Having extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

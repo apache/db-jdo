@@ -135,16 +135,16 @@ public class SupportedMapMethods extends QueryTest {
      */
     private Object[] expectedResult = {
         // get
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         // containsKey
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // containsValue
-        getCompanyModelInstancesAsList(new String[]{"emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         // isEmpty
         new ArrayList(),
         // size
-        getCompanyModelInstancesAsList(new String[]{
+        getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"})
     };
             
@@ -206,7 +206,7 @@ public class SupportedMapMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadCompanyModel(getPM(), COMPANY_TESTDATA);
+        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }
