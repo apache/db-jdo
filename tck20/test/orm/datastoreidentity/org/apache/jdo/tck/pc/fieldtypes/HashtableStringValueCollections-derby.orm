@@ -27,10 +27,15 @@
             </field>
             <field name="HashtableOfObject_String3"
                    table="HASHTBL_OBJECT3_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -39,10 +44,15 @@
             </field>
             <field name="HashtableOfObject_String4"
                    table="HASHTBL_OBJECT4_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -51,10 +61,15 @@
             </field>
             <field name="HashtableOfObject_String6"
                    table="HASHTBL_OBJECT6_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -84,10 +99,15 @@
             </field>
             <field name="HashtableOfSimpleClass_String12"
                    table="HASHTBL_SIMPLE_CLASS12_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -96,10 +116,15 @@
             </field>
             <field name="HashtableOfSimpleClass_String13"
                    table="HASHTBL_SIMPLE_CLASS13_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -108,10 +133,15 @@
             </field>
             <field name="HashtableOfSimpleClass_String15"
                    table="HASHTBL_SIMPLE_CLASS15_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -141,10 +171,15 @@
             </field>
             <field name="HashtableOfSimpleInterface_String21"
                    table="HASHTBL_SIMPLE_INTERFACE21_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -153,10 +188,15 @@
             </field>
             <field name="HashtableOfSimpleInterface_String22"
                    table="HASHTBL_SIMPLE_INTERFACE22_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -165,10 +205,15 @@
             </field>
             <field name="HashtableOfSimpleInterface_String24"
                    table="HASHTBL_SIMPLE_INTERFACE24_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>

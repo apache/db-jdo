@@ -23,10 +23,15 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfObject_String3" table="MAP_OBJECT3_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -34,21 +39,30 @@
                 <value column="VALUEVAL"/>
             </field>
             <field name="MapOfObject_String4" table="MAP_OBJECT4_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
                 </key>
                 <value column="VALUEVAL"/>
             </field>
-            <field name="MapOfObject_String6" table="MAP_OBJECT6_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -77,10 +91,15 @@
             </field>
             <field name="MapOfSimpleClass_String12"
                    table="MAP_SIMPLE_CLASS12_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -89,10 +108,15 @@
             </field>
             <field name="MapOfSimpleClass_String13"
                    table="MAP_SIMPLE_CLASS13_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -101,10 +125,15 @@
             </field>
             <field name="MapOfSimpleClass_String15"
                    table="MAP_SIMPLE_CLASS15_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -134,10 +163,15 @@
             </field>
             <field name="MapOfSimpleInterface_String21"
                    table="MAP_SIMPLE_INTERFACE21_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -146,10 +180,15 @@
             </field>
             <field name="MapOfSimpleInterface_String22"
                    table="MAP_SIMPLE_INTERFACE22_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
@@ -158,10 +197,15 @@
             </field>
             <field name="MapOfSimpleInterface_String24"
                    table="MAP_SIMPLE_INTERFACE24_STR">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <key>
                     <embedded>
-                        <field name="id" primary-key="true" column="ID"/>
+                        <field name="id" column="ID"/>
                         <field name="intField" column="INTVAL"/>
                         <field name="stringField" column="STRINGVAL"/>
                     </embedded>
