@@ -54,6 +54,7 @@
                 </key>
                 <value column="VALUEVAL"/>
             </field>
+            <field name="MapOfObject_String6" table="MAP_OBJECT4_STR">
                 <join column="IDENTIFIER">
                     <primary-key>
                         <column name="IDENTIFIER"/>
