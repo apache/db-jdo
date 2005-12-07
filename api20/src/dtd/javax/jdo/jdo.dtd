@@ -18,11 +18,13 @@
 <!ATTLIST interface objectid-class CDATA #IMPLIED>
 <!ATTLIST interface requires-extent (true|false) 'true'>
 <!ATTLIST interface detachable (true|false) 'false'>
+<!ATTLIST interface embedded-only (true|false) #IMPLIED>
 <!ATTLIST interface catalog CDATA #IMPLIED>
 <!ATTLIST interface schema CDATA #IMPLIED>
 
 <!ELEMENT property (extension*, (array|collection|map)?, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property persistence-modifier (persistent|transactional|none) #IMPLIED>
 <!ATTLIST property default-fetch-group (true|false) #IMPLIED>
 <!ATTLIST property load-fetch-group CDATA #IMPLIED>
 <!ATTLIST property null-value (default|exception|none) 'none'>
@@ -180,11 +182,11 @@
 <!ATTLIST order indexed (true|false|unique) #IMPLIED>
 <!ATTLIST order mapped-by CDATA #IMPLIED>
 
-<!ELEMENT fetch-group (fetch-group|field)*>
+<!ELEMENT fetch-group (extension*, (fetch-group|field|property)*, extension*)>
 <!ATTLIST fetch-group name CDATA #REQUIRED>
 <!ATTLIST fetch-group post-load (true|false) #IMPLIED>
 
-<!ELEMENT embedded (extension*, field*, extension*)>
+<!ELEMENT embedded (extension*, (field|property)*, extension*)>
 <!ATTLIST embedded owner-field CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-column CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-value CDATA #IMPLIED>

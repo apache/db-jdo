@@ -134,7 +134,7 @@
 <!ATTLIST order indexed (true|false|unique) #IMPLIED>
 <!ATTLIST order mapped-by CDATA #IMPLIED>
 
-<!ELEMENT embedded (extension*, field*, extension*)>
+<!ELEMENT embedded (extension*, (field|property)*, extension*)>
 <!ATTLIST embedded null-indicator-column CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-value CDATA #IMPLIED>
 <!ATTLIST embedded owner-field CDATA #IMPLIED>
