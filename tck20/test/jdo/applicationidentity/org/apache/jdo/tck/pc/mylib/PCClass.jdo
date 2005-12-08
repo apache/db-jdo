@@ -11,15 +11,15 @@
       <field name="id" primary-key="true"/>
       <field name="transientNumber1" persistence-modifier="none"/>
       <field name="transientNumber2" persistence-modifier="none"/>
+      <query name="classJDO">
+          SELECT FROM org.apache.jdo.tck.pc.mylib.PCClass
+      </query>
       <fetch-group name="default">
         <field name="number1"/>
       </fetch-group>        
       <fetch-group name="fetchGoup2" post-load="true">
         <field name="number2"/>
       </fetch-group>        
-      <query name="classJDO">
-          SELECT FROM org.apache.jdo.tck.pc.mylib.PCClass
-      </query>
     </class>
 
   </package>
