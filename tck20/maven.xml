@@ -317,6 +317,8 @@
                          value="${jdo.tck.log.directory}/${timestamp}"/>
             <sysproperty key="jdo.tck.cleanupaftertest"
                          value="${jdo.tck.cleanupaftertest}"/>             
+            <sysproperty key="jdo.tck.requiredOptions"
+                         value="${jdo.tck.requiredOptions}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>
@@ -365,7 +367,9 @@
             <sysproperty key="jdo.tck.log.directory"
                          value="${jdo.tck.log.directory}/${timestamp}"/>
             <sysproperty key="jdo.tck.cleanupaftertest"
-                         value="${jdo.tck.cleanupaftertest}"/>                         
+                         value="${jdo.tck.cleanupaftertest}"/>
+            <sysproperty key="jdo.tck.requiredOptions"
+                         value="${jdo.tck.requiredOptions}"/>
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
             <arg line="${jdo.tck.classes}"/>

@@ -50,7 +50,8 @@ Inheritance strategy:
         </class>
 
         <class name="PartTimeEmployee" table="parttimeemployees">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <datastore-identity strategy="sequence" column="DATASTORE_IDENTITY"
+                sequence="org.apache.jdo.tck.pc.PersonSequence"/>
             <inheritance strategy="new-table"/>
             <field name="Person.personid" column="PERSONID"/>
             <field name="Person.firstname" column="FIRSTNAME"/>
@@ -103,7 +104,8 @@ Inheritance strategy:
         </class>
 
         <class name="FullTimeEmployee" table="fulltimeemployees">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <datastore-identity strategy="sequence" column="DATASTORE_IDENTITY"
+                sequence="org.apache.jdo.tck.pc.PersonSequence"/>
             <inheritance strategy="new-table"/>
             <field name="Person.personid" column="PERSONID"/>
             <field name="Person.firstname" column="FIRSTNAME"/>
@@ -160,7 +162,8 @@ Inheritance strategy:
         </class>
 
         <class name="Person" table="persons">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <datastore-identity strategy="sequence" column="DATASTORE_IDENTITY"
+                sequence="org.apache.jdo.tck.pc.PersonSequence"/>
             <inheritance strategy="new-table"/>
             <field name="personid" column="PERSONID"/>
             <field name="firstname" column="FIRSTNAME"/>
@@ -188,7 +191,8 @@ Inheritance strategy:
         </class>
 
         <class name="DentalInsurance" table="dentalinsurance">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <datastore-identity strategy="sequence" column="DATASTORE_IDENTITY"
+                sequence="org.apache.jdo.tck.pc.InsuranceSequence"/>
             <inheritance strategy="new-table"/>
             <field name="Insurance.insid" column="INSID"/>
             <field name="Insurance.carrier" column="CARRIER"/>
@@ -199,7 +203,8 @@ Inheritance strategy:
         </class>
 
         <class name="MedicalInsurance" table="medicalinsurance">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <datastore-identity strategy="sequence" column="DATASTORE_IDENTITY"
+                sequence="org.apache.jdo.tck.pc.InsuranceSequence"/>
             <inheritance strategy="new-table"/>
             <field name="Insurance.insid" column="INSID"/>
             <field name="Insurance.carrier" column="CARRIER"/>
@@ -227,5 +232,11 @@ Inheritance strategy:
                 <element column="MEMBER"/>
             </field>
         </class>
+
+        <sequence name="org.apache.jdo.tck.pc.PersonSequence" 
+            strategy="nontransactional"/>
+
+        <sequence name="org.apache.jdo.tck.pc.InsuranceSequence" 
+            strategy="nontransactional"/>
     </package>
 </orm>

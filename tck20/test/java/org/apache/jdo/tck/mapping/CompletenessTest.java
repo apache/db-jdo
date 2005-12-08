@@ -16,21 +16,15 @@
 
 package org.apache.jdo.tck.mapping;
 
-import java.lang.reflect.Constructor;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.JDOException;
+import java.util.StringTokenizer;
 
 import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.company.CompanyFactory;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -66,64 +60,87 @@ public class CompletenessTest extends JDO_Test {
     public static void main(String[] args) {
         BatchTestRunner.run(CompletenessTest.class);
     }
+
+    private boolean isTestToBePerformed() {
+        boolean isTestToBePerformed = true;
+        String requiredOptions = System.getProperty("jdo.tck.requiredOptions");
+        Collection supportedOptions = getPMF().supportedOptions();
+        StringTokenizer tokenizer = new StringTokenizer(requiredOptions, " ,");
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken();
+            if (!token.equals("") &&
+                !supportedOptions.contains(token)) {
+                isTestToBePerformed = false;
+                int index = getClass().getName().lastIndexOf('.');
+                String testName = index==-1 ? 
+                        getClass().getName() : getClass().getName().substring(index+1);
+                printUnsupportedOptionalFeatureNotTested(testName, token);
+                break;
+            }
+        }
+        return isTestToBePerformed;
+    }
     
     /**
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        getPM();
-        CompanyFactoryRegistry.registerFactory(pm);
-        CompanyModelReader reader = new CompanyModelReader(inputFilename);
-        // persist test data
-        pm.currentTransaction().begin();
-        List rootList = reader.getRootList();
-        pm.makePersistentAll(rootList);
-        addTearDownClass(reader.getTearDownClasses());
-        rootOids = new ArrayList();
-        for (Iterator i = rootList.iterator(); i.hasNext(); ) {
-            Object pc = i.next();
-            rootOids.add(pm.getObjectId(pc));
+        if (isTestToBePerformed()) {
+            getPM();
+            CompanyFactoryRegistry.registerFactory(pm);
+            CompanyModelReader reader = new CompanyModelReader(inputFilename);
+            // persist test data
+            pm.currentTransaction().begin();
+            List rootList = reader.getRootList();
+            addTearDownClass(CompanyModelReader.getTearDownClasses());
+            pm.makePersistentAll(rootList);
+            rootOids = new ArrayList();
+            for (Iterator i = rootList.iterator(); i.hasNext(); ) {
+                Object pc = i.next();
+                rootOids.add(pm.getObjectId(pc));
+            }
+            pm.currentTransaction().commit();
+            cleanupPM();
         }
-        pm.currentTransaction().commit();
-        cleanupPM();
     }
 
     /** */
     public void test() {
-        
-        // register the default factory
-        CompanyFactoryRegistry.registerFactory();
-        // get new obj graph to compare persistent graph with
-        CompanyModelReader reader = new CompanyModelReader(inputFilename);
-        List rootList = reader.getRootList();
-        
-        getPM();
-        pm.currentTransaction().begin();
-        // compare persisted and new
-        int size = rootList.size();
-        StringBuffer msg = new StringBuffer();
-        for (int i = 0; i < size; i++) {
-            DeepEquality expected = (DeepEquality) rootList.get(i);
-            Object oid = rootOids.get(i);
-            Object persisted = pm.getObjectById(oid);
-            EqualityHelper equalityHelper = new EqualityHelper();
-            if (!expected.deepCompareFields(persisted, equalityHelper)) {
-                if (msg.length() > 0) {
-                    msg.append("\n");
+        if (isTestToBePerformed()) {
+            // register the default factory
+            CompanyFactoryRegistry.registerFactory();
+            // get new obj graph to compare persistent graph with
+            CompanyModelReader reader = new CompanyModelReader(inputFilename);
+            List rootList = reader.getRootList();
+            
+            getPM();
+            pm.currentTransaction().begin();
+            // compare persisted and new
+            int size = rootList.size();
+            StringBuffer msg = new StringBuffer();
+            for (int i = 0; i < size; i++) {
+                DeepEquality expected = (DeepEquality) rootList.get(i);
+                Object oid = rootOids.get(i);
+                Object persisted = pm.getObjectById(oid);
+                EqualityHelper equalityHelper = new EqualityHelper();
+                if (!expected.deepCompareFields(persisted, equalityHelper)) {
+                    if (msg.length() > 0) {
+                        msg.append("\n");
+                    }
+                    msg.append("Expected this  instance:\n    " + 
+                            expected + "\n" +
+                            "Got persistent instance:" + "\n    " + 
+                            persisted + "\n" +
+                            "Detailed list of differences follows...\n");
+                    msg.append(equalityHelper.getUnequalBuffer());
                 }
-                msg.append("Expected this  instance:\n    " + 
-                        expected + "\n" +
-                        "Got persistent instance:" + "\n    " + 
-                        persisted + "\n" +
-                        "Detailed list of differences follows...\n");
-                msg.append(equalityHelper.getUnequalBuffer());
             }
-        }
-        pm.currentTransaction().commit();
-        // fail test if at least one of the instances is not the expected one
-        if (msg.length() > 0) {
-            fail("CompletenessTest failed; see list of failures below:", 
-                    msg.toString());
+            pm.currentTransaction().commit();
+            // fail test if at least one of the instances is not the expected one
+            if (msg.length() > 0) {
+                fail("CompletenessTest failed; see list of failures below:", 
+                        msg.toString());
+            }
         }
     }
 }
