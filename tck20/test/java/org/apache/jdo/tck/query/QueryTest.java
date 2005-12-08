@@ -1336,7 +1336,7 @@ public abstract class QueryTest extends JDO_Test {
                     if (nr != expectedNrOfDeletedObjects) {
                         fail(assertion, "deletePersistentAll returned " + nr +
                                 ", expected is " + expectedNrOfDeletedObjects + 
-                                ". Query: " +singleStringQuery);
+                                ". Query: " + singleStringQuery);
                     }
                 } else {
                     fail(assertion, "deletePersistentAll must throw JDOUserException: " + 
