@@ -790,7 +790,8 @@ public abstract class QueryTest extends JDO_Test {
         if (logger.isDebugEnabled()) {
             logger.debug("Compiling API query: " + queryElementHolder);
         }
-        compile(assertion, queryElementHolder, false, null, positive);
+        compile(assertion, queryElementHolder, false, 
+                queryElementHolder.toString(), positive);
     }
 
     /**
@@ -812,7 +813,8 @@ public abstract class QueryTest extends JDO_Test {
         if (logger.isDebugEnabled())
             logger.debug("Compiling single string query: " + 
                     queryElementHolder);
-        compile(assertion, queryElementHolder, true, null, positive);
+        compile(assertion, queryElementHolder, true, 
+                queryElementHolder.toString(), positive);
     }
     
     /**
