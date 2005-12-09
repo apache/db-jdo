@@ -217,7 +217,7 @@ class CacheManagerImpl {
      * @param pc a transient instance of a Class that implements
      * PersistenceCapable
      */
-    protected void makePersistent (PersistenceCapable pc) {
+    protected Object makePersistent (PersistenceCapable pc) {
 
         StateManagerInternal sm = pm.findStateManager(pc);
         if (sm == null) {
@@ -225,6 +225,7 @@ class CacheManagerImpl {
         }
 
         sm.makePersistent();
+        return pc; // XXX fix this for detached objects
     }
 
     /** Make the transient or persistent instance transactional in

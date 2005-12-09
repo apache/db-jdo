@@ -25,6 +25,7 @@ package org.apache.jdo.impl.pm;
 import java.lang.reflect.Constructor;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -817,42 +818,41 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     * @param pc a transient instance of a Class that implements
     * PersistenceCapable
     */
-    public void makePersistent (Object pc) {
+    public Object makePersistent (Object pc) {
         if (debugging())
             debug("makePersistent"); // NOI18N
 
         assertIsOpen();
         assertActiveTransaction(false);
 
-        makePersistentInternal(pc);
+        return makePersistentInternal(pc);
     }
 
     /** Make an array of instances persistent.
     * @param pcs an array of transient instances
     * @see #makePersistent(Object pc)
     */
-    public void makePersistentAll(Object[] pcs) {
+    public Object[] makePersistentAll(Object[] pcs) {
         if (debugging())
             debug("makePersistentAll"); // NOI18N
 
         assertIsOpen();
         assertIsOpen();
         assertActiveTransaction(false);
-        makePersistentAllInternal(pcs);
-
+        return makePersistentAllInternal(pcs);
     }
 
     /** Make an collection of instances persistent.
     * @param pcs an collection of transient instances
     * @see #makePersistent(Object pc)
     */
-    public void makePersistentAll(Collection pcs) {
+    public Collection makePersistentAll(Collection pcs) {
         if (debugging())
             debug("makePersistentAll"); // NOI18N
 
         assertIsOpen();
         assertActiveTransaction(false);
-        makePersistentAllInternal(pcs.toArray());
+        return Arrays.asList(makePersistentAllInternal(pcs.toArray()));
     }
 
     /** Delete the persistent instance from the data store.
@@ -2253,11 +2253,11 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
      * Internal method for processing makePersistent request.
      * @see #makePersistent(Object pc)
      */
-    private void makePersistentInternal(Object pc) {
+    private Object makePersistentInternal(Object pc) {
         if (pc == null) {
             if (debugging())
                 debug("makePersistentInternal null"); // NOI18N
-            return;        // ignore
+            return null;        // ignore
         }
         if (debugging())
             debug("makePersistentInternal for " + pc.getClass().getName()); // NOI18N
@@ -2267,14 +2267,15 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
             debug("makePersistentInternal is pc"); // NOI18N
 
         PersistenceCapable p = (PersistenceCapable)pc;
-        _txCache.makePersistent(p);
+        return _txCache.makePersistent(p);
     }
 
     /**
      * Internal method for processing makePersistentAll request.
      * @see #makePersistentAll(Object[] pcs)
      */
-    private void makePersistentAllInternal(Object[] pcs) {
+    private Object[] makePersistentAllInternal(Object[] pcs) {
+        Object[] result = new Object[pcs.length];
         Throwable[] err = new Throwable[pcs.length];
         int l = 0;
 
@@ -2282,12 +2283,13 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
             debug("makePersistentAllInternal " + pcs.length); // NOI18N
         for(int i = 0; i < pcs.length; i++) {
             try {
-                makePersistentInternal(pcs[i]);
+                result[i] = makePersistentInternal(pcs[i]);
             } catch (Throwable e) {
                 err[l++] = e;
             }
         }
         validateResult(l, err);
+        return result;
     }
 
     /**

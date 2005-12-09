@@ -563,9 +563,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     /** 
      * @see javax.jdo.PersistenceManager#makePersistent(Object pc)
      */
-    public void makePersistent(Object pc){
+    public Object makePersistent(Object pc){
         if (isValid) { 
-            pm.makePersistent(pc);
+            return pm.makePersistent(pc);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
@@ -575,9 +575,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     /** 
      * @see javax.jdo.PersistenceManager#makePersistentAll(Object[] pc)
      */
-    public void makePersistentAll(Object[] pcs){
+    public Object[] makePersistentAll(Object[] pcs){
         if (isValid) { 
-            pm.makePersistentAll(pcs);
+            return pm.makePersistentAll(pcs);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
@@ -587,9 +587,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     /** 
      * @see javax.jdo.PersistenceManager#makePersistentAll(Collection pcs)
      */
-    public void makePersistentAll (Collection pcs){
+    public Collection makePersistentAll (Collection pcs){
         if (isValid) { 
-            pm.makePersistentAll(pcs);
+            return pm.makePersistentAll(pcs);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
