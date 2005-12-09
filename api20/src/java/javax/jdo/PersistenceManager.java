@@ -451,22 +451,27 @@ public interface PersistenceManager {
      * reachable from persistent
      * fields will be made persistent at commit.  [This is known as 
      * persistence by reachability.]
+     * Detached instances will not be made persistent. Instead, a persistent
+     * instance with the same persistent identity is located in the 
+     * cache and changes are applied to the persistent instance. The
+     * persistent instance is returned.
      * @param pc a transient instance of a <code>Class</code> that implements
+     * @return the persistent instance
      * <code>PersistenceCapable</code>
      */
-    void makePersistent (Object pc);
+    Object makePersistent (Object pc);
     
     /** Make an array of instances persistent.
      * @param pcs an array of transient instances
      * @see #makePersistent(Object pc)
      */
-    void makePersistentAll (Object[] pcs);
+    Object[] makePersistentAll (Object[] pcs);
     
     /** Make a <code>Collection</code> of instances persistent.
      * @param pcs a <code>Collection</code> of transient instances
      * @see #makePersistent(Object pc)
      */
-    void makePersistentAll (Collection pcs);
+    Collection makePersistentAll (Collection pcs);
     
     /** Delete the persistent instance from the data store.
      * This method must be called in an active transaction.
