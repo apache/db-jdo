@@ -117,9 +117,9 @@ public class MetadataSearchOrder extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
+        loadAndPersistCompanyModel(getPM());
+        loadAndPersistMylib(getPM());
     }
 }

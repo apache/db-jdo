@@ -68,8 +68,8 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        super.localSetUp();
         addTearDownClass(PCPoint2.class);
+        super.localSetUp();
     }
 
     /** */

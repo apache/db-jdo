@@ -98,6 +98,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
         Employee employee = (Employee) getPersistentCompanyModelInstance("emp1");
         if (isNullCollectionSupported()) {
@@ -105,6 +106,5 @@ public class ComparingCollectionFieldToNull extends QueryTest {
             employee.setProjects(null);
             getPM().currentTransaction().commit();
         }
-        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

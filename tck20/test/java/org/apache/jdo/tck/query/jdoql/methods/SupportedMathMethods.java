@@ -314,8 +314,8 @@ public class SupportedMathMethods extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistMylib(getPM());
         addTearDownClass(MylibReader.getTearDownClasses());
+        loadAndPersistMylib(getPM());
     }
 
 }

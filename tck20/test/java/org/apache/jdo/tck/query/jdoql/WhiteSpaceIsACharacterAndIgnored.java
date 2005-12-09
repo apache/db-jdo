@@ -141,7 +141,7 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistPCPoints(getPM());
         addTearDownClass(PCPoint.class);
+        loadAndPersistPCPoints(getPM());
     }
 }

@@ -122,11 +122,11 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
         getPM().currentTransaction().begin();
         Employee emp1 = (Employee) getPersistentCompanyModelInstance("emp1");
         emp1.setProjects(null);
         getPM().currentTransaction().commit();
-        addTearDownClass(CompanyModelReader.getTearDownClasses());
     }
 }

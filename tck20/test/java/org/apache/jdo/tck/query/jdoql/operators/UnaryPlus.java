@@ -82,7 +82,7 @@ public class UnaryPlus extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistPrimitiveTypes(getPM());
         addTearDownClass(PrimitiveTypes.class);
+        loadAndPersistPrimitiveTypes(getPM());
     }
 }

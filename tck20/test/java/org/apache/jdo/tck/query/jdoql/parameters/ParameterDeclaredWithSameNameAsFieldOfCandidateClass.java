@@ -150,8 +150,8 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistPCPoints(getPM());
         addTearDownClass(PCPoint.class);
+        loadAndPersistPCPoints(getPM());
     }
 }
 

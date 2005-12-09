@@ -131,10 +131,10 @@ public class Modulo extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
+        addTearDownClass(PrimitiveTypes.class);
         PersistenceManager pm = getPM();
         loadAndPersistCompanyModel(pm);
-        addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistPrimitiveTypes(pm);
-        addTearDownClass(PrimitiveTypes.class);
     }
 }

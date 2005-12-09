@@ -121,7 +121,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        loadAndPersistCompanyModel(getPM());
         addTearDownClass(CompanyModelReader.getTearDownClasses());
+        loadAndPersistCompanyModel(getPM());
     }
 }

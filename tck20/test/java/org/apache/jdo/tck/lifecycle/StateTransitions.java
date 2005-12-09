@@ -233,8 +233,8 @@ public class StateTransitions extends JDO_Test {
      */
     protected void localSetUp() {
         pm = getPM();
-        generatePersistentInstances();
         addTearDownClass(StateTransitionObj.class);
+        generatePersistentInstances();
     }
     
     public void test() {

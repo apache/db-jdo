@@ -86,13 +86,13 @@ public class CompletenessTest extends JDO_Test {
      */
     protected void localSetUp() {
         if (isTestToBePerformed()) {
+            addTearDownClass(CompanyModelReader.getTearDownClasses());
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
             CompanyModelReader reader = new CompanyModelReader(inputFilename);
             // persist test data
             pm.currentTransaction().begin();
             List rootList = reader.getRootList();
-            addTearDownClass(CompanyModelReader.getTearDownClasses());
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList();
             for (Iterator i = rootList.iterator(); i.hasNext(); ) {

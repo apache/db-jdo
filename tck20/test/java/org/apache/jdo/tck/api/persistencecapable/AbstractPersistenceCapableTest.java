@@ -36,12 +36,12 @@ abstract class AbstractPersistenceCapableTest extends JDO_Test {
      * @return the object id of the persistent instance
      */
     protected Object makePersistent(Object pc) {
+        addTearDownClass(pc.getClass());
         PersistenceManager pm = getPM();
         pm.currentTransaction().begin();
         pm.makePersistent(pc);
         Object result = JDOHelper.getObjectId(pc);
         pm.currentTransaction().commit();
-        addTearDownInstance(pc);
         return result;
     }
     

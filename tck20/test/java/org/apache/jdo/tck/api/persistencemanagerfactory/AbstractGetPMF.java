@@ -93,13 +93,13 @@ abstract class AbstractGetPMF extends JDO_Test {
     }
 
     protected void makePersistent() {
+        addTearDownClass(PCPoint.class);
         pm = pmf.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         PCPoint comp = new PCPoint(1, 2);
         pm.makePersistent(comp);
         tx.commit();
-        addTearDownInstance(comp);
     }
 
     /**
