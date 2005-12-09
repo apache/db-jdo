@@ -36,6 +36,9 @@
         <echo>  tck20.build   - builds tck20 and dependent JDO2 projects</echo>
         <echo>  tck20.default - calls the default goal for tck20 and dependent JDO2 projects</echo>
         <echo>  tck20.clean   - cleans tck20 and dependent JDO2 projects</echo>
+        <echo>  fostore20.clean   - cleans fostore20 and dependencies</echo>
+        <echo>  fostore20.build   - builds fostore20 and dependencies</echo>
+        <echo>  fostore20.default - calls the default goal for fostore20 and dependencies</echo>
         <echo>Please check README.txt for more details.</echo>
     </goal>
 
@@ -106,6 +109,27 @@
         <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
         <attainGoal name="multiproject:clean"/>
     </goal>
+
+    <goal name="fostore20.build"
+      description="Builds fostore20 and dependencies">
+        <j:set var="maven.multiproject.includes">${fostore20.projects}</j:set>
+        <j:set var="goal">build</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="fostore20.default"
+      description="Calls the default goal for fostore20 and dependencies">
+        <j:set var="maven.multiproject.includes">${fostore20.projects}</j:set>
+        <j:set var="goal">default</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="fostore20.clean"
+    description="Cleans fostore20 and dependencies">
+        <j:set var="maven.multiproject.includes">${fostore20.projects}</j:set>
+        <attainGoal name="multiproject:clean"/>
+    </goal>
+  
 
     <!-- ==== -->
     <!-- Misc -->
