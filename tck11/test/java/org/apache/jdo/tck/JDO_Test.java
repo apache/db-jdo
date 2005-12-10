@@ -523,43 +523,47 @@ public abstract class JDO_Test extends TestCase {
         Field[] fields = oidClass.getFields();
         for (int i = 0; i < fields.length; ++i) {
             Field field = fields[i];
+            int modifiers = field.getModifiers();
+            if (java.lang.reflect.Modifier.isFinal(modifiers) ||
+                    java.lang.reflect.Modifier.isStatic(modifiers))
+                break;
             field.setAccessible(true);
             if (debug) 
                 logger.debug("field" + i + " has name: " + field.getName() +
                              " type: " + field.getType());
             Class fieldType = field.getType();
             if (fieldType == long.class) {
-                field.setLong(oid, 10000L);
+                field.setLong(oid, 10000L + field.getLong(oid));
             }
             if (fieldType == int.class) {
-                field.setInt(oid, 10000);
+                field.setInt(oid, 10000 + field.getInt(oid));
             }
             if (fieldType == short.class) {
-                field.setShort(oid, (short)10000);
+                field.setShort(oid, (short)(10000 + field.getShort(oid)));
             }
             if (fieldType == byte.class) {
-                field.setByte(oid, (byte)100);
+                field.setByte(oid, (byte)(100 + field.getByte(oid)));
             }
             if (fieldType == char.class) {
-                field.setChar(oid, '0');
+                field.setChar(oid, (char)(10 + field.getChar(oid)));
             }
             if (fieldType == String.class) {
-                field.set(oid, "This is certainly a challenge");
+                field.set(oid, "This is certainly a challenge" + (String)field.get(oid));
             }
             if (fieldType == Integer.class) {
-                field.set(oid, new Integer(10000));
+                field.set(oid, new Integer(10000 + ((Integer)field.get(oid)).intValue()));
             }
             if (fieldType == Long.class) {
-                field.set(oid, new Long(10000L));
+                field.set(oid, new Long(10000L + ((Long)field.get(oid)).longValue()));
             }
             if (fieldType == Short.class) {
-                field.set(oid, new Short((short)10000));
+                field.set(oid, new Short((short)(10000 + ((Short)field.get(oid)).shortValue())));
             }
             if (fieldType == Byte.class) {
-                field.set(oid, new Byte((byte)100));
+                field.set(oid, new Byte((byte)(100 + ((Byte)field.get(oid)).byteValue())));
             }
             if (fieldType == Character.class) {
-                field.set(oid, new Character('0'));
+                field.set(oid, new Character((char)(10 + ((Character)(field.get(oid))).charValue())));
             }
         }
     }
