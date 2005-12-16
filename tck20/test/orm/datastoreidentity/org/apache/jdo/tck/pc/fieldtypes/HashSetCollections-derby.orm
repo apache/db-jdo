@@ -12,10 +12,15 @@
             </field>
             <field name="HashSetOfObject1"
                    table="HASHSET_OF_OBJECT1">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <element>
                   <embedded>
-                    <field name="id" primary-key="true" column="ID"/>
+                    <field name="id" column="ID"/>
                     <field name="intField" column="INTVAL"/>
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
@@ -33,10 +38,15 @@
             </field>
             <field name="HashSetOfSimpleClass4"
                    table="HASHSET_OF_SIMPLE_CLASS4">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <element>
                   <embedded>
-                    <field name="id" primary-key="true" column="ID"/>
+                    <field name="id" column="ID"/>
                     <field name="intField" column="INTVAL"/>
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
@@ -57,10 +67,15 @@
             </field>
             <field name="HashSetOfSimpleInterface7"
                    table="HASHSET_OF_SIMPLE_INTERFACE7">
-                <join column="IDENTIFIER"/>
+                <join column="IDENTIFIER">
+                    <primary-key>
+                        <column name="IDENTIFIER"/>
+                        <column name="ID"/>
+                    </primary-key>
+                </join>
                 <element>
                   <embedded>
-                    <field name="id" primary-key="true" column="ID"/>
+                    <field name="id" column="ID"/>
                     <field name="intField" column="INTVAL"/>
                     <field name="stringField" column="STRINGVAL"/>
                   </embedded>
