@@ -316,27 +316,27 @@
     <map key-type="String" value-type="Short" embedded-key="true">
     </map>
 </field>
-<field name="HashMapOfString_Object84" serialized="true">
+<field name="HashMapOfString_Object84">
     <map key-type="String" value-type="SimpleClass"
-            embedded-key="true">
+            embedded-key="true" serialized-value="true">
     </map>
 </field>
 <field name="HashMapOfString_Object86" serialized="true">
     <map key-type="String" value-type="SimpleClass">
     </map>
 </field>
-<field name="HashMapOfString_SimpleClass87" serialized="true">
+<field name="HashMapOfString_SimpleClass87">
     <map key-type="String" value-type="SimpleClass"
-    embedded-key="true">
+    embedded-key="true" serialized-value="true">
     </map>
 </field>
 <field name="HashMapOfString_SimpleClass89" serialized="true">
     <map key-type="String" value-type="SimpleClass">
     </map>
 </field>
-<field name="HashMapOfString_SimpleInterface90" serialized="true">
+<field name="HashMapOfString_SimpleInterface90">
     <map key-type="String" value-type="SimpleClass"
-            embedded-key="true">
+            embedded-key="true" serialized-value="true">
     </map>
 </field>
 <field name="HashMapOfString_SimpleInterface92" serialized="true">
