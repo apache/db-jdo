@@ -441,34 +441,79 @@ public interface PersistenceManager {
      */
     Object[] getObjectsById (Object[] oids);
 
-    /** Make the transient instance persistent in this <code>PersistenceManager</code>.
-     * This method must be called in an active transaction.
-     * The <code>PersistenceManager</code> assigns an ObjectId to the instance and
-     * transitions it to persistent-new.
-     * The instance will be managed in the <code>Extent</code> associated with its <code>Class</code>.
-     * The instance will be put into the data store at commit.
-     * The closure of instances of <code>PersistenceCapable</code> classes
-     * reachable from persistent
-     * fields will be made persistent at commit.  [This is known as 
-     * persistence by reachability.]
-     * Detached instances will not be made persistent. Instead, a persistent
-     * instance with the same persistent identity is located in the 
-     * cache and changes are applied to the persistent instance. The
-     * persistent instance is returned.
-     * @param pc a transient instance of a <code>Class</code> that implements
-     * @return the persistent instance
-     * <code>PersistenceCapable</code>
+    /** Make the parameter instance persistent in this 
+     * <code>PersistenceManager</code>.
+     * This method makes transient instances persistent and applies detached
+     * instance changes to the cache. It must be called in the context of
+     * an active transaction, or a JDOUserException is thrown. For a transient
+     * instance, it assigns an object identity to the instance and transitions
+     * it to persistent-new. Any transient instances reachable from this
+     * instance via persistent fields of this instance become provisionally
+     * persistent, transitively. That is, they behave as persistent-new
+     * instances (return true to isPersistent, isNew, and isDirty).
+     * But at commit time, the reachability algorithm is run again,
+     * and instances made provisionally persistent that are not then
+     * reachable from persistent instances will revert to transient.
+     * <P>During makePersistent of transient instances, the create life cycle
+     * listener is called.
+     * <P>For detached instances, it locates or instantiates a persistent
+     * instance with the same JDO identity as the detached instance,
+     * and merges the persistent state of the detached instance into the
+     * persistent instance. Only the state of persistent fields is merged.
+     * If non-persistent state needs to be copied, the application should
+     * use the jdoPostAttach callback or the postAttach lifecycle event
+     * listener. Any references to the detached instances from instances
+     * in the closure of the parameter instances are modified to refer to
+     * the corresponding persistent instance instead of to the
+     * detached instance.
+     * <P>During attachment of detached instances, the attach callbacks
+     * and attach life cycle listeners are called.
+     * <P>During application of changes of the detached state, if the JDO
+     * implementation can determine that there were no changes made during
+     * detachment, then the implementation is not required to mark the
+     * corresponding instance dirty. If it cannot determine if changes
+     * were made, then it must mark the instance dirty.
+     * No consistency checking is done during makePersistent of detached
+     * instances. If consistency checking is required by the application,
+     * then flush or checkConsistency should be called after attaching the
+     * instances.
+     * <P>These methods have no effect on parameter persistent instances
+     * already managed by this PersistenceManager. They will throw a
+     * JDOUserException if the parameter instance is managed by a
+     * different PersistenceManager.
+     * If an instance is of a class whose identity type (application, 
+     * datastore, or none) is not supported by the JDO implementation, 
+     * then a JDOUserException will be thrown for that instance.
+     * The return value for parameter instances in the transient or persistent
+     * states is the same as the parameter value. The return value for
+     * parameter instances in the detached state is the persistent instance
+     * corresponding to the detached instance.
+     * The return values for makePersistentAll methods correspond by position
+     * to the parameter instances.
+     * @param pc an instance of a <code>Class</code> that is persistent
+     * capable.
+     * @return the parameter instance for parameters in the transient or
+     * persistent state, or the corresponding persistent instance 
+     * for detached parameter instances
      */
     Object makePersistent (Object pc);
     
     /** Make an array of instances persistent.
-     * @param pcs an array of transient instances
+     * @param pcs an array of instances
+     * @return the parameter instances for parameters in the transient or
+     * persistent state, or the corresponding persistent instance 
+     * for detached parameter instances, in the same order as in the 
+     * parameter array
      * @see #makePersistent(Object pc)
      */
     Object[] makePersistentAll (Object[] pcs);
     
     /** Make a <code>Collection</code> of instances persistent.
-     * @param pcs a <code>Collection</code> of transient instances
+     * @param pcs a <code>Collection</code> of instances
+     * @return the parameter instance for parameters in the transient or
+     * persistent state, or the corresponding persistent instance 
+     * for detached parameter instances, with an iteration in the same order
+     * as in the parameter Collection
      * @see #makePersistent(Object pc)
      */
     Collection makePersistentAll (Collection pcs);
