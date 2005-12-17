@@ -11,8 +11,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfObject2" >
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+<field name="HashSetOfObject2" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="HashSetOfSimpleClass3" >
@@ -23,8 +23,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfSimpleClass5" >
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+<field name="HashSetOfSimpleClass5" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="HashSetOfSimpleClass42" serialized="true">
@@ -39,9 +39,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="HashSetOfSimpleInterface8">
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
-              serialized-element="true">
+<field name="HashSetOfSimpleInterface8" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="HashSetOfString9" >

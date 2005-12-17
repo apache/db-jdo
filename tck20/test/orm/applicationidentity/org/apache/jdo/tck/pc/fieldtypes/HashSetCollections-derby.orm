@@ -21,9 +21,7 @@
                 </element>
             </field>
             <field name="HashSetOfObject2"
-                   table="HASHSET_OF_OBJECT2">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="HASHSET_OF_OBJECT2">
             </field>
             <field name="HashSetOfSimpleClass3"
                    table="HASHSET_OF_SIMPLE_CLASS3">
@@ -42,9 +40,7 @@
                 </element>
             </field>
             <field name="HashSetOfSimpleClass5"
-                   table="HASHSET_OF_SIMPLE_CLASS5">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="HASHSET_OF_SIMPLE_CLASS5">
             </field>
             <field name="HashSetOfSimpleClass42"
                    column="HASHSET_OF_SIMPLE_CLASS42">
@@ -66,9 +62,7 @@
                 </element>
             </field>
             <field name="HashSetOfSimpleInterface8"
-                   table="HASHSET_OF_SIMPLE_INTERFACE8">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="HASHSET_OF_SIMPLE_INTERFACE8">
             </field>
             <field name="HashSetOfString9"
                    table="HASHSET_OF_STRING9">

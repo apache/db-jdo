@@ -21,9 +21,7 @@
                 </element>
             </field>
             <field name="SetOfObject2"
-                   table="SET_OF_OBJECT2">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="SET_OF_OBJECT2">
             </field>
             <field name="SetOfSimpleClass3"
                    table="SET_OF_SIMPLE_CLASS3">
@@ -42,9 +40,7 @@
                 </element>
             </field>
             <field name="SetOfSimpleClass5"
-                   table="SET_OF_SIMPLE_CLASS5">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="SET_OF_SIMPLE_CLASS5">
             </field>
             <field name="SetOfSimpleClass42"
                    column="SET_OF_SIMPLE_CLASS42">
@@ -66,9 +62,7 @@
                 </element>
             </field>
             <field name="SetOfSimpleInterface8"
-                   table="SET_OF_SIMPLE_INTERFACE8">
-                <join column="IDENTIFIER"/>
-                <element column="COLLVAL"/>
+                   column="SET_OF_SIMPLE_INTERFACE8">
             </field>
             <field name="SetOfString9"
                    table="SET_OF_STRING9">

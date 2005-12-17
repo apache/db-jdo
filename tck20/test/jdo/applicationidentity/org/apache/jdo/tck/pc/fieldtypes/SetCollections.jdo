@@ -13,8 +13,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="SetOfObject2" >
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+<field name="SetOfObject2" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="SetOfSimpleClass3" >
@@ -25,8 +25,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="SetOfSimpleClass5" >
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+<field name="SetOfSimpleClass5" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="SetOfSimpleClass42" serialized="true">
@@ -41,9 +41,8 @@
 <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
 </collection>
 </field>
-<field name="SetOfSimpleInterface8">
-  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
-              serialized-element="true">
+<field name="SetOfSimpleInterface8" serialized="true">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
   </collection>
 </field>
 <field name="SetOfString9" >
