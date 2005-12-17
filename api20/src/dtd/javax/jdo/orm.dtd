@@ -14,13 +14,9 @@
 
 <!ELEMENT interface (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, property*, query*, extension*)>
 <!ATTLIST interface name CDATA #REQUIRED>
-<!ATTLIST interface table #CDATA #IMPLIED>
+<!ATTLIST interface table CDATA #IMPLIED>
 <!ATTLIST interface catalog CDATA #IMPLIED>
 <!ATTLIST interface schema CDATA #IMPLIED>
-
-<!ELEMENT property (extension*, (join?, element?, key?, value?, order?, column)? , extension*)>
-<!ATTLIST property name CDATA #REQUIRED>
-<!ATTLIST property column CDATA #IMPLIED>
 
 <!ELEMENT class (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, query*, extension*)>
 <!ATTLIST class name CDATA #REQUIRED>
