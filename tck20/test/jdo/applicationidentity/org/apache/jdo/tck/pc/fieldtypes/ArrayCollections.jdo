@@ -6,27 +6,33 @@
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.ArrayCollections$Oid">
 <field name="identifier" primary-key="true"/>
 <field name="ArrayOfObject0" persistence-modifier="persistent">
-<array serialized-element="true">
-</array>
+    <array serialized-element="true"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+    </array>
 </field>
 <field name="ArrayOfObject1" persistence-modifier="persistent">
-<array embedded-element="false">
+<array embedded-element="false"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </array>
 </field>
-<field name="ArrayOfSimpleClass2" >
-<array serialized-element="true">
+<field name="ArrayOfSimpleClass2">
+<array serialized-element="true"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </array>
 </field>
-<field name="ArrayOfSimpleClass3" >
-<array embedded-element="false">
+<field name="ArrayOfSimpleClass3">
+<array embedded-element="false"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </array>
 </field>
 <field name="ArrayOfSimpleInterface4" persistence-modifier="persistent">
-<array serialized-element="true">
+<array serialized-element="true"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </array>
 </field>
 <field name="ArrayOfSimpleInterface5" persistence-modifier="persistent">
-<array embedded-element="false">
+<array embedded-element="false"
+        element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
 </array>
 </field>
 <field name="ArrayOfString6" serialized="true">
