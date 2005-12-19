@@ -10,6 +10,7 @@ Metadata for application identity
             <field name="ArrayOfObject0" table="ARRAY_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJVAL"/>
+                <order column="ORDER_COL"/>
             </field>
             <field name="ArrayOfObject1" table="ARRAY_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
@@ -19,6 +20,7 @@ Metadata for application identity
             <field name="ArrayOfSimpleClass2" table="ARRAY_OF_SIMPLE_CLASS2">
                 <join column="IDENTIFIER"/>
                 <element column="OBJVAL"/>
+                <order column="ORDER_COL"/>
             </field>
             <field name="ArrayOfSimpleClass3" table="ARRAY_OF_SIMPLE_CLASS3">
                 <join column="IDENTIFIER"/>
@@ -29,6 +31,7 @@ Metadata for application identity
                    table="ARRAY_OF_SIMPLE_INTERFACE4">
                 <join column="IDENTIFIER"/>
                 <element column="OBJVAL"/>
+                <order column="ORDER_COL"/>
             </field>
             <field name="ArrayOfSimpleInterface5"
                    table="ARRAY_OF_SIMPLE_INTERFACE5">
