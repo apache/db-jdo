@@ -36,19 +36,23 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
     <url>http://wiki.apache.org/jdo</url>
     <mailingLists>
         <mailingList>
-            <name>User List</name>
+            <name>JDO User List</name>
             <subscribe>jdo-user-subscribe@db.apache.org</subscribe>
             <unsubscribe>jdo-user-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-user/</archive>
+
         </mailingList>
         <mailingList>
-            <name>Developer List</name>
+            <name>JDO Developer List</name>
             <subscribe>jdo-dev-subscribe@db.apache.org</subscribe>
             <unsubscribe>jdo-dev-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-dev/</archive>
         </mailingList>
         <mailingList>
-            <name>Commits List</name>
+            <name>JDO Commits List</name>
             <subscribe>jdo-commits-subscribe@db.apache.org</subscribe>
             <unsubscribe>jdo-commits-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-commits/</archive>
         </mailingList>
     </mailingLists>
     <!-- ========== -->
