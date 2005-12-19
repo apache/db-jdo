@@ -26,13 +26,13 @@
     <organization>
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org</url>
-        <logo>http://incubator.apache.org/images/apache-incubator-logo.png</logo>
     </organization>
     <inceptionYear>2005</inceptionYear>
     <shortDescription>Java Data Objects (JDO)</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
-Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
+Requests (JSR 12 and 243) under the auspices of the Java Community Process.
+    </description>
     <url>http://wiki.apache.org/jdo</url>
     <mailingLists>
         <mailingList>
@@ -41,9 +41,14 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
             <unsubscribe>jdo-user-unsubscribe@db.apache.org</unsubscribe>
         </mailingList>
         <mailingList>
-            <name>Dev List</name>
+            <name>Developer List</name>
             <subscribe>jdo-dev-subscribe@db.apache.org</subscribe>
             <unsubscribe>jdo-dev-unsubscribe@db.apache.org</unsubscribe>
+        </mailingList>
+        <mailingList>
+            <name>Commits List</name>
+            <subscribe>jdo-commits-subscribe@db.apache.org</subscribe>
+            <unsubscribe>jdo-commits-unsubscribe@db.apache.org</unsubscribe>
         </mailingList>
     </mailingLists>
     <!-- ========== -->
