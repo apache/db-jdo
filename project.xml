@@ -57,63 +57,63 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
     <developers>
         <developer>
             <name>Craig Russell</name>
-            <id>0</id>
+            <id>clr</id>
             <email>Craig.Russell@Sun.COM</email>
             <timezone>-8</timezone>
             <organization>Sun Microsystems</organization>
         </developer>
         <developer>
             <name>Michael Bouschen</name>
-            <id>1</id>
+            <id>mbo</id>
             <email>mbo.tech@spree.de</email>
             <organization>Tech@Spree Engineering GmbH</organization>
             <timezone>1</timezone>
         </developer>
         <developer>
             <name>Michael Watzek</name>
-            <id>4</id>
+            <id>brazil</id>
             <email>mwa.tech@spree.de</email>
             <organization>Tech@Spree Engineering GmbH</organization>
             <timezone>1</timezone>
         </developer>
         <developer>
             <name>Michelle Caisse</name>
-            <id>2</id>
+            <id>mcaisse</id>
             <email>Michelle.Caisse@Sun.COM</email>
             <organization>Sun Microsystems</organization>
             <timezone>-8</timezone>
         </developer>
         <developer>
             <name>Matthew Adams</name>
-            <id>3</id>
+            <id>madams</id>
             <email>matthew.adams@xcalia.com</email>
             <timezone>-8</timezone>
             <organization>Xcalia</organization>
         </developer>
         <developer>
             <name>Martin Zaun</name>
-            <id>5</id>
+            <id>mzaun</id>
             <email>martin.zaun@Sun.COM</email>
             <timezone>-8</timezone>
             <organization>Sun Microsystems</organization>
         </developer>
         <developer>
             <name>Erik Bengtson</name>
-            <id>6</id>
+            <id>ebengtson</id>
             <email>erik@jpox.org</email>
             <timezone>1</timezone>
             <organization>Sun Micrsystems</organization>
         </developer>
         <developer>
-            <name>Geir Magnusson</name>
-            <id>7</id>
+            <name>Geir Magnusson, Jr.</name>
+            <id>geirm</id>
             <email>geirm@apache.org</email>
             <timezone>-8</timezone>
             <organization>Apache.org</organization>
         </developer>
         <developer>
             <name>Brian McCallister</name>
-            <id>8</id>
+            <id>brianm</id>
             <email>brianm@apache.org</email>
             <timezone>-8</timezone>
             <organization>Apache.org</organization>
