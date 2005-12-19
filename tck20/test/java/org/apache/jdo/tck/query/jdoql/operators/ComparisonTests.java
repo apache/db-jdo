@@ -28,7 +28,6 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 
 public abstract class ComparisonTests extends JDO_Test {    
-    protected   PersistenceManager  pm;
     protected   Query               query;
     protected   Transaction         tx;
     protected   Collection          query_result;
@@ -56,42 +55,6 @@ public abstract class ComparisonTests extends JDO_Test {
     protected static    String      DateParameter = "java.util.Date value";
     protected static    String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
     
-    /** */
-    protected void verifyDataLoaded(PersistenceManager pm)
-    {
-        Transaction tx = pm.currentTransaction();
-        int cnt = 0;
-        try {
-        	tx.begin();
-        	Extent e = pm.getExtent(AllTypes.class, false);
-        	Iterator i = e.iterator();
-        	while(i.hasNext()){
-        		Object o = i.next();
-        		cnt++;
-        	}
-        	e.close(i);
-            tx.rollback();
-        
-        	if (cnt == AllTypes.NUM_VALUES)
-        		return;
-        
-        	tx.begin();
-        	i = e.iterator();
-        	while (i.hasNext()) {
-        		Object o = i.next();
-        		pm.deletePersistent(o);
-        	}
-        	e.close(i);
-        	tx.commit();
-        }
-        finally {
-            if ((tx !=null) && tx.isActive())
-                tx.rollback();
-        }
-        AllTypes.load(pm);
-    }
-
-
     /** */
     protected void fail(String assertion, String message, String filter, String parameter)
     {

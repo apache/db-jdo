@@ -180,13 +180,8 @@ public class Equality extends ComparisonTests {
     /** */
     public void test() {
         pm = getPM();
-
-        verifyDataLoaded(pm);
         tx = pm.currentTransaction();
         runQueries();
-
-        pm.close();
-        pm = null;
     }
 
     /** */
@@ -1283,5 +1278,11 @@ public class Equality extends ComparisonTests {
         tx.rollback();
     }
 
-
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(AllTypes.class);
+        AllTypes.load(getPM());
+    }
 }
