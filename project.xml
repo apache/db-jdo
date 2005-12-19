@@ -33,7 +33,7 @@
 Java model abstraction of persistence, developed as Java Specification 
 Requests (JSR 12 and 243) under the auspices of the Java Community Process.
     </description>
-    <url>http://wiki.apache.org/jdo</url>
+    <url>http://db.apache.org/jdo</url>
     <mailingLists>
         <mailingList>
             <name>JDO User List</name>
