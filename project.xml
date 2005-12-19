@@ -35,8 +35,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
     </description>
     <url>http://db.apache.org/jdo</url>
     <repository>
-        <connection>http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-        <developerConnection>https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
         <url>http://cvs.apache.org/viewcvs.cgi/db/jdo/trunk?root=Apache-SVN</url>
     </repository>
 
