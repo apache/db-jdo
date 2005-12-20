@@ -16,10 +16,11 @@
 
 package org.apache.jdo.tck.query.result;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -88,12 +89,8 @@ public class DistinctCandidateInstances extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        addAll(getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"})),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
     };
             
     /**
@@ -123,13 +120,16 @@ public class DistinctCandidateInstances extends QueryTest {
         String singleStringDistinctQuery = 
             "SELECT DISTINCT FROM " + Person.class.getName();
         
-        Query query = getPM().newQuery();
+        List candidates = getPersistentCompanyModelInstancesAsList(
+            new String[]{"emp1", "emp1"});
+        Query query = pm.newQuery();
         query.setClass(Person.class);
-        query.setCandidates((Collection)expectedResult[0]);
+        query.setCandidates(candidates);
+        query.setResult("this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
                 false, null, expectedResult[0], true);
         
-        query.setResult("DISTINCT");
+        query.setResult("DISTINCT this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringDistinctQuery, 
                 false, null, expectedResult[1], true);
     }
@@ -142,8 +142,4 @@ public class DistinctCandidateInstances extends QueryTest {
         loadAndPersistCompanyModel(getPM());
     }
     
-    private List addAll(List list1, List list2) {
-        list1.addAll(list2);
-        return list1;
-    }
 }
