@@ -57,7 +57,7 @@ public class Having extends QueryTest {
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING COUNT(department.employees) > 0",
+        /*GROUP BY*/    "department HAVING COUNT(department) > 0",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null)
@@ -78,7 +78,7 @@ public class Having extends QueryTest {
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING firstname == 'emp1First'",
+        /*GROUP BY*/    "department HAVING firstname",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null)
@@ -88,11 +88,13 @@ public class Having extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-            Arrays.asList(new Object[] {
+        Arrays.asList(new Object[] {
+            new Object[] {
                     getTransientCompanyModelInstance("dept1"),
-                    new Double(45000.0),
+                    new Double(45000.0)},
+            new Object[] {
                     getTransientCompanyModelInstance("dept2"),
-                    new Double(58000.0)})
+                    new Double(58000.0)}})
     };
         
     /**
