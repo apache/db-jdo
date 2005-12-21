@@ -541,14 +541,18 @@
         <pathelement location="${springcore.jarfile}"/>
         <pathelement location="${springbeans.jarfile}"/>
         <pathelement location="${logging.jarfile}"/>
-        <!-- Jar files for the reference implementation -->
-        <pathelement location="${jpox.jdori.jarfile}" />
-        <pathelement location="${jpox.enhancer.jarfile}" />
+        <!-- Jar files for other dependencies -->
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
+        <!-- Jar files for database -->
         <pathelement location="${derby.jarfile}" />
+        <!-- Jar files for connection pooling -->
+        <pathelement location="${c3p0.jarfile}"/>
+        <pathelement location="${dbcp.jarfile}"/>
+        <pathelement location="${pool.jarfile}"/>
+        <pathelement location="${collections.jarfile}"/>
     </path>
 
     <!-- Paths needed for enhancement.  Must not include
@@ -591,9 +595,10 @@
         <pathelement location="${derby.jarfile}" />
         <pathelement location="${core20.jarfile}" />
         <pathelement location="${enhancer20.jarfile}" />
-        <!-- Jar files for connection pooling -->
+        <!-- Jar files for reference implmentation connection pooling -->
         <pathelement location="${jpox.dbcp.jarfile}" />
         <pathelement location="${jpox.c3p0.jarfile}" />
+        <!-- Jar files for connection pooling -->
         <pathelement location="${c3p0.jarfile}"/>
         <pathelement location="${dbcp.jarfile}"/>
         <pathelement location="${pool.jarfile}"/>
