@@ -412,41 +412,40 @@
     </goal>
 
     <goal name="enhance.prepare" prereqs="java:compile, copyprops">
+        <!-- create enhancer log dir -->
+        <mkdir dir="${jdo.tck.log.directory.enhancer}"/>
         <!-- copy metadata -->
-        <mkdir dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}" />
-        <copy todir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}">
+        <mkdir dir="${enhanced.dir}" />
+        <copy todir="${enhanced.dir}">
             <fileset dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
                      includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
            includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
-           destdir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"
+           destdir="${enhanced.dir}"
            debug="on"
            classpathref="project.class.path">
         </javac>
-        <!-- classpath -->
-        <path id="this.enhance.class.path">
-            <path refid="enhance.class.path"/>
-            <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
-        </path>
-
     </goal>
 
     <goal name="doEnhance.iut">
-        <mkdir dir="${jdo.tck.log.directory.enhancer}"/>
         <j:set var="jdo.tck.enhanced.dir" value="${iut.enhanced.dir}"/>
         <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
+            <j:set var="enhanced.dir"
+                   value="${iut.enhanced.dir}/${jdo.tck.identitytype}"/>
             <attainGoal name="enhance.check"/>
             <j:if test="${enhancement.required}">
-                <attainGoal name="enhance.prepare"/>
-                <j:set var="iut.enhanced.dir"
-                       value="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
                 <echo>Run IUT enhancer for ${jdo.tck.identitytype}</echo>
+                <attainGoal name="enhance.prepare"/>
+                <path id="enhance.classpath">
+                    <path refid="iut.enhancer.classpath"/>
+                    <pathelement location="${enhanced.dir}"/>
+                </path>
                 <java fork="yes" failonerror="yes" 
                       dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"
                       classname="${iut.enhancer.main}"
-                      classpathref="this.enhance.class.path">
+                      classpathref="enhance.classpath">
                      <sysproperty key="jdo.tck.identitytype"
                                   value="${jdo.tck.identitytype}"/>
                      <sysproperty key="jdo.tck.log.directory"
@@ -461,26 +460,29 @@
     </goal>
 
     <goal name="doEnhance.jdori">
-        <mkdir dir="${jdo.tck.log.directory.enhancer}"/>
-        <j:set var="jdo.tck.enhanced.dir" value="${jdo.enhanced.dir}"/>
+        <j:set var="jdo.tck.enhanced.dir" value="${jdori.enhanced.dir}"/>
         <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
+            <j:set var="enhanced.dir"
+                   value="${jdori.enhanced.dir}/${jdo.tck.identitytype}"/>
             <attainGoal name="enhance.check"/>
             <j:if test="${enhancement.required}">
                 <echo>Run JDORI enhancer for ${jdo.tck.identitytype}</echo>
                 <attainGoal name="enhance.prepare"/>
-                <j:set var="jdo.enhanced.dir"
-                       value="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
+                <path id="enhance.classpath">
+                    <path refid="jdori.enhancer.classpath"/>
+                    <pathelement location="${enhanced.dir}"/>
+                </path>
                 <java fork="yes" failonerror="yes" 
-                      dir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"
-                      classname="${jdo.enhancer.main}"
-                      classpathref="this.enhance.class.path">
+                      dir="${enhanced.dir}"
+                      classname="${jdori.enhancer.main}"
+                      classpathref="enhance.classpath">
                      <sysproperty key="jdo.tck.identitytype"
                                   value="${jdo.tck.identitytype}"/>
                      <sysproperty key="jdo.tck.log.directory"
                                   value="${jdo.tck.log.directory.enhancer}"/>
-                     <jvmarg line="${jdo.enhancer.sysproperties}"/>
-                     <arg line="${jdo.enhancer.options}"/>
-                     <arg line="${jdo.enhancer.args}"/>
+                     <jvmarg line="${jdori.enhancer.sysproperties}"/>
+                     <arg line="${jdori.enhancer.options}"/>
+                     <arg line="${jdori.enhancer.args}"/>
                 </java>
             </j:if>
             <attainGoal name="package.jdori"/>
@@ -555,15 +557,12 @@
         <pathelement location="${collections.jarfile}"/>
     </path>
 
-    <!-- Paths needed for enhancement.  Must not include
-        "${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"  -->
-    <path id="enhance.class.path">
+    <!-- Paths needed for enhancement by jdori enhancer. -->
+    <path id="jdori.enhancer.classpath">
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
         <pathelement location="${jdo.jdoapi.jarfile}"/>
-        <!-- Jar files for the implementation to be tested -->
-        <path refid="test_iut_jars" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Jar files for the reference implementation -->
@@ -573,6 +572,19 @@
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
+    </path>
+
+    <!-- Paths needed for enhancement by iut enhancer. -->
+    <path id="iut.enhancer.classpath">
+        <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
+        <!-- Jar files for the implementation to be tested -->
+        <path refid="test_iut_jars" />
+        <pathelement path="${iut.enhancer.classpath}" />
     </path>
 
     <path id="jdori.class.path">
