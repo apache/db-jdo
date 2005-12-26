@@ -2,24 +2,19 @@
 <!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "http://java.sun.com/dtd/jdo_2_0.dtd">
 <jdo>
   <package name="org.apache.jdo.tck.pc.mylib">
-
-    <!-- This will not be required once the JDOModel is fixed so that
-         the defaults defined in section 18.4 of the spec are working
-    -->
     <class name="PCClass" identity-type="datastore">
       <field name="transientNumber1" persistence-modifier="none"/>
       <field name="transientNumber2" persistence-modifier="none"/>
       <query name="classJDO">
           SELECT FROM org.apache.jdo.tck.pc.mylib.PCClass
       </query>
-      <fetch-group name="default">
+      <fetch-group name="fetchGroup1" post-load="true">
         <field name="number1"/>
-      </fetch-group>
-      <fetch-group name="fetchGoup2" post-load="true">
+      </fetch-group>        
+      <fetch-group name="fetchGroup2" post-load="true">
         <field name="number2"/>
       </fetch-group>        
     </class>
-
   </package>
 </jdo>
 

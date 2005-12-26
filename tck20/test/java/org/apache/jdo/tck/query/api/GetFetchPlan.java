@@ -45,7 +45,10 @@ public class GetFetchPlan extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-21 (FetchPan) failed: ";
-    
+
+    private String FETCH_GROUP_1 = "fetchGroup1";
+    private String FETCH_GROUP_2 = "fetchGroup2";
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -54,16 +57,32 @@ public class GetFetchPlan extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(GetFetchPlan.class);
     }
-    
+
     /** */
-    public void testPositive() {
+    private Query createQuery() {
+        // initialize the PM with datastore transactions and no retain values
+        getPM().currentTransaction().setOptimistic(false);
+        getPM().currentTransaction().setRetainValues(false);
         Query query = getPM().newQuery(PCClass.class, "number1 == param");
         query.declareParameters("int param");
-        
+        query.getFetchPlan().setGroup(FETCH_GROUP_1);
+        return query;
+    }
+
+    /** */
+    public void testFetchGroup1() {
+        // localSetUp closes the PM
+        Query query = createQuery();
         checkSameFetchPlanInstances(query);
-        checkDefaultFetchGroup(query);
+        checkFetchGroup1(query);
+        cleanupPM();
+    }
+
+    public void testFetchGroup2() {
+        // localSetUp closes the PM
+        Query query = createQuery();
         checkFetchGroup2(query);
-        checkDefaultFetchGroup(query);
+        checkFetchGroup1(query);
     }
 
     private void checkSameFetchPlanInstances(Query query) {
@@ -77,10 +96,15 @@ public class GetFetchPlan extends QueryTest {
     
     /**
      * Checks if the given query loads fields
-     * assigned to the default fetch group.
+     * assigned to fetchGroup1
      * @param query the query
      */
-    private void checkDefaultFetchGroup(Query query) {
+    private void checkFetchGroup1(Query query) {
+        FetchPlan fetchplan = query.getFetchPlan();
+        Collection fetchgroups = fetchplan.getGroups();
+        assertTrue("FetchPlan should include fetchGroup1 and not fetchGroup2",
+                fetchgroups.contains(FETCH_GROUP_1) && 
+                !fetchgroups.contains(FETCH_GROUP_2));
         Transaction transaction = query.getPersistenceManager().
             currentTransaction();
         transaction.begin();
@@ -90,38 +114,39 @@ public class GetFetchPlan extends QueryTest {
                     " instances, expected size is " + 1);
         }
         PCClass pcClass = (PCClass) result.iterator().next();
-        if (pcClass.getTransientNumber1() != 10) {
-            fail(ASSERTION_FAILED + 
-                    "Field PCClass.number1 is in the " +
-                    "default fetch group and should have been loaded. " +
-                    "The jdoPostLoad() callback has copied the field value " +
-                    "to a transient field which has an unexpected value: " + 
-                    pcClass.getTransientNumber1());
-        }
-        if (pcClass.getTransientNumber2() != 0) {
-            fail(ASSERTION_FAILED + 
-                    "Field PCClass.number2 is not in the " +
-                    "default fetch group and should not have been loaded. " +  
-                    "The jdoPostLoad() callback has copied the field value " +
-                    "to a transient field which has an unexpected value: " + 
-                    pcClass.getTransientNumber2());
-        }
+        int transient1 = pcClass.getTransientNumber1();
+        int transient2 = pcClass.getTransientNumber2();
+        boolean field1loaded = transient1 == 10;
+        boolean field2loaded = transient2 == 10;
         transaction.commit();
+
+        if (!field1loaded || field2loaded) {
+            fail(ASSERTION_FAILED +
+                    "\nUnexpected: TransientNumber1 = " + transient1 +
+                    ", and TransientNumber2 = " + transient2 + ".\n" +
+                    "Field number1 loaded = " + field1loaded + 
+                    ", Field number2 loaded = " + field2loaded + ".\n" +
+                    "With fetchGroup1 active, expect field number1 " +
+                    " loaded and field number2 not loaded.");
+        }
     }
     
     /**
      * Checks if the given query loads fields assigned 
-     * to the default fetch group plus fetch group "fetchGroup2".
+     * to "fetchGroup1" plus fetch group "fetchGroup2".
      * For this purpose, the method temporarily adds fetch group "fetchGroup2"
      * to the fetch plan of the given query instance. 
-     * That fetch group is assigned a different field 
-     * than the default fetch group. 
+     * That fetch group loads field number2. 
      * Finally, that fetch group is removed from the fetch plan again.
      * @param query the query
      */
     private void checkFetchGroup2(Query query) {
-        String fetchGoupName = "fetchGroup2";
-        query.getFetchPlan().addGroup(fetchGoupName);
+        FetchPlan fetchplan = query.getFetchPlan();
+        fetchplan.addGroup(FETCH_GROUP_2);
+        Collection fetchgroups = fetchplan.getGroups();
+        assertTrue("FetchPlan should include fetchGroup1 and fetchGroup2",
+                fetchgroups.contains(FETCH_GROUP_1) && 
+                fetchgroups.contains(FETCH_GROUP_2));
         try {
             Transaction transaction = query.getPersistenceManager().
                 currentTransaction();
@@ -132,25 +157,23 @@ public class GetFetchPlan extends QueryTest {
                         " instances, expected size is " + 1);
             }
             PCClass pcClass = (PCClass) result.iterator().next();
-            if (pcClass.getTransientNumber1() != 20) {
-                fail(ASSERTION_FAILED + 
-                        "Field PCClass.number1 is in the " +
-                        "default fetch group and should have been loaded. " +
-                        "The jdoPostLoad() callback has copied the field value " +
-                        "to a transient field which has an unexpected value: " + 
-                        pcClass.getTransientNumber1());
-            }
-            if (pcClass.getTransientNumber2() != 20) {
-                fail(ASSERTION_FAILED + 
-                        "Field PCClass.number1 is in " +
-                        "fetch group 2 and should have been loaded. " +
-                        "The jdoPostLoad() callback has copied the field value " +
-                        "to a transient field which has an unexpected value: " + 
-                        pcClass.getTransientNumber2());
-            }
+            int transient1 = pcClass.getTransientNumber1();
+            int transient2 = pcClass.getTransientNumber2();
+            boolean field1loaded = transient1 == 20;
+            boolean field2loaded = transient2 == 20;
             transaction.commit();
+
+            if (!field1loaded || !field2loaded) {
+                fail(ASSERTION_FAILED +
+                        "\nUnexpected: TransientNumber1 = " + transient1 +
+                        ", and TransientNumber2 = " + transient2 + ".\n" +
+                        "Field number1 loaded = " + field1loaded + 
+                        ", Field number2 loaded = " + field2loaded + ".\n" +
+                        "With fetchGroup1 active, expect field number1" +
+                        " loaded and field number2 loaded.");
+            }
         } finally {
-            query.getFetchPlan().removeGroup(fetchGoupName);
+            query.getFetchPlan().removeGroup(FETCH_GROUP_2);
         }
     }
     
@@ -160,5 +183,6 @@ public class GetFetchPlan extends QueryTest {
     protected void localSetUp() {
         addTearDownClass(MylibReader.getTearDownClasses());
         loadAndPersistMylib(getPM());
+        cleanupPM();
     }
 }
