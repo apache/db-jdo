@@ -169,8 +169,8 @@ public class GetFetchPlan extends QueryTest {
                         ", and TransientNumber2 = " + transient2 + ".\n" +
                         "Field number1 loaded = " + field1loaded + 
                         ", Field number2 loaded = " + field2loaded + ".\n" +
-                        "With fetchGroup1 active, expect field number1" +
-                        " loaded and field number2 loaded.");
+                        "With fetchGroup1 and fetchGroup2 active, expect" +
+                        " field number1 loaded and field number2 loaded.");
             }
         } finally {
             query.getFetchPlan().removeGroup(FETCH_GROUP_2);
