@@ -54,9 +54,9 @@ public class SingleStringQuery extends QueryTest {
         "INTO FullName " +
         "FROM Person " +
         "WHERE salary > 1000 & " +
-        "      projects.contains(project) & project.budget > limit & " +
+        "      projects.contains(p) & p.budget > limit & " +
         "      firstname == 'emp1First' " +
-        "VARIABLES Project project " +
+        "VARIABLES Project p " +
         "PARAMETERS BigDecimal limit " +
         "IMPORTS import org.apache.jdo.tck.query.result.classes.FullName; " +
         "        import org.apache.jdo.tck.pc.company.Person; " +

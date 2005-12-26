@@ -64,21 +64,21 @@ public class ChangeQuery extends QueryTest {
         query.setResult("firstname, lastname");
         query.setResultClass(FullName.class);
         query.setClass(FullTimeEmployee.class);
-        String filter = "salary > 1000 & projects.contains(project) & " +
-                        "project.budget > limit";
+        String filter = "salary > 1000 & projects.contains(p) & " +
+                        "p.budget > limit";
         query.setFilter(filter);
         String imports = "import org.apache.jdo.tck.pc.company.Project; " +
                          "import java.math.BigDecimal;";
         query.declareImports(imports);
-        query.declareVariables("Project project");
+        query.declareVariables("Project p");
         query.declareParameters("BigDecimal limit");
         query.setOrdering("personid ASCENDING");
         query.setRange(0, 5);
         String singleStringQuery = 
             "SELECT firstname, lastname INTO FullName FROM FullTimeEmployee " +
-            "WHERE salary > 1000 & projects.contains(project) & " +
-            "project.budget > limit " +
-            "VARIABLES Project project PARAMETERS BigDecimal limit " +
+            "WHERE salary > 1000 & projects.contains(p) & " +
+            "p.budget > limit " +
+            "VARIABLES Project p PARAMETERS BigDecimal limit " +
             "ORDER BY personid ASCENDING RANGE 0, 5";
 
         // query parameters

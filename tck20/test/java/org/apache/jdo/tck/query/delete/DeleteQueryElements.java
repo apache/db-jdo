@@ -59,9 +59,9 @@ public class DeleteQueryElements extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "salary > 10000 & projects.contains(project) & " +
-                        "project.budget > limit",
-        /*VARIABLES*/   "Project project",
+        /*WHERE*/       "salary > 10000 & projects.contains(p) & " +
+                        "p.budget > limit",
+        /*VARIABLES*/   "Project p",
         /*PARAMETERS*/  "BigDecimal limit",
         /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
                         "import java.math.BigDecimal;",

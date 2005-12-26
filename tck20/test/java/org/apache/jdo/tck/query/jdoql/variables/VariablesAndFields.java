@@ -56,9 +56,9 @@ public class VariablesAndFields extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "team.contains(employee) & " +
-                        "employee.firstname == 'emp1First'",
-        /*VARIABLES*/   "Employee employee",
+        /*WHERE*/       "team.contains(e) & " +
+                        "e.firstname == 'emp1First'",
+        /*VARIABLES*/   "Employee e",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -71,8 +71,8 @@ public class VariablesAndFields extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "team.contains(employee) & " +
-                        "employee.firstname == 'emp1First'",
+        /*WHERE*/       "team.contains(e) & " +
+                        "e.firstname == 'emp1First'",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,

@@ -51,9 +51,9 @@ public class MixedVariables extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(employee) & employee.firstname == 'emp1First') & " +
-                        "(projects.contains(project) & project.name == 'orange')",
-        /*VARIABLES*/   "Employee employee",
+        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                        "(projects.contains(p) & p.name == 'orange')",
+        /*VARIABLES*/   "Employee e",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -73,9 +73,9 @@ public class MixedVariables extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(employee) & employee.firstname == 'emp1First') & " +
-                        "(projects.contains(project) & project.name == 'orange')",
-        /*VARIABLES*/   "Employee employee; Project project",
+        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                        "(projects.contains(p) & p.name == 'orange')",
+        /*VARIABLES*/   "Employee e; Project p",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -88,8 +88,8 @@ public class MixedVariables extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(employee) & employee.firstname == 'emp1First') & " +
-                        "(projects.contains(project) & project.name == 'orange')",
+        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                        "(projects.contains(p) & p.name == 'orange')",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,

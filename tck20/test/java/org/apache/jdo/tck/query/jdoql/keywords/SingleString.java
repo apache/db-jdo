@@ -55,9 +55,9 @@ public class SingleString extends QueryTest {
         /*INTO*/        FullName.class, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     Boolean.TRUE,
-        /*WHERE*/       "salary > 1000 & projects.contains(project) & " +
-                        "project.budget > limit",
-        /*VARIABLES*/   "Project project",
+        /*WHERE*/       "salary > 1000 & projects.contains(p) & " +
+                        "p.budget > limit",
+        /*VARIABLES*/   "Project p",
         /*PARAMETERS*/  "BigDecimal limit",
         /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
                         "import java.math.BigDecimal",
