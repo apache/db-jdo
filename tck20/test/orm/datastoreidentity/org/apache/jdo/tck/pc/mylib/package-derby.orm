@@ -10,6 +10,13 @@
       <field name="y" column="Y"/>
     </class>
 
+    <class name="VersionedPCPoint" table="VersionedPCPoint">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
     <class name="PCPoint2" table="PCPoint2">
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
       <field name="id" column="ID"/>

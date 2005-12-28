@@ -9,6 +9,12 @@
       <field name="y" column="Y"/>
     </class>
 
+    <class name="VersionedPCPoint" table="VersionedPCPoint">
+      <field name="id" column="ID" primary-key="true"/>
+      <field name="x" column="X"/>
+      <field name="y" column="Y"/>
+    </class>
+
     <class name="PCPoint2" table="PCPoint2">
       <field name="id" column="ID" primary-key="true"/>
       <field name="x" column="X"/>

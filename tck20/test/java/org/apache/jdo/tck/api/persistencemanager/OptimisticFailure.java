@@ -26,7 +26,7 @@ import javax.jdo.JDOOptimisticVerificationException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
+import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -62,11 +62,11 @@ public class OptimisticFailure extends PersistenceManagerTest {
         BatchTestRunner.run(OptimisticFailure.class);
     }
 
-    private PCPoint p1 = new PCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
-    private PCPoint p2 = new PCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
-    private PCPoint p3 = new PCPoint(3,3); // this will be deleted in tx1, updated in tx2
-    private PCPoint p4 = new PCPoint(4,4); // this will be deleted in tx1, deleted in tx2
-    private PCPoint p5 = new PCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
+    private VersionedPCPoint p1 = new VersionedPCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
+    private VersionedPCPoint p2 = new VersionedPCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
+    private VersionedPCPoint p3 = new VersionedPCPoint(3,3); // this will be deleted in tx1, updated in tx2
+    private VersionedPCPoint p4 = new VersionedPCPoint(4,4); // this will be deleted in tx1, deleted in tx2
+    private VersionedPCPoint p5 = new VersionedPCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
     private Object p1oid = null;
     private Object p2oid = null;
     private Object p3oid = null;
@@ -125,10 +125,10 @@ public class OptimisticFailure extends PersistenceManagerTest {
            
            // update/delete the instances in tx1
            tx1.begin();
-           PCPoint p1tx1 = (PCPoint)pm1.getObjectById(p1oid, true);
-           PCPoint p2tx1 = (PCPoint)pm1.getObjectById(p2oid, true);
-           PCPoint p3tx1 = (PCPoint)pm1.getObjectById(p3oid, true);
-           PCPoint p4tx1 = (PCPoint)pm1.getObjectById(p4oid, true);
+           VersionedPCPoint p1tx1 = (VersionedPCPoint)pm1.getObjectById(p1oid, true);
+           VersionedPCPoint p2tx1 = (VersionedPCPoint)pm1.getObjectById(p2oid, true);
+           VersionedPCPoint p3tx1 = (VersionedPCPoint)pm1.getObjectById(p3oid, true);
+           VersionedPCPoint p4tx1 = (VersionedPCPoint)pm1.getObjectById(p4oid, true);
            p1tx1.setX(101);
            p2tx1.setX(201);
            pm1.deletePersistent(p3tx1);
@@ -136,11 +136,11 @@ public class OptimisticFailure extends PersistenceManagerTest {
            
            // update/delete the instances in tx2
            tx2.begin();
-           PCPoint p1tx2 = (PCPoint)pm2.getObjectById(p1oid, true);
-           PCPoint p2tx2 = (PCPoint)pm2.getObjectById(p2oid, true);
-           PCPoint p3tx2 = (PCPoint)pm2.getObjectById(p3oid, true);
-           PCPoint p4tx2 = (PCPoint)pm2.getObjectById(p4oid, true);
-           PCPoint p5tx2 = (PCPoint)pm2.getObjectById(p5oid, true);
+           VersionedPCPoint p1tx2 = (VersionedPCPoint)pm2.getObjectById(p1oid, true);
+           VersionedPCPoint p2tx2 = (VersionedPCPoint)pm2.getObjectById(p2oid, true);
+           VersionedPCPoint p3tx2 = (VersionedPCPoint)pm2.getObjectById(p3oid, true);
+           VersionedPCPoint p4tx2 = (VersionedPCPoint)pm2.getObjectById(p4oid, true);
+           VersionedPCPoint p5tx2 = (VersionedPCPoint)pm2.getObjectById(p5oid, true);
            p1tx2.setX(102);
 //           pm2.deletePersistent(p2tx2); // this should fail but succeeds due to an RI bug
            p3tx2.setX(202);
@@ -203,9 +203,9 @@ public class OptimisticFailure extends PersistenceManagerTest {
            tx2 = null;
            
            tx3.begin();
-           PCPoint p1tx3 = (PCPoint)pm3.getObjectById(p1oid, true);
-           PCPoint p2tx3 = (PCPoint)pm3.getObjectById(p2oid, true);
-           PCPoint p5tx3 = (PCPoint)pm3.getObjectById(p5oid, true);
+           VersionedPCPoint p1tx3 = (VersionedPCPoint)pm3.getObjectById(p1oid, true);
+           VersionedPCPoint p2tx3 = (VersionedPCPoint)pm3.getObjectById(p2oid, true);
+           VersionedPCPoint p5tx3 = (VersionedPCPoint)pm3.getObjectById(p5oid, true);
            verify(p1tx3, 101);
            verify(p2tx3, 201);
            verify(p5tx3, 5);
@@ -223,10 +223,10 @@ public class OptimisticFailure extends PersistenceManagerTest {
     }
     
     /** */
-    protected void verify(PCPoint p, int value) {
+    protected void verify(VersionedPCPoint p, int value) {
         if (p.getX() != value) {
             fail(ASSERTION_FAILED,
-                 "PCPoint has wrong value: expected " + value + ", got " + p.getX());
+                 "VersionedPCPoint has wrong value: expected " + value + ", got " + p.getX());
         }
     }
 }

@@ -3,10 +3,11 @@
 <jdo>
   <package name="org.apache.jdo.tck.pc.mylib">
 
-    <!-- This will not be required once the JDOModel is fixed so that
-         the defaults defined in section 18.4 of the spec are working
-    -->
     <class name="PCPoint" identity-type="datastore"/>
+
+    <class name="VersionedPCPoint" identity-type="datastore">
+      <version strategy="version-number" column="VERSION"/>
+    </class>
 
     <class name="PCPoint2" identity-type="datastore">
       <field name="clearCalled" persistence-modifier="none"/>

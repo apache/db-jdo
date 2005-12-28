@@ -3,11 +3,14 @@
 <jdo>
   <package name="org.apache.jdo.tck.pc.mylib">
 
-    <!-- This will not be required once the JDOModel is fixed so that
-         the defaults defined in section 18.4 of the spec are working
-    -->
     <class name="PCPoint"
            identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCPoint$Oid">
+      <field name="id" primary-key="true"/>
+    </class>
+
+    <class name="VersionedPCPoint"
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.VersionedPCPoint$Oid">
+      <version strategy="version-number" column="VERSION"/>
       <field name="id" primary-key="true"/>
     </class>
 
