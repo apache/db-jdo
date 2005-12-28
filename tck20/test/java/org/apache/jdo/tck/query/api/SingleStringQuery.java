@@ -63,7 +63,7 @@ public class SingleStringQuery extends QueryTest {
         "        import org.apache.jdo.tck.pc.company.Project; " +
         "        import java.math.BigDecimal; " +
         "GROUP BY firstname, lastname " +
-        "ORDER BY personid ASCENDING " +
+        "ORDER BY lastname ASCENDING " +
         "RANGE 0,5";
 
     /** 

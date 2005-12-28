@@ -62,7 +62,7 @@ public class SingleString extends QueryTest {
         /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
                         "import java.math.BigDecimal",
         /*GROUP BY*/    "firstname, lastname HAVING lastname.startsWith('emp')",
-        /*ORDER BY*/    "personid ASCENDING",
+        /*ORDER BY*/    "lastname ASCENDING",
         /*FROM*/        0,
         /*TO*/          3)
     };
