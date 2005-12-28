@@ -837,8 +837,9 @@ public interface PersistenceManager {
      * @return the re-attached instance
      * @see #attachCopyAll(Object[],boolean)
      * @since		2.0
+     * This method has been removed. See makePersistent.
      */
-    Object attachCopy (Object pc, boolean makeTransactional);
+//    Object attachCopy (Object pc, boolean makeTransactional);
 
     /**
      * Import the specified objects into the
@@ -850,8 +851,9 @@ public interface PersistenceManager {
      * @return the re-attached instances
      * @see #attachCopyAll(Object[],boolean)
      * @since 2.0
+     * This method has been removed. See makePersistentAll.
      */
-    Collection attachCopyAll (Collection pcs, boolean makeTransactional);
+ //   Collection attachCopyAll (Collection pcs, boolean makeTransactional);
 
     /**
      * Import the specified objects into the
@@ -867,8 +869,9 @@ public interface PersistenceManager {
      * @return the re-attached instances
      * @see #detachCopyAll(Object[])
      * @since 2.0
+     * This method has been removed. See makePersistentAll.
      */
-    Object[] attachCopyAll (Object[] pcs, boolean makeTransactional);
+  //  Object[] attachCopyAll (Object[] pcs, boolean makeTransactional);
 
     /**
      * Put the specified key-value pair into the map of user objects.

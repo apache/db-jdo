@@ -104,8 +104,8 @@ public class InstanceLifecycleListenerAttach
         pm.currentTransaction().commit();
         pm.currentTransaction().begin();
         listener.setExpectedSource(detached);
-        // attachCopy should cause the attach listeners to be called
-        PC attached = (PC)pm.attachCopy(detached, false);
+        // makePersistent should cause the attach listeners to be called
+        PC attached = (PC)pm.makePersistent(detached);
         pm.currentTransaction().commit();
 
         // now check the callback and listener were called
