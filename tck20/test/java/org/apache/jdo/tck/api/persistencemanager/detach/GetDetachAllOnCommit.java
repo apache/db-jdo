@@ -28,9 +28,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion IDs:</B> A12.6.8-1
  * <BR>
  * <B>Assertion Description: </B>
- * We define a new property called DetachAllOnCommit PersistenceManager.getDetachAllOnCommit(boolean detachAllOnCommit) gets the DetachAllOnCommit property
+ * We define a new property called DetachOnClose PersistenceManager.setDetachOnClose(boolean detachOnClose) sets the DetachOnClose property
  */
-public class SetDetachAllOnCommit extends DetachTest {
+public class GetDetachAllOnCommit extends DetachTest {
     
     private static final String ASSERTION_FAILED = "Assertion A12.6.8-1 (SetDetachAllOnCommit) failed: ";
     
@@ -47,14 +47,14 @@ public class SetDetachAllOnCommit extends DetachTest {
     public void test() {
         pm = getPM();
     
-        runTestSetDetachAllOnCommit(pm);
+        runTestGetDetachAllOnCommit(pm);
         
         pm.close();
         pm = null;
     }
 
     /** */
-    protected void runTestSetDetachAllOnCommit(PersistenceManager pm) {
+    protected void runTestGetDetachAllOnCommit(PersistenceManager pm) {
         pm.setDetachAllOnCommit(false);
         if (pm.getDetachAllOnCommit()) {
             fail(ASSERTION_FAILED,
