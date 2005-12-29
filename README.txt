@@ -143,8 +143,10 @@ Custom Goals:
 
 Command Line Options:
     -Djdo.tck.cfglist=<configuration file list>
-          Overrides test/conf/configuration.list by supplying
-          one or more space-separated test configuration files
+          Overrides the definition of jdo.tck.cfglist found in
+          tck20/test/conf/configuration.list by supplying
+          one or more space-separated test configuration files.
+          Test configuration files typically have the .conf extension.
 
       -Djdo.tck.dblist=<database list>
           Overrides the property value in project.properties by supplying
