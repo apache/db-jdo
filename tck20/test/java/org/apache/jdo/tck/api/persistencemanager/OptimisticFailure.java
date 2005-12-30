@@ -142,13 +142,13 @@ public class OptimisticFailure extends PersistenceManagerTest {
            VersionedPCPoint p4tx2 = (VersionedPCPoint)pm2.getObjectById(p4oid, true);
            VersionedPCPoint p5tx2 = (VersionedPCPoint)pm2.getObjectById(p5oid, true);
            p1tx2.setX(102);
-//           pm2.deletePersistent(p2tx2); // this should fail but succeeds due to an RI bug
+           pm2.deletePersistent(p2tx2);
            p3tx2.setX(202);
            pm2.deletePersistent(p4tx2);
-           p5tx2.setX(502); // this change should not be committed
+           p5tx2.setX(502); // this change must not be committed
            Set expectedFailedObjects = new HashSet();
            expectedFailedObjects.add(p1tx2);
-//           expectedFailedObjects.add(p2tx2);
+           expectedFailedObjects.add(p2tx2);
            expectedFailedObjects.add(p3tx2);
            expectedFailedObjects.add(p4tx2);
            
