@@ -33,22 +33,37 @@
     <goal name="help">
         <echo>Custom goals for this project are:</echo>
         <echo>  installSchema - installs the database schema</echo>
+        <echo></echo>
         <echo>  enhance.iut - enhances persistence capable classes with the implementation under test enhancer if enhancement is not up to date</echo>
         <echo>  enhance.jdori - enhances persistence capable classes with the JDO Reference Implementation enhancer if enhancement is not up to date</echo>
+        <echo></echo>
         <echo>  runtck.iut - runs the TCK on the implementation under test</echo>
         <echo>  runtck.jdori - runs the TCK on the JDO Reference Implementation</echo>
+        <echo></echo>
+        <echo>  debugtck.jdori - waits for a debugger to attach and then runs the TCK on the JDO RI</echo>
+        <echo>  debugtck.iut - waits for a debugger to attach and then runs the TCK on the implementation under test</echo>
+        <echo></echo>
         <echo></echo>
         <echo>Options for this project are:</echo>
         <echo>  -Djdo.tck.cfglist=xxx - a list of configuration files (must be in test/conf)</echo>
         <echo>  -Djdo.tck.dblist=xxx - a list of databases</echo>
         <echo>  -Djdo.tck.identitytypes=xxx - a list of identity types (applicationidentity, datastoreidentity)</echo>
         <echo>  -Djdo.tck.cleanupaftertest=xxx - true/false. Setting it to false will retain data in database after test. This will allow inspection of data after test is run. Default is true</echo>
+        <echo>  -Djdo.tck.debug.port=##### - the port number the JVM should listen for a debugger on (default 8787)</echo>
+        <echo>  -Djdo.tck.debug.jvmargs=xxx - the "-Xdebug ..." arguments in the event you want to supply your own debug directives</echo>
         <echo></echo>
         <echo>Examples:</echo>
         <echo>  maven -Djdo.tck.identitytypes=datastoreidentity installSchema</echo>
         <echo>      Installs the database schema for datastore identity for all supported databases</echo>
+        <echo></echo>
         <echo>  maven -Djdo.tck.cfglist="alltests.conf cfg1.conf" runtck.jdori</echo>
         <echo>      Runs the test configurations specified in alltests.conf and cfg1.conf on the JDORI, using all supported identity types and databases. </echo>
+        <echo></echo>
+        <echo>  maven -Djdo.tck.cfglist=detach.conf debugtck.jdori</echo>
+        <echo>      Runs the test detach.conf configuration, waiting for a debugger to attach on the default port</echo>
+        <echo></echo>
+        <echo>  maven -Djdo.tck.cfglist=detach.conf -Djdo.tck.debug.port=9343 debugtck.jdori</echo>
+        <echo>      Runs the test detach.conf configuration, waiting for a debugger to attach on port 9343</echo>
         <echo></echo>
         <echo>Note:</echo>
         <echo>  By default, the database schema is NOT installed when the custom goals runtck.iut and runtck.jdori are run.</echo>
@@ -201,6 +216,25 @@
     <!-- Run test cases     -->
     <!-- ================== -->
 
+    <goal name="debugtck.iut">
+        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}" defaultValue=""/>
+        <j:if test="${debugJvmargs == ''}">
+            <j:set var="debugPort" value="${jdo.tck.debug.port}" defaultValue=""/>
+            <j:if test="${debugPort == ''}">
+                <property name="jdo.tck.debug.port" value="8787"/>
+            </j:if>
+
+            <property name="jdo.tck.debug.jvmargs"
+                value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
+            />
+        </j:if>
+
+        <echo>Using debug arguments:</echo>
+        <echo>${jdo.tck.debug.jvmargs}</echo>
+
+        <attainGoal name="runtck.iut"/>
+    </goal>
+
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.iut"/>
@@ -236,6 +270,25 @@
                 </j:forEach>
             </j:forEach>
         </j:forEach>
+    </goal>
+
+    <goal name="debugtck.jdori">
+        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}" defaultValue=""/>
+        <j:if test="${debugJvmargs == ''}">
+            <j:set var="debugPort" value="${jdo.tck.debug.port}" defaultValue=""/>
+            <j:if test="${debugPort == ''}">
+                <property name="jdo.tck.debug.port" value="8787"/>
+            </j:if>
+
+            <property name="jdo.tck.debug.jvmargs"
+                value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
+            />
+        </j:if>
+
+        <echo>Using debug arguments:</echo>
+        <echo>${jdo.tck.debug.jvmargs}</echo>
+
+        <attainGoal name="runtck.jdori"/>
     </goal>
 
     <goal name="runtck.jdori" prereqs="setProps">
@@ -290,6 +343,13 @@
             javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
             javax.jdo.mapping.Schema=${schemaname}
         </j:file>
+        
+
+        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}"/>
+        <j:if test="${debugJvmargs != ''}">
+            <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
+        </j:if>
+        
         <java fork="yes" dir="${jdo.tck.testdir}"
               classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.project.class.path"/>
@@ -319,8 +379,11 @@
                          value="${jdo.tck.cleanupaftertest}"/>             
             <sysproperty key="jdo.tck.requiredOptions"
                          value="${jdo.tck.requiredOptions}"/>
+                         
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
+            <jvmarg line="${jdo.tck.debug.jvmargs}"/>
+            
             <arg line="${jdo.tck.classes}"/>
         </java>
     </goal>
@@ -339,6 +402,12 @@
             javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
             javax.jdo.mapping.Schema=${schemaname}
         </j:file>
+        
+        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}"/>
+        <j:if test="${debugJvmargs != ''}">
+            <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
+        </j:if>
+        
         <j:set var="jdo.tck.testrunnerclass"
                value="org.apache.jdo.tck.util.BatchTestRunner"/>
         <java fork="yes" dir="${jdo.tck.testdir}"
@@ -370,8 +439,11 @@
                          value="${jdo.tck.cleanupaftertest}"/>
             <sysproperty key="jdo.tck.requiredOptions"
                          value="${jdo.tck.requiredOptions}"/>
+                         
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdo.runtck.sysproperties}"/>
+            <jvmarg line="${jdo.tck.debug.jvmargs}"/>
+            
             <arg line="${jdo.tck.classes}"/>
         </java>
         <echo>Finished run with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
