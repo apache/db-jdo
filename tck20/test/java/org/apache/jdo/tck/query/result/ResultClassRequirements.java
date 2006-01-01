@@ -122,7 +122,7 @@ public class ResultClassRequirements extends QueryTest {
         // Map
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "phoneNumbers",
+        /*RESULT*/      "personid AS id, lastname AS name",
         /*INTO*/        Map.class, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -320,15 +320,15 @@ public class ResultClassRequirements extends QueryTest {
         
     // Two dimensional arrays to be converted to maps 
     // in the expected result.
-    private static Object[][] phoneNumbers1 = 
-        {{"home", "1111"}, 
-         {"work", "123456-1"}};
-    private static Object[][] phoneNumbers2 = 
-        {{"home", "2222"}, 
-         {"work", "123456-2"}};
-    private static Object[][] phoneNumbers5 = 
-        {{"home", "3363"}, 
-         {"work", "126456-3"}};
+    private static Object[][] emp1Map = 
+        {{"id", new Long(1)}, 
+         {"name", "emp1Last"}};
+    private static Object[][] emp2Map = 
+        {{"id", new Long(2)}, 
+         {"name", "emp2Last"}};
+    private static Object[][] emp5Map = 
+        {{"id", new Long(5)}, 
+         {"name", "emp5Last"}};
     private static Object[][] publicPutMethod1 =
         {{"personid", new Long(1)}, {"lastname", "emp1Last"}};
     private static Object[][] publicPutMethod2 =
@@ -355,9 +355,9 @@ public class ResultClassRequirements extends QueryTest {
                 CompanyModelReader.stringToUtilDate("15/Aug/1998")}),
         // Map
         Arrays.asList(new Object[]{
-                ConversionHelper.arrayToMap(phoneNumbers1),
-                ConversionHelper.arrayToMap(phoneNumbers2),
-                ConversionHelper.arrayToMap(phoneNumbers5)}),
+                ConversionHelper.arrayToMap(emp1Map),
+                ConversionHelper.arrayToMap(emp2Map),
+                ConversionHelper.arrayToMap(emp5Map)}),
         // user defined result class
         Arrays.asList(new Object[]{
                 new LongString(1, "emp1Last"), 
