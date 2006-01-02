@@ -33,19 +33,23 @@ public interface AttachLifecycleListener
     extends InstanceLifecycleListener {
     
     /**
-     * This method is called during the execution of
-     * {@link PersistenceManager#attachCopy} before the copy is made.
-     * It is called before the method {@link AttachCallback#jdoPreAttach}
-     * is invoked on the instance to be attached.
+     * This method is called before a detached instance is attached, via the
+     * {@link PersistenceManager#makePersistent} method. The source instance
+     * is the detached instance. This method is called before the
+     * corresponding {@link AttachCallback#jdoPreAttach} on the detached
+     * instance.
      * @param event the attach event.
      * @since 2.0
-	 */
+     */
     void preAttach (InstanceLifecycleEvent event);
     
     /**
-     * This method is called during the execution of
-     * {@link PersistenceManager#attachCopy} on the persistent
-     * instance after the copy is made.
+     * This method is called after a detached instance is attached, via the
+     * {@link PersistenceManager#makePersistent} method. The source
+     * instance is the corresponding persistent instance in the cache; the
+     * target instance is the detached instance. This method is called after
+     * the corresponding {@link AttachCallback#jdoPostAttach} on the
+     * persistent instance.
      * @param event the attach event.
      * @since 2.0
      */

@@ -32,17 +32,18 @@ public interface AttachCallback {
     
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#attachCopy} before the copy is made.
+     * {@link PersistenceManager#makePersistent} on the detached instance
+     * before the copy is made.
      * @since 2.0
      */
     public void jdoPreAttach();
 
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#attachCopy} on the persistent
+     * {@link PersistenceManager#makePersistent} on the persistent
      * instance after the copy is made.
      * @param attached	The corresponding (non-attached) instance that was
-     * attached in the call to {@link PersistenceManager#attachCopy}.
+     * attached in the call to {@link PersistenceManager#makePersistent}.
      * @since 2.0
      */
     public void jdoPostAttach(Object attached);
