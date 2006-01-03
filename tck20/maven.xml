@@ -150,6 +150,23 @@
 
     </goal>
 
+    <goal name="setDebugProps">
+        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}" defaultValue=""/>
+        <j:if test="${empty debugJvmargs}">
+            <j:set var="debugPort" value="${jdo.tck.debug.port}" defaultValue=""/>
+            <j:if test="${empty debugPort}">
+                <property name="jdo.tck.debug.port" value="8787"/>
+            </j:if>
+
+            <property name="jdo.tck.debug.jvmargs"
+                value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
+            />
+        </j:if>
+
+        <echo>Using debug arguments:</echo>
+        <echo>${jdo.tck.debug.jvmargs}</echo>
+    </goal>
+
     <!-- ================== -->
     <!-- Install schema     -->
     <!-- ================== -->
@@ -217,21 +234,7 @@
     <!-- ================== -->
 
     <goal name="debugtck.iut">
-        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}" defaultValue=""/>
-        <j:if test="${debugJvmargs == ''}">
-            <j:set var="debugPort" value="${jdo.tck.debug.port}" defaultValue=""/>
-            <j:if test="${debugPort == ''}">
-                <property name="jdo.tck.debug.port" value="8787"/>
-            </j:if>
-
-            <property name="jdo.tck.debug.jvmargs"
-                value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
-            />
-        </j:if>
-
-        <echo>Using debug arguments:</echo>
-        <echo>${jdo.tck.debug.jvmargs}</echo>
-
+        <attainGoal name="setDebugProps"/>
         <attainGoal name="runtck.iut"/>
     </goal>
 
@@ -273,21 +276,7 @@
     </goal>
 
     <goal name="debugtck.jdori">
-        <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}" defaultValue=""/>
-        <j:if test="${debugJvmargs == ''}">
-            <j:set var="debugPort" value="${jdo.tck.debug.port}" defaultValue=""/>
-            <j:if test="${debugPort == ''}">
-                <property name="jdo.tck.debug.port" value="8787"/>
-            </j:if>
-
-            <property name="jdo.tck.debug.jvmargs"
-                value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
-            />
-        </j:if>
-
-        <echo>Using debug arguments:</echo>
-        <echo>${jdo.tck.debug.jvmargs}</echo>
-
+        <attainGoal name="setDebugProps"/>
         <attainGoal name="runtck.jdori"/>
     </goal>
 
@@ -346,7 +335,7 @@
         
 
         <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}"/>
-        <j:if test="${debugJvmargs != ''}">
+        <j:if test="${not empty debugJvmargs}">
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
@@ -404,7 +393,7 @@
         </j:file>
         
         <j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}"/>
-        <j:if test="${debugJvmargs != ''}">
+        <j:if test="${not empty debugJvmargs}">
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
