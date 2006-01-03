@@ -322,6 +322,43 @@ public class ResultExpressions extends QueryTest {
     };
     
     /** 
+     * The array of invalid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] INVALID_QUERIES = {
+        // unknown field x
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "x",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // field salary is declared in a subclass of the candidate class
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "salary",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+
+    /** 
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
@@ -476,6 +513,15 @@ public class ResultExpressions extends QueryTest {
     public void testCast() {
         int index = 16;
         executeQuery(index, null);
+    }
+
+    /** */
+    public void testNegative() {
+        for (int i = 0; i < INVALID_QUERIES.length; i++) {
+            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
+            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+                    false);
+        }
     }
 
     /** */
