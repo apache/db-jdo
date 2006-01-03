@@ -113,7 +113,7 @@ public class VariablesAndFields extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       "team.contains(manager) & " +
                         "manager.firstname == 'emp1First'",

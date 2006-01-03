@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -55,7 +55,7 @@ public class Grouping extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      "department, SUM(salary)",
         /*INTO*/        null, 
-        /*FROM*/        Employee.class,
+        /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -76,7 +76,7 @@ public class Grouping extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      "department, salary",
         /*INTO*/        null, 
-        /*FROM*/        Employee.class,
+        /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -93,8 +93,8 @@ public class Grouping extends QueryTest {
      */
     private Object[] expectedResult = {
         Arrays.asList(new Object[] {
-            new Object[] {getTransientCompanyModelInstance("dept1"), new Double(45000.0)},
-            new Object[] {getTransientCompanyModelInstance("dept2"), new Double(58000.0)}})
+            new Object[] {getTransientCompanyModelInstance("dept1"), new Double(30000.0)},
+            new Object[] {getTransientCompanyModelInstance("dept2"), new Double(45000.0)}})
     };
         
     /**
