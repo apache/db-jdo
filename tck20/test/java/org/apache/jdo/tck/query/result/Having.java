@@ -49,7 +49,7 @@ public class Having extends QueryTest {
     private static final QueryElementHolder[] VALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "department, SUM(salary)",
+        /*RESULT*/      "department, AVG(weeklyhours)",
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
@@ -70,7 +70,7 @@ public class Having extends QueryTest {
     private static final QueryElementHolder[] INVALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "department, SUM(salary)",
+        /*RESULT*/      "department, AVG(weeklyhours)",
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
@@ -91,10 +91,10 @@ public class Having extends QueryTest {
         Arrays.asList(new Object[] {
             new Object[] {
                     getTransientCompanyModelInstance("dept1"),
-                    new Double(45000.0)},
+                    new Double(33.0)},
             new Object[] {
                     getTransientCompanyModelInstance("dept2"),
-                    new Double(58000.0)}})
+                    new Double(0.0)}})
     };
         
     /**
