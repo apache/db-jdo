@@ -90,7 +90,9 @@ public class Person
      * @param id the id.
      */
     public void setPersonid(long id) {
-        throw new IllegalStateException("Id is already set.");
+        if (this.personid != 0)
+            throw new IllegalStateException("Id is already set.");
+        this.personid = id;
     }
 
     /**

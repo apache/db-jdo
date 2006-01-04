@@ -86,7 +86,9 @@ public class Company
      * @param id the id.
      */
     public void setCompanyid(long id) {
-        throw new IllegalStateException("Id is already set.");
+        if (this.companyid != 0)
+            throw new IllegalStateException("Id is already set.");
+        this.companyid = id;
     }
 
     /**

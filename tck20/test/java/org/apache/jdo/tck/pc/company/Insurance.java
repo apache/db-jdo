@@ -71,8 +71,10 @@ public abstract class Insurance
      * Set the insurance ID.
      * @param insid The insurance ID value.
      */
-    public void setInsid(long insid) {
-        throw new IllegalStateException("Id is already set.");
+    public void setInsid(long id) {
+        if (this.insid != 0) 
+            throw new IllegalStateException("Id is already set.");
+        this.insid = id;
     }
 
     /**

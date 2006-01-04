@@ -62,7 +62,9 @@ public class Project
      * @param id the id.
      */
     public void setProjid(long id) {
-        throw new IllegalStateException("Id is already set.");
+        if (this.projid != 0)
+            throw new IllegalStateException("Id is already set.");
+        this.projid = id;
     }
 
     /**

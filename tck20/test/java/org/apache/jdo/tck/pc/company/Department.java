@@ -87,7 +87,9 @@ public class Department
      * @param id the id.
      */
     public void setDeptid(long id) {
-        throw new IllegalStateException("Id is already set.");
+        if (this.deptid != 0)
+            throw new IllegalStateException("Id is already set.");
+        this.deptid = id;
     }
 
     /**
