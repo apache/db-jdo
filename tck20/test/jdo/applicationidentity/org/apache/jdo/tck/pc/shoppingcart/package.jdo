@@ -24,7 +24,7 @@
         <class
                 name="Cart"
                 identity-type="application"
-                objectid-class="org.apache.jdo.tck.pc.shoppingcart.Product$Oid"
+                objectid-class="org.apache.jdo.tck.pc.shoppingcart.Cart$Oid"
                 detachable="true"
                 >
             <field name="id" primary-key="true"/>
