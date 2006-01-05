@@ -21,6 +21,7 @@ import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOHelper;
+import javax.jdo.Transaction;
 
 /**
  * <B>Title:</B> Test IsDetached
@@ -52,7 +53,7 @@ public class IsDetached extends DetachTest {
         pm.currentTransaction().begin();
 
         assertFalse(ASSERTION_FAILED + "null object is detached", JDOHelper.isDetached(null));
-        assertFalse(ASSERTION_FAILED + "transient object is detached", JDOHelper.isDetached(new Cart()));
+        assertFalse(ASSERTION_FAILED + "transient object is detached", JDOHelper.isDetached(new Cart("bob")));
         assertFalse(ASSERTION_FAILED + "object of class marked not detachabled is detached", JDOHelper.isDetached(new Undetachable()));
 
         pm.currentTransaction().commit();
@@ -60,21 +61,24 @@ public class IsDetached extends DetachTest {
 
     public void testDetachableIsDetachedTrue() {
         pm = getPM();
-        pm.currentTransaction().begin();
+        Transaction txn = pm.currentTransaction();
 
-        Cart c = new Cart();
-        Object oid = pm.getObjectId(c);
+        Cart c, detached;
+        Object oid;
+        txn.begin();
+        {
+            c = new Cart("bob");
+            pm.makePersistent(c);
+            oid = pm.getObjectId(c);
+        }
+        txn.commit();
 
-        pm.makePersistent(c);
-        pm.currentTransaction().commit();
-
-        pm.currentTransaction().begin();
-
-        c = (Cart) pm.getObjectById(oid);
-        Cart detached = (Cart) pm.detachCopy(c);
-
-        assertTrue(JDOHelper.isDetached(detached));
-
-        pm.currentTransaction().commit();
+        txn.begin();
+        {
+            c = (Cart) pm.getObjectById(oid);
+            detached = (Cart) pm.detachCopy(c);
+            assertTrue(JDOHelper.isDetached(detached));
+        }
+        txn.commit();
     }
 }

@@ -8,25 +8,25 @@ has application identity.
     <package name="org.apache.jdo.tck.pc.shoppingcart">
 
         <class name="Cart" table="CARTS">
-            <field name="id" column="CART_ID" primary-key="true"/>
+            <field name="id" column="CART_ID"/>
             <field name="customerId" column="CUSTOMER_ID"/>
             <field name="entries" mapped-by="cart"/>
         </class>
 
         <class name="CartEntry" table="CART_ENTRIES">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
             <field name="quantity" column="QUANTITY"/>
             <field name="product" column="SKU" foreign-key="true"/>
             <field name="cart" column="CART_ID" foreign-key="true"/>
         </class>
 
         <class name="Product" table="PRODUCTS">
-            <field name="sku" column="SKU" primary-key="true"/>
+            <field name="sku" column="SKU"/>
             <field name="description" column="DESCRIPTION"/>
         </class>
 
         <class name="Undetachable" table="UNDETACHABLES">
-            <field name="id" column="UNDETACHABLE_ID" primary-key="true"/>
+            <field name="id" column="ID"/>
             <field name="foo" column="FOO"/>
             <field name="bar" column="BAR"/>
         </class>
