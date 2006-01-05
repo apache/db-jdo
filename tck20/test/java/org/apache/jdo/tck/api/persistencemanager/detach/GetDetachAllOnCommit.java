@@ -21,18 +21,20 @@ import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- * <B>Title:</B> Test SetDetachAllOnCommit
+ * <B>Title:</B> Test GetDetachAllOnCommit
  * <BR>
- * <B>Keywords:</B> KEYWORDS
+ * <B>Keywords:</B>
  * <BR>
- * <B>Assertion IDs:</B> A12.6.8-1
+ * <B>Assertion IDs:</B> A12.6.8-2
  * <BR>
  * <B>Assertion Description: </B>
- * We define a new property called DetachOnClose PersistenceManager.setDetachOnClose(boolean detachOnClose) sets the DetachOnClose property
+ * We define a new property called DetachAllOnCommit
+ * PersistenceManager.getDetachAllOnCommit(boolean detachAllOnCommit)
+ * gets the DetachAllOnCommit property
  */
 public class GetDetachAllOnCommit extends DetachTest {
     
-    private static final String ASSERTION_FAILED = "Assertion A12.6.8-1 (SetDetachAllOnCommit) failed: ";
+    private static final String ASSERTION_FAILED = "Assertion A12.6.8-2 (pm.getDetachAllOnCommit) failed: ";
     
     /**
      * The <code>main</code> is called when the class
@@ -68,4 +70,3 @@ public class GetDetachAllOnCommit extends DetachTest {
         }
     }
 }
-

@@ -28,11 +28,13 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <B>Assertion IDs:</B> A12.6.8-1
  * <BR>
  * <B>Assertion Description: </B>
- * We define a new property called DetachAllOnCommit PersistenceManager.getDetachAllOnCommit(boolean detachAllOnCommit) gets the DetachAllOnCommit property
+ * We define a new property called DetachAllOnCommit
+ * PersistenceManager.setDetachAllOnCommit(boolean detachAllOnCommit)
+ * sets the DetachAllOnCommit property
  */
 public class SetDetachAllOnCommit extends DetachTest {
     
-    private static final String ASSERTION_FAILED = "Assertion A12.6.8-1 (SetDetachAllOnCommit) failed: ";
+    private static final String ASSERTION_FAILED = "Assertion A12.6.8-1 (pm.setDetachAllOnCommit) failed: ";
     
     /**
      * The <code>main</code> is called when the class
@@ -68,4 +70,3 @@ public class SetDetachAllOnCommit extends DetachTest {
         }
     }
 }
-

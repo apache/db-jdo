@@ -16,15 +16,27 @@
 
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
+import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.shoppingcart.CartEntry;
+import org.apache.jdo.tck.pc.shoppingcart.Cart;
+import org.apache.jdo.tck.pc.shoppingcart.Product;
+import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
+
+import javax.jdo.PersistenceManager;
 
 /**
  *
  */
-public class DetachTest extends PersistenceManagerTest {
-    
+public class DetachTest extends JDO_Test {
+
     /** Creates a new instance of DetachTest */
     public DetachTest() {
     }
-    
+
+    protected void localSetUp() {
+        addTearDownClass(CartEntry.class);
+        addTearDownClass(Cart.class);
+        addTearDownClass(Product.class);
+        addTearDownClass(Undetachable.class);
+    }
 }
