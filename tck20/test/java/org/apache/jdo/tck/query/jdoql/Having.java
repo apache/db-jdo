@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.query.result;
+package org.apache.jdo.tck.query.jdoql;
 
 import java.util.Arrays;
 
@@ -60,6 +60,21 @@ public class Having extends QueryTest {
         /*GROUP BY*/    "department HAVING COUNT(department) > 0",
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        // HAVING clause uses field that isn't contained in the SELECT clause.
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "department, AVG(weeklyhours)",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "department HAVING COUNT(personid) > 1",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
     
@@ -68,6 +83,7 @@ public class Having extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] INVALID_QUERIES = {
+        // HAVING clause is not a boolean expression
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "department, AVG(weeklyhours)",
@@ -81,6 +97,21 @@ public class Having extends QueryTest {
         /*GROUP BY*/    "department HAVING firstname",
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        // HAVING clause is a non-aggregate expression using a non-grouping field
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "department, AVG(weeklyhours)",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "department HAVING firstname == 'emp1First'",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
     
@@ -88,6 +119,13 @@ public class Having extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
+        Arrays.asList(new Object[] {
+            new Object[] {
+                    getTransientCompanyModelInstance("dept1"),
+                    new Double(33.0)},
+            new Object[] {
+                    getTransientCompanyModelInstance("dept2"),
+                    new Double(0.0)}}),
         Arrays.asList(new Object[] {
             new Object[] {
                     getTransientCompanyModelInstance("dept1"),
