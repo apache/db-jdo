@@ -16,6 +16,10 @@
  
 package org.apache.jdo.tck.models.fieldtypes;
 
+import java.lang.reflect.Array;
+
+import java.math.BigDecimal;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Vector;
@@ -125,13 +129,22 @@ public class TestArrayCollections extends JDO_Test {
     private void setValues(ArrayCollections collect, int order)
     {
         Vector value;
+        Class vectorClass = null;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     ArrayCollections.fieldSpecs[i]);
-            Object[] valueArray = null;
             value = TestUtil.makeNewVectorInstance(valueType, order);
-            value.copyInto(valueArray);
+            try {
+                // get the right class to instantiate
+                vectorClass = value.get(0).getClass();
+            } catch (Exception e) {
+            }
+
+            Object[] valueArray = (Object[])Array.newInstance(vectorClass,
+                                     value.size());
+            value.toArray(valueArray);
+
             collect.set(i, valueArray);
             if (debug)
                 logger.debug("Set " + i + "th value to: "
@@ -146,17 +159,35 @@ public class TestArrayCollections extends JDO_Test {
         ArrayCollections pi = (ArrayCollections) pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Object [] expected = expectedValue.get(i);
-            Object [] actual = pi.get(i);
-            if (actual.length != expected.length) {
+            Object obj = new Object();
+            Class objClass = obj.getClass();
+            Object[] expected = (Object[])Array.newInstance(objClass, 5);
+            Object[] actual = (Object[])Array.newInstance(objClass, 5);
+            expected = expectedValue.get(i);
+            actual = pi.get(i);
+            if (expected.length != actual.length) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.length + ", actual size = " + actual.length
                         + " . ");
                 continue;
             }
-            if (! Arrays.equals(actual, expected)) {
-                sbuf.append("\nFor element " + i + ", expected = " +
+            else if (!Arrays.equals(expected, actual)) {
+                if (TestUtil.getFieldSpecs(ArrayCollections.fieldSpecs[i]
+                            ).equals("BigDecimal")) {
+                    for (int j = 0; j < actual.length; ++j) {
+                        BigDecimal expectedBD = (BigDecimal)expected[j];
+                        Object actualBD = (BigDecimal)actual[j];
+                        if ((expectedBD.compareTo(actualBD) != 0)) {
+                            sbuf.append("\nFor element " + i + "[" + j +
+                                    "], expected = " + expectedBD +
+                                    ", actual = " + actualBD + " . ");
+                        }
+                    }
+                }
+                else {
+                    sbuf.append("\nFor element " + i + ", expected = " +
                         expected + ", actual = " + actual + " . ");
+                }
             }
         }
         if (sbuf.length() > 0) {
