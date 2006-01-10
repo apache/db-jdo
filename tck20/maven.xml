@@ -477,10 +477,6 @@
             <fileset dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
                      includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
-        <path id="project.classpath">
-            <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}/${jdo.tck.identitytype}.jar"/>
-            <path refid="iut.enhancer.classpath"/>
-        </path>
         <!-- compile pc and pa classes -->
         <javac srcdir="${basedir}/test/java"
            includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
@@ -584,6 +580,38 @@
 
     <path id="test_iut_jars" >
         <fileset dir="iut_jars" includes="*.jar"/>
+    </path>
+
+    <!-- Added jpox.enhancer.jarfile, renamed jpox.jdori.jarfile,
+    added bcel.jarfile, log4j.jarfile(for jpox enhancer) -->
+    <path id="project.classpath">
+        <!-- Directory where enhanced class files are located  -->
+        <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}/${jdo.tck.identitytype}.jar"/>
+        <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- Jar files for the implementation to be tested -->
+        <path refid="test_iut_jars" />
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
+        <!-- Spring jar files -->
+        <pathelement location="${springcore.jarfile}"/>
+        <pathelement location="${springbeans.jarfile}"/>
+        <pathelement location="${logging.jarfile}"/>
+        <!-- Jar files for other dependencies -->
+        <pathelement location="${jta.jarfile}" />
+        <pathelement location="${xmlparser}" />
+        <pathelement location="${bcel.jarfile}" />
+        <pathelement location="${log4j.jarfile}" />
+        <!-- Jar files for database -->
+        <pathelement location="${derby.jarfile}" />
+        <!-- Jar files for connection pooling -->
+        <pathelement location="${c3p0.jarfile}"/>
+        <pathelement location="${dbcp.jarfile}"/>
+        <pathelement location="${pool.jarfile}"/>
+        <pathelement location="${collections.jarfile}"/>
     </path>
 
     <!-- Paths needed for enhancement by jdori enhancer. -->
