@@ -809,7 +809,7 @@ public interface PersistenceManager {
      * Detach the specified objects from the
      * <code>PersistenceManager</code>. The objects returned can be
      * manipulated and re-attached with 
-     * {@link #attachCopyAll(Object[], boolean)}. 
+     * {@link #makePersistentAll(Object[])}. 
      * The detached instances will be
      * unmanaged copies of the specified parameters, and are suitable
      * for serialization and manipulation outside of a JDO
@@ -820,58 +820,13 @@ public interface PersistenceManager {
      * current custom {@link FetchPlan}.
      * @param pcs the instances to detach
      * @return the detached instances
-     * @throws JDOUserException if any of the instances do not
-     * @see #attachCopyAll(Object[], boolean)
+     * @throws JDOUserException if any of the instances to be detached do not
+     * implement the javax.jdo.spi.Detachable interface.
+     * @see #makePersistentAll(Object[])
      * @see #getFetchPlan
      * @since 2.0
      */
     Object[] detachCopyAll (Object [] pcs);
-
-    /**
-     * Import the specified object into the
-     * <code>PersistenceManager</code>.
-     * @param pc instance to import
-     * @param makeTransactional if <code>true</code>, this method will
-     *     mark transactional the persistent instances corresponding
-     *     to all instances in the closure of the detached graph.
-     * @return the re-attached instance
-     * @see #attachCopyAll(Object[],boolean)
-     * @since		2.0
-     * This method has been removed. See makePersistent.
-     */
-//    Object attachCopy (Object pc, boolean makeTransactional);
-
-    /**
-     * Import the specified objects into the
-     * <code>PersistenceManager</code>.
-     * @param pcs Collection of instances to import
-     * @param makeTransactional if <code>true</code>, this method will
-     *     mark transactional the persistent instances corresponding
-     *     to all instances in the closure of the detached graph.
-     * @return the re-attached instances
-     * @see #attachCopyAll(Object[],boolean)
-     * @since 2.0
-     * This method has been removed. See makePersistentAll.
-     */
- //   Collection attachCopyAll (Collection pcs, boolean makeTransactional);
-
-    /**
-     * Import the specified objects into the
-     * <code>PersistenceManager</code>. Instances that were
-     * previously detached from this or another
-     * <code>PersistenceManager</code> will have their changed merged
-     * into the persistent instances. Instances that are new will be
-     * persisted as new instances.
-     * @param pcs array of instances to import
-     * @param makeTransactional	if <code>true</code>, this method will
-     *     mark transactional the persistent instances corresponding
-     *     to all instances in the closure of the detached graph.
-     * @return the re-attached instances
-     * @see #detachCopyAll(Object[])
-     * @since 2.0
-     * This method has been removed. See makePersistentAll.
-     */
-  //  Object[] attachCopyAll (Object[] pcs, boolean makeTransactional);
 
     /**
      * Put the specified key-value pair into the map of user objects.
