@@ -316,14 +316,14 @@
     </goal>
 
     <goal name="doRuntck.iut">
-        <echo>Run JDO TCK on the IUT with configuration ${jdo.tck.configuration}</echo>
+        <echo>Run JDO TCK on the IUT </echo>
         <path id="this.iut.classpath">
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="iut.classpath"/>
         </path>
-         <u:loadText file="${basedir}/test/conf/${iut.runtck.properties}"
+         <u:loadText file="${basedir}/test/conf/${iut.pmf.properties}"
                     var="PMFProps"/>
-        <j:file name="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"
+        <j:file name="${jdo.tck.testclasses.dir}/${iut.pmf.properties}"
                 omitXmlDeclaration="true">
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
@@ -344,9 +344,9 @@
                          value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
             <sysproperty key="PMFProperties"
-                         value="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"/>
+                         value="${jdo.tck.testclasses.dir}/${iut.pmf.properties}"/>
             <sysproperty key="PMF2Properties"
-                         value="${jdo.tck.testclasses.dir}/${iut.runtck.properties}"/>
+                         value="${jdo.tck.testclasses.dir}/${iut.pmf.properties}"/>
             <sysproperty key="jdo.tck.testdata" value="${jdo.tck.testdata}"/>
             <sysproperty key="jdo.tck.standarddata"
                          value="${jdo.tck.standarddata}"/>
@@ -380,9 +380,9 @@
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="jdori.classpath"/>
         </path>
-        <u:loadText file="${basedir}/test/conf/${PMFProperties}"
+        <u:loadText file="${basedir}/test/conf/${jdori.pmf.properties}"
                     var="PMFProps"/>
-        <j:file name="${jdo.tck.testclasses.dir}/${PMFProperties}"
+        <j:file name="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"
                 omitXmlDeclaration="true">
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
@@ -402,9 +402,9 @@
                          value="${jdo.tck.resultprinterclass}"/>
             <sysproperty key="verbose" value="${verbose}"/>
             <sysproperty key="PMFProperties"
-                         value="${jdo.tck.testclasses.dir}/${PMFProperties}"/>
+                         value="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"/>
             <sysproperty key="PMF2Properties"
-                         value="${jdo.tck.testclasses.dir}/${PMFProperties}"/>
+                         value="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"/>
             <sysproperty key="jdo.tck.testdata" value="${jdo.tck.testdata}"/>
             <sysproperty key="jdo.tck.standarddata"
                          value="${jdo.tck.standarddata}"/>
@@ -426,7 +426,7 @@
                          value="${jdo.tck.requiredOptions}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
-            <jvmarg line="${jdo.runtck.sysproperties}"/>
+            <jvmarg line="${jdori.runtck.sysproperties}"/>
             <jvmarg line="${jdo.tck.debug.jvmargs}"/>
             
             <arg line="${jdo.tck.classes}"/>
@@ -482,7 +482,7 @@
            includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
            destdir="${enhanced.dir}"
            debug="on"
-           classpathref="project.classpath">
+           classpathref="jdo.tck.enhancer.classpath">
         </javac>
     </goal>
 
@@ -578,139 +578,100 @@
 
     <ant:property file="${basedir}/test/conf/alltests.list"/>
 
+    <!-- Jar files for the Implementation Under Test -->
     <path id="test_iut_jars" >
-        <fileset dir="iut_jars" includes="*.jar"/>
+        <fileset dir="${basedir}/iut_jars" includes="*.jar"/>
     </path>
 
-    <!-- Added jpox.enhancer.jarfile, renamed jpox.jdori.jarfile,
-    added bcel.jarfile, log4j.jarfile(for jpox enhancer) -->
-    <path id="project.classpath">
-        <!-- Directory where enhanced class files are located  -->
-        <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}/${jdo.tck.identitytype}.jar"/>
-        <!-- Directory where JDOTCK class files are located  -->
-        <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}"/>
-        <pathelement location="${jdo.tck.testclasses.dir}"/>
-        <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
-        <!-- Jar files for the implementation to be tested -->
-        <path refid="test_iut_jars" />
-        <!-- JUnit jar file -->
-        <pathelement location="${junit.jarfile}"/>
-        <!-- Spring jar files -->
-        <pathelement location="${springcore.jarfile}"/>
-        <pathelement location="${springbeans.jarfile}"/>
-        <pathelement location="${logging.jarfile}"/>
-        <!-- Jar files for other dependencies -->
-        <pathelement location="${jta.jarfile}" />
-        <pathelement location="${xmlparser}" />
-        <pathelement location="${bcel.jarfile}" />
-        <pathelement location="${log4j.jarfile}" />
-        <!-- Jar files for database -->
-        <pathelement location="${derby.jarfile}" />
-        <!-- Jar files for connection pooling -->
-        <pathelement location="${c3p0.jarfile}"/>
-        <pathelement location="${dbcp.jarfile}"/>
-        <pathelement location="${pool.jarfile}"/>
-        <pathelement location="${collections.jarfile}"/>
-    </path>
-
-    <!-- Paths needed for enhancement by jdori enhancer. -->
-    <path id="jdori.enhancer.classpath">
-        <!-- Directory where JDOTCK class files are located  -->
-        <pathelement location="${jdo.tck.testclasses.dir}"/>
-        <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
-        <!-- JUnit jar file -->
-        <pathelement location="${junit.jarfile}"/>
-        <!-- Jar files for the reference implementation -->
+    <!-- Jar files for the Reference Implementation -->
+    <path id="jdo.jdori.classpath">
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
-    </path>
-
-    <!-- Paths needed for enhancement by iut enhancer. -->
-    <path id="iut.enhancer.classpath">
-        <!-- Directory where JDOTCK class files are located  -->
-        <pathelement location="${jdo.tck.testclasses.dir}"/>
-        <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
-        <!-- JUnit jar file -->
-        <pathelement location="${junit.jarfile}"/>
-        <!-- Jar files for the implementation to be tested -->
-        <path refid="test_iut_jars" />
-        <pathelement path="${iut.enhancer.classpath}" />
-    </path>
-
-    <path id="jdori.classpath">
-        <!-- Directory where JDOTCK class files are located  -->
-        <pathelement location="${jdo.tck.testclasses.dir}"/>
-        <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
-        <pathelement location="${jta.jarfile}" />
-        <!-- JUnit jar file -->
-        <pathelement location="${junit.jarfile}"/>
-        <!-- Spring jar files -->
-        <pathelement location="${springcore.jarfile}"/>
-        <pathelement location="${springbeans.jarfile}"/>
-        <pathelement location="${logging.jarfile}"/>
-        <!-- Jar files for the reference implementation -->
-        <pathelement location="${jpox.jdori.jarfile}" />
-        <pathelement location="${xmlparser}" />
-        <pathelement location="${bcel.jarfile}" />
-        <pathelement location="${log4j.jarfile}" />
-        <pathelement location="${derby.jarfile}" />
-        <!--
-        <pathelement location="${core20.jarfile}" />
-        <pathelement location="${enhancer20.jarfile}" />
-        -->
-        <!-- Jar files for reference implmentation connection pooling -->
         <pathelement location="${jpox.dbcp.jarfile}" />
         <pathelement location="${jpox.c3p0.jarfile}" />
-        <!-- Jar files for connection pooling -->
+    </path>
+
+    <!-- Jar files for connection pooling -->
+    <path id="jdo.connectionpooling.classpath">
         <pathelement location="${c3p0.jarfile}"/>
         <pathelement location="${dbcp.jarfile}"/>
         <pathelement location="${pool.jarfile}"/>
         <pathelement location="${collections.jarfile}"/>
-        <!-- Jar files for jndi -->
-        <pathelement path="${jndi}"/>
     </path>
 
-    <path id="iut.classpath">
+    <!-- Jar files for the Spring framework -->
+    <path id="jdo.spring.classpath">
+        <pathelement location="${springcore.jarfile}"/>
+        <pathelement location="${springbeans.jarfile}"/>
+    </path>
+
+    <!-- Common enhancer classpath -->
+    <path id="jdo.tck.enhancer.classpath">
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
         <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- JUnit jar file -->
+        <pathelement location="${junit.jarfile}"/>
+        <!-- Commons-logging jar file (for compiling pa/pc classes) -->
+        <pathelement location="${logging.jarfile}"/>
+    </path>
+
+    <!-- Common TCK execution classpath -->
+    <path id="jdo.tck.execution.classpath">
+       <!-- Directory where JDOTCK class files are located  -->
+        <pathelement location="${jdo.tck.testclasses.dir}"/>
+        <!-- JDO jar file  -->
+        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <!-- Commons logging jar file  -->
+        <pathelement location="${logging.jarfile}"/>
         <pathelement location="${jta.jarfile}" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Spring jar files -->
-        <pathelement location="${springcore.jarfile}"/>
-        <pathelement location="${springbeans.jarfile}"/>
-        <pathelement location="${logging.jarfile}"/>
-        <!-- Jar files for the implementation under test -->
-        <pathelement location="${jpox.jdori.jarfile}" />
-        <pathelement location="${xmlparser}" />
-        <pathelement location="${bcel.jarfile}" />
-        <pathelement location="${log4j.jarfile}" />
-        <!--
-        <pathelement location="${core20.jarfile}" />
-        <pathelement location="${enhancer20.jarfile}" />
-        -->
+        <path refid="jdo.spring.classpath" />
+        <!-- Jar files for connection pooling -->
+        <path refid="jdo.connectionpooling.classpath" />
+        <!-- Jar files for jndi -->
+        <pathelement path="${jndi}"/>
         <!-- Jar files for database -->
         <pathelement location="${derby.jarfile}" />
-        <!-- Jar files for implmentation under test connection pooling -->
-        <pathelement location="${jpox.dbcp.jarfile}" />
-        <pathelement location="${jpox.c3p0.jarfile}" />
-        <!-- Jar files for connection pooling -->
-        <pathelement location="${c3p0.jarfile}"/>
-        <pathelement location="${dbcp.jarfile}"/>
-        <pathelement location="${pool.jarfile}"/>
-        <pathelement location="${collections.jarfile}"/>
-        <!-- Jar files for jndi -->
-        <pathelement path="${jndi}"/>
+    </path>
+
+    <!-- Paths needed for enhancement by JDORI enhancer. -->
+    <path id="jdori.enhancer.classpath">
+        <!-- Common enhancer classpath -->
+        <path refid="jdo.tck.enhancer.classpath"/>
+        <!-- Jar files for the Reference Implementation -->
+        <path refid="jdo.jdori.classpath" />
+    </path>
+
+    <!-- Paths needed for enhancement by IUT enhancer. -->
+    <path id="iut.enhancer.classpath">
+        <!-- Common enhancer classpath -->
+        <path refid="jdo.tck.enhancer.classpath"/>
+        <!-- Jar files for the Implementation Under Test -->
+        <path refid="test_iut_jars" />
+    </path>
+
+    <!-- Paths needed to run the TCK on the JDO Reference Implementation. -->
+    <path id="jdori.classpath">
+        <!-- Common TCK execution classpath -->
+        <path refid="jdo.tck.execution.classpath" />
+        <!-- Jar files for the Reference Implementation -->
+        <path refid="jdo.jdori.classpath" />
+    </path>
+
+    <!-- Paths needed to run the TCK on the Implementation Under Test. -->
+    <path id="iut.classpath">
+        <!-- Common TCK execution classpath -->
+        <path refid="jdo.tck.execution.classpath" />
+        <!-- Jar files for the implementation under test -->
+        <path refid="test_iut_jars" />
     </path>
 
     <!-- ==== -->
