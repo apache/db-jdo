@@ -144,7 +144,7 @@
         <constructor-arg index="4" type="java.util.Date"><value>5/Sep/1972</value></constructor-arg>
         <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>15/Aug/2002</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>15000</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>15</value></constructor-arg>
         <property name="weeklyhours"><value>19</value></property>
         <property name="medicalInsurance"><ref bean="medicalIns3"/></property>
         <property name="dentalInsurance"><ref bean="dentalIns3"/></property>
@@ -175,7 +175,7 @@
         <constructor-arg index="4" type="java.util.Date"><value>6/Sep/1973</value></constructor-arg>
         <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
         <constructor-arg index="6" type="java.util.Date"><value>15/Apr/2001</value></constructor-arg>
-        <constructor-arg index="7" type="double"><value>13000</value></constructor-arg>
+        <constructor-arg index="7" type="double"><value>13</value></constructor-arg>
         <property name="medicalInsurance"><ref bean="medicalIns4"/></property>
         <property name="dentalInsurance"><ref bean="dentalIns4"/></property>
         <property name="phoneNumbers">
