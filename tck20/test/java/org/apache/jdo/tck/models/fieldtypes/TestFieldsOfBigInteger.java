@@ -75,7 +75,7 @@ public class TestFieldsOfBigInteger extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        BigInteger firstValue = new BigInteger("2007908");
+        BigInteger firstValue = new BigInteger("3958262948201938571947294821");
         BigInteger secondValue = new BigInteger("896738");
         tx.begin();
         FieldsOfBigInteger pi = new FieldsOfBigInteger();

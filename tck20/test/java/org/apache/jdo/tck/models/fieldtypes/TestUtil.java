@@ -262,7 +262,7 @@ public class TestUtil {
                     vec.add(4, new BigDecimal("456456.4353452342"));
                     break;
                   case(7):
-                    vec.add(0, new BigInteger("345345345"));
+                    vec.add(0, new BigInteger("345345345345345345345345"));
                     vec.add(1, new BigInteger("543543543543544"));
                     vec.add(2, new BigInteger("65323423432423423"));
                     vec.add(3, new BigInteger("87845634534543"));
