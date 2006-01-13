@@ -47,6 +47,15 @@ public class ResultSummary implements Serializable {
     
     /* The number of failed configurations. */
     private int nrOfFailedConfigurations = 0;
+
+    /* The total number of tests. */
+    private int totalTestCount = 0;
+
+    /* The total number of failures. */
+    private int totalFailureCount = 0;
+    
+    /* The total number of errors. */
+    private int totalErrorCount = 0;
     
     /**
      * Deserializes an instance and prints that instance to
@@ -61,7 +70,7 @@ public class ResultSummary implements Serializable {
         String directory = args[0] + File.separator;
         ResultSummary resultSummary = ResultSummary.load(directory);
         String newLine = System.getProperty("line.separator");
-        String resultMessage = "Result: " + resultSummary; 
+        String resultMessage = resultSummary.toString();
         String message = "-------" + newLine + resultMessage;
         appendTCKResultMessage(directory, message);
         System.out.println(resultMessage);
@@ -147,8 +156,11 @@ public class ResultSummary implements Serializable {
      */
     private void increment(TestResult result) {
         this.nrOfTotalConfigurations++;
+        this.totalTestCount += result.runCount();
         if (!result.wasSuccessful()) {
             this.nrOfFailedConfigurations++;
+            this.totalFailureCount += result.failureCount();
+            this.totalErrorCount += result.errorCount();
         }
     }
     
@@ -182,13 +194,21 @@ public class ResultSummary implements Serializable {
      * @see Object#toString()
      */
     public String toString() {
-        String result;
+        String newLine = System.getProperty("line.separator");
+        StringBuffer result = new StringBuffer();
+        result.append("Total tests run: ").append(totalTestCount).append(".");
         if (this.nrOfFailedConfigurations==0) {
-            result = "All (" + this.nrOfTotalConfigurations + ") configurations passed.";
+            result.append(newLine);
+            result.append("All (").append(this.nrOfTotalConfigurations);
+            result.append(") configurations passed.");
         } else {
-            result = String.valueOf(this.nrOfFailedConfigurations) + " of " +
-                     this.nrOfTotalConfigurations + " configurations failed.";
+            result.append(" Failures: ").append(totalFailureCount);
+            result.append(", Errors: ").append(totalErrorCount).append(".");
+            result.append(newLine);
+            result.append(this.nrOfFailedConfigurations).append(" of ");
+            result.append(this.nrOfTotalConfigurations);
+            result.append(" configurations failed.");
         }
-        return result;
+        return result.toString();
     }
 }

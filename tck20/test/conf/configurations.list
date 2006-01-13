@@ -1,5 +1,15 @@
 jdo.tck.cfglist = \
-                 alltests.conf \
+                 instancecallbacks.conf \
+                 jdohelper.conf \
+                 pm.conf \
+                 pmf.conf \
+                 enhancement.conf \
+                 extents.conf \
+                 lifecycle.conf \
+                 models.conf \
+                 query.conf \
+                 jdoql.conf \
+                 transactions.conf \
                  companyNoRelationships.conf \
                  companyEmbedded.conf \
                  company1-1Relationships.conf \
