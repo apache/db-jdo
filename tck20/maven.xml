@@ -217,7 +217,6 @@
 
         <echo>Install schema: ${jdo.tck.schema}
               for db ${jdo.tck.database} id ${jdo.tck.identitytype}</echo>
-        <!-- todo: abstract the command line below for other databases -->
         <java classname="org.apache.derby.tools.ij" fork="true">
               <classpath>
                   <pathelement location="${derbytools.jarfile}"/>
@@ -654,6 +653,8 @@
     <path id="iut.enhancer.classpath">
         <!-- Common enhancer classpath -->
         <path refid="jdo.tck.enhancer.classpath"/>
+        <!-- IUT enhancement classpath from build.properties -->
+        <pathelement path="${iut.enhancer.cp}" />
         <!-- Jar files for the Implementation Under Test -->
         <path refid="test_iut_jars" />
     </path>
@@ -670,6 +671,8 @@
     <path id="iut.classpath">
         <!-- Common TCK execution classpath -->
         <path refid="jdo.tck.execution.classpath" />
+        <!-- IUT execution classpath from build.properties -->
+        <pathelement path="${iut.runtck.classpath}" />
         <!-- Jar files for the implementation under test -->
         <path refid="test_iut_jars" />
     </path>
