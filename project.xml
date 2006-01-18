@@ -22,7 +22,6 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>Java Data Objects (JDO)</name>
-    <groupId>apache-jdo</groupId>
     <organization>
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org</url>

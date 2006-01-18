@@ -27,7 +27,7 @@
     <!-- ==================== -->
 
     <goal name="default">
-        <attainGoal name="jar:install-snapshot"/>
+        <attainGoal name="jar:install"/>
     </goal>
 
     <goal name="build">

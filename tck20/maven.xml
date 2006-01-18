@@ -27,7 +27,7 @@
     <!-- ==================== -->
 
     <goal name="default">
-        <attainGoal name="jar:install-snapshot"/>
+        <attainGoal name="jar:install"/>
     </goal>
 
     <goal name="help">
@@ -614,7 +614,7 @@
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <pathelement location="${jdo.api.jarfile}"/>
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Commons-logging jar file (for compiling pa/pc classes) -->
@@ -626,7 +626,7 @@
        <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <pathelement location="${jdo.api.jarfile}"/>
         <!-- Commons logging jar file  -->
         <pathelement location="${logging.jarfile}"/>
         <pathelement location="${jta.jarfile}" />

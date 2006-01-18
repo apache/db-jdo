@@ -22,8 +22,9 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>JDO2 API</name>
+    <groupId>javax.jdo</groupId>
     <artifactId>jdo2-api</artifactId>
-    <currentVersion>2.0-SNAPSHOT</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>javax.jdo</package>
     <shortDescription>Java Data Object 2.0 (JDO) API</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
@@ -69,6 +70,12 @@ Request 243 under the auspices of the Java Community Process.</description>
                 <directory>${basedir}/src/dtd</directory>
                 <includes>
                     <include>javax/jdo/*.dtd</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/dtd</directory>
+                <includes>
+                    <include>javax/jdo/*.xsd</include>
                 </includes>
             </resource>
         </resources>

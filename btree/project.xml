@@ -23,6 +23,7 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>Binary Tree for FOStore JDO</name>
+    <groupId>org.apache.jdo</groupId>
     <artifactId>jdo-btree</artifactId>
     <currentVersion>1.1</currentVersion>
     <package>org.netbeans.mdr</package>

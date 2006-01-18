@@ -21,8 +21,9 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>JDO2 Technology Compatibility Kit</name>
+    <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-tck</artifactId>
-    <currentVersion>2.0-SNAPSHOT</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo.tck</package>
     <shortDescription>Java Data Object 2.0 (JDO) TCK</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request JSR 243 under the auspices of the Java Community Process.
@@ -36,17 +37,17 @@ NOTE!! This project has a nonstandard structure. The source files are located in
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-enhancer</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-core</artifactId>
             <version>SNAPSHOT</version>
         </dependency>

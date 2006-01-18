@@ -26,7 +26,7 @@
     <!-- ==================== -->
 
     <goal name="default">
-        <attainGoal name="jar:install-snapshot"/>
+        <attainGoal name="jar:install"/>
     </goal>
 
     <goal name="build">
@@ -76,7 +76,7 @@
         <ant target="runtest.list"
              dir="${basedir}/test" antfile="runtest.xml">
             <property name="testlist" value="${jdo.testlist}"/>
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
             <property name="jdoruntime" value="${jdo.jdoruntime.jarfile}"/>
@@ -101,7 +101,7 @@
              dir="${basedir}/test" antfile="runtest.xml">
             <property name="policyfile" value="${jdo.security.policy}"/>
             <property name="testlist" value="${jdo.testlist}"/>
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
             <property name="jdoruntime" value="${jdo.jdoruntime.jarfile}"/>
@@ -128,7 +128,7 @@
     <goal name="runtest.multiJVMtests" prereqs="pcclasses, testjar.build">
         <ant target="runtest.multiJVMtests" 
              dir="${basedir}/test" antfile="runtest.xml">
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
             <property name="jdoruntime" value="${jdo.jdoruntime.jarfile}"/>
@@ -320,7 +320,7 @@
 
     <goal name="fsuid2.build">
         <ant dir="${basedir}/test/fsuid2" target="build">
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
             <property name="jdoenhancer" value="${jdo.jdoenhancer.jarfile}"/>
             <property name="logging" value="${logging.jarfile}"/>

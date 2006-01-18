@@ -24,7 +24,7 @@
     <!-- ============== -->
     <name>JDO2 Implementation (FOStore)</name>
     <artifactId>jdo2-fostore</artifactId>
-    <currentVersion>2.0-SNAPSHOT</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Object 2.0 (JDO) Core</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
@@ -36,38 +36,34 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-core</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-enhancer</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo2-query</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-runtime</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
-            <artifactId>jdo-btree</artifactId>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-core</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <id>commons-logging</id>
-            <version>1.0.4</version>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-enhancer</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-query</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo-btree</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>geronimo-spec</groupId>
@@ -78,6 +74,11 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>antlr</groupId>
