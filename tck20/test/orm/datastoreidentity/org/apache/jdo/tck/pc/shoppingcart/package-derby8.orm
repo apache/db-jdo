@@ -2,13 +2,14 @@
 <!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
 <!--
 This file contains the schema information when an implementation
-has application identity.
+has datastore identity.
 -->
 <orm>
     <package name="org.apache.jdo.tck.pc.shoppingcart">
 
         <class name="Cart" table="CARTS">
             <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="CART_ID"/>
             <field name="customerId" column="CUSTOMER_ID"/>
@@ -17,6 +18,7 @@ has application identity.
 
         <class name="CartEntry" table="CART_ENTRIES">
             <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="ID"/>
             <field name="quantity" column="QUANTITY"/>
@@ -26,6 +28,7 @@ has application identity.
 
         <class name="Product" table="PRODUCTS">
             <datastore-identity strategy="uuid-hex" column="DATASTORE_ID"/>
+            <version strategy="version-number" column="VERSION"/>
 
             <field name="sku" column="SKU"/>
             <field name="description" column="DESCRIPTION"/>
@@ -33,6 +36,7 @@ has application identity.
 
         <class name="Undetachable" table="UNDETACHABLES">
             <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="ID"/>
             <field name="foo" column="FOO"/>
