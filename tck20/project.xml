@@ -148,10 +148,10 @@ NOTE!! This project has a nonstandard structure. The source files are located in
     <!-- Build Specification -->
     <!-- =================== -->
     <build>
-        <sourceDirectory>test/java</sourceDirectory>
+        <sourceDirectory>src/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>${basedir}/test/java</directory>
+                <directory>${basedir}/src/java</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
@@ -159,7 +159,7 @@ NOTE!! This project has a nonstandard structure. The source files are located in
         </resources>
         <resources>
             <resource>
-                <directory>${basedir}/test/conf</directory>
+                <directory>${basedir}/src/conf</directory>
                 <includes>
                     <include>enhancement-test.properties</include>
                     <include>commons-logging.properties</include>

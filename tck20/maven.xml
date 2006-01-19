@@ -103,7 +103,7 @@
 
         <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
         <j:if test="${cfglist == null}">
-            <u:properties file="${basedir}/test/conf/configurations.list"/>
+            <u:properties file="${basedir}/src/conf/configurations.list"/>
         </j:if>
 
         <echo>Configurations for this run are "${jdo.tck.cfglist}". To override this, use -Djdo.tck.cfglist=xxx on the maven command line.</echo>
@@ -180,7 +180,7 @@
         <!-- load mappings into a HashSet to unique them -->
         <j:new var="uniqueMappings" className="java.util.HashSet"/>
         <j:forEach var="cfg" items="${jdo.tck.cfglist}">
-            <u:properties file="${basedir}/test/conf/${cfg}"/>
+            <u:properties file="${basedir}/src/conf/${cfg}"/>
             <j:set var="mapping" value="${jdo.tck.mapping}"/>
             <j:set var="foo">
                 <j:expr value="${uniqueMappings.add(mapping)}"/>
@@ -210,7 +210,7 @@
 
         <mkdir dir="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
         <copy todir="${jdo.tck.testdir}/database/${jdo.tck.database}">
-            <fileset dir="${basedir}/test/conf">
+            <fileset dir="${basedir}/src/conf">
                <include name="${jdo.tck.database}.properties"/>
             </fileset>
         </copy>
@@ -222,7 +222,7 @@
                   <pathelement location="${derbytools.jarfile}"/>
                   <pathelement location="${derby.jarfile}"/>
               </classpath>
-              <arg value="${basedir}/test/sql/${jdo.tck.database}/${jdo.tck.identitytype}/${jdo.tck.schema}"/>
+              <arg value="${basedir}/src/sql/${jdo.tck.database}/${jdo.tck.identitytype}/${jdo.tck.schema}"/>
               <sysproperty key="derby.system.home"
                       value="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
         </java>
@@ -256,7 +256,7 @@
                 <j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
                     <!-- get jdo.tck.classes (list of testclasses),
                          jdo.tck.testdata, jdo.tck.mapping -->
-                    <u:properties file="${basedir}/test/conf/${jdo.tck.cfg}"/>
+                    <u:properties file="${basedir}/src/conf/${jdo.tck.cfg}"/>
                     <attainGoal name="exclude"/>
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
@@ -296,7 +296,7 @@
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
                 <j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
-                    <u:properties file="${basedir}/test/conf/${jdo.tck.cfg}"/>
+                    <u:properties file="${basedir}/src/conf/${jdo.tck.cfg}"/>
                     <attainGoal name="exclude"/>
                     <j:new var="schemaname" className="java.lang.String"/>
                     <j:set var="id" value="${jdo.tck.identitytype}"/>
@@ -320,7 +320,7 @@
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="iut.classpath"/>
         </path>
-         <u:loadText file="${basedir}/test/conf/${iut.pmf.properties}"
+         <u:loadText file="${basedir}/src/conf/${iut.pmf.properties}"
                     var="PMFProps"/>
         <j:file name="${jdo.tck.testclasses.dir}/${iut.pmf.properties}"
                 omitXmlDeclaration="true">
@@ -379,7 +379,7 @@
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="jdori.classpath"/>
         </path>
-        <u:loadText file="${basedir}/test/conf/${jdori.pmf.properties}"
+        <u:loadText file="${basedir}/src/conf/${jdori.pmf.properties}"
                     var="PMFProps"/>
         <j:file name="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"
                 omitXmlDeclaration="true">
@@ -457,9 +457,9 @@
         <condition property="enhancement.required">
             <not>
                 <uptodate targetfile="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar">
-                    <srcfiles dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
+                    <srcfiles dir="${basedir}/src/jdo/${jdo.tck.identitytype}"
                           includes="**/*.jdo, **/*.jdoquery, **/*.jdoTest.properties"/>
-                    <srcfiles dir="${basedir}/test/java"
+                    <srcfiles dir="${basedir}/src/java"
                           includes="${jdo.tck.pcclasses.sources},
                                     ${jdo.tck.paclasses.sources}"/>
                 </uptodate>
@@ -473,11 +473,11 @@
         <!-- copy metadata -->
         <mkdir dir="${enhanced.dir}" />
         <copy todir="${enhanced.dir}">
-            <fileset dir="${basedir}/test/jdo/${jdo.tck.identitytype}"
+            <fileset dir="${basedir}/src/jdo/${jdo.tck.identitytype}"
                      includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
         <!-- compile pc and pa classes -->
-        <javac srcdir="${basedir}/test/java"
+        <javac srcdir="${basedir}/src/java"
            includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
            destdir="${enhanced.dir}"
            debug="on"
@@ -559,9 +559,9 @@
 
     <goal name="package">
         <copy todir="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}">
-            <fileset dir="${basedir}/test/orm/${jdo.tck.identitytype}"
+            <fileset dir="${basedir}/src/orm/${jdo.tck.identitytype}"
                      includes="**/*.orm"/>
-            <fileset dir="${basedir}/test/testdata"
+            <fileset dir="${basedir}/src/testdata"
                      includes="**/*.xml"/>
         </copy>
         <delete file="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
@@ -575,7 +575,8 @@
     <!-- Classpath -->
     <!-- ========= -->
 
-    <ant:property file="${basedir}/test/conf/alltests.list"/>
+    <ant:property file="${basedir}/src/conf/alltests.list"/>
+    <mkdir dir="iut_jars"/>
 
     <!-- Jar files for the Implementation Under Test -->
     <path id="test_iut_jars" >
@@ -684,17 +685,38 @@
     <goal name="copyprops">
        <echo>copyprops:</echo>
         <copy todir="${jdo.tck.testclasses.dir}" >
-            <fileset dir="${basedir}/test/conf">
+            <fileset dir="${basedir}/src/conf">
                <include name="commons-logging.properties"/>
                <include name="simplelog.properties"/>
                <include name="logging.properties"/>
                <include name="log4j.properties"/>
                <include name="jndi.properties"/>
             </fileset>
-            <fileset dir="${basedir}/test/java">
+            <fileset dir="${basedir}/src/java">
                 <include name="**/*.xml"/>
             </fileset>
         </copy>
     </goal>
+
+    <preGoal name="dist:build-src">
+        <copy toDir="${maven.dist.src.archive.dir}">
+             <fileset dir="${basedir}/..">
+                 <include name="project.properties"/>
+                 <include name="project.xml"/>
+             </fileset>
+        </copy>
+        <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
+    </preGoal>
+
+    <postGoal name="dist:build-src">
+         <tstamp>
+             <format property="distdate" pattern="dd_MMM_yyyy" locale="en"/>
+         </tstamp>
+         <u:replace var="version" oldChar="." newChar="_" value="${pom.currentVersion}"/>
+         <j:set var="distfile" value="jdotck-${version}-src-${distdate}.zip"/>
+         <copy file="${maven.build.dir}/distributions/${maven.final.name}-src.zip" 
+               tofile="${maven.build.dir}/distributions/${distfile}" 
+               failonerror="false"/>
+    </postGoal>
 
 </project>
