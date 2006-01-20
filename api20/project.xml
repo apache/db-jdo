@@ -70,11 +70,6 @@ Request 243 under the auspices of the Java Community Process.</description>
                 <directory>${basedir}/src/dtd</directory>
                 <includes>
                     <include>javax/jdo/*.dtd</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/dtd</directory>
-                <includes>
                     <include>javax/jdo/*.xsd</include>
                 </includes>
             </resource>
