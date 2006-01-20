@@ -704,6 +704,9 @@
                  <include name="project.properties"/>
                  <include name="project.xml"/>
              </fileset>
+             <fileset dir="${basedir}">
+                 <include name="RunRules.html"/>
+             </fileset>
         </copy>
         <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
     </preGoal>
