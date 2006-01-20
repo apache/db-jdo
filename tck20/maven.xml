@@ -699,27 +699,31 @@
     </goal>
 
     <preGoal name="dist:build-src">
+        <echo>Copying RunRules.html to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
+        <copy toDir="${maven.dist.src.archive.dir}/${maven.final.name}"
+              file="${basedir}/RunRules.html"/>
+        <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
         <copy toDir="${maven.dist.src.archive.dir}">
              <fileset dir="${basedir}/..">
                  <include name="project.properties"/>
                  <include name="project.xml"/>
-             </fileset>
-             <fileset dir="${basedir}">
-                 <include name="RunRules.html"/>
+                 <include name="README.txt"/>
              </fileset>
         </copy>
+        <echo>Creating ${maven.dist.src.archive.dir}/lib/ext</echo>
         <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
     </preGoal>
 
     <postGoal name="dist:build-src">
+         <!-- copy zip distribution to file with date in the name -->   
          <tstamp>
              <format property="distdate" pattern="dd_MMM_yyyy" locale="en"/>
          </tstamp>
          <u:replace var="version" oldChar="." newChar="_" value="${pom.currentVersion}"/>
-         <j:set var="distfile" value="jdotck-${version}-src-${distdate}.zip"/>
-         <copy file="${maven.build.dir}/distributions/${maven.final.name}-src.zip" 
-               tofile="${maven.build.dir}/distributions/${distfile}" 
-               failonerror="false"/>
+         <j:set var="zipfile" value="${maven.dist.dir}/${maven.final.name}-src.zip"/>
+         <j:set var="distfile" value="${maven.dist.dir}/${maven.final.name}-src-${distdate}.zip"/>
+         <echo>Create ${distfile}</echo>
+         <copy file="${zipfile}" tofile="${distfile}" failonerror="false"/>
     </postGoal>
 
 </project>

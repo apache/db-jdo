@@ -158,4 +158,17 @@
         </j:forEach>
     </goal>
 
+    <preGoal name="dist:build-src">
+        <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
+        <copy toDir="${maven.dist.src.archive.dir}">
+             <fileset dir="${basedir}/..">
+                 <include name="project.properties"/>
+                 <include name="project.xml"/>
+                 <include name="README.txt"/>
+             </fileset>
+        </copy>
+        <echo>Creating ${maven.dist.src.archive.dir}/lib/ext</echo>
+        <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
+    </preGoal>
+
 </project>
