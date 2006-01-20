@@ -176,7 +176,7 @@ public class TestArrayCollections extends JDO_Test {
                             ).equals("BigDecimal")) {
                     for (int j = 0; j < actual.length; ++j) {
                         BigDecimal expectedBD = (BigDecimal)expected[j];
-                        Object actualBD = (BigDecimal)actual[j];
+                        BigDecimal actualBD = (BigDecimal)actual[j];
                         if ((expectedBD.compareTo(actualBD) != 0)) {
                             sbuf.append("\nFor element " + i + "[" + j +
                                     "], expected = " + expectedBD +

@@ -171,7 +171,7 @@ public class TestArrayListCollections extends JDO_Test {
                     for (int j = 0; j < actualL.size(); ++j) {
                         BigDecimal bigDecCompareWith =
                             (BigDecimal)expectedL.get(j);
-                        Object bigDecVal = actualL.get(j);
+                        BigDecimal bigDecVal = (BigDecimal)actualL.get(j);
                         if ((bigDecCompareWith.compareTo(bigDecVal) != 0)) {
                             sbuf.append("\nFor element " + i + "(" + j +
                                     "), expected = " + expected +

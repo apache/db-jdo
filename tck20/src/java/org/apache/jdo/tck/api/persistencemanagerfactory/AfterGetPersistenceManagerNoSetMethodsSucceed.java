@@ -207,7 +207,8 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
         GetProperty(String methodName) {
             this.methodName = methodName;
             try {
-                method = PersistenceManagerFactory.class.getMethod(methodName, null);
+                method = PersistenceManagerFactory.class.getMethod(methodName,
+                        (Class[])null);
             } catch (NoSuchMethodException ex) {
                 throw new JDOFatalInternalException(
                     "Method not defined: " + methodName);
@@ -215,7 +216,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
         }
         void execute(PersistenceManagerFactory pmf) {
             try {
-                method.invoke(pmf, null);
+                method.invoke(pmf, (Object[])null);
             } catch (IllegalAccessException ex) {
                 throw new JDOFatalInternalException("IllegalAccessException", ex);
             } catch (java.lang.reflect.InvocationTargetException ex) {
