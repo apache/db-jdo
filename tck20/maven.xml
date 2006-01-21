@@ -576,7 +576,6 @@
     <!-- ========= -->
 
     <ant:property file="${basedir}/src/conf/alltests.list"/>
-    <mkdir dir="iut_jars"/>
 
     <!-- Jar files for the Implementation Under Test -->
     <path id="test_iut_jars" >
@@ -699,9 +698,15 @@
     </goal>
 
     <preGoal name="dist:build-src">
-        <echo>Copying RunRules.html to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
-        <copy toDir="${maven.dist.src.archive.dir}/${maven.final.name}"
-              file="${basedir}/RunRules.html"/>
+        <echo>Copying RunRules.html, assertions, and iut_jars to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
+        <copy toDir="${maven.dist.src.archive.dir}/${maven.final.name}">
+             <fileset dir="${basedir}">
+                 <include name="RunRules.html"/>
+                 <include name="assertions/**"/>
+                 <include name="iut_jars"/>
+                 <exclude name="iut_jars/*"/>
+             </fileset>
+        </copy>
         <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
         <copy toDir="${maven.dist.src.archive.dir}">
              <fileset dir="${basedir}/..">
