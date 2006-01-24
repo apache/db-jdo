@@ -97,14 +97,85 @@ public class InstanceLifecycleEvent
     }
 
     /**
-     *	Returns the "other" object.
-     * @return the "other" object
+     * The source object of the Event.  Although not deprecated,
+     * it is recommended that the the methods
+     * <code>getPersistentInstance()</code> and
+     * <code>getDetachedInstance()</code> be used instead.
+     *
+     * @return   The persistent instance on any pre- callback except preAttach,
+     * or the detached instance for a postDetach or preAttach callback.
+     *
+     * @see #getPersistentInstance()
+     * @see #getDetachedInstance()
+     * @see "Section 12.15, Java Data Objects 2.0 Specification"
+     */
+    public Object getSource() {
+        return super.getSource();
+    }
+
+    /**
+     * The target object of the Event.  Although not deprecated,
+     * it is recommended that the the methods
+     * <code>getPersistentInstance()</code> and
+     * <code>getDetachedInstance()</code> be used instead.
+     *
+     * @return The detached instance for preDetach and postAttach, the persistent instance otherwise.
+     *
      * @since 2.0
+     * @see #getPersistentInstance()
+     * @see #getDetachedInstance()
+     * @see "Section 12.15, Java Data Objects 2.0 Specification"
      */
     public Object getTarget () {
         return target;
     }
-    
+
+    /**
+     * Returns the persistent instance involved in the event.
+     *
+     * @return The persistent instance involved in the event, or null if there was none.
+     *
+     * @see "Section 12.15, Java Data Objects 2.0 Specification"
+     */
+    public Object getPersistentInstance() {
+        switch (getEventType()) {
+            case DETACH:
+                return target == null
+                        ? getSource()   // preDetach:  source is persistent instance
+                        : getTarget();  // postDetach:  target is persistent instance
+            case ATTACH:
+                return target == null
+                        ? null          // preAttach:  no persistent instance yet
+                        : getSource();  // postAttach:  source is persistent instance
+        }
+
+        // for all other events, source is persistent instance
+        return getSource();
+    }
+
+    /**
+     * Returns the detached instance involved in the event.
+     *
+     * @return The detached instance involved in the event, or null if there was none.
+     *
+     * @see "Section 12.15, Java Data Objects 2.0 Specification"
+     */
+    public Object getDetachedInstance() {
+        switch (getEventType()) {
+            case DETACH:
+                return target == null
+                        ? null          // preDetach:  no detached instance yet
+                        : getSource();  // postDetach:  source is detached instance
+            case ATTACH:
+                return target == null
+                        ? getSource()   // preAttach:  source is detached instance
+                        : getTarget();  // postAttach:  target is detached instance
+        }
+
+        // for all other events, there is no detached instance
+        return null;
+    }
+
     /**
      * Serialization is not supported for InstanceLifecycleEvents.
      * param out the output stream
