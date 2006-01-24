@@ -698,15 +698,17 @@
     </goal>
 
     <preGoal name="dist:build-src">
-        <echo>Copying RunRules.html, assertions, and iut_jars to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
+        <echo>Copying build.properties, RunRules.html, assertions, and iut_jars to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
         <copy toDir="${maven.dist.src.archive.dir}/${maven.final.name}">
              <fileset dir="${basedir}">
                  <include name="RunRules.html"/>
+                 <include name="build.properties"/>
                  <include name="assertions/**"/>
                  <include name="iut_jars"/>
                  <exclude name="iut_jars/*"/>
              </fileset>
         </copy>
+        <delete file="${maven.dist.src.archive.dir}/${maven.final.name}/build.xml"/>
         <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
         <copy toDir="${maven.dist.src.archive.dir}">
              <fileset dir="${basedir}/..">
