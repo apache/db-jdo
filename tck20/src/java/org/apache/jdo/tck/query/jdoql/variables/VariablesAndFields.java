@@ -34,10 +34,16 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion ID:</B> A14.6.5-4.
  *<BR>
  *<B>Assertion Description: </B>
- * Names are treated as variable names if they are explicitly declared 
- * via declareVariables. Otherwise, names are treated as field names 
- * if they are members of the candidate class. 
- * Finally, names are treated as implicitly defined variable names.
+ * Names in the filter are treated as parameters if they are explicitly 
+ * declared via declareParameters or if they begin with ":".
+ * Names are treated as variable names if they are explicitly declared
+ * via declareVariables.
+ * Names are treated as field or property names if they are fields or 
+ * properties of the candidate class.
+ * Names are treated as class names if they exist in the package of the 
+ * candidate class, have been imported, or if they are in the java.lang
+ * package. e.g. Integer.
+ * Otherwise, names are treated as implicitly defined variable names.
  */
 public class VariablesAndFields extends QueryTest {
 
@@ -123,6 +129,23 @@ public class VariablesAndFields extends QueryTest {
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+                /* Note: the variable name is the same as the class
+                 * name except for capitalization. This is legal. */
+        /*UNIQUE*/      null,
+        /*RESULT*/      null, 
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "team.contains(employee) & " +
+                        "employee.firstname == 'emp1First'",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
     
@@ -134,7 +157,8 @@ public class VariablesAndFields extends QueryTest {
         getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        new LinkedList()
+        new LinkedList(),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
     };
             
     /**
