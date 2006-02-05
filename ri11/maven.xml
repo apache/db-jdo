@@ -83,7 +83,7 @@
         <ant target="runtest.list"
              dir="${basedir}/test" antfile="runtest.xml">
             <property name="testlist" value="${jdo.testlist}"/>
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdori" value="${maven.build.dir}/classes"/>
             <property name="jdoritests" value="${jdo.testclasses.jarfile}"/>
@@ -105,7 +105,7 @@
              dir="${basedir}/test" antfile="runtest.xml">
             <property name="policyfile" value="${jdo.security.policy}"/>
             <property name="testlist" value="${jdo.testlist}"/>
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdori" value="${maven.build.dir}/classes"/>
             <property name="jdoritests" value="${jdo.testclasses.jarfile}"/>
@@ -129,7 +129,7 @@
     <goal name="runtest.multiJVMtests" prereqs="pcclasses, testjar.build">
         <ant target="runtest.multiJVMtests" 
              dir="${basedir}/test" antfile="runtest.xml">
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdobtree" value="${jdo.jdobtree.jarfile}"/>
             <property name="jdori" value="${maven.build.dir}/classes"/>
             <property name="jdoritests" value="${jdo.testclasses.jarfile}"/>
@@ -361,7 +361,7 @@
 
     <goal name="fsuid2.build">
         <ant dir="${basedir}/test/fsuid2" target="build">
-            <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
+            <property name="jdoapi" value="${jdo.api.jarfile}"/>
             <property name="jdori" value="${maven.build.dest}"/>
             <property name="logging" value="${logging.jarfile}"/>
             <property name="fsuid2.jarfile" value="${jdo.fsuid.jarfile}"/>

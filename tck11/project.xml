@@ -24,8 +24,9 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>JDO1 Technology Compatibility Kit</name>
+    <groupId>org.apache.jdo</groupId>
     <artifactId>jdo1-tck</artifactId>
-    <currentVersion>1.1</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo.tck</package>
     <shortDescription>Java Data Object (JDO) TCK</shortDescription>
     <description>
@@ -64,17 +65,17 @@ There are no unit tests in this project.
             <version>1.0.1B-rc2</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>javax.jdo</groupId>
             <artifactId>jdo1-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo-btree</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo1-ri</artifactId>
             <version>SNAPSHOT</version>
         </dependency>

@@ -314,7 +314,7 @@
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <pathelement location="${jdo.api.jarfile}"/>
         <pathelement location="${jta.jarfile}" />
         <!-- Jar files for the implementation to be tested -->
         <path refid="test_iut_jars" />
@@ -337,7 +337,7 @@
         <!-- Directory where JDOTCK class files are located  -->
         <pathelement location="${jdo.tck.testclasses.dir}"/>
         <!-- JDO jar file  -->
-        <pathelement location="${jdo.jdoapi.jarfile}"/>
+        <pathelement location="${jdo.api.jarfile}"/>
         <pathelement location="${jta.jarfile}" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>

@@ -24,7 +24,7 @@
     <name>JDO1 API</name>
     <groupId>javax.jdo</groupId>
     <artifactId>jdo1-api</artifactId>
-    <currentVersion>1.1</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>javax.jdo</package>
     <shortDescription>Java Data Object (JDO) API</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 

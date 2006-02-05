@@ -23,8 +23,9 @@
     <!-- Identification -->
     <!-- ============== -->
     <name>JDO1 Reference Implementation</name>
+    <groupId>org.apache.jdo</groupId>
     <artifactId>jdo1-ri</artifactId>
-    <currentVersion>1.1</currentVersion>
+    <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Object (JDO) RI</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
@@ -56,14 +57,14 @@ Request 12 JSR 12 under the auspices of the Java Community Process.</description
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>javax.jdo</groupId>
             <artifactId>jdo1-api</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>apache-jdo</groupId>
+            <groupId>org.apache.jdo</groupId>
             <artifactId>jdo-btree</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
     <!-- =================== -->
