@@ -249,7 +249,7 @@
         <tstamp>
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
-        <mkdir dir="${jdo.tck.log.directory}/${timestamp}"/>
+        <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
         <echo>Run all configurations on iut</echo>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
@@ -291,7 +291,7 @@
         <tstamp>
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
-        <mkdir dir="${jdo.tck.log.directory}/${timestamp}"/>
+        <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
         <echo>Run all configurations on jdori</echo>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
@@ -439,6 +439,12 @@
             <classpath refid="jdori.classpath"/>
             <arg line="${jdo.tck.log.directory}/${timestamp}"/>
         </java>
+        <copy todir="${jdo.tck.log.directory}/${timestamp}/configuration">
+            <fileset dir="${basedir}" includes="*.properties, *.xml"/>
+            <fileset dir="${basedir}/src/conf" includes="**/*"/>
+            <fileset dir="${basedir}/src/jdo" includes="**/*.jdo"/>
+            <fileset dir="${basedir}/src/orm" includes="**/*.orm"/>
+        </copy>
     </goal>
 
     <!-- ================== -->
