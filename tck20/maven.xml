@@ -326,7 +326,8 @@
                 omitXmlDeclaration="true">
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
-            javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
+            <!-- javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}-->
+            javax.jdo.option.Mapping=standard${jdo.tck.mapping}
             javax.jdo.mapping.Schema=${schemaname}
         </j:file>
         
@@ -385,7 +386,8 @@
                 omitXmlDeclaration="true">
             ${PMFProps}
             ### Properties below added by maven goal doRuntck.jdori
-            javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping}
+            <!-- javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping} -->
+            javax.jdo.option.Mapping=standard${jdo.tck.mapping}
             javax.jdo.mapping.Schema=${schemaname}
         </j:file>
         
