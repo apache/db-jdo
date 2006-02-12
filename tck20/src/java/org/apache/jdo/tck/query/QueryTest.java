@@ -436,7 +436,7 @@ public abstract class QueryTest extends JDO_Test {
         if (debug)
             logger.debug("execute '" + filter + "' returns " +  results.size() +
                          " instance(s)");
-        checkQueryResultWithoutOrder(assertion, results, expected);
+        checkQueryResultWithoutOrder(assertion, filter, results, expected);
     }
 
     /**
@@ -458,21 +458,29 @@ public abstract class QueryTest extends JDO_Test {
         if (debug)
             logger.debug("execute '" + filter + "' with param '" + paramValue +
                          "' returns " +  results.size() + " instance(s)");
-        checkQueryResultWithoutOrder(assertion, results, expected);
+        checkQueryResultWithoutOrder(assertion, filter, results, expected);
     }
 
     // Helper methods to check query result
     
-    /** */
+    /** Verify that expected equals result, including the order of the elements.
+     * If not equal, fail the test.
+     * If there is a filter != null, do not use this method. Use the method
+     * of the same name that takes a String as the second argument.
+     */
     protected void checkQueryResultWithOrder(String assertion, 
                                              Object result, 
                                              Object expected) {
         if (!equals(result, expected)) {
-            queryFailed(assertion, result, expected);
+            queryFailed(assertion, "null", result, expected);
         }
     }
     
-    /** */
+    /** Verify that expected equals result, ignoring the order of the elements.
+     * If not equal, fail the test.
+     * If there is a filter != null, do not use this method. Use the method
+     * of the same name that takes a String as the second argument.
+     */
     protected void checkQueryResultWithoutOrder(String assertion, 
                                                 Object result, 
                                                 Object expected) {
@@ -482,16 +490,16 @@ public abstract class QueryTest extends JDO_Test {
         // for queries without an ordering specification.
         if (result instanceof Collection && expected instanceof Collection) {
             if (!equalsCollection((Collection)result, (Collection)expected)) {
-                queryFailed(assertion, result, expected);
+                queryFailed(assertion, "null", result, expected);
             }
         } else {
             if (!equals(result, expected)) {
-                queryFailed(assertion, result, expected);
+                queryFailed(assertion, "null", result, expected);
             }
         }
     }
     
-    private void queryFailed(String assertion, Object result, Object expected) {
+    private void queryFailed(String assertion, String query, Object result, Object expected) {
         String lf = System.getProperty("line.separator");
         result = 
             ConversionHelper.convertObjectArrayElements(result);
@@ -499,10 +507,41 @@ public abstract class QueryTest extends JDO_Test {
             ConversionHelper.convertObjectArrayElements(expected);
         fail(assertion,
              "Wrong query result: " + lf +
+             "query: " + query + lf +
              "expected: " + expected + lf +
              "got:      " + result);
     }
 
+    /** */
+    protected void checkQueryResultWithOrder(String assertion, 
+                                             String query,
+                                             Object result, 
+                                             Object expected) {
+        if (!equals(result, expected)) {
+            queryFailed(assertion, query, result, expected);
+        }
+    }
+    
+    /** */
+    protected void checkQueryResultWithoutOrder(String assertion, 
+                                                String query,
+                                                Object result, 
+                                                Object expected) {
+        // We need to explicitly check on collections passed as parameters
+        // because equals(Object, Object) checks on lists and afterwards 
+        // on collections. This ensures, lists are compared without order
+        // for queries without an ordering specification.
+        if (result instanceof Collection && expected instanceof Collection) {
+            if (!equalsCollection((Collection)result, (Collection)expected)) {
+                queryFailed(assertion, query, result, expected);
+            }
+        } else {
+            if (!equals(result, expected)) {
+                queryFailed(assertion, query, result, expected);
+            }
+        }
+    }
+    
     /**
      * Returns <code>true</code> 
      * if <code>o1</code> and <code>o2</code> equal.
@@ -1185,10 +1224,10 @@ public abstract class QueryTest extends JDO_Test {
     
                 if (positive) {
                     if (hasOrdering) {
-                        checkQueryResultWithOrder(assertion, result, 
+                        checkQueryResultWithOrder(assertion, singleStringQuery, result, 
                                 expectedResult);
                     } else {
-                        checkQueryResultWithoutOrder(assertion, result, 
+                        checkQueryResultWithoutOrder(assertion, singleStringQuery, result, 
                                 expectedResult);
                     }
                 } else {
