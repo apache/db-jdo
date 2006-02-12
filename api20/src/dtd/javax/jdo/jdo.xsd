@@ -12,11 +12,11 @@
             </xs:sequence>
             <xs:attributeGroup ref="attlist.jdo"/>
         </xs:complexType>
+    </xs:element>
     <xs:attributeGroup name="attlist.jdo">
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
     </xs:attributeGroup>
-    </xs:element>
     <xs:element name="package">
         <xs:complexType>
             <xs:sequence>

@@ -12,11 +12,11 @@
             </xs:sequence>
             <xs:attributeGroup ref="attlist.orm"/>
         </xs:complexType>
+    </xs:element>
     <xs:attributeGroup name="attlist.orm">
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
     </xs:attributeGroup>
-    </xs:element>
     <xs:element name="package">
         <xs:complexType>
             <xs:sequence>
