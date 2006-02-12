@@ -52,7 +52,35 @@ public class VariableInResult extends QueryTest {
     private static final QueryElementHolder[] VALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
+        /*RESULT*/      "distinct p",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "projects.contains(p) & p.name == 'orange'",
+        /*VARIABLES*/   "Project p",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
         /*RESULT*/      "p",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "projects.contains(p) & p.name == 'orange'",
+        /*VARIABLES*/   "Project p",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "distinct p.projid, p.name",
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
@@ -86,8 +114,13 @@ public class VariableInResult extends QueryTest {
     private Object[] expectedResult = {
         // this
         getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"proj1","proj1","proj1"}),
         // Note: "orange" is not a bean name!
-        Arrays.asList(new Object[]{new Object[]{new Long(1), "orange"}})
+        Arrays.asList(new Object[]{new Object[]{new Long(1), "orange"}}),
+        Arrays.asList(new Object[]{
+            new Object[]{new Long(1), "orange"}, 
+            new Object[]{new Long(1), "orange"},
+            new Object[]{new Long(1), "orange"}})
     };
 
     /**
@@ -100,7 +133,7 @@ public class VariableInResult extends QueryTest {
     }
     
     /** */
-    public void testNoNavigation() {
+    public void testDistinctNoNavigation() {
         int index = 0;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
@@ -109,8 +142,26 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
-    public void testNavigation() {
+    public void testNoNavigation() {
         int index = 1;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testDistinctNavigation() {
+        int index = 2;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testNavigation() {
+        int index = 3;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
