@@ -70,7 +70,9 @@ public class ResultSummary implements Serializable {
         String directory = args[0] + File.separator;
         ResultSummary resultSummary = ResultSummary.load(directory);
         String newLine = System.getProperty("line.separator");
-        String resultMessage = resultSummary.toString();
+        String resultMessage = resultSummary != null ? 
+            resultSummary.toString() :
+            "No tests were run.";
         String message = "-------" + newLine + resultMessage;
         appendTCKResultMessage(directory, message);
         System.out.println(resultMessage);
