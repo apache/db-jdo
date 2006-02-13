@@ -40,7 +40,6 @@
     </xs:element>
     <xs:attributeGroup name="attlist.interface">
         <xs:attribute name="name" use="required"/>
-        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="class">
         <xs:complexType>
