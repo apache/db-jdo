@@ -570,7 +570,72 @@ public interface PersistenceManager {
      * @param pcs the instances to make transient.
      */ 
     void makeTransientAll (Collection pcs);
+
+    /** Make an instance transient, removing it from management by this 
+     * <code>PersistenceManager</code>. If the useFetchPlan parameter is 
+     * false, this method behaves exactly as makeTransient(Object pc). 
+     * <P>The affected instance(s) lose their JDO identity and are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state 
+     * of fields is unchanged.
+     * <P>If the useFetchPlan parameter is true, then the current FetchPlan
+     * is applied to the pc parameter, as if detachCopy(Object) had been
+     * called. After the graph of instances is loaded, the instances 
+     * reachable via loaded fields is made transient. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
+     * <P>Unlike detachCopy, the instances are not detached; there is no
+     * detachment information in the instances.
+     * <P>The instances to be made transient do not need to
+     * implement the javax.jdo.spi.Detachable interface.
+     * @param pc the root instance to make transient.
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to make transient
+     * @since 2.0
+     */
+    void makeTransient (Object pc, boolean useFetchPlan);
+
+    /** Make instances transient, removing them from management
+     * by this <code>PersistenceManager</code>. If the useFetchPlan parameter
+     * is false, this method behaves exactly as makeTransientAll(Object[] pcs). 
+     * <P>The affected instance(s) lose their JDO identity and are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state 
+     * of fields is unchanged.
+     * <P>If the useFetchPlan parameter is true, then the current FetchPlan
+     * is applied to the pcs parameters and the entire graph of instances 
+     * reachable via loaded fields is made transient. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
+     * <P>Unlike detachCopy, the instances are not detached; there is no
+     * detachment information in the instances.
+     * <P>The instances to be made transient do not need to
+     * implement the javax.jdo.spi.Detachable interface.
+     * @param pcs the root instances to make transient.
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to make transient
+     * @since 2.0
+     */
+    void makeTransientAll (Object[] pcs, boolean useFetchPlan);
     
+    /** Make instances transient, removing them from management
+     * by this <code>PersistenceManager</code>. If the useFetchPlan parameter
+     * is false, this method behaves exactly as 
+     * makeTransientAll(Collection pcs). 
+     * <P>The affected instance(s) lose their JDO identity and are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state 
+     * of fields is unchanged.
+     * <P>If the useFetchPlan parameter is true, then the current FetchPlan
+     * is applied to the pcs parameters and the entire graph of instances 
+     * reachable via loaded fields is made transient. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
+     * <P>Unlike detachCopy, the instances are not detached; there is no
+     * detachment information in the instances.
+     * <P>The instances to be made transient do not need to
+     * implement the javax.jdo.spi.Detachable interface.
+     * @param pcs the root instances to make transient.
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to make transient
+     * @since 2.0
+     */
+    void makeTransientAll (Collection pcs, boolean useFetchPlan);
+
     /** Make an instance subject to transactional boundaries.
      *
      * <P>Transient instances normally do not observe transaction boundaries.
@@ -788,7 +853,11 @@ public interface PersistenceManager {
    void setDetachAllOnCommit(boolean flag);
    
     /**
-     * Detach the specified object from the <code>PersistenceManager</code>.
+     * Detach the specified instance from the <code>PersistenceManager</code>.
+     * The flags for detachment (DETACH_LOAD_FIELDS and DETACH_UNLOAD_FIELDS)
+     * and the active fetch groups determine the scope of fetching for the
+     * graph of instances reachable from the pc parameter. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
      * @param pc the instance to detach
      * @return the detached instance
      * @see #detachCopyAll(Object[])
@@ -797,7 +866,11 @@ public interface PersistenceManager {
     Object detachCopy (Object pc);
 
     /**
-     * Detach the specified objects from the <code>PersistenceManager</code>.
+     * Detach the specified instances from the <code>PersistenceManager</code>.
+     * The flags for detachment (DETACH_LOAD_FIELDS and DETACH_UNLOAD_FIELDS)
+     * and the active fetch groups determine the scope of fetching for the
+     * graph of instances reachable from the pcs parameter. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
      * @param pcs the instances to detach
      * @return the detached instances
      * @see #detachCopyAll(Object[])
@@ -806,9 +879,12 @@ public interface PersistenceManager {
     Collection detachCopyAll (Collection pcs);
 
     /**
-     * Detach the specified objects from the
-     * <code>PersistenceManager</code>. The objects returned can be
-     * manipulated and re-attached with 
+     * Detach the specified instances from the <code>PersistenceManager</code>.
+     * The flags for detachment (DETACH_LOAD_FIELDS and DETACH_UNLOAD_FIELDS)
+     * and the active fetch groups determine the scope of fetching for the
+     * graph of instances reachable from the pcs parameter. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
+     * The objects returned can be manipulated and re-attached with 
      * {@link #makePersistentAll(Object[])}. 
      * The detached instances will be
      * unmanaged copies of the specified parameters, and are suitable
