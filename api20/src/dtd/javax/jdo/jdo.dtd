@@ -41,7 +41,7 @@
 <!ATTLIST property unique (true|false) #IMPLIED>
 <!ATTLIST property mapped-by CDATA #IMPLIED>
 <!ATTLIST property fetch-group CDATA #IMPLIED>
-<!ATTLIST property fetch-depth CDATA #IMPLIED>
+<!ATTLIST property recursion-depth CDATA #IMPLIED>
 <!ATTLIST property field-name CDATA #IMPLIED>
 
 <!ELEMENT class (extension*, implements*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, property*, query*, fetch-group*, extension*)>
@@ -120,7 +120,7 @@
 <!ATTLIST field unique (true|false) #IMPLIED>
 <!ATTLIST field sequence CDATA #IMPLIED>
 <!ATTLIST field load-fetch-group CDATA #IMPLIED>
-<!ATTLIST field fetch-depth CDATA #IMPLIED>
+<!ATTLIST field recursion-depth CDATA #IMPLIED>
 <!ATTLIST field mapped-by CDATA #IMPLIED>
 
 <!ELEMENT foreign-key (extension*, (column|field|property)*, extension*)>

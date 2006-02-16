@@ -85,6 +85,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="embedded-only">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
     </xs:attributeGroup>
@@ -198,7 +206,7 @@
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
         <xs:attribute name="fetch-group"/>
-        <xs:attribute name="fetch-depth"/>
+        <xs:attribute name="recursion-depth"/>
         <xs:attribute name="field-name"/>
     </xs:attributeGroup>
     <xs:element name="class">
@@ -568,7 +576,7 @@
         <xs:attribute name="sequence"/>
         <xs:attribute name="foreign-key"/>
         <xs:attribute name="load-fetch-group"/>
-        <xs:attribute name="fetch-depth"/>
+        <xs:attribute name="recursion-depth"/>
         <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="foreign-key">

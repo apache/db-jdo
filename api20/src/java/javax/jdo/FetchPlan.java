@@ -138,6 +138,53 @@ public interface FetchPlan {
     FetchPlan setGroup(String fetchGroupName);
 
     /**
+     * Set the maximum fetch depth when fetching. 
+     * 0 has no meaning and will throw a JDOUserException.
+     * -1 means that no limit is placed on fetching.
+     * A positive integer will result in that number of references from the
+     * initial object to be fetched.
+     * @param fetchDepth the depth
+     * @return the FetchPlan
+     * @since 2.0
+     */
+    FetchPlan setMaxFetchDepth(int fetchDepth);
+
+    /**
+     * Return the maximum fetch depth used when fetching instances.
+     * @return the maximum fetch depth
+     * @since 2.0
+     */
+    int getMaxFetchDepth(); 
+
+    /**
+     * Set the roots for DetachAllOnCommit.
+     * @param roots Collection of the detachment roots.
+     * @since 2.0
+     */
+    FetchPlan setDetachmentRoots(Collection roots);
+
+    /**
+     * Get the roots for DetachAllOnCommit.
+     * @return Collection of detachment roots.
+     * @since 2.0
+     */
+    Collection getDetachmentRoots();
+
+    /**
+     * Set the root classes for DetachAllOnCommit.
+     * @param rootClasses The root classes.
+     * @since 2.0
+     */
+    FetchPlan setDetachmentRootClasses(Class[] rootClasses);
+
+    /**
+     * Get the root classes for DetachAllOnCommit.
+     * @return The detachment root classes
+     * @since 2.0
+     */
+    Class[] getDetachmentRootClasses();
+
+    /**
      * Set the fetch size for large result set support. Use
      * {@link #FETCH_SIZE_OPTIMAL} to unset, and {@link #FETCH_SIZE_GREEDY}
      * to force loading of everything.
@@ -154,17 +201,17 @@ public interface FetchPlan {
      * @since 2.0
      */
     int getFetchSize(); 
-    
+
     /**
      * Set options to be used during detachment. Options are {@link
      * #DETACH_LOAD_FIELDS} and {@link #DETACH_UNLOAD_FIELDS}.
      */
     FetchPlan setDetachmentOptions(int options);
-    
+ 
     /**
      * Get options used during detachment.
      */
     int getDetachmentOptions();
-    
+  
 }
 
