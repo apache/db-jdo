@@ -106,9 +106,10 @@ public interface FetchPlan {
     FetchPlan clearGroups();
 
     /** 
-     * Return the names of all active fetch groups.
-     * @return the names of active fetch groups
-     * @return the FetchPlan
+     * Return an immutable collection containing the names 
+     * of all active fetch groups.
+     * @return an immutable collection containing the names 
+     * of all active fetch groups
      * @since 2.0
      */
     Collection getGroups();
