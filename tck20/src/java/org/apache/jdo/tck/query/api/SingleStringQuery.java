@@ -58,10 +58,10 @@ public class SingleStringQuery extends QueryTest {
         "      firstname == 'emp1First' " +
         "VARIABLES Project p " +
         "PARAMETERS BigDecimal limit " +
-        "IMPORTS import org.apache.jdo.tck.query.result.classes.FullName; " +
-        "        import org.apache.jdo.tck.pc.company.FullTimeEmployee; " +
-        "        import org.apache.jdo.tck.pc.company.Project; " +
-        "        import java.math.BigDecimal; " +
+        "import org.apache.jdo.tck.query.result.classes.FullName; " +
+        "import org.apache.jdo.tck.pc.company.FullTimeEmployee; " +
+        "import org.apache.jdo.tck.pc.company.Project; " +
+        "import java.math.BigDecimal; " +
         "GROUP BY firstname, lastname " +
         "ORDER BY lastname ASCENDING " +
         "RANGE 0,5";

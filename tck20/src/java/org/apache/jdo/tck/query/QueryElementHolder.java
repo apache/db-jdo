@@ -159,7 +159,7 @@ public class QueryElementHolder {
         toString("WHERE", this.filter) +
         toString("VARIABLES", this.variables) +
         toString("PARAMETERS", this.parameters) +
-        toString("IMPORTS", this.imports) +
+        toString(this.imports) +
         toString("GROUP BY", this.grouping) +
         toString("ORDER BY", this.ordering) +
         rangeToString();
