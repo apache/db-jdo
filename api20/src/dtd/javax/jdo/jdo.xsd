@@ -122,6 +122,15 @@
     </xs:element>
     <xs:attributeGroup name="attlist.property">
         <xs:attribute name="name" use="required"/>
+        <xs:attribute name="persistence-modifier">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="persistent"/>
+                    <xs:enumeration value="transactional"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="default-fetch-group">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -222,7 +231,9 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="foreign-key"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="unique"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="query"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="fetch-group"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
@@ -574,7 +585,6 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="sequence"/>
-        <xs:attribute name="foreign-key"/>
         <xs:attribute name="load-fetch-group"/>
         <xs:attribute name="recursion-depth"/>
         <xs:attribute name="mapped-by"/>
@@ -831,6 +841,7 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.array">
+        <xs:attribute name="element-type"/>
         <xs:attribute name="embedded-element">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -926,13 +937,19 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="fetch-group">
         <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="fetch-group"/>
-                <xs:element ref="field"/>
-            </xs:choice>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="fetch-group"/>
+                    <xs:element ref="field"/>
+                    <xs:element ref="property"/>
+                </xs:choice>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.fetch-group"/>
         </xs:complexType>
     </xs:element>
@@ -951,7 +968,10 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="field"/>
+                    <xs:element ref="property"/>
+                </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.embedded"/>
