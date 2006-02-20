@@ -122,6 +122,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="class">
         <xs:complexType>
@@ -324,7 +325,14 @@
         <xs:attribute name="sql-type"/>
         <xs:attribute name="length"/>
         <xs:attribute name="scale"/>
-        <xs:attribute name="allows-null"/>
+        <xs:attribute name="allows-null">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="default-value"/>
         <xs:attribute name="insert-value"/>
     </xs:attributeGroup>
@@ -349,8 +357,10 @@
     </xs:element>
     <xs:attributeGroup name="attlist.field">
         <xs:attribute name="name" use="required"/>
-        <xs:attribute name="column"/>
         <xs:attribute name="table"/>
+        <xs:attribute name="column"/>
+        <xs:attribute name="primary-key"/>
+        <xs:attribute name="value-strategy"/>
         <xs:attribute name="delete-action">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -379,17 +389,17 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="value-strategy"/>
         <xs:attribute name="sequence"/>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="foreign-key">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <xs:element ref="column"/>
-                    <xs:element ref="field"/>
-                    <xs:element ref="property"/>
+                <xs:choice>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
@@ -413,6 +423,7 @@
                     <xs:enumeration value="cascade"/>
                     <xs:enumeration value="null"/>
                     <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -423,6 +434,7 @@
                     <xs:enumeration value="cascade"/>
                     <xs:enumeration value="null"/>
                     <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -440,10 +452,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.key"/>
@@ -453,6 +466,17 @@
         <xs:attribute name="column"/>
         <xs:attribute name="table"/>
         <xs:attribute name="delete-action">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="restrict"/>
+                    <xs:enumeration value="cascade"/>
+                    <xs:enumeration value="null"/>
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="update-action">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="restrict"/>
@@ -480,6 +504,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="value">
         <xs:complexType>
@@ -509,6 +534,17 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="update-action">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="restrict"/>
+                    <xs:enumeration value="cascade"/>
+                    <xs:enumeration value="null"/>
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="indexed">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -526,6 +562,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="element">
         <xs:complexType>
@@ -555,7 +592,17 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="update-action"/>
+        <xs:attribute name="update-action">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="restrict"/>
+                    <xs:enumeration value="cascade"/>
+                    <xs:enumeration value="null"/>
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="indexed">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -587,15 +634,7 @@
     </xs:element>
     <xs:attributeGroup name="attlist.order">
         <xs:attribute name="column"/>
-        <xs:attribute name="indexed">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="unique"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="embedded">
         <xs:complexType>
@@ -611,9 +650,9 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.embedded">
+        <xs:attribute name="owner-field"/>
         <xs:attribute name="null-indicator-column"/>
         <xs:attribute name="null-indicator-value"/>
-        <xs:attribute name="owner-field"/>
     </xs:attributeGroup>
     <xs:element name="sequence">
         <xs:complexType>
@@ -641,10 +680,10 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <xs:element ref="column"/>
-                    <xs:element ref="field"/>
-                    <xs:element ref="property"/>
+                <xs:choice>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
@@ -667,10 +706,10 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <xs:element ref="column"/>
-                    <xs:element ref="field"/>
-                    <xs:element ref="property"/>
+                <xs:choice>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 </xs:choice>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>

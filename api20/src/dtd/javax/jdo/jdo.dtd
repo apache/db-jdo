@@ -7,10 +7,12 @@
 <!ELEMENT jdo (extension*, (package|query)+, extension*)>
 <!ATTLIST jdo catalog CDATA #IMPLIED>
 <!ATTLIST jdo schema CDATA #IMPLIED>
+
 <!ELEMENT package (extension*, (interface|class|sequence)+, extension*)>
 <!ATTLIST package name CDATA ''>
 <!ATTLIST package catalog CDATA #IMPLIED>
 <!ATTLIST package schema CDATA #IMPLIED>
+
 <!ELEMENT interface (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, property*, query*, fetch-group*, extension*)>
 <!ATTLIST interface name CDATA #REQUIRED>
 <!ATTLIST interface table CDATA #IMPLIED>
@@ -99,7 +101,7 @@
 <!ATTLIST column sql-type CDATA #IMPLIED>
 <!ATTLIST column length CDATA #IMPLIED>
 <!ATTLIST column scale CDATA #IMPLIED>
-<!ATTLIST column allows-null CDATA #IMPLIED>
+<!ATTLIST column allows-null (true|false) #IMPLIED>
 <!ATTLIST column default-value CDATA #IMPLIED>
 <!ATTLIST column insert-value CDATA #IMPLIED>
 
@@ -123,11 +125,11 @@
 <!ATTLIST field recursion-depth CDATA #IMPLIED>
 <!ATTLIST field mapped-by CDATA #IMPLIED>
 
-<!ELEMENT foreign-key (extension*, (column|field|property)*, extension*)>
+<!ELEMENT foreign-key (extension*, (column* | field* | property*), extension*)>
 <!ATTLIST foreign-key table CDATA #IMPLIED>
 <!ATTLIST foreign-key deferred (true|false) #IMPLIED>
-<!ATTLIST foreign-key delete-action (cascade|restrict|null|default) 'restrict'>
-<!ATTLIST foreign-key update-action (cascade|restrict|null|default) 'restrict'>
+<!ATTLIST foreign-key delete-action (restrict|cascade|null|default|none) 'restrict'>
+<!ATTLIST foreign-key update-action (restrict|cascade|null|default|none) 'restrict'>
 <!ATTLIST foreign-key unique (true|false) #IMPLIED>
 <!ATTLIST foreign-key name CDATA #IMPLIED>
 
@@ -151,14 +153,16 @@
 <!ATTLIST key column CDATA #IMPLIED>
 <!ATTLIST key table CDATA #IMPLIED>
 <!ATTLIST key delete-action (restrict|cascade|null|default|none) #IMPLIED>
+<!ATTLIST key update-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST key indexed (true|false|unique) #IMPLIED>
 <!ATTLIST key unique (true|false) #IMPLIED>
 <!ATTLIST key mapped-by CDATA #IMPLIED>
 
 <!ELEMENT value (extension*, embedded?, column*, foreign-key?, index?, unique?, extension*)>
-<!ATTLIST value table CDATA #IMPLIED>
 <!ATTLIST value column CDATA #IMPLIED>
+<!ATTLIST value table CDATA #IMPLIED>
 <!ATTLIST value delete-action (restrict|cascade|null|default|none) #IMPLIED>
+<!ATTLIST value update-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST value indexed (true|false|unique) #IMPLIED>
 <!ATTLIST value unique (true|false) #IMPLIED>
 <!ATTLIST value mapped-by CDATA #IMPLIED>
@@ -173,13 +177,12 @@
 <!ATTLIST element column CDATA #IMPLIED>
 <!ATTLIST element table CDATA #IMPLIED>
 <!ATTLIST element delete-action (restrict|cascade|null|default|none) #IMPLIED>
-<!ATTLIST element update-action CDATA #IMPLIED>
+<!ATTLIST element update-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST element indexed (true|false|unique) #IMPLIED>
 <!ATTLIST element unique (true|false) #IMPLIED>
 
 <!ELEMENT order (extension*, column*, index?, extension*)>
 <!ATTLIST order column CDATA #IMPLIED>
-<!ATTLIST order indexed (true|false|unique) #IMPLIED>
 <!ATTLIST order mapped-by CDATA #IMPLIED>
 
 <!ELEMENT fetch-group (extension*, (fetch-group|field|property)*, extension*)>
@@ -197,7 +200,7 @@
 <!ATTLIST sequence factory-class CDATA #IMPLIED>
 <!ATTLIST sequence strategy (nontransactional|contiguous|noncontiguous) #REQUIRED>
 
-<!ELEMENT index (extension*, (column|field|property)*, extension*)>
+<!ELEMENT index (extension*, (column* | field* | property*), extension*)>
 <!ATTLIST index name CDATA #IMPLIED>
 <!ATTLIST index table CDATA #IMPLIED>
 <!ATTLIST index unique (true|false) 'false'>
@@ -209,7 +212,7 @@
 <!ATTLIST query unique (true|false) 'false'>
 <!ATTLIST query result-class CDATA #IMPLIED>
 
-<!ELEMENT unique (extension*, (column|field|property)*, extension*)>
+<!ELEMENT unique (extension*, (column* | field* | property*), extension*)>
 <!ATTLIST unique name CDATA #IMPLIED>
 <!ATTLIST unique table CDATA #IMPLIED>
 <!ATTLIST unique deferred (true|false) 'false'>
