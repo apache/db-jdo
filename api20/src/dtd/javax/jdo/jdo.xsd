@@ -493,6 +493,7 @@
                 <xs:element minOccurs="0" ref="value"/>
                 <xs:element minOccurs="0" ref="order"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
                 <xs:element minOccurs="0" ref="index"/>
                 <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
@@ -954,7 +955,6 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="order">
         <xs:complexType>
