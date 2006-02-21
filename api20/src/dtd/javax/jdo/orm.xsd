@@ -4,7 +4,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:choice maxOccurs="unbounded">
                     <xs:element ref="package"/>
                     <xs:element ref="query"/>
                 </xs:choice>
@@ -21,7 +21,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:choice maxOccurs="unbounded">
                     <xs:element ref="interface"/>
                     <xs:element ref="class"/>
                     <xs:element ref="sequence"/>
@@ -32,7 +32,7 @@
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.package">
-        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="name" default=""/>
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
     </xs:attributeGroup>
@@ -40,10 +40,10 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="datastore-identity"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="primary-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="inheritance"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="version"/>
+                <xs:element minOccurs="0" ref="datastore-identity"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
+                <xs:element minOccurs="0" ref="inheritance"/>
+                <xs:element minOccurs="0" ref="version"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="join"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="foreign-key"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
@@ -65,16 +65,16 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="join"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="element"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="value"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="order"/>
+                <xs:element minOccurs="0" ref="join"/>
+                <xs:element minOccurs="0" ref="embedded"/>
+                <xs:element minOccurs="0" ref="element"/>
+                <xs:element minOccurs="0" ref="key"/>
+                <xs:element minOccurs="0" ref="value"/>
+                <xs:element minOccurs="0" ref="order"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.property"/>
@@ -128,16 +128,17 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="datastore-identity"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="primary-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="inheritance"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="version"/>
+                <xs:element minOccurs="0" ref="datastore-identity"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
+                <xs:element minOccurs="0" ref="inheritance"/>
+                <xs:element minOccurs="0" ref="version"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="join"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="foreign-key"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="query"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
@@ -168,11 +169,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="primary-key"/>
+                <xs:element minOccurs="0" ref="primary-key"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.join"/>
@@ -218,6 +219,30 @@
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="version">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.version"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.version">
+        <xs:attribute name="strategy"/>
+        <xs:attribute name="column"/>
+        <xs:attribute name="indexed">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="unique"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="datastore-identity">
         <xs:complexType>
             <xs:sequence>
@@ -233,35 +258,11 @@
         <xs:attribute name="strategy" default="native"/>
         <xs:attribute name="sequence"/>
     </xs:attributeGroup>
-    <xs:element name="version">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.version"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.version">
-        <xs:attribute name="strategy" use="required"/>
-        <xs:attribute name="column"/>
-        <xs:attribute name="indexed">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                    <xs:enumeration value="unique"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="implements">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="1" maxOccurs="unbounded" ref="property-field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.implements"/>
@@ -274,8 +275,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="discriminator"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="join"/>
+                <xs:element minOccurs="0" ref="join"/>
+                <xs:element minOccurs="0" ref="discriminator"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.inheritance"/>
@@ -289,7 +290,7 @@
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
+                <xs:element minOccurs="0" ref="index"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.discriminator"/>
@@ -340,16 +341,16 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="join"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="element"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="value"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="order"/>
+                <xs:element minOccurs="0" ref="join"/>
+                <xs:element minOccurs="0" ref="embedded"/>
+                <xs:element minOccurs="0" ref="element"/>
+                <xs:element minOccurs="0" ref="key"/>
+                <xs:element minOccurs="0" ref="value"/>
+                <xs:element minOccurs="0" ref="order"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.field"/>
@@ -359,7 +360,14 @@
         <xs:attribute name="name" use="required"/>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
-        <xs:attribute name="primary-key"/>
+        <xs:attribute name="primary-key" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="value-strategy"/>
         <xs:attribute name="delete-action">
             <xs:simpleType>
@@ -452,11 +460,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
+                <xs:element minOccurs="0" ref="embedded"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.key"/>
@@ -510,11 +518,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
+                <xs:element minOccurs="0" ref="embedded"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.value"/>
@@ -568,11 +576,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="embedded"/>
+                <xs:element minOccurs="0" ref="embedded"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="foreign-key"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="unique"/>
+                <xs:element minOccurs="0" ref="foreign-key"/>
+                <xs:element minOccurs="0" ref="index"/>
+                <xs:element minOccurs="0" ref="unique"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.element"/>
@@ -626,7 +634,7 @@
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                <xs:element minOccurs="0" maxOccurs="1" ref="index"/>
+                <xs:element minOccurs="0" ref="index"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.order"/>
@@ -702,32 +710,6 @@
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="unique">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-                <xs:choice>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
-                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
-                </xs:choice>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.unique"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.unique">
-        <xs:attribute name="name"/>
-        <xs:attribute name="table"/>
-        <xs:attribute name="deferred" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="query">
         <xs:complexType mixed="true">
             <xs:sequence>
@@ -756,6 +738,32 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-class"/>
+    </xs:attributeGroup>
+    <xs:element name="unique">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+                <xs:choice>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="column"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+                </xs:choice>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.unique"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.unique">
+        <xs:attribute name="name"/>
+        <xs:attribute name="table"/>
+        <xs:attribute name="deferred" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="extension">
         <xs:complexType>

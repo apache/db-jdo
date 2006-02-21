@@ -19,7 +19,19 @@
 <!ATTLIST interface catalog CDATA #IMPLIED>
 <!ATTLIST interface schema CDATA #IMPLIED>
 
-<!ELEMENT class (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, query*, extension*)>
+<!ELEMENT property (extension*, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property value-strategy CDATA #IMPLIED>
+<!ATTLIST property sequence CDATA #IMPLIED>
+<!ATTLIST property serialized (true|false) #IMPLIED>
+<!ATTLIST property table CDATA #IMPLIED>
+<!ATTLIST property column CDATA #IMPLIED>
+<!ATTLIST property delete-action (restrict|cascade|null|default|none) #IMPLIED>
+<!ATTLIST property indexed (true|false|unique) #IMPLIED>
+<!ATTLIST property unique (true|false) #IMPLIED>
+<!ATTLIST property mapped-by CDATA #IMPLIED>
+
+<!ELEMENT class (extension*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, property*, query*, extension*)>
 <!ATTLIST class name CDATA #REQUIRED>
 <!ATTLIST class table CDATA #IMPLIED>
 <!ATTLIST class catalog CDATA #IMPLIED>
@@ -37,20 +49,20 @@
 <!ATTLIST join indexed (true|false|unique) #IMPLIED>
 <!ATTLIST join unique (true|false) #IMPLIED>
 
+<!ELEMENT version (extension*, column*, index?, extension*)>
+<!ATTLIST version strategy CDATA #IMPLIED>
+<!ATTLIST version column CDATA #IMPLIED>
+<!ATTLIST version indexed (true|false|unique) #IMPLIED>
+
 <!ELEMENT datastore-identity (extension*, column*, extension*)>
 <!ATTLIST datastore-identity column CDATA #IMPLIED>
 <!ATTLIST datastore-identity strategy CDATA 'native'>
 <!ATTLIST datastore-identity sequence CDATA #IMPLIED>
 
-<!ELEMENT version (extension*, column*, index?, extension*)>
-<!ATTLIST version strategy CDATA #REQUIRED>
-<!ATTLIST version column CDATA #IMPLIED>
-<!ATTLIST version indexed (true|false|unique) #IMPLIED>
-
-<!ELEMENT implements ((property-field)+, (extension)*)>
+<!ELEMENT implements (extension*, property*, extension*)>
 <!ATTLIST implements name CDATA #REQUIRED>
 
-<!ELEMENT inheritance (extension*, discriminator?, join?, extension*)>
+<!ELEMENT inheritance (extension*, join?, discriminator?, extension*)>
 <!ATTLIST inheritance strategy CDATA #IMPLIED>
 
 <!ELEMENT discriminator (extension*, column*, index?, extension*)>
@@ -71,23 +83,11 @@
 <!ATTLIST column default-value CDATA #IMPLIED>
 <!ATTLIST column insert-value CDATA #IMPLIED>
 
-<!ELEMENT property (extension*, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
-<!ATTLIST property name CDATA #REQUIRED>
-<!ATTLIST property value-strategy CDATA #IMPLIED>
-<!ATTLIST property sequence CDATA #IMPLIED>
-<!ATTLIST property serialized (true|false) #IMPLIED>
-<!ATTLIST property table CDATA #IMPLIED>
-<!ATTLIST property column CDATA #IMPLIED>
-<!ATTLIST property delete-action (restrict|cascade|null|default|none) #IMPLIED>
-<!ATTLIST property indexed (true|false|unique) #IMPLIED>
-<!ATTLIST property unique (true|false) #IMPLIED>
-<!ATTLIST property mapped-by CDATA #IMPLIED>
-
 <!ELEMENT field (extension*, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST field name CDATA #REQUIRED>
 <!ATTLIST field table CDATA #IMPLIED>
 <!ATTLIST field column CDATA #IMPLIED>
-<!ATTLIST field primary-key CDATA #IMPLIED>
+<!ATTLIST field primary-key (true|false) 'false'>
 <!ATTLIST field value-strategy CDATA #IMPLIED>
 <!ATTLIST field delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST field indexed (true|false|unique) #IMPLIED>
@@ -149,11 +149,6 @@
 <!ATTLIST index table CDATA #IMPLIED>
 <!ATTLIST index unique (true|false) 'false'>
 
-<!ELEMENT unique (extension*, (column* | field* | property*), extension*)>
-<!ATTLIST unique name CDATA #IMPLIED>
-<!ATTLIST unique table CDATA #IMPLIED>
-<!ATTLIST unique deferred (true|false) 'false'>
-
 <!ELEMENT query (#PCDATA|extension)*>
 <!ATTLIST query name CDATA #IMPLIED>
 <!ATTLIST query language CDATA #IMPLIED>
@@ -161,7 +156,13 @@
 <!ATTLIST query unique (true|false) 'false'>
 <!ATTLIST query result-class CDATA #IMPLIED>
 
+<!ELEMENT unique (extension*, (column* | field* | property*), extension*)>
+<!ATTLIST unique name CDATA #IMPLIED>
+<!ATTLIST unique table CDATA #IMPLIED>
+<!ATTLIST unique deferred (true|false) 'false'>
+
 <!ELEMENT extension ANY>
 <!ATTLIST extension vendor-name CDATA #REQUIRED>
 <!ATTLIST extension key CDATA #IMPLIED>
 <!ATTLIST extension value CDATA #IMPLIED>
+
