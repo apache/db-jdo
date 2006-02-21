@@ -71,7 +71,8 @@ public class NewQueryWithExtentAndFilter extends QueryTest {
             expected.add(pcp1);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 1",
+                    results, expected);
 
             tx.commit();
             tx = null;

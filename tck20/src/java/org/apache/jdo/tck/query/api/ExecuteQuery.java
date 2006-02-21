@@ -85,7 +85,8 @@ public class ExecuteQuery extends QueryTest {
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 4",
+                    results, expected);
             tx.commit();
             tx = null;
             if (debug) logger.debug ("Test ExecuteQuery01 - Passed\n");
@@ -115,7 +116,8 @@ public class ExecuteQuery extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param",
+                    results, expected);
             tx.commit();
             tx = null;
             if (debug) logger.debug("Test ExecuteQuery02 - Passed\n");
@@ -145,7 +147,9 @@ public class ExecuteQuery extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == param1 && y == param2", 
+                    results, expected);
             tx.commit();
             tx = null;
             if (debug) logger.debug("Test ExecuteQuery03 - Passed\n");

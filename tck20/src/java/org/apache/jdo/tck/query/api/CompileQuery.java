@@ -78,7 +78,8 @@ public class CompileQuery extends QueryTest {
             expected = getFromInserted(expected);
             printOutput(results, expected);
             
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param", 
+                    results, expected);
             tx.commit();
             tx = null;
         }

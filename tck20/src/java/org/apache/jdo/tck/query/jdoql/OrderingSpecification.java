@@ -92,7 +92,7 @@ public class OrderingSpecification extends QueryTest {
 
             // check query result
             printOutput(results, inserted);
-            checkQueryResultWithOrder(ASSERTION_FAILED, results, inserted);
+            checkQueryResultWithOrder(ASSERTION_FAILED, "null", results, inserted);
             if(debug) 
                 logger.debug("Test OrderingSpecification01(): Passed");
             
@@ -130,7 +130,7 @@ public class OrderingSpecification extends QueryTest {
             }
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithOrder(ASSERTION_FAILED, "null", results, expected);
             if(debug) 
                 logger.debug("Test OrderingSpecification02(): Passed");
 

@@ -92,7 +92,8 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         expected.add(new PCPoint(3, 3));
         expected.add(new PCPoint(4, 4));
         expected = getFromInserted(expected);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 0",
+                results, expected);
         
         // execute second query
         Object results2 = query2.execute();
@@ -101,7 +102,8 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
         List expected2 = new ArrayList();
         expected2.add(new PCPoint(0, 0));
         expected2 = getFromInserted(expected2);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, results2, expected2);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 0",
+                results2, expected2);
         pm.currentTransaction().commit();
     }
 

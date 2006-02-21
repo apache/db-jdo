@@ -84,7 +84,8 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "this.x == x",
+                    results, expected);
             if (debug)
                 logger.debug("Test UseOfThisToAcessHiddenField01(): Passed");
 
@@ -119,7 +120,8 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "this.y == y",
+                    results, expected);
             if (debug)
                 logger.debug("Test UseOfThisToAcessHiddenField02(): Passed");
 

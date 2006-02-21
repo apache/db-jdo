@@ -88,7 +88,8 @@ public class DeclareImports extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "y == param", 
+                    results, expected);
  
             tx.commit();
             tx = null;

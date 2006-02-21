@@ -154,7 +154,8 @@ public class MultipleIdenticalImports extends QueryTest {
         query.declareParameters("Department d");
         query.setFilter("department == d");
         result = query.execute(dept1);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, "department == d",
+                result, expected);
 
         // Import Department explictly and per type-import-on-demand
         query = pm.newQuery(Employee.class);
@@ -162,7 +163,8 @@ public class MultipleIdenticalImports extends QueryTest {
         query.declareParameters("Department d");
         query.setFilter("department == d");
         result = query.execute(dept1);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, "department == d",
+                result, expected);
 
         // type-import-on-demand twice
         query = pm.newQuery(Employee.class);
@@ -170,7 +172,8 @@ public class MultipleIdenticalImports extends QueryTest {
         query.declareParameters("Department d");
         query.setFilter("department == d");
         result = query.execute(dept1);
-        checkQueryResultWithoutOrder(ASSERTION_FAILED, result, expected);
+        checkQueryResultWithoutOrder(ASSERTION_FAILED, "department == d",
+                result, expected);
 
         tx.commit();
         tx = null;

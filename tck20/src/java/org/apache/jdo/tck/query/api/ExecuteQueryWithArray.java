@@ -89,7 +89,7 @@ public class ExecuteQueryWithArray extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param", results, expected);
             
             tx.commit();
             tx = null;
@@ -122,7 +122,9 @@ public class ExecuteQueryWithArray extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED,
+                    "x == param1 && y == param2", 
+                    results, expected);
             tx.commit();
             tx = null;
             if (debug) logger.debug ("Test ExecuteQueryWithArray02 - Passed\n");

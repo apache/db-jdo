@@ -123,7 +123,8 @@ public class WhiteSpaceIsACharacterAndIgnored extends QueryTest {
             query.setFilter(filter);
             results = (Collection) query.execute();
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, 
+                    results, expected);
             if (debug)
                 logger.debug("Test WhiteSpaceIsACharacterAndIgnored01(\"" +
                              filter + "\"): Passed");

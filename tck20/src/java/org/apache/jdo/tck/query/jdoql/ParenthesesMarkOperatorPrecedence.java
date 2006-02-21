@@ -91,7 +91,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == (1 + 1)",
+                    results, expected);
             if(debug) 
                 logger.debug("Test ParenthesesMarkOperatorPrecedence01 - Passed");
 
@@ -125,7 +126,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == (1 + 1) * 2",
+                    results, expected);
             if(debug) 
                 logger.debug("Test ParenthesesMarkOperatorPrecedence02 - Passed");
             
@@ -159,7 +161,9 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == (9 - 1) * (3 + 5) / 32",
+                    results, expected);
             if(debug)
                 logger.debug("Test ParenthesesMarkOperatorPrecedence03 - Passed");
             
@@ -193,7 +197,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 2 && y == 2",
+                    results, expected);
             if(debug)
                 logger.debug("Test ParenthesesMarkOperatorPrecedence04 - Passed");
 
@@ -228,7 +233,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == (1 + 1) || y == (1002 - 1000)", results, expected);
             if(debug)
                 logger.debug("Test ParenthesesMarkOperatorPrecedence05 - Passed");
 
@@ -262,7 +268,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == (1 * 2) && true", results, expected);
             if(debug)
                 logger.debug("Test ParenthesesMarkOperatorPrecedence06 - Passed");
 
@@ -295,7 +302,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == (10000 / 5000) || false", results, expected);
             if(debug) logger.debug("Test ParenthesesMarkOperatorPrecedence07 - Passed");
 
             tx.commit();
@@ -328,7 +336,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "(x == 2) == true",
+                    results, expected);
             if(debug) logger.debug("Test ParenthesesMarkOperatorPrecedence08 - Passed");
 
             tx.commit();
@@ -361,7 +370,9 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "(x == ((21 - 1/1)/10 + 1)) | (false && true)",
+                    results, expected);
             if(debug)
                 logger.debug("Test ParenthesesMarkOperatorPrecedence09 - Passed");
 

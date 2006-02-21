@@ -77,7 +77,8 @@ public class SetFilter extends QueryTest {
             expected.add(new PCPoint(2, 2));
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 2",
+                    results, expected);
 
             tx.commit();
             tx = null;

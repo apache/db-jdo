@@ -82,7 +82,8 @@ public class DeclareParameters extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == param",
+                    results, expected);
             tx.commit();
             tx = null;
         }
@@ -112,7 +113,9 @@ public class DeclareParameters extends QueryTest {
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, 
+                    "x == param1 && y == param2",
+                    results, expected);
             tx.commit();
             tx = null;
         }
@@ -141,7 +144,8 @@ public class DeclareParameters extends QueryTest {
             expected.add(p);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == a && y == b",
+                    results, expected);
             tx.commit();
             tx = null;
         }

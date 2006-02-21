@@ -70,7 +70,8 @@ public class NewQueryWithCandidateClassCollectionFilter extends QueryTest {
             expected.add(pc1);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x ==2",
+                    results, expected);
             
             tx.commit();
             tx = null;

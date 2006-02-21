@@ -92,7 +92,8 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == x", 
+                    results, expected);
             if (debug) 
                 logger.debug("\nTest ParameterDeclaredWithSameNameAsFieldOfCandidateClass - Passed");
 
@@ -133,7 +134,8 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "y == y",
+                    results, expected);
             if (debug) 
                 logger.debug("\nTest ParameterDeclaredWithSameNameAsFieldOfCandidateClass - Passed");
             

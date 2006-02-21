@@ -116,7 +116,8 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 1",
+                    results, expected);
             if (debug)
                 logger.debug("Test QueryResultPassedToAnotherQuery01: Passed");
 
@@ -148,7 +149,8 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 1",
+                    results, expected);
             if (debug) 
                 logger.debug("Test QueryResultPassedToAnotherQuery02: Passed");
             
@@ -179,7 +181,8 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
             expected.add(p2);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 1",
+                    results, expected);
             if (debug)
                 logger.debug("Test QueryResultPassedToAnotherQuery03: Passed");
 

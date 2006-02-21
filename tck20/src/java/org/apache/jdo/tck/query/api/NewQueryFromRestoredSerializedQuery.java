@@ -104,7 +104,8 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);
-            checkQueryResultWithoutOrder(ASSERTION_FAILED, results, expected);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, "x == 3", 
+                    results, expected);
             if (debug)
                 logger.debug("Test NewQueryFromRestoredSerializedQuery01(): Passed");
 
