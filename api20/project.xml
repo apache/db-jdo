@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -40,6 +40,16 @@ Request 243 under the auspices of the Java Community Process.</description>
             <artifactId>geronimo-spec-jta</artifactId>
             <version>1.0.1B-rc2</version>
         </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xmlParserAPIs</artifactId>
+            <version>2.6.2</version>
+        </dependency>
     </dependencies>
     <!-- =================== -->
     <!-- Build Specification -->
@@ -56,6 +66,16 @@ Request 243 under the auspices of the Java Community Process.</description>
                 <exclude>javax/jdo/util/AbstractTest.java</exclude>
                 <exclude>javax/jdo/pc/*.java</exclude>
             </excludes>
+            <resources>
+                <resource>
+                <directory>${basedir}/test/schema</directory>
+                <includes>
+                    <include>**/*.jdo</include>
+                    <include>**/*.jdoquery</include>
+                    <include>**/*.orm</include>
+                </includes>
+                </resource>
+            </resources>
         </unitTest>
         <!-- J A R  R E S O U R C E S -->
         <!-- Resources that are packaged up inside the JAR file -->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo">
+    <package name="simple">
+        <class name="TestClass"/>
+    </package>
+</jdo>
