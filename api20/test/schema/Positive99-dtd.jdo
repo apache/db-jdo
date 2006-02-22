@@ -190,7 +190,8 @@
           delete-action="restrict"
           update-action="restrict"
           indexed="true"
-          unique="true">
+          unique="true"
+          mapped-by="otherfield">
           <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
           <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
           <embedded/>
