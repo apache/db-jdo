@@ -628,6 +628,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
     <xs:element name="order">
         <xs:complexType>

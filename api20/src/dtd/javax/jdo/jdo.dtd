@@ -180,6 +180,7 @@
 <!ATTLIST element update-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST element indexed (true|false|unique) #IMPLIED>
 <!ATTLIST element unique (true|false) #IMPLIED>
+<!ATTLIST element mapped-by CDATA #IMPLIED>
 
 <!ELEMENT order (extension*, column*, index?, extension*)>
 <!ATTLIST order column CDATA #IMPLIED>
