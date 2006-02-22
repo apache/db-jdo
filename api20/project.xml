@@ -87,7 +87,7 @@ Request 243 under the auspices of the Java Community Process.</description>
                 </includes>
             </resource>
             <resource>
-                <directory>${basedir}/src/dtd</directory>
+                <directory>${basedir}/src/schema</directory>
                 <includes>
                     <include>javax/jdo/*.dtd</include>
                     <include>javax/jdo/*.xsd</include>
