@@ -207,10 +207,10 @@
 <!ATTLIST index unique (true|false) 'false'>
 
 <!ELEMENT query (#PCDATA|extension)*>
-<!ATTLIST query name CDATA #IMPLIED>
+<!ATTLIST query name CDATA #REQUIRED>
 <!ATTLIST query language CDATA #IMPLIED>
 <!ATTLIST query unmodifiable (true|false) 'false'>
-<!ATTLIST query unique (true|false) 'false'>
+<!ATTLIST query unique (true|false) #IMPLIED>
 <!ATTLIST query result-class CDATA #IMPLIED>
 
 <!ELEMENT unique (extension*, (column* | field* | property*), extension*)>

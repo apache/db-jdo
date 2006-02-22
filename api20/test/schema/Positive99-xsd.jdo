@@ -391,8 +391,8 @@
       <field name="boss"/>
       <property name="name25"/>
       <property name="name26"/>
-      <query/>
-      <query/>
+      <query name="namedQuery1"/>
+      <query name="namedQuery2"/>
       <fetch-group name="FetchGroup2"/>
       <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
       <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
