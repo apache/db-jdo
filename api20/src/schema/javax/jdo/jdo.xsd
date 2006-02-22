@@ -214,7 +214,6 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
-        <xs:attribute name="fetch-group"/>
         <xs:attribute name="recursion-depth"/>
         <xs:attribute name="field-name"/>
     </xs:attributeGroup>

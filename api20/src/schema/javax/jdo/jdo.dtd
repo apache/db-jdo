@@ -42,7 +42,6 @@
 <!ATTLIST property indexed (true|false|unique) #IMPLIED>
 <!ATTLIST property unique (true|false) #IMPLIED>
 <!ATTLIST property mapped-by CDATA #IMPLIED>
-<!ATTLIST property fetch-group CDATA #IMPLIED>
 <!ATTLIST property recursion-depth CDATA #IMPLIED>
 <!ATTLIST property field-name CDATA #IMPLIED>
 
