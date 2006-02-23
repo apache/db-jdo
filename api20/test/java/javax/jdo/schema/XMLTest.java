@@ -56,8 +56,20 @@ public class XMLTest extends AbstractTest {
 
     /** */
     protected static final String SCHEMA_LOCATION_PROP =
-        "http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation";
+        "http://apache.org/xml/properties/schema/external-schemaLocation";
     
+    /** jdo namespace */
+    protected static final String JDO_XSD_NS = 
+        "http://java.sun.com/xml/ns/jdo/jdo";
+
+    /** orm namespace */
+    protected static final String ORM_XSD_NS = 
+        "http://java.sun.com/xml/ns/jdo/orm";
+
+    /** jdoquery namespace */
+    protected static final String JDOQL_XSD_NS = 
+        "http://java.sun.com/xml/ns/jdo/jdoquery";
+
     /** */
     protected static final File JDO_XSD_FILE = 
         new File(BASEDIR + "/target/classes/javax/jdo/jdo.xsd");
@@ -133,13 +145,13 @@ public class XMLTest extends AbstractTest {
     public void testXSDBased() {
         // create XSD parser
         DocumentBuilder builder = null;
-        builder = createBuilder(JDO_XSD_FILE.toURI().toString());
+        builder = createBuilder(JDO_XSD_NS + " " + JDO_XSD_FILE.toURI().toString());
         checkXML(builder, positiveXSDJDO, true);
         checkXML(builder, negativeXSDJDO, false);
-        builder = createBuilder(ORM_XSD_FILE.toURI().toString());
+        builder = createBuilder(ORM_XSD_NS + " " + ORM_XSD_FILE.toURI().toString());
         checkXML(builder, positiveXSDORM, true);
         checkXML(builder, negativeXSDORM, false);
-        builder = createBuilder(JDOQL_XSD_FILE.toURI().toString());
+        builder = createBuilder(JDOQL_XSD_NS + " " + JDOQL_XSD_FILE.toURI().toString());
         checkXML(builder, positiveXSDJDOQL, true);
         checkXML(builder, negativeXSDJDOQL, false);
         String messages = retrieveMessages();
