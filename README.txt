@@ -1,152 +1,106 @@
-This is a prototype of the JDO maven projects:
-- api11 to build the jdo.jar which defines the JDO API version 1.1
-- ri11 the current JDO1 RI
-- tck11 the current JDO1 TCK
-- api20 to build the jdo.jar which defines the JDO API version 2.0
-- core20 the JDO2 core including utility and metadata model classes
-- enhancer20 the JDO2 byte code enhancer 
-- runtime20 the JDO2 runtime classes (pm, pmf, state manager, life cycle, 
-  store manager interface, runtime meta data support)
-- query20 the JDO2 JDOQL query compiler and JDOQL query tree nodes
-- fostore20 the JDO2 file object store (fostore) datastore
-- tck20 the JDO 2.0 TCK
-- btree the Netbeans open source btree implementation used by ri11 and fostore20
+This is the release candidate 1 of the JDO 2 project. It includes
+the JDO 2.0 TCK and its dependencies:
 
--------------
-Dependencies:
--------------
-
-The JDO maven project define their dependencies in the project.xml file:
-JDO1: api11, btree, ri11, tck11
-JDO2: api20, core20, enhancer20, tck20, btree, runtime20, query20, fostore20
+- api20 contains source to build jdo.jar, which defines the JDO API version 2.0
+- core20 contains the JDO2 core, including utility and metadata model classes
+- enhancer20 contains the utility classes used for verifying enhanced files
+- tck20 contains the JDO 2.0 Technology Compatibility Kit
 
 -------------
 Prerequisites
 -------------
 
 - Maven
-You need Maven version 1.0.1 or 1.0.2. You can download maven from 
+You must have Maven version 1.0.1 or 1.0.2 to build the projects from source
+and to execute the TCK. You can download maven from 
 http://maven.apache.org/start/download.html
 
+Note that maven uses the user.home system property for the location
+of the maven local repostitory: ${user.home}/.maven/repository.
+Under Windows this system property is C:\Documents and Settings\<user> 
+no matter what the HOME variable is set to. As a workaround you may set the 
+system property by adding -Duser.home=%HOME% to the environment variable 
+MAVEN_OPTS.
+
 - JNDI implementation (fscontext.jar and providerutil.jar)
-The JNDI test cases in ri11, fostore20 and tck20 need a JNDI implementation.
-To configure this please check the property jndi in project.properties of ri11,
-fostore20 and tck20. It lists all jars of your JNDI implementation in a 
-path-like syntax. Furthermore, the three subprojects have a properties file 
-test/conf/jndi.properties defining all the necessary properties of the JNDI 
-implemenation. The default setting in project.properties and jndi.properties 
-use Sun's File System Service Provider implementation (fscontext.jar and 
-providerutil.jar) and assume to find both jars in the directory trunk/lib/ext. 
-For donwload please go to http://java.sun.com/products/jndi/downloads/index.html,
+The JNDI test cases in tck20 need a JNDI implementation.
+The TCK is configured to use Sun's JNDI implementation.
+To use your own implementation, put the implementation
+jar files into lib/ext and update jndi.properties in the TCK directory
+src/conf.  To download Sun's implementation, go to 
+http://java.sun.com/products/jndi/downloads/index.html,
 click the Download button at 'Download JNDI 1.2.1 & More', accept a license 
 agreement, download 'File System Service Provider, 1.2 Beta 3' and then unpack
 the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 
 - JPOX
 The Reference Implementation for JDO 2.0 is JPOX. The tck20 subproject 
-automatically downloads the latest JPOX snapshot.
+automatically downloads the JPOX jar files via maven configuration.
 
 - derby
 The default datastore for tck20 is derby. The tck20 subproject 
 automatically downloads version 10.1.1.0 of derby and derbytools.
 NOTE!! Mac OSX users must uncomment derby.storage.fileSyncTransactionLog=true 
-in tck20/test/conf/derby.properties.
+in tck20/src/conf/derby.properties. For details, please see the Derby JIRA 
+issue DERBY-1 at http://issues.apache.org/jira/browse/DERBY-1
 
 -------
-Remarks
+Notes
 -------
 
-(1) Please note, maven uses the user.home system property for the location
-of the maven local repostitory: ${user.home}/.maven/repository.
-Under Windows this system property is C:\Documents and Settings\<user> 
-no matter what the HOME variable is set to. As a workaround I set the 
-system property by adding -Duser.home=%HOME% to the environment variable 
-MAVEN_OPTS.
+- Logging
+Apache JDO uses the apache commons logging package for logging.
 
-(2) The btree subproject checks out the Netbeans mdr btree implementation.
-This requires cvs being installed on your system. The official netbeans cvs 
-host might not work if you are behind a firewall that blocks the cvs port. 
-Please consult http://www.netbeans.org/community/sources for more info. 
-There is a special cvsroot if you are inside the Sun network (SWAN), please 
-check the project.properties in the btree subproject.
+- Checkstyle
+The file jdo_check.xml includes the checkstyle configuration. It is borrowed
+from the sun_checks.xml, but does not use all of the sun rules and customizes 
+some other rules. The checkstyle configuration is not yet finished.
 
-If you do not have a cvs client installed on your system, you find a zip file 
-including the Netbeans mdr btree implementation on the JDO wiki. Go to the 
-bottom of page http://wiki.apache.org/jdo/SubversionRepository.
+- Mevenide
+Mevenide is a nice maven plugin for IDEs (see http://mevenide.codehaus.org).
+You find download instructions in http://mevenide.codehaus.org/download.html.
+For Netbeans, once you installed the plugin, you should be able to open an 
+existing maven project by File -> Open Project -> Open Project Folder.
+Navigate to a directory including a maven project (e.g. api20) and choose this 
+directory. Netbeans will create a project folder. If you right-click the Maven 
+project you can examine the contents of the project.xml (see Properties) or 
+execute goals.
 
-(3) Remarks about ri11:
-- Calling 'maven build' in ri11 compiles the JDO RI sources and test classes 
-and then runs the JUnit tests. 
-- The maven goal runtest ('maven runtest') executes the full JDO RI test suite.
-This includes running all the JUnit tests w/O and w/ security manager, plus 
-some extra tests that require running more than one JVM. 
-- If you prefer the JUnit gui please call 'maven -Dgui=true runtests'. This 
-first starts a gui for running the JUnit tests w/o security manager. After 
-you exit the gui it automatically starts a new gui running the JUnit tests
-w/ security manager.
+-------
+Running the TCK
+-------
 
-(4) Remarks about tck11:
-Calling 'maven build' in tck11 compiles all the JDOTCK tests, runs the JDORI 
-enhancer and then runs all the tests using the JDORI. 
-To run the JDOTCK against an JDO implementation you should do the following:
-- Place the jars of your JDO implementation in the directory iut_jars. All the 
-jars in this directory are automatically added to the classpath.
-- Check the property iut.runtck.properties in project.properties. It should 
-refer to a file defining the PMF properties for your implementation. 
-- Please add any system properties to the property iut.runtck.sysproperties in 
-project.properties, e.g.
-iut.runtck.sysproperties = -DMySystemProperty1=value -DMySystemProperty2=value
-- If the JDO implementation comes with its own enhancer, please update the 
-properties iut.enhancer.main, iut.enhancer.options, iut.enhancer.args, and 
-iut.enhancer.sysproperties.
-- Check the properties iut.applicationidentity.supported and 
-iut.datastoreidentity.supported in project.properties and update them according 
-to the JDO implementation to be tested.
-- You run the TCK by calling 'maven runtck'. This first enhances the 
-persistence-capable and persistence-aware classes for applicationidentity and 
-for datastore identity. This uses the properties described in the previous item
-in order to decide which kind of identitytype is supported. After enhancement 
-'maven runtck' runs the JDO TCK test classes using the test configuration file
-as specified by the property jdo.tck.configuration. You find the property in
-project.properties.
-- A test configuration is a file defining two properties:
-jdo.tck.identitytype: either datastoreidentity or applicationidentity
-jdo.tck.testclasses: a list of fully qualified class names of the test classes 
-to be executed.
-The first property is important to include the enhanced classes for this 
-identitytype into the classpath. Today there is no checking whether the property
-value is correct. There is a predefined property jdo.tck.alltests including all 
-JDO TCK test classes. Please see the files datastoreidentity.conf and 
-applicationidentity.conf in test/conf as an example.
-- You can run the JUnit gui (instead of the batch mode) by setting the property
-gui to true: 'maven -Dgui=true runtck'.
+This version of the TCK is almost final.  
 
-(5) Remarks about tck20:
-This version of the TCK is under development.  It is premature to attempt to
-run an implementation against it.  Currently only tests that use the persistence
-capable classes in org.apache.jdo.tck.pc.mylib run without error.
-
-- See Prerequisites concerning JPOX and Derby.
-
-- Run "maven build" to build the tck.  This will compile, enhance, install the schemas, and run all the tests on all supported databases and identitytypes.
+In the tck20 project, run "maven build" to build the tck.  This will 
+compile, enhance, install the schemas, and run all the tests on all 
+supported databases and identitytypes.
 
 You may use the following custom goals and command line options
-with tck20/maven:
+with the tck20 project:
 
 Custom Goals:
+    * help - displays help text describing custom goals and options
     * runtck.jdori - runs the TCK on the JDO Reference Implementation
     * runtck.iut - runs the TCK on the implementation under test
     * installSchema - installs the database schema
     * enhance.jdori - enhances the class files using the JDO RI enhancer
     * enhance.iut - enhances the class files using the
                     implementation under test's enhancer
+    * debugtck.jdori - waits for a debugger to attach and then runs the TCK
+                     on the JDO RI
+    * debugtck.iut - waits for a debugger to attach and then runs the TCK
+                     on the implementation under test
+
 
 Command Line Options:
     -Djdo.tck.cfglist=<configuration file list>
           Overrides the definition of jdo.tck.cfglist found in
-          tck20/test/conf/configuration.list by supplying
+          tck20/src/conf/configuration.list by supplying
           one or more space-separated test configuration files.
           Test configuration files typically have the .conf extension.
+          To run a single test, create a .conf file (copy an existing
+          file) and put the test into the jdo.tck.classes property.
 
       -Djdo.tck.dblist=<database list>
           Overrides the property value in project.properties by supplying
@@ -157,8 +111,18 @@ Command Line Options:
             one or more space-separated identity types (applicationidentity
             or datastoreidentity) to use for this run.
 
+      -Djdo.tck.cleanupaftertest=xxx - true/false. Setting it to false will
+            retain data in database after test. This will allow inspection of
+            data after test is run. Default is true
 
-Maven looks for the following configuration files in test/conf:
+      -Djdo.tck.debug.port=##### - the port number the JVM should listen for
+            a debugger on (default 8787)
+
+      -Djdo.tck.debug.jvmargs=xxx - the "-Xdebug ..." arguments in the event
+            you want to supply your own debug directives
+
+
+Maven looks for the following configuration files in src/conf:
     * configurations.list
           A list of files. Each file listed is a test configuration file.
     * test configuration files
@@ -175,29 +139,29 @@ Maven looks for the following configuration files in test/conf:
                     corresponding schema name
     * exclude.list
           A list of test classes NOT to execute during a TCK test run
-          [Not yet fully implemented]
 
-For example, run "maven runtck.jdori" to run all tests or
-"maven -Djdo.tck.cfg=<configuration file name> runtck.jdori"
-to run one configuration.
+Examples:
+   maven -Djdo.tck.identitytypes=datastoreidentity installSchema
+       Installs the database schema for datastore identity for all
+       supported databases
 
-(6) Logging
-Apache JDO uses the apache commons logging package for logging.
-Sub-projects ri11 and tck11 use several properties files to configure logging.
-- common-logging.properties: specifies the logging implementation to use.
-  It is tested with apache SimpleLog and JDK 1.4 logging.
-- logging.properties: logger configuration when using JDK 1.4 logging.
-- simplelog.properties: logger configuration when using apache SimpleLog.
+   maven -Djdo.tck.cfglist="alltests.conf cfg1.conf" runtck.jdori
+       Runs the test configurations specified in alltests.conf and cfg1.conf
+       on the JDORI, using all supported identity types and databases.
 
-(7) The file jdo_check.xml includes the checkstyle configuration. It is borrowed
-from the sun_checks.xml, but does not use all of the sun rules and customizes 
-some other rules. The checkstyle configuration is not yet finished.
+   maven -Djdo.tck.cfglist=detach.conf debugtck.jdori
+       Runs the test detach.conf configuration, waiting for a debugger to
+       attach on the default port
 
-(8) Mevenide is a nice maven plugin for IDEs (see http://mevenide.codehaus.org).
-You find download instructions in http://mevenide.codehaus.org/download.html.
-For Netbeans, once you installed the plugin, you should be able to open an 
-existing maven project by File -> Open Project -> Open Project Folder.
-Navigate to a directoy including a maven project (e.g. api11) and choose this 
-directory. Netbeans will create a project folder. If you right-click the Maven 
-project you can examine the contents of the project.xml (see Properties) or 
-execute goals.
+   maven -Djdo.tck.cfglist=detach.conf -Djdo.tck.debug.port=9343 debugtck.jdori
+       Runs the test detach.conf configuration, waiting for a debugger to
+       attach on port 9343
+
+Note:
+   By default, the database schema is NOT installed when the custom goals
+     runtck.iut and runtck.jdori are run.
+   maven build installs the database schema and runs the TCK on the
+     JDO Reference Implementation.
+   Enhancement is always done before running the TCK when the enhanced classes
+     are not up to date.
+
