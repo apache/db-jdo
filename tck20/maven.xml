@@ -34,40 +34,54 @@
         <echo>Custom goals for this project are:</echo>
         <echo>  installSchema - installs the database schema</echo>
         <echo></echo>
-        <echo>  enhance.iut - enhances persistence capable classes with the implementation under test enhancer if enhancement is not up to date</echo>
-        <echo>  enhance.jdori - enhances persistence capable classes with the JDO Reference Implementation enhancer if enhancement is not up to date</echo>
+        <echo>  enhance.iut - enhances persistence capable classes with the implementation </echo>
+        <echo>    under test enhancer if enhancement is not up to date</echo>
+        <echo>  enhance.jdori - enhances persistence capable classes with the JDO Reference </echo>
+        <echo>    Implementation enhancer if enhancement is not up to date</echo>
         <echo></echo>
         <echo>  runtck.iut - runs the TCK on the implementation under test</echo>
         <echo>  runtck.jdori - runs the TCK on the JDO Reference Implementation</echo>
         <echo></echo>
         <echo>  debugtck.jdori - waits for a debugger to attach and then runs the TCK on the JDO RI</echo>
-        <echo>  debugtck.iut - waits for a debugger to attach and then runs the TCK on the implementation under test</echo>
+        <echo>  debugtck.iut - waits for a debugger to attach and then runs the TCK on the </echo>
+        <echo>    implementation under test</echo>
+        <echo></echo>
+        <echo></echo>
+        <echo>To run a single test, create a .conf file (copy an existing file) and edit the </echo>
+        <echo>jdo.tck.classes property to include the name of the test class.  </echo>
         <echo></echo>
         <echo></echo>
         <echo>Options for this project are:</echo>
-        <echo>  -Djdo.tck.cfglist=xxx - a list of configuration files (must be in test/conf)</echo>
+        <echo>  -Djdo.tck.cfglist=xxx - a list of configuration files (must be in src/conf)</echo>
         <echo>  -Djdo.tck.dblist=xxx - a list of databases</echo>
         <echo>  -Djdo.tck.identitytypes=xxx - a list of identity types (applicationidentity, datastoreidentity)</echo>
-        <echo>  -Djdo.tck.cleanupaftertest=xxx - true/false. Setting it to false will retain data in database after test. This will allow inspection of data after test is run. Default is true</echo>
-        <echo>  -Djdo.tck.debug.port=##### - the port number the JVM should listen for a debugger on (default 8787)</echo>
-        <echo>  -Djdo.tck.debug.jvmargs=xxx - the "-Xdebug ..." arguments in the event you want to supply your own debug directives</echo>
+        <echo>  -Djdo.tck.cleanupaftertest=xxx - true/false. Setting it to false will retain data </echo>
+        <echo>    in database after test. This will allow inspection of data after test is run. Default is true</echo>
+        <echo>  -Djdo.tck.debug.port=##### - the port number the JVM should listen for a </echo>
+        <echo>    debugger on (default 8787)</echo>
+        <echo>  -Djdo.tck.debug.jvmargs=xxx - the "-Xdebug ..." arguments in the event you want to </echo>
+        <echo>    supply your own debug directives</echo>
         <echo></echo>
         <echo>Examples:</echo>
         <echo>  maven -Djdo.tck.identitytypes=datastoreidentity installSchema</echo>
         <echo>      Installs the database schema for datastore identity for all supported databases</echo>
         <echo></echo>
         <echo>  maven -Djdo.tck.cfglist="alltests.conf cfg1.conf" runtck.jdori</echo>
-        <echo>      Runs the test configurations specified in alltests.conf and cfg1.conf on the JDORI, using all supported identity types and databases. </echo>
+        <echo>      Runs the test configurations specified in alltests.conf and cfg1.conf on the JDORI, </echo>
+        <echo>    using all supported identity types and databases. </echo>
         <echo></echo>
         <echo>  maven -Djdo.tck.cfglist=detach.conf debugtck.jdori</echo>
-        <echo>      Runs the test detach.conf configuration, waiting for a debugger to attach on the default port</echo>
+        <echo>      Runs the test detach.conf configuration, waiting for a debugger to attach on the </echo>
+        <echo>    default port</echo>
         <echo></echo>
         <echo>  maven -Djdo.tck.cfglist=detach.conf -Djdo.tck.debug.port=9343 debugtck.jdori</echo>
         <echo>      Runs the test detach.conf configuration, waiting for a debugger to attach on port 9343</echo>
         <echo></echo>
         <echo>Note:</echo>
-        <echo>  By default, the database schema is NOT installed when the custom goals runtck.iut and runtck.jdori are run.</echo>
-        <echo>  maven build installs the database schema and runs the TCK on the JDO Reference Implementation.</echo>
+        <echo>  By default, the database schema is NOT installed when the custom goals </echo>
+        <echo>    runtck.iut and runtck.jdori are run.</echo>
+        <echo>  maven build installs the database schema and runs the TCK on the JDO </echo>
+        <echo>    Reference Implementation.</echo>
         <echo>  Enhancement is always done before running the TCK when the enhanced classes are not up to date.</echo>
     </goal>
 
