@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC 
+    "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN"
+        "http://java.sun.com/schema/orm_2_0.dtd">
+<orm>
+	<package name="com.xyz">
+		<class name="Address" table="ADDR">
+			<!-- shared join condition used by fields in DELIV -->
+			<join table="DELIV" column="ADDR_STREET"/>
+			<field name="street" column="STREET"/>
+			<field name="city" column="CITY"/>
+			<field name="state" column="STATE"/>
+			<field name="zip" column="ZIPCODE"/>
+			<field name="signatureRequired" table="DELIV"
+				column="SIG_REQUIRED"/>
+			<field name="deliveryInstructions" table="DELIV">
+				<column name="DELIV_INS" jdbc-type="CLOB"/>
+			</field>
+			<field name="mapJPG" table="MAPQUEST_INFO" 
+				column="MAPQUEST_IMAGE">
+			<!-- join condition defined for this field only -->
+				<join column="ADDR_STREET"/>
+			</field>
+		</class>
+	</package>
+</orm>

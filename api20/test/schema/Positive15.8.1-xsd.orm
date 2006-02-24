@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+                         http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
+	<package name="com.xyz">
+		<class name="Employee" table="EMP">
+			<inheritance strategy="new-table">
+				<discriminator value="E" column="TYPE"/>
+			</inheritance>
+			<version strategy="version-number" column="VERS"/>
+			<field name="ssn" column="SSN"/>
+		</class>
+		<class name="PartTimeEmployee">
+			<inheritance strategy="superclass-table">
+				<discriminator value="P"/>
+			</inheritance>
+			<field name="hourlyWage" column="WAGE"/>
+		</class>
+		<class name="FullTimeEmployee">
+			<inheritance strategy="superclass-table">
+				<discriminator value="F"/>
+			</inheritance>
+			<field name="salary" column="SALARY"/>
+		</class>
+	</package>
+</orm>

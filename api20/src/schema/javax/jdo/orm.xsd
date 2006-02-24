@@ -87,14 +87,6 @@
         <xs:attribute name="name" use="required"/>
         <xs:attribute name="value-strategy"/>
         <xs:attribute name="sequence"/>
-        <xs:attribute name="serialized" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
         <xs:attribute name="delete-action">
@@ -363,14 +355,6 @@
         <xs:attribute name="name" use="required"/>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
-        <xs:attribute name="primary-key" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="value-strategy"/>
         <xs:attribute name="delete-action">
             <xs:simpleType>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC 
+    "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN"
+        "http://java.sun.com/schema/orm_2_0.dtd">
+<orm>
+	<package name="com.xyz">
+		<class name="Employee" table="EMP">
+			<inheritance strategy="new-table">
+				<discriminator strategy="class-name" column="JAVA_CLS"/>
+			</inheritance>
+			<version strategy="state-comparison"/>
+			<field name="ssn" column="SSN"/>
+		</class>
+		<class name="PartTimeEmployee" table="PART_EMP">
+			<inheritance strategy="new-table">
+				<join column="EMP_SSN"/>
+			</inheritance>
+			<field name="hourlyWage" column="WAGE"/>
+		</class>
+		<class name="FullTimeEmployee" table="FULL_EMP">
+			<inheritance strategy="new-table">
+				<join column="EMP_SSN"/>
+			</inheritance>
+			<field name="salary" column="SALARY"/>
+		</class>
+	</package>
+</orm>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+                         http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
+        <package name="com.xyz">
+                <class name="Employee" table="EMP">
+                        <field name="ssn" column="SSN"/>
+                        <field name="dept" column="DEP"/>
+                        <field name="role" column="ROLE"/>
+                </class>
+                <class name="Department" table="DEP">
+                        <field name="name" column="NAME"/>
+                        <field name="id" column="ID"/>
+                        <!-- field type is Map<String, Employee> -->
+                        <field name="roles" mapped-by="dept">
+                                <key mapped-by="role"/>
+                        </field>
+                </class>
+        </package>
+</orm>

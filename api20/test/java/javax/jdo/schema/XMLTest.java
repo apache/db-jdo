@@ -27,6 +27,8 @@ import java.io.FilenameFilter;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.jdo.JDOFatalException;
 import javax.jdo.util.AbstractTest;
@@ -222,7 +224,8 @@ public class XMLTest extends AbstractTest {
             } catch (SAXParseException ex) {
                 handler.error(ex);
             } catch (Exception ex) {
-                throw new JDOFatalException("Fatal error", ex);
+                throw new JDOFatalException("Fatal error processing " +
+                        file.getName(), ex);
             }
             String messages = handler.getMessages();
             if (valid && (messages != null)) {
@@ -332,18 +335,56 @@ public class XMLTest extends AbstractTest {
     private static class JDOEntityResolver 
         implements EntityResolver {
 
-        private static final String RECOGNIZED_PUBLIC_ID = 
+        private static final String RECOGNIZED_JDO_PUBLIC_ID = 
             "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN";
-        private static final String RECOGNIZED_SYSTEM_ID = 
+        private static final String RECOGNIZED_JDO_SYSTEM_ID = 
             "file:/javax/jdo/jdo.dtd";
+        private static final String RECOGNIZED_JDO_SYSTEM_ID2 = 
+            "http://java.sun.com/dtd/jdo_2_0.dtd";
+        private static final String RECOGNIZED_ORM_PUBLIC_ID = 
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN";
+        private static final String RECOGNIZED_ORM_SYSTEM_ID = 
+            "file:/javax/jdo/orm.dtd";
+        private static final String RECOGNIZED_ORM_SYSTEM_ID2 = 
+            "http://java.sun.com/dtd/orm_2_0.dtd";
+        private static final String RECOGNIZED_JDOQUERY_PUBLIC_ID = 
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.0//EN";
+        private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID = 
+            "file:/javax/jdo/jdoquery.dtd";
+        private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID2 = 
+            "http://java.sun.com/dtd/jdoquery_2_0.dtd";
+        private static final String JDO_DTD_FILENAME = 
+            "javax/jdo/jdo.dtd";
+        private static final String ORM_DTD_FILENAME = 
+            "javax/jdo/orm.dtd";
+        private static final String JDOQUERY_DTD_FILENAME = 
+            "javax/jdo/jdoquery.dtd";
 
+        static Map publicIds = new HashMap();
+        static Map systemIds = new HashMap();
+        static {
+            publicIds.put(RECOGNIZED_JDO_PUBLIC_ID, JDO_DTD_FILENAME);
+            publicIds.put(RECOGNIZED_ORM_PUBLIC_ID, ORM_DTD_FILENAME);
+            publicIds.put(RECOGNIZED_JDOQUERY_PUBLIC_ID, JDOQUERY_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_JDO_SYSTEM_ID, JDO_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_ORM_SYSTEM_ID, ORM_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_JDOQUERY_SYSTEM_ID, JDOQUERY_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_JDO_SYSTEM_ID2, JDO_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_ORM_SYSTEM_ID2, ORM_DTD_FILENAME);
+            systemIds.put(RECOGNIZED_JDOQUERY_SYSTEM_ID2, JDOQUERY_DTD_FILENAME);
+        }
         public InputSource resolveEntity(String publicId, final String systemId)
             throws SAXException, IOException 
         {
             // check for recognized ids
-            if (((publicId != null) && RECOGNIZED_PUBLIC_ID.equals(publicId)) ||
-                ((publicId == null) && (systemId != null) && 
-                 RECOGNIZED_SYSTEM_ID.equals(systemId))) {
+            String filename = (String)publicIds.get(publicId);
+            if (filename == null) {
+                filename = (String)systemIds.get(systemId);
+            }
+            final String finalName = filename;
+            if (finalName == null) {
+                return null;
+            } else {
                 // Substitute the dtd with the one from javax.jdo.jdo.dtd,
                 // but only if the publicId is equal to RECOGNIZED_PUBLIC_ID
                 // or there is no publicID and the systemID is equal to
@@ -352,21 +393,21 @@ public class XMLTest extends AbstractTest {
                         new PrivilegedAction () {
                             public Object run () {
                             return getClass().getClassLoader().
-                                getResourceAsStream("javax/jdo/jdo.dtd");
+                                getResourceAsStream(finalName);
                             }
                          }
                      );
                     if (stream == null) {
                         // TDB: error handling + I18N
-                        throw new JDOFatalException("Cannot load javax/jdo/jdo.dtd, " +
-                            "because the file does not exist in the jdo.jar file, " +
+                        throw new JDOFatalException("Cannot load " +
+                            finalName + 
+                            ", because the file does not exist in the jdo.jar file, " +
                             "or the JDOParser class is not granted permission to read this file.  " +
                             "The metadata .xml file contained PUBLIC=" + publicId +
                             " SYSTEM=" + systemId + ".");
                     }
                 return new InputSource(new InputStreamReader(stream));
             }
-            return null;
         }
     }
 }

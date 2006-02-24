@@ -23,7 +23,6 @@
 <!ATTLIST property name CDATA #REQUIRED>
 <!ATTLIST property value-strategy CDATA #IMPLIED>
 <!ATTLIST property sequence CDATA #IMPLIED>
-<!ATTLIST property serialized (true|false) #IMPLIED>
 <!ATTLIST property table CDATA #IMPLIED>
 <!ATTLIST property column CDATA #IMPLIED>
 <!ATTLIST property delete-action (restrict|cascade|null|default|none) #IMPLIED>
@@ -87,7 +86,6 @@
 <!ATTLIST field name CDATA #REQUIRED>
 <!ATTLIST field table CDATA #IMPLIED>
 <!ATTLIST field column CDATA #IMPLIED>
-<!ATTLIST field primary-key (true|false) 'false'>
 <!ATTLIST field value-strategy CDATA #IMPLIED>
 <!ATTLIST field delete-action (restrict|cascade|null|default|none) #IMPLIED>
 <!ATTLIST field indexed (true|false|unique) #IMPLIED>

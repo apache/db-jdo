@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE orm PUBLIC 
+    "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN"
+        "http://java.sun.com/schema/orm_2_0.dtd">
+<orm>
+	<package name="com.xyz">
+		<class name="Employee" table="EMP">
+			<field name="ssn" column="SSN"/>
+			<field name="dept" column="DEP"/>
+			<field name="role" column="ROLE"/>
+		</class>
+		<class name="Department" table="DEP">
+			<field name="name" column="NAME"/>
+			<field name="id" column="ID"/>
+			<!-- field type is Map<String, Employee> -->
+			<field name="roles" mapped-by="dept">
+				<key mapped-by="role"/>
+			</field>
+		</class>
+	</package>
+</orm>

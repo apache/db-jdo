@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+                         http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
+	<package name="com.xyz">
+		<class name="Address" table="ADDR">
+			<field name="street" column="STREET"/>
+			<field name="city" column="CITY"/>
+			<field name="state" column="STATE"/>
+			<field name="zip" column="ZIPCODE"/>
+			<!-- field type is Map<Date,String> -->
+			<field name="deliveryRecords" table="DELIV_RECORDS">
+				<join>
+					<column name="ADDR_STREET" target="STREET"/>
+					<column name="ADDR_ZIPCODE" target="ZIPCODE"/>
+				</join>
+				<key column="DELIV_DATE"/>
+				<value column="SIGNED_BY"/>
+			</field>
+		</class>
+	</package>
+</orm>
