@@ -107,6 +107,7 @@
 <!ELEMENT field (extension*, (array|collection|map)?, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST field name CDATA #REQUIRED>
 <!ATTLIST field persistence-modifier (persistent|transactional|none) #IMPLIED>
+<!ATTLIST field field-type CDATA #IMPLIED>
 <!ATTLIST field table CDATA #IMPLIED>
 <!ATTLIST field column CDATA #IMPLIED>
 <!ATTLIST field primary-key (true|false) 'false'>
