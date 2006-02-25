@@ -4,7 +4,7 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="HashMapStringKeyCollections"
                table="HASHMAPSTRINGKEY_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="HashMapOfString_Object0" table="HASHMAP_STR_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>

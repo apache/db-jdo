@@ -20,8 +20,8 @@
         <class name="AllPersist3">
             <inheritance strategy="superclass-table"/>
             <field name="shortF" column="SHORT_F"/>
-            <field name="secondObj" column="SECOND_OBJ" foreign-key="true"/>
-            <field name="thirdObj" column="THIRD_OBJ" foreign-key="true"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
         </class>
 
         <class name="AllPersist4">
@@ -47,8 +47,8 @@
         <class name="TopNonPersistF">
             <inheritance strategy="superclass-table"/>
             <field name="shortF" column="SHORT_F"/>
-            <field name="secondObj" column="SECOND_OBJ" foreign-key="true"/>
-            <field name="thirdObj" column="THIRD_OBJ" foreign-key="true"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
         </class>
 
         <class name="TopNonPersistH">
@@ -74,8 +74,8 @@
         <class name="TopPersistF">
             <inheritance strategy="superclass-table"/>
             <field name="shortF" column="SHORT_F"/>
-            <field name="secondObj" column="SECOND_OBJ" foreign-key="true"/>
-            <field name="thirdObj" column="THIRD_OBJ" foreign-key="true"/>
+            <field name="secondObj" column="SECOND_OBJ"/>
+            <field name="thirdObj" column="THIRD_OBJ"/>
         </class>
 
         <class name="TopPersistH">
@@ -101,8 +101,8 @@
         <class name="FieldSameName3">
             <inheritance strategy="superclass-table"/>
             <field name="n1" column="FSN3_N1"/>
-            <field name="n2" column="FSN3_N2" foreign-key="true"/>
-            <field name="n3" column="FSN3_N3" foreign-key="true"/>
+            <field name="n2" column="FSN3_N2"/>
+            <field name="n3" column="FSN3_N3"/>
         </class>
 
         <class name="FieldSameName4">

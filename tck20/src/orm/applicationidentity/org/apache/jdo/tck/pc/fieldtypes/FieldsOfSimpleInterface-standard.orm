@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfSimpleInterface" table="FIELDSOFSIMPLEINTERFACE">
-            <field name="identifier" primary-key="true" column="IDENTIFIER">
+            <field name="identifier" column="IDENTIFIER">
             </field>
             <field name="SimpleInterface1" column="SIMPLEINTERFACE1">
             </field>

@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.instancecallbacks">
         <class name="InstanceCallbackNonPersistFdsClass" table="ICNonPersistFds">
-            <field name="keyValue" primary-key="true">
+            <field name="keyValue">
                 <column name="ICKEY"/>
             </field>
             <field name="d" column="D"/>
@@ -17,7 +17,7 @@
         </class>
 
         <class name="InstanceCallbackClass" table="InstanceCallbacks">
-            <field name="keyValue" primary-key="true">
+            <field name="keyValue">
                 <column name="ICKEY"/>
             </field>
             <field name="name" column="NAME"/>

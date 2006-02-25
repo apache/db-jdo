@@ -4,19 +4,19 @@
   <package name="org.apache.jdo.tck.pc.singlefieldidentity">
 
     <class name="PCPointSingleFieldPrimitivebyte" table="PCPointSingleFieldByte">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldByte" table="PCPointSingleFieldByte">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldPrimitivechar" table="PCPointSingleFieldChar">
-      <field name="id" primary-key="true">
+      <field name="id">
         <column name="ID" jdbc-type="INTEGER"/>
       </field>
       <field name="x" column="X"/>
@@ -24,7 +24,7 @@
     </class>
 
     <class name="PCPointSingleFieldCharacter" table="PCPointSingleFieldChar">
-      <field name="id" primary-key="true">
+      <field name="id">
         <column name="ID" jdbc-type="INTEGER"/>
       </field>
       <field name="x" column="X"/>
@@ -32,49 +32,49 @@
     </class>
 
     <class name="PCPointSingleFieldPrimitiveint" table="PCPointSingleFieldInteger">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldInteger" table="PCPointSingleFieldInteger">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldPrimitivelong" table="PCPointSingleFieldLong">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldLong" table="PCPointSingleFieldLong">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldPrimitiveshort" table="PCPointSingleFieldShort">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldShort" table="PCPointSingleFieldShort">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldString" table="PCPointSingleFieldString">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPointSingleFieldDate" table="PCPointSingleFieldDate">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>

@@ -9,28 +9,28 @@ has application identity.
 
         <class name="InstanceLifecycleListenerAttach$PC" 
                 table="LIFECYCLELISTENERATTACH">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
         </class>
         <class name="InstanceLifecycleListenerClear$PC" 
                 table="LIFECYCLELISTENERCLEAR">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
         </class>
         <class name="InstanceLifecycleListenerDelete$PC" 
                 table="LIFECYCLELISTENERDELETE">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
         </class>
         <class name="InstanceLifecycleListenerDetach$PC" 
                 table="LIFECYCLELISTENERDETACH">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
         </class>
         <class name="InstanceLifecycleListenerLoad$PC" 
                 table="LIFECYCLELISTENERLOAD">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
             <field name="value" column="VALUE"/>
         </class>
         <class name="InstanceLifecycleListenerStore$PC" 
                 table="LIFECYCLELISTENERSTORE">
-            <field name="id" column="ID" primary-key="true"/>
+            <field name="id" column="ID"/>
         </class>
     </package>
 </orm>

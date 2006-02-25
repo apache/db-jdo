@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfFloat" table="FIELDSOFFLOAT">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Float0" column="FLOAT0"/>
             <field name="Float1" column="FLOAT1"/>
             <field name="Float102" column="FLOAT102"/>

@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivebyte" table="FIELDSOFPRIMITIVEBYTE">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="byte0" column="BYTE0"/>
             <field name="byte1" column="BYTE1"/>
             <field name="byte102" column="BYTE102"/>

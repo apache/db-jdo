@@ -20,8 +20,8 @@ has application identity.
 
             <field name="id" column="ID"/>
             <field name="quantity" column="QUANTITY"/>
-            <field name="product" column="SKU" foreign-key="true"/>
-            <field name="cart" column="CART_ID" foreign-key="true"/>
+            <field name="product" column="SKU"/>
+            <field name="cart" column="CART_ID"/>
         </class>
 
         <class name="Product" table="PRODUCTS">

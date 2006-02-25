@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivelong" table="FIELDSOFPRIMITIVELONG">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="long0" column="LONG0"/>
             <field name="long1" column="LONG1"/>
             <field name="long102" column="LONG102"/>

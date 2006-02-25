@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="HashSetCollections" table="HASHSET_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="HashSetOfObject0"
                    table="HASHSET_OF_OBJECT0">
                 <join column="IDENTIFIER"/>

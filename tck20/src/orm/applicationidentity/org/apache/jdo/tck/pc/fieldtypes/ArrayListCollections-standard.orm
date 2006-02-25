@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="ArrayListCollections" table="ARRAYLIST_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="ArrayListOfObject0"
                    table="ARRAYLIST_OF_OBJECT0">
                 <join column="IDENTIFIER"/>

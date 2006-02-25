@@ -4,7 +4,7 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="MapStringValueCollections"
                table="MAPSTRINGVALUE_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="MapOfObject_String0" table="MAP_OBJECT0_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>

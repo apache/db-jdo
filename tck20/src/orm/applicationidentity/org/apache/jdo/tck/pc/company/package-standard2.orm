@@ -22,7 +22,7 @@ Inheritance strategy:
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Company" table="companies">
-            <field name="companyid" column="ID" primary-key="true"/>
+            <field name="companyid" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="founded" column="FOUNDEDDATE"/>
             <field name="address">
@@ -39,9 +39,9 @@ Inheritance strategy:
         </class>
 
         <class name="Department" table="departments">
-            <field name="deptid" column="ID" primary-key="true"/>
+            <field name="deptid" column="ID"/>
             <field name="name" column="NAME"/>
-            <field name="company" column="COMPANYID" foreign-key="true"/>
+            <field name="company" column="COMPANYID"/>
             <field name="employees" mapped-by="department"/>
             <field name="fundedEmps" mapped-by="fundingDept"/>
             <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
@@ -49,7 +49,7 @@ Inheritance strategy:
 
         <class name="PartTimeEmployee" table="parttimeemployees">
             <inheritance strategy="new-table"/>
-            <field name="Person.personid" column="PERSONID" primary-key="true"/>
+            <field name="Person.personid" column="PERSONID"/>
             <field name="Person.firstname" column="FIRSTNAME"/>
             <field name="Person.lastname" column="LASTNAME"/>
             <field name="Person.middlename" column="MIDDLENAME"/>
@@ -98,7 +98,7 @@ Inheritance strategy:
 
         <class name="FullTimeEmployee" table="fulltimeemployees">
             <inheritance strategy="new-table"/>
-            <field name="Person.personid" column="PERSONID" primary-key="true"/>
+            <field name="Person.personid" column="PERSONID"/>
             <field name="Person.firstname" column="FIRSTNAME"/>
             <field name="Person.lastname" column="LASTNAME"/>
             <field name="Person.middlename" column="MIDDLENAME"/>
@@ -151,7 +151,7 @@ Inheritance strategy:
 
         <class name="Person" table="persons">
             <inheritance strategy="new-table"/>
-            <field name="personid" column="PERSONID" primary-key="true"/>
+            <field name="personid" column="PERSONID"/>
             <field name="firstname" column="FIRSTNAME"/>
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename" column="MIDDLENAME"/>
@@ -178,7 +178,7 @@ Inheritance strategy:
 
         <class name="DentalInsurance" table="dentalinsurance">
             <inheritance strategy="new-table"/>
-            <field name="Insurance.insid" column="INSID" primary-key="true"/>
+            <field name="Insurance.insid" column="INSID"/>
             <field name="Insurance.carrier" column="CARRIER"/>
             <field name="Insurance.employee" column="EMPLOYEE">
                  <foreign-key/>
@@ -188,7 +188,7 @@ Inheritance strategy:
 
         <class name="MedicalInsurance" table="medicalinsurance">
             <inheritance strategy="new-table"/>
-            <field name="Insurance.insid" column="INSID" primary-key="true"/>
+            <field name="Insurance.insid" column="INSID"/>
             <field name="Insurance.carrier" column="CARRIER"/>
             <field name="Insurance.employee" column="EMPLOYEE">
                  <foreign-key/>
@@ -197,7 +197,7 @@ Inheritance strategy:
         </class>
 
         <class name="Project" table="projects">
-            <field name="projid" column="PROJID" primary-key="true"/>
+            <field name="projid" column="PROJID"/>
             <field name="name" column="NAME"/>
             <field name="budget">
                <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>

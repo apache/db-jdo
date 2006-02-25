@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
            <class name="FieldsOfShort" table="FIELDSOFSHORT">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Short0" column="SHORT0"/>
             <field name="Short1" column="SHORT1"/>
             <field name="Short102" column="SHORT102"/>

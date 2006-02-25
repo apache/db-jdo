@@ -3,7 +3,7 @@
 <orm>
   <package name="org.apache.jdo.tck.pc.lifecycle">
     <class name="StateTransitionObj" table="STATETRANSITIONOBJ">
-       <field name="id" column="ID" primary-key="true"/>
+       <field name="id" column="ID"/>
        <field name="int_field" column="INT_FIELD"/>
     </class>
   </package>

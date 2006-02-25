@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfCharacter" table="FIELDSOFCHARACTER">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Character0">
                 <column name="CHARACTER0" jdbc-type="INTEGER"/>
             </field>

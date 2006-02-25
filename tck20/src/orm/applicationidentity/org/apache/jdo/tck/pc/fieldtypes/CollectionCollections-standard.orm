@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="CollectionCollections" table="COLLECTION_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="CollectionOfObject0"
                    table="COLLECTION_OF_OBJECT0">
                 <join column="IDENTIFIER"/>

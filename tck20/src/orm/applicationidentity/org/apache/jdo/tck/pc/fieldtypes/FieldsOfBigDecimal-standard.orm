@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigDecimal" table="FIELDSOFBIGDECIMAL">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="BigDecimal1">
                 <column name="BIG_DECIMAL1" jdbc-type="DECIMAL" length="11" scale="4"/>
             </field>

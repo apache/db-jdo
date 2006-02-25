@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfObject" table="FIELDSOFOBJECT">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Object1" column="OBJECT1">
             </field>
             <field name="Object102" column="OBJECT102">

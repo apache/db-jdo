@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfInteger" table="FIELDSOFINTEGER">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Integer0" column="INTEGER0"/>
             <field name="Integer1" column="INTEGER1"/>
             <field name="Integer102" column="INTEGER102"/>

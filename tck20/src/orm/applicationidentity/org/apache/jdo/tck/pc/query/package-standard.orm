@@ -4,11 +4,11 @@
   <package name="org.apache.jdo.tck.pc.query">
 
     <class name="JDOQLKeywordsAsFieldNames" table="JDOQLKeywordsAsFieldNames">
-      <field name="select" column="ID" primary-key="true"/>
+      <field name="select" column="ID"/>
     </class>
 
     <class name="NoExtent" table="NoExtent">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
     </class>
 
   </package>

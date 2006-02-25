@@ -6,7 +6,7 @@ Metadata for application identity
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="ArrayCollections" table="ARRAY_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="ArrayOfObject0" table="ARRAY_OF_OBJECT0">
                 <join column="IDENTIFIER"/>
                 <element column="OBJVAL"/>

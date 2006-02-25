@@ -34,7 +34,7 @@ have inheritance strategy "superclass-table".
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="deptid" column="ID"/>
             <field name="name" column="NAME"/>
-            <field name="company" column="COMPANYID" foreign-key="true"/>
+            <field name="company" column="COMPANYID"/>
             <field name="employees" mapped-by="department"/>
             <field name="fundedEmps" mapped-by="fundingDept"/>
             <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>

@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigInteger" table="FIELDSOFBIGINTEGER">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="BigInteger1" column="BIG_INTEGER1"/>
             <field name="BigInteger102" column="BIG_INTEGER102"/>
             <field name="BigInteger103" column="BIG_INTEGER103"/>

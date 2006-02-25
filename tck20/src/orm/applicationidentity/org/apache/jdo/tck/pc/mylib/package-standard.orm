@@ -4,25 +4,25 @@
   <package name="org.apache.jdo.tck.pc.mylib">
 
     <class name="PCPoint" table="PCPoint">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="VersionedPCPoint" table="VersionedPCPoint">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCPoint2" table="PCPoint2">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="x" column="X"/>
       <field name="y" column="Y"/>
     </class>
 
     <class name="PCRect" table="PCRect">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="lowerRight" column="LOWER_RIGHT">
         <foreign-key/>
       </field>
@@ -32,7 +32,7 @@
     </class>
 
     <class name="PrimitiveTypes" table="PrimitiveTypes">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="booleanNotNull" column="booleanNotNull"/>
       <field name="booleanNull" column="booleanNull"/>
       <field name="byteNotNull" column="byteNotNull"/>
@@ -57,7 +57,7 @@
     </class>
 
     <class name="PCClass" table="PCClass">
-      <field name="id" column="ID" primary-key="true"/>
+      <field name="id" column="ID"/>
       <field name="number1" column="NUMBER1"/>
       <field name="number2" column="NUMBER2"/>
     </class>

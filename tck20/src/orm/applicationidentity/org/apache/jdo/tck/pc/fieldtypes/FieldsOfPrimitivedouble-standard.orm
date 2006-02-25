@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitivedouble" table="FIELDSOFPRIMITIVEDOUBLE">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="double0" column="DOUBLE0"/>
             <field name="double1" column="DOUBLE1"/>
             <field name="double102" column="DOUBLE102"/>

@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfSimpleClass" table="FIELDSOFSIMPLECLASS">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="SimpleClass0" column="SIMPLECLASS0">
                 <foreign-key/>
             </field>

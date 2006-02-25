@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfPrimitiveBoolean" table="FIELDSOFPRIMITIVEBOOLEAN">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="boolean0" column="BOOLEAN0"/>
             <field name="boolean1" column="BOOLEAN1"/>
             <field name="boolean102" column="BOOLEAN102"/>

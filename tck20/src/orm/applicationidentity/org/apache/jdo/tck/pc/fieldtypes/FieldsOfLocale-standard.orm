@@ -3,7 +3,7 @@
 <orm>
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfLocale" table="FIELDSOFLOCALE">
-            <field name="identifier" primary-key="true" column="IDENTIFIER"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="Locale0" column="LOCALE0"/>
             <field name="Locale1" column="LOCALE1"/>
             <field name="Locale102" column="LOCALE102"/>

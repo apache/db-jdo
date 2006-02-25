@@ -4,7 +4,7 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="TreeMapStringValueCollections"
                table="TREEMAPSTRINGVALUE_COLLECTIONS">
-            <field name="identifier" column="IDENTIFIER" primary-key="true"/>
+            <field name="identifier" column="IDENTIFIER"/>
             <field name="TreeMapOfObject_String0" table="TREEMAP_OBJECT0_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYREF"/>
