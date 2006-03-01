@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN" "http://java.sun.com/dtd/orm_2_0.dtd">
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
 <!--
 This file contains the schema information when an implementation
 has datastore identity.
@@ -9,7 +12,6 @@ Separate table for each class in the inheritance hierarchy.
 Each table contains columns for the declared fields.
 Inheritance strategy: new-table for all classes.
 -->
-<orm>
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Company" table="companies">
