@@ -27,7 +27,7 @@
     <artifactId>jdo2-core</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
-    <shortDescription>Java Data Object 2.0 (JDO) Core</shortDescription>
+    <shortDescription>Java Data Objects 2.0 (JDO) Core</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request JSR 243 under the auspices of the Java Community Process.</description>

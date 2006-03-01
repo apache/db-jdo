@@ -25,10 +25,10 @@
     <artifactId>jdo2-tck</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo.tck</package>
-    <shortDescription>Java Data Object 2.0 (JDO) TCK</shortDescription>
+    <shortDescription>Java Data Objects 2.0 (JDO) TCK</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request JSR 243 under the auspices of the Java Community Process.
 
-The JDO TCK is a test suite designed to test implementations of the Java Data Objects specification. In order to claim compatibility with JDO, an implementation must pass all relevant tests of the JDOTCK.
+The JDO TCK is a test suite designed to test implementations of the Java Data Objects 2.0 specification. In order to claim compatibility with JDO, an implementation must pass all relevant tests of the JDOTCK.
 
 NOTE!! There are no unit tests in this project.</description>
     <repository />

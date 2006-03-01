@@ -28,7 +28,7 @@
     <artifactId>jdo1-tck</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo.tck</package>
-    <shortDescription>Java Data Object (JDO) TCK</shortDescription>
+    <shortDescription>Java Data Objects (JDO) TCK</shortDescription>
     <description>
 The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 

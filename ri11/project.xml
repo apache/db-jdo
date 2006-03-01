@@ -27,7 +27,7 @@
     <artifactId>jdo1-ri</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
-    <shortDescription>Java Data Object (JDO) RI</shortDescription>
+    <shortDescription>Java Data Objects (JDO) RI</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request 12 JSR 12 under the auspices of the Java Community Process.</description>
