@@ -669,6 +669,45 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
+     * @see javax.jdo.PersistenceManager#makeTransient
+     * (Object pc, boolean useFetchPlan)
+     */
+    public void makeTransient(Object pc, boolean useFetchPlan){
+        if (isValid) { 
+            pm.makeTransient(pc, useFetchPlan);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+   }
+    
+    /** 
+     * @see javax.jdo.PersistenceManager#makeTransientAll
+     * (Object[] pc, boolean useFetchPlan)
+     */
+    public void makeTransientAll(Object[] pcs, boolean useFetchPlan){
+        if (isValid) { 
+            pm.makeTransientAll(pcs, useFetchPlan);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+   }
+    
+    /** 
+     * @see javax.jdo.PersistenceManager#makeTransientAll
+     * (Collection pcs, boolean useFetchPlan)
+     */
+    public void makeTransientAll (Collection pcs, boolean useFetchPlan){
+        if (isValid) { 
+            pm.makeTransientAll(pcs, useFetchPlan);
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+   }
+    
+    /** 
      * @see javax.jdo.PersistenceManager#makeTransactional(Object pc)
      */
     public void makeTransactional(Object pc){
