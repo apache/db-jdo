@@ -604,6 +604,11 @@
         <fileset dir="${basedir}/iut_jars" includes="*.jar"/>
     </path>
 
+    <!-- Jar files for third party libraries, including JNDI -->
+    <path id="external.libs" >
+        <fileset dir="${basedir}/../lib/ext" includes="*.jar"/>
+    </path>
+
     <!-- Jar files for the Reference Implementation -->
     <path id="jdo.jdori.classpath">
         <pathelement location="${jpox.jdori.jarfile}" />
@@ -657,8 +662,8 @@
         <path refid="jdo.spring.classpath" />
         <!-- Jar files for connection pooling -->
         <path refid="jdo.connectionpooling.classpath" />
-        <!-- Jar files for jndi -->
-        <pathelement path="${jndi}"/>
+        <!-- Jar files for jndi and other external libraries -->
+        <path refid="external.libs"/>
         <!-- Jar files for database -->
         <pathelement location="${derby.jarfile}" />
     </path>
