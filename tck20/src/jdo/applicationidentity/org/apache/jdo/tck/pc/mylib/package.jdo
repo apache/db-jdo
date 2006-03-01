@@ -26,6 +26,12 @@
     <class name="PCRect"
            identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCRect$Oid">
       <field name="id" primary-key="true"/>
+      <fetch-group name="PCRect.upperLeft">
+        <field name="upperLeft"/>
+      </fetch-group>
+      <fetch-group name="PCRect.lowerRight">
+        <field name="lowerRight"/>
+      </fetch-group>
     </class>
 
     <class name="PrimitiveTypes" 

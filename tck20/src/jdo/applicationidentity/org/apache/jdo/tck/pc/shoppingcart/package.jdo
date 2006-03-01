@@ -31,6 +31,9 @@
             <field name="entries">
                 <collection element-type="CartEntry"/>
             </field>
+            <fetch-group name="Cart.entries">
+                <field name="entries"/>
+            </fetch-group>
         </class>
 
         <class
@@ -40,6 +43,12 @@
                 detachable="true"
                 >
             <field name="id" primary-key="true"/>
+            <fetch-group name="CartEntry.cart">
+                <field name="cart"/>
+            </fetch-group>
+            <fetch-group name="CartEntry.product">
+                <field name="product"/>
+            </fetch-group>
         </class>
     </package>
 </jdo>

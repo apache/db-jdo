@@ -23,12 +23,22 @@
             <field name="entries">
                 <collection element-type="CartEntry"/>
             </field>
+            <fetch-group name="Cart.entries">
+                <field name="entries"/>
+            </fetch-group>
         </class>
 
         <class
                 name="CartEntry"
                 identity-type="datastore"
                 detachable="true"
-                />
+                >
+            <fetch-group name="CartEntry.cart">
+                <field name="cart"/>
+            </fetch-group>
+            <fetch-group name="CartEntry.product">
+                <field name="product"/>
+            </fetch-group>
+        </class>
     </package>
 </jdo>

@@ -16,7 +16,14 @@
       <field name="deleteCalled" persistence-modifier="none"/>
     </class>
 
-    <class name="PCRect" identity-type="datastore"/>
+    <class name="PCRect" identity-type="datastore">
+      <fetch-group name="PCRect.upperLeft">
+        <field name="upperLeft"/>
+      </fetch-group>
+      <fetch-group name="PCRect.lowerRight">
+        <field name="lowerRight"/>
+      </fetch-group>
+    </class>
 
     <class name="PrimitiveTypes" identity-type="datastore"/>
 
