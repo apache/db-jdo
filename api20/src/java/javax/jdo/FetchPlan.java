@@ -22,6 +22,7 @@
 package javax.jdo;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Fetch groups are activated using methods on this interface. An
@@ -112,7 +113,7 @@ public interface FetchPlan {
      * of all active fetch groups
      * @since 2.0
      */
-    Collection getGroups();
+    Set getGroups();
 
     /** 
      * Set a collection of groups.
