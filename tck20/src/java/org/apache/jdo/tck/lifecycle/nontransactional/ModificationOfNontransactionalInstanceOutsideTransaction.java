@@ -81,7 +81,8 @@ public class ModificationOfNontransactionalInstanceOutsideTransaction extends JD
     public void testDifferentPM() {
         if (!isNontransactionalWriteSupported()) {
             printUnsupportedOptionalFeatureNotTested(
-                "NontransactionalWrite", "testDifferentPM");
+                    getClass().getName(), 
+                    "javax.jdo.option.NontransactionalWrite");
         }
         else {
             pm = getPM();
@@ -128,7 +129,8 @@ public class ModificationOfNontransactionalInstanceOutsideTransaction extends JD
     public void testSameInstance() {
         if (!isNontransactionalWriteSupported()) {
             printUnsupportedOptionalFeatureNotTested(
-                "NontransactionalWrite", "testDifferentPM");
+                    getClass().getName(), 
+                    "javax.jdo.option.NontransactionalWrite");
         }
         else {
             pm = getPM();
@@ -151,7 +153,8 @@ public class ModificationOfNontransactionalInstanceOutsideTransaction extends JD
     public void testIterateExtent() {
         if (!isNontransactionalWriteSupported()) {
             printUnsupportedOptionalFeatureNotTested(
-                "NontransactionalWrite", "testDifferentPM");
+                    getClass().getName(), 
+                    "javax.jdo.option.NontransactionalWrite");
         }
         else {
             pm = getPM();

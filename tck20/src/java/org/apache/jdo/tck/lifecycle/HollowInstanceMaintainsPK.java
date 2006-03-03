@@ -59,11 +59,11 @@ public class HollowInstanceMaintainsPK extends JDO_Test {
     public void test() {
         if (!isApplicationIdentitySupported()) {
             printUnsupportedOptionalFeatureNotTested(
-                    "HollowInstanceMaintainsPK", 
+                    getClass().getName(), 
                     "javax.jdo.option.ApplicationIdentity");
         } else if (!runsWithApplicationIdentity()) {
             printNonApplicableIdentityType(
-                    "HollowInstanceMaintainsPK", 
+                    getClass().getName(), 
                     "javax.jdo.option.ApplicationIdentity");
         }
         else {

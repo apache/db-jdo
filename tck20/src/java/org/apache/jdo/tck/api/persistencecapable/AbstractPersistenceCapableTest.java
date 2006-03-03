@@ -46,9 +46,7 @@ abstract class AbstractPersistenceCapableTest extends JDO_Test {
     }
     
     protected boolean isTestToBePerformed() {
-        int index = getClass().getName().lastIndexOf('.');
-        String testName = index==-1 ? 
-                getClass().getName() : getClass().getName().substring(index+1);
+        String testName = getClass().getName();
         if (!isBinaryCompatibilitySupported()) {
             printUnsupportedOptionalFeatureNotTested(
                     testName, "javax.jdo.option.BinaryCompatibility");

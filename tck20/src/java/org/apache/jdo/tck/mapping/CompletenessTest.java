@@ -17,10 +17,8 @@
 package org.apache.jdo.tck.mapping;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
@@ -48,9 +46,13 @@ public class CompletenessTest extends JDO_Test {
         "Assertion A18-[not identified] failed: ";
     
     /** */
+    private final boolean isTestToBePerformed = isTestToBePerformed();
+    
+    /** */
     protected List rootOids;
     
-    protected String inputFilename = System.getProperty("jdo.tck.testdata");
+    /** */
+    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
     
     /**
      * The <code>main</code> is called when the class
@@ -61,31 +63,11 @@ public class CompletenessTest extends JDO_Test {
         BatchTestRunner.run(CompletenessTest.class);
     }
 
-    private boolean isTestToBePerformed() {
-        boolean isTestToBePerformed = true;
-        String requiredOptions = System.getProperty("jdo.tck.requiredOptions");
-        Collection supportedOptions = getPMF().supportedOptions();
-        StringTokenizer tokenizer = new StringTokenizer(requiredOptions, " ,");
-        while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken();
-            if (!token.equals("") &&
-                !supportedOptions.contains(token)) {
-                isTestToBePerformed = false;
-                int index = getClass().getName().lastIndexOf('.');
-                String testName = index==-1 ? 
-                        getClass().getName() : getClass().getName().substring(index+1);
-                printUnsupportedOptionalFeatureNotTested(testName, token);
-                break;
-            }
-        }
-        return isTestToBePerformed;
-    }
-    
     /**
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        if (isTestToBePerformed()) {
+        if (isTestToBePerformed) {
             addTearDownClass(CompanyModelReader.getTearDownClasses());
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
@@ -106,7 +88,7 @@ public class CompletenessTest extends JDO_Test {
 
     /** */
     public void test() {
-        if (isTestToBePerformed()) {
+        if (isTestToBePerformed) {
             // register the default factory
             CompanyFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with

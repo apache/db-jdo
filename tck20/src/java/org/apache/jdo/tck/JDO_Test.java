@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.jdo.Extent;
@@ -875,5 +876,32 @@ public abstract class JDO_Test extends TestCase {
      */
     protected String getPMFProperty(String key) {
         return PMFPropertiesObject.getProperty(key);
+    }
+
+    /**
+     * Returns <code>true</code> if the implementation under test
+     * supports all JDO options contained in system property
+     * <code>jdo.tck.requiredOptions</code>.
+     * @return <code>true</code> if the implementation under test
+     * supports all JDO options contained in system property
+     * <code>jdo.tck.requiredOptions</code>
+     */
+    protected boolean isTestToBePerformed() {
+        boolean isTestToBePerformed = true;
+        String requiredOptions = System.getProperty("jdo.tck.requiredOptions");
+        Collection supportedOptions = getPMF().supportedOptions();
+        StringTokenizer tokenizer = new StringTokenizer(
+                requiredOptions, " ,;\n\r\t");
+        while (tokenizer.hasMoreTokens()) {
+            String requiredOption = tokenizer.nextToken();
+            logger.debug("Required option: " + requiredOption);
+            if (!requiredOption.equals("") &&
+                !supportedOptions.contains(requiredOption)) {
+                isTestToBePerformed = false;
+                printUnsupportedOptionalFeatureNotTested(
+                        getClass().getName(), requiredOption);
+            }
+        }
+        return isTestToBePerformed;
     }
 }

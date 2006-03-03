@@ -72,7 +72,8 @@ public class EvictingWithRetainValuesFalse extends PersistenceManagerTest {
     public void test() {
 
 	    if (!isRetainValuesSupported()) {
-    		printUnsupportedOptionalFeatureNotTested("EvictingWithRetainValuesFalse", "javax.jdo.option.RetainValues");
+    		printUnsupportedOptionalFeatureNotTested(
+                    getClass().getName(), "javax.jdo.option.RetainValues");
 	    }
 		else
 		{
