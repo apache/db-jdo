@@ -380,6 +380,8 @@
                          value="${jdo.tck.cleanupaftertest}"/>             
             <sysproperty key="jdo.tck.requiredOptions"
                          value="${jdo.tck.requiredOptions}"/>
+            <sysproperty key="jdo.tck.mapping.companyfactory"
+                         value="${jdo.tck.mapping.companyfactory}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
@@ -439,6 +441,8 @@
                          value="${jdo.tck.cleanupaftertest}"/>
             <sysproperty key="jdo.tck.requiredOptions"
                          value="${jdo.tck.requiredOptions}"/>
+            <sysproperty key="jdo.tck.mapping.companyfactory"
+                         value="${jdo.tck.mapping.companyfactory}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdori.runtck.sysproperties}"/>

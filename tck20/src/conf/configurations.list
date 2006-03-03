@@ -16,6 +16,7 @@ jdo.tck.cfglist = \
                  company1-MRelationships.conf \
                  companyM-MRelationships.conf \
                  companyAllRelationships.conf \
+                 companyPMClass.conf \
                  inheritance1.conf \
                  inheritance2.conf \
                  inheritance3.conf \
