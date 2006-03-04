@@ -34,6 +34,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class Department
     implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 
+    public static final int RECOMMENDED_NO_OF_EMPS = 2;
+    
     private long    deptid;
     private String  name;
     private Company company;

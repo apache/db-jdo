@@ -18,6 +18,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -73,6 +74,48 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null, 
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.size() > org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null, 
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.size() > Department.RECOMMENDED_NO_OF_EMPS",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null, 
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.size() > RECOMMENDED_NO_OF_EMPS",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
     
@@ -82,7 +125,10 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"})
+                "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
     };
             
     /**
