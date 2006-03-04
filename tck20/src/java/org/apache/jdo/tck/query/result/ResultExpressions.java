@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -345,6 +346,36 @@ public class ResultExpressions extends QueryTest {
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "salary",
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // project collection field
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "employees",
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // project map field
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "phoneNumbers",
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
