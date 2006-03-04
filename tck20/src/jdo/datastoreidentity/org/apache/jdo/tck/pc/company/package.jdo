@@ -101,5 +101,112 @@ has datastore identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>
         </class>
+        <interface name="IAddress" embedded-only="true" requires-extent="false"/>
+
+        <interface name="ICompany"
+            identity-type="datastore">
+            <property name="companyid" primary-key="true"/>
+            <property name="address"
+                   persistence-modifier="persistent"/>
+            <property name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IDepartment"/>
+            </property>
+        </interface>
+
+        <interface name="IDentalInsurance"
+            identity-type="datastore"/>
+
+        <interface name="IDepartment"
+            identity-type="datastore">
+            <property name="deptid" primary-key="true"/>
+            <property name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+            <property name="fundedEmps" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="IEmployee"
+            identity-type="datastore">
+            <property name="reviewedProjects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Project"/>
+            </property>
+            <property name="projects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IProject"/>
+            </property>
+            <property name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+            <property name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="IFullTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="IInsurance"
+            identity-type="datastore">
+            <property name="insid" primary-key="true"/>
+        </interface>
+
+        <interface name="IMedicalInsurance"
+            identity-type="datastore"/>
+
+        <interface name="IPartTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="IPerson"
+            identity-type="datastore">
+            <property name="personid" primary-key="true"/>
+            <property name="middlename" default-fetch-group="false"/>
+            <property name="address"
+                   persistence-modifier="persistent"/>
+            <property name="phoneNumbers" persistence-modifier="persistent">
+                <map key-type="String" value-type="String"/>
+            </property>
+            <query name="validNotUnique">
+                SELECT firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.IPerson
+            </query>
+            <query name="validUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.IPerson 
+                WHERE firstname == 'emp1First'
+            </query>
+            <query name="invalidUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName
+                FROM org.apache.jdo.tck.pc.company.IPerson
+            </query>
+            <query name="unmodifiable" unmodifiable="true">
+                SELECT firstname, lastname 
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="packageJDO">
+                SELECT FROM org.apache.jdo.tck.pc.company.IPerson
+                WHERE personid > 1
+            </query>
+            <query name="changeQuery">
+                SELECT FROM org.apache.jdo.tck.pc.company.IPerson
+            </query>
+            <query name="invalidQuery">
+                SeLeCt FrOm org.apache.jdo.tck.pc.company.IPerson
+            </query>
+        </interface>
+
+        <interface name="IProject"
+            identity-type="datastore">
+            <property name="projid" primary-key="true"/>
+            <property name="reviewers" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+            <property name="members" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+            </property>
+        </interface>
     </package>
 </jdo>
