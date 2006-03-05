@@ -46,6 +46,11 @@ public class PCRect {
         lowerRight = lr;
     }
 
+    public PCRect(PCPoint ul, PCPoint lr) {
+        upperLeft = ul;
+        lowerRight = lr;
+    }
+
     public PCPoint getUpperLeft() {
         return upperLeft;
     }
