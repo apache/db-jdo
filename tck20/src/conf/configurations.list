@@ -5,6 +5,7 @@ jdo.tck.cfglist = \
                  pmf.conf \
                  enhancement.conf \
                  extents.conf \
+                 fetchplan.conf \
                  lifecycle.conf \
                  models.conf \
                  query.conf \
