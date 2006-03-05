@@ -904,4 +904,45 @@ public abstract class JDO_Test extends TestCase {
         }
         return isTestToBePerformed;
     }
+    
+    /** New line.
+     */
+    public static final String NL = System.getProperty("line.separator");
+    
+    /** A buffer of of error messages.
+     */
+    protected static StringBuffer messages;
+    
+    /** Appends to error messages.
+     */
+    protected static synchronized void appendMessage(String message) {
+        if (messages == null) {
+            messages = new StringBuffer(NL);
+        }
+        messages.append(message);
+        messages.append(NL);
+    }
+    
+    /**
+     * Returns collected error messages, or <code>null</code> if there
+     * are none, and clears the buffer.
+     */
+    protected static synchronized String retrieveMessages() {
+        if (messages == null) {
+            return null;
+        }
+        final String msg = messages.toString();
+        messages = null;
+        return msg;
+    }
+
+    /** 
+     * Fail the test if there are any error messages.
+     */
+    protected void failOnError() {
+        String errors = retrieveMessages();
+        if (errors != null) {
+            fail (errors);
+        }
+    }
 }
