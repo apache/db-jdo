@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jdoquery SYSTEM "file:/javax/jdo/jdoquery.dtd">
 <jdoquery xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdoquery 

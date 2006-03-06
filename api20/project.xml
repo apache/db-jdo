@@ -42,13 +42,18 @@ Request 243 under the auspices of the Java Community Process.</description>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.7.1</version>
+            <artifactId>xerces</artifactId>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xmlParserAPIs</artifactId>
-            <version>2.6.2</version>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
         </dependency>
     </dependencies>
     <!-- =================== -->

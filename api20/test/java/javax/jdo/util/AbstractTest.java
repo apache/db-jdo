@@ -55,11 +55,13 @@ public class AbstractTest extends TestCase {
     /** Appends to error messages.
      */
     protected static synchronized void appendMessage(String message) {
-        if (messages == null) {
-            messages = new StringBuffer();
+        if (message != null) {
+            if (messages == null) {
+                messages = new StringBuffer();
+            }
+            messages.append(message);
+            messages.append(NL);
         }
-        messages.append(message);
-        messages.append(NL);
     }
     
     /**
@@ -75,5 +77,14 @@ public class AbstractTest extends TestCase {
         return msg;
     }
     
+    /** 
+     * Fail the test if there are any error messages.
+     */
+    protected void failOnError() {
+        String errors = retrieveMessages();
+        if (errors != null) {
+            fail (errors);
+        }
+    }
 }
 
