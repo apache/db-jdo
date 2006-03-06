@@ -16,6 +16,8 @@
  
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
+import java.util.Collection;
+import java.util.HashSet;
 import org.apache.jdo.tck.api.persistencemanager.fetchplan.AbstractFetchPlanTest;
 
 import org.apache.jdo.tck.pc.mylib.PCRect;
@@ -56,6 +58,31 @@ public class FetchPlanRefresh extends AbstractFetchPlanTest {
         pm.currentTransaction().begin();
         PCRect instance = (PCRect)pm.getObjectById(pcrectoid, false);
         pm.refresh(instance);
+        checkBothLoaded(ASSERTION_FAILED, instance);
+        pm.currentTransaction().commit();
+        failOnError();
+    }
+    
+    /** */
+    public void testRefreshAllCollection() {
+        setBothGroup();
+        pm.currentTransaction().begin();
+        PCRect instance = (PCRect)pm.getObjectById(pcrectoid, false);
+        Collection instances = new HashSet();
+        instances.add(instance);
+        pm.refreshAll(instances);
+        checkBothLoaded(ASSERTION_FAILED, instance);
+        pm.currentTransaction().commit();
+        failOnError();
+    }
+    
+    /** */
+    public void testRefreshAllArray() {
+        setBothGroup();
+        pm.currentTransaction().begin();
+        PCRect instance = (PCRect)pm.getObjectById(pcrectoid, false);
+        Object[] instances = new Object[]{instance};
+        pm.refreshAll(instances);
         checkBothLoaded(ASSERTION_FAILED, instance);
         pm.currentTransaction().commit();
         failOnError();

@@ -57,11 +57,11 @@ public class FetchPlanQuery extends AbstractFetchPlanTest {
         setBothGroup();
         pm.currentTransaction().begin();
         Query query = pm.newQuery(PCRect.class);
-        checkGroups(ASSERTION_FAILED + "after newQuery().getFetchPlan() ", 
+        checkGroups(ASSERTION_FAILED + " after newQuery().getFetchPlan()", 
                 query.getFetchPlan(), bothGroup);
         query.setUnique(true);
         PCRect instance = (PCRect)query.execute();
-        checkBothLoaded(ASSERTION_FAILED, instance);
+        checkBothLoaded(ASSERTION_FAILED + " after query.execute()", instance);
         pm.currentTransaction().commit();
         failOnError();
     }
