@@ -32,7 +32,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * Map of uncaught exceptions. The thread is the key and the uncaught
      * Throwable is the value in the map. 
      */
-    private Map uncaughtExceptions = new HashMap();
+    private final Map uncaughtExceptions = new HashMap();
     
     /** Constructor. */
     public ThreadExceptionHandler() {
@@ -53,11 +53,18 @@ public class ThreadExceptionHandler extends ThreadGroup
     }
 
     /** 
-     * Returns all uncaught exception stored in this ThreadGroup. 
+     * Returns all uncaught exceptions stored in this ThreadGroup. 
      * Each element in the returned set is a Map.Entry with the 
      * thread as the key and the uncaught Throwable is the value.
      */
     public Set getAllUncaughtExceptions() {
         return uncaughtExceptions.entrySet();
+    }
+
+    /** 
+     * Clears all exceptions in this ThreadGroup. 
+     */
+    public void clear() {
+        uncaughtExceptions.clear();
     }
 }
