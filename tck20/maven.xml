@@ -90,7 +90,6 @@
         <attainGoal name="setProps"/>
         <attainGoal name="privateInstallSchema"/>
         <attainGoal name="privateRuntck.jdori"/>
-        <attainGoal name="result"/>
     </goal>
 
     <goal name="rebuild">
@@ -254,7 +253,6 @@
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.iut"/>
-        <attainGoal name="result"/>
     </goal>
 
     <goal name="privateRuntck.iut"
@@ -286,6 +284,7 @@
                 </j:forEach>
             </j:forEach>
         </j:forEach>
+        <attainGoal name="result"/>
     </goal>
 
     <goal name="debugtck.jdori">
@@ -296,7 +295,6 @@
     <goal name="runtck.jdori" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
         <attainGoal name="privateRuntck.jdori"/>
-        <attainGoal name="result"/>
     </goal>
 
     <goal name="privateRuntck.jdori"
@@ -326,6 +324,7 @@
                 </j:forEach>
             </j:forEach>
         </j:forEach>
+        <attainGoal name="result"/>
     </goal>
 
     <goal name="doRuntck.iut">
@@ -458,6 +457,12 @@
                classname="org.apache.jdo.tck.util.ResultSummary">
             <classpath refid="jdori.classpath"/>
             <arg line="${jdo.tck.log.directory}/${timestamp}"/>
+        </java> 
+        <java fork="yes" dir="${jdo.tck.testdir}"
+               classname="org.apache.jdo.tck.util.SystemCfgSummary">
+            <classpath refid="jdori.classpath"/>
+            <arg line="${jdo.tck.log.directory}/${timestamp}/configuration"/>
+            <arg line="system_config.txt"/>
         </java>
         <copy todir="${jdo.tck.log.directory}/${timestamp}/configuration">
             <fileset dir="${basedir}" includes="*.properties, *.xml"/>
