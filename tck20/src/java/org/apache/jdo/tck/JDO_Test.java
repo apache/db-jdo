@@ -62,8 +62,10 @@ public abstract class JDO_Test extends TestCase {
     public static final int PERSISTENT_NEW_DELETED      = 7;
     public static final int PERSISTENT_DELETED          = 8;
     public static final int PERSISTENT_NONTRANSACTIONAL = 9;
-    public static final int NUM_STATES = 10;
-    public static final int ILLEGAL_STATE = 10;
+    public static final int PERSISTENT_NONTRANSACTIONAL_DIRTY = 10;
+    public static final int DETACHED = 11;
+    public static final int NUM_STATES = 12;
+    public static final int ILLEGAL_STATE = 12;
 
     public static final String[] states = {
         "transient",
@@ -76,6 +78,8 @@ public abstract class JDO_Test extends TestCase {
         "persistent-new-deleted",
         "persistent-deleted",
         "persistent-nontransactional",
+        "persistent-nontransactional-dirty",
+        "detached",
         "illegal"
     };
     private static final int IS_PERSISTENT       = 0;
@@ -83,7 +87,8 @@ public abstract class JDO_Test extends TestCase {
     private static final int IS_DIRTY            = 2;
     private static final int IS_NEW              = 3;
     private static final int IS_DELETED          = 4;
-    private static final int NUM_STATUSES        = 5;
+    private static final int IS_DETACHED         = 5;
+    private static final int NUM_STATUSES        = 6;
 
     /*
      * This table indicates the values returned by the status interrogation
@@ -91,36 +96,42 @@ public abstract class JDO_Test extends TestCase {
      * state of an object.
      */
     private static final boolean state_statuses[][] = {
-        // IS_PERSISTENT IS_TRANSACTIONAL    IS_DIRTY      IS_NEW      IS_DELETED
+        // IS_PERSISTENT IS_TRANSACTIONAL    IS_DIRTY      IS_NEW      IS_DELETED  IS_DETACHED
         // transient
-        {   false,          false,              false,      false,      false},
+        {   false,          false,              false,      false,      false,        false},
 
         // persistent-new
-        {   true,           true,               true,       true,       false},
+        {   true,           true,               true,       true,       false,        false},
 
         // persistent-clean
-        {   true,           true,               false,      false,      false},
+        {   true,           true,               false,      false,      false,        false},
 
         // persistent-dirty
-        {   true,           true,               true,       false,      false},
+        {   true,           true,               true,       false,      false,        false},
 
         // hollow
-        {   true,           false,              false,      false,      false},
+        {   true,           false,              false,      false,      false,        false},
 
         // transient-clean
-        {   false,          true,               false,      false,      false},
+        {   false,          true,               false,      false,      false,        false},
 
         // transient-dirty
-        {   false,          true,               true,       false,      false},
+        {   false,          true,               true,       false,      false,        false},
 
         // persistent-new-deleted
-        {   true,           true,               true,       true,       true},
+        {   true,           true,               true,       true,       true,         false},
 
         // persistent-deleted
-        {   true,           true,               true,       false,      true},
+        {   true,           true,               true,       false,      true,         false},
 
         // persistent-nontransactional
-        {   true,           false,              false,      false,      false}
+        {   true,           false,              false,      false,      false,        false},
+
+        // persistent-nontransactional-dirty
+        {   true,           true,               false,      false,      false,        false},
+
+        // detached
+        {   false,          false,              false,      false,      false,        true}
     };
   
     /** identitytype value for applicationidentity. */
@@ -706,6 +717,30 @@ public abstract class JDO_Test extends TestCase {
             "javax.jdo.query.SQL");
     }
     
+    /** Reports whether getting the DataStoreConnection is supported. */
+    public boolean isDataStoreConnectionSupported() {
+        return getPMF().supportedOptions().contains(
+            "javax.jdo.option.GetDataStoreConnection");
+    }
+    
+    /**
+     * Determine if a class is loadable in the current environment.
+     */
+    public static boolean isClassLoadable(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        }
+    }
+
+    /** 
+     * Determine if the environment is 1.4 version of JRE or better.
+     */
+    public static boolean isJRE14orBetter() {
+        return isClassLoadable("java.util.Currency");
+    }
 
     /**
      * This utility method returns a <code>String</code> that indicates the
@@ -741,6 +776,10 @@ public abstract class JDO_Test extends TestCase {
             if( existingEntries ) buff.append(", ");
             buff.append("deleted");
         }
+        if( JDOHelper.isDetached(o) ){
+            if( existingEntries ) buff.append(", ");
+            buff.append("detached");
+        }
         buff.append("}");
         return buff.toString();
     }
@@ -750,12 +789,13 @@ public abstract class JDO_Test extends TestCase {
      */
     public static int currentState(Object o)
     {
-        boolean[] status = new boolean[5];
+        boolean[] status = new boolean[NUM_STATUSES];
         status[IS_PERSISTENT]       = JDOHelper.isPersistent(o);
         status[IS_TRANSACTIONAL]    = JDOHelper.isTransactional(o);
         status[IS_DIRTY]            = JDOHelper.isDirty(o);
         status[IS_NEW]              = JDOHelper.isNew(o);
         status[IS_DELETED]          = JDOHelper.isDeleted(o);
+        status[IS_DETACHED]         = JDOHelper.isDetached(o);
         int i, j;
     outerloop:
         for( i = 0; i < NUM_STATES; ++i ){
