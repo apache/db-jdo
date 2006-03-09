@@ -293,8 +293,8 @@ public class StateTransitions extends JDO_Test {
             if( operation == MAKENONTRANSACTIONAL &&
                 !(isNontransactionalReadSupported() || isNontransactionalWriteSupported()) )
                 continue;
-
-            for( current_state = 0; current_state < NUM_STATES; ++current_state){
+            int NUM_JDO1_STATES = NUM_STATES - 2; // JDO1 is tested so far here.
+            for( current_state = 0; current_state < NUM_JDO1_STATES; ++current_state){
                 if( scenario == OPTIMISTIC_TX && current_state == PERSISTENT_CLEAN ) continue;
                 if( (current_state == TRANSIENT_CLEAN || current_state == TRANSIENT_DIRTY) &&
                     !isTransientTransactionalSupported() )
