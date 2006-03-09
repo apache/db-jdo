@@ -72,6 +72,10 @@ public class Cart implements Serializable {
         entries.add(ce);
     }
 
+    public Iterator getEntries() {
+        return entries.iterator();
+    }
+
     public String getCustomerId() {
         return customerId;
     }

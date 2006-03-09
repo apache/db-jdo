@@ -23,14 +23,16 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 /**
  * <B>Title:</B> Test SetDetachAllOnCommit
  * <BR>
- * <B>Keywords:</B> KEYWORDS
+ * <B>Keywords:</B> DetachAllOnCommit commit detach
  * <BR>
- * <B>Assertion IDs:</B> A12.6.8-1
+ * <B>Assertion IDs:</B> A12.6.8-1, A12.6.8-2
  * <BR>
  * <B>Assertion Description: </B>
  * We define a new property called DetachAllOnCommit
  * PersistenceManager.setDetachAllOnCommit(boolean detachAllOnCommit)
  * sets the DetachAllOnCommit property
+ * PersistenceManager.getDetachAllOnCommit()
+ * The value of the DetachAllOnCommit flag is returned. 
  */
 public class SetDetachAllOnCommit extends DetachTest {
     

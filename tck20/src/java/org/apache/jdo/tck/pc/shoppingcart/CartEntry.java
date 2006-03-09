@@ -44,10 +44,10 @@ public class CartEntry implements Serializable {
         this(cart, id, product, 1);
     }
     public CartEntry(Cart cart, long id, Product product, int quantity) {
-        setCart(cart);
         setId(id);
         setProduct(product);
         setQuantity(quantity);
+        cart.addCartEntry(this);
     }
 
     public long getId() {

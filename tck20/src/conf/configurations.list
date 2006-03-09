@@ -3,6 +3,7 @@ jdo.tck.cfglist = \
                  jdohelper.conf \
                  pm.conf \
                  pmf.conf \
+                 detach.conf \
                  enhancement.conf \
                  extents.conf \
                  fetchplan.conf \

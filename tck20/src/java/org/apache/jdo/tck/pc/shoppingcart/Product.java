@@ -34,6 +34,13 @@ public class Product implements Serializable {
         setSku(sku);
     }
 
+    /** Constructor with sku and description
+     */
+    public Product(String sku, String description) {
+        this(sku);
+        setDescription(description);
+    }
+
     public String getDescription() {
         return description;
     }
