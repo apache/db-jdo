@@ -155,12 +155,18 @@ public abstract class JDO_Test extends TestCase {
      */
     protected static boolean cleanupData = 
        System.getProperty("jdo.tck.cleanupaftertest", "true").equalsIgnoreCase("true");
+
+    /** Flag indicating whether to close the PMF after each test or not.
+     * It defaults to false.
+     */   
+    protected static final boolean closePMFAfterEachTest =
+        System.getProperty("jdo.tck.closePMFAfterEachTest", "false").equalsIgnoreCase("true");
     
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
 
     /** The PersistenceManagerFactory. */
-    protected PersistenceManagerFactory pmf;
+    protected static PersistenceManagerFactory pmf;
     
     /** The PersistenceManager. */
     protected PersistenceManager pm;
@@ -261,7 +267,11 @@ public abstract class JDO_Test extends TestCase {
      * That exception is thrown as a nested exception of <code>JDOFatalException</code>
      * if and only if the testcase executed successful.
      * Otherwise that exception is logged using fatal log level.
-     * All other exceptions are logged using fatal log level, always.
+     * All other exceptions are logged using fatal log level, always.<p>
+     * 
+     * <b>Note:</b>By default, the method tearDown does not close the pmf. 
+     *  This is done at the end of each configuration, unless the property
+     *  jdo.tck.closePMFAfterEachTest is set to true.
      */
     protected final void tearDown() {
         try {
@@ -287,11 +297,13 @@ public abstract class JDO_Test extends TestCase {
             setTearDownThrowable("localTearDown", t);
         }
         
-        try {
-            closePMF();
-        }
-        catch (Throwable t) {
-            setTearDownThrowable("closePMF", t);
+        if (closePMFAfterEachTest) {
+            try {
+                closePMF();
+            }
+            catch (Throwable t) {
+                setTearDownThrowable("closePMF", t);
+            }
         }
         
         if (this.tearDownThrowable != null) {
@@ -473,7 +485,7 @@ public abstract class JDO_Test extends TestCase {
     }
 
     /** Closes the pmf stored in this instance. */
-    protected void closePMF() {
+    public static void closePMF() {
         JDOException failure = null;
         while (pmf != null) {
             try {
@@ -499,7 +511,7 @@ public abstract class JDO_Test extends TestCase {
     }
 
     /** */
-    protected PersistenceManager[] getFailedPersistenceManagers(
+    protected static PersistenceManager[] getFailedPersistenceManagers(
         String assertionFailure, JDOException ex) {
         Throwable[] nesteds = ex.getNestedExceptions();
         int numberOfExceptions = nesteds==null ? 0 : nesteds.length;
@@ -510,7 +522,7 @@ public abstract class JDO_Test extends TestCase {
             if (exc.getFailedObject() instanceof PersistenceManager) {
                 result[i] = (PersistenceManager)failedObject;
             } else {
-                fail(assertionFailure,
+                throw new JDOFatalException(assertionFailure,
                      "Unexpected failed object of type: " +
                      failedObject.getClass().getName());
             }

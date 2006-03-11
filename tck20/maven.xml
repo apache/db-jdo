@@ -381,6 +381,8 @@
                          value="${jdo.tck.requiredOptions}"/>
             <sysproperty key="jdo.tck.mapping.companyfactory"
                          value="${jdo.tck.mapping.companyfactory}"/>
+            <sysproperty key="jdo.tck.closePMFAfterEachTest"
+                         value="${jdo.tck.closePMFAfterEachTest}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
@@ -388,6 +390,7 @@
             
             <arg line="${jdo.tck.classes}"/>
         </java>
+        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
     </goal>
 
     <goal name="doRuntck.jdori">
@@ -442,6 +445,8 @@
                          value="${jdo.tck.requiredOptions}"/>
             <sysproperty key="jdo.tck.mapping.companyfactory"
                          value="${jdo.tck.mapping.companyfactory}"/>
+            <sysproperty key="jdo.tck.closePMFAfterEachTest"
+                         value="${jdo.tck.closePMFAfterEachTest}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdori.runtck.sysproperties}"/>
@@ -449,7 +454,7 @@
             
             <arg line="${jdo.tck.classes}"/>
         </java>
-        <echo>Finished run with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
     </goal>
 
     <goal name="result">

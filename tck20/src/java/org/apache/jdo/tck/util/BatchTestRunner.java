@@ -32,6 +32,8 @@ import junit.textui.TestRunner;
 
 import javax.jdo.JDOFatalException;
 
+import org.apache.jdo.tck.JDO_Test;
+
 /**
  * TestRunner class for running a single test or a test suite in batch
  * mode. The format of the test output is specified by the result printer
@@ -83,6 +85,13 @@ public class BatchTestRunner
     /** Runs the specified test and waits until the user types RETURN. */
     public static void runAndWait(Test suite) {
         new BatchTestRunner().doRun(suite, true);
+    }
+
+    /** Runs the specified test and close the pmf. */
+    public TestResult doRun(Test test) {
+        TestResult result = doRun(test, false);
+        JDO_Test.closePMF();
+        return result;
     }
 
     /** 
