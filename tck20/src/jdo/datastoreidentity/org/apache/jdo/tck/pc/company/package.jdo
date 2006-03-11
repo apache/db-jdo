@@ -101,11 +101,11 @@ has datastore identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
             </field>
         </class>
+
         <interface name="IAddress" embedded-only="true" requires-extent="false"/>
 
         <interface name="ICompany"
             identity-type="datastore">
-            <property name="companyid" primary-key="true"/>
             <property name="address"
                    persistence-modifier="persistent"/>
             <property name="departments" persistence-modifier="persistent">
@@ -118,7 +118,6 @@ has datastore identity.
 
         <interface name="IDepartment"
             identity-type="datastore">
-            <property name="deptid" primary-key="true"/>
             <property name="employees" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
             </property>
@@ -148,7 +147,6 @@ has datastore identity.
 
         <interface name="IInsurance"
             identity-type="datastore">
-            <property name="insid" primary-key="true"/>
         </interface>
 
         <interface name="IMedicalInsurance"
@@ -159,7 +157,6 @@ has datastore identity.
 
         <interface name="IPerson"
             identity-type="datastore">
-            <property name="personid" primary-key="true"/>
             <property name="middlename" default-fetch-group="false"/>
             <property name="address"
                    persistence-modifier="persistent"/>
@@ -200,7 +197,6 @@ has datastore identity.
 
         <interface name="IProject"
             identity-type="datastore">
-            <property name="projid" primary-key="true"/>
             <property name="reviewers" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
             </property>
@@ -208,5 +204,6 @@ has datastore identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
             </property>
         </interface>
+
     </package>
 </jdo>
