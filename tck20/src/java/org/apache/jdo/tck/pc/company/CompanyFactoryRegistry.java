@@ -54,8 +54,14 @@ public class CompanyFactoryRegistry {
     /**
      * The default factory class name
      */
-    final static String FACTORY_CLASS_NAME = 
-        System.getProperty(FACTORY_PROPERTY_NAME, DEFAULT_FACTORY_CLASS_NAME);
+    final static String FACTORY_CLASS_NAME;
+
+    static {
+        String prop = System.getProperty(FACTORY_PROPERTY_NAME);
+        if ((prop == null) || (prop.length() == 0))
+            prop = DEFAULT_FACTORY_CLASS_NAME;
+        FACTORY_CLASS_NAME = prop;
+    }
 
     /**
      * This is the default company factory singleton. This is statically
