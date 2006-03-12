@@ -17,9 +17,13 @@
 
 package org.apache.jdo.tck;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -168,6 +172,12 @@ public abstract class JDO_Test extends TestCase {
     /** The PersistenceManagerFactory. */
     protected static PersistenceManagerFactory pmf;
     
+    /** The collection of supported options of the pmf. */
+    private static Collection supportedOptions;
+
+    /** The name of the pmf supported options summary file. */
+    private static final String PMF_SUPPORTED_OPTIONS_FILE_NAME = "pmf_supported_options.txt";
+
     /** The PersistenceManager. */
     protected PersistenceManager pm;
     
@@ -441,6 +451,9 @@ public abstract class JDO_Test extends TestCase {
         if (pmf == null) {
             PMFPropertiesObject = loadProperties(PMFProperties); // will exit here if no properties
             pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
+            if (supportedOptions == null) {
+                supportedOptions = pmf.supportedOptions();
+            }
         }
         return pmf;
     }
@@ -571,7 +584,32 @@ public abstract class JDO_Test extends TestCase {
     }
 
     // Helper methods to check for supported options
-    
+
+    /**
+     * Dump the supportedOptions to the a file in the specified directory.
+     */
+    public static void dumpSupportedOptions(String directory) {
+        if (supportedOptions == null)
+            return;
+        File file = new File(directory, PMF_SUPPORTED_OPTIONS_FILE_NAME);
+        if (file.exists())
+            // PMF supported options have been dumped before => return
+            return;
+        PrintStream resultStream = null;
+        try {
+            resultStream = new PrintStream(new FileOutputStream(file));
+            for (Iterator it = supportedOptions.iterator(); it.hasNext();) {
+                resultStream.println((String)it.next());
+            }
+        } catch (FileNotFoundException e) {
+            throw new JDOFatalException(
+                "dumpSupportedOptions: cannot create file " + file.getName(), e);
+        } finally {
+            if (resultStream != null)
+                resultStream.close();
+        }
+    }
+     
     /** 
      * Prints a message (if debug is true) saying the test with the
      * specified name is not executed, because the JDO implementation under

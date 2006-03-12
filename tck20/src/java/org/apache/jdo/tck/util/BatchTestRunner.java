@@ -55,6 +55,19 @@ public class BatchTestRunner
     /** Default of the system property ResultPrinterClass. */
     public static final String RESULTPRINTER_DEFAULT = BatchResultPrinter.class.getName();
 
+    /** */
+    public static final String LOG_DIRECTORY;
+
+    static {
+        String directory = System.getProperty("jdo.tck.log.directory");
+        if (directory!=null &&
+            !directory.endsWith(File.separator)) {
+            directory += File.separator;
+        }
+        LOG_DIRECTORY = directory;
+    }
+    
+
     /** 
      * Constructor. 
      * It creates a result printer instance based on the system property
@@ -90,6 +103,7 @@ public class BatchTestRunner
     /** Runs the specified test and close the pmf. */
     public TestResult doRun(Test test) {
         TestResult result = doRun(test, false);
+        JDO_Test.dumpSupportedOptions(LOG_DIRECTORY + "configuration");
         JDO_Test.closePMF();
         return result;
     }
@@ -258,12 +272,7 @@ public class BatchTestRunner
      * @return the changed file name
      */
     public static String changeFileName(String fileName) {
-        String directory = System.getProperty("jdo.tck.log.directory");
-        if (directory!=null &&
-            !directory.endsWith(File.separator)) {
-            directory += File.separator;
-        }
-
+        String directory = LOG_DIRECTORY;
         String db = System.getProperty("jdo.tck.database");
         
         String identityType = System.getProperty("jdo.tck.identitytype");
