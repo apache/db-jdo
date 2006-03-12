@@ -97,7 +97,7 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
             return;
         }
         JDOConnection jconn = getPM().getDataStoreConnection();
-        Connection conn = (Connection)jconn.getNativeConnection();
+        Connection conn = (Connection)jconn;
         check13Methods(conn);
         if (isJRE14orBetter()) {
             check14Methods(conn);

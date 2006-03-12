@@ -89,13 +89,12 @@ public class DataStoreConnection extends PersistenceManagerTest {
         String schema = getPMFProperty("javax.jdo.mapping.Schema");
         String sql = "SELECT X, Y FROM " + schema + ".PCPoint";
         JDOConnection jconn = pm.getDataStoreConnection();
+        Connection conn = (Connection)jconn;
         try {
             getPM().currentTransaction().begin();
-            jconn = pm.getDataStoreConnection();
-            Connection conn = (Connection)jconn.getNativeConnection();
             if (conn.getAutoCommit()) {
                 appendMessage(ASSERTION_FAILED + 
-                        "Autocommit must not be true in native connection.");
+                        "Autocommit must not be true in JDO connection.");
             };
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
