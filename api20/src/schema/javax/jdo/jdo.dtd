@@ -36,6 +36,7 @@
 <!ATTLIST property value-strategy CDATA #IMPLIED>
 <!ATTLIST property sequence CDATA #IMPLIED>
 <!ATTLIST property serialized (true|false) #IMPLIED>
+<!ATTLIST property field-type CDATA #IMPLIED>
 <!ATTLIST property table CDATA #IMPLIED>
 <!ATTLIST property column CDATA #IMPLIED>
 <!ATTLIST property delete-action (restrict|cascade|null|default|none) #IMPLIED>

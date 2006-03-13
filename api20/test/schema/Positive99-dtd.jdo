@@ -82,6 +82,7 @@
         value-strategy="valuestrategy"
         sequence="sequence"
         serialized="true"
+        field-type="FieldType"
         table="TABLE"
         column="COLUMN"
         delete-action="restrict"

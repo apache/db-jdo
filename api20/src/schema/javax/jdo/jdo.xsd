@@ -186,6 +186,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="field-type"/>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
         <xs:attribute name="delete-action">
