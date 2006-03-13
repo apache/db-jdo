@@ -115,7 +115,7 @@ public abstract class DetachTest extends JDO_Test {
             Object expected, Object actual) {
         appendMessage(location + NL +
                 "expected: " + expected + NL +
-                "actual: " + actual);
+                "  actual: " + actual);
     }
 
     /** */
@@ -138,10 +138,11 @@ public abstract class DetachTest extends JDO_Test {
             CartEntry cartEntry = (CartEntry)cartEntries.next();
             checkState(location + "CartEntry instance", cartEntry,
                     persistent);
-            if (cartEntry.getCart() != cart) {
+            Cart cartEntryCart = cartEntry.getCart();
+            if (cartEntryCart != cart) {
                 reportDifference(location +
                         " incorrect value for cartEntry.cart",
-                        cart, cartEntry.getCart());
+                        cart, cartEntryCart);
             }
             if (goldenCartEntry.getId() != cartEntry.getId()) 
                 reportDifference(location + 
@@ -173,6 +174,7 @@ public abstract class DetachTest extends JDO_Test {
         checkCartValues(ASSERTION_FAILED + 
                 "after commit with DetachAllOnCommit,", cart1);
         failOnError();
+        pm.setDetachAllOnCommit(false);
         return cart1;
     }
 }
