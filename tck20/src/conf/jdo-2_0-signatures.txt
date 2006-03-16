@@ -1,0 +1,797 @@
+
+public interface javax.jdo.datastore.DataStoreCache {
+    public void evict(Object oid);
+    public void evictAll();
+    public void evictAll(Object[] oids);
+    public void evictAll(java.util.Collection oids);
+    public void evictAll(Class pcClass, boolean subclasses);
+    public void pin(Object oid);
+    public void pinAll(java.util.Collection oids);
+    public void pinAll(Object[] oids);
+    public void pinAll(Class pcClass, boolean subclasses);
+    public void unpin(Object oid);
+    public void unpinAll(java.util.Collection oids);
+    public void unpinAll(Object[] oids);
+    public void unpinAll(Class pcClass, boolean subclasses);
+}
+
+public interface javax.jdo.datastore.JDOConnection {
+    public Object getNativeConnection();
+    public void close();
+}
+
+public interface javax.jdo.datastore.Sequence {
+    public String getName();
+    public Object next();
+    public void allocate(int additional);
+    public Object current();
+    public long nextValue();
+    public long currentValue();
+}
+
+public interface javax.jdo.Extent {
+    public java.util.Iterator iterator();
+    public boolean hasSubclasses();
+    public Class getCandidateClass();
+    public javax.jdo.PersistenceManager getPersistenceManager();
+    public void closeAll();
+    public void close(java.util.Iterator it);
+    public javax.jdo.FetchPlan getFetchPlan();
+}
+
+public interface javax.jdo.FetchPlan {
+    public static final String DEFAULT = "default";
+    public static final String ALL = "all";
+    public static final int DETACH_UNLOAD_FIELDS = 2;
+    public static final int DETACH_LOAD_FIELDS = 1;
+    public static final int FETCH_SIZE_GREEDY = -1;
+    public static final int FETCH_SIZE_OPTIMAL = 0;
+    public javax.jdo.FetchPlan addGroup(String fetchGroupName);
+    public javax.jdo.FetchPlan removeGroup(String fetchGroupName);
+    public javax.jdo.FetchPlan clearGroups();
+    public java.util.Set getGroups();
+    public javax.jdo.FetchPlan setGroups(java.util.Collection fetchGroupNames);
+    public javax.jdo.FetchPlan setGroups(String[]fetchGroupNames);
+    public javax.jdo.FetchPlan setGroup(String fetchGroupName);
+    public javax.jdo.FetchPlan setMaxFetchDepth(int fetchDepth);
+    public int getMaxFetchDepth();
+    public javax.jdo.FetchPlan setDetachmentRoots(java.util.Collection roots);
+    public java.util.Collection getDetachmentRoots();
+    public javax.jdo.FetchPlan setDetachmentRootClasses(Class[] rootClasses);
+    public Class[] getDetachmentRootClasses();
+    public javax.jdo.FetchPlan setFetchSize(int fetchSize);
+    public int getFetchSize();
+    public javax.jdo.FetchPlan setDetachmentOptions(int options);
+    public int getDetachmentOptions();
+}
+
+public class javax.jdo.identity.ByteIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public ByteIdentity(Class pcClass, byte key);
+    public ByteIdentity(Class pcClass, Byte key);
+    public ByteIdentity(Class pcClass, String str);
+    public ByteIdentity();
+    public byte getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.CharIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public CharIdentity(Class pcClass, char key);
+    public CharIdentity(Class pcClass, Character key);
+    public CharIdentity(Class pcClass, String str);
+    public CharIdentity();
+    public char getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.IntIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public IntIdentity(Class pcClass, int key);
+    public IntIdentity(Class pcClass, Integer key);
+    public IntIdentity(Class pcClass, String str);
+    public IntIdentity();
+    public int getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.LongIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public LongIdentity(Class pcClass, long key);
+    public LongIdentity(Class pcClass, Long key);
+    public LongIdentity(Class pcClass, String str);
+    public LongIdentity();
+    public long getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.ObjectIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public ObjectIdentity(Class pcClass, Object param);
+    public ObjectIdentity();
+    public Object getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.ShortIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public ShortIdentity(Class pcClass, short key);
+    public ShortIdentity(Class pcClass, Short key);
+    public ShortIdentity(Class pcClass, String str);
+    public ShortIdentity();
+    public short getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public abstract class javax.jdo.identity.SingleFieldIdentity implements java.io.Externalizable {
+    public SingleFieldIdentity();
+    public Class getTargetClass();
+    public String getTargetClassName();
+    public synchronized Object getKeyAsObject();
+    public boolean equals(Object obj);
+    public int hashCode();
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public class javax.jdo.identity.StringIdentity extends javax.jdo.identity.SingleFieldIdentity {
+    public StringIdentity(Class pcClass, String key);
+    public StringIdentity();
+    public String getKey();
+    public String toString();
+    public boolean equals(Object obj);
+    public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
+    public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
+}
+
+public interface javax.jdo.InstanceCallbacks extends javax.jdo.listener.ClearCallback, javax.jdo.listener.DeleteCallback, javax.jdo.listener.LoadCallback, javax.jdo.listener.StoreCallback {
+}
+
+public class javax.jdo.JDOCanRetryException extends javax.jdo.JDOException {
+    public JDOCanRetryException();
+    public JDOCanRetryException(String msg);
+    public JDOCanRetryException(String msg, Throwable[] nested);
+    public JDOCanRetryException(String msg, Throwable nested);
+    public JDOCanRetryException(String msg, Object failed);
+    public JDOCanRetryException(String msg, Throwable[] nested, Object failed);
+    public JDOCanRetryException(String msg, Throwable nested, Object failed);
+}
+
+public class javax.jdo.JDODataStoreException extends javax.jdo.JDOCanRetryException {
+    public JDODataStoreException();
+    public JDODataStoreException(String msg);
+    public JDODataStoreException(String msg, Throwable[] nested);
+    public JDODataStoreException(String msg, Throwable nested);
+    public JDODataStoreException(String msg, Object failed);
+    public JDODataStoreException(String msg, Throwable[] nested, Object failed);
+    public JDODataStoreException(String msg, Throwable nested, Object failed);
+}
+
+public class javax.jdo.JDODetachedFieldAccessException extends javax.jdo.JDOUserException {
+    public JDODetachedFieldAccessException();
+    public JDODetachedFieldAccessException(String msg);
+    public JDODetachedFieldAccessException(String msg, Throwable[] nested);
+    public JDODetachedFieldAccessException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOException extends RuntimeException {
+    public JDOException();
+    public JDOException(String msg);
+    public JDOException(String msg, Throwable[] nested);
+    public JDOException(String msg, Throwable nested);
+    public JDOException(String msg, Object failed);
+    public JDOException(String msg, Throwable[] nested, Object failed);
+    public JDOException(String msg, Throwable nested, Object failed);
+    public Object getFailedObject();
+    public Throwable[] getNestedExceptions();
+    public synchronized Throwable getCause();
+    public Throwable initCause(Throwable cause);
+    public synchronized String toString();
+    public void printStackTrace();
+    public synchronized void printStackTrace(java.io.PrintStream s);
+    public synchronized void printStackTrace(java.io.PrintWriter s);
+}
+
+public class javax.jdo.JDOFatalDataStoreException extends javax.jdo.JDOFatalException {
+    public JDOFatalDataStoreException();
+    public JDOFatalDataStoreException(String msg);
+    public JDOFatalDataStoreException(String msg, Object failed);
+    public JDOFatalDataStoreException(String msg, Throwable[] nested);
+    public JDOFatalDataStoreException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOFatalException extends javax.jdo.JDOException {
+    public JDOFatalException();
+    public JDOFatalException(String msg);
+    public JDOFatalException(String msg, Throwable[] nested);
+    public JDOFatalException(String msg, Throwable nested);
+    public JDOFatalException(String msg, Object failed);
+    public JDOFatalException(String msg, Throwable[] nested, Object failed);
+    public JDOFatalException(String msg, Throwable nested, Object failed);
+}
+
+public class javax.jdo.JDOFatalInternalException extends javax.jdo.JDOFatalException {
+    public JDOFatalInternalException();
+    public JDOFatalInternalException(String msg);
+    public JDOFatalInternalException(String msg, Throwable[] nested);
+    public JDOFatalInternalException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOFatalUserException extends javax.jdo.JDOFatalException {
+    public JDOFatalUserException();
+    public JDOFatalUserException(String msg);
+    public JDOFatalUserException(String msg, Throwable[] nested);
+    public JDOFatalUserException(String msg, Throwable nested);
+    public JDOFatalUserException(String msg, Object failed);
+    public JDOFatalUserException(String msg, Throwable[] nested, Object failed);
+    public JDOFatalUserException(String msg, Throwable nested, Object failed);
+}
+
+public class javax.jdo.JDOHelper {
+    public static javax.jdo.PersistenceManager getPersistenceManager(Object pc);
+    public static void makeDirty(Object pc, String fieldName);
+    public static Object getObjectId(Object pc);
+    public static java.util.Collection getObjectIds(java.util.Collection pcs);
+    public static Object[] getObjectIds(Object[] pcs);
+    public static Object getTransactionalObjectId(Object pc);
+    public static Object getVersion(Object pc);
+    public static boolean isDirty(Object pc);
+    public static boolean isTransactional(Object pc);
+    public static boolean isPersistent(Object pc);
+    public static boolean isNew(Object pc);
+    public static boolean isDeleted(Object pc);
+    public static boolean isDetached(Object pc);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader cl);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader loader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader propsLoader, ClassLoader pmfLoader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.File propsFile);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.File propsFile, ClassLoader loader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String jndiLocation, javax.naming.Context context);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String jndiLocation, javax.naming.Context context, ClassLoader loader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.InputStream stream);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.InputStream stream, ClassLoader loader);
+}
+
+public class javax.jdo.JDONullIdentityException extends javax.jdo.JDOUserException {
+    public JDONullIdentityException();
+    public JDONullIdentityException(String msg);
+    public JDONullIdentityException(String msg, Object failed);
+    public JDONullIdentityException(String msg, Throwable[] nested);
+    public JDONullIdentityException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOObjectNotFoundException extends javax.jdo.JDODataStoreException {
+    public JDOObjectNotFoundException();
+    public JDOObjectNotFoundException(String msg);
+    public JDOObjectNotFoundException(String msg, Object failed);
+    public JDOObjectNotFoundException(String msg, Throwable[] nested);
+}
+
+public class javax.jdo.JDOOptimisticVerificationException extends javax.jdo.JDOFatalDataStoreException {
+    public JDOOptimisticVerificationException();
+    public JDOOptimisticVerificationException(String msg);
+    public JDOOptimisticVerificationException(String msg, Object failed);
+    public JDOOptimisticVerificationException(String msg, Throwable[] nested);
+}
+
+public class javax.jdo.JDOUnsupportedOptionException extends javax.jdo.JDOUserException {
+    public JDOUnsupportedOptionException();
+    public JDOUnsupportedOptionException(String msg);
+    public JDOUnsupportedOptionException(String msg, Throwable[] nested);
+    public JDOUnsupportedOptionException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOUserCallbackException extends javax.jdo.JDOUserException {
+    public JDOUserCallbackException();
+    public JDOUserCallbackException(String msg);
+    public JDOUserCallbackException(String msg, Throwable[] nested);
+    public JDOUserCallbackException(String msg, Throwable nested);
+}
+
+public class javax.jdo.JDOUserException extends javax.jdo.JDOCanRetryException {
+    public JDOUserException();
+    public JDOUserException(String msg);
+    public JDOUserException(String msg, Throwable[] nested);
+    public JDOUserException(String msg, Throwable nested);
+    public JDOUserException(String msg, Object failed);
+    public JDOUserException(String msg, Throwable[] nested, Object failed);
+    public JDOUserException(String msg, Throwable nested, Object failed);
+}
+
+public interface javax.jdo.listener.AttachCallback {
+    public void jdoPreAttach();
+    public void jdoPostAttach(Object attached);
+}
+
+public interface javax.jdo.listener.AttachLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preAttach(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postAttach(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.ClearCallback {
+    public void jdoPreClear();
+}
+
+public interface javax.jdo.listener.ClearLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preClear(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postClear(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.CreateLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void postCreate(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.DeleteCallback {
+    public void jdoPreDelete();
+}
+
+public interface javax.jdo.listener.DeleteLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preDelete(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postDelete(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.DetachCallback {
+    public void jdoPreDetach();
+    public void jdoPostDetach(Object detached);
+}
+
+public interface javax.jdo.listener.DetachLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preDetach(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postDetach(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.DirtyLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preDirty(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postDirty(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public class javax.jdo.listener.InstanceLifecycleEvent extends java.util.EventObject {
+    public static final int CREATE = 0;
+    public static final int LOAD = 1;
+    public static final int STORE = 2;
+    public static final int CLEAR = 3;
+    public static final int DELETE = 4;
+    public static final int DIRTY = 5;
+    public static final int DETACH = 6;
+    public static final int ATTACH = 7;
+    public InstanceLifecycleEvent(Object source, int type);
+    public InstanceLifecycleEvent(Object source, int type, Object target);
+    public int getEventType();
+    public Object getSource();
+    public Object getTarget();
+    public Object getPersistentInstance();
+    public Object getDetachedInstance();
+}
+
+public interface javax.jdo.listener.InstanceLifecycleListener {
+}
+
+public interface javax.jdo.listener.LoadCallback {
+    public void jdoPostLoad();
+}
+
+public interface javax.jdo.listener.LoadLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void postLoad(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.listener.StoreCallback {
+    public void jdoPreStore();
+}
+
+public interface javax.jdo.listener.StoreLifecycleListener extends javax.jdo.listener.InstanceLifecycleListener {
+    public void preStore(javax.jdo.listener.InstanceLifecycleEvent event);
+    public void postStore(javax.jdo.listener.InstanceLifecycleEvent event);
+}
+
+public interface javax.jdo.PersistenceManager {
+    public boolean isClosed();
+    public void close();
+    public javax.jdo.Transaction currentTransaction();
+    public void evict(Object pc);
+    public void evictAll(Object[] pcs);
+    public void evictAll(java.util.Collection pcs);
+    public void evictAll();
+    public void refresh(Object pc);
+    public void refreshAll(Object[] pcs);
+    public void refreshAll(java.util.Collection pcs);
+    public void refreshAll();
+    public void refreshAll(javax.jdo.JDOException jdoe);
+    public javax.jdo.Query newQuery();
+    public javax.jdo.Query newQuery(Object compiled);
+    public javax.jdo.Query newQuery(String query);
+    public javax.jdo.Query newQuery(String language, Object query);
+    public javax.jdo.Query newQuery(Class cls);
+    public javax.jdo.Query newQuery(javax.jdo.Extent cln);
+    public javax.jdo.Query newQuery(Class cls, java.util.Collection cln);
+    public javax.jdo.Query newQuery(Class cls, String filter);
+    public javax.jdo.Query newQuery(Class cls, java.util.Collection cln, String filter);
+    public javax.jdo.Query newQuery(javax.jdo.Extent cln, String filter);
+    public javax.jdo.Query newNamedQuery(Class cls, String queryName);
+    public javax.jdo.Extent getExtent(Class persistenceCapableClass, boolean subclasses);
+    public javax.jdo.Extent getExtent(Class persistenceCapableClass);
+    public Object getObjectById(Object oid, boolean validate);
+    public Object getObjectById(Class cls, Object key);
+    public Object getObjectById(Object oid);
+    public Object getObjectId(Object pc);
+    public Object getTransactionalObjectId(Object pc);
+    public Object newObjectIdInstance(Class pcClass, Object key);
+    public java.util.Collection getObjectsById(java.util.Collection oids, boolean validate);
+    public java.util.Collection getObjectsById(java.util.Collection oids);
+    public Object[] getObjectsById(Object[] oids, boolean validate);
+    public Object[] getObjectsById(Object[] oids);
+    public Object makePersistent(Object pc);
+    public Object[] makePersistentAll(Object[] pcs);
+    public java.util.Collection makePersistentAll(java.util.Collection pcs);
+    public void deletePersistent(Object pc);
+    public void deletePersistentAll(Object[] pcs);
+    public void deletePersistentAll(java.util.Collection pcs);
+    public void makeTransient(Object pc);
+    public void makeTransientAll(Object[] pcs);
+    public void makeTransientAll(java.util.Collection pcs);
+    public void makeTransient(Object pc, boolean useFetchPlan);
+    public void makeTransientAll(Object[] pcs, boolean useFetchPlan);
+    public void makeTransientAll(java.util.Collection pcs, boolean useFetchPlan);
+    public void makeTransactional(Object pc);
+    public void makeTransactionalAll(Object[] pcs);
+    public void makeTransactionalAll(java.util.Collection pcs);
+    public void makeNontransactional(Object pc);
+    public void makeNontransactionalAll(Object[] pcs);
+    public void makeNontransactionalAll(java.util.Collection pcs);
+    public void retrieve(Object pc);
+    public void retrieve(Object pc, boolean FGOnly);
+    public void retrieveAll(java.util.Collection pcs);
+    public void retrieveAll(java.util.Collection pcs, boolean FGOnly);
+    public void retrieveAll(Object[] pcs);
+    public void retrieveAll(Object[] pcs, boolean FGOnly);
+    public void setUserObject(Object o);
+    public Object getUserObject();
+    public javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
+    public Class getObjectIdClass(Class cls);
+    public void setMultithreaded(boolean flag);
+    public boolean getMultithreaded();
+    public void setIgnoreCache(boolean flag);
+    public boolean getIgnoreCache();
+    public boolean getDetachAllOnCommit();
+    public void setDetachAllOnCommit(boolean flag);
+    public Object detachCopy(Object pc);
+    public java.util.Collection detachCopyAll(java.util.Collection pcs);
+    public Object[] detachCopyAll(Object [] pcs);
+    public Object putUserObject(Object key, Object val);
+    public Object getUserObject(Object key);
+    public Object removeUserObject(Object key);
+    public void flush();
+    public void checkConsistency();
+    public javax.jdo.FetchPlan getFetchPlan();
+    public Object newInstance(Class pcClass);
+    public javax.jdo.datastore.Sequence getSequence(String name);
+    public javax.jdo.datastore.JDOConnection getDataStoreConnection();
+    public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
+    public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
+}
+
+public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
+    public void close();
+    public boolean isClosed();
+    public javax.jdo.PersistenceManager getPersistenceManager();
+    public javax.jdo.PersistenceManager getPersistenceManager(String userid, String password);
+    public void setConnectionUserName(String userName);
+    public String getConnectionUserName();
+    public void setConnectionPassword(String password);
+    public void setConnectionURL(String URL);
+    public String getConnectionURL();
+    public void setConnectionDriverName(String driverName);
+    public String getConnectionDriverName();
+    public void setConnectionFactoryName(String connectionFactoryName);
+    public String getConnectionFactoryName();
+    public void setConnectionFactory(Object connectionFactory);
+    public Object getConnectionFactory();
+    public void setConnectionFactory2Name(String connectionFactoryName);
+    public String getConnectionFactory2Name();
+    public void setConnectionFactory2(Object connectionFactory);
+    public Object getConnectionFactory2();
+    public void setMultithreaded(boolean flag);
+    public boolean getMultithreaded();
+    public void setMapping(String mapping);
+    public String getMapping();
+    public void setOptimistic(boolean flag);
+    public boolean getOptimistic();
+    public void setRetainValues(boolean flag);
+    public boolean getRetainValues();
+    public void setRestoreValues(boolean restoreValues);
+    public boolean getRestoreValues();
+    public void setNontransactionalRead(boolean flag);
+    public boolean getNontransactionalRead();
+    public void setNontransactionalWrite(boolean flag);
+    public boolean getNontransactionalWrite();
+    public void setIgnoreCache(boolean flag);
+    public boolean getIgnoreCache();
+    public boolean getDetachAllOnCommit();
+    public void setDetachAllOnCommit(boolean flag);
+    public java.util.Properties getProperties();
+    public java.util.Collection supportedOptions();
+    public javax.jdo.datastore.DataStoreCache getDataStoreCache();
+    public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
+    public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
+}
+
+public interface javax.jdo.Query extends java.io.Serializable {
+    public static final String JDOQL = "javax.jdo.query.JDOQL";
+    public static final String SQL = "javax.jdo.query.SQL";
+    public void setClass(Class cls);
+    public void setCandidates(javax.jdo.Extent pcs);
+    public void setCandidates(java.util.Collection pcs);
+    public void setFilter(String filter);
+    public void declareImports(String imports);
+    public void declareParameters(String parameters);
+    public void declareVariables(String variables);
+    public void setOrdering(String ordering);
+    public void setIgnoreCache(boolean ignoreCache);
+    public boolean getIgnoreCache();
+    public void compile();
+    public Object execute();
+    public Object execute(Object p1);
+    public Object execute(Object p1, Object p2);
+    public Object execute(Object p1, Object p2, Object p3);
+    public Object executeWithMap(java.util.Map parameters);
+    public Object executeWithArray(Object[] parameters);
+    public javax.jdo.PersistenceManager getPersistenceManager();
+    public void close(Object queryResult);
+    public void closeAll();
+    public void setGrouping(String group);
+    public void setUnique(boolean unique);
+    public void setResult(String data);
+    public void setResultClass(Class cls);
+    public void setRange(long fromIncl, long toExcl);
+    public void setRange(String fromInclToExcl);
+    public void addExtension(String key, Object value);
+    public void setExtensions(java.util.Map extensions);
+    public javax.jdo.FetchPlan getFetchPlan();
+    public long deletePersistentAll(Object[] parameters);
+    public long deletePersistentAll(java.util.Map parameters);
+    public long deletePersistentAll();
+    public void setUnmodifiable();
+    public boolean isUnmodifiable();
+}
+
+public interface javax.jdo.spi.Detachable {
+    public void jdoReplaceDetachedState();
+}
+
+public class javax.jdo.spi.JDOImplHelper extends Object {
+    public static javax.jdo.spi.JDOImplHelper getInstance() throws SecurityException;
+    public String[] getFieldNames(Class pcClass);
+    public Class[] getFieldTypes(Class pcClass);
+    public byte[] getFieldFlags(Class pcClass);
+    public Class getPersistenceCapableSuperclass(Class pcClass);
+    public javax.jdo.spi.PersistenceCapable newInstance(Class pcClass, javax.jdo.spi.StateManager sm);
+    public javax.jdo.spi.PersistenceCapable newInstance(Class pcClass, javax.jdo.spi.StateManager sm, Object oid);
+    public Object newObjectIdInstance(Class pcClass);
+    public Object newObjectIdInstance(Class pcClass, Object obj);
+    public void copyKeyFieldsToObjectId(Class pcClass, javax.jdo.spi.PersistenceCapable$ObjectIdFieldSupplier fm, Object oid);
+    public void copyKeyFieldsFromObjectId(Class pcClass, javax.jdo.spi.PersistenceCapable$ObjectIdFieldConsumer fm, Object oid);
+    public static void registerClass(Class pcClass, String[] fieldNames, Class[] fieldTypes, byte[] fieldFlags, Class persistenceCapableSuperclass, javax.jdo.spi.PersistenceCapable pc);
+    public void unregisterClasses(ClassLoader cl);
+    public void unregisterClass(Class pcClass);
+    public void addRegisterClassListener(javax.jdo.spi.RegisterClassListener crl);
+    public void removeRegisterClassListener(javax.jdo.spi.RegisterClassListener crl);
+    public java.util.Collection getRegisteredClasses();
+    public static void registerAuthorizedStateManagerClass(Class smClass) throws SecurityException;
+    public static void registerAuthorizedStateManagerClasses(java.util.Collection smClasses) throws SecurityException;
+    public static void checkAuthorizedStateManager(javax.jdo.spi.StateManager sm);
+    public static void checkAuthorizedStateManagerClass(Class smClass);
+    public Object registerStringConstructor(Class cls, javax.jdo.spi.JDOImplHelper$StringConstructor sc);
+    public static Object construct(String className, String keyString);
+    public synchronized void registerDateFormat(java.text.DateFormat df);
+    public synchronized void addStateInterrogation(javax.jdo.spi.StateInterrogation si);
+    public synchronized void removeStateInterrogation(javax.jdo.spi.StateInterrogation si);
+    public void nonBinaryCompatibleMakeDirty(Object pc, String fieldName);
+    public boolean nonBinaryCompatibleIs(Object pc, javax.jdo.spi.JDOImplHelper$StateInterrogationBooleanReturn sibr);
+    public Object nonBinaryCompatibleGet(Object pc, javax.jdo.spi.JDOImplHelper$StateInterrogationObjectReturn sibr);
+}
+
+static public interface javax.jdo.spi.JDOImplHelper$StringConstructor {
+    public Object construct(String s);
+}
+
+static public interface javax.jdo.spi.JDOImplHelper$StateInterrogationBooleanReturn {
+    public Boolean is(Object pc, javax.jdo.spi.StateInterrogation si);
+}
+
+static public interface javax.jdo.spi.JDOImplHelper$StateInterrogationObjectReturn {
+    public Object get(Object pc, javax.jdo.spi.StateInterrogation si);
+}
+
+public final class javax.jdo.spi.JDOPermission extends java.security.BasicPermission {
+    public JDOPermission(String name);
+    public JDOPermission(String name, String actions);
+    public static final javax.jdo.spi.JDOPermission GET_METADATA;
+    public static final javax.jdo.spi.JDOPermission MANAGE_METADATA;
+    public static final javax.jdo.spi.JDOPermission SET_STATE_MANAGER;
+    public static final javax.jdo.spi.JDOPermission CLOSE_PERSISTENCE_MANAGER_FACTORY;
+}
+
+public interface javax.jdo.spi.PersistenceCapable {
+    public static final byte READ_WRITE_OK = 0;
+    public static final byte LOAD_REQUIRED = 1;
+    public static final byte READ_OK = -1;
+    public static final byte CHECK_READ = 1;
+    public static final byte MEDIATE_READ = 2;
+    public static final byte CHECK_WRITE = 4;
+    public static final byte MEDIATE_WRITE = 8;
+    public static final byte SERIALIZABLE = 16;
+    public javax.jdo.PersistenceManager jdoGetPersistenceManager();
+    public void jdoReplaceStateManager(javax.jdo.spi.StateManager sm) throws SecurityException;
+    public void jdoProvideField(int fieldNumber);
+    public void jdoProvideFields(int[] fieldNumbers);
+    public void jdoReplaceField(int fieldNumber);
+    public void jdoReplaceFields(int[] fieldNumbers);
+    public void jdoReplaceFlags();
+    public void jdoCopyFields(Object other, int[] fieldNumbers);
+    public void jdoMakeDirty(String fieldName);
+    public Object jdoGetObjectId();
+    public Object jdoGetTransactionalObjectId();
+    public Object jdoGetVersion();
+    public boolean jdoIsDirty();
+    public boolean jdoIsTransactional();
+    public boolean jdoIsPersistent();
+    public boolean jdoIsNew();
+    public boolean jdoIsDeleted();
+    public boolean jdoIsDetached();
+    public javax.jdo.spi.PersistenceCapable jdoNewInstance(javax.jdo.spi.StateManager sm);
+    public javax.jdo.spi.PersistenceCapable jdoNewInstance(javax.jdo.spi.StateManager sm, Object oid);
+    public Object jdoNewObjectIdInstance();
+    public Object jdoNewObjectIdInstance(Object o);
+    public void jdoCopyKeyFieldsToObjectId(Object oid);
+    public void jdoCopyKeyFieldsToObjectId(javax.jdo.spi.PersistenceCapable$ObjectIdFieldSupplier fm, Object oid);
+    public void jdoCopyKeyFieldsFromObjectId(javax.jdo.spi.PersistenceCapable$ObjectIdFieldConsumer fm, Object oid);
+}
+
+static public interface javax.jdo.spi.PersistenceCapable$ObjectIdFieldManager extends javax.jdo.spi.PersistenceCapable$ObjectIdFieldConsumer, javax.jdo.spi.PersistenceCapable$ObjectIdFieldSupplier {
+}
+
+static public interface javax.jdo.spi.PersistenceCapable$ObjectIdFieldSupplier {
+    public boolean fetchBooleanField(int fieldNumber);
+    public char fetchCharField(int fieldNumber);
+    public byte fetchByteField(int fieldNumber);
+    public short fetchShortField(int fieldNumber);
+    public int fetchIntField(int fieldNumber);
+    public long fetchLongField(int fieldNumber);
+    public float fetchFloatField(int fieldNumber);
+    public double fetchDoubleField(int fieldNumber);
+    public String fetchStringField(int fieldNumber);
+    public Object fetchObjectField(int fieldNumber);
+}
+
+static public interface javax.jdo.spi.PersistenceCapable$ObjectIdFieldConsumer {
+    public void storeBooleanField(int fieldNumber, boolean value);
+    public void storeCharField(int fieldNumber, char value);
+    public void storeByteField(int fieldNumber, byte value);
+    public void storeShortField(int fieldNumber, short value);
+    public void storeIntField(int fieldNumber, int value);
+    public void storeLongField(int fieldNumber, long value);
+    public void storeFloatField(int fieldNumber, float value);
+    public void storeDoubleField(int fieldNumber, double value);
+    public void storeStringField(int fieldNumber, String value);
+    public void storeObjectField(int fieldNumber, Object value);
+}
+
+public class javax.jdo.spi.RegisterClassEvent extends java.util.EventObject {
+    public RegisterClassEvent(javax.jdo.spi.JDOImplHelper helper, Class registeredClass, String[] fieldNames, Class[] fieldTypes, byte[] fieldFlags, Class persistenceCapableSuperclass);
+    public Class getRegisteredClass();
+    public String[] getFieldNames();
+    public Class[] getFieldTypes();
+    public byte[] getFieldFlags();
+    public Class getPersistenceCapableSuperclass();
+}
+
+public interface javax.jdo.spi.RegisterClassListener extends java.util.EventListener {
+    public void registerClass(javax.jdo.spi.RegisterClassEvent event);
+}
+
+public interface javax.jdo.spi.StateInterrogation {
+    public Boolean isPersistent(Object pc);
+    public Boolean isTransactional(Object pc);
+    public Boolean isDirty(Object pc);
+    public Boolean isNew(Object pc);
+    public Boolean isDeleted(Object pc);
+    public Boolean isDetached(Object pc);
+    public javax.jdo.PersistenceManager getPersistenceManager(Object pc);
+    public Object getObjectId(Object pc);
+    public Object getTransactionalObjectId(Object pc);
+    public Object getVersion(Object pc);
+    public boolean makeDirty(Object pc, String fieldName);
+}
+
+public interface javax.jdo.spi.StateManager {
+    public byte replacingFlags(javax.jdo.spi.PersistenceCapable pc);
+    public javax.jdo.spi.StateManager replacingStateManager(javax.jdo.spi.PersistenceCapable pc, javax.jdo.spi.StateManager sm);
+    public boolean isDirty(javax.jdo.spi.PersistenceCapable pc);
+    public boolean isTransactional(javax.jdo.spi.PersistenceCapable pc);
+    public boolean isPersistent(javax.jdo.spi.PersistenceCapable pc);
+    public boolean isNew(javax.jdo.spi.PersistenceCapable pc);
+    public boolean isDeleted(javax.jdo.spi.PersistenceCapable pc);
+    public javax.jdo.PersistenceManager getPersistenceManager(javax.jdo.spi.PersistenceCapable pc);
+    public void makeDirty(javax.jdo.spi.PersistenceCapable pc, String fieldName);
+    public Object getObjectId(javax.jdo.spi.PersistenceCapable pc);
+    public Object getTransactionalObjectId(javax.jdo.spi.PersistenceCapable pc);
+    public Object getVersion(javax.jdo.spi.PersistenceCapable pc);
+    public boolean isLoaded(javax.jdo.spi.PersistenceCapable pc, int field);
+    public void preSerialize(javax.jdo.spi.PersistenceCapable pc);
+    public boolean getBooleanField(javax.jdo.spi.PersistenceCapable pc, int field, boolean currentValue);
+    public char getCharField(javax.jdo.spi.PersistenceCapable pc, int field, char currentValue);
+    public byte getByteField(javax.jdo.spi.PersistenceCapable pc, int field, byte currentValue);
+    public short getShortField(javax.jdo.spi.PersistenceCapable pc, int field, short currentValue);
+    public int getIntField(javax.jdo.spi.PersistenceCapable pc, int field, int currentValue);
+    public long getLongField(javax.jdo.spi.PersistenceCapable pc, int field, long currentValue);
+    public float getFloatField(javax.jdo.spi.PersistenceCapable pc, int field, float currentValue);
+    public double getDoubleField(javax.jdo.spi.PersistenceCapable pc, int field, double currentValue);
+    public String getStringField(javax.jdo.spi.PersistenceCapable pc, int field, String currentValue);
+    public Object getObjectField(javax.jdo.spi.PersistenceCapable pc, int field, Object currentValue);
+    public void setBooleanField(javax.jdo.spi.PersistenceCapable pc, int field, boolean currentValue, boolean newValue);
+    public void setCharField(javax.jdo.spi.PersistenceCapable pc, int field, char currentValue, char newValue);
+    public void setByteField(javax.jdo.spi.PersistenceCapable pc, int field, byte currentValue, byte newValue);
+    public void setShortField(javax.jdo.spi.PersistenceCapable pc, int field, short currentValue, short newValue);
+    public void setIntField(javax.jdo.spi.PersistenceCapable pc, int field, int currentValue, int newValue);
+    public void setLongField(javax.jdo.spi.PersistenceCapable pc, int field, long currentValue, long newValue);
+    public void setFloatField(javax.jdo.spi.PersistenceCapable pc, int field, float currentValue, float newValue);
+    public void setDoubleField(javax.jdo.spi.PersistenceCapable pc, int field, double currentValue, double newValue);
+    public void setStringField(javax.jdo.spi.PersistenceCapable pc, int field, String currentValue, String newValue);
+    public void setObjectField(javax.jdo.spi.PersistenceCapable pc, int field, Object currentValue, Object newValue);
+    public void providedBooleanField(javax.jdo.spi.PersistenceCapable pc, int field, boolean currentValue);
+    public void providedCharField(javax.jdo.spi.PersistenceCapable pc, int field, char currentValue);
+    public void providedByteField(javax.jdo.spi.PersistenceCapable pc, int field, byte currentValue);
+    public void providedShortField(javax.jdo.spi.PersistenceCapable pc, int field, short currentValue);
+    public void providedIntField(javax.jdo.spi.PersistenceCapable pc, int field, int currentValue);
+    public void providedLongField(javax.jdo.spi.PersistenceCapable pc, int field, long currentValue);
+    public void providedFloatField(javax.jdo.spi.PersistenceCapable pc, int field, float currentValue);
+    public void providedDoubleField(javax.jdo.spi.PersistenceCapable pc, int field, double currentValue);
+    public void providedStringField(javax.jdo.spi.PersistenceCapable pc, int field, String currentValue);
+    public void providedObjectField(javax.jdo.spi.PersistenceCapable pc, int field, Object currentValue);
+    public boolean replacingBooleanField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public char replacingCharField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public byte replacingByteField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public short replacingShortField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public int replacingIntField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public long replacingLongField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public float replacingFloatField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public double replacingDoubleField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public String replacingStringField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public Object replacingObjectField(javax.jdo.spi.PersistenceCapable pc, int field);
+    public Object[] replacingDetachedState(javax.jdo.spi.Detachable pc, Object[] state);
+}
+
+public interface javax.jdo.Transaction {
+    public void begin();
+    public void commit();
+    public void rollback();
+    public boolean isActive();
+    public boolean getRollbackOnly();
+    public void setRollbackOnly();
+    public void setNontransactionalRead(boolean nontransactionalRead);
+    public boolean getNontransactionalRead();
+    public void setNontransactionalWrite(boolean nontransactionalWrite);
+    public boolean getNontransactionalWrite();
+    public void setRetainValues(boolean retainValues);
+    public boolean getRetainValues();
+    public void setRestoreValues(boolean restoreValues);
+    public boolean getRestoreValues();
+    public void setOptimistic(boolean optimistic);
+    public boolean getOptimistic();
+    public void setSynchronization(javax.transaction.Synchronization sync);
+    public javax.transaction.Synchronization getSynchronization();
+    public javax.jdo.PersistenceManager getPersistenceManager();
+}

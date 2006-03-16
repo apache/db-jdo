@@ -383,6 +383,8 @@
                          value="${jdo.tck.mapping.companyfactory}"/>
             <sysproperty key="jdo.tck.closePMFAfterEachTest"
                          value="${jdo.tck.closePMFAfterEachTest}"/>
+            <sysproperty key="jdo.tck.signaturefile"
+                         value="${jdo.tck.signaturefile}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${iut.runtck.sysproperties}"/>
@@ -447,6 +449,8 @@
                          value="${jdo.tck.mapping.companyfactory}"/>
             <sysproperty key="jdo.tck.closePMFAfterEachTest"
                          value="${jdo.tck.closePMFAfterEachTest}"/>
+            <sysproperty key="jdo.tck.signaturefile"
+                         value="${jdo.tck.signaturefile}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdori.runtck.sysproperties}"/>
