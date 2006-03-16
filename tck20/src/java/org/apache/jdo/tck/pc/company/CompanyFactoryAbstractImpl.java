@@ -18,6 +18,9 @@ package org.apache.jdo.tck.pc.company;
 
 import javax.jdo.PersistenceManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /*
  * This class provides an implementation of CompanyFactory that sets all
  * of the properties of the instance and defines abstract methods to
@@ -27,6 +30,13 @@ import javax.jdo.PersistenceManager;
 public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
     
     protected PersistenceManager pm;
+    
+    /** Logger */
+    protected Log logger = 
+        LogFactory.getFactory().getInstance("org.apache.jdo.tck");
+
+    /** true if debug logging is enabled. */
+    protected boolean debug = logger.isDebugEnabled();
     
     /** Creates a new instance of CompanyFactoryAbstractImpl */
     public CompanyFactoryAbstractImpl(PersistenceManager pm) {
@@ -44,6 +54,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
     
     public IAddress newAddress(long addrid, String street, String city, String state, String zipcode, String country) {
         IAddress result = newAddress();
+        if (debug) logger.debug("newAddress returned" + result);
         result.setAddrid(addrid);
         result.setStreet(street);
         result.setCity(city);
@@ -55,6 +66,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public ICompany newCompany(long companyid, String name, java.util.Date founded) {
         ICompany result = newCompany();
+        if (debug) logger.debug("newCompany returned" + result);
         result.setCompanyid(companyid);
         result.setName(name);
         result.setFounded(founded);
@@ -63,6 +75,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public ICompany newCompany(long companyid, String name, java.util.Date founded, IAddress addr) {
         ICompany result = newCompany();
+        if (debug) logger.debug("newCompany returned" + result);
         result.setCompanyid(companyid);
         result.setName(name);
         result.setFounded(founded);
@@ -72,14 +85,16 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IDentalInsurance newDentalInsurance(long insid, String carrier, java.math.BigDecimal lifetimeOrthoBenefit) {
         IDentalInsurance result = newDentalInsurance();
+        if (debug) logger.debug("newDentalInsurance returned" + result);
         result.setInsid(insid);
         result.setCarrier(carrier);
         result.setLifetimeOrthoBenefit(lifetimeOrthoBenefit);
-        return null;
+        return result;
     }
 
     public IDentalInsurance newDentalInsurance(long insid, String carrier, IEmployee employee, java.math.BigDecimal lifetimeOrthoBenefit) {
         IDentalInsurance result = newDentalInsurance();
+        if (debug) logger.debug("newDentalInsurance returned" + result);
         result.setInsid(insid);
         result.setCarrier(carrier);
         result.setEmployee(employee);
@@ -89,6 +104,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IDepartment newDepartment(long deptid, String name) {
         IDepartment result = newDepartment();
+        if (debug) logger.debug("newDepartment returned" + result);
         result.setDeptid(deptid);
         result.setName(name);
         return result;
@@ -96,6 +112,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IDepartment newDepartment(long deptid, String name, ICompany company) {
         IDepartment result = newDepartment();
+        if (debug) logger.debug("newDepartment returned" + result);
         result.setDeptid(deptid);
         result.setName(name);
         result.setCompany(company);
@@ -104,6 +121,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IDepartment newDepartment(long deptid, String name, ICompany company, IEmployee employeeOfTheMonth) {
         IDepartment result = newDepartment();
+        if (debug) logger.debug("newDepartment returned" + result);
         result.setDeptid(deptid);
         result.setName(name);
         result.setCompany(company);
@@ -113,6 +131,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IFullTimeEmployee newFullTimeEmployee(long personid, String first, String last, String middle, java.util.Date born, java.util.Date hired, double sal) {
         IFullTimeEmployee result = newFullTimeEmployee();
+        if (debug) logger.debug("newFullTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -125,6 +144,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IFullTimeEmployee newFullTimeEmployee(long personid, String first, String last, String middle, java.util.Date born, IAddress addr, java.util.Date hired, double sal) {
         IFullTimeEmployee result = newFullTimeEmployee();
+        if (debug) logger.debug("newFullTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -138,6 +158,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IMedicalInsurance newMedicalInsurance(long insid, String carrier, String planType) {
         IMedicalInsurance result = newMedicalInsurance();
+        if (debug) logger.debug("newMedicalInsurance returned" + result);
         result.setInsid(insid);
         result.setCarrier(carrier);
         result.setPlanType(planType);
@@ -146,6 +167,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IMedicalInsurance newMedicalInsurance(long insid, String carrier, IEmployee employee, String planType) {
         IMedicalInsurance result = newMedicalInsurance();
+        if (debug) logger.debug("newMedicalInsurance returned" + result);
         result.setInsid(insid);
         result.setCarrier(carrier);
         result.setEmployee(employee);
@@ -155,6 +177,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IPartTimeEmployee newPartTimeEmployee(long personid, String first, String last, String middle, java.util.Date born, java.util.Date hired, double wage) {
         IPartTimeEmployee result = newPartTimeEmployee();
+        if (debug) logger.debug("newPartTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -167,6 +190,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IPartTimeEmployee newPartTimeEmployee(long personid, String first, String last, String middle, java.util.Date born, IAddress addr, java.util.Date hired, double wage) {
         IPartTimeEmployee result = newPartTimeEmployee();
+        if (debug) logger.debug("newPartTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -180,6 +204,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     public IProject newProject(long projid, String name, java.math.BigDecimal budget) {
         IProject result = newProject();
+        if (debug) logger.debug("newProject returned" + result);
         result.setProjid(projid);
         result.setName(name);
         result.setBudget(budget);
