@@ -974,10 +974,11 @@ public interface PersistenceManager {
     FetchPlan getFetchPlan ();
 
     /**
-     * Creates an instance of a persistence-capable interface or
-     * abstract class. The returned instance is transient.
-     * @param pcClass Must be an abstract class or interface 
-     *     that is declared in the metadata.
+     * Creates an instance of a persistence-capable interface, 
+     * or of a concrete or abstract class. 
+     * The returned instance is transient.
+     * @param pcClass Must be a persistence-capable interface, 
+     * or a concrete or abstract class that is declared in the metadata.
      * @return the created instance
      * @since 2.0
      */
