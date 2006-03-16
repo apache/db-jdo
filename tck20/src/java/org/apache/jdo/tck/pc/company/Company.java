@@ -46,8 +46,10 @@ public class Company
     protected static SimpleDateFormat formatter =
         new SimpleDateFormat("d/MMM/yyyy");
 
-    /** This is the JDO-required no-args constructor */
-    protected Company() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public Company() {}
 
     /** 
      * Initialize the <code>Company</code> instance.

@@ -29,8 +29,10 @@ public class MedicalInsurance extends Insurance implements IMedicalInsurance {
 
     private String planType; // possible values: "PPO", "EPO", "NPO" 
 
-    /** This is the JDO-required no-args constructor */
-    protected MedicalInsurance() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public MedicalInsurance() {}
 
     /**
      * Construct a <code>MedicalInsurance</code> instance.

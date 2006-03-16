@@ -29,8 +29,10 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
 
     private BigDecimal lifetimeOrthoBenefit;
 
-    /** This is the JDO-required no-args constructor */
-    protected DentalInsurance() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public DentalInsurance() {}
 
     /**
      * Construct a <code>DentalInsurance</code> instance.

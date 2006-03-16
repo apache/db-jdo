@@ -43,8 +43,10 @@ public class Department
     private transient Set employees = new HashSet(); // element type is Employee
     private transient Set fundedEmps = new HashSet(); // element type is Employee
 
-    /** This is the JDO-required no-args constructor */
-    protected Department() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public Department() {}
 
     /**
      * Construct a <code>Department</code> instance.

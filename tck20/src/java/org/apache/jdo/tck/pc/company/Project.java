@@ -42,8 +42,10 @@ public class Project
     private transient Set reviewers = new HashSet(); // element type is Employee
     private transient Set members = new HashSet();   // element type is Employee
 
-    /** This is the JDO-required no-args constructor. */
-    protected Project() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public Project() {}
 
     /**
      * Initialize a project.

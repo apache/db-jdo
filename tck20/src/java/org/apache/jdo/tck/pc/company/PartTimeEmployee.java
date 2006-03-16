@@ -27,8 +27,10 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
     private double wage;
 
-    /** This is the JDO-required no-args constructor. */
-    protected PartTimeEmployee() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public PartTimeEmployee() {}
 
     /**
      * Construct a part-time employee.

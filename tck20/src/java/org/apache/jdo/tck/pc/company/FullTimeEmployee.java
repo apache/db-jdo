@@ -28,8 +28,10 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
 
     private double  salary;
 
-    /** This is the JDO-required no-args constructor */
-    protected FullTimeEmployee() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public FullTimeEmployee() {}
 
     /**
      * Construct a full-time employee.

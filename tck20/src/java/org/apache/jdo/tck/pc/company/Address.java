@@ -35,8 +35,10 @@ public class Address
     private String  zipcode;
     private String  country;
 
-    /** This is the JDO-required no-args constructor */
-    protected Address() {}
+    /** This is the JDO-required no-args constructor. The TCK relies on
+     * this constructor for testing PersistenceManager.newInstance(PCClass).
+     */
+    public Address() {}
 
     /**
      * This constructor initializes the <code>Address</code> components.
