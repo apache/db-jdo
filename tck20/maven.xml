@@ -120,17 +120,17 @@
         </j:if>
 
         <echo>Configurations for this run are "${jdo.tck.cfglist}". To override this, use -Djdo.tck.cfglist=xxx on the maven command line.</echo>
-        <u:tokenize var="jdo.tck.cfglist" delim=" ">
+        <u:tokenize var="jdo.tck.cfglist" delim=" ,;">
             ${jdo.tck.cfglist}
         </u:tokenize>
 
         <echo>Databases for this run are "${jdo.tck.dblist}". To override this, use -Djdo.tck.dblist=xxx on the maven command line.</echo>
-        <u:tokenize var="jdo.tck.dblist" delim=" ">
+        <u:tokenize var="jdo.tck.dblist" delim=" ,;">
             ${jdo.tck.dblist}
         </u:tokenize>
 
         <echo>Identity types for this run are "${jdo.tck.identitytypes}". To override this, use -Djdo.tck.identitytypes=xxx on the maven command line.</echo>
-        <u:tokenize var="jdo.tck.identitytypes" delim=" ">
+        <u:tokenize var="jdo.tck.identitytypes" delim=" ,;">
             ${jdo.tck.identitytypes}
         </u:tokenize>
 
@@ -139,7 +139,7 @@
     <goal name="exclude">
 
         <j:new var="testclasses" className="java.util.Vector"/>
-        <u:tokenize var="jdo.tck.classes" delim=" ">
+        <u:tokenize var="jdo.tck.classes" delim=" ,;">
             ${jdo.tck.classes}
         </u:tokenize>
         <j:forEach var="class" items="${jdo.tck.classes}">
@@ -147,7 +147,7 @@
         </j:forEach>
 
         <u:properties file="${jdo.tck.excludelist}"/>
-        <u:tokenize var="jdo.tck.exclude" delim=" ">
+        <u:tokenize var="jdo.tck.exclude" delim=" ,;">
             ${jdo.tck.exclude}
         </u:tokenize>
         <j:forEach var="excludedclass" items="${jdo.tck.exclude}">
