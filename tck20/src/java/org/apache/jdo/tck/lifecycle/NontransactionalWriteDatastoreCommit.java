@@ -20,7 +20,6 @@ import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.lifecycle.nontransactional.*;
 
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 
