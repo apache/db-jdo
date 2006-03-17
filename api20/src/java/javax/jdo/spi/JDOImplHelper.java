@@ -657,7 +657,7 @@ public class JDOImplHelper extends java.lang.Object {
     /**
      * Determine if a class is loadable in the current environment.
      */
-    public static boolean isClassLoadable(String className) {
+    private static boolean isClassLoadable(String className) {
         try {
             Class.forName(className);
             return true;
