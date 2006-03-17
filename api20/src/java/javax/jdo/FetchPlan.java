@@ -141,8 +141,8 @@ public interface FetchPlan {
 
     /**
      * Set the maximum fetch depth when fetching. 
-     * 0 has no meaning and will throw a JDOUserException.
-     * -1 means that no limit is placed on fetching.
+     * A value of 0 has no meaning and will throw a JDOUserException.
+     * A value of -1 means that no limit is placed on fetching.
      * A positive integer will result in that number of references from the
      * initial object to be fetched.
      * @param fetchDepth the depth
