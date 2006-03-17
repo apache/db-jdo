@@ -240,6 +240,7 @@ public class javax.jdo.JDOFatalUserException extends javax.jdo.JDOFatalException
 }
 
 public class javax.jdo.JDOHelper {
+    public JDOHelper();
     public static javax.jdo.PersistenceManager getPersistenceManager(Object pc);
     public static void makeDirty(Object pc, String fieldName);
     public static Object getObjectId(Object pc);
