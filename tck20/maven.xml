@@ -113,6 +113,8 @@
         <j:set var="zeroval" value="0"/>
         <j:set var="spaceval" value=" "/>
         <j:set var="nullval" value=""/>
+        <j:set var="true" value="true"/>
+        <j:set var="false" value="false"/>
 
         <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
         <j:if test="${cfglist == null}">
@@ -263,24 +265,29 @@
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
         <echo>Run all configurations on iut</echo>
+        <j:set var="runOnceTestRanOnce" value="false"/>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
                 <j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
-                    <!-- get jdo.tck.classes (list of testclasses),
-                         jdo.tck.testdata, jdo.tck.mapping -->
+                    <j:set var="runOnce" value="false"/>
                     <u:properties file="${basedir}/src/conf/${jdo.tck.cfg}"/>
-                    <attainGoal name="exclude"/>
-                    <j:new var="schemaname" className="java.lang.String"/>
-                    <j:set var="id" value="${jdo.tck.identitytype}"/>
-                    <j:set var="mapping" value="${jdo.tck.mapping}"/>
-                    <j:if test="${mapping == zeroval}">
-                       <j:set var="jdo.tck.mapping" value=""/>
+                    <j:if test="${runOnce == false || (runOnce == true &amp;&amp; runOnceTestRanOnce == false)}">
+                        <attainGoal name="exclude"/>
+                        <j:new var="schemaname" className="java.lang.String"/>
+                        <j:set var="id" value="${jdo.tck.identitytype}"/>
+                        <j:set var="mapping" value="${jdo.tck.mapping}"/>
+                        <j:if test="${mapping == zeroval}">
+                           <j:set var="jdo.tck.mapping" value=""/>
+                        </j:if>
+                        <j:set var="schemaname">
+                            <j:expr value="${schemaname.concat(id)}"/>
+                            <j:expr value="${schemaname.concat(mapping)}"/>
+                        </j:set>
+                        <attainGoal name="doRuntck.iut"/>
+                        <j:if test="${runOnce == true}">
+                            <j:set var="runOnceTestRanOnce" value="true"/>
+                        </j:if>
                     </j:if>
-                    <j:set var="schemaname">
-                        <j:expr value="${schemaname.concat(id)}"/>
-                        <j:expr value="${schemaname.concat(mapping)}"/>
-                    </j:set>
-                    <attainGoal name="doRuntck.iut"/>
                 </j:forEach>
             </j:forEach>
         </j:forEach>
@@ -304,23 +311,32 @@
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
+
+
         <echo>Run all configurations on jdori</echo>
+        <j:set var="runOnceTestRanOnce" value="false"/>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
             <j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
                 <j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
+                    <j:set var="runOnce" value="false"/>
                     <u:properties file="${basedir}/src/conf/${jdo.tck.cfg}"/>
-                    <attainGoal name="exclude"/>
-                    <j:new var="schemaname" className="java.lang.String"/>
-                    <j:set var="id" value="${jdo.tck.identitytype}"/>
-                    <j:set var="mapping" value="${jdo.tck.mapping}"/>
-                    <j:if test="${mapping == zeroval}">
-                       <j:set var="jdo.tck.mapping" value=""/>
+                    <j:if test="${runOnce == false || (runOnce == true &amp;&amp; runOnceTestRanOnce == false)}">
+                        <attainGoal name="exclude"/>
+                        <j:new var="schemaname" className="java.lang.String"/>
+                        <j:set var="id" value="${jdo.tck.identitytype}"/>
+                        <j:set var="mapping" value="${jdo.tck.mapping}"/>
+                        <j:if test="${mapping == zeroval}">
+                           <j:set var="jdo.tck.mapping" value=""/>
+                        </j:if>
+                        <j:set var="schemaname">
+                            <j:expr value="${schemaname.concat(id)}"/>
+                            <j:expr value="${schemaname.concat(mapping)}"/>
+                        </j:set>
+                        <attainGoal name="doRuntck.jdori"/>
+                        <j:if test="${runOnce == true}">
+                            <j:set var="runOnceTestRanOnce" value="true"/>
+                        </j:if>
                     </j:if>
-                    <j:set var="schemaname">
-                        <j:expr value="${schemaname.concat(id)}"/>
-                        <j:expr value="${schemaname.concat(mapping)}"/>
-                    </j:set>
-                    <attainGoal name="doRuntck.jdori"/>
                 </j:forEach>
             </j:forEach>
         </j:forEach>
@@ -350,6 +366,7 @@
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
+        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
         <java fork="yes" dir="${jdo.tck.testdir}"
               classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.iut.classpath"/>
@@ -416,6 +433,7 @@
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
+        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
         <java fork="yes" dir="${jdo.tck.testdir}"
                classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.jdori.classpath"/>

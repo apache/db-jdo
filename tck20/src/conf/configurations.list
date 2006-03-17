@@ -1,4 +1,5 @@
 jdo.tck.cfglist = \
+                 runonce.conf \
                  instancecallbacks.conf \
                  jdohelper.conf \
                  pm.conf \
