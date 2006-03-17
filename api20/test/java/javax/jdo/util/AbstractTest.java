@@ -38,6 +38,18 @@ public class AbstractTest extends TestCase {
     }
     
     /**
+     * Determine if a class is loadable in the current environment.
+     */
+    protected static boolean isClassLoadable(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        }
+    }
+    
+    /**
      */
     protected void println(String s) {
         if (verbose) 
