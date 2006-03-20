@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -52,26 +53,12 @@ public class VariableInResult extends QueryTest {
     private static final QueryElementHolder[] VALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "distinct p",
+        /*RESULT*/      "distinct e",
         /*INTO*/        null, 
-        /*FROM*/        Employee.class,
+        /*FROM*/        Department.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) & p.name == 'orange'",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) & p.name == 'orange'",
-        /*VARIABLES*/   "Project p",
+        /*WHERE*/       "employees.contains(e)",
+        /*VARIABLES*/   "Employee e",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -113,8 +100,8 @@ public class VariableInResult extends QueryTest {
      */
     private Object[] expectedResult = {
         // this
-        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"proj1","proj1","proj1"}),
+        getTransientCompanyModelInstancesAsList(
+                new String[]{"emp1","emp2","emp3","emp4","emp5"}),
         // Note: "orange" is not a bean name!
         Arrays.asList(new Object[]{new Object[]{new Long(1), "orange"}}),
         Arrays.asList(new Object[]{
@@ -142,7 +129,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
-    public void testNoNavigation() {
+    public void testDistinctNavigation() {
         int index = 1;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
@@ -151,17 +138,8 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
-    public void testDistinctNavigation() {
-        int index = 2;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
-    /** */
     public void testNavigation() {
-        int index = 3;
+        int index = 2;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
