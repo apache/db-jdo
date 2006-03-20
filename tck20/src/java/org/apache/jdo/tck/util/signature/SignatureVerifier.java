@@ -346,7 +346,7 @@ public class SignatureVerifier {
                     exp = Double.valueOf(value);
                 } else if (type.equals("char")) {
                     // cut off '\'' char at begin and end
-                    exp = Character.valueOf(value.charAt(1));
+                    exp = new Character(value.charAt(1));
                 } else if (type.equals("java.lang.String")) {
                     // cut off '\"' chars at begin and end
                     final String s = value.substring(1, value.length() - 1);
