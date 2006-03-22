@@ -90,7 +90,7 @@ public class BatchTestRunner
         run(new TestSuite(clazz));
     }
     
-    /** Runs the specified test. */
+    /** Runs the specified test or test suite */
     public static TestResult run(Test test) {
         return new BatchTestRunner().doRun(test);
     }
@@ -100,11 +100,15 @@ public class BatchTestRunner
         new BatchTestRunner().doRun(suite, true);
     }
 
-    /** Runs the specified test and close the pmf. */
+    /** Runs the specified test or test suite and closes the pmf. */
     public TestResult doRun(Test test) {
-        TestResult result = doRun(test, false);
-        JDO_Test.dumpSupportedOptions(LOG_DIRECTORY + "configuration");
-        JDO_Test.closePMF();
+        TestResult result = null;
+        try {
+            result = doRun(test, false);
+            JDO_Test.dumpSupportedOptions(LOG_DIRECTORY + "configuration");
+        } finally {
+            JDO_Test.closePMF();
+        }
         return result;
     }
 
