@@ -7,7 +7,8 @@
 
     <class name="StateTransitionObj" 
            identity-type="application"
-           objectid-class="org.apache.jdo.tck.pc.lifecycle.StateTransitionObj$Oid">
+           objectid-class="org.apache.jdo.tck.pc.lifecycle.StateTransitionObj$Oid"
+           detachable="true">
         <field name="id" primary-key="true"/>
     </class>
   </package>

@@ -56,20 +56,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public abstract class JDO_Test extends TestCase {
-    public static final int TRANSIENT                   = 0;
-    public static final int PERSISTENT_NEW              = 1;
-    public static final int PERSISTENT_CLEAN            = 2;
-    public static final int PERSISTENT_DIRTY            = 3;
-    public static final int HOLLOW                      = 4;
-    public static final int TRANSIENT_CLEAN             = 5;
-    public static final int TRANSIENT_DIRTY             = 6;
-    public static final int PERSISTENT_NEW_DELETED      = 7;
-    public static final int PERSISTENT_DELETED          = 8;
-    public static final int PERSISTENT_NONTRANSACTIONAL = 9;
-    public static final int PERSISTENT_NONTRANSACTIONAL_DIRTY = 10;
-    public static final int DETACHED = 11;
-    public static final int NUM_STATES = 12;
-    public static final int ILLEGAL_STATE = 12;
+    public static final int TRANSIENT                           = 0;
+    public static final int PERSISTENT_NEW                      = 1;
+    public static final int PERSISTENT_CLEAN                    = 2;
+    public static final int PERSISTENT_DIRTY                    = 3;
+    public static final int HOLLOW                              = 4;
+    public static final int TRANSIENT_CLEAN                     = 5;
+    public static final int TRANSIENT_DIRTY                     = 6;
+    public static final int PERSISTENT_NEW_DELETED              = 7;
+    public static final int PERSISTENT_DELETED                  = 8;
+    public static final int PERSISTENT_NONTRANSACTIONAL         = 9;
+    public static final int PERSISTENT_NONTRANSACTIONAL_DIRTY   = 10;
+    public static final int DETACHED_CLEAN                      = 11;
+    public static final int DETACHED_DIRTY                      = 12;
+    public static final int NUM_STATES = 13;
+    public static final int ILLEGAL_STATE = 13;
 
     public static final String[] states = {
         "transient",
@@ -83,7 +84,8 @@ public abstract class JDO_Test extends TestCase {
         "persistent-deleted",
         "persistent-nontransactional",
         "persistent-nontransactional-dirty",
-        "detached",
+        "detached-clean",
+        "detached-dirty",
         "illegal"
     };
     private static final int IS_PERSISTENT       = 0;
@@ -132,10 +134,13 @@ public abstract class JDO_Test extends TestCase {
         {   true,           false,              false,      false,      false,        false},
 
         // persistent-nontransactional-dirty
-        {   true,           true,               false,      false,      false,        false},
+        {   true,           false,              true,       false,      false,        false},
 
-        // detached
-        {   false,          false,              false,      false,      false,        true}
+        // detached_clean
+        {   false,          false,              false,      false,      false,        true},
+
+        // detached_dirty
+        {   false,          false,              true,       false,      false,        true}
     };
   
     /** identitytype value for applicationidentity. */
@@ -580,7 +585,7 @@ public abstract class JDO_Test extends TestCase {
      */
     public void fail(String assertionFailure, String msg) {
         if (debug) logger.debug(msg);
-        fail(assertionFailure + "\n" + msg);
+        fail(assertionFailure + NL + msg);
     }
 
     // Helper methods to check for supported options
@@ -856,6 +861,18 @@ public abstract class JDO_Test extends TestCase {
             return i;
         }
         return NUM_STATES;
+    }
+
+    /**
+     * Tests if a found state matches an expected state.
+     */
+    public static boolean compareStates(int found_state, int expected_state)
+    {
+        // status interrogation gives same values for PERSISTENT_NONTRANSACTIONAL and HOLLOW
+        return (expected_state < 0
+                || found_state == expected_state
+                || (found_state == HOLLOW && expected_state == PERSISTENT_NONTRANSACTIONAL)
+                || (found_state == PERSISTENT_NONTRANSACTIONAL && expected_state == HOLLOW));
     }
 
     /** This method mangles an object by changing all its non-static, 

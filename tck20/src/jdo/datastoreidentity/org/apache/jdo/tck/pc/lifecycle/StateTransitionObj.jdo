@@ -4,6 +4,6 @@
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
 	http://java.sun.com/xml/ns/jdo/jdo_2_0.xsd">
   <package name="org.apache.jdo.tck.pc.lifecycle">
-    <class name="StateTransitionObj" identity-type="datastore" />
+    <class name="StateTransitionObj" identity-type="datastore" detachable="true"/>
   </package>
 </jdo>

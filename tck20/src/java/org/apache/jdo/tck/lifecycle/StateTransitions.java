@@ -16,9 +16,13 @@
  
 package org.apache.jdo.tck.lifecycle;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 
 import javax.jdo.Extent;
+import javax.jdo.JDOFatalException;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -57,9 +61,9 @@ public class StateTransitions extends JDO_Test {
     private int                         expected_state;
     private int                         new_state;
 
-/**
- * Operations that cause state changes
- */
+    /**
+     * Operations that cause state changes
+     */
     private static final int MAKEPERSISTENT          = 0;
     private static final int DELETEPERSISTENT        = 1;
     private static final int MAKETRANSACTIONAL       = 2;
@@ -79,7 +83,14 @@ public class StateTransitions extends JDO_Test {
     private static final int WRITEINSIDETX           = 16;
     private static final int RETRIEVEOUTSIDETX       = 17;
     private static final int RETRIEVEINSIDETX        = 18;
-
+    private static final int DETACHALLONCOMMIT       = 19;
+    private static final int DETACHCOPYOUTSIDETX     = 20;
+    private static final int DETACHCOPYINSIDETX      = 21;
+    private static final int SERIALIZEOUTSIDETX      = 22;
+    private static final int SERIALIZEINSIDETX       = 23;
+    
+    private static final int NUM_OPERATIONS          = 24;
+    
     private static final String[] operations = {
         "makePersistent",
         "deletePersistent",
@@ -99,13 +110,13 @@ public class StateTransitions extends JDO_Test {
         "write field outside tx",
         "write field with active tx",
         "retrieve outside tx",
-        "retrieve with active tx"
+        "retrieve with active tx",
+        "commit, detachAllOnCommit=true",
+        "detachCopy outside tx",
+        "detachCopy with active tx",
+        "serialize outside tx",
+        "serialize with active tx"
     };
-    private static final int NUM_OPERATIONS = 19;
-
-    private static final boolean[] closes_transaction =
-    { false, false, false, false, false, true, true, true, true, false,
-      false, false, false, false, false, false, false, false, false };
 
     /**
      * Illegal state transitions
@@ -119,82 +130,197 @@ public class StateTransitions extends JDO_Test {
      * State transitions
      */
     public static final int[][] transitions = { // [operation] [current state] = new state
+        //  TRANSIENT,                      PERSISTENT_NEW,                     PERSISTENT_CLEAN,
+        //  PERSISTENT_DIRTY,               HOLLOW,                             TRANSIENT_CLEAN,
+        //  TRANSIENT_DIRTY,                PERSISTENT_NEW_DELETED,             PERSISTENT_DELETED, 
+        //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
+        //  DETACHED_DIRTY
+        
         // makePersistent
-        { PERSISTENT_NEW, UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_NEW,
-          PERSISTENT_NEW, UNCHANGED, UNCHANGED, UNCHANGED},
+        {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
+            PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED, 
+            UNCHANGED,                      UNCHANGED,                          DETACHED_CLEAN,     
+            DETACHED_DIRTY},
 
         // deletePersistent
-        { ERROR, PERSISTENT_NEW_DELETED, PERSISTENT_DELETED, PERSISTENT_DELETED,
-          PERSISTENT_DELETED, ERROR, ERROR, UNCHANGED, UNCHANGED, PERSISTENT_DELETED},
+        {   ERROR,                          PERSISTENT_NEW_DELETED,             PERSISTENT_DELETED, 
+            PERSISTENT_DELETED,             PERSISTENT_DELETED,                 ERROR,
+            ERROR,                          UNCHANGED,                          UNCHANGED,
+            PERSISTENT_DELETED,             PERSISTENT_DELETED,                 ERROR, 
+            ERROR},
 
         // makeTransactional
-        { TRANSIENT_CLEAN, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN,
-          UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN},
+        {   TRANSIENT_CLEAN,                UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED, 
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            PERSISTENT_CLEAN,               PERSISTENT_DIRTY,                   ERROR,
+            ERROR},
     
         // makeNontransactional
-        { ERROR, ERROR, PERSISTENT_NONTRANSACTIONAL, ERROR, UNCHANGED,
-          TRANSIENT, ERROR, ERROR, ERROR, UNCHANGED},
+        {   ERROR,                          ERROR,                              PERSISTENT_NONTRANSACTIONAL,
+            ERROR,                          UNCHANGED,                          TRANSIENT,
+            ERROR,                          ERROR,                              ERROR,
+            UNCHANGED,                      UNCHANGED,                          ERROR,
+            ERROR},
 
         // makeTransient
-        { UNCHANGED, ERROR, TRANSIENT, ERROR, TRANSIENT,
-          UNCHANGED, UNCHANGED, ERROR, ERROR, TRANSIENT},
+        {   UNCHANGED,                      ERROR,                              TRANSIENT,
+            ERROR,                          TRANSIENT,                          UNCHANGED,
+            UNCHANGED,                      ERROR,                              ERROR,
+            TRANSIENT,                      ERROR,                              ERROR,
+            ERROR},
 
         // commit, retainValues = false
-        { UNCHANGED, HOLLOW, HOLLOW, HOLLOW, UNCHANGED, UNCHANGED,
-          TRANSIENT_CLEAN, TRANSIENT, TRANSIENT, UNCHANGED},
+        {   UNCHANGED,                      HOLLOW,                             HOLLOW,
+            HOLLOW,                         UNCHANGED,                          UNCHANGED,
+            TRANSIENT_CLEAN,                TRANSIENT,                          TRANSIENT,
+            UNCHANGED,                      HOLLOW,                             UNCHANGED,
+            UNCHANGED},
 
         // commit, retainValues = true
-        { UNCHANGED, PERSISTENT_NONTRANSACTIONAL, PERSISTENT_NONTRANSACTIONAL,
-          PERSISTENT_NONTRANSACTIONAL, UNCHANGED, UNCHANGED, TRANSIENT_CLEAN,
-          TRANSIENT, TRANSIENT, UNCHANGED},
+        {   UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        PERSISTENT_NONTRANSACTIONAL,
+            PERSISTENT_NONTRANSACTIONAL,    UNCHANGED,                          UNCHANGED,
+            TRANSIENT_CLEAN,                TRANSIENT,                          TRANSIENT,
+            UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        UNCHANGED,
+            UNCHANGED},
 
+        //  TRANSIENT,                      PERSISTENT_NEW,                     PERSISTENT_CLEAN,
+        //  PERSISTENT_DIRTY,               HOLLOW,                             TRANSIENT_CLEAN,
+        //  TRANSIENT_DIRTY,                PERSISTENT_NEW_DELETED,             PERSISTENT_DELETED, 
+        //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
+        //  DETACHED_DIRTY
+        
         // rollback, restoreValues = false
-        { UNCHANGED, TRANSIENT, HOLLOW, HOLLOW, UNCHANGED, UNCHANGED,
-          TRANSIENT_CLEAN, TRANSIENT, HOLLOW, UNCHANGED},
+        {   UNCHANGED,                      TRANSIENT,                          HOLLOW,
+            HOLLOW,                         UNCHANGED,                          UNCHANGED,
+            TRANSIENT_CLEAN,                TRANSIENT,                          HOLLOW,
+            UNCHANGED,                      HOLLOW,                             UNCHANGED,  
+            UNCHANGED},
 
         // rollback, restoreValues = true
-        { UNCHANGED, TRANSIENT, PERSISTENT_NONTRANSACTIONAL, PERSISTENT_NONTRANSACTIONAL,
-          UNCHANGED, UNCHANGED, TRANSIENT_CLEAN, TRANSIENT, PERSISTENT_NONTRANSACTIONAL, UNCHANGED},
+        {   UNCHANGED,                      TRANSIENT,                          PERSISTENT_NONTRANSACTIONAL,
+            PERSISTENT_NONTRANSACTIONAL,    UNCHANGED,                          UNCHANGED,
+            TRANSIENT_CLEAN,                TRANSIENT,                          PERSISTENT_NONTRANSACTIONAL,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
 
         // refresh with active datastore transaction
-        { UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN, UNCHANGED,
-          UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED},
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        UNCHANGED,
+            UNCHANGED},
 
         // refresh with active optimistic transaction
-        { UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_NONTRANSACTIONAL, UNCHANGED,
-          UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED},
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            PERSISTENT_NONTRANSACTIONAL,    UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        UNCHANGED,
+            UNCHANGED},
 
         // evict
-        { NOT_APPLICABLE, UNCHANGED, HOLLOW, UNCHANGED, UNCHANGED,
-          UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, HOLLOW},
+        {   NOT_APPLICABLE,                 UNCHANGED,                          HOLLOW,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            HOLLOW,                         HOLLOW,                             UNCHANGED,
+            UNCHANGED},
 
         // read field outside transaction
-        { UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, PERSISTENT_NONTRANSACTIONAL,
-          UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, UNCHANGED},
+        {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        IMPOSSIBLE,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
 
         // read field with active optimistic transaction
-        { UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_NONTRANSACTIONAL,
-          UNCHANGED, UNCHANGED, ERROR, ERROR, UNCHANGED},
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        UNCHANGED,
+            UNCHANGED,                      ERROR,                              ERROR,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
 
+        //  TRANSIENT,                      PERSISTENT_NEW,                     PERSISTENT_CLEAN,
+        //  PERSISTENT_DIRTY,               HOLLOW,                             TRANSIENT_CLEAN,
+        //  TRANSIENT_DIRTY,                PERSISTENT_NEW_DELETED,             PERSISTENT_DELETED, 
+        //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
+        //  DETACHED_DIRTY
+        
         // read field with active datastore transaction
-        { UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN,
-          UNCHANGED, UNCHANGED, ERROR, ERROR, PERSISTENT_CLEAN},
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED,
+            UNCHANGED,                      ERROR,                              ERROR,
+            PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
 
         // write field outside transaction
-        { UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, PERSISTENT_NONTRANSACTIONAL,
-          UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, UNCHANGED},
+        {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        IMPOSSIBLE,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            UNCHANGED,                      UNCHANGED,                          DETACHED_DIRTY,
+            UNCHANGED},
     
         // write field with active transaction
-        { UNCHANGED, UNCHANGED, PERSISTENT_DIRTY, UNCHANGED, PERSISTENT_DIRTY,
-          TRANSIENT_DIRTY, UNCHANGED, ERROR, ERROR, PERSISTENT_DIRTY},
-	  
+        {   UNCHANGED,                      UNCHANGED,                          PERSISTENT_DIRTY,
+            UNCHANGED,                      PERSISTENT_DIRTY,                   TRANSIENT_DIRTY,
+            UNCHANGED,                      ERROR,                              ERROR,
+            PERSISTENT_DIRTY,               UNCHANGED,                          DETACHED_DIRTY,
+            UNCHANGED},
+      
         // retrieve outside transaction
-        { UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, PERSISTENT_NONTRANSACTIONAL,
-          UNCHANGED, IMPOSSIBLE, IMPOSSIBLE, IMPOSSIBLE, UNCHANGED},
-	  
+        {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        IMPOSSIBLE,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
+      
         // retrieve with active transaction
-        { UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN,
-          UNCHANGED, UNCHANGED, UNCHANGED, UNCHANGED, PERSISTENT_CLEAN}
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
+
+        // commit, detachAllOnCommit = true
+        {   UNCHANGED,                      DETACHED_CLEAN,                     DETACHED_CLEAN,
+            DETACHED_CLEAN,                 DETACHED_CLEAN,                     UNCHANGED,
+            TRANSIENT_CLEAN,                TRANSIENT,                          TRANSIENT,
+            DETACHED_CLEAN,                 DETACHED_CLEAN,                     UNCHANGED,
+            UNCHANGED},
+
+        //  TRANSIENT,                      PERSISTENT_NEW,                     PERSISTENT_CLEAN,
+        //  PERSISTENT_DIRTY,               HOLLOW,                             TRANSIENT_CLEAN,
+        //  TRANSIENT_DIRTY,                PERSISTENT_NEW_DELETED,             PERSISTENT_DELETED, 
+        //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
+        //  DETACHED_DIRTY
+        
+        // detachCopy outside tx
+        {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     UNCHANGED,                          IMPOSSIBLE,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            UNCHANGED,                      ERROR,                              UNCHANGED,
+            UNCHANGED},
+
+        // detachCopy with active tx
+        {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
+            PERSISTENT_NEW,                 ERROR,                              ERROR,
+            UNCHANGED,                      ERROR,                              UNCHANGED,
+            UNCHANGED},
+
+        // serialize outside tx
+        {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     UNCHANGED,                          IMPOSSIBLE,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
+
+        // serialize with active tx
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
     };
 
     private static final int DATASTORE_TX = 0;
@@ -225,7 +351,12 @@ public class StateTransitions extends JDO_Test {
         {   false,         false,       true  },  // write field or makeDirty outside of a transaction
         {   true,          true,        false },  // write field or makeDirty with active transaction
         {   false,         true,        true  },  // retrieve outside of a transaction or with active optimistic transaction
-        {   true,          false,       false }   // retrieve with active datastore transaction
+        {   true,          false,       false },  // retrieve with active datastore transaction
+        {   true,          true,        false },  // commit, DetachAllOnCommit = true
+        {   false,         false,       true },   // detachCopy outside tx
+        {   true,          true,        false },  // detachCopy with active tx
+        {   false,         false,       true },   // serialize outside tx
+        {   true,          true,        false }   // serialize with active tx
     };
 
     /**
@@ -248,6 +379,7 @@ public class StateTransitions extends JDO_Test {
 
         scenario = NO_TX;
         checkTransitions();
+        failOnError();
     }
 
     /** */
@@ -282,12 +414,54 @@ public class StateTransitions extends JDO_Test {
     }
 
     /** */
+    public void prepareTransactionAndJDOSettings(Transaction transaction) {
+        if( scenario != NO_TX ) {
+            transaction.setNontransactionalRead(false);
+            transaction.setNontransactionalWrite(false);
+            
+            if( operation == COMMITNORETAINVALUES )
+                transaction.setRetainValues(false);
+            if( operation == COMMITRETAINVALUES )
+                transaction.setRetainValues(true);
+            if( operation == ROLLBACKNORESTOREVALUES )
+                transaction.setRestoreValues(false);
+            if( operation == ROLLBACKRESTOREVALUES )
+                transaction.setRestoreValues(true);
+            if( operation == DETACHALLONCOMMIT )
+                pm.setDetachAllOnCommit(true);
+            else
+                pm.setDetachAllOnCommit(false);
+
+            transaction.setOptimistic(scenario == OPTIMISTIC_TX);
+            transaction.begin();
+            if( !transaction.isActive() )
+                if (debug)
+                    logger.debug("StateTransitions: Transaction should be active, but it is not");
+        } else {
+            if( operation == READOUTSIDETX ||
+                operation == RETRIEVEOUTSIDETX ||
+                operation == DETACHCOPYOUTSIDETX ||
+                operation == SERIALIZEOUTSIDETX ) {
+                transaction.setNontransactionalRead(true);
+            }
+            if( operation == WRITEOUTSIDETX ||
+                current_state == PERSISTENT_NONTRANSACTIONAL_DIRTY) {
+                transaction.setNontransactionalWrite(true);
+            }
+        }
+    }
+    
+    /** */
     void checkTransitions()
     {
         for( operation = 0; operation < NUM_OPERATIONS; ++operation ){
             // rule out situations that do not apply
-            if( ! applies_to_scenario[operation][scenario] ) continue;
-            if( operation == READOUTSIDETX && !isNontransactionalReadSupported() ) continue;
+            if( !applies_to_scenario[operation][scenario] ) continue;
+            if( (operation == READOUTSIDETX ||
+                 operation == RETRIEVEOUTSIDETX ||
+                 operation == DETACHCOPYOUTSIDETX ||
+                 operation == SERIALIZEOUTSIDETX) && 
+                 !isNontransactionalReadSupported() ) continue;
             if( operation == WRITEOUTSIDETX && !isNontransactionalWriteSupported() ) continue;
             if( operation == COMMITRETAINVALUES && !isRetainValuesSupported() ) continue;
             if( operation == MAKENONTRANSACTIONAL &&
@@ -302,6 +476,9 @@ public class StateTransitions extends JDO_Test {
                 if( current_state == PERSISTENT_NONTRANSACTIONAL &&
                     !(isNontransactionalReadSupported() || isNontransactionalWriteSupported()) )
                     continue;   // this state is not supported by implementation
+                if( current_state == PERSISTENT_NONTRANSACTIONAL_DIRTY &&
+                        !isNontransactionalWriteSupported() )
+                    continue;
 
                 expected_state = transitions[operation][current_state];
                 if( expected_state == IMPOSSIBLE ) continue;
@@ -315,23 +492,10 @@ public class StateTransitions extends JDO_Test {
                         transaction.rollback();
                     }
 
-                    if( scenario != NO_TX ){
-                        if( operation == COMMITNORETAINVALUES )
-                            transaction.setRetainValues(false);
-                        if( operation == COMMITRETAINVALUES )
-                            transaction.setRetainValues(true);
-                        if( operation == ROLLBACKNORESTOREVALUES )
-                            transaction.setRestoreValues(false);
-                        if( operation == ROLLBACKRESTOREVALUES )
-                            transaction.setRestoreValues(true);
+                    prepareTransactionAndJDOSettings(transaction);
 
-                        transaction.setOptimistic(scenario == OPTIMISTIC_TX);
-                        transaction.begin();
-                        if( !transaction.isActive() )
-                            if (debug)
-                                logger.debug("StateTransitions: Transaction should be active, but it is not");
-                    }
-
+                    printSituation();
+                    
                     StateTransitionObj obj = getInstanceInState(current_state);
                     if( obj == null ){  // could not get object in state
                         if( transaction.isActive() ) transaction.rollback();
@@ -346,9 +510,12 @@ public class StateTransitions extends JDO_Test {
                         if( excep instanceof javax.jdo.JDOUserException ){
                             e = excep;
                         } else {
-                            printSituation();
-                            fail(ASSERTION_FAILED,
-                                 "StateTransitions: Unexpected exception:" + excep);
+                            appendMessage(ASSERTION_FAILED + NL +
+                                          "StateTransitions: " +
+                                          scenario_string[scenario] +
+                                          "; current state " + states[current_state] + NL +
+                                          operations[operation] +
+                                          "; unexpected exception:" + excep);
                             continue;
                         }
                     }
@@ -357,37 +524,44 @@ public class StateTransitions extends JDO_Test {
                     new_state = currentState(obj);
                     if( expected_state == ERROR ){
                         if( e == null ){
-                            printSituation();
-                            fail(ASSERTION_FAILED,
-                                 "StateTransitions: JDOUserException should have been thrown");
+                            appendMessage(ASSERTION_FAILED + NL +
+                                          "StateTransitions: " +
+                                          scenario_string[scenario] +
+                                          "; current state " + states[current_state] + NL +
+                                          operations[operation] +
+                                          "; JDOUserException should have been thrown");
                         } else {
                             if( new_state != current_state ){
-                                printSituation();
-                                fail(ASSERTION_FAILED,
-                                     "StateTransitions: " + 
-                                     " JDOUserException properly thrown, but instance should remain in current state," +
-                                     "instance changed state to " + states[new_state]);
+                                appendMessage(ASSERTION_FAILED + NL +
+                                              "StateTransitions: " +
+                                              scenario_string[scenario] +
+                                              "; current state " + states[current_state] + NL +
+                                              operations[operation] +
+                                              "; JDOUserException properly thrown, but instance should remain in current state," +
+                                              "instance changed state to " + states[new_state]);
                             }
                         }
                     }
-                    if( expected_state >= 0 && new_state != expected_state && 
-                        !((new_state == HOLLOW && expected_state == PERSISTENT_NONTRANSACTIONAL) ||
-                          (new_state == PERSISTENT_NONTRANSACTIONAL && expected_state == HOLLOW)) ) { 
-                        // status interrogation gives same values for PERSISTENT_NONTRANSACTIONAL and HOLLOW
-                        printSituation();
-                        fail(ASSERTION_FAILED,
-                             "StateTransitions: Invalid state transition to " +
-                             states[new_state] + ", new state should be " +
-                             states[expected_state]);
+                    if( !compareStates(new_state, expected_state) ) { 
+                        appendMessage(ASSERTION_FAILED + NL +
+                                      "StateTransitions: " +
+                                      scenario_string[scenario] +
+                                      "; current state " + states[current_state] + NL +
+                                      operations[operation] +
+                                      " transitioned instance to invalid state " + states[new_state] + 
+                                      "; expected state " + states[expected_state]);
                     }
                     if( transaction.isActive() ) transaction.rollback();
                 } 
                 catch(Exception unexpected_exception) {
-                    printSituation();
                     if (transaction.isActive()) 
                         transaction.rollback();
-                    fail(ASSERTION_FAILED,
-                         "Unexpected exception caught in StateTransitions " + unexpected_exception);
+                    appendMessage(ASSERTION_FAILED + NL +
+                                  "StateTransitions: " +
+                                  scenario_string[scenario] +
+                                  "; current state " + states[current_state] + NL +
+                                  operations[operation] +
+                                  "; unexpected exception caught: " + unexpected_exception);
                 }
             }
         }
@@ -470,17 +644,17 @@ public class StateTransitions extends JDO_Test {
         }
         case READOUTSIDETX:
         {
-            int val = obj.readField();
+            obj.readField();
             break;
         }
         case READOPTIMISTIC:
         {
-            int val = obj.readField();
+            obj.readField();
             break;
         }
         case READDATASTORE:
         {
-            int val = obj.readField();
+            obj.readField();
             break;
         }
         case WRITEOUTSIDETX:
@@ -501,12 +675,67 @@ public class StateTransitions extends JDO_Test {
         case RETRIEVEINSIDETX:
         {
             pm.retrieve(obj);
-            break;		
+            break;      
+        }
+        case DETACHALLONCOMMIT:
+        {
+            pm.currentTransaction().commit();
+            break;      
+        }
+        case DETACHCOPYOUTSIDETX:
+        {
+            pm.detachCopy(obj);
+            break;      
+        }
+        case DETACHCOPYINSIDETX:
+        {
+            pm.detachCopy(obj);
+            break;      
+        }
+        case SERIALIZEOUTSIDETX:
+        {
+            ObjectOutputStream oos = null;
+            try {
+                oos = new ObjectOutputStream(new ByteArrayOutputStream());
+                oos.writeObject(obj);
+            } catch (IOException e) {
+                throw new JDOFatalException(e.getMessage(), e);
+            } finally {
+                if (oos != null) {
+                    try {
+                        oos.close();
+                    } catch (IOException e) {
+                        throw new JDOFatalException(e.getMessage(), e);
+                    }
+                }
+            }
+            break;      
+        }
+        case SERIALIZEINSIDETX:
+        {
+            ObjectOutputStream oos = null;
+            try {
+                oos = new ObjectOutputStream(new ByteArrayOutputStream());
+                oos.writeObject(obj);
+            } catch (IOException e) {
+                throw new JDOFatalException(e.getMessage(), e);
+            } finally {
+                if (oos != null) {
+                    try {
+                        oos.close();
+                    } catch (IOException e) {
+                        throw new JDOFatalException(e.getMessage(), e);
+                    }
+                }
+            }
+            break;      
         }
         default:
         {
-            fail(ASSERTION_FAILED,
-                 "StateTransitions internal error, illegal operation " + operation);
+            appendMessage(ASSERTION_FAILED + NL +
+                          "StateTransitions: " +
+                          scenario_string[scenario] +
+                          "; internal error, illegal operation: " + operation);
         }
         }
     }
@@ -514,7 +743,7 @@ public class StateTransitions extends JDO_Test {
     /**
      * Get an instance in the specified state.
      */
-    private StateTransitionObj getInstanceInState(int state)
+    public StateTransitionObj getInstanceInState(int state)
     {
         switch(state) {
         case TRANSIENT:
@@ -537,15 +766,19 @@ public class StateTransitions extends JDO_Test {
             return getPersistentDeletedInstance();
         case PERSISTENT_NONTRANSACTIONAL:
             return getPersistentNontransactionalInstance();
+        case PERSISTENT_NONTRANSACTIONAL_DIRTY:
+            return getPersistentNontransactionalDirtyInstance();
+        case DETACHED_CLEAN:
+            return getDetachedCleanInstance();
+        case DETACHED_DIRTY:
+            return getDetachedDirtyInstance();
         default:
-        {
             return null;
-        }
         }
     }
 
     /** */
-    private StateTransitionObj getTransientInstance()
+    public StateTransitionObj getTransientInstance()
     {
         StateTransitionObj obj = new StateTransitionObj(23);
         int curr = currentState(obj);
@@ -554,14 +787,13 @@ public class StateTransitions extends JDO_Test {
                 logger.debug("StateTransitions: Unable to create transient instance, state is " + 
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
     }
 
     /** */
-    private StateTransitionObj getPersistentNewInstance()
+    public StateTransitionObj getPersistentNewInstance()
     {
         StateTransitionObj obj = getTransientInstance();
         if( obj == null ) return null;
@@ -573,7 +805,6 @@ public class StateTransitions extends JDO_Test {
                              " from transient instance via makePersistent(), state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -585,7 +816,7 @@ public class StateTransitions extends JDO_Test {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
         StateTransitionObj sto = (StateTransitionObj) obj;
-        int val = sto.readField();
+        sto.readField();
         int curr = currentState(sto);
         if( curr != PERSISTENT_CLEAN ) {
             if (debug) {
@@ -593,7 +824,6 @@ public class StateTransitions extends JDO_Test {
                              " from a hollow instance by reading a field, state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -613,7 +843,6 @@ public class StateTransitions extends JDO_Test {
                              " from a hollow instance by writing a field, state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -637,25 +866,10 @@ public class StateTransitions extends JDO_Test {
         if( !transaction.isActive() )
             if (debug)
                 logger.debug("getHollowInstance: Transaction should be active, but it is not");
-		
+        
         transaction.commit(); // This should put the instance in the HOLLOW state
 
-        if( scenario != NO_TX ){
-            if( operation == COMMITNORETAINVALUES )
-                transaction.setRetainValues(false);
-            if( operation == COMMITRETAINVALUES )
-                transaction.setRetainValues(true);
-            if( operation == ROLLBACKNORESTOREVALUES )
-                transaction.setRestoreValues(false);
-            if( operation == ROLLBACKRESTOREVALUES )
-                transaction.setRestoreValues(true);
-
-            transaction.setOptimistic(scenario == OPTIMISTIC_TX);
-            transaction.begin();
-            if( !transaction.isActive() )
-                if (debug)
-                    logger.debug("getHollowInstance: Transaction should be active, but it is not");
-        }
+        prepareTransactionAndJDOSettings(transaction);
 
         int curr = currentState(obj);
         if( curr != HOLLOW && curr != PERSISTENT_NONTRANSACTIONAL ){
@@ -663,7 +877,6 @@ public class StateTransitions extends JDO_Test {
                 logger.debug("StateTransition: Attempt to get hollow instance via accessing extent failed, state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -682,7 +895,6 @@ public class StateTransitions extends JDO_Test {
                              " from a transient instance via makeTransactional(), state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -702,7 +914,6 @@ public class StateTransitions extends JDO_Test {
                              " from a transient-clean instance via modifying a field, state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -721,7 +932,6 @@ public class StateTransitions extends JDO_Test {
                              " from a persistent-new instance via deletePersistent, state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -740,7 +950,6 @@ public class StateTransitions extends JDO_Test {
                              " from a persistent instance via deletePersistent(), state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
         return obj;
@@ -759,10 +968,63 @@ public class StateTransitions extends JDO_Test {
                              " from a persistent-clean instance via makeNontransactional(), state is " +
                              states[curr]);
             }
-            printSituation();
             return null;
         }
-        return null;
+        return obj;
     }
 
+    /** */
+    public StateTransitionObj getPersistentNontransactionalDirtyInstance()
+    {
+        StateTransitionObj obj = getPersistentNontransactionalInstance();
+        if( obj == null ) return null;
+        obj.writeField(10000);
+        int curr = currentState(obj);
+        if( curr != PERSISTENT_NONTRANSACTIONAL_DIRTY ) { 
+            if (debug) {
+                logger.debug("StateTransition: Unable to create persistent-nontransactional-dirty instance" +
+                             " from a persistent-clean instance via makeNontransactional()/JDOHelper.makeDirty," +
+                             " state is " + states[curr]);
+            }
+            return null;
+        }
+        return obj;
+    }
+
+    /** */
+    public StateTransitionObj getDetachedCleanInstance()
+    {
+        StateTransitionObj obj = getHollowInstance();
+        if( obj == null ) return null;
+        obj = (StateTransitionObj) pm.detachCopy(obj);
+        int curr = currentState(obj);
+        if( curr != DETACHED_CLEAN ) { 
+            if (debug) {
+                logger.debug("StateTransition: Unable to create detached-clean instance" +
+                             " from a persistent-clean instance via detachCopy," +
+                             " state is " + states[curr]);
+            }
+            return null;
+        }
+        return obj;
+    }
+
+    /** */
+    public StateTransitionObj getDetachedDirtyInstance()
+    {
+        StateTransitionObj obj = getHollowInstance();
+        if( obj == null ) return null;
+        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj.writeField(1000);
+        int curr = currentState(obj);
+        if( curr != DETACHED_DIRTY ) { 
+            if (debug) {
+                logger.debug("StateTransition: Unable to create detached-dirty instance" +
+                             " from a persistent-clean instance via detachCopy/persistent field modification," +
+                             " state is " + states[curr]);
+            }
+            return null;
+        }
+        return obj;
+    }
 }

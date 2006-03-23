@@ -19,7 +19,7 @@ package org.apache.jdo.tck.pc.lifecycle;
 
 import java.io.Serializable;
 
-public class StateTransitionObj {
+public class StateTransitionObj implements Serializable {
     private static int counter = 0;
     
     private int      id;
