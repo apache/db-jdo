@@ -948,6 +948,36 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         makeTransientAll(pcs.toArray());
     }
 
+    /** Make an instance transient, removing it from management by this 
+     * <code>PersistenceManager</code>. Because FOStore doesn't
+     * support the notion of a fetch plan, this method behaves exactly as
+     * makeTransient(Object pc).
+     * @see javax.jdo.PersistenceManager#makeTransient(Object, boolean);
+     */
+    public void makeTransient(Object pc, boolean useFetchPlan) {
+        makeTransient(pc);
+    }
+
+    /** Make instances transient, removing them from management
+     * by this <code>PersistenceManager</code>. Because FOStore doesn't
+     * support the notion of a fetch plan, this method behaves exactly as
+     * makeTransientAll(Object[] pcs).
+     * @see javax.jdo.PersistenceManager#makeTransientAll(Object[], boolean);
+     */
+    public void makeTransientAll(Object[] pcs, boolean useFetchPlan) {
+        makeTransientAll(pcs);
+    }
+    
+    /** Make instances transient, removing them from management
+     * by this <code>PersistenceManager</code>. Because FOStore doesn't
+     * support the notion of a fetch plan, this method behaves exactly as
+     * makeTransientAll(Collection pcs).
+     * @see javax.jdo.PersistenceManager#makeTransientAll(Collection, boolean);
+     */
+    public void makeTransientAll(Collection pcs, boolean useFetchPlan) {
+        makeTransientAll(pcs);
+    }
+
     /** Make an instance subject to transactional boundaries.
     *   
     * <P>Transient instances normally do not observe transaction boundaries.
