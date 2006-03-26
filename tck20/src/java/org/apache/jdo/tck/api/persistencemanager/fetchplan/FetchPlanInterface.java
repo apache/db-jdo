@@ -36,7 +36,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> fetch plan
  *<BR>
- *<B>Assertion IDs:</B> 12.7.5-1
+ *<B>Assertion IDs:</B> 12.7.1-1
  *<BR>
  *<B>Assertion Description: </B>
 public interface FetchPlan {
@@ -86,7 +86,7 @@ public class FetchPlanInterface extends JDO_Test {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion 12.7.5-1 (FetchPlanTest) failed: ";
+        "Assertion 12.7.1-1 (FetchPlanTest) failed: ";
     
     /**
      * The <code>main</code> is called when the class
