@@ -30,36 +30,19 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> NontransactionalWrite
  *<BR>
- *<B>Assertion ID:</B> A5.6.2-4, A5.6.2-6, A5.6.2-8, A5.6.2-10.
+ *<B>Assertion ID:</B> A13.4.2-6
  *<BR>
  *<B>Assertion Description: </B>
-A5.6.2-4 [If a datastore transaction is begun, commit will write 
-the changes to the datastore with no checking as to 
-the current state of the instances in the datastore. 
-That is, the changes made outside the transaction 
-together with any changes made inside the transaction 
-will overwrite the current state of the datastore.] 
-
-A5.6.2-6 [If a datastore transaction is begun, rollback will not write 
-any changes to the datastore.] 
-
-A5.6.2-8 [If an optimistic transaction is begun, commit will write 
-the changes to the datastore after checking as to the current state 
-of the instances in the datastore. The changes made outside 
-the transaction together with any changes made inside the transaction 
-will update the current state of the datastore if the version 
-checking is successful.] 
-
-A5.6.2-10 [If an optimistic transaction is begun, rollback will not write 
-any changes to the datastore. The persistent-nontransactional-dirty 
-instances will transition according to the RestoreValues flag. ] 
+If an implementation does not support the [NontranasctionalWrite]
+option, then an attempt to set the flag to an unsupported value 
+will throw JDOUnsupportedOptionException.
  */
 
 public class NontransactionalWriteThrows extends NontransactionalWriteTest {
 
     /** */
     protected static final String ASSERTION_FAILED = 
-        "Assertion A5.6.2 (NontransactionalWriteThrows) failed: ";
+        "Assertion A13.4.2-6 (NontransactionalWriteThrows) failed: ";
     
     /**
      * The <code>main</code> is called when the class
