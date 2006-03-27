@@ -87,9 +87,10 @@ public class StateTransitions extends JDO_Test {
     private static final int DETACHCOPYOUTSIDETX     = 20;
     private static final int DETACHCOPYINSIDETX      = 21;
     private static final int SERIALIZEOUTSIDETX      = 22;
-    private static final int SERIALIZEINSIDETX       = 23;
+    private static final int SERIALIZEDATASTORE      = 23;
+    private static final int SERIALIZEOPTIMISTIC     = 24;
     
-    private static final int NUM_OPERATIONS          = 24;
+    private static final int NUM_OPERATIONS          = 25;
     
     private static final String[] operations = {
         "makePersistent",
@@ -115,7 +116,8 @@ public class StateTransitions extends JDO_Test {
         "detachCopy outside tx",
         "detachCopy with active tx",
         "serialize outside tx",
-        "serialize with active tx"
+        "serialize with active datastore tx",
+        "serialize with active optimistic tx"
     };
 
     /**
@@ -315,11 +317,18 @@ public class StateTransitions extends JDO_Test {
             UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED},
 
-        // serialize with active tx
+        // serialize with active datastore tx
         {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED,
             UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
+
+        // serialize with active optimistic tx
+        {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED},
     };
 
@@ -356,7 +365,8 @@ public class StateTransitions extends JDO_Test {
         {   false,         false,       true },   // detachCopy outside tx
         {   true,          true,        false },  // detachCopy with active tx
         {   false,         false,       true },   // serialize outside tx
-        {   true,          true,        false }   // serialize with active tx
+        {   true,          false,       false },  // serialize with active datastore tx
+        {   false,         true,        false }   // serialize with active optimistic tx
     };
 
     /**
@@ -711,7 +721,8 @@ public class StateTransitions extends JDO_Test {
             }
             break;      
         }
-        case SERIALIZEINSIDETX:
+        case SERIALIZEDATASTORE:
+        case SERIALIZEOPTIMISTIC:
         {
             ObjectOutputStream oos = null;
             try {
