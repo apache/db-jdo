@@ -147,7 +147,10 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     private static final boolean[][] applies_to_scenario = {
         //  Datastore   Optimistic      No tx
         {   true,          true,        false },  // makePersistent
-        {   false,         false,       true },   // detachCopy outside tx
+        // since the spec leaves detachCopy outside tx a bit underspecified,
+        // we decided to disable this scanario for now
+        //{   false,         false,       true },   // detachCopy outside tx
+        {   false,         false,       false },   // detachCopy outside tx
         {   true,          true,        false },  // detachCopy with active tx
         {   false,         false,       true },   // serialize outside tx
         {   true,          true,        false }   // serialize with active tx
