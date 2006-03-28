@@ -32,7 +32,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <BR>
  * <B>Keywords:</B> serialize detach
  * <BR>
- * <B>Assertion IDs:</B> 
+ * <B>Assertion IDs:</B> A12.6.8-4, A12.6.8-5
  * <BR>
  * <B>Assertion Description: </B>
 The JDO 1.0 specification requires that serialized instances 
@@ -50,7 +50,7 @@ treated as detached instances.
 public class DetachSerialize extends DetachTest {
     
     private static final String ASSERTION_FAILED = 
-            "Assertion A12.6.8 (DetachSerialize) failed: ";
+            "Assertion A12.6.8-4, A12.6.8-5 (DetachSerialize) failed: ";
 
     /**
      * The <code>main</code> is called when the class

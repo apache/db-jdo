@@ -35,7 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <BR>
  * <B>Keywords:</B> detachCopy detach
  * <BR>
- * <B>Assertion IDs:</B> 
+ * <B>Assertion IDs:</B> A12.6.8-13, A12.6.8-18, A12.6.8-19, A12.6.8-20
  * <BR>
  * <B>Assertion Description: </B>
 For each instance in the parameter Collection, a 
@@ -48,7 +48,8 @@ the corresponding detached copy is used for each such duplicate.
 public class DetachCopy extends DetachTest {
     
     private static final String ASSERTION_FAILED = 
-            "Assertion A12.6.8 (DetachCopy) failed: ";
+            "Assertion A12.6.8-13, A12.6.8-18, A12.6.8-19, A12.6.8-20" +
+            " (DetachCopy) failed: ";
 
     /**
      * The <code>main</code> is called when the class

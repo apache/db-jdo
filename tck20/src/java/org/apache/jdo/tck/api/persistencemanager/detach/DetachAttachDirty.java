@@ -35,7 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <BR>
  * <B>Keywords:</B> makePersistent detach dirty
  * <BR>
- * <B>Assertion IDs:</B> 
+ * <B>Assertion IDs:</B> A12.6.8-26
  * <BR>
  * <B>Assertion Description: </B>
 For a detached instance, they locate or create a persistent 
@@ -46,7 +46,7 @@ state of the detached instance into the persistent instance.
 public class DetachAttachDirty extends DetachTest {
     
     private static final String ASSERTION_FAILED = 
-            "Assertion A12.6.8 (DetachAttachDirty) failed: ";
+            "Assertion A12.6.8-26 (DetachAttachDirty) failed: ";
 
     /**
      * The <code>main</code> is called when the class

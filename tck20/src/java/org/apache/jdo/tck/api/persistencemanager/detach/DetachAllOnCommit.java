@@ -35,7 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <BR>
  * <B>Keywords:</B> DetachAllOnCommit detach
  * <BR>
- * <B>Assertion IDs:</B> 
+ * <B>Assertion IDs:</B> A12.6.8-3
  * <BR>
  * <B>Assertion Description: </B>
 With this flag set to true, during beforeCompletion 
@@ -55,7 +55,7 @@ are unaffected by this flag.
 public class DetachAllOnCommit extends DetachTest {
     
     private static final String ASSERTION_FAILED = 
-            "Assertion A12.6.8 (DetachAllOnCommit) failed: ";
+            "Assertion A12.6.8-3 (DetachAllOnCommit) failed: ";
 
     /**
      * The <code>main</code> is called when the class
