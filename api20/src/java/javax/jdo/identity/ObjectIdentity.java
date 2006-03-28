@@ -53,7 +53,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
     
     /** The delimiter for String constructor.
      */
-    private static String STRING_DELIMITER = ":"; //NOI18N
+    private static final String STRING_DELIMITER = ":"; //NOI18N
     
     /** Constructor with class and key.
      * @param pcClass the class

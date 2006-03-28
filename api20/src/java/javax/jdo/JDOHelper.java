@@ -45,7 +45,6 @@ import javax.jdo.spi.JDOImplHelper.StateInterrogationBooleanReturn;
 import javax.jdo.spi.JDOImplHelper.StateInterrogationObjectReturn;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.spi.StateInterrogation;
-import javax.jdo.spi.StateManager; // for javadoc
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -62,8 +61,8 @@ import javax.rmi.PortableRemoteObject;
  * various methods.
  * <P>This helper class defines static methods that allow a JDO-aware
  * application to examine the runtime state of instances.  For example,
- * an application can discover whether the instance is persistent, transactional,
- * dirty, new, deleted, or detached; and to get its associated
+ * an application can discover whether the instance is persistent, 
+ * transactional, dirty, new, deleted, or detached; and to get its associated
  * <code>PersistenceManager</code> if it has one.
  * 
  * @version 2.0
@@ -72,7 +71,8 @@ public class JDOHelper extends Object {
       
     /** The Internationalization message helper.
      */
-    private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+    private final static I18NHelper msg = 
+        I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /** The JDOImplHelper instance used for handling non-binary-compatible
      *  implementations.
@@ -191,10 +191,12 @@ public class JDOHelper extends Object {
      * <code>PersistenceManager</code>.  
      *
      * <P>Transient non-transactional instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>null</code>.
+     * that do not implement <code>PersistenceCapable</code> return 
+     * <code>null</code>.
      * @see PersistenceCapable#jdoGetPersistenceManager()
      * @param pc the <code>PersistenceCapable</code> instance.
-     * @return the <code>PersistenceManager</code> associated with the parameter instance.
+     * @return the <code>PersistenceManager</code> associated with the parameter
+     * instance.
      */
      public static PersistenceManager getPersistenceManager(Object pc) {
         if (pc instanceof PersistenceCapable) {
@@ -206,9 +208,9 @@ public class JDOHelper extends Object {
       }
     
     /** Explicitly mark the parameter instance and field dirty.
-     * Normally, <code>PersistenceCapable</code> classes are able to detect changes made
-     * to their fields.  However, if a reference to an array is given to a
-     * method outside the class, and the array is modified, then the
+     * Normally, <code>PersistenceCapable</code> classes are able to detect 
+     * changes made to their fields.  However, if a reference to an array is 
+     * given to a method outside the class, and the array is modified, then the
      * persistent instance is not aware of the change.  This API allows the
      * application to notify the instance that a change was made to a field.
      *
@@ -226,32 +228,35 @@ public class JDOHelper extends Object {
         }
     }
     
-    /** Return a copy of the JDO identity associated with the parameter instance.
+    /** Return a copy of the JDO identity associated with the parameter 
+     * instance.
      *
-     * <P>Persistent instances of <code>PersistenceCapable</code> classes have a JDO identity
-     * managed by the <code>PersistenceManager</code>.  This method returns a copy of the
-     * ObjectId that represents the JDO identity.  
+     * <P>Persistent instances of <code>PersistenceCapable</code> classes have a
+     * JDO identity managed by the <code>PersistenceManager</code>.  This method
+     * returns a copy of the ObjectId that represents the JDO identity.  
      * 
-     * <P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>null</code>.
+     * <P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>null</code>.
      *
      * <P>The ObjectId may be serialized
-     * and later restored, and used with a <code>PersistenceManager</code> from the same JDO
-     * implementation to locate a persistent instance with the same data store
-     * identity.
+     * and later restored, and used with a <code>PersistenceManager</code> from 
+     * the same JDO implementation to locate a persistent instance with the same
+     * data store identity.
      *
-     * <P>If the JDO identity is managed by the application, then the ObjectId may
-     * be used with a <code>PersistenceManager</code> from any JDO implementation that supports
-     * the <code>PersistenceCapable</code> class.
+     * <P>If the JDO identity is managed by the application, then the ObjectId 
+     * may be used with a <code>PersistenceManager</code> from any JDO 
+     * implementation that supports the <code>PersistenceCapable</code> class.
      *
-     * <P>If the JDO identity is not managed by the application or the data store,
-     * then the ObjectId returned is only valid within the current transaction.
+     * <P>If the JDO identity is not managed by the application or the data 
+     * store, then the ObjectId returned is only valid within the current 
+     * transaction.
      *<P>
      * @see PersistenceManager#getObjectId(Object pc)
      * @see PersistenceCapable#jdoGetObjectId()
      * @see PersistenceManager#getObjectById(Object oid, boolean validate)
      * @param pc the PersistenceCapable instance.
-     * @return a copy of the ObjectId of the parameter instance as of the beginning of the transaction.
+     * @return a copy of the ObjectId of the parameter instance as of the 
+     * beginning of the transaction.
      */
     public static Object getObjectId(Object pc) {
       if (pc instanceof PersistenceCapable) {
@@ -301,18 +306,21 @@ public class JDOHelper extends Object {
         return result;
     }
 
-    /** Return a copy of the JDO identity associated with the parameter instance.
+    /** Return a copy of the JDO identity associated with the parameter 
+     * instance.
      *
      * @see PersistenceCapable#jdoGetTransactionalObjectId()
      * @see PersistenceManager#getObjectById(Object oid, boolean validate)
      * @param pc the <code>PersistenceCapable</code> instance.
-     * @return a copy of the ObjectId of the parameter instance as modified in this transaction.
+     * @return a copy of the ObjectId of the parameter instance as modified in 
+     * this transaction.
      */
     public static Object getTransactionalObjectId(Object pc) {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoGetTransactionalObjectId();
         } else {
-            return implHelper.nonBinaryCompatibleGet(pc, getTransactionalObjectId);
+            return implHelper.nonBinaryCompatibleGet(
+                pc, getTransactionalObjectId);
         }
     }
     
@@ -334,13 +342,15 @@ public class JDOHelper extends Object {
      * Instances that have been modified, deleted, or newly 
      * made persistent in the current transaction return <code>true</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     *<P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>false</code>.
      *<P>
-     * @see StateManager#makeDirty(PersistenceCapable pc, String fieldName)
+     * @see javax.jdo.spi.StateManager#makeDirty(PersistenceCapable pc, 
+     * String fieldName)
      * @see PersistenceCapable#jdoIsDirty()
      * @param pc the <code>PersistenceCapable</code> instance.
-     * @return <code>true</code> if the parameter instance has been modified in the current transaction.
+     * @return <code>true</code> if the parameter instance has been modified in 
+     * the current transaction.
      */
     public static boolean isDirty(Object pc) {
       if (pc instanceof PersistenceCapable) {
@@ -355,8 +365,8 @@ public class JDOHelper extends Object {
      * Instances whose state is associated with the current transaction 
      * return true. 
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     *<P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>false</code>.
      * @see PersistenceCapable#jdoIsTransactional()
      * @param pc the <code>PersistenceCapable</code> instance.
      * @return <code>true</code> if the parameter instance is transactional.
@@ -374,8 +384,8 @@ public class JDOHelper extends Object {
      * Instances that represent persistent objects in the data store 
      * return <code>true</code>. 
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     *<P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>false</code>.
      *<P>
      * @see PersistenceManager#makePersistent(Object pc)
      * @see PersistenceCapable#jdoIsPersistent()
@@ -395,8 +405,8 @@ public class JDOHelper extends Object {
      * Instances that have been made persistent in the current transaction 
      * return <code>true</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     *<P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>false</code>.
      *<P>
      * @see PersistenceManager#makePersistent(Object pc)
      * @see PersistenceCapable#jdoIsNew()
@@ -414,10 +424,11 @@ public class JDOHelper extends Object {
 
     /** Tests whether the parameter instance has been deleted.
      *
-     * Instances that have been deleted in the current transaction return <code>true</code>.
+     * Instances that have been deleted in the current transaction return 
+     * <code>true</code>.
      *
-     *<P>Transient instances and instances of classes 
-     * that do not implement <code>PersistenceCapable</code> return <code>false</code>.
+     *<P>Transient instances and instances of classes that do not implement 
+     * <code>PersistenceCapable</code> return <code>false</code>.
      *<P>
      * @see PersistenceManager#deletePersistent(Object pc)
      * @see PersistenceCapable#jdoIsDeleted()
@@ -453,11 +464,12 @@ public class JDOHelper extends Object {
         }
     }
     
-    /** Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code> instance, using
-     * the current thread's context class loader to locate the
+    /** Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code> 
+     * instance, using the current thread's context class loader to locate the
      * <code>PersistenceManagerFactory</code> class.
      * @return the <code>PersistenceManagerFactory</code>.
-     * @param props a <code>Properties</code> instance with properties of the <code>PersistenceManagerFactory</code>.
+     * @param props a <code>Properties</code> instance with properties of the 
+     * <code>PersistenceManagerFactory</code>.
      * @see #getPersistenceManagerFactory(Map,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
@@ -467,8 +479,8 @@ public class JDOHelper extends Object {
     }
     
     /**
-     * Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code>
-     * instance and a class loader.
+     * Get a <code>PersistenceManagerFactory</code> based on a 
+     * <code>Properties</code> instance and a class loader.
      * The following are standard key values:
      * <BR><code>"javax.jdo.PersistenceManagerFactoryClass"
      * <BR>"javax.jdo.option.Optimistic",
@@ -491,45 +503,60 @@ public class JDOHelper extends Object {
      * recognized by the implementation must be ignored.  Key values that are
      * recognized but not supported by an implementation must result in a
      * <code>JDOFatalUserException</code> thrown by the method.
-     * <P>The returned <code>PersistenceManagerFactory</code> is not configurable (the
-     * <code>set<I>XXX</I></code> methods will throw an exception).
+     * <P>The returned <code>PersistenceManagerFactory</code> is not 
+     * configurable (the <code>set<I>XXX</I></code> methods will throw an 
+     * exception).
      * <P>JDO implementations might manage a map of instantiated
-     * <code>PersistenceManagerFactory</code> instances based on specified property key
-     * values, and return a previously instantiated <code>PersistenceManagerFactory</code>
-     * instance.  In this case, the properties of the returned
-     * instance must exactly match the requested properties.
+     * <code>PersistenceManagerFactory</code> instances based on specified 
+     * property key values, and return a previously instantiated 
+     * <code>PersistenceManagerFactory</code> instance.  In this case, the 
+     * properties of the returned instance must exactly match the requested 
+     * properties.
      * @return the <code>PersistenceManagerFactory</code>.
-     * @param props a <code>Properties</code> instance with properties of the <code>PersistenceManagerFactory</code>.
-     * @param cl the class loader to use to load the <code>PersistenceManagerFactory</code> class
+     * @param props a <code>Properties</code> instance with properties of the 
+     * <code>PersistenceManagerFactory</code>.
+     * @param cl the class loader to use to load the 
+     * <code>PersistenceManagerFactory</code> class
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (Map props, ClassLoader cl) {
-        String pmfClassName = (String) props.get ("javax.jdo.PersistenceManagerFactoryClass"); //NOI18N
+        String pmfClassName = (String) props.get (
+            "javax.jdo.PersistenceManagerFactoryClass"); //NOI18N
         if (pmfClassName == null) {
-            throw new JDOFatalUserException (msg.msg("EXC_GetPMFNoClassNameProperty")); // NOI18N
+            throw new JDOFatalUserException (msg.msg(
+                "EXC_GetPMFNoClassNameProperty")); // NOI18N
         }
         try {
             Class pmfClass = cl.loadClass (pmfClassName);
-            Method pmfMethod = pmfClass.getMethod("getPersistenceManagerFactory",  //NOI18N
+            Method pmfMethod = pmfClass.getMethod(
+                "getPersistenceManagerFactory", //NOI18N
                     new Class[] {Map.class});
-            return (PersistenceManagerFactory) pmfMethod.invoke (null, new Object[] {props});
+            return (PersistenceManagerFactory) pmfMethod.invoke (
+                null, new Object[] {props});
         } catch (ClassNotFoundException cnfe) {
-            throw new JDOFatalUserException (msg.msg("EXC_GetPMFClassNotFound", pmfClassName), cnfe); //NOI18N
+            throw new JDOFatalUserException (msg.msg(
+                "EXC_GetPMFClassNotFound", pmfClassName), cnfe); //NOI18N
         } catch (IllegalAccessException iae) {
-            throw new JDOFatalUserException (msg.msg("EXC_GetPMFIllegalAccess", pmfClassName), iae); //NOI18N
+            throw new JDOFatalUserException (msg.msg(
+                "EXC_GetPMFIllegalAccess", pmfClassName), iae); //NOI18N
         } catch (NoSuchMethodException nsme) {
-            throw new JDOFatalInternalException (msg.msg("EXC_GetPMFNoSuchMethod"), nsme); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                "EXC_GetPMFNoSuchMethod"), nsme); //NOI18N
         } catch (InvocationTargetException ite) {
             Throwable nested = ite.getTargetException();
             if  (nested instanceof JDOException) {
                 throw (JDOException)nested;
-            } else throw new JDOFatalInternalException (msg.msg("EXC_GetPMFUnexpectedException"), ite); //NOI18N
+            } else throw new JDOFatalInternalException (msg.msg(
+                "EXC_GetPMFUnexpectedException"), ite); //NOI18N
         } catch (NullPointerException e) {
-            throw new JDOFatalInternalException (msg.msg("EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
         } catch (ClassCastException e) {
-            throw new JDOFatalInternalException (msg.msg("EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
         } catch (Exception e) {
-            throw new JDOFatalInternalException (msg.msg("EXC_GetPMFUnexpectedException"), e); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                "EXC_GetPMFUnexpectedException"), e); //NOI18N
         }
     }
     
@@ -561,7 +588,8 @@ public class JDOHelper extends Object {
      * be wrapped in a {@link JDOFatalUserException}.
      * @since 2.0
      * @param propsResource the resource containing the Properties
-     * @param loader the class loader to use to load both the propsResource and the <code>PersistenceManagerFactory</code> class
+     * @param loader the class loader to use to load both the propsResource and 
+     * the <code>PersistenceManagerFactory</code> class
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
@@ -580,30 +608,34 @@ public class JDOHelper extends Object {
      * @since 2.0
      * @param propsResource the resource containing the Properties
      * @param propsLoader the class loader to use to load the propsResource
-     * @param pmfLoader the class loader to use to load the <code>PersistenceManagerFactory</code> class
+     * @param pmfLoader the class loader to use to load the 
+     * <code>PersistenceManagerFactory</code> class
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (String propsResource, ClassLoader propsLoader, ClassLoader pmfLoader) {
         
         if (propsResource == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullResource")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullResource")); //NOI18N
         if (propsLoader == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullPropsLoader")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullPropsLoader")); //NOI18N
         if (pmfLoader == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullPMFLoader")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullPMFLoader")); //NOI18N
 
         Properties props = new Properties ();
         InputStream in = null;
         try {
             in = propsLoader.getResourceAsStream (propsResource);
             if (in == null)
-                throw new JDOFatalUserException
-                    (msg.msg ("EXC_GetPMFNoResource", propsResource, propsLoader)); //NOI18N
+                throw new JDOFatalUserException (msg.msg (
+                    "EXC_GetPMFNoResource", propsResource, propsLoader)); //NOI18N
             props.load (in);
         } catch (IOException ioe) {
-            throw new JDOFatalUserException
-                (msg.msg ("EXC_GetPMFIOExceptionRsrc", propsResource), ioe); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFIOExceptionRsrc", propsResource), ioe); //NOI18N
         }
         finally {
             if (in != null)
@@ -644,26 +676,29 @@ public class JDOHelper extends Object {
      * loading will be wrapped in a {@link JDOFatalUserException}.
      * @since 2.0
      * @param propsFile the file containing the Properties
-     * @param loader the class loader to use to load the <code>PersistenceManagerFactory</code> class
+     * @param loader the class loader to use to load the 
+     * <code>PersistenceManagerFactory</code> class
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (File propsFile, ClassLoader loader) {
         if (propsFile == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullFile")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullFile")); //NOI18N
         if (loader == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullLoader")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullLoader")); //NOI18N
         Properties props = new Properties ();
         InputStream in = null;
         try {
             in = new FileInputStream (propsFile);
             props.load (in);
         } catch (FileNotFoundException fnfe) {
-            throw new JDOFatalUserException
-                (msg.msg ("EXC_GetPMFNoFile", propsFile, loader), fnfe); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNoFile", propsFile, loader), fnfe); //NOI18N
         } catch (IOException ioe) {
-            throw new JDOFatalUserException
-                (msg.msg ("EXC_GetPMFIOExceptionFile", propsFile), ioe); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFIOExceptionFile", propsFile), ioe); //NOI18N
         } finally {
             if (in != null)
                 try { 
@@ -683,8 +718,10 @@ public class JDOHelper extends Object {
      * with <code>Thread.currentThread().getContextClassLoader()</code> as
      * the <code>loader</code> argument.
      * @since 2.0
-     * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
-     * @param context the context in which to find the named PersistenceManagerFactory
+     * @param jndiLocation the JNDI location containing the 
+     * PersistenceManagerFactory
+     * @param context the context in which to find the named
+     * PersistenceManagerFactory
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
@@ -703,17 +740,22 @@ public class JDOHelper extends Object {
      * <code>loader</code>. Any <code>NamingException</code>s thrown
      * will be wrapped in a {@link JDOFatalUserException}.
      * @since 2.0
-     * @param jndiLocation the JNDI location containing the PersistenceManagerFactory
-     * @param context the context in which to find the named PersistenceManagerFactory
-     * @param loader the class loader to use to load the <code>PersistenceManagerFactory</code> class
+     * @param jndiLocation the JNDI location containing the 
+     * PersistenceManagerFactory
+     * @param context the context in which to find the named 
+     * PersistenceManagerFactory
+     * @param loader the class loader to use to load the 
+     * <code>PersistenceManagerFactory</code> class
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (String jndiLocation, Context context, ClassLoader loader) {
         if (jndiLocation == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullJndiLoc")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullJndiLoc")); //NOI18N
         if (loader == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullLoader")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullLoader")); //NOI18N
         try {
             if (context == null)
                 context = new InitialContext ();
@@ -722,8 +764,8 @@ public class JDOHelper extends Object {
             return (PersistenceManagerFactory) PortableRemoteObject.narrow
                 (o, PersistenceManagerFactory.class);
         } catch (NamingException ne) {
-            throw new JDOFatalUserException
-                (msg.msg ("EXC_GetPMFNamingException", jndiLocation, loader), ne); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNamingException", jndiLocation, loader), ne); //NOI18N
         }
     }
     
@@ -754,15 +796,18 @@ public class JDOHelper extends Object {
      * loading will be wrapped in a {@link JDOFatalUserException}.
      * @since 2.0
      * @param stream the stream containing the Properties
-     * @param loader the class loader to use to load the <code>PersistenceManagerFactory</code> class
+     * @param loader the class loader to use to load the 
+     * <code>PersistenceManagerFactory</code> class
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (InputStream stream, ClassLoader loader) {
         if (stream == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullStream")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullStream")); //NOI18N
         if (loader == null)
-            throw new JDOFatalUserException (msg.msg ("EXC_GetPMFNullLoader")); //NOI18N
+            throw new JDOFatalUserException (msg.msg (
+                "EXC_GetPMFNullLoader")); //NOI18N
         Properties props = new Properties ();
         try {
             props.load (stream);

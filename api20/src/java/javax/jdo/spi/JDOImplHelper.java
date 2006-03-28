@@ -44,13 +44,12 @@ import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
-import javax.jdo.spi.JDOPermission;
 
 /** This class is a helper class for JDO implementations.  It contains methods
  * to register metadata for persistence-capable classes and to perform common
  * operations needed by implementations, not by end users.
- * <P><code>JDOImplHelper</code> allows construction of instances of persistence-capable
- * classes without using reflection.
+ * <P><code>JDOImplHelper</code> allows construction of instances of 
+ * persistence-capable classes without using reflection.
  * <P>Persistence-capable classes register themselves via a static method 
  * at class load time.
  * There is no security restriction on this access.  JDO implementations
@@ -67,17 +66,19 @@ public class JDOImplHelper extends java.lang.Object {
     /** This synchronized <code>HashMap</code> contains a static mapping of
      * <code>PersistenceCapable</code> class to
      * metadata for the class used for constructing new instances.  New entries
-     * are added by the static method in each <code>PersistenceCapable</code> class.
-     * Entries are never removed.
+     * are added by the static method in each <code>PersistenceCapable</code> 
+     * class.  Entries are never removed.
      */    
-    private static Map registeredClasses = Collections.synchronizedMap(new HashMap ());
+    private static Map registeredClasses = 
+            Collections.synchronizedMap(new HashMap ());
     
     /** This Set contains all classes that have registered for setStateManager
      * permissions via authorizeStateManagerClass.
      */
     private static Map authorizedStateManagerClasses = new WeakHashMap();
 
-    /** This list contains the registered listeners for <code>RegisterClassEvent</code>s.
+    /** This list contains the registered listeners for 
+     * <code>RegisterClassEvent</code>s.
      */
     private static List listeners = new ArrayList();
     
@@ -91,7 +92,8 @@ public class JDOImplHelper extends java.lang.Object {
     
     /** The Internationalization message helper.
      */
-    private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+    private final static I18NHelper msg = 
+            I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
     
     /** The DateFormat pattern.
      */
@@ -112,10 +114,12 @@ public class JDOImplHelper extends java.lang.Object {
     }
     
     /** Get an instance of <code>JDOImplHelper</code>.  This method
-     * checks that the caller is authorized for <code>JDOPermission("getMetadata")</code>,
-     * and if not, throws <code>SecurityException</code>.
+     * checks that the caller is authorized for 
+     * <code>JDOPermission("getMetadata")</code>, and if not, throws 
+     * <code>SecurityException</code>.
      * @return an instance of <code>JDOImplHelper</code>.
-     * @throws SecurityException if the caller is not authorized for JDOPermission("getMetadata").
+     * @throws SecurityException if the caller is not authorized for 
+     * JDOPermission("getMetadata").
      */    
     public static JDOImplHelper getInstance() 
         throws SecurityException {        
@@ -127,9 +131,9 @@ public class JDOImplHelper extends java.lang.Object {
         return jdoImplHelper;
     }
     
-    /** Get the field names for a <code>PersistenceCapable</code> class.  The order 
-     * of fields is the natural ordering of the <code>String</code> class (without
-     * considering localization).
+    /** Get the field names for a <code>PersistenceCapable</code> class.  The 
+     * order of fields is the natural ordering of the <code>String</code> class
+     * (without considering localization).
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field names for the class.
      */    
@@ -138,8 +142,8 @@ public class JDOImplHelper extends java.lang.Object {
         return meta.getFieldNames();
     }
 
-    /** Get the field types for a <code>PersistenceCapable</code> class.  The order
-     * of fields is the same as for field names.
+    /** Get the field types for a <code>PersistenceCapable</code> class.  The 
+     * order of fields is the same as for field names.
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field types for the class.
      */    
@@ -148,8 +152,8 @@ public class JDOImplHelper extends java.lang.Object {
         return meta.getFieldTypes();
     }
             
-    /** Get the field flags for a <code>PersistenceCapable</code> class.  The order
-     * of fields is the same as for field names.
+    /** Get the field flags for a <code>PersistenceCapable</code> class.  The 
+     * order of fields is the same as for field names.
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field types for the class.
      */    
@@ -158,7 +162,8 @@ public class JDOImplHelper extends java.lang.Object {
         return meta.getFieldFlags();
     }
             
-    /** Get the persistence-capable superclass for a <code>PersistenceCapable</code> class.
+    /** Get the persistence-capable superclass for a 
+     * <code>PersistenceCapable</code> class.
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return The <code>PersistenceCapable</code> superclass for this class,
      * or <code>null</code> if there isn't one.
@@ -169,12 +174,14 @@ public class JDOImplHelper extends java.lang.Object {
     }
             
     
-    /** Create a new instance of the class and assign its <code>jdoStateManager</code>.
-     * The new instance has its <code>jdoFlags</code> set to <code>LOAD_REQUIRED</code>.
+    /** Create a new instance of the class and assign its 
+     * <code>jdoStateManager</code>.  The new instance has its 
+     * <code>jdoFlags</code> set to <code>LOAD_REQUIRED</code>.
      * @see PersistenceCapable#jdoNewInstance(StateManager sm)
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @param sm the <code>StateManager</code> which will own the new instance.
-     * @return the new instance, or <code>null</code> if the class is not registered.
+     * @return the new instance, or <code>null</code> if the class is not 
+     * registered.
      */    
     public PersistenceCapable newInstance (Class pcClass, StateManager sm) {
         Meta meta = getMeta (pcClass);
@@ -182,14 +189,16 @@ public class JDOImplHelper extends java.lang.Object {
         return pcInstance == null?null:pcInstance.jdoNewInstance(sm);
     }
     
-    /** Create a new instance of the class and assign its <code>jdoStateManager</code> and 
-     * key values from the ObjectId.  If the oid parameter is <code>null</code>,
-     * no key values are copied.
-     * The new instance has its <code>jdoFlags</code> set to <code>LOAD_REQUIRED</code>.
+    /** Create a new instance of the class and assign its 
+     * <code>jdoStateManager</code> and key values from the ObjectId.  If the 
+     * oid parameter is <code>null</code>, no key values are copied.
+     * The new instance has its <code>jdoFlags</code> set to 
+     * <code>LOAD_REQUIRED</code>.
      * @see PersistenceCapable#jdoNewInstance(StateManager sm, Object oid)
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @param sm the <code>StateManager</code> which will own the new instance.
-     * @return the new instance, or <code>null</code> if the class is not registered.
+     * @return the new instance, or <code>null</code> if the class is not 
+     * registered.
      * @param oid the ObjectId instance from which to copy key field values.
  */    
     public PersistenceCapable newInstance 
@@ -251,8 +260,9 @@ public class JDOImplHelper extends java.lang.Object {
     /** Copy fields from an outside source to the key fields in the ObjectId.
      * This method is generated in the <code>PersistenceCapable</code> class to
      * generate a call to the field manager for each key field in the ObjectId.  
-     * <P>For example, an ObjectId class that has three key fields (<code>int id</code>, 
-     * <code>String name</code>, and <code>Float salary</code>) would have the method generated:
+     * <P>For example, an ObjectId class that has three key fields 
+     * (<code>int id</code>, <code>String name</code>, and 
+     * <code>Float salary</code>) would have the method generated:
      * <P><code>
      * void jdoCopyKeyFieldsToObjectId (Object oid, ObjectIdFieldSupplier fm) {
      * <BR>    oid.id = fm.fetchIntField (0);
@@ -260,7 +270,8 @@ public class JDOImplHelper extends java.lang.Object {
      * <BR>    oid.salary = fm.fetchObjectField (2);
      * <BR>}</code>
      * <P>The implementation is responsible for implementing the 
-     * <code>ObjectIdFieldSupplier</code> to provide the values for the key fields.
+     * <code>ObjectIdFieldSupplier</code> to provide the values for the key 
+     * fields.
      * @param pcClass the <code>PersistenceCapable Class</code>.
      * @param oid the ObjectId target of the copy.
      * @param fm the field manager that supplies the field values.
@@ -270,17 +281,18 @@ public class JDOImplHelper extends java.lang.Object {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         if (pcInstance == null) {
-            throw new JDOFatalInternalException (
-                msg.msg("ERR_AbstractClassNoIdentity", pcClass.getName())); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                    "ERR_AbstractClassNoIdentity", pcClass.getName())); //NOI18N
         }
         pcInstance.jdoCopyKeyFieldsToObjectId(fm, oid);
     }
 
     /** Copy fields to an outside source from the key fields in the ObjectId.
-     * This method is generated in the <code>PersistenceCapable</code> class to generate
-     * a call to the field manager for each key field in the ObjectId.  For
-     * example, an ObjectId class that has three key fields (<code>int id</code>,
-     * <code>String name</code>, and <code>Float salary</code>) would have the method generated:
+     * This method is generated in the <code>PersistenceCapable</code> class to 
+     * generate a call to the field manager for each key field in the ObjectId.  
+     * For example, an ObjectId class that has three key fields 
+     * (<code>int id</code>, <code>String name</code>, and 
+     * <code>Float salary</code>) would have the method generated:
      * <P><code>void jdoCopyKeyFieldsFromObjectId
      * <BR>        (PersistenceCapable oid, ObjectIdFieldConsumer fm) {
      * <BR>     fm.storeIntField (0, oid.id);
@@ -288,7 +300,8 @@ public class JDOImplHelper extends java.lang.Object {
      * <BR>     fm.storeObjectField (2, oid.salary);
      * <BR>}</code>
      * <P>The implementation is responsible for implementing the
-     * <code>ObjectIdFieldConsumer</code> to store the values for the key fields.
+     * <code>ObjectIdFieldConsumer</code> to store the values for the key 
+     * fields.
      * @param pcClass the <code>PersistenceCapable</code> class
      * @param oid the ObjectId source of the copy.
      * @param fm the field manager that receives the field values.
@@ -298,8 +311,8 @@ public class JDOImplHelper extends java.lang.Object {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         if (pcInstance == null) {
-            throw new JDOFatalInternalException (
-                msg.msg("ERR_AbstractClassNoIdentity", pcClass.getName())); //NOI18N
+            throw new JDOFatalInternalException (msg.msg(
+                    "ERR_AbstractClassNoIdentity", pcClass.getName())); //NOI18N
         }
         pcInstance.jdoCopyKeyFieldsFromObjectId(fm, oid);
     }
@@ -311,11 +324,13 @@ public class JDOImplHelper extends java.lang.Object {
      *
      * @param pcClass the <code>PersistenceCapable</code> class
      * used as the key for lookup.
-     * @param fieldNames an array of <code>String</code> field names for persistent and transactional fields
+     * @param fieldNames an array of <code>String</code> field names for 
+     * persistent and transactional fields
      * @param fieldTypes an array of <code>Class</code> field types
      * @param fieldFlags the Field Flags for persistent and transactional fields
      * @param pc an instance of the <code>PersistenceCapable</code> class
-     * @param persistenceCapableSuperclass the most immediate superclass that is <code>PersistenceCapable</code>
+     * @param persistenceCapableSuperclass the most immediate superclass that is
+     * <code>PersistenceCapable</code>
      */    
     public static void registerClass (Class pcClass, 
             String[] fieldNames, Class[] fieldTypes, 
@@ -360,7 +375,8 @@ public class JDOImplHelper extends java.lang.Object {
             sec.checkPermission (JDOPermission.MANAGE_METADATA);
         }
         synchronized(registeredClasses) {
-            for (Iterator i = registeredClasses.keySet().iterator(); i.hasNext();) {
+            for (Iterator i = registeredClasses.keySet().iterator(); 
+                 i.hasNext();) {
                 Class pcClass = (Class)i.next();
                 // Note, the pc class was registered by calling the static
                 // method JDOImplHelper.registerClass. This means the
@@ -382,7 +398,8 @@ public class JDOImplHelper extends java.lang.Object {
      * Unregister metadata by class. This method unregisters the specified
      * class. Any further attempt to get metadata for the specified class will
      * result in a <code>JDOFatalUserException</code>. 
-     * @param pcClass the <code>PersistenceCapable</code> class to be unregistered.
+     * @param pcClass the <code>PersistenceCapable</code> class to be 
+     * unregistered.
      * @since 1.0.2
      */
     public void unregisterClass (Class pcClass)
@@ -398,7 +415,8 @@ public class JDOImplHelper extends java.lang.Object {
     }
 
     /** 
-     * Add the specified <code>RegisterClassListener</code> to the listener list.
+     * Add the specified <code>RegisterClassListener</code> to the listener 
+     * list.
      * @param crl the listener to be added
      */
     public void addRegisterClassListener (RegisterClassListener crl) {
@@ -406,14 +424,14 @@ public class JDOImplHelper extends java.lang.Object {
         synchronized (listeners) {
             listeners.add(crl);
             // Make a copy of the existing set of registered classes.
-            // Between these two lines of code, any number of new class registrations
-            // might occur, and will then all wait until this synchronized block completes.
-            // Some of the class registrations might be delivered twice to
-            // the newly registered listener.
+            // Between these two lines of code, any number of new class 
+            // registrations might occur, and will then all wait until this 
+            // synchronized block completes. Some of the class registrations 
+            // might be delivered twice to the newly registered listener.
             alreadyRegisteredClasses = new HashSet (registeredClasses.keySet());
         }
-        // new registrations will call the new listener while the following occurs
-        // notify the new listener about already-registered classes
+        // new registrations will call the new listener while the following 
+        // occurs notify the new listener about already-registered classes
         for (Iterator it = alreadyRegisteredClasses.iterator(); it.hasNext();) {
             Class pcClass = (Class)it.next();
             Meta meta = getMeta (pcClass);
@@ -425,7 +443,8 @@ public class JDOImplHelper extends java.lang.Object {
     }
 
     /** 
-     * Remove the specified <code>RegisterClassListener</code> from the listener list.
+     * Remove the specified <code>RegisterClassListener</code> from the listener
+     * list.
      * @param crl the listener to be removed
      */
     public void removeRegisterClassListener (RegisterClassListener crl) {
@@ -461,8 +480,10 @@ public class JDOImplHelper extends java.lang.Object {
      * During replaceStateManager, a persistence-capable class will call
      * the corresponding checkAuthorizedStateManager and the class of the
      * instance of the parameter must have been registered.
-     * @param smClass a Class that is authorized for JDOPermission("setStateManager").
-     * @throws SecurityException if the caller is not authorized for JDOPermission("setStateManager").
+     * @param smClass a Class that is authorized for 
+     * JDOPermission("setStateManager").
+     * @throws SecurityException if the caller is not authorized for 
+     * JDOPermission("setStateManager").
      * @since 1.0.1
      */
     public static void registerAuthorizedStateManagerClass (Class smClass) 
@@ -483,12 +504,14 @@ public class JDOImplHelper extends java.lang.Object {
      * During replaceStateManager, a persistence-capable class will call
      * the corresponding checkAuthorizedStateManager and the class of the
      * instance of the parameter must have been registered.
-     * @param smClasses a Collection of Classes that are authorized for JDOPermission("setStateManager").
-     * @throws SecurityException if the caller is not authorized for JDOPermission("setStateManager").
+     * @param smClasses a Collection of Classes that are authorized for 
+     * JDOPermission("setStateManager").
+     * @throws SecurityException if the caller is not authorized for 
+     * JDOPermission("setStateManager").
      * @since 1.0.1
      */
-    public static void registerAuthorizedStateManagerClasses (Collection smClasses) 
-        throws SecurityException {
+    public static void registerAuthorizedStateManagerClasses (
+            Collection smClasses) throws SecurityException {
         SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
@@ -588,16 +611,19 @@ public class JDOImplHelper extends java.lang.Object {
     static {
         JDOImplHelper helper = getInstance();
         if (isClassLoadable("java.util.Currency")) {
-            helper.registerStringConstructor(Currency.class, new StringConstructor() {
+            helper.registerStringConstructor(
+                    Currency.class, new StringConstructor() {
                 public Object construct(String s) {
                     try {
                         return Currency.getInstance(s);
                     } catch (IllegalArgumentException ex) {
-                        throw new javax.jdo.JDOUserException(
-                            msg.msg("EXC_CurrencyStringConstructorIllegalArgument", s), ex); //NOI18N
+                        throw new javax.jdo.JDOUserException(msg.msg(
+                            "EXC_CurrencyStringConstructorIllegalArgument", //NOI18N
+                            s), ex); 
                     } catch (Exception ex) {
-                        throw new JDOUserException(
-                            msg.msg("EXC_CurrencyStringConstructorException"), ex); //NOI18N
+                        throw new JDOUserException(msg.msg(
+                            "EXC_CurrencyStringConstructorException"), //NOI18N
+                            ex); 
                     }
                 }
             });
@@ -607,8 +633,8 @@ public class JDOImplHelper extends java.lang.Object {
                 try {
                     return getLocale(s);
                 } catch (Exception ex) {
-                    throw new JDOUserException(
-                        msg.msg("EXC_LocaleStringConstructorException"), ex); //NOI18N
+                    throw new JDOUserException(msg.msg(
+                        "EXC_LocaleStringConstructorException"), ex); //NOI18N
                 }
             }
         });
@@ -622,9 +648,10 @@ public class JDOImplHelper extends java.lang.Object {
                     ParsePosition pp = new ParsePosition(0);
                     Date result = dateFormat.parse(s, pp);
                     if (result == null) {
-                        throw new JDOUserException (
-                            msg.msg("EXC_DateStringConstructor", new Object[] //NOI18N
-                            {s, new Integer(pp.getErrorIndex()), dateFormatPattern}));
+                        throw new JDOUserException (msg.msg(
+                            "EXC_DateStringConstructor", new Object[] //NOI18N
+                            {s, new Integer(pp.getErrorIndex()), 
+                             dateFormatPattern}));
                     }
                     return result;
                 }
@@ -735,7 +762,8 @@ public class JDOImplHelper extends java.lang.Object {
          * @param fieldNames An array of <code>String</code>
          * @param fieldTypes An array of <code>Class</code>
          * @param fieldFlags an array of <code>int</code>
-         * @param persistenceCapableSuperclass the most immediate <code>PersistenceCapable</code> superclass
+         * @param persistenceCapableSuperclass the most immediate 
+         * <code>PersistenceCapable</code> superclass
          * @param pc An instance of the <code>PersistenceCapable</code> class
          */        
         Meta (String[] fieldNames, Class[] fieldTypes, byte[] fieldFlags,
@@ -751,7 +779,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        String fieldNames[];
+        String[] fieldNames;
     
         /** Get the field names from the metadata.
          * @return the array of field names.
@@ -764,7 +792,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        Class fieldTypes[];
+        Class[] fieldTypes;
     
         /** Get the field types from the metadata.
          * @return the array of field types.
@@ -777,7 +805,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        byte fieldFlags[];
+        byte[] fieldFlags;
     
         /** Get the field types from the metadata.
          * @return the array of field types.
@@ -786,7 +814,8 @@ public class JDOImplHelper extends java.lang.Object {
             return fieldFlags;
         }
 
-        /** This is the <code>Class</code> instance of the <code>PersistenceCapable</code> superclass.
+        /** This is the <code>Class</code> instance of the 
+         * <code>PersistenceCapable</code> superclass.
          */
         Class persistenceCapableSuperclass;
     

@@ -17,7 +17,6 @@
 package javax.jdo.spi;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.JDOHelper; // for javadoc
 
 /**
  * A class that can be managed by a binary-compatible JDO implementation 
@@ -241,8 +240,8 @@ public interface PersistenceCapable {
      *
      *<P>Transient instances return false.
      *<P>
-     * @see JDOHelper#isDirty(Object pc)
-     * @see JDOHelper#makeDirty(Object pc, String fieldName)
+     * @see javax.jdo.JDOHelper#isDirty(Object pc)
+     * @see javax.jdo.JDOHelper#makeDirty(Object pc, String fieldName)
      * @see #jdoMakeDirty(String fieldName)
      * @return true if this instance has been modified in the current transaction.
      */
@@ -255,7 +254,7 @@ public interface PersistenceCapable {
      *
      *<P>Transient instances return false.
      *<P>
-     * @see JDOHelper#isTransactional(Object pc)
+     * @see javax.jdo.JDOHelper#isTransactional(Object pc)
      * @see PersistenceManager#makeTransactional(Object pc)
      * @return true if this instance is transactional.
      */
@@ -264,7 +263,7 @@ public interface PersistenceCapable {
     /** Tests whether this object is persistent.
      * Instances that represent persistent objects in the data store
      * return true.
-     * @see JDOHelper#isPersistent(Object pc)
+     * @see javax.jdo.JDOHelper#isPersistent(Object pc)
      * @see PersistenceManager#makePersistent(Object pc)
      * @return true if this instance is persistent.
      */
@@ -277,7 +276,7 @@ public interface PersistenceCapable {
      *
      *<P>Transient instances return false.
      *<P>
-     * @see JDOHelper#isNew(Object pc)
+     * @see javax.jdo.JDOHelper#isNew(Object pc)
      * @see PersistenceManager#makePersistent(Object pc)
      * @return true if this instance was made persistent
      * in the current transaction.
@@ -290,7 +289,7 @@ public interface PersistenceCapable {
      *
      *<P>Transient instances return false.
      *<P>
-     * @see JDOHelper#isDeleted(Object pc)
+     * @see javax.jdo.JDOHelper#isDeleted(Object pc)
      * @see PersistenceManager#deletePersistent(Object pc)
      * @return true if this instance was deleted
      * in the current transaction.
@@ -303,7 +302,7 @@ public interface PersistenceCapable {
      *
      *<P>Transient instances return false.
      *<P>
-     * @see JDOHelper#isDetached(Object pc)
+     * @see javax.jdo.JDOHelper#isDetached(Object pc)
      * @return true if this instance is detached.
      * @since 2.0
      */

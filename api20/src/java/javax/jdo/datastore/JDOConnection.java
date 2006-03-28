@@ -21,11 +21,9 @@
  
 package javax.jdo.datastore;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * The underlying connection that is being used by a 
- * {@link PersistenceManager}. 
+ * {@link javax.jdo.PersistenceManager}. 
  * @version 2.0
  * @since 2.0
  */

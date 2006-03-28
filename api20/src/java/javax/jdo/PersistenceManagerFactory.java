@@ -29,24 +29,26 @@ import javax.jdo.datastore.DataStoreCache;
 import javax.jdo.listener.InstanceLifecycleListener;
 
 /** The <code>PersistenceManagerFactory</code> is the interface to use to obtain
- * <code>PersistenceManager</code> instances.  All <code>PersistenceManager</code> instances obtained
- * from the same <code>PersistenceManagerFactory</code> will have the same default
- * properties.
+ * <code>PersistenceManager</code> instances.  
+ * All <code>PersistenceManager</code> instances obtained from the same 
+ * <code>PersistenceManagerFactory</code> will have the same default properties.
  *
  * <P><code>PersistenceManagerFactory</code> instances may be configured and
  * serialized for later use.  They may be stored via JNDI and looked up
  * and used later.  Any properties configured will be saved and restored.
  *
  * <P>Once the first <code>PersistenceManager</code> is obtained from the 
- * <code>PersistenceManagerFactory</code>, the factory can no longer be configured.
- * <P>If the <code>ConnectionFactory</code> property is set (non-<code>null</code>) then 
- * all other Connection properties including <code>ConnectionFactoryName</code> are ignored;
- * otherwise, if <code>ConnectionFactoryName</code> is set (non-<code>null</code>) then
- * all other Connection properties are ignored.
- * Similarly, if the <code>ConnectionFactory2</code> property is set (non-<code>null</code>) then 
- * <code>ConnectionFactory2Name</code> is ignored.
- * <P>Operational state (<code>PersistenceManager</code> pooling, connection pooling,
- * operational parameters) must not be serialized.
+ * <code>PersistenceManagerFactory</code>, the factory can no longer be 
+ * configured.
+ * <P>If the <code>ConnectionFactory</code> property is set 
+ * (non-<code>null</code>) then all other Connection properties including 
+ * <code>ConnectionFactoryName</code> are ignored;
+ * otherwise, if <code>ConnectionFactoryName</code> is set 
+ * (non-<code>null</code>) then all other Connection properties are ignored.
+ * Similarly, if the <code>ConnectionFactory2</code> property is set 
+ * (non-<code>null</code>) then <code>ConnectionFactory2Name</code> is ignored.
+ * <P>Operational state (<code>PersistenceManager</code> pooling, connection 
+ * pooling, operational parameters) must not be serialized.
  *
  * @version 2.0
  */
@@ -81,22 +83,23 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     boolean isClosed();
     
-    /** Get an instance of <code>PersistenceManager</code> from this factory.  The instance has
-     * default values for options.
+    /** Get an instance of <code>PersistenceManager</code> from this factory.  
+     * The instance has default values for options.
      *
-     * <P>After the first use of <code>getPersistenceManager</code>, no "set" methods will
-     * succeed.
+     * <P>After the first use of <code>getPersistenceManager</code>, no "set" 
+     * methods will succeed.
      *
      * @return a <code>PersistenceManager</code> instance with default options.
      */
     PersistenceManager getPersistenceManager();
 
-    /** Get an instance of <code>PersistenceManager</code> from this factory.  The instance has
-     * default values for options.  The parameters <code>userid</code> and <code>password</code> are used
+    /** Get an instance of <code>PersistenceManager</code> from this factory.  
+     * The instance has default values for options.  
+     * The parameters <code>userid</code> and <code>password</code> are used 
      * when obtaining datastore connections from the connection pool.
      *
-     * <P>After the first use of <code>getPersistenceManager</code>, no "set" methods will
-     * succeed.
+     * <P>After the first use of <code>getPersistenceManager</code>, no "set" 
+     * methods will succeed.
      *
      * @return a <code>PersistenceManager</code> instance with default options.
      * @param userid the userid for the connection
@@ -120,9 +123,9 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
     void setConnectionPassword (String password);
   
     /** Set the URL for the data store connection.
-     * @param URL the URL for the data store connection.
+     * @param url the URL for the data store connection.
      */
-    void setConnectionURL (String URL);
+    void setConnectionURL (String url);
 
     /** Get the URL for the data store connection.
      * @return the URL for the data store connection.
@@ -140,7 +143,8 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
     String getConnectionDriverName ();
     
     /** Set the name for the data store connection factory.
-     * @param connectionFactoryName the name of the data store connection factory.
+     * @param connectionFactoryName the name of the data store connection 
+     * factory.
      */
     void setConnectionFactoryName (String connectionFactoryName);
 
@@ -164,7 +168,8 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
     /** Set the name for the second data store connection factory.  This is
      * needed for managed environments to get nontransactional connections for
      * optimistic transactions.
-     * @param connectionFactoryName the name of the data store connection factory.
+     * @param connectionFactoryName the name of the data store connection 
+     * factory.
      */
     void setConnectionFactory2Name (String connectionFactoryName);
 
@@ -191,15 +196,15 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     Object getConnectionFactory2 ();
   
-    /** Set the default Multithreaded setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Set the default Multithreaded setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default Multithreaded setting.
      */
     void setMultithreaded (boolean flag);
   
-    /** Get the default Multithreaded setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.  
+    /** Get the default Multithreaded setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.  
      *
      * @return the default Multithreaded setting.
      */
@@ -219,29 +224,29 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     String getMapping ();
     
-    /** Set the default Optimistic setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.  
+    /** Set the default Optimistic setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.  
      *
      * @param flag the default Optimistic setting.
      */
     void setOptimistic (boolean flag);
   
-    /** Get the default Optimistic setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.  
+    /** Get the default Optimistic setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.  
      *
      * @return the default Optimistic setting.
      */
     boolean getOptimistic();
     
-    /** Set the default RetainValues setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Set the default RetainValues setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default RetainValues setting.
      */
     void setRetainValues (boolean flag);
   
-   /** Get the default RetainValues setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+   /** Get the default RetainValues setting for all 
+    * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default RetainValues setting.
      */
@@ -269,71 +274,72 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      */
     boolean getRestoreValues();
     
-    /** Set the default NontransactionalRead setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.  
+    /** Set the default NontransactionalRead setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.  
      *
      * @param flag the default NontransactionalRead setting.
      */
     void setNontransactionalRead (boolean flag);
   
-    /** Get the default NontransactionalRead setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Get the default NontransactionalRead setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default NontransactionalRead setting.
      */
     boolean getNontransactionalRead ();
     
-    /** Set the default NontransactionalWrite setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.  
+    /** Set the default NontransactionalWrite setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.  
      *
      * @param flag the default NontransactionalWrite setting.
      */
     void setNontransactionalWrite (boolean flag);
   
-    /** Get the default NontransactionalWrite setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Get the default NontransactionalWrite setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default NontransactionalWrite setting.
      */
     boolean getNontransactionalWrite ();
     
-    /** Set the default IgnoreCache setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Set the default IgnoreCache setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default IgnoreCache setting.
      */
     void setIgnoreCache (boolean flag);
   
-    /** Get the default IgnoreCache setting for all <code>PersistenceManager</code> instances
-     * obtained from this factory.
+    /** Get the default IgnoreCache setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default IngoreCache setting.
      */
     boolean getIgnoreCache ();
   
-   /** Gets the detachAllOnCommit setting.
-    * @see #setDetachAllOnCommit(boolean)
-    * @since 2.0
-    * @return the default detachAllOnCommit setting.
-    */
-   boolean getDetachAllOnCommit();
-
-   /** Sets the default detachAllOnCommit setting for all
-    * <code>PersistenceManager</code> instances obtained from this
-    * factory.
-    * @see #getDetachAllOnCommit()
-    * @since 2.0
-    */
-   void setDetachAllOnCommit(boolean flag);
-
-   /** Return non-configurable properties of this <code>PersistenceManagerFactory</code>.
-     * Properties with keys <code>VendorName</code> and <code>VersionNumber</code> are required.  Other
-     * keys are optional.
+    /** Gets the detachAllOnCommit setting.
+     * @see #setDetachAllOnCommit(boolean)
+     * @since 2.0
+     * @return the default detachAllOnCommit setting.
+     */
+    boolean getDetachAllOnCommit();
+    
+    /** Sets the default detachAllOnCommit setting for all
+     * <code>PersistenceManager</code> instances obtained from this
+     * factory.
+     * @see #getDetachAllOnCommit()
+     * @since 2.0
+     */
+    void setDetachAllOnCommit(boolean flag);
+    
+    /** Return non-configurable properties of this 
+     * <code>PersistenceManagerFactory</code>.
+     * Properties with keys <code>VendorName</code> and 
+     * <code>VersionNumber</code> are required.  Other keys are optional.
      * @return the non-configurable properties of this
      * <code>PersistenceManagerFactory</code>.
      */
     Properties getProperties();
-  
+    
     /** The application can determine from the results of this
      * method which optional features, and which query languages 
      * are supported by the JDO implementation.
@@ -367,9 +373,11 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * <BR>javax.jdo.query.JDOQL
      * </code>
      *
-     *<P>The standard JDO query language is represented by a <code>String</code>:
+     *<P>The standard JDO query language is represented by a 
+     * <code>String</code>:
      *<P><code>javax.jdo.query.JDOQL</code>
-     * @return the <code>Collection</code> of <code>String</code>s representing the supported options.
+     * @return the <code>Collection</code> of <code>String</code>s representing 
+     * the supported options.
      */    
     Collection supportedOptions();
    

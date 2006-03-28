@@ -21,8 +21,6 @@
 
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * This interface is implemented by listeners to be notified of
  * create events.
@@ -34,7 +32,7 @@ public interface CreateLifecycleListener
 
     /**
      * Invoked whenever an instance is made persistent via a
-     * call to {@link PersistenceManager#makePersistent} or during
+     * call to {@link javax.jdo.PersistenceManager#makePersistent} or during
      * persistence by reachability.
      * @param event the create event.
      * @since 2.0

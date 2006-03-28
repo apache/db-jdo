@@ -39,7 +39,8 @@ import javax.jdo.JDOFatalInternalException;
  * Subsequently, instance methods can be used to format message strings 
  * using the text from the bundle, as in 
  * <P>
- * <code>throw new JDOFatalInternalException (msg.msg("ERR_NoMetadata", cls.getName()));</code>
+ * <code>throw new JDOFatalInternalException (msg.msg("ERR_NoMetadata", 
+ * cls.getName()));</code>
  * @since 1.0.1
  * @version 1.1
  */        
@@ -291,7 +292,8 @@ public class I18NHelper {
      * @param msgArgs an array of arguments to substitute into the message
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, Object msgArgs[]) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, Object[] msgArgs) 
     {
         for (int i=0; i<msgArgs.length; i++) {
             if (msgArgs[i] == null) msgArgs[i] = ""; // NOI18N
@@ -307,7 +309,8 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, Object arg) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, Object arg) 
     {
         Object []args = {arg};
         return getMessage(messages, messageKey, args);
@@ -321,8 +324,8 @@ public class I18NHelper {
      * @param arg2 the second argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, Object arg1,
-                                   Object arg2) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, Object arg1, Object arg2) 
     {
         Object []args = {arg1, arg2};
         return getMessage(messages, messageKey, args);
@@ -337,8 +340,8 @@ public class I18NHelper {
      * @param arg3 the third argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, Object arg1,
-                                   Object arg2, Object arg3) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, Object arg1, Object arg2, Object arg3) 
     {
         Object []args = {arg1, arg2, arg3};
         return getMessage(messages, messageKey, args);
@@ -351,7 +354,8 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, int arg) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, int arg) 
     {
         Object []args = {new Integer(arg)};
         return getMessage(messages, messageKey, args);
@@ -364,7 +368,8 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey, boolean arg) 
+    final private static String getMessage(ResourceBundle messages, 
+            String messageKey, boolean arg) 
     {
         Object []args = {String.valueOf(arg)};
         return getMessage(messages, messageKey, args);

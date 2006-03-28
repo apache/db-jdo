@@ -31,22 +31,24 @@ package javax.jdo;
 public class JDOOptimisticVerificationException extends JDOFatalDataStoreException {
 
   /**
-   * Constructs a new <code>JDOOptimisticVerificationException</code> without a detail message.
+   * Constructs a new <code>JDOOptimisticVerificationException</code> without a 
+   * detail message.
    */
   public JDOOptimisticVerificationException() {
   }
   
 
   /**
-   * Constructs a new <code>JDOOptimisticVerificationException</code> with the specified detail message.
+   * Constructs a new <code>JDOOptimisticVerificationException</code> with the 
+   * specified detail message.
    * @param msg the detail message.
    */
   public JDOOptimisticVerificationException(String msg) {
     super(msg);
   }
 
-  /** Constructs a new <code>JDOOptimisticVerificationException</code> with the specified detail message
-   * and failed object.
+  /** Constructs a new <code>JDOOptimisticVerificationException</code> with the 
+   * specified detail message and failed object.
    * @param msg the detail message.
    * @param failed the failed object.
    */
@@ -55,8 +57,8 @@ public class JDOOptimisticVerificationException extends JDOFatalDataStoreExcepti
   }
   
   /**
-   * Constructs a new <code>JDOOptimisticVerificationException</code> with the specified
-   * detail message and nested <code>Throwable</code>s.
+   * Constructs a new <code>JDOOptimisticVerificationException</code> with the 
+   * specified detail message and nested <code>Throwable</code>s.
    * @param msg the detail message.
    * @param nested the nested <code>Throwable[]</code>.
    */

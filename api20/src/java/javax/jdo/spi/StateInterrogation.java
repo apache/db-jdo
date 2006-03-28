@@ -174,7 +174,7 @@ public interface StateInterrogation {
      * @return the <code>PersistenceManager</code> associated with the 
      * parameter instance.
      */
-	PersistenceManager getPersistenceManager (Object pc);
+    PersistenceManager getPersistenceManager (Object pc);
     
     /** Return a copy of the JDO identity associated with the parameter 
      * instance.
@@ -208,7 +208,7 @@ public interface StateInterrogation {
      * @return a copy of the ObjectId of the parameter instance as of the 
      * beginning of the transaction.
      */
-	Object getObjectId (Object pc);
+    Object getObjectId (Object pc);
 
     /** Return a copy of the JDO identity associated with the parameter 
      * instance.
@@ -220,7 +220,7 @@ public interface StateInterrogation {
      * @return a copy of the ObjectId of the parameter instance as modified 
      * in this transaction.
      */
-	Object getTransactionalObjectId (Object pc);
+    Object getTransactionalObjectId (Object pc);
     
     /** Return the version of the parameter instance.
      *
@@ -230,7 +230,7 @@ public interface StateInterrogation {
      * @return a copy of the ObjectId of the parameter instance as modified 
      * in this transaction.
      */
-	Object getVersion (Object pc);
+    Object getVersion (Object pc);
     
     /** Explicitly mark the parameter instance and field dirty.
      * Normally, <code>PersistenceCapable</code> classes are able to detect 
@@ -245,6 +245,6 @@ public interface StateInterrogation {
      * @param pc the instance.
      * @param fieldName the name of the field to be marked dirty.
      */
-	boolean makeDirty (Object pc, String fieldName);
+    boolean makeDirty (Object pc, String fieldName);
 
 }

@@ -17,8 +17,8 @@
 package javax.jdo.spi;
 
 /**
- * The <code>JDOPermission</code> class is for operations that are reserved for JDO 
- * implementations and should not be called by other code.  A
+ * The <code>JDOPermission</code> class is for operations that are reserved for 
+ * JDO implementations and should not be called by other code.  A
  * <code>JDOPermission</code> is a <em>named permission</em> and has no
  * actions.  There are two names currently defined.  Each named permission
  * has a corresponding public static final field which contains an instance
@@ -38,8 +38,8 @@ package javax.jdo.spi;
  *
  * <tr>
  *   <td><code>setStateManager</code></td>
- *   <td>This allows setting the <code>StateManager</code> for an instance of <code>PersistenceCapable</code>. 
- *   The <code>StateManager</code>
+ *   <td>This allows setting the <code>StateManager</code> for an instance of 
+ *   <code>PersistenceCapable</code>. The <code>StateManager</code>
  *   has unlimited access to get and set persistent and transactional fields of
  *   the <code>PersistenceCapable</code> instance.</td>
  *   <td>This is dangerous in that information (possibly confidential) 
@@ -48,18 +48,19 @@ package javax.jdo.spi;
  *
  * <tr>
  *   <td><code>getMetadata</code></td>
- *   <td>This allows getting metadata for any <code>PersistenceCapable</code> class that has
- *   registered with <code>JDOImplHelper</code>.</td>
+ *   <td>This allows getting metadata for any <code>PersistenceCapable</code> 
+ *   class that has registered with <code>JDOImplHelper</code>.</td>
  *   <td>This is dangerous in that metadata information (possibly confidential) 
  *   normally unavailable would be accessible to malicious code.</td>
  * </tr>
  *
  * <tr>
  *   <td><code>manageMetadata</code></td>
- *   <td>This allows managing metadata for any <code>PersistenceCapable</code> class that has
- *   registered with <code>JDOImplHelper</code>.</td>
+ *   <td>This allows managing metadata for any <code>PersistenceCapable</code> 
+ *   class that has registered with <code>JDOImplHelper</code>.</td>
  *   <td>This is dangerous in that metadata information (possibly confidential) 
- *   normally unavailable would be manageable (modifiable) by malicious code.</td>
+ *   normally unavailable would be manageable (modifiable) by malicious code.
+ *   </td>
  * </tr>
  *
  * <tr>
@@ -92,9 +93,9 @@ class JDOPermission extends java.security.BasicPermission {
     }
 
     /**
-     * Constructs a <code>JDOPermission</code> with the specified name and actions.
-     * The actions should be <code>null</code>; they are ignored. This
-     * constructor exists for use by the <code>Policy</code> object
+     * Constructs a <code>JDOPermission</code> with the specified name and 
+     * actions.  The actions should be <code>null</code>; they are ignored. 
+     * This constructor exists for use by the <code>Policy</code> object
      * to instantiate new <code>Permission</code> objects.
      *
      * @param name the name of the <code>JDOPermission</code>

@@ -30,7 +30,8 @@ package javax.jdo;
 public class JDODetachedFieldAccessException extends JDOUserException {
 
   /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> without a detail message.
+   * Constructs a new <code>JDODetachedFieldAccessException</code> without a 
+   * detail message.
    * @since 2.0
    */
   public JDODetachedFieldAccessException() {
@@ -38,7 +39,8 @@ public class JDODetachedFieldAccessException extends JDOUserException {
   
 
   /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> with the specified detail message.
+   * Constructs a new <code>JDODetachedFieldAccessException</code> with the 
+   * specified detail message.
    * @param msg the detail message.
    * @since 2.0
    */

@@ -21,9 +21,6 @@
 
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
-
 /**
  * This interface is implemented by listeners to be notified of
  * store events.
@@ -34,9 +31,9 @@ public interface StoreLifecycleListener
 	extends InstanceLifecycleListener {
 
     /**
-     * Invoked whenever a persistent instance is stored, for example
-     * during {@link PersistenceManager#flush} or {@link
-     * Transaction#commit}. It is called before the
+     * Invoked whenever a persistent instance is stored, for example during 
+     * {@link javax.jdo.PersistenceManager#flush} or 
+     * {@link javax.jdo.Transaction#commit}. It is called before the
      * method {@link StoreCallback#jdoPreStore} is invoked.
      * @param event the store event.
      * @since 2.0
@@ -44,9 +41,9 @@ public interface StoreLifecycleListener
     void preStore (InstanceLifecycleEvent event);
     
     /**
-     * Invoked whenever a persistent instance is stored, for example
-     * during {@link PersistenceManager#flush} or {@link
-     * Transaction#commit}. It is called after the
+     * Invoked whenever a persistent instance is stored, for example during 
+     * {@link javax.jdo.PersistenceManager#flush} or 
+     * {@link javax.jdo.Transaction#commit}. It is called after the
      * field values have been stored.
      * @param event the store event.
      * @since 2.0

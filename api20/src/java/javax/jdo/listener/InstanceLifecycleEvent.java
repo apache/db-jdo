@@ -119,7 +119,8 @@ public class InstanceLifecycleEvent
      * <code>getPersistentInstance()</code> and
      * <code>getDetachedInstance()</code> be used instead.
      *
-     * @return The detached instance for preDetach and postAttach, the persistent instance otherwise.
+     * @return The detached instance for preDetach and postAttach, 
+     * the persistent instance otherwise.
      *
      * @since 2.0
      * @see #getPersistentInstance()
@@ -133,7 +134,8 @@ public class InstanceLifecycleEvent
     /**
      * Returns the persistent instance involved in the event.
      *
-     * @return The persistent instance involved in the event, or null if there was none.
+     * @return The persistent instance involved in the event, or null if there 
+     * was none.
      *
      * @see "Section 12.15, Java Data Objects 2.0 Specification"
      */

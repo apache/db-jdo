@@ -16,17 +16,16 @@
 
 package javax.jdo.spi;
 
-import java.util.BitSet;
-
 import javax.jdo.PersistenceManager;
 
 /** This interface is the point of contact between managed instances of
- * <code>PersistenceCapable</code> classes and the JDO implementation.  It contains
- * the methods used by <code>PersistenceCapable</code> instances to delegate behavior to 
- * the JDO implementation.
- *<P>Each managed <code>PersistenceCapable</code> instance contains a reference to a
- * <code>StateManager</code>.  A <code>StateManager</code> might manage one or multiple instances of
- * <code>PersistenceCapable</code> instances, at the choice of the implementation.
+ * <code>PersistenceCapable</code> classes and the JDO implementation.  It 
+ * contains the methods used by <code>PersistenceCapable</code> instances to 
+ * delegate behavior to the JDO implementation.
+ *<P>Each managed <code>PersistenceCapable</code> instance contains a reference 
+ * to a <code>StateManager</code>.  A <code>StateManager</code> might manage one 
+ * or multiple instances of <code>PersistenceCapable</code> instances, at the 
+ * choice of the implementation.
  *
  * @version 2.0
  *
@@ -36,7 +35,8 @@ public interface StateManager {
     /** The owning <code>StateManager</code> uses this method to supply the 
      * value of the flags to the <code>PersistenceCapable</code> instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
-     * @return the value of <code>jdoFlags</code> to be stored in the <code>PersistenceCapable</code> instance
+     * @return the value of <code>jdoFlags</code> to be stored in the 
+     * <code>PersistenceCapable</code> instance
      */
     byte replacingFlags(PersistenceCapable pc);
 
@@ -46,7 +46,8 @@ public interface StateManager {
      * <code>jdoReplaceStateManager</code> is called and there is already
      * an owning <code>StateManager</code>.  This is a security precaution
      * to ensure that the owning <code>StateManager</code> is the only
-     * source of any change to its reference in the <code>PersistenceCapable</code>.
+     * source of any change to its reference in the 
+     * <code>PersistenceCapable</code>.
      * @return the new value for the <code>jdoStateManager</code>
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param sm the proposed new value for the <code>jdoStateManager</code>
@@ -62,17 +63,19 @@ public interface StateManager {
      *<P>
      * @see PersistenceCapable#jdoMakeDirty(String fieldName)
      * @param pc the calling <code>PersistenceCapable</code> instance
-     * @return <code>true</code> if this instance has been modified in the current transaction.
+     * @return <code>true</code> if this instance has been modified in the 
+     * current transaction.
      */
     boolean isDirty(PersistenceCapable pc);
 
     /** Tests whether this object is transactional.
      *
-     * Instances that respect transaction boundaries return <code>true</code>.  These instances
-     * include transient instances made transactional as a result of being the
-     * target of a <code>makeTransactional</code> method call; newly made persistent or deleted
-     * persistent instances; persistent instances read in data store
-     * transactions; and persistent instances modified in optimistic transactions.
+     * Instances that respect transaction boundaries return <code>true</code>.  
+     * These instances include transient instances made transactional as a 
+     * result of being the target of a <code>makeTransactional</code> method 
+     * call; newly made persistent or deleted persistent instances; persistent 
+     * instances read in data store transactions; and persistent instances 
+     * modified in optimistic transactions.
      *
      *<P>Transient nontransactional instances return <code>false</code>.
      *<P>
@@ -83,7 +86,8 @@ public interface StateManager {
 
     /** Tests whether this object is persistent.
      *
-     * Instances whose state is stored in the data store return <code>true</code>.
+     * Instances whose state is stored in the data store return 
+     * <code>true</code>.
      *
      *<P>Transient instances return <code>false</code>.
      *<P>
@@ -98,8 +102,8 @@ public interface StateManager {
      * Instances that have been made persistent in the current transaction 
      * return <code>true</code>.
      *
-     *<P>Transient instances return <code>false</code>.
-     *<P>
+     * <P>Transient instances return <code>false</code>.
+     * <P>
      * @see PersistenceManager#makePersistent(Object pc)
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @return <code>true</code> if this instance was made persistent
@@ -109,7 +113,8 @@ public interface StateManager {
 
     /** Tests whether this object has been deleted.
      *
-     * Instances that have been deleted in the current transaction return <code>true</code>.
+     * Instances that have been deleted in the current transaction return 
+     * <code>true</code>.
      *
      *<P>Transient instances return <code>false</code>.
      *<P>
@@ -183,7 +188,8 @@ public interface StateManager {
      * @param currentValue the current value of the field
      * @return the new value for the field
      */    
-    boolean getBooleanField (PersistenceCapable pc, int field, boolean currentValue);
+    boolean getBooleanField (
+            PersistenceCapable pc, int field, boolean currentValue);
     
     /** Return the value for the field.
      * @param pc the calling <code>PersistenceCapable</code> instance
@@ -239,7 +245,8 @@ public interface StateManager {
      * @param currentValue the current value of the field
      * @return the new value for the field
      */    
-    double getDoubleField (PersistenceCapable pc, int field, double currentValue);
+    double getDoubleField (PersistenceCapable pc, int field, 
+                           double currentValue);
     
     /** Return the value for the field.
      * @param pc the calling <code>PersistenceCapable</code> instance
@@ -247,7 +254,8 @@ public interface StateManager {
      * @param currentValue the current value of the field
      * @return the new value for the field
      */    
-    String getStringField (PersistenceCapable pc, int field, String currentValue);
+    String getStringField (PersistenceCapable pc, int field, 
+                           String currentValue);
     
     /** Return the value for the field.
      * @param pc the calling <code>PersistenceCapable</code> instance
@@ -255,147 +263,177 @@ public interface StateManager {
      * @param currentValue the current value of the field
      * @return the new value for the field
      */    
-    Object getObjectField (PersistenceCapable pc, int field, Object currentValue);
+    Object getObjectField (PersistenceCapable pc, int field, 
+                           Object currentValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setBooleanField (PersistenceCapable pc, int field, boolean currentValue, boolean newValue);
+    void setBooleanField (PersistenceCapable pc, int field, 
+                          boolean currentValue, boolean newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setCharField (PersistenceCapable pc, int field, char currentValue, char newValue);
+    void setCharField (PersistenceCapable pc, int field, 
+                       char currentValue, char newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setByteField (PersistenceCapable pc, int field, byte currentValue, byte newValue);
+    void setByteField (PersistenceCapable pc, int field, 
+                       byte currentValue, byte newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setShortField (PersistenceCapable pc, int field, short currentValue, short newValue);
+    void setShortField (PersistenceCapable pc, int field, 
+                        short currentValue, short newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setIntField (PersistenceCapable pc, int field, int currentValue, int newValue);
+    void setIntField (PersistenceCapable pc, int field, 
+                      int currentValue, int newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setLongField (PersistenceCapable pc, int field, long currentValue, long newValue);
+    void setLongField (PersistenceCapable pc, int field, 
+                       long currentValue, long newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setFloatField (PersistenceCapable pc, int field, float currentValue, float newValue);
+    void setFloatField (PersistenceCapable pc, int field, 
+                        float currentValue, float newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setDoubleField (PersistenceCapable pc, int field, double currentValue, double newValue);
+    void setDoubleField (PersistenceCapable pc, int field, 
+                         double currentValue, double newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setStringField (PersistenceCapable pc, int field, String currentValue, String newValue);
+    void setStringField (PersistenceCapable pc, int field, 
+                         String currentValue, String newValue);
 
     /** Mark the field as modified by the user.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number
      * @param currentValue the current value of the field
      * @param newValue the proposed new value of the field */    
-    void setObjectField (PersistenceCapable pc, int field, Object currentValue, Object newValue);
+    void setObjectField (PersistenceCapable pc, int field, 
+                         Object currentValue, Object newValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedBooleanField (PersistenceCapable pc, int field, boolean currentValue);
+    void providedBooleanField (PersistenceCapable pc, int field, 
+                               boolean currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedCharField (PersistenceCapable pc, int field, char currentValue);
+    void providedCharField (PersistenceCapable pc, int field, 
+                            char currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedByteField (PersistenceCapable pc, int field, byte currentValue);
+    void providedByteField (PersistenceCapable pc, int field, 
+                            byte currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedShortField (PersistenceCapable pc, int field, short currentValue);
+    void providedShortField (PersistenceCapable pc, int field, 
+                             short currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
     void providedIntField (PersistenceCapable pc, int field, int currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedLongField (PersistenceCapable pc, int field, long currentValue);
+    void providedLongField (PersistenceCapable pc, int field, 
+                            long currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedFloatField (PersistenceCapable pc, int field, float currentValue);
+    void providedFloatField (PersistenceCapable pc, int field, 
+                             float currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedDoubleField (PersistenceCapable pc, int field, double currentValue);
+    void providedDoubleField (PersistenceCapable pc, int field, 
+                              double currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedStringField (PersistenceCapable pc, int field, String currentValue);
+    void providedStringField (PersistenceCapable pc, int field, 
+                              String currentValue);
 
-    /** The value of the field requested to be provided to the <code>StateManager</code>
+    /** The value of the field requested to be provided to the 
+     * <code>StateManager</code>.
      * @param pc the calling <code>PersistenceCapable</code> instance
      * @param field the field number 
      * @param currentValue the current value of the field
      */    
-    void providedObjectField (PersistenceCapable pc, int field, Object currentValue);
+    void providedObjectField (PersistenceCapable pc, int field, 
+                              Object currentValue);
 
     /** The replacement value of the field in the calling instance.
      * @param pc the calling <code>PersistenceCapable</code> instance
@@ -475,4 +513,3 @@ public interface StateManager {
      */
     Object[] replacingDetachedState (Detachable pc, Object[] state);
 }
-

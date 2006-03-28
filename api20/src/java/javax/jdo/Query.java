@@ -28,14 +28,15 @@ import java.util.Map;
  * instances, values, and aggregate data
  * from the data store.
  *
- * The {@link PersistenceManager} is the factory for <code>Query</code> instances.  There
- * may be many <code>Query</code> instances associated with a <code>PersistenceManager</code>.
- * Multiple queries might be executed simultaneously by different threads, but the
- * implementation might choose to execute them serially.  In either case, the
- * implementation must be thread safe.
+ * The {@link PersistenceManager} is the factory for <code>Query</code> 
+ * instances.  There may be many <code>Query</code> instances associated with a 
+ * <code>PersistenceManager</code>.  Multiple queries might be executed 
+ * simultaneously by different threads, but the implementation might choose to 
+ * execute them serially.  In either case, the implementation must be thread 
+ * safe.
  *
- * <P>There are three required elements in a <code>Query</code>: the class of the results,
- * the candidate collection of instances, and the filter.
+ * <P>There are three required elements in a <code>Query</code>: the class of 
+ * the results, the candidate collection of instances, and the filter.
  *
  * <P>There are optional elements: parameter declarations, variable
  * declarations, import statements, ordering and grouping specifications,
@@ -45,29 +46,33 @@ import java.util.Map;
  * <P>The query namespace is modeled after methods in Java:
  * <ul>
  * <li><code>setClass</code> corresponds to the class definition
- * <li><code>declareParameters</code> corresponds to formal parameters of a method
+ * <li><code>declareParameters</code> corresponds to formal parameters of a 
+ * method
  * <li><code>declareVariables</code> corresponds to local variables of a method
- * <li><code>setFilter</code> and <code>setOrdering</code> correspond to the method body
+ * <li><code>setFilter</code> and <code>setOrdering</code> correspond to the 
+ * method body
  * </ul>
  * <P>There are two namespaces in queries. Type names have their own
  * namespace that is separate from the namespace for fields, variables
  * and parameters.
- * <P>The method <code>setClass</code> introduces the name of the candidate class in
- * the type namespace. The method <code>declareImports</code> introduces the names of
- * the imported class or interface types in the type namespace. Imported
- * type names must be unique. When used (e.g. in a parameter declaration,
- * cast expression, etc.) a type name must be the name of the candidate
- * class, the name of a class or interface imported by method
+ * <P>The method <code>setClass</code> introduces the name of the candidate 
+ * class in the type namespace. The method <code>declareImports</code> 
+ * introduces the names of the imported class or interface types in the type 
+ * namespace. Imported type names must be unique. When used (e.g. in a parameter
+ * declaration, cast expression, etc.) a type name must be the name of the 
+ * candidate class, the name of a class or interface imported by method
  * <code>declareImports</code>, or denote a class or interface from the same
  * package as the candidate class.
- * <P>The method <code>setClass</code> introduces the names of the candidate class fields.
+ * <P>The method <code>setClass</code> introduces the names of the candidate 
+ * class fields.
  * <P>The method <code>declareParameters</code> introduces the names of the
- * parameters. A name introduced by <code>declareParameters</code> hides the name
- * of a candidate class field of the same name. Parameter names must be unique.
- * <P>The method <code>declareVariables</code> introduces the names of the variables.
- * A name introduced by <code>declareVariables</code> hides the name of a candidate
- * class field if equal. Variable names must be unique and must not
- * conflict with parameter names.
+ * parameters. A name introduced by <code>declareParameters</code> hides the 
+ * name of a candidate class field of the same name. Parameter names must be 
+ * unique.
+ * <P>The method <code>declareVariables</code> introduces the names of the 
+ * variables.  A name introduced by <code>declareVariables</code> hides the name
+ * of a candidate class field if equal. Variable names must be unique and must 
+ * not conflict with parameter names.
  * <P>The result of the query by default is a list of result class instances,
  * but might be specified via <code>setResult</code>. The class of the result
  * by default is the candidate class, but might be specified via 
@@ -78,26 +83,23 @@ import java.util.Map;
  * based on the parameters given. They return a single instance or a 
  * <code>List</code> of result class instances which the
  * user can iterate to get results. The signature
- * of the <code>execute</code> methods specifies that they return an <code>Object</code> which
- * must be cast to the appropriate result by the user.
- * <P>Any parameters passed to the <code>execute</code> methods are used only for
- * this execution, and are not remembered for future execution.
+ * of the <code>execute</code> methods specifies that they return an 
+ * <code>Object</code> which must be cast to the appropriate result by the user.
+ * <P>Any parameters passed to the <code>execute</code> methods are used only 
+ * for this execution, and are not remembered for future execution.
  * @version 2.0
  */
 
 public interface Query extends Serializable {
     
     /**
-     * The string constant used as the first argument to {@link
-     * PersistenceManager#newQuery(String,Object)} to identify that
-     * the created query should obey the JDOQL syntax and semantic
-     * rules.
-     * <p>This is the default query language used when creating a
-     * query with any of the other {@link
-     * PersistenceManager#newQuery} methods, except {@link
-     * PersistenceManager#newQuery(Object)}, which uses the query
-     * language of the compiled query template object passed to that
-     * method.</p>
+     * The string constant used as the first argument to 
+     * {@link PersistenceManager#newQuery(String,Object)} to identify that the 
+     * created query should obey the JDOQL syntax and semantic rules.
+     * <p>This is the default query language used when creating a query with any
+     * of the other {@link PersistenceManager#newQuery} methods, except 
+     * {@link PersistenceManager#newQuery(Object)}, which uses the query 
+     * language of the compiled query template object passed to that method.</p>
      * @since 2.0
      */
     String JDOQL = "javax.jdo.query.JDOQL";
@@ -143,7 +145,8 @@ public interface Query extends Serializable {
      * then it defaults to "true", which has the effect of filtering
      * the input <code>Collection</code> only for class type.
      * <P>An element of the candidate collection is returned in the result if:
-     * <ul><li>it is assignment compatible to the candidate <code>Class</code> of the <code>Query</code>; and
+     * <ul><li>it is assignment compatible to the candidate <code>Class</code> 
+     * of the <code>Query</code>; and
      * <li>for all variables there exists a value for which the filter
      * expression evaluates to <code>true</code>.
      * </ul>
@@ -154,31 +157,32 @@ public interface Query extends Serializable {
      * <ul>
      * <li>Equality and ordering comparisons between primitives and instances
      * of wrapper classes are valid.
-     * <li>Equality and ordering comparisons of <code>Date</code> fields and <code>Date</code>
-     * parameters are valid.
+     * <li>Equality and ordering comparisons of <code>Date</code> fields and 
+     * <code>Date</code> parameters are valid.
      * <li>White space (non-printing characters space, tab, carriage
      * return, and line feed) is a separator and is otherwise ignored.
-     * <li>The assignment operators <code>=</code>, <code>+=</code>, etc. and pre- and post-increment
-     * and -decrement are not supported. Therefore, there are no side
-     * effects from evaluation of any expressions.
+     * <li>The assignment operators <code>=</code>, <code>+=</code>, etc. and 
+     * pre- and post-increment and -decrement are not supported. Therefore, 
+     * there are no side effects from evaluation of any expressions.
      * <li>Methods, including object construction, are not supported, except
-     * for <code>Collection.contains(Object o)</code>, <code>Collection.isEmpty()</code>,
-     * <code>String.startsWith(String s)</code>, and <code>String.endsWith(String e)</code>.
-     * Implementations might choose to support non-mutating method
-     * calls as non-standard extensions.
-     * <li>Navigation through a <code>null</code>-valued field, which would throw
-     * <code>NullPointerException</code>, is treated as if the filter expression
-     * returned <code>false</code> for the evaluation of the current set of variable
-     * values. Other values for variables might still qualify the candidate
-     * instance for inclusion in the result set.
-     * <li>Navigation through multi-valued fields (<code>Collection</code> types) is
-     * specified using a variable declaration and the
+     * for <code>Collection.contains(Object o)</code>, 
+     * <code>Collection.isEmpty()</code>, 
+     * <code>String.startsWith(String s)</code>, and 
+     * <code>String.endsWith(String e)</code>.  Implementations might choose to
+     * support non-mutating method calls as non-standard extensions.
+     * <li>Navigation through a <code>null</code>-valued field, which would 
+     * throw <code>NullPointerException</code>, is treated as if the filter 
+     * expression returned <code>false</code> for the evaluation of the current
+     * set of variable values. Other values for variables might still qualify 
+     * the candidate instance for inclusion in the result set.
+     * <li>Navigation through multi-valued fields (<code>Collection</code> 
+     * types) is specified using a variable declaration and the
      * <code>Collection.contains(Object o)</code> method.
      * </ul>
      * <P>Identifiers in the expression are considered to be in the name
      * space of the specified class, with the addition of declared imports,
-     * parameters and variables. As in the Java language, <code>this</code> is a reserved
-     * word which means the element of the collection being evaluated.
+     * parameters and variables. As in the Java language, <code>this</code> is a 
+     * reserved word which means the element of the collection being evaluated.
      * <P>Navigation through single-valued fields is specified by the Java
      * language syntax of <code>field_name.field_name....field_name</code>.
      * <P>A JDO implementation is allowed to reorder the filter expression
@@ -187,43 +191,43 @@ public interface Query extends Serializable {
      */
     void setFilter(String filter);
     
-    /** Set the import statements to be used to identify the fully qualified name of
-     * variables or parameters.  Parameters and unbound variables might 
+    /** Set the import statements to be used to identify the fully qualified 
+     * name of variables or parameters.  Parameters and unbound variables might 
      * come from a different class from the candidate class, and the names 
      * need to be declared in an import statement to eliminate ambiguity. 
-     * Import statements are specified as a <code>String</code> with semicolon-separated 
-     * statements. 
-     * <P>The <code>String</code> parameter to this method follows the syntax of the  
-     * import statement of the Java language.
+     * Import statements are specified as a <code>String</code> with 
+     * semicolon-separated statements. 
+     * <P>The <code>String</code> parameter to this method follows the syntax of 
+     * the import statement of the Java language.
      * @param imports import statements separated by semicolons.
      */
     void declareImports(String imports);
     
     /** Declare the list of parameters query execution.
      *
-     * The parameter declaration is a <code>String</code> containing one or more query 
-     * parameter declarations separated with commas. Each parameter named 
+     * The parameter declaration is a <code>String</code> containing one or more 
+     * query parameter declarations separated with commas. Each parameter named 
      * in the parameter declaration must be bound to a value when 
      * the query is executed.
-     * <P>The <code>String</code> parameter to this method follows the syntax for formal 
-     * parameters in the Java language. 
+     * <P>The <code>String</code> parameter to this method follows the syntax 
+     * for formal parameters in the Java language. 
      * @param parameters the list of parameters separated by commas.
      */
     void declareParameters(String parameters);
     
     /** Declare the unbound variables to be used in the query. Variables 
      * might be used in the filter, and these variables must be declared 
-     * with their type. The unbound variable declaration is a <code>String</code> 
-     * containing one or more unbound variable declarations separated 
-     * with semicolons. It follows the syntax for local variables in 
+     * with their type. The unbound variable declaration is a 
+     * <code>String</code> containing one or more unbound variable declarations
+     * separated with semicolons. It follows the syntax for local variables in 
      * the Java language.
      * @param variables the variables separated by semicolons.
      */
     void declareVariables(String variables);
     
-    /** Set the ordering specification for the result <code>Collection</code>.  The
-     * ordering specification is a <code>String</code> containing one or more ordering
-     * declarations separated by commas.
+    /** Set the ordering specification for the result <code>Collection</code>.  
+     * The ordering specification is a <code>String</code> containing one or
+     * more ordering declarations separated by commas.
      *
      * <P>Each ordering declaration is the name of the field on which
      * to order the results followed by one of the following words:
@@ -232,9 +236,9 @@ public interface Query extends Serializable {
      *<P>The field must be declared in the candidate class or must be
      * a navigation expression starting with a field in the candidate class.
      *
-     *<P>Valid field types are primitive types except <code>boolean</code>; wrapper types 
-     * except <code>Boolean</code>; <code>BigDecimal</code>; <code>BigInteger</code>;
-     * <code>String</code>; and <code>Date</code>.
+     *<P>Valid field types are primitive types except <code>boolean</code>; 
+     * wrapper types except <code>Boolean</code>; <code>BigDecimal</code>; 
+     * <code>BigInteger</code>; <code>String</code>; and <code>Date</code>.
      * @param ordering the ordering specification.
      */
     void setOrdering(String ordering);
@@ -245,8 +249,8 @@ public interface Query extends Serializable {
      *
      * The ignoreCache option setting specifies whether the query should execute
      * entirely in the back end, instead of in the cache.  If this flag is set
-     * to <code>true</code>, an implementation might be able to optimize the query
-     * execution by ignoring changed values in the cache.  For optimistic
+     * to <code>true</code>, an implementation might be able to optimize the 
+     * query execution by ignoring changed values in the cache.  For optimistic
      * transactions, this can dramatically improve query response times.
      * @param ignoreCache the setting of the ignoreCache option.
      */
@@ -293,12 +297,13 @@ public interface Query extends Serializable {
      */
     Object execute(Object p1, Object p2, Object p3);
     
-    /** Execute the query and return the filtered <code>Collection</code>.  The query
-     * is executed with the parameters set by the <code>Map</code> values.  Each <code>Map</code> entry
-     * consists of a key which is the name of the parameter in the 
-     * <code>declareParameters</code> method, and a value which is the value used in 
-     * the <code>execute</code> method.  The keys in the <code>Map</code> and the declared parameters 
-     * must exactly match or a <code>JDOUserException</code> is thrown.
+    /** Execute the query and return the filtered <code>Collection</code>.  The 
+     * query is executed with the parameters set by the <code>Map</code> values.  
+     * Each <code>Map</code> entry consists of a key which is the name of the 
+     * parameter in the <code>declareParameters</code> method, and a value which 
+     * is the value used in the <code>execute</code> method.  The keys in the 
+     * <code>Map</code> and the declared parameters must exactly match or a 
+     * <code>JDOUserException</code> is thrown.
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      * @param parameters the <code>Map</code> containing all of the parameters.
@@ -317,36 +322,43 @@ public interface Query extends Serializable {
      * <P>The filter, import, declared parameters, declared variables, and
      * ordering statements are verified for consistency.
      *
-     * <P>Each element in the candidate <code>Collection</code> is examined to see that it
-     * is assignment compatible to the <code>Class</code> of the query.  It is then evaluated
-     * by the Boolean expression of the filter.  The element passes the filter
-     * if there exist unique values for all variables for which the filter
-     * expression evaluates to <code>true</code>.
+     * <P>Each element in the candidate <code>Collection</code> is examined to 
+     * see that it is assignment compatible to the <code>Class</code> of the 
+     * query.  It is then evaluated by the Boolean expression of the filter.  
+     * The element passes the filter if there exist unique values for all 
+     * variables for which the filter expression evaluates to <code>true</code>.
      * @return the filtered <code>Collection</code>.
-     * @param parameters the <code>Object</code> array with all of the parameters.
+     * @param parameters the <code>Object</code> array with all of the 
+     * parameters.
      */
     Object executeWithArray (Object[] parameters);
     
-    /** Get the <code>PersistenceManager</code> associated with this <code>Query</code>.
+    /** Get the <code>PersistenceManager</code> associated with this 
+     * <code>Query</code>.
      *
-     * <P>If this <code>Query</code> was restored from a serialized form, it has no 
-     * <code>PersistenceManager</code>, and this method returns <code>null</code>.
-     * @return the <code>PersistenceManager</code> associated with this <code>Query</code>.
+     * <P>If this <code>Query</code> was restored from a serialized form, it has
+     * no <code>PersistenceManager</code>, and this method returns 
+     * <code>null</code>.
+     * @return the <code>PersistenceManager</code> associated with this 
+     * <code>Query</code>.
      */
     PersistenceManager getPersistenceManager();
   
     /** Close a query result and release any resources associated with it.  The
-     * parameter is the return from <code>execute(...)</code> and might have iterators open on it.
-     * Iterators associated with the query result are invalidated: they return <code>false</code>
-     * to <code>hasNext()</code> and throw <code>NoSuchElementException</code> to <code>next()</code>.
-     * @param queryResult the result of <code>execute(...)</code> on this <code>Query</code> instance.
+     * parameter is the return from <code>execute(...)</code> and might have 
+     * iterators open on it.  Iterators associated with the query result are 
+     * invalidated: they return <code>false</code>  to <code>hasNext()</code> 
+     * and throw <code>NoSuchElementException</code> to <code>next()</code>.
+     * @param queryResult the result of <code>execute(...)</code> on this 
+     * <code>Query</code> instance.
      */    
     void close (Object queryResult);
     
-    /** Close all query results associated with this <code>Query</code> instance, and release all
-     * resources associated with them.  The query results might have iterators open
-     * on them.  Iterators associated with the query results are invalidated:
-     * they return <code>false</code> to <code>hasNext()</code> and throw
+    /** Close all query results associated with this <code>Query</code> 
+     * instance, and release all resources associated with them.  The query 
+     * results might have iterators open on them.  Iterators associated with the
+     * query results are invalidated: 
+     * they return <code>false</code> to <code>hasNext()</code> and throw 
      * <code>NoSuchElementException</code> to <code>next()</code>.
      */    
     void closeAll ();
@@ -417,7 +429,8 @@ public interface Query extends Serializable {
      * requirements apply:
      * <ul>
      * <li>A user-defined result class must have a no-args constructor and 
-     * one or more public <code>set</code> or <code>put</code> methods or fields. 
+     * one or more public <code>set</code> or <code>put</code> methods or 
+     * fields. 
      * <li>Each result expression must match one of:
      * <ul>
      * <li>a public field that matches the name of the result expression 
@@ -571,4 +584,3 @@ public interface Query extends Serializable {
     boolean isUnmodifiable();
 
 }
-

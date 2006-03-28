@@ -21,8 +21,6 @@
  
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * This interface is used to notify instances of detach events.
  * @version 2.0
@@ -32,7 +30,7 @@ public interface DetachCallback {
     
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#detachCopy} on the
+     * {@link javax.jdo.PersistenceManager#detachCopy} on the
      * persistent instance before the copy is made.
      * @since 2.0
      */
@@ -40,7 +38,7 @@ public interface DetachCallback {
 
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#detachCopy} on the
+     * {@link javax.jdo.PersistenceManager#detachCopy} on the
      * detached instance after the copy is made.
      * @param detached The corresponding (attached) persistent instance.
      * @since 2.0

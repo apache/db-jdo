@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import javax.jdo.JDOUserException;
-
 /** This class is for identity with a single String field.
  * @version 2.0
  */

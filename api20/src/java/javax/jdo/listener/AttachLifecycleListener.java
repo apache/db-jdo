@@ -21,8 +21,6 @@
  
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * This interface is implemented by listeners to be notified of
  * attach events.
@@ -34,8 +32,8 @@ public interface AttachLifecycleListener
     
     /**
      * This method is called before a detached instance is attached, via the
-     * {@link PersistenceManager#makePersistent} method. The source instance
-     * is the detached instance. This method is called before the
+     * {@link javax.jdo.PersistenceManager#makePersistent} method. The source 
+     * instance is the detached instance. This method is called before the
      * corresponding {@link AttachCallback#jdoPreAttach} on the detached
      * instance.
      * @param event the attach event.
@@ -45,7 +43,7 @@ public interface AttachLifecycleListener
     
     /**
      * This method is called after a detached instance is attached, via the
-     * {@link PersistenceManager#makePersistent} method. The source
+     * {@link javax.jdo.PersistenceManager#makePersistent} method. The source
      * instance is the corresponding persistent instance in the cache; the
      * target instance is the detached instance. This method is called after
      * the corresponding {@link AttachCallback#jdoPostAttach} on the

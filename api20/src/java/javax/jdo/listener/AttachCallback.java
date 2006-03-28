@@ -21,8 +21,6 @@
  
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * This interface is used to notify instances of attach events.
  * @version 2.0
@@ -32,18 +30,19 @@ public interface AttachCallback {
     
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#makePersistent} on the detached instance
-     * before the copy is made.
+     * {@link javax.jdo.PersistenceManager#makePersistent} on the detached 
+     * instance before the copy is made.
      * @since 2.0
      */
     public void jdoPreAttach();
 
     /**
      * This method is called during the execution of
-     * {@link PersistenceManager#makePersistent} on the persistent
+     * {@link javax.jdo.PersistenceManager#makePersistent} on the persistent
      * instance after the copy is made.
      * @param attached	The corresponding (non-attached) instance that was
-     * attached in the call to {@link PersistenceManager#makePersistent}.
+     * attached in the call to 
+     * {@link javax.jdo.PersistenceManager#makePersistent}.
      * @since 2.0
      */
     public void jdoPostAttach(Object attached);

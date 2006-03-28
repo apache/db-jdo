@@ -22,8 +22,8 @@
 package javax.jdo;
 import javax.transaction.Synchronization;
 
-/** The JDO <code>Transaction</code> interface provides for initiation and completion 
- * of transactions under user control.
+/** The JDO <code>Transaction</code> interface provides for initiation and 
+ * completion of transactions under user control.
  * It is a sub-interface of the {@link PersistenceManager}
  * that deals with options and transaction demarcation. 
  * <P>Transaction options include whether optimistic concurrency
@@ -35,7 +35,8 @@ import javax.transaction.Synchronization;
  * <P>Transaction initiation and completion methods have similar semantics to
  * <code>javax.transaction.UserTransaction</code> when used outside a managed
  * environment. When used in a managed environment, transaction initiation 
- * and completion methods may only be used with bean-managed transaction semantics.
+ * and completion methods may only be used with bean-managed transaction 
+ * semantics.
  * @version 2.0
  */
 
@@ -91,7 +92,8 @@ public interface Transaction
      * a transaction active.
      * If an implementation does not support this option, a 
      * <code>JDOUnsupportedOptionException</code> is thrown.
-     * @param nontransactionalRead the value of the nontransactionalRead property
+     * @param nontransactionalRead the value of the nontransactionalRead 
+     * property
      */
     void setNontransactionalRead (boolean nontransactionalRead);
     
@@ -105,7 +107,8 @@ public interface Transaction
      * a transaction active.
      * If an implementation does not support this option, a 
      * <code>JDOUnsupportedOptionException</code> is thrown.
-     * @param nontransactionalWrite the value of the nontransactionalRead property
+     * @param nontransactionalWrite the value of the nontransactionalRead 
+     * property
      */
     void setNontransactionalWrite (boolean nontransactionalWrite);
     
@@ -115,15 +118,16 @@ public interface Transaction
      */
     boolean getNontransactionalWrite ();
     
-    /** If <code>true</code>, at commit instances retain their values and the instances
-     * transition to persistent-nontransactional.
+    /** If <code>true</code>, at commit instances retain their values and the 
+     * instances transition to persistent-nontransactional.
      * If an implementation does not support this option, a 
      * <code>JDOUnsupportedOptionException</code> is thrown.
      * @param retainValues the value of the retainValues property
      */
     void setRetainValues(boolean retainValues);
     
-    /** If <code>true</code>, at commit time instances retain their field values.
+    /** If <code>true</code>, at commit time instances retain their field 
+     * values.
      * @return the value of the retainValues property
      */
     boolean getRetainValues();
@@ -161,30 +165,34 @@ public interface Transaction
      */
     boolean getOptimistic();
     
-    /** The user can specify a <code>Synchronization</code> instance to be notified on
-     * transaction completions.  The <code>beforeCompletion</code> method is called prior
-     * to flushing instances to the data store.
+    /** The user can specify a <code>Synchronization</code> instance to be 
+     * notified on transaction completions.  The <code>beforeCompletion</code> 
+     * method is called prior to flushing instances to the data store.
      *
-     * <P>The <code>afterCompletion</code> method is called after performing state
-     * transitions of persistent and transactional instances, following 
+     * <P>The <code>afterCompletion</code> method is called after performing 
+     * state transitions of persistent and transactional instances, following 
      * the data store commit or rollback operation.
-     * <P>Only one <code>Synchronization</code> instance can be registered with the 
-     * <code>Transaction</code>. If the application requires more than one instance to 
-     * receive synchronization callbacks, then the single application instance 
-     * is responsible for managing them, and forwarding callbacks to them.
-     * @param sync the <code>Synchronization</code> instance to be notified; <code>null</code> for none
+     * <P>Only one <code>Synchronization</code> instance can be registered with 
+     * the  <code>Transaction</code>. If the application requires more than one 
+     * instance to receive synchronization callbacks, then the single 
+     * application instance is responsible for managing them, and forwarding 
+     * callbacks to them.
+     * @param sync the <code>Synchronization</code> instance to be notified; 
+     * <code>null</code> for none
      */
     void setSynchronization(Synchronization sync);
     
-    /** The user-specified <code>Synchronization</code> instance for this <code>Transaction</code> instance.    
+    /** The user-specified <code>Synchronization</code> instance for this 
+     * <code>Transaction</code> instance.    
      * @return the user-specified <code>Synchronization</code> instance.
      */
     Synchronization getSynchronization();
 
-    /** The <code>Transaction</code> instance is always associated with exactly one
-     * <code>PersistenceManager</code>.
+    /** The <code>Transaction</code> instance is always associated with exactly 
+     * one <code>PersistenceManager</code>.
      *
-     * @return the <code>PersistenceManager</code> for this <code>Transaction</code> instance
+     * @return the <code>PersistenceManager</code> for this 
+     * <code>Transaction</code> instance
      */
     PersistenceManager getPersistenceManager();
 }

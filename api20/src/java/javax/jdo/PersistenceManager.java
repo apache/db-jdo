@@ -28,10 +28,10 @@ import javax.jdo.datastore.Sequence;
 
 import javax.jdo.listener.InstanceLifecycleListener;
 
-/** <code>PersistenceManager</code> is the primary interface for JDO-aware application
- * components.  It is the factory for <code>Query</code> and <code>Transaction</code> instances,
- * and contains methods to manage the life cycle of <code>PersistenceCapable</code>
- * instances.
+/** <code>PersistenceManager</code> is the primary interface for JDO-aware 
+ * application components.  It is the factory for <code>Query</code> and 
+ * <code>Transaction</code> instances, and contains methods to manage the 
+ * life cycle of <code>PersistenceCapable</code> instances.
  *
  * <P>A <code>PersistenceManager</code> is obtained from the
  * {@link PersistenceManagerFactory}
@@ -41,40 +41,44 @@ import javax.jdo.listener.InstanceLifecycleListener;
 
 public interface PersistenceManager {
     /** 
-     * A <code>PersistenceManager</code> instance can be used until it is closed.
-     * @return <code>true</code> if this <code>PersistenceManager</code> has been closed.
+     * A <code>PersistenceManager</code> instance can be used until it is 
+     * closed.
+     * @return <code>true</code> if this <code>PersistenceManager</code> has 
+     * been closed.
      * @see #close()
      */
     boolean isClosed ();
     
-    /** Close this <code>PersistenceManager</code> so that no further requests may be 
-     * made on it.  A <code>PersistenceManager</code> instance can be used 
-     * only until it is closed.
+    /** Close this <code>PersistenceManager</code> so that no further requests 
+     * may be made on it.  A <code>PersistenceManager</code> instance can be 
+     * used only until it is closed.
      *
-     * <P>Closing a <code>PersistenceManager</code> might release it to the pool of available
-     * <code>PersistenceManager</code>s, or might be garbage collected, at the option of
-     * the JDO implementation.  Before being used again to satisfy a
-     * <code>getPersistenceManager()</code> request, the default values for options will
-     * be restored to their values as specified in the <code>PersistenceManagerFactory</code>.
+     * <P>Closing a <code>PersistenceManager</code> might release it to the pool 
+     * of available <code>PersistenceManager</code>s, or might be garbage 
+     * collected, at the option of the JDO implementation.  Before being used 
+     * again to satisfy a <code>getPersistenceManager()</code> request, the 
+     * default values for options will be restored to their values as specified 
+     * in the <code>PersistenceManagerFactory</code>.
      *
      * <P>This method closes the <code>PersistenceManager</code>.
      */
     void close ();
 
-    /** Return the <code>Transaction</code> instance associated with a <code>PersistenceManager</code>.
-     * There is one <code>Transaction</code> instance associated with each <code>PersistenceManager</code>
-     * instance.  The <code>Transaction</code> instance supports options as well as
+    /** Return the <code>Transaction</code> instance associated with a 
+     * <code>PersistenceManager</code>. There is one <code>Transaction</code> 
+     * instance associated with each <code>PersistenceManager</code> instance.  
+     * The <code>Transaction</code> instance supports options as well as
      * transaction completion requests.
      * @return the <code>Transaction</code> associated with this
      * <code>PersistenceManager</code>.
      */
     Transaction currentTransaction();
 
-    /** Mark an instance as no longer needed in the cache.
-     * Eviction is normally done automatically by the <code>PersistenceManager</code>
-     * at transaction completion.  This method allows the application to
-     * explicitly provide a hint to the <code>PersistenceManager</code> that the instance
-     * is no longer needed in the cache.
+    /** Mark an instance as no longer needed in the cache.  Eviction is normally
+     * done automatically by the <code>PersistenceManager</code> at transaction
+     * completion.  This method allows the application to explicitly provide a 
+     * hint to the <code>PersistenceManager</code> that the  instance is no 
+     * longer needed in the cache.
      * @param pc the instance to evict from the cache.
      */
     void evict (Object pc);
@@ -85,9 +89,11 @@ public interface PersistenceManager {
      */
     void evictAll (Object[] pcs);
     
-    /** Mark a <code>Collection</code> of instances as no longer needed in the cache.
+    /** Mark a <code>Collection</code> of instances as no longer needed in the 
+     * cache.
      * @see #evict(Object pc)
-     * @param pcs the <code>Collection</code> of instances to evict from the cache.
+     * @param pcs the <code>Collection</code> of instances to evict from the 
+     * cache.
      */
     void evictAll (Collection pcs);
     
@@ -105,7 +111,8 @@ public interface PersistenceManager {
      * might not match the state in the data store.  This method is used to
      * reload the state of the instance from the data store so that a subsequent
      * commit is more likely to succeed.
-     * <P>Outside a transaction, this method will refresh nontransactional state.
+     * <P>Outside a transaction, this method will refresh nontransactional 
+     * state.
      * @param pc the instance to refresh.
      */
     void refresh (Object pc);
@@ -117,7 +124,8 @@ public interface PersistenceManager {
      */
     void refreshAll (Object[] pcs);
     
-    /** Refresh the state of a <code>Collection</code> of instances from the data store.
+    /** Refresh the state of a <code>Collection</code> of instances from the 
+     * data store.
      *
      * @see #refresh(Object pc)
      * @param pcs the <code>Collection</code> of instances to refresh.
@@ -144,14 +152,17 @@ public interface PersistenceManager {
      */
     Query newQuery ();
     
-    /** Create a new <code>Query</code> using elements from another <code>Query</code>.
-     * The other <code>Query</code> must have been created by the same JDO implementation.
-     * It might be active
-     * in a different <code>PersistenceManager</code> or might have been serialized and restored.
-     * <P>All of the settings of the other <code>Query</code> are copied to this <code>Query</code>,
-     * except for the candidate <code>Collection</code> or <code>Extent</code>.
+    /** Create a new <code>Query</code> using elements from another 
+     * <code>Query</code>. The other <code>Query</code> must have been created 
+     * by the same JDO implementation. It might be active in a different 
+     * <code>PersistenceManager</code> or might have been serialized and 
+     * restored.
+     * <P>All of the settings of the other <code>Query</code> are copied to this 
+     * <code>Query</code>, except for the candidate <code>Collection</code> or 
+     * <code>Extent</code>.
      * @return the new <code>Query</code>
-     * @param compiled another <code>Query</code> from the same JDO implementation
+     * @param compiled another <code>Query</code> from the same JDO 
+     * implementation
      */
     Query newQuery (Object compiled);
     
@@ -170,7 +181,8 @@ public interface PersistenceManager {
      */    
     Query newQuery (String language, Object query);
     
-    /** Create a new <code>Query</code> specifying the <code>Class</code> of the candidate instances.
+    /** Create a new <code>Query</code> specifying the <code>Class</code> of the 
+     * candidate instances.
      * @param cls the <code>Class</code> of the candidate instances
      * @return the new <code>Query</code>
      */
@@ -199,7 +211,8 @@ public interface PersistenceManager {
      */
     Query newQuery (Class cls, String filter);
     
-    /** Create a new <code>Query</code> with the <code>Class</code> of the candidate instances, 
+    /** Create a new <code>Query</code> with the <code>Class</code> of the 
+     * candidate instances, 
      * candidate <code>Collection</code>, and filter.
      * @param cls the <code>Class</code> of candidate instances
      * @param cln the <code>Collection</code> of candidate instances
@@ -227,12 +240,13 @@ public interface PersistenceManager {
      */
     Query newNamedQuery (Class cls, String queryName);
 
-    /** The <code>PersistenceManager</code> manages a collection of instances in the data
-     * store based on the class of the instances.  This method returns an
-     * <code>Extent</code> of instances in the data store that might be iterated or
-     * given to a <code>Query</code>.  The <code>Extent</code> itself might not reference any 
-     * instances, but only hold the class name and an
-     * indicator as to whether subclasses are included in the <code>Extent</code>.
+    /** The <code>PersistenceManager</code> manages a collection of instances in
+     * the data store based on the class of the instances.  This method returns
+     * an <code>Extent</code> of instances in the data store that might be 
+     * iterated or given to a <code>Query</code>.  The <code>Extent</code> 
+     * itself might not reference any instances, but only hold the class name 
+     * and an indicator as to whether subclasses are included in the 
+     * <code>Extent</code>.
      * <P>Note that the <code>Extent</code> might be very large.
      * @param persistenceCapableClass <code>Class</code> of instances
      * @param subclasses whether to include instances of subclasses
@@ -253,18 +267,20 @@ public interface PersistenceManager {
      * managed by this <code>PersistenceManager</code>.
      * The <code>getObjectById</code> method attempts 
      * to find an instance in the cache with the specified JDO identity. 
-     * The <code>oid</code> parameter object might have been returned by an earlier call 
-     * to <code>getObjectId</code> or <code>getTransactionalObjectId</code>,
-     * or might have been constructed by the application. 
-     * <P>If the <code>PersistenceManager</code> is unable to resolve the <code>oid</code> parameter 
-     * to an ObjectId instance, then it throws a <code>JDOUserException</code>.
-     * <P>If the <code>validate</code> flag is <code>false</code>, and there is already an instance in the
-     * cache with the same JDO identity as the <code>oid</code> parameter, then this method
-     * returns it. There is no change made to the state of the returned
-     * instance.
+     * The <code>oid</code> parameter object might have been returned by an 
+     * earlier call to <code>getObjectId</code> or 
+     * <code>getTransactionalObjectId</code>, or might have been constructed by
+     * the application. 
+     * <P>If the <code>PersistenceManager</code> is unable to resolve the 
+     * <code>oid</code> parameter to an ObjectId instance, then it throws a 
+     * <code>JDOUserException</code>.
+     * <P>If the <code>validate</code> flag is <code>false</code>, and there is 
+     * already an instance in the cache with the same JDO identity as the 
+     * <code>oid</code> parameter, then this method returns it. There is no 
+     * change made to the state of the returned instance.
      * <P>If there is not an instance already in the cache with the same JDO
-     * identity as the <code>oid</code> parameter, then this method creates an instance
-     * with the specified JDO identity and returns it. If there is no
+     * identity as the <code>oid</code> parameter, then this method creates an 
+     * instance with the specified JDO identity and returns it. If there is no
      * transaction in progress, the returned instance will be hollow or
      * persistent-nontransactional, at the choice of the implementation.
      * <P>If there is a transaction in progress, the returned instance will
@@ -272,10 +288,10 @@ public interface PersistenceManager {
      * choice of the implementation.
      * <P>It is an implementation decision whether to access the data store,
      * if required to determine the exact class. This will be the case of
-     * inheritance, where multiple <code>PersistenceCapable</code> classes share the
-     * same ObjectId class.
-     * <P>If the validate flag is <code>false</code>, and the instance does not exist in
-     * the data store, then this method might not fail. It is an
+     * inheritance, where multiple <code>PersistenceCapable</code> classes share 
+     * the same ObjectId class.
+     * <P>If the validate flag is <code>false</code>, and the instance does not 
+     * exist in the data store, then this method might not fail. It is an
      * implementation choice whether to fail immediately with a
      * <code>JDOObjectNotFoundException</code>. But a subsequent access
      * of the fields of the
@@ -284,19 +300,19 @@ public interface PersistenceManager {
      * exist at that time. Further, if a relationship is established to this
      * instance, then the transaction in which the association was made will
      * fail.
-     * <P>If the <code>validate</code> flag is <code>true</code>, and there is already a transactional
-     * instance in the cache with the same JDO identity as the <code>oid</code> parameter,
-     * then this method returns it. There is no change made to the state of
-     * the returned instance.
-     * <P>If there is an instance already in the cache with the same JDO
-     * identity as the <code>oid</code> parameter, but the instance is not transactional,
-     * then it must be verified in the data store. If the instance does not
-     * exist in the datastore, then a <code>JDOObjectNotFoundException</code>
-     * is thrown.
+     * <P>If the <code>validate</code> flag is <code>true</code>, and there is 
+     * already a transactional instance in the cache with the same JDO identity 
+     * as the <code>oid</code> parameter, then this method returns it. There is 
+     * no change made to the state of the returned instance.
+     * <P>If there is an instance already in the cache with the same JDO 
+     * identity as the <code>oid</code> parameter, but the instance is not 
+     * transactional, then it must be verified in the data store. If the 
+     * instance does not exist in the datastore, then a 
+     * <code>JDOObjectNotFoundException</code> is thrown.
      * <P>If there is not an instance already in the cache with the same JDO
-     * identity as the <code>oid</code> parameter, then this method creates an instance
-     * with the specified JDO identity, verifies that it exists in the data
-     * store, and returns it. If there is no transaction in progress, the
+     * identity as the <code>oid</code> parameter, then this method creates an 
+     * instance with the specified JDO identity, verifies that it exists in the 
+     * data store, and returns it. If there is no transaction in progress, the
      * returned instance will be hollow or persistent-nontransactional,
      * at the choice of the implementation.
      * <P>If there is a data store transaction in progress, the returned
@@ -305,7 +321,8 @@ public interface PersistenceManager {
      * instance will be persistent-nontransactional.
      * @see #getObjectId(Object pc)
      * @see #getTransactionalObjectId(Object pc)
-     * @return the <code>PersistenceCapable</code> instance with the specified ObjectId
+     * @return the <code>PersistenceCapable</code> instance with the specified 
+     * ObjectId
      * @param oid an ObjectId
      * @param validate if the existence of the instance is to be validated
      */
@@ -333,31 +350,32 @@ public interface PersistenceManager {
      * the instance.  The ObjectId is a copy (clone) of the internal state
      * of the instance, and changing it does not affect the JDO identity of
      * the instance.  
-     * <P>The <code>getObjectId</code> method returns an ObjectId instance that represents
-     * the object identity of the specified JDO instance. The identity is
-     * guaranteed to be unique only in the context of the JDO
-     * <code>PersistenceManager</code> that created the identity, and only for two types
-     * of JDO Identity: those that are managed by the application, and
+     * <P>The <code>getObjectId</code> method returns an ObjectId instance that 
+     * represents the object identity of the specified JDO instance. The 
+     * identity is guaranteed to be unique only in the context of the JDO
+     * <code>PersistenceManager</code> that created the identity, and only for 
+     * two types of JDO Identity: those that are managed by the application, and
      * those that are managed by the data store.
      * <P>If the object identity is being changed in the transaction, by the
      * application modifying one or more of the application key fields,
      * then this method returns the identity as of the beginning of the
-     * transaction. The value returned by <code>getObjectId</code> will be different
-     * following <code>afterCompletion</code> processing for successful transactions.
-     * <P>Within a transaction, the ObjectId returned will compare equal to
-     * the ObjectId returned by only one among all JDO instances associated
-     * with the <code>PersistenceManager</code> regardless of the type of ObjectId.
+     * transaction. The value returned by <code>getObjectId</code> will be 
+     * different following <code>afterCompletion</code> processing for 
+     * successful transactions. <P>Within a transaction, the ObjectId returned 
+     * will compare equal to the ObjectId returned by only one among all JDO 
+     * instances associated with the <code>PersistenceManager</code> regardless
+     * of the type of ObjectId.
      * <P>The ObjectId does not necessarily contain any internal state of the
      * instance, nor is it necessarily an instance of the class used to
      * manage identity internally. Therefore, if the application makes a
      * change to the ObjectId instance returned by this method, there is
      * no effect on the instance from which the ObjectId was obtained.
      * <P>The <code>getObjectById</code> method can be used between instances of
-     * <code>PersistenceManager</code> of different JDO vendors only for instances of
-     * persistence capable classes using application-managed (primary key)
-     * JDO identity. If it is used for instances of classes using datastore
-     * identity, the method might succeed, but there are no guarantees that
-     * the parameter and return instances are related in any way.
+     * <code>PersistenceManager</code> of different JDO vendors only for 
+     * instances of persistence capable classes using application-managed 
+     * (primary key) JDO identity. If it is used for instances of classes using
+     * datastore identity, the method might succeed, but there are no guarantees
+     * that the parameter and return instances are related in any way.
      * @see #getTransactionalObjectId(Object pc)
      * @see #getObjectById(Object oid, boolean validate)
      * @param pc the <code>PersistenceCapable</code> instance
@@ -521,12 +539,12 @@ public interface PersistenceManager {
     /** Delete the persistent instance from the data store.
      * This method must be called in an active transaction.
      * The data store object will be removed at commit.
-     * Unlike <code>makePersistent</code>, which makes the closure of the instance persistent,
-     * the closure of the instance is not deleted from the data store.
-     * This method has no effect if the instance is already deleted in the
-     * current transaction.
-     * This method throws <code>JDOUserException</code> if the instance is transient or 
-     * is managed by another <code>PersistenceManager</code>.
+     * Unlike <code>makePersistent</code>, which makes the closure of the 
+     * instance persistent, the closure of the instance is not deleted from the
+     * data store.  This method has no effect if the instance is already deleted
+     * in the current transaction.
+     * This method throws <code>JDOUserException</code> if the instance is 
+     * transient or is managed by another <code>PersistenceManager</code>.
      *
      * @param pc a persistent instance
      */
@@ -548,25 +566,28 @@ public interface PersistenceManager {
      * <code>PersistenceManager</code>.
      *
      * <P>The instance loses its JDO identity and it is no longer associated
-     * with any <code>PersistenceManager</code>.  The state of fields is preserved unchanged.
+     * with any <code>PersistenceManager</code>.  The state of fields is 
+     * preserved unchanged.
      * @param pc the instance to make transient.
      */
     void makeTransient (Object pc);
     
-    /** Make an array of instances transient, removing them from management by this
-     * <code>PersistenceManager</code>.
+    /** Make an array of instances transient, removing them from management by 
+     * this <code>PersistenceManager</code>.
      *
-     * <P>The instances lose their JDO identity and they are no longer associated
-     * with any <code>PersistenceManager</code>.  The state of fields is preserved unchanged.
+     * <P>The instances lose their JDO identity and they are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state of fields
+     * is preserved unchanged.
      * @param pcs the instances to make transient.
      */
     void makeTransientAll (Object[] pcs);
     
-    /** Make a <code>Collection</code> of instances transient, removing them from
-     * management by this <code>PersistenceManager</code>.
+    /** Make a <code>Collection</code> of instances transient, removing them 
+     * from management by this <code>PersistenceManager</code>.
      *
-     * <P>The instances lose their JDO identity and they are no longer associated
-     * with any <code>PersistenceManager</code>.  The state of fields is preserved unchanged.
+     * <P>The instances lose their JDO identity and they are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state of fields
+     * is preserved unchanged.
      * @param pcs the instances to make transient.
      */ 
     void makeTransientAll (Collection pcs);
@@ -639,16 +660,16 @@ public interface PersistenceManager {
     /** Make an instance subject to transactional boundaries.
      *
      * <P>Transient instances normally do not observe transaction boundaries.
-     * This method makes transient instances sensitive to transaction completion.
-     * If an instance is modified in a transaction, and the transaction rolls back,
-     * the state of the instance is restored to the state before the first change
-     * in the transaction.
+     * This method makes transient instances sensitive to transaction 
+     * completion.  If an instance is modified in a transaction, and the 
+     * transaction rolls back, the state of the instance is restored to the 
+     * state before the first change in the transaction.
      *
      * <P>For persistent instances read in optimistic transactions, this method
      * allows the application to make the state of the instance part of the
      * transactional state.  At transaction commit, the state of the instance in
-     * the cache is compared to the state of the instance in the data store.  If they
-     * are not the same, then an exception is thrown.
+     * the cache is compared to the state of the instance in the data store.  If 
+     * they are not the same, then an exception is thrown.
      * @param pc the instance to make transactional.
      */
     void makeTransactional (Object pc);
@@ -659,8 +680,10 @@ public interface PersistenceManager {
      */
     void makeTransactionalAll (Object[] pcs);
 
-    /** Make a <code>Collection</code> of instances subject to transactional boundaries.
-     * @param pcs the <code>Collection</code> of instances to make transactional.
+    /** Make a <code>Collection</code> of instances subject to transactional 
+     * boundaries.
+     * @param pcs the <code>Collection</code> of instances to make 
+     * transactional.
      * @see #makeTransactional(Object pc)
      */
     void makeTransactionalAll (Collection pcs);
@@ -683,81 +706,108 @@ public interface PersistenceManager {
      */
     void makeNontransactionalAll (Object[] pcs);
     
-    /** Make a <code>Collection</code> of instances non-transactional after commit.
+    /** Make a <code>Collection</code> of instances non-transactional after 
+     * commit.
      *
-     * @param pcs the <code>Collection</code> of instances to make nontransactional.
+     * @param pcs the <code>Collection</code> of instances to make 
+     * nontransactional.
      * @see #makeNontransactional(Object pc)
      */
     void makeNontransactionalAll (Collection pcs);
 
     /** Retrieve field values of an instance from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instance, and its field values must be retrieved.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instance, and its field values must be retrieved.
+     * <P>The <code>PersistenceManager</code> might use policy information about 
+     * the class to retrieve associated instances.
      * @param pc the instance
      */
     void retrieve (Object pc);
     
     /** Retrieve field values of an instance from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instance, and its field values must be retrieved.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instance, and its field values must be retrieved.
+     * <P>If the useFetchPlan parameter is false, this method behaves exactly
+     * as the corresponding method without the useFetchPlan parameter. 
+     * If the useFetchPlan parameter is true, and the fetch plan has not been
+     * modified from its default setting, all fields in the current fetch plan
+     * are fetched, and other fields might be fetched lazily by the
+     * implementation. If the useFetchPlan parameter is true, and the fetch
+     * plan has been changed from its default setting, then the fields
+     * specified by the fetch plan are loaded, along with related instances
+     * specified by the fetch plan.
      * @param pc the instance
-     * @param FGOnly whether to only retrieve the fields in the current fetch group
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to retrieve.
      * @since 2.0
      */
-    void retrieve (Object pc, boolean FGOnly);
+    void retrieve (Object pc, boolean useFetchPlan);
     
     /** Retrieve field values of instances from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instances, and all field values must be retrieved.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instances, and all field values must be retrieved.
+     * <P>The <code>PersistenceManager</code> might use policy information about 
+     * the class to retrieve associated instances.
      * @param pcs the instances
      */
     void retrieveAll (Collection pcs);
     
     /** Retrieve field values of instances from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instances, and their field values should be retrieved.  The fields
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instances, and their field values should be retrieved.  The fields
      * in the current fetch group must be retrieved, and the implementation
      * might retrieve more fields than the current fetch group.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * <P>If the useFetchPlan parameter is false, this method behaves exactly
+     * as the corresponding method without the useFetchPlan parameter. 
+     * If the useFetchPlan parameter is true, and the fetch plan has not been
+     * modified from its default setting, all fields in the current fetch plan
+     * are fetched, and other fields might be fetched lazily by the
+     * implementation. If the useFetchPlan parameter is true, and the fetch
+     * plan has been changed from its default setting, then the fields
+     * specified by the fetch plan are loaded, along with related instances
+     * specified by the fetch plan.
      * @param pcs the instances
-     * @param FGOnly whether to retrieve only the fields in the current fetch group
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to retrieve.
      * @since 1.0.1
      */
-    void retrieveAll (Collection pcs, boolean FGOnly);
+    void retrieveAll (Collection pcs, boolean useFetchPlan);
     
     /** Retrieve field values of instances from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instances, and all field values must be retrieved.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instances, and all field values must be retrieved.
+     * <P>The <code>PersistenceManager</code> might use policy information about 
+     * the class to retrieve associated instances.
      * @param pcs the instances
      */
     void retrieveAll (Object[] pcs);
            
     /** Retrieve field values of instances from the store.  This tells
-     * the <code>PersistenceManager</code> that the application intends to use the
-     * instances, and their field values should be retrieved.  The fields
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instances, and their field values should be retrieved.  The fields
      * in the current fetch group must be retrieved, and the implementation
      * might retrieve more fields than the current fetch group.
-     * <P>The <code>PersistenceManager</code> might use policy information about the
-     * class to retrieve associated instances.
+     * <P>If the useFetchPlan parameter is false, this method behaves exactly
+     * as the corresponding method without the useFetchPlan parameter. 
+     * If the useFetchPlan parameter is true, and the fetch plan has not been
+     * modified from its default setting, all fields in the current fetch plan
+     * are fetched, and other fields might be fetched lazily by the
+     * implementation. If the useFetchPlan parameter is true, and the fetch
+     * plan has been changed from its default setting, then the fields
+     * specified by the fetch plan are loaded, along with related instances
+     * specified by the fetch plan.
      * @param pcs the instances
-     * @param FGOnly whether to retrieve only the fields in the current fetch group
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to retrieve.
      * @since 1.0.1
      */
-    void retrieveAll (Object[] pcs, boolean FGOnly);
+    void retrieveAll (Object[] pcs, boolean useFetchPlan);
            
     /** The application can manage the <code>PersistenceManager</code> instances
      * more easily by having an application object associated with each
      * <code>PersistenceManager</code> instance.
-     * @param o the user instance to be remembered by the <code>PersistenceManager</code>
+     * @param o the user instance to be remembered by the 
+     * <code>PersistenceManager</code>
      * @see #getUserObject
      */
     void setUserObject (Object o);
@@ -765,44 +815,48 @@ public interface PersistenceManager {
     /** The application can manage the <code>PersistenceManager</code> instances
      * more easily by having an application object associated with each
      * <code>PersistenceManager</code> instance.
-     * @return the user object associated with this <code>PersistenceManager</code>
+     * @return the user object associated with this 
+     * <code>PersistenceManager</code>
      * @see #setUserObject
      */
     Object getUserObject ();
      
-    /** This method returns the <code>PersistenceManagerFactory</code> used to create
-     * this <code>PersistenceManager</code>.  
+    /** This method returns the <code>PersistenceManagerFactory</code> used to 
+     * create this <code>PersistenceManager</code>.  
      * @return the <code>PersistenceManagerFactory</code> that created
      * this <code>PersistenceManager</code>
      */
     PersistenceManagerFactory getPersistenceManagerFactory();
 
     /** Return the <code>Class</code> that implements the JDO Identity for the
-     * specified <code>PersistenceCapable</code> class.  The application can use the
-     * returned <code>Class</code> to construct a JDO Identity instance for
-     * application identity <code>PersistenceCapable</code> classes.  This JDO Identity
-     * instance can then be used to get an instance of the
+     * specified <code>PersistenceCapable</code> class.  The application can use 
+     * the returned <code>Class</code> to construct a JDO Identity instance for
+     * application identity <code>PersistenceCapable</code> classes.  This JDO 
+     * Identity instance can then be used to get an instance of the
      * <code>PersistenceCapable</code> class for use in the application.
      *
-     * <P>In order for the application to construct an instance of the ObjectId class
-     * it needs to know the class being used by the JDO implementation.
+     * <P>In order for the application to construct an instance of the ObjectId 
+     * class it needs to know the class being used by the JDO implementation.
      * @param cls the <code>PersistenceCapable Class</code>
      * @return the <code>Class</code> of the ObjectId of the parameter
      * @see #getObjectById
      */
     Class getObjectIdClass(Class cls);
   
-    /** Set the Multithreaded flag for this <code>PersistenceManager</code>.  Applications
-     * that use multiple threads to invoke methods or access fields from 
-     * instances managed by this <code>PersistenceManager</code> must set this flag to <code>true</code>.
-     * Instances managed by this <code>PersistenceManager</code> include persistent or
-     * transactional instances of <code>PersistenceCapable</code> classes, as well as 
-     * helper instances such as <code>Query</code>, <code>Transaction</code>, or <code>Extent</code>.
+    /** Set the Multithreaded flag for this <code>PersistenceManager</code>.  
+     * Applications that use multiple threads to invoke methods or access fields 
+     * from instances managed by this <code>PersistenceManager</code> must set 
+     * this flag to <code>true</code>. 
+     * Instances managed by this <code>PersistenceManager</code> include 
+     * persistent or transactional instances of <code>PersistenceCapable</code> 
+     * classes, as well as helper instances such as <code>Query</code>, 
+     * <code>Transaction</code>, or <code>Extent</code>.
      * @param flag the Multithreaded setting.
      */
     void setMultithreaded (boolean flag);
   
-    /** Get the current Multithreaded flag for this <code>PersistenceManager</code>.  
+    /** Get the current Multithreaded flag for this 
+     * <code>PersistenceManager</code>.  
      * @see #setMultithreaded
      * @return the Multithreaded setting.
      */
@@ -810,16 +864,20 @@ public interface PersistenceManager {
     
     /** Set the ignoreCache parameter for queries.
      *
-     * <P>IgnoreCache set to <code>true</code> specifies that for all <code>Query</code> instances created by this
-     * <code>PersistenceManager</code>, the default is the cache should be ignored for queries.
+     * <P>IgnoreCache set to <code>true</code> specifies that for all 
+     * <code>Query</code> instances created by this 
+     * <code>PersistenceManager</code>, the default is the cache should be 
+     * ignored for queries.
      * @param flag the ignoreCache setting.
      */
     void setIgnoreCache(boolean flag);
   
     /** Get the ignoreCache setting for queries.
      *
-     * <P>IgnoreCache set to <code>true</code> specifies that for all <code>Query</code> instances created by this
-     * <code>PersistenceManager</code>, the default is the cache should be ignored for queries.
+     * <P>IgnoreCache set to <code>true</code> specifies that for all 
+     * <code>Query</code> instances created by this 
+     * <code>PersistenceManager</code>, the default is the cache should be 
+     * ignored for queries.
      * @return the ignoreCache setting.
      */
    boolean getIgnoreCache();

@@ -21,8 +21,6 @@
 
 package javax.jdo.listener;
 
-import javax.jdo.PersistenceManager;
-
 /**
  * This interface is implemented by listeners to be notified of
  * delete events.
@@ -34,8 +32,8 @@ public interface DeleteLifecycleListener
 
     /**
      * Invoked whenever a persistent instance is deleted, for example
-     * during {@link PersistenceManager#deletePersistent}. Access to field
-     * values within this call are permitted.  
+     * during {@link javax.jdo.PersistenceManager#deletePersistent}. 
+     * Access to field values within this call are permitted.  
      * <P>This method is called before the instance callback
      * {@link DeleteCallback#jdoPreDelete}.
      * @param event the delete event.
@@ -45,7 +43,7 @@ public interface DeleteLifecycleListener
 
     /**
      * Invoked whenever a persistent instance is deleted, for example
-     * during {@link PersistenceManager#deletePersistent}.
+     * during {@link javax.jdo.PersistenceManager#deletePersistent}.
      * <P>This method is called after the instance transitions
      * to persistent-deleted. Access to field values is not permitted.
      * @param event the delete event.
