@@ -64,6 +64,14 @@ public class MakePersistent extends PersistenceManagerTest {
     private PCPoint p4 = null;
     private PCPoint p5 = null;
 
+    /** 
+     * Overrides parent method to avoid querying for classes
+     * that may not exist in the schema
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint.class);
+    }
+
     /** */
     public void testMakePersistent() {
         pm = getPM();
