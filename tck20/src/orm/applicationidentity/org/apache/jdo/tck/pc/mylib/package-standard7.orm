@@ -11,47 +11,6 @@
       <field name="y" column="Y"/>
     </class>
 
-    <class name="PCPoint2" table="PCPoint2" schema="applicationidentity_cls">
-      <field name="id" column="ID"/>
-      <field name="x" column="X"/>
-      <field name="y" column="Y"/>
-    </class>
-
-    <class name="PCRect" table="PCRect" schema="applicationidentity_cls">
-      <field name="id" column="ID"/>
-      <field name="lowerRight" column="LOWER_RIGHT">
-        <foreign-key/>
-      </field>
-      <field name="upperLeft" column="UPPER_LEFT">
-        <foreign-key/>
-      </field>
-    </class>
-
-    <class name="PrimitiveTypes" table="PrimitiveTypes" schema="applicationidentity_cls">
-      <field name="id" column="ID"/>
-      <field name="booleanNotNull" column="booleanNotNull"/>
-      <field name="booleanNull" column="booleanNull"/>
-      <field name="byteNotNull" column="byteNotNull"/>
-      <field name="byteNull" column="byteNull"/>
-      <field name="shortNotNull" column="shortNotNull"/>
-      <field name="shortNull" column="shortNull"/>
-      <field name="intNotNull" column="intNotNull"/>
-      <field name="intNull" column="intNull"/>
-      <field name="longNotNull" column="longNotNull"/>
-      <field name="longNull" column="longNull"/>
-      <field name="floatNotNull" column="floatNotNull"/>
-      <field name="floatNull" column="floatNull"/>
-      <field name="doubleNotNull" column="doubleNotNull"/>
-      <field name="doubleNull" column="doubleNull"/>
-      <field name="charNotNull" column="charNotNull"/>
-      <field name="charNull" column="charNull"/>
-      <field name="dateNull" column="dateNull"/>
-      <field name="stringNull" column="stringNull"/>
-      <field name="bigDecimal" column="bigDecimal"/>
-      <field name="bigInteger" column="bigInteger"/>
-      <field name="PrimitiveTypes" column="PrimitiveTypes"/>
-    </class>
-
   </package>
 </orm>
 
