@@ -1273,9 +1273,7 @@ public class NotEquals extends ComparisonTests {
         tx.rollback();
     }
 
-    /**
-     * @see JDO_Test#localSetUp()
-     */
+    /** */
     protected void localSetUp() {
         addTearDownClass(AllTypes.class);
         AllTypes.load(getPM());

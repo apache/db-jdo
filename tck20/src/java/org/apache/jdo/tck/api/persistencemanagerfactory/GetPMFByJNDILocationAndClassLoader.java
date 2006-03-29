@@ -75,9 +75,7 @@ public class GetPMFByJNDILocationAndClassLoader extends AbstractGetPMF {
         checkGetPMFWithValidProperties();
     }
 
-    /**
-     * @see AbstractGetPMF#getPMF(String)
-     */
+    /** */
     protected PersistenceManagerFactory getPMF(String name) {
         Context context = null;
         try {

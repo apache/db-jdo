@@ -73,9 +73,7 @@ public class GetPMFByStream extends AbstractGetPMF {
         checkGetPMFWithValidProperties();
     }
 
-    /**
-     * @see AbstractGetPMF#getPMF(String)
-     */
+    /** */
     protected PersistenceManagerFactory getPMF(String name) {
         FileInputStream stream = null;
         try {

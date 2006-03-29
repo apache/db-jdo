@@ -71,9 +71,7 @@ public class GetPMFByFile extends AbstractGetPMF {
         checkGetPMFWithValidProperties();
     }
 
-    /**
-     * @see AbstractGetPMF#getPMF(String)
-     */
+    /** */
     protected PersistenceManagerFactory getPMF(String name) {
         return JDOHelper.getPersistenceManagerFactory(new File(name));
     }

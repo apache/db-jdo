@@ -660,7 +660,7 @@ public abstract class QueryTest extends JDO_Test {
      * if <code>o1</code> and <code>o2</code> equal.
      * This method iterates over the first collection and 
      * checks if each instance is contained in the second collection
-     * by calling {@link QueryTest#contains(Collection, Object)}.
+     * by calling contains(Collection, Object).
      * This method does not allow <code>o1</code> and <code>o2</code>
      * to be <code>null</code> both. 
      * @param o1 the first collection
@@ -689,8 +689,7 @@ public abstract class QueryTest extends JDO_Test {
      * Returns <code>true</code> 
      * if <code>o1</code> and <code>o2</code> equal.
      * This method checks if the key sets and the value sets of both
-     * maps equal calling 
-     * {@link QueryTest#equalsCollection(Collection, Collection).
+     * maps equal calling equalsCollection(Collection, Collection).
      * This method does not allow <code>o1</code> and <code>o2</code>
      * to be <code>null</code> both. 
      * @param o1 the first map
@@ -1076,7 +1075,7 @@ public abstract class QueryTest extends JDO_Test {
 
     /**
      * Executes the given query instance delegating to
-     * {@link QueryTest#execute(String, Query, String, boolean, Object[], Object, boolean).
+     * execute(String, Query, String, boolean, Object, Object, boolean).
      * Logs argument <code>singleStringQuery</code> 
      * if debug logging is enabled.
      * @param assertion the assertion to prompt if the test case fails.
@@ -1253,8 +1252,8 @@ public abstract class QueryTest extends JDO_Test {
      * Converts the given query element holder instance to a
      * JDO query instance.
      * Calls {@link Query#deletePersistentAll()}, or
-     * {@link Query#deletePersistentAll(java.util.Map), or
-     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * {@link Query#deletePersistentAll(java.util.Map)}, or
+     * {@link Query#deletePersistentAll(java.lang.Object[])}
      * depending on the type of argument <code>parameters</code>.
      * If the number of deleted objects does not 
      * match <code>expectedNrOfDeletedObjects</code>,
@@ -1279,8 +1278,8 @@ public abstract class QueryTest extends JDO_Test {
      * Converts the given query element holder instance to a
      * JDO query instance.
      * Calls {@link Query#deletePersistentAll()}, or
-     * {@link Query#deletePersistentAll(java.util.Map), or
-     * {@link Query#deletePersistentAll(java.lang.Object[])
+     * {@link Query#deletePersistentAll(java.util.Map)}, or
+     * {@link Query#deletePersistentAll(java.lang.Object[])}
      * depending on the type of argument <code>parameters</code>.
      * If the number of deleted objects does not 
      * match <code>expectedNrOfDeletedObjects</code>,

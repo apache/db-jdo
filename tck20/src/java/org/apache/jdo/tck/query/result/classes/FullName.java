@@ -103,7 +103,7 @@ public class FullName {
     }
     
     /**
-     * @param firstName The firstName to set.
+     * @param firstname The firstName to set.
      */
     public void setFirstname(String firstname) {
         this.firstName = firstname;
@@ -117,7 +117,7 @@ public class FullName {
     }
     
     /**
-     * @param lastName The lastName to set.
+     * @param lastname The lastName to set.
      */
     public void setLastname(String lastname) {
         this.lastName = lastname;

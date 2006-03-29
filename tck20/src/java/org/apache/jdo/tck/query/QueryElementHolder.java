@@ -185,7 +185,7 @@ public class QueryElementHolder {
      * {@link PersistenceManager#newQuery(Extent)}.
      * Afterwards, all query elements of this are transfered 
      * into that instance using API methods like 
-     * {@link javax.jdo.Query#setFilter(java.lang.String) etc.
+     * {@link javax.jdo.Query#setFilter(java.lang.String)} etc.
      * @param pm the persistence manager
      * @return the JDO query instance
      */

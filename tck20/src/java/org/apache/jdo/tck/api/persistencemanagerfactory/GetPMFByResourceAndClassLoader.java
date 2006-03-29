@@ -69,9 +69,7 @@ public class GetPMFByResourceAndClassLoader extends AbstractGetPMF {
         checkGetPMFWithValidProperties();
     }
 
-    /**
-     * @see AbstractGetPMF#getPMF(String)
-     */
+    /** */
     protected PersistenceManagerFactory getPMF(String name) {
         return JDOHelper.getPersistenceManagerFactory(removePathPrefix(name), 
                 Thread.currentThread().getContextClassLoader());
