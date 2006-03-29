@@ -1,1 +1,0 @@
-Specification-Version: JDO 1.1
