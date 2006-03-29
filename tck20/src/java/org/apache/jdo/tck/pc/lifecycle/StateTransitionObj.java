@@ -83,7 +83,7 @@ public class StateTransitionObj implements Serializable {
 
         /**
          * Initialize the identifier.
-         * @param companyid The id of the company.
+         * @param id the id.
          */
         public Oid(int id) {
             this.id = id;

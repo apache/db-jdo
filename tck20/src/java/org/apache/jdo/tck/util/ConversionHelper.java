@@ -111,11 +111,12 @@ public class ConversionHelper {
 
     /**
      * Recursively converts all elements of type <code>Object[]</code>
-     * in the given <code>array</code> to collections.
-     * Finally, converts the given <code>array</code> to a collection
-     * and return it.
-     * @param array the array
-     * @return the collection
+     * Collection, or Map.
+     * @see #convertObjectArrayElements(Object[])
+     * @see #convertsElementsOfTypeObjectArray(Collection)
+     * @see #convertsElementsOfTypeObjectArray(Map)
+     * @param object the object to convert
+     * @return the converted parameter
      */
     public static Object convertObjectArrayElements(Object object) {
         Object result;

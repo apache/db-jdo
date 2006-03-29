@@ -69,7 +69,7 @@ public abstract class Insurance
 
     /**
      * Set the insurance ID.
-     * @param insid The insurance ID value.
+     * @param id The insurance ID value.
      */
     public void setInsid(long id) {
         if (this.insid != 0) 

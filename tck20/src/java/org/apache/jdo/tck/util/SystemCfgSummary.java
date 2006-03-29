@@ -37,8 +37,8 @@ public class SystemCfgSummary {
 
     /**
      * Creates a new file containing system configuration information.
-     * @param args the first element contains the output directory
-     * @param args the second element contains the file name
+     * @param args the first element contains the output directory;
+     * the second element contains the file name
      */
     public static void main(String[] args) {
         String directory = args[0] + File.separator;
