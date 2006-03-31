@@ -5,7 +5,7 @@
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="NeoOffice/J 1.1  (Unix)">
 	<META NAME="CREATED" CONTENT="20051228;16322200">
-	<META NAME="CHANGED" CONTENT="20060225;7555700">
+	<META NAME="CHANGED" CONTENT="20060331;15262300">
 	<STYLE>
 	<!--
 		@page { size: 8.5in 11in }
@@ -16,7 +16,7 @@
 <H1 ALIGN=CENTER>Running the JDO 2.0 Technology Compatibility Kit</H1>
 <P ALIGN=CENTER><BR><BR>
 </P>
-<P ALIGN=CENTER>25-Feb-2006</P>
+<P ALIGN=CENTER>30-Mar-2006</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Overview</FONT></FONT></P>
 <P>In order to demonstrate compliance with the Java Data Objects
 specification, an implementation must successfully run all of the TCK
@@ -105,9 +105,10 @@ find:
 				<LI><P>conf – this directory contains the configuration
 				information for the test runs. The file iut-pmf.properties in
 				this directory must be changed to provide properties for the IUT
-				persistence manager factory. Other files must not be modified,
-				except to put a successfully challenged test case into the
-				trunk/tck20/test/conf/exclude.list. Please see below.</P>
+				persistence manager factory. The file jndi.properties may be
+				changed to use a different jndi provider. Other files must not be
+				modified, except to put a successfully challenged test case into
+				the trunk/tck20/test/conf/exclude.list. Please see below.</P>
 			</UL>
 		</UL>
 	</UL>
@@ -143,6 +144,9 @@ Implementation Under Test. This will produce console output plus a
 directory in the TCK/target/logs directory whose name contains the
 date/time the tests were started. This directory contains the output
 of the tests. This is the directory to be published.</P>
+<P>Some of the TCK tests require the implementation to support up to
+20 instances of PersistenceManager with open transactions
+simultaneously.</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Debugging
 the IUT while running TCK tests</FONT></FONT></P>
 <P>Execute “maven help” in the TCK directory in order to get
@@ -173,8 +177,11 @@ body of the email containing the details of the challenge.</P>
 <P>The Maintenance Lead will respond within 15 working days with a
 decision on whether there is an error in the test case. If the issue
 is found by the Maintenance Lead to be due to an error in the test
-case, then the test may be put into the TCK directory
-src/conf/exclude.list and it will not be run as part of the TCK.</P>
+case, the Maintenance Lead might provide a patch that will be
+included in the next maintenance revision. If the patch is not
+provided within 15 working days of the receipt of the challenge, then
+the test may be put into the TCK directory src/conf/exclude.list and
+it will not be run as part of the TCK.</P>
 <P>Decisions of the Maintenance Lead may be appealed to the full
 expert group. A vote of the full expert group will be conducted by
 the Maintenance Lead, and a majority of votes cast will decide the
