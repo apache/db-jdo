@@ -25,7 +25,7 @@
     <name>JDO2 Implementation (Enhancer)</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-enhancer</artifactId>
-    <currentVersion>SNAPSHOT</currentVersion>
+    <currentVersion>2.0</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Objects 2.0 (JDO) Enhancer</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
@@ -39,12 +39,12 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
-            <version>SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-core</artifactId>
-            <version>SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <id>commons-logging</id>

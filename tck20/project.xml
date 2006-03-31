@@ -23,7 +23,7 @@
     <name>JDO2 Technology Compatibility Kit</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-tck</artifactId>
-    <currentVersion>SNAPSHOT</currentVersion>
+    <currentVersion>2.0</currentVersion>
     <package>org.apache.jdo.tck</package>
     <shortDescription>Java Data Objects 2.0 (JDO) TCK</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request JSR 243 under the auspices of the Java Community Process.
@@ -39,28 +39,28 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
-            <version>SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-enhancer</artifactId>
-            <version>SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-core</artifactId>
-            <version>SNAPSHOT</version>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1.0</version>
             <url>http://www.jpox.org/docs/download.html</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-enhancer</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1.0</version>
             <url>http://www.jpox.org/docs/download.html</url>
         </dependency>
         <dependency>
@@ -113,13 +113,13 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-c3p0</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1.0</version>
             <url>http://www.jpox.org/docs/download.html</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-dbcp</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.1.0</version>
             <url>http://www.jpox.org/docs/download.html</url>
         </dependency>
         <dependency>
