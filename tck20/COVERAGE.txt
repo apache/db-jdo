@@ -57,7 +57,7 @@ which separate assertions were not developed. The metadata is extensively
 tested by a small number of tests using a number of different metadata sets.
 - Tests: 538
 - Test cases: 1158
-- Assertion coverage: 1242/1663 = 75%
+- Assertion coverage: 1342/1561 = 86%
 - API Signature Coverage: 100% for all defined public and protected members
 
 Quality Assurance
