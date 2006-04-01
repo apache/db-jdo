@@ -129,7 +129,7 @@ has datastore identity.
         <interface name="IEmployee"
             identity-type="datastore">
             <property name="reviewedProjects" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.Project"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.IProject"/>
             </property>
             <property name="projects" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.IProject"/>
@@ -181,7 +181,7 @@ has datastore identity.
             </query>
             <query name="unmodifiable" unmodifiable="true">
                 SELECT firstname, lastname 
-                FROM org.apache.jdo.tck.pc.company.Person
+                FROM org.apache.jdo.tck.pc.company.IPerson
             </query>
             <query name="packageJDO">
                 SELECT FROM org.apache.jdo.tck.pc.company.IPerson
