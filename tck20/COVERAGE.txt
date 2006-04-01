@@ -1,0 +1,80 @@
+TCK Coverage Document for JSR-243 Java Data Objects 2.0:
+
+TCK Overview:
+---------------
+The JDO TCK tests use the JUnit testing framework. The TCK is distributed 
+as a source tree archive containing test source and all required configuration 
+files, including the JDO metadatafiles and SQL scripts. Test build and 
+execution is driven by the maven.xml build script. The user can run the 
+full test suite, groups of tests, or individual tests. Test results and 
+configuration information are saved in a timestamped log directory.
+
+TCK Components:
+---------------
+- Installation instructions at db.apache.org/jdo/downloads
+- README.txt
+- Run Rules
+- maven.xml test driver
+- Test Suite
+- exclude list
+
+TCK Dependencies to be manually installed (documented in README.txt) :
+---------------
+- Maven 1.0.x
+- JNDI implementation
+
+TCK Dependencies  downloaded automatically by Maven:
+---------------
+- JDO2 components api20, core20, enhaner20, tck20
+- JUnit test framework
+- JPOX JDO implementation
+- Derby
+- Other third-party libraries
+
+Terminology of Metrics
+----------------------
+- Assertion: A specific statement of functionality or behavior derived 
+from a specification.
+  A testable assertion is one that can be validated in an implementation 
+by testing.
+- Test: A binary application (or script) comprised of one or more Test Cases.
+- Test Case: A single set of test inputs, execution conditions, and expected 
+results developed to verify an implementation's conformance with a specific 
+assertion.
+- Specification Assertion Coverage: Ratio of all assertions tested by at 
+least one test
+  case to the total number of testable assertions defined by the specification.
+- API Coverage: Ratio of methods directly exercised by test cases to the 
+total number of methods defined by the specification.
+
+Coverage
+--------
+- Total testable assertions: 1663 specification assertions, including all api
+signatures as well as text assertions identified through hand markup
+of the FrameMaker specification document using conditional text.
+Chapter 18 of the specification provides an XML grammar for metadata, for 
+which separate assertions were not developed. The metadata is extensively 
+tested by a small number of tests using a number of different metadata sets.
+- Tests: 538
+- Test cases: 1158
+- Assertion coverage: 1242/1663 = 75%
+- API Signature Coverage: 100% for all defined public and protected members
+
+Quality Assurance
+-----------------
+- TCK was run using representative configurations of the Reference 
+Implementation on
+  the following platforms:
+   * Windows 2000 Pro/Sun  J2SE 1.4.2
+   * MacOX 10.4/Sun J2SE 1.4.2
+   * Red Hat Linux/Sun J2SE 1.4.2
+- TCK code quality was demonstrated through use of code reviews conducted 
+publicly on the jdo-dev@apache.org email list
+- Documentation instructions were verified and tested
+
+Justification of Adequacy
+-------------------------
+Given the large number of assertions and metadata elements, the coverage 
+is good. 
+The availability of test development resources was limited.
+
