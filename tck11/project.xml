@@ -43,7 +43,6 @@ The source files are located in the test directory.
 However the build treats this directory as the source directory.  
 There are no unit tests in this project.
     </description>
-    <repository/>
     <!-- ============ -->
     <!-- Dependencies -->
     <!-- ============ -->

@@ -36,9 +36,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
     <repository>
         <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-        <url>http://cvs.apache.org/viewcvs.cgi/db/jdo/trunk?root=Apache-SVN</url>
+        <url>http://svn.apache.org/viewcvs.cgi/</url>
     </repository>
-
 
     <mailingLists>
         <mailingList>
@@ -46,7 +45,6 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <subscribe>jdo-user-subscribe@db.apache.org</subscribe>
             <unsubscribe>jdo-user-unsubscribe@db.apache.org</unsubscribe>
             <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-user/</archive>
-
         </mailingList>
         <mailingList>
             <name>JDO Developer List</name>
@@ -70,7 +68,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <id>clr</id>
             <email>Craig.Russell@Sun.COM</email>
             <timezone>-8</timezone>
-            <organization>Sun Microsystems</organization>
+            <organization>Sun Microsystems, Inc.</organization>
         </developer>
         <developer>
             <name>Michael Bouschen</name>
@@ -90,7 +88,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <name>Michelle Caisse</name>
             <id>mcaisse</id>
             <email>Michelle.Caisse@Sun.COM</email>
-            <organization>Sun Microsystems</organization>
+            <organization>Sun Microsystems, Inc.</organization>
             <timezone>-8</timezone>
         </developer>
         <developer>
@@ -105,14 +103,14 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <id>mzaun</id>
             <email>martin.zaun@Sun.COM</email>
             <timezone>-8</timezone>
-            <organization>Sun Microsystems</organization>
+            <organization>Sun Microsystems, Inc.</organization>
         </developer>
         <developer>
             <name>Erik Bengtson</name>
             <id>ebengtson</id>
             <email>erik@jpox.org</email>
             <timezone>1</timezone>
-            <organization>Sun Micrsystems</organization>
+            <organization>JPOX</organization>
         </developer>
         <developer>
             <name>Geir Magnusson, Jr.</name>

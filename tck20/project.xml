@@ -31,7 +31,6 @@
 The JDO TCK is a test suite designed to test implementations of the Java Data Objects 2.0 specification. In order to claim compatibility with JDO, an implementation must pass all relevant tests of the JDOTCK.
 
 NOTE!! There are no unit tests in this project.</description>
-    <repository />
     <!-- ============ -->
     <!-- Dependencies -->
     <!-- ============ -->

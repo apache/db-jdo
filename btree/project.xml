@@ -29,7 +29,6 @@
     <package>org.netbeans.mdr</package>
     <shortDescription>Binary Tree for FOStore JDO</shortDescription>
     <description>This project takes the Netbeans mdr btree implementation and provides it as a library.</description>
-    <repository />
     <!-- ============ -->
     <!-- Dependencies -->
     <!-- ============ -->
