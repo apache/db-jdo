@@ -82,11 +82,12 @@ public class NontransactionalWriteOptimisticCommitConflict
     public void testOptimisticCommitConflict() {
         if (!checkNontransactionalFeaturesSupported(true)) 
             return;
+        String location = 
+                ASSERTION_FAILED + "after optimistic commit with conflict";
         createAndModifyVersionedPCPoint();
         conflictingUpdate();
-        beginAndCommitTransactionFails(true);
-        checkXValue(ASSERTION_FAILED + "after optimistic commit with conflict",
-                conflictXValue);
+        beginAndCommitTransactionFails(location, true);
+        checkXValue(location, conflictXValue);
         failOnError();
     }
 
