@@ -28,49 +28,16 @@ import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Test NontransactionalWrite
+ *<B>Title:</B> Test NontransactionalWrite abstract base class
  *<BR>
  *<B>Keywords:</B> NontransactionalWrite
  *<BR>
- *<B>Assertion ID:</B> A5.6.2-4, A5.6.2-6, A5.6.2-8, A5.6.2-10.
+ *<B>Assertion ID:</B>
  *<BR>
  *<B>Assertion Description: </B>
-A5.6.2-4 [If a datastore transaction is begun, commit will write 
-the changes to the datastore with no checking as to 
-the current state of the instances in the datastore. 
-That is, the changes made outside the transaction 
-together with any changes made inside the transaction 
-will overwrite the current state of the datastore.] 
-
-A5.6.2-6 [If a datastore transaction is begun, rollback will not write 
-any changes to the datastore.] 
-
-A5.6.2-8 [If an optimistic transaction is begun, commit will write 
-the changes to the datastore after checking as to the current state 
-of the instances in the datastore. The changes made outside 
-the transaction together with any changes made inside the transaction 
-will update the current state of the datastore if the version 
-checking is successful.] 
-
-A5.6.2-10 [If an optimistic transaction is begun, rollback will not write 
-any changes to the datastore. The persistent-nontransactional-dirty 
-instances will transition according to the RestoreValues flag. ] 
  */
 
-public class NontransactionalWriteTest extends JDO_Test {
-
-    /** */
-    protected static final String ASSERTION_FAILED = 
-        "Assertion A5.6.2-4 (NontransactionalWriteTest) failed: ";
-    
-    /**
-     * The <code>main</code> is called when the class
-     * is directly executed from the command line.
-     * @param args The arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        BatchTestRunner.run(NontransactionalWriteTest.class);
-    }
+abstract public class NontransactionalWriteTest extends JDO_Test {
 
     /** 
      * The ObjectId of the pc instance, set by method
@@ -102,6 +69,7 @@ public class NontransactionalWriteTest extends JDO_Test {
         pm.currentTransaction().setNontransactionalRead(true);
         pm.currentTransaction().setRetainValues(true);
         VersionedPCPoint instance =  new VersionedPCPoint(originalXValue, 200);
+        pm.makePersistent(instance);
         oid = pm.getObjectId(instance);
         pm.currentTransaction().commit();
         instance.setX(newXValue);
@@ -136,7 +104,8 @@ public class NontransactionalWriteTest extends JDO_Test {
      * transaction must fail due to a conflicting update.
      * @param optimistic use optimistic transaction
      */
-    protected void beginAndCommitTransactionFails(boolean optimistic) {
+    protected void beginAndCommitTransactionFails(String location, 
+            boolean optimistic) {
         getPM().currentTransaction().setOptimistic(optimistic);
         pm.currentTransaction().begin();
         try {
@@ -145,7 +114,7 @@ public class NontransactionalWriteTest extends JDO_Test {
             // good catch; return
             return;
         }
-        appendMessage(ASSERTION_FAILED + "transaction succeeded but" +
+        appendMessage(location + "transaction succeeded but" +
                 " should not succeed.");
     }
 
