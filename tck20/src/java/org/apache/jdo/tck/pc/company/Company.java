@@ -230,13 +230,6 @@ public class Company
     }
     
     /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return ((Company)o1).compareTo(o2);
-    }
-
-    /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -251,6 +244,13 @@ public class Company
     }
 
     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return compare((ICompany)o1, (ICompany)o2);
+    }
+
+    /** 
      * Compares this object with the specified Company object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -261,8 +261,20 @@ public class Company
      * object. 
      */
     public int compareTo(ICompany other) {
-        long otherId = other.getCompanyid();
-        return (companyid < otherId ? -1 : (companyid == otherId ? 0 : 1));
+        return compare(this, other);
+    }
+
+    /**
+     * Compares its two ICompany arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first ICompany object to be compared. 
+     * @param o2 the second ICompany object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(ICompany o1, ICompany o2) {
+        return EqualityHelper.compare(o1.getCompanyid(), o2.getCompanyid());
     }
     
     /** 

@@ -150,13 +150,6 @@ public abstract class Insurance
     }
     
     /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return ((Insurance)o1).compareTo(o2);
-    }
-
-    /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -171,6 +164,13 @@ public abstract class Insurance
     }
 
     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return compare((IInsurance)o1, (IInsurance)o2);
+    }
+
+    /** 
      * Compares this object with the specified Insurance object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -181,10 +181,21 @@ public abstract class Insurance
      * Insurance object. 
      */
     public int compareTo(IInsurance other) {
-        long otherId = other.getInsid();
-        return (insid < otherId ? -1 : (insid == otherId ? 0 : 1));
+        return compare(this, other);
     }
-    
+
+    /**
+     * Compares its two IInsurance arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first IInsurance object to be compared. 
+     * @param o2 the second IInsurance object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(IInsurance o1, IInsurance o2) {
+        return EqualityHelper.compare(o1.getInsid(), o2.getInsid());
+    }
     
     /** 
      * Indicates whether some other object is "equal to" this one.

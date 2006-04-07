@@ -246,7 +246,7 @@ public class Department
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        Department otherDept = (Department)other;
+        IDepartment otherDept = (IDepartment)other;
         String where = "Department<" + deptid + ">";
         return 
             helper.equals(deptid, otherDept.getDeptid(), where + ".deptid") & 
@@ -294,7 +294,7 @@ public class Department
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return ((Department)o1).compareTo(o2);
+        return compare((IDepartment)o1, (IDepartment)o2);
     }
 
     /** 
@@ -308,8 +308,20 @@ public class Department
      * Department object. 
      */
     public int compareTo(IDepartment other) {
-        long otherId = other.getDeptid();
-        return (deptid < otherId ? -1 : (deptid == otherId ? 0 : 1));
+        return compare(this, other);
+    }
+
+    /**
+     * Compares its two IDepartment arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first IDepartment object to be compared. 
+     * @param o2 the second IDepartment object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(IDepartment o1, IDepartment o2) {
+        return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
     /** 

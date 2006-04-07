@@ -206,13 +206,6 @@ public class Address
     }
     
     /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return ((Address)o1).compareTo(o2);
-    }
-
-    /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -227,6 +220,13 @@ public class Address
     }
 
     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return compare((IAddress)o1, (IAddress)o2);
+    }
+
+    /** 
      * Compares this object with the specified Address object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -237,10 +237,22 @@ public class Address
      * object. 
      */
     public int compareTo(IAddress other) {
-        long otherId = other.getAddrid();
-        return (addrid < otherId ? -1 : (addrid == otherId ? 0 : 1));
+        return compare(this, other);
     }
     
+    /**
+     * Compares its two IAddress arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first IAddress object to be compared. 
+     * @param o2 the second IAddress object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(IAddress o1, IAddress o2) {
+        return EqualityHelper.compare(o1.getAddrid(), o2.getAddrid());
+    }
+
     /** 
      * Indicates whether some other object is "equal to" this one.
      * @param obj the object with which to compare.

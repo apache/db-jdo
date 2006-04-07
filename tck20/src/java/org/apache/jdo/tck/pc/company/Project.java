@@ -230,13 +230,6 @@ public class Project
     }
     
     /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return ((Project)o1).compareTo(o2);
-    }
-
-    /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -251,6 +244,13 @@ public class Project
     }
 
     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return compare((IProject)o1, (IProject)o2);
+    }
+
+    /** 
      * Compares this object with the specified Project object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -261,8 +261,20 @@ public class Project
      * object. 
      */
     public int compareTo(IProject other) {
-        long otherId = other.getProjid();
-        return (projid < otherId ? -1 : (projid == otherId ? 0 : 1));
+        return compare(this, other);
+    }
+
+    /**
+     * Compares its two IProject arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first IProject object to be compared. 
+     * @param o2 the second IProject object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(IProject o1, IProject o2) {
+        return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
     /** 
