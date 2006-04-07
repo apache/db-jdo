@@ -177,8 +177,6 @@ public class EqualityHelper {
             return true;
         if ((me == null) || (other == null))
             return false;
-        if (!me.getClass().isAssignableFrom(other.getClass()))
-            return false; 
         if (isProcessed(me))
             return true;
         markProcessed(me);
@@ -229,11 +227,19 @@ public class EqualityHelper {
         // Return false, if the size differs
         if (mine.size() != other.size())
             return false;
+
+        if (mine.size() == 0) 
+            return true;
+
         // Now check the elements 
         List myList = new ArrayList(mine);
         Collections.sort(myList);
         List otherList = new ArrayList(other);
-        Collections.sort(otherList);
+        /* Any collection of elements to be compared must implement Comparator
+         * to avoid the other side having to implement Comparable. */
+        Comparator comparator = 
+                (Comparator)myList.get(0);
+        Collections.sort(otherList, comparator);
         for (int i = 0; i < myList.size(); i++) {
             if (!deepEquals(myList.get(i), otherList.get(i)))
                 return false;
@@ -269,6 +275,8 @@ public class EqualityHelper {
         List myList = new ArrayList(mine.entrySet());
         Collections.sort(myList, entryKeyComparator);
         List otherList = new ArrayList(other.entrySet());
+        /* Any collection of elements to be compared must implement Comparator
+         * to avoid the other side having to implement Comparable. */
         Comparator comparator = 
                 (Comparator)((Map.Entry)myList.get(0)).getKey();
         Collections.sort(otherList, 
@@ -306,11 +314,19 @@ public class EqualityHelper {
         // Return false, if the size differs
         if (mine.size() != other.size())
             return false;
+
+        if (mine.size() == 0) 
+            return true;
+
         // Now check the elements 
         List myList = new ArrayList(mine);
         Collections.sort(myList);
         List otherList = new ArrayList(other);
-        Collections.sort(otherList);
+        /* Any collection of elements to be compared must implement Comparator
+         * to avoid the other side having to implement Comparable. */
+        Comparator comparator = 
+                (Comparator)myList.get(0);
+        Collections.sort(otherList, comparator);
         return myList.equals(otherList);
     }
 
@@ -374,10 +390,6 @@ public class EqualityHelper {
         if (other == null) {
             logUnequal(me, other, where + msgOtherNull);
             return false;
-        }
-        if (!me.getClass().isAssignableFrom(other.getClass())) {
-            logUnequal(me, other, where + msgIncompatibleTypes);
-            return false; 
         }
         if (isProcessed(me))
             return true;
@@ -599,11 +611,19 @@ public class EqualityHelper {
                     ", counted size= " + count);
             return false;
         }
+
+        if (me.size() == 0) 
+            return true;
+
         // Now check the elements 
         List myList = new ArrayList(me);
         Collections.sort(myList);
         List otherList = new ArrayList(other);
-        Collections.sort(otherList);
+        /* Any collection of elements to be compared must implement Comparator
+         * to avoid the other side having to implement Comparable. */
+        Comparator comparator = 
+                (Comparator)myList.get(0);
+        Collections.sort(otherList, comparator);
         boolean result = myList.equals(otherList);
         if (!result) 
             logUnequal(me,  other, 
@@ -847,4 +867,18 @@ public class EqualityHelper {
         return result;
     }
 
+    // Methods to support compare methods as specified in Comparator 
+    
+    /** 
+     * Compares its two arguments for order. Returns a negative integer, zero,
+     * or a positive integer as the first argument is less than, equal to, or
+     * greater than the second. 
+     * @param l1 the first long to be compared
+     * @param l2 the second long to be compared
+     * @return a negative integer, zero, or a positive integer as the first
+     * argument is less than, equal to, or greater than the second. 
+     */
+    public static int compare (long l1, long l2) {
+        return (l1 < l2 ? -1 : (l1 == l2 ? 0 : 1));
+    }
 }

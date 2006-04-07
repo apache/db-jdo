@@ -117,7 +117,7 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        FullTimeEmployee otherEmp = (FullTimeEmployee)other;
+        IFullTimeEmployee otherEmp = (IFullTimeEmployee)other;
         String where = "FullTimeEmployee<" + getPersonid() + ">";
         return super.deepCompareFields(otherEmp, helper) &
             helper.closeEnough(salary, otherEmp.getSalary(), where + ".salary");

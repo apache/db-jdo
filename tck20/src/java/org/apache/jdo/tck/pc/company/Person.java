@@ -289,14 +289,7 @@ public class Person
             helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
-     /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return ((Person)o1).compareTo(o2);
-    }
-
-   /** 
+    /** 
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object. 
@@ -311,6 +304,13 @@ public class Person
     }
 
     /** 
+     * Compare two instances. This is a method in Comparator.
+     */
+    public int compare(Object o1, Object o2) {
+        return compare((IPerson)o1, (IPerson)o2);
+    }
+
+    /** 
      * Compares this object with the specified Person object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -321,10 +321,21 @@ public class Person
      * object. 
      */
     public int compareTo(IPerson other) {
-        long otherId = other.getPersonid();
-        return (personid < otherId ? -1 : (personid == otherId ? 0 : 1));
+        return compare(this, other);
     }
-    
+
+    /**
+     * Compares its two IPerson arguments for order. Returns a negative
+     * integer, zero, or a positive integer as the first argument is less
+     * than, equal to, or greater than the second. 
+     * @param o1 the first IPerson object to be compared. 
+     * @param o2 the second IPerson object to be compared. 
+     * @return a negative integer, zero, or a positive integer as the first
+     * object is less than, equal to, or greater than the second object. 
+     */
+    public static int compare(IPerson o1, IPerson o2) {
+        return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
+    }
     
     /** 
      * Indicates whether some other object is "equal to" this one.
