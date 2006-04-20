@@ -73,7 +73,7 @@ public class SetterReplacePreviousValues extends QueryTest {
         /*EXCLUDE*/     null,
         /*WHERE*/       "personid == 1L",
         /*VARIABLES*/   null,
-        /*PARAMETERS*/  "String x",
+        /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
@@ -136,22 +136,22 @@ public class SetterReplacePreviousValues extends QueryTest {
         query = VALID_QUERIES[index].getAPIQuery(getPM());
         query.setFilter("personid == 2L");
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
-                parameters, expectedResult[index], true);
+                null, expectedResult[index], true);
         query = VALID_QUERIES[index].getSingleStringQuery(getPM());
         query.setFilter("personid == 2L");
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
-                parameters, expectedResult[index], true);
+                null, expectedResult[index], true);
         
         // replace variable declaration
         index++;
         query = VALID_QUERIES[index].getAPIQuery(getPM());
         query.declareVariables("Employee e");
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
-                parameters, expectedResult[index], true);
+                null, expectedResult[index], true);
         query = VALID_QUERIES[index].getSingleStringQuery(getPM());
         query.declareVariables("Employee e");
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
-                parameters, expectedResult[index], true);
+                null, expectedResult[index], true);
     }
     
     /**
