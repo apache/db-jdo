@@ -27,6 +27,14 @@ import javax.jdo.PersistenceManager;
 public class CompanyFactoryPMInterface 
         extends CompanyFactoryAbstractImpl {
     
+    /** */
+    public static final Class[] tearDownClasses = new Class[] {
+        IDentalInsurance.class, IMedicalInsurance.class,
+        IPerson.class, IEmployee.class, 
+        IPartTimeEmployee.class, IFullTimeEmployee.class,  
+        IProject.class, IDepartment.class, ICompany.class
+    };
+
     /**
      * Creates a new instance of CompanyFactoryPMInterface 
      */
@@ -66,4 +74,7 @@ public class CompanyFactoryPMInterface
         return (IProject)pm.newInstance(IProject.class);
     }
 
+    public Class[] getTearDownClasses() {
+        return tearDownClasses;
+    }
 }

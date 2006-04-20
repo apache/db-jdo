@@ -11,6 +11,9 @@ has datastore identity.
 
         <class name="Company" table="companies">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="companyid" column="ID"/>
             <field name="name" column="NAME">
               <column name="NAME" sql-type="VARCHAR"/>
@@ -43,6 +46,9 @@ has datastore identity.
 
         <class name="Department" table="departments">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="deptid" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
@@ -149,6 +155,9 @@ has datastore identity.
 
         <class name="Project" table="projects">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="projid" column="PROJID"/>
             <field name="name" column="NAME"/>
             <field name="budget">
@@ -168,6 +177,9 @@ has datastore identity.
 
         <interface name="ICompany" table="companies">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="companyid" column="ID"/>
             <property name="name" column="NAME">
               <column name="NAME" sql-type="VARCHAR"/>
@@ -188,6 +200,9 @@ has datastore identity.
 
         <interface name="IDepartment" table="departments">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="deptid" column="ID"/>
             <property name="name" column="NAME"/>
             <property name="company" column="COMPANYID"/>
@@ -306,6 +321,9 @@ has datastore identity.
 
         <interface name="IProject" table="projects">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="projid" column="PROJID"/>
             <property name="name" column="NAME"/>
             <property name="budget">

@@ -28,6 +28,14 @@ import javax.jdo.PersistenceManager;
  */
 public  class CompanyFactoryConcreteClass implements CompanyFactory {
 
+    /** */
+    public static final Class[] tearDownClasses = new Class[] {
+        DentalInsurance.class, MedicalInsurance.class,
+        Person.class, Employee.class, 
+        PartTimeEmployee.class, FullTimeEmployee.class,  
+        Project.class, Department.class, Company.class
+    };
+
     public CompanyFactoryConcreteClass(PersistenceManager pm) {
     }
 
@@ -130,5 +138,9 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
     public IProject newProject(long projid, String name, 
             BigDecimal budget) {
         return new Project(projid, name, budget);
+    }
+
+    public Class[] getTearDownClasses() {
+        return tearDownClasses;
     }
 }
