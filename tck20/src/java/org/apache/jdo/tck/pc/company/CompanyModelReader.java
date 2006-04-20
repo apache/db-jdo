@@ -47,24 +47,9 @@ public class CompanyModelReader extends XmlBeanFactory {
      */
     public static final String BEAN_FACTORY_NAME = "companyFactory";
 
-    /** All classes in the model 
-     */
-    private static final Class[] allClasses = new Class[] {
-        Address.class, Company.class, 
-        DentalInsurance.class, Department.class, Employee.class,
-        FullTimeEmployee.class, Insurance.class, 
-        MedicalInsurance.class, PartTimeEmployee.class, Person.class, 
-        Project.class
-    };
-    
-    /** All classes in the model 
-     */
-    private static final Class[] tearDownClasses = new Class[] {
-        DentalInsurance.class, MedicalInsurance.class,
-        Person.class, Employee.class, PartTimeEmployee.class, FullTimeEmployee.class,  
-        Project.class, Department.class, Company.class
-    };
-    
+    /** The company factory instance. */
+    private CompanyFactory companyFactory;
+
     /** 
      * Create a CompanyModelReader for the specified resourceName. 
      * @param resourceName the name of the resource
@@ -112,7 +97,8 @@ public class CompanyModelReader extends XmlBeanFactory {
         CustomDateEditor dateEditor = 
             new CustomDateEditor(formatter, true);
         registerCustomEditor(Date.class, dateEditor);
-        addSingleton(BEAN_FACTORY_NAME, CompanyFactoryRegistry.getInstance());
+        companyFactory = CompanyFactoryRegistry.getInstance();
+        addSingleton(BEAN_FACTORY_NAME, companyFactory);
     }
     
     // Convenience methods
@@ -249,17 +235,20 @@ public class CompanyModelReader extends XmlBeanFactory {
         return (Project)getBean(name, Project.class);
     }
     
-    public static Class[] getAllClasses() {
-        return allClasses;
+    /**
+     * @return Returns the tearDownClasses.
+     */
+    public Class[] getTearDownClassesFromFactory() {
+        return companyFactory.getTearDownClasses();
     }
     
     /**
      * @return Returns the tearDownClasses.
      */
     public static Class[] getTearDownClasses() {
-        return tearDownClasses;
+        return CompanyFactoryConcreteClass.tearDownClasses;
     }
-    
+
     public static Date stringToUtilDate(String value) {
         return ConversionHelper.toUtilDate(DATE_PATTERN, "America/New_York", Locale.US, value);
     }

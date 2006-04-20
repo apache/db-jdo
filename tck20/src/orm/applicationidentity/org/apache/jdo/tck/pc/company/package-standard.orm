@@ -10,6 +10,9 @@ has application identity.
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Company" table="companies">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="companyid" column="ID"/>
             <field name="name" column="NAME">
               <column name="NAME" sql-type="VARCHAR"/>
@@ -29,6 +32,9 @@ has application identity.
         </class>
 
         <class name="Department" table="departments">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="deptid" column="ID"/>
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
@@ -144,6 +150,9 @@ has application identity.
         </class>
 
         <class name="Project" table="projects">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="projid" column="PROJID"/>
             <field name="name" column="NAME"/>
             <field name="budget">
@@ -164,6 +173,9 @@ has application identity.
         </class>
 
         <interface name="ICompany" table="companies">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="companyid" column="ID"/>
             <property name="name" column="NAME">
               <column name="NAME" sql-type="VARCHAR"/>
@@ -183,6 +195,9 @@ has application identity.
         </interface>
 
         <interface name="IDepartment" table="departments">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="deptid" column="ID"/>
             <property name="name" column="NAME"/>
             <property name="company" column="COMPANYID"/>
@@ -298,6 +313,9 @@ has application identity.
         </interface>
 
         <interface name="IProject" table="projects">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <property name="projid" column="PROJID"/>
             <property name="name" column="NAME"/>
             <property name="budget">
