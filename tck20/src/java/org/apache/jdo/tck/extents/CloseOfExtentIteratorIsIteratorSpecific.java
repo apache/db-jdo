@@ -72,7 +72,7 @@ public class CloseOfExtentIteratorIsIteratorSpecific extends ExtentTest {
         commitTransaction();
         if (count2 != 2) {
             fail(ASSERTION_FAILED,
-                 "in query after closing iterator; counted " + count + " instances; should be 2");
+                 "in query after closing iterator; counted " + count2 + " instances; should be 2");
         }
         if (debug) logger.debug("Assertion A15.3-11 passed");
     }
