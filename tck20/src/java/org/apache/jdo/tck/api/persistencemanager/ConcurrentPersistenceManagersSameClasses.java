@@ -61,11 +61,20 @@ public class ConcurrentPersistenceManagersSameClasses extends PersistenceManager
     
     /** */
     public void test() {
-    	Properties pmfProperties = loadPMF2Properties();
+        if (!isBinaryCompatibilitySupported()) {
+            printUnsupportedOptionalFeatureNotTested(
+                "org.apache.jdo.tck.api.persistencemanager.ConcurrentPersistenceManagersSameClasses", 
+                "javax.jdo.option.BinaryCompatibility");
+            return;
+        }
+        Properties pmfProperties = loadPMF2Properties();
         PersistenceManagerFactory pmf2 = JDOHelper.getPersistenceManagerFactory(pmfProperties);
         PersistenceManager pm2 = pmf2.getPersistenceManager();
         Transaction tx2 = pm2.currentTransaction();
-        
+        PCPoint p21 = null;
+        PCPoint p22 = null;
+        PCRect rect2 = null;
+
         pm = getPM();
         Transaction tx = pm.currentTransaction();
         try {
@@ -77,9 +86,9 @@ public class ConcurrentPersistenceManagersSameClasses extends PersistenceManager
             PCRect rect1 = new PCRect (0, p11, p12);
             pm.makePersistent (rect1);
             
-            PCPoint p21 = new PCPoint(210, 220);
-            PCPoint p22 = new PCPoint(220, 240);
-            PCRect rect2 = new PCRect (0, p21, p22);
+            p21 = new PCPoint(210, 220);
+            p22 = new PCPoint(220, 240);
+            rect2 = new PCRect (0, p21, p22);
             pm2.makePersistent (rect2);
             
             tx.commit();
@@ -108,9 +117,21 @@ public class ConcurrentPersistenceManagersSameClasses extends PersistenceManager
         finally {
             cleanupPM(pm);
             pm = null;
-            cleanupPM(pm2);
-            pm2 = null;
-            pmf2.close();
+            try {
+                // delete pm2 instances
+                if (pm2.currentTransaction().isActive()) {
+                    pm2.currentTransaction().rollback();
+                }
+                pm2.currentTransaction().begin();
+                pm2.deletePersistent(rect2);
+                pm2.deletePersistent(p21);
+                pm2.deletePersistent(p22);
+                pm2.currentTransaction().commit();
+            } finally {
+                cleanupPM(pm2);
+                pm2 = null;
+                pmf2.close();
+            }
         }
     }
 
