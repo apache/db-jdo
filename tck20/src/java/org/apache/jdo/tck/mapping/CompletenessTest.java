@@ -49,9 +49,6 @@ public class CompletenessTest extends JDO_Test {
     private final boolean isTestToBePerformed = isTestToBePerformed();
 
     /** */
-    private CompanyModelReader reader;
-    
-    /** */
     protected List rootOids;
     
     /** */
@@ -71,14 +68,10 @@ public class CompletenessTest extends JDO_Test {
      */
     protected void localSetUp() {
         if (isTestToBePerformed) {
-            // register the default factory
-            CompanyFactoryRegistry.registerFactory();
-            // get new obj graph to compare persistent graph with
-            reader = new CompanyModelReader(inputFilename);
-            addTearDownClass(reader.getTearDownClassesFromFactory());
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
             CompanyModelReader reader = new CompanyModelReader(inputFilename);
+            addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
             List rootList = reader.getRootList();
@@ -96,6 +89,10 @@ public class CompletenessTest extends JDO_Test {
     /** */
     public void test() {
         if (isTestToBePerformed) {
+            // register the default factory
+            CompanyFactoryRegistry.registerFactory();
+            // get new obj graph to compare persistent graph with
+            CompanyModelReader reader = new CompanyModelReader(inputFilename);
             List rootList = reader.getRootList();
             
             getPM();
