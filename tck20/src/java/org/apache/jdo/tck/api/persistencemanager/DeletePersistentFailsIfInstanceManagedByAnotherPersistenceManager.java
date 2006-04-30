@@ -74,7 +74,7 @@ public class DeletePersistentFailsIfInstanceManagedByAnotherPersistenceManager e
         }
         finally {
             cleanupPM(pm2);
-            pm = null;
+            pm2 = null;
             cleanupPM(pm);
             pm = null;
         }
