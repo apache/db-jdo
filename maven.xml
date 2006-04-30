@@ -36,6 +36,7 @@
         <echo>  tck20.build   - builds tck20 and dependent JDO2 projects</echo>
         <echo>  tck20.default - calls the default goal for tck20 and dependent JDO2 projects</echo>
         <echo>  tck20.clean   - cleans tck20 and dependent JDO2 projects</echo>
+        <echo>  tck20.dist    - creates distributions of tck20 and dependent JDO2 projects</echo>
         <echo>  fostore20.clean   - cleans fostore20 and dependencies</echo>
         <echo>  fostore20.build   - builds fostore20 and dependencies</echo>
         <echo>  fostore20.default - calls the default goal for fostore20 and dependencies</echo>
@@ -110,6 +111,13 @@
         <attainGoal name="multiproject:clean"/>
     </goal>
 
+    <goal name="tck20.dist"
+          description="Creates distributions of tck20 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+        <j:set var="goal">dist</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal> 
+
     <goal name="fostore20.build"
       description="Builds fostore20 and dependencies">
         <j:set var="maven.multiproject.includes">${fostore20.projects}</j:set>
@@ -158,6 +166,10 @@
         </j:forEach>
     </goal>
 
+    <!-- ==================== -->
+    <!-- Distribution support -->
+    <!-- ==================== -->
+
     <preGoal name="dist:build-src">
         <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
         <copy toDir="${maven.dist.src.archive.dir}">
@@ -170,5 +182,33 @@
         <echo>Creating ${maven.dist.src.archive.dir}/lib/ext</echo>
         <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
     </preGoal>
+
+    <postGoal name="dist">
+        <attainGoal name="copy-release-artifacts"/>
+    </postGoal>
+
+    <goal name="copy-release-artifacts">
+        <attainGoal name="copy-distribution"/>
+        <attainGoal name="copy-dependency-artifacts"/>
+    </goal>
+
+    <goal name="copy-dependency-artifacts">
+        <mkdir dir="${jdo.releases.dist.dir}/java-repository/${pom.groupId}/jars"/>
+        <mkdir dir="${jdo.releases.dist.dir}/java-repository/${pom.groupId}/poms"/>
+
+        <!-- Copy the artifacts for the remote repository -->
+        <copy file="${maven.build.dir}/${maven.final.name}.jar" 
+              todir="${jdo.releases.dist.dir}/java-repository/${pom.groupId}/jars"/>
+        <copy file="project.xml" 
+              toFile="${jdo.releases.dist.dir}/java-repository/${pom.groupId}/poms/${maven.final.name}.pom" />
+    </goal>
+
+    <goal name="copy-distribution">
+        <mkdir dir="${jdo.releases.dist.dir}/db/jdo/${pom.currentVersion}"/>
+         <!-- Copy distributions -->
+        <copy todir="${jdo.releases.dist.dir}/db/jdo/${pom.currentVersion}">
+            <fileset dir="${maven.build.dir}/distributions"/>
+        </copy>
+    </goal>
 
 </project>

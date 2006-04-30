@@ -760,6 +760,15 @@
         </copy>
     </goal>
 
+    <!-- ==================== -->
+    <!-- Distribution support -->
+    <!-- ==================== -->
+
+    <goal name="dist">
+        <!-- Just do a source distribution for tck20. -->
+        <attainGoal name="dist:build-src"/>
+    </goal>
+
     <preGoal name="dist:build-src">
         <echo>Copying build.properties, RunRules.html, assertions, and iut_jars to ${maven.dist.src.archive.dir}/${maven.final.name}</echo>
         <copy toDir="${maven.dist.src.archive.dir}/${maven.final.name}">
@@ -784,16 +793,8 @@
         <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
     </preGoal>
 
-    <postGoal name="dist:build-src">
-         <!-- copy zip distribution to file with date in the name -->   
-         <tstamp>
-             <format property="distdate" pattern="dd_MMM_yyyy" locale="en"/>
-         </tstamp>
-         <u:replace var="version" oldChar="." newChar="_" value="${pom.currentVersion}"/>
-         <j:set var="zipfile" value="${maven.dist.dir}/${maven.final.name}-src.zip"/>
-         <j:set var="distfile" value="${maven.dist.dir}/${maven.final.name}-src-${distdate}.zip"/>
-         <echo>Create ${distfile}</echo>
-         <copy file="${zipfile}" tofile="${distfile}" failonerror="false"/>
-    </postGoal>
+    <goal name="copy-release-artifacts">
+        <attainGoal name="copy-distribution"/>
+    </goal>
 
 </project>
