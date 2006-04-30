@@ -30,7 +30,6 @@ public class CompanyFactoryPMClass
     /** */
     public static final Class[] tearDownClasses = new Class[] {
         DentalInsurance.class, MedicalInsurance.class,
-        Person.class, Employee.class, 
         PartTimeEmployee.class, FullTimeEmployee.class,  
         Project.class, Department.class, Company.class
     };
