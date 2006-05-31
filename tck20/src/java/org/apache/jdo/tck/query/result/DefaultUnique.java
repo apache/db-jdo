@@ -16,14 +16,20 @@
 
 package org.apache.jdo.tck.query.result;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 /**
  *<B>Title:</B> Default Unique.
@@ -61,6 +67,9 @@ public class DefaultUnique extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
+
+        // aggregate queries
+
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "COUNT(department)", 
@@ -77,7 +86,66 @@ public class DefaultUnique extends QueryTest {
         /*TO*/          null),
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(department)", 
+        /*RESULT*/      "avg(lifetimeOrthoBenefit)", 
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "MIN(budget)", 
+        /*INTO*/        null, 
+        /*FROM*/        Project.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "max (budget)", 
+        /*INTO*/        null, 
+        /*FROM*/        Project.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "SUM (budget)", 
+        /*INTO*/        null, 
+        /*FROM*/        Project.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+
+        // aggregate queries with grouping
+
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "count(department)", 
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
@@ -86,6 +154,62 @@ public class DefaultUnique extends QueryTest {
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    "department",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "AVG(lifetimeOrthoBenefit)", 
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "employee.department",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "min(lifetimeOrthoBenefit)", 
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "employee.department",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "MAX(lifetimeOrthoBenefit)", 
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "employee.department",
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "sum(lifetimeOrthoBenefit)", 
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    "employee.department",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null)
@@ -97,8 +221,18 @@ public class DefaultUnique extends QueryTest {
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(new String[]{
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
+        // results for aggregate queries
         new Long(5),
-        Arrays.asList(new Object[]{new Long(3), new Long(2)})
+        new BigDecimal("99.999"),
+        new BigDecimal("2000.99"),
+        new BigDecimal("2500000.99"),
+        new BigDecimal("2552001.98"),
+        // results for aggregate queries with grouping
+        Arrays.asList(new Object[]{new Long(3), new Long(2)}),
+        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
+        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
+        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
+        Arrays.asList(new Object[]{new BigDecimal("299.997"), new BigDecimal("199.998")})
     };
             
     /**
@@ -109,7 +243,7 @@ public class DefaultUnique extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(DefaultUnique.class);
     }
-    
+
     /** */
     public void testThis() {
         int index = 0;
@@ -121,20 +255,26 @@ public class DefaultUnique extends QueryTest {
 
     /** */
     public void testAggregateNoGrouping() {
-        int index = 1;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        final int firstIndex = 1;
+        final int lastIndex = 5;
+        for (int index = firstIndex; index <= lastIndex; index++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                            expectedResult[index]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                                     expectedResult[index]);
+        }
     }
 
     /** */
     public void testAggregateGrouping() {
-        int index = 2;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        final int firstIndex = 6;
+        final int lastIndex = 10;
+        for (int index = firstIndex; index <= lastIndex; index++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                            expectedResult[index]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                                     expectedResult[index]);
+        }
     }
 
     /**
