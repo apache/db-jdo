@@ -1,4 +1,4 @@
-This is the release candidate 1 of the JDO 2 project. It includes
+This is the official release of the JDO 2 project. It includes
 the JDO 2.0 TCK and its dependencies:
 
 - api20 contains source to build jdo.jar, which defines the JDO API version 2.0
@@ -34,7 +34,7 @@ agreement, download 'File System Service Provider, 1.2 Beta 3' and then unpack
 the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 
 - JPOX
-The Reference Implementation for JDO 2.0 is JPOX. The tck20 subproject 
+The Reference Implementation for JDO 2.0 is JPOX 1.1.0. The tck20 subproject 
 automatically downloads the JPOX jar files via maven configuration.
 
 - derby
@@ -70,10 +70,10 @@ execute goals.
 Running the TCK
 -------
 
-This version of the TCK is almost final.  
+This version of the TCK is final.  
 
 In the tck20 project, run "maven build" to build the tck.  This will 
-compile, enhance, install the schemas, and run all the tests on all 
+compile, enhance, install the schemas, and run all the tests on the RI on all 
 supported databases and identitytypes.
 
 You may use the following custom goals and command line options
