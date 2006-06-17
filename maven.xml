@@ -171,16 +171,29 @@
     <!-- ==================== -->
 
     <preGoal name="dist:build-src">
-        <echo>Copying top-level project.xml, project.properties, and README.txt to ${maven.dist.src.archive.dir}</echo>
+        <echo>Copying top-level project.xml, project.properties, LICENSE.txt, NOTICE.txt, and README.txt to ${maven.dist.src.archive.dir}</echo>
         <copy toDir="${maven.dist.src.archive.dir}">
              <fileset dir="${basedir}/..">
                  <include name="project.properties"/>
                  <include name="project.xml"/>
                  <include name="README.txt"/>
+                 <include name="LICENSE.txt"/>
+                 <include name="NOTICE.txt"/>
              </fileset>
         </copy>
         <echo>Creating ${maven.dist.src.archive.dir}/lib/ext</echo>
         <mkdir dir="${maven.dist.src.archive.dir}/lib/ext"/>
+    </preGoal>
+
+    <preGoal name="dist:build-bin">
+        <echo>Copying top-level LICENSE.txt, NOTICE.txt, and README.txt to ${maven.dist.bin.archive.dir}</echo>
+        <copy toDir="${maven.dist.bin.archive.dir}">
+             <fileset dir="${basedir}/..">
+                 <include name="README.txt"/>
+                 <include name="LICENSE.txt"/>
+                 <include name="NOTICE.txt"/>
+             </fileset>
+        </copy>
     </preGoal>
 
     <postGoal name="dist">

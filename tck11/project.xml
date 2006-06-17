@@ -103,13 +103,18 @@ There are no unit tests in this project.
         <sourceDirectory>test/java</sourceDirectory>
         <resources>
             <resource>
+                <directory>${basedir}/..</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>${basedir}/test/java</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
-        </resources>
-        <resources>
             <resource>
                 <directory>${basedir}/test/conf</directory>
                 <includes>

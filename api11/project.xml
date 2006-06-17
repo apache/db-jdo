@@ -60,6 +60,13 @@ Request 12 under the auspices of the Java Community Process.</description>
         <!-- Resources that are packaged up inside the JAR file -->
         <resources>
             <resource>
+                <directory>${basedir}/..</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>${basedir}/src/java</directory>
                 <includes>
                     <include>javax/jdo/*.properties</include>
