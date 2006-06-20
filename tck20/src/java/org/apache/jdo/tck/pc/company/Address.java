@@ -159,11 +159,11 @@ public class Address
     }
 
     /**
-     * Returns a String representation of a <code>Adress</code> object.
-     * @return a String representation of a <code>Adress</code> object.
+     * Returns a String representation of a <code>Address</code> object.
+     * @return a String representation of a <code>Address</code> object.
      */
     public String toString() {
-        return "Adress(" + getFieldRepr() + ")";
+        return "Address(" + getFieldRepr() + ")";
     }
     
     /**
@@ -295,7 +295,7 @@ public class Address
 
         /**
          * A constructor to initialize the identifier field.
-         * @param addrid the id of the Adress.
+         * @param addrid the id of the Address.
          */
         public Oid(long addrid) {
             this.addrid = addrid;
