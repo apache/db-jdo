@@ -63,28 +63,33 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
         addTearDownClass(Company.class);
     }
 
-    /** This tests that persistence-capable instances track changes or notify their owning instance that they are dirty */
+    /** This tests that persistence-capable instances track changes
+     * or notify their owning instance that they are dirty */
     public void testPCInstance() {
         pm = getPM();
-		pm.currentTransaction().begin();
-		Company comp = getPersistentNewInstance(0);
-		pm.currentTransaction().commit(); // obj should transition to hollow
-		testHollowInstance(comp);
-		pm.currentTransaction().begin();
-		makePersistentCleanInstance(comp);
+        pm.currentTransaction().begin();
+        Company comp = getPersistentNewInstance(0);
+        pm.currentTransaction().commit(); // obj should transition to hollow
+        testHollowInstance(comp);
+        pm.currentTransaction().begin();
+        makePersistentCleanInstance(comp);
 
-		Address addr = (Address)comp.getAddress();
-		addr.setStreet("200 Orange Street"); // comp or addr should transition to persistent-dirty
-		int currComp = currentState(comp);
-		int currAddr = currentState(addr);
-		if ((currComp != PERSISTENT_DIRTY) && (currAddr != PERSISTENT_DIRTY)){
-		    fail(ASSERTION_FAILED,
-				"Unable to create persistent-dirty instance " +
-		    	"from persistent-clean instance via changing Address instance, state of Company instance is " + states[currComp] + " and state of Address instance is " + states[currAddr]);
-		}
+        Address addr = (Address)comp.getAddress();
+        // comp or addr should transition to persistent-dirty
+        addr.setStreet("200 Orange Street");
+        int currComp = currentState(comp);
+        int currAddr = currentState(addr);
+        if ((currComp != PERSISTENT_DIRTY) && (currAddr != PERSISTENT_DIRTY)){
+            fail(ASSERTION_FAILED,
+                "Unable to create persistent-dirty instance " +
+                "from persistent-clean instance via changing Address instance, "
+                + "state of Company instance is " + states[currComp] 
+                + " and state of Address instance is " + states[currAddr]);
+        }
     }
 
-    /** This tests that mutable system class instances track changes or notify their owning instance that they are dirty */
+    /** This tests that mutable system class instances track changes
+      * or notify their owning instance that they are dirty */
     public void testMutableSystemClass() {
         pm = getPM();
         pm.currentTransaction().begin();
@@ -94,48 +99,53 @@ public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
         pm.currentTransaction().begin();
         makePersistentCleanInstance(comp);
 
-		Set depts = comp.getDepartments();
-		comp.addDepartment(new Department(0,"HR",comp)); // comp or depts should transition to persistent-dirty
-		int currComp = currentState(comp);
-		int currDepts = currentState(depts);
-		if ((currComp != PERSISTENT_DIRTY) && (currDepts != PERSISTENT_DIRTY)){
-		    fail(ASSERTION_FAILED,
-				"Unable to create persistent-dirty instance " +
-		    	"from persistent-clean instance via changing Departments instance, state of Company instance is " + states[currComp] + " and state of Departments instance is " + states[currDepts]);
-		}
+        Set depts = comp.getDepartments();
+        // comp or depts should transition to persistent-dirty
+        comp.addDepartment(new Department(0, "HR", comp));
+        int currComp = currentState(comp);
+        int currDepts = currentState(depts);
+        if ((currComp != PERSISTENT_DIRTY) && (currDepts != PERSISTENT_DIRTY)){
+            fail(ASSERTION_FAILED,
+                "Unable to create persistent-dirty instance "
+                + "from persistent-clean instance via changing Departments "
+                + "instance, state of Company instance is "
+                + states[currComp] + " and state of Departments instance is "
+                + states[currDepts]);
+        }
     }
 
-	public Company getPersistentNewInstance(long companyid)
-	{
-		Company obj = new Company(companyid, "MyCompany", new Date(), new Address(0,"","","","",""));
-	    pm.makePersistent(obj); // obj should transition to persistent-new
-	    int curr = currentState(obj);
-	    if( curr != PERSISTENT_NEW ){
-	        fail(ASSERTION_FAILED,
-				"Unable to create persistent-new instance " +
-	        	"from transient instance via makePersistent(), state is " + states[curr]);
-	    }
-	    return obj;
-	}
-
-	public void testHollowInstance(Company obj)
-    {
-		int curr = currentState(obj);
-		if( curr != HOLLOW ){
-		    fail(ASSERTION_FAILED,
-				"Unable to create hollow instance " +
-		    	"from persistent-new instance via commit(), state is " + states[curr]);
-		}
+    public Company getPersistentNewInstance(long companyid) {
+        Company obj = new Company(companyid, "MyCompany", new Date(),
+                new Address(0,"","","","",""));
+        pm.makePersistent(obj); // obj should transition to persistent-new
+        int curr = currentState(obj);
+        if( curr != PERSISTENT_NEW ){
+            fail(ASSERTION_FAILED,
+                "Unable to create persistent-new instance "
+                + "from transient instance via makePersistent(), state is "
+                + states[curr]);
+        }
+        return obj;
     }
 
-	public void makePersistentCleanInstance(Company obj)
-	{
-		pm.makeTransactional(obj); // obj should transition to persistent-clean
-		int curr = currentState(obj);
-		if( curr != PERSISTENT_CLEAN ){
-		    fail(ASSERTION_FAILED,
-				"Unable to create persistent-clean instance " +
-		    	"from hollow instance via makeTransactional(obj), state is " + states[curr]);
-		}
-	}
+    public void testHollowInstance(Company obj) {
+        int curr = currentState(obj);
+        if( curr != HOLLOW ){
+            fail(ASSERTION_FAILED,
+                "Unable to create hollow instance "
+                + "from persistent-new instance via commit(), state is "
+                + states[curr]);
+        }
+    }
+
+    public void makePersistentCleanInstance(Company obj) {
+        pm.makeTransactional(obj); // obj should transition to persistent-clean
+        int curr = currentState(obj);
+        if( curr != PERSISTENT_CLEAN ){
+            fail(ASSERTION_FAILED,
+                "Unable to create persistent-clean instance "
+                + "from hollow instance via makeTransactional(obj), state is "
+                + states[curr]);
+        }
+    }
 }
