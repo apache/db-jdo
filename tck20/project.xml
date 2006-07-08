@@ -47,7 +47,12 @@ NOTE!! There are no unit tests in this project.</description>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
-            <artifactId>jdo2-core</artifactId>
+            <artifactId>jdo2-util</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-model</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -63,8 +63,9 @@
     
     <goal name="Generator">
       <ant dir="${basedir}/test/sempdept" antfile="build.xml" target="all_gen" inheritAll="false">
-        <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
-        <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
+        <property name="jdoapi" value="${jdo.api.jarfile}"/>
+        <property name="jdoutil" value="${jdo.jdoutil.jarfile}"/>
+        <property name="jdomodel" value="${jdo.jdomodel.jarfile}"/>
         <property name="jdoenhancer" value="${maven.build.dir}/classes"/>
         <property name="logging" value="${logging.jarfile}"/>
         <property name="xmlparser" value="${xmlparser}"/>
@@ -77,16 +78,18 @@
     
     <goal name="Enhancer">
       <ant dir="${basedir}/test/sempdept" antfile="build.xml" target="compile" inheritAll="false">
-        <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
-        <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
+        <property name="jdoapi" value="${jdo.api.jarfile}"/>
+        <property name="jdoutil" value="${jdo.jdoutil.jarfile}"/>
+        <property name="jdomodel" value="${jdo.jdomodel.jarfile}"/>
         <property name="jdoenhancer" value="${maven.build.dir}/classes"/>
         <property name="logging" value="${logging.jarfile}"/>
         <property name="xmlparser" value="${xmlparser}"/>
         <property name="verbose" value="${verbose}"/>
       </ant>
       <ant dir="${basedir}/test/sempdept" antfile="build.xml" target="all_enh" inheritAll="false">
-        <property name="jdoapi" value="${jdo.jdoapi.jarfile}"/>
-        <property name="jdocore" value="${jdo.jdocore.jarfile}"/>
+        <property name="jdoapi" value="${jdo.api.jarfile}"/>
+        <property name="jdoutil" value="${jdo.jdoutil.jarfile}"/>
+        <property name="jdomodel" value="${jdo.jdomodel.jarfile}"/>
         <property name="jdoenhancer" value="${maven.build.dir}/classes"/>
         <property name="logging" value="${logging.jarfile}"/>
         <property name="xmlparser" value="${xmlparser}"/>

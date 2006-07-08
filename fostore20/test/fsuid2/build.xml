@@ -1,5 +1,5 @@
 <!--
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 
 <project name="fsuid2" default="build" basedir=".">
 
-<property name="jdoapi" value="${user.home}/.maven/repository/apache-jdo/jars/jdo1-api-SNAPSHOT.jar"/>
-<property name="jdocore" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-core-20-SNAPSHOT.jar"/>
-<property name="jdoenhancer" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-enhancer-20-SNAPSHOT.jar"/>
+<property name="jdoapi" value="${user.home}/.maven/repository/javax.jdo/jars/jdo1-ap2-SNAPSHOT.jar"/>
+<property name="jdoutil" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-util-SNAPSHOT.jar"/>
+<property name="jdomodel" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-model-SNAPSHOT.jar"/>
+<property name="jdoenhancer" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-enhancer-SNAPSHOT.jar"/>
 
-<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.0.4.jar"/>
+<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.1.jar"/>
 <property name="xmlparser" value=""/>
 <property name="fsuid2.jarfile" value="../fsuid2.jar"/>
 
@@ -41,7 +42,7 @@
     <mkdir dir="${enhanceDir}"/>
     <java fork="yes" failonerror="yes" 
           classname="${enhancer}" 
-          classpath="${maven.build.dest};${jdoapi};${jdocore};${jdoenhancer};${xmlparser};${logging}">
+          classpath="${maven.build.dest};${jdoapi};${jdoutil};${jdomodel};${jdoenhancer};${xmlparser};${logging}">
         <arg line="-f -d ${enhanceDir} -s . org/apache/jdo/pc/PCPoint.class"/>
     </java>
 
@@ -53,15 +54,15 @@
 
     <java fork="yes" failonerror="yes" 
           classname="org.apache.jdo.impl.enhancer.util.AugmentationTest"
-          classpath=".;${maven.build.dest};${jdoapi};${jdocore};${jdoenhancer}">
+          classpath=".;${maven.build.dest};${jdoapi};${jdoutil};${jdomodel};${jdoenhancer}">
         <arg line="-s"/>
-        <arg path=".;${jdoapi};${jdocore};${jdoenhancer}"/>
+        <arg path=".;${jdoapi};${jdoutil};${jdomodel};${jdoenhancer}"/>
         <arg line="--properties org/apache/jdo/pc/fsuid2.jdoproperties org.apache.jdo.pc.PCPoint"/>
     </java>
 
     <java fork="yes" failonerror="yes"
           classname="org.apache.jdo.impl.enhancer.util.AnnotationTest"
-          classpath="${maven.build.dest};${jdocore};${jdoenhancer}">
+          classpath="${maven.build.dest};${jdoutil};${jdomodel};${jdoenhancer}">
         <arg line="--properties org/apache/jdo/pc/fsuid2.jdoproperties org/apache/jdo/pc/PCPoint.class"/>
     </java>
 

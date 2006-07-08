@@ -1,7 +1,8 @@
 // This is the policy file for JDO 2.0 assuming that 
 // - the JDO API classes are in jar ${jdoapi}, 
 // - the btree implementation is in ${jdobtree},
-// - the JDO core classes are in ${jdocode},
+// - the JDO util classes are in ${jdoutil},
+// - the JDO model classes are in ${jdomodel},
 // - the JDO runtime classes are in ${jdoruntime},
 // - the JDO query classes are in ${jdoquery},
 // - the JDO fostore classes are in ${jdofostore},
@@ -24,7 +25,14 @@ grant codeBase "file:${jdobtree}" {
 	permission java.io.FilePermission "${testdir}${/}*", "read,write,delete";
        };
 
-grant codeBase "file:${jdocore}" { 
+grant codeBase "file:${jdoutil}" { 
+	// Allow the jdori classes to configure the JDK 1.4 logging
+	permission java.util.logging.LoggingPermission "control";
+	// Allow the jdori classes to read the JDK 1.4 logging properties file
+	permission java.io.FilePermission "${jdoritests}", "read";
+       };
+
+grant codeBase "file:${jdomodel}" { 
 	// Allow jdori classes to read the jdo.dtd from jdo.jar.
 	permission java.io.FilePermission "${jdoapi}", "read";
 	// Allow jdori classes to read the JDO metadata files.

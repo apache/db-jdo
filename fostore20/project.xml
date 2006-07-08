@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
     <artifactId>jdo2-fostore</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>org.apache.jdo</package>
-    <shortDescription>Java Data Objects 2.0 (JDO) Core</shortDescription>
+    <shortDescription>Java Data Objects 2.0 (JDO) FOStore</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request JSR 243 under the auspices of the Java Community Process.</description>
@@ -46,7 +46,12 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
-            <artifactId>jdo2-core</artifactId>
+            <artifactId>jdo2-util</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-model</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>

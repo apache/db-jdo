@@ -1,5 +1,5 @@
 <!--
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -40,13 +40,14 @@ XXX.run: Runs the test without rebuilding.
 -->
 
 <!-- JAR files required to run the tests -->
-<property name="jdoapi" value="${user.home}/.maven/repository/apache-jdo/jars/jdo1-api-SNAPSHOT.jar"/>
-<property name="jdobtree" value="${user.home}/.maven/repository/apache-jdo/jars/jdo-btree-SNAPSHOT.jar"/>
-<property name="jdocore" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-core-20-SNAPSHOT.jar"/>
-<property name="jdoruntime" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-runtime-20-SNAPSHOT.jar"/>
-<property name="jdoquery" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-query-20-SNAPSHOT.jar"/>
+<property name="jdoapi" value="${user.home}/.maven/repository/javax.jdo/jars/jdo2-api-SNAPSHOT.jar"/>
+<property name="jdobtree" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo-btree-SNAPSHOT.jar"/>
+<property name="jdoutil" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-util-SNAPSHOT.jar"/>
+<property name="jdomodel" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-model-SNAPSHOT.jar"/>
+<property name="jdoruntime" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-runtime-SNAPSHOT.jar"/>
+<property name="jdoquery" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-query-SNAPSHOT.jar"/>
 <property name="jdofostore" value="${maven.build.dir}/classes"/>
-<property name="jdoenhancer" value="${user.home}/.maven/repository/apache-jdo/jars/jdo2-enhancer-20-SNAPSHOT.jar"/>
+<property name="jdoenhancer" value="${user.home}/.maven/repository/org.apache.jdo/jars/jdo2-enhancer-SNAPSHOT.jar"/>
 
 <property name="builddir" value="${basedir}/../target"/>
 <property name="jdoritests" value="${builddir}/test-classes/jdo-ri-tests.jar"/>
@@ -58,7 +59,7 @@ XXX.run: Runs the test without rebuilding.
 <property name="junit" value="${user.home}/.maven/repository/junit/jars/junit-3.8.1.jar"/>
 <property name="jta" value="${user.home}/.maven/repository/geronimo-spec/jars/geronimo-spec-jta-1.0.1B-rc2.jar"/>
 <property name="antlr" value="${user.home}/.maven/repository/antlr/jars/antlr-2.7.3.jar"/>
-<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.0.4.jar"/>
+<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.1.jar"/>
 <property name="xmlparser" value=""/>
 <!-- jndi implementation jars, needs to be consistent with jndi.properties -->
 <property name="jndi" value="${basedir}/fscontext.jar:${basedir}/providerutil.jar"/>
@@ -66,7 +67,7 @@ XXX.run: Runs the test without rebuilding.
 <!-- other properties -->
 <property name="testlist" value="${basedir}/conf/tests.list"/>
 <property name="ResultPrinterClass" value="org.apache.jdo.test.util.BatchResultPrinter"/>
-<property name="policyfile" value="${basedir}/conf/JDO11Policy"/>
+<property name="policyfile" value="${basedir}/conf/JDO20Policy"/>
 <property name="gui" value="false"/>
 <property name="cfdbname" value="CFDB"/>
 
@@ -82,7 +83,7 @@ XXX.run: Runs the test without rebuilding.
 <property name="extjars" 
           value="${antlr}:${junit}:${jta}:${logging}:${xmlparser}"/>
 <property name="classpath" 
-          value="${jdoritests}:${pcclasses}:${jdoapi}:${jdocore}:${jdoruntime}:${jdoquery}:${jdofostore}:${jdobtree}:${extjars}"/>
+          value="${jdoritests}:${pcclasses}:${jdoapi}:${jdoutil}:${jdomodel}:${jdoruntime}:${jdoquery}:${jdofostore}:${jdobtree}:${extjars}"/>
 
                     <!-- TEST PROPERTIES -->
                     <!-- TEST PROPERTIES -->
@@ -154,7 +155,8 @@ XXX.run: Runs the test without rebuilding.
     <sysproperty key="ResultPrinterClass" value="${ResultPrinterClass}"/>
     <sysproperty key="jdoapi" value="${jdoapi}"/>
     <sysproperty key="jdobtree" value="${jdobtree}"/>
-    <sysproperty key="jdocore" value="${jdocore}"/>
+    <sysproperty key="jdoutil" value="${jdoutil}"/>
+    <sysproperty key="jdomodel" value="${jdomodel}"/>
     <sysproperty key="jdoruntime" value="${jdoruntime}"/>
     <sysproperty key="jdoquery" value="${jdoquery}"/>
     <sysproperty key="jdofostore" value="${jdofostore}"/>
@@ -181,8 +183,8 @@ XXX.run: Runs the test without rebuilding.
 <!-- Test FOStore's security policy implementation.  This tests that in 
      an environment with a security manager, basic operations can be performed
      including create and read of persistent instances.  The security policy
-     contains different permission grants for: jdo1-api-SNAPSHOT.jar, jdo2-core-20-SNAPSHOT.jar,
-     jdo2-runtime-20-SNAPSHOT.jar, jdo2-runtime-20-SNAPSHOT.jar, jdo2-query-20-SNAPSHOT, and the
+     contains different permission grants for: jdo1-api-SNAPSHOT.jar, jdo2-util-SNAPSHOT.jar, 
+     jdo2-model-SNAPSHOT.jar, jdo2-runtime-SNAPSHOT.jar, jdo2-query-SNAPSHOT, and the
      test program itself. The query needs RuntimePermission 
      "accessDeclaredMembers" to get metadata about non managed fields
      and ReflectPermission "suppressAccessChecks" to access values of 
@@ -209,7 +211,8 @@ XXX.run: Runs the test without rebuilding.
     <sysproperty key="ResultPrinterClass" value="${ResultPrinterClass}"/>
     <sysproperty key="jdoapi" value="${jdoapi}"/>
     <sysproperty key="jdobtree" value="${jdobtree}"/>
-    <sysproperty key="jdocore" value="${jdocore}"/>
+    <sysproperty key="jdoutil" value="${jdoutil}"/>
+    <sysproperty key="jdomodel" value="${jdomodel}"/>
     <sysproperty key="jdoruntime" value="${jdoruntime}"/>
     <sysproperty key="jdoquery" value="${jdoquery}"/>
     <sysproperty key="jdofostore" value="${jdofostore}"/>

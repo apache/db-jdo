@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005 The Apache Software Foundation
+    Copyright 2006 The Apache Software Foundation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -42,7 +42,12 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
-            <artifactId>jdo2-core</artifactId>
+            <artifactId>jdo2-util</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jdo</groupId>
+            <artifactId>jdo2-model</artifactId>
             <version>SNAPSHOT</version>
         </dependency>
         <dependency>
