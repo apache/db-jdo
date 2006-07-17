@@ -122,6 +122,8 @@ grant codeBase "file:${junit}" {
        };
 
 grant codeBase "file:${logging}" {
+	// Allow apache commons logging classes to read system properties
+	permission java.util.PropertyPermission "org.apache.commons.logging.LogFactory.HashtableImpl", "read";
 	// Allow the apache commons logging classes to read logging properties files
 	permission java.io.FilePermission "${jdoritests}", "read";
        };

@@ -36,8 +36,9 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <id>commons-logging</id>
-            <version>1.0.4</version>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
     <!-- =================== -->

@@ -52,9 +52,9 @@ XXX.run: Runs the test without rebuilding.
 
 <!-- external libs -->
 <property name="junit" value="${user.home}/.maven/repository/junit/jars/junit-3.8.1.jar"/>
-<property name="jta" value="${user.home}/.maven/repository/geronimo-spec/jars/geronimo-spec-jta-1.0.1B-rc2.jar"/>
+<property name="jta" value="${user.home}/.maven/repository/org.apache.geronimo.specs/jars/geronimo-jta_1.0.1B_spec-1.0.jar"/>
 <property name="antlr" value="${user.home}/.maven/repository/antlr/jars/antlr-2.7.3.jar"/>
-<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.0.4.jar"/>
+<property name="logging" value="${user.home}/.maven/repository/commons-logging/jars/commons-logging-1.1.jar"/>
 <property name="xmlparser" value=""/>
 <!-- jndi implementation jars, needs to be consistent with jndi.properties -->
 <property name="jndi" value="${basedir}/fscontext.jar:${basedir}/providerutil.jar"/>
