@@ -127,16 +127,19 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      */
     protected void checkXValue(String location, int expectedXValue) {
         PersistenceManager pmCheck = pmf.getPersistenceManager();
-        pmCheck.currentTransaction().begin();
-        VersionedPCPoint instance = 
+        try {
+            pmCheck.currentTransaction().begin();
+            VersionedPCPoint instance = 
                 (VersionedPCPoint)pmCheck.getObjectById(oid, true);
-        int actualXValue = instance.getX();
-        pmCheck.currentTransaction().commit();
-        cleanupPM(pmCheck);
-        if (expectedXValue != actualXValue) {
-            appendMessage(location + NL + 
-                    "expected: " + expectedXValue + NL +
-                    "  actual: " + actualXValue);
+            int actualXValue = instance.getX();
+            pmCheck.currentTransaction().commit();
+            if (expectedXValue != actualXValue) {
+                appendMessage(location + NL + 
+                              "expected: " + expectedXValue + NL +
+                              "  actual: " + actualXValue);
+            }
+        } finally {
+            cleanupPM(pmCheck);
         }
     }
 
@@ -148,12 +151,15 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      */
     protected void conflictingUpdate() {
         PersistenceManager pmConflict = pmf.getPersistenceManager();
-        pmConflict.currentTransaction().setOptimistic(false);
-        VersionedPCPoint instance = 
+        try {
+            pmConflict.currentTransaction().setOptimistic(false);
+            VersionedPCPoint instance = 
                 (VersionedPCPoint)pmConflict.getObjectById(oid);
-        instance.setX(conflictXValue);
-        pmConflict.currentTransaction().commit();
-        cleanupPM(pmConflict);
+            instance.setX(conflictXValue);
+            pmConflict.currentTransaction().commit();
+        } finally {
+            cleanupPM(pmConflict);
+        }
     }
 
     /** 
