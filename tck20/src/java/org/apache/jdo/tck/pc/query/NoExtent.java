@@ -26,6 +26,8 @@ public class NoExtent {
      */
     private int id;
 
+    public NoExtent() {}
+
     public NoExtent(int id) {
         this.id = id;
     }
