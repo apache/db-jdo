@@ -36,9 +36,19 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
     <dependencies>
         <dependency>
+            <groupId>javax.jdo</groupId>
+            <artifactId>jdo2-api</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_2.4_spec</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
     <!-- =================== -->
