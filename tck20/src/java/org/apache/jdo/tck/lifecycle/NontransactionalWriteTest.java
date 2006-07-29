@@ -153,6 +153,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
         PersistenceManager pmConflict = pmf.getPersistenceManager();
         try {
             pmConflict.currentTransaction().setOptimistic(false);
+            pmConflict.currentTransaction().begin();
             VersionedPCPoint instance = 
                 (VersionedPCPoint)pmConflict.getObjectById(oid);
             instance.setX(conflictXValue);
