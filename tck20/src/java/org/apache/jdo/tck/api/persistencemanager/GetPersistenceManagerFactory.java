@@ -53,11 +53,14 @@ public class GetPersistenceManagerFactory extends PersistenceManagerTest {
     /** */
     public void testGetPersistenceManagerFactory() {
         PersistenceManagerFactory pmf = getPMF();
-        PersistenceManager pm = pmf.getPersistenceManager();
+        // Note, getPM uses the pmf returned by getPMF
+        PersistenceManager pm = getPM(); 
         PersistenceManagerFactory pmf2 = pm.getPersistenceManagerFactory();
+        pm.close();
         if (pmf2 != pmf) {
             fail(ASSERTION_FAILED,
-                 "pm.getPMF() returned different pmf, expected " + pmf + ", got " + pmf2);
+                 "pm.getPMF() returned different pmf, expected " + 
+                 pmf + ", got " + pmf2);
         }
     }
 }
