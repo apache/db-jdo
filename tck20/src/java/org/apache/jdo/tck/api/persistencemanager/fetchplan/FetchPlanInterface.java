@@ -278,8 +278,8 @@ public class FetchPlanInterface extends JDO_Test {
     public void checkRemoveGroup() {
         Set expectedGroups = new HashSet();
         FetchPlan fp = getPM().getFetchPlan();
-        Collection groups = fp.getGroups();
         fp.removeGroup("default");
+        Collection groups = fp.getGroups();
         if (!setEquals(expectedGroups, groups)) {
             failCompare(
                 "checkRemoveGroup(): wrong getGroups() " + 
