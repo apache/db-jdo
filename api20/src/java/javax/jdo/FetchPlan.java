@@ -107,10 +107,12 @@ public interface FetchPlan {
     FetchPlan clearGroups();
 
     /** 
-     * Return an immutable collection containing the names 
-     * of all active fetch groups.
-     * @return an immutable collection containing the names 
-     * of all active fetch groups
+     * Return an immutable Set containing the names 
+     * of all active fetch groups. The Set is a copy of 
+     * the currently active groups and will not change
+     * based on subsequent changes to the groups.
+     * @return an immutable Set containing the names 
+     * of all currently active fetch groups
      * @since 2.0
      */
     Set getGroups();
