@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,16 +33,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-11,A11.1-12.
  *<BR>
  *<B>Assertion Description: </B>
- *PersistenceManagerFactory.setMultithreaded(boolean flag) sets the value of the Multithreaded flag that indicates that the application will invoke methods or access fields of managed instances from multiple threads. 
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/15/01
- * Version  :     1.0
- *
+ * PersistenceManagerFactory.setMultithreaded(boolean flag) sets the value of
+ * the Multithreaded flag that indicates that the application will invoke
+ * methods or access fields of managed instances from multiple threads.
  */
 
 public class SetMultithreaded extends JDO_Test {
@@ -60,45 +53,33 @@ public class SetMultithreaded extends JDO_Test {
         BatchTestRunner.run(SetMultithreaded.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-    /** set Multithreaded to true or false and use getMultithreaded value to verify */ 
+    /** 
+     * Set Multithreaded to true or false and use getMultithreaded value to
+     * verify.
+     */ 
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setMultithreaded(true);
-            if (pmf.getMultithreaded() != true) {
-                fail(ASSERTION_FAILED,
-                     "Multithreaded set to true, value returned by PMF is " +
-                     pmf.getMultithreaded());
-            }
-            pmf.setMultithreaded(false);
-            if (pmf.getMultithreaded() != false) {
-                fail(ASSERTION_FAILED,
-                     "Multithreaded set to false, value returned by PMF is " +
-                     pmf.getMultithreaded());
-            }
-        } 
-        catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting Multithreaded " + ex);
+            setMultithreaded(false);
+            setMultithreaded(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setMultithreaded(boolean newValue) {
+        pmf.setMultithreaded(newValue);
+        boolean current = pmf.getMultithreaded();
+        if (current != newValue) {
+            fail(ASSERTION_FAILED, "Multithreaded set to " + newValue + 
+                 ", value returned by PMF is " + current);
         }
     }
 }

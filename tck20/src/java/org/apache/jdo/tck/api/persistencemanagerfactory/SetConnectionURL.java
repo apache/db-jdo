@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.JDOException;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -33,8 +30,10 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-16,A11.1-17.
  *<BR>
  *<B>Assertion Description: </B>
- * PersistenceManagerFactory.setConnectionURL(String URL) sets the value of the ConnectionURL property (the URL for the data source).
- * PersistenceManagerFactory.getConnectionURL() returns the value of the ConnectionURL property. 
+ * PersistenceManagerFactory.setConnectionURL(String URL) sets the value of
+ * the ConnectionURL property (the URL for the data source). 
+ * PersistenceManagerFactory.getConnectionURL() returns the value of the
+ * ConnectionURL property.
  */
 
 public class SetConnectionURL extends JDO_Test {
@@ -43,6 +42,9 @@ public class SetConnectionURL extends JDO_Test {
     private static final String ASSERTION_FAILED = 
         "Assertion A11.1-16,A11.1-17 (SetConnectionURL) failed: ";
     
+    /** The value of the ConnectionURL property. */
+    private String url;
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -52,42 +54,30 @@ public class SetConnectionURL extends JDO_Test {
         BatchTestRunner.run(SetConnectionURL.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
-
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
- 
-    /** set ConnectionURL value and get ConnectionURL value to verify */ 
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+        url = getPMFProperty(CONNECTION_URL_PROP);
+    }
+    
+    /** Set ConnectionURL value and get ConnectionURL value to verify. */ 
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
+            if (url == null) {
+                throw new JDOException(
+                    "Missing PMF property " + CONNECTION_URL_PROP);
+            }
             pmf.setConnectionURL(url);
             if (!url.equals(pmf.getConnectionURL())) {
                 fail(ASSERTION_FAILED,
-                     "ConnectionURL " + url + 
-                     " not equal to value returned by PMF " +
-                     pmf.getConnectionURL());
+                     "ConnectionURL set to '" + url + "' ," +
+                     "value returned by PMF is '" +
+                     pmf.getConnectionURL() + "'.");
             }
+        } finally {
+            closePMF();
         }
-        catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting ConnectionURL" + ex);
-        }
-        if (debug) logger.debug("ConnectionURL: " + pmf.getConnectionURL()); 
     }
 }

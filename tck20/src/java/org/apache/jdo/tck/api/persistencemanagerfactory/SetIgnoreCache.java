@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -32,16 +29,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-5.
  *<BR>
  *<B>Assertion Description: </B>
-PersistenceManagerFactory.setIgnoreCache(boolean flag) sets the value of the IgnoreCache property (the query mode that specifies whether cached instances are considered when evaluating the filter expression). 
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/15/01
- * Version  :     1.0
- *
+ * PersistenceManagerFactory.setIgnoreCache(boolean flag) sets the value of
+ * the IgnoreCache property (the query mode that specifies whether cached
+ * instances are considered when evaluating the filter expression).
  */
 
 public class SetIgnoreCache extends JDO_Test {
@@ -59,45 +49,32 @@ public class SetIgnoreCache extends JDO_Test {
         BatchTestRunner.run(SetIgnoreCache.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-
-    /** set IgnoreCache to true or false and use getIgnoreCache value to verify */ 
+    /** 
+     * Set IgnoreCache to true or false and use getIgnoreCache value to verify.
+     */ 
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setIgnoreCache(false);
-            if (pmf.getIgnoreCache() != false) {
-                fail(ASSERTION_FAILED,
-                     "IgnoreCache set to false, value returned by PMF is " +
-                     pmf.getIgnoreCache());
-            }
-            pmf.setIgnoreCache(true);
-            if (pmf.getIgnoreCache() != true) {
-                fail(ASSERTION_FAILED,
-                     "IgnoreCache set to true, value returned by PMF is " +
-                     pmf.getIgnoreCache());
-            }
-        } catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting IgnoreCache" + ex);
+            setIgnoreCache(false);
+            setIgnoreCache(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setIgnoreCache(boolean newValue) {
+        pmf.setIgnoreCache(newValue);
+        boolean current = pmf.getIgnoreCache();
+        if (current != newValue) {
+            fail(ASSERTION_FAILED, "IgnoreCache set to " + newValue + 
+                 ", value returned by PMF is " + current);
         }
     }
 }

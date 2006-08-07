@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -34,16 +31,8 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Assertion Description: </B>
  * PersistenceManagerFactory.getPersistenceManager() returns a
-PersistenceManager instance with the configured properties and the
-default values for option settings. 
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/22/01
- *
+ * PersistenceManager instance with the configured properties and the
+ * default values for option settings. 
  */
 
 public class GetPersistenceManager extends JDO_Test {
@@ -61,41 +50,28 @@ public class GetPersistenceManager extends JDO_Test {
         BatchTestRunner.run(GetPersistenceManager.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        super.setUp();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-
+    /** */
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-        
+        PersistenceManager pm = null;
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setConnectionURL(url);
-            pmf.setConnectionUserName(username);
-            pmf.setConnectionPassword(password);
-            pm  = pmf.getPersistenceManager();
-        }
-        catch (Exception ex) {
-        	fail(ASSERTION_FAILED,
-                 "unexpected exception " + ex);
+            pm = pmf.getPersistenceManager();
+            if (pm == null) {
+                fail(ASSERTION_FAILED, "pmf.getPersistenceManager should " + 
+                     "return a non-null value.");
+            }
         }
         finally { 
-            if (debug) logger.debug("Persistence Manager obtained: " + pm); 
-            if (pm != null) pm.close();
+            if ((pm != null) && !pm.isClosed()) {
+                pm.close();
+            }
+            closePMF();
         }
     }
 }

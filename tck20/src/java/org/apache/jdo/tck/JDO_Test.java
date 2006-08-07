@@ -143,6 +143,22 @@ public abstract class JDO_Test extends TestCase {
         {   false,          false,              true,       false,      false,        true}
     };
   
+    /** Name of the PersistenceManagerFactoryClass PMF property. */
+    public static final String PMF_CLASS_PROP = 
+        "javax.jdo.PersistenceManagerFactoryClass";
+
+    /** Name of the ConnectionURL PMF property. */
+    public static final String CONNECTION_URL_PROP = 
+        "javax.jdo.option.ConnectionURL";
+
+    /** Name of the ConnectionUserName PMF property. */
+    public static final String CONNECTION_USERNAME_PROP = 
+        "javax.jdo.option.ConnectionUserName";
+
+    /** Name of the ConnectionPassword PMF property. */
+    public static final String CONNECTION_PASSWORD_PROP = 
+        "javax.jdo.option.ConnectionPassword";
+
     /** identitytype value for applicationidentity. */
     public static final String APPLICATION_IDENTITY = "applicationidentity";
 
@@ -458,6 +474,40 @@ public abstract class JDO_Test extends TestCase {
             pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
             if (supportedOptions == null) {
                 supportedOptions = pmf.supportedOptions();
+            }
+        }
+        return pmf;
+    }
+
+    /**
+     * Get the <code>PersistenceManagerFactory</code> instance 
+     * for the implementation under test. This method does NOT use the
+     * JDOHelper method to retrieve the PMF, instead it creates an instance of
+     * the class specified as javax.jdo.PersistenceManagerFactoryClass
+     * property. The returned PMF is not configured. 
+     * @return field <code>pmf</code> if it is not <code>null</code>, 
+     * else sets field <code>pmf</code> to a new instance and returns that instance.
+     */
+    protected PersistenceManagerFactory getUnconfiguredPMF()
+    {
+        if (pmf == null) {
+            PMFPropertiesObject = loadProperties(PMFProperties); // will exit here if no properties
+            String name = PMFPropertiesObject.getProperty(PMF_CLASS_PROP);
+            try {
+                Class pmfClass = Class.forName(name);
+                pmf = (PersistenceManagerFactory) pmfClass.newInstance();
+                if (supportedOptions == null) {
+                    supportedOptions = pmf.supportedOptions();
+                }
+            } catch (ClassNotFoundException ex) {
+                throw new JDOException("Cannot find PMF class '" + name + "'.",
+                                       ex);
+            } catch (InstantiationException ex) {
+                throw new JDOException("Cannot instantiate PMF class '" + 
+                                       name + "'.", ex);
+            } catch (IllegalAccessException ex) {
+                throw new JDOException("Cannot access PMF class '" + name + 
+                                       "' or its no-arg constructor.", ex);
             }
         }
         return pmf;

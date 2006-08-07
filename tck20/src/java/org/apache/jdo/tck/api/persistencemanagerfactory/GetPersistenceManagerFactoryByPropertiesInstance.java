@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,10 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-32
  *<BR>
  *<B>Assertion Description: </B>
- * An implementation must provide a method to construct a PersistenceManagerFactory by a Properties instance.
- * This static method is called by the JDOHelper method getPersistenceManagerFactory (Properties props).
+ * An implementation must provide a method to construct a
+ * PersistenceManagerFactory by a Properties instance. This static method is
+ * called by the JDOHelper method getPersistenceManagerFactory (Properties
+ * props). 
  */
 
 
@@ -54,6 +56,15 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
         BatchTestRunner.run(GetPersistenceManagerFactoryByPropertiesInstance.class);
     }
 
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        PMFPropertiesObject = loadProperties(PMFProperties);
+        pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
+        localSetUp();
+    }
+
     /**
      * @see JDO_Test#localSetUp()
      */
@@ -63,14 +74,15 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
 
     /** */
     public void test() {
-        PMFPropertiesObject = loadProperties(PMFProperties);
-        pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
         //Try to get a PersistenceManager and begin and commit a transaction
-        pm = pmf.getPersistenceManager();
+        pm = getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        Company comp = new Company(1L, "Sun Microsystems", new Date(), new Address(0,"","","","",""));
+        Company comp = new Company(1L, "Sun Microsystems", new Date(), 
+                                   new Address(0,"","","","",""));
         pm.makePersistent(comp);
         tx.commit();
+        pm.close();
+        pm = null;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -33,16 +30,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-9,A11.1-10.
  *<BR>
  *<B>Assertion Description: </B>
- * PersistenceManagerFactory.setNontransactionalWrite(boolean flag) sets the value of the NontransactionalWrite property (the PersistenceManager mode that allows instances to be written outside a transaction).
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/15/01
- * Version  :     1.0
- *
+ * PersistenceManagerFactory.setNontransactionalWrite(boolean flag) sets the
+ * value of the NontransactionalWrite property (the PersistenceManager mode
+ * that allows instances to be written outside a transaction).
  */
 
 public class SetNonTransactionalWrite extends JDO_Test {
@@ -60,51 +50,39 @@ public class SetNonTransactionalWrite extends JDO_Test {
         BatchTestRunner.run(SetNonTransactionalWrite.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-
-    /** set NonTransactionalWrite to true or false and use getNonTransactionalWrite value to verify */ 
+    /** Set NonTransactionalWrite to true or false and use
+     * getNonTransactionalWrite value to verify.
+     */
     public void test () {
         if (!isNontransactionalWriteSupported()) {
-            if (debug)
-                logger.debug("\n SetNonTransactionalWrite() passed: this implementation does not support NontransactionalWrite.");
+            printUnsupportedOptionalFeatureNotTested(
+                "org.apache.jdo.tck.api.persistencemanagerfactory.SetNonTransactionalWrite", 
+                "javax.jdo.option.NontransactionalWrite");
             return;
         }
        
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setNontransactionalWrite(false);
-            if (pmf.getNontransactionalWrite() != false) {
-                fail(ASSERTION_FAILED,
-                     "NonTransactionalWrite set to false, value returned by PMF is " +
-                     pmf.getNontransactionalWrite());
-            }
-            pmf.setNontransactionalWrite(true);
-            if (pmf.getNontransactionalWrite() != true) {
-                fail(ASSERTION_FAILED,
-                     "NonTransactionalWrite set to true, value returned by PMF is " +
-                     pmf.getNontransactionalWrite());
-            }
-        } catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting NonTransactionalWrite " + ex);
+            setNontransactionalWrite(false);
+            setNontransactionalWrite(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setNontransactionalWrite(boolean newValue) {
+        pmf.setNontransactionalWrite(newValue);
+        boolean current = pmf.getNontransactionalWrite();
+        if (current != newValue) {
+            fail(ASSERTION_FAILED, "NonTransactionalWrite set to " + newValue + 
+                 ", value returned by PMF is " + current);
         }
     }
 }

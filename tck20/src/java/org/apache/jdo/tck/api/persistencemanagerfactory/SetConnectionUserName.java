@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.JDOException;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -33,8 +30,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-13,A11.1-14.
  *<BR>
  *<B>Assertion Description: </B>
-PersistenceManagerFactory.setConnectionUserName(String name) sets the
-value of the ConnectionUserName property (the name of the user establishing the connection). 
+ * PersistenceManagerFactory.setConnectionUserName(String name) sets the value
+ * of the ConnectionUserName property (the name of the user establishing the
+ * connection).
  */
 
 public class SetConnectionUserName extends JDO_Test {
@@ -43,6 +41,9 @@ public class SetConnectionUserName extends JDO_Test {
     private static final String ASSERTION_FAILED = 
         "Assertions A11.1-13,A11.1-14 (SetConnectionUserName) failed: ";
     
+    /** The value of the ConnectionUserName property. */
+    private String username;
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -52,36 +53,29 @@ public class SetConnectionUserName extends JDO_Test {
         BatchTestRunner.run(SetConnectionUserName.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
-
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-
-    /** set ConnectionUserName value and get ConnectionUserName value to verify */ 
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+        username = getPMFProperty(CONNECTION_USERNAME_PROP);
+    }
+    
+    /** 
+     * Set ConnectionUserName value and get ConnectionUserName value to verify.
+     */ 
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
+            if (username == null) {
+                throw new JDOException(
+                    "Missing PMF property " + CONNECTION_USERNAME_PROP);
+            }
             pmf.setConnectionUserName(username);
             if (!username.equals(pmf.getConnectionUserName())) {
                 fail(ASSERTION_FAILED,
-                     "ConnectionUserName " + username + 
-                     " not equal to value returned by PMF " +
-                     pmf.getConnectionUserName());
+                     "ConnectionUserName set to '" + username + "' ," + 
+                     "value returned by PMF is '" + 
+                     pmf.getConnectionUserName() + "'.");
             }
         } 
         catch (Exception ex) {

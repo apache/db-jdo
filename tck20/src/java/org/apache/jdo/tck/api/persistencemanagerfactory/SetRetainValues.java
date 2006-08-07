@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -32,18 +29,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-3,A11.1-4.
  *<BR>
  *<B>Assertion Description: </B>
- * PersistenceManagerFactory.setRetainValues(boolean flag) sets the value of the RetainValues property (the transaction mode that specifies the treatment of persistent instances after commit),
-PersistenceManagerFactory.getRetainValues() returns the value of the
-RetainValues property.
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/18/01
- * Version  :     1.0
- *
+ * PersistenceManagerFactory.setRetainValues(boolean flag) sets the value of
+ * the RetainValues property (the transaction mode that specifies the
+ * treatment of persistent instances after commit),
+ * PersistenceManagerFactory.getRetainValues() returns the value of the
+ * RetainValues property. 
  */
 
 public class SetRetainValues extends JDO_Test {
@@ -61,44 +51,33 @@ public class SetRetainValues extends JDO_Test {
         BatchTestRunner.run(SetRetainValues.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-    /** set RetainValues to true or false and use getRetainValues value to verify */ 
+    /** 
+     * Set RetainValues to true or false and use getRetainValues value to
+     * verify.
+     */ 
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setRetainValues(false);
-            if (pmf.getRetainValues() != false) {
-                fail(ASSERTION_FAILED,
-                     "RetainValues set to false, value returned by PMF is " +
-                     pmf.getRetainValues());
-            }
-            pmf.setRetainValues(true);
-            if (pmf.getRetainValues() != true) {
-                fail(ASSERTION_FAILED,
-                     "RetainValues set to true, value returned by PMF is " +
-                     pmf.getRetainValues());
-            }
-        } catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting RetainValues " + ex);
+            setRetainValues(false);
+            setRetainValues(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setRetainValues(boolean newValue) {
+        pmf.setRetainValues(newValue);
+        boolean current = pmf.getRetainValues();
+        if (current != newValue) {
+            fail(ASSERTION_FAILED, "RetainValues set to " + newValue + 
+                 ", value returned by PMF is " + current);
         }
     }
 }

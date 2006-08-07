@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,17 +38,15 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion ID:</B> A11.3-3.
  *<BR>
  *<B>Assertion Description: </B>
-After the first use of <code>PersistenceManagerFactory.getPersistenceManager()</code>,
-none of the <code>set</code> methods will succeed.
-
+ * After the first use of
+ * <code>PersistenceManagerFactory.getPersistenceManager()</code>, 
+ * none of the <code>set</code> methods will succeed.
  */
 
 public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
 
     private String username;
     private String password;
-    private static final String USERNAME_PROPERTY = "javax.jdo.option.ConnectionUserName";
-    private static final String PASSWORD_PROPERTY = "javax.jdo.option.ConnectionPassword";
 
     private Class[] stringParameters = null;
     private Class[] booleanParameters = null;
@@ -72,7 +70,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
 
     /** */
     public AfterGetPersistenceManagerNoSetMethodsSucceed() {
-		super();
+        super();
         initVariables();
     }
 
@@ -123,19 +121,19 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     /** */
     public void testGetPersistenceManagerWithParameters() {
         Properties props = loadProperties(PMFProperties);
-        username = props.getProperty(USERNAME_PROPERTY);  
-        password = props.getProperty(PASSWORD_PROPERTY);  
+        username = props.getProperty(CONNECTION_USERNAME_PROP);  
+        password = props.getProperty(CONNECTION_PASSWORD_PROP);  
         runTest(true);
     }
 
-	/** */
+    /** */
     public void runTest(boolean bUserAndPasswd) {       
         pmf = getPMF();
         if (!bUserAndPasswd)
             pm = getPM();
         else
-            pm = getPMF().getPersistenceManager(username,password);	
-	
+            pm = getPMF().getPersistenceManager(username,password);
+
         // each set method should throw an exception
         Collection setCollection = Arrays.asList(setMethods);
         for (Iterator it = setCollection.iterator(); it.hasNext();) {

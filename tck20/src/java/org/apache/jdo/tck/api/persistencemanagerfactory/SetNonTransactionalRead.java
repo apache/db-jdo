@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
 import org.apache.jdo.tck.JDO_Test;
@@ -33,16 +30,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-7,A11.1-8.
  *<BR>
  *<B>Assertion Description: </B>
- *PersistenceManagerFactory.setNontransactionalRead(boolean flag) sets the value of the NontransactionalRead property (the PersistenceManager mode that allows instances to be read outside a transaction). 
- */
-
-/* 
- * Revision History
- * ================
- * Author         :   Linga Neerathilingam
- * Date   :  10/15/01
- * Version  :     1.0
- *
+ * PersistenceManagerFactory.setNontransactionalRead(boolean flag) sets the
+ * value of the NontransactionalRead property (the PersistenceManager mode
+ * that allows instances to be read outside a transaction).
  */
 
 public class SetNonTransactionalRead extends JDO_Test {
@@ -60,46 +50,33 @@ public class SetNonTransactionalRead extends JDO_Test {
         BatchTestRunner.run(SetNonTransactionalRead.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-
-    /** set NonTransactionalRead to true or false and use getNonTransactionalRead value to verify */ 
+    /** 
+     * Set NonTransactionalRead to true or false and use
+     * getNonTransactionalRead value to verify.
+     */
     public void test() {
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setNontransactionalRead(false);
-            if (pmf.getNontransactionalRead() != false) {
-                fail(ASSERTION_FAILED,
-                     "NonTransactionalRead set to false, value returned by PMF is " +
-                     pmf.getNontransactionalRead());
-            }
-            pmf.setNontransactionalRead(true);
-            if (pmf.getNontransactionalRead() != true) {
-                fail(ASSERTION_FAILED,
-                     "NonTransactionalRead set to true, value returned by PMF is " +
-                     pmf.getNontransactionalRead());
-            }
-        } 
-        catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting NonTransactionalRead " + ex);
+            setNontransactionalRead(false);
+            setNontransactionalRead(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setNontransactionalRead(boolean newValue) {
+        pmf.setNontransactionalRead(newValue);
+        boolean current = pmf.getNontransactionalRead();
+        if (current != newValue) {
+            fail(ASSERTION_FAILED, "NonTransactionalRead set to " + newValue + 
+                 ", value returned by PMF is " + current);
         }
     }
 }

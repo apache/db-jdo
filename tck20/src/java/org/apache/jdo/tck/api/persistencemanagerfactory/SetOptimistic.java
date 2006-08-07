@@ -1,5 +1,5 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
+ * Copyright 2005-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -33,8 +28,10 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A11.1-1, A11.1-2.
  *<BR>
  *<B>Assertion Description: </B>
-  PersistenceManagerFactory.getOptimistic() returns Value of the Optimistic property,persistenceManagerFactory.setOptimistic(boolean flag) sets
-the value of the Optimistic property (the transaction mode that specifies concurrency control 
+ * PersistenceManagerFactory.getOptimistic() returns Value of the Optimistic
+ * property,persistenceManagerFactory.setOptimistic(boolean flag) sets the
+ * value of the Optimistic property (the transaction mode that specifies
+ * concurrency control.
  */
 
 public class SetOptimistic extends JDO_Test {
@@ -52,51 +49,37 @@ public class SetOptimistic extends JDO_Test {
         BatchTestRunner.run(SetOptimistic.class);
     }
 
-    private PersistenceManagerFactory   pmf;
-    private PersistenceManager          pm;
-    private String 			pmfClass;
-    private String                      url;
-    private String 			username;
-    private String 			password;
+    /** */
+    protected void setUp() throws Exception {
+        // close pmf that might be left open from previous test
+        closePMF();
+        pmf = getUnconfiguredPMF();
+    }
 
-    private static  String  		PMFCLASS = "javax.jdo.PersistenceManagerFactoryClass";
-    private static  String  		URL      = "javax.jdo.option.ConnectionURL";
-    private static  String  		USERNAME = "javax.jdo.option.ConnectionUserName";
-    private static  String  		PASSWORD = "javax.jdo.option.ConnectionPassword";
-
-    /** set Optimistic to true or false and use getOptimistic value to verify */ 
+    /** Set Optimistic to true or false and use getOptimistic value to verify. */ 
     public void test() {
         if (!isOptimisticSupported()) {
-            if (debug)
-                logger.debug("\n SetOptimistic() passed: this implementation does not support Optimistic.");
+            printUnsupportedOptionalFeatureNotTested(
+                "org.apache.jdo.tck.api.persistencemanagerfactory.SetOptimistic", 
+                "javax.jdo.option.Optimistic");
             return;
         }
        
-        Properties props = loadProperties(PMFProperties);
-        pmfClass = props.getProperty(PMFCLASS);  
-        url      = props.getProperty(URL);
-        username = props.getProperty(USERNAME);  
-        password = props.getProperty(PASSWORD);  
-
         try {
-            Class cl = Class.forName(pmfClass);
-            pmf = (PersistenceManagerFactory) cl.newInstance();
-            pmf.setOptimistic(false);
-            if (pmf.getOptimistic() != false) {
-                fail(ASSERTION_FAILED,
-                     "Optimistic set to false, value returned by PMF is " +
-                     pmf.getOptimistic());
-            }
-            pmf.setOptimistic(true);
-            if (pmf.getOptimistic() != true) {
-                fail(ASSERTION_FAILED,
-                     "Optimistic set to true, value returned by PMF is " +
-                     pmf.getOptimistic());
-            }
-        } 
-        catch (Exception ex) {
-            fail(ASSERTION_FAILED,
-                 "Failed in setting Optimistic " + ex);
+            setOptimistic(false);
+            setOptimistic(true);
+        } finally {
+            closePMF();
+        }
+    }
+
+    /** */
+    private void setOptimistic(boolean newValue) {
+        pmf.setOptimistic(newValue);
+        boolean optimistic = pmf.getOptimistic();
+        if (optimistic != newValue) {
+            fail(ASSERTION_FAILED, "Optimistic set to " + newValue + 
+                 ", value returned by PMF is " + optimistic);
         }
     }
 }
