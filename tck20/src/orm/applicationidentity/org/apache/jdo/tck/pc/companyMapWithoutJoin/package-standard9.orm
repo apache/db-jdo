@@ -42,6 +42,7 @@ has application identity.
             <inheritance strategy="superclass-table"/>
             <field name="hiredate" column="HIREDATE"/>
             <field name="weeklyhours" column="WEEKLYHOURS"/>
+            <field name="role" column="ROLE"/>
             <field name="department" column="DEPARTMENT">
                         <foreign-key/>
             </field>
