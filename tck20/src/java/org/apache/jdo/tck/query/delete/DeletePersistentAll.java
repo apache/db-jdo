@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -58,7 +58,7 @@ public class DeletePersistentAll extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -72,9 +72,9 @@ public class DeletePersistentAll extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname == param",
+        /*WHERE*/       "carrier == param",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  "String param",
         /*IMPORTS*/     null,
@@ -96,43 +96,43 @@ public class DeletePersistentAll extends QueryTest {
     /** */
     public void testNoParametersAPI() {
         deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[0], null, 5);
+                VALID_QUERIES[0], null, 10);
     }
     
     /** */
     public void testNoParametersSingleString() {
         deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[0], null, 5);
+                VALID_QUERIES[0], null, 10);
     }
     
     /** */
     public void testObjectArrayParametersAPI() {
-        Object[] parameters = new Object[] {"emp1First"};
+        Object[] parameters = new Object[] {"Carrier1"};
         deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[1], parameters, 1);
+                VALID_QUERIES[1], parameters, 2);
     }
     
     /** */
     public void testObjectArrayParametersSingleString() {
-        Object[] parameters = new Object[] {"emp1First"};
+        Object[] parameters = new Object[] {"Carrier1"};
         deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[1], parameters, 1);
+                VALID_QUERIES[1], parameters, 2);
     }
     
     /** */
     public void testMapParametersAPI() {
         Map parameters = new HashMap();
-        parameters.put("param", "emp1First");
+        parameters.put("param", "Carrier1");
         deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[1], parameters, 1);
+                VALID_QUERIES[1], parameters, 2);
     }
     
     /** */
     public void testMapParametersSingleString() {
         Map parameters = new HashMap();
-        parameters.put("param", "emp1First");
+        parameters.put("param", "Carrier1");
         deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[1], parameters, 1);
+                VALID_QUERIES[1], parameters, 2);
     }
     
     /**
