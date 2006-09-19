@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
+<!--
+This file contains the schema information when an implementation
+has application identity.
+-->
+    <package name="org.apache.jdo.tck.pc.companyMapWithoutJoin">
+
+        <class name="Company" table="companies">
+            <field name="companyid" column="ID"/>
+            <field name="name" column="NAME">
+              <column name="NAME" sql-type="VARCHAR"/>
+            </field>
+            <field name="founded" column="FOUNDEDDATE"/>
+            <field name="departments" mapped-by="company"/>
+        </class>
+
+        <class name="Department" table="departments">
+            <field name="deptid" column="ID"/>
+            <field name="name" column="NAME"/>
+            <field name="company" column="COMPANYID"/>
+            <!-- field type is List<Employee> -->
+            <field name="employees">
+                <order column="hiredate"/>
+                <element mapped-by="department"/>
+            </field>
+        </class>
+
+        <class name="PartTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="wage" column="WAGE"/>
+        </class>
+
+        <class name="FullTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="salary" column="SALARY"/>
+        </class>
+
+        <class name="Employee">
+            <inheritance strategy="superclass-table"/>
+            <field name="hiredate" column="HIREDATE"/>
+            <field name="weeklyhours" column="WEEKLYHOURS"/>
+            <field name="department" column="DEPARTMENT">
+                        <foreign-key/>
+            </field>
+            <field name="fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </field>
+            <field name="manager" column="MANAGER">
+                        <foreign-key/>
+            </field>
+            <field name="mentor" column="MENTOR">
+                        <foreign-key/>
+            </field>
+            <field name="protege" mapped-by="mentor"/>
+            <field name="hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </field>
+            <field name="team" mapped-by="manager"/>
+            <field name="hradvisees" mapped-by="hradvisor"/>
+        </class>
+
+        <class name="Person" table="persons">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"
+                    indexed="true"/>
+            </inheritance>
+            <field name="personid" column="PERSONID"/>
+            <field name="firstname" column="FIRSTNAME"/>
+            <field name="lastname" column="LASTNAME"/>
+            <field name="middlename">
+              <column name="MIDDLENAME" allows-null="true"/>
+            </field>
+            <field name="birthdate" column="BIRTHDATE"/>
+        </class>
+
+        <interface name="ICompany" table="companies">
+            <property name="companyid" column="ID"/>
+            <property name="name" column="NAME">
+              <column name="NAME" sql-type="VARCHAR"/>
+            </property>
+            <property name="founded" column="FOUNDEDDATE"/>
+            <property name="departments" mapped-by="company"/>
+        </interface>
+
+        <interface name="IDepartment" table="departments">
+            <!-- field type is List<Employee> -->
+            <field name="employees">
+                <order column="hiredate"/>
+                <element mapped-by="department"/>
+            </field>
+            <property name="deptid" column="ID"/>
+            <property name="name" column="NAME"/>
+            <property name="company" column="COMPANYID"/>
+        </interface>
+
+        <interface name="IPartTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="wage" column="WAGE"/>
+        </interface>
+
+        <interface name="IFullTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="salary" column="SALARY"/>
+        </interface>
+
+        <interface name="IEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="hiredate" column="HIREDATE"/>
+            <property name="weeklyhours" column="WEEKLYHOURS"/>
+            <property name="department" column="DEPARTMENT">
+                        <foreign-key/>
+            </property>
+            <property name="fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </property>
+            <property name="manager" column="MANAGER">
+                        <foreign-key/>
+            </property>
+            <property name="mentor" column="MENTOR">
+                        <foreign-key/>
+            </property>
+            <property name="protege" mapped-by="mentor"/>
+            <property name="hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </property>
+            <property name="team" mapped-by="manager"/>
+            <property name="hradvisees" mapped-by="hradvisor"/>
+        </interface>
+
+        <interface name="IPerson" table="persons">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"
+                    indexed="true"/>
+            </inheritance>
+            <property name="personid" column="PERSONID"/>
+            <property name="firstname" column="FIRSTNAME"/>
+            <property name="lastname" column="LASTNAME"/>
+            <property name="middlename">
+              <column name="MIDDLENAME" allows-null="true"/>
+            </property>
+        </interface>
+    </package>
+</orm>

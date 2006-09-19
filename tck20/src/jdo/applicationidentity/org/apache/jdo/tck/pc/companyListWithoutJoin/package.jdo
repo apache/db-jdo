@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_0.xsd">
+<!--
+This file contains the schema information when an implementation
+has application identity.
+-->
+    <package name="org.apache.jdo.tck.pc.companyListWithoutJoin">
+
+        <class name="Company"
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.companyListWithoutJoin.Company$Oid">
+            <field name="companyid" primary-key="true"/>
+            <field name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Department"/>
+            </field>
+        </class>
+
+        <class name="Department"
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.companyListWithoutJoin.Department$Oid">
+            <field name="deptid" primary-key="true"/>
+            <field name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+            </field>
+        </class>
+
+        <class name="Employee"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Person">
+            <field name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+            </field>
+            <field name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+            </field>
+        </class>
+
+        <class name="FullTimeEmployee"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+
+        <class name="PartTimeEmployee"
+            identity-type="application"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+
+        <class name="Person"
+            identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.companyListWithoutJoin.Person$Oid">
+            <field name="personid" primary-key="true"/>
+            <field name="middlename" default-fetch-group="false"/>
+        </class>
+
+        <interface name="ICompany"
+            identity-type="application">
+            <property name="companyid" primary-key="true"/>
+            <property name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IDepartment"/>
+            </property>
+        </interface>
+
+        <interface name="IDepartment"
+            identity-type="application">
+            <property name="deptid" primary-key="true"/>
+            <property name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+            </property>
+        </interface>
+
+        <interface name="IEmployee"
+            identity-type="application">
+            <property name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
+            </property>
+            <property name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="IFullTimeEmployee"
+            identity-type="application"/>
+
+        <interface name="IPartTimeEmployee"
+            identity-type="application"/>
+
+        <interface name="IPerson"
+            identity-type="application">
+            <property name="personid" primary-key="true"/>
+            <property name="middlename" default-fetch-group="false"/>
+        </interface>
+
+    </package>
+</jdo>

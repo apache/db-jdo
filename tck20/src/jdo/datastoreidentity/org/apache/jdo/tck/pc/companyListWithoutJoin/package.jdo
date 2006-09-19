@@ -7,69 +7,72 @@
 This file contains the schema information when an implementation
 has datastore identity.
 -->
-    <package name="org.apache.jdo.tck.pc.companyMapWithoutJoin">
+    <package name="org.apache.jdo.tck.pc.companyListWithoutJoin">
 
         <class name="Company"
             identity-type="datastore">
+            <field name="companyid"/>
             <field name="departments" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Department"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Department"/>
             </field>
         </class>
 
         <class name="Department"
             identity-type="datastore">
-            <field name="roles" persistence-modifier="persistent">
-                <map key-type="String"
-                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            <field name="deptid"/>
+            <field name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
             </field>
         </class>
 
         <class name="Employee"
             identity-type="datastore"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Person">
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Person">
             <field name="team" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
             </field>
             <field name="hradvisees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
             </field>
         </class>
 
         <class name="FullTimeEmployee"
             identity-type="datastore"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
 
         <class name="PartTimeEmployee"
             identity-type="datastore"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
 
         <class name="Person"
             identity-type="datastore">
+            <field name="personid"/>
             <field name="middlename" default-fetch-group="false"/>
         </class>
 
         <interface name="ICompany"
             identity-type="datastore">
+            <property name="companyid"/>
             <property name="departments" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IDepartment"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IDepartment"/>
             </property>
         </interface>
 
         <interface name="IDepartment"
             identity-type="datastore">
-            <property name="roles" persistence-modifier="persistent">
-                <map key-type="String"
-                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            <property name="deptid"/>
+            <property name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
             </property>
         </interface>
 
         <interface name="IEmployee"
             identity-type="datastore">
             <property name="team" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
             </property>
             <property name="hradvisees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
             </property>
         </interface>
 
@@ -81,6 +84,7 @@ has datastore identity.
 
         <interface name="IPerson"
             identity-type="datastore">
+            <property name="personid"/>
             <property name="middlename" default-fetch-group="false"/>
         </interface>
 
