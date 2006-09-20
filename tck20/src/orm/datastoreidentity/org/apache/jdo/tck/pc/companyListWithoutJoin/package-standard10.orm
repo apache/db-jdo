@@ -7,7 +7,7 @@
 This file contains the schema information when an implementation
 has datastore identity.
 -->
-    <package name="org.apache.jdo.tck.pc.companyMapWithoutJoin">
+    <package name="org.apache.jdo.tck.pc.companyListWithoutJoin">
 
         <class name="Company" table="companies">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>

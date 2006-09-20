@@ -7,7 +7,7 @@
 This file contains the schema information when an implementation
 has application identity.
 -->
-    <package name="org.apache.jdo.tck.pc.companyMapWithoutJoin">
+    <package name="org.apache.jdo.tck.pc.companyListWithoutJoin">
 
         <class name="Company" table="companies">
             <field name="companyid" column="ID"/>
