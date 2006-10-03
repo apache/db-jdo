@@ -197,10 +197,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // SUM(manager.salary)
+        // SUM(((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(manager.salary)",
+        /*RESULT*/      "SUM(((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -213,10 +213,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // SUM(DISTINCT manager.salary)
+        // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(DISTINCT manager.salary)",
+        /*RESULT*/      "SUM(DISTINCT ((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -293,10 +293,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // MIN(manager.salary)
+        // MIN(((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(manager.salary)",
+        /*RESULT*/      "MIN(((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -373,10 +373,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // MAX(manager.salary)
+        // MAX(((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(manager.salary)",
+        /*RESULT*/      "MAX(((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -453,10 +453,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // AVG(manager.salary)
+        // AVG(((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(manager.salary)",
+        /*RESULT*/      "AVG(((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -469,10 +469,10 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         
-        // AVG(DISTINCT manager.salary)
+        // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(DISTINCT manager.salary)",
+        /*RESULT*/      "AVG(DISTINCT ((FullTimeEmployee)manager).salary)",
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
@@ -532,9 +532,9 @@ public class AggregateResult extends QueryTest {
             (new BigDecimal("50000.00")).add(new BigDecimal("2000.99")),
         // SUM(budget)
         null,
-        // SUM(manager.salary)
+        // SUM(((FullTimeEmployee)manager).salary)
         new Double(20000),
-        // SUM(DISTINCT manager.salary)
+        // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
         new Double(10000),
         // MIN(long)
         new Long(1),
@@ -544,7 +544,7 @@ public class AggregateResult extends QueryTest {
         new BigDecimal("2000.99"),
         // MIN(budget)
         null,
-        // MIN(manager.salary)
+        // MIN(((FullTimeEmployee)manager).salary)
         new Double(10000),
         // MAX(long)
         new Long(5),
@@ -554,7 +554,7 @@ public class AggregateResult extends QueryTest {
         new BigDecimal("2500000.99"),
         // MAX(budget)
         null,
-        // MAX(manager.salary)
+        // MAX(((FullTimeEmployee)manager).salary)
         new Double(10000),
         // AVG(long)
         new Long(3),
@@ -564,9 +564,9 @@ public class AggregateResult extends QueryTest {
         new BigDecimal("99.999"),
         // AVG(lifetimeOrthoBenefit)
         null,
-        // AVG(manager.salary)
+        // AVG(((FullTimeEmployee)manager).salary)
         new Double(10000),
-        // AVG(DISTINCT manager.salary)
+        // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
         new Double(10000)
     };
             
