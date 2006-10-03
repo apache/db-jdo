@@ -76,6 +76,7 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
     {
         pm = getPM();
         Transaction t = pm.currentTransaction(); 
+        t.setRetainValues(false);
 
         InstanceCallbackNonPersistFdsClass.initializeStaticsForTest();
         
