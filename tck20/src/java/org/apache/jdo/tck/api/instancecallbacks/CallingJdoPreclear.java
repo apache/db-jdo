@@ -96,6 +96,7 @@ public class CallingJdoPreclear extends TestParts {
         t.commit();
 
         InstanceCallbackClass.performPreClearTests = true;
+        t.setOptimistic(false);
         t.begin();
         try {
             primaryObj = (InstanceCallbackClass)pm.getObjectById(primaryObjId, true);
