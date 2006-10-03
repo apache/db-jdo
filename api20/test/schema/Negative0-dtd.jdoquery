@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- Negative test: empty jdoquery element --> 
-<!DOCTYPE jdo PUBLIC 
-    "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.0//EN"
-        "http://java.sun.com/dtd/jdoquery_2_0.dtd">
-<jdoquery>
-</jdoquery>

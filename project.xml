@@ -112,7 +112,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <id>ebengtson</id>
             <email>erik@jpox.org</email>
             <timezone>1</timezone>
-            <organization>Sun Micrsystems</organization>
+            <organization>JPOX</organization>
         </developer>
         <developer>
             <name>Geir Magnusson, Jr.</name>

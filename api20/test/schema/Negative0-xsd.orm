@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- Negative test: empty orm element --> 
-<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
-                         http://java.sun.com/xml/ns/jdo/orm_2_0.xsd">
-</orm>

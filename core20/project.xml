@@ -25,7 +25,7 @@
     <name>JDO2 Implementation (Core)</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-core</artifactId>
-    <currentVersion>2.0</currentVersion>
+    <currentVersion>2.0.1</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Objects 2.0 (JDO) Core</shortDescription>
     <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
