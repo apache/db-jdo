@@ -20,8 +20,9 @@ import java.math.BigDecimal;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
-import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
@@ -57,10 +58,10 @@ public class DeleteQueryElements extends QueryTest {
         /*UNIQUE*/      Boolean.TRUE,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
+        /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "salary > 10000 & projects.contains(p) & " +
-                        "p.budget > limit",
+        /*WHERE*/       "((FullTimeEmployee)employee).salary > 10000 & " +
+                        "employee.projects.contains(p) & p.budget > limit",
         /*VARIABLES*/   "Project p",
         /*PARAMETERS*/  "BigDecimal limit",
         /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
@@ -79,9 +80,9 @@ public class DeleteQueryElements extends QueryTest {
         // The query is invalid because it defines a result clause.
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "firstname, lastname", 
+        /*RESULT*/      "carrier", 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -95,8 +96,8 @@ public class DeleteQueryElements extends QueryTest {
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
-        /*INTO*/        FullName.class, 
-        /*FROM*/        Person.class,
+        /*INTO*/        String.class, 
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -110,9 +111,9 @@ public class DeleteQueryElements extends QueryTest {
         // and a result class.
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "firstname, lastname", 
-        /*INTO*/        FullName.class, 
-        /*FROM*/        Person.class,
+        /*RESULT*/      "carrier", 
+        /*INTO*/        String.class, 
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -127,13 +128,13 @@ public class DeleteQueryElements extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
-        /*GROUP BY*/    "lastname",
+        /*GROUP BY*/    "carrier",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
@@ -141,15 +142,15 @@ public class DeleteQueryElements extends QueryTest {
         // and a grouping clause
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "lastname", 
+        /*RESULT*/      "carrier", 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
-        /*GROUP BY*/    "lastname",
+        /*GROUP BY*/    "carrier",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
@@ -158,14 +159,14 @@ public class DeleteQueryElements extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
-        /*ORDER BY*/    "lastname",
+        /*ORDER BY*/    "carrier",
         /*FROM*/        null,
         /*TO*/          null),
         // The query is invalid because it defines a range clause.
@@ -173,7 +174,7 @@ public class DeleteQueryElements extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
@@ -190,7 +191,7 @@ public class DeleteQueryElements extends QueryTest {
         /*UNIQUE*/      Boolean.TRUE,
         /*RESULT*/      null, 
         /*INTO*/        null, 
-        /*FROM*/        Person.class,
+        /*FROM*/        Insurance.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
         /*VARIABLES*/   null,
