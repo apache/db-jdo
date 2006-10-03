@@ -68,6 +68,7 @@ public class IsTransactionalFalse extends JDO_Test {
     public void testIsTransactionalFalse() {
     	pm = getPM();
     	Transaction tx = pm.currentTransaction();
+        tx.setOptimistic(false);
     	tx.begin();
     	PCPoint p1 = new PCPoint(1,3);
     	pm.makePersistent(p1);
