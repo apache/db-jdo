@@ -16,6 +16,8 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
+import java.util.Iterator;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -126,6 +128,9 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         loadAndPersistCompanyModel(getPM());
         getPM().currentTransaction().begin();
         Employee emp1 = (Employee) getPersistentCompanyModelInstance("emp1");
+        for (Iterator itr = emp1.getProjects().iterator(); itr.hasNext();) {
+            ((Project) itr.next()).removeMember(emp1); 
+        }
         emp1.setProjects(null);
         getPM().currentTransaction().commit();
     }
