@@ -24,7 +24,7 @@ has application identity.
             <field name="company" column="COMPANYID"/>
             <!-- field type is List<Employee> -->
             <field name="employees">
-                <order column="hiredate"/>
+                <order column="ORDER_COL"/>
                 <element mapped-by="department"/>
             </field>
         </class>
