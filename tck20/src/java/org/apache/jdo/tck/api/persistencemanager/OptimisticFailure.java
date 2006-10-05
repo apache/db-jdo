@@ -109,7 +109,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
            tx1.setOptimistic(true);
            tx2.setOptimistic(true);
            
-           // create four instances to test
+           // create five instances to test
            tx1.begin();
            pm1.makePersistent(p1);
            pm1.makePersistent(p2);
