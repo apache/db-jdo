@@ -21,7 +21,7 @@ import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -56,17 +56,17 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
     public void testNegative() {
         PersistenceManager pm = getPM();
 
-        runTestUnsupportedOperators01(pm, "this.getX() == 1");
-        runTestUnsupportedOperators01(pm, "y.intValue() == 1");
-        runTestUnsupportedOperators01(pm, "y == new Integer(1)");
+        runTestUnsupportedOperators01(pm, Employee.class, "this.team.add(this)");
+        runTestUnsupportedOperators01(pm, Employee.class, "this.team.remove(this)");
+        runTestUnsupportedOperators01(pm, PCPoint.class, "y == new Integer(1)");
     }
 
     /** */
-    void runTestUnsupportedOperators01(PersistenceManager pm, String filter) {
+    void runTestUnsupportedOperators01(PersistenceManager pm, 
+                                       Class candidateClass, String filter) {
         String expectedMsg = "setFilter: Invalid method call ....";
         Query query = pm.newQuery();
-        query.setClass(PCPoint.class);
-        query.setCandidates(pm.getExtent(PCPoint.class, false));
+        query.setClass(candidateClass);
         
         try {
             query.setFilter(filter);                
