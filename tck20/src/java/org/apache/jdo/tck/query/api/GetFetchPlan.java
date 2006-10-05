@@ -20,10 +20,7 @@ import java.util.Collection;
 
 import javax.jdo.FetchPlan;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -60,11 +57,7 @@ public class GetFetchPlan extends QueryTest {
 
     /** */
     private Query createQuery() {
-        // initialize the PM with datastore transactions and no retain values
-        getPM().currentTransaction().setOptimistic(false);
-        getPM().currentTransaction().setRetainValues(false);
-        Query query = getPM().newQuery(PCClass.class, "number1 == param");
-        query.declareParameters("int param");
+        Query query = getPM().newQuery(PCClass.class, "true");
         query.getFetchPlan().setGroup(FETCH_GROUP_1);
         return query;
     }
@@ -105,30 +98,6 @@ public class GetFetchPlan extends QueryTest {
         assertTrue("FetchPlan should include fetchGroup1 and not fetchGroup2",
                 fetchgroups.contains(FETCH_GROUP_1) && 
                 !fetchgroups.contains(FETCH_GROUP_2));
-        Transaction transaction = query.getPersistenceManager().
-            currentTransaction();
-        transaction.begin();
-        Collection result = (Collection) query.execute(new Integer(10));
-        if (result.size() != 1) {
-            fail(ASSERTION_FAILED + "Query returned " + result.size() + 
-                    " instances, expected size is " + 1);
-        }
-        PCClass pcClass = (PCClass) result.iterator().next();
-        int transient1 = pcClass.getTransientNumber1();
-        int transient2 = pcClass.getTransientNumber2();
-        boolean field1loaded = transient1 == 10;
-        boolean field2loaded = transient2 == 10;
-        transaction.commit();
-
-        if (!field1loaded || field2loaded) {
-            fail(ASSERTION_FAILED +
-                    "\nUnexpected: TransientNumber1 = " + transient1 +
-                    ", and TransientNumber2 = " + transient2 + ".\n" +
-                    "Field number1 loaded = " + field1loaded + 
-                    ", Field number2 loaded = " + field2loaded + ".\n" +
-                    "With fetchGroup1 active, expect field number1 " +
-                    " loaded and field number2 not loaded.");
-        }
     }
     
     /**
@@ -144,45 +113,12 @@ public class GetFetchPlan extends QueryTest {
         FetchPlan fetchplan = query.getFetchPlan();
         fetchplan.addGroup(FETCH_GROUP_2);
         Collection fetchgroups = fetchplan.getGroups();
-        assertTrue("FetchPlan should include fetchGroup1 and fetchGroup2",
-                fetchgroups.contains(FETCH_GROUP_1) && 
-                fetchgroups.contains(FETCH_GROUP_2));
         try {
-            Transaction transaction = query.getPersistenceManager().
-                currentTransaction();
-            transaction.begin();
-            Collection result = (Collection) query.execute(new Integer(20));
-            if (result.size() != 1) {
-                fail(ASSERTION_FAILED + "Query returned " + result.size() + 
-                        " instances, expected size is " + 1);
-            }
-            PCClass pcClass = (PCClass) result.iterator().next();
-            int transient1 = pcClass.getTransientNumber1();
-            int transient2 = pcClass.getTransientNumber2();
-            boolean field1loaded = transient1 == 20;
-            boolean field2loaded = transient2 == 20;
-            transaction.commit();
-
-            if (!field1loaded || !field2loaded) {
-                fail(ASSERTION_FAILED +
-                        "\nUnexpected: TransientNumber1 = " + transient1 +
-                        ", and TransientNumber2 = " + transient2 + ".\n" +
-                        "Field number1 loaded = " + field1loaded + 
-                        ", Field number2 loaded = " + field2loaded + ".\n" +
-                        "With fetchGroup1 and fetchGroup2 active, expect" +
-                        " field number1 loaded and field number2 loaded.");
-            }
+            assertTrue("FetchPlan should include fetchGroup1 and fetchGroup2",
+                       fetchgroups.contains(FETCH_GROUP_1) && 
+                       fetchgroups.contains(FETCH_GROUP_2));
         } finally {
             query.getFetchPlan().removeGroup(FETCH_GROUP_2);
         }
-    }
-    
-    /**
-     * @see JDO_Test#localSetUp()
-     */
-    protected void localSetUp() {
-        addTearDownClass(MylibReader.getTearDownClasses());
-        loadAndPersistMylib(getPM());
-        cleanupPM();
     }
 }
