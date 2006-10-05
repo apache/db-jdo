@@ -86,12 +86,26 @@ public class DataStoreConnection extends PersistenceManagerTest {
                     "getDataStoreConnection AND SQLSupported.");
             return;
         }
+        getPM().currentTransaction().setOptimistic(false);
+        executeSQLWithDataStoreConnection();
+        if (!isOptimisticSupported()) {
+            printUnsupportedOptionalFeatureNotTested(
+                    this.getClass().getName(),
+                    "getDataStoreConnection AND SQLSupported AND Optimistic.");
+            return;
+        }
+        getPM().currentTransaction().setOptimistic(true);
+        executeSQLWithDataStoreConnection();
+    }
+
+    private void executeSQLWithDataStoreConnection() {
         String schema = getPMFProperty("javax.jdo.mapping.Schema");
         String sql = "SELECT X, Y FROM " + schema + ".PCPoint";
-        JDOConnection jconn = pm.getDataStoreConnection();
-        Connection conn = (Connection)jconn;
+        JDOConnection jconn = null;
         try {
             getPM().currentTransaction().begin();
+            jconn = pm.getDataStoreConnection();
+            Connection conn = (Connection)jconn;
             if (conn.getAutoCommit()) {
                 appendMessage(ASSERTION_FAILED + 
                         "Autocommit must not be true in JDO connection.");
@@ -123,6 +137,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
             appendMessage(ASSERTION_FAILED + " caught exception:" + ex);
         } finally {
             jconn.close();
+            getPM().currentTransaction().commit();
             failOnError();
         }
     }
