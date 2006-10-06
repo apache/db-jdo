@@ -23,9 +23,8 @@ has application identity.
             <field name="name" column="NAME"/>
             <field name="company" column="COMPANYID"/>
             <!-- field type is List<Employee> -->
-            <field name="employees">
+            <field name="employees" mapped-by="department">
                 <order column="ORDER_COL"/>
-                <element mapped-by="department"/>
             </field>
         </class>
 
