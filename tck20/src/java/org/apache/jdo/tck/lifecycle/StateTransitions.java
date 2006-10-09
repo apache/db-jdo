@@ -127,6 +127,7 @@ public class StateTransitions extends JDO_Test {
     private static final int ERROR                       = -2;
     private static final int IMPOSSIBLE                  = -3;
     private static final int NOT_APPLICABLE              = -4;
+    private static final int UNSPECIFIED                 = -5;
 
     /**
      * State transitions
@@ -238,7 +239,7 @@ public class StateTransitions extends JDO_Test {
         // read field with active optimistic transaction
         {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        UNCHANGED,
-            UNCHANGED,                      ERROR,                              ERROR,
+            UNCHANGED,                      UNSPECIFIED,                        UNSPECIFIED,
             UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED},
 
@@ -251,7 +252,7 @@ public class StateTransitions extends JDO_Test {
         // read field with active datastore transaction
         {   UNCHANGED,                      UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      PERSISTENT_CLEAN,                   UNCHANGED,
-            UNCHANGED,                      ERROR,                              ERROR,
+            UNCHANGED,                      UNSPECIFIED,                        UNSPECIFIED,
             PERSISTENT_CLEAN,               UNCHANGED,                          UNCHANGED,
             UNCHANGED},
 
@@ -297,18 +298,18 @@ public class StateTransitions extends JDO_Test {
         //  DETACHED_DIRTY
         
         // detachCopy outside tx
-        {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
-            IMPOSSIBLE,                     UNCHANGED,                          IMPOSSIBLE,
+        {   UNSPECIFIED,                    IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     UNSPECIFIED,                        IMPOSSIBLE,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
             UNCHANGED,                      ERROR,                              UNCHANGED,
             UNCHANGED},
 
         // detachCopy with active tx
         {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
-            UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
+            UNCHANGED,                      UNSPECIFIED,                        PERSISTENT_NEW,
             PERSISTENT_NEW,                 ERROR,                              ERROR,
-            UNCHANGED,                      ERROR,                              UNCHANGED,
-            UNCHANGED},
+            UNSPECIFIED,                    ERROR,                              UNSPECIFIED,
+            UNSPECIFIED},
 
         // serialize outside tx
         {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
@@ -493,6 +494,7 @@ public class StateTransitions extends JDO_Test {
                 expected_state = transitions[operation][current_state];
                 if( expected_state == IMPOSSIBLE ) continue;
                 if( expected_state == NOT_APPLICABLE ) continue;
+                if( expected_state == UNSPECIFIED ) continue;
                 if( expected_state == UNCHANGED ) expected_state = current_state;
                 try {
                     transaction = pm.currentTransaction();
