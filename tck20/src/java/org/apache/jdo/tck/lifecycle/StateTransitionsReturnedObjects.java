@@ -89,6 +89,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     private static final int ERROR                       = -2;
     private static final int IMPOSSIBLE                  = -3;
     private static final int NOT_APPLICABLE              = -4;
+    private static final int UNSPECIFIED                 = -5;
 
     /**
      * State transitions
@@ -109,7 +110,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
 
         // detachCopy outside tx
         {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
-            IMPOSSIBLE,                     DETACHED_CLEAN,                     IMPOSSIBLE,
+            IMPOSSIBLE,                     UNSPECIFIED,                        IMPOSSIBLE,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
             DETACHED_CLEAN,                 ERROR,                              UNCHANGED,
             DETACHED_CLEAN},
@@ -118,8 +119,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         {   DETACHED_CLEAN,                 DETACHED_CLEAN,                     DETACHED_CLEAN,
             DETACHED_CLEAN,                 DETACHED_CLEAN,                     DETACHED_CLEAN,
             DETACHED_CLEAN,                 ERROR,                              ERROR,
-            DETACHED_CLEAN,                 ERROR,                              UNCHANGED,
-            DETACHED_CLEAN},
+            DETACHED_CLEAN,                 ERROR,                              UNSPECIFIED,
+            UNSPECIFIED},
 
         // serialize outside tx
         {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
@@ -131,8 +132,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         // serialize with active tx
         {   UNCHANGED,                      DETACHED_CLEAN,                     DETACHED_CLEAN,
             DETACHED_CLEAN,                 DETACHED_CLEAN,                     TRANSIENT,
-            TRANSIENT,                      TRANSIENT,                          TRANSIENT,
-            DETACHED_CLEAN,                 TRANSIENT,                          UNCHANGED,
+            TRANSIENT,                      UNSPECIFIED,                        UNSPECIFIED,
+            DETACHED_CLEAN,                 UNSPECIFIED,                        UNCHANGED,
             UNCHANGED},
     };
 
@@ -147,10 +148,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     private static final boolean[][] applies_to_scenario = {
         //  Datastore   Optimistic      No tx
         {   true,          true,        false },  // makePersistent
-        // since the spec leaves detachCopy outside tx a bit underspecified,
-        // we decided to disable this scanario for now
-        //{   false,         false,       true },   // detachCopy outside tx
-        {   false,         false,       false },   // detachCopy outside tx
+        {   false,         false,       true },   // detachCopy outside tx
         {   true,          true,        false },  // detachCopy with active tx
         {   false,         false,       true },   // serialize outside tx
         {   true,          true,        false }   // serialize with active tx
@@ -258,6 +256,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
                 expected_state = statesOfReturnedObjects[operation][current_state];
                 if( expected_state == IMPOSSIBLE ) continue;
                 if( expected_state == NOT_APPLICABLE ) continue;
+                if( expected_state == UNSPECIFIED ) continue;
                 if( expected_state == UNCHANGED ) expected_state = current_state;
                 try {
                     transaction = pm.currentTransaction();
