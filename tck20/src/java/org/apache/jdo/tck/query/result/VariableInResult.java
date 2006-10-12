@@ -39,6 +39,14 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * then the semantics of the contains clause that include the variable change. 
  * In this case, all values of the variable 
  * that satisfy the filter are included in the result.
+ * Result expressions begin with either an instance of the candidate class 
+ * (with an explicit or implicit "this") or an instance of a variable 
+ * (using the variable name). The candidate tuples are the cartesian product 
+ * of the candidate class and all variables used in the result. The result 
+ * tuples are the tuples of the candidate class and all variables used 
+ * in the result that satisfy the filter. 
+ * The result is the collection of result expressions projected from the 
+ * result tuples. 
  */
 public class VariableInResult extends QueryTest {
 
@@ -92,14 +100,80 @@ public class VariableInResult extends QueryTest {
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "e",
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e)",
+        /*VARIABLES*/   "Employee e",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "e, p",
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)" +
+                "&& p.name == 'orange'",
+        /*VARIABLES*/   "Employee e; Project p",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "e, p",
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
+        /*VARIABLES*/   "Employee e; Project p",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e 
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "e",
+        /*INTO*/        null, 
+        /*FROM*/        Department.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "deptid == 2 & employees.contains(e)",
+        /*VARIABLES*/   "Employee e",
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
     
     /** 
      * The expected results of valid queries.
      */
+    private Object emp1 = getTransientCompanyModelInstance("emp1");
+    private Object emp2 = getTransientCompanyModelInstance("emp2");
+    private Object emp3 = getTransientCompanyModelInstance("emp3");
+    private Object emp4 = getTransientCompanyModelInstance("emp4");
+    private Object emp5 = getTransientCompanyModelInstance("emp5");
+    private Object proj1 = getTransientCompanyModelInstance("proj1");
+    private Object proj2 = getTransientCompanyModelInstance("proj2");
+    private Object proj3 = getTransientCompanyModelInstance("proj3");
+
     private Object[] expectedResult = {
-        // this
         getTransientCompanyModelInstancesAsList(
                 new String[]{"emp1","emp2","emp3","emp4","emp5"}),
         // Note: "orange" is not a bean name!
@@ -107,7 +181,25 @@ public class VariableInResult extends QueryTest {
         Arrays.asList(new Object[]{
             new Object[]{new Long(1), "orange"}, 
             new Object[]{new Long(1), "orange"},
-            new Object[]{new Long(1), "orange"}})
+            new Object[]{new Long(1), "orange"}}),
+        getTransientCompanyModelInstancesAsList(
+                new String[]{"emp1","emp2","emp3","emp4","emp5"}),
+        new Object[] {
+                    new Object[] {emp1, proj1},
+                    new Object[] {emp2, proj1},
+                    new Object[] {emp3, proj1}
+        },
+        new Object[] {
+                    new Object[] {emp1, proj1},
+                    new Object[] {emp2, proj1},
+                    new Object[] {emp3, proj1},
+                    new Object[] {emp2, proj2},
+                    new Object[] {emp3, proj2},
+                    new Object[] {emp4, proj3},
+                    new Object[] {emp5, proj3}
+        },
+        getTransientCompanyModelInstancesAsList(
+                new String[]{"emp4","emp5"})
     };
 
     /**
@@ -140,6 +232,42 @@ public class VariableInResult extends QueryTest {
     /** */
     public void testNavigation() {
         int index = 2;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testNoNavigation() {
+        int index = 3;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testMultipleProjectionWithConstraints() {
+        int index = 4;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testMultipleProjection() {
+        int index = 5;
+        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                expectedResult[index]);
+    }
+
+    /** */
+    public void testProjectionWithConstraints() {
+        int index = 6;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
