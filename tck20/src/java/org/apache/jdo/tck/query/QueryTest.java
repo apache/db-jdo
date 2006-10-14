@@ -508,8 +508,10 @@ public abstract class QueryTest extends JDO_Test {
         fail(assertion,
              "Wrong query result: " + lf +
              "query: " + query + lf +
-             "expected: " + expected + lf +
-             "got:      " + result);
+             "expected: " + expected.getClass().getName() + 
+                " of size " + size(expected) + lf + expected + lf +
+             "got:      " + result.getClass().getName() + 
+                " of size " + size(result) + lf + result);
     }
 
     /** */
@@ -660,7 +662,9 @@ public abstract class QueryTest extends JDO_Test {
      * if <code>o1</code> and <code>o2</code> equal.
      * This method iterates over the first collection and 
      * checks if each instance is contained in the second collection
-     * by calling contains(Collection, Object).
+     * by calling remove(Collection, Object). This guarantees that
+     * the cardinality of each instance in the first collection matches
+     * the cardinality of each instance in the second collection.
      * This method does not allow <code>o1</code> and <code>o2</code>
      * to be <code>null</code> both. 
      * @param o1 the first collection
@@ -668,6 +672,12 @@ public abstract class QueryTest extends JDO_Test {
      * @return <code>true</code> if <code>o1</code> and <code>o2</code> equal.
      */
     protected boolean equalsCollection(Collection o1, Collection o2) {
+        // make a copy of o2 so we can destroy it
+        Collection o2copy = new ArrayList();
+        Iterator i2 = o2.iterator();
+        while (i2.hasNext()) {
+            o2copy.add(i2.next());
+        }
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
@@ -675,7 +685,7 @@ public abstract class QueryTest extends JDO_Test {
             } else {
                 for (Iterator i = o1.iterator(); i.hasNext(); ) {
                     Object oo1 = i.next();
-                    if (!contains(o2, oo1)) {
+                    if (!remove(o2copy, oo1)) {
                         result = false;
                         break;
                     }
@@ -739,7 +749,31 @@ public abstract class QueryTest extends JDO_Test {
         }
         return false;
     }
-    
+
+    /**
+     * Returns <code>true</code> if <code>o</code> is contained
+     * in the given collection and was removed.
+     * This method iterates the given collection and calls
+     * {@link QueryTest#equals(Object, Object)} for each instance.
+     * {@link QueryTest#equals(Object, Object)} is called rather than
+     * {@link Object#equals(java.lang.Object)} because object arrays
+     * having equal elements cannot be compared calling  
+     * {@link Object#equals(java.lang.Object)}.
+     * @param col the collection
+     * @param o the object
+     * @return <code>true</code> if <code>o</code> is contained
+     * in the given collection and was removed.
+     */
+    private boolean remove(Collection col, Object o) {
+        for (Iterator i = col.iterator(); i.hasNext(); ) {
+            if (equals(o, i.next())) {
+                i.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Returns <code>true</code> if the specified float values are close
      * enough to be considered to be equal for a deep equals
      * comparison. Floating point values are not exact, so comparing them
@@ -775,6 +809,25 @@ public abstract class QueryTest extends JDO_Test {
 
         float diff = Math.abs(f1 - f2);
         return diff < Math.abs((f1 + f2) * EqualityHelper.FLOAT_EPSILON);
+    }
+
+
+    /** 
+     * Returns the size of the object. If it is a multivalued object
+     * (Collection, Map, or array) return the number of elements. If not, 
+     * return 1.
+     */
+    protected int size(Object o) {
+        if (o instanceof Collection) {
+            return ((Collection)o).size();
+        }
+        if (o instanceof Object[]) {
+            return ((Object[])o).length;
+        }
+        if (o instanceof Map) {
+            return ((Map)o).size();
+        }
+        return 1;
     }
 
     // Debugging helper methods

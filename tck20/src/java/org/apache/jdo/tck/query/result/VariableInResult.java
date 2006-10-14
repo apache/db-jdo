@@ -175,31 +175,30 @@ public class VariableInResult extends QueryTest {
 
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1","emp2","emp3","emp4","emp5"}),
+            new String[]{"emp1","emp2","emp3","emp4","emp5"}),
         // Note: "orange" is not a bean name!
-        Arrays.asList(new Object[]{new Object[]{new Long(1), "orange"}}),
+        Arrays.asList(new Object[]{
+            new Object[]{new Long(1), "orange"}}),
         Arrays.asList(new Object[]{
             new Object[]{new Long(1), "orange"}, 
             new Object[]{new Long(1), "orange"},
             new Object[]{new Long(1), "orange"}}),
         getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1","emp2","emp3","emp4","emp5"}),
-        new Object[] {
-                    new Object[] {emp1, proj1},
-                    new Object[] {emp2, proj1},
-                    new Object[] {emp3, proj1}
-        },
-        new Object[] {
-                    new Object[] {emp1, proj1},
-                    new Object[] {emp2, proj1},
-                    new Object[] {emp3, proj1},
-                    new Object[] {emp2, proj2},
-                    new Object[] {emp3, proj2},
-                    new Object[] {emp4, proj3},
-                    new Object[] {emp5, proj3}
-        },
+            new String[]{"emp1","emp2","emp3","emp4","emp5"}),
+        Arrays.asList(new Object[] {
+            new Object[] {emp1, proj1},
+            new Object[] {emp2, proj1},
+            new Object[] {emp3, proj1}}),
+        Arrays.asList(new Object[] {
+            new Object[] {emp1, proj1},
+            new Object[] {emp2, proj1},
+            new Object[] {emp3, proj1},
+            new Object[] {emp2, proj2},
+            new Object[] {emp3, proj2},
+            new Object[] {emp4, proj3},
+            new Object[] {emp5, proj3}}),
         getTransientCompanyModelInstancesAsList(
-                new String[]{"emp4","emp5"})
+            new String[]{"emp4","emp5"})
     };
 
     /**
