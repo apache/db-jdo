@@ -27,25 +27,21 @@ import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Embedded Objects Track Their Changes
+ *<B>Title:</B> SecondClassObjectsTrackTheirChanges
  *<BR>
  *<B>Keywords:</B> embedded lifecycle
  *<BR>
- *<B>Assertion ID:</B> A6.3-1.
+ *<B>Assertion ID:</B> A14.6.9-9
  *<BR>
  *<B>Assertion Description: </B>
-Second Class Objects track changes made to themselves and notify their owning 
-First Class Object that they have changed, and the change is reflected as a
-change to that First Class Object (e.g. the owning instance changes state from
-persistent-clean to persistent-dirty).
-
+If an SCO field is in the result, the projected field is  not owned by any persistent instance, and modifying the SCO value has  no effect on any persistent instance. If an FCO field is in the  result, the projected field is a persistent instance, and  modifications made to the instance are are reflected as changes to  the datastore per transaction requirements.
  */
 
 public class SecondClassObjectsTrackTheirChanges extends JDO_Test {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A6.3-1 (SecondClassObjectsTrackTheirChanges) failed: ";
+        "Assertion A14.6.9-9 (SecondClassObjectsTrackTheirChanges) failed: ";
     
     /**
      * The <code>main</code> is called when the class
