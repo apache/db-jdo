@@ -27,7 +27,7 @@ import javax.jdo.Transaction;
 import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-import org.apache.jdo.tck.pc.mylib.PCPoint;
+import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
 
@@ -53,9 +53,13 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A12.5.1-5B (RefreshAllNoParameterSideEffects) failed: ";
+    Object oid = null;
+
+    PersistenceManager pm1;
+    PersistenceManager pm2;
+    PersistenceManager pmVerify;
     
     /** */
-    static final int DELAY = 100;
 
     /**
      * The <code>main</code> is called when the class
@@ -67,198 +71,106 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     }
 
     /** */
-    public void test () throws Exception {
-        PersistenceManagerFactory pmf = getPMF();
-        PersistenceManager pm1 = pmf.getPersistenceManager();
-        PersistenceManager pm2 = pmf.getPersistenceManager();
+    public void localSetUp () {
+        addTearDownClass(VersionedPCPoint.class);
+        pm = getPM();
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        VersionedPCPoint pnt = new VersionedPCPoint (0,0);
+        pm.makePersistent(pnt);
+        oid = pm.getObjectId((Object)pnt);
+        tx.commit();
+    }
+
+    /** */
+    public void test() throws Exception {
+        if (!isOptimisticSupported()) {
+            printUnsupportedOptionalFeatureNotTested(
+                "RefreshAllNoParameterSideEffect",
+                "javax.jdo.option.Optimistic");
+            return;
+        }
+
+        pm1 = pmf.getPersistenceManager();
+        pm2 = pmf.getPersistenceManager();
+        pmVerify = pmf.getPersistenceManager();
         
         try {
-            runTestRefreshAllNoParameterSideEffects(pm1, pm2);
+            // don't refresh cache
+            runTestRefreshAllNoParameterSideEffects(false);
+            // refresh cache
+            runTestRefreshAllNoParameterSideEffects(true);
         }
         finally {
-            cleanupPM(pm2);
-            pm2 = null;
+            cleanupPM(pmVerify);
+            pmVerify = null;
             cleanupPM(pm1);
             pm1 = null;
+            cleanupPM(pm1);
+            pm2 = null;
         }
+        failOnError();
     }
     
     /** */
-    private void runTestRefreshAllNoParameterSideEffects(PersistenceManager pm1, 
-                                                         PersistenceManager pm2) throws Exception {
-        if (!isOptimisticSupported()) {
-            if (debug)
-                logger.debug("Optimistic not supported => skip RefreshAllNoParameterSideEffects");
-            return;
-        }
-        
+    private void runTestRefreshAllNoParameterSideEffects(boolean doRefresh)
+            throws Exception {
+
         if (debug) logger.debug ("\nSTART RefreshAllNoParameterSideEffects");
-        
-        ThreadExceptionHandler group = new ThreadExceptionHandler();
-        ThreadT1 thread1 = new ThreadT1(pm1);
-        Thread  T1 = new Thread(group, thread1, "T1");
-        ThreadT2 thread2 = new ThreadT2(pm2);
-        Thread  T2 = new Thread(group, thread2, "T2");
-        thread1.setOther(thread2);
-        thread2.setOther(thread1);
-        
-        T1.start();
-        T2.start();
 
-        T1.join();
-        T2.join();
-        
-        Throwable t1Problem = group.getUncaughtException(T1);
-        if (t1Problem != null) {
-            if (t1Problem instanceof AssertionFailedError)
-                throw (AssertionFailedError)t1Problem;
-            else
-                throw new JDOFatalException( "Thread "+T1.getName()+" results in exception ", t1Problem );
-        }
-        Throwable t2Problem = group.getUncaughtException(T2);
-        if (t2Problem != null) {
-            if (t2Problem instanceof AssertionFailedError)
-                throw (AssertionFailedError)t2Problem;
-            else
-                throw new JDOFatalException( "Thread "+T2.getName()+" results in exception ", t2Problem );
-        }
-        
-        if (debug) logger.debug ("END RefreshAllNoParameterSideEffects");
-    }
+        Transaction tx1 = pm1.currentTransaction();
+        tx1.setOptimistic(true);
+        tx1.begin();
+        VersionedPCPoint pnt1 = (VersionedPCPoint)pm1.getObjectById(oid, true);
+        pnt1.setX(11);  // make transactional
 
-    /** */
-    class ThreadT1 implements Runnable {
+        Transaction tx2 = pm2.currentTransaction();
+        tx2.begin();
+        VersionedPCPoint pnt2 = (VersionedPCPoint)pm2.getObjectById(oid);
+        pnt2.setX(22);
+        pnt2.setY(Integer.valueOf(22));
+        tx2.commit();
 
-        PersistenceManager pm;
-        ThreadT2 other;
-        boolean commitDone;
-
-        /** */
-        public ThreadT1(PersistenceManager pm) {
-            this.pm = pm;
-            this.other = null;
-            this.commitDone = false;
-        }
-
-        /** */
-        void setOther(ThreadT2 other) {
-            this.other = other;
-        }
-
-        /** */
-        boolean isCommitDone() {
-            return commitDone;
-        }
-        
-        /** */
-        synchronized public void run() {
-            PCPoint n1 = new PCPoint (5,1);
-            PCPoint n2 = new PCPoint (5,2);
-            Transaction tx = pm.currentTransaction();
-            tx.setOptimistic(true);
-            try {
-                tx.begin();
-                n1.setX(500);
-                n2.setX(501);
-
-                Collection col1 = new HashSet();
-                col1.add(n1);
-                col1.add(n2);
-
-                pm.makePersistentAll(col1);
-                pm.refreshAll();
-
-                RefreshAllNoParameterSideEffects.this.logger.debug(
-                    "  ThreadT1: waiting for ThreadT2.done");
-                while (!other.isDone()) {
-                    try {
-                        Thread.sleep(DELAY);
-                    }
-                    catch (InterruptedException ex) {
-                        // ignore
-                    }
-                }
-
-                tx.commit();
-                tx = null;
-                commitDone = true;
-                RefreshAllNoParameterSideEffects.this.logger.debug(
-                    "  ThreadT1: commit finished.");
+        if (doRefresh) 
+            pm1.refreshAll();
+        pnt1.setX(33);
+        pnt1.setY(Integer.valueOf(33));
+        try {
+            tx1.commit();
+        } catch (javax.jdo.JDOOptimisticVerificationException ove) {
+            if (doRefresh) {
+                appendMessage("Expected no exception on commit with doRefresh "
+                        + "true, but got " + ove.toString());
             }
-            finally {
-                commitDone = true;
-                if ((tx != null) && tx.isActive())
-                    tx.rollback();
-            }
-        }
-    }
-
-    /** */
-    class ThreadT2 implements Runnable {
-
-        PersistenceManager pm = null;
-        ThreadT1 other = null;
-        boolean done = false;
-
-        /** */
-        public ThreadT2(PersistenceManager pm) {
-            this.pm = pm;
-            this.other = null;
-            this.done = false;
+            // else expect exception
+        } catch (Exception e) {
+            appendMessage("Unexpected exception on commit. doRefresh is " 
+                    + doRefresh + ".  Exception is: " + e.toString());
         }
 
-        /** */
-        boolean isDone() {
-            return done;
+        // verify that correct value was committed
+        VersionedPCPoint pntExpected = new VersionedPCPoint(33, 33);
+        if (!doRefresh) {
+            pntExpected.setX(22);
+            pntExpected.setY(Integer.valueOf(22));
         }
+            
+        Transaction txVerify = pmVerify.currentTransaction();
+        txVerify.begin();
+        VersionedPCPoint pntVerify = 
+                (VersionedPCPoint)pmVerify.getObjectById(oid, true);
+        if (pntVerify.getX() != pntExpected.getX() 
+                || pntVerify.getY().intValue() != pntExpected.getY().intValue())
+        {
+            appendMessage("After commit with doRefresh " + doRefresh
+                    + " expected ("
+                    + pntExpected.getX() + ", " + pntExpected.getY() 
+                    + ") but actual is (" 
+                    + pntVerify.getX() + ", " + pntVerify.getY() + ").");
+        }
+        txVerify.commit();
         
-
-        /** */
-        void setOther(ThreadT1 other) {
-            this.other = other;
-        }
-
-        /** */
-        synchronized public void run() {
-            PCPoint p1 = new PCPoint (5,1);
-            PCPoint p2 = new PCPoint (5,2);
-            Transaction tx = pm.currentTransaction();
-            tx.setOptimistic(true);
-            try {
-                tx.begin();
-                p1.setX(200);
-                p2.setX(201);
-
-                Collection col1 = new HashSet();
-                col1.add(p1);
-                col1.add(p2);
-                
-                pm.makePersistentAll(col1);
-                pm.refreshAll();
-                done = true; 
-
-                RefreshAllNoParameterSideEffects.this.logger.debug(
-                    "  ThreadT2: waiting for commit of ThreadT1");
-                while (! other.isCommitDone()) {
-                    try {
-                        Thread.sleep(DELAY);
-                    }
-                    catch (InterruptedException ex) {
-                        // ignore
-                    }
-                }
-
-                tx.commit();
-                tx = null;
-                RefreshAllNoParameterSideEffects.this.logger.debug(
-                    "  ThreadT2: commit finished.");
-            }
-            finally {
-                done = true; 
-                if ((tx != null) && tx.isActive())
-                    tx.rollback();
-            }
-        }
+        if (debug) logger.debug ("END RefreshAllNoParameterSideEffects"
+                + "doRefresh is " + doRefresh);
     }
 }
-
