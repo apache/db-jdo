@@ -28,6 +28,7 @@ public interface IEmployee extends IPerson {
 
     Date getHiredate();
     double getWeeklyhours();
+    String getRole();
     IDepartment getDepartment();
     IDepartment getFundingDept();
     IEmployee getManager();
@@ -39,6 +40,7 @@ public interface IEmployee extends IPerson {
     
     void setHiredate(Date hiredate);
     void setWeeklyhours(double weeklyhours);
+    void setRole(String role);
     void setDepartment(IDepartment department);
     void setFundingDept(IDepartment department);
     void setManager(IEmployee manager);

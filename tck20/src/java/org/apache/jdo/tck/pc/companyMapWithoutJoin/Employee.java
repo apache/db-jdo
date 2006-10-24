@@ -56,6 +56,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @param middlename The middle name of the employee.
      * @param birthdate The birth date of the employee.
      * @param hiredate The date that the employee was hired.
+     * @param role The role of the employee.
      */
     public Employee(long personid, String firstname, String lastname, 
                     String middlename, Date birthdate,
@@ -96,6 +97,22 @@ public abstract class Employee extends Person implements IEmployee {
      */
     public void setWeeklyhours(double weeklyhours) {
         this.weeklyhours = weeklyhours;
+    }
+
+    /** 
+     * Get the role of the employee.
+     * @return The role of th employee.
+     */ 
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * Set the role of the employee.
+     * @param role The role of the employee.
+     */
+    public void setRole(String role) {
+        this.role=role;
     }
 
     /**
@@ -303,6 +320,7 @@ public abstract class Employee extends Person implements IEmployee {
         rc.append(super.getFieldRepr());
         rc.append(", hired ").append(formatter.format(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
+        rc.append(", role ").append(role);
         return rc.toString();
     }
 
@@ -324,6 +342,7 @@ public abstract class Employee extends Person implements IEmployee {
         return super.deepCompareFields(otherEmp, helper) &
             helper.equals(hiredate, otherEmp.getHiredate(),  where + ".hiredate") &
             helper.closeEnough(weeklyhours, otherEmp.getWeeklyhours(), where + ".weeklyhours") &
+            helper.equals(role, otherEmp.getRole(),  where + ".role") &
             helper.deepEquals(department, otherEmp.getDepartment(), where + ".department") &
             helper.deepEquals(fundingDept, otherEmp.getFundingDept(), where + ".fundingDept") &
             helper.deepEquals(manager, otherEmp.getManager(), where + ".manager") &

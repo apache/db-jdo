@@ -87,6 +87,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
         result.setMiddlename(middle);
         result.setBirthdate(born);
         result.setHiredate(hired);
+        result.setRole(role);
         result.setSalary(sal);
         return result;
     }
@@ -102,6 +103,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
         result.setMiddlename(middle);
         result.setBirthdate(born);
         result.setHiredate(hired);
+        result.setRole(role);
         result.setWage(wage);
         return result;
     }
