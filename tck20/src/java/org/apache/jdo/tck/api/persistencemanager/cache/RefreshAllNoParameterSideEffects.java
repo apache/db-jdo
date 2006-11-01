@@ -128,13 +128,13 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
         tx2.begin();
         VersionedPCPoint pnt2 = (VersionedPCPoint)pm2.getObjectById(oid);
         pnt2.setX(22);
-        pnt2.setY(Integer.valueOf(22));
+        pnt2.setY(Integer.valueOf("22"));
         tx2.commit();
 
         if (doRefresh) 
             pm1.refreshAll();
         pnt1.setX(33);
-        pnt1.setY(Integer.valueOf(33));
+        pnt1.setY(Integer.valueOf("33"));
         try {
             tx1.commit();
         } catch (javax.jdo.JDOOptimisticVerificationException ove) {
@@ -152,7 +152,7 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
         VersionedPCPoint pntExpected = new VersionedPCPoint(33, 33);
         if (!doRefresh) {
             pntExpected.setX(22);
-            pntExpected.setY(Integer.valueOf(22));
+            pntExpected.setY(Integer.valueOf("22"));
         }
             
         Transaction txVerify = pmVerify.currentTransaction();

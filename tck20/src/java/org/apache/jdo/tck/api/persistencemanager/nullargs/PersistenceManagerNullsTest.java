@@ -528,8 +528,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             if (!checkReturn(expectedArray, returnVal))
                 fail(ASSERTION5_FAILED,
                         method + " returns incorrect Object. Expected "
-                        + Arrays.toString(expectedArray) + " actual was " 
-                        + Arrays.toString(returnVal));
+                        + Arrays.asList(expectedArray).toString() 
+                        + " actual was " 
+                        + Arrays.asList(returnVal).toString());
             tx.commit();
 
         } finally {

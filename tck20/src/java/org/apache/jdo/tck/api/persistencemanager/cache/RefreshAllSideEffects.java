@@ -145,8 +145,8 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
         Collection points2 = pm2.getObjectsById(oids);
         ((VersionedPCPoint)points2.toArray()[0]).setX(22);
         ((VersionedPCPoint)points2.toArray()[1]).setX(22);
-        ((VersionedPCPoint)points2.toArray()[0]).setY(Integer.valueOf(22));
-        ((VersionedPCPoint)points2.toArray()[1]).setY(Integer.valueOf(22));
+        ((VersionedPCPoint)points2.toArray()[0]).setY(Integer.valueOf("22"));
+        ((VersionedPCPoint)points2.toArray()[1]).setY(Integer.valueOf("22"));
         tx2.commit();
 
         if (doRefresh)  {
@@ -156,8 +156,8 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
         }
         ((VersionedPCPoint)points1.toArray()[0]).setX(33);
         ((VersionedPCPoint)points1.toArray()[1]).setX(33);
-        ((VersionedPCPoint)points1.toArray()[0]).setY(Integer.valueOf(33));
-        ((VersionedPCPoint)points1.toArray()[1]).setY(Integer.valueOf(33));
+        ((VersionedPCPoint)points1.toArray()[0]).setY(Integer.valueOf("33"));
+        ((VersionedPCPoint)points1.toArray()[1]).setY(Integer.valueOf("33"));
         try {
             tx1.commit();
         } catch (javax.jdo.JDOOptimisticVerificationException ove) {
@@ -175,7 +175,7 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
         VersionedPCPoint pntExpected = new VersionedPCPoint(33, 33);
         if (!doRefresh) {
             pntExpected.setX(22);
-            pntExpected.setY(Integer.valueOf(22));
+            pntExpected.setY(Integer.valueOf("22"));
         }
             
         Transaction txVerify = pmVerify.currentTransaction();
