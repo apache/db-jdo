@@ -35,9 +35,9 @@ Request 12 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
     <dependencies>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
-            <version>1.0</version> 
+            <groupId>javax.transaction</groupId>
+            <artifactId>transaction-api</artifactId>
+            <version>1.1</version> 
         </dependency>
     </dependencies>
     <!-- =================== -->

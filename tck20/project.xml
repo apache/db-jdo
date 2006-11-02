@@ -70,12 +70,12 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>10.1.1.0</version>
+            <version>10.2.1.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbytools</artifactId>
-            <version>10.1.1.0</version>
+            <version>10.2.1.6</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -91,7 +91,7 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.13</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -99,19 +99,19 @@ NOTE!! There are no unit tests in this project.</description>
             <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
-            <version>1.0</version>
+            <groupId>javax.transaction</groupId>
+            <artifactId>transaction-api</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>springframework</groupId>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.8</version>
         </dependency>
         <dependency>
-            <groupId>springframework</groupId>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.8</version>
         </dependency>
         <!-- dependencies for connection pooling -->
         <dependency>
@@ -129,8 +129,8 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.0</version>
-            <url>http://prdownloads.sourceforge.net/c3p0/c3p0-0.9.0.bin.zip?use_mirror=unc</url>
+            <version>0.9.0.2</version>
+            <url>http://prdownloads.sourceforge.net/c3p0/c3p0-0.9.0.2.bin.zip</url>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
@@ -140,12 +140,12 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+            <version>3.2</version>
         </dependency>
     </dependencies>
     <!-- =================== -->
