@@ -16,20 +16,12 @@
 
 package org.apache.jdo.tck.api.persistencemanager.cache;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.jdo.JDOFatalException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-
-import junit.framework.AssertionFailedError;
 
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.util.ThreadExceptionHandler;
 
 /**
  *<B>Title:</B> Refresh All No Parameters Side Effects
