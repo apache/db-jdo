@@ -31,8 +31,11 @@
             <field name="nextObj">
                 <column name="NEXTOBJ"/>
             </field>
+            <!-- There is no parent field in the class,
+            only a Collection children. The PARENT column contains the
+            single-valued parent of each child instance. -->
             <field name="children">
-                <element column="CHILD"/>
+                <element column="PARENT"/>
             </field>
             <field name="intValue">
                 <column name="INTVAL"/>
