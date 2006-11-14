@@ -44,10 +44,11 @@ are cleared. (This happens during the state transition to hollow.)
  */
 
 /*
- *   Create a new object, reference an existing object and modify an existing object and then
- *   perform a commit.
+ *   Create a new object, reference an existing object and 
+ *   modify an existing object and then commit.
  *
- *   Check that each instance contains the values set into the persistent attributes prior to commit.
+ *   Check that each instance contains the values set into
+ *   the persistent attributes prior to commit.
  */
 
 public class CallingJdoPreclear extends TestParts {
@@ -73,11 +74,10 @@ public class CallingJdoPreclear extends TestParts {
     }
     
     /** */
-    public void test() throws Exception
-    {
+    public void test() throws Exception {
         pm = getPM();
         Transaction t = pm.currentTransaction();
-        t.setRetainValues(false);  // instances transition to hollow after commit
+        t.setRetainValues(false);  // instances transit'n to hollow after commit
 
         InstanceCallbackClass.initializeStaticsForTest();
         
@@ -87,8 +87,12 @@ public class CallingJdoPreclear extends TestParts {
         Date createTime = cal.getTime();
         cal.set(2002, 1, 15, 12, 0);
         Date laterDate = cal.getTime();
-        InstanceCallbackClass secondaryObj = new InstanceCallbackClass("secondaryObj", createTime, 2, 2.2, (short)-20, '2', null);
-        InstanceCallbackClass primaryObj = new InstanceCallbackClass("primaryObj", laterDate, 1, 1.1, (short)-10, '1', secondaryObj);
+        InstanceCallbackClass secondaryObj = 
+            new InstanceCallbackClass("secondaryObj", createTime, 2, 2.2, 
+                    (short)-20, '2', null);
+        InstanceCallbackClass primaryObj = 
+            new InstanceCallbackClass("primaryObj", laterDate, 1, 1.1, 
+                    (short)-10, '1', secondaryObj);
         pm.makePersistent(primaryObj);
         pm.makePersistent(secondaryObj);
         Object secondaryObjId = pm.getObjectId(secondaryObj);
@@ -99,43 +103,52 @@ public class CallingJdoPreclear extends TestParts {
         t.setOptimistic(false);
         t.begin();
         try {
-            primaryObj = (InstanceCallbackClass)pm.getObjectById(primaryObjId, true);
-            pm.retrieve(primaryObj); // load fields of primaryObj (make it persistent-clean)
+            primaryObj = (InstanceCallbackClass)pm.getObjectById(primaryObjId,
+                    true);
+            pm.retrieve(primaryObj); // load fields (make it persistent-clean)
         
         } catch (JDOUserException e) {
-            fail(ASSERTION_FAILED, "Failed to find primaryObj created in previous transaction.  Got JDOUserException " + e);
+            fail(ASSERTION_FAILED, "Failed to find primaryObj created in "
+                    + "previous transaction.  Got JDOUserException " + e);
             return;
         } catch (JDODataStoreException e) {
-            fail(ASSERTION_FAILED, "Failed to find primaryObj created in previous transaction.  Got JDODataStoreException " + e);
+            fail(ASSERTION_FAILED, "Failed to find primaryObj created in "
+                    + "previous transaction.  Got JDODataStoreException " + e);
            return;
         }
         
         secondaryObj = primaryObj.nextObj;
         if(secondaryObj == null) {
-            fail(ASSERTION_FAILED, "Failed to find secondaryObj created in previous transaction using reference from primaryObj.");
+            fail(ASSERTION_FAILED, "Failed to find secondaryObj created in "
+                    + "previous transaction using reference from primaryObj.");
             return;
         }
         pm.retrieve(secondaryObj);
         
-        primaryObj.addChild(secondaryObj);  // primaryObj contains one child;  secondaryObj contains none. primaryObj is now dirty
+        // primaryObj contains one child;  secondaryObj contains none
+        primaryObj.addChild(secondaryObj); // primaryObj is now dirty
         
         cal.set(2005, 6, 28, 0, 0);
         Date stillLaterDate = cal.getTime();
-        InstanceCallbackClass ternaryObj = new InstanceCallbackClass("ternaryObj", stillLaterDate, 3, 3.3, (short)-30, '3', null);
+        InstanceCallbackClass ternaryObj = 
+            new InstanceCallbackClass("ternaryObj", stillLaterDate, 3, 3.3, 
+                    (short)-30, '3', null);
         pm.makePersistent(ternaryObj);
-        ternaryObj.addChild(secondaryObj);
         ternaryObj.addChild(primaryObj);
         t.commit();
         
         // verify attributes in what was persistent-clean object--secondaryObj
-        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ", 2,  "secondaryObj", createTime, 2.2, (short)-20, '2');
+        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ",
+                2,  "secondaryObj", createTime, 2.2, (short)-20, '2');
 
         // verify attributes in what was persistent-dirty object--primaryObj
-        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ", 1, "primaryObj", laterDate, 1.1, (short)-10, '1');
+        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ",
+                1, "primaryObj", laterDate, 1.1, (short)-10, '1');
 
 
         // verify attributes in what was persistent-new object--ternaryObj
-        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ", 3, "ternaryObj", stillLaterDate, 3.3, (short)-30, '3');
+        checkFieldValues(ASSERTION_FAILED, "jdoPreClear attribute access:  ",
+                3, "ternaryObj", stillLaterDate, 3.3, (short)-30, '3');
         pm.close();
         pm = null;
         InstanceCallbackClass.performPreClearTests = false;
