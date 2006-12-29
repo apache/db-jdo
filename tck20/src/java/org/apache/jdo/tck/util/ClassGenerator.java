@@ -14,15 +14,6 @@
  * limitations under the License.
  */
  
-
-//Title:        Your Product Name
-//Version:
-//Copyright:    Copyright (c) 1998
-//Author:
-//Company:      Your Company
-//Description:  Your description
-
-
 package org.apache.jdo.tck.util;
 
 import java.io.*;
