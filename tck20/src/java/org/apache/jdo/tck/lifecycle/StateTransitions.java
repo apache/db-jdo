@@ -85,13 +85,15 @@ public class StateTransitions extends JDO_Test {
     private static final int RETRIEVEOUTSIDETX       = 17;
     private static final int RETRIEVEINSIDETX        = 18;
     private static final int DETACHALLONCOMMIT       = 19;
-    private static final int DETACHCOPYOUTSIDETX     = 20;
-    private static final int DETACHCOPYINSIDETX      = 21;
-    private static final int SERIALIZEOUTSIDETX      = 22;
-    private static final int SERIALIZEDATASTORE      = 23;
-    private static final int SERIALIZEOPTIMISTIC     = 24;
+    private static final int DETACHCOPYOUTSIDETXNTRTRU     = 20;
+    private static final int DETACHCOPYOUTSIDETXNTRFLS     = 21;
+    private static final int DETACHCOPYINSIDEDATASTORETX      = 22;
+    private static final int DETACHCOPYINSIDEOPTIMISTICTX      = 23;
+    private static final int SERIALIZEOUTSIDETX      = 24;
+    private static final int SERIALIZEDATASTORE      = 25;
+    private static final int SERIALIZEOPTIMISTIC     = 26;
     
-    private static final int NUM_OPERATIONS          = 25;
+    private static final int NUM_OPERATIONS          = 27;
     
     private static final String[] operations = {
         "makePersistent",
@@ -114,8 +116,10 @@ public class StateTransitions extends JDO_Test {
         "retrieve outside tx",
         "retrieve with active tx",
         "commit, detachAllOnCommit=true",
-        "detachCopy outside tx",
-        "detachCopy with active tx",
+        "detachCopy outside tx with NontransactionalRead=true",
+        "detachCopy outside tx with NontransactionalRead=false",
+        "detachCopy with active datastore tx",
+        "detachCopy with active optimistic tx",
         "serialize outside tx",
         "serialize with active datastore tx",
         "serialize with active optimistic tx"
@@ -298,19 +302,33 @@ public class StateTransitions extends JDO_Test {
         //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
         //  DETACHED_DIRTY
         
-        // detachCopy outside tx
-        {   UNSPECIFIED,                    IMPOSSIBLE,                         IMPOSSIBLE,
-            IMPOSSIBLE,                     UNSPECIFIED,                        IMPOSSIBLE,
+        // detachCopy outside tx with NontransactionalRead=true
+        {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        ERROR,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
-            UNCHANGED,                      ERROR,                              UNCHANGED,
+            UNCHANGED,                      UNSPECIFIED,                        UNCHANGED,
+            UNSPECIFIED},
+
+        // detachCopy outside tx with NontransactionalRead=false
+        {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
+            IMPOSSIBLE,                     ERROR,                              ERROR,
+            IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
+            ERROR,                          ERROR,                              ERROR,
+            ERROR},
+
+        // detachCopy with active datastore tx
+        {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      PERSISTENT_CLEAN,                   PERSISTENT_NEW,
+            PERSISTENT_NEW,                 ERROR,                              ERROR,
+            UNCHANGED,                      IMPOSSIBLE,                         UNCHANGED,
             UNCHANGED},
 
-        // detachCopy with active tx
+        // detachCopy with active optimistic tx
         {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
-            UNCHANGED,                      UNSPECIFIED,                        PERSISTENT_NEW,
+            UNCHANGED,                      PERSISTENT_NONTRANSACTIONAL,        PERSISTENT_NEW,
             PERSISTENT_NEW,                 ERROR,                              ERROR,
-            UNSPECIFIED,                    ERROR,                              UNSPECIFIED,
-            UNSPECIFIED},
+            UNCHANGED,                      IMPOSSIBLE,                         UNCHANGED,
+            UNCHANGED},
 
         // serialize outside tx
         {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
@@ -364,8 +382,10 @@ public class StateTransitions extends JDO_Test {
         {   false,         true,        true  },  // retrieve outside of a transaction or with active optimistic transaction
         {   true,          false,       false },  // retrieve with active datastore transaction
         {   true,          true,        false },  // commit, DetachAllOnCommit = true
-        {   false,         false,       true },   // detachCopy outside tx
-        {   true,          true,        false },  // detachCopy with active tx
+        {   false,         false,       true },   // detachCopy outside tx with NonTransactionaRead=true
+        {   false,         false,       true },   // detachCopy outside tx with NonTransactionaRead=false
+        {   true,          false,        false },  // detachCopy with active datastore tx
+        {   false,         true,        false },  // detachCopy with active optimistic tx
         {   false,         false,       true },   // serialize outside tx
         {   true,          false,       false },  // serialize with active datastore tx
         {   false,         true,        false }   // serialize with active optimistic tx
@@ -452,7 +472,7 @@ public class StateTransitions extends JDO_Test {
         } else {
             if( operation == READOUTSIDETX ||
                 operation == RETRIEVEOUTSIDETX ||
-                operation == DETACHCOPYOUTSIDETX ||
+                operation == DETACHCOPYOUTSIDETXNTRTRU ||
                 operation == SERIALIZEOUTSIDETX ) {
                 transaction.setNontransactionalRead(true);
             }
@@ -471,7 +491,7 @@ public class StateTransitions extends JDO_Test {
             if( !applies_to_scenario[operation][scenario] ) continue;
             if( (operation == READOUTSIDETX ||
                  operation == RETRIEVEOUTSIDETX ||
-                 operation == DETACHCOPYOUTSIDETX ||
+                 operation == DETACHCOPYOUTSIDETXNTRTRU ||
                  operation == SERIALIZEOUTSIDETX) && 
                  !isNontransactionalReadSupported() ) continue;
             if( operation == WRITEOUTSIDETX && !isNontransactionalWriteSupported() ) continue;
@@ -695,12 +715,22 @@ public class StateTransitions extends JDO_Test {
             pm.currentTransaction().commit();
             break;      
         }
-        case DETACHCOPYOUTSIDETX:
+        case DETACHCOPYOUTSIDETXNTRTRU:
         {
             pm.detachCopy(obj);
             break;      
         }
-        case DETACHCOPYINSIDETX:
+        case DETACHCOPYOUTSIDETXNTRFLS:
+        {
+            pm.detachCopy(obj);
+            break;      
+        }
+        case DETACHCOPYINSIDEDATASTORETX:
+        {
+            pm.detachCopy(obj);
+            break;      
+        }
+        case DETACHCOPYINSIDEOPTIMISTICTX:
         {
             pm.detachCopy(obj);
             break;      
