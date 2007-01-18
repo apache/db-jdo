@@ -447,10 +447,9 @@ public class StateTransitions extends JDO_Test {
 
     /** */
     public void prepareTransactionAndJDOSettings(Transaction transaction) {
-        if( scenario != NO_TX ) {
             transaction.setNontransactionalRead(false);
             transaction.setNontransactionalWrite(false);
-            
+        if( scenario != NO_TX ) {
             if( operation == COMMITNORETAINVALUES )
                 transaction.setRetainValues(false);
             if( operation == COMMITRETAINVALUES )
@@ -564,7 +563,7 @@ public class StateTransitions extends JDO_Test {
                                           operations[operation] +
                                           "; JDOUserException should have been thrown");
                         } else {
-                            if( new_state != current_state ){
+                            if( !compareStates(new_state, current_state) ) { 
                                 appendMessage(ASSERTION_FAILED + NL +
                                               "StateTransitions: " +
                                               scenario_string[scenario] +
@@ -587,6 +586,9 @@ public class StateTransitions extends JDO_Test {
                     if( transaction.isActive() ) transaction.rollback();
                 } 
                 catch(Exception unexpected_exception) {
+                    if (debug) {
+                        unexpected_exception.printStackTrace();
+                    }
                     if (transaction.isActive()) 
                         transaction.rollback();
                     appendMessage(ASSERTION_FAILED + NL +
@@ -895,6 +897,12 @@ public class StateTransitions extends JDO_Test {
     /** */
     public StateTransitionObj getHollowInstance()
     {
+        if ( !transaction.isActive() )
+            transaction.begin();
+        if( !transaction.isActive() )
+            if (debug)
+                logger.debug("getHollowInstance: Transaction should be active, but it is not");
+        
         Extent extent = pm.getExtent(StateTransitionObj.class, false);
         Iterator iter = extent.iterator();
         if( !iter.hasNext() ){
@@ -905,12 +913,6 @@ public class StateTransitions extends JDO_Test {
         StateTransitionObj obj = (StateTransitionObj) iter.next();
         
         transaction.setRetainValues(false);
-        if ( !transaction.isActive() )
-            transaction.begin();
-        if( !transaction.isActive() )
-            if (debug)
-                logger.debug("getHollowInstance: Transaction should be active, but it is not");
-        
         transaction.commit(); // This should put the instance in the HOLLOW state
 
         prepareTransactionAndJDOSettings(transaction);
