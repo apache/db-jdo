@@ -75,7 +75,8 @@ public class NewQuery extends QueryTest {
         if (isSQLSupported()) {
             for (int i = 0; i < VALID_SQL_QUERIES.length; i++) {
                 executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[i],
-                        null, null, parameters[i], expectedResult[i], false);
+                        null, null, true, parameters[i], expectedResult[i],
+                        false);
             }
         }
     }

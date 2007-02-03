@@ -86,7 +86,7 @@ public class NoCandidateClass extends QueryTest {
         if (isSQLSupported()) {
             int index = 0;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], false);
+                    null, null, true, null, expectedResult[index], false);
         }
     }
 

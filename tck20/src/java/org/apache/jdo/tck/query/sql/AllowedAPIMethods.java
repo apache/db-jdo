@@ -95,17 +95,17 @@ public class AllowedAPIMethods extends QueryTest {
         if (isSQLSupported()) {
             int index = 0;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    PrimitiveTypes.class, null, null, 
+                    PrimitiveTypes.class, null, true, null, 
                     expectedResult[index], false);
 
             index = 1;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    Department.class, null, null, 
+                    Department.class, null, true, null, 
                     expectedResult[index], false);
 
             index = 2;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    Person.class, null, null, 
+                    Person.class, null, true, null, 
                     expectedResult[index], false);
         }
     }
@@ -115,7 +115,7 @@ public class AllowedAPIMethods extends QueryTest {
         if (isSQLSupported()) {
             int index = 3;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], true);
+                    null, null, true, null, expectedResult[index], true);
         }
     }
 
@@ -124,7 +124,8 @@ public class AllowedAPIMethods extends QueryTest {
         if (isSQLSupported()) {
             int index = 4;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, FullName.class, null, expectedResult[index], false);
+                    null, FullName.class, true, null, expectedResult[index],
+                    false);
         }
     }
 

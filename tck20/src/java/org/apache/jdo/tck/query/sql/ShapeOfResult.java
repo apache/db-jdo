@@ -115,11 +115,11 @@ public class ShapeOfResult extends QueryTest {
         if (isSQLSupported()) {
             int index = 0;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    PrimitiveTypes.class, null, null, 
+                    PrimitiveTypes.class, null, true, null,
                     expectedResult[index], false);
             index++;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    PrimitiveTypes.class, null, null, 
+                    PrimitiveTypes.class, null, true, null,
                     expectedResult[index], true);
         }
     }
@@ -129,10 +129,10 @@ public class ShapeOfResult extends QueryTest {
         if (isSQLSupported()) {
             int index = 2;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], false);
+                    null, null, true, null, expectedResult[index], false);
             index++;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], true);
+                    null, null, true, null, expectedResult[index], true);
         }
     }
     
@@ -141,10 +141,10 @@ public class ShapeOfResult extends QueryTest {
         if (isSQLSupported()) {
             int index = 4;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], false);
+                    null, null, true, null, expectedResult[index], false);
             index++;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, null, null, expectedResult[index], true);
+                    null, null, true, null, expectedResult[index], true);
         }
     }
     
@@ -153,10 +153,10 @@ public class ShapeOfResult extends QueryTest {
         if (isSQLSupported()) {
             int index = 6;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, FullName.class, null, expectedResult[index], false);
+                    null, FullName.class, true, null, expectedResult[index], false);
             index++;
             executeSQLQuery(ASSERTION_FAILED, VALID_SQL_QUERIES[index],
-                    null, FullName.class, null, expectedResult[index], true);
+                    null, FullName.class, true, null, expectedResult[index], true);
         }
     }
     

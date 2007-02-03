@@ -1173,8 +1173,8 @@ public abstract class QueryTest extends JDO_Test {
      * to return a single result.
      */
     protected void executeSQLQuery(String assertion, String sql, 
-            Class candidateClass, Class resultClass, 
-            Object[] parameters, Object expectedResult, boolean unique) {
+            Class candidateClass, Class resultClass, boolean positive,
+            Object parameters, Object expectedResult, boolean unique) {
         String schema = getPMFProperty("javax.jdo.mapping.Schema");
         sql = MessageFormat.format(sql, new Object[]{schema});
         if (logger.isDebugEnabled())
@@ -1190,7 +1190,7 @@ public abstract class QueryTest extends JDO_Test {
             query.setResultClass(resultClass);
         }
         execute(assertion, query, sql, false, 
-                parameters, expectedResult, true);
+                parameters, expectedResult, positive);
     }
 
     /**
