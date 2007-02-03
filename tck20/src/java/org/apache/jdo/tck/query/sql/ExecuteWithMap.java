@@ -61,6 +61,8 @@ public class ExecuteWithMap extends QueryTest {
         "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? AND LASTNAME = ?"
             + " AND MIDDLENAME = ? AND CITY = ?",
         "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? AND LASTNAME = ?"
+            + " AND MIDDLENAME = ? AND CITY = ?",
+        "SELECT * FROM {0}.persons WHERE FIRSTNAME = ? AND LASTNAME = ?"
             + " AND MIDDLENAME = ? AND CITY = ?"
     };
     
@@ -71,6 +73,7 @@ public class ExecuteWithMap extends QueryTest {
         getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", 
                 "primitiveTypesCharacterStringLiterals"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
     };
@@ -119,7 +122,7 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put(new String("3dog"), "emp2Middle");
         illegalMapStringKeys.put(new String("4dog"), "New York");
     };
-    private static HashMap[] parameterMap = new HashMap[]{hm1, hm2, hm3};
+    private static HashMap[] parameterMap = new HashMap[]{hm1, hm2, hm3, hm4};
             
     /** */
     public void testSetClass() {
