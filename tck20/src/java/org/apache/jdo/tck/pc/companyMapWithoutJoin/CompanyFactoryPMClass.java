@@ -20,7 +20,7 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 import javax.jdo.PersistenceManager;
 
 /*
- * CompanyFactoryPMInterface.java
+ * CompanyFactoryPMClass.java
  *
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter. 
