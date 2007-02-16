@@ -21,6 +21,27 @@ CREATE SCHEMA applicationidentity0;
 SET SCHEMA applicationidentity0;
 
 -------------------------
+-- order
+-------------------------
+DROP TABLE Item;
+DROP TABLE Orders;
+
+CREATE TABLE Orders (
+    ID BIGINT NOT NULL,
+    CUSTOMERID BIGINT,
+    CONSTRAINT ORDER_CONST PRIMARY KEY (ID)
+);
+
+CREATE TABLE Item (
+    ID BIGINT NOT NULL,
+    ORDERID BIGINT,
+    DESCRIPTION VARCHAR(64),
+    QUANTITY INT,
+    CONSTRAINT ITEM_ORDER_FK FOREIGN KEY (ORDERID) REFERENCES Orders(ID),
+    CONSTRAINT ITEM_CONST PRIMARY KEY (ID, ORDERID)
+);
+
+-------------------------
 -- mylib
 -------------------------
 

@@ -44,4 +44,5 @@ jdo.tck.cfglist = \
                  inheritance4.conf \
                  schemaAttributeClass.conf \
                  schemaAttributeOrm.conf \
-                 schemaAttributePackage.conf
+                 schemaAttributePackage.conf \
+                 compoundIdentity.conf
