@@ -320,7 +320,7 @@ public class StateTransitions extends JDO_Test {
         {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      PERSISTENT_CLEAN,                   PERSISTENT_NEW,
             PERSISTENT_NEW,                 ERROR,                              ERROR,
-            UNCHANGED,                      IMPOSSIBLE,                         UNCHANGED,
+            PERSISTENT_CLEAN,               IMPOSSIBLE,                         UNCHANGED,
             UNCHANGED},
 
         // detachCopy with active optimistic tx
