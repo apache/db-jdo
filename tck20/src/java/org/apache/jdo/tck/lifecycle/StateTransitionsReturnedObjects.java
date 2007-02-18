@@ -544,6 +544,12 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     /** */
     public StateTransitionObj getHollowInstance()
     {
+        if ( !transaction.isActive() )
+            transaction.begin();
+        if( !transaction.isActive() )
+            if (debug)
+                logger.debug("getHollowInstance: Transaction should be active, but it is not");
+        
         Extent extent = pm.getExtent(StateTransitionObj.class, false);
         Iterator iter = extent.iterator();
         if( !iter.hasNext() ){
@@ -553,13 +559,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         }
         StateTransitionObj obj = (StateTransitionObj) iter.next();
         
+        pm.makeTransactional(obj);
         transaction.setRetainValues(false);
-        if ( !transaction.isActive() )
-            transaction.begin();
-        if( !transaction.isActive() )
-            if (debug)
-                logger.debug("getHollowInstance: Transaction should be active, but it is not");
-        
         transaction.commit(); // This should put the instance in the HOLLOW state
 
         prepareTransactionAndJDOSettings(transaction);
@@ -567,7 +568,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         int curr = currentState(obj);
         if( curr != HOLLOW && curr != PERSISTENT_NONTRANSACTIONAL ){
             if (debug) {
-                logger.debug("StateTransitionsReturnedObjects: Attempt to get hollow instance via accessing extent failed, state is " +
+                logger.debug("getHollowInstance: Attempt to get hollow instance via accessing extent failed, state is " +
                              states[curr]);
             }
             return null;
@@ -653,7 +654,12 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
+        boolean nontransactionalRead = 
+                pm.currentTransaction().getNontransactionalRead();
+        pm.currentTransaction().setNontransactionalRead(true);
+        obj.readField();
         pm.makeNontransactional(obj);
+        pm.currentTransaction().setNontransactionalRead(nontransactionalRead);
         int curr = currentState(obj);
         if( curr != PERSISTENT_NONTRANSACTIONAL && curr != HOLLOW ) { 
             if (debug) {
