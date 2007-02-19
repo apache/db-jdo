@@ -193,7 +193,7 @@ public class OrderItem implements Serializable, Comparable, Comparator, DeepEqua
             if (obj==null || !this.getClass().equals(obj.getClass())) 
                 return false;
             OrderItemOid o = (OrderItemOid) obj;
-            if ((this.order != o.order) || (this.item != o.item)) {
+            if (!this.order.equals(o.order) || (this.item != o.item)) {
                 return false;
             }
             return true;
