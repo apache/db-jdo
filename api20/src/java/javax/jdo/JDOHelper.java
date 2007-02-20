@@ -33,6 +33,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -66,7 +67,7 @@ import javax.rmi.PortableRemoteObject;
  * transactional, dirty, new, deleted, or detached; and to get its associated
  * <code>PersistenceManager</code> if it has one.
  * 
- * @version 2.0
+ * @version 2.1
  */
 public class JDOHelper extends Object {
       
@@ -87,7 +88,28 @@ public class JDOHelper extends Object {
             }
         );
 
-   /** The stateless instance used for handling non-binary-compatible
+    /** The singleton instance of JDOHelper.
+     * @since 2.1
+     */
+    private static JDOHelper instance = new JDOHelper();
+
+    /**
+     * Return the singleton instance of JDOHelper. This instance is 
+     * thread-safe.
+     * @since 2.1
+     * @return the thread-safe singleton JDOHelper
+     */
+    public static JDOHelper getInstance() {
+        return instance;
+    }
+
+    /** Some applications might prefer to use instance
+     * methods instead of static methods.
+     * @since 2.1
+     */
+    public JDOHelper() {}
+
+    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getPersistenceManager.
     */
     static StateInterrogationObjectReturn getPersistenceManager =
