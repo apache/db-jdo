@@ -23,6 +23,7 @@
 package javax.jdo;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.jdo.datastore.JDOConnection;
 import javax.jdo.datastore.Sequence;
@@ -37,7 +38,7 @@ import javax.jdo.listener.InstanceLifecycleListener;
  * <P>A <code>PersistenceManager</code> is obtained from the
  * {@link PersistenceManagerFactory}
  * (recommended) or by construction.
- * @version 2.0
+ * @version 2.1
  */
 
 public interface PersistenceManager {
@@ -1084,4 +1085,16 @@ public interface PersistenceManager {
      * @since 2.0
      */
     void removeInstanceLifecycleListener (InstanceLifecycleListener listener);
+
+    /**
+     * Get the Date as seen by the server. 
+     * Clients using this method can order their operations according to 
+     * a single time source. Implementations use the setting of the 
+     * server time zone to prepare a Date instance that represents 
+     * UTC time on the server. 
+     * @return a Date instance corresponding to the UTC Date 
+     * as seen by the server
+     * @since 2.1
+     */
+    Date getServerDate();
 }

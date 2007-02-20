@@ -241,6 +241,7 @@ public class javax.jdo.JDOFatalUserException extends javax.jdo.JDOFatalException
 
 public class javax.jdo.JDOHelper {
     public JDOHelper();
+    public static javax.jdo.JDOHelper getInstance();
     public static javax.jdo.PersistenceManager getPersistenceManager(Object pc);
     public static void makeDirty(Object pc, String fieldName);
     public static Object getObjectId(Object pc);
@@ -478,6 +479,7 @@ public interface javax.jdo.PersistenceManager {
     public void checkConsistency();
     public javax.jdo.FetchPlan getFetchPlan();
     public Object newInstance(Class pcClass);
+    public java.util.Date getServerDate();
     public javax.jdo.datastore.Sequence getSequence(String name);
     public javax.jdo.datastore.JDOConnection getDataStoreConnection();
     public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
@@ -485,9 +487,12 @@ public interface javax.jdo.PersistenceManager {
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
+    public static final java.lang.String JTA;
+    public static final java.lang.String RESOURCE_LOCAL;
     public void close();
     public boolean isClosed();
     public javax.jdo.PersistenceManager getPersistenceManager();
+    public javax.jdo.PersistenceManager getPersistenceManagerProxy();
     public javax.jdo.PersistenceManager getPersistenceManager(String userid, String password);
     public void setConnectionUserName(String userName);
     public String getConnectionUserName();
@@ -522,6 +527,12 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public boolean getIgnoreCache();
     public boolean getDetachAllOnCommit();
     public void setDetachAllOnCommit(boolean flag);
+    public java.lang.String getPersistenceUnitName();
+    public void setPersistenceUnitName(java.lang.String);
+    public java.lang.String getServerTimeZoneID();
+    public void setServerTimeZoneID(java.lang.String);
+    public java.lang.String getTransactionType();
+    public void setTransactionType(java.lang.String);
     public java.util.Properties getProperties();
     public java.util.Collection supportedOptions();
     public javax.jdo.datastore.DataStoreCache getDataStoreCache();
@@ -541,6 +552,7 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public void declareVariables(String variables);
     public void setOrdering(String ordering);
     public void setIgnoreCache(boolean ignoreCache);
+    public void addSubquery(javax.jdo.Query, java.lang.String, java.lang.String);
     public boolean getIgnoreCache();
     public void compile();
     public Object execute();

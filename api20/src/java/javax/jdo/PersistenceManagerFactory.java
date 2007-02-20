@@ -51,10 +51,24 @@ import javax.jdo.listener.InstanceLifecycleListener;
  * <P>Operational state (<code>PersistenceManager</code> pooling, connection 
  * pooling, operational parameters) must not be serialized.
  *
- * @version 2.0
+ * @version 2.1
  */
 
 public interface PersistenceManagerFactory extends java.io.Serializable {
+
+    /** 
+     * The value for TransactionType to specify that transactions
+     * are managed by the Java Transactions API, as documented in 
+     * JSR-220.
+     */
+    public static final String JTA = "JTA";
+
+    /** 
+     * The value for TransactionType to specify that transactions
+     * are managed by the javax.jdo.Transaction instance, similar
+     * to the usage as documented in JSR-220.
+     */
+    public static final String RESOURCE_LOCAL = "RESOURCE_LOCAL";
     
     /** Close this PersistenceManagerFactory. Check for 
      * JDOPermission("closePersistenceManagerFactory") and if not authorized, 
@@ -93,6 +107,29 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * @return a <code>PersistenceManager</code> instance with default options.
      */
     PersistenceManager getPersistenceManager();
+
+    /** Get a thread-safe instance of a proxy that dynamically binds 
+     * on each method call to an instance of <code>PersistenceManager</code>.
+     * <P>When used with a <code>PersistenceManagerFactory</code>
+     * that uses TransactionType JTA,
+     * the proxy can be used in a server to dynamically bind to an instance 
+     * from this factory associated with the thread's current transaction.
+     * In this case, the close method is ignored, as the 
+     * <code>PersistenceManager</code> is automatically closed when the
+     * transaction completes.
+     * <P>When used with a <code>PersistenceManagerFactory</code>
+     * that uses TransactionType RESOURCE_LOCAL, the proxy uses an inheritable
+     * ThreadLocal to bind to an instance of <code>PersistenceManager</code>
+     * associated with the thread. In this case, the close method executed
+     * on the proxy closes the <code>PersistenceManager</code> and then
+     * clears the ThreadLocal.
+     * Use of this method does not affect the configurability of the
+     * <code>PersistenceManagerFactory</code>.
+     *
+     * @since 2.1
+     * @return a <code>PersistenceManager</code> proxy.
+     */
+    PersistenceManager getPersistenceManagerProxy();
 
     /** Get an instance of <code>PersistenceManager</code> from this factory.  
      * The instance has default values for options.  
@@ -329,9 +366,81 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * factory.
      * @see #getDetachAllOnCommit()
      * @since 2.0
+     * @param flag the default DetachAllOnCommit setting
      */
     void setDetachAllOnCommit(boolean flag);
-    
+
+
+    /**
+     * Sets the PersistenceUnitName for this PersistenceManagerFactory.
+     * This has the same semantics as the same-named property in
+     * JSR-220 PersistenceUnitInfo.
+     * @see #getPersistenceUnitName()
+     * @since 2.1
+     * @param name the PersistenceUnitName
+     */
+    void setPersistenceUnitName(String name);
+
+    /**
+     * Gets the PersistenceUnitName for this PersistenceManagerFactory.
+     * @see #setPersistenceUnitName(String)
+     * @since 2.1
+     * @return the PersistenceUnitName
+     */
+    String getPersistenceUnitName();
+
+    /**
+     * Sets the TimeZone ID of the server associated with this
+     * PersistenceManagerFactory. The parameter is a String
+     * suitable for use with TimeZone.getTimeZone(). The String
+     * must match an ID returned by TimeZone.getAvailableIDs().
+     * If the ServerTimeZoneID is not set, or set to the null String,
+     * assume that the server has the same TimeZone ID as the client.
+     * If incorrectly set, the result of PersistenceManager.getServerDate()
+     * might be incorrect.
+     * @see #getServerTimeZoneID()
+     * @see java.util.TimeZone#getTimeZone(String)
+     * @see java.util.TimeZone#getAvailableIDs()
+     * @see PersistenceManager#getServerDate()
+     * @since 2.1
+     * @param timezoneid the TimeZone ID of the server
+     * @throws JDOUserException if the parameter does not match
+     * an ID from TimeZone.getAvailableIDs()
+     */
+    void setServerTimeZoneID(String timezoneid);
+
+    /**
+     * Gets the TimeZone ID of the server associated with this
+     * PersistenceManagerFactory. If not set, assume that
+     * the server has the same TimeZone ID as the client.
+     * @see #setServerTimeZoneID(String)
+     * @since 2.1
+     * @return the TimeZone of the server
+     */
+    String getServerTimeZoneID();
+
+    /**
+     * Sets the TransactionType for this PersistenceManagerFactory.
+     * Permitted values are "JTA" and "RESOURCE_LOCAL".
+     * This has the same semantics as the same-named property in
+     * JSR-220 EntityManagerFactory.
+     * @see #getTransactionType()
+     * @see #JTA
+     * @see #RESOURCE_LOCAL
+     * @since 2.1
+     * @param name the TransactionType
+     * @throws JDOUserException if the parameter is not a permitted value
+     */
+    void setTransactionType(String name);
+
+    /**
+     * Gets the TransactionType for this PersistenceManagerFactory.
+     * @see #setTransactionType(String)
+     * @since 2.1
+     * @return the TransactionType
+     */
+    String getTransactionType();
+
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.
      * Properties with keys <code>VendorName</code> and 
@@ -388,6 +497,7 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * a second-level cache, the returned instance does nothing. This
      * method never returns <code>null</code>.
      * @since 2.0
+     * @return the DataStoreCache
      */
     DataStoreCache getDataStoreCache ();
 
