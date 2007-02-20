@@ -88,7 +88,7 @@ import java.util.Map;
  * <code>Object</code> which must be cast to the appropriate result by the user.
  * <P>Any parameters passed to the <code>execute</code> methods are used only 
  * for this execution, and are not remembered for future execution.
- * @version 2.0
+ * @version 2.1
  */
 
 public interface Query extends Serializable {
@@ -583,5 +583,33 @@ public interface Query extends Serializable {
      * @since 2.0
       */
     boolean isUnmodifiable();
+
+    /**
+     * Add a subquery to this query.
+     * The query parameter instance is unmodified as a result of the 
+     * addSubquery or subsequent execution of the outer query. 
+     * Only some of the query parts are copied for use as the subquery. 
+     * The parts copied include the candidate class, filter, parameter 
+     * declarations, variable declarations, imports, ordering specification, 
+     * uniqueness, result specification, and grouping specification.
+     * The association with a PersistenceManager, the candidate collection, 
+     * result class, limits on size, and number of skipped instances 
+     * are not used.
+     * The variableDeclaration is the name of the variable containing
+     * the results of the subquery execution. This variable may be used
+     * in this query.
+     * The candidateCollectionExpression is the expression using tokens 
+     * from this query that represent the candidates over which the 
+     * subquery is evaluated.
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable 
+     * to be used in this Query
+     * @param candidateCollectionExpression the candidate collection 
+     * to apply to the subquery
+     * @since 2.1
+     */
+    void addSubquery
+        (Query sub, String variableDeclaration, 
+            String candidateCollectionExpression);
 
 }
