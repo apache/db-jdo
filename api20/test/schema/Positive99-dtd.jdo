@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE jdo SYSTEM "file:/javax/jdo/jdo.dtd">
+<!DOCTYPE jdo SYSTEM "file:/javax/jdo/jdo_2_0.dtd">
 <jdo>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
