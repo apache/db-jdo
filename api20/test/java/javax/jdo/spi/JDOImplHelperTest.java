@@ -41,6 +41,12 @@ public class JDOImplHelperTest extends AbstractTest {
     }
 
     /** */
+    public void setUp() {
+        // make sure PCClass is loaded before any tests are run
+        PCPoint p = new PCPoint(1, new Integer(1));        
+    }
+
+    /** */
     public void testGetFieldNames() {
         JDOImplHelper implHelper = JDOImplHelper.getInstance();
         String[] fieldNames = implHelper.getFieldNames(PCPoint.class);
@@ -129,8 +135,6 @@ public class JDOImplHelperTest extends AbstractTest {
     /** */
     public void testClassRegistration() {
         JDOImplHelper implHelper = JDOImplHelper.getInstance();
-        // make sure PCClass is loaded
-        PCPoint p = new PCPoint(1, new Integer(1));
 
         Collection registeredClasses = implHelper.getRegisteredClasses();
         // test whether PCPoint is registered
