@@ -46,6 +46,64 @@ public class JDOHelperTest extends AbstractTest {
         BatchTestRunner.run(JDOHelperTest.class);
     }
 
+    /** The purpose of this test is simply to call some of the
+     * methods on a constructed instance of JDOHelper and verify that
+     * they do not throw exceptions. It is not a functional test.
+     * @since 2.1
+     */
+    public void testConstructor() {
+        JDOHelper helper = new JDOHelper();
+        assertNull("getObjectId(null) returned non-null", 
+                helper.getObjectId(null));
+        assertNull("getPersistenceManager(null) returned non-null", 
+                helper.getPersistenceManager(null));
+        assertNull("getTransactionalObjectId(null) returned non-null", 
+                helper.getTransactionalObjectId(null));
+        assertNull("getVersion(null) returned non-null", 
+                helper.getVersion(null));
+        assertFalse("isDeleted(null) returned non-null", 
+                helper.isDeleted(null));
+        assertFalse("isDetached(null) returned non-null", 
+                helper.isDetached(null));
+        assertFalse("isDirty(null) returned non-null", 
+                helper.isDirty(null));
+        assertFalse("isNew(null) returned non-null", 
+                helper.isNew(null));
+        assertFalse("isPersistent(null) returned non-null", 
+                helper.isPersistent(null));
+        assertFalse("isTransactional(null) returned non-null", 
+                helper.isTransactional(null));
+    }
+
+    /** The purpose of this test is simply to call some of the
+     * methods on the static instance of JDOHelper and verify that
+     * they do not throw exceptions. It is not a functional test.
+     * @since 2.1
+     */
+    public void testGetInstance() {
+        JDOHelper helper = JDOHelper.getInstance();
+        assertNull("getObjectId(null) returned non-null", 
+                helper.getObjectId(null));
+        assertNull("getPersistenceManager(null) returned non-null", 
+                helper.getPersistenceManager(null));
+        assertNull("getTransactionalObjectId(null) returned non-null", 
+                helper.getTransactionalObjectId(null));
+        assertNull("getVersion(null) returned non-null", 
+                helper.getVersion(null));
+        assertFalse("isDeleted(null) returned non-null", 
+                helper.isDeleted(null));
+        assertFalse("isDetached(null) returned non-null", 
+                helper.isDetached(null));
+        assertFalse("isDirty(null) returned non-null", 
+                helper.isDirty(null));
+        assertFalse("isNew(null) returned non-null", 
+                helper.isNew(null));
+        assertFalse("isPersistent(null) returned non-null", 
+                helper.isPersistent(null));
+        assertFalse("isTransactional(null) returned non-null", 
+                helper.isTransactional(null));
+    }
+
     /** */
     public void testGetPM() {
         PCPoint p = new PCPoint(1, new Integer(1));
