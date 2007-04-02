@@ -14,3 +14,4 @@
     <persistence-manager-factory
         persistence-unit-name="persistence-unit-name.positive1"/>
 </jdoconfig>
+

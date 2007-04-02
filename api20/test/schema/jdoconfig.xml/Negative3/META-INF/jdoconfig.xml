@@ -16,3 +16,5 @@
         persistence-unit-name="persistence-unit-name.negative3"/>
 
 </jdoconfig>
+
+    

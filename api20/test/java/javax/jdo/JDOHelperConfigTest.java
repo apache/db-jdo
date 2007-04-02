@@ -380,3 +380,4 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         }
     }
 }
+

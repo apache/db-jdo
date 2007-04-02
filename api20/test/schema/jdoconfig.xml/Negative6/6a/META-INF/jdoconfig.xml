@@ -12,3 +12,5 @@
     <persistence-manager-factory
         persistence-unit-name="persistence-unit-name.negative6"/>
 </jdoconfig>
+
+    

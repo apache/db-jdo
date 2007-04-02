@@ -23,6 +23,7 @@
 package javax.jdo;
 
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -960,7 +961,7 @@ public class JDOHelper extends Object implements Constants {
                         
                         if (propertiesByNameInAllConfigs.containsKey(name))
                             throw new JDOFatalUserException (msg.msg(
-                                "EXC_DuplicateRequestedPUFoundInDifferentConfigs",
+                                "EXC_DuplicateRequestedPersistenceUnitFoundInDifferentConfigs",
                                 "".equals(name)
                                         ? "(anonymous)"
                                         : name,
@@ -1234,13 +1235,22 @@ public class JDOHelper extends Object implements Constants {
                 ioe); //NOI18N
         }
         catch (ParserConfigurationException e) {
-            throw new JDOFatalUserException(
+            throw new JDOFatalInternalException(
                 msg.msg("EXC_ParserConfigException"),
+                e);
+        }
+        catch (SAXParseException e) {
+            throw new JDOFatalUserException(
+                msg.msg(
+                    "EXC_SAXParseException",
+                    url.toExternalForm(),
+                    new Integer(e.getLineNumber()),
+                    new Integer(e.getColumnNumber())),
                 e);
         }
         catch (SAXException e) {
             throw new JDOFatalUserException(
-                msg.msg("EXC_ParsingException", url.toExternalForm()),
+                msg.msg("EXC_SAXException", url.toExternalForm()),
                 e);
         }
         catch (JDOException e) {
@@ -1248,7 +1258,7 @@ public class JDOHelper extends Object implements Constants {
         }
         catch (RuntimeException e) {
             throw new JDOFatalUserException(
-                msg.msg("EXC_ParsingException", url.toExternalForm()),
+                msg.msg("EXC_SAXException", url.toExternalForm()),
                 e);
         }
         finally {

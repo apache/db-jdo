@@ -804,3 +804,4 @@ public interface Constants {
     static String JDOQUERY_XSD_RESOURCE
         = "javax/jdo/jdoquery_2_0.xsd";
 }
+

@@ -530,3 +530,4 @@ public interface PersistenceManagerFactory extends Serializable {
     void removeInstanceLifecycleListener (InstanceLifecycleListener listener);
 
 }
+
