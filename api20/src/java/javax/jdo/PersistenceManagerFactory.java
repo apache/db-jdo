@@ -25,6 +25,8 @@ package javax.jdo;
 import java.util.Properties;
 import java.util.Collection;
 
+import java.io.Serializable;
+
 import javax.jdo.datastore.DataStoreCache;
 
 import javax.jdo.listener.InstanceLifecycleListener;
@@ -54,21 +56,8 @@ import javax.jdo.listener.InstanceLifecycleListener;
  * @version 2.1
  */
 
-public interface PersistenceManagerFactory extends java.io.Serializable {
+public interface PersistenceManagerFactory extends Serializable {
 
-    /** 
-     * The value for TransactionType to specify that transactions
-     * are managed by the Java Transactions API, as documented in 
-     * JSR-220.
-     */
-    public static final String JTA = "JTA";
-
-    /** 
-     * The value for TransactionType to specify that transactions
-     * are managed by the javax.jdo.Transaction instance, similar
-     * to the usage as documented in JSR-220.
-     */
-    public static final String RESOURCE_LOCAL = "RESOURCE_LOCAL";
     
     /** Close this PersistenceManagerFactory. Check for 
      * JDOPermission("closePersistenceManagerFactory") and if not authorized, 
@@ -425,8 +414,8 @@ public interface PersistenceManagerFactory extends java.io.Serializable {
      * This has the same semantics as the same-named property in
      * JSR-220 EntityManagerFactory.
      * @see #getTransactionType()
-     * @see #JTA
-     * @see #RESOURCE_LOCAL
+     * @see Constants#JTA
+     * @see Constants#RESOURCE_LOCAL
      * @since 2.1
      * @param name the TransactionType
      * @throws JDOUserException if the parameter is not a permitted value
