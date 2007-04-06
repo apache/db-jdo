@@ -78,6 +78,7 @@ Request 243 under the auspices of the Java Community Process.</description>
                     <include>**/*.jdo</include>
                     <include>**/*.jdoquery</include>
                     <include>**/*.orm</include>
+                    <include>**/jdoconfig.xml</include>
                 </includes>
                 </resource>
             </resources>

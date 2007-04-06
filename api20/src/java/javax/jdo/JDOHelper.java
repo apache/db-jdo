@@ -935,6 +935,7 @@ public class JDOHelper extends Object implements Constants {
                 resourceLoader.getResources(jdoconfigResourceName);
 
             if (resources.hasMoreElements()) {
+                ArrayList processedResources = new ArrayList();
 
                 // get ready to parse XML
                 DocumentBuilderFactory factory = null;
@@ -948,6 +949,13 @@ public class JDOHelper extends Object implements Constants {
 
                 do {
                     URL currentConfigURL = (URL) resources.nextElement();
+                    if (processedResources.contains(currentConfigURL)) {
+                        continue;
+                    }
+                    else {
+                        processedResources.add(currentConfigURL);
+                    }
+                    
                     Map/*<String,Map>*/ propertiesByNameInCurrentConfig =
                         readPersistenceUnitProperties(
                             currentConfigURL, name, factory);
