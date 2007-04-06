@@ -126,7 +126,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
             IMPOSSIBLE,                     DETACHED_CLEAN,                     IMPOSSIBLE,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
-            DETACHED_CLEAN,                 TRANSIENT,                          UNCHANGED,
+            DETACHED_CLEAN,                 UNSPECIFIED,                          UNCHANGED,
             UNCHANGED},
 
         // serialize with active tx
