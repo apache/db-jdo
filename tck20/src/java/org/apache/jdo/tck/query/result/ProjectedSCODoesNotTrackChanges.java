@@ -47,6 +47,8 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A?? (ProjectedSCODoesNotTrackChanges) failed: ";
+
+    private static final Date expectedDate = new Date(2007908); // pm
     
     /**
      * The <code>main</code> is called when the class
@@ -65,7 +67,7 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
     }
 
     private Company getPersistentNewInstance(long companyid) {
-        Company obj = new Company(companyid, "MyCompany", new Date(),
+        Company obj = new Company(companyid, "MyCompany", expectedDate,
                 new Address(0,"","","","",""));
         pm.makePersistent(obj); // obj should transition to persistent-new
         int curr = currentState(obj);
@@ -119,7 +121,6 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
      *  and modified, there is no change in the owned instance. 
      */
     public void testDateField() {
-        Date testDate = new Date(123789L);
         pm = getPM();
         pm.currentTransaction().begin();
         Company comp = getPersistentNewInstance(0);
@@ -131,8 +132,8 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
                 "name.startsWith(\"MyCompany\")");
         query.setResult("founded");
         query.setUnique(true);
-        Date expectedDate = (Date) query.execute();
-        comp.setFounded(testDate);
+        Date retrievedDate = (Date) query.execute();
+        retrievedDate.setTime(123789L);
         if (JDOHelper.isDirty((Object)comp)) {
             appendMessage("Expected Company instance not to be dirty; "
                 + "actual state is " + getStateOfInstance((Object)comp));
@@ -144,7 +145,8 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
         Date actualDate = (Date) query.execute();
         if (!actualDate.equals(expectedDate)) {
             appendMessage("Expected projected field value is "
-                + expectedDate + "; actual value is " + actualDate);
+                + expectedDate + "; actual value is " + actualDate
+                + "; modified retrieved value is " + retrievedDate);
         }
         logger.debug("MyCompany's founded date is '" + actualDate + "'");
         pm.currentTransaction().commit();
