@@ -21,6 +21,22 @@ CREATE SCHEMA datastoreidentity0;
 SET SCHEMA datastoreidentity0;
 
 -------------------------
+-- newInstance
+-------------------------
+DROP TABLE address;
+
+CREATE TABLE address (
+    DATASTORE_IDENTITY BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY,
+    ADDRID INTEGER,
+    STREET VARCHAR(64),
+    CITY VARCHAR(64),
+    STATE CHAR(2),
+    ZIPCODE CHAR(5),
+    COUNTRY VARCHAR(64),
+    CONSTRAINT ADDR_PK PRIMARY KEY (ADDRID)
+);
+
+-------------------------
 -- mylib
 -------------------------
 
