@@ -46,27 +46,4 @@
         </delete>
     </goal>
 
-    <!-- ======== -->
-    <!-- XML test -->
-    <!-- ======== -->
-
-    <!-- Run XML parser on JDO metadata files (suffix .jdo, .orm or .jdoquery).             -->
-    <!-- The tool uses the following system properties:                                     -->
-    <!--   javax.jdo.metadata: a comma separated list of JDO metadata files or directories. -->
-    <!--   javax.jdo.recursive: recursively serach directories.                             -->
-    <goal name="xmltest" prereqs="test:compile">
-        <java classname="javax.jdo.util.XMLTestUtil" fork="true">
-            <classpath> 
-                <pathelement location="${xmlapis.jarfile}"/>
-                <pathelement location="${xerces.jarfile}"/>
-                <pathelement location="${maven.build.dir}/classes"/>
-                <pathelement location="${maven.build.dir}/test-classes"/>
-            </classpath> 
-            <sysproperty key="javax.jdo.metadata" value="${javax.jdo.metadata}"/>
-            <sysproperty key="javax.jdo.recursive" value="${javax.jdo.recursive}"/>
-            <sysproperty key="javax.xml.parsers.DocumentBuilderFactory" 
-                         value="${javax.xml.parsers.DocumentBuilderFactory}"/>
-        </java>
-    </goal>
-
 </project>
