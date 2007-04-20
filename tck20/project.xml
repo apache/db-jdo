@@ -58,15 +58,15 @@ NOTE!! There are no unit tests in this project.</description>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
-            <artifactId>jpox</artifactId>
-            <version>SNAPSHOT</version>
-            <url>http://www.jpox.org/docs/download.html</url>
+            <artifactId>jpox-core</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-enhancer</artifactId>
-            <version>SNAPSHOT</version>
-            <url>http://www.jpox.org/docs/download.html</url>
+            <version>1.2-SNAPSHOT</version>
+            <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -84,9 +84,9 @@ NOTE!! There are no unit tests in this project.</description>
             <version>3.8.1</version>
         </dependency>
         <dependency>
-            <groupId>bcel</groupId>
+            <groupId>org.apache.bcel</groupId>
             <artifactId>bcel</artifactId>
-            <version>5.1</version>
+            <version>5.2</version>
             <url>http://jakarta.apache.org/bcel/</url>
         </dependency>
         <dependency>
@@ -118,14 +118,14 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-c3p0</artifactId>
-            <version>SNAPSHOT</version>
-            <url>http://www.jpox.org/docs/download.html</url>
+            <version>1.2-SNAPSHOT</version>
+            <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-dbcp</artifactId>
-            <version>SNAPSHOT</version>
-            <url>http://www.jpox.org/docs/download.html</url>
+            <version>1.2-SNAPSHOT</version>
+            <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
