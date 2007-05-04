@@ -59,7 +59,7 @@ has datastore identity.
             </property>
         </interface>
             
-        <interface name="AAddress" table="address">
+        <class name="AAddress" table="address">
             <datastore-identity strategy="identity"
                 column="DATASTORE_IDENTITY"/>
             <property name="addrid">
@@ -80,7 +80,7 @@ has datastore identity.
             <property name="country">
               <column name="COUNTRY" allows-null="true"/>
             </property>
-        </interface>
+        </class>
 
     </package>
 </orm>

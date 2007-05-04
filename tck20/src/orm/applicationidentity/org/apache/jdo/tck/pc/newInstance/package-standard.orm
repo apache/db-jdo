@@ -67,7 +67,7 @@ has application identity.
             </property>
          </interface>
             
-         <interface name="AAddress" table="address">
+         <class name="AAddress" table="address">
             <property name="addrid">
               <column name="ADDRID" allows-null="true"/>
             </property>
@@ -86,7 +86,7 @@ has application identity.
             <property name="country">
               <column name="COUNTRY" allows-null="true"/>
             </property>
-        </interface>
+        </class>
 
     </package>
 </orm>
