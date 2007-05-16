@@ -269,7 +269,7 @@ public class SignatureVerifier {
         // load class
         try {
             final String r = TypeHelper.reflectionTypeName(userTypeName);
-            cls = classLoader.loadClass(r);
+            cls = Class.forName(r, false, classLoader);
             loading.add(userTypeName);
         } catch (LinkageError err) {
             handleNotLoading(err);
