@@ -53,7 +53,7 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(FetchPlanGetGroups.class);
+        BatchTestRunner.run(FetchPlanIsCopy.class);
     }
 
     /**
