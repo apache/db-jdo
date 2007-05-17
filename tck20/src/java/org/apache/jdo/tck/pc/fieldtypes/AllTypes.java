@@ -141,8 +141,16 @@ public class AllTypes {
         new String("Java"), new String("Long-live JDO")
     };
     public static final Locale[] Locale_values = {
-        Locale.US, Locale.UK, Locale.FRANCE, Locale.GERMANY, Locale.CANADA,
-        Locale.JAPAN, Locale.ITALY, Locale.CHINA, Locale.KOREA, Locale.TAIWAN
+        (Locale)Locale.US.clone(),
+        (Locale)Locale.UK.clone(),
+        (Locale)Locale.FRANCE.clone(),
+        (Locale)Locale.GERMANY.clone(),
+        (Locale)Locale.CANADA.clone(),
+        (Locale)Locale.JAPAN.clone(),
+        (Locale)Locale.ITALY.clone(),
+        (Locale)Locale.CHINA.clone(),
+        (Locale)Locale.KOREA.clone(),
+        (Locale)Locale.TAIWAN.clone()
     };
 
     public static final BigDecimal[] BigDecimal_values = {

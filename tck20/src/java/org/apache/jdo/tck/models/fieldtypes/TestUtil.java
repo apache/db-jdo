@@ -141,11 +141,11 @@ public class TestUtil {
                       vec.add(4, new Date(890673824));
                       break;
                   case(5):
-                      vec.add(0, Locale.CHINA);
-                      vec.add(1, Locale.FRANCE);
-                      vec.add(2, Locale.GERMANY);
-                      vec.add(3, Locale.JAPAN);
-                      vec.add(4, Locale.ITALY);
+                      vec.add(0, Locale.CHINA.clone());
+                      vec.add(1, Locale.FRANCE.clone());
+                      vec.add(2, Locale.GERMANY.clone());
+                      vec.add(3, Locale.JAPAN.clone());
+                      vec.add(4, Locale.ITALY.clone());
                       break;
                   case(6):
                       vec.add(0, new BigDecimal("2007908.54548"));
