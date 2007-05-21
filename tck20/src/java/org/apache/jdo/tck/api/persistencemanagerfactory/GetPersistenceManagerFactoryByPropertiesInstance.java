@@ -57,20 +57,13 @@ public class GetPersistenceManagerFactoryByPropertiesInstance extends JDO_Test {
         BatchTestRunner.run(GetPersistenceManagerFactoryByPropertiesInstance.class);
     }
 
-    /** */
-    protected void setUp() throws Exception {
-        // close pmf that might be left open from previous test
-        closePMF();
-        PMFPropertiesObject = loadProperties(PMFProperties);
-        pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
-        localSetUp();
-    }
-
     /**
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(Company.class);
+        PMFPropertiesObject = loadProperties(PMFProperties);
+        pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
     }
 
     /** */

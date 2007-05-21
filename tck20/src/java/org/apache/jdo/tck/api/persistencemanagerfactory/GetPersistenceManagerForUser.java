@@ -61,9 +61,7 @@ public class GetPersistenceManagerForUser extends JDO_Test {
     }
 
     /** */
-    protected void setUp() throws Exception {
-        // close pmf that might be left open from previous test
-        closePMF();
+    protected void localSetUp() {
         Properties props = loadProperties(PMFProperties);
         username = (String)props.remove(CONNECTION_USERNAME_PROP);
         password = (String)props.remove(CONNECTION_PASSWORD_PROP);

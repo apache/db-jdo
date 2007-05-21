@@ -232,7 +232,7 @@ public abstract class JDO_Test extends TestCase {
     private Collection tearDownClasses = new LinkedList();
     
     /** */
-    protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
         pmf = getPMF();
         localSetUp();
     }
@@ -247,7 +247,7 @@ public abstract class JDO_Test extends TestCase {
      * Runs the bare test sequence.
      * @exception Throwable if any exception is thrown
      */
-    public void runBare() throws Throwable {
+    public final void runBare() throws Throwable {
         try {
             testSucceeded = false;
             setUp();

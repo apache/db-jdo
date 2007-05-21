@@ -55,8 +55,7 @@ public class SetMultithreaded extends JDO_Test {
     }
 
     /** */
-    protected void setUp() throws Exception {
-        // close pmf that might be left open from previous test
+    protected void localSetUp() {
         closePMF();
         pmf = getUnconfiguredPMF();
     }

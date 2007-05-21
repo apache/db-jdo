@@ -74,3 +74,4 @@ public class SupportedOptions extends JDO_Test {
         }
     }  
 }
+

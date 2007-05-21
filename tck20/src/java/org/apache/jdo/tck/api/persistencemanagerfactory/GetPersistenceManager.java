@@ -52,13 +52,6 @@ public class GetPersistenceManager extends JDO_Test {
     }
 
     /** */
-    protected void setUp() throws Exception {
-        // close pmf that might be left open from previous test
-        closePMF();
-        super.setUp();
-    }
-
-    /** */
     public void test() {
         PersistenceManager pm = null;
         try {
