@@ -81,7 +81,7 @@ has application identity.
             identity-type="application">
             <property name="deptid" primary-key="true"/>
             <property name="employees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
             </property>
         </interface>
 

@@ -83,7 +83,7 @@ has application identity.
             <property name="deptid" primary-key="true"/>
             <property name="roles" persistence-modifier="persistent">
                 <map key-type="String"
-                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
             </property>
         </interface>
 

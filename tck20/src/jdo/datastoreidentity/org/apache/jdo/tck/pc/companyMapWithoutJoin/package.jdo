@@ -75,7 +75,7 @@ has datastore identity.
             identity-type="datastore">
             <property name="roles" persistence-modifier="persistent">
                 <map key-type="String"
-                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
             </property>
         </interface>
 

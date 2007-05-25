@@ -78,7 +78,7 @@ has datastore identity.
             identity-type="datastore">
             <property name="deptid"/>
             <property name="employees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.Employee"/>
+                <collection element-type="org.apache.jdo.tck.pc.companyListWithoutJoin.IEmployee"/>
             </property>
         </interface>
 
