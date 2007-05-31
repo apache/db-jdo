@@ -48,15 +48,15 @@ public class XMLTest extends AbstractTest {
 
     /** */
     protected static final File JDO_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdo_2_0.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdo_2_1.xsd");
 
     /** */
     protected static final File ORM_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/orm_2_0.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/orm_2_1.xsd");
 
     /** */
     protected static final File JDOQUERY_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_2_0.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_2_1.xsd");
 
     /** .xsd files */
     protected static final File[] XSD_FILES = 

@@ -22,7 +22,7 @@ has application identity.
 <jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
-                         http://java.sun.com/xml/ns/jdo/jdo_2_0.xsd">
+                         http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Address" embedded-only="true" requires-extent="false"/>

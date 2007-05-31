@@ -766,7 +766,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_0.xsd";
+        = "javax/jdo/jdo_2_1.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO
@@ -784,7 +784,7 @@ public interface Constants {
      * @since 2.1
      */
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_0.xsd";
+        = "javax/jdo/orm_2_1.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO query
@@ -802,6 +802,6 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_0.xsd";
+        = "javax/jdo/jdoquery_2_1.xsd";
 }
 

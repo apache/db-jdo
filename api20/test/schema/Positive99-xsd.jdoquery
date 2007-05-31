@@ -18,7 +18,7 @@
 <jdoquery xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdoquery 
-                         http://java.sun.com/xml/ns/jdo/jdoquery_2_0.xsd">
+                         http://java.sun.com/xml/ns/jdo/jdoquery_2_1.xsd">
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
   <package 
