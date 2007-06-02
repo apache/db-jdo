@@ -25,6 +25,16 @@ package javax.jdo;
 public interface Constants {
 
     /**
+     * The name of the standard service configuration resource text file containing
+     * the name of an implementation of {@link PersistenceManagerFactory}.
+     * Constant value is <code>META-INF/services/javax.jdo.PersistenceManagerFactory</code>.
+     *
+     * @since 2.1
+     */
+    static String SERVICE_LOOKUP_PMF_RESOURCE_NAME
+        = "META-INF/services/javax.jdo.PersistenceManagerFactory";
+
+    /**
      * The name of the standard JDO configuration resource file(s).
      * Constant value is <code>META-INF/jdoconfig.xml</code>.
      *

@@ -22,37 +22,9 @@
  
 package javax.jdo;
 
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.IOException;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
-
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
-import java.net.URL;
-
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.HashMap;
-import java.util.Enumeration;
-import java.util.Collections;
 
 import javax.jdo.spi.I18NHelper;
 import javax.jdo.spi.JDOImplHelper;
@@ -60,17 +32,21 @@ import javax.jdo.spi.JDOImplHelper.StateInterrogationBooleanReturn;
 import javax.jdo.spi.JDOImplHelper.StateInterrogationObjectReturn;
 import javax.jdo.spi.PersistenceCapable;
 import javax.jdo.spi.StateInterrogation;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import javax.rmi.PortableRemoteObject;
-
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.*;
 
 
 /**
@@ -595,8 +571,9 @@ public class JDOHelper extends Object implements Constants {
         }
     }
     
-    /** Get the anonymous <code>PersistenceManagerFactory</code> configured via the standard
-     * configuration file resource "META-INF/jdoconfig.xml", using the current thread's context class loader
+    /** Get the anonymous <code>PersistenceManagerFactory</code> configured via
+     * the standard configuration file resource "META-INF/jdoconfig.xml", using
+     * the current thread's context class loader
      * to locate the configuration file resource(s).
      * @return the anonymous <code>PersistenceManagerFactory</code>.
      * @since 2.1
@@ -605,6 +582,40 @@ public class JDOHelper extends Object implements Constants {
     public static PersistenceManagerFactory getPersistenceManagerFactory() {
         ClassLoader cl = getContextClassLoader();
         return getPersistenceManagerFactory ((String)null, cl);
+    }
+
+    /** Get the anonymous <code>PersistenceManagerFactory</code> configured via
+     * the standard
+     * configuration file resource "META-INF/jdoconfig.xml", using the given
+     * class loader
+     * to locate the configuration file resource(s).
+     * @return the anonymous <code>PersistenceManagerFactory</code>.
+     * @param cl the ClassLoader used to load resources and classes
+     * @since 2.1
+     * @see #getPersistenceManagerFactory(String,ClassLoader)
+     */
+    public static PersistenceManagerFactory getPersistenceManagerFactory(
+            ClassLoader cl
+    ) {
+        return getPersistenceManagerFactory((String)null, cl, cl);
+    }
+
+    /** Get the anonymous <code>PersistenceManagerFactory</code> configured via
+     * the standard
+     * configuration file resource "META-INF/jdoconfig.xml", using the given
+     * resource class loader & class loader
+     * to locate the configuration file resource(s).
+     * @return the anonymous <code>PersistenceManagerFactory</code>.
+     * @param resourceLoader the class loader to use to load resources
+     * @param pmfLoader the class loader to use to load the classes
+     * @since 2.1
+     * @see #getPersistenceManagerFactory(String,ClassLoader)
+     */
+    public static PersistenceManagerFactory getPersistenceManagerFactory(
+            ClassLoader resourceLoader,
+            ClassLoader pmfLoader
+    ) {
+        return getPersistenceManagerFactory((String)null, resourceLoader, pmfLoader);
     }
 
     /** Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code>
@@ -678,8 +689,17 @@ public class JDOHelper extends Object implements Constants {
         String pmfClassName = (String) props.get (
             PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS); //NOI18N
         if (pmfClassName == null) {
-            throw new JDOFatalUserException(msg.msg(
-                "EXC_GetPMFNoClassNameProperty")); // NOI18N
+            try {
+                pmfClassName = getPMFClassNameViaServiceLookup(cl);
+            }
+            catch (IOException e) {
+                throw new JDOFatalInternalException(msg.msg(
+                    "EXC_IOExceptionDuringServiceLookup"), e); // NOI18N
+            }
+            if (pmfClassName == null) {
+                throw new JDOFatalUserException(msg.msg(
+                    "EXC_GetPMFNoClassNameProperty")); // NOI18N
+            }
         }
         try {
             Class pmfClass = cl.loadClass (pmfClassName);
@@ -699,7 +719,7 @@ public class JDOHelper extends Object implements Constants {
                 "EXC_GetPMFNoSuchMethod"), nsme); //NOI18N
         } catch (InvocationTargetException ite) {
             Throwable nested = ite.getTargetException();
-            if  (nested instanceof JDOException) {
+            if (nested instanceof JDOException) {
                 throw (JDOException)nested;
             } else throw new JDOFatalInternalException (msg.msg(
                 "EXC_GetPMFUnexpectedException"), ite); //NOI18N
@@ -714,7 +734,66 @@ public class JDOHelper extends Object implements Constants {
                 "EXC_GetPMFUnexpectedException"), e); //NOI18N
         }
     }
-    
+
+    /**
+     * Looks up a (@link PersistenceManagerFactory} implementation class name
+     * from the resource
+     * <code>META-INF/services/javax.jdo.PersistenceManagerFactory</code>,
+     * which should be a text file whose
+     * only contents are the fully qualified name of a class that implements
+     * {@link PersistenceManagerFactory}.
+     * Note that the method
+     * {@link java.lang.ClassLoader#getResourceAsStream(String)} is used to
+     * find the resource.
+     * Only the first implementation class name found in the resource is used. 
+     * @param cl The ClassLoader used to find the resource.
+     * @return The first non-blank, trimmed line found in the file; should be
+     * a PMF implementation class name, or null
+     * if no content was found.
+     * @throws IOException
+     */
+    protected static String getPMFClassNameViaServiceLookup(ClassLoader cl)
+            throws IOException
+    {
+        /*
+        Note:  not using sun.misc.Service because it's not a standard part of
+        the JDK (yet).
+         */
+        InputStream is = cl.getResourceAsStream(
+                SERVICE_LOOKUP_PMF_RESOURCE_NAME);
+
+        if (is == null) {
+            return null;
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.length() == 0 || line.startsWith("#")) {
+                    continue;
+                }
+                // else assume first line of text is the PMF class name
+                String[] tokens = line.split("\\s");
+                String pmfClassName = tokens[0];
+                int indexOfComment = pmfClassName.indexOf("#");
+                if (indexOfComment == -1) {
+                    return pmfClassName;
+                }
+                // else pmfClassName has a comment at the end of it -- remove
+                return pmfClassName.substring(0, indexOfComment);
+            }
+            return null;
+        } finally {
+            try {
+                reader.close();
+            }
+            catch (IOException x) {
+                // gulp
+            }
+        }
+    }
+
     /**
      * Returns a named {@link PersistenceManagerFactory} with the given persistence unit name or,
      * if not found, a {@link PersistenceManagerFactory} configured based
