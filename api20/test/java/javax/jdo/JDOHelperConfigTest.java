@@ -54,18 +54,22 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
      */
     public void testPositive00_PMF0_GetNamedPMFProperties() throws IOException {
 
-        URLClassLoader loader = new JDOConfigTestClassLoader(
-                JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
-        ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
+        try {
+            URLClassLoader loader = new JDOConfigTestClassLoader(
+                    JDOCONFIG_CLASSPATH_PREFIX,
+                    getClass().getClassLoader());
+            ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
 
-        Map expected = prepareInitialExpectedMap("positive0.pmf0", 2);
-        String name = (String) expected.get(PROPERTY_PERSISTENCE_UNIT_NAME);
+            Map expected = prepareInitialExpectedMap("positive0.pmf0", 2);
+            String name = (String) expected.get(PROPERTY_PERSISTENCE_UNIT_NAME);
 
-        Map actual = JDOHelper.getPersistenceUnitProperties(name, loader);
+            Map actual = JDOHelper.getPersistenceUnitProperties(name, loader);
 
-        assertNotNull("No properties found", actual);
-        assertEqualProperties(expected, actual);
+            assertNotNull("No properties found", actual);
+            assertEqualProperties(expected, actual);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -76,7 +80,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testPositive00_PMF1_GetNamedPMFProperties() throws IOException  {
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
 
         Map expected = prepareInitialExpectedMap("positive0.pmf1", 2);
@@ -96,7 +100,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testPositive00_PMF2_GetNamedPMFProperties() throws IOException  {
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
 
         Map expected = prepareInitialExpectedMap("positive0.pmf2", 2);
@@ -116,7 +120,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testPositive00_PMF3_GetNamedPMFProperties() throws IOException  {
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
 
         Map expected = prepareInitialExpectedMap("positive0.pmf3", 2, 2);
@@ -136,7 +140,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testPositive00_PMF4_GetNamedPMFProperties() throws IOException  {
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive0", loader);
 
         Map expected = prepareInitialExpectedMap("positive0.pmf4", 0, 2);
@@ -257,11 +261,11 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
      * Positive0-jdoconfig.xml and PU name
      * "persistence-unit-name.positive0.pmf0"
      */
-    public void testPostiive01_DuplicatePUsInDifferentConfigFilesButNotRequested() throws IOException {
+    public void testPositive01_DuplicatePUsInDifferentConfigFilesButNotRequested() throws IOException {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive1/1a", loader);
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive1/1b", loader);
 
@@ -276,7 +280,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive3", loader);
 
         String expected = "class.positive3.pmf0";
@@ -293,7 +297,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive4", loader);
 
         String expected = "class.positive4.pmf0";
@@ -310,7 +314,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
-                (URLClassLoader) getClass().getClassLoader());
+                getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Positive5", loader);
 
         String expected = "class.positive5.pmf0";
@@ -341,7 +345,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative0", loader);
 
             JDOHelper.getPersistenceManagerFactory(loader);
@@ -356,7 +360,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative1", loader);
 
             JDOHelper.getPersistenceManagerFactory(loader);
@@ -373,7 +377,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative2", loader);
 
             JDOHelper.getPersistenceManagerFactory(loader);
@@ -390,7 +394,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative3", loader);
 
             JDOHelper.getPersistenceManagerFactory(
@@ -410,7 +414,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative4", loader);
 
             JDOHelper.getPersistenceManagerFactory(
@@ -430,7 +434,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative5", loader);
 
             JDOHelper.getPersistenceManagerFactory(loader);
@@ -448,7 +452,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
                     JDOCONFIG_CLASSPATH_PREFIX,
-                    (URLClassLoader) getClass().getClassLoader());
+                    getClass().getClassLoader());
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative6/6a", loader);
             ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative6/6b", loader);
 
@@ -466,8 +470,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testNegative07_EmptyServicesFile()
         throws IOException
     {
-        URLClassLoader loader = (URLClassLoader) getClass().getClassLoader();
-        JDOConfigTestClassLoader testLoader = new JDOConfigTestClassLoader(new String[] {JDOCONFIG_CLASSPATH_PREFIX}, loader);
+        JDOConfigTestClassLoader testLoader = new JDOConfigTestClassLoader(new String[] {JDOCONFIG_CLASSPATH_PREFIX}, getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative7", testLoader);
         String shouldBeNull = JDOHelper.getPMFClassNameViaServiceLookup(testLoader);
         assertNull(shouldBeNull);
@@ -476,8 +479,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testNegative08_ServicesFileWithOnlyComments()
         throws IOException
     {
-        URLClassLoader loader = (URLClassLoader) getClass().getClassLoader();
-        JDOConfigTestClassLoader testLoader = new JDOConfigTestClassLoader(new String[] {JDOCONFIG_CLASSPATH_PREFIX}, loader);
+        JDOConfigTestClassLoader testLoader = new JDOConfigTestClassLoader(new String[] {JDOCONFIG_CLASSPATH_PREFIX}, getClass().getClassLoader());
         ClasspathHelper.addFile(JDOCONFIG_CLASSPATH_PREFIX + "/Negative8", testLoader);
         String shouldBeNull = JDOHelper.getPMFClassNameViaServiceLookup(testLoader);
         assertNull(shouldBeNull);
