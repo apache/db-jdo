@@ -169,6 +169,7 @@ NOTE!! There are no unit tests in this project.</description>
                     <include>commons-logging.properties</include>
                     <include>simplelog.properties</include>
                     <include>logging.properties</include>
+                    <include>*.conf</include>
                 </includes>
             </resource>
             <resource>
