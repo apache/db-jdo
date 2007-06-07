@@ -163,12 +163,6 @@ NOTE!! There are no unit tests in this project.</description>
                 </includes>
             </resource>
             <resource>
-                <directory>${basedir}/src/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
                 <directory>${basedir}/src/conf</directory>
                 <includes>
                     <include>enhancement-test.properties</include>
