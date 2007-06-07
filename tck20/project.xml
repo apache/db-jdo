@@ -177,6 +177,18 @@ NOTE!! There are no unit tests in this project.</description>
                     <include>logging.properties</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>${basedir}/src/jdo</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/orm</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/sql</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/testdata</directory>
+            </resource>
         </resources>
     </build>
 </project>
