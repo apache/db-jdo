@@ -27,8 +27,8 @@
     <artifactId>jdo2-api</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
     <package>javax.jdo</package>
-    <shortDescription>Java Data Objects 2.0 (JDO) API</shortDescription>
-    <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
+    <shortDescription>Java Data Objects 2.1 (JDO) API</shortDescription>
+    <description>The Java Data Objects 2.1 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request 243 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
