@@ -25,6 +25,7 @@ package javax.jdo;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.ErrorHandler;
 
 import javax.jdo.spi.I18NHelper;
 import javax.jdo.spi.JDOImplHelper;
@@ -1222,6 +1223,24 @@ public class JDOHelper extends Object implements Constants {
         InputStream in = null;
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            builder.setErrorHandler(new ErrorHandler() {
+                public void error(SAXParseException exception)
+                        throws SAXException {
+                    throw exception;
+                }
+
+                public void fatalError(SAXParseException exception)
+                        throws SAXException {
+                    throw exception;
+                }
+
+                public void warning(SAXParseException exception)
+                        throws SAXException {
+                    // gulp
+                }
+            });
+
             in = url.openStream();
             Document doc = builder.parse(in);
 
