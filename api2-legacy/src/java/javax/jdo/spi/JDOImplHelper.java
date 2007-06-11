@@ -62,7 +62,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * the security manager, only the call to get an instance is checked.  Once an 
  * implementation
  * has an instance, any of the methods can be invoked without security checks.
- * @version 1.0.2
+ * @version 2.1
  *
  */
 public class JDOImplHelper extends java.lang.Object {
@@ -549,12 +549,18 @@ public class JDOImplHelper extends java.lang.Object {
      * semantics of DocumentBuilderFactory.newInstance().
      *
      * @param factory the DocumentBuilderFactory instance to use
+     * @since 2.1
      */
     public synchronized void registerDocumentBuilderFactory(
             DocumentBuilderFactory factory) {
         documentBuilderFactory = factory;
     }
 
+    /**
+     * Return the registered instance of DocumentBuilderFactory.
+     * @return the DocumentBuilderFactory if registered; null otherwise
+     * @since 2.1
+     */
     public static DocumentBuilderFactory getRegisteredDocumentBuilderFactory() {
         return documentBuilderFactory;
     }
@@ -565,11 +571,17 @@ public class JDOImplHelper extends java.lang.Object {
      * that throws on error or fatalError and ignores warnings.
      *
      * @param handler the ErrorHandler instance to use
+     * @since 2.1
      */
     public synchronized void registerErrorHandler(ErrorHandler handler) {
         errorHandler = handler;
     }
 
+    /**
+     * Return the registered instance of ErrorHandler.
+     * @return the registered ErrorHandler if registered; null otherwise
+     * @since 2.1
+     */
     public static ErrorHandler getRegisteredErrorHandler() {
         return errorHandler;
     }
@@ -706,6 +718,8 @@ public class JDOImplHelper extends java.lang.Object {
     
     /**
      * Parse the String to a Locale.
+     * @param s the name of the Locale
+     * @return the Locale corresponding to the name
      */
     private static Locale getLocale(String s) {
         String lang = s;
@@ -728,6 +742,8 @@ public class JDOImplHelper extends java.lang.Object {
     }
     /**
      * Determine if a class is loadable in the current environment.
+     * @param className the fully-qualified name of the class
+     * @return true if the class can be loaded; false otherwise
      */
     private static boolean isClassLoadable(String className) {
         try {
@@ -890,8 +906,10 @@ public class JDOImplHelper extends java.lang.Object {
         }
     }
     
-    /** Add a StateInterrogation to the list. Create a new list
+    /**
+     * Add a StateInterrogation to the list. Create a new list
      * in case there is an iterator open on the original list.
+     * @param si the StateInterrogation to add
      */
     public synchronized void addStateInterrogation(StateInterrogation si) {
         List newList = new ArrayList(stateInterrogations);
@@ -899,8 +917,10 @@ public class JDOImplHelper extends java.lang.Object {
         stateInterrogations = newList;
     }
     
-    /** Remove a StateInterrogation from the list. Create a new list
+    /**
+     * Remove a StateInterrogation from the list. Create a new list
      * in case there is an iterator open on the original list.
+     * @param si the StateInterrogation to remove
      */
     public synchronized void removeStateInterrogation(StateInterrogation si) {
         List newList = new ArrayList(stateInterrogations);
@@ -908,16 +928,21 @@ public class JDOImplHelper extends java.lang.Object {
         stateInterrogations = newList;
     }
     
-    /** Return an Iterator over all StateInterrogation instances.
+    /**
+     * Return an Iterator over all StateInterrogation instances.
      * Synchronize to avoid add/remove/iterate conflicts.
+     * @return an Iterator over all StateInterrogation instances.
      */
     private synchronized Iterator getStateInterrogationIterator() {
         return stateInterrogations.iterator();
     }
     
-    /** Mark a non-binary-compatible instance dirty. Delegate to all
+    /**
+     * Mark a non-binary-compatible instance dirty. Delegate to all
      * registered StateInterrogation instances until one of them
      * handles the call.
+     * @param pc the instance to mark dirty
+     * @param fieldName the field to mark dirty
      */
     public void nonBinaryCompatibleMakeDirty(Object pc, String fieldName) {
         Iterator sit = getStateInterrogationIterator();
@@ -927,12 +952,19 @@ public class JDOImplHelper extends java.lang.Object {
         }
     }
     
-    /** Determine the state of a non-binary-compatible instance.
+    /**
+     * Determine the state of a non-binary-compatible instance.
      * Delegate to all registered StateInterrogation instances until
      * one of them handles the call (returns a non-null Boolean 
      * with the answer).
      * The caller provides the stateless "method object" that does 
      * the actual call to the StateInterrogation instance.
+     * @param pc the instance to be checked
+     * @param sibr the method object that delegates to the 
+     * non-binary-compatible implementation
+     * @return Boolean.TRUE if the instance satisfies the state interrogation;
+     * Boolean.FALSE if the instance does not satisfy the interrogation;
+     * or null if the implementation does not manage the class of the instance
      */
     public boolean nonBinaryCompatibleIs(Object pc, 
             StateInterrogationBooleanReturn sibr) {
@@ -945,11 +977,17 @@ public class JDOImplHelper extends java.lang.Object {
         return false;
     }
     
-    /** Return an object associated with a non-binary-compatible instance.
+    /**
+     * Return an object associated with a non-binary-compatible instance.
      * Delegate to all registered StateInterrogation instances until
      * one of them handles the call (returns a non-null answer).
      * The caller provides the stateless "method object" that does 
      * the actual call to the StateInterrogation instance.
+     * @param pc the instance whose associated object is needed
+     * @param sibr the method object that delegates to the 
+     * non-binary-compatible implementation
+     * @return the associated object or null if the implementation does not
+     * manage the class of the instance
      */
     public Object nonBinaryCompatibleGet(Object pc, 
             StateInterrogationObjectReturn sibr) {
@@ -967,6 +1005,12 @@ public class JDOImplHelper extends java.lang.Object {
      * methods that return a boolean value.
      */
     public static interface StateInterrogationBooleanReturn {
+        /**
+         * Interrogate the state of the instance 
+         * @param pc the instance
+         * @param si the method object
+         * @return the state of the instance or null
+         */
         public Boolean is(Object pc, StateInterrogation si);
     }
     
@@ -975,6 +1019,12 @@ public class JDOImplHelper extends java.lang.Object {
      * methods that return an Object value.
      */
     public static interface StateInterrogationObjectReturn {
+        /**
+         * Return the associated instance.
+         * @param pc the instance
+         * @param si the method object
+         * @return the associated object or null
+         */
         public Object get(Object pc, StateInterrogation si);
     }
 }
