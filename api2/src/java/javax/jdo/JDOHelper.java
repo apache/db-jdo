@@ -1018,14 +1018,11 @@ public class JDOHelper extends Object implements Constants {
                 ArrayList processedResources = new ArrayList();
 
                 // get ready to parse XML
-                DocumentBuilderFactory factory = null;
-                // TODO:  ensure DBF is initialized properly
-                factory = DocumentBuilderFactory.newInstance();
-                factory.setIgnoringComments(true);
-                factory.setNamespaceAware(true);
-                factory.setValidating(false);
-                factory.setIgnoringElementContentWhitespace(true);
-                factory.setExpandEntityReferences(true);
+                DocumentBuilderFactory factory =
+                        implHelper.getRegisteredDocumentBuilderFactory();
+                if (factory == null) {
+                    factory = getDefaultDocumentBuilderFactory();
+                }
 
                 do {
                     URL currentConfigURL = (URL) resources.nextElement();
@@ -1076,6 +1073,36 @@ public class JDOHelper extends Object implements Constants {
         return (Map) propertiesByNameInAllConfigs.get(name);
     }
 
+
+    protected static DocumentBuilderFactory getDefaultDocumentBuilderFactory() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setIgnoringComments(true);
+        factory.setNamespaceAware(true);
+        factory.setValidating(false);
+        factory.setIgnoringElementContentWhitespace(true);
+        factory.setExpandEntityReferences(true);
+
+        return factory;
+    }
+
+    protected static ErrorHandler getDefaultErrorHandler() {
+        return new ErrorHandler() {
+                public void error(SAXParseException exception)
+                        throws SAXException {
+                    throw exception;
+                }
+
+                public void fatalError(SAXParseException exception)
+                        throws SAXException {
+                    throw exception;
+                }
+
+                public void warning(SAXParseException exception)
+                        throws SAXException {
+                    // gulp:  ignore warnings
+                }
+            };
+    }
 
     /**
      * Convenience method for retrieving the JPA persistence unit by the given

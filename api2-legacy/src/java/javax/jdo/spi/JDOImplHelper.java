@@ -22,6 +22,8 @@
 
 package javax.jdo.spi;
 
+import org.xml.sax.ErrorHandler;
+
 import java.lang.reflect.Constructor;
 
 import java.text.DateFormat;
@@ -45,6 +47,7 @@ import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /** This class is a helper class for JDO implementations.  It contains methods
  * to register metadata for persistence-capable classes and to perform common
@@ -103,6 +106,16 @@ public class JDOImplHelper extends java.lang.Object {
     /** The default DateFormat instance.
      */
     private static DateFormat dateFormat;
+
+    /**
+     * The DocumentBuilderFactory used during jdoconfig.xml parsing.
+     */
+    private static DocumentBuilderFactory documentBuilderFactory;
+
+    /**
+     * The ErrorHandler used during jdoconfig.xml parsing.
+     */
+    private static ErrorHandler errorHandler;
 
     /** Register the default DateFormat instance.
      */
@@ -530,6 +543,37 @@ public class JDOImplHelper extends java.lang.Object {
         }
     }
     
+    /**
+     * Register a DocumentBuilderFactory instance for use in parsing the
+     * resource(s) META-INF/jdoconfig.xml. The default is governed by the
+     * semantics of DocumentBuilderFactory.newInstance().
+     *
+     * @param factory the DocumentBuilderFactory instance to use
+     */
+    public synchronized void registerDocumentBuilderFactory(
+            DocumentBuilderFactory factory) {
+        documentBuilderFactory = factory;
+    }
+
+    public static DocumentBuilderFactory getRegisteredDocumentBuilderFactory() {
+        return documentBuilderFactory;
+    }
+
+    /**
+     * Register an ErrorHandler instance for use in parsing the
+     * resource(s) META-INF/jdoconfig.xml. The default is an ErrorHandler
+     * that throws on error or fatalError and ignores warnings.
+     *
+     * @param handler the ErrorHandler instance to use
+     */
+    public synchronized void registerErrorHandler(ErrorHandler handler) {
+        errorHandler = handler;
+    }
+
+    public static ErrorHandler getRegisteredErrorHandler() {
+        return errorHandler;
+    }
+
     /** Check that the parameter instance is of a class that is authorized for
      * JDOPermission("setStateManager").  This method is called by the
      * replaceStateManager method in persistence-capable classes.
