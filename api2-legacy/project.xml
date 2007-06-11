@@ -22,7 +22,7 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO2 API</name>
+    <name>JDO2 API Legacy</name>
     <groupId>javax.jdo</groupId>
     <artifactId>jdo2-api-legacy</artifactId>
     <currentVersion>SNAPSHOT</currentVersion>
