@@ -21,7 +21,7 @@ This file contains a named query for class Person.
 <jdoquery xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdoquery 
-	http://java.sun.com/xml/ns/jdo/jdoquery_2_0.xsd">
+	http://java.sun.com/xml/ns/jdo/jdoquery_2_1.xsd">
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Person">

@@ -15,11 +15,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-
 <jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
-	http://java.sun.com/xml/ns/jdo/jdo_2_0.xsd">
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
   <package name="org.apache.jdo.tck.pc.singlefieldidentity">
     <class name="PCPointSingleFieldPrimitivebyte" persistence-modifier="non-persistent"/>
     <class name="PCPointSingleFieldByte" persistence-modifier="non-persistent"/>
