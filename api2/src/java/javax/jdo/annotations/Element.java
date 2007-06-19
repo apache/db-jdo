@@ -29,26 +29,29 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Element
 {
     /**
-     * The type of the element. This can be determined for an array, or if using JDK1.5 generics
-     * but is required otherwise.
+     * The type of the element. This can be determined for an array, 
+     * or if using JDK1.5 generics but is required otherwise.
      * @return The type of the element.
      */
     Class type() default void.class;
 
     /**
-     * Types of the elements. This is used as an alternative to "type" when the implementation supports
-     * specification of multiple element types. If "type" is specified then this is ignored.
+     * Types of the elements. This is used as an alternative to "type" when 
+     * the implementation supports specification of multiple element types. 
+     * If "type" is specified then this is ignored.
      * @return The types of elements
      */
     Class[] types() default {};
 
     /**
      * Whether the element is to be stored serialised (into a join table)
-     * @return Whether the element is to be stored serialised (into a join table)
+     * @return Whether the element is to be stored serialised 
+     * (into a join table)
      */
     String serialized() default "";
 
@@ -59,8 +62,10 @@ public @interface Element
     String embedded() default "";
 
     /**
-     * Whether the element is dependent on the owner (and so will be deleted when it is)
-     * @return Whether the element is dependent on the owner (and so will be deleted when it is)
+     * Whether the element is dependent on the owner, and will be deleted 
+     * when the owner is deleted
+     * @return Whether the element is dependent on the owner, and will be 
+     * deleted when the owner is deleted
      */
     String dependent() default "";
 
@@ -95,14 +100,16 @@ public @interface Element
     String indexed() default "";
 
     /**
-     * Whether the element column(s) contents should be considered unique
-     * @return Whether the element column(s) contents should be considered unique
+     * Whether the element column(s) contents are unique
+     * @return Whether the element column(s) contents are unique
      */
     String unique() default "";
 
     /**
-     * Name of a field in the target class that forms a bidirectional relation with this field
-     * @return Name of a field in the target class that forms a bidirectional relation with this field
+     * Name of the field in the target class that forms a bidirectional 
+     * relationship with this field. 
+     * @return Name of the field in the target class that forms a bidirectional 
+     * relationship with this field
      */
     String mappedBy() default "";
 

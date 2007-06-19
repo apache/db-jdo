@@ -28,14 +28,17 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Discriminator
 {
     /**
-     * Strategy to use for discrimination checking.
-     * @return Strategy to use for discrimination checking.
+     * Strategy to use for discriminator. The discriminator determines
+     * the class associated with a row in the datastore.
+     * @return Strategy to use for discriminator.
      */
-    DiscriminatorStrategyType strategy() default DiscriminatorStrategyType.UNKNOWN;
+    DiscriminatorStrategyType strategy() 
+        default DiscriminatorStrategyType.UNKNOWN;
 
     /**
      * Whether the discriminator is indexed.
@@ -50,8 +53,10 @@ public @interface Discriminator
     String column() default "";
 
     /**
-     * The value for the discriminator for objects of this class (when using "value-map" strategy).
-     * @return The value for the discriminator for objects of this class (when using "value-map" strategy).
+     * The value for the discriminator for objects of this class 
+     * when using "value-map" strategy.
+     * @return The value for the discriminator for objects of this class 
+     * when using "value-map" strategy.
      */
     String value() default "";
 
