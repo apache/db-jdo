@@ -22,13 +22,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the class is only for persisting embedded into another object.
+ * Annotation for whether the class is only for persisting embedded into 
+ * another object.
  * Same as specifying @PersistenceCapable(embeddedOnly="true").
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface EmbeddedOnly
 {
 }

@@ -28,15 +28,22 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Extension
 {
-    /** Vendor that the extension applies to */
+    /** Vendor that the extension applies to.
+     * @return the vendor
+     */
     String vendorName();
 
-    /** The key for the extension. */
+    /** The key for the extension. 
+     * @return the key
+     */
     String key();
 
-    /** The value for the extension. */
+    /** The value for the extension. 
+     * @return the value
+     */
     String value();
 }

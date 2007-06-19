@@ -22,24 +22,35 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to define that the object is embedded into the table of the owning object.
+ * Annotation to define that the object is embedded into the table of the 
+ * owning object.
  * Maps across to the JDO2 element "embedded".
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Embedded
 {
-    /** The field in the embedded object that links back to the owning object (where it has a bidirectional relation). */
+    /** The field in the embedded object that links back to the owning object
+     * where it has a bidirectional relationship. 
+     * @return the field that refers to the owner
+     */
     String ownerField() default "";
 
-    /** The column in the embedded object used to judge if the embedded object is null. */
+    /** The column in the embedded object used to judge if the embedded object
+     * is null. 
+     * @return the null indicator column
+     */
     String nullIndicatorColumn() default "";
 
-    /** The value in the null column to interpret the object as being null. */
+    /** The value in the null column to interpret the object as being null.
+     * @return the null indicator value
+     */
     String nullIndicatorValue() default "";
 
-    /** Field definitions for this embedding. */
+    /** Field definitions for this embedding. 
+     */
     Field[] fields() default {};
 }
