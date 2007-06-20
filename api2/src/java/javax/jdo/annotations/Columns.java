@@ -31,6 +31,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Columns
 {
-    /** The columns annotation information. */
+    /** The columns annotation information.
+     * @return the columns
+     */
     Column[] value();
 }
