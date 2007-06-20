@@ -40,7 +40,7 @@ public @interface PersistenceCapable
     String detachable() default "";
 
     /** Type of identity for this class. */
-    IdentityTypeValue identityType() default IdentityTypeValue.DATASTORE;
+    IdentityType identityType() default IdentityType.DATASTORE;
 
     /** Primary key class when using application identity and using own PK. */
     Class objectIdClass() default void.class;

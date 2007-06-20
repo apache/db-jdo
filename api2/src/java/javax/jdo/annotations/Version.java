@@ -35,7 +35,7 @@ public @interface Version
      * Strategy for versioning of objects of this class
      * @return Strategy for versioning objects of this class
      */
-    VersionStrategyType strategy();
+    VersionStrategy strategy();
 
     /**
      * Name of the column for the version

@@ -37,8 +37,8 @@ public @interface Discriminator
      * the class associated with a row in the datastore.
      * @return Strategy to use for discriminator.
      */
-    DiscriminatorStrategyType strategy() 
-        default DiscriminatorStrategyType.UNKNOWN;
+    DiscriminatorStrategy strategy() 
+        default DiscriminatorStrategy.UNKNOWN;
 
     /**
      * Whether the discriminator is indexed.

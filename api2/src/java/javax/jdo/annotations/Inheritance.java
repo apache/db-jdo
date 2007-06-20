@@ -32,5 +32,5 @@ import java.lang.annotation.Target;
 public @interface Inheritance
 {
     /** Strategy to use for inheritance. Relates to where the data for the class is stored. */
-    InheritanceStrategyType strategy();
+    InheritanceStrategy strategy();
 }
