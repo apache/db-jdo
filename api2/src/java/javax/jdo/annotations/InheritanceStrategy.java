@@ -17,15 +17,14 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 version strategy values.
+ * Enumeration of the JDO2 inheritance strategy values.
  * 
  * @version 2.1
  * @since 2.1
  */
-public enum VersionStrategyType
+public enum InheritanceStrategy
 {
-    NONE,
-    STATE_IMAGE,
-    DATE_TIME,
-    VERSION_NUMBER
+    NEW_TABLE,
+    SUBCLASS_TABLE,
+    SUPERCLASS_TABLE
 };

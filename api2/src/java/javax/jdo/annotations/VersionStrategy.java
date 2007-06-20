@@ -17,15 +17,15 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 identity type values.
+ * Enumeration of the JDO2 version strategy values.
  * 
  * @version 2.1
  * @since 2.1
  */
-public enum IdentityTypeValue
+public enum VersionStrategy
 {
-    UNKNOWN,
-    APPLICATION,
-    DATASTORE,
-    NONDURABLE
+    NONE,
+    STATE_IMAGE,
+    DATE_TIME,
+    VERSION_NUMBER
 };

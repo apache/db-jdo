@@ -17,14 +17,15 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 inheritance strategy values.
+ * Enumeration of the JDO2 identity type values.
  * 
  * @version 2.1
  * @since 2.1
  */
-public enum InheritanceStrategyType
+public enum IdentityType
 {
-    NEW_TABLE,
-    SUBCLASS_TABLE,
-    SUPERCLASS_TABLE
+    UNKNOWN,
+    APPLICATION,
+    DATASTORE,
+    NONDURABLE
 };

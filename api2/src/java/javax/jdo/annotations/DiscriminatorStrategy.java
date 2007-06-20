@@ -22,7 +22,7 @@ package javax.jdo.annotations;
  * @version 2.1
  * @since 2.1
  */
-public enum DiscriminatorStrategyType
+public enum DiscriminatorStrategy
 {
     UNKNOWN,
     NONE,
