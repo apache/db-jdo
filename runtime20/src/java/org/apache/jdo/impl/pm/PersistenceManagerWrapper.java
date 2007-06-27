@@ -1145,6 +1145,26 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /**
+     * Get the Date as seen by the server. 
+     * Clients using this method can order their operations according to 
+     * a single time source. Implementations use the setting of the 
+     * server time zone to prepare a Date instance that represents 
+     * UTC time on the server. 
+     * @return a Date instance corresponding to the UTC Date 
+     * as seen by the server
+     * @since 2.1
+     */
+    public Date getServerDate() {
+        if (isValid) { 
+            return pm.getServerDate();
+        } else { 
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        } 
+        
+    }
+    
+    /**
      * Returns PersistenceManagerInternal associated with this wrapper.
      * This method should be accessed by the PersistenceManagerInternal
      * only.
