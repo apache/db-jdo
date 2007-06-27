@@ -27,60 +27,86 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Field
 {
-    /** Modifier for this field. */
-    FieldPersistenceModifier persistenceModifier() default FieldPersistenceModifier.UNKNOWN;
+    /** Modifier for this field. 
+     * @return the persistence modifier
+     */
+    FieldPersistenceModifier persistenceModifier() 
+        default FieldPersistenceModifier.UNKNOWN;
 
-    /** Whether this field is in the default fetch group. */
+    /** Whether this field is in the default fetch group. 
+     * @return whether this field is in the default fetch group
+     */
     String defaultFetchGroup() default "";
 
-    /** Behaviour when inserting a null value. */
+    /** Behavior when this field contains a null value. 
+     * @return the behavior when this field contains a null value
+     */
     NullValue nullValue() default NullValue.NONE;
 
-    /** Whether this field is embedded. */
+    /** Whether this field is embedded. 
+     * @return whether this field is embedded
+     */
     String embedded() default "";
 
-    /** Whether this field is serialised into a single column. */
+    /** Whether this field is serialised into a single column. 
+     * @return whether this field is serialized into a single column
+     */
     String serialized() default "";
 
     /** Whether related object(s) of this field are dependent
-     *  and so deleted when this object is deleted. */
+     * and so deleted when this object is deleted. 
+     * @return whether the related object(s) of this field are dependent
+     */
     String dependent() default "";
 
-    /** Whether this field is part of the PK of the class. */
+    /** Whether this field is part of the primary key of the class. 
+     * @return whether this field is part of the primary key of the class
+     */
     String primaryKey() default "";
 
-    /** Value strategy to use to populate this field (if any): */
+    /** Value strategy to use to populate this field (if any).
+     * @return the generated value strategy
+     */
     IdGeneratorStrategy valueStrategy() default IdGeneratorStrategy.UNKNOWN;
 
-    /** Name of a sequence to use with particular value strategies. */
+    /** Name of a sequence to use with particular value strategies. 
+     */
     String sequence() default "";
 
     /** Name of the fetch-group to use when this field is loaded 
-      * due to being referenced etc */
+     * due to being referenced etc. 
+     */
     String loadFetchGroup() default "";
 
     /** Type of the field. Used when the field is a reference type 
-      * and we want to be specific. */
+     * and we want to be specific. 
+     */
     Class fieldType() default void.class;
 
-    /** Type of the field. This is used as an alternative to "tfieldType" 
-      * when the implementation supports specification of multiple key types.
-      * If "fieldType" is specified then this is ignored. */
+    /** Type of the field. This is used as an alternative to "fieldType" 
+     * when the implementation supports specification of multiple key types.
+     * If "fieldType" is specified then this is ignored. 
+     */
     Class[] fieldTypes() default {};
 
     /** Name of the field in the fields class where this value is stored 
-      * (bidir relations). */
+     * (bidir relations). 
+     */
     String mappedBy() default "";
 
-    /** Column definition(s) for this field. Used for embedded fields. */
+    /** Column definition(s) for this field. Used for embedded fields. 
+     */
     Column[] columns() default {}; 
 
-    /** Name of the field when this is embedded in another object. */
+    /** Name of the field when this is embedded in another object. 
+     */
     String embeddedFieldName() default ""; 
 
-    /** Vendor extensions for this field. */
+    /** Vendor extensions for this field. 
+     */
     Extension[] extensions() default {};
 }

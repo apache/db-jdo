@@ -32,17 +32,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Extension
 {
-    /** Vendor that the extension applies to.
+    /** Vendor that the extension applies to (required).
      * @return the vendor
      */
     String vendorName();
 
-    /** The key for the extension. 
+    /** The key for the extension (required). 
      * @return the key
      */
     String key();
 
-    /** The value for the extension. 
+    /** The value for the extension (required). 
      * @return the value
      */
     String value();

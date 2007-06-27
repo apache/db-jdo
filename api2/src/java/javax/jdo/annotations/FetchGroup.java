@@ -28,18 +28,20 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface FetchGroup
 {
     /**
      * Name of the fetch group.
-     * @return  Name of the fetch group.
+     * @return the name of the fetch group.
      */
     String name() default "";
 
     /**
      * Whether we should load this group as part of the post load process.
-     * @return Whether we should load this group as part of the post load process.
+     * @return Whether we should load this group as part of the post load 
+     * process.
      */
     String postLoad() default "";
 
@@ -49,6 +51,7 @@ public @interface FetchGroup
      */
     FetchField[] fields();
 
-    // Annotations are badly designed in that they dont allow nested groups and object about "cycle detection"
-    // so we cant have nested fetch groups in annotations
+    // Annotations are badly designed in that they don't allow nested groups 
+    // and object to "cycle detection"
+    // so we can't have nested fetch groups in annotations
 }

@@ -27,12 +27,17 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface FetchField
 {
-    /** Name of the field (required). */
+    /** Name of the field (required). 
+     * @return the name of the field
+     */
     String name();
 
-    /** Recursion depth for this field. */
+    /** Recursion depth for this field. 
+     * @return the recursion depth
+     */
     int recursionDepth() default 1;
 }
