@@ -275,9 +275,9 @@ public class JDOParser
         implements EntityResolver 
     {
         private static final String RECOGNIZED_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN"; //NOI18N
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN"; //NOI18N
         private static final String RECOGNIZED_SYSTEM_ID = 
-            "file:/javax/jdo/jdo.dtd"; //NOI18N
+            "file:/javax/jdo/jdo_2_0.dtd"; //NOI18N
 
         public InputSource resolveEntity(String publicId, String systemId)
             throws SAXException, IOException 
@@ -286,7 +286,7 @@ public class JDOParser
             if (((publicId != null) && RECOGNIZED_PUBLIC_ID.equals(publicId)) ||
                 ((publicId == null) && (systemId != null) && 
                  RECOGNIZED_SYSTEM_ID.equals(systemId))) {
-                // Substitute the dtd with the one from javax.jdo.jdo.dtd,
+                // Substitute the dtd with the one from javax.jdo_2_0.dtd,
                 // but only if the publicId is equal to RECOGNIZED_PUBLIC_ID
                 // or there is no publicID and the systemID is equal to
                 // RECOGNIZED_SYSTEM_ID. 
@@ -294,7 +294,7 @@ public class JDOParser
                         new PrivilegedAction () {
                             public Object run () {
                             return getClass().getClassLoader().
-                                getResourceAsStream("javax/jdo/jdo.dtd"); //NOI18N
+                                getResourceAsStream("javax/jdo/jdo_2_0.dtd"); //NOI18N
                             }
                          }
                      );

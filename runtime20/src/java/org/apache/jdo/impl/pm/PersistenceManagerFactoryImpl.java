@@ -107,6 +107,9 @@ abstract public class PersistenceManagerFactoryImpl implements
     private boolean nontransactionalWrite = false;
     private boolean ignoreCache = true;
     private boolean detachAllOnCommit = false;
+    private String serverTimeZoneID = null;
+    private String persistenceUnitName = null;    
+    private String transactionType = null;
     
     private int queryTimeout = 0;
     private int updateTimeout = 0;
@@ -181,7 +184,7 @@ abstract public class PersistenceManagerFactoryImpl implements
  
     /** Collection of registered pmf instances. */
     private static Collection registeredPMFs = new HashSet();
-    
+
     /** Adds a JVM shutdown hook to close pmf instances left open by the
      * user. 
      */
@@ -632,6 +635,90 @@ abstract public class PersistenceManagerFactoryImpl implements
         return updateTimeout;
     }
     
+    /**
+     * Sets the PersistenceUnitName for this PersistenceManagerFactory.
+     * This has the same semantics as the same-named property in
+     * JSR-220 PersistenceUnitInfo.
+     * @see #getPersistenceUnitName()
+     * @since 2.1
+     * @param name the PersistenceUnitName
+     */
+    public void setPersistenceUnitName(String name) {
+        assertConfigurable();
+        this.persistenceUnitName = name;
+    }
+
+    /**
+     * Gets the PersistenceUnitName for this PersistenceManagerFactory.
+     * @see #setPersistenceUnitName(String)
+     * @since 2.1
+     * @return the PersistenceUnitName
+     */
+    public String getPersistenceUnitName() {
+        return persistenceUnitName;
+    }
+
+    /**
+     * Sets the TimeZone ID of the server associated with this
+     * PersistenceManagerFactory. The parameter is a String
+     * suitable for use with TimeZone.getTimeZone(). The String
+     * must match an ID returned by TimeZone.getAvailableIDs().
+     * If the ServerTimeZoneID is not set, or set to the null String,
+     * assume that the server has the same TimeZone ID as the client.
+     * If incorrectly set, the result of PersistenceManager.getServerDate()
+     * might be incorrect.
+     * @see #getServerTimeZoneID()
+     * @see java.util.TimeZone#getTimeZone(String)
+     * @see java.util.TimeZone#getAvailableIDs()
+     * @see PersistenceManager#getServerDate()
+     * @since 2.1
+     * @param timezoneid the TimeZone ID of the server
+     * @throws JDOUserException if the parameter does not match
+     * an ID from TimeZone.getAvailableIDs()
+     */
+    public void setServerTimeZoneID(String timezoneid) {
+        assertConfigurable();
+        this.serverTimeZoneID = timezoneid;
+    }
+
+    /**
+     * Gets the TimeZone ID of the server associated with this
+     * PersistenceManagerFactory. If not set, assume that
+     * the server has the same TimeZone ID as the client.
+     * @see #setServerTimeZoneID(String)
+     * @since 2.1
+     * @return the TimeZone of the server
+     */
+    public String getServerTimeZoneID() {
+        return serverTimeZoneID;
+    }
+
+    /**
+     * Sets the TransactionType for this PersistenceManagerFactory.
+     * Permitted values are "JTA" and "RESOURCE_LOCAL".
+     * This has the same semantics as the same-named property in
+     * JSR-220 EntityManagerFactory.
+     * @see #getTransactionType()
+     * @see Constants#JTA
+     * @see Constants#RESOURCE_LOCAL
+     * @since 2.1
+     * @param name the TransactionType
+     * @throws JDOUserException if the parameter is not a permitted value
+     */
+    public void setTransactionType(String transactionType) {
+        assertConfigurable();
+        this.transactionType = transactionType;
+    }
+
+    /**
+     * Gets the TransactionType for this PersistenceManagerFactory.
+     * @see #setTransactionType(String)
+     * @since 2.1
+     * @return the TransactionType
+     */
+    public String getTransactionType() {
+        return transactionType;
+    }
     
     /**
      * Return "static" properties of this PersistenceManagerFactory.
@@ -835,6 +922,32 @@ abstract public class PersistenceManagerFactoryImpl implements
             }
             throw e;
         }
+    }
+
+    /** Get a thread-safe instance of a proxy that dynamically binds 
+     * on each method call to an instance of <code>PersistenceManager</code>.
+     * <P>When used with a <code>PersistenceManagerFactory</code>
+     * that uses TransactionType JTA,
+     * the proxy can be used in a server to dynamically bind to an instance 
+     * from this factory associated with the thread's current transaction.
+     * In this case, the close method is ignored, as the 
+     * <code>PersistenceManager</code> is automatically closed when the
+     * transaction completes.
+     * <P>When used with a <code>PersistenceManagerFactory</code>
+     * that uses TransactionType RESOURCE_LOCAL, the proxy uses an inheritable
+     * ThreadLocal to bind to an instance of <code>PersistenceManager</code>
+     * associated with the thread. In this case, the close method executed
+     * on the proxy closes the <code>PersistenceManager</code> and then
+     * clears the ThreadLocal.
+     * Use of this method does not affect the configurability of the
+     * <code>PersistenceManagerFactory</code>.
+     *
+     * @since 2.1
+     * @return a <code>PersistenceManager</code> proxy.
+     */
+    public PersistenceManager getPersistenceManagerProxy() {
+        throw new UnsupportedOperationException(
+            "Method getPersistenceManagerProxy not yet implemented");
     }
 
     /**

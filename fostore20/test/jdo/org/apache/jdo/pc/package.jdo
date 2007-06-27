@@ -19,7 +19,7 @@
    For testing purposes this .jdo file uses SYSTEM DOCTYPE, 
    where most of the other .jdo files use a PUBLIC DOCTYPE.
 -->
-<!DOCTYPE jdo SYSTEM "file:/javax/jdo/jdo.dtd">
+<!DOCTYPE jdo SYSTEM "file:/javax/jdo/jdo_2_0.dtd">
 <!--DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 1.0//EN" "http://java.sun.com/dtd/jdo_1_0.dtd"-->
 <jdo>
   <package name="org.apache.jdo.pc">

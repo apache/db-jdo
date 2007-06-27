@@ -29,6 +29,7 @@ import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -1588,6 +1589,21 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
     public Properties getProperties() {
         assertIsOpen();
         return JDORIVersion.getVendorProperties();
+    }
+
+    /**
+     * Get the Date as seen by the server. 
+     * Clients using this method can order their operations according to 
+     * a single time source. Implementations use the setting of the 
+     * server time zone to prepare a Date instance that represents 
+     * UTC time on the server. 
+     * @return a Date instance corresponding to the UTC Date 
+     * as seen by the server
+     * @since 2.1
+     */
+    public Date getServerDate() {
+        // TODO implement this in client-server mode
+        return new Date();
     }
 
     //
