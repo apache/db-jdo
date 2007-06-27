@@ -42,8 +42,8 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         return new TestSuite(JDOHelperConfigTest.class);
     }
 
-    protected static String JDOCONFIG_CLASSPATH_PREFIX
-        = "test/schema/jdoconfig.xml";
+    protected static String JDOCONFIG_CLASSPATH_PREFIX = 
+        System.getProperty("basedir") + "/test/schema/jdoconfig";
 
     protected static Random RANDOM = new Random(System.currentTimeMillis());
 
