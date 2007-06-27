@@ -1,0 +1,207 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>JDO 2.0 Technology Compatibility Kit Run Rules</TITLE>
+	<META NAME="GENERATOR" CONTENT="NeoOffice/J 1.1  (Unix)">
+	<META NAME="CREATED" CONTENT="20051228;16322200">
+	<META NAME="CHANGED" CONTENT="20060412;21332100">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1 ALIGN=CENTER>Running the JDO 2.0 Technology Compatibility Kit</H1>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER>13-Apr-2006</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Overview</FONT></FONT></P>
+<P>In order to demonstrate compliance with the Java Data Objects
+specification, an implementation must successfully run all of the TCK
+tests that are not on the &quot;excluded&quot; list. The
+implementation is hereinafter referred to as the IUT (Implementation
+Under Test).</P>
+<P>The results must be posted on a publicly accessible web site for
+examination by the public. The posting includes the output of the
+test run, which consists of multiple log files containing
+configuration information and test results. For an example of the
+required posting, please see <A HREF="http://db.apache.org/jdo/tck/final">http://db.apache.org/jdo/tck/final</A>.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Prerequisites</FONT></FONT></P>
+<P>In order to run the TCK, you must install maven 1.0.1 or 1.0.2.
+M<FONT FACE="Times New Roman, serif">aven
+</FONT><A HREF="http://maven.apache.org/maven-1.x/"><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">http://maven.apache.org/maven-1.x/
+</FONT></FONT></A><FONT FACE="Times New Roman, serif">is the</FONT>
+driver of the test programs. Note that Maven 2 is not supported.</P>
+<P>You must test the IUT on all configurations that the IUT supports.
+This includes different hardware and operating systems, different
+versions of Java, and different datastores. The TCK supports Java
+versions from JDK 1.3 to 1.5.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Installation</FONT></FONT></P>
+<P>Download the zip file from the distribution location.  Unpack the zip
+file into a directory of your choice. In this directory you will
+find: 
+</P>
+<UL>
+	<UL>
+		<LI><P>README.txt 
+		</P>
+		<LI><P>maven configuration files project.properties and project.xml
+		(common project definition for all Apache JDO projects including
+		the TCK). These files must not be changed.</P>
+		<LI><P ALIGN=LEFT STYLE="margin-bottom: 0.2in">lib - this directory
+		contains a directory ext that should contain jar fi<FONT FACE="Times New Roman, serif">les
+		<FONT COLOR="#000000">fscontext.jar and providerutil.jar </FONT>us</FONT>ed
+		by the JNDI tests. <FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">The
+		jar files can be found at
+		</FONT></FONT><A HREF="http://java.sun.com/products/jndi/downloads/index.html"><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">http://java.sun.com/products/jndi/downloads/index.html</FONT></FONT></A><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">.
+		Choose &quot;File System Service Provider, 1.2 Beta 3&quot; from
+		the &quot;Download JNDI 1.2.1 &amp; More&quot; page. Unzip the
+		archive and install them into the lib/ext directory. It is
+		permitted to use a different JNDI implementation; see the
+		README.txt for information on how to configure a different JNDI
+		implementation.</FONT></FONT></P>
+		<LI><P>the TCK directory, which has a release-specific name (e.g.
+		jdo2-tck-2.0) and contains:</P>
+		<UL>
+			<LI><P>maven.xml, project.properties, project.xml - the maven
+			definition of the project. These files must not be modified.</P>
+			<LI><P>build.properties - the maven definition for the IUT. This
+			file may be modified to change any of the IUT properties needed.</P>
+			<LI><P>this RunRules.html</P>
+			<LI><P>assertions - contains the assertions file identifying the
+			assertions tested by the tests. This is for reference.</P>
+			<LI><P>target - this directory contains artifacts of compiling and
+			running the tests. It does not exist in the distribution and will
+			be created by the maven build script.</P>
+			<LI><P>iut_jars - this directory is where the JDO implementation
+			jars are installed. It is empty in the distribution. To use the
+			maven target runtck.iut (required for an implementation to prove
+			compliance), copy the JDO implementation jar files into this
+			directory. Alternatively, update the build.properties file in the
+			TCK directory to refer to an existing location of the IUT jar
+			files.</P>
+			<LI><P>src - this directory contains the test configuration files
+			and directories:</P>
+			<UL>
+				<LI><P>testdata - this directory contains data (represented as
+				.xml files) loaded into the datastore for tests. These files must
+				not be modified.</P>
+				<LI><P>sql - this directory contains DDL to define the tables
+				used in the tests. The files distributed must not be modified.
+				Files may be created for databases for which the DDL for the
+				database under test is not provided. 
+				</P>
+				<LI><P>jdo - this directory contains .jdo metadata files for the
+				persistent classes used in the tests. These files must not be
+				modified.</P>
+				<LI><P>orm - this directory contains .orm metadata files to map
+				the persistent classes to the sql tables. These files must not be
+				modified except to add DDL-generation information (which is not
+				used by the TCK).</P>
+				<LI><P>java - this directory contains the source code to the TCK
+				tests. These files must not be modified.</P>
+				<LI><P>conf - this directory contains the configuration
+				information for the test runs. The file iut-pmf.properties in
+				this directory must be changed to provide properties for the IUT
+				persistence manager factory. The file jndi.properties may be
+				changed to use a different jndi provider. Other files must not be
+				modified, except to put a successfully challenged test case into
+				the trunk/tck20/test/conf/exclude.list. Please see below.</P>
+			</UL>
+		</UL>
+	</UL>
+</UL>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Modifying
+the Configuration</FONT></FONT></P>
+<P>The Implementation Under Test (IUT) can be installed into the
+iut_jars directory in the TCK directory. Any .jar files in this
+directory are added to the class path used to run the tests.</P>
+<P>There are properties in the build.properties file in the TCK
+directory that must be changed to configure the IUT execution and
+enhancement (optional) environment. These properties begin with
+iut.runtck and iut.enhancer. 
+</P>
+<P>There is one properties files that must be modified to be
+IUT-specific. The iut-pmf.properties file in the TCK src/conf
+directory contains information used to construct the
+PersistenceManagerFactory used in the tests.</P>
+<P>SQL DDL files are provided for the sql table definitions. The
+existing files must not be changed, but files may be added in the
+directory in order to provide DDL for additional databases supported
+by the JDO implementation under test.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Running
+the Tests</FONT></FONT></P>
+<P>From the installation directory, change to the TCK directory. From
+the TCK directory, call &quot;maven build&quot; which will build the
+jar files used in the tests, create the Derby database, install the
+schema into the Derby database, and run the TCK on the Reference
+Implementation. Success indicates that the TCK was installed
+correctly.</P>
+<P>Then call &quot;maven runtck.iut&quot; to run the tests on the
+Implementation Under Test. This will produce console output plus a
+directory in the TCK/target/logs directory whose name contains the
+date/time the tests were started. This directory contains the output
+of the tests. This is the directory to be published.</P>
+<P>Some of the TCK tests require the implementation to support up to
+20 instances of PersistenceManager with open transactions
+simultaneously.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Debugging
+the IUT while Running TCK tests</FONT></FONT></P>
+<P>Execute &quot;maven help&quot; in the TCK directory in order to
+get information on running the TCK tests with a debugger. In
+particular, properties jdo.tck.cleanupaftertest, jdo.tck.cfglist,
+jdo.tck.identitytypes, and jdo.tck.dblist may be useful.</P>
+<P>If you make a change to the IUT enhancer while debugging the TCK
+tests (for implementations that use an enhancer) you must remove the
+target/classes directory before continuing in order to make sure that
+the classes are re-enhanced by the changed code.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Publishing
+the Results of the TCK Tests</FONT></FONT></P>
+<P>With a successful test run, the log directory with the results of
+the tests must be published on a publicly-available web site. The
+unmodified directory is the self-certification of the successful TCK
+test run.</P>
+<P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>First
+Level TCK Appeals Process</FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-top: 0.17in; page-break-after: avoid">If
+any test does not pass on the JDO implementation under test, this may
+be due to an error in the implementation or in the TCK test. If you
+believe that the failure is due to an error in the TCK test, you may
+challenge the test. To do so, send email to: <A HREF="mailto:jdo-dev@db.apache.org">jdo-dev@db.apache.org</A>
+with a subject line containing &quot;CHALLENGE&quot; and the name of
+the test program, e.g.
+org.apache.jdo.tck.api.persistencemanager.ThreadSafe.java; and the
+body of the email containing the details of the challenge.</P>
+<P>The Maintenance Lead will respond within 15 working days with a
+decision on whether there is an error in the test case. If the issue
+is found by the Maintenance Lead to be due to an error in the test
+case, the Maintenance Lead might provide a patch that will be
+included in the next maintenance revision. If the patch is not
+provided within 15 working days of the receipt of the challenge, then
+the test may be put into the TCK directory src/conf/exclude.list and
+it will not be run as part of the TCK.</P>
+<P>Decisions of the Maintenance Lead may be appealed to the full
+expert group. A vote of the full expert group will be conducted by
+the Maintenance Lead, and a majority of votes cast will decide the
+issue. The Maintenance Lead has one vote, as does each member of the
+expert group at the time of the vote.</P>
+</BODY>
+</HTML>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfByte" identity-type="datastore">
+<field name="Byte1"  embedded="true">
+</field>
+<field name="Byte2"  embedded="false">
+</field>
+<field name="Byte3" persistence-modifier="none" >
+</field>
+<field name="Byte4" persistence-modifier="persistent" >
+</field>
+<field name="Byte5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte7" persistence-modifier="transactional" >
+</field>
+<field name="Byte10" persistence-modifier="none" >
+</field>
+<field name="Byte11" persistence-modifier="persistent" >
+</field>
+<field name="Byte12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte14" persistence-modifier="transactional" >
+</field>
+<field name="Byte17"  embedded="true">
+</field>
+<field name="Byte18"  embedded="false">
+</field>
+<field name="Byte19" persistence-modifier="none" >
+</field>
+<field name="Byte20" persistence-modifier="persistent" >
+</field>
+<field name="Byte21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte23" persistence-modifier="transactional" >
+</field>
+<field name="Byte29" persistence-modifier="none" >
+</field>
+<field name="Byte30" persistence-modifier="persistent" >
+</field>
+<field name="Byte31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte33" persistence-modifier="transactional" >
+</field>
+<field name="Byte37"  embedded="true">
+</field>
+<field name="Byte38"  embedded="false">
+</field>
+<field name="Byte39" persistence-modifier="none" >
+</field>
+<field name="Byte40" persistence-modifier="persistent" >
+</field>
+<field name="Byte41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte43" persistence-modifier="transactional" >
+</field>
+<field name="Byte46" persistence-modifier="none" >
+</field>
+<field name="Byte47" persistence-modifier="persistent" >
+</field>
+<field name="Byte48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte50" persistence-modifier="transactional" >
+</field>
+<field name="Byte53"  embedded="true">
+</field>
+<field name="Byte54"  embedded="false">
+</field>
+<field name="Byte55" persistence-modifier="none" >
+</field>
+<field name="Byte56" persistence-modifier="persistent" >
+</field>
+<field name="Byte57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte59" persistence-modifier="transactional" >
+</field>
+<field name="Byte65" persistence-modifier="none" >
+</field>
+<field name="Byte66" persistence-modifier="persistent" >
+</field>
+<field name="Byte67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte69" persistence-modifier="transactional" >
+</field>
+<field name="Byte73"  embedded="true">
+</field>
+<field name="Byte74"  embedded="false">
+</field>
+<field name="Byte75" persistence-modifier="none" >
+</field>
+<field name="Byte76" persistence-modifier="persistent" >
+</field>
+<field name="Byte77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte79" persistence-modifier="transactional" >
+</field>
+<field name="Byte82" persistence-modifier="none" >
+</field>
+<field name="Byte83" persistence-modifier="persistent" >
+</field>
+<field name="Byte84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte86" persistence-modifier="transactional" >
+</field>
+<field name="Byte89"  embedded="true">
+</field>
+<field name="Byte90"  embedded="false">
+</field>
+<field name="Byte91" persistence-modifier="none" >
+</field>
+<field name="Byte92" persistence-modifier="persistent" >
+</field>
+<field name="Byte93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte95" persistence-modifier="transactional" >
+</field>
+<field name="Byte101" persistence-modifier="none" >
+</field>
+<field name="Byte102" persistence-modifier="persistent" >
+</field>
+<field name="Byte103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte105" persistence-modifier="transactional" >
+</field>
+<field name="Byte109"  embedded="true">
+</field>
+<field name="Byte110"  embedded="false">
+</field>
+<field name="Byte111" persistence-modifier="none" >
+</field>
+<field name="Byte112" persistence-modifier="persistent" >
+</field>
+<field name="Byte113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte115" persistence-modifier="transactional" >
+</field>
+<field name="Byte118" persistence-modifier="none" >
+</field>
+<field name="Byte119" persistence-modifier="persistent" >
+</field>
+<field name="Byte120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte122" persistence-modifier="transactional" >
+</field>
+<field name="Byte125"  embedded="true">
+</field>
+<field name="Byte126"  embedded="false">
+</field>
+<field name="Byte127" persistence-modifier="none" >
+</field>
+<field name="Byte128" persistence-modifier="persistent" >
+</field>
+<field name="Byte129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte131" persistence-modifier="transactional" >
+</field>
+<field name="Byte137" persistence-modifier="none" >
+</field>
+<field name="Byte138" persistence-modifier="persistent" >
+</field>
+<field name="Byte139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Byte140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Byte141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

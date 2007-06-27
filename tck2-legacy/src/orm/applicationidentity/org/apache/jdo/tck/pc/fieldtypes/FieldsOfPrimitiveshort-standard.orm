@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfPrimitiveshort" table="FIELDSOFPRIMITIVESHORT">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="short0" column="SHORT0"/>
+            <field name="short1" column="SHORT1"/>
+            <field name="short102" column="SHORT102"/>
+            <field name="short103" column="SHORT103"/>
+            <field name="short104" column="SHORT104"/>
+            <field name="short108" column="SHORT108"/>
+            <field name="short109" column="SHORT109"/>
+            <field name="short11" column="SHORT11"/>
+            <field name="short110" column="SHORT110"/>
+            <field name="short112" column="SHORT112"/>
+            <field name="short113" column="SHORT113"/>
+            <field name="short114" column="SHORT114"/>
+            <field name="short119" column="SHORT119"/>
+            <field name="short12" column="SHORT12"/>
+            <field name="short120" column="SHORT120"/>
+            <field name="short121" column="SHORT121"/>
+            <field name="short124" column="SHORT124"/>
+            <field name="short125" column="SHORT125"/>
+            <field name="short126" column="SHORT126"/>
+            <field name="short128" column="SHORT128"/>
+            <field name="short129" column="SHORT129"/>
+            <field name="short13" column="SHORT13"/>
+            <field name="short130" column="SHORT130"/>
+            <field name="short138" column="SHORT138"/>
+            <field name="short139" column="SHORT139"/>
+            <field name="short140" column="SHORT140"/>
+            <field name="short16" column="SHORT16"/>
+            <field name="short17" column="SHORT17"/>
+            <field name="short18" column="SHORT18"/>
+            <field name="short2" column="SHORT2"/>
+            <field name="short20" column="SHORT20"/>
+            <field name="short21" column="SHORT21"/>
+            <field name="short22" column="SHORT22"/>
+            <field name="short30" column="SHORT30"/>
+            <field name="short31" column="SHORT31"/>
+            <field name="short32" column="SHORT32"/>
+            <field name="short36" column="SHORT36"/>
+            <field name="short37" column="SHORT37"/>
+            <field name="short38" column="SHORT38"/>
+            <field name="short4" column="SHORT4"/>
+            <field name="short40" column="SHORT40"/>
+            <field name="short41" column="SHORT41"/>
+            <field name="short42" column="SHORT42"/>
+            <field name="short47" column="SHORT47"/>
+            <field name="short48" column="SHORT48"/>
+            <field name="short49" column="SHORT49"/>
+            <field name="short5" column="SHORT5"/>
+            <field name="short52" column="SHORT52"/>
+            <field name="short53" column="SHORT53"/>
+            <field name="short54" column="SHORT54"/>
+            <field name="short56" column="SHORT56"/>
+            <field name="short57" column="SHORT57"/>
+            <field name="short58" column="SHORT58"/>
+            <field name="short6" column="SHORT6"/>
+            <field name="short66" column="SHORT66"/>
+            <field name="short67" column="SHORT67"/>
+            <field name="short68" column="SHORT68"/>
+            <field name="short72" column="SHORT72"/>
+            <field name="short73" column="SHORT73"/>
+            <field name="short74" column="SHORT74"/>
+            <field name="short76" column="SHORT76"/>
+            <field name="short77" column="SHORT77"/>
+            <field name="short78" column="SHORT78"/>
+            <field name="short83" column="SHORT83"/>
+            <field name="short84" column="SHORT84"/>
+            <field name="short85" column="SHORT85"/>
+            <field name="short88" column="SHORT88"/>
+            <field name="short89" column="SHORT89"/>
+            <field name="short90" column="SHORT90"/>
+            <field name="short92" column="SHORT92"/>
+            <field name="short93" column="SHORT93"/>
+            <field name="short94" column="SHORT94"/>
+        </class>
+    </package>
+</orm>

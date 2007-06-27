@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<!--
+This file contains the schema information when an implementation
+has datastore identity.
+-->
+    <package name="org.apache.jdo.tck.pc.companyMapWithoutJoin">
+
+        <class name="Company"
+            identity-type="datastore">
+            <field name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Department"/>
+            </field>
+        </class>
+
+        <class name="Department"
+            identity-type="datastore">
+            <field name="roles" persistence-modifier="persistent">
+                <map key-type="String"
+                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            </field>
+        </class>
+
+        <class name="Employee"
+            identity-type="datastore"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Person">
+            <field name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            </field>
+            <field name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+            </field>
+        </class>
+
+        <class name="FullTimeEmployee"
+            identity-type="datastore"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+
+        <class name="PartTimeEmployee"
+            identity-type="datastore"
+            persistence-capable-superclass="org.apache.jdo.tck.pc.companyMapWithoutJoin.Employee"/>
+
+        <class name="Person"
+            identity-type="datastore">
+            <field name="middlename" default-fetch-group="false"/>
+        </class>
+
+        <interface name="ICompany"
+            identity-type="datastore">
+            <property name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IDepartment"/>
+            </property>
+        </interface>
+
+        <interface name="IDepartment"
+            identity-type="datastore">
+            <property name="roles" persistence-modifier="persistent">
+                <map key-type="String"
+                    value-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="IEmployee"
+            identity-type="datastore">
+            <property name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
+            </property>
+            <property name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.companyMapWithoutJoin.IEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="IFullTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="IPartTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="IPerson"
+            identity-type="datastore">
+            <property name="middlename" default-fetch-group="false"/>
+        </interface>
+
+    </package>
+</jdo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfString" table="FIELDSOFSTRING">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="String0" column="STRING0"/>
+            <field name="String1" column="STRING1"/>
+            <field name="String102" column="STRING102"/>
+            <field name="String103" column="STRING103"/>
+            <field name="String104" column="STRING104"/>
+            <field name="String108" column="STRING108"/>
+            <field name="String109" column="STRING109"/>
+            <field name="String11" column="STRING11"/>
+            <field name="String110" column="STRING110"/>
+            <field name="String112" column="STRING112"/>
+            <field name="String113" column="STRING113"/>
+            <field name="String114" column="STRING114"/>
+            <field name="String119" column="STRING119"/>
+            <field name="String12" column="STRING12"/>
+            <field name="String120" column="STRING120"/>
+            <field name="String121" column="STRING121"/>
+            <field name="String124" column="STRING124"/>
+            <field name="String125" column="STRING125"/>
+            <field name="String126" column="STRING126"/>
+            <field name="String128" column="STRING128"/>
+            <field name="String129" column="STRING129"/>
+            <field name="String13" column="STRING13"/>
+            <field name="String130" column="STRING130"/>
+            <field name="String138" column="STRING138"/>
+            <field name="String139" column="STRING139"/>
+            <field name="String140" column="STRING140"/>
+            <field name="String16" column="STRING16"/>
+            <field name="String17" column="STRING17"/>
+            <field name="String18" column="STRING18"/>
+            <field name="String2" column="STRING2"/>
+            <field name="String20" column="STRING20"/>
+            <field name="String21" column="STRING21"/>
+            <field name="String22" column="STRING22"/>
+            <field name="String30" column="STRING30"/>
+            <field name="String31" column="STRING31"/>
+            <field name="String32" column="STRING32"/>
+            <field name="String36" column="STRING36"/>
+            <field name="String37" column="STRING37"/>
+            <field name="String38" column="STRING38"/>
+            <field name="String4" column="STRING4"/>
+            <field name="String40" column="STRING40"/>
+            <field name="String41" column="STRING41"/>
+            <field name="String42" column="STRING42"/>
+            <field name="String47" column="STRING47"/>
+            <field name="String48" column="STRING48"/>
+            <field name="String49" column="STRING49"/>
+            <field name="String5" column="STRING5"/>
+            <field name="String52" column="STRING52"/>
+            <field name="String53" column="STRING53"/>
+            <field name="String54" column="STRING54"/>
+            <field name="String56" column="STRING56"/>
+            <field name="String57" column="STRING57"/>
+            <field name="String58" column="STRING58"/>
+            <field name="String6" column="STRING6"/>
+            <field name="String66" column="STRING66"/>
+            <field name="String67" column="STRING67"/>
+            <field name="String68" column="STRING68"/>
+            <field name="String72" column="STRING72"/>
+            <field name="String73" column="STRING73"/>
+            <field name="String74" column="STRING74"/>
+            <field name="String76" column="STRING76"/>
+            <field name="String77" column="STRING77"/>
+            <field name="String78" column="STRING78"/>
+            <field name="String83" column="STRING83"/>
+            <field name="String84" column="STRING84"/>
+            <field name="String85" column="STRING85"/>
+            <field name="String88" column="STRING88"/>
+            <field name="String89" column="STRING89"/>
+            <field name="String90" column="STRING90"/>
+            <field name="String92" column="STRING92"/>
+            <field name="String93" column="STRING93"/>
+            <field name="String94" column="STRING94"/>
+        </class>
+    </package>
+</orm>

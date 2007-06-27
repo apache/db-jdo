@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+<!--
+This file contains the schema information when an implementation
+has application identity.
+-->
+    <package name="org.apache.jdo.tck.pc.company">
+
+        <class name="Company" table="companies">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="companyid" column="ID"/>
+            <field name="name" column="NAME">
+              <column name="NAME" sql-type="VARCHAR"/>
+            </field>
+            <field name="founded" column="FOUNDEDDATE"/>
+            <field name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid" column="ADDRID"/>
+                    <field name="street" column="STREET"/>
+                    <field name="city" column="CITY"/>
+                    <field name="state" column="STATE"/>
+                    <field name="zipcode" column="ZIPCODE"/>
+                    <field name="country" column="COUNTRY"/>
+                </embedded>
+            </field>
+            <field name="departments" mapped-by="company"/>
+        </class>
+
+        <class name="Department" table="departments">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="deptid" column="ID"/>
+            <field name="name" column="NAME"/>
+            <field name="company" column="COMPANYID"/>
+            <field name="employees" mapped-by="department"/>
+            <field name="fundedEmps" mapped-by="fundingDept"/>
+            <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
+        </class>
+
+        <class name="PartTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="wage" column="WAGE"/>
+        </class>
+
+        <class name="FullTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <field name="salary" column="SALARY"/>
+        </class>
+
+        <class name="Employee">
+            <inheritance strategy="superclass-table"/>
+            <field name="hiredate" column="HIREDATE"/>
+            <field name="weeklyhours" column="WEEKLYHOURS"/>
+            <field name="dentalInsurance" mapped-by="employee"/>
+            <field name="medicalInsurance" mapped-by="employee"/>
+            <field name="department" column="DEPARTMENT">
+                        <foreign-key/>
+            </field>
+            <field name="fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </field>
+            <field name="manager" column="MANAGER">
+                        <foreign-key/>
+            </field>
+            <field name="mentor" column="MENTOR">
+                        <foreign-key/>
+            </field>
+            <field name="protege" mapped-by="mentor"/>
+            <field name="hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </field>
+            <field name="reviewedProjects" mapped-by="reviewers">
+            </field>
+            <field name="projects" mapped-by="members"/>
+            <field name="team" mapped-by="manager"/>
+            <field name="hradvisees" mapped-by="hradvisor"/>
+        </class>
+
+        <class name="Person" table="persons">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"
+                    indexed="true"/>
+            </inheritance>
+            <field name="personid" column="PERSONID"/>
+            <field name="firstname" column="FIRSTNAME"/>
+            <field name="lastname" column="LASTNAME"/>
+            <field name="middlename">
+              <column name="MIDDLENAME" allows-null="true"/>
+            </field>
+            <field name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <field name="addrid">
+                      <column name="ADDRID" allows-null="true"/>
+                    </field>
+                    <field name="street">
+                      <column name="STREET" allows-null="true"/>
+                    </field>
+                    <field name="city">
+                      <column name="CITY" allows-null="true"/>
+                    </field>
+                    <field name="state">
+                      <column name="STATE" allows-null="true"/>
+                    </field>
+                    <field name="zipcode">
+                      <column name="ZIPCODE" allows-null="true"/>
+                    </field>
+                    <field name="country">
+                      <column name="COUNTRY" allows-null="true"/>
+                    </field>
+                </embedded>
+            </field>
+            <field name="phoneNumbers" table="employee_phoneno_type" >
+                <join column="EMPID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </field>
+            <query name="packageORM">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+                WHERE personid > 2
+            </query>
+        </class>
+
+        <class name="Insurance" table="insuranceplans">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR">
+                    <index name="INS_DISCRIMINATOR_INDEX" unique="false"/>
+                </discriminator>
+            </inheritance>
+            <field name="insid" column="INSID"/>
+            <field name="carrier" column="CARRIER"/>
+            <field name="employee" column="EMPLOYEE">
+                 <foreign-key/>
+            </field>
+        </class>
+
+        <class name="DentalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <field name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
+        </class>
+
+        <class name="MedicalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <field name="planType" column="PLANTYPE"/>
+        </class>
+
+        <class name="Project" table="projects">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <field name="projid" column="PROJID"/>
+            <field name="name" column="NAME"/>
+            <field name="budget">
+               <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>
+            </field>
+            <field name="reviewers" table="project_reviewer">
+                <join column="PROJID">
+                    <foreign-key name="PR_PROJ_FK"/>
+                </join>
+                <element column="REVIEWER">
+                    <foreign-key name="PR_REV_FK"/>
+                </element>
+            </field>
+            <field name="members" table="project_member">
+                <join column="PROJID"/>
+                <element column="MEMBER"/>
+            </field>
+        </class>
+
+        <interface name="ICompany" table="companies">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <property name="companyid" column="ID"/>
+            <property name="name" column="NAME">
+              <column name="NAME" sql-type="VARCHAR"/>
+            </property>
+            <property name="founded" column="FOUNDEDDATE"/>
+            <property name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <property name="addrid" column="ADDRID"/>
+                    <property name="street" column="STREET"/>
+                    <property name="city" column="CITY"/>
+                    <property name="state" column="STATE"/>
+                    <property name="zipcode" column="ZIPCODE"/>
+                    <property name="country" column="COUNTRY"/>
+                </embedded>
+            </property>
+            <property name="departments" mapped-by="company"/>
+        </interface>
+
+        <interface name="IDepartment" table="departments">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <property name="deptid" column="ID"/>
+            <property name="name" column="NAME"/>
+            <property name="company" column="COMPANYID"/>
+            <property name="employees" mapped-by="department"/>
+            <property name="fundedEmps" mapped-by="fundingDept"/>
+            <property name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
+        </interface>
+
+        <interface name="IPartTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="wage" column="WAGE"/>
+        </interface>
+
+        <interface name="IFullTimeEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="salary" column="SALARY"/>
+        </interface>
+
+        <interface name="IEmployee">
+            <inheritance strategy="superclass-table"/>
+            <property name="hiredate" column="HIREDATE"/>
+            <property name="weeklyhours" column="WEEKLYHOURS"/>
+            <property name="dentalInsurance" mapped-by="employee"/>
+            <property name="medicalInsurance" mapped-by="employee"/>
+            <property name="department" column="DEPARTMENT">
+                        <foreign-key/>
+            </property>
+            <property name="fundingDept" column="FUNDINGDEPT">
+                        <foreign-key/>
+            </property>
+            <property name="manager" column="MANAGER">
+                        <foreign-key/>
+            </property>
+            <property name="mentor" column="MENTOR">
+                        <foreign-key/>
+            </property>
+            <property name="protege" mapped-by="mentor"/>
+            <property name="hradvisor" column="HRADVISOR">
+                        <foreign-key/>
+            </property>
+            <property name="reviewedProjects" mapped-by="reviewers">
+            </property>
+            <property name="projects" mapped-by="members"/>
+            <property name="team" mapped-by="manager"/>
+            <property name="hradvisees" mapped-by="hradvisor"/>
+        </interface>
+
+        <interface name="IPerson" table="persons">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"
+                    indexed="true"/>
+            </inheritance>
+            <property name="personid" column="PERSONID"/>
+            <property name="firstname" column="FIRSTNAME"/>
+            <property name="lastname" column="LASTNAME"/>
+            <property name="middlename">
+              <column name="MIDDLENAME" allows-null="true"/>
+            </property>
+            <property name="address">
+                <embedded null-indicator-column="COUNTRY">
+                    <property name="addrid">
+                      <column name="ADDRID" allows-null="true"/>
+                    </property>
+                    <property name="street">
+                      <column name="STREET" allows-null="true"/>
+                    </property>
+                    <property name="city">
+                      <column name="CITY" allows-null="true"/>
+                    </property>
+                    <property name="state">
+                      <column name="STATE" allows-null="true"/>
+                    </property>
+                    <property name="zipcode">
+                      <column name="ZIPCODE" allows-null="true"/>
+                    </property>
+                    <property name="country">
+                      <column name="COUNTRY" allows-null="true"/>
+                    </property>
+                </embedded>
+            </property>
+            <property name="phoneNumbers" table="employee_phoneno_type" >
+                <join column="EMPID"/>
+                <key column="TYPE"/>
+                <value column="PHONENO"/>
+            </property>
+            <query name="packageORM">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+                WHERE personid > 2
+            </query>
+        </interface>
+
+        <interface name="IInsurance" table="insuranceplans">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR">
+                    <index name="INS_DISCRIMINATOR_INDEX" unique="false"/>
+                </discriminator>
+            </inheritance>
+            <property name="insid" column="INSID"/>
+            <property name="carrier" column="CARRIER"/>
+            <property name="employee" column="EMPLOYEE">
+                 <foreign-key/>
+            </property>
+        </interface>
+
+        <interface name="IDentalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <property name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
+        </interface>
+
+        <interface name="IMedicalInsurance">
+            <inheritance strategy="superclass-table"/>
+            <property name="planType" column="PLANTYPE"/>
+        </interface>
+
+        <interface name="IProject" table="projects">
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
+            <property name="projid" column="PROJID"/>
+            <property name="name" column="NAME"/>
+            <property name="budget">
+               <column name="BUDGET" jdbc-type="DECIMAL" length="11" scale="2"/>
+            </property>
+            <property name="reviewers" table="project_reviewer">
+                <join column="PROJID">
+                    <foreign-key name="PR_PROJ_FK"/>
+                </join>
+                <element column="REVIEWER">
+                    <foreign-key name="PR_REV_FK"/>
+                </element>
+            </property>
+            <property name="members" table="project_member">
+                <join column="PROJID"/>
+                <element column="MEMBER"/>
+            </property>
+        </interface>
+    </package>
+</orm>

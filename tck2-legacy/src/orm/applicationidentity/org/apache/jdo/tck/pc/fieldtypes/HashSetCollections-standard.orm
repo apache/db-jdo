@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="HashSetCollections" table="HASHSET_COLLECTIONS">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="HashSetOfObject0"
+                   table="HASHSET_OF_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+            </field>
+            <field name="HashSetOfObject1"
+                   table="HASHSET_OF_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+            </field>
+            <field name="HashSetOfObject2"
+                   column="HASHSET_OF_OBJECT2">
+            </field>
+            <field name="HashSetOfSimpleClass3"
+                   table="HASHSET_OF_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+            </field>
+            <field name="HashSetOfSimpleClass4"
+                   table="HASHSET_OF_SIMPLE_CLASS4">
+                <join column="IDENTIFIER"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+            </field>
+            <field name="HashSetOfSimpleClass5"
+                   column="HASHSET_OF_SIMPLE_CLASS5">
+            </field>
+            <field name="HashSetOfSimpleClass42"
+                   column="HASHSET_OF_SIMPLE_CLASS42">
+            </field>
+            <field name="HashSetOfSimpleInterface6"
+                   table="HASHSET_OF_SIMPLE_INTERFACE6">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+            </field>
+            <field name="HashSetOfSimpleInterface7"
+                   table="HASHSET_OF_SIMPLE_INTERFACE7">
+                <join column="IDENTIFIER"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
+            </field>
+            <field name="HashSetOfSimpleInterface8"
+                   column="HASHSET_OF_SIMPLE_INTERFACE8">
+            </field>
+            <field name="HashSetOfString9"
+                   table="HASHSET_OF_STRING9">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+            </field>
+            <field name="HashSetOfString11"
+                   column="HASHSET_OF_STRING11">
+            </field>
+            <field name="HashSetOfString10"
+                   table="HASHSET_OF_STRING10">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+            </field>
+            <field name="HashSetOfDate12"
+                   table="HASHSET_OF_DATE12">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+            </field>
+            <field name="HashSetOfDate14"
+                   column="HASHSET_OF_DATE14">
+            </field>
+            <field name="HashSetOfDate13"
+                   table="HASHSET_OF_DATE13">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+            </field>
+            <field name="HashSetOfLocale15"
+                   table="HASHSET_OF_LOCALE15">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+            </field>
+            <field name="HashSetOfLocale17"
+                   column="HASHSET_OF_LOCALE17">
+            </field>
+            <field name="HashSetOfLocale16"
+                   table="HASHSET_OF_LOCALE16">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+            </field>
+            <field name="HashSetOfBigDecimal18"
+                   table="HASHSET_OF_BIG_DECIMAL18">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+            </field>
+            <field name="HashSetOfBigDecimal20"
+                   column="HASHSET_OF_BIG_DECIMAL20">
+            </field>
+            <field name="HashSetOfBigDecimal19"
+                   table="HASHSET_OF_BIG_DECIMAL19">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+            </field>
+            <field name="HashSetOfBigInteger21"
+                   table="HASHSET_OF_BIG_INTEGER21">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+            </field>
+            <field name="HashSetOfBigInteger23"
+                   column="HASHSET_OF_BIG_INTEGER23">
+            </field>
+            <field name="HashSetOfBigInteger22"
+                   table="HASHSET_OF_BIG_INTEGER22">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+            </field>
+            <field name="HashSetOfByte24"
+                   table="HASHSET_OF_BYTE24">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+            </field>
+            <field name="HashSetOfByte26"
+                   column="HASHSET_OF_BYTE26">
+            </field>
+            <field name="HashSetOfByte25"
+                   table="HASHSET_OF_BYTE25">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+            </field>
+            <field name="HashSetOfDouble27"
+                   table="HASHSET_OF_DOUBLE27">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+            </field>
+            <field name="HashSetOfDouble29"
+                   column="HASHSET_OF_DOUBLE29">
+            </field>
+            <field name="HashSetOfDouble28"
+                   table="HASHSET_OF_DOUBLE28">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+            </field>
+            <field name="HashSetOfFloat30"
+                   table="HASHSET_OF_FLOAT30">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+            </field>
+            <field name="HashSetOfFloat32"
+                   column="HASHSET_OF_FLOAT32">
+            </field>
+            <field name="HashSetOfFloat31"
+                   table="HASHSET_OF_FLOAT31">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+            </field>
+            <field name="HashSetOfInteger33"
+                   table="HASHSET_OF_INTEGER33">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+            </field>
+            <field name="HashSetOfInteger35"
+                   column="HASHSET_OF_INTEGER35">
+            </field>
+            <field name="HashSetOfInteger34"
+                   table="HASHSET_OF_INTEGER34">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+            </field>
+            <field name="HashSetOfLong36"
+                   table="HASHSET_OF_LONG36">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+            </field>
+            <field name="HashSetOfLong38"
+                   column="HASHSET_OF_LONG38">
+            </field>
+            <field name="HashSetOfLong37"
+                   table="HASHSET_OF_LONG37">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+            </field>
+            <field name="HashSetOfShort39"
+                   table="HASHSET_OF_SHORT39">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+            </field>
+            <field name="HashSetOfShort41"
+                   column="HASHSET_OF_SHORT41">
+            </field>
+            <field name="HashSetOfShort40"
+                   table="HASHSET_OF_SHORT40">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+            </field>
+        </class>
+    </package>
+</orm>

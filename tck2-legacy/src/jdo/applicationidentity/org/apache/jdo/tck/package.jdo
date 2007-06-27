@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+This file contains the schema information for persistence-aware classes 
+and SimpleClass, which is needed for several fieldtypes tests.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+    <package name="org.apache.jdo.tck.models.inheritance">
+        <class name="FieldWithSameNameInSuperclass" persistence-modifier="persistence-aware"/>
+        <class name="NonPersistentFieldsAreNonPersistentInSubclasses" persistence-modifier="persistence-aware"/>
+        <class name="NonpersistentSuperClass" persistence-modifier="persistence-aware"/>
+        <class name="PersistenceCapableFlexibilityInInheritanceHierarchy" persistence-modifier="persistence-aware"/>
+        <class name="PersistentFieldsArePersistentInSubClasses" persistence-modifier="persistence-aware"/>
+        <class name="TestParts" persistence-modifier="persistence-aware"/>
+        <class name="TransactionalFieldsAreTransactionalInSubclasses" persistence-modifier="persistence-aware"/>
+    </package>
+
+    <package name="org.apache.jdo.tck.api.instancecallbacks">
+        <class name="AccessingFieldsInPredelete" persistence-modifier="persistence-aware"/>
+        <class name="AccessOtherInstancesInPrestore" persistence-modifier="persistence-aware"/>
+        <class name="CallingJdoPostload" persistence-modifier="persistence-aware"/>
+        <class name="CallingJdoPreclear" persistence-modifier="persistence-aware"/>
+        <class name="CallingJdoPredelete" persistence-modifier="persistence-aware"/>
+        <class name="CallingJdoPrestore" persistence-modifier="persistence-aware"/>
+        <class name="ModificationOfNontransactionalNonpersistentFields" persistence-modifier="persistence-aware"/>
+        <class name="NoAccessToFieldsAfterPredelete" persistence-modifier="persistence-aware"/>
+        <class name="TestParts" persistence-modifier="persistence-aware"/>
+    </package>
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="SimpleClass" identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.fieldtypes.SimpleClass$Oid">
+            <implements name="SimpleInterface"/>
+            <field name="id" primary-key="true"/>
+        </class>
+    </package>
+</jdo>

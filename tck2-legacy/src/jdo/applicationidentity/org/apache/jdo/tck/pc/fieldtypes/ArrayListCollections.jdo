@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="ArrayListCollections" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.ArrayListCollections$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="ArrayListOfObject0" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ArrayListOfObject1" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfObject2" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfSimpleClass3" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ArrayListOfSimpleClass4" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfSimpleClass5" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfSimpleInterface6" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ArrayListOfSimpleInterface7" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfSimpleInterface8" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfString9" >
+<collection element-type="java.lang.String">
+</collection>
+</field>
+<field name="ArrayListOfString10" >
+<collection element-type="java.lang.String" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfString11" >
+<collection element-type="java.lang.String" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfDate12" >
+<collection element-type="java.util.Date">
+</collection>
+</field>
+<field name="ArrayListOfDate13" >
+<collection element-type="java.util.Date" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfDate14" >
+<collection element-type="java.util.Date" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfLocale15" >
+<collection element-type="java.util.Locale">
+</collection>
+</field>
+<field name="ArrayListOfLocale16" >
+<collection element-type="java.util.Locale" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfLocale17" >
+<collection element-type="java.util.Locale" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfBigDecimal18" >
+<collection element-type="java.math.BigDecimal">
+</collection>
+</field>
+<field name="ArrayListOfBigDecimal19" >
+<collection element-type="java.math.BigDecimal" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfBigDecimal20" >
+<collection element-type="java.math.BigDecimal" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfBigInteger21" >
+<collection element-type="java.math.BigInteger">
+</collection>
+</field>
+<field name="ArrayListOfBigInteger22" >
+<collection element-type="java.math.BigInteger" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfBigInteger23" >
+<collection element-type="java.math.BigInteger" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfByte24" >
+<collection element-type="java.lang.Byte">
+</collection>
+</field>
+<field name="ArrayListOfByte25" >
+<collection element-type="java.lang.Byte" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfByte26" >
+<collection element-type="java.lang.Byte" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfDouble27" >
+<collection element-type="java.lang.Double">
+</collection>
+</field>
+<field name="ArrayListOfDouble28" >
+<collection element-type="java.lang.Double" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfDouble29" >
+<collection element-type="java.lang.Double" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfFloat30" >
+<collection element-type="java.lang.Float">
+</collection>
+</field>
+<field name="ArrayListOfFloat31" >
+<collection element-type="java.lang.Float" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfFloat32" >
+<collection element-type="java.lang.Float" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfInteger33" >
+<collection element-type="java.lang.Integer">
+</collection>
+</field>
+<field name="ArrayListOfInteger34" >
+<collection element-type="java.lang.Integer" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfInteger35" >
+<collection element-type="java.lang.Integer" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfLong36" >
+<collection element-type="java.lang.Long">
+</collection>
+</field>
+<field name="ArrayListOfLong37" >
+<collection element-type="java.lang.Long" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfLong38" >
+<collection element-type="java.lang.Long" embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfShort39" >
+<collection element-type="java.lang.Short">
+</collection>
+</field>
+<field name="ArrayListOfShort40" >
+<collection element-type="java.lang.Short" embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfShort41" >
+<collection element-type="java.lang.Short" embedded-element="false">
+</collection>
+</field>
+</class>
+</package>
+</jdo>
