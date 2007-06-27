@@ -31,13 +31,13 @@
         <echo>  jdo11.build   - builds all JDO1 projects</echo>
         <echo>  jdo11.default - calls the default goal for all JDO1 projects</echo>
         <echo>  jdo11.clean   - cleans all JDO1 projects</echo>
-        <echo>  jdo20.build   - builds all JDO2 projects</echo>
-        <echo>  jdo20.default - calls the default goal for  all JDO2 projects</echo>
-        <echo>  jdo20.clean   - cleans all JDO2 projects</echo>
-        <echo>  tck20.build   - builds tck20 and dependent JDO2 projects</echo>
-        <echo>  tck20.default - calls the default goal for tck20 and dependent JDO2 projects</echo>
-        <echo>  tck20.clean   - cleans tck20 and dependent JDO2 projects</echo>
-        <echo>  tck20.dist    - creates distributions of tck20 and dependent JDO2 projects</echo>
+        <echo>  jdo2.build   - builds all JDO2 projects</echo>
+        <echo>  jdo2.default - calls the default goal for  all JDO2 projects</echo>
+        <echo>  jdo2.clean   - cleans all JDO2 projects</echo>
+        <echo>  tck2.build   - builds tck2 and dependent JDO2 projects</echo>
+        <echo>  tck2.default - calls the default goal for tck2 and dependent JDO2 projects</echo>
+        <echo>  tck2.clean   - cleans tck2 and dependent JDO2 projects</echo>
+        <echo>  tck2.dist    - creates distributions of tck2 and dependent JDO2 projects</echo>
         <echo>  fostore20.clean   - cleans fostore20 and dependencies</echo>
         <echo>  fostore20.build   - builds fostore20 and dependencies</echo>
         <echo>  fostore20.default - calls the default goal for fostore20 and dependencies</echo>
@@ -72,49 +72,49 @@
     <!-- JDO2 Goals -->
     <!-- ========== -->
 
-    <goal name="jdo20.build"
+    <goal name="jdo2.build"
           description="Builds all JDO2 projects">
-        <j:set var="maven.multiproject.includes">${jdo20.projects}</j:set>
+        <j:set var="maven.multiproject.includes">${jdo2.projects}</j:set>
         <j:set var="goal">build</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="jdo20.default"
+    <goal name="jdo2.default"
           description="Calls the default goal for all JDO2 projects">
-        <j:set var="maven.multiproject.includes">${jdo20.projects}</j:set>
+        <j:set var="maven.multiproject.includes">${jdo2.projects}</j:set>
         <j:set var="goal">default</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="jdo20.clean"
+    <goal name="jdo2.clean"
           description="Cleans all JDO2 projects">
-        <j:set var="maven.multiproject.includes">${jdo20.projects}</j:set>
+        <j:set var="maven.multiproject.includes">${jdo2.projects}</j:set>
         <attainGoal name="multiproject:clean"/>
     </goal>
 
-    <goal name="tck20.build"
-          description="Builds tck20 and dependent JDO2 projects">
-        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+    <goal name="tck2.build"
+          description="Builds tck2 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck2.projects}</j:set>
         <j:set var="goal">build</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="tck20.default"
-          description="Calls the default goal for tck20 and dependent JDO2 projects">
-        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+    <goal name="tck2.default"
+          description="Calls the default goal for tck2 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck2.projects}</j:set>
         <j:set var="goal">default</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="tck20.clean"
-          description="Cleans tck20 and dependent JDO2 projects">
-        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+    <goal name="tck2.clean"
+          description="Cleans tck2 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck2.projects}</j:set>
         <attainGoal name="multiproject:clean"/>
     </goal>
 
-    <goal name="tck20.dist"
-          description="Creates distributions of tck20 and dependent JDO2 projects">
-        <j:set var="maven.multiproject.includes">${tck20.projects}</j:set>
+    <goal name="tck2.dist"
+          description="Creates distributions of tck2 and dependent JDO2 projects">
+        <j:set var="maven.multiproject.includes">${tck2.projects}</j:set>
         <j:set var="goal">dist</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal> 
