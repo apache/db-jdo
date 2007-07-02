@@ -42,35 +42,35 @@ public class CompanyFactoryPMClass
         super(pm);
     }
     
-    IAddress newAddress() {
+    public IAddress newAddress() {
         return (IAddress)pm.newInstance(Address.class);
     }
     
-    ICompany newCompany() {
+    public ICompany newCompany() {
         return (ICompany)pm.newInstance(Company.class);
     }
     
-    IDentalInsurance newDentalInsurance() {
+    public IDentalInsurance newDentalInsurance() {
         return (IDentalInsurance)pm.newInstance(DentalInsurance.class);
     }
     
-    IDepartment newDepartment() {
+    public IDepartment newDepartment() {
         return (IDepartment)pm.newInstance(Department.class);
     }
     
-    IFullTimeEmployee  newFullTimeEmployee() {
+    public IFullTimeEmployee  newFullTimeEmployee() {
         return (IFullTimeEmployee)pm.newInstance(FullTimeEmployee.class);
     }
     
-    IMedicalInsurance newMedicalInsurance() {
+    public IMedicalInsurance newMedicalInsurance() {
         return (IMedicalInsurance)pm.newInstance(MedicalInsurance.class);        
     }
     
-    IPartTimeEmployee  newPartTimeEmployee() {
+    public IPartTimeEmployee  newPartTimeEmployee() {
         return (IPartTimeEmployee)pm.newInstance(PartTimeEmployee.class);
     }
     
-    IProject newProject() {
+    public IProject newProject() {
         return (IProject)pm.newInstance(Project.class);
     }
 

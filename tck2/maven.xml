@@ -587,6 +587,10 @@
                     <path refid="jdori.enhancer.classpath"/>
                     <pathelement location="${enhanced.dir}"/>
                 </path>
+                <echo> jpox.enhancer.jarfile is ${jpox.enhancer.jarfile}</echo>
+                <echo> jpox.javafive.jarfile is ${jpox.javafive.jarfile}</echo>
+                <echo>jdori.enhancer.classpath is ${jdori.enhancer.classpath}</echo>
+                <echo>enhance.classpath is ${enhance.classpath}</echo>
                 <java fork="yes" failonerror="yes" 
                       dir="${enhanced.dir}"
                       classname="${jdori.enhancer.main}"
@@ -650,6 +654,7 @@
     <path id="jdo.jdori.classpath">
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
+        <pathelement location="${jpox.javafive.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${bcel.jarfile}" />
@@ -682,6 +687,8 @@
         <pathelement location="${junit.jarfile}"/>
         <!-- Commons-logging jar file (for compiling pa/pc classes) -->
         <pathelement location="${logging.jarfile}"/>
+        <!-- Java 1.5 jar file -->
+        <pathelement location="${jpox.javafive.jarfile}" />
     </path>
 
     <!-- Common TCK execution classpath -->

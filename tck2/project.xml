@@ -69,6 +69,12 @@ NOTE!! There are no unit tests in this project.</description>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
+            <groupId>jpox</groupId>
+            <artifactId>jpox-java5</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <url>http://www.jpox.org/downloads/maven-nightly</url>
+        </dependency>
+        <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.2.1.6</version>

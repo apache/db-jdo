@@ -102,6 +102,24 @@ public class CompanyModelReader extends XmlBeanFactory {
         addSingleton(BEAN_FACTORY_NAME, companyFactory);
     }
     
+        /**
+     * @return Returns the tearDownClasses.
+     */
+    public Class[] getTearDownClassesFromFactory() {
+        return companyFactory.getTearDownClasses();
+    }
+    
+    /**
+     * @return Returns the tearDownClasses.
+     */
+    public static Class[] getTearDownClasses() {
+        return CompanyFactoryConcreteClass.tearDownClasses;
+    }
+
+    public static Date stringToUtilDate(String value) {
+        return ConversionHelper.toUtilDate(DATE_PATTERN, "America/New_York", Locale.US, value);
+    }
+    
     // Convenience methods
 
     /** 
@@ -236,22 +254,5 @@ public class CompanyModelReader extends XmlBeanFactory {
         return (Project)getBean(name, Project.class);
     }
     
-    /**
-     * @return Returns the tearDownClasses.
-     */
-    public Class[] getTearDownClassesFromFactory() {
-        return companyFactory.getTearDownClasses();
-    }
-    
-    /**
-     * @return Returns the tearDownClasses.
-     */
-    public static Class[] getTearDownClasses() {
-        return CompanyFactoryConcreteClass.tearDownClasses;
-    }
-
-    public static Date stringToUtilDate(String value) {
-        return ConversionHelper.toUtilDate(DATE_PATTERN, "America/New_York", Locale.US, value);
-    }
 }
 

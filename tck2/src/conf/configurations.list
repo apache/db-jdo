@@ -38,6 +38,12 @@ jdo.tck.cfglist = \
                  companyListWithoutJoin.conf \
                  companyPMClass.conf \
                  companyPMInterface.conf \
+                 companyFCAnnotatedNoRelationships.conf \
+                 companyFCAnnotated1-1Relationships.conf \
+                 companyFCAnnotated1-MRelationships.conf \
+                 companyFCAnnotatedM-MRelationships.conf \
+                 companyFCAnnotatedAllRelationships.conf \
+                 companyPIAnnotatedNoRelationships.conf \
                  inheritance1.conf \
                  inheritance2.conf \
                  inheritance3.conf \
