@@ -143,7 +143,7 @@ public class MultipleIdenticalImports extends QueryTest {
             
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        Department dept1 = reader.getDepartment("dept1");
+        Department dept1 = (Department)reader.getDepartment("dept1");
         expected = new HashSet();
         expected.add(reader.getFullTimeEmployee("emp1"));
         expected.add(reader.getFullTimeEmployee("emp2"));

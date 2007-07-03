@@ -130,8 +130,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Address bean.
      */
-    public Address getAddress(String name) {
-        return (Address)getBean(name, Address.class);
+    public IAddress getAddress(String name) {
+        return (IAddress)getBean(name, Address.class);
     }
 
     /** 
@@ -142,8 +142,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Company bean.
      */
-    public Company getCompany(String name) {
-        return (Company)getBean(name, Company.class);
+    public ICompany getCompany(String name) {
+        return (ICompany)getBean(name, Company.class);
     }
 
     /** 
@@ -154,8 +154,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * DentalInsurance bean.
      */
-    public DentalInsurance getDentalInsurance(String name) {
-        return (DentalInsurance)getBean(name, DentalInsurance.class);
+    public IDentalInsurance getDentalInsurance(String name) {
+        return (IDentalInsurance)getBean(name, DentalInsurance.class);
     }
 
     /** 
@@ -166,8 +166,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Department bean.
      */
-    public Department getDepartment(String name) {
-        return (Department)getBean(name, Department.class);
+    public IDepartment getDepartment(String name) {
+        return (IDepartment)getBean(name, Department.class);
     }
 
     /** 
@@ -178,8 +178,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Employee bean.
      */
-    public Employee getEmployee(String name) {
-        return (Employee)getBean(name, Employee.class);
+    public IEmployee getEmployee(String name) {
+        return (IEmployee)getBean(name, Employee.class);
     }
 
     /** 
@@ -190,8 +190,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * FullTimeEmployee bean.
      */
-    public FullTimeEmployee getFullTimeEmployee(String name) {
-        return (FullTimeEmployee)getBean(name, FullTimeEmployee.class);
+    public IFullTimeEmployee getFullTimeEmployee(String name) {
+        return (IFullTimeEmployee)getBean(name, FullTimeEmployee.class);
     }
 
     /** 
@@ -202,8 +202,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Insurance bean.
      */
-    public Insurance getInsurance(String name) {
-        return (Insurance)getBean(name, Insurance.class);
+    public IInsurance getInsurance(String name) {
+        return (IInsurance)getBean(name, Insurance.class);
     }
 
     /** 
@@ -214,8 +214,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * MedicalInsurance bean.
      */
-    public MedicalInsurance getMedicalInsurance(String name) {
-        return (MedicalInsurance)getBean(name, MedicalInsurance.class);
+    public IMedicalInsurance getMedicalInsurance(String name) {
+        return (IMedicalInsurance)getBean(name, MedicalInsurance.class);
     }
 
     /** 
@@ -226,8 +226,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * PartTimeEmployee bean.
      */
-    public PartTimeEmployee getPartTimeEmployee(String name) {
-        return (PartTimeEmployee)getBean(name, PartTimeEmployee.class);
+    public IPartTimeEmployee getPartTimeEmployee(String name) {
+        return (IPartTimeEmployee)getBean(name, PartTimeEmployee.class);
     }
 
     /** 
@@ -238,8 +238,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Person bean.
      */
-    public Person getPerson(String name) {
-        return (Person)getBean(name, Person.class);
+    public IPerson getPerson(String name) {
+        return (IPerson)getBean(name, Person.class);
     }
 
     /** 
@@ -250,8 +250,8 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @return the instance of the bean or <code>null</code> if there no
      * Project bean.
      */
-    public Project getProject(String name) {
-        return (Project)getBean(name, Project.class);
+    public IProject getProject(String name) {
+        return (IProject)getBean(name, Project.class);
     }
     
 }
