@@ -34,7 +34,7 @@ import java.util.Set;
         column="DISCRIMINATOR")
 public interface PIDepartment {
 
-    @Field(primaryKey="true")
+    @Property(primaryKey="true")
     @Column(name="ID")
     long getDeptid();
     @Column(name="NAME")
@@ -43,11 +43,11 @@ public interface PIDepartment {
     PICompany getCompany();
     @Column(name="EMP_OF_THE_MONTH")
     PIEmployee getEmployeeOfTheMonth();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
             mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getEmployees();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="fundingDept")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getFundedEmps();

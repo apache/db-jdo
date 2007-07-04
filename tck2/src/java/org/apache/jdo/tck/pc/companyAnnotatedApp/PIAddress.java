@@ -27,7 +27,7 @@ import javax.jdo.annotations.*;
 @PersistenceCapable(embeddedOnly="true", requiresExtent="false")
 public interface PIAddress {
 
-    @Field(primaryKey="true")
+    @Property(primaryKey="true")
     long getAddrid();
     String getStreet();
     String getCity();

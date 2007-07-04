@@ -35,17 +35,17 @@ public interface PIEmployee extends PIPerson {
     Date getHiredate();
     @Column(name="WEEKLYHOURS")
     double getWeeklyhours();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="reviewers")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIProject.class)
     Set getReviewedProjects();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIProject.class)
     Set getProjects();
-    @Field(mappedBy="employee")
+    @Property(mappedBy="employee")
     PIDentalInsurance getDentalInsurance();
-    @Field(mappedBy="employee")
+    @Property(mappedBy="employee")
     PIMedicalInsurance getMedicalInsurance();
     @Column(name="DEPARTMENT")
     PIDepartment getDepartment();
@@ -53,17 +53,17 @@ public interface PIEmployee extends PIPerson {
     PIDepartment getFundingDept();
     @Column(name="MANAGER")
     PIEmployee getManager();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
     PIEmployee getMentor();
-    @Field(mappedBy="mentor")
+    @Property(mappedBy="mentor")
     PIEmployee getProtege();
     @Column(name="HRADVISOR")
     PIEmployee getHradvisor();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getHradvisees();
     

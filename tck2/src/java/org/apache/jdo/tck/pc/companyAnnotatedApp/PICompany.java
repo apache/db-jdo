@@ -34,7 +34,7 @@ import java.util.Set;
         column="DISCRIMINATOR")
 public interface PICompany {
     
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",
         fields={
             @Field(name="addrid", columns=@Column(name="ADDRID")),
@@ -45,10 +45,10 @@ public interface PICompany {
             @Field(name="country", columns=@Column(name="COUNTRY"))
     })
     PIAddress getAddress();
-    @Field(primaryKey="true")
+    @Property(primaryKey="true")
     @Column(name="ID")
     long getCompanyid();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIDepartment.class)
     Set getDepartments();
     @Column(name="FOUNDEDDATE")

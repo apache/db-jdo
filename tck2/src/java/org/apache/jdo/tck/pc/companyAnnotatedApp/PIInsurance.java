@@ -33,7 +33,7 @@ import javax.jdo.annotations.*;
         columns=@Column(name="DISCRIMINATOR"))
     public interface PIInsurance {
 
-    @Field(primaryKey="true")
+    @Property(primaryKey="true")
     @Column(name="INSID")
     long getInsid();
     @Column(name="CARRIER")

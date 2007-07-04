@@ -53,18 +53,20 @@ public class FCProject
     private String     name;
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     private BigDecimal budget;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="proj_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
             column="REVIEWER")
-    @Join(column="PROJID", table="proj_reviewer")
+    @Join(column="PROJID")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     private transient Set reviewers = new HashSet();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="proj_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
             column="MEMBER")
     //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
     //    foreignKey=@ForeignKey(name="PR_REV_FK"))
-    @Join(column="PROJID", table="proj_member")
+    @Join(column="PROJID")
     private transient Set members = new HashSet();
     
     /** This is the JDO-required no-args constructor. The TCK relies on

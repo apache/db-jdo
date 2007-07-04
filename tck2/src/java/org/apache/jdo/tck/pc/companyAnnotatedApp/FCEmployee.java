@@ -76,7 +76,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class)
     private transient Set team = new HashSet();
     @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="hradvisors")
+            mappedBy="hradvisor")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class)
     private transient Set hradvisees = new HashSet();
 

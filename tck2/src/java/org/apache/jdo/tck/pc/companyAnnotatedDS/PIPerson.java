@@ -40,10 +40,10 @@ public interface PIPerson {
     String getLastname();
     @Column(name="FIRSTNAME")
     String getFirstname();
-    @Field(defaultFetchGroup="false")
+    @Property(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     String getMiddlename();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",
         fields={
             @Field(name="addrid", columns=@Column(name="ADDRID")),
@@ -55,7 +55,7 @@ public interface PIPerson {
     })
     PIAddress getAddress();
     Date getBirthdate();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Join(column="EMPID")
     @JoinTable(table="employee_phoneno_type")
     @Key(types=java.lang.String.class)

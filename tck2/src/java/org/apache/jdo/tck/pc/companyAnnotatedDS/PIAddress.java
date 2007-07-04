@@ -24,7 +24,7 @@ import javax.jdo.annotations.*;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
+@PersistenceCapable(embeddedOnly="true", requiresExtent="false")
 public interface PIAddress {
 
     long getAddrid();

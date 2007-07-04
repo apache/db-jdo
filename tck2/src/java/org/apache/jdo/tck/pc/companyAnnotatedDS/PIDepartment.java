@@ -42,11 +42,11 @@ public interface PIDepartment {
     PICompany getCompany();
     @Column(name="EMP_OF_THE_MONTH")
     PIEmployee getEmployeeOfTheMonth();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
             mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     Set getEmployees();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="fundingDept")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     Set getFundedEmps();
