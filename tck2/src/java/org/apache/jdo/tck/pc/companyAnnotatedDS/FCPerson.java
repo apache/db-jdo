@@ -38,9 +38,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a person.
  */
-@PersistenceCapable
+@PersistenceCapable(table="persons")
 @Implements ("org.apache.jdo.tck.pc.company.IPerson")
-@Table(table="persons")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
@@ -73,9 +72,9 @@ public class FCPerson
 
     // maps phone number types ("home", "work", "mobile", etc.) 
     // to phone numbers specified as String
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="employee_phoneno_type")
     @Join(column="EMPID")
-    @JoinTable(table="employee_phoneno_type")
     @Key(types=java.lang.String.class, column="TYPE")
     @Value(types=java.lang.String.class, column="PHONENO")
     private Map phoneNumbers = new HashMap();
