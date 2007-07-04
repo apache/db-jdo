@@ -26,14 +26,14 @@ import java.util.Set;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
-@Table(table="projects")
+@PersistenceCapable(table="projects")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
 public interface PIProject {
 
-    @Property(primaryKey="true")
     @Column(name="PROJID")
     long getProjid();
     @Column(name="NAME")

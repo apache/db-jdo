@@ -24,13 +24,14 @@ import javax.jdo.annotations.*;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
-@Table(table="insuranceplans")
+@PersistenceCapable(table="insuranceplans")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
 @Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
         columns=@Column(name="DISCRIMINATOR"))
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
     public interface PIInsurance {
 
     @Column(name="INSID")

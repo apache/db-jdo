@@ -37,9 +37,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a project, a budgeted task with one or more
  * employees working on it.
  */
-@PersistenceCapable
+@PersistenceCapable(table="projects")
 @Implements ("org.apache.jdo.tck.pc.company.IProject")
-@Table(table="projects")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
@@ -54,14 +53,14 @@ public class FCProject
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     private BigDecimal budget;
     @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="proj_reviewer")
+            table="project_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     private transient Set reviewers = new HashSet();
     @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="proj_member")
+            table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,
             column="MEMBER")
     //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,

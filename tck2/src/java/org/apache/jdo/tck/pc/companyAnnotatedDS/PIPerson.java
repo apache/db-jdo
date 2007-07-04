@@ -27,11 +27,12 @@ import java.util.Map;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
-@Table(table="persons")
+@PersistenceCapable(table="persons")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
 public interface PIPerson {
 
     @Column(name="PERSONID")
@@ -55,9 +56,8 @@ public interface PIPerson {
     })
     PIAddress getAddress();
     Date getBirthdate();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, table="employee_phoneno_type")
     @Join(column="EMPID")
-    @JoinTable(table="employee_phoneno_type")
     @Key(types=java.lang.String.class)
     @Value(types=java.lang.String.class)
     Map getPhoneNumbers();

@@ -26,12 +26,13 @@ import java.util.Set;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
+@PersistenceCapable(table="departments")
 @Implements ("org.apache.jdo.tck.pc.company.IDepartment")
-@Table(table="departments")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
 public interface PIDepartment {
 
     @Column(name="ID")

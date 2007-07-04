@@ -37,13 +37,13 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a department within a company.
  */
-@PersistenceCapable
+@PersistenceCapable(table="departments")
 @Implements ("org.apache.jdo.tck.pc.company.IDepartment")
-@Table(table="departments")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
 public class FCDepartment
     implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 

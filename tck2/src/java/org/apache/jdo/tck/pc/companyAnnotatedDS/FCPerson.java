@@ -44,7 +44,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
+@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
+        column="DATASTORE_IDENTITY")
 public class FCPerson 
     implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
 
