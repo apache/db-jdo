@@ -37,6 +37,10 @@ public @interface Field
     FieldPersistenceModifier persistenceModifier() 
         default FieldPersistenceModifier.UNKNOWN;
 
+    /** Table to use for persisting this field. 
+     */
+    String table() default "";
+
     /** Whether this field is in the default fetch group. 
      * @return whether this field is in the default fetch group
      */
@@ -98,13 +102,26 @@ public @interface Field
      */
     String mappedBy() default "";
 
-    /** Column definition(s) for this field. Used for embedded fields. 
+    /** Column definition(s) for this field. Used for mapping multiple columns
+     * to the same field, for example relationships with multiple column
+     * foreign keys. 
      */
     Column[] columns() default {}; 
 
+    /** Column name for this field. Used for mapping embedded fields where
+     * both the field name and column name are specified in the same
+     * annotation.
+     */
+    String column() default "";
+
+    /** Null indicator column for this field. Used for nested embedded fields 
+     * where the null indicator column is needed.
+     */
+    String nullIndicatorColumn() default "";
+
     /** Name of the field when this is embedded in another object. 
      */
-    String embeddedFieldName() default ""; 
+    String name() default ""; 
 
     /** Vendor extensions for this field. 
      */

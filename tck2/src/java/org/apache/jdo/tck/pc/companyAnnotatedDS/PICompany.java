@@ -37,12 +37,12 @@ public interface PICompany {
     @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",
         fields={
-            @Field(embeddedFieldName="addrid", columns=@Column(name="ADDRID")),
-            @Field(embeddedFieldName="street", columns=@Column(name="STREET")),
-            @Field(embeddedFieldName="city", columns=@Column(name="CITY")),
-            @Field(embeddedFieldName="state", columns=@Column(name="STATE")),
-            @Field(embeddedFieldName="zipcode", columns=@Column(name="ZIPCODE")),
-            @Field(embeddedFieldName="country", columns=@Column(name="COUNTRY"))
+            @Field(name="addrid", columns=@Column(name="ADDRID")),
+            @Field(name="street", columns=@Column(name="STREET")),
+            @Field(name="city", columns=@Column(name="CITY")),
+            @Field(name="state", columns=@Column(name="STATE")),
+            @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Field(name="country", columns=@Column(name="COUNTRY"))
     })
     PIAddress getAddress();
     @Column(name="ID")

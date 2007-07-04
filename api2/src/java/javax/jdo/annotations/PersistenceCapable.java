@@ -22,29 +22,48 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the class is persistence-capable.
+ * Annotation for whether the class or interface is persistence-capable.
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface PersistenceCapable
 {
-    /** Whether we require the ability to have extents of this class. */
+    /** Table to use for persisting this class or interface. 
+     */
+    String table() default "";
+
+    /** Catalog to use for persisting this class or interface. 
+     */
+    String catalog() default "";
+
+    /** Schema to use for persisting this class or interface. 
+     */
+    String schema() default "";
+
+    /** Whether this class or interface manages an extent. 
+     */
     String requiresExtent() default "";
 
-    /** Whether objects of this class can only be embedded. */
+    /** Whether objects of this class or interface can only be embedded. 
+     */
     String embeddedOnly() default "";
 
-    /** Whether this class is detachable. */
+    /** Whether this class or interface is detachable. 
+     */
     String detachable() default "";
 
-    /** Type of identity for this class. */
-    IdentityType identityType() default IdentityType.DATASTORE;
+    /** Type of identity for this class or interface. 
+     */
+    IdentityType identityType() default IdentityType.UNKNOWN;
 
-    /** Primary key class when using application identity and using own PK. */
+    /** Primary key class when using application identity and using own PK. 
+     */
     Class objectIdClass() default void.class;
 
-    /** Any vendor extensions. */
+    /** Any vendor extensions. 
+     */
     Extension[] extensions() default {};
 }
