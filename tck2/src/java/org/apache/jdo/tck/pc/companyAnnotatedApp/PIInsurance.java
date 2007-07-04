@@ -24,8 +24,7 @@ import javax.jdo.annotations.*;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
-@Table(table="insuranceplans")
+@PersistenceCapable(identityType=IdentityType.APPLICATION,table="insuranceplans")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")

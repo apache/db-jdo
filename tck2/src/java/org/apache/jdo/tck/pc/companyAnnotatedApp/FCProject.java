@@ -37,9 +37,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a project, a budgeted task with one or more
  * employees working on it.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
+@PersistenceCapable(identityType=IdentityType.APPLICATION, table="projects")
 @Implements ("org.apache.jdo.tck.pc.company.IProject")
-@Table(table="projects")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")

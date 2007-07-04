@@ -37,9 +37,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a department within a company.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
+@PersistenceCapable(identityType=IdentityType.APPLICATION, table="departments")
 @Implements ("org.apache.jdo.tck.pc.company.IDepartment")
-@Table(table="departments")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")

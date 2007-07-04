@@ -39,9 +39,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents information about a company.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
+@PersistenceCapable(identityType=IdentityType.APPLICATION,table="companies")
 @Implements ("org.apache.jdo.tck.pc.company.ICompany")
-@Table(table="companies")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")

@@ -32,9 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents an insurance carrier selection for a particular
  * <code>FCEmployee</code>.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
+@PersistenceCapable(identityType=IdentityType.APPLICATION,table="insuranceplans" )
 @Implements ("org.apache.jdo.tck.pc.company.IInsurance")
-@Table(table="insuranceplans")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
