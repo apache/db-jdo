@@ -22,6 +22,8 @@ import javax.jdo.annotations.*;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.jdo.tck.pc.company.ICompany;
+
 /**
  * This interface represents the persistent state of Company.
  * Javadoc was deliberately omitted because it would distract from
@@ -31,7 +33,7 @@ import java.util.Set;
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
-public interface PICompany {
+public interface PICompany extends ICompany {
     
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",

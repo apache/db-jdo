@@ -19,6 +19,8 @@ package org.apache.jdo.tck.pc.companyAnnotatedApp;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IInsurance;
+
 /**
  * This interface represents the persistent state of Insurance.
  * Javadoc was deliberately omitted because it would distract from
@@ -30,7 +32,7 @@ import javax.jdo.annotations.*;
         column="DISCRIMINATOR", indexed="true")
 @Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
         columns=@Column(name="DISCRIMINATOR"))
-    public interface PIInsurance {
+    public interface PIInsurance extends IInsurance {
 
     @Property(primaryKey="true")
     @Column(name="INSID")

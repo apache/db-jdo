@@ -19,13 +19,15 @@ package org.apache.jdo.tck.pc.companyAnnotatedApp;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+
 /**
  * This interface represents the persistent state of MedicalInsurance.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public interface PIMedicalInsurance extends PIInsurance{
+public interface PIMedicalInsurance extends PIInsurance, IMedicalInsurance {
 
     @Column(name="PLANTYPE")
     String getPlanType();
