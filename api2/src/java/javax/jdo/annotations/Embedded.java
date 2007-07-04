@@ -53,4 +53,8 @@ public @interface Embedded
     /** Field definitions for this embedding. 
      */
     Field[] fields() default {};
+
+    /** Property definitions for this embedding. 
+     */
+    Property[] properties() default {};
 }
