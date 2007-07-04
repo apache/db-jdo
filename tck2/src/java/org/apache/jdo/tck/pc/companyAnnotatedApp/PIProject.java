@@ -39,18 +39,20 @@ public interface PIProject {
     String getName();
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="project_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
             column="REVIEWER")
-    @Join(column="PROJID", table="proj_reviewer")
+    @Join(column="PROJID")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     Set getReviewers();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
             column="MEMBER")
     //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCEmployee.class,
     //    foreignKey=@ForeignKey(name="PR_REV_FK"))
-    @Join(column="PROJID", table="proj_member")
+    @Join(column="PROJID")
     Set getMembers();
     
     void setProjid(long projid);
