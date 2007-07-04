@@ -21,6 +21,8 @@ import javax.jdo.annotations.*;
 
 import java.util.Set;
 
+import org.apache.jdo.tck.pc.company.IDepartment;
+
 /**
  * This interface represents the persistent state of Department.
  * Javadoc was deliberately omitted because it would distract from
@@ -33,7 +35,7 @@ import java.util.Set;
         column="DISCRIMINATOR")
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
-public interface PIDepartment {
+public interface PIDepartment extends IDepartment {
 
     @Column(name="ID")
     long getDeptid();

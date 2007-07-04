@@ -21,6 +21,8 @@ import javax.jdo.annotations.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import org.apache.jdo.tck.pc.company.IProject;
+
 /**
  * This interface represents the persistent state of Project.
  * Javadoc was deliberately omitted because it would distract from
@@ -32,7 +34,7 @@ import java.util.Set;
         column="DISCRIMINATOR")
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
-public interface PIProject {
+public interface PIProject extends IProject {
 
     @Column(name="PROJID")
     long getProjid();

@@ -22,6 +22,8 @@ import javax.jdo.annotations.*;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.jdo.tck.pc.company.IEmployee;
+
 /**
  * This interface represents the persistent state of Employee.
  * Javadoc was deliberately omitted because it would distract from
@@ -29,7 +31,7 @@ import java.util.Set;
  */
 @PersistenceCapable
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIEmployee extends PIPerson {
+public interface PIEmployee extends PIPerson, IEmployee {
 
     @Column(name="HIREDATE")
     Date getHiredate();

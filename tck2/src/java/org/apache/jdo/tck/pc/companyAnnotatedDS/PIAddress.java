@@ -19,13 +19,15 @@ package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IAddress;
+
 /**
  * This interface represents the persistent state of Address.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
 @PersistenceCapable(embeddedOnly="true", requiresExtent="false")
-public interface PIAddress {
+public interface PIAddress extends IAddress {
 
     long getAddrid();
     String getStreet();

@@ -22,6 +22,8 @@ import javax.jdo.annotations.*;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.jdo.tck.pc.company.IPerson;
+
 /**
  * This interface represents the persistent state of Person.
  * Javadoc was deliberately omitted because it would distract from
@@ -33,7 +35,7 @@ import java.util.Map;
         column="DISCRIMINATOR", indexed="true")
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
-public interface PIPerson {
+public interface PIPerson extends IPerson {
 
     @Column(name="PERSONID")
     long getPersonid();

@@ -19,6 +19,8 @@ package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
+
 /**
  * This interface represents the persistent state of FullTimeEmployee.
  * Javadoc was deliberately omitted because it would distract from
@@ -26,7 +28,7 @@ import javax.jdo.annotations.*;
  */
 @PersistenceCapable
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIFullTimeEmployee extends PIEmployee {
+public interface PIFullTimeEmployee extends PIEmployee, IFullTimeEmployee {
 
     @Column(name="SALARY")
     double getSalary();

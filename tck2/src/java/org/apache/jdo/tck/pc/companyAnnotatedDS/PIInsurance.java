@@ -19,6 +19,8 @@ package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IInsurance;
+
 /**
  * This interface represents the persistent state of Insurance.
  * Javadoc was deliberately omitted because it would distract from
@@ -32,7 +34,7 @@ import javax.jdo.annotations.*;
         columns=@Column(name="DISCRIMINATOR"))
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
-    public interface PIInsurance {
+public interface PIInsurance extends IInsurance {
 
     @Column(name="INSID")
     long getInsid();
