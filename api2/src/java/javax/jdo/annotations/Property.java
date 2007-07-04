@@ -30,42 +30,112 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
 public @interface Property
 {
-    /** Modifier for this property. */
-    FieldPersistenceModifier persistenceModifier() default FieldPersistenceModifier.UNKNOWN;
+    /** Modifier for this property. 
+     * @return the persistence modifier
+     */
+    FieldPersistenceModifier persistenceModifier() 
+        default FieldPersistenceModifier.UNKNOWN;
 
-    /** Whether this property is in the default fetch group. */
+    /** Table to use for persisting this property.
+     * @return the table to use for persisting this property
+     */
+    String table() default "";
+
+    /** Whether this property is in the default fetch group. 
+     * @return whether this property is in the default fetch group
+     */
     String defaultFetchGroup() default "";
 
-    /** Behaviour when inserting a null value. */
+    /** Behavior when this property contains a null value. 
+     * @return the behavior when this property contains a null value
+     */
     NullValue nullValue() default NullValue.NONE;
 
-    /** Whether this property is embedded. */
+    /** Whether this property is embedded. 
+     * @return whether this property is embedded
+     */
     String embedded() default "";
 
-    /** Whether this property is serialised into a single column. */
+    /** Whether this property is serialised into a single column. 
+     * @return whether this property is serialized into a single column
+     */
     String serialized() default "";
 
-    /** Whether related object(s) of this property are dependent and so deleted when this object is deleted. */
+    /** Whether related object(s) of this property are dependent
+     * and so deleted when this object is deleted. 
+     * @return whether the related object(s) of this property are dependent
+     */
     String dependent() default "";
 
-    /** Whether this property is part of the PK of the class. */
+    /** Whether this property is part of the primary key of the class. 
+     * @return whether this property is part of the primary key of the class
+     */
     String primaryKey() default "";
 
-    /** Value strategy to use to populate this property (if any): */
+    /** Value strategy to use to populate this property (if any).
+     * @return the generated value strategy
+     */
     IdGeneratorStrategy valueStrategy() default IdGeneratorStrategy.UNKNOWN;
 
-    /** Name of a sequence to use with particular value strategies. */
+    /** Name of the sequence to use with particular value strategies. 
+     * @return the name of the sequence
+     */
     String sequence() default "";
 
-    /** Name of the fetch-group to use when this property is loaded due to being referenced etc */
+    /** Name of the fetch-group to use when this property is loaded 
+     * due to being referenced when not already loaded 
+     * @return the name of the load fetch group
+     */
     String loadFetchGroup() default "";
 
-    /** Type of the field. Used when the property is a reference type and we want to be specific. */
+    /** Type of the property. Used when the property is a reference type 
+     * and we want to be specific. 
+     * @return the property type
+     */
     Class fieldType() default void.class;
 
-    /** Name of the field in the properties class where this value is stored (bidir relations). */
+    /** Type of the property. This is used as an alternative to "fieldType" 
+     * when the implementation supports specification of multiple property 
+     * types. If "fieldType" is specified then this is ignored.
+     * @return the property types
+     */
+    Class[] fieldTypes() default {};
+
+    /** Name of the related property in the other class where this value is 
+     * mapped 
+     * (bidirectional relationship). 
+     * @return the related property in the other class
+     */
     String mappedBy() default "";
 
-    /** Vendor extensions for this property. */
+    /** Column definition(s) for this property. Used for mapping multiple 
+     * columns
+     * to the same property, for example relationships with multiple column
+     * foreign keys. 
+     * @return the columns for this property
+     */
+    Column[] columns() default {}; 
+
+    /** Column name for this property. Used for mapping embedded properties 
+     * where both the property name and column name are specified in the same
+     * annotation.
+     * @return the name of the column
+     */
+    String column() default "";
+
+    /** Null indicator column for this property. Used for nested embedded 
+     * properties where the null indicator column is needed.
+     * @return the null indicator column
+     */
+    String nullIndicatorColumn() default "";
+
+    /** Name of the property when this is embedded in another object. 
+     * @return the name of the property
+     */
+    String name() default ""; 
+
+    /** Vendor extensions for this property. 
+     * @return the vendor extensions
+     */
     Extension[] extensions() default {};
 }
