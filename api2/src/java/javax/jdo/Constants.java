@@ -230,7 +230,7 @@ public interface Constants {
      *
      * @since 2.1
      */
-    static String PMF_ATTRIBUTE_ServerTimeZoneID
+    static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
         = "server-time-zone-id";
 
     /**
@@ -703,7 +703,7 @@ public interface Constants {
      *
      * @since 2.1
      */
-    static String PROPERTY_SERVER_TIMEZONE_ID
+        static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
 
     /**
