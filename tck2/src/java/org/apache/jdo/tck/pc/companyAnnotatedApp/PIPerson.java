@@ -57,9 +57,9 @@ public interface PIPerson extends IPerson {
     })
     PIAddress getAddress();
     Date getBirthdate();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            table="employee_phoneno_type")
     @Join(column="EMPID")
-    @JoinTable(table="employee_phoneno_type")
     @Key(types=java.lang.String.class)
     @Value(types=java.lang.String.class)
     Map getPhoneNumbers();
