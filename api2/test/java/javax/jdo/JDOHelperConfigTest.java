@@ -216,8 +216,8 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
             PROPERTY_DETACH_ALL_ON_COMMIT,
             PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
         expected.put(
-            PROPERTY_SERVER_TIMEZONE_ID,
-            PMF_ATTRIBUTE_ServerTimeZoneID + "." + testVariant);
+            PROPERTY_SERVER_TIME_ZONE_ID,
+            PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
 
         // listeners
         for (int i = 0; i < numListeners; i++) {
