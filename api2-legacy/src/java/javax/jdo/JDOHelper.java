@@ -155,7 +155,7 @@ public class JDOHelper extends Object implements Constants {
             PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT,
             PROPERTY_DETACH_ALL_ON_COMMIT);
         xref.put(
-            PMF_ATTRIBUTE_ServerTimeZoneID,
+                PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
             PROPERTY_SERVER_TIMEZONE_ID);
 
         return Collections.unmodifiableMap(xref);
