@@ -225,8 +225,8 @@ public interface Constants {
     static String PMF_ATTRIBUTE_MAPPING
         = "mapping";
     /**
-     * The name of the persistence manager factory element's "mapping"
-     * attribute.
+     * The name of the persistence manager factory element's
+     * "server-time-zone-id" attribute.
      *
      * @since 2.1
      */
