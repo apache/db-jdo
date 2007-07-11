@@ -338,7 +338,7 @@ public interface PersistenceManager {
      * @return the corresponding persistent instance
      * @since 2.0
      */
-    Object getObjectById (Class cls, Object key);
+    <T> T getObjectById (Class<T> cls, Object key);
 
     /**
      * Looks up the instance corresponding to the specified oid. This is
@@ -516,7 +516,7 @@ public interface PersistenceManager {
      * persistent state, or the corresponding persistent instance 
      * for detached parameter instances
      */
-    Object makePersistent (Object pc);
+    <T> T makePersistent (T pc);
     
     /** Make an array of instances persistent.
      * @param pcs an array of instances
@@ -526,7 +526,7 @@ public interface PersistenceManager {
      * parameter array
      * @see #makePersistent(Object pc)
      */
-    Object[] makePersistentAll (Object[] pcs);
+    <T> T[] makePersistentAll (T[] pcs);
     
     /** Make a <code>Collection</code> of instances persistent.
      * @param pcs a <code>Collection</code> of instances
@@ -536,7 +536,7 @@ public interface PersistenceManager {
      * as in the parameter Collection
      * @see #makePersistent(Object pc)
      */
-    Collection makePersistentAll (Collection pcs);
+    <T> Collection<T> makePersistentAll (Collection<T> pcs);
     
     /** Delete the persistent instance from the data store.
      * This method must be called in an active transaction.
@@ -923,7 +923,7 @@ public interface PersistenceManager {
      * @see #detachCopyAll(Object[])
      * @since 2.0
      */
-    Object detachCopy (Object pc);
+    <T> T detachCopy (T pc);
 
     /**
      * Detach the specified instances from the <code>PersistenceManager</code>.
@@ -936,7 +936,7 @@ public interface PersistenceManager {
      * @see #detachCopyAll(Object[])
      * @since 2.0
      */
-    Collection detachCopyAll (Collection pcs);
+    <T> Collection<T> detachCopyAll (Collection<T> pcs);
 
     /**
      * Detach the specified instances from the <code>PersistenceManager</code>.
@@ -962,7 +962,7 @@ public interface PersistenceManager {
      * @see #getFetchPlan
      * @since 2.0
      */
-    Object[] detachCopyAll (Object [] pcs);
+    <T> T[] detachCopyAll (T[] pcs);
 
     /**
      * Put the specified key-value pair into the map of user objects.
@@ -1042,7 +1042,7 @@ public interface PersistenceManager {
      * @return the created instance
      * @since 2.0
      */
-    Object newInstance (Class pcClass);
+    <T> T newInstance (Class<T> pcClass);
 
     /**
      * Returns the sequence identified by <code>name</code>.
