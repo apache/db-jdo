@@ -28,7 +28,7 @@ import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
  */
 @PersistenceCapable
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIFullTimeEmployee extends PIEmployee, IFullTimeEmployee {
+public interface PIFullTimeEmployee extends IFullTimeEmployee, PIEmployee {
 
     @Column(name="SALARY")
     double getSalary();

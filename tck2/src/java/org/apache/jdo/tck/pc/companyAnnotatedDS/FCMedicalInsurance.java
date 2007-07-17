@@ -18,12 +18,7 @@
 package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
-
-import java.io.Serializable;
-
-import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
@@ -31,9 +26,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * particular <code>Employee</code>.
  */
 @PersistenceCapable
-@Implements ("org.apache.jdo.tck.pc.company.IInsurance")
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
-public class FCMedicalInsurance extends FCInsurance implements IMedicalInsurance {
+public class FCMedicalInsurance extends FCInsurance
+        implements IMedicalInsurance {
 
     @Column(name="PLANTYPE")
     private String planType; // possible values: "PPO", "EPO", "NPO" 
@@ -64,7 +59,7 @@ public class FCMedicalInsurance extends FCInsurance implements IMedicalInsurance
      * @param planType The planType.
      */
     public FCMedicalInsurance(long insid, String carrier, 
-                            IEmployee employee, String planType)
+                            FCEmployee employee, String planType)
     {
         super(insid, carrier, employee);
         this.planType = planType;
@@ -120,7 +115,7 @@ public class FCMedicalInsurance extends FCInsurance implements IMedicalInsurance
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IMedicalInsurance otherIns = (IMedicalInsurance)other;
+        FCMedicalInsurance otherIns = (FCMedicalInsurance)other;
         String where = "FCMedicalInsurance<" + getInsid() + ">";
         return super.deepCompareFields(otherIns, helper) &
             helper.equals(planType, otherIns.getPlanType(), where + ".planType");

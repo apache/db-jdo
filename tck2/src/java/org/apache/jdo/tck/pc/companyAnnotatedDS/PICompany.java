@@ -21,6 +21,7 @@ import javax.jdo.annotations.*;
 
 import java.util.Date;
 import java.util.Set;
+import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.ICompany;
 
@@ -47,7 +48,7 @@ public interface PICompany extends ICompany {
             @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
             @Field(name="country", columns=@Column(name="COUNTRY"))
     })
-    PIAddress getAddress();
+    IAddress getAddress();
     @Column(name="ID")
     long getCompanyid();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
@@ -58,7 +59,7 @@ public interface PICompany extends ICompany {
     @Column(name="NAME", jdbcType="VARCHAR")
     String getName();
     
-    void setAddress(PIAddress a);
+    void setAddress(IAddress a);
     void setCompanyid(long id);
     void setDepartments(Set depts);
     void setFounded(Date date);

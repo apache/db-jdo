@@ -28,8 +28,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
-
 import org.apache.jdo.tck.pc.company.IProject;
+
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -38,7 +38,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * employees working on it.
  */
 @PersistenceCapable(table="projects")
-@Implements ("org.apache.jdo.tck.pc.company.IProject")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
@@ -245,7 +244,7 @@ public class FCProject
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IProject otherProject = (IProject)other;
+        FCProject otherProject = (FCProject)other;
         String where = "FCProject<" + projid + ">";
         return 
             helper.equals(projid, otherProject.getProjid(), where + ".projid") &
@@ -266,14 +265,14 @@ public class FCProject
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((IProject)o);
+        return compareTo((FCProject)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((IProject)o1, (IProject)o2);
+        return compare((FCProject)o1, (FCProject)o2);
     }
 
     /** 
@@ -286,7 +285,7 @@ public class FCProject
      * object is less than, equal to, or greater than the specified FCProject
      * object. 
      */
-    public int compareTo(IProject other) {
+    public int compareTo(FCProject other) {
         return compare(this, other);
     }
 
@@ -299,7 +298,7 @@ public class FCProject
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IProject o1, IProject o2) {
+    public static int compare(FCProject o1, FCProject o2) {
         return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
@@ -310,8 +309,8 @@ public class FCProject
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof IProject) {
-            return compareTo((IProject)obj) == 0;
+        if (obj instanceof FCProject) {
+            return compareTo((FCProject)obj) == 0;
         }
         return false;
     }

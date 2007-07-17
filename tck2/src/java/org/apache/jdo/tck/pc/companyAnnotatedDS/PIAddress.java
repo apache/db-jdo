@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
-
 import org.apache.jdo.tck.pc.company.IAddress;
 
 /**

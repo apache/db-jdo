@@ -26,20 +26,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents an employee.
  */
 @PersistenceCapable
-@Implements ("org.apache.jdo.tck.pc.company.IEmployee")
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
 public abstract class FCEmployee extends FCPerson implements IEmployee {
@@ -112,7 +108,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
      * @param hiredate The date that the employee was hired.
      */
     public FCEmployee(long personid, String firstname, String lastname, 
-                    String middlename, Date birthdate, IAddress address,
+                    String middlename, Date birthdate, FCAddress address,
                     Date hiredate) {
         super(personid, firstname, lastname, middlename, birthdate, address);
         this.hiredate = hiredate;
@@ -225,7 +221,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
      * Get the dental insurance of the employee.
      * @return The employee's dental insurance.
      */
-    public IDentalInsurance getDentalInsurance() {
+    public FCDentalInsurance getDentalInsurance() {
         return dentalInsurance;
     }
 
@@ -259,7 +255,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
      * @return The department associated with the employee.
      */
     public IDepartment getDepartment() {
-        return (IDepartment)department;
+        return department;
     }
 
     /**
@@ -275,7 +271,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
      * @return The funding department associated with the employee.
      */
     public IDepartment getFundingDept() {
-        return (IDepartment)fundingDept;
+        return fundingDept;
     }
 
     /**
@@ -477,7 +473,7 @@ public abstract class FCEmployee extends FCPerson implements IEmployee {
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IEmployee otherEmp = (IEmployee)other;
+        FCEmployee otherEmp = (FCEmployee)other;
         String where = "Employee<" + getPersonid() + ">";
         return super.deepCompareFields(otherEmp, helper) &
             helper.equals(hiredate, otherEmp.getHiredate(),  where + ".hiredate") &

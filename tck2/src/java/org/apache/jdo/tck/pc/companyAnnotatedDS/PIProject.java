@@ -43,15 +43,15 @@ public interface PIProject extends IProject {
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID", table="proj_reviewer")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     Set getReviewers();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class,
             column="MEMBER")
-    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.FCEmployee.class,
+    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class,
     //    foreignKey=@ForeignKey(name="PR_REV_FK"))
     @Join(column="PROJID", table="proj_member")
     Set getMembers();
@@ -59,11 +59,7 @@ public interface PIProject extends IProject {
     void setProjid(long projid);
     void setName(String name);
     void setBudget(BigDecimal budget);
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     void setReviewers(Set reviewers);
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     void setMembers(Set employees);
     
 }

@@ -15,60 +15,31 @@
  * limitations under the License.
  */
  
-package org.apache.jdo.tck.pc.companyAnnotatedDS;
-
-import javax.jdo.annotations.*;
+package org.apache.jdo.tck.pc.company;
 
 import java.util.Date;
 import java.util.Set;
-import org.apache.jdo.tck.pc.company.IDentalInsurance;
-import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 
 /**
  * This interface represents the persistent state of Employee.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable
-@Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIEmployee extends IEmployee, PIPerson {
+public interface PIEmployee extends PIPerson, IEmployee {
 
-    @Column(name="HIREDATE")
     Date getHiredate();
-    @Column(name="WEEKLYHOURS")
     double getWeeklyhours();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="reviewers")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIProject.class)
     Set getReviewedProjects();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="members")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIProject.class)
     Set getProjects();
-    @Property(mappedBy="employee")
     IDentalInsurance getDentalInsurance();
-    @Property(mappedBy="employee")
     IMedicalInsurance getMedicalInsurance();
-    @Column(name="DEPARTMENT")
     IDepartment getDepartment();
-    @Column(name="FUNDINGDEPT")
     IDepartment getFundingDept();
-    @Column(name="MANAGER")
     IEmployee getManager();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="manager")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     Set getTeam();
-    @Column(name="MENTOR")
     IEmployee getMentor();
-    @Property(mappedBy="mentor")
     IEmployee getProtege();
-    @Column(name="HRADVISOR")
     IEmployee getHradvisor();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
     Set getHradvisees();
     
     void setHiredate(Date hiredate);

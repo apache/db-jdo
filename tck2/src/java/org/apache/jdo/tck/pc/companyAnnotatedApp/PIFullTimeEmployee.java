@@ -17,6 +17,7 @@
  
 package org.apache.jdo.tck.pc.companyAnnotatedApp;
 
+import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
 import javax.jdo.annotations.*;
 
 /**
@@ -26,7 +27,7 @@ import javax.jdo.annotations.*;
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIFullTimeEmployee extends PIEmployee {
+public interface PIFullTimeEmployee extends PIEmployee, IFullTimeEmployee {
 
     @Column(name="SALARY")
     double getSalary();

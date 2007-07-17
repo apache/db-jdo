@@ -27,8 +27,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.apache.jdo.tck.pc.company.ICompany;
+
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.DeepEquality;
@@ -38,7 +38,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a department within a company.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION, table="departments")
-@Implements ("org.apache.jdo.tck.pc.company.IDepartment")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
@@ -268,7 +267,7 @@ public class FCDepartment
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IDepartment otherDept = (IDepartment)other;
+        FCDepartment otherDept = (FCDepartment)other;
         String where = "FCDepartment<" + deptid + ">";
         return 
             helper.equals(deptid, otherDept.getDeptid(), where + ".deptid") & 
@@ -309,14 +308,14 @@ public class FCDepartment
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((IDepartment)o);
+        return compareTo((FCDepartment)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((IDepartment)o1, (IDepartment)o2);
+        return compare((FCDepartment)o1, (FCDepartment)o2);
     }
 
     /** 
@@ -329,7 +328,7 @@ public class FCDepartment
      * object is less than, equal to, or greater than the specified
      * Department object. 
      */
-    public int compareTo(IDepartment other) {
+    public int compareTo(FCDepartment other) {
         return compare(this, other);
     }
 
@@ -342,7 +341,7 @@ public class FCDepartment
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IDepartment o1, IDepartment o2) {
+    public static int compare(FCDepartment o1, FCDepartment o2) {
         return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
@@ -353,8 +352,8 @@ public class FCDepartment
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof IDepartment) {
-            return compareTo((IDepartment)obj) == 0;
+        if (obj instanceof FCDepartment) {
+            return compareTo((FCDepartment)obj) == 0;
         }
         return false;
     }

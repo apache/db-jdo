@@ -21,6 +21,7 @@ import javax.jdo.annotations.*;
 
 import java.util.Date;
 import java.util.Map;
+import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.IPerson;
 
@@ -55,7 +56,7 @@ public interface PIPerson extends IPerson {
             @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
             @Field(name="country", columns=@Column(name="COUNTRY"))
     })
-    PIAddress getAddress();
+    IAddress getAddress();
     Date getBirthdate();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             table="employee_phoneno_type")
@@ -68,7 +69,7 @@ public interface PIPerson extends IPerson {
     void setLastname(String lastname);
     void setFirstname(String firstname);
     void setMiddlename(String middlename);
-    void setAddress(PIAddress address);
+    void setAddress(IAddress address);
     void setBirthdate(Date birthdate);
     void setPhoneNumbers(Map phoneNumbers);
 

@@ -21,8 +21,8 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.jdo.annotations.*;
-
 import org.apache.jdo.tck.pc.company.IAddress;
+
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -30,7 +30,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a postal address.
  */
 @PersistenceCapable(embeddedOnly="true", requiresExtent="false")
-@Implements ("org.apache.jdo.tck.pc.company.IAddress")
 public class FCAddress 
     implements IAddress, Serializable, Comparable, Comparator, DeepEquality {
 
@@ -200,7 +199,7 @@ public class FCAddress
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IAddress otherAddress = (IAddress)other;
+        FCAddress otherAddress = (FCAddress)other;
         String where = "Address<" + addrid + ">";
         return
             helper.equals(addrid, otherAddress.getAddrid(), where + ".addrid") &
@@ -222,14 +221,14 @@ public class FCAddress
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((IAddress)o);
+        return compareTo((FCAddress)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((IAddress)o1, (IAddress)o2);
+        return compare((FCAddress)o1, (FCAddress)o2);
     }
 
     /** 
@@ -242,20 +241,20 @@ public class FCAddress
      * object is less than, equal to, or greater than the specified Address
      * object. 
      */
-    public int compareTo(IAddress other) {
+    public int compareTo(FCAddress other) {
         return compare(this, other);
     }
     
     /**
-     * Compares its two IAddress arguments for order. Returns a negative
+     * Compares its two FCAddress arguments for order. Returns a negative
      * integer, zero, or a positive integer as the first argument is less
      * than, equal to, or greater than the second. 
-     * @param o1 the first IAddress object to be compared. 
-     * @param o2 the second IAddress object to be compared. 
+     * @param o1 the first FCAddress object to be compared. 
+     * @param o2 the second FCAddress object to be compared. 
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IAddress o1, IAddress o2) {
+    public static int compare(FCAddress o1, FCAddress o2) {
         return EqualityHelper.compare(o1.getAddrid(), o2.getAddrid());
     }
 
@@ -266,8 +265,8 @@ public class FCAddress
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof IAddress) {
-            return compareTo((IAddress)obj) == 0;
+        if (obj instanceof FCAddress) {
+            return compareTo((FCAddress)obj) == 0;
         }
         return false;
     }

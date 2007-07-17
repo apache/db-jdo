@@ -19,10 +19,10 @@ package org.apache.jdo.tck.pc.companyAnnotatedApp;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.ICompany;
 import java.util.Date;
 import java.util.Set;
-
-import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IAddress;
 
 /**
  * This interface represents the persistent state of Company.
@@ -45,7 +45,7 @@ public interface PICompany extends ICompany {
             @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
             @Field(name="country", columns=@Column(name="COUNTRY"))
     })
-    PIAddress getAddress();
+    IAddress getAddress();
     @Property(primaryKey="true")
     @Column(name="ID")
     long getCompanyid();
@@ -57,7 +57,7 @@ public interface PICompany extends ICompany {
     @Column(name="NAME", jdbcType="VARCHAR")
     String getName();
     
-    void setAddress(PIAddress a);
+    void setAddress(IAddress a);
     void setCompanyid(long id);
     void setDepartments(Set depts);
     void setFounded(Date date);

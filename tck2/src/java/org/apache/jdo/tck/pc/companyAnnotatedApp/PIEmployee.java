@@ -19,10 +19,13 @@ package org.apache.jdo.tck.pc.companyAnnotatedApp;
 
 import javax.jdo.annotations.*;
 
+import org.apache.jdo.tck.pc.company.IPerson;
 import java.util.Date;
 import java.util.Set;
-
+import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 
 /**
  * This interface represents the persistent state of Employee.
@@ -31,7 +34,7 @@ import org.apache.jdo.tck.pc.company.IEmployee;
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public interface PIEmployee extends PIPerson, IEmployee {
+public interface PIEmployee extends PIPerson, IPerson {
 
     @Column(name="HIREDATE")
     Date getHiredate();
@@ -46,25 +49,25 @@ public interface PIEmployee extends PIPerson, IEmployee {
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIProject.class)
     Set getProjects();
     @Property(mappedBy="employee")
-    PIDentalInsurance getDentalInsurance();
+    IDentalInsurance getDentalInsurance();
     @Property(mappedBy="employee")
-    PIMedicalInsurance getMedicalInsurance();
+    IMedicalInsurance getMedicalInsurance();
     @Column(name="DEPARTMENT")
-    PIDepartment getDepartment();
+    IDepartment getDepartment();
     @Column(name="FUNDINGDEPT")
-    PIDepartment getFundingDept();
+    IDepartment getFundingDept();
     @Column(name="MANAGER")
-    PIEmployee getManager();
+    IEmployee getManager();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
             mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
-    PIEmployee getMentor();
+    IEmployee getMentor();
     @Property(mappedBy="mentor")
-    PIEmployee getProtege();
+    IEmployee getProtege();
     @Column(name="HRADVISOR")
-    PIEmployee getHradvisor();
+    IEmployee getHradvisor();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.PIEmployee.class)
     Set getHradvisees();
@@ -73,15 +76,15 @@ public interface PIEmployee extends PIPerson, IEmployee {
     void setWeeklyhours(double weeklyhours);
     void setReviewedProjects(Set reviewedProjects);
     void setProjects(Set projects);
-    void setDentalInsurance(PIDentalInsurance dentalInsurance);
-    void setMedicalInsurance(PIMedicalInsurance medicalInsurance);
-    void setDepartment(PIDepartment department);
-    void setFundingDept(PIDepartment department);
-    void setManager(PIEmployee manager);
+    void setDentalInsurance(IDentalInsurance dentalInsurance);
+    void setMedicalInsurance(IMedicalInsurance medicalInsurance);
+    void setDepartment(IDepartment department);
+    void setFundingDept(IDepartment department);
+    void setManager(IEmployee manager);
     void setTeam(Set team);
-    void setMentor(PIEmployee mentor);
-    void setProtege(PIEmployee protege);
-    void setHradvisor(PIEmployee hradvisor);
+    void setMentor(IEmployee mentor);
+    void setProtege(IEmployee protege);
+    void setHradvisor(IEmployee hradvisor);
     void setHradvisees(Set hradvisees);
     
 }

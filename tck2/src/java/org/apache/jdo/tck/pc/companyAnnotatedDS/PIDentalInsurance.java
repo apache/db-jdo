@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.IDentalInsurance;
  * the purpose of the interface.
  */
 @PersistenceCapable
-public interface PIDentalInsurance extends PIInsurance, IDentalInsurance {
+public interface PIDentalInsurance extends IDentalInsurance, PIInsurance {
 
     @Column(name="LIFETIME_ORTHO_BENEFIT")
     BigDecimal getLifetimeOrthoBenefit();

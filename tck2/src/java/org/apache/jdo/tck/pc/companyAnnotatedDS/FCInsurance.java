@@ -22,9 +22,9 @@ import javax.jdo.annotations.*;
 import java.io.Serializable;
 
 import java.util.Comparator;
-
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IInsurance;
+
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -33,7 +33,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * <code>FCEmployee</code>.
  */
 @PersistenceCapable(table="insuranceplans")
-@Implements ("org.apache.jdo.tck.pc.company.IInsurance")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
@@ -70,10 +69,10 @@ public class FCInsurance
      * @param carrier The insurance carrier.
      * @param employee The employee associated with this insurance. 
      */
-    protected FCInsurance(long insid, String carrier, IEmployee employee) {
+    protected FCInsurance(long insid, String carrier, FCEmployee employee) {
         this.insid = insid;
         this.carrier = carrier;
-        this.employee = (FCEmployee)employee;
+        this.employee = employee;
     }
 
     /**
@@ -115,7 +114,7 @@ public class FCInsurance
      * @return The employee for this insurance.
      */
     public IEmployee getEmployee() {
-        return (IEmployee)employee;
+        return employee;
     }
 
     /**
@@ -158,7 +157,7 @@ public class FCInsurance
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IInsurance otherIns = (IInsurance)other;
+        FCInsurance otherIns = (FCInsurance)other;
         String where = "FCInsurance<" + insid + ">";
         return
             helper.equals(insid, otherIns.getInsid(), where + ".insid") &
@@ -177,14 +176,14 @@ public class FCInsurance
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((IInsurance)o);
+        return compareTo((FCInsurance)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((IInsurance)o1, (IInsurance)o2);
+        return compare((FCInsurance)o1, (FCInsurance)o2);
     }
 
     /** 
@@ -197,7 +196,7 @@ public class FCInsurance
      * object is less than, equal to, or greater than the specified
      * Insurance object. 
      */
-    public int compareTo(IInsurance other) {
+    public int compareTo(FCInsurance other) {
         return compare(this, other);
     }
 
@@ -210,7 +209,7 @@ public class FCInsurance
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IInsurance o1, IInsurance o2) {
+    public static int compare(FCInsurance o1, FCInsurance o2) {
         return EqualityHelper.compare(o1.getInsid(), o2.getInsid());
     }
     
@@ -221,8 +220,8 @@ public class FCInsurance
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof IInsurance) {
-            return compareTo((IInsurance)obj) == 0;
+        if (obj instanceof FCInsurance) {
+            return compareTo((FCInsurance)obj) == 0;
         }
         return false;
     }

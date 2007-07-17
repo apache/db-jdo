@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 
 import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IEmployee;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
@@ -31,7 +30,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * particular <code>Employee</code>.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-@Implements ("org.apache.jdo.tck.pc.company.IDentalInsurance")
 public class FCDentalInsurance extends FCInsurance implements IDentalInsurance {
 
     @Column(name="LIFETIME_ORTHO_BENEFIT")
@@ -117,7 +115,7 @@ public class FCDentalInsurance extends FCInsurance implements IDentalInsurance {
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IDentalInsurance otherIns = (IDentalInsurance)other;
+        FCDentalInsurance otherIns = (FCDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";
         return super.deepCompareFields(otherIns, helper) &
             helper.equals(lifetimeOrthoBenefit, 

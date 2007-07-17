@@ -43,35 +43,35 @@ public class CompanyFactoryPMInterface
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(IAddress.class);
+        return pm.newInstance(PIAddress.class);
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(ICompany.class);
+        return pm.newInstance(PICompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(IDentalInsurance.class);
+        return pm.newInstance(PIDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(IDepartment.class);
+        return pm.newInstance(PIDepartment.class);
     }
     
     public IFullTimeEmployee  newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(IFullTimeEmployee.class);
+        return pm.newInstance(PIFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(IMedicalInsurance.class);        
+        return pm.newInstance(PIMedicalInsurance.class);        
     }
     
     public IPartTimeEmployee  newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(IPartTimeEmployee.class);
+        return pm.newInstance(PIPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(IProject.class);
+        return pm.newInstance(PIProject.class);
     }
 
     public Class[] getTearDownClasses() {

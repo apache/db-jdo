@@ -20,20 +20,18 @@ package org.apache.jdo.tck.pc.companyAnnotatedApp;
 import javax.jdo.annotations.*;
 
 import java.util.Date;
-
 import org.apache.jdo.tck.pc.company.IAddress;
-import org.apache.jdo.tck.pc.company.IEmployee;
+
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents a full-time employee.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-@Implements ("org.apache.jdo.tck.pc.company.IFullTimeEmployee")
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-public class FCFullTimeEmployee extends FCEmployee implements IFullTimeEmployee {
+public class FCFullTimeEmployee extends FCEmployee
+        implements IFullTimeEmployee {
 
     @Column(name="SALARY")
     private double salary;
@@ -74,7 +72,7 @@ public class FCFullTimeEmployee extends FCEmployee implements IFullTimeEmployee 
     public FCFullTimeEmployee(long personid, String first, String last,
                             String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
-        super(personid, first, last, middle, born, addr, hired);
+        super(personid, first, last, middle, born, (FCAddress)addr, hired);
         salary = sal;
     }
 
@@ -127,7 +125,7 @@ public class FCFullTimeEmployee extends FCEmployee implements IFullTimeEmployee 
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IFullTimeEmployee otherEmp = (IFullTimeEmployee)other;
+        FCFullTimeEmployee otherEmp = (FCFullTimeEmployee)other;
         String where = "FCFullTimeEmployee<" + getPersonid() + ">";
         return super.deepCompareFields(otherEmp, helper) &
             helper.closeEnough(salary, otherEmp.getSalary(), where + ".salary");

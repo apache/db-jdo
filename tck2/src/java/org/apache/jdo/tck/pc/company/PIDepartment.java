@@ -14,25 +14,30 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
+ 
+package org.apache.jdo.tck.pc.company;
 
-package org.apache.jdo.tck.pc.companyAnnotatedApp;
-
-import javax.jdo.annotations.*;
-
-import java.math.BigDecimal;
-
-import org.apache.jdo.tck.pc.company.IDentalInsurance;
+import java.util.Set;
 
 /**
- * This interface represents the persistent state of DentalInsurance.
+ * This interface represents the persistent state of Department.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
-public interface PIDentalInsurance extends IDentalInsurance,
-        PIInsurance {
+public interface PIDepartment extends IDepartment {
 
-    @Column(name="LIFETIME_ORTHO_BENEFIT")
-    BigDecimal getLifetimeOrthoBenefit();
-    void setLifetimeOrthoBenefit(BigDecimal lifetimeOrthoBenefit);
+    long getDeptid();
+    String getName();
+    ICompany getCompany();
+    IEmployee getEmployeeOfTheMonth();
+    Set getEmployees();
+    Set getFundedEmps();
+    
+    void setDeptid(long deptid);
+    void setName(String name);
+    void setCompany(ICompany company);
+    void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
+    void setEmployees(Set employees);
+    void setFundedEmps(Set employees);
+
 }

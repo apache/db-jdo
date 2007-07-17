@@ -191,7 +191,7 @@ has datastore identity.
             </field>
         </class>
 
-        <interface name="ICompany" table="companies">
+        <interface name="PICompany" table="companies">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
@@ -214,7 +214,7 @@ has datastore identity.
             <property name="departments" mapped-by="company"/>
         </interface>
 
-        <interface name="IDepartment" table="departments">
+        <interface name="PIDepartment" table="departments">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
@@ -227,17 +227,17 @@ has datastore identity.
             <property name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
         </interface>
 
-        <interface name="IPartTimeEmployee">
+        <interface name="PIPartTimeEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="wage" column="WAGE"/>
         </interface>
 
-        <interface name="IFullTimeEmployee">
+        <interface name="PIFullTimeEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="salary" column="SALARY"/>
         </interface>
 
-        <interface name="IEmployee">
+        <interface name="PIEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="hiredate" column="HIREDATE"/>
             <property name="weeklyhours" column="WEEKLYHOURS"/>
@@ -266,7 +266,7 @@ has datastore identity.
             <property name="hradvisees" mapped-by="hradvisor"/>
         </interface>
 
-        <interface name="IPerson" table="persons">
+        <interface name="PIPerson" table="persons">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"
@@ -311,7 +311,7 @@ has datastore identity.
             </query>
         </interface>
 
-        <interface name="IInsurance" table="insuranceplans">
+        <interface name="PIInsurance" table="insuranceplans">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR">
@@ -325,17 +325,17 @@ has datastore identity.
             </property>
         </interface>
 
-        <interface name="IDentalInsurance">
+        <interface name="PIDentalInsurance">
             <inheritance strategy="superclass-table"/>
             <property name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
         </interface>
 
-        <interface name="IMedicalInsurance">
+        <interface name="PIMedicalInsurance">
             <inheritance strategy="superclass-table"/>
             <property name="planType" column="PLANTYPE"/>
         </interface>
 
-        <interface name="IProject" table="projects">
+        <interface name="PIProject" table="projects">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>

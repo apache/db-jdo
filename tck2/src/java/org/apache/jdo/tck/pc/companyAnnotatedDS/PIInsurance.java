@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.pc.companyAnnotatedDS;
 
 import javax.jdo.annotations.*;
+import org.apache.jdo.tck.pc.company.IEmployee;
 
 import org.apache.jdo.tck.pc.company.IInsurance;
 
@@ -41,9 +42,9 @@ public interface PIInsurance extends IInsurance {
     @Column(name="CARRIER")
     String getCarrier();
     @Column(name="EMPLOYEE")
-    PIEmployee getEmployee();
+    IEmployee getEmployee();
 
     void setInsid(long insid);
     void setCarrier(String carrier);
-    void setEmployee(PIEmployee employee);
+    void setEmployee(IEmployee employee);
 }

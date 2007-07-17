@@ -27,7 +27,7 @@ import org.apache.jdo.tck.pc.company.IMedicalInsurance;
  * the purpose of the interface.
  */
 @PersistenceCapable
-public interface PIMedicalInsurance extends PIInsurance, IMedicalInsurance {
+public interface PIMedicalInsurance extends IMedicalInsurance, PIInsurance {
 
     @Column(name="PLANTYPE")
     String getPlanType();

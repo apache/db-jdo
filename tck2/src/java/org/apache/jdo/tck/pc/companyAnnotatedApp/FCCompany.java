@@ -30,9 +30,9 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Date;
+import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.ICompany;
-import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -40,7 +40,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents information about a company.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION,table="companies")
-@Implements ("org.apache.jdo.tck.pc.company.ICompany")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
@@ -246,7 +245,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        ICompany otherCompany = (ICompany)other;
+        FCCompany otherCompany = (FCCompany)other;
         String where = "Company<" + companyid + ">";
         return 
             helper.equals(companyid, otherCompany.getCompanyid(), where + ".companyid") &
@@ -267,14 +266,14 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((ICompany)o);
+        return compareTo((FCCompany)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((ICompany)o1, (ICompany)o2);
+        return compare((FCCompany)o1, (FCCompany)o2);
     }
 
     /** 
@@ -287,7 +286,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(ICompany other) {
+    public int compareTo(FCCompany other) {
         return compare(this, other);
     }
 
@@ -300,7 +299,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(ICompany o1, ICompany o2) {
+    public static int compare(FCCompany o1, FCCompany o2) {
         return EqualityHelper.compare(o1.getCompanyid(), o2.getCompanyid());
     }
     
@@ -311,8 +310,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof ICompany) {
-            return compareTo((ICompany)obj) == 0;
+        if (obj instanceof FCCompany) {
+            return compareTo((FCCompany)obj) == 0;
         }
         return false;
     }

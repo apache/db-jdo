@@ -188,7 +188,7 @@ has application identity.
             </field>
         </class>
 
-        <interface name="ICompany" table="companies">
+        <interface name="PICompany" table="companies">
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
@@ -210,7 +210,7 @@ has application identity.
             <property name="departments" mapped-by="company"/>
         </interface>
 
-        <interface name="IDepartment" table="departments">
+        <interface name="PIDepartment" table="departments">
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>
@@ -222,17 +222,17 @@ has application identity.
             <property name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
         </interface>
 
-        <interface name="IPartTimeEmployee">
+        <interface name="PIPartTimeEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="wage" column="WAGE"/>
         </interface>
 
-        <interface name="IFullTimeEmployee">
+        <interface name="PIFullTimeEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="salary" column="SALARY"/>
         </interface>
 
-        <interface name="IEmployee">
+        <interface name="PIEmployee">
             <inheritance strategy="superclass-table"/>
             <property name="hiredate" column="HIREDATE"/>
             <property name="weeklyhours" column="WEEKLYHOURS"/>
@@ -261,7 +261,7 @@ has application identity.
             <property name="hradvisees" mapped-by="hradvisor"/>
         </interface>
 
-        <interface name="IPerson" table="persons">
+        <interface name="PIPerson" table="persons">
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"
                     indexed="true"/>
@@ -305,7 +305,7 @@ has application identity.
             </query>
         </interface>
 
-        <interface name="IInsurance" table="insuranceplans">
+        <interface name="PIInsurance" table="insuranceplans">
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR">
                     <index name="INS_DISCRIMINATOR_INDEX" unique="false"/>
@@ -318,17 +318,17 @@ has application identity.
             </property>
         </interface>
 
-        <interface name="IDentalInsurance">
+        <interface name="PIDentalInsurance">
             <inheritance strategy="superclass-table"/>
             <property name="lifetimeOrthoBenefit" column="LIFETIME_ORTHO_BENEFIT"/>
         </interface>
 
-        <interface name="IMedicalInsurance">
+        <interface name="PIMedicalInsurance">
             <inheritance strategy="superclass-table"/>
             <property name="planType" column="PLANTYPE"/>
         </interface>
 
-        <interface name="IProject" table="projects">
+        <interface name="PIProject" table="projects">
             <inheritance strategy="new-table">
                 <discriminator strategy="class-name" column="DISCRIMINATOR"/>
             </inheritance>

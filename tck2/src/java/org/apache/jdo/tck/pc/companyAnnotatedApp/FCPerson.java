@@ -29,8 +29,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.jdo.tck.pc.company.IAddress;
+
 import org.apache.jdo.tck.pc.company.IPerson;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
@@ -39,7 +39,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a person.
  */
 @PersistenceCapable(identityType=IdentityType.APPLICATION,table="persons")
-@Implements ("org.apache.jdo.tck.pc.company.IPerson")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR", indexed="true")
@@ -307,7 +306,7 @@ public class FCPerson
      */
     public boolean deepCompareFields(Object other, 
                                      EqualityHelper helper) {
-        IPerson otherPerson = (IPerson)other;
+        FCPerson otherPerson = (FCPerson)other;
         String where = "FCPerson<" + personid + ">";
         return 
             helper.equals(personid, otherPerson.getPersonid(), where + ".personid") &
@@ -330,14 +329,14 @@ public class FCPerson
      * it from being compared to this Object. 
      */
     public int compareTo(Object o) {
-        return compareTo((IPerson)o);
+        return compareTo((FCPerson)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
     public int compare(Object o1, Object o2) {
-        return compare((IPerson)o1, (IPerson)o2);
+        return compare((FCPerson)o1, (FCPerson)o2);
     }
 
     /** 
@@ -350,7 +349,7 @@ public class FCPerson
      * object is less than, equal to, or greater than the specified FCPerson 
      * object. 
      */
-    public int compareTo(IPerson other) {
+    public int compareTo(FCPerson other) {
         return compare(this, other);
     }
 
@@ -363,7 +362,7 @@ public class FCPerson
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IPerson o1, IPerson o2) {
+    public static int compare(FCPerson o1, FCPerson o2) {
         return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
     }
     
@@ -374,8 +373,8 @@ public class FCPerson
      * argument; <code>false</code> otherwise. 
      */
     public boolean equals(Object obj) {
-        if (obj instanceof IPerson) {
-            return compareTo((IPerson)obj) == 0;
+        if (obj instanceof FCPerson) {
+            return compareTo((FCPerson)obj) == 0;
         }
         return false;
     }

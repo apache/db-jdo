@@ -20,8 +20,10 @@ package org.apache.jdo.tck.pc.companyAnnotatedDS;
 import javax.jdo.annotations.*;
 
 import java.util.Set;
+import org.apache.jdo.tck.pc.company.ICompany;
 
 import org.apache.jdo.tck.pc.company.IDepartment;
+import org.apache.jdo.tck.pc.company.IEmployee;
 
 /**
  * This interface represents the persistent state of Department.
@@ -29,7 +31,6 @@ import org.apache.jdo.tck.pc.company.IDepartment;
  * the purpose of the interface.
  */
 @PersistenceCapable(table="departments")
-@Implements ("org.apache.jdo.tck.pc.company.IDepartment")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
@@ -42,9 +43,9 @@ public interface PIDepartment extends IDepartment {
     @Column(name="NAME")
     String getName();
     @Column(name="COMPANYID")
-    PICompany getCompany();
+    ICompany getCompany();
     @Column(name="EMP_OF_THE_MONTH")
-    PIEmployee getEmployeeOfTheMonth();
+    IEmployee getEmployeeOfTheMonth();
     @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
             mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIEmployee.class)
@@ -56,8 +57,8 @@ public interface PIDepartment extends IDepartment {
     
     void setDeptid(long deptid);
     void setName(String name);
-    void setCompany(PICompany company);
-    void setEmployeeOfTheMonth(PIEmployee employeeOfTheMonth);
+    void setCompany(ICompany company);
+    void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
     void setEmployees(Set employees);
     void setFundedEmps(Set employees);
 

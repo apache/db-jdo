@@ -15,24 +15,17 @@
  * limitations under the License.
  */
 
-package org.apache.jdo.tck.pc.companyAnnotatedApp;
-
-import javax.jdo.annotations.*;
+package org.apache.jdo.tck.pc.company;
 
 import java.math.BigDecimal;
-
-import org.apache.jdo.tck.pc.company.IDentalInsurance;
 
 /**
  * This interface represents the persistent state of DentalInsurance.
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
-public interface PIDentalInsurance extends IDentalInsurance,
-        PIInsurance {
+public interface PIDentalInsurance extends PIInsurance, IDentalInsurance {
 
-    @Column(name="LIFETIME_ORTHO_BENEFIT")
     BigDecimal getLifetimeOrthoBenefit();
     void setLifetimeOrthoBenefit(BigDecimal lifetimeOrthoBenefit);
 }

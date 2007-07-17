@@ -22,7 +22,7 @@ package org.apache.jdo.tck.pc.company;
  * Javadoc was deliberately omitted because it would distract from
  * the purpose of the interface.
  */
-public interface IMedicalInsurance extends IInsurance{
+public interface IMedicalInsurance extends IInsurance {
 
     String getPlanType();
     void setPlanType(String planType);

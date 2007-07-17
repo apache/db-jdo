@@ -144,63 +144,64 @@ has application identity.
             </field>
         </class>
 
-        <interface name="IAddress" embedded-only="true" requires-extent="false"/>
+        <interface name="PIAddress" embedded-only="true" requires-extent="false"/>
 
-        <interface name="ICompany"
+        <interface name="PICompany"
             identity-type="application">
             <property name="companyid" primary-key="true"/>
             <property name="address"
+                   field-type="org.apache.jdo.tck.pc.company.PIAddress"
                    persistence-modifier="persistent"/>
             <property name="departments" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IDepartment"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIDepartment"/>
             </property>
         </interface>
 
-        <interface name="IDentalInsurance"
+        <interface name="PIDentalInsurance"
             identity-type="application"/>
 
-        <interface name="IDepartment"
+        <interface name="PIDepartment"
             identity-type="application">
             <property name="deptid" primary-key="true"/>
             <property name="employees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="fundedEmps" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
 
-        <interface name="IEmployee"
+        <interface name="PIEmployee"
             identity-type="application">
             <property name="reviewedProjects" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IProject"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
             </property>
             <property name="projects" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IProject"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
             </property>
             <property name="team" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="hradvisees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
 
-        <interface name="IFullTimeEmployee"
+        <interface name="PIFullTimeEmployee"
             identity-type="application"/>
 
-        <interface name="IInsurance"
+        <interface name="PIInsurance"
             identity-type="application">
             <property name="insid" primary-key="true"/>
         </interface>
 
-        <interface name="IMedicalInsurance"
+        <interface name="PIMedicalInsurance"
             identity-type="application"/>
 
-        <interface name="IPartTimeEmployee"
+        <interface name="PIPartTimeEmployee"
             identity-type="application"/>
 
-        <interface name="IPerson"
+        <interface name="PIPerson"
             identity-type="application">
             <property name="personid" primary-key="true"/>
             <property name="middlename" default-fetch-group="false"/>
@@ -212,43 +213,43 @@ has application identity.
             <query name="validNotUnique">
                 SELECT firstname, lastname 
                 INTO org.apache.jdo.tck.query.result.classes.FullName 
-                FROM org.apache.jdo.tck.pc.company.IPerson
+                FROM org.apache.jdo.tck.pc.company.PIPerson
             </query>
             <query name="validUnique">
                 SELECT UNIQUE firstname, lastname 
                 INTO org.apache.jdo.tck.query.result.classes.FullName 
-                FROM org.apache.jdo.tck.pc.company.IPerson 
+                FROM org.apache.jdo.tck.pc.company.PIPerson 
                 WHERE firstname == 'emp1First'
             </query>
             <query name="invalidUnique">
                 SELECT UNIQUE firstname, lastname 
                 INTO org.apache.jdo.tck.query.result.classes.FullName
-                FROM org.apache.jdo.tck.pc.company.IPerson
+                FROM org.apache.jdo.tck.pc.company.PIPerson
             </query>
             <query name="unmodifiable" unmodifiable="true">
                 SELECT firstname, lastname 
-                FROM org.apache.jdo.tck.pc.company.IPerson
+                FROM org.apache.jdo.tck.pc.company.PIPerson
             </query>
             <query name="packageJDO">
-                SELECT FROM org.apache.jdo.tck.pc.company.IPerson
+                SELECT FROM org.apache.jdo.tck.pc.company.PIPerson
                 WHERE personid > 1
             </query>
             <query name="changeQuery">
-                SELECT FROM org.apache.jdo.tck.pc.company.IPerson
+                SELECT FROM org.apache.jdo.tck.pc.company.PIPerson
             </query>
             <query name="invalidQuery">
-                SeLeCt FrOm org.apache.jdo.tck.pc.company.IPerson
+                SeLeCt FrOm org.apache.jdo.tck.pc.company.PIPerson
             </query>
         </interface>
 
-        <interface name="IProject"
+        <interface name="PIProject"
             identity-type="application">
             <property name="projid" primary-key="true"/>
             <property name="reviewers" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="members" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
     </package>
