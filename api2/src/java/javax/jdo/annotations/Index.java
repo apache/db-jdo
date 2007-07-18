@@ -28,21 +28,30 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Index
 {
-    /** Name of the index */
+    /** Name of the index
+     * @return the name of the index
+     */
     String name() default "";
 
-    /** Table for the index (if required). */
+    /** Table for the index. This is needed iff annotating a type where
+     * the index is not defined on the primary table for the type.
+     * @return the table on which the index is defined
+     */
     String table() default "";
 
-    /** Whether this index is unique */
+    /** Whether this index is unique 
+     */
     String unique() default "";
 
-    /** Field names that comprise this index. */
+    /** Field names that comprise this index. 
+     */
     String[] fields() default {};
 
-    /** Columns that comprise this index. */
+    /** Columns that comprise this index. 
+     */
     Column[] columns() default {};
 }

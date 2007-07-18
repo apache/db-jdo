@@ -31,5 +31,4 @@ public enum IdGeneratorStrategy
     INCREMENT,
     UUIDSTRING,
     UUIDHEX
-    // Allow for implementations own types ... e.g add CUSTOM as an option
 };

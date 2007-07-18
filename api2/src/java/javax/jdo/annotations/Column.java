@@ -34,61 +34,65 @@ public @interface Column
 {
     /**
      * Name of the column.
-     * @return Name of the column
+     * @return the name of the column
      */
     String name() default "";
 
     /**
-     * Target column for this column when part of a foreign key relation.
-     * @return Target column for this column when part of a foreign key relation.
+     * Target column for this column in the other table when part of a 
+     * foreign key relation.
+     * @return the target column in the other table for this column 
+     * when part of a foreign key relation.
      */
     String target() default "";
 
     /**
-     * Target field for this column when part of a bidirectional relation.
-     * @return Target field for this column when part of a bidirectional relation.
+     * Target field in the other class or interface for this column 
+     * when part of a bidirectional relation.
+     * @return the target field for this column when part of 
+     * a bidirectional relation.
      */
     String targetField() default "";
 
     /**
-     * JDBC Type for this column
-     * @return JDBC Type for this column
+     * JDBC Type for this column.
+     * @return JDBC type for this column
      */
     String jdbcType() default "";
 
     /**
-     * SQL Type for this column
-     * @return SQL Type for this column
+     * SQL Type for this column.
+     * @return SQL type for this column
      */
     String sqlType() default "";
 
     /**
-     * Maximum length of data stored in this column
-     * @return Maximum length of data stored in this column
+     * Maximum length of data stored in this column.
+     * @return the maximum length of data stored in this column
      */
     int length() default -1;
 
     /**
-     * Scale for the column when handling floating point values
-     * @return Scale for the column when handling floating point values
+     * Scale for the column when handling floating point values.
+     * @return the scale for the column when handling floating point values
      */
     int scale() default -1;
 
     /**
-     * Whether the column allows nulls to be inserted.
-     * @return Whether the column allows nulls to be inserted.
+     * Whether the column allows null values to be inserted.
+     * @return whether the column allows null values to be inserted
      */
     String allowsNull() default "";
 
     /**
-     * Default value for this column
-     * @return Default value for this column
+     * Default value for this column.
+     * @return the default value for this column
      */
     String defaultValue() default "";
 
     /**
      * Value to be inserted when this is an "unmapped" column
-     * @return Value to be inserted when this is an "unmapped" column
+     * @return the value to be inserted when this is an "unmapped" column
      */
     String insertValue() default "";
 }

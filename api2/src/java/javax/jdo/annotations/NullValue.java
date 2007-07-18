@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 "null-value" behaviour values.
+ * Enumeration of the JDO2 "null-value" behavior values.
  * 
  * @version 2.1
  * @since 2.1

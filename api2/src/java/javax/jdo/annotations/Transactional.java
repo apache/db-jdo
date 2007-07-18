@@ -23,12 +23,14 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for whether the field is transactional.
- * This is the same as specifying @Field(persistenceModifier=FieldPersistenceModifier.TRANSACTIONAL).
+ * This is the same as specifying 
+ * "@Field(persistenceModifier=FieldPersistenceModifier.TRANSACTIONAL)".
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Transactional
 {
 }

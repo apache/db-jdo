@@ -28,9 +28,13 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Implements
 {
-    /** Interfaces implemented by this PersistenceCapable (class names of the interfaces). */
+    /** Interfaces implemented by this PersistenceCapable (class names 
+     * of the interfaces).
+     * @return the names of interfaces implemented by the class
+     */
     String[] value();
 }

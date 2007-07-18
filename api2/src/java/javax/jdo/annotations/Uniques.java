@@ -27,12 +27,13 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Uniques
 {
     /**
-     * The (unique) candidate keys
-     * @return The (unique) candidate keys
+     * The unique constraints.
+     * @return The unique constraints
      */
     Unique[] value();
 }

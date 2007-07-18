@@ -28,27 +28,76 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Join
 {
-    /** Table to join to (used when joining to secondary tables). */
+    /** Table to join to (used when joining to secondary tables). 
+     * @return the table
+     */
     String table() default "";
 
-    /** Name of the column in the join table. */
+    /** Name of the column in the join table. 
+     * @return the name of the column in the join table
+     */
     String column() default "";
 
-    /** Whether the join column is indexed. */
+    /** Whether the join column is indexed. 
+     * @return whether the join column(s) is(are) indexed
+     */
     String indexed() default "";
 
-    /** Whether the join column is unique */
+    /** The name of the index to generate. 
+     * @return the name of the index
+     */
+    String index() default "";
+
+    /** Whether the join column is unique 
+     * @return whether the join column(s) is(are) is unique
+     */
     String unique() default "";
 
-    /** Whether to use an outer join. */
+    /**
+     * The name of the unique key constraint to generate.
+     * @return the name of the unique key constraint
+     */
+    String uniqueKey() default "";
+
+    /** Whether to use an outer join. 
+     * @return whether to use an outer join
+     */
     String outer() default "";
 
-    /** Delete action to be applied to any ForeignKey on this join. */
+    /** Delete action to be applied to any ForeignKey on this join.
+     * @return the delete action
+     */
     ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
 
-    /** Detail definition of the join column(s). */
+    /** Detail definition of the join column(s). This is needed for
+     * more than one join column.
+     * @return the join columns
+     */
     Column[] columns() default {};
+
+    /** Generate or assume a primary key constraint exists on the column
+     * or columns associated with this join. Specify "true" or "false".
+     * @return whether to generate or assume a primary key constraint
+     */
+    String generatePrimaryKey() default "";
+
+    /** Name for a generated primary key constraint.
+     * @return the name of the generated primary key constraint
+     */
+    String primaryKey() default "";
+
+    /** Generate or assume a foreign key constraint exists on the column
+     * or columns associated with this join. Specify "true" or "false".
+     * @return whether to generate or assume a primary key constraint
+     */
+    String generateForeignKey() default "";
+
+    /** Name for a generated primary key constraint.
+     * @return the name of the generated primary key constraint
+     */
+    String foreignKey() default "";
 }

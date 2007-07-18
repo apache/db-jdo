@@ -28,30 +28,31 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Version
 {
     /**
-     * Strategy for versioning of objects of this class
-     * @return Strategy for versioning objects of this class
+     * Strategy for versioning of objects of this class.
+     * @return the strategy for versioning objects of this class
      */
     VersionStrategy strategy();
 
     /**
-     * Name of the column for the version
-     * @return Name of the column for the version
+     * Name of the column for the version.
+     * @return the name of the column for the version
      */
     String column() default "";
 
     /**
-     * Whether the version column(s) is indexed
-     * @return Whether the version column(s) is indexed
+     * Whether the version column(s) is(are) indexed.
+     * @return whether the version column(s) is(are) indexed
      */
     String indexed() default "";
 
     /**
      * The column(s) making up the version.
-     * @return The column(s) making up the version.
+     * @return the column(s) making up the version
      */
     Column[] columns() default {};
 }

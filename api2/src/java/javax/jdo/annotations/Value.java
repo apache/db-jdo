@@ -28,85 +28,114 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Value
 {
     /**
-     * The type of the value. This can be determined if using JDK1.5 generics but is required otherwise.
+     * The type of the value. This can be determined if using JDK1.5 generics
+     * but is required otherwise.
      * @return The type of the value.
      */
     Class type() default void.class;
 
     /**
-     * Types of the values. This is used as an alternative to "type" when the implementation supports
-     * specification of multiple value types. If "type" is specified then this is ignored.
-     * @return The types of values
+     * Types of the values. This is used as an alternative to "type" when the 
+     * implementation supports specification of multiple value types. 
+     * If "type" is specified then this is ignored.
+     * @return the types of values
      */
     Class[] types() default {};
 
     /**
-     * Whether the value is to be stored serialised (into a join table)
-     * @return Whether the value is to be stored serialised (into a join table)
+     * Whether the value  is to be stored serialized (into a single column of a
+     * join table).
+     * @return Whether the value is to be stored serialized (into a join table)
      */
     String serialized() default "";
 
     /**
-     * Whether the value is to be stored embedded (into a join table)
+     * Whether the value is to be stored embedded (into one or several columns 
+     * of a join table).
      * @return Whether the value is to be stored embedded (into a join table)
      */
     String embedded() default "";
 
     /**
-     * Whether the value is dependent on the owner (and so will be deleted when it is)
-     * @return Whether the value is dependent on the owner (and so will be deleted when it is)
+     * Whether the value is dependent on the owner (and will be deleted 
+     * when the owner is deleted).
+     * @return whether the value is dependent on the owner
      */
     String dependent() default "";
 
     /**
-     * Name of the table for the value
-     * @return Name of the table for the value
+     * Name of the table for the value.
+     * @return the name of the table for the value
      */
     String table() default "";
 
     /**
-     * Name of the column to store the value in
-     * @return Name of the column to store the value in
+     * Name of the column to store the value in.
+     * @return the name of the column to store the value in
      */
     String column() default "";
 
     /**
-     * Delete action to apply to any foreign-key for the value
-     * @return Delete action to apply to any foreign-key for the value
+     * Delete action to apply to any foreign key for the value.
+     * @return delete action to apply to any foreign key for the value
      */
     ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
 
     /**
-     * Update action to apply to any foreign-key for the value
-     * @return Update action to apply to any foreign-key for the value
+     * Update action to apply to any foreign key for the value.
+     * @return update action to apply to any foreign key for the value
      */
     ForeignKeyAction updateAction() default ForeignKeyAction.UNKNOWN;
 
     /**
      * Whether the value column(s) should be indexed.
-     * @return Whether the value column(s) should be indexed.
+     * @return whether the value column(s) should be indexed.
      */
     String indexed() default "";
 
+    /** The name of the index to generate. 
+     * @return the name of the index
+     */
+    String index() default "";
+
     /**
      * Whether the element column(s) contents should be considered unique
-     * @return Whether the element column(s) contents should be considered unique
+     * @return whether the element column(s) contents should be considered unique
      */
     String unique() default "";
 
     /**
+     * The name of the unique key constraint to generate.
+     * @return the name of the unique key constraint
+     */
+    String uniqueKey() default "";
+
+    /**
      * Name of a field in the key class where this value is stored.
-     * @return Name of a field in the key class where this value is stored
+     * @return the name of a field in the key class where this value is stored
      */
     String mappedBy() default "";
 
     /**
-     * The column(s) for the value
-     * @return The column(s) for the value
+     * The column(s) for the value.
+     * @return the column(s) for the value
      */
     Column[] columns() default {};
+
+    /** Generate or assume a foreign key constraint exists on the column
+     * or columns associated with this join. Specify "true" or "false".
+     * @return whether to generate or assume a primary key constraint
+     */
+    String generateForeignKey() default "";
+
+    /** Name for a generated primary key constraint.
+     * @return the name of the generated primary key constraint
+     */
+    String foreignKey() default "";
+
 }

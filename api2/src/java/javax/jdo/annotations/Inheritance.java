@@ -28,9 +28,13 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Inheritance
 {
-    /** Strategy to use for inheritance. Relates to where the data for the class is stored. */
+    /** Strategy to use for inheritance. Specifies where the data for
+     * the class is stored.
+     * @return the inheritance strategy
+     */
     InheritanceStrategy strategy();
 }

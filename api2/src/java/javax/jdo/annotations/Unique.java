@@ -28,21 +28,34 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Unique
 {
-    /** Name of the unique constraint. */
+    /** Name of the unique constraint.
+     * @return the name of the unique constraint
+     */
     String name() default "";
 
-    /** Table for the unique constraint (if required). */
+    /** Table for the unique constraint. This is needed iff annotating a type 
+     * where the unique constraint is not defined on the primary table for 
+     * the type.
+     * @return the table on which the unique constraint is defined
+     */
     String table() default "";
 
-    /** Whether this unique constraint is deferred */
+    /** Whether this unique constraint is deferred until commit.
+     * @return whether this unique constraint is deferred until commit
+     */
     String deferred() default "";
 
-    /** Field names that comprise this index. */
+    /** Field names that comprise this unique constraint.
+     * @return field names that comprise this unique constraint
+     */
     String[] fields() default {};
 
-    /** Columns that comprise this index. */
+    /** Columns that comprise this unique constraint.
+     * @return columns that comprise this unique constraint
+     */
     Column[] columns() default {};
 }

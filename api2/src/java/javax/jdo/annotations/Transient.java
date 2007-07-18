@@ -23,12 +23,14 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for whether the field is transient (not persisted).
- * This is the same as specifying @Field(persistenceModifier=FieldPersistenceModifier.NONE).
+ * This is the same as specifying 
+ * "@Field(persistenceModifier=FieldPersistenceModifier.NONE)".
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Transient
 {
 }

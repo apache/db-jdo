@@ -84,7 +84,7 @@ public @interface Field
     String sequence() default "";
 
     /** Name of the fetch-group to use when this field is loaded 
-     * due to being referenced when not already loaded 
+     * due to being referenced when not already loaded.
      * @return the name of the load fetch group
      */
     String loadFetchGroup() default "";
@@ -128,7 +128,10 @@ public @interface Field
      */
     String nullIndicatorColumn() default "";
 
-    /** Name of the field when this is embedded in another object. 
+    /** Name of the field when this is embedded in another object.
+     * The fully-qualified field name is used. For example, 
+     * "line.point.x" refers to the field x in class Point that is embedded
+     * in class Line that is embedded in a field called line.
      * @return the name of the field
      */
     String name() default ""; 

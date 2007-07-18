@@ -35,20 +35,20 @@ public @interface Discriminator
     /**
      * Strategy to use for discriminator. The discriminator determines
      * the class associated with a row in the datastore.
-     * @return Strategy to use for discriminator.
+     * @return the strategy to use for discriminator
      */
     DiscriminatorStrategy strategy() 
         default DiscriminatorStrategy.UNKNOWN;
 
     /**
      * Whether the discriminator is indexed.
-     * @return Whether the discriminator is indexed.
+     * @return whether the discriminator is indexed
      */
     String indexed() default "";
 
     /**
      * Name of the column for the discriminator
-     * @return Name of the column for the discriminator
+     * @return the name of the column for the discriminator
      */
     String column() default "";
 
@@ -56,13 +56,13 @@ public @interface Discriminator
      * The value for the discriminator for objects of this class 
      * when using "value-map" strategy.
      * @return The value for the discriminator for objects of this class 
-     * when using "value-map" strategy.
+     * when using "value-map" strategy
      */
     String value() default "";
 
     /**
      * The column(s) making up the discriminator.
-     * @return The column(s) making up the discriminator.
+     * @return the column(s) making up the discriminator
      */
     Column[] columns() default {};
 }

@@ -28,24 +28,37 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Query
 {
-    /** Name of the query (mandatory) */
+    /** Name of the query (mandatory)
+     * @return the name of the query
+     */
     String name();
 
-    /** The query string (mandatory) */
+    /** The query string (mandatory)
+     * @return the query string
+     */
     String value();
 
-    /** The query language */
+    /** The query language
+     * @return the query language
+     */
     QueryLanguage language() default QueryLanguage.JDOQL;
 
-    /** Whether the query is unmodifiable. */
+    /** Whether the query is unmodifiable.
+     * @return whether the query is unmodifiable
+     */
     String unmodifiable() default "";
 
-    /** Whether the query returns unique results. */
+    /** Whether the query returns a single unique result.
+     * @return whether the query returns a single unique result
+     */
     String unique() default "";
 
-    /** Result Class to dump the results into */
+    /** Result class to put the results into
+     * @return the class of the result
+     */
     Class resultClass() default void.class;
 }

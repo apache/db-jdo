@@ -28,30 +28,49 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ForeignKey
 {
-    /** Name of the foreign-key. */
+    /** Name of the foreign key.
+     * @return the name of the foreign key
+     */
     String name() default "";
 
-    /** Table for the foreign-key. */
+    /** Table for the foreign key. This is needed iff annotating a type where
+     * the foreign key is not defined on the primary table for the type.
+     * @return the table on which the foreign key is defined
+     */
     String table() default "";
 
-    /** Whether this foreign-key is deferred */
+    /** Whether this foreign key is deferred 
+     * (constraint is checked only at commit).
+     * @return whether this foreign key is deferred
+     */
     String deferred() default "";
 
-    /** Whether this foreign-key is unique */
+    /** Whether this foreign key is unique.
+     * @return whether this foreign key is unique
+     */
     String unique() default "";
 
-    /** The delete action of this FK */
+    /** The delete action of this foreign key.
+     * @return the delete action of this foreign key
+     */
     ForeignKeyAction deleteAction() default ForeignKeyAction.RESTRICT;
 
-    /** The update action of this FK */
+    /** The update action of this foreign key.
+     * @return the update action of this foreign key
+     */
     ForeignKeyAction updateAction() default ForeignKeyAction.RESTRICT;
 
-    /** Field names that comprise this index. */
+    /** Field names that comprise this foreign key.
+     * @return the field names that comprise this foreign key
+     */
     String[] fields() default {};
 
-    /** Columns that comprise this index. */
+    /** Columns that comprise this foreign key.
+     * @return the columns that comprise this foreign key
+     */
     Column[] columns() default {};
 }

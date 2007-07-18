@@ -34,20 +34,20 @@ public @interface FetchGroup
 {
     /**
      * Name of the fetch group.
-     * @return the name of the fetch group.
+     * @return the name of the fetch group
      */
     String name() default "";
 
     /**
      * Whether we should load this group as part of the post load process.
-     * @return Whether we should load this group as part of the post load 
+     * @return whether we should load this group as part of the post load 
      * process.
      */
     String postLoad() default "";
 
     /**
-     * Field definition for the fetch group
-     * @return Field definition for the fetch group
+     * Field definition for the fetch group.
+     * @return field definition for the fetch group
      */
     FetchField[] fields();
 

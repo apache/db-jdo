@@ -22,13 +22,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the field is stored serialised.
+ * Annotation for whether the field is stored serialized.
  * This is the same as specifying @Field(serialized="true").
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Serialized
 {
 }

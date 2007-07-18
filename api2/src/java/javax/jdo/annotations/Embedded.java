@@ -51,10 +51,12 @@ public @interface Embedded
     String nullIndicatorValue() default "";
 
     /** Field definitions for this embedding. 
+     * @return the fields embedded in the field or property being annotated
      */
     Field[] fields() default {};
 
     /** Property definitions for this embedding. 
-     */
+      * @return the properties embedded in the field or property being annotated
+    */
     Property[] properties() default {};
 }

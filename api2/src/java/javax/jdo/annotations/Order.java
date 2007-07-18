@@ -28,15 +28,24 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Order
 {
-    /** The name of the column to use for the ordering column (1-N relations). */
+    /** The name of the column to use for the ordering column (1-N and M-N
+     * relations).
+     * @return the name of the ordering column
+     */
     String column() default "";
 
-    /** Name of a field in the target object that acts as the ordering for this Collection/List. */
+    /** Name of a field or property in the target class that acts as the 
+     * ordering field or property for this Collection/List/Array.
+     * Return the name of the field or property in the target class
+     */
     String mappedBy() default "";
 
-    /** The definition of the column(s) to use for ordering. */
+    /** The definition of the column(s) to use for ordering.
+     * @return the columns to use for ordering
+     */
     Column[] columns() default {};
 }

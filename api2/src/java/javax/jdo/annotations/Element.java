@@ -44,78 +44,101 @@ public @interface Element
      * Types of the elements. This is used as an alternative to "type" when 
      * the implementation supports specification of multiple element types. 
      * If "type" is specified then this is ignored.
-     * @return The types of elements
+     * @return the types of elements
      */
     Class[] types() default {};
 
     /**
-     * Whether the element is to be stored serialised (into a join table)
-     * @return Whether the element is to be stored serialised 
+     * Whether the element is to be stored serialized (into a join table)
+     * @return whether the element is to be stored serialized 
      * (into a join table)
      */
     String serialized() default "";
 
     /**
-     * Whether the element is to be stored embedded (into a join table)
-     * @return Whether the element is to be stored embedded (into a join table)
+     * Whether the element is to be stored embedded (into a join table).
+     * @return whether the element is to be stored embedded (into a join table)
      */
     String embedded() default "";
 
     /**
      * Whether the element is dependent on the owner, and will be deleted 
-     * when the owner is deleted
-     * @return Whether the element is dependent on the owner, and will be 
+     * when the owner is deleted.
+     * @return whether the element is dependent on the owner, and will be 
      * deleted when the owner is deleted
      */
     String dependent() default "";
 
     /**
-     * Name of the table for the element
-     * @return Name of the table for the element
+     * Name of the table for the element.
+     * @return name of the table for the element
      */
     String table() default "";
 
     /**
-     * Name of the column to store the element in
-     * @return Name of the column to store the element in
+     * Name of the column to store the element in.
+     * @return name of the column to store the element in
      */
     String column() default "";
 
     /**
-     * Delete action to apply to any foreign-key for the element
-     * @return Delete action to apply to any foreign-key for the element
+     * Delete action to apply to any foreign key for the element.
+     * @return delete action to apply to any foreign key for the element
      */
     ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
 
     /**
-     * Update action to apply to any foreign-key for the element
-     * @return Update action to apply to any foreign-key for the element
+     * Update action to apply to any foreign key for the element
+     * @return update action to apply to any foreign key for the element
      */
     ForeignKeyAction updateAction() default ForeignKeyAction.UNKNOWN;
 
     /**
-     * Whether the element column(s) should be indexed.
-     * @return Whether the element column(s) should be indexed.
+     * Whether the value column(s) should be indexed.
+     * @return whether the value column(s) should be indexed.
      */
     String indexed() default "";
 
+    /** The name of the index to generate. 
+     * @return the name of the index
+     */
+    String index() default "";
+
     /**
-     * Whether the element column(s) contents are unique
-     * @return Whether the element column(s) contents are unique
+     * Whether a unique constraint should be generated or assumed.
+     * @return whether a unique constraint should be generated or assumed
      */
     String unique() default "";
 
     /**
+     * The name of the unique key constraint to generate.
+     * @return the name of the unique key constraint
+     */
+    String uniqueKey() default "";
+
+    /**
      * Name of the field in the target class that forms a bidirectional 
      * relationship with this field. 
-     * @return Name of the field in the target class that forms a bidirectional 
+     * @return name of the field in the target class that forms a bidirectional 
      * relationship with this field
      */
     String mappedBy() default "";
 
     /**
      * The column(s) for the element.
-     * @return The column(s) for the element.
+     * @return the column(s) for the element
      */
     Column[] columns() default {};
+
+    /** Generate or assume a foreign key constraint exists on the column
+     * or columns associated with this join. Specify "true" or "false".
+     * @return whether to generate or assume a primary key constraint
+     */
+    String generateForeignKey() default "";
+
+    /** Name for a generated primary key constraint.
+     * @return the name of the generated primary key constraint
+     */
+    String foreignKey() default "";
+
 }

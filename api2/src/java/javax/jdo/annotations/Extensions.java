@@ -33,7 +33,7 @@ public @interface Extensions
 {
     /**
      * The extensions.
-     * @return The extensions
+     * @return the extensions
      */
     Extension[] value();
 }

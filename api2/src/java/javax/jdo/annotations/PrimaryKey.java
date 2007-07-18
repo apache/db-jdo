@@ -29,24 +29,25 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
 public @interface PrimaryKey
 {
     /**
      * Name of the primary key constraint
-     * @return Name of the primary key constraint
+     * @return the name of the primary key constraint
      */
     String name() default "";
 
     /**
      * Name of the column to use for the primary key
-     * @return Name of the column to use for the primary key
+     * @return the name of the column to use for the primary key
      */
     String column() default "";
 
     /**
      * The column(s) for the primary key
-     * @return The column(s) for the primary key
+     * @return the column(s) for the primary key
      */
     Column[] columns() default {};
 }
