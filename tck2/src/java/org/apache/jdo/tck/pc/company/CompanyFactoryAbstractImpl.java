@@ -48,9 +48,9 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
      * String indicating the type of identity used for the current test case.
      * The value is either "applicationidentity" or "datastoreidentity".
      */
-    protected final String identitytype = 
+    public final String identitytype = 
             System.getProperty("jdo.tck.identitytype");
-    boolean isAppIdentity = "applicationidentity".equals(identitytype);
+    public boolean isAppIdentity = "applicationidentity".equals(identitytype);
 
     abstract public IAddress newAddress();
     abstract public ICompany newCompany();
