@@ -98,6 +98,13 @@
         <attainGoal name="build"/>
     </goal>
 
+    <goal name="cleanClasses">
+        <delete>
+            <fileset dir="${basedir}/target/classes" includes="**/*"/>
+            <fileset dir="${basedir}/target/enhanced" includes="**/*"/>
+        </delete>
+    </goal>
+    
     <goal name="clobber" prereqs="clean">
         <delete>
             <fileset dir="." defaultexcludes="no" includes="**/*~"/>
