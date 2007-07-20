@@ -69,6 +69,11 @@ public @interface ForeignKey
      */
     String[] fields() default {};
 
+    /** Property names that compose this foreign key.
+     * @return the property names that compose this foreign key
+     */
+    String[] properties() default {};
+
     /** Columns that comprise this foreign key.
      * @return the columns that comprise this foreign key
      */

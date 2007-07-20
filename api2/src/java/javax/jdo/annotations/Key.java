@@ -56,11 +56,10 @@ public @interface Key
     String serialized() default "";
 
     /**
-     * Whether the key is to be stored embedded (into one or several columns 
-     * of a join table).
-     * @return whether the key is to be stored embedded (into a join table)
+     * The embedded mapping for the key.
+     * @return the embedded mapping for the key
      */
-    String embedded() default "";
+    Embedded[] embedded() default {};
 
     /**
      * Whether the key is dependent on the owner (and will be deleted 

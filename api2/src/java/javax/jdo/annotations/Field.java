@@ -57,6 +57,21 @@ public @interface Field
      */
     String embedded() default "";
 
+    /** Whether the elements of this field are embedded. 
+     * @return whether the elements of this field are embedded
+     */
+    String embeddedElement() default "";
+
+    /** Whether the keys of this field are embedded. 
+     * @return whether the keys of this field are embedded
+     */
+    String embeddedKey() default "";
+
+    /** Whether the values of this field are embedded. 
+     * @return whether the values of this field are embedded
+     */
+    String embeddedValue() default "";
+
     /** Whether this field is serialised into a single column. 
      * @return whether this field is serialized into a single column
      */

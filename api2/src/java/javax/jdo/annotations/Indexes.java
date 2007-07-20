@@ -22,43 +22,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO index.
- * Maps across to the JDO2 element "index".
- *
+ * Annotation for a group of index constraints.
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Index
+public @interface Indexes
 {
-    /** Name of the index
-     * @return the name of the index
+    /**
+     * The indexes
+     * @return The indexes
      */
-    String name() default "";
-
-    /** Table for the index. This is needed iff annotating a type where
-     * the index is not defined on the primary table for the type.
-     * @return the table on which the index is defined
-     */
-    String table() default "";
-
-    /** Whether this index is unique
-     * @return whether this index is unique
-     */
-    String unique() default "";
-
-    /** Field names that compose this index.
-     * @return field names that compose this index
-     */
-    String[] fields() default {};
-
-    /** Property names that compose this index.
-     * @return property names that compose this index
-     */
-    String[] properties() default {};
-
-    /** Columns that comprise this index. 
-     */
-    Column[] columns() default {};
+    Index[] value();
 }

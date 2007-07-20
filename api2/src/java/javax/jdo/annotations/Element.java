@@ -56,10 +56,10 @@ public @interface Element
     String serialized() default "";
 
     /**
-     * Whether the element is to be stored embedded (into a join table).
-     * @return whether the element is to be stored embedded (into a join table)
+     * The embedded mapping for the element.
+     * @return the embedded mapping for the element
      */
-    String embedded() default "";
+    Embedded[] embedded() default {};
 
     /**
      * Whether the element is dependent on the owner, and will be deleted 

@@ -55,11 +55,10 @@ public @interface Value
     String serialized() default "";
 
     /**
-     * Whether the value is to be stored embedded (into one or several columns 
-     * of a join table).
-     * @return Whether the value is to be stored embedded (into a join table)
+     * The embedded mapping for the value.
+     * @return the embedded mapping for the value
      */
-    String embedded() default "";
+    Embedded[] embedded() default {};
 
     /**
      * Whether the value is dependent on the owner (and will be deleted 

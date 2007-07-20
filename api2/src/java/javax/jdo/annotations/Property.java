@@ -57,7 +57,22 @@ public @interface Property
      */
     String embedded() default "";
 
-    /** Whether this property is serialised into a single column. 
+    /** Whether the elements of this field are embedded. 
+     * @return whether the elements of this field are embedded
+     */
+    String embeddedElement() default "";
+
+    /** Whether the keys of this field are embedded. 
+     * @return whether the keys of this field are embedded
+     */
+    String embeddedKey() default "";
+
+    /** Whether the values of this field are embedded. 
+     * @return whether the values of this field are embedded
+     */
+    String embeddedValue() default "";
+
+    /** Whether this property is serialized into a single column. 
      * @return whether this property is serialized into a single column
      */
     String serialized() default "";

@@ -54,6 +54,11 @@ public @interface Unique
      */
     String[] fields() default {};
 
+    /** Property names that compose this unique constraint.
+     * @return the property names that compose this unique constraint
+     */
+    String[] properties() default {};
+
     /** Columns that comprise this unique constraint.
      * @return columns that comprise this unique constraint
      */
