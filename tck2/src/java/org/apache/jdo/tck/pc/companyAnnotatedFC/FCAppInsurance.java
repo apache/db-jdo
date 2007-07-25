@@ -41,7 +41,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCAppInsurance 
     implements IInsurance, Serializable, Comparable, Comparator, DeepEquality  {
 
-    @Field(primaryKey="true")
+    @PrimaryKey
     @Column(name="INSID")
     private long     insid;
     @Column(name="CARRIER")

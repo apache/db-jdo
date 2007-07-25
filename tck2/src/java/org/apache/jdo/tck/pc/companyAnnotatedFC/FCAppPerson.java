@@ -45,35 +45,34 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCAppPerson 
     implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
 
-    @Field(primaryKey="true")
+    @PrimaryKey
     @Column(name="PERSONID")
     private long    personid;
     @Column(name="FIRSTNAME")
     private String  firstname;
     @Column(name="LASTNAME")
     private String  lastname;
-    @Field(defaultFetchGroup="false")
+    @Persistent(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     private String  middlename;
     private Date    birthdate;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",
-        fields={
-            @Field(name="addrid", columns=@Column(name="ADDRID")),
-            @Field(name="street", columns=@Column(name="STREET")),
-            @Field(name="city", columns=@Column(name="CITY")),
-            @Field(name="state", columns=@Column(name="STATE")),
-            @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
-            @Field(name="country", columns=@Column(name="COUNTRY"))
+        members={
+            @Persistent(name="addrid", columns=@Column(name="ADDRID")),
+            @Persistent(name="street", columns=@Column(name="STREET")),
+            @Persistent(name="city", columns=@Column(name="CITY")),
+            @Persistent(name="state", columns=@Column(name="STATE")),
+            @Persistent(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     private FCAppAddress address;
 
     // maps phone number types ("home", "work", "mobile", etc.) 
     // to phone numbers specified as String
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT, table="employee_phoneno_type")
+    @Persistent(table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(types=java.lang.String.class, column="TYPE")
-    @Value(types=java.lang.String.class, column="PHONENO")
+    @Key(boundTypes=java.lang.String.class, column="TYPE")
+    @Value(boundTypes=java.lang.String.class, column="PHONENO")
     private Map phoneNumbers = new HashMap();
     
     protected static SimpleDateFormat formatter =

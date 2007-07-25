@@ -37,34 +37,34 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
         column="DISCRIMINATOR", indexed="true")
 public interface PIAppPerson extends IPerson {
 
-    @Property(primaryKey="true")
+    @Persistent(primaryKey="true")
     @Column(name="PERSONID")
     long getPersonid();
     @Column(name="LASTNAME")
     String getLastname();
     @Column(name="FIRSTNAME")
     String getFirstname();
-    @Property(defaultFetchGroup="false")
+    @Persistent(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     String getMiddlename();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            fieldType=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
+            boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
-        properties={
-            @Property(name="addrid", columns=@Column(name="ADDRID")),
-            @Property(name="street", columns=@Column(name="STREET")),
-            @Property(name="city", columns=@Column(name="CITY")),
-            @Property(name="state", columns=@Column(name="STATE")),
-            @Property(name="zipcode", columns=@Column(name="ZIPCODE")),
-            @Property(name="country", columns=@Column(name="COUNTRY"))
+        members={
+            @Persistent(name="addrid", columns=@Column(name="ADDRID")),
+            @Persistent(name="street", columns=@Column(name="STREET")),
+            @Persistent(name="city", columns=@Column(name="CITY")),
+            @Persistent(name="state", columns=@Column(name="STATE")),
+            @Persistent(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     IAddress getAddress();
     Date getBirthdate();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(types=java.lang.String.class)
-    @Value(types=java.lang.String.class)
+    @Key(boundTypes=java.lang.String.class)
+    @Value(boundTypes=java.lang.String.class)
     Map getPhoneNumbers();
     
     void setPersonid(long personid);

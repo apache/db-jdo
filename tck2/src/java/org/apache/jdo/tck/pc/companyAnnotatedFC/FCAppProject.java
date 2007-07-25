@@ -44,27 +44,22 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCAppProject 
     implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
 
-    @Field(primaryKey="true")
+    @PrimaryKey
     @Column(name="PROJID")
     private long projid;
     @Column(name="NAME")
     private String     name;
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     private BigDecimal budget;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="project_reviewer")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Persistent(table="project_reviewer")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="REVIEWER")
-    @Join(column="PROJID")
-    //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
+    @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     private transient Set reviewers = new HashSet();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="project_member")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
-            column="MEMBER")
-    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
-    //    foreignKey=@ForeignKey(name="PR_REV_FK"))
-    @Join(column="PROJID")
+    @Persistent(table="project_member")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+            column="MEMBER", foreignKey="PR_MEMB_FK")
+    @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     private transient Set members = new HashSet();
     
     /** This is the JDO-required no-args constructor. The TCK relies on

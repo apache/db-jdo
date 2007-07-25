@@ -36,7 +36,7 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
         columns=@Column(name="DISCRIMINATOR"))
     public interface PIAppInsurance extends IInsurance {
 
-    @Property(primaryKey="true")
+    @Persistent(primaryKey="true")
     @Column(name="INSID")
     long getInsid();
     @Column(name="CARRIER")

@@ -46,27 +46,27 @@ import org.apache.jdo.tck.util.EqualityHelper;
     public class FCAppCompany 
     implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
 
-    @Field(primaryKey="true")
+    @Persistent(primaryKey="true")
     @Column(name="ID")
     private long        companyid;
     @Column(name="NAME", jdbcType="VARCHAR")
     private String      name;
     @Column(name="FOUNDEDDATE")
     private Date        founded;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",
-        fields={
-            @Field(name="addrid", columns=@Column(name="ADDRID")),
-            @Field(name="street", columns=@Column(name="STREET")),
-            @Field(name="city", columns=@Column(name="CITY")),
-            @Field(name="state", columns=@Column(name="STATE")),
-            @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
-            @Field(name="country", columns=@Column(name="COUNTRY"))
+        members={
+            @Persistent(name="addrid", columns=@Column(name="ADDRID")),
+            @Persistent(name="street", columns=@Column(name="STREET")),
+            @Persistent(name="city", columns=@Column(name="CITY")),
+            @Persistent(name="state", columns=@Column(name="STATE")),
+            @Persistent(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     private FCAppAddress     address;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class)
     private transient Set departments = new HashSet();
 
     protected static SimpleDateFormat formatter =

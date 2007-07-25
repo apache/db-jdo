@@ -36,23 +36,22 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
         column="DISCRIMINATOR")
 public interface PIAppCompany extends ICompany {
     
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            fieldType=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
+    @Persistent(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
-        properties={
-            @Property(name="addrid", columns=@Column(name="ADDRID")),
-            @Property(name="street", columns=@Column(name="STREET")),
-            @Property(name="city", columns=@Column(name="CITY")),
-            @Property(name="state", columns=@Column(name="STATE")),
-            @Property(name="zipcode", columns=@Column(name="ZIPCODE")),
-            @Property(name="country", columns=@Column(name="COUNTRY"))
+        members={
+            @Persistent(name="addrid", columns=@Column(name="ADDRID")),
+            @Persistent(name="street", columns=@Column(name="STREET")),
+            @Persistent(name="city", columns=@Column(name="CITY")),
+            @Persistent(name="state", columns=@Column(name="STATE")),
+            @Persistent(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     IAddress getAddress();
-    @Property(primaryKey="true")
+    @PrimaryKey
     @Column(name="ID")
     long getCompanyid();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
     Set getDepartments();
     @Column(name="FOUNDEDDATE")
     Date getFounded();

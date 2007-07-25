@@ -42,18 +42,15 @@ public interface PIDSProject extends IProject {
     String getName();
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
-            column="REVIEWER")
-    @Join(column="PROJID", table="proj_reviewer")
-    //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
+            column="REVIEWER", foreignKey="PR_REV_FK")
+    @Join(column="PROJID", table="proj_reviewer", foreignKey="PR_PROJ_FK")
     Set getReviewers();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
-            column="MEMBER")
-    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedDS.PIDSEmployee.class,
-    //    foreignKey=@ForeignKey(name="PR_REV_FK"))
-    @Join(column="PROJID", table="proj_member")
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
+            column="MEMBER", foreignKey="PM_MEMB_FK")
+    @Join(column="PROJID", table="proj_member", foreignKey="PM_PROJ_FK")
     Set getMembers();
     
     void setProjid(long projid);

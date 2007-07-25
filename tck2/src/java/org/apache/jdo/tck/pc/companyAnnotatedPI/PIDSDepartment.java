@@ -46,13 +46,11 @@ public interface PIDSDepartment extends IDepartment {
     ICompany getCompany();
     @Column(name="EMP_OF_THE_MONTH")
     IEmployee getEmployeeOfTheMonth();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
-            mappedBy="department")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Persistent(mappedBy="department")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getEmployees();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="fundingDept")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Persistent(mappedBy="fundingDept")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getFundedEmps();
     
     void setDeptid(long deptid);

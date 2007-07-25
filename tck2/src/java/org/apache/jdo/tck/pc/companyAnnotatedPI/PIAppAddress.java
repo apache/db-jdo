@@ -29,7 +29,7 @@ import org.apache.jdo.tck.pc.company.IAddress;
 @PersistenceCapable(embeddedOnly="true", requiresExtent="false")
 public interface PIAppAddress extends IAddress {
 
-    @Property(primaryKey="true")
+    @Persistent(primaryKey="true")
     long getAddrid();
     String getStreet();
     String getCity();

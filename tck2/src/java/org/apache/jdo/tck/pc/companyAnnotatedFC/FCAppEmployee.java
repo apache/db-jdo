@@ -45,9 +45,9 @@ public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
     private Date             hiredate;
     @Column(name="WEEKLYHOURS")
     private double           weeklyhours;
-    @Field(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     private FCAppDentalInsurance  dentalInsurance;
-    @Field(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     private FCAppMedicalInsurance medicalInsurance;
     @Column(name="DEPARTMENT")
     private FCAppDepartment       department;
@@ -57,25 +57,21 @@ public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
     private FCAppEmployee         manager;
     @Column(name="MENTOR")
     private FCAppEmployee         mentor;
-    @Field(mappedBy="mentor")
+    @Persistent(mappedBy="mentor")
     private FCAppEmployee         protege;
     @Column(name="HRADVISOR")
     private FCAppEmployee         hradvisor;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="reviewers")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
+    @Persistent(mappedBy="reviewers")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
     private transient Set reviewedProjects = new HashSet();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="members")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
+    @Persistent(mappedBy="members")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
     private transient Set projects = new HashSet();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="manager")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Persistent(mappedBy="manager")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set team = new HashSet();
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="hradvisor")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Persistent(mappedBy="hradvisor")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set hradvisees = new HashSet();
 
     /** This is the JDO-required no-args constructor */

@@ -35,25 +35,23 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
         column="DISCRIMINATOR")
 public interface PIAppProject extends IProject {
 
-    @Property(primaryKey="true")
+    @PrimaryKey
     @Column(name="PROJID")
     long getProjid();
     @Column(name="NAME")
     String getName();
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="project_reviewer")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Persistent(table="project_reviewer")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     Set getReviewers();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            table="project_member")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Persistent(table="project_member")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="MEMBER")
-    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
+    //@Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
     //    foreignKey=@ForeignKey(name="PR_REV_FK"))
     @Join(column="PROJID")
     Set getMembers();
@@ -61,11 +59,11 @@ public interface PIAppProject extends IProject {
     void setProjid(long projid);
     void setName(String name);
     void setBudget(BigDecimal budget);
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setReviewers(Set reviewers);
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setMembers(Set employees);
     
 }

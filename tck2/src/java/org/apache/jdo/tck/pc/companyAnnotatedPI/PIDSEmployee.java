@@ -39,17 +39,15 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     Date getHiredate();
     @Column(name="WEEKLYHOURS")
     double getWeeklyhours();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="reviewers")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
+    @Persistent(mappedBy="reviewers")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
     Set getReviewedProjects();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="members")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
+    @Persistent(mappedBy="members")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
     Set getProjects();
-    @Property(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     IDentalInsurance getDentalInsurance();
-    @Property(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     IMedicalInsurance getMedicalInsurance();
     @Column(name="DEPARTMENT")
     IDepartment getDepartment();
@@ -57,18 +55,17 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     IDepartment getFundingDept();
     @Column(name="MANAGER")
     IEmployee getManager();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="manager")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Persistent(mappedBy="manager")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
     IEmployee getMentor();
-    @Property(mappedBy="mentor")
+    @Persistent(mappedBy="mentor")
     IEmployee getProtege();
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Persistent
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getHradvisees();
     
     void setHiredate(Date hiredate);

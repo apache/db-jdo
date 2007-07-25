@@ -41,17 +41,17 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
     Date getHiredate();
     @Column(name="WEEKLYHOURS")
     double getWeeklyhours();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="reviewers")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
     Set getReviewedProjects();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="members")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
     Set getProjects();
-    @Property(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     IDentalInsurance getDentalInsurance();
-    @Property(mappedBy="employee")
+    @Persistent(mappedBy="employee")
     IMedicalInsurance getMedicalInsurance();
     @Column(name="DEPARTMENT")
     IDepartment getDepartment();
@@ -59,18 +59,18 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
     IDepartment getFundingDept();
     @Column(name="MANAGER")
     IEmployee getManager();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="manager")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
     IEmployee getMentor();
-    @Property(mappedBy="mentor")
+    @Persistent(mappedBy="mentor")
     IEmployee getProtege();
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getHradvisees();
     
     void setHiredate(Date hiredate);

@@ -56,13 +56,11 @@ public class FCDSDepartment
     private FCDSCompany company;
     @Column(name="EMP_OF_THE_MONTH")
     private FCDSEmployee employeeOfTheMonth;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
-            mappedBy="department")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Persistent(mappedBy="department")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
     private transient Set employees = new HashSet();
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="fundingDept")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Persistent(mappedBy="fundingDept")
     private transient Set fundedEmps = new HashSet();
 
     /** This is the JDO-required no-args constructor. The TCK relies on

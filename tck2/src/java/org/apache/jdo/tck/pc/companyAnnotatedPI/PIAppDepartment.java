@@ -37,7 +37,7 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
         column="DISCRIMINATOR")
 public interface PIAppDepartment extends IDepartment {
 
-    @Property(primaryKey="true")
+    @Persistent(primaryKey="true")
     @Column(name="ID")
     long getDeptid();
     @Column(name="NAME")
@@ -46,13 +46,13 @@ public interface PIAppDepartment extends IDepartment {
     ICompany getCompany();
     @Column(name="EMP_OF_THE_MONTH")
     IEmployee getEmployeeOfTheMonth();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT, 
             mappedBy="department")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getEmployees();
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="fundingDept")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getFundedEmps();
     
     void setDeptid(long deptid);

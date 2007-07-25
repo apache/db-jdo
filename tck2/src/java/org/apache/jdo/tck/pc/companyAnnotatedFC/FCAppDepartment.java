@@ -46,7 +46,7 @@ public class FCAppDepartment
 
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
 
-    @Field(primaryKey="true")
+    @PrimaryKey
     @Column(name="ID")
     private long deptid;
     @Column(name="NAME")
@@ -55,13 +55,11 @@ public class FCAppDepartment
     private FCAppCompany company;
     @Column(name="EMP_OF_THE_MONTH")
     private FCAppEmployee employeeOfTheMonth;
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT, 
-            mappedBy="department")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Persistent(mappedBy="department")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set employees = new HashSet();
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
-    @Field(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
-            mappedBy="fundingDept")
+    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Persistent(mappedBy="fundingDept")
     private transient Set fundedEmps = new HashSet();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
