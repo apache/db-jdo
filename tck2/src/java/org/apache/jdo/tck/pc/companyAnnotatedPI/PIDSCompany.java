@@ -38,15 +38,16 @@ import org.apache.jdo.tck.pc.company.ICompany;
         column="DATASTORE_IDENTITY")
 public interface PIDSCompany extends ICompany {
     
-    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT)
+    @Property(persistenceModifier=FieldPersistenceModifier.PERSISTENT,
+            fieldType=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
-        fields={
-            @Field(name="addrid", columns=@Column(name="ADDRID")),
-            @Field(name="street", columns=@Column(name="STREET")),
-            @Field(name="city", columns=@Column(name="CITY")),
-            @Field(name="state", columns=@Column(name="STATE")),
-            @Field(name="zipcode", columns=@Column(name="ZIPCODE")),
-            @Field(name="country", columns=@Column(name="COUNTRY"))
+        properties={
+            @Property(name="addrid", columns=@Column(name="ADDRID")),
+            @Property(name="street", columns=@Column(name="STREET")),
+            @Property(name="city", columns=@Column(name="CITY")),
+            @Property(name="state", columns=@Column(name="STATE")),
+            @Property(name="zipcode", columns=@Column(name="ZIPCODE")),
+            @Property(name="country", columns=@Column(name="COUNTRY"))
     })
     IAddress getAddress();
     @Column(name="ID")

@@ -32,6 +32,7 @@ has application identity.
             objectid-class="org.apache.jdo.tck.pc.company.Company$Oid">
             <field name="companyid" primary-key="true"/>
             <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
                    persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Department"/>
@@ -96,6 +97,7 @@ has application identity.
             <field name="personid" primary-key="true"/>
             <field name="middlename" default-fetch-group="false"/>
             <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
                    persistence-modifier="persistent"/>
             <field name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
@@ -206,6 +208,7 @@ has application identity.
             <property name="personid" primary-key="true"/>
             <property name="middlename" default-fetch-group="false"/>
             <property name="address"
+                   field-type="org.apache.jdo.tck.pc.company.PIAddress"
                    persistence-modifier="persistent"/>
             <property name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>

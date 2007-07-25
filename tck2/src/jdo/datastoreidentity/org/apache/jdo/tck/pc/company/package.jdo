@@ -29,6 +29,7 @@ has datastore identity.
 
         <class name="Company" identity-type="datastore">
             <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
                    persistence-modifier="persistent"/>
             <field name="departments" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Department"/>
@@ -73,6 +74,7 @@ has datastore identity.
         <class name="Person" identity-type="datastore">
             <field name="middlename" default-fetch-group="false"/>
             <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
                    persistence-modifier="persistent"/>
             <field name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
@@ -176,6 +178,7 @@ has datastore identity.
             identity-type="datastore">
             <property name="middlename" default-fetch-group="false"/>
             <property name="address"
+                   field-type="org.apache.jdo.tck.pc.company.PIAddress"
                    persistence-modifier="persistent"/>
             <property name="phoneNumbers" persistence-modifier="persistent">
                 <map key-type="String" value-type="String"/>
