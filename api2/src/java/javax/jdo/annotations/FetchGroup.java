@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the fetch group of a class.
- * Maps across to the JDO2 element "fetch-group".
+ * Maps to the xml element "fetch-group".
  * 
  * @version 2.1
  * @since 2.1
@@ -46,12 +46,15 @@ public @interface FetchGroup
     String postLoad() default "";
 
     /**
-     * Field definition for the fetch group.
-     * @return field definition for the fetch group
+     * Members (fields and properties) of the fetch group. The members
+     * should contain only name and recursionDepth.
+     * @return members for the fetch group
      */
-    FetchField[] fields();
+    Persistent[] members();
 
-    // Annotations are badly designed in that they don't allow nested groups 
-    // and object to "cycle detection"
-    // so we can't have nested fetch groups in annotations
+    /** 
+     * Fetch groups to be nested (included) in this fetch group.
+     */
+    String[] fetchGroups() default {};
+
 }

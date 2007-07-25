@@ -22,7 +22,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO unique constraint.
+ * Annotation for a database unique constraint. Used for database schema
+ * generation to create unique constraints. Also used to reorder database
+ * operations when flushing changes to avoid unique constraint violations.
  * Maps across to the JDO2 element "unique".
  *
  * @version 2.1
@@ -49,18 +51,13 @@ public @interface Unique
      */
     String deferred() default "";
 
-    /** Field names that comprise this unique constraint.
-     * @return field names that comprise this unique constraint
+    /** Member (field and property) names that compose this unique constraint.
+     * @return member names that compose this unique constraint
      */
-    String[] fields() default {};
+    String[] members() default {};
 
-    /** Property names that compose this unique constraint.
-     * @return the property names that compose this unique constraint
-     */
-    String[] properties() default {};
-
-    /** Columns that comprise this unique constraint.
-     * @return columns that comprise this unique constraint
+    /** Columns that compose this unique constraint.
+     * @return columns that compose this unique constraint
      */
     Column[] columns() default {};
 }

@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation to define that the object is embedded into the table of the 
  * owning object.
- * Maps across to the JDO2 element "embedded".
+ * Maps to the xml element "embedded".
  * 
  * @version 2.1
  * @since 2.1
@@ -33,11 +33,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Embedded
 {
-    /** The field in the embedded object that links back to the owning object
+    /** The member in the embedded object that links back to the owning object
      * where it has a bidirectional relationship. 
-     * @return the field that refers to the owner
+     * @return the member that refers to the owner
      */
-    String ownerField() default "";
+    String ownerMember() default "";
 
     /** The column in the embedded object used to judge if the embedded object
      * is null. 
@@ -50,13 +50,9 @@ public @interface Embedded
      */
     String nullIndicatorValue() default "";
 
-    /** Field definitions for this embedding. 
-     * @return the fields embedded in the field or property being annotated
+    /** Members for this embedding. 
+     * @return the members embedded in the field or property being annotated
      */
-    Field[] fields() default {};
+    Persistent[] members() default {};
 
-    /** Property definitions for this embedding. 
-      * @return the properties embedded in the field or property being annotated
-    */
-    Property[] properties() default {};
 }

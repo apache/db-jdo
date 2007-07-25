@@ -22,8 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a column in the datastore.
- * Maps across to the JDO2 element "column".
+ * Annotation for a column in the database.
+ * Maps to the xml element "column".
  * 
  * @version 2.1
  * @since 2.1
@@ -47,12 +47,12 @@ public @interface Column
     String target() default "";
 
     /**
-     * Target field in the other class or interface for this column 
+     * Target member in the other class or interface for this column 
      * when part of a bidirectional relation.
-     * @return the target field for this column when part of 
+     * @return the target member for this column when part of 
      * a bidirectional relation.
      */
-    String targetField() default "";
+    String targetMember() default "";
 
     /**
      * JDBC Type for this column.

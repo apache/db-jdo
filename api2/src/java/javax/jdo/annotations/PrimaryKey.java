@@ -22,9 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the primary key of a class.
- * Maps across to the JDO2 element "primary-key".
- * Also used to define a field as being (part of) the primary key.
+ * Annotation on a member to define it as a primary key member of a class or
+ * persistent interface using application identity. 
+ * Also used to define the primary key columns of a secondary table.
+ * Maps to the xml element "primary-key".
  * 
  * @version 2.1
  * @since 2.1

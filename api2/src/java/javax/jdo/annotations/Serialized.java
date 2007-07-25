@@ -22,8 +22,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the field is stored serialized.
- * This is the same as specifying @Field(serialized="true").
+ * Annotation on a member (field or property) to indicate that
+ * the member is stored serialized.
+ * This is the same as specifying @Persistent(serialized="true").
  * 
  * @version 2.1
  * @since 2.1

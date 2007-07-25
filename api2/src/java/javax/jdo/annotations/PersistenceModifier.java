@@ -16,28 +16,16 @@
  */
 package javax.jdo.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
- * Annotation for defining a field in a FetchGroup.
+ * Enumeration of the JDO2 persistence-modifier values for a field.
  * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) 
-@Retention(RetentionPolicy.RUNTIME)
-public @interface FetchField
+public enum PersistenceModifier
 {
-    /** Name of the field (required). 
-     * @return the name of the field
-     */
-    String name();
-
-    /** Recursion depth for this field. 
-     * @return the recursion depth
-     */
-    int recursionDepth() default 1;
-}
+    UNKNOWN,
+    PERSISTENT,
+    TRANSACTIONAL,
+    NONE
+};

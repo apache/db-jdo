@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the join of a relation.
- * Maps across to the JDO2 element "join".
+ * Maps to the xml element "join".
  * 
  * @version 2.1
  * @since 2.1
@@ -52,7 +52,7 @@ public @interface Join
      */
     String index() default "";
 
-    /** Whether the join column is unique 
+    /** Whether the join column is unique.
      * @return whether the join column(s) is(are) is unique
      */
     String unique() default "";

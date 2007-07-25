@@ -31,6 +31,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PersistenceCapable
 {
+    /** Member declarations. Annotations for persistent members of this
+     * class or interface can be specifed either here or on each member.
+     * Annotations for inherited members can only be specified here.
+     * @return member declarations
+     */
+    Persistent[] members() default {};
+
     /** Table to use for persisting this class or interface. 
      */
     String table() default "";

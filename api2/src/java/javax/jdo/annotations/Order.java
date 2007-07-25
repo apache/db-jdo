@@ -22,8 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the order of a container field.
- * Maps across to the JDO2 element "order".
+ * Annotation for the order of a container member.
+ * Maps to the xml element "order".
  * 
  * @version 2.1
  * @since 2.1

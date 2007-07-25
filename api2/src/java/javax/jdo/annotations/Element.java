@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the element of a collection/array relation.
- * Maps across to the JDO2 element "element".
+ * Maps to the xml element "element".
  * 
  * @version 2.1
  * @since 2.1
@@ -34,19 +34,12 @@ import java.lang.annotation.Target;
 public @interface Element
 {
     /**
-     * The type of the element. This can be determined for an array, 
-     * or if using JDK1.5 generics but is required otherwise.
-     * @return The type of the element.
-     */
-    Class type() default void.class;
-
-    /**
-     * Types of the elements. This is used as an alternative to "type" when 
-     * the implementation supports specification of multiple element types. 
-     * If "type" is specified then this is ignored.
+     * Types of the elements. This can be determined if using JDK1.5 generics
+     * but is required otherwise. Multiple types can be specified if the
+     * implementation supports multiple types.
      * @return the types of elements
      */
-    Class[] types() default {};
+    Class[] boundTypes() default {};
 
     /**
      * Whether the element is to be stored serialized (into a join table)
@@ -117,10 +110,10 @@ public @interface Element
     String uniqueKey() default "";
 
     /**
-     * Name of the field in the target class that forms a bidirectional 
-     * relationship with this field. 
-     * @return name of the field in the target class that forms a bidirectional 
-     * relationship with this field
+     * Name of the member in the target class that forms a bidirectional 
+     * relationship with this member. 
+     * @return name of the member in the target class that forms a bidirectional 
+     * relationship with this member
      */
     String mappedBy() default "";
 

@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the key of a map relation.
- * Maps across to the JDO2 element "key".
+ * Maps to the xml element "key".
  * 
  * @version 2.1
  * @since 2.1
@@ -34,19 +34,12 @@ import java.lang.annotation.Target;
 public @interface Key
 {
     /**
-     * The type of the key. This can be determined if using JDK1.5 generics
-     * but is required otherwise.
-     * @return the type of the key
-     */
-    Class type() default void.class;
-
-    /**
-     * Types of the keys. This is used as an alternative to "type" when the 
-     * implementation supports specification of multiple key types. 
-     * If "type" is specified then this is ignored.
+     * Types of the keys. This can be determined if using JDK1.5 generics
+     * but is required otherwise. Multiple types can be specified if the
+     * implementation supports multiple types.
      * @return the types of keys
      */
-    Class[] types() default {};
+    Class[] boundTypes() default {};
 
     /**
      * Whether the key is to be stored serialized (into a single column of a
@@ -116,8 +109,8 @@ public @interface Key
     String uniqueKey() default "";
 
     /**
-     * Name of a field in the value class where this key value is stored.
-     * @return the name of a field in the value where this key is stored
+     * Name of a member in the value class where this key is stored.
+     * @return the name of a member in the value class where this key is stored
      */
     String mappedBy() default "";
 

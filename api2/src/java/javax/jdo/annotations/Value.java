@@ -33,19 +33,12 @@ import java.lang.annotation.Target;
 public @interface Value
 {
     /**
-     * The type of the value. This can be determined if using JDK1.5 generics
-     * but is required otherwise.
-     * @return The type of the value.
-     */
-    Class type() default void.class;
-
-    /**
-     * Types of the values. This is used as an alternative to "type" when the 
-     * implementation supports specification of multiple value types. 
-     * If "type" is specified then this is ignored.
+     * Types of the values. This can be determined if using JDK1.5 generics
+     * but is required otherwise. Multiple types can be specified if the
+     * implementation supports multiple types.
      * @return the types of values
      */
-    Class[] types() default {};
+    Class[] boundTypes() default {};
 
     /**
      * Whether the value  is to be stored serialized (into a single column of a
@@ -115,8 +108,8 @@ public @interface Value
     String uniqueKey() default "";
 
     /**
-     * Name of a field in the key class where this value is stored.
-     * @return the name of a field in the key class where this value is stored
+     * Name of a member in the key class where this value is stored.
+     * @return the name of a member in the key class where this value is stored
      */
     String mappedBy() default "";
 
@@ -132,8 +125,8 @@ public @interface Value
      */
     String generateForeignKey() default "";
 
-    /** Name for a generated primary key constraint.
-     * @return the name of the generated primary key constraint
+    /** Name for a generated foreign key constraint.
+     * @return the name of the generated foreign key constraint
      */
     String foreignKey() default "";
 

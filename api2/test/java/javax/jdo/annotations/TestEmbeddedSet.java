@@ -33,27 +33,27 @@ public abstract class TestEmbeddedSet {
     public TestEmbeddedSet() {
     }
 
-    @Field (table="LINES", embeddedElement="true")
+    @Persistent (table="LINES", embeddedElement="true")
     @Join(column="OWNER_FK")
     @Element (
         embedded=@Embedded(
-            fields={
-                @Field(name="point1.x", column="POINT1_X"),
-                @Field(name="point1.y", column="POINT2_Y"),
-                @Field(name="point2.x", column="POINT2_X"),
-                @Field(name="point2.y", column="POINT2_Y")
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
             }))
     Set<Line> lines;
 
-    @Property (embeddedElement="true")
+    @Persistent (embeddedElement="true")
     @Join(column="OWNER_FK")
     @Element (
         embedded=@Embedded(
-            properties={
-                @Property(name="point1.x", column="POINT1_X"),
-                @Property(name="point1.y", column="POINT2_Y"),
-                @Property(name="point2.x", column="POINT2_X"),
-                @Property(name="point2.y", column="POINT2_Y")
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
             }))
     abstract Set<Line> getLines();
 

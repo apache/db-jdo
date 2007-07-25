@@ -22,8 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO foreign-key.
- * Maps across to the JDO2 element "foreign-key".
+ * Annotation for a database foreign-key.
+ * Maps to the xml element "foreign-key".
  *
  * @version 2.1
  * @since 2.1
@@ -64,18 +64,13 @@ public @interface ForeignKey
      */
     ForeignKeyAction updateAction() default ForeignKeyAction.RESTRICT;
 
-    /** Field names that comprise this foreign key.
-     * @return the field names that comprise this foreign key
+    /** Member (field and property) names that compose this foreign key.
+     * @return the member names that compose this foreign key
      */
-    String[] fields() default {};
+    String[] members() default {};
 
-    /** Property names that compose this foreign key.
-     * @return the property names that compose this foreign key
-     */
-    String[] properties() default {};
-
-    /** Columns that comprise this foreign key.
-     * @return the columns that comprise this foreign key
+    /** Columns that compose this foreign key.
+     * @return the columns that compose this foreign key
      */
     Column[] columns() default {};
 }

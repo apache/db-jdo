@@ -16,16 +16,19 @@
  */
 package javax.jdo.annotations;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * Enumeration of the JDO2 persistence-modifier values for a field.
- * 
+ * Annotation for whether the member is not persistent.
+ * This maps to xml attribute persistence-modifier="none".
  * @version 2.1
  * @since 2.1
  */
-public enum FieldPersistenceModifier
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NotPersistent
 {
-    UNKNOWN,
-    PERSISTENT,
-    TRANSACTIONAL,
-    NONE
-};
+}

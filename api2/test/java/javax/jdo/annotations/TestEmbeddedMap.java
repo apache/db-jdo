@@ -31,29 +31,29 @@ public abstract class TestEmbeddedMap {
     public TestEmbeddedMap() {
     }
 
-    @Field(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
+    @Persistent(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
     @Join(column="OWNER_FK")
     @Key(column="INTEGER")
     @Value(
         embedded=@Embedded(
-            fields={
-                @Field(name="point1.x", column="POINT1_X"),
-                @Field(name="point1.y", column="POINT2_Y"),
-                @Field(name="point2.x", column="POINT2_X"),
-                @Field(name="point2.y", column="POINT2_Y")
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
     }))
     Map<Integer, Line> integerLines;
 
-    @Property(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
+    @Persistent(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
     @Join(column="OWNER_FK")
     @Key(column="INTEGER")
     @Value(
         embedded=@Embedded(
-            properties={
-                @Property(name="point1.x", column="POINT1_X"),
-                @Property(name="point1.y", column="POINT2_Y"),
-                @Property(name="point2.x", column="POINT2_X"),
-                @Property(name="point2.y", column="POINT2_Y")
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
     }))
     abstract Map<Integer, Line> getIntegerLines();
 

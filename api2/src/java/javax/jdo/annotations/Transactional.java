@@ -22,10 +22,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the field is transactional.
- * This is the same as specifying 
- * "@Field(persistenceModifier=FieldPersistenceModifier.TRANSACTIONAL)".
- * 
+ * Annotation to indicate that a member (field or property)
+ * is transactional but not persistent.
+ * This maps to xml attribute persistence-modifier="transactional".
  * @version 2.1
  * @since 2.1
  */

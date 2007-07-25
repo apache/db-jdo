@@ -22,8 +22,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO index.
- * Maps across to the JDO2 element "index".
+ * Annotation for a database index. Used for database schema
+ * generation to create indexes.
+ * Maps to the xml element "index".
  *
  * @version 2.1
  * @since 2.1
@@ -48,17 +49,13 @@ public @interface Index
      */
     String unique() default "";
 
-    /** Field names that compose this index.
-     * @return field names that compose this index
+    /** Member (field and property) names that compose this index.
+     * @return member names that compose this index
      */
-    String[] fields() default {};
+    String[] members() default {};
 
-    /** Property names that compose this index.
-     * @return property names that compose this index
-     */
-    String[] properties() default {};
-
-    /** Columns that comprise this index. 
+    /** Columns that compose this index.
+     * @return columns that compose this index
      */
     Column[] columns() default {};
 }
