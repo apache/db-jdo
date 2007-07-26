@@ -48,11 +48,11 @@ public interface PIAppDepartment extends IDepartment {
     IEmployee getEmployeeOfTheMonth();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT, 
             mappedBy="department")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getEmployees();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="fundingDept")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getFundedEmps();
     
     void setDeptid(long deptid);

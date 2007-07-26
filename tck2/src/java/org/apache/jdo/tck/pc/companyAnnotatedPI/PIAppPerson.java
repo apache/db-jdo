@@ -48,7 +48,7 @@ public interface PIAppPerson extends IPerson {
     @Column(name="MIDDLENAME", allowsNull="true")
     String getMiddlename();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
-            boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
+            types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
         members={
             @Persistent(name="addrid", columns=@Column(name="ADDRID")),
@@ -63,8 +63,8 @@ public interface PIAppPerson extends IPerson {
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(boundTypes=java.lang.String.class)
-    @Value(boundTypes=java.lang.String.class)
+    @Key(types=java.lang.String.class)
+    @Value(types=java.lang.String.class)
     Map getPhoneNumbers();
     
     void setPersonid(long personid);

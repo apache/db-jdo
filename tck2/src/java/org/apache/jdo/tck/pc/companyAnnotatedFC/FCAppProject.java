@@ -52,12 +52,12 @@ public class FCAppProject
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     private BigDecimal budget;
     @Persistent(table="project_reviewer")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     private transient Set reviewers = new HashSet();
     @Persistent(table="project_member")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="MEMBER", foreignKey="PR_MEMB_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     private transient Set members = new HashSet();

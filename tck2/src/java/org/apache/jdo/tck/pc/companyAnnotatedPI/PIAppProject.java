@@ -43,15 +43,15 @@ public interface PIAppProject extends IProject {
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
     @Persistent(table="project_reviewer")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="REVIEWER")
     @Join(column="PROJID")
     //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
     Set getReviewers();
     @Persistent(table="project_member")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
             column="MEMBER")
-    //@Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
+    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
     //    foreignKey=@ForeignKey(name="PR_REV_FK"))
     @Join(column="PROJID")
     Set getMembers();
@@ -60,10 +60,10 @@ public interface PIAppProject extends IProject {
     void setName(String name);
     void setBudget(BigDecimal budget);
     @Persistent
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setReviewers(Set reviewers);
     @Persistent
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setMembers(Set employees);
     
 }

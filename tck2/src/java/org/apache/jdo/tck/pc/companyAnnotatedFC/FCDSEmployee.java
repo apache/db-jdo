@@ -61,16 +61,16 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
     @Column(name="HRADVISOR")
     private FCDSEmployee         hradvisor;
     @Persistent(mappedBy="reviewers")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
     private transient Set reviewedProjects = new HashSet();
     @Persistent(mappedBy="members")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class)
     private transient Set projects = new HashSet();
     @Persistent(mappedBy="manager")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
     private transient Set team = new HashSet();
     @Persistent(mappedBy="hradvisor")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
     private transient Set hradvisees = new HashSet();
 
 

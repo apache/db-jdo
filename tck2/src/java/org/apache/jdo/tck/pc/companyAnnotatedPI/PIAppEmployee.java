@@ -43,11 +43,11 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
     double getWeeklyhours();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="reviewers")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
     Set getReviewedProjects();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="members")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
     Set getProjects();
     @Persistent(mappedBy="employee")
     IDentalInsurance getDentalInsurance();
@@ -61,7 +61,7 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
     IEmployee getManager();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="manager")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
     IEmployee getMentor();
@@ -70,7 +70,7 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT)
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getHradvisees();
     
     void setHiredate(Date hiredate);

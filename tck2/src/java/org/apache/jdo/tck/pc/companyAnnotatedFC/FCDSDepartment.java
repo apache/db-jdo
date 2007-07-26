@@ -57,9 +57,9 @@ public class FCDSDepartment
     @Column(name="EMP_OF_THE_MONTH")
     private FCDSEmployee employeeOfTheMonth;
     @Persistent(mappedBy="department")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
     private transient Set employees = new HashSet();
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class)
     @Persistent(mappedBy="fundingDept")
     private transient Set fundedEmps = new HashSet();
 

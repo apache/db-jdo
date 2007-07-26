@@ -73,8 +73,8 @@ public class FCDSPerson
     // to phone numbers specified as String
     @Persistent(table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(boundTypes=java.lang.String.class, column="TYPE")
-    @Value(boundTypes=java.lang.String.class, column="PHONENO")
+    @Key(types=java.lang.String.class, column="TYPE")
+    @Value(types=java.lang.String.class, column="PHONENO")
     private Map phoneNumbers = new HashMap();
     
     protected static SimpleDateFormat formatter =

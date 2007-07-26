@@ -66,7 +66,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
     private FCAppAddress     address;
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class)
     private transient Set departments = new HashSet();
 
     protected static SimpleDateFormat formatter =

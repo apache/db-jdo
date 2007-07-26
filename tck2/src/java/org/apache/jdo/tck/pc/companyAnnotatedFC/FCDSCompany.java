@@ -67,7 +67,7 @@ public class FCDSCompany
     private FCDSAddress     address;
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSDepartment.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSDepartment.class)
     private transient Set departments = new HashSet();
 
     protected static SimpleDateFormat formatter =

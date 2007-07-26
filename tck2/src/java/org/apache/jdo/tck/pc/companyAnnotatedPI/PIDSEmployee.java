@@ -40,10 +40,10 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     @Column(name="WEEKLYHOURS")
     double getWeeklyhours();
     @Persistent(mappedBy="reviewers")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
     Set getReviewedProjects();
     @Persistent(mappedBy="members")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
     Set getProjects();
     @Persistent(mappedBy="employee")
     IDentalInsurance getDentalInsurance();
@@ -56,7 +56,7 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     @Column(name="MANAGER")
     IEmployee getManager();
     @Persistent(mappedBy="manager")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getTeam();
     @Column(name="MENTOR")
     IEmployee getMentor();
@@ -65,7 +65,7 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
     @Persistent
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getHradvisees();
     
     void setHiredate(Date hiredate);

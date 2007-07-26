@@ -56,9 +56,9 @@ public class FCAppDepartment
     @Column(name="EMP_OF_THE_MONTH")
     private FCAppEmployee employeeOfTheMonth;
     @Persistent(mappedBy="department")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set employees = new HashSet();
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     @Persistent(mappedBy="fundingDept")
     private transient Set fundedEmps = new HashSet();
 

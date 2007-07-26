@@ -62,16 +62,16 @@ public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
     @Column(name="HRADVISOR")
     private FCAppEmployee         hradvisor;
     @Persistent(mappedBy="reviewers")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
     private transient Set reviewedProjects = new HashSet();
     @Persistent(mappedBy="members")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class)
     private transient Set projects = new HashSet();
     @Persistent(mappedBy="manager")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set team = new HashSet();
     @Persistent(mappedBy="hradvisor")
-    @Element(boundTypes=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class)
     private transient Set hradvisees = new HashSet();
 
     /** This is the JDO-required no-args constructor */
