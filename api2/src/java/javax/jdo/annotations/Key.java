@@ -39,7 +39,7 @@ public @interface Key
      * implementation supports multiple types.
      * @return the types of keys
      */
-    Class[] boundTypes() default {};
+    Class[] types() default {};
 
     /**
      * Whether the key is to be stored serialized (into a single column of a

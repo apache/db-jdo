@@ -145,14 +145,14 @@ public @interface Persistent
      */
     String loadFetchGroup() default "";
 
-    /** Bound types of the member. Used when the declared 
+    /** Types of the member. Used when the declared 
      * member type is a supertype of the actual type that is stored in the 
      * member. For example, the declared member type might be an interface type
      * that must contain an object of a concrete type when used
      * for persistence.
-     * @return the bound types
+     * @return the types
      */
-    Class[] boundTypes() default {};
+    Class[] types() default {};
 
     /** Name of the related member in the other class 
      * where this value is mapped (bidirectional relationship). 
