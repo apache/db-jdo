@@ -48,11 +48,16 @@ public @interface Key
      */
     String serialized() default "";
 
+    /** Whether this key is embedded. 
+     * @return whether this key is embedded
+     */
+    String embedded() default "";
+
     /**
      * The embedded mapping for the key.
      * @return the embedded mapping for the key
      */
-    Embedded[] embedded() default {};
+    Embedded[] embeddedMapping() default {};
 
     /**
      * Whether the key is dependent on the owner (and will be deleted 

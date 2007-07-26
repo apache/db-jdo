@@ -48,11 +48,16 @@ public @interface Element
      */
     String serialized() default "";
 
+    /** Whether this element is embedded. 
+     * @return whether this element is embedded
+     */
+    String embedded() default "";
+
     /**
      * The embedded mapping for the element.
      * @return the embedded mapping for the element
      */
-    Embedded[] embedded() default {};
+    Embedded[] embeddedMapping() default {};
 
     /**
      * Whether the element is dependent on the owner, and will be deleted 

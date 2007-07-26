@@ -47,11 +47,16 @@ public @interface Value
      */
     String serialized() default "";
 
+    /** Whether this value is embedded. 
+     * @return whether this value is embedded
+     */
+    String embedded() default "";
+
     /**
      * The embedded mapping for the value.
      * @return the embedded mapping for the value
      */
-    Embedded[] embedded() default {};
+    Embedded[] embeddedMapping() default {};
 
     /**
      * Whether the value is dependent on the owner (and will be deleted 
