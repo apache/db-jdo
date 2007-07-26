@@ -95,4 +95,10 @@ public @interface Column
      * @return the value to be inserted when this is an "unmapped" column
      */
     String insertValue() default "";
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+
 }

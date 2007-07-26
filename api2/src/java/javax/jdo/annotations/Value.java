@@ -135,4 +135,9 @@ public @interface Value
      */
     String foreignKey() default "";
 
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+
 }

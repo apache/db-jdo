@@ -55,4 +55,10 @@ public @interface Version
      * @return the column(s) making up the version
      */
     Column[] columns() default {};
+
+    /** Vendor extensions. 
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+
 }

@@ -100,4 +100,10 @@ public @interface Join
      * @return the name of the generated primary key constraint
      */
     String foreignKey() default "";
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+
 }
