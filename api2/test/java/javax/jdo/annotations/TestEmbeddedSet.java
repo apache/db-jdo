@@ -36,7 +36,7 @@ public abstract class TestEmbeddedSet {
     @Persistent (table="LINES", embeddedElement="true")
     @Join(column="OWNER_FK")
     @Element (
-        embedded=@Embedded(
+        embeddedMapping=@Embedded(
             members={
                 @Persistent(name="point1.x", column="POINT1_X"),
                 @Persistent(name="point1.y", column="POINT2_Y"),
@@ -48,7 +48,7 @@ public abstract class TestEmbeddedSet {
     @Persistent (embeddedElement="true")
     @Join(column="OWNER_FK")
     @Element (
-        embedded=@Embedded(
+        embeddedMapping=@Embedded(
             members={
                 @Persistent(name="point1.x", column="POINT1_X"),
                 @Persistent(name="point1.y", column="POINT2_Y"),

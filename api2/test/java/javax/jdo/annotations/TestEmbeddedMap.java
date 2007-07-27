@@ -35,7 +35,7 @@ public abstract class TestEmbeddedMap {
     @Join(column="OWNER_FK")
     @Key(column="INTEGER")
     @Value(
-        embedded=@Embedded(
+        embeddedMapping=@Embedded(
             members={
                 @Persistent(name="point1.x", column="POINT1_X"),
                 @Persistent(name="point1.y", column="POINT2_Y"),
@@ -48,7 +48,7 @@ public abstract class TestEmbeddedMap {
     @Join(column="OWNER_FK")
     @Key(column="INTEGER")
     @Value(
-        embedded=@Embedded(
+        embeddedMapping=@Embedded(
             members={
                 @Persistent(name="point1.x", column="POINT1_X"),
                 @Persistent(name="point1.y", column="POINT2_Y"),
