@@ -51,6 +51,7 @@ public class FCDSProject
     private String     name;
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     private BigDecimal budget;
+    @Persistent(table="project_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
