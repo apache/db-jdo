@@ -137,6 +137,9 @@ has datastore identity.
 
         <interface name="PIDepartment"
             identity-type="datastore">
+            <property name="company"
+                   field-type="org.apache.jdo.tck.pc.company.PICompany"
+                   persistence-modifier="persistent"/>
             <property name="employees" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
             </property>
@@ -147,6 +150,30 @@ has datastore identity.
 
         <interface name="PIEmployee"
             identity-type="datastore">
+            <property name="dentalInsurance"
+                   field-type="org.apache.jdo.tck.pc.company.PIDentalInsurance"
+                   persistence-modifier="persistent"/>
+            <property name="medicalInsurance"
+                   field-type="org.apache.jdo.tck.pc.company.PIMedicalInsurance"
+                   persistence-modifier="persistent"/>
+            <property name="department"
+                   field-type="org.apache.jdo.tck.pc.company.PIDepartment"
+                   persistence-modifier="persistent"/>
+            <property name="fundingDept"
+                   field-type="org.apache.jdo.tck.pc.company.PIDepartment"
+                   persistence-modifier="persistent"/>
+            <property name="manager"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="mentor"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="protege"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="hradvisor"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
             <property name="reviewedProjects" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
             </property>
@@ -166,6 +193,7 @@ has datastore identity.
 
         <interface name="PIInsurance"
             identity-type="datastore">
+            <property name="employee" field-type="org.apache.jdo.tck.pc.company.PIEmployee" persistence-modifier="persistent"/>
         </interface>
 
         <interface name="PIMedicalInsurance"
