@@ -219,7 +219,7 @@ public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
      * Get the dental insurance of the employee.
      * @return The employee's dental insurance.
      */
-    public FCDSDentalInsurance getDentalInsurance() {
+    public IDentalInsurance getDentalInsurance() {
         return dentalInsurance;
     }
 
