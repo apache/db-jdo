@@ -128,7 +128,7 @@ has datastore identity.
                    field-type="org.apache.jdo.tck.pc.company.PIAddress"
                    persistence-modifier="persistent"/>
             <property name="departments" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IDepartment"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIDepartment"/>
             </property>
         </interface>
 
@@ -141,10 +141,10 @@ has datastore identity.
                    field-type="org.apache.jdo.tck.pc.company.PICompany"
                    persistence-modifier="persistent"/>
             <property name="employees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="fundedEmps" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
 
@@ -181,10 +181,10 @@ has datastore identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
             </property>
             <property name="team" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="hradvisees" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
 
@@ -246,10 +246,10 @@ has datastore identity.
         <interface name="PIProject"
             identity-type="datastore">
             <property name="reviewers" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
             <property name="members" persistence-modifier="persistent">
-                <collection element-type="org.apache.jdo.tck.pc.company.IEmployee"/>
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
             </property>
         </interface>
 
