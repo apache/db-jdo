@@ -22,8 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO extension.
- * Maps across to the JDO2 element "extension".
+ * Annotation for a JDO vendor extension.
+ * Corresponds to the xml element "extension".
  * 
  * @version 2.1
  * @since 2.1

@@ -22,8 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the member is not persistent.
- * This maps to xml attribute persistence-modifier="none".
+ * Annotation to specify that the member is not persistent. If used, this is
+ * the only JDO annotation allowed on a member.
+ * This corresponds to the xml attribute persistence-modifier="none" of the
+ * "field" and "property" elements.
  * @version 2.1
  * @since 2.1
  */

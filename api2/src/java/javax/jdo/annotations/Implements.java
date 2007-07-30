@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the interfaces implemented by a class.
- * Maps across to the JDO2 element "implements".
+ * Corresponds to the xml element "implements".
  * 
  * @version 2.1
  * @since 2.1

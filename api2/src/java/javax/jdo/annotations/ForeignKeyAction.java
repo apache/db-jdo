@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 foreign-key delete/update action values.
+ * Enumeration of the foreign-key delete/update action values.
  * 
  * @version 2.1
  * @since 2.1

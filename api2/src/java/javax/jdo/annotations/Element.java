@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the element of a collection/array relation.
- * Maps to the xml element "element".
+ * Corresponds to the xml element "element".
  * 
  * @version 2.1
  * @since 2.1

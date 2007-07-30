@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 sequence strategy values.
+ * Enumeration of the sequence strategy values.
  * 
  * @version 2.1
  * @since 2.1

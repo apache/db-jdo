@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the key of a map relation.
- * Maps to the xml element "key".
+ * Corresponds to the xml element "key".
  * 
  * @version 2.1
  * @since 2.1

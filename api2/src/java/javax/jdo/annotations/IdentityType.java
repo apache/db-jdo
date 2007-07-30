@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 identity type values.
+ * Enumeration of the identity type values.
  * 
  * @version 2.1
  * @since 2.1

@@ -24,7 +24,8 @@ import java.lang.annotation.Target;
 /**
  * Annotation to indicate that a member (field or property)
  * is transactional but not persistent.
- * This maps to xml attribute persistence-modifier="transactional".
+ * This corresponds to xml attribute persistence-modifier="transactional" of
+ * "field" and "property" elements.
  * @version 2.1
  * @since 2.1
  */

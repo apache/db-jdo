@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the datastore identity of the class.
- * Maps across to the JDO2 element "datastore-identity" of the "class" element.
+ * Corresponds to the xml element "datastore-identity" of the "class" element.
  * 
  * @version 2.1
  * @since 2.1

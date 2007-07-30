@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 inheritance strategy values.
+ * Enumeration of the inheritance strategy values.
  * 
  * @version 2.1
  * @since 2.1

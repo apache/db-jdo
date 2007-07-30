@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 query languages.
+ * Enumeration of the query language.
  * 
  * @version 2.1
  * @since 2.1
@@ -26,5 +26,4 @@ public enum QueryLanguage
 {
     JDOQL,
     SQL
-    // Allow for implementations own languages ... e.g add CUSTOM as an option
 };

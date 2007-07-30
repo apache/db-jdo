@@ -17,7 +17,9 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 persistence-modifier values for a field.
+ * Enumeration of the persistence-modifier values for a field or property.
+ * This corresponds to the "persistence-modifier" attribute of the
+ * "field" and "property" elements.
  * 
  * @version 2.1
  * @since 2.1

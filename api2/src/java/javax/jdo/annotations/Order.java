@@ -22,8 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the order of a container member.
- * Maps to the xml element "order".
+ * Annotation for the ordering component of an ordered container member, 
+ * such as Java Collections Framework Array and List types and Java native
+ * array types.
+ * Corresponds to the xml element "order".
  * 
  * @version 2.1
  * @since 2.1
@@ -32,14 +34,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Order
 {
-    /** The name of the column to use for the ordering column (1-N and M-N
-     * relations).
+    /** The name of the column to use for ordering the elements of the member.
      * @return the name of the ordering column
      */
     String column() default "";
 
     /** Name of a field or property in the target class that acts as the 
-     * ordering field or property for this Collection/List/Array.
+     * ordering field or property for this member.
      * Return the name of the field or property in the target class
      */
     String mappedBy() default "";

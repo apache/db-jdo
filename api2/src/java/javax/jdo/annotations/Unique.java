@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * Annotation for a database unique constraint. Used for database schema
  * generation to create unique constraints. Also used to reorder database
  * operations when flushing changes to avoid unique constraint violations.
- * Maps across to the JDO2 element "unique".
+ * Corresponds to the xml element "unique".
  *
  * @version 2.1
  * @since 2.1
@@ -40,8 +40,8 @@ public @interface Unique
     String name() default "";
 
     /** Table for the unique constraint. This is needed iff annotating a type 
-     * where the unique constraint is not defined on the primary table for 
-     * the type.
+     * where this unique constraint is not for the primary table for 
+     * the persistent class or interface.
      * @return the table on which the unique constraint is defined
      */
     String table() default "";

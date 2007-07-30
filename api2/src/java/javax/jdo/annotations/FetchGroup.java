@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the fetch group of a class.
- * Maps to the xml element "fetch-group".
+ * Corresponds to the xml element "fetch-group".
  * 
  * @version 2.1
  * @since 2.1

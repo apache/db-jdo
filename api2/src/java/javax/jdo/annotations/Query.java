@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a named query.
- * Maps across to the JDO2 element "query".
+ * Corresponds to the xml element "query".
  * 
  * @version 2.1
  * @since 2.1
@@ -57,7 +57,7 @@ public @interface Query
      */
     String unique() default "";
 
-    /** Result class to put the results into
+    /** Result class into which to put the results.
      * @return the class of the result
      */
     Class resultClass() default void.class;

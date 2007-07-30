@@ -23,7 +23,10 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation on a member (field or property) to indicate that
- * the member is stored serialized.
+ * the member is stored serialized. Such a member cannot be queried using
+ * JDOQL.
+ * Corresponds to xml attribute "serialized" in "field" and "property" 
+ * elements.
  * This is the same as specifying @Persistent(serialized="true").
  * 
  * @version 2.1

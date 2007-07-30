@@ -23,7 +23,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the inheritance of the class.
- * Maps across to the JDO2 element "inheritance" of the "class" element.
+ * Corresponds to the xml element "inheritance" of the "class"
+ * and "interface" elements.
  * 
  * @version 2.1
  * @since 2.1
@@ -32,8 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Inheritance
 {
-    /** Strategy to use for inheritance. Specifies where the data for
-     * the class is stored.
+    /** Strategy to use for inheritance. Specifies in which table(s)
+     * the members for the class are stored. 
      * @return the inheritance strategy
      */
     InheritanceStrategy strategy();

@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 discriminator strategy values.
+ * Enumeration of the discriminator strategy values.
  * 
  * @version 2.1
  * @since 2.1

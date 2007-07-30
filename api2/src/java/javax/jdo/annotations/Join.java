@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the join of a relation.
- * Maps to the xml element "join".
+ * Corresponds to the xml element "join".
  * 
  * @version 2.1
  * @since 2.1

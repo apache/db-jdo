@@ -22,7 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for defining the persistence of a member (field or property).
+ * Annotation for defining the persistence of a member.
+ * This corresponds to the xml elements "field" and "property". 
  * 
  * @version 2.1
  * @since 2.1

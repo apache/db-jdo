@@ -22,8 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for whether the class is persistence-aware.
- * 
+ * Annotation to specify that the class is persistence-aware. If used, this is
+ * the only JDO annotation allowed on the class.
+ * This corresponds to the xml attribute 
+ * persistence-modifier="persistence-aware" of the "class" element.
  * @version 2.1
  * @since 2.1
  */

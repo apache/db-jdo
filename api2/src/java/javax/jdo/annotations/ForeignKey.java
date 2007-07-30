@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a database foreign-key.
- * Maps to the xml element "foreign-key".
+ * Corresponds to the xml element "foreign-key".
  *
  * @version 2.1
  * @since 2.1

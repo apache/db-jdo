@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a column in the database.
- * Maps to the xml element "column".
+ * Corresponds to the xml element "column".
  * 
  * @version 2.1
  * @since 2.1

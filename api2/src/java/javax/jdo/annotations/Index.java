@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation for a database index. Used for database schema
  * generation to create indexes.
- * Maps to the xml element "index".
+ * Corresponds to the xml element "index".
  *
  * @version 2.1
  * @since 2.1

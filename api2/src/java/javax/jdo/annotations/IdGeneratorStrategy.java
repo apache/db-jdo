@@ -17,7 +17,7 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 id generator strategy values.
+ * Enumeration of the id generator strategy values.
  * 
  * @version 2.1
  * @since 2.1

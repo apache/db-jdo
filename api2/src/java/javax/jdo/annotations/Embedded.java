@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation to define that the object is embedded into the table of the 
  * owning object.
- * Maps to the xml element "embedded".
+ * Corresponds to the xml element "embedded".
  * 
  * @version 2.1
  * @since 2.1

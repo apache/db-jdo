@@ -23,7 +23,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the versioning of the class.
- * Maps across to the JDO2 element "version" of the "class" element.
+ * Corresponds to the xml element "version" of the "class" and "property" 
+ * elements.
  * 
  * @version 2.1
  * @since 2.1

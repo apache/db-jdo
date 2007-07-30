@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the discriminator of the class.
- * Maps across to the JDO2 element "discriminator" of the "inheritance" element.
+ * Corresponds to the xml element "discriminator" of the "inheritance" element.
  * 
  * @version 2.1
  * @since 2.1
@@ -33,9 +33,9 @@ import java.lang.annotation.Target;
 public @interface Discriminator
 {
     /**
-     * Strategy to use for discriminator. The discriminator determines
+     * Strategy to use for the discriminator. The discriminator determines
      * the class associated with a row in the datastore.
-     * @return the strategy to use for discriminator
+     * @return the strategy to use for the discriminator
      */
     DiscriminatorStrategy strategy() 
         default DiscriminatorStrategy.UNKNOWN;

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * Annotation on a member to define it as a primary key member of a class or
  * persistent interface using application identity. 
  * Also used to define the primary key columns of a secondary table.
- * Maps to the xml element "primary-key".
+ * Corresponds to the xml element "primary-key".
  * 
  * @version 2.1
  * @since 2.1

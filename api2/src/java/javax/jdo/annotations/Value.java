@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for the value of a map relation.
- * Maps across to the JDO2 element "value".
+ * Corresponds to the xml element "value".
  * 
  * @version 2.1
  * @since 2.1

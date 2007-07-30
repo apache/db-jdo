@@ -17,8 +17,10 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the JDO2 "null-value" behavior values.
- * 
+ * Enumeration of the "null-value" behavior values.
+ * This corresponds to the "null-value" attribute of the "field"
+ * and "property" elements.
+ *
  * @version 2.1
  * @since 2.1
  */
