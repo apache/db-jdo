@@ -49,27 +49,32 @@ public interface PIAppEmployee extends PIAppPerson, IPerson {
             mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppProject.class)
     Set getProjects();
-    @Persistent(mappedBy="employee")
+    @Persistent(mappedBy="employee", types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDentalInsurance.class)
     IDentalInsurance getDentalInsurance();
-    @Persistent(mappedBy="employee")
+    @Persistent(mappedBy="employee", types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppMedicalInsurance.class)
     IMedicalInsurance getMedicalInsurance();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
     @Column(name="DEPARTMENT")
     IDepartment getDepartment();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
     @Column(name="FUNDINGDEPT")
     IDepartment getFundingDept();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     @Column(name="MANAGER")
     IEmployee getManager();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getTeam();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     @Column(name="MENTOR")
     IEmployee getMentor();
-    @Persistent(mappedBy="mentor")
+    @Persistent(mappedBy="mentor", types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     IEmployee getProtege();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
-    @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT)
+    @Persistent(mappedBy="hradvisor", persistenceModifier=PersistenceModifier.PERSISTENT)
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     Set getHradvisees();
     

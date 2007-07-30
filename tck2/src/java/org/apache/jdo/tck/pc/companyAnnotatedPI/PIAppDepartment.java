@@ -42,8 +42,10 @@ public interface PIAppDepartment extends IDepartment {
     long getDeptid();
     @Column(name="NAME")
     String getName();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppCompany.class)
     @Column(name="COMPANYID")
     ICompany getCompany();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     @Column(name="EMP_OF_THE_MONTH")
     IEmployee getEmployeeOfTheMonth();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT, 

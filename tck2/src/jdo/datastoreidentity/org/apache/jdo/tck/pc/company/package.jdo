@@ -137,6 +137,9 @@ has datastore identity.
 
         <interface name="PIDepartment"
             identity-type="datastore">
+            <property name="employeeOfTheMonth"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
             <property name="company"
                    field-type="org.apache.jdo.tck.pc.company.PICompany"
                    persistence-modifier="persistent"/>

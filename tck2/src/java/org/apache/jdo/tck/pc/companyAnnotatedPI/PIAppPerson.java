@@ -63,8 +63,8 @@ public interface PIAppPerson extends IPerson {
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(types=java.lang.String.class)
-    @Value(types=java.lang.String.class)
+    @Key(types=java.lang.String.class, column="TYPE")
+    @Value(types=java.lang.String.class, column="PHONENO")
     Map getPhoneNumbers();
     
     void setPersonid(long personid);

@@ -41,6 +41,7 @@ import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
     long getInsid();
     @Column(name="CARRIER")
     String getCarrier();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     @Column(name="EMPLOYEE")
     IEmployee getEmployee();
 

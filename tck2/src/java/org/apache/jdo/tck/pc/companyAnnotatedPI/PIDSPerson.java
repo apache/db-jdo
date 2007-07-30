@@ -47,7 +47,7 @@ public interface PIDSPerson extends IPerson {
     @Persistent(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     String getMiddlename();
-    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
         members={
             @Persistent(name="addrid", columns=@Column(name="ADDRID")),
@@ -61,8 +61,8 @@ public interface PIDSPerson extends IPerson {
     Date getBirthdate();
     @Persistent(table="employee_phoneno_type")
     @Join(column="EMPID")
-    @Key(types=java.lang.String.class)
-    @Value(types=java.lang.String.class)
+    @Key(types=java.lang.String.class, column="TYPE")
+    @Value(types=java.lang.String.class, column="PHONENO")
     Map getPhoneNumbers();
     
     void setPersonid(long personid);

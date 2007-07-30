@@ -50,7 +50,7 @@ public interface PIAppCompany extends ICompany {
     @PrimaryKey
     @Column(name="ID")
     long getCompanyid();
-    @Persistent
+    @Persistent(mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
     Set getDepartments();
     @Column(name="FOUNDEDDATE")

@@ -42,8 +42,10 @@ public interface PIDSDepartment extends IDepartment {
     long getDeptid();
     @Column(name="NAME")
     String getName();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSCompany.class)
     @Column(name="COMPANYID")
     ICompany getCompany();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="EMP_OF_THE_MONTH")
     IEmployee getEmployeeOfTheMonth();
     @Persistent(mappedBy="department")

@@ -45,26 +45,31 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     @Persistent(mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
     Set getProjects();
-    @Persistent(mappedBy="employee")
+    @Persistent(mappedBy="employee",types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSDentalInsurance.class)
     IDentalInsurance getDentalInsurance();
-    @Persistent(mappedBy="employee")
+    @Persistent(mappedBy="employee",types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSMedicalInsurance.class)
     IMedicalInsurance getMedicalInsurance();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSDepartment.class)
     @Column(name="DEPARTMENT")
     IDepartment getDepartment();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSDepartment.class)
     @Column(name="FUNDINGDEPT")
     IDepartment getFundingDept();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="MANAGER")
     IEmployee getManager();
     @Persistent(mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getTeam();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="MENTOR")
     IEmployee getMentor();
-    @Persistent(mappedBy="mentor")
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class, mappedBy="mentor")
     IEmployee getProtege();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="HRADVISOR")
     IEmployee getHradvisor();
-    @Persistent
+    @Persistent(mappedBy="hradvisor")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     Set getHradvisees();
     

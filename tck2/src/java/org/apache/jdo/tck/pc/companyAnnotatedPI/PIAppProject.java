@@ -44,26 +44,18 @@ public interface PIAppProject extends IProject {
     BigDecimal getBudget();
     @Persistent(table="project_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
-            column="REVIEWER")
-    @Join(column="PROJID")
-    //@Join(column="PROJID", foreignKey=@ForeignKey(name="PR_PROJ_FK"))
+            column="REVIEWER", foreignKey="PR_REV_FK")
+    @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     Set getReviewers();
     @Persistent(table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
-            column="MEMBER")
-    //@Element(types=org.apache.jdo.tck.pc.companyAnnotatedApp.FCAppEmployee.class,
-    //    foreignKey=@ForeignKey(name="PR_REV_FK"))
-    @Join(column="PROJID")
+            column="MEMBER", foreignKey="PM_MEMB_FK")
+    @Join(column="PROJID", foreignKey="PM_PROJ_FK")
     Set getMembers();
     
     void setProjid(long projid);
     void setName(String name);
     void setBudget(BigDecimal budget);
-    @Persistent
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setReviewers(Set reviewers);
-    @Persistent
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class)
     void setMembers(Set employees);
-    
 }

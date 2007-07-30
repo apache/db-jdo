@@ -42,15 +42,15 @@ public interface PIDSProject extends IProject {
     String getName();
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
-    @Persistent
+    @Persistent(table="project_reviewer")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
-    @Join(column="PROJID", table="proj_reviewer", foreignKey="PR_PROJ_FK")
+    @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     Set getReviewers();
-    @Persistent
+    @Persistent(table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class,
             column="MEMBER", foreignKey="PM_MEMB_FK")
-    @Join(column="PROJID", table="proj_member", foreignKey="PM_PROJ_FK")
+    @Join(column="PROJID", foreignKey="PM_PROJ_FK")
     Set getMembers();
     
     void setProjid(long projid);

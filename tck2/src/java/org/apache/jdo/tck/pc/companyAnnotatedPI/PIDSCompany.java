@@ -38,7 +38,7 @@ import org.apache.jdo.tck.pc.company.ICompany;
         column="DATASTORE_IDENTITY")
 public interface PIDSCompany extends ICompany {
     
-    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppAddress.class)
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSAddress.class)
     @Embedded(nullIndicatorColumn="COUNTRY",
         members={
             @Persistent(name="addrid", columns=@Column(name="ADDRID")),
@@ -51,7 +51,7 @@ public interface PIDSCompany extends ICompany {
     IAddress getAddress();
     @Column(name="ID")
     long getCompanyid();
-    @Persistent
+    @Persistent(mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSDepartment.class)
     Set getDepartments();
     @Column(name="FOUNDEDDATE")

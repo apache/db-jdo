@@ -41,6 +41,7 @@ public interface PIDSInsurance extends IInsurance {
     long getInsid();
     @Column(name="CARRIER")
     String getCarrier();
+    @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="EMPLOYEE")
     IEmployee getEmployee();
 
