@@ -30,9 +30,9 @@ public class CompanyFactoryPMInterface
     
     /** */
     public static final Class[] tearDownClasses = new Class[] {
-        IDentalInsurance.class, IMedicalInsurance.class,
-        IPartTimeEmployee.class, IFullTimeEmployee.class,  
-        IProject.class, IDepartment.class, ICompany.class
+        PIDentalInsurance.class, PIMedicalInsurance.class,
+        PIPartTimeEmployee.class, PIFullTimeEmployee.class,  
+        PIProject.class, PIDepartment.class, PICompany.class
     };
 
     /**
