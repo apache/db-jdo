@@ -32,9 +32,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Implements
 {
-    /** Interfaces implemented by this PersistenceCapable (class names 
-     * of the interfaces).
-     * @return the names of interfaces implemented by the class
+    /** Interfaces implemented by this PersistenceCapable.
+     * @return the interfaces implemented by the class
      */
-    String[] value();
+    Class[] value();
 }

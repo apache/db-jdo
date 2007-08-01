@@ -45,7 +45,7 @@ public @interface Query
     /** The query language
      * @return the query language
      */
-    QueryLanguage language() default QueryLanguage.JDOQL;
+    String language() default "JDOQL";
 
     /** Whether the query is unmodifiable.
      * @return whether the query is unmodifiable
@@ -61,4 +61,10 @@ public @interface Query
      * @return the class of the result
      */
     Class resultClass() default void.class;
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+
 }
