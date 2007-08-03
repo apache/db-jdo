@@ -703,7 +703,7 @@ public interface Constants {
      *
      * @since 2.1
      */
-    static String PROPERTY_SERVER_TIMEZONE_ID
+    static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
 
     /**

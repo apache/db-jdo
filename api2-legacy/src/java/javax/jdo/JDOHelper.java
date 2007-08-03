@@ -155,8 +155,8 @@ public class JDOHelper extends Object implements Constants {
             PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT,
             PROPERTY_DETACH_ALL_ON_COMMIT);
         xref.put(
-                PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
-            PROPERTY_SERVER_TIMEZONE_ID);
+            PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
+            PROPERTY_SERVER_TIME_ZONE_ID);
 
         return Collections.unmodifiableMap(xref);
     }
@@ -932,11 +932,10 @@ public class JDOHelper extends Object implements Constants {
      * with the given name, or any other is encountered.
      * @since 2.1
      */
-    public static PersistenceManagerFactory getPersistenceUnit(
+    private static PersistenceManagerFactory getPersistenceUnit(
             String name,
             ClassLoader resourceLoader,
-            ClassLoader pmfLoader
-    ) {
+            ClassLoader pmfLoader) {
         Map properties = getPersistenceUnitProperties(
                 name, resourceLoader, JDOCONFIG_RESOURCE_NAME);
 
