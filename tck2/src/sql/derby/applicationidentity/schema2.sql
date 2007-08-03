@@ -198,6 +198,6 @@ ALTER TABLE project_reviewer
 
 ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
-        (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees(PERSONID);
+        (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees(PERSONID) ON DELETE SET NULL;
 
 disconnect;

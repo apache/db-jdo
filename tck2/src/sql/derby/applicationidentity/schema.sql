@@ -329,7 +329,7 @@ ALTER TABLE project_reviewer
 
 ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
-        (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID);
+        (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID) ON DELETE SET NULL;
 
 -------------------------
 --fieldtypes

@@ -45,6 +45,7 @@
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
         <property name="company"><ref bean="company1"/></property>
+        <property name="employeeOfTheMonth"><ref bean="emp1"/></property>
         <property name="employees">
             <set>
                 <ref local="emp1"/>

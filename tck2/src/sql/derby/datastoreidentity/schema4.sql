@@ -170,6 +170,6 @@ ALTER TABLE project_member
 
 ALTER TABLE departments 
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
-        (EMP_OF_THE_MONTH) REFERENCES persons;
+        (EMP_OF_THE_MONTH) REFERENCES persons ON DELETE SET NULL;
 
 disconnect;
