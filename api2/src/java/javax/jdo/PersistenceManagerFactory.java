@@ -22,14 +22,11 @@
  
 package javax.jdo;
 
-import java.util.Properties;
-import java.util.Collection;
-
-import java.io.Serializable;
-
 import javax.jdo.datastore.DataStoreCache;
-
 import javax.jdo.listener.InstanceLifecycleListener;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Properties;
 
 /** The <code>PersistenceManagerFactory</code> is the interface to use to obtain
  * <code>PersistenceManager</code> instances.  
@@ -359,6 +356,19 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void setDetachAllOnCommit(boolean flag);
 
+    /**
+     * Sets the name of this PersistenceManagerFactory.
+     * @since 2.1
+     * @param name the name of this PMF
+     */
+    void setName(String name);
+
+    /**
+     * Gets the name of this PersistenceManagerFactory.
+     * @since 2.1
+     * @return the name of this PMF
+     */
+    String getName();
 
     /**
      * Sets the PersistenceUnitName for this PersistenceManagerFactory.

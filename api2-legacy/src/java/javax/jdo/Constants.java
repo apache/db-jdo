@@ -98,6 +98,14 @@ public interface Constants {
         = "class";
     /**
      * The name of the persistence manager factory element's
+     * "name" attribute.
+     *
+     * @since 2.1
+     */
+    static String PMF_ATTRIBUTE_NAME
+        = "name";
+    /**
+     * The name of the persistence manager factory element's
      * "persistence-unit-name" attribute.
      *
      * @since 2.1
@@ -649,6 +657,14 @@ public interface Constants {
      */
     static String PROPERTY_PERSISTENCE_UNIT_NAME
         = "javax.jdo.option.PersistenceUnitName";
+    /**
+     * "javax.jdo.option.Name"
+     *
+     * @see PersistenceManagerFactory#getName()
+     * @since 2.1
+     */
+    static String PROPERTY_NAME
+        = "javax.jdo.option.Name";
 
     /**
      * "javax.jdo.option.InstanceLifecycleListener"
@@ -703,7 +719,7 @@ public interface Constants {
      *
      * @since 2.1
      */
-    static String PROPERTY_SERVER_TIME_ZONE_ID
+        static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
 
     /**

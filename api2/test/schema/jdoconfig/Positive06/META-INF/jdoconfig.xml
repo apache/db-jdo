@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Do not change any values in this file without also making changes to
+    JDOHelperConfigTest.java, as that file depends on the values in this one!
+-->
+<jdoconfig
+    xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
+
+    <!--
+        Basic anonymous PMF config using attributes & listeners with no nonstandard
+        properties.
+    -->
+    <persistence-manager-factory
+        class="class.positive06.pmf0"
+        connection-driver-name="connection-driver-name.positive06.pmf0"
+        connection-factory-name="connection-factory-name.positive06.pmf0"
+        connection-factory2-name="connection-factory2-name.positive06.pmf0"
+        connection-password="connection-password.positive06.pmf0"
+        connection-url="connection-url.positive06.pmf0"
+        connection-user-name="connection-user-name.positive06.pmf0"
+        ignore-cache="ignore-cache.positive06.pmf0"
+        mapping="mapping.positive06.pmf0"
+        multithreaded="multithreaded.positive06.pmf0"
+        nontransactional-read="nontransactional-read.positive06.pmf0"
+        nontransactional-write="nontransactional-write.positive06.pmf0"
+        optimistic="optimistic.positive06.pmf0"
+        restore-values="restore-values.positive06.pmf0"
+        retain-values="retain-values.positive06.pmf0"
+        detach-all-on-commit="detach-all-on-commit.positive06.pmf0"
+        server-time-zone-id="server-time-zone-id.positive06.pmf0">
+
+        <instance-lifecycle-listener
+            listener="listener.positive06.pmf0.listener0"
+            classes="classes.positive06.pmf0.classes0"
+            />
+        <instance-lifecycle-listener
+            listener="listener.positive06.pmf0.listener1"
+            classes="classes.positive06.pmf0.classes1"
+            />
+    </persistence-manager-factory>
+</jdoconfig>

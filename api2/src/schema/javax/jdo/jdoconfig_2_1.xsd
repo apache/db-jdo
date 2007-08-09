@@ -119,7 +119,9 @@
 
         <!-- Corresponds to standard JDO property javax.jdo.PersistenceManagerFactoryClass. -->
         <xs:attribute name="class" use="optional"/>
-        <!-- Corresponds to standard JDO property javax.jdo.option.PersistenceUnitName.  The absence of this attributes implies the anonymous persistence unit. -->
+        <!-- Corresponds to standard JDO property javax.jdo.option.Name.  The absence of this attribute implies the anonymous PMF. -->
+        <xs:attribute name="name" use="optional"/>
+        <!-- Corresponds to standard JDO property javax.jdo.option.PersistenceUnitName. -->
         <xs:attribute name="persistence-unit-name" use="optional"/>
         <!-- Corresponds to standard JDO property javax.jdo.option.Optimistic. -->
         <xs:attribute name="optimistic" use="optional"/>

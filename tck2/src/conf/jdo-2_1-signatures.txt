@@ -15,6 +15,8 @@ public interface javax.jdo.Constants {
         = "persistence-manager-factory";
     static String PMF_ATTRIBUTE_CLASS
         = "class";
+    static String PMF_ATTRIBUTE_NAME
+        = "name";
     static String PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME
         = "persistence-unit-name";
     static String PMF_ATTRIBUTE_OPTIMISTIC
@@ -153,6 +155,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.ConnectionFactory2Name";
     static String PROPERTY_MAPPING
         = "javax.jdo.option.Mapping";
+    static String PROPERTY_NAME
+        = "javax.jdo.option.Name";
     static String PROPERTY_PERSISTENCE_UNIT_NAME
         = "javax.jdo.option.PersistenceUnitName";
     static String PROPERTY_INSTANCE_LIFECYCLE_LISTENER
@@ -450,6 +454,7 @@ public class javax.jdo.JDOHelper implements javax.jdo.Constants {
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader cl);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader resourceLoader, ClassLoader pmfLoader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader loader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader propsLoader, ClassLoader pmfLoader);
@@ -720,6 +725,8 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public boolean getIgnoreCache();
     public boolean getDetachAllOnCommit();
     public void setDetachAllOnCommit(boolean flag);
+    public java.lang.String getName();
+    public void setName(java.lang.String);
     public java.lang.String getPersistenceUnitName();
     public void setPersistenceUnitName(java.lang.String);
     public java.lang.String getServerTimeZoneID();
