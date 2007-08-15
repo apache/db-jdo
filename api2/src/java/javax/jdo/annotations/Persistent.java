@@ -43,7 +43,7 @@ public @interface Persistent
      * @return the persistence modifier
      */
     PersistenceModifier persistenceModifier() 
-        default PersistenceModifier.UNKNOWN;
+        default PersistenceModifier.UNSPECIFIED;
 
     /** Table to use for persisting this member.
      * @return the table to use for persisting this member
@@ -133,7 +133,14 @@ public @interface Persistent
      * or property (if any).
      * @return the generated value strategy
      */
-    IdGeneratorStrategy valueStrategy() default IdGeneratorStrategy.UNKNOWN;
+    IdGeneratorStrategy valueStrategy() default IdGeneratorStrategy.UNSPECIFIED;
+
+    /** Custom value strategy to use to generate the value for this field 
+     * or property (if any). If customValueStrategy is non-empty, then
+     * valueStrategy must be UNSPECIFIED.
+     * @return the custom value strategy
+     */
+    String customValueStrategy() default "";
 
     /** Name of the sequence to use with particular value strategies. 
      * @return the name of the sequence

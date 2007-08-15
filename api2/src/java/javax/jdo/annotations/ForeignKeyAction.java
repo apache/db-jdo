@@ -24,7 +24,7 @@ package javax.jdo.annotations;
  */
 public enum ForeignKeyAction
 {
-    UNKNOWN,
+    UNSPECIFIED,
     RESTRICT,
     CASCADE,
     NULL,

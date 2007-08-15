@@ -26,7 +26,7 @@ package javax.jdo.annotations;
  */
 public enum PersistenceModifier
 {
-    UNKNOWN,
+    UNSPECIFIED,
     PERSISTENT,
     TRANSACTIONAL,
     NONE

@@ -37,5 +37,11 @@ public @interface Inheritance
      * the members for the class are stored. 
      * @return the inheritance strategy
      */
-    InheritanceStrategy strategy();
+    InheritanceStrategy strategy() default InheritanceStrategy.UNSPECIFIED;
+
+    /** Custom inheritance strategy. If customStrategy is non-empty, then
+     * strategy must be UNSPECIFIED.
+     * @return the custom inheritance strategy
+     */
+    String customStrategy() default "";
 }

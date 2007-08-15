@@ -82,13 +82,13 @@ public @interface Key
      * Delete action to apply to the foreign key for the key.
      * @return delete action to apply to the foreign key for the key
      */
-    ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
+    ForeignKeyAction deleteAction() default ForeignKeyAction.UNSPECIFIED;
 
     /**
      * Update action to apply to the foreign key for the key.
      * @return update action to apply to the foreign key for the key
      */
-    ForeignKeyAction updateAction() default ForeignKeyAction.UNKNOWN;
+    ForeignKeyAction updateAction() default ForeignKeyAction.UNSPECIFIED;
 
     /**
      * Whether the value column(s) should be indexed.
@@ -127,12 +127,12 @@ public @interface Key
 
     /** Generate or assume a foreign key constraint exists on the column
      * or columns associated with this join. Specify "true" or "false".
-     * @return whether to generate or assume a primary key constraint
+     * @return whether to generate or assume a foreign key constraint
      */
     String generateForeignKey() default "";
 
-    /** Name for a generated primary key constraint.
-     * @return the name of the generated primary key constraint
+    /** Name for a generated foreign key constraint.
+     * @return the name of the generated foreign key constraint
      */
     String foreignKey() default "";
 

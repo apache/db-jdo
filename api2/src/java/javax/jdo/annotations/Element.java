@@ -83,13 +83,13 @@ public @interface Element
      * Delete action to apply to any foreign key for the element.
      * @return delete action to apply to any foreign key for the element
      */
-    ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
+    ForeignKeyAction deleteAction() default ForeignKeyAction.UNSPECIFIED;
 
     /**
      * Update action to apply to any foreign key for the element
      * @return update action to apply to any foreign key for the element
      */
-    ForeignKeyAction updateAction() default ForeignKeyAction.UNKNOWN;
+    ForeignKeyAction updateAction() default ForeignKeyAction.UNSPECIFIED;
 
     /**
      * Whether the value column(s) should be indexed.

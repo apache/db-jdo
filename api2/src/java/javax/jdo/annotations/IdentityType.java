@@ -24,7 +24,7 @@ package javax.jdo.annotations;
  */
 public enum IdentityType
 {
-    UNKNOWN,
+    UNSPECIFIED,
     APPLICATION,
     DATASTORE,
     NONDURABLE

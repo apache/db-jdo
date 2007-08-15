@@ -38,7 +38,13 @@ public @interface Discriminator
      * @return the strategy to use for the discriminator
      */
     DiscriminatorStrategy strategy() 
-        default DiscriminatorStrategy.UNKNOWN;
+        default DiscriminatorStrategy.UNSPECIFIED;
+
+    /** Custom strategy to use for the discriminator. 
+     * If customStrategy is non-empty, then strategy must be UNSPECIFIED.
+     * @return the custom strategy
+     */
+    String customStrategy() default "";
 
     /**
      * Whether the discriminator is indexed.

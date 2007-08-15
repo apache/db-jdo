@@ -24,11 +24,11 @@ package javax.jdo.annotations;
  */
 public enum IdGeneratorStrategy
 {
-    UNKNOWN,
+    UNSPECIFIED,
     NATIVE,
     SEQUENCE,
     IDENTITY,
     INCREMENT,
     UUIDSTRING,
     UUIDHEX
-};
+}

@@ -24,7 +24,7 @@ package javax.jdo.annotations;
  */
 public enum DiscriminatorStrategy
 {
-    UNKNOWN,
+    UNSPECIFIED,
     NONE,
     VALUE_MAP,
     CLASS_NAME

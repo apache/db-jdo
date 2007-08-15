@@ -71,7 +71,7 @@ public @interface Join
     /** Delete action to be applied to any ForeignKey on this join.
      * @return the delete action
      */
-    ForeignKeyAction deleteAction() default ForeignKeyAction.UNKNOWN;
+    ForeignKeyAction deleteAction() default ForeignKeyAction.UNSPECIFIED;
 
     /** Detail definition of the join column(s). This is needed for
      * more than one join column.
@@ -92,12 +92,12 @@ public @interface Join
 
     /** Generate or assume a foreign key constraint exists on the column
      * or columns associated with this join. Specify "true" or "false".
-     * @return whether to generate or assume a primary key constraint
+     * @return whether to generate or assume a foreign key constraint
      */
     String generateForeignKey() default "";
 
-    /** Name for a generated primary key constraint.
-     * @return the name of the generated primary key constraint
+    /** Name for a generated foreign key constraint.
+     * @return the name of the generated foreign key constraint
      */
     String foreignKey() default "";
 

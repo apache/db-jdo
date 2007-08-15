@@ -37,7 +37,14 @@ public @interface Version
      * Strategy for versioning of objects of this class.
      * @return the strategy for versioning objects of this class
      */
-    VersionStrategy strategy();
+    VersionStrategy strategy() default VersionStrategy.UNSPECIFIED;
+
+    /**
+     * Custom strategy for versioning of objects of this class.
+     * If customStrategy is non-empty, strategy must be UNSPECIFIED.
+     * @return the custom strategy for versioning objects of this class
+     */
+    String customStrategy() default "";
 
     /**
      * Name of the column for the version.

@@ -64,7 +64,7 @@ public @interface PersistenceCapable
 
     /** Type of identity for this class or interface. 
      */
-    IdentityType identityType() default IdentityType.UNKNOWN;
+    IdentityType identityType() default IdentityType.UNSPECIFIED;
 
     /** Primary key class when using application identity and using own PK. 
      */

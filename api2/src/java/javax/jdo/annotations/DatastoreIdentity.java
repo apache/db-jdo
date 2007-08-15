@@ -36,7 +36,13 @@ public @interface DatastoreIdentity
      * Strategy to use when generating datastore identities
      * @return Strategy to use when generating datastore identities
      */
-    IdGeneratorStrategy strategy() default IdGeneratorStrategy.UNKNOWN;
+    IdGeneratorStrategy strategy() default IdGeneratorStrategy.UNSPECIFIED;
+
+    /** Custom strategy to use to generate the value for the identity. 
+     * If customStrategy is non-empty, then strategy must be UNSPECIFIED.
+     * @return the custom strategy
+     */
+    String customStrategy() default "";
 
     /**
      * Name of sequence to use when the strategy involves sequences
