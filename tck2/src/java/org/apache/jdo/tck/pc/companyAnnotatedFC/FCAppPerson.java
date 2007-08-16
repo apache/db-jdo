@@ -55,6 +55,7 @@ public class FCAppPerson
     @Persistent(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     private String  middlename;
+    @Column(name="BIRTHDATE")
     private Date    birthdate;
     @Embedded(nullIndicatorColumn="COUNTRY",
         members={

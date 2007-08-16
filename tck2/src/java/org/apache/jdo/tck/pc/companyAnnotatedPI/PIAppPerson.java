@@ -59,6 +59,7 @@ public interface PIAppPerson extends IPerson {
             @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     IAddress getAddress();
+    @Column(name="BIRTHDATE")
     Date getBirthdate();
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             table="employee_phoneno_type")

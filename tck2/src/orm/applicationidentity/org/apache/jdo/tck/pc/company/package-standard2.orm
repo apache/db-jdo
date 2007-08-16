@@ -71,6 +71,7 @@ Inheritance strategy:
             <field name="Person.firstname" column="FIRSTNAME"/>
             <field name="Person.lastname" column="LASTNAME"/>
             <field name="Person.middlename" column="MIDDLENAME"/>
+            <field name="Person.birthdate" column="BIRTHDATE"/>
             <field name="Person.address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>
@@ -120,6 +121,7 @@ Inheritance strategy:
             <field name="Person.firstname" column="FIRSTNAME"/>
             <field name="Person.lastname" column="LASTNAME"/>
             <field name="Person.middlename" column="MIDDLENAME"/>
+            <field name="Person.birthdate" column="BIRTHDATE"/>
             <field name="Person.address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>
@@ -173,6 +175,7 @@ Inheritance strategy:
             <field name="firstname" column="FIRSTNAME"/>
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename" column="MIDDLENAME"/>
+            <field name="Person.birthdate" column="BIRTHDATE"/>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>

@@ -58,6 +58,7 @@ public interface PIDSPerson extends IPerson {
             @Persistent(name="country", columns=@Column(name="COUNTRY"))
     })
     IAddress getAddress();
+    @Column(name="BIRTHDATE")
     Date getBirthdate();
     @Persistent(table="employee_phoneno_type")
     @Join(column="EMPID")

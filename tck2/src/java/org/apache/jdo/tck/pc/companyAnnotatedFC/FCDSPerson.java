@@ -56,6 +56,7 @@ public class FCDSPerson
     @Persistent(defaultFetchGroup="false")
     @Column(name="MIDDLENAME", allowsNull="true")
     private String  middlename;
+    @Column(name="BIRTHDATE")
     private Date    birthdate;
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT)
     @Embedded(nullIndicatorColumn="COUNTRY",

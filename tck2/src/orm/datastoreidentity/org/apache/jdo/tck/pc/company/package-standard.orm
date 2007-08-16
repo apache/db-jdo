@@ -126,6 +126,7 @@ has datastore identity.
             <field name="middlename">
               <column name="MIDDLENAME" allows-null="true"/>
             </field>
+            <field name="birthdate" column="BIRTHDATE"/>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>
@@ -278,6 +279,7 @@ has datastore identity.
             <property name="middlename">
               <column name="MIDDLENAME" allows-null="true"/>
             </property>
+            <property name="birthdate" column="BIRTHDATE"/>
             <property name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <property name="addrid">

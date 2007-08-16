@@ -105,6 +105,7 @@ have inheritance strategy "superclass-table".
             <field name="firstname" column="FIRSTNAME"/>
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename" column="MIDDLENAME"/>
+            <field name="birthdate" column="BIRTHDATE"/>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <field name="addrid" column="ADDRID"/>

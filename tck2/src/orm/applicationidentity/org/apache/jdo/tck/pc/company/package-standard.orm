@@ -108,6 +108,7 @@ has application identity.
             <field name="lastname" column="LASTNAME"/>
             <field name="middlename">
               <column name="MIDDLENAME" allows-null="true"/>
+            <field name="birthdate" column="BIRTHDATE"/>
             </field>
             <field name="address">
                 <embedded null-indicator-column="COUNTRY">
@@ -272,6 +273,7 @@ has application identity.
             <property name="middlename">
               <column name="MIDDLENAME" allows-null="true"/>
             </property>
+            <property name="birthdate" column="BIRTHDATE"/>
             <property name="address">
                 <embedded null-indicator-column="COUNTRY">
                     <property name="addrid">
