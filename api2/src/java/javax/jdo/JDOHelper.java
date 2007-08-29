@@ -768,13 +768,22 @@ public class JDOHelper implements Constants {
         }
         
         // else no PMF class name given; check PU name
-        String puName = (String) props.get(
-                PROPERTY_PERSISTENCE_UNIT_NAME);
+        String puName = (String) props.get(PROPERTY_PERSISTENCE_UNIT_NAME);
 
         if (puName != null && !"".equals(puName.trim())) {
-            return getPMFFromEMF(puName, props, pmfClassLoader);
-        }
+            PersistenceManagerFactory pmf =
+                    getPMFFromEMF(puName, props, pmfClassLoader);
 
+            if (pmf != null) {
+                return pmf;
+            }
+            // else pmf was null, which means that
+            // either javax.persistence.Persistence wasn't on classpath
+            // or there was no PU found with the given name
+            throw new JDOFatalUserException(msg.msg(
+                    "EXC_JavaxPersistencePersistenceAbsentOrNoPUFound"),
+                    puName);
+        }
         // else no PMF class name or PU name
         throw new JDOFatalUserException(msg.msg(
                 "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"));
@@ -948,9 +957,15 @@ public class JDOHelper implements Constants {
         }
 
         if (properties != null) {
+            // see if there's already a name property in properties
             String nameInProperties = (String) properties.get(PROPERTY_NAME);
-            nameInProperties = nameInProperties == null ? "" : nameInProperties;
-            if (nameInProperties == null) {
+            if (nameInProperties != null) {
+                // name given in properties; go ahead & use it
+                nameInProperties = nameInProperties.trim();
+            }
+            else {
+                // no name property given; put one for the anonymous PMF
+                name = name == null ? "" : name.trim();
                 properties.put(PROPERTY_NAME, name);
             }
             return getPersistenceManagerFactory(
@@ -958,7 +973,7 @@ public class JDOHelper implements Constants {
         }
 
         // else no properties found; next, assume name is a PU name
-        if (name != null && !"".equals(name.trim())) {
+        if (name != null && !"".equals(name = name.trim())) {
             PersistenceManagerFactory pmf =
                     getPMFFromEMF(name, null, pmfLoader);
             if (pmf != null) {
@@ -1215,8 +1230,12 @@ public class JDOHelper implements Constants {
                 createEntityManagerFactoryMethod.invoke(
                     persistenceClass, new Object[] { name, properties });
         }
-        catch (RuntimeException x) {
-            if (persistenceExceptionClass.isAssignableFrom(x.getClass())) {
+        catch (InvocationTargetException x) {
+            Throwable cause = x.getCause();
+            if (cause != null &&
+                    persistenceExceptionClass.isAssignableFrom(
+                            cause.getClass()))
+            {
                 // named persistence unit not found
                 return null;
             }
