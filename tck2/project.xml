@@ -177,6 +177,7 @@ NOTE!! There are no unit tests in this project.</description>
                     <include>logging.properties</include>
                     <include>jdo-2_0-signatures.txt</include>
                     <include>*.conf</include>
+                    <include>*.list</include>
                 </includes>
             </resource>
             <resource>
