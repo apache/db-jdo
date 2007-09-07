@@ -187,6 +187,9 @@ public abstract class JDO_Test extends TestCase {
      */   
     protected static final boolean closePMFAfterEachTest =
         System.getProperty("jdo.tck.closePMFAfterEachTest", "false").equalsIgnoreCase("true");
+
+    /** */
+    protected final boolean isTestToBePerformed = isTestToBePerformed();
     
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
@@ -1081,6 +1084,15 @@ public abstract class JDO_Test extends TestCase {
         messages.append(NL);
     }
     
+    /** Appends to error messages.
+     */
+    protected static synchronized void deferredAssertTrue(Boolean test,
+        String context, String message) {
+        if (!test) {
+            appendMessage(context + ": " +message);
+        }
+    }
+
     /**
      * Returns collected error messages, or <code>null</code> if there
      * are none, and clears the buffer.

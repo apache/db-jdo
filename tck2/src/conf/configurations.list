@@ -57,6 +57,8 @@ jdo.tck.cfglist = \
                  inheritance2.conf \
                  inheritance3.conf \
                  inheritance4.conf \
+                 relationshipAllRelationships.conf \
+                 relationshipNoRelationships.conf \
                  schemaAttributeClass.conf \
                  schemaAttributeOrm.conf \
                  schemaAttributePackage.conf \
