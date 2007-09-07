@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import org.apache.jdo.tck.pc.company.IProject;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of Project.
@@ -43,12 +42,12 @@ public interface PIAppProject extends IProject {
     @Column(name="BUDGET", jdbcType="DECIMAL", length=11, scale=2)
     BigDecimal getBudget();
     @Persistent(table="project_reviewer")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
     Set getReviewers();
     @Persistent(table="project_member")
-    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppEmployee.class,
+    @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppEmployee.class,
             column="MEMBER", foreignKey="PM_MEMB_FK")
     @Join(column="PROJID", foreignKey="PM_PROJ_FK")
     Set getMembers();

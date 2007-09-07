@@ -20,7 +20,6 @@ package org.apache.jdo.tck.pc.companyAnnotatedPI;
 import javax.jdo.annotations.*;
 
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of MedicalInsurance.

@@ -22,7 +22,6 @@ import javax.jdo.annotations.*;
 import java.math.BigDecimal;
 
 import org.apache.jdo.tck.pc.company.IDentalInsurance;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of DentalInsurance.

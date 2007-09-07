@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
 import javax.jdo.annotations.*;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of FullTimeEmployee.

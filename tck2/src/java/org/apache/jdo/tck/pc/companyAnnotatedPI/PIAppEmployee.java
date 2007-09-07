@@ -26,7 +26,6 @@ import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of Employee.

@@ -21,7 +21,6 @@ import javax.jdo.annotations.*;
 import org.apache.jdo.tck.pc.company.IEmployee;
 
 import org.apache.jdo.tck.pc.company.IInsurance;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of Insurance.

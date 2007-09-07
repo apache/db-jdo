@@ -24,7 +24,6 @@ import java.util.Map;
 import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.IPerson;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of Person.

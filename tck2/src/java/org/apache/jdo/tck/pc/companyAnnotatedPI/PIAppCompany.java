@@ -23,7 +23,6 @@ import org.apache.jdo.tck.pc.company.ICompany;
 import java.util.Date;
 import java.util.Set;
 import org.apache.jdo.tck.pc.company.IAddress;
-import org.apache.jdo.tck.pc.companyAnnotatedFC.*;
 
 /**
  * This interface represents the persistent state of Company.
