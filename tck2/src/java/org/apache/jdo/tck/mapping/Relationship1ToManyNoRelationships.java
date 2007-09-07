@@ -80,12 +80,12 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
             // Preconditions
             assertTrue(ASSERTION_FAILED +
                 ": Test aborted, precondition is false; " +
-                "expected emp.getDepartment()to be dept1",
-                emp1.getDepartment() == dept1);
+                "expected emp.getDepartment()to be null",
+                emp1.getDepartment() == null);
             assertTrue(ASSERTION_FAILED + testMethod +
                 ": Test aborted, precondition is false; " +
-                "expected dept.getEmployees() to contain emp1",
-                dept1.getEmployees().contains(emp1));
+                "expected dept.getEmployees() to be empty",
+                dept1.getEmployees().isEmpty());
         }
     }
     
