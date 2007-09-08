@@ -42,6 +42,9 @@ public class AbstractRelationshipTest extends JDO_Test {
     
     protected Map oidMap = new HashMap();
     
+    /** */
+    protected final boolean isTestToBePerformed = isTestToBePerformed();
+    
     /**
      * @see JDO_Test#localSetUp()
      */
