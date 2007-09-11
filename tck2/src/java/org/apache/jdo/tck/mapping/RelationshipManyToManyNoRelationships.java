@@ -59,8 +59,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
     public static void main(String[] args) {
         BatchTestRunner.run(RelationshipManyToManyNoRelationships.class);
     }
-    
-    
+        
     /**
      * @see JDO_Test#localSetUp()
      */
@@ -91,19 +90,15 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
     public void testAddFromMappedSide() {
         testMethod = "testAddFromMappedSide";
         if (isTestToBePerformed) {
-            Object emp4Oid = getOidByName("emp4");
-            Employee emp4 = (Employee)pm.getObjectById(emp4Oid);
-            Object proj2Oid = getOidByName("proj2");
-            Project proj2 = (Project)pm.getObjectById(proj2Oid);
             
             // Set relationship
             Set emps = new HashSet();
-            emps.add(emp4);
+            emps.add(emp1);
             proj1.setMembers(emps);
             pm.flush();
             
             // Postcondition
-            deferredAssertTrue(emp4.getProjects().contains(proj1),
+            deferredAssertTrue(emp1.getProjects().contains(proj1),
                 ASSERTION_FAILED + testMethod,
                 "Postcondition is false; "
                 + "other side of relationship not set on flush");
@@ -112,11 +107,10 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
             getPM();
             
             pm.currentTransaction().begin();
-            emp4 = (Employee)pm.getObjectById(emp4Oid);
+            emp1 = (Employee)pm.getObjectById(emp1Oid);
             proj1 = (Project)pm.getObjectById(proj1Oid);
-            proj2 = (Project)pm.getObjectById(proj2Oid);
             deferredAssertTrue(
-                emp4.getProjects().contains(proj1),
+                emp1.getProjects().contains(proj1),
                 ASSERTION_FAILED + testMethod,
                 "In new transaction, postcondition is false; " +
                 "other side of relationship is not set.");
@@ -130,19 +124,15 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
     public void testAddFromMappedbySide() {
         testMethod = "testAddFromMappedbySide";
         if (isTestToBePerformed) {
-            Object emp4Oid = getOidByName("emp4");
-            Employee emp4 = (Employee)pm.getObjectById(emp4Oid);
-            Object proj2Oid = getOidByName("proj2");
-            Project proj2 = (Project)pm.getObjectById(proj2Oid);
             
             // Set relationship
             Set projs = new HashSet();
             projs.add(proj1);
-            emp4.setProjects(projs);
+            emp1.setProjects(projs);
             pm.flush();
             
             // Postcondition
-            deferredAssertTrue(proj1.getMembers().contains(emp4),
+            deferredAssertTrue(proj1.getMembers().contains(emp1),
                 ASSERTION_FAILED + testMethod,
                 "Postcondition is false; "
                 + "other side of relationship not set on flush");
@@ -154,7 +144,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
             emp1 = (Employee)pm.getObjectById(emp1Oid);
             proj1 = (Project)pm.getObjectById(proj1Oid);
             deferredAssertTrue(
-                proj1.getMembers().contains(emp4),
+                proj1.getMembers().contains(emp1),
                 ASSERTION_FAILED + testMethod,
                 "In new transaction, postcondition is false; " +
                 "other side of relationship is not set.");
