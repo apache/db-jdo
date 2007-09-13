@@ -241,7 +241,7 @@ public class ResultClassRequirements extends QueryTest {
         // JDK class, non assignment compatible
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "lastname",
+        /*RESULT*/      "this",
         /*INTO*/        Long.class, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
