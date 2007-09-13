@@ -154,6 +154,11 @@ NOTE!! There are no unit tests in this project.</description>
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <!-- =================== -->
     <!-- Build Specification -->
