@@ -90,7 +90,7 @@ public class ImplicitParameters extends QueryTest {
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
-        /*GROUP BY*/    "department.name HAVING COUNT(this) >= :min",
+        /*GROUP BY*/    "department.name HAVING COUNT(this) >= :minValue",
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
