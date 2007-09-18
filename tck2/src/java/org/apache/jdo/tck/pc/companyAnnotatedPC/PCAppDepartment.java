@@ -248,7 +248,7 @@ public class PCAppDepartment
     public void setFundedEmps(Set employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._fundedEmps = (_fundedEmps != null) ? new HashSet(employees) : null;
+        this._fundedEmps = (employees != null) ? new HashSet(employees) : null;
     }
 
     /** Serialization support: initialize transient fields. */

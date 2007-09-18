@@ -204,7 +204,7 @@ public class PCAppProject
     public void setMembers(Set employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._members = (_members != null) ? new HashSet(employees) : null;
+        this._members = (employees != null) ? new HashSet(employees) : null;
     }
 
     /** Serialization support: initialize transient fields. */
