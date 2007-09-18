@@ -93,8 +93,6 @@ public class PCAppInsurance
      * @param id The insurance ID value.
      */
     public void setInsid(long id) {
-        if (this._insid != 0) 
-            throw new IllegalStateException("Id is already set.");
         this._insid = id;
     }
 

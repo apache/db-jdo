@@ -109,8 +109,6 @@ public class PCDSPerson
      * @param id the id.
      */
     public void setPersonid(long id) {
-        if (this._personid != 0)
-            throw new IllegalStateException("Id is already set.");
         this._personid = id;
     }
 
@@ -122,14 +120,6 @@ public class PCDSPerson
     @Column(name="PERSONID")
     public long getPersonid() {
         return _personid;
-    }
-
-    /**
-     * Set the person's id.
-     * @param personid The personid.
-     */
-    public void setLastname(long personid) {
-        this._personid = personid;
     }
 
     /**

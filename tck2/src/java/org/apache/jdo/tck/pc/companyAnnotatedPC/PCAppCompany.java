@@ -107,8 +107,6 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @param id the id.
      */
     public void setCompanyid(long id) {
-        if (this._companyid != 0)
-            throw new IllegalStateException("Id is already set.");
         this._companyid = id;
     }
 

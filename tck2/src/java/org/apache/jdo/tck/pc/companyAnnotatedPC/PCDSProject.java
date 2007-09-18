@@ -78,8 +78,6 @@ public class PCDSProject
      * @param id the id.
      */
     public void setProjid(long id) {
-        if (this._projid != 0)
-            throw new IllegalStateException("Id is already set.");
         this._projid = id;
     }
 

@@ -81,8 +81,6 @@ public class PCAppAddress
      * @param id the id.
      */
     public void setAddrid(long id) {
-        if (this.addrid != 0)
-            throw new IllegalStateException("Id is already set.");
         this.addrid = id;
     }
 

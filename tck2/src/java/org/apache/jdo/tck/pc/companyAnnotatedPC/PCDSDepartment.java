@@ -109,8 +109,6 @@ public class PCDSDepartment
      * @param id the id.
      */
     public void setDeptid(long id) {
-        if (this._deptid != 0)
-            throw new IllegalStateException("Id is already set.");
         this._deptid = id;
     }
 
