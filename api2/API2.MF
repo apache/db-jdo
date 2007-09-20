@@ -12,4 +12,5 @@ Export-Package: javax.jdo,
  javax.jdo.listener, 
  javax.jdo.spi 
 Bundle-Vendor: Apache 
-Import-Package: javax.transaction;resolution:=optional
+Import-Package: javax.transaction;resolution:=optional,
+ javax.persistence;resolution:=optional
