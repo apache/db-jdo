@@ -912,6 +912,27 @@ public interface PersistenceManager {
     */
    void setDetachAllOnCommit(boolean flag);
    
+   /** Gets the copyOnAttach setting.
+    * @see #setCopyOnAttach(boolean)
+    * @since 2.1
+    * @return the copyOnAttach setting.
+    */
+   boolean getCopyOnAttach();
+
+   /** Sets the copyOnAttach setting.
+    *
+    * <P>CopyOnAttach set to <code>true</code> specifies that during
+    * makePersistent, copies are made of detached parameter instances. 
+    * With this flag set to <code>false</code>, detached parameter
+    * instances are attached directly and change their state from
+    * detached-clean to persistent-clean or from detached-dirty to
+    * persistent-dirty.
+    *
+    * @see #getCopyOnAttach()
+    * @since 2.1
+    */
+   void setCopyOnAttach(boolean flag);
+   
     /**
      * Detach the specified instance from the <code>PersistenceManager</code>.
      * The flags for detachment (DETACH_LOAD_FIELDS and DETACH_UNLOAD_FIELDS)

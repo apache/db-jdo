@@ -356,6 +356,31 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void setDetachAllOnCommit(boolean flag);
 
+   /** Gets the default copyOnAttach setting for all
+    * <code>PersistenceManager</code> instances obtained from this
+    * factory.
+    * @see #setCopyOnAttach(boolean)
+    * @since 2.1
+    * @return the copyOnAttach setting.
+    */
+   boolean getCopyOnAttach();
+
+   /** Sets the default copyOnAttach setting for all
+    * <code>PersistenceManager</code> instances obtained from this
+    * factory.
+    *
+    * <P>CopyOnAttach set to <code>true</code> specifies that during
+    * makePersistent, copies are made of detached parameter instances. 
+    * With this flag set to <code>false</code>, detached parameter
+    * instances are attached directly and change their state from
+    * detached-clean to persistent-clean or from detached-dirty to
+    * persistent-dirty.
+    *
+    * @see #getCopyOnAttach()
+    * @since 2.1
+    */
+   void setCopyOnAttach(boolean flag);
+   
     /**
      * Sets the name of this PersistenceManagerFactory.
      * @since 2.1
