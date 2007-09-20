@@ -225,6 +225,14 @@ public interface Constants {
     static String PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT
         = "detach-all-on-commit";
     /**
+     * The name of the persistence manager factory element's
+     * "copy-on-attach" attribute.
+     *
+     * @since 2.1
+     */
+    static String PMF_ATTRIBUTE_COPY_ON_ATTACH
+        = "copy-on-attach";
+    /**
      * The name of the persistence manager factory element's "mapping"
      * attribute.
      *
@@ -594,6 +602,14 @@ public interface Constants {
      */
     static String PROPERTY_DETACH_ALL_ON_COMMIT
         = "javax.jdo.option.DetachAllOnCommit";
+    /**
+     * "javax.jdo.option.CopyOnAttach"
+     *
+     * @see PersistenceManagerFactory#getCopyOnAttach()
+     * @since 2.1
+     */
+    static String PROPERTY_COPY_ON_ATTACH
+        = "javax.jdo.option.CopyOnAttach";
     /**
      * "javax.jdo.option.ConnectionDriverName"
      *
