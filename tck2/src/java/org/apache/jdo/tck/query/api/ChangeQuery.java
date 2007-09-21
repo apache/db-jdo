@@ -73,7 +73,7 @@ public class ChangeQuery extends QueryTest {
         query.declareImports(imports);
         query.declareVariables("Project p");
         query.declareParameters("BigDecimal limit");
-        query.setOrdering("firstname, lastname ASCENDING");
+        query.setOrdering("firstname ASCENDING, lastname ASCENDING");
         query.setRange(0, 5);
         String singleStringQuery = 
             "SELECT DISTINCT firstname, lastname " +
@@ -81,7 +81,7 @@ public class ChangeQuery extends QueryTest {
             "WHERE salary > 1000 & projects.contains(p) & " +
             "p.budget > limit " +
             "VARIABLES Project p PARAMETERS BigDecimal limit " +
-            "ORDER BY firstname, lastname ASCENDING RANGE 0, 5";
+            "ORDER BY firstname ASCENDING, lastname ASCENDING RANGE 0, 5";
 
         // query parameters
         Object[] parameters = {new BigDecimal("2000")};        
