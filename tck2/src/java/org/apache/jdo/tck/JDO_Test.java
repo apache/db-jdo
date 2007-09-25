@@ -187,9 +187,6 @@ public abstract class JDO_Test extends TestCase {
      */   
     protected static final boolean closePMFAfterEachTest =
         System.getProperty("jdo.tck.closePMFAfterEachTest", "false").equalsIgnoreCase("true");
-
-    /** */
-//    protected final boolean isTestToBePerformed = isTestToBePerformed();
     
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
@@ -1053,7 +1050,6 @@ public abstract class JDO_Test extends TestCase {
         Collection supportedOptions = getPMF().supportedOptions();
         StringTokenizer tokenizer = new StringTokenizer(
                 requiredOptions, " ,;\n\r\t");
-        System.out.println("tokenizer = " + tokenizer);
         while (tokenizer.hasMoreTokens()) {
             String requiredOption = tokenizer.nextToken();
             logger.debug("Required option: " + requiredOption);
