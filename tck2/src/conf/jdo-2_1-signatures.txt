@@ -47,6 +47,8 @@ public interface javax.jdo.Constants {
         = "connection-factory2-name";
     static String PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT
         = "detach-all-on-commit";
+    static String PMF_ATTRIBUTE_COPY_ON_ATTACH
+        = "copy-on-attach";
     static String PMF_ATTRIBUTE_MAPPING
         = "mapping";
     static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
@@ -141,6 +143,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.Multithreaded";
     static String PROPERTY_DETACH_ALL_ON_COMMIT
         = "javax.jdo.option.DetachAllOnCommit";
+    static String PROPERTY_COPY_ON_ATTACH
+        = "javax.jdo.option.CopyOnAttach";
     static String PROPERTY_CONNECTION_DRIVER_NAME
         = "javax.jdo.option.ConnectionDriverName";
     static String PROPERTY_CONNECTION_USER_NAME
@@ -669,6 +673,8 @@ public interface javax.jdo.PersistenceManager {
     public boolean getIgnoreCache();
     public boolean getDetachAllOnCommit();
     public void setDetachAllOnCommit(boolean flag);
+    public boolean getCopyOnAttach();
+    public void setCopyOnAttach(boolean flag);
     public Object detachCopy(Object pc);
     public java.util.Collection detachCopyAll(java.util.Collection pcs);
     public Object[] detachCopyAll(Object [] pcs);
@@ -725,6 +731,8 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public boolean getIgnoreCache();
     public boolean getDetachAllOnCommit();
     public void setDetachAllOnCommit(boolean flag);
+    public boolean getCopyOnAttach();
+    public void setCopyOnAttach(boolean flag);
     public java.lang.String getName();
     public void setName(java.lang.String);
     public java.lang.String getPersistenceUnitName();
