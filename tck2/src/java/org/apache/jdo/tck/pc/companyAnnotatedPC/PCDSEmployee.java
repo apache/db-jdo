@@ -228,7 +228,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      */
 
     @Persistent(mappedBy="employee",
-        types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCAppDentalInsurance.class)
+        types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSDentalInsurance.class)
     public IDentalInsurance getDentalInsurance() {
         return _dentalInsurance;
     }
