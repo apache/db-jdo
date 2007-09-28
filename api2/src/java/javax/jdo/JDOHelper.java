@@ -591,7 +591,82 @@ public class JDOHelper implements Constants {
             return implHelper.nonBinaryCompatibleIs(pc, isDetached);
         }
     }
-    
+
+    /** Accessor for the state of the passed object.
+     * @param pc The object
+     * @return The object state
+     * @since 2.1
+     */
+    public static ObjectState getObjectState(Object pc) {
+        if (pc == null) {
+            return null;
+        }
+
+        if (isDetached(pc)) {
+            if (isDirty(pc)) {
+                // Detached Dirty
+                return ObjectState.DETACHED_DIRTY;
+            }
+            else {
+                // Detached Not Dirty
+                return ObjectState.DETACHED_CLEAN;
+            }
+        }
+        else {
+            if (isPersistent(pc)) {
+                if (isTransactional(pc)) {
+                    if (isDirty(pc)) {
+                        if (isNew(pc)) {
+                            if (isDeleted(pc)) {
+                                // Persistent Transactional Dirty New Deleted
+                                return ObjectState.PERSISTENT_NEW_DELETED;
+                            } else {
+                                // Persistent Transactional Dirty New Not Deleted
+                                return ObjectState.PERSISTENT_NEW;
+                            }
+                        } else {
+                            if (isDeleted(pc)) {
+                                // Persistent Transactional Dirty Not New Deleted
+                                return ObjectState.PERSISTENT_DELETED;
+                            } else {
+                                // Persistent Transactional Dirty Not New Not Deleted
+                                return ObjectState.PERSISTENT_DIRTY;
+                            }
+                        }
+                    } else {
+                        // Persistent Transactional Not Dirty
+                        return ObjectState.PERSISTENT_CLEAN;
+                    }
+                }
+                else {
+                    if (isDirty(pc)) {
+                    // Persistent Nontransactional Dirty
+                        return ObjectState.PERSISTENT_NONTRANSACTIONAL_DIRTY;
+                    }
+                    else {
+                    // Persistent Nontransactional Not Dirty
+                        return ObjectState.HOLLOW_PERSISTENT_NONTRANSACTIONAL;
+                    }
+                }
+            }
+            else {
+                if (isTransactional(pc)) {
+                    if (isDirty(pc)) {
+                        // Not Persistent Transactional Dirty
+                        return ObjectState.TRANSIENT_DIRTY;                        
+                    } else {
+                        // Not Persistent Transactional Not Dirty
+                        return ObjectState.TRANSIENT_CLEAN;
+                    }
+                }
+                else {
+                    // Not Persistent Not Transactional
+                    return ObjectState.TRANSIENT;
+                }
+            }
+        }
+    }
+
     /** Get the anonymous <code>PersistenceManagerFactory</code> configured via
      * the standard configuration file resource "META-INF/jdoconfig.xml", using
      * the current thread's context class loader
