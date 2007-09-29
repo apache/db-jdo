@@ -125,7 +125,7 @@ public abstract class PCAppEmployee extends PCAppPerson implements IEmployee {
      * @param hiredate The date the employee was hired.
      */
     public void setHiredate(Date hiredate) {
-        this._hiredate = _hiredate;
+        this._hiredate = hiredate;
     }
 
     /**
