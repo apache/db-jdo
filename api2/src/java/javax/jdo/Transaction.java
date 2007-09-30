@@ -84,7 +84,7 @@ public interface Transaction
      * Sets the rollback-only status of the transaction to <code>true</code>.
      * After this flag is set to <code>true</code>, the transaction 
      * can no longer be committed, and any attempt to commit the 
-     * transaction will throw <code>JDOUserException<code>.
+     * transaction will throw <code>JDOFatalDataStoreException<code>.
      * @since 2.0
      */
     void setRollbackOnly();
