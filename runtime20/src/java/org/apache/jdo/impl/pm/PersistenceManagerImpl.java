@@ -312,6 +312,25 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
         return _detachAllOnCommit;
     }
 
+    /** Gets the copyOnAttach setting.
+     * @see javax.jdo.PersistenceManager#getCopyOnAttach()
+     * @since 2.1
+     * @return the copyOnAttach setting.
+     */
+    public boolean getCopyOnAttach() {
+        throw new UnsupportedOperationException(
+            "Method getCopyOnAttach() not yet implemented");
+    }
+
+    /** Sets the copyOnAttach setting.
+     * @see javax.jdo.PersistenceManager#setCopyOnAttach(boolean flag)
+     * @since 2.1
+     */
+    public void setCopyOnAttach(boolean flag) {
+        throw new UnsupportedOperationException(
+            "Method setCopyOnAttach(boolean) not yet implemented");
+    }
+
     /** Set the Multithreaded flag for this PersistenceManager.  Applications
      * that use multiple threads to invoke methods or access fields from 
      * instances managed by this PersistenceManager must set this flag to true.
@@ -1106,6 +1125,16 @@ public abstract class PersistenceManagerImpl implements PersistenceManagerIntern
 
         assertIsOpen();
         evictAllInternal(pcs.toArray());
+    }
+
+    /** Mark the parameter instances as no longer needed in the cache.
+     * @param pcClass the class of instances to evict
+     * @param subclasses if true, mark instances of subclasses also
+     * @since 2.1
+     */
+    public void evictAll(Class pcClass, boolean subclasses) {
+        throw new UnsupportedOperationException(
+            "Method evictAll(Class pcClass, boolean subclasses) not yet implemented");
     }
 
     /** Mark all persistent-nontransactional instances as no longer needed

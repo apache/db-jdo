@@ -550,6 +550,27 @@ abstract public class PersistenceManagerFactoryImpl implements
         return detachAllOnCommit;
     }
 
+    /** Gets the default copyOnAttach setting for all
+     * <code>PersistenceManager</code> instances obtained from this
+     * factory.
+     * @since 2.1
+     * @return the copyOnAttach setting.
+     */
+    public boolean getCopyOnAttach() {
+        throw new UnsupportedOperationException(
+            "Method getCopyOnAttach() not yet implemented");
+    }
+    
+    /** Sets the default copyOnAttach setting for all
+     * <code>PersistenceManager</code> instances obtained from this
+     * factory.
+     * @since 2.1
+     */
+    public void setCopyOnAttach(boolean flag) {
+        throw new UnsupportedOperationException(
+            "Method setCopyOnAttach(boolean) not yet implemented");
+    }
+
     /** Set the default MsWait setting for all PersistenceManager instances
      * obtained from this factory.
      * @param msWait the default MsWait setting.
@@ -633,6 +654,26 @@ abstract public class PersistenceManagerFactoryImpl implements
      */
     public int getUpdateTimeout() {
         return updateTimeout;
+    }
+    
+    /**
+     * Sets the name of this PersistenceManagerFactory.
+     * @since 2.1
+     * @param name the name of this PMF
+     */
+    public void setName(String name) {
+        throw new UnsupportedOperationException(
+            "Method setName(String) not yet implemented");
+    }
+    
+    /**
+     * Gets the name of this PersistenceManagerFactory.
+     * @since 2.1
+     * @return the name of this PMF
+     */
+    public String getName() {
+        throw new UnsupportedOperationException(
+            "Method getName() not yet implemented");
     }
     
     /**

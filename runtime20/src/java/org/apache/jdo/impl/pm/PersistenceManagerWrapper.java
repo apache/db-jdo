@@ -153,6 +153,30 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /**
+     * @see javax.jdo.PersistenceManager#setIgnoreCache(boolean flag)
+     */
+    public void setCopyOnAttach(boolean flag) {
+        if (isValid) {
+            pm.setCopyOnAttach(flag);
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
+    /**
+     * @see javax.jdo.PersistenceManager#getCopyOnAttach()
+     */
+    public boolean getCopyOnAttach() {
+        if (isValid) {
+            return pm.getCopyOnAttach();
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
+    /**
      * @see javax.jdo.PersistenceManager#getMultithreaded()
      */
     public boolean getMultithreaded() {
@@ -206,6 +230,18 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     public  void evictAll(Collection pcs) {
         if (isValid) {
             pm.evictAll(pcs);
+        } else {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_PersistenceManagerClosed"));// NOI18N
+        }
+    }
+
+    /**
+     * @see javax.jdo.PersistenceManager#evictAll(Class pcClass, boolean subclasses)
+     */
+    public  void evictAll(Class pcClass, boolean subclasses) {
+        if (isValid) {
+            pm.evictAll(pcClass, subclasses);
         } else {
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
