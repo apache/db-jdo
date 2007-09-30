@@ -610,6 +610,7 @@ public interface javax.jdo.PersistenceManager {
     public void evict(Object pc);
     public void evictAll(Object[] pcs);
     public void evictAll(java.util.Collection pcs);
+    public void evictAll(java.lang.Class, boolean);
     public void evictAll();
     public void refresh(Object pc);
     public void refreshAll(Object[] pcs);

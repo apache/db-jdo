@@ -98,7 +98,14 @@ public interface PersistenceManager {
      * cache.
      */
     void evictAll (Collection pcs);
-    
+
+    /** Mark the parameter instances as no longer needed in the cache.
+     * @param pcClass the class of instances to evict
+     * @param subclasses if true, mark instances of subclasses also
+     * @since 2.1
+     */
+    void evictAll (Class pcClass, boolean subclasses);
+
     /** Mark all persistent-nontransactional instances as no longer needed 
      * in the cache.  It transitions
      * all persistent-nontransactional instances to hollow.  Transactional
