@@ -268,14 +268,11 @@ public class SignatureVerifier {
         // load class
         try {
             final String r = TypeHelper.reflectionTypeName(userTypeName);
-           // System.out.println("userTypeName is " + userTypeName 
-           //    + "  reflectionTypeName is " + r);
             cls = Class.forName(r, false, classLoader);
             loading.add(userTypeName);
         } catch (LinkageError err) {
             handleNotLoading(err);
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
             handleNotLoading(ex);
         }
         return cls;
