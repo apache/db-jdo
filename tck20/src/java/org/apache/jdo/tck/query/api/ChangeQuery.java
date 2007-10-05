@@ -1,9 +1,10 @@
 /*
- * Copyright 2005 The Apache Software Foundation.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at 
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  * 
  *     http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -61,7 +62,7 @@ public class ChangeQuery extends QueryTest {
         Query query = getPM().newNamedQuery(Person.class, "changeQuery");
         
         // change query
-        query.setResult("firstname, lastname");
+        query.setResult("DISTINCT firstname, lastname");
         query.setResultClass(FullName.class);
         query.setClass(FullTimeEmployee.class);
         String filter = "salary > 1000 & projects.contains(p) & " +
@@ -72,14 +73,15 @@ public class ChangeQuery extends QueryTest {
         query.declareImports(imports);
         query.declareVariables("Project p");
         query.declareParameters("BigDecimal limit");
-        query.setOrdering("personid ASCENDING");
+        query.setOrdering("firstname ASCENDING, lastname ASCENDING");
         query.setRange(0, 5);
         String singleStringQuery = 
-            "SELECT firstname, lastname INTO FullName FROM FullTimeEmployee " +
+            "SELECT DISTINCT firstname, lastname " +
+            "INTO FullName FROM FullTimeEmployee " +
             "WHERE salary > 1000 & projects.contains(p) & " +
             "p.budget > limit " +
             "VARIABLES Project p PARAMETERS BigDecimal limit " +
-            "ORDER BY personid ASCENDING RANGE 0, 5";
+            "ORDER BY firstname ASCENDING, lastname ASCENDING RANGE 0, 5";
 
         // query parameters
         Object[] parameters = {new BigDecimal("2000")};        

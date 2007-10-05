@@ -105,7 +105,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
             PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED, 
-            UNCHANGED,                      UNCHANGED,                          PERSISTENT_CLEAN,     
+            UNCHANGED,                      UNCHANGED,                          UNSPECIFIED,     
             PERSISTENT_DIRTY},
 
         // detachCopy outside tx
@@ -226,7 +226,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
                 transaction.setNontransactionalRead(true);
             }
             if( current_state == PERSISTENT_NONTRANSACTIONAL_DIRTY) {
-                transaction.setNontransactionalRead(true);
+                transaction.setNontransactionalWrite(true);
             }
         }
     }
