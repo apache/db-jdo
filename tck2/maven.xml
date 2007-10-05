@@ -558,13 +558,19 @@
             <fileset dir="${basedir}/src/jdo/${jdo.tck.identitytype}"
                      includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
-        <!-- compile pc and pa classes -->
+        <!-- copy pc and pa classes -->
+        <copy todir="${enhanced.dir}">
+            <fileset dir="${basedir}/target/classes"
+                includes="${jdo.tck.pcclasses.files}
+                        ${jdo.tck.paclasses.files}" />
+        </copy>
+        <!-- compile pc and pa classes 
         <javac srcdir="${basedir}/src/java"
            includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
            destdir="${enhanced.dir}"
            debug="on"
            classpathref="jdo.tck.enhancer.classpath">
-        </javac>
+        </javac>-->
     </goal>
 
     <goal name="doEnhance.iut">
@@ -712,6 +718,8 @@
         <pathelement location="${logging.jarfile}"/>
         <!-- Java 1.5 jar file -->
         <pathelement location="${jpox.javafive.jarfile}" />
+        <!-- JPA jar file -->
+        <pathelement location="${jpa.jarfile}" />
     </path>
 
     <!-- Common TCK execution classpath -->
@@ -723,6 +731,8 @@
         <!-- Commons logging jar file  -->
         <pathelement location="${logging.jarfile}"/>
         <pathelement location="${jta.jarfile}" />
+        <!-- JPA jar file -->
+        <pathelement location="${jpa.jarfile}" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Spring jar files -->
