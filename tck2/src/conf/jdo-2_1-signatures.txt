@@ -455,6 +455,7 @@ public class javax.jdo.JDOHelper implements javax.jdo.Constants {
     public static boolean isNew(Object pc);
     public static boolean isDeleted(Object pc);
     public static boolean isDetached(Object pc);
+    public static javax.jdo.ObjectState getObjectState(Object pc);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader cl);
