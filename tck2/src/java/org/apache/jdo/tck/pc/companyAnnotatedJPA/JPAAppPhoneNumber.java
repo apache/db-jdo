@@ -41,9 +41,6 @@ public class JPAAppPhoneNumber implements Serializable {
     private String  type;
     @Column(name="PHONENO")
     private String  phoneNumber;
-    @ManyToOne
-    @JoinColumn(name="PERSONID", insertable=false, updatable=false)
-    private JPAAppPerson person;
     
     /** This is the JDO-required no-args constructor. */
     protected JPAAppPhoneNumber() {}
@@ -56,9 +53,8 @@ public class JPAAppPhoneNumber implements Serializable {
      * @param type The type of the phone for this number
      * @param phoneNumber The phone number
      */
-    public JPAAppPhoneNumber(JPAAppPerson person, String type, String phoneNumber) {
-        this.personid = person.getPersonid();
-        this.person = person;
+    public JPAAppPhoneNumber(long personid, String type, String phoneNumber) {
+        this.personid = personid;
         this.type = type;
         this.phoneNumber = phoneNumber;
     }

@@ -74,13 +74,9 @@ public class JPAAppPerson
         })
     private JPAAppAddress address;
 
-    // maps phone number types ("home", "work", "mobile", etc.) 
-    // to phone numbers specified as String
-//    @OneToMany(mappedBy="JPAAppPhoneNumber")
     @OneToMany
-    @MapKey(name="type")
-    private Map<String, JPAAppPhoneNumber> phoneNumbers = new HashMap();
-    
+    private Map<JPAAppPhoneNumber.Oid,
+            JPAAppPhoneNumber> phoneNumbers = new HashMap();    
     protected static SimpleDateFormat formatter =
         new SimpleDateFormat("d/MMM/yyyy");
 
@@ -254,8 +250,8 @@ public class JPAAppPerson
         if (pnum != null) {
             pnumAsString = pnum.getPhoneNumber(); // old val
         }
-        pnum = phoneNumbers.put(type,
-                new JPAAppPhoneNumber(this, type, phoneNumber));
+        pnum = phoneNumbers.put(new JPAAppPhoneNumber.Oid(personid, type),
+                new JPAAppPhoneNumber(personid, type, phoneNumber));
         return pnumAsString;
     }
 
@@ -290,7 +286,7 @@ public class JPAAppPerson
             String key = (String)entry.getKey();
             String value = (String)entry.getValue();
             JPAAppPhoneNumber newValue = 
-                    new JPAAppPhoneNumber(this, key, value);
+                    new JPAAppPhoneNumber(personid, key, value);
             retval.put(key, newValue);
         }
         return retval;
