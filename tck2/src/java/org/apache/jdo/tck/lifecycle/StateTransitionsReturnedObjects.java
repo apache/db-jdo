@@ -249,7 +249,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
                 transaction.setNontransactionalRead(true);
             }
             if( current_state == PERSISTENT_NONTRANSACTIONAL_DIRTY) {
-                transaction.setNontransactionalRead(true);
+                transaction.setNontransactionalWrite(true);
             }
         }
     }
