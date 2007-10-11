@@ -75,6 +75,7 @@ public class JPAAppPerson
     private JPAAppAddress address;
 
     @OneToMany
+    @MapKey
     private Map<JPAAppPhoneNumber.Oid,
             JPAAppPhoneNumber> phoneNumbers = new HashMap();    
     protected static SimpleDateFormat formatter =
