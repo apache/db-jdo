@@ -53,15 +53,13 @@ import org.apache.jdo.tck.util.EqualityHelper;
     private String     name;
     @Column(name="BUDGET", length=11, scale=2)
     private BigDecimal budget;
-    @Column(name="REVIEWER")
     @ManyToMany(targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
-    @JoinTable(name="project_reviewer")
-    //@JoinColumn(name="PROJID")
+    @JoinTable(name="project_reviewer", joinColumns=@JoinColumn(name="PROJID"),
+            inverseJoinColumns=@JoinColumn(name="REVIEWER"))
     private Set reviewers = new HashSet();
-    @Column(name="MEMBER_JPA")
     @ManyToMany(targetEntity=org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppEmployee.class)
-    @JoinTable(name="project_member")
-    //@JoinColumn(name="PROJID")
+    @JoinTable(name="project_member", joinColumns=@JoinColumn(name="PROJID"),
+            inverseJoinColumns=@JoinColumn(name="MEMBER"))
     private Set members = new HashSet();
     
     /** This is the JDO-required no-args constructor. The TCK relies on
