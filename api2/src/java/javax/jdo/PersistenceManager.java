@@ -262,7 +262,7 @@ public interface PersistenceManager {
      * @return an <code>Extent</code> of the specified <code>Class</code>
      * @see Query
      */
-    Extent getExtent (Class persistenceCapableClass, boolean subclasses);
+    <T> Extent<T> getExtent (Class<T> persistenceCapableClass, boolean subclasses);
 
     /**
      * Equivalent to <code>getExtent (persistenceCapableClass,
@@ -270,7 +270,7 @@ public interface PersistenceManager {
      * @see #getExtent(Class,boolean)
      * @since 2.0
      */
-    Extent getExtent (Class persistenceCapableClass);
+    <T> Extent<T> getExtent (Class<T> persistenceCapableClass);
 
     /** This method locates a persistent instance in the cache of instances
      * managed by this <code>PersistenceManager</code>.
