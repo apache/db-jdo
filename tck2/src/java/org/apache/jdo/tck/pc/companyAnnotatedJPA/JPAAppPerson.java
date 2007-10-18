@@ -40,6 +40,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  */
 @Entity
 @Table(name="persons")
+@IdClass(org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppPerson.Oid.class)
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
         name="DISCRIMINATOR")
@@ -74,10 +75,10 @@ public class JPAAppPerson
         })
     private JPAAppAddress address;
 
-    @OneToMany
-    @MapKey
-    private Map<JPAAppPhoneNumber.Oid,
-            JPAAppPhoneNumber> phoneNumbers = new HashMap();    
+    @OneToMany(mappedBy="person")
+    @MapKey(name="type")
+    private Map<String, JPAAppPhoneNumber> phoneNumbers
+            = new HashMap<String, JPAAppPhoneNumber>();    
     protected static SimpleDateFormat formatter =
         new SimpleDateFormat("d/MMM/yyyy");
 
@@ -251,8 +252,8 @@ public class JPAAppPerson
         if (pnum != null) {
             pnumAsString = pnum.getPhoneNumber(); // old val
         }
-        pnum = phoneNumbers.put(new JPAAppPhoneNumber.Oid(personid, type),
-                new JPAAppPhoneNumber(personid, type, phoneNumber));
+        pnum = phoneNumbers.put(type,
+                new JPAAppPhoneNumber(this, type, phoneNumber));
         return pnumAsString;
     }
 
@@ -287,7 +288,7 @@ public class JPAAppPerson
             String key = (String)entry.getKey();
             String value = (String)entry.getValue();
             JPAAppPhoneNumber newValue = 
-                    new JPAAppPhoneNumber(personid, key, value);
+                    new JPAAppPhoneNumber(this, key, value);
             retval.put(key, newValue);
         }
         return retval;

@@ -29,13 +29,14 @@ import java.io.Serializable;
 @IdClass(org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppPhoneNumber.Oid.class)
 @Table(name="employee_phoneno_type")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
-        name="DISCRIMINATOR")
+//@DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
+//        name="DISCRIMINATOR")
 public class JPAAppPhoneNumber implements Serializable {
 
     @Id
-    @Column(name="PERSONID")
-    private long personid;
+    @ManyToOne
+    @Column(name="EMPID")
+    private JPAAppPerson person;
     @Id
     @Column(name="TYPE")
     private String  type;
@@ -49,12 +50,13 @@ public class JPAAppPhoneNumber implements Serializable {
      * Construct a <code>JPAAppPhoneNumber</code> instance.
      * 
      * @param phonenumid The phone number identifier.
-     * @param personid The person id
+     * @param person The person id
      * @param type The type of the phone for this number
      * @param phoneNumber The phone number
      */
-    public JPAAppPhoneNumber(long personid, String type, String phoneNumber) {
-        this.personid = personid;
+    public JPAAppPhoneNumber(JPAAppPerson person, String type,
+            String phoneNumber) {
+        this.person = person;
         this.type = type;
         this.phoneNumber = phoneNumber;
     }
@@ -63,18 +65,18 @@ public class JPAAppPhoneNumber implements Serializable {
      * Set the id associated with this object.
      * @param id the id.
      */
-    public void setPersonid(long id) {
-        if (this.personid != 0)
+    public void setPerson(JPAAppPerson id) {
+        if (this.person != null)
             throw new IllegalStateException("Id is already set.");
-        this.personid = id;
+        this.person = id;
     }
 
     /**
      * Get the person's id.
-     * @return The personid.
+     * @return The person.
      */
-    public long getPersonid() {
-        return personid;
+    public JPAAppPerson getPerson() {
+        return person;
     }
 
     /**
@@ -125,7 +127,7 @@ public class JPAAppPhoneNumber implements Serializable {
      */
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
-        rc.append(personid);
+        rc.append(person);
         rc.append(", ").append(type);
         rc.append(", phone ").append(phoneNumber);
         return rc.toString();
@@ -142,7 +144,7 @@ public class JPAAppPhoneNumber implements Serializable {
          * class. It must match a field in the <code>Person</code> class in
          * both name and type. 
          */
-        public long personid;
+        public JPAAppPerson.Oid person;
 
         public String type;
 
@@ -153,20 +155,20 @@ public class JPAAppPhoneNumber implements Serializable {
 
         /**
          * Initialize the identifier.
-         * @param personid The person identifier.
+         * @param person The person identifier.
          */
-        public Oid(long personid, String type) {
-            this.personid = personid;
+        public Oid(JPAAppPerson.Oid person, String type) {
+            this.person = person;
             this.type = type;
         }
         
         public Oid(String s) {
-            personid = Long.parseLong(justTheId(s));
+            person = new JPAAppPerson.Oid(justTheOid(s));
             type = justTheType(s);
         }
 
         public String toString() {
-            return this.getClass().getName() + ": "  + personid + " + " + type;
+            return this.getClass().getName() + ": "  + person + " + " + type;
         }
 
         /** */
@@ -174,17 +176,17 @@ public class JPAAppPhoneNumber implements Serializable {
             if( obj==null ||
                 !this.getClass().equals(obj.getClass()) ) return( false );
             Oid o = (Oid) obj;
-            if( this.personid != o.personid ) return( false );
+            if( this.person != o.person ) return( false );
             if( this.type != o.type ) return( false );
             return( true );
         }
 
         /** */
         public int hashCode() {
-            return( (int) personid + type.hashCode() );
+            return( (int) person.hashCode() + type.hashCode() );
         }
         
-        protected static String justTheId(String str) {
+        protected static String justTheOid(String str) {
             return str.substring(str.indexOf(':') + 1, str.indexOf('+') - 1);
         }
         
@@ -196,10 +198,12 @@ public class JPAAppPhoneNumber implements Serializable {
         public int compareTo(Object obj) {
             // may throw ClassCastException which the user must handle
             Oid other = (Oid) obj;
-            if( personid < other.personid ) return -1;
-            if( personid > other.personid ) return 1;
-
-            return type.compareTo(other.type);
+            int comparison = person.compareTo(other.person);
+            if( comparison != 0 ) {
+                return comparison;
+            } else { 
+                return type.compareTo(other.type);
+            }
         }
 
     }
