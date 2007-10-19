@@ -26,6 +26,9 @@ import org.xml.sax.ErrorHandler;
 
 import java.lang.reflect.Constructor;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -120,7 +123,7 @@ public class JDOImplHelper extends java.lang.Object {
     /** Register the default DateFormat instance.
      */
     static {
-        jdoImplHelper.registerDateFormat(DateFormat.getDateTimeInstance());
+        jdoImplHelper.registerDateFormat(getDateTimeInstance());
     }
     
     /** Creates new JDOImplHelper */
@@ -794,10 +797,39 @@ public class JDOImplHelper extends java.lang.Object {
     }
 
     /**
+     * Get the DateFormat instance for the default locale from the VM.
+     * This requires the following privileges for JDOImplHelper in the
+     * security permissions file:
+     * permission java.util.PropertyPermission "user.country", "read";
+     * permission java.util.PropertyPermission "user.timezone", "read,write";
+     * permission java.util.PropertyPermission "java.home", "read";
+     * If these permissions are not present, or there is some other
+     * problem getting the default date format, a simple formatter is returned.
+     * @since 2.1
+     * @return the default date-time formatter
+     */
+    static DateFormat getDateTimeInstance() {
+        DateFormat result = null;
+        try {
+        result = (DateFormat) AccessController.doPrivileged (
+            new PrivilegedAction () {
+                public Object run () {
+                    return DateFormat.getDateTimeInstance();
+                }
+            }
+            );
+        } catch (Exception ex) {
+            result = DateFormat.getInstance();
+        }
+        return result;
+    }
+
+    /**
      * Register a DateFormat instance for use with constructing Date 
      * instances. The default is the default DateFormat instance.
      * If the new instance implements SimpleDateFormat, get its pattern
      * for error messages.
+     * @since 2.0
      * @param df the DateFormat instance to use
      */
     public synchronized void registerDateFormat(DateFormat df) {

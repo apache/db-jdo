@@ -237,6 +237,14 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
             "java.util.Date:" + rightNow);
     }
 
+    public void testStringNullDateConstructor() {
+        // this test uses the standard date-time format
+        // "M/d/yy h:mm a"
+        helper.registerDateFormat(DateFormat.getInstance());
+        Object c1 = new ObjectIdentity(Object.class, 
+            "java.util.Date:" + "10/9/2007 4:26 PM");
+    }
+
     public void testBadStringDateConstructor() {
         try {
             ObjectIdentity c1 = new ObjectIdentity(Object.class, 
