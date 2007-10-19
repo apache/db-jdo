@@ -127,7 +127,7 @@ public class JPAAppPhoneNumber implements Serializable {
      */
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
-        rc.append(person);
+        rc.append(person.getPersonid());
         rc.append(", ").append(type);
         rc.append(", phone ").append(phoneNumber);
         return rc.toString();

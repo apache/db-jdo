@@ -44,6 +44,7 @@ jdo.tck.cfglist = \
                  companyAnnotatedAllRelationshipsFCPM.conf \
                  companyAnnotatedAllRelationshipsPCConcrete.conf \
                  companyAnnotatedAllRelationshipsJPAConcrete.conf \
+                 companyAnnotatedAllRelationshipsJPAPM.conf \
                  companyAnnotatedAllRelationshipsPCPM.conf \
                  companyAnnotatedAllRelationshipsPIPM.conf \
                  companyAnnotatedEmbeddedFCPM.conf \
@@ -52,7 +53,8 @@ jdo.tck.cfglist = \
                  companyAnnotatedNoRelationshipsFCConcrete.conf \
                  companyAnnotatedNoRelationshipsFCPM.conf \
                  companyAnnotatedNoRelationshipsPCConcrete.conf \
-                 companyAnnotatedNoRelationshipsJPAConcrete.conf \
+                 companyAnnotatedEmbeddedJPAConcrete.conf \
+                 companyAnnotatedEmbeddedJPAPM.conf \
                  companyAnnotatedNoRelationshipsPCPM.conf \
                  companyAnnotatedNoRelationshipsPIPM.conf \
                  inheritance1.conf \

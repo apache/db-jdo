@@ -75,7 +75,7 @@ public class JPAAppPerson
         })
     private JPAAppAddress address;
 
-    @OneToMany(mappedBy="person")
+    @OneToMany(mappedBy="person", cascade=CascadeType.ALL)
     @MapKey(name="type")
     private Map<String, JPAAppPhoneNumber> phoneNumbers
             = new HashMap<String, JPAAppPhoneNumber>();    
@@ -224,7 +224,7 @@ public class JPAAppPerson
      * @return A Map<String, String> of phone numbers.
      */
     public Map getPhoneNumbers() {
-        return (convertString2Phone(phoneNumbers));
+        return (convertPhone2String(phoneNumbers));
     }
 
     /**
@@ -278,10 +278,13 @@ public class JPAAppPerson
      */
     public void setPhoneNumbers(Map phoneNumbers) {
         this.phoneNumbers = (phoneNumbers != null) ? 
-                convertPhone2String(phoneNumbers) : null;
+                convertString2Phone(phoneNumbers) : null;
     }
     
-    protected HashMap convertPhone2String(Map pnums) {
+    /**
+     * Converts HashMap<String, String> to HashMap<String, JPAAppPhoneNmber>
+     */
+    protected HashMap convertString2Phone(Map pnums) {
         HashMap retval = new HashMap();
         for (Object objEntry: pnums.entrySet()) {
             Map.Entry entry = (Map.Entry)objEntry;
@@ -289,12 +292,16 @@ public class JPAAppPerson
             String value = (String)entry.getValue();
             JPAAppPhoneNumber newValue = 
                     new JPAAppPhoneNumber(this, key, value);
+//            System.out.println("Key = " + key + "  Value = " + value);
             retval.put(key, newValue);
         }
         return retval;
     }
     
-    protected HashMap convertString2Phone(Map pnums) {
+    /**
+     * Converts HashMap<String, JPAAppPhoneNmber> to HashMap<String, String>
+     */
+    protected HashMap convertPhone2String(Map pnums) {
         HashMap retval = new HashMap();
         for (Object objEntry: pnums.entrySet()) {
             Map.Entry entry = (Map.Entry)objEntry;
@@ -326,7 +333,7 @@ public class JPAAppPerson
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
         rc.append(", born ").append(formatter.format(birthdate));
-        rc.append(", phone ").append(phoneNumbers);
+        rc.append(", phone ").append(convertPhone2String(phoneNumbers));
         return rc.toString();
     }
 
@@ -355,7 +362,7 @@ public class JPAAppPerson
             helper.equals(middlename, otherPerson.getMiddlename(), where + ".middlename") &
             helper.equals(birthdate, otherPerson.getBirthdate(), where + ".birthdate") &
             helper.deepEquals(address, otherPerson.getAddress(), where + ".address") &
-            helper.deepEquals(phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
+            helper.deepEquals(convertPhone2String(phoneNumbers), otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
     /** 
