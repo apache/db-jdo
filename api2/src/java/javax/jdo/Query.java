@@ -332,7 +332,7 @@ public interface Query extends Serializable {
      * @param parameters the <code>Object</code> array with all of the 
      * parameters.
      */
-    Object executeWithArray (Object[] parameters);
+    Object executeWithArray (Object... parameters);
     
     /** Get the <code>PersistenceManager</code> associated with this 
      * <code>Query</code>.
@@ -529,7 +529,7 @@ public interface Query extends Serializable {
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    long deletePersistentAll (Object[] parameters);
+    long deletePersistentAll (Object... parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the

@@ -893,6 +893,7 @@ public class SignatureVerifier {
                 else if (t.equals("strictfp")) m |= Modifier.STRICT;
                 else if (t.equals("synchronized")) m |= Modifier.SYNCHRONIZED;
                 else if (t.equals("transient")) m |= Modifier.TRANSIENT;
+                else if (t.equals("varargs")) m |= Modifier.TRANSIENT;
                 else if (t.equals("volatile")) m |= Modifier.VOLATILE;
                 else {
                     setLookAhead(t); // not a modifier

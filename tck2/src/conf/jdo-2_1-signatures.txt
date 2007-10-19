@@ -202,16 +202,16 @@ public interface javax.jdo.Constants {
 public interface javax.jdo.datastore.DataStoreCache {
     public void evict(Object oid);
     public void evictAll();
-    public void evictAll(Object[] oids);
+    public varargs void evictAll(Object[] oids);
     public void evictAll(java.util.Collection oids);
     public void evictAll(Class pcClass, boolean subclasses);
     public void pin(Object oid);
     public void pinAll(java.util.Collection oids);
-    public void pinAll(Object[] oids);
+    public varargs void pinAll(Object[] oids);
     public void pinAll(Class pcClass, boolean subclasses);
     public void unpin(Object oid);
     public void unpinAll(java.util.Collection oids);
-    public void unpinAll(Object[] oids);
+    public varargs void unpinAll(Object[] oids);
     public void unpinAll(Class pcClass, boolean subclasses);
 }
 
@@ -229,7 +229,7 @@ public interface javax.jdo.datastore.Sequence {
     public long currentValue();
 }
 
-public interface javax.jdo.Extent {
+public interface javax.jdo.Extent extends java.lang.Iterable {
     public java.util.Iterator iterator();
     public boolean hasSubclasses();
     public Class getCandidateClass();
@@ -251,13 +251,13 @@ public interface javax.jdo.FetchPlan {
     public javax.jdo.FetchPlan clearGroups();
     public java.util.Set getGroups();
     public javax.jdo.FetchPlan setGroups(java.util.Collection fetchGroupNames);
-    public javax.jdo.FetchPlan setGroups(String[]fetchGroupNames);
+    public varargs javax.jdo.FetchPlan setGroups(String[]fetchGroupNames);
     public javax.jdo.FetchPlan setGroup(String fetchGroupName);
     public javax.jdo.FetchPlan setMaxFetchDepth(int fetchDepth);
     public int getMaxFetchDepth();
     public javax.jdo.FetchPlan setDetachmentRoots(java.util.Collection roots);
     public java.util.Collection getDetachmentRoots();
-    public javax.jdo.FetchPlan setDetachmentRootClasses(Class[] rootClasses);
+    public varargs javax.jdo.FetchPlan setDetachmentRootClasses(Class[] rootClasses);
     public Class[] getDetachmentRootClasses();
     public javax.jdo.FetchPlan setFetchSize(int fetchSize);
     public int getFetchSize();
@@ -609,12 +609,12 @@ public interface javax.jdo.PersistenceManager {
     public void close();
     public javax.jdo.Transaction currentTransaction();
     public void evict(Object pc);
-    public void evictAll(Object[] pcs);
+    public varargs void evictAll(Object[] pcs);
     public void evictAll(java.util.Collection pcs);
     public void evictAll(java.lang.Class, boolean);
     public void evictAll();
     public void refresh(Object pc);
-    public void refreshAll(Object[] pcs);
+    public varargs void refreshAll(Object[] pcs);
     public void refreshAll(java.util.Collection pcs);
     public void refreshAll();
     public void refreshAll(javax.jdo.JDOException jdoe);
@@ -640,31 +640,34 @@ public interface javax.jdo.PersistenceManager {
     public java.util.Collection getObjectsById(java.util.Collection oids, boolean validate);
     public java.util.Collection getObjectsById(java.util.Collection oids);
     public Object[] getObjectsById(Object[] oids, boolean validate);
-    public Object[] getObjectsById(Object[] oids);
+    public varargs Object[] getObjectsById(boolean validate,Object[] oids);
+    public varargs Object[] getObjectsById(Object[] oids);
     public Object makePersistent(Object pc);
-    public Object[] makePersistentAll(Object[] pcs);
+    public varargs Object[] makePersistentAll(Object[] pcs);
     public java.util.Collection makePersistentAll(java.util.Collection pcs);
     public void deletePersistent(Object pc);
-    public void deletePersistentAll(Object[] pcs);
+    public varargs void deletePersistentAll(Object[] pcs);
     public void deletePersistentAll(java.util.Collection pcs);
     public void makeTransient(Object pc);
-    public void makeTransientAll(Object[] pcs);
+    public varargs void makeTransientAll(Object[] pcs);
     public void makeTransientAll(java.util.Collection pcs);
     public void makeTransient(Object pc, boolean useFetchPlan);
     public void makeTransientAll(Object[] pcs, boolean useFetchPlan);
+    public varargs void makeTransientAll(boolean useFetchPlan, Object[] pcs);
     public void makeTransientAll(java.util.Collection pcs, boolean useFetchPlan);
     public void makeTransactional(Object pc);
-    public void makeTransactionalAll(Object[] pcs);
+    public varargs void makeTransactionalAll(Object[] pcs);
     public void makeTransactionalAll(java.util.Collection pcs);
     public void makeNontransactional(Object pc);
-    public void makeNontransactionalAll(Object[] pcs);
+    public varargs void makeNontransactionalAll(Object[] pcs);
     public void makeNontransactionalAll(java.util.Collection pcs);
     public void retrieve(Object pc);
     public void retrieve(Object pc, boolean FGOnly);
     public void retrieveAll(java.util.Collection pcs);
     public void retrieveAll(java.util.Collection pcs, boolean FGOnly);
-    public void retrieveAll(Object[] pcs);
+    public varargs void retrieveAll(Object[] pcs);
     public void retrieveAll(Object[] pcs, boolean FGOnly);
+    public varargs void retrieveAll(boolean FGOnly, Object[] pcs);
     public void setUserObject(Object o);
     public Object getUserObject();
     public javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
@@ -679,7 +682,7 @@ public interface javax.jdo.PersistenceManager {
     public void setCopyOnAttach(boolean flag);
     public Object detachCopy(Object pc);
     public java.util.Collection detachCopyAll(java.util.Collection pcs);
-    public Object[] detachCopyAll(Object [] pcs);
+    public varargs Object[] detachCopyAll(Object [] pcs);
     public Object putUserObject(Object key, Object val);
     public Object getUserObject(Object key);
     public Object removeUserObject(Object key);
@@ -690,7 +693,7 @@ public interface javax.jdo.PersistenceManager {
     public java.util.Date getServerDate();
     public javax.jdo.datastore.Sequence getSequence(String name);
     public javax.jdo.datastore.JDOConnection getDataStoreConnection();
-    public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
+    public varargs void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
     public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
 }
 
@@ -770,7 +773,7 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public Object execute(Object p1, Object p2);
     public Object execute(Object p1, Object p2, Object p3);
     public Object executeWithMap(java.util.Map parameters);
-    public Object executeWithArray(Object[] parameters);
+    public varargs Object executeWithArray(Object[] parameters);
     public javax.jdo.PersistenceManager getPersistenceManager();
     public void close(Object queryResult);
     public void closeAll();
@@ -783,7 +786,7 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public void addExtension(String key, Object value);
     public void setExtensions(java.util.Map extensions);
     public javax.jdo.FetchPlan getFetchPlan();
-    public long deletePersistentAll(Object[] parameters);
+    public varargs long deletePersistentAll(Object[] parameters);
     public long deletePersistentAll(java.util.Map parameters);
     public long deletePersistentAll();
     public void setUnmodifiable();

@@ -52,7 +52,7 @@ public interface DataStoreCache {
      * @param oids the object ids of the instance to evict.
      * @since 2.0
      */
-    void evictAll (Object[] oids);
+    void evictAll (Object... oids);
 
     /** Evict the parameter instances from the second-level cache.
      * @param oids the object ids of the instance to evict.
@@ -83,7 +83,7 @@ public interface DataStoreCache {
      * @param oids the object ids of the instances to pin.
      * @since 2.0
      */
-    void pinAll (Object[] oids);
+    void pinAll (Object... oids);
 
     /** Pin instances in the second-level cache.
      * @param pcClass the class of instances to pin
@@ -108,7 +108,7 @@ public interface DataStoreCache {
      * @param oids the object id of the instance to evict.
      * @since 2.0
      */
-    void unpinAll(Object[] oids);
+    void unpinAll(Object... oids);
 
     /** Unpin instances from the second-level cache.
      * @param pcClass the class of instances to unpin
@@ -134,7 +134,7 @@ public interface DataStoreCache {
         public void evictAll() {
         }
 
-        public void evictAll(Object[] oids) {
+        public void evictAll(Object... oids) {
         }
 
         public void evictAll(Collection oids) {
@@ -146,7 +146,7 @@ public interface DataStoreCache {
         public void pin(Object oid) {
         }
 
-        public void pinAll(Object[] oids) {
+        public void pinAll(Object... oids) {
         }
 
         public void pinAll(Collection oids) {
@@ -158,7 +158,7 @@ public interface DataStoreCache {
         public void unpin(Object oid) {
         }
 
-        public void unpinAll(Object[] oids) {
+        public void unpinAll(Object... oids) {
         }
 
         public void unpinAll(Collection oids) {

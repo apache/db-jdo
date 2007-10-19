@@ -513,7 +513,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the <code>Collection</code> of <code>String</code>s representing 
      * the supported options.
      */    
-    Collection supportedOptions();
+    Collection<String> supportedOptions();
    
     /**
      * Return the {@link DataStoreCache} that this factory uses for

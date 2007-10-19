@@ -132,7 +132,7 @@ public interface FetchPlan {
      * @return the FetchPlan
      * @since 2.0
      */
-    FetchPlan setGroups(String[]fetchGroupNames);
+    FetchPlan setGroups(String... fetchGroupNames);
 
     /** 
      * Set the active fetch groups to the single named fetch group.
@@ -180,7 +180,7 @@ public interface FetchPlan {
      * @param rootClasses The root classes.
      * @since 2.0
      */
-    FetchPlan setDetachmentRootClasses(Class[] rootClasses);
+    FetchPlan setDetachmentRootClasses(Class... rootClasses);
 
     /**
      * Get the root classes for DetachAllOnCommit.

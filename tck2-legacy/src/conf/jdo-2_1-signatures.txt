@@ -639,6 +639,7 @@ public interface javax.jdo.PersistenceManager {
     public java.util.Collection getObjectsById(java.util.Collection oids, boolean validate);
     public java.util.Collection getObjectsById(java.util.Collection oids);
     public Object[] getObjectsById(Object[] oids, boolean validate);
+    public Object[] getObjectsById(boolean validate,Object[] oids);
     public Object[] getObjectsById(Object[] oids);
     public Object makePersistent(Object pc);
     public Object[] makePersistentAll(Object[] pcs);
@@ -651,6 +652,7 @@ public interface javax.jdo.PersistenceManager {
     public void makeTransientAll(java.util.Collection pcs);
     public void makeTransient(Object pc, boolean useFetchPlan);
     public void makeTransientAll(Object[] pcs, boolean useFetchPlan);
+    public void makeTransientAll(boolean useFetchPlan, Object[] pcs);
     public void makeTransientAll(java.util.Collection pcs, boolean useFetchPlan);
     public void makeTransactional(Object pc);
     public void makeTransactionalAll(Object[] pcs);
@@ -664,6 +666,7 @@ public interface javax.jdo.PersistenceManager {
     public void retrieveAll(java.util.Collection pcs, boolean FGOnly);
     public void retrieveAll(Object[] pcs);
     public void retrieveAll(Object[] pcs, boolean FGOnly);
+    public void retrieveAll(boolean FGOnly, Object[] pcs);
     public void setUserObject(Object o);
     public Object getUserObject();
     public javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();

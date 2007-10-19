@@ -89,7 +89,7 @@ public interface PersistenceManager {
      * @see #evict(Object pc)
      * @param pcs the array of instances to evict from the cache.
      */
-    void evictAll (Object[] pcs);
+    void evictAll (Object... pcs);
     
     /** Mark a <code>Collection</code> of instances as no longer needed in the 
      * cache.
@@ -131,7 +131,7 @@ public interface PersistenceManager {
      * @see #refresh(Object pc)
      * @param pcs the array of instances to refresh.
      */
-    void refreshAll (Object[] pcs);
+    void refreshAll (Object... pcs);
     
     /** Refresh the state of a <code>Collection</code> of instances from the 
      * data store.
@@ -452,21 +452,35 @@ public interface PersistenceManager {
      * @return the objects that were looked up, in the
      *     same order as the oids parameter.
      * @see #getObjectById(Object,boolean)
+     * @see #getObjectsById(boolean,Object...)
+     * @deprecated
      * @since 2.0
      */
     Object[] getObjectsById (Object[] oids, boolean validate);
 
     /**
+     * Return the objects with the given oids.
+     * @param oids the oids of the objects to return
+     * @param validate if true, the existance of the objects in
+     *     the datastore will be validated.
+     * @return the objects that were looked up, in the
+     *     same order as the oids parameter.
+     * @see #getObjectById(Object,boolean)
+     * @since 2.1
+     */
+    Object[] getObjectsById (boolean validate, Object... oids);
+
+    /**
      * Return the objects with the given oids. This method is equivalent
-     * to calling {@link #getObjectsById(Object[],boolean)} 
+     * to calling {@link #getObjectsById(boolean,Object...)} 
      * with the validate flag true.
      * @param oids the oids of the objects to return
      * @return the objects that were looked up, in the
      *     same order as the oids parameter.
-     * @see #getObjectsById(Object[],boolean)
+     * @see #getObjectsById(boolean,Object...)
      * @since 2.0
      */
-    Object[] getObjectsById (Object[] oids);
+    Object[] getObjectsById (Object... oids);
 
     /** Make the parameter instance persistent in this 
      * <code>PersistenceManager</code>.
@@ -525,7 +539,7 @@ public interface PersistenceManager {
      */
     <T> T makePersistent (T pc);
     
-    /** Make an array of instances persistent.
+    /** Make an array of instances persistent. 
      * @param pcs an array of instances
      * @return the parameter instances for parameters in the transient or
      * persistent state, or the corresponding persistent instance 
@@ -533,7 +547,7 @@ public interface PersistenceManager {
      * parameter array
      * @see #makePersistent(Object pc)
      */
-    <T> T[] makePersistentAll (T[] pcs);
+    <T> T[] makePersistentAll (T... pcs);
     
     /** Make a <code>Collection</code> of instances persistent.
      * @param pcs a <code>Collection</code> of instances
@@ -563,7 +577,7 @@ public interface PersistenceManager {
      * @param pcs a <code>Collection</code> of persistent instances
      * @see #deletePersistent(Object pc)
      */
-    void deletePersistentAll (Object[] pcs);
+    void deletePersistentAll (Object... pcs);
     
     /** Delete a <code>Collection</code> of instances from the data store.
      * @param pcs a <code>Collection</code> of persistent instances
@@ -589,7 +603,7 @@ public interface PersistenceManager {
      * is preserved unchanged.
      * @param pcs the instances to make transient.
      */
-    void makeTransientAll (Object[] pcs);
+    void makeTransientAll (Object... pcs);
     
     /** Make a <code>Collection</code> of instances transient, removing them 
      * from management by this <code>PersistenceManager</code>.
@@ -640,9 +654,32 @@ public interface PersistenceManager {
      * @param pcs the root instances to make transient.
      * @param useFetchPlan whether to use the current fetch plan to determine
      * which fields to load and which instances to make transient
+     * @see #makeTransientAll(boolean,Object...)
+     * @deprecated
      * @since 2.0
      */
     void makeTransientAll (Object[] pcs, boolean useFetchPlan);
+    
+    /** Make instances transient, removing them from management
+     * by this <code>PersistenceManager</code>. If the useFetchPlan parameter
+     * is false, this method behaves exactly as makeTransientAll(Object[] pcs). 
+     * <P>The affected instance(s) lose their JDO identity and are no longer 
+     * associated with any <code>PersistenceManager</code>.  The state 
+     * of fields is unchanged.
+     * <P>If the useFetchPlan parameter is true, then the current FetchPlan
+     * is applied to the pcs parameters and the entire graph of instances 
+     * reachable via loaded fields is made transient. The state of fields
+     * in the affected instances is as specified by the FetchPlan.
+     * <P>Unlike detachCopy, the instances are not detached; there is no
+     * detachment information in the instances.
+     * <P>The instances to be made transient do not need to
+     * implement the javax.jdo.spi.Detachable interface.
+     * @param pcs the root instances to make transient.
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to make transient
+     * @since 2.1
+     */
+    void makeTransientAll (boolean useFetchPlan, Object... pcs);
     
     /** Make instances transient, removing them from management
      * by this <code>PersistenceManager</code>. If the useFetchPlan parameter
@@ -687,7 +724,7 @@ public interface PersistenceManager {
      * @param pcs the array of instances to make transactional.
      * @see #makeTransactional(Object pc)
      */
-    void makeTransactionalAll (Object[] pcs);
+    void makeTransactionalAll (Object... pcs);
 
     /** Make a <code>Collection</code> of instances subject to transactional 
      * boundaries.
@@ -713,7 +750,7 @@ public interface PersistenceManager {
      * @param pcs the array of instances to make nontransactional.
      * @see #makeNontransactional(Object pc)
      */
-    void makeNontransactionalAll (Object[] pcs);
+    void makeNontransactionalAll (Object... pcs);
     
     /** Make a <code>Collection</code> of instances non-transactional after 
      * commit.
@@ -789,7 +826,7 @@ public interface PersistenceManager {
      * the class to retrieve associated instances.
      * @param pcs the instances
      */
-    void retrieveAll (Object[] pcs);
+    void retrieveAll (Object... pcs);
            
     /** Retrieve field values of instances from the store.  This tells
      * the <code>PersistenceManager</code> that the application intends to use 
@@ -808,9 +845,32 @@ public interface PersistenceManager {
      * @param pcs the instances
      * @param useFetchPlan whether to use the current fetch plan to determine
      * which fields to load and which instances to retrieve.
+     * @deprecated
+     * @see #retrieveAll(boolean,Object...)
      * @since 1.0.1
      */
     void retrieveAll (Object[] pcs, boolean useFetchPlan);
+           
+    /** Retrieve field values of instances from the store.  This tells
+     * the <code>PersistenceManager</code> that the application intends to use 
+     * the instances, and their field values should be retrieved.  The fields
+     * in the current fetch group must be retrieved, and the implementation
+     * might retrieve more fields than the current fetch group.
+     * <P>If the useFetchPlan parameter is false, this method behaves exactly
+     * as the corresponding method without the useFetchPlan parameter. 
+     * If the useFetchPlan parameter is true, and the fetch plan has not been
+     * modified from its default setting, all fields in the current fetch plan
+     * are fetched, and other fields might be fetched lazily by the
+     * implementation. If the useFetchPlan parameter is true, and the fetch
+     * plan has been changed from its default setting, then the fields
+     * specified by the fetch plan are loaded, along with related instances
+     * specified by the fetch plan.
+     * @param pcs the instances
+     * @param useFetchPlan whether to use the current fetch plan to determine
+     * which fields to load and which instances to retrieve.
+     * @since 2.1
+     */
+    void retrieveAll (boolean useFetchPlan, Object... pcs);
            
     /** The application can manage the <code>PersistenceManager</code> instances
      * more easily by having an application object associated with each
@@ -990,7 +1050,7 @@ public interface PersistenceManager {
      * @see #getFetchPlan
      * @since 2.0
      */
-    <T> T[] detachCopyAll (T[] pcs);
+    <T> T[] detachCopyAll (T... pcs);
 
     /**
      * Put the specified key-value pair into the map of user objects.
@@ -1105,7 +1165,7 @@ public interface PersistenceManager {
      * @since 2.0
      */
     void addInstanceLifecycleListener (InstanceLifecycleListener listener,
-        Class[] classes);
+        Class... classes);
 
     /**
      * Removes the listener instance from the list of lifecycle event listeners.
