@@ -27,15 +27,14 @@ import org.apache.jdo.tck.pc.company.*;
  * class as a parameter.
  */
 public class CompanyFactoryAnnotatedJPAAppPM
+        extends CompanyFactoryAbstractImpl
         implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
     
     /**
      * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
      */
     public CompanyFactoryAnnotatedJPAAppPM(PersistenceManager pm) {
-        this.pm = pm;        
+        super(pm);
     }
     
     public Class[] getTearDownClasses() {
