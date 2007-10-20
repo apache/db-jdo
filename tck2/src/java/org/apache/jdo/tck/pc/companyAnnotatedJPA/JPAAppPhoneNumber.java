@@ -176,8 +176,8 @@ public class JPAAppPhoneNumber implements Serializable {
             if( obj==null ||
                 !this.getClass().equals(obj.getClass()) ) return( false );
             Oid o = (Oid) obj;
-            if( this.person != o.person ) return( false );
-            if( this.type != o.type ) return( false );
+            if( !this.person.equals(o.person) ) return( false );
+            if( !this.type.equals(o.type) ) return( false );
             return( true );
         }
 
