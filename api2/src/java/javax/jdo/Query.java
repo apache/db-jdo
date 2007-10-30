@@ -586,26 +586,35 @@ public interface Query extends Serializable {
 
     /**
      * Add a subquery to this query.
-     * The query parameter instance is unmodified as a result of the 
-     * addSubquery or subsequent execution of the outer query. 
-     * Only some of the query parts are copied for use as the subquery. 
-     * The parts copied include the candidate class, filter, parameter 
-     * declarations, variable declarations, imports, ordering specification, 
+     * A subquery is composed as a Query and subsequently attached
+     * to a different query (the outer query) by calling this method.
+     * The query parameter instance is unmodified as a result of the
+     * addSubquery or subsequent execution of the outer query.
+     * Only some of the query parts are copied for use as the subquery.
+     * The parts copied include the candidate class, filter, parameter
+     * declarations, variable declarations, imports, ordering specification,
      * uniqueness, result specification, and grouping specification.
-     * The association with a PersistenceManager, the candidate collection, 
-     * result class, limits on size, and number of skipped instances 
-     * are not used.
-     * The variableDeclaration is the name of the variable containing
-     * the results of the subquery execution. This variable may be used
-     * in this query.
-     * The candidateCollectionExpression is the expression using tokens 
-     * from this query that represent the candidates over which the 
-     * subquery is evaluated.
+     * The association with a PersistenceManager, the candidate collection
+     * or extent, result class, and range limits are not used.
+     * The String parameters are trimmed of white space.
+     * The variableDeclaration parameter is the name of the variable
+     * containing the results of the subquery execution. If the same value
+     * of variableDeclaration is used to add multiple subqueries, the
+     * subquery replaces the previous subquery for the same named variable.
+     * If the subquery parameter is null, the variable is unset,
+     * effectively making the variable named in the variableDeclaration
+     * unbound. If the trimmed value is the empty String, or the parameter
+     * is null, then JDOUserException is thrown.
+     * The candidateCollectionExpression is the expression from the
+     * outer query that represents the candidates over which the subquery
+     * is evaluated. If the trimmed value is the empty String, or the
+     * parameter is null, then the candidate collection is the extent
+     * of the candidate class.     
      * @param sub the subquery to add to this Query
-     * @param variableDeclaration the name of the variable 
-     * to be used in this Query
+     * @param variableDeclaration the name of the variable in the outer query
+     * to bind the results of the subquery
      * @param candidateCollectionExpression the candidate collection 
-     * to apply to the subquery
+     * of the subquery as an expression using terms of the outer query
      * @since 2.1
      */
     void addSubquery
