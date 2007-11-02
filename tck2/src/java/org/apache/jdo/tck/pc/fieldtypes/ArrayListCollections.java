@@ -64,6 +64,11 @@ public class ArrayListCollections {
   public ArrayList ArrayListOfShort39;
   public ArrayList ArrayListOfShort40;
   public ArrayList ArrayListOfShort41;
+  public ArrayList ArrayListOfSimpleEnum42;
+  public ArrayList ArrayListOfSimpleEnum43;
+  public ArrayList ArrayListOfSimpleEnum44;
+  public ArrayList ArrayListOfSimpleEnum45;
+  public ArrayList ArrayListOfSimpleEnum46;
 
   public static final String [] fieldSpecs = { 
   "public ArrayList ArrayListOfObject0",
@@ -107,7 +112,12 @@ public class ArrayListCollections {
   "embedded-element=false public ArrayList ArrayListOfLong38",
   "public ArrayList ArrayListOfShort39",
   "embedded-element=true public ArrayList ArrayListOfShort40",
-  "embedded-element=false public ArrayList ArrayListOfShort41"
+  "embedded-element=false public ArrayList ArrayListOfShort41",
+  "public ArrayList ArrayListOfSimpleEnum42",
+  "embedded-element=true public ArrayList ArrayListOfSimpleEnum43",
+  "embedded-element=false public ArrayList ArrayListOfSimpleEnum44",
+  "public ArrayList ArrayListOfSimpleEnum45",
+  "embedded-element=false public ArrayList ArrayListOfSimpleEnum46"
   };
   public int getLength()
   {
@@ -201,11 +211,21 @@ public class ArrayListCollections {
         return ArrayListOfShort40;
       case(41):
         return ArrayListOfShort41;
+      case(42):
+        return ArrayListOfSimpleEnum42;
+      case(43):
+        return ArrayListOfSimpleEnum43;
+      case(44):
+        return ArrayListOfSimpleEnum44;
+      case(45):
+        return ArrayListOfSimpleEnum45;
+      case(46):
+        return ArrayListOfSimpleEnum46;
       default:
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,ArrayList value)
+  public boolean set(int index, ArrayList value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -336,6 +356,16 @@ public class ArrayListCollections {
          break;
       case(41):
         ArrayListOfShort41= value;
+      case(42):
+        ArrayListOfSimpleEnum42= value;
+      case(43):
+        ArrayListOfSimpleEnum43= value;
+      case(44):
+        ArrayListOfSimpleEnum44= value;
+      case(45):
+        ArrayListOfSimpleEnum45= value;
+      case(46):
+        ArrayListOfSimpleEnum46= value;
          break;
       default:
         throw new IndexOutOfBoundsException();

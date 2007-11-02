@@ -416,6 +416,62 @@
 <map  key-type="Short" value-type="String">
 </map>
 </field>
+<field name="MapOfSimpleEnum_String117" >
+<map  key-type="SimpleEnum" value-type="String">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String118" >
+<map  key-type="SimpleEnum" value-type="String"
+      embedded-key="true" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String119" >
+<map  key-type="SimpleEnum" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String120" >
+<map  key-type="SimpleEnum" value-type="String">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String121" >
+<map  key-type="SimpleEnum" value-type="String"
+      embedded-key="true" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String122" >
+<map  key-type="SimpleEnum" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String123" serialized="true">
+<map  key-type="SimpleEnum" value-type="String">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String124" >
+<map  key-type="SimpleEnum" value-type="String">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String125" >
+<map  key-type="SimpleEnum" value-type="String"
+      embedded-key="true" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String126" >
+<map  key-type="SimpleEnum" value-type="String" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String127" >
+<map  key-type="SimpleEnum" value-type="String">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String128" >
+<map  key-type="SimpleEnum" value-type="String"
+      embedded-key="true" embedded-value="true">
+</map>
+</field>
+<field name="MapOfSimpleEnum_String129" >
+<map  key-type="SimpleEnum" value-type="String" embedded-value="true">
+</map>
+</field>
 </class>
 </package>
 </jdo>

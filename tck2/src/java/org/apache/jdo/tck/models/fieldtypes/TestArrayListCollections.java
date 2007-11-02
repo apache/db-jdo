@@ -152,6 +152,11 @@ public class TestArrayListCollections extends JDO_Test {
         for (i = 0; i < n; ++i) {
             Collection expected = expectedValue.get(i);
             Collection actual = pi.get(i);
+            if (actual == null) {
+                sbuf.append("\nFor element " + i 
+                        + ", retrieved instance is null");
+                continue;
+            }
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()

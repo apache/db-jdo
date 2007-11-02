@@ -125,6 +125,17 @@ Metadata for datastore identity
                 <element column="SHORTVAL"/>
                 <order column="ORDER_COL"/>
             </field>
+            <field name="ArrayOfSimpleEnum28" column="ARRAY_OF_SIMPLE_ENUM28"/>
+            <field name="ArrayOfSimpleEnum29" table="ARRAY_OF_SIMPLE_ENUM29">
+                <join column="IDENTIFIER"/>
+                <element column="ENUMVAL"/>
+                <order column="ORDER_COL"/>
+            </field>
+            <field name="ArrayOfSimpleEnum30" table="ARRAY_OF_SIMPLE_ENUM30">
+                <join column="IDENTIFIER"/>
+                <element column="ENUMVAL"/>
+                <order column="ORDER_COL"/>
+            </field>
         </class>
     </package>
 </orm>

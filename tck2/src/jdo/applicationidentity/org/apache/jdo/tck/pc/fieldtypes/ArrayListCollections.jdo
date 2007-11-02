@@ -191,6 +191,29 @@
 <collection element-type="java.lang.Short" embedded-element="false">
 </collection>
 </field>
+<field name="ArrayListOfSimpleEnum42" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleEnum">
+</collection>
+</field>
+<field name="ArrayListOfSimpleEnum43" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleEnum"
+        embedded-element="true">
+</collection>
+</field>
+<field name="ArrayListOfSimpleEnum44" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleEnum"
+           embedded-element="false">
+</collection>
+</field>
+<field name="ArrayListOfSimpleEnum45" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleEnum">
+</collection>
+</field>
+<field name="ArrayListOfSimpleEnum46" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleEnum"
+           embedded-element="false">
+</collection>
+</field>
 </class>
 </package>
 </jdo>

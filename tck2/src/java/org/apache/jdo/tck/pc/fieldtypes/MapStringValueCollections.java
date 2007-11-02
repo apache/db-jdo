@@ -113,6 +113,19 @@ public class MapStringValueCollections {
   public Map MapOfShort_String112;
   public Map MapOfShort_String114;
   public Map MapOfShort_String116;
+  public Map MapOfSimpleEnum_String117;
+  public Map MapOfSimpleEnum_String118;
+  public Map MapOfSimpleEnum_String119;
+  public Map MapOfSimpleEnum_String120;
+  public Map MapOfSimpleEnum_String121;
+  public Map MapOfSimpleEnum_String122;
+  public Map MapOfSimpleEnum_String123;
+  public Map MapOfSimpleEnum_String124;
+  public Map MapOfSimpleEnum_String125;
+  public Map MapOfSimpleEnum_String126;
+  public Map MapOfSimpleEnum_String127;
+  public Map MapOfSimpleEnum_String128;
+  public Map MapOfSimpleEnum_String129;
 
   public static final String [] fieldSpecs = { 
   "public Map MapOfObject_String0",
@@ -205,7 +218,20 @@ public class MapStringValueCollections {
   "embedded-key=true  public Map MapOfShort_String111",
   "embedded-key=true embedded-value=true public Map MapOfShort_String112",
   "embedded-key=false  public Map MapOfShort_String114",
-  "embedded-key=false embedded-value=false public Map MapOfShort_String116"
+  "embedded-key=false embedded-value=false public Map MapOfShort_String116",
+  "public Map MapOfSimpleEnum_String117",
+  "embedded-value=true public Map MapOfSimpleEnum_String118",
+  "embedded-value=false public Map MapOfSimpleEnum_String119",
+  "embedded-key=true  public Map MapOfSimpleEnum_String120",
+  "embedded-key=true embedded-value=true public Map MapOfSimpleEnum_String121",
+  "embedded-key=false  public Map MapOfSimpleEnum_String122",
+  "embedded-key=false embedded-value=false public Map MapOfSimpleEnum_String123",
+  "public Map MapOfSimpleEnum_String124",
+  "embedded-value=true public Map MapOfSimpleEnum_String124",
+  "embedded-value=false public Map MapOfSimpleEnum_String126",
+  "embedded-key=true  public Map MapOfSimpleEnum_String127",
+  "embedded-key=true embedded-value=true public Map MapOfSimpleEnum_String128",
+  "embedded-key=false  public Map MapOfSimpleEnum_String129"
   };
   public int getLength()
   {
@@ -397,6 +423,32 @@ public class MapStringValueCollections {
         return MapOfShort_String114;
       case(90):
         return MapOfShort_String116;
+      case(91):
+        return MapOfSimpleEnum_String117;
+      case(92):
+        return MapOfSimpleEnum_String118;
+      case(93):
+        return MapOfSimpleEnum_String119;
+      case(94):
+        return MapOfSimpleEnum_String120;
+      case(95):
+        return MapOfSimpleEnum_String121;
+      case(96):
+        return MapOfSimpleEnum_String122;
+      case(97):
+        return MapOfSimpleEnum_String123;
+      case(98):
+        return MapOfSimpleEnum_String124;
+      case(99):
+        return MapOfSimpleEnum_String125;
+      case(100):
+        return MapOfSimpleEnum_String126;
+      case(101):
+        return MapOfSimpleEnum_String127;
+      case(102):
+        return MapOfSimpleEnum_String128;
+      case(103):
+        return MapOfSimpleEnum_String129;
       default:
         throw new IndexOutOfBoundsException("Bad index " + index);
     }
@@ -679,6 +731,45 @@ public class MapStringValueCollections {
          break;
       case(90):
         MapOfShort_String116= value;
+         break;
+      case(91):
+        MapOfSimpleEnum_String117= value;
+         break;
+      case(92):
+        MapOfSimpleEnum_String118= value;
+         break;
+      case(93):
+        MapOfSimpleEnum_String119= value;
+         break;
+      case(94):
+        MapOfSimpleEnum_String120= value;
+         break;
+      case(95):
+        MapOfSimpleEnum_String121= value;
+         break;
+      case(96):
+        MapOfSimpleEnum_String122= value;
+         break;
+      case(97):
+        MapOfSimpleEnum_String123= value;
+         break;
+      case(98):
+        MapOfSimpleEnum_String124= value;
+         break;
+      case(99):
+        MapOfSimpleEnum_String125= value;
+         break;
+      case(100):
+        MapOfSimpleEnum_String126= value;
+         break;
+      case(101):
+        MapOfSimpleEnum_String127= value;
+         break;
+      case(102):
+        MapOfSimpleEnum_String128= value;
+         break;
+      case(103):
+        MapOfSimpleEnum_String129= value;
          break;
       default:
         throw new IndexOutOfBoundsException("Bad index " + index);

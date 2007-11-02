@@ -51,6 +51,9 @@ public class ArrayCollections {
   public Long [] ArrayOfLong25;
   public Short [] ArrayOfShort26;
   public Short [] ArrayOfShort27;
+  public SimpleEnum [] ArrayOfSimpleEnum28;
+  public SimpleEnum [] ArrayOfSimpleEnum29;
+  public SimpleEnum [] ArrayOfSimpleEnum30;
 
   public static final String [] fieldSpecs = { 
   "serialized=true public Object [] ArrayOfObject0",
@@ -80,7 +83,10 @@ public class ArrayCollections {
   "embedded-element=false public Long [] ArrayOfLong24",
   "embedded-element=true public Long [] ArrayOfLong25",
   "embedded-element=false public Short [] ArrayOfShort26",
-  "embedded-element=true public Short [] ArrayOfShort27"
+  "embedded-element=true public Short [] ArrayOfShort27",
+  "embedded-element=false public SimpleEnum [] ArrayOfSimpleEnum28",
+  "embedded-element=true public SimpleEnum [] ArrayOfSimpleEnum29",
+  "embedded-element=true public SimpleEnum [] ArrayOfSimpleEnum30"
   };
   public int getLength()
   {
@@ -146,11 +152,17 @@ public class ArrayCollections {
         return ArrayOfShort26;
       case(27):
         return ArrayOfShort27;
+      case(28):
+        return ArrayOfSimpleEnum28;
+      case(29):
+        return ArrayOfSimpleEnum29;
+      case(30):
+        return ArrayOfSimpleEnum30;
       default:
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,Object []  value)
+  public boolean set(int index, Object [] value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;
@@ -239,6 +251,15 @@ public class ArrayCollections {
          break;
       case(27):
         ArrayOfShort27= (Short []) value ;
+         break;
+      case(28):
+        ArrayOfSimpleEnum28= (SimpleEnum []) value ;
+         break;
+      case(29):
+        ArrayOfSimpleEnum29= (SimpleEnum []) value ;
+         break;
+      case(30):
+        ArrayOfSimpleEnum30= (SimpleEnum []) value ;
          break;
       default:
         throw new IndexOutOfBoundsException();

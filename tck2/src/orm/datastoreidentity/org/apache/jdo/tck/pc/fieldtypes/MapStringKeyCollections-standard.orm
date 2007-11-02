@@ -601,6 +601,81 @@
             <field name="MapOfString_Short125"
                    column="MAP_OF_STRING_SHORT125">
             </field>
+            <field name="MapOfString_SimpleEnum126"
+                   table="MAP_OF_STRING_SIMPLEENUM126">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum127"
+                   table="MAP_OF_STRING_SIMPLEENUM127">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum128"
+                   table="MAP_OF_STRING_SIMPLEENUM128">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum129"
+                   table="MAP_OF_STRING_SIMPLEENUM129">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum130"
+                   table="MAP_OF_STRING_SIMPLEENUM130">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum131"
+                   table="MAP_OF_STRING_SIMPLEENUM131">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum132"
+                   column="MAP_OF_STRING_SIMPLEENUM132">
+            </field>
+            <field name="MapOfString_SimpleEnum133"
+                   table="MAP_OF_STRING_SIMPLEENUM133">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum134"
+                   table="MAP_OF_STRING_SIMPLEENUM134">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum135"
+                   table="MAP_OF_STRING_SIMPLEENUM135">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum136"
+                   table="MAP_OF_STRING_SIMPLEENUM136">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum137"
+                   table="MAP_OF_STRING_SIMPLEENUM137">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="MapOfString_SimpleEnum138"
+                   table="MAP_OF_STRING_SIMPLEENUM138">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
         </class>
     </package>
 </orm>

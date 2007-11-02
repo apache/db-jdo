@@ -24,6 +24,7 @@ import java.math.*;
 
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;
 
 public class TestUtil {
 
@@ -94,7 +95,7 @@ public class TestUtil {
             {"Object", "SimpleClass", "SimpleInterface",
             "String", "Date", "Locale", "BigDecimal",
             "BigInteger", "Byte", "Double", "Float",
-            "Integer", "Long", "Short"};
+            "Integer", "Long", "Short", "SimpleEnum"};
 
   private static int getIndexOf(String type) {
       for (int i=0; i < elementTypes.length; i++) {
@@ -207,6 +208,13 @@ public class TestUtil {
                       vec.add(3, new Short((short)(Short.MAX_VALUE - 343)));
                       vec.add(4, new Short((short)(Short.MAX_VALUE - 5656)));
                       break;
+                  case(14):
+                      vec.add(0, (SimpleEnum)SimpleEnum.AK);
+                      vec.add(1, (SimpleEnum)SimpleEnum.FM);
+                      vec.add(2, (SimpleEnum)SimpleEnum.KS);
+                      vec.add(3, (SimpleEnum)SimpleEnum.NJ);
+                      vec.add(4, (SimpleEnum)SimpleEnum.WI);
+                      break;
                  default:
                       throw new IndexOutOfBoundsException();
               }
@@ -313,6 +321,13 @@ public class TestUtil {
                     vec.add(3, new Short((short)(Short.MAX_VALUE - 23344)));
                     vec.add(4, new Short((short)(Short.MAX_VALUE - 723)));
                     break;
+                  case(14):
+                      vec.add(0, (SimpleEnum)SimpleEnum.AZ);
+                      vec.add(1, (SimpleEnum)SimpleEnum.SD);
+                      vec.add(2, (SimpleEnum)SimpleEnum.NV);
+                      vec.add(3, (SimpleEnum)SimpleEnum.WV);
+                      vec.add(4, (SimpleEnum)SimpleEnum.PA);
+                      break;
                  default:
                     throw new IndexOutOfBoundsException();
               }

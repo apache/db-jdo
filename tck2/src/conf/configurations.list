@@ -25,6 +25,7 @@ jdo.tck.cfglist = \
                  fetchplan.conf \
                  lifecycle.conf \
                  models.conf \
+                 models1.conf \
                  query.conf \
                  jdoql.conf \
                  transactions.conf \

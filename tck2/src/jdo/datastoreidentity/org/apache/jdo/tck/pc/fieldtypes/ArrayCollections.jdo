@@ -139,6 +139,18 @@
 <array embedded-element="true">
 </array>
 </field>
+<field name="ArrayOfSimpleEnum28" serialized="true">
+<array embedded-element="false">
+</array>
+</field>
+<field name="ArrayOfSimpleEnum29" >
+<array embedded-element="true">
+</array>
+</field>
+<field name="ArrayOfSimpleEnum30" >
+<array embedded-element="true">
+</array>
+</field>
 </class>
 </package>
 </jdo>

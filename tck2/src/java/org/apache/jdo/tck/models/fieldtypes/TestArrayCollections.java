@@ -166,6 +166,11 @@ public class TestArrayCollections extends JDO_Test {
             Object[] actual = (Object[])Array.newInstance(objClass, 5);
             expected = expectedValue.get(i);
             actual = pi.get(i);
+            if (actual == null) {
+                sbuf.append("\nFor element " + i 
+                        + ", retrieved instance is null.");
+                continue;
+            }
             if (expected.length != actual.length) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.length + ", actual size = " + actual.length
