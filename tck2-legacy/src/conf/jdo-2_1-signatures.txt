@@ -765,6 +765,9 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public void setOrdering(String ordering);
     public void setIgnoreCache(boolean ignoreCache);
     public void addSubquery(javax.jdo.Query, java.lang.String, java.lang.String);
+    public void addSubquery(javax.jdo.Query, java.lang.String, java.lang.String, java.lang.String);
+    public void addSubquery(javax.jdo.Query, java.lang.String, java.lang.String, java.lang.String[]);
+    public void addSubquery(javax.jdo.Query, java.lang.String, java.lang.String, java.util.Map);
     public boolean getIgnoreCache();
     public void compile();
     public Object execute();

@@ -586,6 +586,41 @@ public interface Query extends Serializable {
 
     /**
      * Add a subquery to this query.
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable in the outer query
+     * to bind the results of the subquery
+     * @param candidateCollectionExpression the candidate collection 
+     * of the subquery as an expression using terms of the outer query
+     * @see #addSubquery(Query sub, String variableDeclaration, 
+     *    String candidateCollectionExpression, String... parameters)
+     * @since 2.1
+     */
+    void addSubquery
+        (Query sub, String variableDeclaration, 
+            String candidateCollectionExpression);
+
+    /**
+     * Add a subquery to this query.
+     * The String version of the method binds the named expression 
+     * to the parameter implictly or explicitly declared in the 
+     * subquery.
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable 
+     * to be used in this Query
+     * @param candidateCollectionExpression the candidate collection 
+     * to apply to the subquery
+     * @param parameter the expression from the outer query to bind 
+     * the parameter in the subquery
+     * @see #addSubquery(Query sub, String variableDeclaration, 
+     *    String candidateCollectionExpression, String... parameters)
+     * @since 2.1
+     */
+    void addSubquery
+        (Query sub, String variableDeclaration, 
+         String candidateCollectionExpression, String parameter);
+
+    /**
+     * Add a subquery to this query.
      * A subquery is composed as a Query and subsequently attached
      * to a different query (the outer query) by calling this method.
      * The query parameter instance is unmodified as a result of the
@@ -609,16 +644,45 @@ public interface Query extends Serializable {
      * outer query that represents the candidates over which the subquery
      * is evaluated. If the trimmed value is the empty String, or the
      * parameter is null, then the candidate collection is the extent
-     * of the candidate class.     
+     * of the candidate class.
+     * The String... version of the method binds the named expressions in 
+     * turn to parameters in the order in which they are declared in the 
+     * subquery, or in the order they are found in the filter if not 
+     * explicitly declared in the subquery.
      * @param sub the subquery to add to this Query
      * @param variableDeclaration the name of the variable in the outer query
      * to bind the results of the subquery
      * @param candidateCollectionExpression the candidate collection 
      * of the subquery as an expression using terms of the outer query
+     * @param parameters the expressions from the outer query to bind 
+     * the parameters in the subquery
      * @since 2.1
      */
     void addSubquery
         (Query sub, String variableDeclaration, 
-            String candidateCollectionExpression);
+         String candidateCollectionExpression, String... parameters);
+
+    /**
+     * Add a subquery to this query.
+     * The Map version of the method treats the key of each map entry as 
+     * the name of  the parameter in the subquery, with or without the 
+     * leading ":", and the value as the name of the expression in the 
+     * outer query. If the trimmed expression is the empty String for 
+     * either the parameter or the value of the String[], or for any 
+     * map key or value, that expression is ignored.
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable 
+     * to be used in this Query
+     * @param candidateCollectionExpression the candidate collection 
+     * to apply to the subquery
+     * @param parameters the expressions from the outer query to bind 
+     * the parameter in the subquery
+     * @see #addSubquery(Query sub, String variableDeclaration, 
+     *    String candidateCollectionExpression, String... parameters)
+     * @since 2.1
+     */
+    void addSubquery
+        (Query sub, String variableDeclaration, 
+         String candidateCollectionExpression, Map parameters);
 
 }
