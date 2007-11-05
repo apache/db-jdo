@@ -556,32 +556,38 @@
             <field name="MapOfSimpleEnum_String124" table="MAP_SIMPLEENUM124_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field>
             <field name="MapOfSimpleEnum_String125" table="MAP_SIMPLEENUM125_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field>
             <field name="MapOfSimpleEnum_String126" table="MAP_SIMPLEENUM126_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field>
             <field name="MapOfSimpleEnum_String127" table="MAP_SIMPLEENUM127_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field>
             <field name="MapOfSimpleEnum_String128" table="MAP_SIMPLEENUM128_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field>
             <field name="MapOfSimpleEnum_String129" table="MAP_SIMPLEENUM129_STR">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"/>
+                <value column="VALUEVAL"
+                           jdbc-type="NUMERIC" length="2" scale="0"/>
             </field> 
        </class>
     </package>

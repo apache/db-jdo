@@ -133,7 +133,8 @@ Metadata for datastore identity
             </field>
             <field name="ArrayOfSimpleEnum30" table="ARRAY_OF_SIMPLE_ENUM30">
                 <join column="IDENTIFIER"/>
-                <element column="ENUMVAL"/>
+                <element column="ENUMVAL" 
+                        jdbc-type="NUMERIC" length="2" scale="0"/>
                 <order column="ORDER_COL"/>
             </field>
         </class>
