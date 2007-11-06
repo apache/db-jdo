@@ -123,7 +123,7 @@ Metadata for application identity
                 <element column="SHORTVAL"/>
                 <order column="ORDER_COL"/>
             </field>
-            <field name="ArrayOfSimpleEnum28" column="ARRAY_OF_SIMPLE_ENUM28"/>
+            <field name="ArrayOfSimpleEnum28" column="ARRAY_OF_SIMPLEENUM28"/>
             <field name="ArrayOfSimpleEnum29" table="ARRAY_OF_SIMPLE_ENUM29">
                 <join column="IDENTIFIER"/>
                 <element column="ENUMVAL"/>
