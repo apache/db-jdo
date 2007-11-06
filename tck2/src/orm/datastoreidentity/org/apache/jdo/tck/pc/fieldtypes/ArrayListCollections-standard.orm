@@ -229,15 +229,17 @@
             <field name="ArrayListOfSimpleEnum45"
                    table="ARRAYLIST_OF_SIMPLEENUM45">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPLEENUMVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <element>
+                    <column name="SIMPLEENUMVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfSimpleEnum46"
                    table="ARRAYLIST_OF_SIMPLEENUM46">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPLEENUMVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <element>
+                    <column name="SIMPLEENUMVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </element>
                 <order column="INDEX"/>
             </field>
         </class>

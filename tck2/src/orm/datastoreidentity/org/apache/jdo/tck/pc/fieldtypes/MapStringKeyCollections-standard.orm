@@ -644,43 +644,49 @@
                    table="MAP_OF_STRING_SIMPLEENUM133">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
             <field name="MapOfString_SimpleEnum134"
                    table="MAP_OF_STRING_SIMPLEENUM134">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
             <field name="MapOfString_SimpleEnum135"
                    table="MAP_OF_STRING_SIMPLEENUM135">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
             <field name="MapOfString_SimpleEnum136"
                    table="MAP_OF_STRING_SIMPLEENUM136">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
             <field name="MapOfString_SimpleEnum137"
                    table="MAP_OF_STRING_SIMPLEENUM137">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
             <field name="MapOfString_SimpleEnum138"
                    table="MAP_OF_STRING_SIMPLEENUM138">
                 <join column="IDENTIFIER"/>
                 <key column="KEYVAL"/>
-                <value column="VALUEVAL"
-                           jdbc-type="NUMERIC" length="2" scale="0"/>
+                <value>
+                    <column name="VALUEVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </value>
             </field>
         </class>
     </package>
