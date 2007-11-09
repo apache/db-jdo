@@ -167,8 +167,8 @@ public class TestArrayCollections extends JDO_Test {
             expected = expectedValue.get(i);
             actual = pi.get(i);
             if (actual == null) {
-                sbuf.append("\nFor element " + i 
-                        + ", retrieved instance is null.");
+                sbuf.append("\nFor " + ArrayCollections.fieldSpecs[i] 
+                        + ", retrieved field is null.");
                 continue;
             }
             if (expected.length != actual.length) {
