@@ -90,10 +90,10 @@ NOTE!! There are no unit tests in this project.</description>
             <version>3.8.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.bcel</groupId>
-            <artifactId>bcel</artifactId>
-            <version>5.2</version>
-            <url>http://jakarta.apache.org/bcel/</url>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.0</version>
+            <url>http://maven.objectweb.org/maven2/asm/asm/3.0/</url>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
