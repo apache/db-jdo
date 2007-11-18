@@ -89,24 +89,6 @@ public class JDOHelper implements Constants {
     static final Map ATTRIBUTE_PROPERTY_XREF
         = createAttributePropertyXref();
 
-    /**
-     * The standard XML schema type.
-     */
-    protected static final String XSD_TYPE
-        = "http://www.w3.org/2001/XMLSchema";
-    
-    /**
-     * The JAXP schema language property.
-     */
-    protected static final String SCHEMA_LANGUAGE_PROP
-        = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-
-    /**
-     * External schema location property.
-     */
-    protected static final String SCHEMA_LOCATION_PROP
-        = "http://apache.org/xml/properties/schema/external-schemaLocation";
-
     /** The Internationalization message helper.
      */
     private final static I18NHelper msg = 
