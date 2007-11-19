@@ -88,7 +88,7 @@
         <echo>Note:</echo>
         <echo>  By default, the database schema is NOT installed when the custom goals</echo>
         <echo>      "runtck.iut" and "runtck.jdori" are run.</echo>
-        <echo>  "maven build" installs the database schema and runs the TCK on the 
+        <echo>  "maven build" installs the database schema and runs the TCK on the </echo>
         <echo>      JDO Reference Implementation.</echo>
         <echo>  Enhancement is always done before running the TCK when the enhanced classes</echo>
         <echo>      are not up to date.</echo>
