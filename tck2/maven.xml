@@ -674,6 +674,7 @@
     <path id="jdo.jdori.classpath">
         <pathelement location="${jpox.jdori.jarfile}" />
         <pathelement location="${jpox.enhancer.jarfile}" />
+        <pathelement location="${jpox.rdbms.jarfile}" />
         <pathelement location="${jpox.javafive.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
