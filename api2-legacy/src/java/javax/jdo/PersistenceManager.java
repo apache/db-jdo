@@ -1185,4 +1185,20 @@ public interface PersistenceManager {
      * @since 2.1
      */
     Date getServerDate();
+
+    /**
+     * Get the objects enlisted in the current transaction.
+     * @return The objects
+     * @since 2.1
+     */
+    Collection getManagedObjects();
+
+    /**
+     * Get the objects enlisted in the current transaction being instances of
+     * the specified classes.
+     * @param classes The classes of objects that we are interested in
+     * @return The objects
+     * @since 2.1
+     */
+    Collection getManagedObjects(Class[] classes);
 }
