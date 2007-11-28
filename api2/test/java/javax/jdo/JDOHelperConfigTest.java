@@ -174,7 +174,27 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
             int vendorSpecificPropertyCount,
             boolean checkEqualProperties)
             throws IOException {
-        
+
+        doPositiveTest(
+                classpaths,
+                testVariantName,
+                listenerCount,
+                vendorSpecificPropertyCount,
+                checkEqualProperties,
+                false,
+                false);
+    }
+
+    protected void doPositiveTest(
+            String[] classpaths,
+            String testVariantName,
+            int listenerCount,
+            int vendorSpecificPropertyCount,
+            boolean checkEqualProperties,
+            boolean excludeName,
+            boolean excludePUName)
+            throws IOException {
+
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 JDOCONFIG_CLASSPATH_PREFIX,
                 getClass().getClassLoader());
@@ -187,8 +207,8 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
                 testVariantName,
                 listenerCount,
                 vendorSpecificPropertyCount,
-                false,
-                false);
+                excludeName,
+                excludePUName);
         
         String name = testVariantName == null
                 ? null
@@ -255,15 +275,39 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
     public void testPositive01_DuplicatePUsInDifferentConfigFilesButNotRequested()
             throws IOException {
 
-        doPositiveTest(
-                new String[]{
-                        JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1a",
-                        JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1b"
-                },
-                null,
-                0,
-                2,
-                false);
+        URLClassLoader loader = new JDOConfigTestClassLoader(
+                JDOCONFIG_CLASSPATH_PREFIX,
+                getClass().getClassLoader());
+
+        String[] classpaths = new String[]{
+            JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1a",
+            JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1b"
+        };
+        for (int i = 0; i < classpaths.length; i++) {
+            ClasspathHelper.addFile(classpaths[i], loader);
+        }
+
+        Map actual = JDOHelper.getNamedPMFProperties(
+                ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+    }
+
+    public void testPositive02_GetAnonymousPMFWithNoProperties()
+            throws IOException {
+        
+        URLClassLoader loader = new JDOConfigTestClassLoader(
+                JDOCONFIG_CLASSPATH_PREFIX,
+                getClass().getClassLoader());
+
+            ClasspathHelper.addFile(
+                    JDOCONFIG_CLASSPATH_PREFIX + "/Positive02", loader);
+
+        Map properties = JDOHelper.getNamedPMFProperties(
+                ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
+        assertNotNull(
+                "Anonymous PMF with no properties returned null", properties);
+        assertTrue(
+                "Anonymous PMF with no properties had properties",
+                properties.size() == 0);
     }
 
     public void testPositive03_PMF0_PMFClassNameViaServicesLookup()
@@ -325,7 +369,8 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         Map expected = prepareInitialExpectedMap(
                 "positive06.pmf0", 2, 0, true, true);
 
-        Map actual = JDOHelper.getNamedPMFProperties(null, loader);
+        Map actual = JDOHelper.getNamedPMFProperties(
+                ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
         assertNotNull("No properties found", actual);
         assertEqualProperties(expected, actual);
@@ -344,7 +389,8 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         Map expected = prepareInitialExpectedMap(
                 "positive07.pmf0", 2, 0, true, false);
 
-        Map actual = JDOHelper.getNamedPMFProperties(null, loader);
+        Map actual = JDOHelper.getNamedPMFProperties(
+                ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
         assertNotNull("No properties found", actual);
         assertEqualProperties(expected, actual);

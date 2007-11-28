@@ -683,6 +683,13 @@ public interface Constants {
         = "javax.jdo.option.Name";
 
     /**
+     * "javax.jdo.option.spi.ResourceName"
+     * @since 2.1
+     */
+    static String PROPERTY_SPI_RESOURCE_NAME
+        = "javax.jdo.option.spi.ResourceName";
+
+    /**
      * "javax.jdo.option.InstanceLifecycleListener"
      *
      * @see PersistenceManagerFactory#addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener,Class[])
@@ -845,5 +852,14 @@ public interface Constants {
      */
     static String JDOQUERY_XSD_RESOURCE
         = "javax/jdo/jdoquery_2_1.xsd";
+
+    /**
+     * The name of the anonymous PersistenceManagerFactory, which
+     * is the empty string.
+     *
+     * @since 2.1
+     */
+    static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
+        = "";
 }
 
