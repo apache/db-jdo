@@ -946,7 +946,7 @@ public class JDOHelper implements Constants {
                     // the PMF was configured by the given resource name
                     // and not via named PMF for proper deserialization
                     props.put(PROPERTY_SPI_RESOURCE_NAME, name);
-                    props.put(PROPERTY_NAME, null);
+//                  props.put(PROPERTY_NAME, null);
                 }
             }
             catch (IOException ioe) {
