@@ -23,6 +23,11 @@
 This file contains the schema information when an implementation
 has application identity.
 -->
+
+<!--
+This file deliberately fails to map the zipcode field to stimulate
+a JDOUserException on invoking pm.newInstance(Class under test).
+-->
     <package name="org.apache.jdo.tck.pc.newInstance">
 
         <class name="Address" table="address">
@@ -37,9 +42,6 @@ has application identity.
             </field>
             <field name="state">
               <column name="STATE" allows-null="true"/>
-            </field>
-            <field name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
             </field>
             <field name="country">
               <column name="COUNTRY" allows-null="true"/>
@@ -59,9 +61,6 @@ has application identity.
             <property name="state">
               <column name="STATE" allows-null="true"/>
             </property>
-            <property name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
-            </property>
             <property name="country">
               <column name="COUNTRY" allows-null="true"/>
             </property>
@@ -80,76 +79,10 @@ has application identity.
             <property name="state">
               <column name="STATE" allows-null="true"/>
             </property>
-            <property name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
-            </property>
             <property name="country">
               <column name="COUNTRY" allows-null="true"/>
             </property>
         </class>
         
-        <class name="Address_bad" table="address">
-            <field name="addrid">
-              <column name="ADDRID" allows-null="true"/>
-            </field>
-            <field name="street">
-              <column name="STREET" allows-null="true"/>
-            </field>
-            <field name="city">
-              <column name="CITY" allows-null="true"/>
-            </field>
-            <field name="state">
-              <column name="STATE" allows-null="true"/>
-            </field>
-            <field name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
-            </field>
-            <field name="country">
-              <column name="COUNTRY" allows-null="true"/>
-            </field>
-        </class>
-
-        <interface name="IAddress_bad" table="address">
-            <property name="addrid">
-              <column name="ADDRID" allows-null="true"/>
-            </property>
-            <property name="street">
-              <column name="STREET" allows-null="true"/>
-            </property>
-            <property name="city">
-              <column name="CITY" allows-null="true"/>
-            </property>
-            <property name="state">
-              <column name="STATE" allows-null="true"/>
-            </property>
-            <property name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
-            </property>
-            <property name="country">
-              <column name="COUNTRY" allows-null="true"/>
-            </property>
-         </interface>
-            
-         <class name="AAddress_bad" table="address">
-            <property name="addrid">
-              <column name="ADDRID" allows-null="true"/>
-            </property>
-            <property name="street">
-              <column name="STREET" allows-null="true"/>
-            </property>
-            <property name="city">
-              <column name="CITY" allows-null="true"/>
-            </property>
-            <property name="state">
-              <column name="STATE" allows-null="true"/>
-            </property>
-            <property name="zipcode">
-              <column name="ZIPCODE" allows-null="true"/>
-            </property>
-            <property name="country">
-              <column name="COUNTRY" allows-null="true"/>
-            </property>
-        </class>
-
     </package>
 </orm>

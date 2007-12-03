@@ -23,9 +23,6 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.newInstance.AAddress;
 import org.apache.jdo.tck.pc.newInstance.Address;
 import org.apache.jdo.tck.pc.newInstance.IAddress;
-import org.apache.jdo.tck.pc.newInstance.AAddress_bad;
-import org.apache.jdo.tck.pc.newInstance.Address_bad;
-import org.apache.jdo.tck.pc.newInstance.IAddress_bad;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -41,9 +38,12 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 - an interface that is declared in the metadata as persistence-capable, in which all methods are declared as persistent properties, or
 - a concrete class that is declared in the metadata as persistence-capable. In this case, the concrete class must declare a public no-args constructor.
 If the parameter does not satisfy the above requirements, JDOUserException is thrown.
+ *
+ *This test is intended to be run only with mapping 1, which fails to map
+ *a persistent field.
  */
 
-public class NewInstance extends PersistenceManagerTest {
+public class NewInstanceBadMapping extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
@@ -62,10 +62,14 @@ public class NewInstance extends PersistenceManagerTest {
     public void testNewInstanceInterface() {
         pm = getPM();   
         try {
-            pm.newInstance(IAddress.class);
+            IAddress iaddress = (IAddress)pm.newInstance(IAddress.class);
+            fail("Expected JDOUserException but no exception thrown.  "
+                + "Persistent property is not mapped.");
+        } catch (javax.jdo.JDOUserException jdoe) {
+            // Expected exception
         } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
+            fail("Expected JDOUserException for unmapped persistent property, "
+                + "but " + e.getMessage() + " thrown instead.");
         }
     }
 
@@ -74,9 +78,13 @@ public class NewInstance extends PersistenceManagerTest {
         pm = getPM();   
         try {
             pm.newInstance(AAddress.class);
+            fail("Expected JDOUserException but no exception thrown.  "
+                + "Persistent property is not mapped.");
+        } catch (javax.jdo.JDOUserException jdoe) {
+            // Expected exception
         } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
+            fail("Expected JDOUserException for unmapped persistent property, "
+                + "but " + e.getMessage() + " thrown instead.");
         }
     }
 
@@ -85,56 +93,13 @@ public class NewInstance extends PersistenceManagerTest {
         pm = getPM();   
         try {
             pm.newInstance(Address.class);
-        } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
-        }
-    }
-
-    /** test newInstance (Class pcInterface) */
-    public void testNewInstanceInterfaceBad() {
-        pm = getPM();   
-        try {
-            pm.newInstance(IAddress_bad.class);
             fail("Expected JDOUserException but no exception thrown.  "
-                + "Interface contains method "
-                + "not declared as persistent property.");
+                + "Persistent property is not mapped.");
         } catch (javax.jdo.JDOUserException jdoe) {
             // Expected exception
         } catch (Exception e) {
-            fail("Expected JDOUserException but " + e.getMessage()
-                + " thrown instead.");
-        }
-    }
-
-    /** test newInstance (Class pcAbstractClass) */
-    public void testNewInstanceAbstractClassBad() {
-        pm = getPM();   
-        try {
-            pm.newInstance(AAddress_bad.class);
-            fail("Expected JDOUserException but no exception thrown.  "
-                + "Abstract class contains abstract method "
-                + "not declared as persistent property.");
-        } catch (javax.jdo.JDOUserException jdoe) {
-            // Expected exception
-        } catch (Exception e) {
-            fail("Expected JDOUserException but " + e.getMessage()
-                + "t hrown instead.");
-        }
-    }
-
-    /** test newInstance (Class pcClass) */
-    public void testNewInstanceClassBad() {
-        pm = getPM();   
-        try {
-            pm.newInstance(Address_bad.class);
-            fail("Expected JDOUserException but no exception thrown.  "
-                + "Class contains non-public no-args constructor.");
-        } catch (javax.jdo.JDOUserException jdoe) {
-            // Expected exception
-        } catch (Exception e) {
-            fail("Expected JDOUserException but " + e.getMessage()
-                + " thrown instead.");
+            fail("Expected JDOUserException for unmapped persistent property, "
+                + "but " + e.getMessage() + " thrown instead.");
         }
     }
 

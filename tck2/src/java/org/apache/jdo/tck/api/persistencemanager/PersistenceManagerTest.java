@@ -46,9 +46,9 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         addTearDownClass(PCPoint.class);
         addTearDownClass(Department.class);
         addTearDownClass(Company.class);
-        addTearDownClass(Address.class);
-        addTearDownClass(AAddress.class);
-        addTearDownClass(IAddress.class);
+//        addTearDownClass(Address.class);
+//        addTearDownClass(AAddress.class);
+//        addTearDownClass(IAddress.class);
     }
     
     /** */
