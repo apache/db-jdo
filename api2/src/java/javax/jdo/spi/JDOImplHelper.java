@@ -980,7 +980,11 @@ public class JDOImplHelper extends java.lang.Object {
         Iterator sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
             StateInterrogation si = (StateInterrogation)sit.next();
-            if (si.makeDirty(pc, fieldName)) return;
+            try {
+                if (si.makeDirty(pc, fieldName)) return;
+            } catch (Throwable t) {
+                continue; // ignore exceptions from errant StateInterrogations
+            }
         }
     }
     
@@ -1003,7 +1007,12 @@ public class JDOImplHelper extends java.lang.Object {
         Iterator sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
             StateInterrogation si = (StateInterrogation)sit.next();
-            Boolean result = sibr.is(pc, si);
+            Boolean result;
+            try {
+                result = sibr.is(pc, si);
+            } catch (Throwable t) {
+                continue; // ignore exceptions from errant StateInterrogations
+            }
             if (result != null) return result.booleanValue();
         }
         return false;
@@ -1026,7 +1035,12 @@ public class JDOImplHelper extends java.lang.Object {
         Iterator sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
             StateInterrogation si = (StateInterrogation)sit.next();
-            Object result = sibr.get(pc, si);
+            Object result;
+            try {
+                result = sibr.get(pc, si);
+            } catch (Throwable t) {
+                continue; // ignore exceptions from errant StateInterrogations
+            }
             if (result != null) return result;
         }
         return null;
