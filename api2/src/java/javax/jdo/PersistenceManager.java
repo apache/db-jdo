@@ -24,6 +24,8 @@ package javax.jdo;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.Set;
 
 import javax.jdo.datastore.JDOConnection;
 import javax.jdo.datastore.Sequence;
@@ -1187,27 +1189,37 @@ public interface PersistenceManager {
     Date getServerDate();
 
     /**
-     * Get the objects enlisted in the current transaction.
-     * @return The objects
+     * Get the objects managed by this persistence manager.
+     * @return the objects
      * @since 2.1
      */
-    Collection getManagedObjects();
+    Set getManagedObjects();
 
     /**
-     * Get the objects enlisted in the current transaction having the
+     * Get the objects managed by this persistence manager having the
      * specified object states.
      * @param states The states of objects that we are interested in
-     * @return The objects
+     * @return the objects
      * @since 2.1
      */
-    Collection getManagedObjects(ObjectState... states);
+    Set getManagedObjects(EnumSet<ObjectState> states);
 
     /**
-     * Get the objects enlisted in the current transaction being instances of
+     * Get the objects managed by this persistence manager being instances of
      * the specified classes.
      * @param classes The classes of objects that we are interested in
-     * @return The objects
+     * @return the objects
      * @since 2.1
      */
-    Collection getManagedObjects(Class... classes);
+    Set getManagedObjects(Class... classes);
+
+    /**
+     * Get the objects managed by this persistence manager having the
+     * specified object states and being instances of the specified classes.
+     * @param states The states of objects that we are interested in
+     * @param classes The classes of objects that we are interested in
+     * @return the objects
+     * @since 2.1
+     */
+    Set getManagedObjects(EnumSet<ObjectState> states, Class... classes);
 }

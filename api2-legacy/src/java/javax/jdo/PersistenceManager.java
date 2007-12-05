@@ -24,6 +24,7 @@ package javax.jdo;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.jdo.datastore.JDOConnection;
 import javax.jdo.datastore.Sequence;
@@ -1187,18 +1188,18 @@ public interface PersistenceManager {
     Date getServerDate();
 
     /**
-     * Get the objects enlisted in the current transaction.
-     * @return The objects
+     * Get the objects managed by this persistence manager.
+     * @return the objects
      * @since 2.1
      */
-    Collection getManagedObjects();
+    Set getManagedObjects();
 
     /**
-     * Get the objects enlisted in the current transaction being instances of
+     * Get the objects managed by this persistence manager being instances of
      * the specified classes.
      * @param classes The classes of objects that we are interested in
-     * @return The objects
+     * @return the objects
      * @since 2.1
      */
-    Collection getManagedObjects(Class[] classes);
+    Set getManagedObjects(Class[] classes);
 }
