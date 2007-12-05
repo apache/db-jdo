@@ -653,7 +653,7 @@
         <pathelement location="${jpox.enhancer.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
-        <pathelement location="${bcel.jarfile}" />
+        <pathelement location="${asm.jarfile}" />
         <pathelement location="${log4j.jarfile}" />
         <pathelement location="${jpox.dbcp.jarfile}" />
         <pathelement location="${jpox.c3p0.jarfile}" />
