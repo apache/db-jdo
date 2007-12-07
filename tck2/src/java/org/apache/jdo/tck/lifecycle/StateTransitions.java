@@ -265,7 +265,7 @@ public class StateTransitions extends JDO_Test {
         {   UNCHANGED,                      IMPOSSIBLE,                         IMPOSSIBLE,
             IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        IMPOSSIBLE,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
-            UNCHANGED,                      UNCHANGED,                          DETACHED_DIRTY,
+            PERSISTENT_NONTRANSACTIONAL_DIRTY, UNCHANGED,                       DETACHED_DIRTY,
             UNCHANGED},
     
         // write field with active transaction
@@ -306,8 +306,8 @@ public class StateTransitions extends JDO_Test {
         {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
             IMPOSSIBLE,                     PERSISTENT_NONTRANSACTIONAL,        ERROR,
             IMPOSSIBLE,                     IMPOSSIBLE,                         IMPOSSIBLE,
-            UNCHANGED,                      UNSPECIFIED,                        UNCHANGED,
-            UNSPECIFIED},
+            UNCHANGED,                      UNCHANGED,                          UNCHANGED,
+            UNCHANGED},
 
         // detachCopy outside tx with NontransactionalRead=false
         {   ERROR,                          IMPOSSIBLE,                         IMPOSSIBLE,
