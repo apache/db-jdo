@@ -67,18 +67,20 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     /**
      * Operations that cause state changes
      */
-    private static final int MAKEPERSISTENT          = 0;
-    private static final int DETACHCOPYOUTSIDETXNTRTRU = 1;
-    private static final int DETACHCOPYOUTSIDETXNTRFLS = 2;
-    private static final int DETACHCOPYINSIDEDATASTORETX = 3;
-    private static final int DETACHCOPYINSIDEOPTIMISTICTX = 4;
-    private static final int SERIALIZEOUTSIDETX = 5;
-    private static final int SERIALIZEINSIDETX       = 6;
+    private static final int MAKEPERSISTENTOPTIMISTIC = 0;
+    private static final int MAKEPERSISTENTDATASTORE = 1;
+    private static final int DETACHCOPYOUTSIDETXNTRTRU = 2;
+    private static final int DETACHCOPYOUTSIDETXNTRFLS = 3;
+    private static final int DETACHCOPYINSIDEDATASTORETX = 4;
+    private static final int DETACHCOPYINSIDEOPTIMISTICTX = 5;
+    private static final int SERIALIZEOUTSIDETX = 6;
+    private static final int SERIALIZEINSIDETX = 7;
     
-    private static final int NUM_OPERATIONS          = 7;
+    private static final int NUM_OPERATIONS          = 8;
     
     private static final String[] operations = {
-        "makePersistent",
+        "makePersistent with active optimistic tx",
+        "makePersistent with active datastore tx",
         "detachCopy outside tx with NontransactionalRead true",
         "detachCopy outside tx with NontransactionalRead false",
         "detachCopy with active datastore tx",
@@ -106,7 +108,14 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         //  PERSISTENT_NONTRANSACTIONAL,    PERSISTENT_NONTRANSACTIONAL_DIRTY,  DETACHED_CLEAN, 
         //  DETACHED_DIRTY
         
-        // makePersistent
+        // makePersistent optimistic transaction
+        {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
+            UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
+            PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED, 
+            UNCHANGED,                      UNCHANGED,                          PERSISTENT_NONTRANSACTIONAL,     
+            PERSISTENT_DIRTY},
+
+        // makePersistent datastore transaction
         {   PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED,
             UNCHANGED,                      UNCHANGED,                          PERSISTENT_NEW,
             PERSISTENT_NEW,                 UNCHANGED,                          UNCHANGED, 
@@ -166,7 +175,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
 
     private static final boolean[][] applies_to_scenario = {
         //  Datastore   Optimistic      No tx
-        {   true,          true,        false },  // makePersistent
+        {   false,         true,        false },  // makePersistent active optimistic transaction
+        {   true,          false,       false },  // makePersistent active datastore transaction
         // since the spec leaves detachCopy outside tx a bit underspecified,
         // we decided to disable this scanario for now
         {   false,         false,       true },   // detachCopy outside tx with NontransactionalRead=true
@@ -383,7 +393,8 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
         Object result = null;
         StateTransitionObj obj = (StateTransitionObj) stobj;
         switch( operation ){
-            case MAKEPERSISTENT:
+            case MAKEPERSISTENTOPTIMISTIC:
+            case MAKEPERSISTENTDATASTORE:
                 result = pm.makePersistent(obj);
                 break;
     
