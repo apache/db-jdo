@@ -34,7 +34,8 @@ public class Address_bad
     private String  zipcode;
     private String  country;
 
-    // pm.newInstance(this) throws JDOUserException with non-public constructor
+    // Expect JDOUserException on pm.newInstance(this)
+    //    with non-public constructor
     private Address_bad() {}
 
     /**

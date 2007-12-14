@@ -31,8 +31,8 @@ public abstract class AAddress_bad implements IAddress {
     public abstract String getZipcode();
     public abstract String getCountry();
 
-    // Not declared as a persistent property => JDOUserException on
-    //   pm.newInstance(this)
+    // Lacks setter, so not a persistent property 
+    //    Expect JDOUserException on pm.newInstance(this)
     public abstract String getAString();
     
     public abstract void setAddrid(long addrid);

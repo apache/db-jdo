@@ -33,21 +33,21 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B>
  *<BR>
- *<B>Assertion IDs:</B> A12.6.6-1
+ *<B>Assertion IDs:</B> A[Need new number]
  *<BR>
  *<B>Assertion Description: </B>
-[The parameter must be one of the following:
-- an abstract class that is declared in the metadata as persistence-capable, in which all abstract methods are declared as persistent properties, or
-- an interface that is declared in the metadata as persistence-capable, in which all methods are declared as persistent properties, or
-- a concrete class that is declared in the metadata as persistence-capable. In this case, the concrete class must declare a public no-args constructor.
-If the parameter does not satisfy the above requirements, JDOUserException is thrown.
+ * Persistent properties declared in the interface are defined as those that have both a get and a set method
+ * or both an is and a set method, named according to the JavaBeans naming conventions, and
+ * of a type supported as a persistent type.
+ * The implementing class will provide a suitable implementation for all property access methods and
+ * will throw JDOUserException for all other methods of the interface.
  */
 
 public class NewInstance extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A12.5.7-9 (NewInstance) failed: ";
+        "Assertion A[Need new number] (NewInstance) failed: ";
     
     /**
      * The <code>main</code> is called when the class
@@ -97,8 +97,7 @@ public class NewInstance extends PersistenceManagerTest {
         try {
             pm.newInstance(IAddress_bad.class);
             fail("Expected JDOUserException but no exception thrown.  "
-                + "Interface contains method "
-                + "not declared as persistent property.");
+                + "Interface contains a method that is not property.");
         } catch (javax.jdo.JDOUserException jdoe) {
             // Expected exception
         } catch (Exception e) {
@@ -113,8 +112,7 @@ public class NewInstance extends PersistenceManagerTest {
         try {
             pm.newInstance(AAddress_bad.class);
             fail("Expected JDOUserException but no exception thrown.  "
-                + "Abstract class contains abstract method "
-                + "not declared as persistent property.");
+                + "Abstract class contains a method that is not property.");
         } catch (javax.jdo.JDOUserException jdoe) {
             // Expected exception
         } catch (Exception e) {

@@ -31,8 +31,8 @@ public interface IAddress_bad {
     String getZipcode();
     String getCountry();
 
-    // Not declared as a persistent property => JDOUserException on
-    //   pm.newInstance(this)
+    // Lacks setter, so not a persistent property
+    //   Expect JDOUserException on pm.newInstance(this)
     String getAString();
     
     void setAddrid(long addrid);

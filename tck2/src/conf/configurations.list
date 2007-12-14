@@ -18,7 +18,6 @@ jdo.tck.cfglist = \
                  instancecallbacks.conf \
                  jdohelper.conf \
                  pm.conf \
-                 newInstanceBadMapping.conf \
                  pmf.conf \
                  detach.conf \
                  enhancement.conf \
