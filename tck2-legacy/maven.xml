@@ -654,7 +654,7 @@
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${asm.jarfile}" />
-        <pathelement location="${log4j.jarfile}" />
+        <pathelement location="${logging.log4j.jarfile}" />
         <pathelement location="${jpox.dbcp.jarfile}" />
         <pathelement location="${jpox.c3p0.jarfile}" />
     </path>
@@ -682,7 +682,7 @@
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
         <!-- Commons-logging jar file (for compiling pa/pc classes) -->
-        <pathelement location="${logging.jarfile}"/>
+        <pathelement location="${logging.commons.jarfile}"/>
     </path>
 
     <!-- Common TCK execution classpath -->
@@ -692,7 +692,7 @@
         <!-- JDO jar file  -->
         <pathelement location="${jdo.api.jarfile}"/>
         <!-- Commons logging jar file  -->
-        <pathelement location="${logging.jarfile}"/>
+        <pathelement location="${logging.commons.jarfile}"/>
         <pathelement location="${jta.jarfile}" />
         <!-- JUnit jar file -->
         <pathelement location="${junit.jarfile}"/>
