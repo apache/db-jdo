@@ -695,6 +695,10 @@ public interface javax.jdo.PersistenceManager {
     public javax.jdo.datastore.JDOConnection getDataStoreConnection();
     public varargs void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
     public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
+    public Set getManagedObjects();
+    public Set getManagedObjects(EnumSet<ObjectState> states);
+    public Set getManagedObjects(Class... classes);
+    public Set getManagedObjects(EnumSet<ObjectState> states, Class... classes);
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
