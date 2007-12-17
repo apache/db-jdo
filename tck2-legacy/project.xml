@@ -159,6 +159,7 @@ NOTE!! There are no unit tests in this project.</description>
     <!-- =================== -->
     <build>
         <sourceDirectory>src/java</sourceDirectory>
+        <defaultGoal>jar:install</defaultGoal>
         <resources>
             <resource>
                 <directory>${basedir}/..</directory>

@@ -83,6 +83,8 @@ Request 243 under the auspices of the Java Community Process.</description>
                 </resource>
             </resources>
         </unitTest>
+        <defaultGoal>jar:install</defaultGoal>
+
         <!-- J A R  R E S O U R C E S -->
         <!-- Resources that are packaged up inside the JAR file -->
         <resources>

@@ -16,22 +16,13 @@
     limitations under the License.
 -->
 
-<project default="default"
+<project
     xmlns:j="jelly:core"
-    xmlns:ant="jelly:ant"
-    >
-
-    <!-- ==================== -->
-    <!-- Default Global Goals -->
-    <!-- ==================== -->
-
-    <goal name="default">
-        <attainGoal name="jar:install"/>
-    </goal>
+    xmlns:ant="jelly:ant">
 
     <goal name="build">
         <attainGoal name="javadoc"/>
-        <attainGoal name="default"/>
+        <attainGoal name="jar:install"/>
     </goal>
 
     <goal name="rebuild">

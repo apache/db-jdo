@@ -16,20 +16,11 @@
     limitations under the License.
 -->
 
-<project default="default"
+<project 
     xmlns:j="jelly:core"
     xmlns:ant="jelly:ant"
     xmlns:maven="jelly:maven"
-    xmlns:u="jelly:util"
-    >
-
-    <!-- ==================== -->
-    <!-- Default Global Goals -->
-    <!-- ==================== -->
-
-    <goal name="default">
-        <attainGoal name="jar:install"/>
-    </goal>
+    xmlns:u="jelly:util">
 
     <!-- Note : keep this so that it is max 80 char width when run 
          so we allow for the worst case scenario of a basic VT -->
@@ -92,7 +83,7 @@
     </goal>
 
     <goal name="build">
-        <attainGoal name="default"/>
+        <attainGoal name="jar:install"/>
         <attainGoal name="setProps"/>
         <attainGoal name="privateInstallSchema"/>
         <attainGoal name="privateRuntck.jdori"/>
