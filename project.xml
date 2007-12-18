@@ -40,6 +40,9 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
         <url>http://svn.apache.org/viewcvs.cgi/</url>
     </repository>
 
+    <build>
+        <defaultGoal>help</defaultGoal>
+    </build>
     <mailingLists>
         <mailingList>
             <name>JDO User List</name>
