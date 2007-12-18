@@ -22,54 +22,38 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a named query.
- * Corresponds to the xml element "query".
+ * Annotation for the fetch plan of a persistence manager, query, or extent.
+ * Corresponds to the xml element "fetch-plan".
  * 
  * @version 2.1
  * @since 2.1
  */
 @Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query
+public @interface FetchPlan
 {
-    /** Name of the query (mandatory)
-     * @return the name of the query
+    /**
+     * Name of the fetch plan.
+     * @return the name of the fetch plan
      */
-    String name();
+    String name() default "";
 
-    /** The query string (mandatory)
-     * @return the query string
+    /**
+     * The fetch groups in this fetch plan.
+     * @return the fetch groups 
      */
-    String value();
+    String[] fetchGroups() default "";
 
-    /** The query language
-     * @return the query language
+    /**
+     * The depth of references to instantiate, starting with the root object.
+     * @return the maxium fetch depth
      */
-    String language() default "JDOQL";
+    int maxFetchDepth() default 1;
 
-    /** Whether the query is unmodifiable.
-     * @return whether the query is unmodifiable
+    /** 
+     * The number of instances of multi-valued fields retrieved by queries.
+     * @return the fetch size
      */
-    String unmodifiable() default "";
-
-    /** Whether the query returns a single unique result.
-     * @return whether the query returns a single unique result
-     */
-    String unique() default "";
-
-    /** Result class into which to put the results.
-     * @return the class of the result
-     */
-    Class resultClass() default void.class;
-
-    /** The name of the fetch plan used by this query
-     * @return the fetch plan
-     */
-    String fetchPlan() default "";
-
-    /** Vendor extensions.
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
+    int fetchSize() default 0;
 
 }

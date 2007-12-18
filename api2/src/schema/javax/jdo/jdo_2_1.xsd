@@ -25,6 +25,7 @@
                 <xs:element ref="extension"/>
                 <xs:element ref="package"/>
                 <xs:element ref="query"/>
+                <xs:element ref="fetch-plan"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.jdo"/>
         </xs:complexType>
@@ -32,6 +33,19 @@
     <xs:attributeGroup name="attlist.jdo">
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
+    </xs:attributeGroup>
+    <xs:element name="fetch-plan">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="fetch-group"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.fetch-plan"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.fetch-plan">
+        <xs:attribute name="name" default=""/>
+        <xs:attribute name="max-fetch-depth" default="1"/>
+        <xs:attribute name="fetch-size" default="0"/>
     </xs:attributeGroup>
     <xs:element name="package">
         <xs:complexType>
@@ -1187,6 +1201,7 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-class"/>
+        <xs:attribute name="fetch-plan"/>
     </xs:attributeGroup>
     <xs:element name="unique">
         <xs:complexType>

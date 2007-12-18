@@ -22,54 +22,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a named query.
- * Corresponds to the xml element "query".
+ * Annotation for a group of FetchPlan objects
  * 
  * @version 2.1
  * @since 2.1
  */
 @Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query
+public @interface FetchPlans
 {
-    /** Name of the query (mandatory)
-     * @return the name of the query
+    /**
+     * The Fetch Plans
+     * @return The Fetch Plans
      */
-    String name();
-
-    /** The query string (mandatory)
-     * @return the query string
-     */
-    String value();
-
-    /** The query language
-     * @return the query language
-     */
-    String language() default "JDOQL";
-
-    /** Whether the query is unmodifiable.
-     * @return whether the query is unmodifiable
-     */
-    String unmodifiable() default "";
-
-    /** Whether the query returns a single unique result.
-     * @return whether the query returns a single unique result
-     */
-    String unique() default "";
-
-    /** Result class into which to put the results.
-     * @return the class of the result
-     */
-    Class resultClass() default void.class;
-
-    /** The name of the fetch plan used by this query
-     * @return the fetch plan
-     */
-    String fetchPlan() default "";
-
-    /** Vendor extensions.
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
-
+    FetchPlan[] value();
 }
