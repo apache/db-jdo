@@ -42,7 +42,7 @@ public @interface FetchPlan
      * The fetch groups in this fetch plan.
      * @return the fetch groups 
      */
-    String[] fetchGroups() default "";
+    String[] fetchGroups() default {};
 
     /**
      * The depth of references to instantiate, starting with the root object.
