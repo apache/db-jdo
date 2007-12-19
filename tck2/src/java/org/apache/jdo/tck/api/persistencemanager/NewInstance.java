@@ -33,7 +33,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B>
  *<BR>
- *<B>Assertion IDs:</B> A[Need new number]
+ *<B>Assertion IDs:</B> A12.6.6-2
  *<BR>
  *<B>Assertion Description: </B>
  * Persistent properties declared in the interface are defined as those that have both a get and a set method
@@ -47,7 +47,7 @@ public class NewInstance extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A[Need new number] (NewInstance) failed: ";
+        "Assertion A12.6.6-2 (NewInstance) failed: ";
     
     /**
      * The <code>main</code> is called when the class
