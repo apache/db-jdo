@@ -32,19 +32,19 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> mapping, managed relationships
  *<BR>
- *<B>Assertion ID:</B> A15.3-1
+ *<B>Assertion ID:</B> A15.3-14
  *<BR>
  *<B>Assertion Description: Regardless of which side changes the relationship,
  * flush (whether done as part of commit or explicitly by the user) will modify
  * the datastore to reflect the change and will update the memory model
- * for consistency.</B>
+ * for consistency...</B>
  */
 
 public class RelationshipManyToManyNoRelationships extends AbstractRelationshipTest {
     
     String testMethod = null;
     protected String ASSERTION_FAILED =
-        "Assertion A15-3.1 (RelationshipManyToManyNoRelationships) failed: ";
+        "Assertion A15-3.14 (RelationshipManyToManyNoRelationships) failed: ";
     
     Object emp1Oid = null;
     Object proj1Oid = null;
