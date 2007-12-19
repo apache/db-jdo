@@ -32,7 +32,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B>
  *<BR>
- *<B>Assertion IDs:</B> A12.6.3, A12.6.4, A12.6.5
+ *<B>Assertion IDs:</B> A12.6-3, A12.6-4, A12.6-5
  *<BR>
  *<B>Assertion Description: </B>
 A12.6-3 [Null arguments to APIs that take an Object parameter cause the API to have no effect.] A12.6-4 [Null arguments to APIs that take Object[] or Collection will cause the API to throw NullPointerException.] A12.6-5 [Non-null Object[] or Collection arguments that contain null elements will have the documented behavior for non-null elements, and the null elements will be ignored.]
