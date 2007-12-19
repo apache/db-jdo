@@ -35,7 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> identity
  *<BR>
- *<B>Assertion ID:</B> A12.6.6
+ *<B>Assertion ID:</B> A12.6.6-1
  *<BR>
  *<B>Assertion Description: </B>
  * For interfaces and classes that use a SingleFieldIdentity as 
@@ -48,7 +48,7 @@ public class GetObjectIdForPersistentInterface extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A12.6.6 (GetObjectId) failed: ";
+        "Assertion A12.6.6-1 (GetObjectId) failed: ";
     
     /**
      * The <code>main</code> is called when the class
