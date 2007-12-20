@@ -175,7 +175,9 @@ NOTE!! There are no unit tests in this project.</description>
                     <include>commons-logging.properties</include>
                     <include>simplelog.properties</include>
                     <include>logging.properties</include>
+                    <include>jdo-2_1-signatures.txt</include>
                     <include>*.conf</include>
+                    <include>*.list</include>
                 </includes>
             </resource>
             <resource>
