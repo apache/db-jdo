@@ -463,12 +463,13 @@ public class javax.jdo.JDOHelper implements javax.jdo.Constants {
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader cl);
-    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader resourceLoader, ClassLoader pmfLoader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, java.lang.String name, ClassLoader propsloader, ClassLoader pmfloader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, java.lang.String name, ClassLoader pmfloader);
+    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, java.lang.String name);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader loader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String propsResource, ClassLoader propsLoader, ClassLoader pmfLoader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(ClassLoader pmfLoader);
-    public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(ClassLoader propsLoader, ClassLoader pmfLoader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.File propsFile);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.File propsFile, ClassLoader loader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String jndiLocation, javax.naming.Context context);
@@ -700,9 +701,9 @@ public interface javax.jdo.PersistenceManager {
     public varargs void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
     public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
     public java.util.Set getManagedObjects();
-    public java.util.Set getManagedObjects(java.util.EnumSet<javax.jdo.ObjectState> states);
-    public java.util.Set getManagedObjects(Class[] classes);
-    public java.util.Set getManagedObjects(java.util.EnumSet<javax.jdo.ObjectState> states, Class[] classes);
+    public java.util.Set getManagedObjects(java.util.EnumSet states);
+    public varargs java.util.Set getManagedObjects(Class[] classes);
+    public varargs java.util.Set getManagedObjects(java.util.EnumSet states, Class[] classes);
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
