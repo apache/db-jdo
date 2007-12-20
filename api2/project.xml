@@ -89,7 +89,7 @@ Request 243 under the auspices of the Java Community Process.</description>
         <!-- Resources that are packaged up inside the JAR file -->
         <resources>
             <resource>
-            <directory>${basedir}</directory>
+                <directory>${basedir}</directory>
                 <includes>
                     <include>API2.MF</include>
                 </includes>

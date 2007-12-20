@@ -93,6 +93,12 @@ This version requires only JDK 1.3.</description>
                 </includes>
             </resource>
             <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>API2.MF</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>${basedir}/src/java</directory>
                 <includes>
                     <include>javax/jdo/*.properties</include>
