@@ -89,6 +89,12 @@ Request 243 under the auspices of the Java Community Process.</description>
         <!-- Resources that are packaged up inside the JAR file -->
         <resources>
             <resource>
+            <directory>${basedir}</directory>
+                <includes>
+                    <include>API2.MF</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>${basedir}/..</directory>
                 <targetPath>META-INF</targetPath>
                 <includes>
