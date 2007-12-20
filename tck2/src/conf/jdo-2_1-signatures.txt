@@ -161,6 +161,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.Mapping";
     static String PROPERTY_NAME
         = "javax.jdo.option.Name";
+    static String PROPERTY_SPI_RESOURCE_NAME
+        = "javax.jdo.option.spi.ResourceName";
     static String PROPERTY_PERSISTENCE_UNIT_NAME
         = "javax.jdo.option.PersistenceUnitName";
     static String PROPERTY_INSTANCE_LIFECYCLE_LISTENER
@@ -197,6 +199,8 @@ public interface javax.jdo.Constants {
         = "javax/jdo/jdoquery_2_0.dtd";
     static String JDOQUERY_XSD_RESOURCE
         = "javax/jdo/jdoquery_2_1.xsd";
+    static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
+        = "";
 }
 
 public interface javax.jdo.datastore.DataStoreCache {
