@@ -48,7 +48,7 @@ import java.io.LineNumberReader;
 public class SignatureVerifier {
     /** The new-line character on this system. */
     static protected final String NL = System.getProperty("line.separator");
-    
+
     /** A writer for standard output. */
     protected final PrintWriter log;
 
@@ -882,7 +882,9 @@ public class SignatureVerifier {
             while (true) {
                 // parse known modifiers
                 final String t = parseToken();
-                if (t.equals("abstract")) m |= Modifier.ABSTRACT;
+                if      (t.equals("abstract")) m |= Modifier.ABSTRACT;
+                else if (t.equals("annotation")) m |= (0x2000 + Modifier.ABSTRACT + Modifier.INTERFACE);
+                else if (t.equals("enum")) m |= 0x4000 + Modifier.FINAL;
                 else if (t.equals("final")) m |= Modifier.FINAL;
                 else if (t.equals("interface")) m |= Modifier.INTERFACE;
                 else if (t.equals("native")) m |= Modifier.NATIVE;
