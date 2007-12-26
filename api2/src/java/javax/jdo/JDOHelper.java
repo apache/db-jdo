@@ -1051,6 +1051,7 @@ public class JDOHelper implements Constants {
                 // inform the impl that the config came from a jdoconfig.xml
                 // element with the given name
                 properties.put(PROPERTY_NAME, name);
+                properties.remove(PROPERTY_SPI_RESOURCE_NAME);
             }
         }
 
