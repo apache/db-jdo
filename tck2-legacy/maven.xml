@@ -22,6 +22,10 @@
     xmlns:maven="jelly:maven"
     xmlns:u="jelly:util">
 
+    <goal name="default">
+        <attainGoal name="jar:install"/>
+    </goal>
+
     <goal name="help">
         <echo>Custom goals for this project are:</echo>
         <echo>  installSchema - installs the database schema</echo>

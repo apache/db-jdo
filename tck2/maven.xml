@@ -22,6 +22,10 @@
     xmlns:maven="jelly:maven"
     xmlns:u="jelly:util">
 
+    <goal name="default">
+        <attainGoal name="jar:install"/>
+    </goal>
+
     <!-- Note : keep this so that it is max 80 char width when run 
          so we allow for the worst case scenario of a basic VT -->
     <goal name="help">
