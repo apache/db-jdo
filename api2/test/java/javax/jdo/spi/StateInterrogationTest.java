@@ -17,12 +17,14 @@
 
 package javax.jdo.spi;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
-import javax.jdo.util.AbstractTest;
-import javax.jdo.util.BatchTestRunner;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+
+import javax.jdo.util.AbstractTest;
+import javax.jdo.util.BatchTestRunner;
 
 /**
  * This class tests the StateInterrogation interface. The test is in
