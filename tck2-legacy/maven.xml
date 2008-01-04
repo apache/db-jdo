@@ -93,6 +93,13 @@
         <attainGoal name="build"/>
     </goal>
 
+    <goal name="cleanClasses">
+        <delete>
+            <fileset dir="${basedir}/target/classes" includes="**/*"/>
+            <fileset dir="${basedir}/target/enhanced" includes="**/*"/>
+        </delete>
+    </goal>
+    
     <goal name="clobber" prereqs="clean">
         <delete>
             <fileset dir="." defaultexcludes="no" includes="**/*~"/>
@@ -530,13 +537,12 @@
             <fileset dir="${basedir}/src/jdo/${jdo.tck.identitytype}"
                      includes="**/*.jdo, **/*.jdoquery, **/jdoTest.properties"/>
         </copy>
-        <!-- compile pc and pa classes -->
-        <javac srcdir="${basedir}/src/java"
-           includes="${jdo.tck.pcclasses.sources} ${jdo.tck.paclasses.sources}"
-           destdir="${enhanced.dir}"
-           debug="on"
-           classpathref="jdo.tck.enhancer.classpath">
-        </javac>
+        <!-- copy pc and pa classes -->
+        <copy todir="${enhanced.dir}">
+            <fileset dir="${basedir}/target/classes"
+                includes="${jdo.tck.pcclasses.files}
+                        ${jdo.tck.paclasses.files}" />
+        </copy>
     </goal>
 
     <goal name="doEnhance.iut">
