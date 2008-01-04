@@ -87,6 +87,69 @@ has application identity.
               <column name="COUNTRY" allows-null="true"/>
             </property>
         </class>
+        
+        <class name="Address_bad" table="address">
+            <field name="addrid">
+              <column name="ADDRID" allows-null="true"/>
+            </field>
+            <field name="street">
+              <column name="STREET" allows-null="true"/>
+            </field>
+            <field name="city">
+              <column name="CITY" allows-null="true"/>
+            </field>
+            <field name="state">
+              <column name="STATE" allows-null="true"/>
+            </field>
+            <field name="zipcode">
+              <column name="ZIPCODE" allows-null="true"/>
+            </field>
+            <field name="country">
+              <column name="COUNTRY" allows-null="true"/>
+            </field>
+        </class>
+
+        <interface name="IAddress_bad" table="address">
+            <property name="addrid">
+              <column name="ADDRID" allows-null="true"/>
+            </property>
+            <property name="street">
+              <column name="STREET" allows-null="true"/>
+            </property>
+            <property name="city">
+              <column name="CITY" allows-null="true"/>
+            </property>
+            <property name="state">
+              <column name="STATE" allows-null="true"/>
+            </property>
+            <property name="zipcode">
+              <column name="ZIPCODE" allows-null="true"/>
+            </property>
+            <property name="country">
+              <column name="COUNTRY" allows-null="true"/>
+            </property>
+         </interface>
+            
+         <class name="AAddress_bad" table="address">
+            <property name="addrid">
+              <column name="ADDRID" allows-null="true"/>
+            </property>
+            <property name="street">
+              <column name="STREET" allows-null="true"/>
+            </property>
+            <property name="city">
+              <column name="CITY" allows-null="true"/>
+            </property>
+            <property name="state">
+              <column name="STATE" allows-null="true"/>
+            </property>
+            <property name="zipcode">
+              <column name="ZIPCODE" allows-null="true"/>
+            </property>
+            <property name="country">
+              <column name="COUNTRY" allows-null="true"/>
+            </property>
+        </class>
 
     </package>
 </orm>

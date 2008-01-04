@@ -82,5 +82,62 @@ has datastore identity.
             </property>
         </class>
 
+        <class name="Address_bad" table="address">
+            <datastore-identity strategy="identity"
+                column="DATASTORE_IDENTITY"/>
+            <field name="addrid" column="ADDRID"/>
+            <field name="street" column="STREET"/>
+            <field name="city" column="CITY"/>
+            <field name="state" column="STATE"/>
+            <field name="zipcode" column="ZIPCODE"/>
+            <field name="country" column="COUNTRY"/>
+        </class>
+
+        <interface name="IAddress_bad" table="address">
+            <datastore-identity strategy="identity"
+                column="DATASTORE_IDENTITY"/>
+            <property name="addrid">
+              <column name="ADDRID" allows-null="true"/>
+            </property>
+            <property name="street">
+              <column name="STREET" allows-null="true"/>
+            </property>
+            <property name="city">
+              <column name="CITY" allows-null="true"/>
+            </property>
+            <property name="state">
+              <column name="STATE" allows-null="true"/>
+            </property>
+            <property name="zipcode">
+              <column name="ZIPCODE" allows-null="true"/>
+            </property>
+            <property name="country">
+              <column name="COUNTRY" allows-null="true"/>
+            </property>
+        </interface>
+            
+        <class name="AAddress_bad" table="address">
+            <datastore-identity strategy="identity"
+                column="DATASTORE_IDENTITY"/>
+            <property name="addrid">
+              <column name="ADDRID" allows-null="true"/>
+            </property>
+            <property name="street">
+              <column name="STREET" allows-null="true"/>
+            </property>
+            <property name="city">
+              <column name="CITY" allows-null="true"/>
+            </property>
+            <property name="state">
+              <column name="STATE" allows-null="true"/>
+            </property>
+            <property name="zipcode">
+              <column name="ZIPCODE" allows-null="true"/>
+            </property>
+            <property name="country">
+              <column name="COUNTRY" allows-null="true"/>
+            </property>
+        </class>
+
     </package>
 </orm>

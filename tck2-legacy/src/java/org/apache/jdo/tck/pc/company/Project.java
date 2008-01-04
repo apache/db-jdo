@@ -176,7 +176,7 @@ public class Project
     public void setMembers(Set employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.members = (members != null) ? new HashSet(employees) : null;
+        this.members = (employees != null) ? new HashSet(employees) : null;
     }
 
     /** Serialization support: initialize transient fields. */

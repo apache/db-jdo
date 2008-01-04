@@ -23,6 +23,9 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.newInstance.AAddress;
 import org.apache.jdo.tck.pc.newInstance.Address;
 import org.apache.jdo.tck.pc.newInstance.IAddress;
+import org.apache.jdo.tck.pc.newInstance.AAddress_bad;
+import org.apache.jdo.tck.pc.newInstance.Address_bad;
+import org.apache.jdo.tck.pc.newInstance.IAddress_bad;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -30,21 +33,21 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B>
  *<BR>
- *<B>Assertion IDs:</B> A12.6.6-1
+ *<B>Assertion IDs:</B> A12.6.6-2
  *<BR>
  *<B>Assertion Description: </B>
-[The parameter must be one of the following:
-- an abstract class that is declared in the metadata as persistence-capable, in which all abstract methods are declared as persistent properties, or
-- an interface that is declared in the metadata as persistence-capable, in which all methods are declared as persistent properties, or
-- a concrete class that is declared in the metadata as persistence-capable. In this case, the concrete class must declare a public no-args constructor.
-If the parameter does not satisfy the above requirements, JDOUserException is thrown.
+ * Persistent properties declared in the interface are defined as those that have both a get and a set method
+ * or both an is and a set method, named according to the JavaBeans naming conventions, and
+ * of a type supported as a persistent type.
+ * The implementing class will provide a suitable implementation for all property access methods and
+ * will throw JDOUserException for all other methods of the interface.
  */
 
 public class NewInstance extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A12.5.7-9 (NewInstance) failed: ";
+        "Assertion A12.6.6-2 (NewInstance) failed: ";
     
     /**
      * The <code>main</code> is called when the class
@@ -55,68 +58,82 @@ public class NewInstance extends PersistenceManagerTest {
         BatchTestRunner.run(NewInstance.class);
     }
     
-    /** */
-    public void testNewInstance() {
-        pm = getPM();   
-
-        /* positive tests */
-        runTestNewInstanceInterface(pm);
-        runTestNewInstanceAbstractClass(pm);
-        runTestNewInstanceClass(pm);
-
-        /* negative tests */
-
-        pm.close();
-        pm = null;
-    }
-
     /** test newInstance (Class pcInterface) */
-    private void runTestNewInstanceInterface(PersistenceManager pm) {
-            IAddress iaddress = (IAddress)pm.newInstance(IAddress.class);
-//        Transaction tx = pm.currentTransaction();
-//        try {
-//            tx = pm.currentTransaction();
-//            tx.begin();
-//            tx.commit();
-            if (debug) logger.debug(" \nPASSED in testNewInstance()");
-//        }
-//        finally {
-//            if (tx.isActive())
-//                tx.rollback();
-//        }        
+    public void testNewInstanceInterface() {
+        pm = getPM();   
+        try {
+            pm.newInstance(IAddress.class);
+        } catch (Exception e) {
+            fail("Unexpected exception thrown. "
+                + e.getMessage());
+        }
     }
 
     /** test newInstance (Class pcAbstractClass) */
-    private void runTestNewInstanceAbstractClass(PersistenceManager pm) {
-        pm.newInstance(AAddress.class);
-        Transaction tx = pm.currentTransaction();
- //       try {
- //           tx.begin();
-//
-//
-//            tx.commit();
-//            if (debug) logger.debug(" \nPASSED in testNewInstance()");
-//        } 
-//        finally {
-//            if (tx.isActive())
-//                tx.rollback();
-//        }   
+    public void testNewInstanceAbstractClass() {
+        pm = getPM();   
+        try {
+            pm.newInstance(AAddress.class);
+        } catch (Exception e) {
+            fail("Unexpected exception thrown. "
+                + e.getMessage());
+        }
     }
 
-        /** test newInstance (Class pcClass) */
-    private void runTestNewInstanceClass(PersistenceManager pm) {
-        pm.newInstance(Address.class);
-        Transaction tx = pm.currentTransaction();
-//        try {
-//            tx.begin();
-//
-//            tx.commit();
-//            if (debug) logger.debug(" \nPASSED in testNewInstance()");
-//        }
-//        finally {
-//            if (tx.isActive())
-//                tx.rollback();
-//        }
+    /** test newInstance (Class pcClass) */
+    public void testNewInstanceClass() {
+        pm = getPM();   
+        try {
+            pm.newInstance(Address.class);
+        } catch (Exception e) {
+            fail("Unexpected exception thrown. "
+                + e.getMessage());
+        }
+    }
+
+    /** test newInstance (Class pcInterface) */
+    public void testNewInstanceInterfaceBad() {
+        pm = getPM();   
+        try {
+            pm.newInstance(IAddress_bad.class);
+            fail("Expected JDOUserException but no exception thrown.  "
+                + "Interface contains a method that is not property.");
+        } catch (javax.jdo.JDOUserException jdoe) {
+            // Expected exception
+        } catch (Exception e) {
+            fail("Expected JDOUserException but " + e.getMessage()
+                + " thrown instead.");
+        }
+    }
+
+    /** test newInstance (Class pcAbstractClass) */
+    public void testNewInstanceAbstractClassBad() {
+        pm = getPM();   
+        try {
+            pm.newInstance(AAddress_bad.class);
+            fail("Expected JDOUserException but no exception thrown.  "
+                + "Abstract class contains a method that is not property.");
+        } catch (javax.jdo.JDOUserException jdoe) {
+            // Expected exception
+        } catch (Exception e) {
+            fail("Expected JDOUserException but " + e.getMessage()
+                + "t hrown instead.");
+        }
+    }
+
+    /** test newInstance (Class pcClass) */
+    public void testNewInstanceClassBad() {
+        pm = getPM();   
+        try {
+            pm.newInstance(Address_bad.class);
+            fail("Expected JDOUserException but no exception thrown.  "
+                + "Class contains non-public no-args constructor.");
+        } catch (javax.jdo.JDOUserException jdoe) {
+            // Expected exception
+        } catch (Exception e) {
+            fail("Expected JDOUserException but " + e.getMessage()
+                + " thrown instead.");
+        }
     }
 
 }
