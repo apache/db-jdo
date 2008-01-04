@@ -1083,7 +1083,7 @@ public abstract class JDO_Test extends TestCase {
     
     /** Appends to error messages.
      */
-    protected static synchronized void deferredAssertTrue(Boolean test,
+    protected static synchronized void deferredAssertTrue(boolean test,
         String context, String message) {
         if (!test) {
             appendMessage(context + ": " +message);
