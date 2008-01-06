@@ -200,7 +200,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     public CompanyModelReader loadAndPersistCompanyModel(PersistenceManager pm) {
         makePersistentAll(
-                getCompanyModelReaderForPersistentInstances().getRootList());
+            pm, getCompanyModelReaderForPersistentInstances().getRootList());
         return getCompanyModelReaderForPersistentInstances();
     }
     
@@ -211,15 +211,17 @@ public abstract class QueryTest extends JDO_Test {
      * instance allowing to access a compay model instance by name.
      */
     public MylibReader loadAndPersistMylib(PersistenceManager pm) {
-        makePersistentAll(getMylibReaderForPersistentInstances().getRootList());
+        makePersistentAll(
+            pm, getMylibReaderForPersistentInstances().getRootList());
         return getMylibReaderForPersistentInstances();
     }
 
     /**
      * Persists the given pc instances.
+     * @param pm the PersistenceManager
      * @param pcInstances the pc instances to persist
      */
-    private void makePersistentAll(List pcInstances) {
+    private void makePersistentAll(PersistenceManager pm, List pcInstances) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
@@ -1117,6 +1119,7 @@ public abstract class QueryTest extends JDO_Test {
     private Object execute(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
             Object parameters, Object expectedResult) {
+        PersistenceManager pm = getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
@@ -1374,6 +1377,7 @@ public abstract class QueryTest extends JDO_Test {
     private void delete(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
             Object parameters, long expectedNrOfDeletedObjects) {
+        PersistenceManager pm = getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
