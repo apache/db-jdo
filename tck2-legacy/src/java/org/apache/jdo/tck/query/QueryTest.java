@@ -137,6 +137,14 @@ public abstract class QueryTest extends JDO_Test {
     }
     
     // Company model and mylib helper methods
+
+    /**
+     * Returns the name of the company test data resource.
+     * @return name of the company test data resource. 
+     */
+    protected String getCompanyTestDataResource() {
+        return COMPANY_TESTDATA;
+    }
     
     /**
      * Initializes and returns the company model reader 
@@ -147,7 +155,7 @@ public abstract class QueryTest extends JDO_Test {
     getCompanyModelReaderForPersistentInstances() {
         if (companyModelReaderForPersistentInstances == null) {
             companyModelReaderForPersistentInstances = 
-                new CompanyModelReader(COMPANY_TESTDATA);
+                new CompanyModelReader(getCompanyTestDataResource());
         }
         return companyModelReaderForPersistentInstances;
     }
@@ -161,7 +169,7 @@ public abstract class QueryTest extends JDO_Test {
     getCompanyModelReaderForTransientInstances() {
         if (companyModelReaderForTransientInstances == null) {
             companyModelReaderForTransientInstances = 
-                new CompanyModelReader(COMPANY_TESTDATA);
+                new CompanyModelReader(getCompanyTestDataResource());
         }
         return companyModelReaderForTransientInstances;
     }
