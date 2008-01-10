@@ -134,8 +134,8 @@ public @interface Element
      */
     String generateForeignKey() default "";
 
-    /** Name for a generated primary key constraint.
-     * @return the name of the generated primary key constraint
+    /** Name for a generated foreign key constraint.
+     * @return the name of the generated foreign key constraint
      */
     String foreignKey() default "";
 
