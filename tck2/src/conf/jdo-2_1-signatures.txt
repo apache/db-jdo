@@ -459,7 +459,7 @@ public class javax.jdo.JDOHelper implements javax.jdo.Constants {
     public static boolean isNew(Object pc);
     public static boolean isDeleted(Object pc);
     public static boolean isDetached(Object pc);
-    public static javax.jdo.ObjectState getObjectState(Object pc);
+    public static enum javax.jdo.ObjectState getObjectState(Object pc);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory();
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map props, ClassLoader cl);
@@ -616,7 +616,7 @@ public interface javax.jdo.PersistenceManager {
     public void evict(Object pc);
     public varargs void evictAll(Object[] pcs);
     public void evictAll(java.util.Collection pcs);
-    public void evictAll(java.lang.Class, boolean);
+    public void evictAll(Class, boolean);
     public void evictAll();
     public void refresh(Object pc);
     public varargs void refreshAll(Object[] pcs);
@@ -1036,4 +1036,462 @@ public interface javax.jdo.Transaction {
     public void setSynchronization(javax.transaction.Synchronization sync);
     public javax.transaction.Synchronization getSynchronization();
     public javax.jdo.PersistenceManager getPersistenceManager();
+}
+
+public final enum javax.jdo.ObjectState extends java.lang.Enum {
+
+    public static final enum javax.jdo.ObjectState TRANSIENT;
+    public static final enum javax.jdo.ObjectState TRANSIENT_CLEAN;
+    public static final enum javax.jdo.ObjectState TRANSIENT_DIRTY;
+    public static final enum javax.jdo.ObjectState PERSISTENT_NEW;
+    public static final enum javax.jdo.ObjectState HOLLOW_PERSISTENT_NONTRANSACTIONAL;
+    public static final enum javax.jdo.ObjectState PERSISTENT_NONTRANSACTIONAL_DIRTY;
+    public static final enum javax.jdo.ObjectState PERSISTENT_CLEAN;
+    public static final enum javax.jdo.ObjectState PERSISTENT_DIRTY;
+    public static final enum javax.jdo.ObjectState PERSISTENT_DELETED;
+    public static final enum javax.jdo.ObjectState PERSISTENT_NEW_DELETED;
+    public static final enum javax.jdo.ObjectState DETACHED_CLEAN;
+    public static final enum javax.jdo.ObjectState DETACHED_DIRTY;
+    public static enum javax.jdo.ObjectState valueOf(java.lang.String);
+    public static final javax.jdo.ObjectState[] values();
+    public String toString();
+}
+
+public annotation javax.jdo.annotations.Column extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String target() default "";
+    String targetMember() default "";
+    String jdbcType() default "";
+    String sqlType() default "";
+    int length() default -1;
+    int scale() default -1;
+    String allowsNull() default "";
+    String defaultValue() default "";
+    String insertValue() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Columns extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Column[] value();
+}
+
+public annotation javax.jdo.annotations.DatastoreIdentity extends java.lang.annotation.Annotation
+{
+    enum javax.jdo.annotations.IdGeneratorStrategy strategy() default javax.jdo.annotations.IdGeneratorStrategy.UNSPECIFIED;
+    String customStrategy() default "";
+    String sequence() default "";
+    String column() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Discriminator extends java.lang.annotation.Annotation
+{
+    enum javax.jdo.annotations.DiscriminatorStrategy strategy() 
+        default javax.jdo.annotations.DiscriminatorStrategy.UNSPECIFIED;
+    String customStrategy() default "";
+    String indexed() default "";
+    String column() default "";
+    String value() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public final enum javax.jdo.annotations.DiscriminatorStrategy extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.DiscriminatorStrategy UNSPECIFIED;
+    public static final enum javax.jdo.annotations.DiscriminatorStrategy NONE;
+    public static final enum javax.jdo.annotations.DiscriminatorStrategy VALUE_MAP;
+    public static final enum javax.jdo.annotations.DiscriminatorStrategy CLASS_NAME;
+    public static enum javax.jdo.annotations.DiscriminatorStrategy valueOf(java.lang.String);
+    public static final javax.jdo.annotations.DiscriminatorStrategy[] values();
+}
+
+public annotation javax.jdo.annotations.Element extends java.lang.annotation.Annotation
+{
+    Class[] types() default {};
+    String serialized() default "";
+    String embedded() default "";
+    javax.jdo.annotations.Embedded[] embeddedMapping() default {};
+    String dependent() default "";
+    String table() default "";
+    String column() default "";
+    enum javax.jdo.annotations.ForeignKeyAction deleteAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    enum javax.jdo.annotations.ForeignKeyAction updateAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    String indexed() default "";
+    String index() default "";
+    String unique() default "";
+    String uniqueKey() default "";
+    String mappedBy() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+    String generateForeignKey() default "";
+    String foreignKey() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Embedded extends java.lang.annotation.Annotation
+{
+    String ownerMember() default "";
+    String nullIndicatorColumn() default "";
+    String nullIndicatorValue() default "";
+    javax.jdo.annotations.Persistent[] members() default {};
+}
+
+public annotation javax.jdo.annotations.EmbeddedOnly extends java.lang.annotation.Annotation
+{
+}
+
+public annotation javax.jdo.annotations.Extension extends java.lang.annotation.Annotation
+{
+    String vendorName();
+    String key();
+    String value();
+}
+
+public annotation javax.jdo.annotations.Extensions extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Extension[] value();
+}
+
+public annotation javax.jdo.annotations.FetchGroup extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String postLoad() default "";
+    javax.jdo.annotations.Persistent[] members();
+    String[] fetchGroups() default {};
+}
+
+public annotation javax.jdo.annotations.FetchGroups extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.FetchGroup[] value();
+}
+
+public annotation javax.jdo.annotations.FetchPlan extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String[] fetchGroups() default {};
+    int maxFetchDepth() default 1;
+    int fetchSize() default 0;
+}
+
+public annotation javax.jdo.annotations.FetchPlans extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.FetchPlan[] value();
+}
+
+public annotation javax.jdo.annotations.ForeignKey extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String table() default "";
+    String deferred() default "";
+    String unique() default "";
+    enum javax.jdo.annotations.ForeignKeyAction deleteAction() default javax.jdo.annotations.ForeignKeyAction.RESTRICT;
+    enum javax.jdo.annotations.ForeignKeyAction updateAction() default javax.jdo.annotations.ForeignKeyAction.RESTRICT;
+    String[] members() default {};
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public final enum javax.jdo.annotations.ForeignKeyAction extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.ForeignKeyAction UNSPECIFIED;
+    public static final enum javax.jdo.annotations.ForeignKeyAction RESTRICT;
+    public static final enum javax.jdo.annotations.ForeignKeyAction CASCADE;
+    public static final enum javax.jdo.annotations.ForeignKeyAction NULL;
+    public static final enum javax.jdo.annotations.ForeignKeyAction DEFAULT;
+    public static final enum javax.jdo.annotations.ForeignKeyAction NONE;
+    public static enum javax.jdo.annotations.ForeignKeyAction valueOf(java.lang.String);
+    public static final javax.jdo.annotations.ForeignKeyAction[] values();
+}
+
+public annotation javax.jdo.annotations.ForeignKeys extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.ForeignKey[] value();
+}
+
+public final enum javax.jdo.annotations.IdGeneratorStrategy extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy UNSPECIFIED;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy NATIVE;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy SEQUENCE;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy IDENTITY;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy INCREMENT;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy UUIDSTRING;
+    public static final enum javax.jdo.annotations.IdGeneratorStrategy UUIDHEX;
+    public static enum javax.jdo.annotations.IdGeneratorStrategy valueOf(java.lang.String);
+    public static final javax.jdo.annotations.IdGeneratorStrategy[] values();
+}
+
+public final enum javax.jdo.annotations.IdentityType extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.IdentityType UNSPECIFIED;
+    public static final enum javax.jdo.annotations.IdentityType APPLICATION;
+    public static final enum javax.jdo.annotations.IdentityType DATASTORE;
+    public static final enum javax.jdo.annotations.IdentityType NONDURABLE;
+    public static enum javax.jdo.annotations.IdentityType valueOf(java.lang.String);
+    public static final javax.jdo.annotations.IdentityType[] values();
+}
+
+public annotation javax.jdo.annotations.Index extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String table() default "";
+    String unique() default "";
+    String[] members() default {};
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public annotation javax.jdo.annotations.Indices extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Index[] value();
+}
+
+public annotation javax.jdo.annotations.Inheritance extends java.lang.annotation.Annotation
+{
+    enum javax.jdo.annotations.InheritanceStrategy strategy() default javax.jdo.annotations.InheritanceStrategy.UNSPECIFIED;
+    String customStrategy() default "";
+}
+
+public final enum javax.jdo.annotations.InheritanceStrategy extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.InheritanceStrategy UNSPECIFIED;
+    public static final enum javax.jdo.annotations.InheritanceStrategy NEW_TABLE;
+    public static final enum javax.jdo.annotations.InheritanceStrategy SUBCLASS_TABLE;
+    public static final enum javax.jdo.annotations.InheritanceStrategy SUPERCLASS_TABLE;
+    public static enum javax.jdo.annotations.InheritanceStrategy valueOf(java.lang.String);
+    public static final javax.jdo.annotations.InheritanceStrategy[] values();
+}
+
+public annotation javax.jdo.annotations.Join extends java.lang.annotation.Annotation
+{
+    String table() default "";
+    String column() default "";
+    String indexed() default "";
+    String index() default "";
+    String unique() default "";
+    String uniqueKey() default "";
+    String outer() default "";
+    enum javax.jdo.annotations.ForeignKeyAction deleteAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    javax.jdo.annotations.Column[] columns() default {};
+    String generatePrimaryKey() default "";
+    String primaryKey() default "";
+    String generateForeignKey() default "";
+    String foreignKey() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Joins extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Join[] value();
+}
+
+public annotation javax.jdo.annotations.Key extends java.lang.annotation.Annotation
+{
+    Class[] types() default {};
+    String serialized() default "";
+    String embedded() default "";
+    javax.jdo.annotations.Embedded[] embeddedMapping() default {};
+    String dependent() default "";
+    String table() default "";
+    String column() default "";
+    enum javax.jdo.annotations.ForeignKeyAction deleteAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    enum javax.jdo.annotations.ForeignKeyAction updateAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    String indexed() default "";
+    String index() default "";
+    String unique() default "";
+    String uniqueKey() default "";
+    String mappedBy() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+    String generateForeignKey() default "";
+    String foreignKey() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.NotPersistent extends java.lang.annotation.Annotation
+{
+}
+
+public final enum javax.jdo.annotations.NullValue extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.NullValue NONE;
+    public static final enum javax.jdo.annotations.NullValue EXCEPTION;
+    public static final enum javax.jdo.annotations.NullValue DEFAULT;
+    public static enum javax.jdo.annotations.NullValue valueOf(java.lang.String);
+    public static final javax.jdo.annotations.NullValue[] values();
+}
+
+public annotation javax.jdo.annotations.Order extends java.lang.annotation.Annotation
+{
+    String column() default "";
+    String mappedBy() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public annotation javax.jdo.annotations.PersistenceAware extends java.lang.annotation.Annotation
+{
+}
+
+public annotation javax.jdo.annotations.PersistenceCapable extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Persistent[] members() default {};
+    String table() default "";
+    String catalog() default "";
+    String schema() default "";
+    String requiresExtent() default "";
+    String embeddedOnly() default "";
+    String detachable() default "";
+    enum javax.jdo.annotations.IdentityType identityType() default javax.jdo.annotations.IdentityType.UNSPECIFIED;
+    Class objectIdClass() default void.class;
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public final enum javax.jdo.annotations.PersistenceModifier extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.PersistenceModifier UNSPECIFIED;
+    public static final enum javax.jdo.annotations.PersistenceModifier PERSISTENT;
+    public static final enum javax.jdo.annotations.PersistenceModifier TRANSACTIONAL;
+    public static final enum javax.jdo.annotations.PersistenceModifier NONE;
+    public static enum javax.jdo.annotations.PersistenceModifier valueOf(java.lang.String);
+    public static final javax.jdo.annotations.PersistenceModifier[] values();
+}
+
+public annotation javax.jdo.annotations.Persistent extends java.lang.annotation.Annotation
+{
+    enum javax.jdo.annotations.PersistenceModifier persistenceModifier() 
+        default javax.jdo.annotations.PersistenceModifier.UNSPECIFIED;
+    String table() default "";
+    String defaultFetchGroup() default "";
+    enum javax.jdo.annotations.NullValue nullValue() default javax.jdo.annotations.NullValue.NONE;
+    String embedded() default "";
+    String embeddedElement() default "";
+    String embeddedKey() default "";
+    String embeddedValue() default "";
+    String serialized() default "";
+    String serializedElement() default "";
+    String serializedKey() default "";
+    String serializedValue() default "";
+    String dependent() default "";
+    String dependentElement() default "";
+    String dependentKey() default "";
+    String dependentValue() default "";
+    String primaryKey() default "";
+    enum javax.jdo.annotations.IdGeneratorStrategy valueStrategy() default javax.jdo.annotations.IdGeneratorStrategy.UNSPECIFIED;
+    String customValueStrategy() default "";
+    String sequence() default "";
+    String loadFetchGroup() default "";
+    Class[] types() default {};
+    String mappedBy() default "";
+    javax.jdo.annotations.Column[] columns() default {}; 
+    String column() default "";
+    String nullIndicatorColumn() default "";
+    String name() default ""; 
+    int recursionDepth() default 1;
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.PrimaryKey extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String column() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public annotation javax.jdo.annotations.Queries extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Query[] value();
+}
+
+public annotation javax.jdo.annotations.Query extends java.lang.annotation.Annotation
+{
+    String name();
+    String value();
+    String language() default "JDOQL";
+    String unmodifiable() default "";
+    String unique() default "";
+    Class resultClass() default void.class;
+    String fetchPlan() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Sequence extends java.lang.annotation.Annotation
+{
+    String name();
+    enum javax.jdo.annotations.SequenceStrategy strategy();
+    String datastoreSequence() default "";
+    Class factoryClass() default void.class;
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public final enum javax.jdo.annotations.SequenceStrategy extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.SequenceStrategy NONTRANSACTIONAL;
+    public static final enum javax.jdo.annotations.SequenceStrategy CONTIGUOUS;
+    public static final enum javax.jdo.annotations.SequenceStrategy NONCONTIGUOUS;
+    public static enum javax.jdo.annotations.SequenceStrategy valueOf(java.lang.String);
+    public static final javax.jdo.annotations.SequenceStrategy[] values();
+}
+
+public annotation javax.jdo.annotations.Serialized extends java.lang.annotation.Annotation
+{
+}
+
+public annotation javax.jdo.annotations.Transactional extends java.lang.annotation.Annotation
+{
+}
+
+public annotation javax.jdo.annotations.Unique extends java.lang.annotation.Annotation
+{
+    String name() default "";
+    String table() default "";
+    String deferred() default "";
+    String[] members() default {};
+    javax.jdo.annotations.Column[] columns() default {};
+}
+
+public annotation javax.jdo.annotations.Uniques extends java.lang.annotation.Annotation
+{
+    javax.jdo.annotations.Unique[] value();
+}
+
+public annotation javax.jdo.annotations.Value extends java.lang.annotation.Annotation
+{
+    Class[] types() default {};
+    String serialized() default "";
+    String embedded() default "";
+    javax.jdo.annotations.Embedded[] embeddedMapping() default {};
+    String dependent() default "";
+    String table() default "";
+    String column() default "";
+    enum javax.jdo.annotations.ForeignKeyAction deleteAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    enum javax.jdo.annotations.ForeignKeyAction updateAction() default javax.jdo.annotations.ForeignKeyAction.UNSPECIFIED;
+    String indexed() default "";
+    String index() default "";
+    String unique() default "";
+    String uniqueKey() default "";
+    String mappedBy() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+    String generateForeignKey() default "";
+    String foreignKey() default "";
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public annotation javax.jdo.annotations.Version extends java.lang.annotation.Annotation
+{
+    enum javax.jdo.annotations.VersionStrategy strategy() default javax.jdo.annotations.VersionStrategy.UNSPECIFIED;
+    String customStrategy() default "";
+    String column() default "";
+    String indexed() default "";
+    javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
+}
+
+public final enum javax.jdo.annotations.VersionStrategy extends java.lang.Enum
+{
+    public static final enum javax.jdo.annotations.VersionStrategy UNSPECIFIED;
+    public static final enum javax.jdo.annotations.VersionStrategy NONE;
+    public static final enum javax.jdo.annotations.VersionStrategy STATE_IMAGE;
+    public static final enum javax.jdo.annotations.VersionStrategy DATE_TIME;
+    public static final enum javax.jdo.annotations.VersionStrategy VERSION_NUMBER;
+    public static enum javax.jdo.annotations.VersionStrategy valueOf(java.lang.String);
+    public static final javax.jdo.annotations.VersionStrategy[] values();
 }

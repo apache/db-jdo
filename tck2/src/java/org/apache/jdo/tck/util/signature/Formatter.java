@@ -115,6 +115,9 @@ class Formatter {
         s.append(method.getName()).append("(");
         s.append(toString("", method.getParameterTypes())).append(")");
         s.append(toString(" throws ", method.getExceptionTypes()));
+        if (method.getDeclaringClass().isAnnotation() && method.getDefaultValue() != null) {
+            s.append(" default \"" + method.getDefaultValue() + "\"");
+        }
         return s.toString();
     }
 

@@ -17,6 +17,7 @@
 
 package org.apache.jdo.tck.util.signature;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Field;
@@ -48,6 +49,30 @@ import java.io.LineNumberReader;
 public class SignatureVerifier {
     /** The new-line character on this system. */
     static protected final String NL = System.getProperty("line.separator");
+
+    /** All modifiers defined in java.lang.reflect.Modifier.
+     * This field is used to filter out vm-specific modifiers 
+     * such as found in Sun's vm to identify Enum and Annotation.
+     */
+    static protected final int ALL_MODIFIERS = 
+            Modifier.ABSTRACT |
+            Modifier.FINAL |
+            Modifier.INTERFACE |
+            Modifier.NATIVE |
+            Modifier.PRIVATE |
+            Modifier.PROTECTED |
+            Modifier.PUBLIC |
+            Modifier.STATIC |
+            Modifier.STRICT |
+            Modifier.SYNCHRONIZED |
+            Modifier.TRANSIENT |
+            Modifier.VOLATILE;
+
+    /** Pseudo modifier for annotation */
+    static protected final int ANNOTATION = 0x2000;
+
+    /** Pseudo modifier for enum */
+    static protected final int ENUM = 0x4000;
 
     /** A writer for standard output. */
     protected final PrintWriter log;
@@ -107,7 +132,7 @@ public class SignatureVerifier {
     public SignatureVerifier(PrintWriter log,
                              boolean quiet, boolean verbose) {
         this(SignatureVerifier.class.getClassLoader(), log, quiet, verbose);
-    }    
+    }
 
     // ----------------------------------------------------------------------
     // Local Logging Methods
@@ -279,6 +304,142 @@ public class SignatureVerifier {
         return cls;
     }
 
+    /** Check an expected value expression (the value of a static field
+     *  or the default value of an annotation method), comparing it to
+     *  the actual value from the Field or Method object.
+     *  Only supports primitive, enum, empty array of enum, empty array of
+     *  annotation, and String.
+     * @param value the String form of the value from the signature file
+     * @param type the type as declared in the class
+     * @param actual the actual value
+     * @return the description of the expected value, or null if ok
+     * @throws java.lang.NumberFormatException
+     */
+    protected String checkValue(String value, String type, Object actual) 
+            throws NumberFormatException {
+        // note array type
+        boolean isArray = false;
+        if (type.endsWith("[]")) {
+            isArray = true;
+            type = type.substring(0, type.length() - 2);
+            // remove { from beginning and } from end
+            value = value.substring(1, value.length() - 1);
+        }
+        // first check primitive type
+        final Object exp;
+        Class expClass;
+        final boolean ok;
+        if (type.equals("byte")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(byte.class);
+            } else {
+                ok = Byte.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("short")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(short.class);
+            } else {
+                ok = Short.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("int")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(int.class);
+            } else {
+                ok = Integer.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("long")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(long.class);
+            } else {
+                ok = Long.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("float")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(float.class);
+            } else {
+                ok = Float.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("double")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(double.class);
+            } else {
+                ok = Double.valueOf(value).equals(actual);
+            }
+        } else if (type.equals("char")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(char.class);
+            } else {
+                ok = new Character(value.charAt(1)).equals(actual);
+            }
+        // next check Class
+        } else if (type.equals("java.lang.Class")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(Class.class);
+            } else {
+                // strip ".class" from type name
+                int offset = value.indexOf(".class");
+                value = value.substring(0, offset);
+                ok = getClass(value).equals(actual);
+            }
+        // next check String
+        } else if (type.equals("java.lang.String")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(String.class);
+            } else {
+                // cut off '\"' chars at begin and end
+                final String s;
+                if (value.length() > 1) {
+                    s = value.substring(1, value.length() - 1);
+                } else {
+                    s = "";
+                }
+                ok = (String.valueOf(s)).equals(actual);
+            }
+        // now check non-java.lang annotations and enums
+        } else {
+            expClass = getClass(type);
+            if (isArray) {
+                // check if the actual component type is the right class
+                // don't check the actual values because only empty arrays
+                // are supported.
+                ok = actual.getClass().getComponentType().equals(expClass);
+            } else {
+                // get the actual value which must be a static class.field
+                Object expectedValue = null;
+                try {
+                    // now get actual value
+                    // separate value name into class and field name
+                    int lastDot = value.lastIndexOf(".");
+                    String expectedClassName = value.substring(0, lastDot);
+                    String expectedFieldName = 
+                            value.substring(lastDot + 1, value.length());
+                    // get Class object from class name
+                    Class expectedClass = getClass(expectedClassName);
+                    if (expectedClass == null) 
+                        throw new ClassNotFoundException();
+                    // get Field object from Class and field name
+                    Field expectedField = 
+                            expectedClass.getField(expectedFieldName);
+                    expectedValue = expectedField.get(null);
+                } catch (NoSuchFieldException ex) {
+                    handleNotLoading(ex);
+                } catch (SecurityException ex) {
+                    handleNotLoading(ex);
+                } catch (IllegalArgumentException ex) {
+                    handleNotLoading(ex);
+                } catch (IllegalAccessException ex) {
+                    handleNotLoading(ex);
+                } catch (ClassNotFoundException ex) {
+                    handleNotLoading(ex);
+                }
+                ok = expectedValue.equals(actual);
+            }
+        }
+        // return message if not ok
+        if (ok) return null;
+        else return value;
+    }
+
     /** Validates a field against a prescribed signature. */
     protected void checkField(int mods, String type, String name,
                               String value) {
@@ -306,7 +467,7 @@ public class SignatureVerifier {
             mods |= Modifier.STATIC;
             mods |= Modifier.FINAL;
         }
-        if (mods != field.getModifiers()) {
+        if (mods != convertModifiers(field)) {
             handleMismatch(
                 "field declaration: non-matching modifiers;",
                 Formatter.toString(mods, type, name, null),
@@ -322,7 +483,7 @@ public class SignatureVerifier {
         }
 
         // check field value if any
-        Object fieldValue = null;
+        Object actualValue = null;
         if (value != null) {
             // only support for public, static, and final fields
             final int m = (Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL);
@@ -331,51 +492,27 @@ public class SignatureVerifier {
                               + "definition in descriptor file;",
                               Formatter.toString(mods, type, name, value));
             } else {
-                // only support for primitive types and String
-                final Object exp;
-                if (type.equals("byte")) {
-                    exp = Byte.valueOf(value);
-                } else if (type.equals("short")) {
-                    exp = Short.valueOf(value);
-                } else if (type.equals("integer")) {
-                    exp = Integer.valueOf(value);
-                } else if (type.equals("long")) {
-                    exp = Long.valueOf(value);
-                } else if (type.equals("float")) {
-                    exp = Float.valueOf(value);
-                } else if (type.equals("double")) {
-                    exp = Double.valueOf(value);
-                } else if (type.equals("char")) {
-                    // cut off '\'' char at begin and end
-                    exp = new Character(value.charAt(1));
-                } else if (type.equals("java.lang.String")) {
-                    // cut off '\"' chars at begin and end
-                    final String s = value.substring(1, value.length() - 1);
-                    exp = String.valueOf(s);
-                } else {
-                    exp = null;
-                }
-
                 // compare field's expected with found value
                 try {
-                    fieldValue = field.get(null);
+                    actualValue = field.get(null);
                 } catch (IllegalAccessException ex) {
                     handleProblem("field declaration: cannot access field "
                                   + "value, exception: " + ex + ";",
                                   Formatter.toString(mods, type, name, value));
                 }
-                if (exp != null && !exp.equals(fieldValue)) {
+                String error = checkValue(value, type, actualValue);
+                if (error != null) {
                     handleMismatch(
                         "field declaration: non-matching values;",
-                        Formatter.toString(mods, type, name, exp.toString()),
-                        Formatter.toString(field, fieldValue));
+                        Formatter.toString(mods, type, name, error),
+                        Formatter.toString(field, "\"" + actualValue + "\""));
                 }
             }
         }
         
         // field OK
         members.remove(field);
-        handleMatch("has field: ", Formatter.toString(field, fieldValue));
+        handleMatch("has field: ", Formatter.toString(field, actualValue));
     }
 
     /** Validates a constructor against a prescribed signature. */
@@ -431,7 +568,8 @@ public class SignatureVerifier {
     
     /** Validates a method against a prescribed signature. */
     protected void checkMethod(int mods, String result, String name,
-                               String[] params, String[] excepts) {
+                               String[] params, String[] excepts, 
+                               String value) {
         tested++;
         params = TypeHelper.qualifiedUserTypeNames(params);
         excepts = TypeHelper.qualifiedUserTypeNames(excepts);
@@ -463,7 +601,7 @@ public class SignatureVerifier {
             mods |= Modifier.PUBLIC;
             mods |= Modifier.ABSTRACT;
         }
-        if (mods != method.getModifiers()) {
+        if (mods != convertModifiers(method)) {
             handleMismatch(
                 "method declaration: non-matching modifiers;",
                 Formatter.toString(mods, result, name, params, excepts),
@@ -484,6 +622,27 @@ public class SignatureVerifier {
                 "method declaration: non-matching exceptions;",
                 Formatter.toString(mods, result, name, params, excepts),
                 Formatter.toString(method));
+        }
+        
+        // check default value of an annotation element (method)
+        if (value != null) {
+            Object actualValue = null;
+            try {
+                actualValue = method.getDefaultValue();
+            } catch (Exception ex) {
+                handleProblem("method declaration: cannot access default "
+                              + "value, exception: " + ex + ";",
+                              Formatter.toString(mods, result, name, value));
+            }
+            // check value expected versus actual
+            String wrong = checkValue(value, result, actualValue);
+
+            if (wrong != null) {
+                handleMismatch(
+                    "method declaration: non-matching default value;",
+                    Formatter.toString(mods, result, name + "() default ", wrong),
+                    Formatter.toString(method));
+            }
         }
 
         // method OK
@@ -521,7 +680,7 @@ public class SignatureVerifier {
         if (isInterface) {
             mods |= Modifier.ABSTRACT;
         }
-        if (mods != cls.getModifiers()) {
+        if (mods != convertModifiers(cls)) {
             handleMismatch(
                 "class declaration: non-matching modifiers;",
                 Formatter.toString(mods, name, ext, impl),
@@ -573,6 +732,54 @@ public class SignatureVerifier {
                                   Formatter.toString(m));
             }
         }
+    }
+
+    /** Return modifiers for the class, but handling enum and annotation
+     * as if they had a special modifier.
+     * @param cls the class
+     * @return modifiers of the class with extra flags for enum and annotation
+     */protected int convertModifiers(Class cls) {
+        int result = cls.getModifiers();
+        // first remove extraneous stuff
+        result &= ALL_MODIFIERS;
+        // if enum, set pseudo enum flag
+        if (cls.isEnum())
+            result |= ENUM;
+        // if annotation, set pseudo annotation flag
+        if (cls.isAnnotation()) 
+            result |= ANNOTATION;
+        return result;
+    }
+
+    /** Return modifiers for the method, but handling enum and annotation
+     * as if they had a special modifier.
+     * @param method the method
+     * @return modifiers of the class with extra flags for enum and annotation
+     */protected int convertModifiers(Method method) {
+        int result = method.getModifiers();
+        // first remove extraneous stuff
+        result &= ALL_MODIFIERS;
+        // if enum, set pseudo enum flag
+        if (method.getReturnType().isEnum())
+            result |= ENUM;
+        // if annotation, set pseudo annotation flag
+        if (method.getReturnType().isAnnotation()) 
+            result |= ANNOTATION;
+        return result;
+    }
+
+    /** Return modifiers for the field, but handling enum
+     * as if it had a special modifier.
+     * @param field the field
+     * @return modifiers of the class with extra flag for enum
+     */protected int convertModifiers(Field field) {
+        int result = field.getModifiers();
+        // first remove extraneous stuff
+        result &= ALL_MODIFIERS;
+        // if enum, set pseudo enum flag
+        if (field.isEnumConstant())
+            result |= ENUM;
+        return result;
     }
 
     // ----------------------------------------------------------------------
@@ -808,6 +1015,42 @@ public class SignatureVerifier {
         }
     
         /**
+         * Scans for an array literal. 
+         * Limitation: only the empty array "{}" can be scanned.
+         * @return <code>null</code> if the next token is not an array
+         */
+        protected String scanArrayLiteral()
+            throws IOException, ParseException {
+            // parse stored token if any
+            String t;
+            if ((t = getLookAhead()) != null) {
+                if (t.charAt(0) != '{' || t.charAt(1) != '}') {
+                    setLookAhead(t); // not a string literal
+                    return null;
+                }
+                return t;
+            }
+
+            // parse first char
+            if (!skip()) {
+                throw new ParseException(msgUnexpectedEOF(), 0);
+            }
+            ir.mark(1);
+            char c = (char)ir.read();
+            if (c != '{') {
+                ir.reset(); // not start of a string literal
+                return null;
+            }
+            c = (char)ir.read();
+            if (c != '}') {
+                ir.reset(); // not end of a string literal
+                return null;
+            }
+        
+            return "{}";
+        }
+    
+        /**
          * Returns the next token to be parsed.
          * @return never <code>null</code>
          */
@@ -854,6 +1097,7 @@ public class SignatureVerifier {
             if ((t = scanNumberLiteral()) != null) {
             } else if ((t = scanStringLiteral()) != null) {
             } else if ((t = scanCharacterLiteral()) != null) {
+            } else if ((t = scanArrayLiteral()) != null) {
             }
             //log.println("parseLiteral() : '" + t + "'");
             return t;
@@ -873,6 +1117,24 @@ public class SignatureVerifier {
         }
     
         /**
+         * Parses the next token and validates that it is a constant,
+         * which is either a literal or a static member.
+         * @return the description of the field
+         */
+        protected String demandConstant()
+            throws IOException, ParseException {
+            final String literal = parseLiteral();
+            if (literal != null) {
+                return literal;
+            }
+            final String field = demandIdentifier();
+            if (field == null) {
+                throw new ParseException(msgUnexpectedToken(parseToken()), 0);
+            }
+            return field;
+        }
+    
+        /**
          * Parses any available Java modifiers.
          * @return an int value with the parsed modifiers' bit set
          */
@@ -883,8 +1145,9 @@ public class SignatureVerifier {
                 // parse known modifiers
                 final String t = parseToken();
                 if      (t.equals("abstract")) m |= Modifier.ABSTRACT;
-                else if (t.equals("annotation")) m |= (0x2000 + Modifier.ABSTRACT + Modifier.INTERFACE);
-                else if (t.equals("enum")) m |= 0x4000 + Modifier.FINAL;
+                else if (t.equals("annotation")) m |= 
+                        (ANNOTATION + Modifier.ABSTRACT + Modifier.INTERFACE);
+                else if (t.equals("enum")) m |= ENUM;
                 else if (t.equals("final")) m |= Modifier.FINAL;
                 else if (t.equals("interface")) m |= Modifier.INTERFACE;
                 else if (t.equals("native")) m |= Modifier.NATIVE;
@@ -1033,7 +1296,7 @@ public class SignatureVerifier {
                 return null; // no member to parse
             }
             final String memberName = parseIdentifier(); // null if constructor
-
+            
             // parse optional field value or parameter+exception list
             final String value;
             final String[] params;
@@ -1058,12 +1321,17 @@ public class SignatureVerifier {
                     if (tt.equals("throws")) {
                         excepts = demandIdentifierList();
                         demandToken(";");
+                        value = null;
                     } else if (tt.equals(";")) {
+                        excepts = new String[]{};
+                        value = null;
+                    } else if (tt.equals("default")) {
+                        value = demandConstant();
+                        demandToken(";");
                         excepts = new String[]{};
                     } else {
                         throw new ParseException(msgUnexpectedToken(tt), 0);
                     }
-                    value = null;
                 } else {
                     throw new ParseException(msgUnexpectedToken(tvp), 0);
                 }
@@ -1078,7 +1346,7 @@ public class SignatureVerifier {
                     name = typeOrName;
                     checkConstructor(mods, params, excepts);
                 } else {
-                    checkMethod(mods, typeOrName, memberName, params, excepts);
+                    checkMethod(mods, typeOrName, memberName, params, excepts, value);
                 }
             }
 
@@ -1091,6 +1359,7 @@ public class SignatureVerifier {
          * to a handler.
          * @return <code>null</code> if there's no class definition
          */
+        @SuppressWarnings("empty-statement")
         protected String parseClass()
             throws IOException, ParseException {
             // parse optional modifiers, class token, and class name
@@ -1130,7 +1399,7 @@ public class SignatureVerifier {
             // verify class header
             checkClass(mods, name, ext, impl);
 
-            // process members
+            // process members; empty-statement intentional
             while (parseMember() != null);
             demandToken("}");
 
@@ -1146,6 +1415,7 @@ public class SignatureVerifier {
          * the class definitions.
          * @param descrFileNames list of signature descriptor file names
          */
+        @SuppressWarnings("empty-statement")
         public void parse(List descrFileNames)
             throws IOException, ParseException {        
             for (Iterator i = descrFileNames.iterator(); i.hasNext();) {
@@ -1157,6 +1427,7 @@ public class SignatureVerifier {
                     ir = new LineNumberReader(new FileReader(descriptorFile));
                     ir.setLineNumber(1);
                     setLookAhead(null);
+                    // empty-statement intentional
                     while (parseClass() != null);
                 } finally {
                     descriptorFile = null;
