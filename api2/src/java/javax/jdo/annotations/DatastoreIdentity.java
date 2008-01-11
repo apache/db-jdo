@@ -66,5 +66,4 @@ public @interface DatastoreIdentity
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

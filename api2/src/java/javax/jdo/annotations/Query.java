@@ -71,5 +71,4 @@ public @interface Query
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

@@ -28,4 +28,4 @@ public enum InheritanceStrategy
     NEW_TABLE,
     SUBCLASS_TABLE,
     SUPERCLASS_TABLE
-};
+}

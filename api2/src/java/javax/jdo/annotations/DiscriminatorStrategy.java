@@ -28,4 +28,4 @@ public enum DiscriminatorStrategy
     NONE,
     VALUE_MAP,
     CLASS_NAME
-};
+}

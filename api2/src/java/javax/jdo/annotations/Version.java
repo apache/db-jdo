@@ -68,5 +68,4 @@ public @interface Version
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

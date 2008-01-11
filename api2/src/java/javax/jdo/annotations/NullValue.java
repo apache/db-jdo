@@ -29,4 +29,4 @@ public enum NullValue
     NONE,
     EXCEPTION,
     DEFAULT
-};
+}

@@ -143,5 +143,4 @@ public @interface Element
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

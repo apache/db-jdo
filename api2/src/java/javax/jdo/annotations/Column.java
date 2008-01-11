@@ -100,5 +100,4 @@ public @interface Column
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

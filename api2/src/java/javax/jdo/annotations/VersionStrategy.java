@@ -29,4 +29,4 @@ public enum VersionStrategy
     STATE_IMAGE,
     DATE_TIME,
     VERSION_NUMBER
-};
+}

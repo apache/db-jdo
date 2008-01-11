@@ -140,5 +140,4 @@ public @interface Key
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

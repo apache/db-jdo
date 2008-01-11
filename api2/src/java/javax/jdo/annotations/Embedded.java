@@ -54,5 +54,4 @@ public @interface Embedded
      * @return the members embedded in the field or property being annotated
      */
     Persistent[] members() default {};
-
 }

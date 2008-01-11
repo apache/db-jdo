@@ -27,4 +27,4 @@ public enum SequenceStrategy
     NONTRANSACTIONAL,
     CONTIGUOUS,
     NONCONTIGUOUS
-};
+}

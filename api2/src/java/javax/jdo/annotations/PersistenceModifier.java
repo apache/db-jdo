@@ -30,4 +30,4 @@ public enum PersistenceModifier
     PERSISTENT,
     TRANSACTIONAL,
     NONE
-};
+}

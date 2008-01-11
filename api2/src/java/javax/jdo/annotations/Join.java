@@ -105,5 +105,4 @@ public @interface Join
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }

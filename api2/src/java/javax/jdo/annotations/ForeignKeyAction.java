@@ -30,4 +30,4 @@ public enum ForeignKeyAction
     NULL,
     DEFAULT,
     NONE
-};
+}

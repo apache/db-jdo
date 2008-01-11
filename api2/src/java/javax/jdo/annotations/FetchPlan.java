@@ -55,5 +55,4 @@ public @interface FetchPlan
      * @return the fetch size
      */
     int fetchSize() default 0;
-
 }

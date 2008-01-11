@@ -139,5 +139,4 @@ public @interface Value
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
-
 }
