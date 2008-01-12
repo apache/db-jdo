@@ -63,12 +63,12 @@ public class NullSubqueryParameter extends SubqueriesTest {
             new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
 
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours = emp.weeklyhours && " +
-            "emp.firstname = 'emp1First' VARIABLES Employee emp";
+            "SELECT FROM Employee WHERE this.weeklyhours == emp.weeklyhours && " +
+            "emp.firstname == 'emp1First' VARIABLES Employee emp";
 
         // API query
         Query apiQuery = pm.newQuery(Employee.class);
-        apiQuery.setFilter("this.weeklyhours > emp.weeklyhours && emp.firstname = 'emp1First'");
+        apiQuery.setFilter("this.weeklyhours > emp.weeklyhours && emp.firstname == 'emp1First'");
         // null subquery parameter
         apiQuery.addSubquery(null, "Employee emp", null); 
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
