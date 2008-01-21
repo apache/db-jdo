@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.jdo.JDOException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -1303,8 +1304,14 @@ public abstract class QueryTest extends JDO_Test {
             }
         } catch (JDOUserException e) {
             if (positive) {
-                throw e;
+                String msg = "JDOUserException thrown while executing query:\n" +
+                        singleStringQuery;
+                throw new JDOException(msg, e);
             }
+        } catch (JDOException e) {
+            String msg = "JDOException thrown while executing query:\n" +
+                    singleStringQuery;
+            throw new JDOException(msg, e);
         } finally {
             if (tx.isActive()) {
                 tx.rollback();
@@ -1454,8 +1461,14 @@ public abstract class QueryTest extends JDO_Test {
             tx.commit();
         } catch (JDOUserException e) {
             if (positive) {
-                throw e;
+                String msg = "JDOUserException thrown while executing query:\n" +
+                        singleStringQuery;
+                throw new JDOException(msg, e);
             }
+        } catch (JDOException e) {
+            String msg = "JDOException thrown while executing query:\n" +
+                    singleStringQuery;
+            throw new JDOException(msg, e);
         } finally {
             if (tx.isActive()) {
                 tx.rollback();
