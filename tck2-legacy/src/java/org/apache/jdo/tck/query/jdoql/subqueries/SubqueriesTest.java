@@ -17,7 +17,13 @@
  
 package org.apache.jdo.tck.query.jdoql.subqueries;
 
+import java.util.List;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
+
 import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.pc.company.Employee;
 
 /**
  * Superclass for all subquery test classes.
@@ -34,5 +40,24 @@ public abstract class SubqueriesTest extends QueryTest {
      */
     protected String getCompanyTestDataResource() {
         return SUBQUERIES_TEST_COMPANY_TESTDATA;
+    }
+
+    /** 
+     * Helper method retuning all Employee instances.
+     * @param pm the PersistenceManager 
+     * @return a List including all persistent Employee instances
+     */
+    protected List getAllEmployees(PersistenceManager pm) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List allEmployees = (List)pm.newQuery(Employee.class).execute();
+            tx.commit();
+            return allEmployees;
+        } finally { 
+            if ((tx != null) && tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 }

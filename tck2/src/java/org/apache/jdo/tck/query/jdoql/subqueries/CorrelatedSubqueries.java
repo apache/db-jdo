@@ -78,7 +78,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
                         false, null, expectedResult, true);
 
         // API query against memory model
-        List allEmployees = (List)pm.newQuery(Employee.class).execute();
+        List allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
