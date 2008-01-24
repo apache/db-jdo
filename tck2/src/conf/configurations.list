@@ -58,6 +58,7 @@ jdo.tck.cfglist = \
                  companyAnnotatedEmbeddedJPAPM.conf \
                  companyAnnotatedNoRelationshipsPCPM.conf \
                  companyAnnotatedNoRelationshipsPIPM.conf \
+                 companyOverrideAnnotatedAllRelationshipsFCPM.conf \
                  inheritance1.conf \
                  inheritance2.conf \
                  inheritance3.conf \
