@@ -64,7 +64,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         // Select employees who work more than the average of 
         // their department employees. 
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " + 
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " + 
             "(SELECT AVG(e.weeklyhours) FROM this.department.employees e)";
 
         // API query

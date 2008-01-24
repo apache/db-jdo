@@ -76,7 +76,8 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         // Select employees who work more than the average of the employees 
         // in their department having the same manager
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " +
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE this.weeklyhours > " +
             "(SELECT AVG(e.weeklyhours) FROM this.department.employees e " + 
             " WHERE e.manager == this.manager)";
 
@@ -111,8 +112,10 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         // Select employees hired after a particular date who work more 
         // than the average of all employees of the same manager
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.hiredate > :hired && this.weeklyhours > " +
-            "(SELECT AVG(e.weeklyhours) FROM Employee e WHERE e.manager == this.manager)"; 
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE this.hiredate > :hired && this.weeklyhours > " +
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() +
+            " e WHERE e.manager == this.manager)"; 
 
         Calendar cal = Calendar.getInstance(
             TimeZone.getTimeZone("America/New_York"), Locale.US);
@@ -149,8 +152,9 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         // Select employees who work more than the average of all 
         // employees of the same manager
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " +
-            "(SELECT AVG(e.weeklyhours) FROM Employee e WHERE e.manager == this.manager)";
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " +
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() +
+            " e WHERE e.manager == this.manager)";
 
         // API query
         Query sub = pm.newQuery(Employee.class);

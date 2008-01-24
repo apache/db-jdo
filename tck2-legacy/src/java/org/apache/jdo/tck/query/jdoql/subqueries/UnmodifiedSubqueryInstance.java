@@ -75,10 +75,10 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
 
         // select average weeklyhours of all employees
         String singleStringJDOQLSubquery =
-            "SELECT AVG(e.weeklyhours) FROM Employee e";
+            "SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() + " e";
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " + 
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " + 
             "(" + singleStringJDOQLSubquery + ")";
 
         // execute subquery
@@ -106,8 +106,8 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " + 
-            "(SELECT AVG(e.weeklyhours) FROM Employee e)";
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " + 
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() + " e)";
 
         // create subquery instance using different pm
         PersistenceManager newPM = 

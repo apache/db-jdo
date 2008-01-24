@@ -63,8 +63,8 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " + 
-            "(SELECT AVG(e.weeklyhours) FROM Employee e)";
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " + 
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() + " e)";
 
         // API query
         // Query returning the weeklyhours of employee with id 1

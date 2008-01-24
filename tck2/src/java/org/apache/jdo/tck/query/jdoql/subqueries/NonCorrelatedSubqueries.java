@@ -73,8 +73,9 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " + 
-            "(SELECT AVG(e.weeklyhours) FROM Employee e)";
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE this.weeklyhours > " + 
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() + " e)";
 
         // API query
         Query sub = pm.newQuery(Employee.class);
@@ -105,8 +106,10 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
         // Select employees hired after a particular date who work more 
         // than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.hiredate > :hired && " + 
-            "this.weeklyhours> (SELECT AVG(e.weeklyhours) FROM Employee e)";
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE this.hiredate > :hired && " + 
+            "this.weeklyhours> (SELECT AVG(e.weeklyhours) FROM " +
+            Employee.class.getName() + " e)";
 
         Calendar cal = Calendar.getInstance(
             TimeZone.getTimeZone("America/New_York"), Locale.US);
@@ -126,7 +129,7 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
         List allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
-                        false, null, expectedResult, true);
+                        false, new Object[]{hired}, expectedResult, true);
 
         // single String JDOQL
         Query singleStringQuery = pm.newQuery(singleStringJDOQL);

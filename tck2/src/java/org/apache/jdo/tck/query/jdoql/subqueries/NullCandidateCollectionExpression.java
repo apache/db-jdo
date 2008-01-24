@@ -66,8 +66,8 @@ public class NullCandidateCollectionExpression extends SubqueriesTest {
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
-            "SELECT FROM Employee WHERE this.weeklyhours > " +
-            "(SELECT AVG(e.weeklyhours) FROM Employee e)";
+            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " +
+            "(SELECT AVG(e.weeklyhours) FROM " + Employee.class.getName() + " e)";
 
         // API query
         Query sub = pm.newQuery(Employee.class);
