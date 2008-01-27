@@ -136,7 +136,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         List allEmployees = getAllEmployees(pm);
         apiQuery.setCandidates(allEmployees);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
-                        false, null, expectedResult, true);
+                        false, new Object[]{hired} , expectedResult, true);
 
         // single String JDOQL
         Query singleStringQuery = pm.newQuery(singleStringJDOQL);
@@ -161,7 +161,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
         sub.setResult("avg(this.weeklyhours)");
         sub.setFilter("this.manager == :manager");
         Query apiQuery = pm.newQuery(Employee.class);
-        apiQuery.setFilter("this.weeklyHours > averageWeeklyhours");
+        apiQuery.setFilter("this.weeklyhours > averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", null, "this.manager"); 
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
                         false, null, expectedResult, true);
