@@ -147,7 +147,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     /** */
     void runTestSubqueries03(PersistenceManager pm) {
         List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp2", "emp6", "emp10"});
+            new String[]{"emp2", "emp6", "emp9", "emp10"});
 
         // Select employees who work more than the average of all 
         // employees of the same manager
