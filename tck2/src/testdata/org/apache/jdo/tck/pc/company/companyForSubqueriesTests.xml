@@ -224,7 +224,7 @@
         <constructor-arg index="7" type="double"><value>24000</value></constructor-arg>
         <property name="weeklyhours"><value>40</value></property>
         <property name="department"><ref bean="dept2"/></property>
-        <property name="manager"><ref bean="emp2"/></property>
+        <property name="manager"><ref bean="emp1"/></property>
         <property name="team"><set/></property>
     </bean>
 
