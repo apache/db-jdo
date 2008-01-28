@@ -105,7 +105,7 @@ public interface PersistenceManager {
      * @param subclasses if true, mark instances of subclasses also
      * @since 2.1
      */
-    void evictAll (Class pcClass, boolean subclasses);
+    void evictAll (boolean subclasses, Class pcClass);
 
     /** Mark all persistent-nontransactional instances as no longer needed 
      * in the cache.  It transitions
