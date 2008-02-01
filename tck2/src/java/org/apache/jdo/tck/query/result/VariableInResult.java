@@ -116,35 +116,6 @@ public class VariableInResult extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)" +
-                "&& p.name == 'orange'",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
         // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e 
         new QueryElementHolder(
         /*UNIQUE*/      null,
@@ -186,18 +157,6 @@ public class VariableInResult extends QueryTest {
             new Object[]{new Long(1), "orange"}}),
         getTransientCompanyModelInstancesAsList(
             new String[]{"emp1","emp2","emp3","emp4","emp5"}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2},
-            new Object[] {emp4, proj3},
-            new Object[] {emp5, proj3}}),
         getTransientCompanyModelInstancesAsList(
             new String[]{"emp4","emp5"})
     };
@@ -250,24 +209,6 @@ public class VariableInResult extends QueryTest {
     /** */
     public void testMultipleProjectionWithConstraints() {
         int index = 4;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
-    /** */
-    public void testMultipleProjection() {
-        int index = 5;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
-    /** */
-    public void testProjectionWithConstraints() {
-        int index = 6;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
