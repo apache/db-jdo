@@ -14,5 +14,6 @@
 # limitations under the License.
 
 jdo.tck.exclude = \
+org.apache.jdo.tck.query.result.VariableInResultNavigation \
 org.apache.jdo.tck.enhancement.FieldAccessModified \
 org.apache.jdo.tck.enhancement.ImplementsPersistenceCapable
