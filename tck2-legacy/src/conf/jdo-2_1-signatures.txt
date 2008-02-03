@@ -209,14 +209,17 @@ public interface javax.jdo.datastore.DataStoreCache {
     public void evictAll(Object[] oids);
     public void evictAll(java.util.Collection oids);
     public void evictAll(Class pcClass, boolean subclasses);
+    public void evictAll(boolean subclasses, Class pcClass);
     public void pin(Object oid);
     public void pinAll(java.util.Collection oids);
     public void pinAll(Object[] oids);
     public void pinAll(Class pcClass, boolean subclasses);
+    public void pinAll(boolean subclasses, Class pcClass);
     public void unpin(Object oid);
     public void unpinAll(java.util.Collection oids);
     public void unpinAll(Object[] oids);
     public void unpinAll(Class pcClass, boolean subclasses);
+    public void unpinAll(boolean subclasses, Class pcClass);
 }
 
 public interface javax.jdo.datastore.JDOConnection {
@@ -615,7 +618,7 @@ public interface javax.jdo.PersistenceManager {
     public void evict(Object pc);
     public void evictAll(Object[] pcs);
     public void evictAll(java.util.Collection pcs);
-    public void evictAll(java.lang.Class, boolean);
+    public void evictAll(boolean, java.lang.Class);
     public void evictAll();
     public void refresh(Object pc);
     public void refreshAll(Object[] pcs);
