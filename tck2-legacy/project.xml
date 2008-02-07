@@ -170,15 +170,6 @@ NOTE!! There are no unit tests in this project.</description>
             </resource>
             <resource>
                 <directory>${basedir}/src/conf</directory>
-                <includes>
-                    <include>enhancement-test.properties</include>
-                    <include>commons-logging.properties</include>
-                    <include>simplelog.properties</include>
-                    <include>logging.properties</include>
-                    <include>jdo-2_1-signatures.txt</include>
-                    <include>*.conf</include>
-                    <include>*.list</include>
-                </includes>
             </resource>
             <resource>
                 <directory>${basedir}/src/jdo</directory>
