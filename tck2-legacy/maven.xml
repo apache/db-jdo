@@ -257,6 +257,7 @@
 
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
+        <j:set var="jdo.tck.jdoconfig" value="iut-jdoconfig.xml"/>
         <attainGoal name="privateRuntck.iut"/>
     </goal>
 
@@ -304,6 +305,7 @@
 
     <goal name="runtck.jdori" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
+        <j:set var="jdo.tck.jdoconfig" value="jdori-jdoconfig.xml"/>
         <attainGoal name="privateRuntck.jdori"/>
     </goal>
 
@@ -757,10 +759,9 @@
                <include name="log4j.properties"/>
                <include name="jndi.properties"/>
             </fileset>
-            <fileset dir="${basedir}/src/java">
-                <include name="**/*.xml"/>
-            </fileset>
         </copy>
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
+            file="${basedir}/src/conf/${jdo.tck.jdoconfig}"/>
     </goal>
 
     <!-- ==================== -->
