@@ -759,12 +759,16 @@ public class SignatureVerifier {
         int result = method.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
-        // if enum, set pseudo enum flag
+        // if enum return type, set pseudo enum flag
         if (method.getReturnType().isEnum())
             result |= ENUM;
         // if annotation, set pseudo annotation flag
         if (method.getReturnType().isAnnotation()) 
             result |= ANNOTATION;
+        // if return type is an enum class, un-set FINAL modifier in all methods
+        // because in Java 5, methods are generated as final; in Java 6, not
+        if (method.getDeclaringClass().isEnum()) 
+            result &= ~Modifier.FINAL;
         return result;
     }
 

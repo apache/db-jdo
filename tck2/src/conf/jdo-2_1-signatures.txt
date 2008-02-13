@@ -1056,7 +1056,7 @@ public final enum javax.jdo.ObjectState extends java.lang.Enum {
     public static final enum javax.jdo.ObjectState DETACHED_CLEAN;
     public static final enum javax.jdo.ObjectState DETACHED_DIRTY;
     public static enum javax.jdo.ObjectState valueOf(java.lang.String);
-    public static final javax.jdo.ObjectState[] values();
+    public static javax.jdo.ObjectState[] values();
     public String toString();
 }
 
@@ -1108,7 +1108,7 @@ public final enum javax.jdo.annotations.DiscriminatorStrategy extends java.lang.
     public static final enum javax.jdo.annotations.DiscriminatorStrategy VALUE_MAP;
     public static final enum javax.jdo.annotations.DiscriminatorStrategy CLASS_NAME;
     public static enum javax.jdo.annotations.DiscriminatorStrategy valueOf(java.lang.String);
-    public static final javax.jdo.annotations.DiscriminatorStrategy[] values();
+    public static javax.jdo.annotations.DiscriminatorStrategy[] values();
 }
 
 public annotation javax.jdo.annotations.Element extends java.lang.annotation.Annotation
@@ -1204,7 +1204,7 @@ public final enum javax.jdo.annotations.ForeignKeyAction extends java.lang.Enum
     public static final enum javax.jdo.annotations.ForeignKeyAction DEFAULT;
     public static final enum javax.jdo.annotations.ForeignKeyAction NONE;
     public static enum javax.jdo.annotations.ForeignKeyAction valueOf(java.lang.String);
-    public static final javax.jdo.annotations.ForeignKeyAction[] values();
+    public static javax.jdo.annotations.ForeignKeyAction[] values();
 }
 
 public annotation javax.jdo.annotations.ForeignKeys extends java.lang.annotation.Annotation
@@ -1222,7 +1222,7 @@ public final enum javax.jdo.annotations.IdGeneratorStrategy extends java.lang.En
     public static final enum javax.jdo.annotations.IdGeneratorStrategy UUIDSTRING;
     public static final enum javax.jdo.annotations.IdGeneratorStrategy UUIDHEX;
     public static enum javax.jdo.annotations.IdGeneratorStrategy valueOf(java.lang.String);
-    public static final javax.jdo.annotations.IdGeneratorStrategy[] values();
+    public static javax.jdo.annotations.IdGeneratorStrategy[] values();
 }
 
 public final enum javax.jdo.annotations.IdentityType extends java.lang.Enum
@@ -1232,7 +1232,7 @@ public final enum javax.jdo.annotations.IdentityType extends java.lang.Enum
     public static final enum javax.jdo.annotations.IdentityType DATASTORE;
     public static final enum javax.jdo.annotations.IdentityType NONDURABLE;
     public static enum javax.jdo.annotations.IdentityType valueOf(java.lang.String);
-    public static final javax.jdo.annotations.IdentityType[] values();
+    public static javax.jdo.annotations.IdentityType[] values();
 }
 
 public annotation javax.jdo.annotations.Index extends java.lang.annotation.Annotation
@@ -1262,7 +1262,7 @@ public final enum javax.jdo.annotations.InheritanceStrategy extends java.lang.En
     public static final enum javax.jdo.annotations.InheritanceStrategy SUBCLASS_TABLE;
     public static final enum javax.jdo.annotations.InheritanceStrategy SUPERCLASS_TABLE;
     public static enum javax.jdo.annotations.InheritanceStrategy valueOf(java.lang.String);
-    public static final javax.jdo.annotations.InheritanceStrategy[] values();
+    public static javax.jdo.annotations.InheritanceStrategy[] values();
 }
 
 public annotation javax.jdo.annotations.Join extends java.lang.annotation.Annotation
@@ -1320,7 +1320,7 @@ public final enum javax.jdo.annotations.NullValue extends java.lang.Enum
     public static final enum javax.jdo.annotations.NullValue EXCEPTION;
     public static final enum javax.jdo.annotations.NullValue DEFAULT;
     public static enum javax.jdo.annotations.NullValue valueOf(java.lang.String);
-    public static final javax.jdo.annotations.NullValue[] values();
+    public static javax.jdo.annotations.NullValue[] values();
 }
 
 public annotation javax.jdo.annotations.Order extends java.lang.annotation.Annotation
@@ -1355,7 +1355,7 @@ public final enum javax.jdo.annotations.PersistenceModifier extends java.lang.En
     public static final enum javax.jdo.annotations.PersistenceModifier TRANSACTIONAL;
     public static final enum javax.jdo.annotations.PersistenceModifier NONE;
     public static enum javax.jdo.annotations.PersistenceModifier valueOf(java.lang.String);
-    public static final javax.jdo.annotations.PersistenceModifier[] values();
+    public static javax.jdo.annotations.PersistenceModifier[] values();
 }
 
 public annotation javax.jdo.annotations.Persistent extends java.lang.annotation.Annotation
@@ -1431,7 +1431,7 @@ public final enum javax.jdo.annotations.SequenceStrategy extends java.lang.Enum
     public static final enum javax.jdo.annotations.SequenceStrategy CONTIGUOUS;
     public static final enum javax.jdo.annotations.SequenceStrategy NONCONTIGUOUS;
     public static enum javax.jdo.annotations.SequenceStrategy valueOf(java.lang.String);
-    public static final javax.jdo.annotations.SequenceStrategy[] values();
+    public static javax.jdo.annotations.SequenceStrategy[] values();
 }
 
 public annotation javax.jdo.annotations.Serialized extends java.lang.annotation.Annotation
@@ -1496,5 +1496,5 @@ public final enum javax.jdo.annotations.VersionStrategy extends java.lang.Enum
     public static final enum javax.jdo.annotations.VersionStrategy DATE_TIME;
     public static final enum javax.jdo.annotations.VersionStrategy VERSION_NUMBER;
     public static enum javax.jdo.annotations.VersionStrategy valueOf(java.lang.String);
-    public static final javax.jdo.annotations.VersionStrategy[] values();
+    public static javax.jdo.annotations.VersionStrategy[] values();
 }
