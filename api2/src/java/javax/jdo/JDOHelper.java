@@ -50,6 +50,8 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
@@ -771,11 +773,11 @@ public class JDOHelper implements Constants {
 
         if (pmfClassName != null) {
             try {
-                Class pmfClass = pmfClassLoader.loadClass (pmfClassName);
-                Method pmfMethod = pmfClass.getMethod(
+                Class pmfClass = forName(pmfClassName, true, pmfClassLoader);
+                Method pmfMethod = getMethod(pmfClass,
                     "getPersistenceManagerFactory", //NOI18N
                         new Class[] {Map.class});
-                return (PersistenceManagerFactory) pmfMethod.invoke (
+                return (PersistenceManagerFactory) invoke(pmfMethod,
                     null, new Object[] {props});
             } catch (ClassNotFoundException cnfe) {
                 throw new JDOFatalUserException (msg.msg(
@@ -850,7 +852,7 @@ public class JDOHelper implements Constants {
         Note:  not using sun.misc.Service because it's not a standard part of
         the JDK (yet).
          */
-        InputStream is = cl.getResourceAsStream(
+        InputStream is = getResourceAsStream(cl,
                 SERVICE_LOOKUP_PMF_RESOURCE_NAME);
 
         if (is == null) {
@@ -1010,7 +1012,7 @@ public class JDOHelper implements Constants {
                 throw new JDOFatalUserException (msg.msg (
                     "EXC_GetPMFNullPropsLoader")); //NOI18N
             try {
-                in = resourceLoader.getResourceAsStream(name);
+                in = getResourceAsStream(resourceLoader, name);
                 if (in != null) {
                     // then some kind of resource was found by the given name;
                     // assume that it's a properties file and proceed as usual
@@ -1113,12 +1115,12 @@ public class JDOHelper implements Constants {
                 IllegalAccessException,
                 InvocationTargetException
     {
-        Class implClass = cl.loadClass(pmfClassName);
-        Method m = implClass.getMethod(
+        Class implClass = forName(pmfClassName, true, cl);
+        Method m = getMethod(implClass,
                 "getPersistenceManagerFactory",
                 new Class[] { Map.class, Map.class });
 
-        return (PersistenceManagerFactory) m.invoke(
+        return (PersistenceManagerFactory) invoke(m,
                 null, new Object[] {overrides, properties});
     }
 
@@ -1217,7 +1219,7 @@ public class JDOHelper implements Constants {
 
             // get all JDO configurations
             Enumeration resources =
-                resourceLoader.getResources(jdoconfigResourceName);
+                getResources(resourceLoader, jdoconfigResourceName);
 
             if (resources.hasMoreElements()) {
                 ArrayList processedResources = new ArrayList();
@@ -1333,7 +1335,7 @@ public class JDOHelper implements Constants {
      * implementation class does not also implement
      * {@link PersistenceManagerFactory}.
      * @param name The persistence unit name.
-     * @param properties The properties of the persistence unit.
+     * @param overrides The overriding properties of the persistence unit.
      * @param loader The classloader used to attempt loading of the class
      * <code>javax.persistence.Persistence</code>
      * and <code>javax.persistence.PersistenceException</code>.
@@ -1361,7 +1363,7 @@ public class JDOHelper implements Constants {
      * </ul>
      */
     protected static PersistenceManagerFactory getPMFFromEMF(
-        String name, Map properties, ClassLoader loader)
+        String name, Map overrides, ClassLoader loader)
     {
         /*
             This implementation uses reflection to try to get an EMF so that
@@ -1376,17 +1378,17 @@ public class JDOHelper implements Constants {
         Class persistenceExceptionClass = null;
         Method createEntityManagerFactoryMethod = null;
         try {
-            persistenceClass = Class.forName(
+            persistenceClass = forName(
                 "javax.persistence.Persistence",
                 true,
                 loader);
 
-            createEntityManagerFactoryMethod = persistenceClass.getMethod(
+            createEntityManagerFactoryMethod = getMethod(persistenceClass,
                     "createEntityManagerFactory",
                     new Class[] { String.class, Map.class });
 
             persistenceExceptionClass =
-                Class.forName(
+                forName(
                     "javax.persistence.PersistenceException",
                     true,
                     loader);
@@ -1402,8 +1404,8 @@ public class JDOHelper implements Constants {
         Throwable t = null;
         try {
             entityManagerFactory =
-                createEntityManagerFactoryMethod.invoke(
-                    persistenceClass, new Object[] { name, properties });
+                invoke(createEntityManagerFactoryMethod,
+                    persistenceClass, new Object[] { name, overrides });
         }
         catch (InvocationTargetException x) {
             Throwable cause = x.getCause();
@@ -1465,7 +1467,7 @@ public class JDOHelper implements Constants {
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setErrorHandler(getErrorHandler());
 
-            in = url.openStream();
+            in = openStream(url);
             Document doc = builder.parse(in);
 
             Element root = doc.getDocumentElement();
@@ -1906,4 +1908,141 @@ public class JDOHelper implements Constants {
             }
         );
     }
+
+    /** Get the named resource as a stream from the resource loader.
+     * Perform this operation in a doPrivileged block.
+     */
+    private static InputStream getResourceAsStream(
+            final ClassLoader resourceLoader, final String name) {
+        return (InputStream)AccessController.doPrivileged(
+            new PrivilegedAction() {
+                public Object run() {
+                    return resourceLoader.getResourceAsStream(name);
+                }
+            }
+        );
+    }
+
+
+    /** Get the named Method from the named class. 
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param implClass the class
+     * @param methodName the name of the method
+     * @param parameterTypes the parameter types of the method
+     * @return
+     */
+    private static Method getMethod(
+            final Class implClass, 
+            final String methodName, 
+            final Class[] parameterTypes) 
+                throws NoSuchMethodException {
+        try {
+            return (Method) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws NoSuchMethodException {
+                        return implClass.getMethod(methodName, parameterTypes);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (NoSuchMethodException)ex.getException();
+        }
+    }
+
+    /** Invoke the method.
+     * Perform this operation in a doPrivileged block.
+     */
+    private static Object invoke(final Method method,
+            final Object instance, final Object[] parameters) 
+                throws IllegalAccessException, InvocationTargetException {
+        try {
+            return (Object) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() 
+                        throws IllegalAccessException, 
+                            InvocationTargetException {
+                        return method.invoke (instance, parameters);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            Exception cause = (Exception)ex.getException();
+            if (cause instanceof IllegalAccessException)
+                throw (IllegalAccessException)cause;
+            else //if (cause instanceof InvocationTargetException)
+                throw (InvocationTargetException)cause;
+        }
+    }
+
+    /** Get resources of the resource loader. 
+     * Perform this operation in a doPrivileged block.
+     * @param resourceLoader
+     * @param resourceName
+     * @return the resources
+     */
+    private static Enumeration getResources(
+            final ClassLoader resourceLoader, 
+            final String resourceName) 
+                throws IOException {
+        try {
+            return (Enumeration) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws IOException {
+                        return resourceLoader.getResources(resourceName);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (IOException)ex.getException();
+        }
+    }
+
+    /** Get the named class.
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param name the name of the class
+     * @param init whether to initialize the class
+     * @param loader which class loader to use
+     * @return the class
+     */
+    private static Class forName(
+            final String name, 
+            final boolean init, 
+            final ClassLoader loader) 
+                throws ClassNotFoundException {
+        try {
+            return (Class) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws ClassNotFoundException {
+                        return Class.forName(name, init, loader);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (ClassNotFoundException)ex.getException();
+        }
+    }
+
+    /** Open an input stream on the url.
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param url
+     * @return the input stream
+     */
+    private static InputStream openStream(final URL url) 
+            throws IOException {
+        try {
+            return (InputStream) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws IOException {
+                        return url.openStream();
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (IOException)ex.getException();
+        }
+    }
+
 }
