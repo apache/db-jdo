@@ -20,9 +20,7 @@
     xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
-
-    <!--
-    -->
+    
     <persistence-manager-factory
         class="org.jpox.PersistenceManagerFactoryImpl"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
@@ -34,23 +32,23 @@
         retain-values="false"
         mapping="derby"
     >
-    <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
-    <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="jdo.tck.mapping" value="0"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="jdo.tck.mapping" value="0"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
-
-     <persistence-manager-factory
+    
+    <persistence-manager-factory
         name="namedPMF0"
         class="org.jpox.PersistenceManagerFactoryImpl"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
@@ -61,22 +59,22 @@
         restore-values="false"
         retain-values="false"
     >
-
-    <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
-    <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
-
+    
     <persistence-manager-factory
         name=" namedPMF1  "
         class="org.jpox.PersistenceManagerFactoryImpl"
@@ -88,22 +86,22 @@
         restore-values="true"
         retain-values="false"
     >
-
-    <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
-    <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
-
+    
     <persistence-manager-factory
         name="pmfTestInstanceLifecycleListener"
         class="org.jpox.PersistenceManagerFactoryImpl"
@@ -115,27 +113,27 @@
         restore-values="false"
         retain-values="false"
     >
-
-    <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
-    <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/> 
-
-    <instance-lifecycle-listener
-        listener="listener.listener0"
-        classes="classes.classes0"
-    />
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/> 
+        
+        <instance-lifecycle-listener
+            listener="listener.listener0"
+            classes="classes.classes0"
+        />
         
     </persistence-manager-factory>
-
+    
 </jdoconfig>
 
