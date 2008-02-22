@@ -690,13 +690,13 @@ public interface Constants {
         = "javax.jdo.option.spi.ResourceName";
 
     /**
-     * "javax.jdo.option.InstanceLifecycleListener"
+     * "javax.jdo.listener.InstanceLifecycleListener"
      *
      * @see PersistenceManagerFactory#addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener,Class[])
      * @see PersistenceManagerFactory#removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener)
      */
     static String PROPERTY_INSTANCE_LIFECYCLE_LISTENER
-        = "javax.jdo.option.InstanceLifecycleListener";
+        = "javax.jdo.listener.InstanceLifecycleListener";
 
     /**
      * Prefix used to configure
