@@ -1640,7 +1640,7 @@ public class JDOHelper implements Constants {
                 Node classesAtt = attributes.getNamedItem(
                     INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_CLASSES);
                 String value = classesAtt == null
-                    ? null
+                    ? ""
                     : classesAtt.getNodeValue().trim();
 
                 p.put(listener,  value);
