@@ -23,6 +23,7 @@
 
 <!ELEMENT persistence-manager-factory (property*, instance-lifecycle-listener*)>
 <!ATTLIST persistence-manager-factory class CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory name CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory persistence-unit-name CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory optimistic (true|false) CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory retain-values (true|false) CDATA #IMPLIED>
