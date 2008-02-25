@@ -15,12 +15,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <jdoconfig
     xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
     
+    <!--
+        Default unnamed pmf
+    -->
     <persistence-manager-factory
         class="org.jpox.PersistenceManagerFactoryImpl"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
@@ -103,7 +105,7 @@
     </persistence-manager-factory>
     
     <persistence-manager-factory
-        name="pmfTestInstanceLifecycleListener"
+        name="testInstanceLifecycleListenerStore"
         class="org.jpox.PersistenceManagerFactoryImpl"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
@@ -129,11 +131,105 @@
         <property name="org.jpox.implementationCreatorName" value="asm"/> 
         
         <instance-lifecycle-listener
-            listener="listener.listener0"
-            classes="classes.classes0"
+            listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListener"
+            classes="org.apache.jdo.tck.pc.mylib.PCPoint"
         />
-        
-    </persistence-manager-factory>
-    
-</jdoconfig>
+    </persistence-manager-factory> 
 
+        
+    <persistence-manager-factory
+        name="testInstanceLifecycleListenerStoreGetInstance"
+        class="org.jpox.PersistenceManagerFactoryImpl"
+        connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
+        connection-url="jdbc:derby:jdotckdb"
+        connection-user-name="tckuser"
+        connection-password="tckuser"
+        optimistic="false"
+        restore-values="false"
+        retain-values="false"
+    >
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/> 
+        
+        <instance-lifecycle-listener
+            listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListenerGetInstance"
+            classes="org.apache.jdo.tck.pc.mylib.PCPoint"
+        />
+    </persistence-manager-factory> 
+        
+    <persistence-manager-factory
+        name="testInstanceLifecycleListenerStoreOverrides"
+        class="org.jpox.PersistenceManagerFactoryImpl"
+        connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
+        connection-url="jdbc:derby:jdotckdb"
+        connection-user-name="tckuser"
+        connection-password="tckuser"
+        optimistic="false"
+        restore-values="false"
+        retain-values="false"
+    >
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/> 
+        
+        />
+    </persistence-manager-factory> 
+        
+        
+    <persistence-manager-factory
+        name="testInstanceLifecycleListenerClassesNull"
+        class="org.jpox.PersistenceManagerFactoryImpl"
+        connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
+        connection-url="jdbc:derby:jdotckdb"
+        connection-user-name="tckuser"
+        connection-password="tckuser"
+        optimistic="false"
+        restore-values="false"
+        retain-values="false"
+    >
+        
+        <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
+        <property name="javax.jdo.option.Mapping" value="standard"/>
+        <property name="org.jpox.metadata.validate" value="false"/>
+        <property name="org.jpox.validateTables" value="false"/>
+        <property name="org.jpox.validateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateSchema" value="false"/>
+        <property name="org.jpox.autoCreateTables" value="false"/>
+        <property name="org.jpox.autoCreateConstraints" value="false"/>
+        <property name="org.jpox.autoCreateColumns" value="false"/>
+        <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
+        <property name="org.jpox.autoStartMechanism" value="None"/>
+        <property name="org.jpox.connectionPoolingType" value="C3P0"/>
+        <property name="org.jpox.implementationCreatorName" value="asm"/> 
+        
+        <!-- Use no classes attribute here - testing null classes behavior -->
+        <instance-lifecycle-listener
+            listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListener"
+            />
+        
+    </persistence-manager-factory> 
+
+</jdoconfig>

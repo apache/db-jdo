@@ -227,7 +227,7 @@
         
         <!-- Use no classes attribute here - testing null classes behavior -->
         <instance-lifecycle-listener
-            listener="org.apache.jdo.tck.api.persistencmanagerfactory.config.JDOConfigListener"
+            listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListener"
             />
         
     </persistence-manager-factory> 
