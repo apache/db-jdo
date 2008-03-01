@@ -60,25 +60,26 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromEMFNamed() {
-        String name = "applicationidentity0";
+        String name = identitytype + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(name);
         assertEquals("Incorrect value for RestoreValues",
-                pmf.getRestoreValues(), false);
+                false, pmf.getRestoreValues());
         runTest(name);
     }
 
     /** */
     public void testGetPMFfromEMFNamedSpaces() {
-        String name = "applicationidentity0";
+        String name = identitytype + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(" \t" + name + " \n");
         assertEquals("Incorrect value for RestoreValues",
-                pmf.getRestoreValues(), true);
+                false, pmf.getRestoreValues());
         runTest(name);
     }
 
     /** */
     public void runTest(String name) {
-        assertEquals("Incorrect PMF name", pmf.getName(), name);
+        String actualPUName = pmf.getPersistenceUnitName();
+        assertEquals("Incorrect PersistenceUnitName", name, actualPUName);
 
         // check pmf.isClosed() before and after pmf.close()
         if (pmf.isClosed()) {
