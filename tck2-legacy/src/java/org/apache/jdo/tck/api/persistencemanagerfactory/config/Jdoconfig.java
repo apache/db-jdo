@@ -16,6 +16,7 @@
  */
 package org.apache.jdo.tck.api.persistencemanagerfactory.config;
 
+import java.util.HashMap;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -26,11 +27,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B>Close of PersistenceManagerFactory  
- *<BR>
+ *<BR/>
  *<B>Keywords:</B> persistencemanagerfactory, jdoconfig.xml
- *<BR>
+ *<BR/>
  *<B>Assertion IDs:</B> A11.1.2-1
- *<BR>
+ *<BR/>
  *<B>Assertion Description: </B>
  * Users can access a PersistenceManagerFactory by creating a jdoconfig.xml file
  * and making it available on the class path as META-INF/jdoconfig.xml.
@@ -47,6 +48,7 @@ public class Jdoconfig extends JDO_Test {
     // Do not use superclass pmf, pm
     private PersistenceManagerFactory pmf = null;
     private PersistenceManager pm = null;
+    private HashMap overrides = new HashMap();
 
     /**
      * The <code>main</code> is called when the class
@@ -56,32 +58,46 @@ public class Jdoconfig extends JDO_Test {
     public static void main(String[] args) {
         BatchTestRunner.run(Jdoconfig.class);
     }
+    
+        /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        /* Instance can be persisted ONLY if javax.jdo.mapping.Schema
+         *   is overriden with 
+         *   JDOHelper.getPersistenceManagerFactory(Map overrides, ...).
+         *   The value depends on identity type so can only be known at runtime.
+         */
+        if (isTestToBePerformed()) {
+            overrides.put("javax.jdo.mapping.Schema", schemaname);
+        }
+    }
 
-    /** */
+    /** */ 
     public void testGetPMFNoArgs() {
         pmf = JDOHelper.getPersistenceManagerFactory();
-        runTest(ANONYMOUS_PMF_NAME);
+        checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFEmptyString() {
         String name = "";
         pmf = JDOHelper.getPersistenceManagerFactory(name);
-        runTest(ANONYMOUS_PMF_NAME);
+        checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFNull() {
         String name = null;
         pmf = JDOHelper.getPersistenceManagerFactory(name);
-        runTest(ANONYMOUS_PMF_NAME);
+        checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFStringSpace() {
         String name = " ";
         pmf = JDOHelper.getPersistenceManagerFactory(name);
-        runTest(ANONYMOUS_PMF_NAME);
+        checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
@@ -90,31 +106,72 @@ public class Jdoconfig extends JDO_Test {
         pmf = JDOHelper.getPersistenceManagerFactory(name);
         assertEquals("Incorrect value for RestoreValues",
                 pmf.getRestoreValues(), false);
-        runTest(name);
+        checkIsOpen(name);
     }
 
     /** */
-    public void testGetPMFNamedSpaces() {
+    public void testGetPMFEmptyStringOverrides() {
+        String name = "";
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        checkPersistent(ANONYMOUS_PMF_NAME);
+    }
+
+    /** */
+    public void testGetPMFNullOverrides() {
+        String name = null;
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        checkPersistent(ANONYMOUS_PMF_NAME);
+    }
+
+    /** */
+    public void testGetPMFStringSpaceOverrides() {
+        String name = " ";
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        checkPersistent(ANONYMOUS_PMF_NAME);
+    }
+
+    /** */
+    public void testGetPMFNamedOverrides() {
+        String name = "namedPMF0";
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        assertEquals("Incorrect value for RestoreValues",
+                pmf.getRestoreValues(), false);
+        checkPersistent(name);
+    }
+
+    /** */
+    public void testGetPMFNamedSpacesOverrides() {
         String name = "namedPMF1";
-        pmf = JDOHelper.getPersistenceManagerFactory(" \t" + name + " \n");
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides,
+                " \t" + name + " \n");
         assertEquals("Incorrect value for RestoreValues",
                 pmf.getRestoreValues(), true);
-        runTest(name);
+        checkPersistent(name);
     }
 
     /** */
-    public void runTest(String name) {
+    public void checkIsOpen(String name) {
         assertEquals("Incorrect PMF name", pmf.getName(), name);
-
-        // check pmf.isClosed() before and after pmf.close()
         if (pmf.isClosed()) {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned true on an open pmf");
         }
+        pmf.close();
+        // have next invocation of getPMF() get a new pmf
+        pmf = null;
+    }
+
+    /** 
+     * Checks if instance can be persisted. Can be used if
+     *    javax.jdo.mapping.Schema is overriden with the correct value
+     *    with JDOHelper.getPersistenceManagerFactory(Map overrides, ...).
+     */
+    public void checkPersistent(String name) {
+        assertEquals("Incorrect PMF name", pmf.getName(), name);
+
         makePersistent();
 
         pmf.close();
-
         if (!pmf.isClosed()) {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned false on a closed pmf");

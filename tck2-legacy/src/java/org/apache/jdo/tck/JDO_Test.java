@@ -172,6 +172,11 @@ public abstract class JDO_Test extends TestCase {
      */
     protected final String identitytype = System.getProperty("jdo.tck.identitytype");
 
+    /** 
+     * String indicating the name of the schema for the current test.
+     */
+    protected final String schemaname = System.getProperty("jdo.tck.schemaname");
+
     /** Name of the file containing the properties for the PMF. */
     protected static String PMFProperties = System.getProperty("PMFProperties");
 

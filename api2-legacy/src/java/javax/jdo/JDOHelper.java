@@ -50,11 +50,14 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Enumeration;
@@ -584,8 +587,8 @@ public class JDOHelper implements Constants {
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory() {
         ClassLoader cl = getContextClassLoader();
-        return getPersistenceManagerFactory
-                (null, ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, cl, cl);
+        return getPersistenceManagerFactory(
+                null, ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, cl, cl);
     }
 
     /** Get the anonymous <code>PersistenceManagerFactory</code> configured via
@@ -597,13 +600,11 @@ public class JDOHelper implements Constants {
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            ClassLoader pmfClassLoader
-    ) {
+            ClassLoader pmfClassLoader) {
         return getPersistenceManagerFactory(
                 null,
                 ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME,
-                getContextClassLoader(),
-                pmfClassLoader);
+                pmfClassLoader, pmfClassLoader);
     }
 
     /** Get a <code>PersistenceManagerFactory</code> based on a <code>Properties</code>
@@ -615,15 +616,36 @@ public class JDOHelper implements Constants {
      * @see #getPersistenceManagerFactory(java.util.Map,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map props)
-    {
-        return getPersistenceManagerFactory(props, getContextClassLoader());
+            (Map props) {
+        return getPersistenceManagerFactory(
+                null, props, getContextClassLoader());
+    }
+
+
+    /** Get a <code>PersistenceManagerFactory</code> based on a 
+     * <code>Map</code> and a class loader.
+     * This method delegates to the getPersistenceManagerFactory
+     * method that takes a Map of overrides and a Map of properties,
+     * passing null as the overrides parameter.
+     * @see #getPersistenceManagerFactory(java.util.Map, java.util.Map, ClassLoader)
+     * @return the <code>PersistenceManagerFactory</code>.
+     * @param props a <code>Map</code> with properties of the 
+     * <code>PersistenceManagerFactory</code>.
+     * @param pmfClassLoader the class loader used to load the
+     * <code>PersistenceManagerFactory</code> class
+     * @since 1.0
+     */
+    public static PersistenceManagerFactory getPersistenceManagerFactory
+            (Map props, ClassLoader pmfClassLoader) {
+        return getPersistenceManagerFactory(
+                null, props, pmfClassLoader);
     }
 
     /**
      * Get a <code>PersistenceManagerFactory</code> based on a 
-     * <code>Map</code> instance and a class loader.
-     * The following are standard key values:
+     * <code>Map</code> of overrides, a <code>Map</code> of 
+     * properties, and a class loader.
+     * The following are standard key names:
      * <BR><code>"javax.jdo.PersistenceManagerFactoryClass"
      * <BR>"javax.jdo.option.Optimistic",
      * <BR>"javax.jdo.option.RetainValues",
@@ -641,6 +663,10 @@ public class JDOHelper implements Constants {
      * <BR>"javax.jdo.mapping.Catalog",
      * <BR>"javax.jdo.mapping.Schema",
      * <BR>"javax.jdo.option.PersistenceUnitName".
+     * <BR>"javax.jdo.option.DetachAllOnCommit".
+     * <BR>"javax.jdo.option.CopyOnAttach".
+     * <BR>"javax.jdo.option.TransactionType".
+     * <BR>"javax.jdo.option.ServerTimeZoneID".
      * <BR>"javax.jdo.option.Name".
      * </code>
      * and properties of the form
@@ -672,10 +698,11 @@ public class JDOHelper implements Constants {
      * <code>PersistenceManagerFactory</code>.
      * @param pmfClassLoader the class loader to use to load the
      * <code>PersistenceManagerFactory</code> class
+     * @since 2.1
      */
-    public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map props, ClassLoader pmfClassLoader)
-    {
+    protected static PersistenceManagerFactory getPersistenceManagerFactory
+            (Map overrides, Map props, ClassLoader pmfClassLoader) {
+        List exceptions = new ArrayList();
         if (pmfClassLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
@@ -683,104 +710,49 @@ public class JDOHelper implements Constants {
         String pmfClassName = (String) props.get (
                 PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
 
-        if (pmfClassName == null) {
-            // no PMF class name property -- try to find via services lookup
+        if (!isNullOrBlank(pmfClassName)) {
+            return invokeGetPersistenceManagerFactoryOnImplementation(
+                        pmfClassName, overrides, props, pmfClassLoader);
+
+        } else {
+        // PMF class name null or blank -- try services
+        // for each file META-INF/services/javax.jdo.PersistenceManagerFactory
+        // try to invoke the getPersistenceManagerFactory method of the
+        // implementation class
             try {
-                pmfClassName = getPMFClassNameViaServiceLookup(pmfClassLoader);
-            }
-            catch (IOException e) {
-                throw new JDOFatalInternalException(msg.msg(
-                    "EXC_IOExceptionDuringServiceLookup"), e); // NOI18N
+                Enumeration urls = getResources(pmfClassLoader, 
+                    SERVICE_LOOKUP_PMF_RESOURCE_NAME);
+                while (urls.hasMoreElements()) {
+                    pmfClassName = getClassNameFromURL((URL)urls.nextElement());
+                        return invokeGetPersistenceManagerFactoryOnImplementation(
+                            pmfClassName, overrides, props, pmfClassLoader);
+                }
+            } catch (Throwable ex) {
+                // remember exceptions from failed pmf invocations
+                exceptions.add(ex);
             }
         }
 
-        if (pmfClassName != null) {
-            try {
-                Class pmfClass = pmfClassLoader.loadClass (pmfClassName);
-                Method pmfMethod = pmfClass.getMethod(
-                    "getPersistenceManagerFactory", //NOI18N
-                        new Class[] {Map.class});
-                return (PersistenceManagerFactory) pmfMethod.invoke (
-                    null, new Object[] {props});
-            } catch (ClassNotFoundException cnfe) {
-                throw new JDOFatalUserException (msg.msg(
-                    "EXC_GetPMFClassNotFound", pmfClassName), cnfe); //NOI18N
-            } catch (IllegalAccessException iae) {
-                throw new JDOFatalUserException (msg.msg(
-                    "EXC_GetPMFIllegalAccess", pmfClassName), iae); //NOI18N
-            } catch (NoSuchMethodException nsme) {
-                throw new JDOFatalInternalException (msg.msg(
-                    "EXC_GetPMFNoSuchMethod"), nsme); //NOI18N
-            } catch (InvocationTargetException ite) {
-                Throwable nested = ite.getTargetException();
-                if (nested instanceof JDOException) {
-                    throw (JDOException)nested;
-                } else throw new JDOFatalInternalException (msg.msg(
-                    "EXC_GetPMFUnexpectedException"), ite); //NOI18N
-            } catch (NullPointerException e) {
-                throw new JDOFatalInternalException (msg.msg(
-                    "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
-            } catch (ClassCastException e) {
-                throw new JDOFatalInternalException (msg.msg(
-                    "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
-            } catch (Exception e) {
-                throw new JDOFatalInternalException (msg.msg(
-                    "EXC_GetPMFUnexpectedException"), e); //NOI18N
-            }
-        }
+        // no PMF class name and no services
         
-        // else no PMF class name given; check PU name
-        String puName = (String) props.get(PROPERTY_PERSISTENCE_UNIT_NAME);
-
-        if (puName != null && !"".equals(puName.trim())) {
-            PersistenceManagerFactory pmf =
-                    getPMFFromEMF(puName, props, pmfClassLoader);
-
-            if (pmf != null) {
-                return pmf;
-            }
-            // else pmf was null, which means that
-            // either javax.persistence.Persistence wasn't on classpath
-            // or there was no PU found with the given name
-            throw new JDOFatalUserException(msg.msg(
-                    "EXC_JavaxPersistencePersistenceAbsentOrNoPUFound"),
-                    puName);
-        }
-        // else no PMF class name or PU name
         throw new JDOFatalUserException(msg.msg(
-                "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"));
+                "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"),
+                exceptions.toArray(new Throwable[exceptions.size()]));
     }
 
-    /**
-     * Looks up a (@link PersistenceManagerFactory} implementation class name
-     * from the resource
-     * <code>META-INF/services/javax.jdo.PersistenceManagerFactory</code>,
-     * which should be a text file whose
-     * only contents are the fully qualified name of a class that implements
-     * {@link PersistenceManagerFactory}.
-     * Note that the method
-     * {@link java.lang.ClassLoader#getResourceAsStream(String)} is used to
-     * find the resource.
-     * Only the first implementation class name found in the resource is used. 
-     * @param cl The ClassLoader used to find the resource.
-     * @return The first non-blank, trimmed line found in the file; should be
-     * a PMF implementation class name, or null
-     * if no content was found.
-     * @throws IOException
+    /** Get a class name from a URL. The URL is from getResources with 
+     * e.g. META-INF/services/javax.jdo.PersistenceManagerFactory as the
+     * parameter. Parse the file, removing blank lines, comment lines,
+     * and comments.
+     * @param url the URL of the services file
+     * @return the name of the class contained in the file
+     * @throws java.io.IOException
+     * @since 2.1
      */
-    protected static String getPMFClassNameViaServiceLookup(ClassLoader cl)
-            throws IOException
-    {
-        /*
-        Note:  not using sun.misc.Service because it's not a standard part of
-        the JDK (yet).
-         */
-        InputStream is = cl.getResourceAsStream(
-                SERVICE_LOOKUP_PMF_RESOURCE_NAME);
 
-        if (is == null) {
-            return null;
-        }
+    protected static String getClassNameFromURL (URL url) 
+            throws IOException {
+        InputStream is = openStream(url);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line = null;
         try {
@@ -889,6 +861,48 @@ public class JDOHelper implements Constants {
      * {@link PersistenceManagerFactory}.  If the name given is null or consists
      * only of whitespace, it is interpreted as
      * {@link Constants#ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME}.
+     * The following are standard key names:
+     * <BR><code>"javax.jdo.PersistenceManagerFactoryClass"
+     * <BR>"javax.jdo.option.Optimistic",
+     * <BR>"javax.jdo.option.RetainValues",
+     * <BR>"javax.jdo.option.RestoreValues",
+     * <BR>"javax.jdo.option.IgnoreCache",
+     * <BR>"javax.jdo.option.NontransactionalRead",
+     * <BR>"javax.jdo.option.NontransactionalWrite",
+     * <BR>"javax.jdo.option.Multithreaded",
+     * <BR>"javax.jdo.option.ConnectionUserName",
+     * <BR>"javax.jdo.option.ConnectionPassword",
+     * <BR>"javax.jdo.option.ConnectionURL",
+     * <BR>"javax.jdo.option.ConnectionFactoryName",
+     * <BR>"javax.jdo.option.ConnectionFactory2Name",
+     * <BR>"javax.jdo.option.Mapping",
+     * <BR>"javax.jdo.mapping.Catalog",
+     * <BR>"javax.jdo.mapping.Schema",
+     * <BR>"javax.jdo.option.PersistenceUnitName".
+     * <BR>"javax.jdo.option.DetachAllOnCommit".
+     * <BR>"javax.jdo.option.CopyOnAttach".
+     * <BR>"javax.jdo.option.TransactionType".
+     * <BR>"javax.jdo.option.ServerTimeZoneID".
+     * <BR>"javax.jdo.option.Name".
+     * </code>
+     * and properties of the form
+     * <BR><code>javax.jdo.option.InstanceLifecycleListener.{listenerClass}[=[{pcClasses}]]</code>
+     * where <code>{listenerClass}</code> is the fully qualified name of a
+     * class that implements
+     * {@link javax.jdo.listener.InstanceLifecycleListener}, and
+     * <code>{pcClasses}</code> is an optional comma- or whitespace-delimited
+     * list of persistence-capable classes to be observed; the absence of a
+     * value for a property of this form means that instances of all
+     * persistence-capable classes will be observed by an instance of the given
+     * listener class.
+     * <P>JDO implementations
+     * are permitted to define key values of their own.  Any key values not
+     * recognized by the implementation must be ignored.  Key values that are
+     * recognized but not supported by an implementation must result in a
+     * <code>JDOFatalUserException</code> thrown by the method.
+     * <P>The returned <code>PersistenceManagerFactory</code> is not 
+     * configurable (the <code>set<I>XXX</I></code> methods will throw an 
+     * exception).
      * 
      * This method loads the properties found at <code>name</code>, if any, via
      * <code>resourceLoader</code>, and creates a {@link
@@ -918,191 +932,172 @@ public class JDOHelper implements Constants {
             Map overrides,
             String name,
             ClassLoader resourceLoader,
-            ClassLoader pmfLoader
-    ) {
+            ClassLoader pmfLoader) {
         if (pmfLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullPMFLoader")); //NOI18N
-
-        Properties props = null;
-        InputStream in = null;
-        if (name != null
-                && !ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME.equals(
-                        (name = name.trim())))
-        {
-            // then try to load resources from properties file
-            if (resourceLoader == null)
-                throw new JDOFatalUserException (msg.msg (
-                    "EXC_GetPMFNullPropsLoader")); //NOI18N
-            try {
-                in = resourceLoader.getResourceAsStream(name);
-                if (in != null) {
-                    // then some kind of resource was found by the given name;
-                    // assume that it's a properties file and proceed as usual
-                    props = new Properties();
-                    props.load(in);
-                    // JDO 2.1:
-                    // add the SPI property to inform the implementation that
-                    // the PMF was configured by the given resource name
-                    // and not via named PMF for proper deserialization
-                    props.put(PROPERTY_SPI_RESOURCE_NAME, name);
-                    props.remove(PROPERTY_NAME);
-                }
-            }
-            catch (IOException ioe) {
-                throw new JDOFatalUserException (msg.msg (
-                    "EXC_GetPMFIOExceptionRsrc", name), ioe); //NOI18N
-            }
-            finally {
-                if (in != null)
-                    try {
-                        in.close ();
-                    } catch (IOException ioe) { }
-            }
+        if (resourceLoader == null) {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_GetPMFNullPropsLoader")); //NOI18N
         }
 
-        // JDO 2.1:  else name was null, empty string, or no resource found by
-        // given name; first see if name represents name of named PMF
-
-        // as a convenience in public usage, convert null to anonymous PMF name
-        if (name == null) {
-            name = ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME;
+        Map props = null;
+        // trim spaces from name and ensure non-null
+        name = (name == null?ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME:name.trim());
+        if (!ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME.equals(name)) {
+            props = loadPropertiesFromResource(resourceLoader, name);
         }
 
-        Map properties = props;
-        if (properties == null) {
-            properties = getNamedPMFProperties(name, pmfLoader);
-            if (properties != null) {
-                // inform the impl that the config came from a jdoconfig.xml
-                // element with the given name
-                properties.put(PROPERTY_NAME, name);
-                properties.remove(PROPERTY_SPI_RESOURCE_NAME);
-            }
+        if (props != null) {
+            // add the SPI property to inform the implementation that
+            // the PMF was configured by the given resource name
+            // and not via named PMF for proper deserialization
+            props.put(PROPERTY_SPI_RESOURCE_NAME, name);
+            props.remove(PROPERTY_NAME);
+            return getPersistenceManagerFactory(overrides, props, pmfLoader);
         }
+        // props were null; try getting from jdoconfig.xml
+        props = getPropertiesFromJdoconfig(name, pmfLoader);
+        if (props != null) {
+            // inform the impl that the config came from a jdoconfig.xml
+            // element with the given name
+            props.put(PROPERTY_NAME, name);
+            props.remove(PROPERTY_SPI_RESOURCE_NAME);
+            // we have loaded a Properties, delegate to implementation
+            return getPersistenceManagerFactory(overrides, props, pmfLoader);
+        }
+        // no properties found; last try to see if name is a JPA PU name
+        if (!ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME.equals(name)) {
+            props = new Properties();
+            props.put(PROPERTY_PERSISTENCE_UNIT_NAME, name);
+            return getPersistenceManagerFactory(overrides, props, pmfLoader);
+        }
+        
+        // no PMF found; give up
+        throw new JDOFatalUserException (msg.msg (
+            "EXC_NoPMFConfigurableViaPropertiesOrXML", name)); //NOI18N
+    }
 
-        if (properties != null) {
-            // try to resolve PMF class name
-            String pmfClassName = null;
+    /** Invoke the getPersistenceManagerFactory method on the implementation.
+     * If the overrides parameter to this method is not null, the static method 
+     * with Map overrides, Map properties parameters will be invoked.
+     * If the overrides parameter to this method is null,  the static method 
+     * with Map properties parameter will be invoked.
+     * @param pmfClassName the name of the implementation factory class
+     * @param overrides a Map of overrides
+     * @param properties a Map of properties
+     * @param cl the class loader to use to load the implementation class
+     * @return the PersistenceManagerFactory
+     */
+    protected static PersistenceManagerFactory
+        invokeGetPersistenceManagerFactoryOnImplementation(
+            String pmfClassName, Map overrides, Map properties, ClassLoader cl) {
+        if (overrides != null) {
+            // overrides is not null; use getPersistenceManagerFactory(Map overrides, Map props)
             try {
-                pmfClassName = resolvePMFClassName(
-                    overrides, properties, pmfLoader);
-            } catch (IOException ioe) {
-                throw new JDOFatalUserException(msg.msg(
-                    "EXC_IOExceptionDuringServiceLookup"), ioe); //NOI18N
-            }
+                Class implClass = forName(pmfClassName, true, cl);
+                Method m = getMethod(implClass,
+                        "getPersistenceManagerFactory",
+                        new Class[]{Map.class, Map.class});
+                return (PersistenceManagerFactory) invoke(m,
+                        null, new Object[]{overrides, properties});
 
-            if (pmfClassName == null) {
-                throw new JDOFatalUserException(msg.msg(
-                    "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"));
-            }
-
-            try {
-                return invokeGetPersistenceManagerFactoryOnImplementation(
-                        pmfClassName, overrides, properties, pmfLoader);
             } catch (ClassNotFoundException e) {
                 throw new JDOFatalUserException(msg.msg(
                         "EXC_GetPMFClassNotFound", pmfClassName), e);
             } catch (NoSuchMethodException e) {
-                throw new JDOFatalUserException(msg.msg(
+                throw new JDOFatalInternalException(msg.msg(
                         "EXC_GetPMFNoSuchMethod2", pmfClassName), e);
+            } catch (NullPointerException e) {
+                throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
             } catch (IllegalAccessException e) {
                 throw new JDOFatalUserException(msg.msg(
                         "EXC_GetPMFIllegalAccess", pmfClassName), e);
-            } catch (InvocationTargetException e) {
+            } catch (ClassCastException e) {
+                throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
+            } catch (InvocationTargetException ite) {
+                Throwable nested = ite.getTargetException();
+                if (nested instanceof JDOException) {
+                    throw (JDOException)nested;
+                } else throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFUnexpectedException"), ite); //NOI18N
+            }
+        } else {
+            // overrides is null; use getPersistenceManagerFactory(Map props)
+            try {
+                Class implClass = forName(pmfClassName, true, cl);
+                Method m = getMethod(implClass,
+                        "getPersistenceManagerFactory",
+                        new Class[]{Map.class});
+                return (PersistenceManagerFactory) invoke(m,
+                        null, new Object[]{properties});
+            } catch (ClassNotFoundException e) {
                 throw new JDOFatalUserException(msg.msg(
-                        "EXC_GetPMFInvocationTargetException", pmfClassName), e);
+                        "EXC_GetPMFClassNotFound", pmfClassName), e);
+            } catch (NoSuchMethodException e) {
+                throw new JDOFatalInternalException(msg.msg(
+                        "EXC_GetPMFNoSuchMethod2", pmfClassName), e);
+            } catch (NullPointerException e) {
+                throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
+            } catch (IllegalAccessException e) {
+                throw new JDOFatalUserException(msg.msg(
+                        "EXC_GetPMFIllegalAccess", pmfClassName), e);
+            } catch (ClassCastException e) {
+                throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
+            } catch (InvocationTargetException ite) {
+                Throwable nested = ite.getTargetException();
+                if (nested instanceof JDOException) {
+                    throw (JDOException)nested;
+                } else throw new JDOFatalInternalException (msg.msg(
+                    "EXC_GetPMFUnexpectedException"), ite); //NOI18N
             }
         }
-
-        // else no properties found; next, assume name is a JPA PU name
-        if (!ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME.equals(name)) {
-            PersistenceManagerFactory pmf =
-                    getPMFFromEMF(name, overrides, pmfLoader);
-            if (pmf != null) {
-                return pmf;
-            }
-        }
-        
-        // else no PMF found
-        throw new JDOFatalUserException (msg.msg (
-            "EXC_NoPMFConfigurableViaPropertiesOrXML",
-            name)); //NOI18N
     }
 
-    protected static PersistenceManagerFactory
-        invokeGetPersistenceManagerFactoryOnImplementation(
-            String pmfClassName, Map overrides, Map properties, ClassLoader cl)
-            throws
-                ClassNotFoundException,
-                NoSuchMethodException,
-                IllegalAccessException,
-                InvocationTargetException
-    {
-        Class implClass = cl.loadClass(pmfClassName);
-        Method m = implClass.getMethod(
-                "getPersistenceManagerFactory",
-                new Class[] { Map.class, Map.class });
-
-        return (PersistenceManagerFactory) m.invoke(
-                null, new Object[] {overrides, properties});
-    }
-
-
-    /**
-     * Tries to get the PMF class name property in the following locations
-     * in this order:<ol>
-     * <li>Property
-     * <code>PROPERY_PERSISTENCE_MANAGER_FACTORY_CLASS</code> in
-     * parameter "overrides"</li>
-     * <li>Property
-     * <code>PROPERY_PERSISTENCE_MANAGER_FACTORY_CLASS</code> in
-     * parameter "properties"</li>
-     * <li>File
-     * <code>META-INF/services/javax.jdo.PeristenceManagerFactory</code></li>
-     * </ol>
-     * Returns null if not found.
-     * @param overrides User-supplied property overrides
-     * @param properties Named PMF properties
-     * @param cl ClassLoader used to lookup
-     * META-INF/services/javax.jdo.PersistenceManagerFactory resource
-     * @throws IOException Thrown if an IO exception encountered while reading
-     * META-INF/services/javax.jdo.PersistenceManagerFactory
-     * @return The PMF class name or null if not found
-     * @since 2.1
+    /** Load a Properties instance by name from the class loader.
+     * 
+     * @param resourceLoader the class loader from which to load the properties
+     * @param name the name of the resource
+     * @return a Properties instance or null if no resource is found
      */
-    protected static String resolvePMFClassName(
-            Map overrides,
-            Map properties,
-            ClassLoader cl)
-            throws IOException
-    {
-        String pmfClassName = null;
-
-        pmfClassName = (String) (overrides == null
-                ? null
-                : overrides.get(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS));
-        if (pmfClassName != null) {
-            return pmfClassName;
+    protected static Map loadPropertiesFromResource(
+            ClassLoader resourceLoader, String name) {
+        InputStream in = null;
+        Properties props = null;
+        // try to load resources from properties file
+        try {
+            in = getResourceAsStream(resourceLoader, name);
+            if (in != null) {
+                // then some kind of resource was found by the given name;
+                // assume that it's a properties file
+                props = new Properties();
+                ((Properties) props).load(in);
+            }
+        } catch (IOException ioe) {
+            throw new JDOFatalUserException(msg.msg(
+                "EXC_GetPMFIOExceptionRsrc", name), ioe); //NOI18N
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ioe) {
+                }
+            }
         }
-
-        pmfClassName = (String) (properties == null
-                ? null
-                : properties.get(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS));
-        if (pmfClassName != null) {
-            return pmfClassName;
-        }
-
-        return getPMFClassNameViaServiceLookup(cl);
+        return props;
     }
 
     /**
      * @see #getNamedPMFProperties(String,ClassLoader,String)
      * @since 2.1
      */
-    protected static Map getNamedPMFProperties(
+    protected static Map getPropertiesFromJdoconfig(
             String name,
-            ClassLoader resourceLoader
-    ) {
+            ClassLoader resourceLoader) {
         return getNamedPMFProperties(
             name, resourceLoader, JDOCONFIG_RESOURCE_NAME);
     }
@@ -1132,8 +1127,7 @@ public class JDOHelper implements Constants {
     protected static Map getNamedPMFProperties(
             String name,
             ClassLoader resourceLoader,
-            String jdoconfigResourceName
-    ) {
+            String jdoconfigResourceName) {
         // key is PU name, value is Map of PU properties
         Map/*<String,Map>*/ propertiesByNameInAllConfigs
                 = new HashMap/*<String,Map>*/();
@@ -1142,7 +1136,7 @@ public class JDOHelper implements Constants {
 
             // get all JDO configurations
             Enumeration resources =
-                resourceLoader.getResources(jdoconfigResourceName);
+                getResources(resourceLoader, jdoconfigResourceName);
 
             if (resources.hasMoreElements()) {
                 ArrayList processedResources = new ArrayList();
@@ -1248,120 +1242,6 @@ public class JDOHelper implements Constants {
             };
     }
 
-    /**
-     * Attempts to locate a <code>javax.persistence.EntityManagerFactory</code>
-     * via the <code>javax.persistence.Persistence</code> method
-     * <code>createEntityManagerFactory(String)</code>
-     * and casts it to a {@link PersistenceManagerFactory}.  It is a user error
-     * if his chosen JPA vendor's
-     * <code>javax.persistence.EntityManagerFactory</code>
-     * implementation class does not also implement
-     * {@link PersistenceManagerFactory}.
-     * @param name The persistence unit name.
-     * @param properties The properties of the persistence unit.
-     * @param loader The classloader used to attempt loading of the class
-     * <code>javax.persistence.Persistence</code>
-     * and <code>javax.persistence.PersistenceException</code>.
-     * @return The <code>EntityManagerFactory</code>, cast as a
-     * <code>PersistenceManagerFactory</code> for the given
-     * persistence unit name, or <code>null</code> if any of the following
-     * conditions are true.
-     *  <ul>
-     *    <li>The attempt to load <code>javax.persistence.Persistence</code> or
-     *          <code>javax.persistence.Persistence</code> fails for any
-     *        reason.</li>
-     *    <li>The named JPA persistence unit is not found.</li>
-     *  </ul>
-     * @throws JDOFatalUserException This method will throw
-     * a {@link JDOFatalUserException}
-     * with the exception that caused the error
-     * if any of the following conditions are true.
-     * <ul>
-     *  <li>The <code>javax.persistence.Persistence</code> method
-     *      <code>createEntityManagerFactory(String)</code>
-     *      cannot be invoked.</li>
-     *  <li>The <code>javax.persistence.EntityManagerFactory</code> cannot be
-     *      cast to a
-     *      <code>{@link PersistenceManagerFactory}</code>.</li>
-     * </ul>
-     */
-    protected static PersistenceManagerFactory getPMFFromEMF(
-        String name, Map properties, ClassLoader loader)
-    {
-        /*
-            This implementation uses reflection to try to get an EMF so that
-            javax.jdo, a Java SE API, does not introduce an unnecessary
-            dependency on a Java EE API, namely the
-            javax.persistence.Persistence class, while still
-            being compatible with JPA.
-         */
-
-        // First, get required classes & methods
-        Class persistenceClass = null;
-        Class persistenceExceptionClass = null;
-        Method createEntityManagerFactoryMethod = null;
-        try {
-            persistenceClass = Class.forName(
-                "javax.persistence.Persistence",
-                true,
-                loader);
-
-            createEntityManagerFactoryMethod = persistenceClass.getMethod(
-                    "createEntityManagerFactory",
-                    new Class[] { String.class, Map.class });
-
-            persistenceExceptionClass =
-                Class.forName(
-                    "javax.persistence.PersistenceException",
-                    true,
-                    loader);
-        }
-        catch (Exception x) {
-            // may happen -- if it does, javax.persistence.Persistence or
-            // requisites not available
-            return null;
-        }
-
-        // Now, try to invoke createEntityManagerFactory method
-        Object entityManagerFactory = null;
-        Throwable t = null;
-        try {
-            entityManagerFactory =
-                createEntityManagerFactoryMethod.invoke(
-                    persistenceClass, new Object[] { name, properties });
-        }
-        catch (InvocationTargetException x) {
-            Throwable cause = x.getCause();
-            if (cause != null &&
-                    persistenceExceptionClass.isAssignableFrom(
-                            cause.getClass()))
-            {
-                // named persistence unit not found
-                return null;
-            }
-            // else something else went wrong
-            t = x;
-        }
-        catch (Exception x) {
-            t = x;
-        }
-        if (t != null) { // something went wrong -- throw
-            throw new JDOFatalUserException(
-                msg.msg("EXC_UnableToInvokeCreateEMFMethod"), t);
-        }
-
-        // Last, try to cast to PMF & return
-        try {
-            return (PersistenceManagerFactory) entityManagerFactory;
-        }
-        catch (ClassCastException x) { // EMF impl doesn't also implement PMF
-            throw new JDOFatalUserException(
-                msg.msg(
-                    "EXC_UnableToCastEMFToPMF",
-                    entityManagerFactory.getClass().getName()),
-                x);
-        }
-    }
 
     /** Reads JDO configuration file, creates a Map for each
      * persistence-manager-factory, then returns the map.
@@ -1376,10 +1256,9 @@ public class JDOHelper implements Constants {
      * value of the String key is the empty string, "".
      */
     protected static Map/*<String,Map>*/ readNamedPMFProperties(
-        URL url,
-        String requestedPMFName,
-        DocumentBuilderFactory factory
-    ) {
+            URL url,
+            String requestedPMFName,
+            DocumentBuilderFactory factory) {
         requestedPMFName = requestedPMFName == null
             ? ""
             : requestedPMFName.trim();
@@ -1390,7 +1269,7 @@ public class JDOHelper implements Constants {
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setErrorHandler(getErrorHandler());
 
-            in = url.openStream();
+            in = openStream(url);
             Document doc = builder.parse(in);
 
             Element root = doc.getDocumentElement();
@@ -1419,20 +1298,20 @@ public class JDOHelper implements Constants {
                     pmfPropertiesFromElements.getProperty(PROPERTY_NAME);
 
                 String pmfName = null;
-                if (nullOrBlank(pmfNameFromAtts)) {
+                if (isNullOrBlank(pmfNameFromAtts)) {
                     // no PMF name attribute given
-                    if (!nullOrBlank(pmfNameFromElem)) {
+                    if (!isNullOrBlank(pmfNameFromElem)) {
                         // PMF name element was given
                         pmfName = pmfNameFromElem;
                     }
                     else  {
                         // PMF name not given at all, means the "anonymous" PMF
-                        pmfName = "";
+                        pmfName = ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME;
                     }
                 }
                 else {
                     // PMF name given in an attribute
-                    if (!nullOrBlank(pmfNameFromElem)) {
+                    if (!isNullOrBlank(pmfNameFromElem)) {
                         // exception -- PMF name given as both att & elem
                         throw new JDOFatalUserException(
                             msg.msg(
@@ -1524,8 +1403,7 @@ public class JDOHelper implements Constants {
     }
 
     protected static Properties readPropertiesFromPMFElementAttributes(
-        Node pmfElement
-    ) {
+        Node pmfElement) {
         Properties p = new Properties();
         NamedNodeMap attributes = pmfElement.getAttributes();
         if (attributes == null) {
@@ -1551,8 +1429,7 @@ public class JDOHelper implements Constants {
     }
 
     protected static Properties readPropertiesFromPMFSubelements(
-        Node pmfElement, URL url)
-    {
+        Node pmfElement, URL url) {
         Properties p = new Properties();
         NodeList elements = pmfElement.getChildNodes();
         if (elements == null) {
@@ -1649,7 +1526,7 @@ public class JDOHelper implements Constants {
         return p;
     }
 
-    protected static boolean nullOrBlank(String s) {
+    protected static boolean isNullOrBlank(String s) {
         return s == null || "".equals(s.trim());
     }
     
@@ -1666,7 +1543,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (File propsFile) {
+            (File propsFile) {
         return getPersistenceManagerFactory(
                 propsFile, getContextClassLoader());
     }
@@ -1686,8 +1563,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (File propsFile, ClassLoader loader)
-    {
+            (File propsFile, ClassLoader loader) {
         if (propsFile == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullFile")); //NOI18N
@@ -1725,7 +1601,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (String jndiLocation, Context context) {
+            (String jndiLocation, Context context) {
         return getPersistenceManagerFactory (jndiLocation, context,
             getContextClassLoader());
     }
@@ -1749,7 +1625,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (String jndiLocation, Context context, ClassLoader loader) {
+            (String jndiLocation, Context context, ClassLoader loader) {
         if (jndiLocation == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullJndiLoc")); //NOI18N
@@ -1782,7 +1658,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (InputStream stream) {
+            (InputStream stream) {
         return getPersistenceManagerFactory(
                 stream, getContextClassLoader());
     }
@@ -1801,8 +1677,7 @@ public class JDOHelper implements Constants {
      * @return the PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-        (InputStream stream, ClassLoader loader)
-    {
+            (InputStream stream, ClassLoader loader) {
         if (stream == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullStream")); //NOI18N
@@ -1831,4 +1706,141 @@ public class JDOHelper implements Constants {
             }
         );
     }
+
+    /** Get the named resource as a stream from the resource loader.
+     * Perform this operation in a doPrivileged block.
+     */
+    private static InputStream getResourceAsStream(
+            final ClassLoader resourceLoader, final String name) {
+        return (InputStream)AccessController.doPrivileged(
+            new PrivilegedAction() {
+                public Object run() {
+                    return resourceLoader.getResourceAsStream(name);
+                }
+            }
+        );
+    }
+
+
+    /** Get the named Method from the named class. 
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param implClass the class
+     * @param methodName the name of the method
+     * @param parameterTypes the parameter types of the method
+     * @return the Method instance
+     */
+    private static Method getMethod(
+            final Class implClass, 
+            final String methodName, 
+            final Class[] parameterTypes) 
+                throws NoSuchMethodException {
+        try {
+            return (Method) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws NoSuchMethodException {
+                        return implClass.getMethod(methodName, parameterTypes);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (NoSuchMethodException)ex.getException();
+        }
+    }
+
+    /** Invoke the method.
+     * Perform this operation in a doPrivileged block.
+     */
+    private static Object invoke(final Method method,
+            final Object instance, final Object[] parameters) 
+                throws IllegalAccessException, InvocationTargetException {
+        try {
+            return (Object) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() 
+                        throws IllegalAccessException, 
+                            InvocationTargetException {
+                        return method.invoke (instance, parameters);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            Exception cause = (Exception)ex.getException();
+            if (cause instanceof IllegalAccessException)
+                throw (IllegalAccessException)cause;
+            else //if (cause instanceof InvocationTargetException)
+                throw (InvocationTargetException)cause;
+        }
+    }
+
+    /** Get resources of the resource loader. 
+     * Perform this operation in a doPrivileged block.
+     * @param resourceLoader
+     * @param resourceName
+     * @return the resources
+     */
+    protected static Enumeration getResources(
+            final ClassLoader resourceLoader, 
+            final String resourceName) 
+                throws IOException {
+        try {
+            return (Enumeration) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws IOException {
+                        return resourceLoader.getResources(resourceName);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (IOException)ex.getException();
+        }
+    }
+
+    /** Get the named class.
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param name the name of the class
+     * @param init whether to initialize the class
+     * @param loader which class loader to use
+     * @return the class
+     */
+    private static Class forName(
+            final String name, 
+            final boolean init, 
+            final ClassLoader loader) 
+                throws ClassNotFoundException {
+        try {
+            return (Class) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws ClassNotFoundException {
+                        return Class.forName(name, init, loader);
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (ClassNotFoundException)ex.getException();
+        }
+    }
+
+    /** Open an input stream on the url.
+     * Perform this operation in a doPrivileged block.
+     * 
+     * @param url
+     * @return the input stream
+     */
+    private static InputStream openStream(final URL url) 
+            throws IOException {
+        try {
+            return (InputStream) AccessController.doPrivileged(
+                new PrivilegedExceptionAction() {
+                    public Object run() throws IOException {
+                        return url.openStream();
+                    }
+                }
+            );
+        } catch (PrivilegedActionException ex) {
+            throw (IOException)ex.getException();
+        }
+    }
+
 }
