@@ -37,7 +37,7 @@
         the configuration of an EntityManagerFactory. We configure each
         example in a separate persistence-unit.
     -->
-<persistence-unit name="applicationidentity0" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="PUNamed_applicationidentity0" transaction-type="RESOURCE_LOCAL">
     <!--
             The default provider can be OpenJPA, or some other product.
             This element is optional if OpenJPA is the only JPA provider
@@ -54,7 +54,6 @@
     <property name="javax.jdo.option.Optimistic" value="false"/>
     <property name="javax.jdo.option.RestoreValues" value="false"/>
     <property name="javax.jdo.option.RetainValues" value="false"/>
-    <property name="javax.jdo.option.Mapping" value="derby"/>
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
     <property name="org.jpox.metadata.validate" value="false"/>
@@ -71,7 +70,7 @@
     </properties>
 </persistence-unit>
 
-<persistence-unit name="datastoreidentity0" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="PUNamed_datastoreidentity0" transaction-type="RESOURCE_LOCAL">
     <!--
             The default provider can be OpenJPA, or some other product.
             This element is optional if OpenJPA is the only JPA provider
@@ -88,7 +87,6 @@
     <property name="javax.jdo.option.Optimistic" value="false"/>
     <property name="javax.jdo.option.RestoreValues" value="false"/>
     <property name="javax.jdo.option.RetainValues" value="false"/>
-    <property name="javax.jdo.option.Mapping" value="derby"/>
     <property name="javax.jdo.mapping.Schema" value="datastoreidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
     <property name="org.jpox.metadata.validate" value="false"/>

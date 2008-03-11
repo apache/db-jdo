@@ -16,6 +16,10 @@
  */
 package org.apache.jdo.tck.api.persistencemanagerfactory.config;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import javax.jdo.Constants;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -44,7 +48,6 @@ public class Persistence extends JDO_Test {
     /** */
     private static final String ASSERTION_FAILED =
             "Assertion A11.1.2-1 failed: ";
-    private static final String ANONYMOUS_PMF_NAME = "";
     // Do not use superclass pmf, pm
     private PersistenceManagerFactory pmf = null;
     private PersistenceManager pm = null;
@@ -59,8 +62,8 @@ public class Persistence extends JDO_Test {
     }
 
     /** */
-    public void testGetPMFfromEMFNamed() {
-        String name = identitytype + "0";
+    public void testGetPMFfromNamedPU() {
+        String name = "PUNamed_" + identitytype + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(name);
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());
@@ -68,8 +71,38 @@ public class Persistence extends JDO_Test {
     }
 
     /** */
-    public void testGetPMFfromEMFNamedSpaces() {
-        String name = identitytype + "0";
+    public void testGetPMFfromNamedPUWithNullOverrides() {
+        String name = "PUNamed_" + identitytype + "0";
+        pmf = JDOHelper.getPersistenceManagerFactory(null, name);
+        assertEquals("Incorrect value for RestoreValues",
+                false, pmf.getRestoreValues());
+        runTest(name);
+    }
+
+    /** */
+    public void testGetPMFfromNamedPUWithEmptyOverrides() {
+        String name = "PUNamed_" + identitytype + "0";
+        Map overrides = new HashMap();
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        assertEquals("Incorrect value for RestoreValues",
+                false, pmf.getRestoreValues());
+        runTest(name);
+    }
+
+    /** */
+    public void testGetPMFfromNamedPUWithOverrides() {
+        String name = "PUNamed_" + identitytype + "0";
+        Properties overrides = new Properties();
+        overrides.setProperty(Constants.PROPERTY_RESTORE_VALUES, "true");
+        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        assertEquals("Incorrect value for RestoreValues",
+                true, pmf.getRestoreValues());
+        runTest(name);
+    }
+
+    /** */
+    public void testGetPMFfromNamedPUWithWhiteSpace() {
+        String name = "PUNamed_" + identitytype + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(" \t" + name + " \n");
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());
