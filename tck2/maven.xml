@@ -408,6 +408,8 @@
                          value="${jdo.tck.cleanupaftertest}"/>             
             <sysproperty key="jdo.tck.requiredOptions"
                          value="${jdo.tck.requiredOptions}"/>
+            <sysproperty key="jdo.tck.schemaname"
+                         value="${schemaname}"/>
             <sysproperty key="jdo.tck.mapping.companyfactory"
                          value="${jdo.tck.mapping.companyfactory}"/>
             <sysproperty key="jdo.tck.closePMFAfterEachTest"
