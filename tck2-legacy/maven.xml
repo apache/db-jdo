@@ -257,7 +257,6 @@
 
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
-        <j:set var="jdo.tck.jdoconfig" value="iut-jdoconfig.xml"/>
         <attainGoal name="privateRuntck.iut"/>
     </goal>
 
@@ -268,6 +267,8 @@
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
+            file="${basedir}/src/conf/iut-jdoconfig.xml"/>
         <echo>Run all configurations on iut</echo>
         <j:set var="runOnceTestRanOnce" value="false"/>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
@@ -305,7 +306,6 @@
 
     <goal name="runtck.jdori" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
-        <j:set var="jdo.tck.jdoconfig" value="jdori-jdoconfig.xml"/>
         <attainGoal name="privateRuntck.jdori"/>
     </goal>
 
@@ -316,7 +316,8 @@
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
-
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
+            file="${basedir}/src/conf/jdori-jdoconfig.xml"/>
 
         <echo>Run all configurations on jdori</echo>
         <j:set var="runOnceTestRanOnce" value="false"/>
@@ -764,8 +765,6 @@
                <include name="jndi.properties"/>
             </fileset>
         </copy>
-        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
-            file="${basedir}/src/conf/${jdo.tck.jdoconfig}"/>
     </goal>
 
     <!-- ==================== -->
