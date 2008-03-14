@@ -262,8 +262,6 @@
 
     <goal name="runtck.iut" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
-        <j:set var="jdo.tck.jdoconfig" value="iut-jdoconfig.xml"/>
-        <j:set var="jdo.tck.persistence" value="iut-persistence.xml"/>
         <attainGoal name="privateRuntck.iut"/>
     </goal>
 
@@ -274,6 +272,10 @@
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
+            file="${basedir}/src/conf/iut-jdoconfig.xml"/>
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/persistence.xml"
+            file="${basedir}/src/conf/iut-persistence.xml"/>
         <echo>Run all configurations on iut</echo>
         <j:set var="runOnceTestRanOnce" value="false"/>
         <j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
@@ -311,8 +313,6 @@
 
     <goal name="runtck.jdori" prereqs="setProps">
         <mkdir dir="${jdo.tck.log.directory.database}"/>
-        <j:set var="jdo.tck.jdoconfig" value="jdori-jdoconfig.xml"/>
-        <j:set var="jdo.tck.persistence" value="jdori-persistence.xml"/>
         <attainGoal name="privateRuntck.jdori"/>
     </goal>
 
@@ -323,7 +323,10 @@
             <format property="timestamp" pattern="yyyyMMdd-HHmmss"/>
         </tstamp>
         <mkdir dir="${jdo.tck.log.directory}/${timestamp}/configuration"/>
-
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
+            file="${basedir}/src/conf/jdori-jdoconfig.xml"/>
+        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/persistence.xml"
+            file="${basedir}/src/conf/jdori-persistence.xml"/>
 
         <echo>Run all configurations on jdori</echo>
         <j:set var="runOnceTestRanOnce" value="false"/>
@@ -789,10 +792,6 @@
                <include name="jndi.properties"/>
             </fileset>
         </copy>
-        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/jdoconfig.xml"
-            file="${basedir}/src/conf/${jdo.tck.jdoconfig}"/>
-        <copy tofile="${jdo.tck.testclasses.dir}/META-INF/persistence.xml"
-            file="${basedir}/src/conf/${jdo.tck.persistence}"/>
     </goal>
 
     <!-- ==================== -->
