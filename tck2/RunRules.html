@@ -18,7 +18,7 @@
 <HTML>
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-	<TITLE>JDO 2.0 Technology Compatibility Kit Run Rules</TITLE>
+	<TITLE>JDO 2.1 Technology Compatibility Kit Run Rules</TITLE>
 	<META NAME="GENERATOR" CONTENT="NeoOffice/J 1.1  (Unix)">
 	<META NAME="CREATED" CONTENT="20051228;16322200">
 	<META NAME="CHANGED" CONTENT="20060412;21332100">
@@ -29,10 +29,10 @@
 	</STYLE>
 </HEAD>
 <BODY LANG="en-US" DIR="LTR">
-<H1 ALIGN=CENTER>Running the JDO 2.0 Technology Compatibility Kit</H1>
+<H1 ALIGN=CENTER>Running the JDO 2.1 Technology Compatibility Kit</H1>
 <P ALIGN=CENTER><BR><BR>
 </P>
-<P ALIGN=CENTER>13-Apr-2006</P>
+<P ALIGN=CENTER>17-March-2008</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Overview</FONT></FONT></P>
 <P>In order to demonstrate compliance with the Java Data Objects
 specification, an implementation must successfully run all of the TCK
@@ -45,7 +45,7 @@ test run, which consists of multiple log files containing
 configuration information and test results. For an example of the
 required posting, please see <A HREF="http://db.apache.org/jdo/tck/final">http://db.apache.org/jdo/tck/final</A>.</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Prerequisites</FONT></FONT></P>
-<P>In order to run the TCK, you must install maven 1.0.1 or 1.0.2.
+<P>In order to run the TCK, you must install maven 1.x.x.
 M<FONT FACE="Times New Roman, serif">aven
 </FONT><A HREF="http://maven.apache.org/maven-1.x/"><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">http://maven.apache.org/maven-1.x/
 </FONT></FONT></A><FONT FACE="Times New Roman, serif">is the</FONT>
@@ -53,7 +53,9 @@ driver of the test programs. Note that Maven 2 is not supported.</P>
 <P>You must test the IUT on all configurations that the IUT supports.
 This includes different hardware and operating systems, different
 versions of Java, and different datastores. The TCK supports Java
-versions from JDK 1.3 to 1.5.</P>
+versions from JDK 1.3 to 1.6. Use the tck2-legacy project to test on Java
+versions 1.4
+and earlier, and tck2 to test on Java versions 1.5 and later.</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Installation</FONT></FONT></P>
 <P>Download the zip file from the distribution location.  Unpack the zip
 file into a directory of your choice. In this directory you will
@@ -79,7 +81,7 @@ find:
 		README.txt for information on how to configure a different JNDI
 		implementation.</FONT></FONT></P>
 		<LI><P>the TCK directory, which has a release-specific name (e.g.
-		jdo2-tck-2.0) and contains:</P>
+		jdo2-tck-2.1) and contains:</P>
 		<UL>
 			<LI><P>maven.xml, project.properties, project.xml - the maven
 			definition of the project. These files must not be modified.</P>
@@ -113,16 +115,17 @@ find:
 				persistent classes used in the tests. These files must not be
 				modified.</P>
 				<LI><P>orm - this directory contains .orm metadata files to map
-				the persistent classes to the sql tables. These files must not be
-				modified except to add DDL-generation information (which is not
-				used by the TCK).</P>
+                the persistent classes to the sql tables. These files must not
+                be modified except to add DDL-generation information
+                (which is not used by the TCK).</P>
 				<LI><P>java - this directory contains the source code to the TCK
 				tests. These files must not be modified.</P>
 				<LI><P>conf - this directory contains the configuration
-				information for the test runs. The file iut-pmf.properties in
-				this directory must be changed to provide properties for the IUT
-				persistence manager factory. The file jndi.properties may be
-				changed to use a different jndi provider. Other files must not be
+                information for the test runs. The files iut-pmf.properties,
+                iut-jdoconfig.xml, and iut-persistence.xml in this directory
+                must be changed to provide properties for the IUT persistence
+                manager factory.  The file jndi.properties may be changed
+                to use a different jndi provider. Other files must not be
 				modified, except to put a successfully challenged test case into
 				the trunk/tck20/test/conf/exclude.list. Please see below.</P>
 			</UL>
@@ -139,10 +142,14 @@ directory that must be changed to configure the IUT execution and
 enhancement (optional) environment. These properties begin with
 iut.runtck and iut.enhancer. 
 </P>
-<P>There is one properties files that must be modified to be
-IUT-specific. The iut-pmf.properties file in the TCK src/conf
-directory contains information used to construct the
-PersistenceManagerFactory used in the tests.</P>
+<P>There is are three properties files that must be modified to be
+IUT-specific, all located in the TCK src/conf directory. The
+iut-pmf.properties file contains information used to construct the
+PersistenceManagerFactory used in the tests. iut-jdoconfig.xml and
+iut-persistence.xml also contain PersistenceManagerFactory properties
+used only in tests in the
+org.apache.jdo.tck.api.persistencemanagerfactory.config package.
+</P>
 <P>SQL DDL files are provided for the sql table definitions. The
 existing files must not be changed, but files may be added in the
 directory in order to provide DDL for additional databases supported

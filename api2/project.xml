@@ -25,7 +25,7 @@
     <name>JDO2 API</name>
     <groupId>javax.jdo</groupId>
     <artifactId>jdo2-api</artifactId>
-    <currentVersion>2.1-SNAPSHOT</currentVersion>
+    <currentVersion>2.1</currentVersion>
     <package>javax.jdo</package>
     <shortDescription>Java Data Objects 2.1 (JDO) API</shortDescription>
     <description>The Java Data Objects 2.1 (JDO) API is a standard interface-based 
