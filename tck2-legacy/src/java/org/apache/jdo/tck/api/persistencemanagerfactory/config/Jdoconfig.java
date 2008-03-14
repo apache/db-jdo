@@ -46,8 +46,8 @@ public class Jdoconfig extends JDO_Test {
             "Assertion A11.1.2-1 failed: ";
     private static final String ANONYMOUS_PMF_NAME = "";
     // Do not use superclass pmf, pm
-    private PersistenceManagerFactory pmf = null;
-    private PersistenceManager pm = null;
+    private PersistenceManagerFactory privatePmf = null;
+    private PersistenceManager privatePm = null;
     private HashMap overrides = new HashMap();
 
     /**
@@ -75,90 +75,90 @@ public class Jdoconfig extends JDO_Test {
 
     /** */ 
     public void testGetPMFNoArgs() {
-        pmf = JDOHelper.getPersistenceManagerFactory();
+        privatePmf = JDOHelper.getPersistenceManagerFactory();
         checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFEmptyString() {
         String name = "";
-        pmf = JDOHelper.getPersistenceManagerFactory(name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(name);
         checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFNull() {
         String name = null;
-        pmf = JDOHelper.getPersistenceManagerFactory(name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(name);
         checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFStringSpace() {
         String name = " ";
-        pmf = JDOHelper.getPersistenceManagerFactory(name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(name);
         checkIsOpen(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFNamed() {
         String name = "namedPMF0";
-        pmf = JDOHelper.getPersistenceManagerFactory(name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(name);
         assertEquals("Incorrect value for RestoreValues",
-                pmf.getRestoreValues(), false);
+                privatePmf.getRestoreValues(), false);
         checkIsOpen(name);
     }
 
     /** */
     public void testGetPMFEmptyStringOverrides() {
         String name = "";
-        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         checkPersistent(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFNullOverrides() {
         String name = null;
-        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         checkPersistent(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFStringSpaceOverrides() {
         String name = " ";
-        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         checkPersistent(ANONYMOUS_PMF_NAME);
     }
 
     /** */
     public void testGetPMFNamedOverrides() {
         String name = "namedPMF0";
-        pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
+        privatePmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         assertEquals("Incorrect value for RestoreValues",
-                pmf.getRestoreValues(), false);
+                privatePmf.getRestoreValues(), false);
         checkPersistent(name);
     }
 
     /** */
     public void testGetPMFNamedSpacesOverrides() {
         String name = "namedPMF1";
-        pmf = JDOHelper.getPersistenceManagerFactory(overrides,
+        privatePmf = JDOHelper.getPersistenceManagerFactory(overrides,
                 " \t" + name + " \n");
         assertEquals("Incorrect value for RestoreValues",
-                pmf.getRestoreValues(), true);
+                privatePmf.getRestoreValues(), true);
         checkPersistent(name);
     }
 
     /** */
     public void checkIsOpen(String name) {
-        assertEquals("Incorrect PMF name", pmf.getName(), name);
-        if (pmf.isClosed()) {
+        assertEquals("Incorrect PMF name", name, privatePmf.getName());
+        if (privatePmf.isClosed()) {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned true on an open pmf");
         }
-        pmf.close();
+        privatePmf.close();
         // have next invocation of getPMF() get a new pmf
-        pmf = null;
+        privatePmf = null;
     }
 
     /** 
@@ -167,26 +167,26 @@ public class Jdoconfig extends JDO_Test {
      *    with JDOHelper.getPersistenceManagerFactory(Map overrides, ...).
      */
     public void checkPersistent(String name) {
-        assertEquals("Incorrect PMF name", pmf.getName(), name);
+        assertEquals("Incorrect PMF name", name, privatePmf.getName());
 
         makePersistent();
 
-        pmf.close();
-        if (!pmf.isClosed()) {
+        privatePmf.close();
+        if (!privatePmf.isClosed()) {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned false on a closed pmf");
         }
         // have next invocation of getPMF() get a new pmf
-        pmf = null;
+        privatePmf = null;
     }
 
     protected void makePersistent() {
         addTearDownClass(PCPoint.class);
-        pm = pmf.getPersistenceManager();
-        Transaction tx = pm.currentTransaction();
+        privatePm = privatePmf.getPersistenceManager();
+        Transaction tx = privatePm.currentTransaction();
         tx.begin();
         PCPoint comp = new PCPoint(1, 2);
-        pm.makePersistent(comp);
+        privatePm.makePersistent(comp);
         tx.commit();
     }
 }
