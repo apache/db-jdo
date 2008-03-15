@@ -62,7 +62,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
     }
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see AbstractRelationshipTest#localSetUp()
      */
     protected void localSetUp() {
         super.localSetUp();

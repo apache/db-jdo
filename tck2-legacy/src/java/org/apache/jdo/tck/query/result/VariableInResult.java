@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -216,7 +215,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see QueryTest#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());

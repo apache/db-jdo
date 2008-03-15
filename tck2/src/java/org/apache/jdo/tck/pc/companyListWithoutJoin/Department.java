@@ -153,7 +153,7 @@ public class Department
 
     /**
      * Remove an employee from the department.
-     * @param emp The employee to remove from the department.
+     * @param index The index of the employee to remove from the department.
      */
     public void removeEmployee(int index) {
         employees.remove(index);

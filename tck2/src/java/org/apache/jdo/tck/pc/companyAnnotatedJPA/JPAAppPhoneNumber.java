@@ -49,8 +49,7 @@ public class JPAAppPhoneNumber implements Serializable {
     /**
      * Construct a <code>JPAAppPhoneNumber</code> instance.
      * 
-     * @param phonenumid The phone number identifier.
-     * @param person The person id
+     * @param person The person instance
      * @param type The type of the phone for this number
      * @param phoneNumber The phone number
      */
@@ -106,7 +105,7 @@ public class JPAAppPhoneNumber implements Serializable {
 
     /**
      * Set the phone number.
-     * @param phone number The phone number.
+     * @param phoneNumber The phone number.
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

@@ -63,7 +63,7 @@ public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
     IMedicalInsurance medIns2 = null;
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see AbstractRelationshipTest#localSetUp()
      */
     protected void localSetUp() {
         super.localSetUp();
