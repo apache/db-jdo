@@ -166,7 +166,7 @@ public class ExecuteWithMap extends QueryTest {
     }
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see QueryTest#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());

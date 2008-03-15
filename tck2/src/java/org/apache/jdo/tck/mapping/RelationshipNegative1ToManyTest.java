@@ -61,7 +61,7 @@ public class RelationshipNegative1ToManyTest extends AbstractRelationshipTest {
     }
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see AbstractRelationshipTest#localSetUp()
      */
     protected void localSetUp() {
         super.localSetUp();

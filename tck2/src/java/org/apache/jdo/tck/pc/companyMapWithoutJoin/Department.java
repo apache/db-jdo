@@ -145,7 +145,8 @@ public class Department
 
     /**
      * Add an role to the department.
-     * @param emp The role to add to the department.
+     * @param role The role to add to the department.
+     * @param emp The Employee in the role.
      */
     public void addRole(String role, Employee emp) {
         roles.put(role, emp);
@@ -153,7 +154,7 @@ public class Department
 
     /**
      * Remove an role from the department.
-     * @param emp The role to remove from the department.
+     * @param key The key of the role to remove from the department.
      */
     public void removeRole(String key) {
         roles.remove(key);

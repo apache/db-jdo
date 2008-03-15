@@ -61,7 +61,7 @@ public class RelationshipManyToManyNoRelationships extends AbstractRelationshipT
     }
         
     /**
-     * @see JDO_Test#localSetUp()
+     * @see AbstractRelationshipTest#localSetUp()
      */
     protected void localSetUp() {
         super.localSetUp();
