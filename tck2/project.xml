@@ -59,25 +59,25 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-core</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-rdbms</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-enhancer</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-java5</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
@@ -130,13 +130,13 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-c3p0</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>jpox</groupId>
             <artifactId>jpox-dbcp</artifactId>
-            <version>1.2</version>
+            <version>1.2.0</version>
             <url>http://www.jpox.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
