@@ -812,7 +812,8 @@ public class JDOHelper implements Constants {
         
         throw new JDOFatalUserException(msg.msg(
                 "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"),
-                exceptions.toArray(new Throwable[exceptions.size()]));
+                (Throwable[])
+                    exceptions.toArray(new Throwable[exceptions.size()]));
     }
 
     /** Get a class name from a URL. The URL is from getResources with 
