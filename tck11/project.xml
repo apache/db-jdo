@@ -103,6 +103,8 @@ There are no unit tests in this project.
 
     <build>
         <sourceDirectory>test/java</sourceDirectory>
+        <defaultGoal>jar:install</defaultGoal>
+
         <resources>
             <resource>
                 <directory>${basedir}/..</directory>

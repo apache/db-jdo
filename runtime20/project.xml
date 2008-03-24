@@ -67,6 +67,8 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- =================== -->
     <build>
         <sourceDirectory>src/java</sourceDirectory>
+        <defaultGoal>jar:install</defaultGoal>
+
         <!-- Exclude JDK5 specific classes in a non JDK5 environment. -->
         <sourceModifications>
             <sourceModification>

@@ -38,6 +38,7 @@
     <!-- =================== -->
     <build>
         <sourceDirectory>src/java</sourceDirectory>
+        <defaultGoal>jar:install</defaultGoal>
     </build>
 </project>
 

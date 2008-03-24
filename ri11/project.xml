@@ -73,6 +73,8 @@ Request 12 JSR 12 under the auspices of the Java Community Process.</description
     <!-- =================== -->
     <build>
         <sourceDirectory>src/java</sourceDirectory>
+        <defaultGoal>jar:install</defaultGoal>
+
         <unitTestSourceDirectory>test/java</unitTestSourceDirectory>
         <!-- Unit test cases -->
         <unitTest>
