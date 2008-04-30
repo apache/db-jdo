@@ -24,7 +24,7 @@
     <!--
     -->
     <persistence-manager-factory
-        class="org.jpox.PersistenceManagerFactoryImpl"
+        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -37,22 +37,22 @@
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
     <property name="jdo.tck.mapping" value="0"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
 
      <persistence-manager-factory
         name="namedPMF0"
-        class="org.jpox.PersistenceManagerFactoryImpl"
+        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -64,22 +64,22 @@
 
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
 
     <persistence-manager-factory
         name=" namedPMF1  "
-        class="org.jpox.PersistenceManagerFactoryImpl"
+        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -91,22 +91,22 @@
 
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/>
     </persistence-manager-factory>
 
     <persistence-manager-factory
         name="pmfTestInstanceLifecycleListener"
-        class="org.jpox.PersistenceManagerFactoryImpl"
+        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -118,17 +118,17 @@
 
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/> 
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/> 
 
     <instance-lifecycle-listener
         listener="listener.listener0"

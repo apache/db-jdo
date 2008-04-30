@@ -57,22 +57,22 @@ NOTE!! There are no unit tests in this project.</description>
             <version>2.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-core</artifactId>
-            <version>1.2-SNAPSHOT</version>
-            <url>http://www.jpox.org/downloads/maven-nightly</url>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-rdbms</artifactId>
-            <version>1.2-SNAPSHOT</version>
-            <url>http://www.jpox.org/downloads/maven-nightly</url>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-rdbms</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-enhancer</artifactId>
-            <version>1.2-SNAPSHOT</version>
-            <url>http://www.jpox.org/downloads/maven-nightly</url>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-enhancer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>
@@ -121,16 +121,10 @@ NOTE!! There are no unit tests in this project.</description>
         </dependency>
         <!-- dependencies for connection pooling -->
         <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-c3p0</artifactId>
-            <version>1.2-SNAPSHOT</version>
-            <url>http://www.jpox.org/downloads/maven-nightly</url>
-        </dependency>
-        <dependency>
-            <groupId>jpox</groupId>
-            <artifactId>jpox-dbcp</artifactId>
-            <version>1.2-SNAPSHOT</version>
-            <url>http://www.jpox.org/downloads/maven-nightly</url>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-connectionpool</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>

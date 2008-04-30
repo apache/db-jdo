@@ -656,15 +656,14 @@
 
     <!-- Jar files for the Reference Implementation -->
     <path id="jdo.jdori.classpath">
-        <pathelement location="${jpox.jdori.jarfile}" />
-        <pathelement location="${jpox.rdbms.jarfile}" />
-        <pathelement location="${jpox.enhancer.jarfile}" />
+        <pathelement location="${datanucleus.jdori.jarfile}" />
+        <pathelement location="${datanucleus.rdbms.jarfile}" />
+        <pathelement location="${datanucleus.enhancer.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
         <pathelement location="${asm.jarfile}" />
         <pathelement location="${logging.log4j.jarfile}" />
-        <pathelement location="${jpox.dbcp.jarfile}" />
-        <pathelement location="${jpox.c3p0.jarfile}" />
+        <pathelement location="${datanucleus.connectionpool.jarfile}" />
     </path>
 
     <!-- Jar files for connection pooling -->
