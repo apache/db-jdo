@@ -26,10 +26,10 @@
     <name>JDO2 Implementation (Runtime)</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-runtime</artifactId>
-    <currentVersion>2.1-SNAPSHOT</currentVersion>
+    <currentVersion>${currentVersion}</currentVersion>
     <package>org.apache.jdo</package>
-    <shortDescription>Java Data Objects 2.0 (JDO) Runtime</shortDescription>
-    <description>The Java Data Objects 2.0 (JDO) API is a standard interface-based 
+    <shortDescription>Java Data Objects 2 (JDO) Runtime</shortDescription>
+    <description>The Java Data Objects 2 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request JSR 243 under the auspices of the Java Community Process.</description>
     <!-- ============ -->
@@ -39,17 +39,17 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>${currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-util</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>${currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-model</artifactId>
-            <version>2.1-SNAPSHOT</version>
+            <version>${currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
