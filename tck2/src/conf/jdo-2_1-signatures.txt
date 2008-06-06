@@ -389,6 +389,7 @@ public class javax.jdo.JDODataStoreException extends javax.jdo.JDOCanRetryExcept
 public class javax.jdo.JDODetachedFieldAccessException extends javax.jdo.JDOUserException {
     public JDODetachedFieldAccessException();
     public JDODetachedFieldAccessException(String msg);
+    public JDODetachedFieldAccessException(String, Object);
     public JDODetachedFieldAccessException(String msg, Throwable[] nested);
     public JDODetachedFieldAccessException(String msg, Throwable nested);
 }
@@ -417,6 +418,8 @@ public class javax.jdo.JDOFatalDataStoreException extends javax.jdo.JDOFatalExce
     public JDOFatalDataStoreException(String msg, Object failed);
     public JDOFatalDataStoreException(String msg, Throwable[] nested);
     public JDOFatalDataStoreException(String msg, Throwable nested);
+    public JDOFatalDataStoreException(String msg, Throwable[] nested, Object failed);
+    public JDOFatalDataStoreException(String msg, Throwable nested, Object failed);
 }
 
 public class javax.jdo.JDOFatalException extends javax.jdo.JDOException {
@@ -434,6 +437,9 @@ public class javax.jdo.JDOFatalInternalException extends javax.jdo.JDOFatalExcep
     public JDOFatalInternalException(String msg);
     public JDOFatalInternalException(String msg, Throwable[] nested);
     public JDOFatalInternalException(String msg, Throwable nested);
+    public JDOFatalInternalException(String msg, Object failed);
+    public JDOFatalInternalException(String msg, Throwable[] nested, Object failed);
+    public JDOFatalInternalException(String msg, Throwable nested, Object failed);
 }
 
 public class javax.jdo.JDOFatalUserException extends javax.jdo.JDOFatalException {
@@ -493,7 +499,10 @@ public class javax.jdo.JDOObjectNotFoundException extends javax.jdo.JDODataStore
     public JDOObjectNotFoundException();
     public JDOObjectNotFoundException(String msg);
     public JDOObjectNotFoundException(String msg, Object failed);
+    public JDOObjectNotFoundException(String msg, Throwable nested);
+    public JDOObjectNotFoundException(String msg, Throwable nested, Object failed);
     public JDOObjectNotFoundException(String msg, Throwable[] nested);
+    public JDOObjectNotFoundException(String msg, Throwable[] nested, Object failed);
 }
 
 public class javax.jdo.JDOOptimisticVerificationException extends javax.jdo.JDOFatalDataStoreException {
@@ -501,6 +510,8 @@ public class javax.jdo.JDOOptimisticVerificationException extends javax.jdo.JDOF
     public JDOOptimisticVerificationException(String msg);
     public JDOOptimisticVerificationException(String msg, Object failed);
     public JDOOptimisticVerificationException(String msg, Throwable[] nested);
+    public JDOOptimisticVerificationException(String msg, Throwable nested, Object failed);
+    public JDOOptimisticVerificationException(String msg, Throwable[] nested, Object failed);
 }
 
 public class javax.jdo.JDOUnsupportedOptionException extends javax.jdo.JDOUserException {
@@ -515,6 +526,9 @@ public class javax.jdo.JDOUserCallbackException extends javax.jdo.JDOUserExcepti
     public JDOUserCallbackException(String msg);
     public JDOUserCallbackException(String msg, Throwable[] nested);
     public JDOUserCallbackException(String msg, Throwable nested);
+    public JDOUserCallbackException(String msg, Object failed);
+    public JDOUserCallbackException(String msg, Throwable[] nested, Object failed);
+    public JDOUserCallbackException(String msg, Throwable nested, Object failed);
 }
 
 public class javax.jdo.JDOUserException extends javax.jdo.JDOCanRetryException {
