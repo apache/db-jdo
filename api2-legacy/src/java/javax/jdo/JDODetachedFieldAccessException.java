@@ -49,6 +49,16 @@ public class JDODetachedFieldAccessException extends JDOUserException {
     super(msg);
   }
 
+  /** Constructs a new <code>JDODetachedFieldAccessException</code> 
+   * with the specified detail message
+   * and failed object.
+   * @param msg the detail message.
+   * @param failed the failed object.
+   */
+  public JDODetachedFieldAccessException(String msg, Object failed) {
+    super(msg, failed);
+  }
+  
   /**
    * Constructs a new <code>JDODetachedFieldAccessException</code> with the
    * specified detail message and nested <code>Throwable</code>s.

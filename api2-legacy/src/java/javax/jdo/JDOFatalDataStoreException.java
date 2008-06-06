@@ -71,5 +71,27 @@ public class JDOFatalDataStoreException extends JDOFatalException {
   public JDOFatalDataStoreException(String msg, Throwable nested) {
     super(msg, nested);
   }
+  
+  /**
+   * Constructs a new <code>JDOFatalDataStoreException</code> with the specified
+   * detail message, nested <code>Throwable</code>s, and failed object.
+   * @param msg the detail message.
+   * @param nested the nested <code>Throwable[]</code>.
+   * @param failed the failed object.
+   */
+  public JDOFatalDataStoreException(String msg, Throwable[] nested, Object failed) {
+    super(msg, nested, failed);
+  }
+
+  /**
+   * Constructs a new <code>JDOFatalDataStoreException</code> with the specified
+   * detail message, nested <code>Throwable</code>s, and failed object.
+   * @param msg the detail message.
+   * @param nested the nested <code>Throwable</code>.
+   * @param failed the failed object.
+   */
+  public JDOFatalDataStoreException(String msg, Throwable nested, Object failed) {
+    super(msg, nested, failed);
+  }
 }
 

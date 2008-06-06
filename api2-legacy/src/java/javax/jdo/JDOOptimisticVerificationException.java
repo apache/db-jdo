@@ -59,12 +59,34 @@ public class JDOOptimisticVerificationException extends JDOFatalDataStoreExcepti
   
   /**
    * Constructs a new <code>JDOOptimisticVerificationException</code> with the 
-   * specified detail message and nested <code>Throwable</code>s.
+   * specified detail message and nested <code>Throwable[]</code>s.
    * @param msg the detail message.
    * @param nested the nested <code>Throwable[]</code>.
    */
   public JDOOptimisticVerificationException(String msg, Throwable[] nested) {
     super(msg, nested);
+  }
+  
+  /**
+   * Constructs a new <code>JDOOptimisticVerificationException</code> with the specified
+   * detail message, nested <code>Throwable</code>s, and failed object.
+   * @param msg the detail message.
+   * @param nested the nested <code>Throwable[]</code>.
+   * @param failed the failed object.
+   */
+  public JDOOptimisticVerificationException(String msg, Throwable[] nested, Object failed) {
+    super(msg, nested, failed);
+  }
+
+  /**
+   * Constructs a new <code>JDOOptimisticVerificationException</code> with the specified
+   * detail message, nested <code>Throwable</code>s, and failed object.
+   * @param msg the detail message.
+   * @param nested the nested <code>Throwable</code>.
+   * @param failed the failed object.
+   */
+  public JDOOptimisticVerificationException(String msg, Throwable nested, Object failed) {
+    super(msg, nested, failed);
   }
 
 }
