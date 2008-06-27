@@ -103,6 +103,22 @@ public class LongIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Determine the ordering of identity objects.
+     * @param o Other identity
+     * @return The relative ordering between the objects
+     * @since 2.2
+     */
+    public int compareTo(Object o) {
+        if (o instanceof LongIdentity) {
+        	LongIdentity other = (LongIdentity)o;
+            return (int)(key - other.key);
+        }
+        else if (o == null) {
+            throw new ClassCastException("object is null");
+        }
+        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+    }
+
     /** Create the key as an Object.
      * @return the key as an Object
      * @since 2.0

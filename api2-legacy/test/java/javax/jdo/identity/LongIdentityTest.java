@@ -127,4 +127,13 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected exception.");
     }
 
+    public void testCompareTo() {
+    	LongIdentity c1 = new LongIdentity(Object.class, 1);
+    	LongIdentity c2 = new LongIdentity(Object.class, 1);
+    	LongIdentity c3 = new LongIdentity(Object.class, 2);
+        assertEquals("Equal LongIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal LongIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal LongIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+    }
+
 }

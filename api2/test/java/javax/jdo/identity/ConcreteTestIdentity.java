@@ -22,7 +22,6 @@
 
 package javax.jdo.identity;
 
-import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
@@ -42,7 +41,16 @@ import java.io.ObjectOutput;
         public ConcreteTestIdentity() {
             super();
         }
-        
+
+        /** Determine the ordering of identity objects.
+         * @param o Other identity
+         * @return The relative ordering between the objects
+         * @since 2.2
+         */
+        public int compareTo(Object o) {
+            throw new ClassCastException("Not implemented");
+        }
+
         public void writeExternal(ObjectOutput out) throws IOException {
             super.writeExternal(out);
         } 

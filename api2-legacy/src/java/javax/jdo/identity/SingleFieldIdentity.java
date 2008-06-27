@@ -40,7 +40,7 @@ import javax.jdo.spi.I18NHelper;
  * @version 2.0
  */
 public abstract class SingleFieldIdentity
-    implements Externalizable {
+    implements Externalizable, Comparable {
     
     /** The Internationalization message helper.
      */

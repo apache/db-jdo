@@ -126,4 +126,12 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected exception.");
     }
 
+    public void testCompareTo() {
+    	ShortIdentity c1 = new ShortIdentity(Object.class, (short)1);
+    	ShortIdentity c2 = new ShortIdentity(Object.class, (short)1);
+    	ShortIdentity c3 = new ShortIdentity(Object.class, (short)2);
+        assertEquals("Equal IntIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal IntIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal IntIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+    }
 }

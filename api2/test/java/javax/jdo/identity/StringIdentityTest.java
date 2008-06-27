@@ -89,4 +89,12 @@ public class StringIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected exception.");
     }
 
+    public void testCompareTo() {
+    	StringIdentity c1 = new StringIdentity(Object.class, "1");
+    	StringIdentity c2 = new StringIdentity(Object.class, "1");
+    	StringIdentity c3 = new StringIdentity(Object.class, "2");
+        assertEquals("Equal StringIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal StringIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal StringIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+    }
 }

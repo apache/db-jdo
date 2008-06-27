@@ -133,6 +133,28 @@ public class ObjectIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Determine the ordering of identity objects.
+     * @param o Other identity
+     * @return The relative ordering between the objects
+     * @since 2.2
+     */
+    public int compareTo(Object o) {
+        if (o instanceof ObjectIdentity) {
+        	ObjectIdentity other = (ObjectIdentity)o;
+        	if (other.keyAsObject instanceof Comparable && keyAsObject instanceof Comparable) {
+        		return ((Comparable)keyAsObject).compareTo((Comparable)other.keyAsObject);
+        	}
+        	else
+        	{
+        		throw new ClassCastException("The key class (" + 
+        				keyAsObject.getClass().getName() + 
+        				") does not implement Comparable");
+        	}
+        }
+    	// Just disallow comparison. Could make some assumptions about being Date, Locale etc
+        throw new ClassCastException("ObjectIdentity cannot be used for comparator ordering");
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */

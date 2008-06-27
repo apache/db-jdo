@@ -127,4 +127,13 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected exception.");
     }
 
+    public void testCompareTo() {
+    	ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
+        ByteIdentity c2 = new ByteIdentity(Object.class, (byte)1);
+        ByteIdentity c3 = new ByteIdentity(Object.class, (byte)2);
+        assertEquals("Equal ByteIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal ByteIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal ByteIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+    }
+
 }

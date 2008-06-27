@@ -136,4 +136,13 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
         fail ("Failed to catch expected exception.");
     }
 
+    public void testCompareTo() {
+    	CharIdentity c1 = new CharIdentity(Object.class, '1');
+    	CharIdentity c2 = new CharIdentity(Object.class, '1');
+    	CharIdentity c3 = new CharIdentity(Object.class, '2');
+        assertEquals("Equal CharIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal CharIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal CharIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+    }
+
 }

@@ -78,6 +78,22 @@ public class StringIdentity extends SingleFieldIdentity {
         }
     }
 
+    /** Determine the ordering of identity objects.
+     * @param o Other identity
+     * @return The relative ordering between the objects
+     * @since 2.2
+     */
+    public int compareTo(Object o) {
+        if (o instanceof StringIdentity) {
+            StringIdentity other = (StringIdentity)o;
+            return ((String)this.keyAsObject).compareTo((String)other.keyAsObject);
+        }
+        else if (o == null) {
+            throw new ClassCastException("object is null");
+        }
+        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+    }
+
     /** Write this object. Write the superclass first.
      * @param out the output
      */
