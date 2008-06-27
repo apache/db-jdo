@@ -465,6 +465,26 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     String getTransactionType();
 
+    /** Gets the value for read-only for this PMF.
+     * Indicates whether the datastore is readonly or writable.
+     * @see #setReadOnly(boolean)
+     * @since 2.2
+     * @return the readOnly setting.
+     */
+    boolean getReadOnly();
+
+    /** Sets the value for whether the datastore is to be considered
+     * read-only.
+     *
+     * <P>ReadOnly set to <code>false</code> specifies that no updates
+     * can be performed to the datastore, and if updates are attempted
+     * a JDOReadOnlyException is thrown.
+     *
+     * @see #getReadOnly()
+     * @since 2.2
+     */
+    void setReadOnly(boolean flag);
+
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.
      * Properties with keys <code>VendorName</code> and 
