@@ -141,18 +141,28 @@ public class ObjectIdentity extends SingleFieldIdentity {
     public int compareTo(Object o) {
         if (o instanceof ObjectIdentity) {
         	ObjectIdentity other = (ObjectIdentity)o;
-        	if (other.keyAsObject instanceof Comparable && keyAsObject instanceof Comparable) {
-        		return ((Comparable)keyAsObject).compareTo((Comparable)other.keyAsObject);
-        	}
-        	else
-        	{
-        		throw new ClassCastException("The key class (" + 
-        				keyAsObject.getClass().getName() + 
-        				") does not implement Comparable");
-        	}
+            int result = super.compare(other);
+            if (result == 0) {
+                if (other.keyAsObject instanceof Comparable && 
+                        keyAsObject instanceof Comparable) {
+                    return ((Comparable)keyAsObject).compareTo(
+                            (Comparable)other.keyAsObject);
+                }
+                else
+                {
+                    throw new ClassCastException("The key class (" + 
+                            keyAsObject.getClass().getName() + 
+                            ") does not implement Comparable");
+                }
+            } else {
+                return result;
+            }
         }
-    	// Just disallow comparison. Could make some assumptions about being Date, Locale etc
-        throw new ClassCastException("ObjectIdentity cannot be used for comparator ordering");
+        else if (o == null) {
+            throw new ClassCastException("object is null");
+        }
+        throw new ClassCastException(this.getClass().getName() + 
+                " != " + o.getClass().getName());
     }
 
     /** Write this object. Write the superclass first.
