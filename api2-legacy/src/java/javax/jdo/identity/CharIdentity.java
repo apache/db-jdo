@@ -121,7 +121,12 @@ public class CharIdentity extends SingleFieldIdentity {
     public int compareTo(Object o) {
         if (o instanceof CharIdentity) {
         	CharIdentity other = (CharIdentity)o;
-            return (int)(key - other.key);
+            int result = super.compare(other);
+            if (result == 0) {
+                return (key - other.key);
+            } else {
+                return result;
+            }
         }
         else if (o == null) {
             throw new ClassCastException("object is null");

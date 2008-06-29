@@ -131,9 +131,10 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     	ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
         ByteIdentity c2 = new ByteIdentity(Object.class, (byte)1);
         ByteIdentity c3 = new ByteIdentity(Object.class, (byte)2);
+        ByteIdentity c4 = new ByteIdentity(Class.class, (byte)1);
         assertEquals("Equal ByteIdentity instances compare not equal.", 0, c1.compareTo(c2));
         assertTrue("Not equal ByteIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
         assertTrue("Not equal ByteIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal ByteIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
     }
-
 }

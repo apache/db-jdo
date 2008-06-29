@@ -140,8 +140,10 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
     	CharIdentity c1 = new CharIdentity(Object.class, '1');
     	CharIdentity c2 = new CharIdentity(Object.class, '1');
     	CharIdentity c3 = new CharIdentity(Object.class, '2');
+        CharIdentity c4 = new CharIdentity(Class.class, '1');
         assertEquals("Equal CharIdentity instances compare not equal.", 0, c1.compareTo(c2));
         assertTrue("Not equal CharIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
         assertTrue("Not equal CharIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal CharIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
     }
 }

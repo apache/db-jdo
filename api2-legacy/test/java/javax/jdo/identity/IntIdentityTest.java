@@ -130,9 +130,10 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     	IntIdentity c1 = new IntIdentity(Object.class, 1);
     	IntIdentity c2 = new IntIdentity(Object.class, 1);
     	IntIdentity c3 = new IntIdentity(Object.class, 2);
+        IntIdentity c4 = new IntIdentity(Class.class, 1);
         assertEquals("Equal IntIdentity instances compare not equal.", 0, c1.compareTo(c2));
         assertTrue("Not equal IntIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
         assertTrue("Not equal IntIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal IntIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
     }
-
 }

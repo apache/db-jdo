@@ -93,8 +93,10 @@ public class StringIdentityTest extends SingleFieldIdentityTest {
     	StringIdentity c1 = new StringIdentity(Object.class, "1");
     	StringIdentity c2 = new StringIdentity(Object.class, "1");
     	StringIdentity c3 = new StringIdentity(Object.class, "2");
+        StringIdentity c4 = new StringIdentity(Class.class, "1");
         assertEquals("Equal StringIdentity instances compare not equal.", 0, c1.compareTo(c2));
         assertTrue("Not equal StringIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
         assertTrue("Not equal StringIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal StringIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
     }
 }

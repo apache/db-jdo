@@ -46,8 +46,10 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
         LongIdentity c1 = new LongIdentity(Object.class, 1);
         LongIdentity c2 = new LongIdentity(Object.class, 1);
         LongIdentity c3 = new LongIdentity(Object.class, 2);
+        LongIdentity c4 = new LongIdentity(Object.class, 0x100000001L);
         assertEquals("Equal LongIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal LongIdentity instances compare equal", c1.equals(c3));
+        assertFalse ("Not equal LongIdentity instances compare equal", c4.equals(c1));
     }
 
     public void testLongConstructor() {
@@ -131,9 +133,12 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
     	LongIdentity c1 = new LongIdentity(Object.class, 1);
     	LongIdentity c2 = new LongIdentity(Object.class, 1);
     	LongIdentity c3 = new LongIdentity(Object.class, 2);
+        LongIdentity c4 = new LongIdentity(Class.class, 1);
+    	LongIdentity c5 = new LongIdentity(Object.class, 0x100000001L);
         assertEquals("Equal LongIdentity instances compare not equal.", 0, c1.compareTo(c2));
         assertTrue("Not equal LongIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
         assertTrue("Not equal LongIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal LongIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
+        assertTrue("Not equal LongIdentity instances have wrong compareTo result", c5.compareTo(c1) > 0);
     }
-
 }

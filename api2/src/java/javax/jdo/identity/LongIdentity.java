@@ -111,7 +111,21 @@ public class LongIdentity extends SingleFieldIdentity {
     public int compareTo(Object o) {
         if (o instanceof LongIdentity) {
         	LongIdentity other = (LongIdentity)o;
-            return (int)(key - other.key);
+            int result = super.compare(other);
+            if (result == 0) {
+                long diff = key - other.key;
+                if (diff == 0) {
+                    return 0;
+                } else {
+                    if (diff < 0) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
+            } else {
+                return result;
+            }
         }
         else if (o == null) {
             throw new ClassCastException("object is null");

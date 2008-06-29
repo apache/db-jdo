@@ -186,4 +186,15 @@ public abstract class SingleFieldIdentity
         targetClassName = (String)in.readObject();
         hashCode = in.readInt();
     }
+
+    /** Determine the ordering of identity objects. Only the class name
+     *  is compared. This method is only used by subclasses.
+     * @param o Other identity
+     * @return The relative ordering between the objects
+     * @since 2.2
+     */
+    protected int compare(SingleFieldIdentity o) {
+            return targetClassName.compareTo(o.targetClassName);
+        }
+ 
 }

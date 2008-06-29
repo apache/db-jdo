@@ -110,9 +110,14 @@ public class IntIdentity extends SingleFieldIdentity {
     public int compareTo(Object o) {
         if (o instanceof IntIdentity) {
         	IntIdentity other = (IntIdentity)o;
-            return key - other.key;
+            int result = super.compare(other);
+            if (result == 0) {
+                return (key - other.key);
+            } else {
+                return result;
+            }
         }
-        else if (o == null) {
+       else if (o == null) {
             throw new ClassCastException("object is null");
         }
         throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());

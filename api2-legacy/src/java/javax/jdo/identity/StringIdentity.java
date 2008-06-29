@@ -86,7 +86,12 @@ public class StringIdentity extends SingleFieldIdentity {
     public int compareTo(Object o) {
         if (o instanceof StringIdentity) {
             StringIdentity other = (StringIdentity)o;
-            return ((String)this.keyAsObject).compareTo((String)other.keyAsObject);
+            int result = super.compare(other);
+            if (result == 0) {
+                return ((String)keyAsObject).compareTo((String)other.keyAsObject);
+            } else {
+                return result;
+            }
         }
         else if (o == null) {
             throw new ClassCastException("object is null");
