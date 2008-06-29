@@ -142,6 +142,17 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
         assertEquals ("Equal ObjectIdentity instances compare not equal.", c1, c2);
     }
 
+    public void testDateCompareTo() {
+    	ObjectIdentity c1 = new ObjectIdentity(Object.class, new Date(1));
+    	ObjectIdentity c2 = new ObjectIdentity(Object.class, new Date(1));
+    	ObjectIdentity c3 = new ObjectIdentity(Object.class, new Date(2));
+        ObjectIdentity c4 = new ObjectIdentity(Class.class, new Date(1));
+        assertEquals("Equal ObjectIdentity instances compare not equal.", 0, c1.compareTo(c2));
+        assertTrue("Not equal ObjectIdentity instances have wrong compareTo result", c1.compareTo(c3) < 0);
+        assertTrue("Not equal ObjectIdentity instances have wrong compareTo result", c3.compareTo(c1) > 0); 
+        assertTrue("Not equal ObjectIdentity instances have wrong compareTo result", c1.compareTo(c4) > 0);
+    }
+
     public void testBadStringConstructorNullClass() {
         try {
             ObjectIdentity c1 = new ObjectIdentity(null, "1");
