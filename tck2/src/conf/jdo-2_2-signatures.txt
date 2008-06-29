@@ -330,6 +330,7 @@ public class javax.jdo.identity.ObjectIdentity extends javax.jdo.identity.Single
     public Object getKey();
     public String toString();
     public boolean equals(Object obj);
+    public int compareTo(Object obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
