@@ -1,0 +1,36 @@
+// JUnit code base
+grant codeBase "file://${jdo.tck.junit.jarfile}" {
+    permission java.io.FilePermission "${user.home}/junit.properties", "read";
+};
+
+// TCK test classes
+grant codeBase "file://${jdo.tck.testclasses.dir}/-" {
+    permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
+// JDO API code base
+grant codeBase "file://${jdo.api.jarfile}" {
+    permission javax.jdo.spi.JDOPermission "getMetadata";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
+// JDO RI code base
+grant codeBase "file://${jdo.tck.jdori.jarfile}" {
+    permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+    permission javax.jdo.spi.JDOPermission "getMetadata";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
+// All classes in the classpath
+grant {
+// c3p0 seems to require PropertyPermission of write (don't know why)
+    permission java.util.PropertyPermission "*", "read, write";
+    permission java.io.FilePermission "${user.home}/.maven/repository/-", "read";
+    permission java.io.FilePermission "${jdo.tck.basedir}/target/-", "read, write";
+// bug in security? needed for Derby to create tck2/target/database/derby/../../logs
+    permission java.io.FilePermission "${jdo.tck.basedir}/-", "read, write, delete";
+// needed for JNDI FSContext
+    permission java.io.FilePermission "/", "read";
+    permission java.lang.RuntimePermission "createClassLoader";
+};

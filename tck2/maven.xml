@@ -124,6 +124,12 @@
         <j:set var="true" value="true"/>
         <j:set var="false" value="false"/>
 
+        <j:if test="${jdo.tck.security}">
+            <j:set var="jdo.tck.security.jvmargs" 
+                value="-Djava.security.manager -Djava.security.policy=${basedir}/src/conf/security.policy"/>
+        <echo message="Running with Java security manager settings: ${jdo.tck.security.jvmargs}"/>
+        </j:if>
+
         <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
         <j:if test="${cfglist == null}">
             <u:properties file="${basedir}/src/conf/configurations.list"/>
@@ -248,6 +254,9 @@
               <arg value="${basedir}/src/sql/${jdo.tck.database}/${jdo.tck.identitytype}/${jdo.tck.schema}"/>
               <sysproperty key="derby.system.home"
                       value="${jdo.tck.testdir}/database/${jdo.tck.database}"/>
+              <sysproperty key="jdo.tck.basedir"
+                      value="${jdo.tck.basedir}"/>
+              <jvmarg line="${jdo.tck.security.jvmargs}"/>
         </java>
     </goal>
 
@@ -488,10 +497,21 @@
                          value="${jdo.tck.closePMFAfterEachTest}"/>
             <sysproperty key="jdo.tck.signaturefile"
                          value="${jdo.tck.signaturefile}"/>
+            <sysproperty key="jdo.tck.junit.jarfile"
+                         value="${junit.jarfile}"/>
+            <sysproperty key="jdo.tck.testclasses.dir"
+                         value="${jdo.tck.testclasses.dir}"/>
+            <sysproperty key="jdo.api.jarfile"
+                         value="${jdo.api.jarfile}"/>
+            <sysproperty key="jdo.tck.basedir"
+                         value="${jdo.tck.basedir}"/>
+            <sysproperty key="jdo.tck.jdori.jarfile"
+                         value="${datanucleus.jdori.jarfile}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdori.runtck.sysproperties}"/>
             <jvmarg line="${jdo.tck.debug.jvmargs}"/>
+            <jvmarg line="${jdo.tck.security.jvmargs}"/>
             
             <arg line="${jdo.tck.classes}"/>
         </java>
