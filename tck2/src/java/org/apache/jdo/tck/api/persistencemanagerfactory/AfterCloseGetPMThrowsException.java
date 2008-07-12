@@ -62,7 +62,7 @@ public class AfterCloseGetPMThrowsException extends JDO_Test {
     public void test() {
         try {
             pmf = getPMF();
-            pmf.close();
+            closePMF(pmf); // don't use closePMF() because that sets pmf to null
             pm = pmf.getPersistenceManager();
             fail(ASSERTION_FAILED,
                 "pmf.getPersistenceManager should throw JDOUserException if pmf is closed.");

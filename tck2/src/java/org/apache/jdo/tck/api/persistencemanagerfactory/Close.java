@@ -63,7 +63,7 @@ public class Close extends JDO_Test {
                      "PMF.isClosed() returned true on an open pmf");
             }
         
-            pmf.close();
+            closePMF(pmf); // don't use closePMF() because that sets pmf to null
             
             if (!pmf.isClosed()) {
                 fail(ASSERTION_FAILED,

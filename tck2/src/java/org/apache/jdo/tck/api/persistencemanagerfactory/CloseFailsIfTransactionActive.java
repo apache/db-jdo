@@ -82,7 +82,7 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
             pm1.currentTransaction().begin();
             pm1.currentTransaction().commit();
             pm2.currentTransaction().begin();
-            pmf.close();
+            closePMF(pmf); // don't use closePMF() because that sets pmf to null
             setAborted();
             fail(ASSERTION_FAILED,
                  "Close incorrectly succeeded with active transaction");
@@ -127,7 +127,7 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
         if (!isAborted()) {
             try {
                 pm2.currentTransaction().commit();
-                pmf.close();
+                closePMF(pmf); // don't use closePMF() because that sets pmf to null
                 if (!pm1.isClosed()){
                     fail(ASSERTION_FAILED,
                          "Unexpected pm1 is not closed.");
@@ -147,7 +147,7 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
     /** */
     protected void cleanupPMF(PersistenceManagerFactory pmf) {
         try {
-            pmf.close();
+            closePMF(pmf); // don't use closePMF() because that sets pmf to null
         } catch (JDOException ex) {
             PersistenceManager[] pms = getFailedPersistenceManagers(ex);
             int numberOfPersistenceManagers = pms.length;

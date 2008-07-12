@@ -563,8 +563,9 @@ public abstract class JDO_Test extends TestCase {
         JDOException failure = null;
         while (pmf != null) {
             try {
-                if (!pmf.isClosed())
-                    pmf.close();
+                if (!pmf.isClosed()) {
+                    closePMF(pmf);
+                }
                 pmf = null;
             }
             catch (JDOException ex) {
@@ -577,12 +578,36 @@ public abstract class JDO_Test extends TestCase {
                     cleanupPM(pms[i]);
                 }
             }
+            catch (RuntimeException ex) {
+                pmf = null;
+                ex.printStackTrace(System.out);
+                throw ex;
+            }
         }
 
         // rethrow JDOException thrown by pmf.close
         if (failure != null)
             throw failure;
     }
+
+    /** Closes the pmf passed as a parameter. 
+     * This must be done in a doPrivileged block.
+     */
+    public static void closePMF(final PersistenceManagerFactory PMF) {
+        if (PMF != null) {
+            if (!PMF.isClosed()) {
+                AccessController.doPrivileged(
+                    new PrivilegedAction () {
+                        public Object run () {
+                            PMF.close();
+                            return null;
+                        }
+                    }
+                );
+            }
+        }
+    }
+
 
     /** */
     protected static PersistenceManager[] getFailedPersistenceManagers(

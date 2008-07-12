@@ -156,7 +156,7 @@ public class Jdoconfig extends JDO_Test {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned true on an open pmf");
         }
-        privatePmf.close();
+        closePMF(privatePmf);
         // have next invocation of getPMF() get a new pmf
         privatePmf = null;
     }
@@ -171,7 +171,7 @@ public class Jdoconfig extends JDO_Test {
 
         makePersistent();
 
-        privatePmf.close();
+        closePMF(privatePmf);
         if (!privatePmf.isClosed()) {
             fail(ASSERTION_FAILED,
                     "PMF.isClosed() returned false on a closed pmf");

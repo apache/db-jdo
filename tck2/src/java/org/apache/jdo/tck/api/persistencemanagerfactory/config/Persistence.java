@@ -121,7 +121,7 @@ public class Persistence extends JDO_Test {
         }
         makePersistent();
 
-        pmf.close();
+        closePMF(pmf); // don't use closePMF() because that sets pmf to null
 
         if (!pmf.isClosed()) {
             fail(ASSERTION_FAILED,

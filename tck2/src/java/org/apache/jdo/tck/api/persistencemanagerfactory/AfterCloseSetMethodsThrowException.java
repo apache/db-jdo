@@ -102,7 +102,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         };
        
         pmf = getPMF();
-        pmf.close();
+        closePMF(pmf); // don't use closePMF() because that sets pmf to null
         // each set method should throw an exception
         Collection setCollection = Arrays.asList(setMethods);
         for (Iterator it = setCollection.iterator(); it.hasNext();) {
