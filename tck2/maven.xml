@@ -501,6 +501,8 @@
                          value="${junit.jarfile}"/>
             <sysproperty key="jdo.tck.testclasses.dir"
                          value="${jdo.tck.testclasses.dir}"/>
+            <sysproperty key="jdo.tck.enhanced.jarfile"
+                         value="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <sysproperty key="jdo.api.jarfile"
                          value="${jdo.api.jarfile}"/>
             <sysproperty key="jdo.tck.basedir"

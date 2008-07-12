@@ -9,6 +9,11 @@ grant codeBase "file://${jdo.tck.testclasses.dir}/-" {
     permission javax.jdo.spi.JDOPermission "setStateManager";
 };
 
+// TCK PC enhanced classes
+grant codebase "file://${jdo.tck.enhanced.jarfile}" {
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
 // JDO API code base
 grant codeBase "file://${jdo.api.jarfile}" {
     permission javax.jdo.spi.JDOPermission "getMetadata";
