@@ -156,7 +156,6 @@ public class JDOConfigListener extends JDO_Test {
         super.localTearDown();
         StoreListener.resetValues();
         StoreListenerGetInstance.resetValues();
-        pmf.close();
-        pmf = null;
+        closePMF();
     }
 }
