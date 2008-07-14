@@ -3,10 +3,24 @@ grant codeBase "file://${jdo.tck.junit.jarfile}" {
     permission java.io.FilePermission "${user.home}/junit.properties", "read";
 };
 
+// Springbeans code base
+grant codeBase "file://${jdo.tck.springbeans.jarfile}" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+};
+
+// Springcore code base
+grant codeBase "file://${jdo.tck.springcore.jarfile}" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+};
+
 // TCK test classes
 grant codeBase "file://${jdo.tck.testclasses.dir}/-" {
     permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
     permission javax.jdo.spi.JDOPermission "setStateManager";
+// needed for Springbeans
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
 };
 
 // TCK PC enhanced classes

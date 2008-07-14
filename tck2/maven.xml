@@ -509,6 +509,10 @@
                          value="${jdo.tck.basedir}"/>
             <sysproperty key="jdo.tck.jdori.jarfile"
                          value="${datanucleus.jdori.jarfile}"/>
+            <sysproperty key="jdo.tck.springcore.jarfile"
+                         value="${springcore.jarfile}"/>
+            <sysproperty key="jdo.tck.springbeans.jarfile"
+                         value="${springbeans.jarfile}"/>
                          
             <jvmarg line="${database.runtck.sysproperties}"/>
             <jvmarg line="${jdori.runtck.sysproperties}"/>
