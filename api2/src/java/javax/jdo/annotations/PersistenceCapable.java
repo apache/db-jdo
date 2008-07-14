@@ -70,6 +70,11 @@ public @interface PersistenceCapable
      */
     Class objectIdClass() default void.class;
 
+    /** Whether this class is cacheable in a Level2 cache.
+     * @since 2.2
+     */
+    boolean cacheable() default true;
+
     /** Any vendor extensions. 
      */
     Extension[] extensions() default {};

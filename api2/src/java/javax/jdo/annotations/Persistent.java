@@ -203,6 +203,11 @@ public @interface Persistent
      */
     int recursionDepth() default 1;
 
+    /** Whether this field/property is cacheable in a Level2 cache.
+     * @since 2.2
+     */
+    boolean cacheable() default true;
+
     /** Vendor extensions for this member. 
      * @return the vendor extensions
      */
