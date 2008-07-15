@@ -34,9 +34,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import junit.framework.AssertionFailedError;
-
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
@@ -44,7 +42,7 @@ import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.util.ConversionHelper;
 import org.apache.jdo.tck.util.EqualityHelper;
 
-public abstract class QueryTest extends JDO_Test {
+public abstract class QueryTest extends AbstractReaderTest {
 
     /** */
     public static final String SERIALZED_QUERY = "query.ser";
@@ -209,7 +207,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     public CompanyModelReader loadAndPersistCompanyModel(PersistenceManager pm) {
         makePersistentAll(
-            pm, getCompanyModelReaderForPersistentInstances().getRootList());
+            pm, getRootList(getCompanyModelReaderForPersistentInstances()));
         return getCompanyModelReaderForPersistentInstances();
     }
     
@@ -221,7 +219,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     public MylibReader loadAndPersistMylib(PersistenceManager pm) {
         makePersistentAll(
-            pm, getMylibReaderForPersistentInstances().getRootList());
+            pm, getRootList(getMylibReaderForPersistentInstances()));
         return getMylibReaderForPersistentInstances();
     }
 
@@ -251,7 +249,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected Object getPersistentCompanyModelInstance(String beanName) {
         return beanName == null ? null :
-            getCompanyModelReaderForPersistentInstances().getBean(beanName);
+            getBean(getCompanyModelReaderForPersistentInstances(),beanName);
     }
     
     /**
@@ -261,7 +259,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected Object getTransientCompanyModelInstance(String beanName) {
         return beanName == null ? null :
-            getCompanyModelReaderForTransientInstances().getBean(beanName);
+            getBean(getCompanyModelReaderForTransientInstances(),beanName);
     }
     
     /**
@@ -323,7 +321,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected Object getPersistentMylibInstance(String beanName) {
         return beanName == null ? 
-                null : getMylibReaderForPersistentInstances().getBean(beanName);
+                null : getBean(getMylibReaderForPersistentInstances(),beanName);
     }
     
     /**
@@ -333,7 +331,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected Object getTransientMylibInstance(String beanName) {
         return beanName == null ? 
-                null : getMylibReaderForTransientInstances().getBean(beanName);
+                null : getBean(getMylibReaderForTransientInstances(),beanName);
     }
     
     /**
@@ -968,7 +966,7 @@ public abstract class QueryTest extends JDO_Test {
     private void compile(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,  
             String singleStringQuery, boolean positive) {
-        PersistenceManager pm = getPM();
+        getPM();
         try {
             Query query;
             if (queryElementHolder != null) {
@@ -1011,7 +1009,7 @@ public abstract class QueryTest extends JDO_Test {
      */
     protected void compile(String assertion, 
             Query query, String queryText, boolean positive) {
-        PersistenceManager pm = getPM();
+        getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
@@ -1128,7 +1126,7 @@ public abstract class QueryTest extends JDO_Test {
     private Object execute(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
             Object parameters, Object expectedResult) {
-        PersistenceManager pm = getPM();
+        getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
@@ -1248,7 +1246,7 @@ public abstract class QueryTest extends JDO_Test {
             String singleStringQuery, boolean hasOrdering,
             Object parameters, Object expectedResult, boolean positive) {
         Object result = null;
-        PersistenceManager pm = getPM();
+        getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
@@ -1392,7 +1390,7 @@ public abstract class QueryTest extends JDO_Test {
     private void delete(String assertion, 
             QueryElementHolder queryElementHolder, boolean asSingleString,
             Object parameters, long expectedNrOfDeletedObjects) {
-        PersistenceManager pm = getPM();
+        getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
@@ -1425,7 +1423,7 @@ public abstract class QueryTest extends JDO_Test {
             String singleStringQuery, Object parameters, 
             long expectedNrOfDeletedObjects) {
         boolean positive = expectedNrOfDeletedObjects >= 0;
-        PersistenceManager pm = getPM();
+        getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {

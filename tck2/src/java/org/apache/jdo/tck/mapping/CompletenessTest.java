@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -40,20 +40,11 @@ import org.apache.jdo.tck.util.EqualityHelper;
  *<B>Assertion Description: </B>
  */
 
-public class CompletenessTest extends JDO_Test {
+public class CompletenessTest extends AbstractReaderTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A18-[not identified] failed: ";
-    
-    /** */
-    private final boolean isTestToBePerformed = isTestToBePerformed();
-
-    /** */
-    protected List rootOids;
-    
-    /** */
-    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
     
     /**
      * The <code>main</code> is called when the class
@@ -68,14 +59,14 @@ public class CompletenessTest extends JDO_Test {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        if (isTestToBePerformed) {
+        if (isTestToBePerformed()) {
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
             CompanyModelReader reader = new CompanyModelReader(inputFilename);
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList();
             for (Iterator i = rootList.iterator(); i.hasNext(); ) {
@@ -89,12 +80,12 @@ public class CompletenessTest extends JDO_Test {
 
     /** */
     public void test() {
-        if (isTestToBePerformed) {
+        if (isTestToBePerformed()) {
             // register the default factory
             CompanyFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
             CompanyModelReader reader = new CompanyModelReader(inputFilename);
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             
             getPM();
             pm.currentTransaction().begin();

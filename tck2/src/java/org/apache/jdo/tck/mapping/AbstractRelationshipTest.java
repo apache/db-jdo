@@ -18,29 +18,19 @@
 package org.apache.jdo.tck.mapping;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 
 /*
  * Abstract class for managed relationship tests
  */
-public class AbstractRelationshipTest extends JDO_Test {
-    
-    /** */
-    protected List rootOids;
-    
-    /** */
-    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
+public class AbstractRelationshipTest extends AbstractReaderTest {
     
     protected CompanyModelReader reader = null;
-    
-    protected Map oidMap = new HashMap();
     
     /** */
     protected final boolean isTestToBePerformed = isTestToBePerformed();
@@ -49,14 +39,14 @@ public class AbstractRelationshipTest extends JDO_Test {
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
-        if (isTestToBePerformed) {
+        if (isTestToBePerformed()) {
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
             reader = new CompanyModelReader(inputFilename);
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList();
             for (Iterator i = rootList.iterator(); i.hasNext(); ) {
@@ -81,9 +71,5 @@ public class AbstractRelationshipTest extends JDO_Test {
             cleanupPM();
         }
     }
-    
-    protected Object getOidByName(String name) {
-        return oidMap.get((Object)name);
-    }
-    
+
 }
