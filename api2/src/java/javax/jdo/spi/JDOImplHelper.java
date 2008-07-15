@@ -669,9 +669,8 @@ public class JDOImplHelper extends java.lang.Object {
     /** Register the default special StringConstructor instances.
      */
     static {
-        JDOImplHelper helper = getInstance();
         if (isClassLoadable("java.util.Currency")) {
-            helper.registerStringConstructor(
+            jdoImplHelper.registerStringConstructor(
                     Currency.class, new StringConstructor() {
                 public Object construct(String s) {
                     try {
@@ -688,7 +687,7 @@ public class JDOImplHelper extends java.lang.Object {
                 }
             });
         }
-        helper.registerStringConstructor(Locale.class, new StringConstructor() {
+        jdoImplHelper.registerStringConstructor(Locale.class, new StringConstructor() {
             public Object construct(String s) {
                 try {
                     return getLocale(s);
@@ -698,7 +697,7 @@ public class JDOImplHelper extends java.lang.Object {
                 }
             }
         });
-        helper.registerStringConstructor(Date.class, new StringConstructor() {
+        jdoImplHelper.registerStringConstructor(Date.class, new StringConstructor() {
             public synchronized Object construct(String s) {
                 try {
                     // first, try the String as a Long
