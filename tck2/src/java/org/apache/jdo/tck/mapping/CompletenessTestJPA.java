@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.company.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -40,7 +40,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  *<B>Assertion Description: </B>
  */
 
-public class CompletenessTestJPA extends JDO_Test {
+public class CompletenessTestJPA extends AbstractReaderTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -48,12 +48,6 @@ public class CompletenessTestJPA extends JDO_Test {
     
     /** */
     private final boolean isTestToBePerformed = isTestToBePerformed();
-
-    /** */
-    protected List rootOids;
-    
-    /** */
-    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
     
     /**
      * The <code>main</code> is called when the class
@@ -75,7 +69,7 @@ public class CompletenessTestJPA extends JDO_Test {
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList();
             for (Iterator i = rootList.iterator(); i.hasNext(); ) {
@@ -94,7 +88,7 @@ public class CompletenessTestJPA extends JDO_Test {
             CompanyFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
             CompanyModelReader reader = new CompanyModelReader(inputFilename);
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             
             getPM();
             pm.currentTransaction().begin();

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.order.OrderFactoryRegistry;
 import org.apache.jdo.tck.pc.order.OrderModelReader;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -38,21 +38,12 @@ import org.apache.jdo.tck.util.EqualityHelper;
  *<B>Assertion Description: Compound identity is a special case of application identity. References to other persistence-capable classes can be defined as key fields. In this case, the object id class contains a field that is of the type of the object id of the relationship field.</B>
  */
 
-public class CompletenessTestOrder extends JDO_Test {
+public class CompletenessTestOrder extends AbstractReaderTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A5.4.1-5[Compound identity is a special case of application identity. References to other persistence-capable classes can be defined as key fields. In this case, the object id class contains a field that is of the type of the object id of the relationship field.] failed: ";
-    
-    /** */
-
-    /** */
-    protected List rootOids;
-    
-    /** */
-    protected final String inputFilename = 
-            System.getProperty("jdo.tck.testdata");
-    
+        
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -73,7 +64,7 @@ public class CompletenessTestOrder extends JDO_Test {
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList();
             for (Iterator i = rootList.iterator(); i.hasNext(); ) {
@@ -92,7 +83,7 @@ public class CompletenessTestOrder extends JDO_Test {
             OrderFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
             OrderModelReader reader = new OrderModelReader(inputFilename);
-            List rootList = reader.getRootList();
+            List rootList = getRootList(reader);
             
             getPM();
             pm.currentTransaction().begin();
