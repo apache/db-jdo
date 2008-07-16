@@ -40,6 +40,7 @@ grant codeBase "file://${jdo.tck.jdori.jarfile}" {
     permission javax.jdo.spi.JDOPermission "getMetadata";
     permission javax.jdo.spi.JDOPermission "setStateManager";
     permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
 };
 
 // All classes in the classpath
