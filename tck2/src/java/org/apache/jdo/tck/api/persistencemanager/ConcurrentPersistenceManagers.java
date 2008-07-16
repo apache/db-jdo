@@ -79,7 +79,7 @@ public class ConcurrentPersistenceManagers extends JDO_Test {
             pm = null;
             cleanupPM(pm2);
             pm2 = null;
-            pmf2.close();
+            closePMF(pmf2);
         }
     }
 
