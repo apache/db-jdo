@@ -131,7 +131,7 @@ public class ConcurrentPersistenceManagersSameClasses extends PersistenceManager
             } finally {
                 cleanupPM(pm2);
                 pm2 = null;
-                pmf2.close();
+                closePMF(pmf2);
             }
         }
     }
