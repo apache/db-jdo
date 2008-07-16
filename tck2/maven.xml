@@ -124,12 +124,6 @@
         <j:set var="true" value="true"/>
         <j:set var="false" value="false"/>
 
-        <j:if test="${jdo.tck.security}">
-            <j:set var="jdo.tck.security.jvmargs" 
-                value="-Djava.security.manager -Djava.security.policy=${basedir}/src/conf/security.policy"/>
-        <echo message="Running with Java security manager settings: ${jdo.tck.security.jvmargs}"/>
-        </j:if>
-
         <j:set var="cfglist" value="${jdo.tck.cfglist}"/>
         <j:if test="${cfglist == null}">
             <u:properties file="${basedir}/src/conf/configurations.list"/>
@@ -439,6 +433,12 @@
     </goal>
 
     <goal name="doRuntck.jdori">
+        <j:if test="${jdo.tck.security}">
+            <j:set var="jdo.tck.security.jvmargs" 
+                value="-Djava.security.manager -Djava.security.policy=${basedir}/src/conf/security.policy"/>
+        <echo message="Running with Java security manager settings: ${jdo.tck.security.jvmargs}"/>
+        </j:if>
+
         <path id="this.jdori.classpath">
             <pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
             <path refid="jdori.classpath"/>
