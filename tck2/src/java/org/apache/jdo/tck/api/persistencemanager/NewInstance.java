@@ -61,34 +61,19 @@ public class NewInstance extends PersistenceManagerTest {
     /** test newInstance (Class pcInterface) */
     public void testNewInstanceInterface() {
         pm = getPM();   
-        try {
-            pm.newInstance(IAddress.class);
-        } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
-        }
+        IAddress instance = pm.newInstance(IAddress.class);
     }
 
     /** test newInstance (Class pcAbstractClass) */
     public void testNewInstanceAbstractClass() {
         pm = getPM();   
-        try {
-            pm.newInstance(AAddress.class);
-        } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
-        }
+        AAddress instance = pm.newInstance(AAddress.class);
     }
 
     /** test newInstance (Class pcClass) */
     public void testNewInstanceClass() {
         pm = getPM();   
-        try {
-            pm.newInstance(Address.class);
-        } catch (Exception e) {
-            fail("Unexpected exception thrown. "
-                + e.getMessage());
-        }
+        Address instance = pm.newInstance(Address.class);
     }
 
     /** test newInstance (Class pcInterface) */
