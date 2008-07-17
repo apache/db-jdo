@@ -33,5 +33,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Cacheable
 {
-	boolean value() default true;
+	String value() default "true";
 }
