@@ -1369,6 +1369,7 @@ public annotation javax.jdo.annotations.PersistenceCapable extends java.lang.ann
     enum javax.jdo.annotations.IdentityType identityType() default javax.jdo.annotations.IdentityType.UNSPECIFIED;
     Class objectIdClass() default void.class;
     javax.jdo.annotations.Extension[] extensions() default {};
+    String cacheable() default "true";
 }
 
 public final enum javax.jdo.annotations.PersistenceModifier extends java.lang.Enum
@@ -1413,6 +1414,7 @@ public annotation javax.jdo.annotations.Persistent extends java.lang.annotation.
     String name() default ""; 
     int recursionDepth() default 1;
     javax.jdo.annotations.Extension[] extensions() default {};
+    String cacheable() default "true";
 }
 
 public annotation javax.jdo.annotations.PrimaryKey extends java.lang.annotation.Annotation
@@ -1521,3 +1523,8 @@ public final enum javax.jdo.annotations.VersionStrategy extends java.lang.Enum
     public static enum javax.jdo.annotations.VersionStrategy valueOf(java.lang.String);
     public static javax.jdo.annotations.VersionStrategy[] values();
 }
+public annotation javax.jdo.annotations.Cacheable extends java.lang.annotation.Annotation
+{
+    String value() default "true";
+}
+
