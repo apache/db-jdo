@@ -1,6 +1,6 @@
 // JUnit code base
 grant codeBase "file://${jdo.tck.junit.jarfile}" {
-    permission java.io.FilePermission "${user.home}/junit.properties", "read";
+    permission java.io.FilePermission "${user.home}${/}junit.properties", "read";
 };
 
 // Springbeans code base
