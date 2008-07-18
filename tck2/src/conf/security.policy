@@ -7,6 +7,7 @@ grant codeBase "file://${jdo.tck.junit.jarfile}" {
 grant codeBase "file://${jdo.tck.springbeans.jarfile}" {
     permission java.lang.RuntimePermission "accessDeclaredMembers";
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
 };
 
 // Springcore code base
@@ -21,6 +22,7 @@ grant codeBase "file://${jdo.tck.testclasses.dir}/-" {
 // needed for Springbeans
     permission java.lang.RuntimePermission "accessDeclaredMembers";
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
 };
 
 // TCK PC enhanced classes
@@ -41,17 +43,31 @@ grant codeBase "file://${jdo.tck.jdori.jarfile}" {
     permission javax.jdo.spi.JDOPermission "setStateManager";
     permission java.lang.RuntimePermission "accessDeclaredMembers";
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
+};
+
+// JDO RI enhancer base
+grant codeBase "file://${jdo.tck.jdori.enhancer.jarfile}" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+};
+
+// JDO RI store.rdbms code base
+grant codeBase "file://${jdo.tck.jdori.rdbms.jarfile}" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
 };
 
 // All classes in the classpath
 grant {
 // c3p0 seems to require PropertyPermission of write (don't know why)
     permission java.util.PropertyPermission "*", "read, write";
-    permission java.io.FilePermission "${user.home}/.maven/repository/-", "read";
-    permission java.io.FilePermission "${jdo.tck.basedir}/target/-", "read, write";
+    permission java.io.FilePermission "${user.home}${/}.maven/repository${/}-", "read";
+    permission java.io.FilePermission "${jdo.tck.basedir}${/}target${/}-", "read, write";
 // bug in security? needed for Derby to create tck2/target/database/derby/../../logs
-    permission java.io.FilePermission "${jdo.tck.basedir}/-", "read, write, delete";
+    permission java.io.FilePermission "${jdo.tck.basedir}${/}-", "read, write, delete";
 // needed for JNDI FSContext
-    permission java.io.FilePermission "/", "read";
+    permission java.io.FilePermission "${/}", "read";
     permission java.lang.RuntimePermission "createClassLoader";
+    permission java.io.FilePermission "${user.dir}${/}-", "read";
 };
