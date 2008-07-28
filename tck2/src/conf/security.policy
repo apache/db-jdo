@@ -44,11 +44,13 @@ grant codeBase "file://${jdo.tck.jdori.jarfile}" {
     permission java.lang.RuntimePermission "accessDeclaredMembers";
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
     permission java.lang.RuntimePermission "getClassLoader";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.reflect";
 };
 
 // JDO RI enhancer base
 grant codeBase "file://${jdo.tck.jdori.enhancer.jarfile}" {
     permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.reflect";
 };
 
 // JDO RI store.rdbms code base
