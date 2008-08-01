@@ -37,7 +37,7 @@
         the configuration of an EntityManagerFactory. We configure each
         example in a separate persistence-unit.
     -->
-<persistence-unit name="applicationidentity0" transaction-type="RESOURCE_LOCAL">
+<persistence-unit name="PUNamed_applicationidentity0" transaction-type="RESOURCE_LOCAL">
     <!--
             The default provider can be OpenJPA, or some other product.
             This element is optional if OpenJPA is the only JPA provider
@@ -54,20 +54,52 @@
     <property name="javax.jdo.option.Optimistic" value="false"/>
     <property name="javax.jdo.option.RestoreValues" value="false"/>
     <property name="javax.jdo.option.RetainValues" value="false"/>
-    <property name="javax.jdo.option.Mapping" value="derby"/>
     <property name="javax.jdo.mapping.Schema" value="applicationidentity0"/> 
     <property name="javax.jdo.option.Mapping" value="standard"/>
-    <property name="org.jpox.metadata.validate" value="false"/>
-    <property name="org.jpox.validateTables" value="false"/>
-    <property name="org.jpox.validateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateSchema" value="false"/>
-    <property name="org.jpox.autoCreateTables" value="false"/>
-    <property name="org.jpox.autoCreateConstraints" value="false"/>
-    <property name="org.jpox.autoCreateColumns" value="false"/>
-    <property name="org.jpox.rdbms.CheckExistTablesOrViews" value="false"/>
-    <property name="org.jpox.autoStartMechanism" value="None"/>
-    <property name="org.jpox.connectionPoolingType" value="C3P0"/>
-    <property name="org.jpox.implementationCreatorName" value="asm"/>
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/>
+    </properties>
+</persistence-unit>
+
+<persistence-unit name="PUNamed_datastoreidentity0" transaction-type="RESOURCE_LOCAL">
+    <!--
+            The default provider can be OpenJPA, or some other product.
+            This element is optional if OpenJPA is the only JPA provider
+            in the current classloading environment, but can be specified
+            in cases where there are multiple JPA implementations available.
+        -->
+    
+    <properties>
+    <property name="javax.jdo.option.ConnectionDriverName"
+              value="org.apache.derby.jdbc.EmbeddedDriver"/>
+    <property name="javax.jdo.option.ConnectionURL" value="jdbc:derby:jdotckdb"/>
+    <property name="javax.jdo.option.ConnectionUserName" value="tckuser"/>
+    <property name="javax.jdo.option.ConnectionPassword" value="tckuser"/>
+    <property name="javax.jdo.option.Optimistic" value="false"/>
+    <property name="javax.jdo.option.RestoreValues" value="false"/>
+    <property name="javax.jdo.option.RetainValues" value="false"/>
+    <property name="javax.jdo.mapping.Schema" value="datastoreidentity0"/> 
+    <property name="javax.jdo.option.Mapping" value="standard"/>
+    <property name="datanucleus.metadata.validate" value="false"/>
+    <property name="datanucleus.validateTables" value="false"/>
+    <property name="datanucleus.validateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateSchema" value="false"/>
+    <property name="datanucleus.autoCreateTables" value="false"/>
+    <property name="datanucleus.autoCreateConstraints" value="false"/>
+    <property name="datanucleus.autoCreateColumns" value="false"/>
+    <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
+    <property name="datanucleus.autoStartMechanism" value="None"/>
+    <property name="datanucleus.connectionPoolingType" value="C3P0"/>
+    <property name="datanucleus.implementationCreatorName" value="asm"/>
     </properties>
 </persistence-unit>
 
