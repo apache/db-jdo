@@ -1222,4 +1222,26 @@ public interface PersistenceManager {
      * @since 2.1
      */
     Set getManagedObjects(EnumSet<ObjectState> states, Class... classes);
+
+    /**
+     * Get a modifiable <code>FetchGroup</code> for the Class and name.
+     * If a modifiable <code>FetchGroup</code> already exists in the 
+     * <code>PersistenceManager</code> scope, return it. 
+     * If not, create and populate a new <code>FetchGroup</code> from the 
+     * existing definition in the {@link PersistenceManager} or
+     * {@link PersistenceManagerFactory}. If the definition for the
+     * <code>FetchGroup</code> is not in scope in either the 
+     * <code>PersistenceManager</code> or 
+     * <code>PersistenceManagerFactory</code>, create it with no members. 
+     * The <code>FetchGroup</code> immediately 
+     * becomes active and in scope of the PersistenceManager, and hides 
+     * the corresponding fetch group in the PersistenceManagerFactory.
+     * @param cls the class or interface for the <code>FetchGroup</code>
+     * @param name the name of the fetch group
+     * @return the FetchGroup
+     * @throws JDOUserException if the class is not a persistence-capable
+     * class or interface
+     * @since 2.2
+     */
+    FetchGroup getFetchGroup(Class cls, String name);
 }

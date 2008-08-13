@@ -728,6 +728,7 @@ public interface javax.jdo.PersistenceManager {
     public java.util.Set getManagedObjects(java.util.EnumSet states);
     public varargs java.util.Set getManagedObjects(Class[] classes);
     public varargs java.util.Set getManagedObjects(java.util.EnumSet states, Class[] classes);
+    javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
@@ -786,6 +787,11 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public javax.jdo.datastore.DataStoreCache getDataStoreCache();
     public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
     public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
+    varargs void addFetchGroups(javax.jdo.FetchGroup[] groups);
+    varargs void removeFetchGroups(javax.jdo.FetchGroup[] groups);
+    void removeAllFetchGroups();
+    javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
+    java.util.Set getFetchGroups();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -1523,8 +1529,33 @@ public final enum javax.jdo.annotations.VersionStrategy extends java.lang.Enum
     public static enum javax.jdo.annotations.VersionStrategy valueOf(java.lang.String);
     public static javax.jdo.annotations.VersionStrategy[] values();
 }
+
 public annotation javax.jdo.annotations.Cacheable extends java.lang.annotation.Annotation
 {
     String value() default "true";
 }
 
+public interface javax.jdo.FetchGroup {
+    public static final String DEFAULT = "default";
+    public static final String RELATIONSHIP = "relationship";
+    public static final String MULTIVALUED = "multivalued";
+    public static final String BASIC = "basic";
+    public static final String ALL = "all";
+    String getName();
+    Class getType();
+    boolean getPostLoad();
+    javax.jdo.FetchGroup setPostLoad(boolean postLoad);
+    javax.jdo.FetchGroup addMember(String memberName);
+    varargs javax.jdo.FetchGroup addMembers(String[] memberNames);
+    javax.jdo.FetchGroup removeMember(String memberName);
+    varargs javax.jdo.FetchGroup removeMembers(String[] memberNames);
+    javax.jdo.FetchGroup addCategory(String categoryName);
+    javax.jdo.FetchGroup removeCategory(String categoryName);
+    javax.jdo.FetchGroup setRecursionDepth(String memberName, int recursionDepth);
+    int getRecursionDepth(String memberName);
+    java.util.Set getMembers();
+    javax.jdo.FetchGroup setUnmodifiable();
+    boolean isUnmodifiable();
+    int hashCode();
+    boolean equals(Object other);
+}
