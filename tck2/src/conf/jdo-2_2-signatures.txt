@@ -184,21 +184,21 @@ public interface javax.jdo.Constants {
     static String RESOURCE_LOCAL
         = "RESOURCE_LOCAL";
     static String JDOCONFIG_DTD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.dtd";
+        = "javax/jdo/jdoconfig_2_2.dtd";
     static String JDOCONFIG_XSD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.xsd";
+        = "javax/jdo/jdoconfig_2_2.xsd";
     static String JDO_DTD_RESOURCE
-        = "javax/jdo/jdo_2_0.dtd";
+        = "javax/jdo/jdo_2_2.dtd";
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_1.xsd";
+        = "javax/jdo/jdo_2_2.xsd";
     static String ORM_DTD_RESOURCE
-        = "javax/jdo/orm_2_0.dtd";
+        = "javax/jdo/orm_2_2.dtd";
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_1.xsd";
+        = "javax/jdo/orm_2_2.xsd";
     static String JDOQUERY_DTD_RESOURCE
-        = "javax/jdo/jdoquery_2_0.dtd";
+        = "javax/jdo/jdoquery_2_2.dtd";
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_1.xsd";
+        = "javax/jdo/jdoquery_2_2.xsd";
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
 }
