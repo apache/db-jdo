@@ -121,6 +121,14 @@ public interface Constants {
     static String PMF_ATTRIBUTE_OPTIMISTIC
         = "optimistic";
     /**
+     * The name of the persistence manager factory element's "readonly"
+     * attribute.
+     *
+     * @since 2.2
+     */
+    static String PMF_ATTRIBUTE_READONLY
+        = "readonly";
+    /**
      * The name of the persistence manager factory element's "retain-values"
      * attribute.
      *
@@ -546,6 +554,14 @@ public interface Constants {
      */
     static String PROPERTY_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
+    /**
+     * "javax.jdo.option.ReadOnly"
+     *
+     * @see PersistenceManagerFactory#getReadOnly()
+     * @since 2.2
+     */
+    static String PROPERTY_READONLY
+        = "javax.jdo.option.ReadOnly";
     /**
      * "javax.jdo.option.RetainValues"
      *

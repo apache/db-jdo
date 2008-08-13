@@ -115,6 +115,8 @@
     <xs:attribute name="persistence-unit-name" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.Optimistic. -->
     <xs:attribute name="optimistic" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ReadOnly. -->
+    <xs:attribute name="readonly" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.RetainValues. -->
     <xs:attribute name="retain-values" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.RestoreValues. -->
