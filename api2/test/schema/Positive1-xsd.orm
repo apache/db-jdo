@@ -22,7 +22,7 @@ has application identity.
 <orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
-                         http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+                         http://java.sun.com/xml/ns/jdo/orm_2_2.xsd">
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Address"/>

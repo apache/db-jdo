@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE jdoquery SYSTEM "file:/javax/jdo/jdoquery_2_0.dtd">
+<!DOCTYPE jdoquery SYSTEM "file:/javax/jdo/jdoquery_2_2.dtd">
 <jdoquery>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>

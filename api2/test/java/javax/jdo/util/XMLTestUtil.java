@@ -78,15 +78,15 @@ public class XMLTestUtil {
 
     /** jdo xsd file */
     protected static final File JDO_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdo_2_1.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdo_2_2.xsd");
 
     /** orm xsd file */
     protected static final File ORM_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/orm_2_1.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/orm_2_2.xsd");
 
     /** jdoquery xsd file */
     protected static final File JDOQUERY_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_2_1.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_2_2.xsd");
 
     /** Entity resolver */
     protected static final EntityResolver resolver = new JDOEntityResolver();
@@ -225,7 +225,7 @@ public class XMLTestUtil {
         } catch (SAXParseException ex) {
             handler.error(ex);
         } catch (Exception ex) {
-            messages = "Fatal error processing " + file.getName() + ":  " + ex;
+            messages = "Fatal error processing " + file.getName() + ":  " + ex + NL;
         }
         if (messages == null) {
             messages = handler.getMessages();
@@ -357,29 +357,29 @@ public class XMLTestUtil {
         implements EntityResolver {
 
         private static final String RECOGNIZED_JDO_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.2//EN";
         private static final String RECOGNIZED_JDO_SYSTEM_ID = 
-            "file:/javax/jdo/jdo_2_0.dtd";
+            "file:/javax/jdo/jdo_2_2.dtd";
         private static final String RECOGNIZED_JDO_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/jdo_2_0.dtd";
+            "http://java.sun.com/dtd/jdo_2_2.dtd";
         private static final String RECOGNIZED_ORM_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.0//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.2//EN";
         private static final String RECOGNIZED_ORM_SYSTEM_ID = 
-            "file:/javax/jdo/orm_2_0.dtd";
+            "file:/javax/jdo/orm_2_2.dtd";
         private static final String RECOGNIZED_ORM_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/orm_2_0.dtd";
+            "http://java.sun.com/dtd/orm_2_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.0//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.2//EN";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID = 
-            "file:/javax/jdo/jdoquery_2_0.dtd";
+            "file:/javax/jdo/jdoquery_2_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/jdoquery_2_0.dtd";
+            "http://java.sun.com/dtd/jdoquery_2_2.dtd";
         private static final String JDO_DTD_FILENAME = 
-            "javax/jdo/jdo_2_0.dtd";
+            "javax/jdo/jdo_2_2.dtd";
         private static final String ORM_DTD_FILENAME = 
-            "javax/jdo/orm_2_0.dtd";
+            "javax/jdo/orm_2_2.dtd";
         private static final String JDOQUERY_DTD_FILENAME = 
-            "javax/jdo/jdoquery_2_0.dtd";
+            "javax/jdo/jdoquery_2_2.dtd";
 
         static Map publicIds = new HashMap();
         static Map systemIds = new HashMap();

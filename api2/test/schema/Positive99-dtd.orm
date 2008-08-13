@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE orm SYSTEM "file:/javax/jdo/orm_2_0.dtd">
+<!DOCTYPE orm SYSTEM "file:/javax/jdo/orm_2_2.dtd">
 <orm>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
   <extension vendor-name="SUNW" key="KEY" value="VALUE"/>
