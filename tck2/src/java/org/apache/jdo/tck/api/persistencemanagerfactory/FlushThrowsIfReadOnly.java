@@ -99,6 +99,10 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
                     "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
+        } catch (Throwable t) {
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of a persistent-deleted instance must throw " +
+                    "JDOReadOnlyException. Flush threw " + t);
         }
         tx.rollback();
         pm.close();
@@ -121,6 +125,10 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
                     "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
+        } catch (Throwable t) {
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of a persistent-deleted instance must throw " +
+                    "JDOReadOnlyException. Flush threw " + t);
         }
         tx.rollback();
         pm.close();
@@ -143,6 +151,10 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
                     "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
+        } catch (Throwable t) {
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of a persistent-deleted instance must throw " +
+                    "JDOReadOnlyException. Flush threw " + t);
         }
         tx.rollback();
         pm.close();
