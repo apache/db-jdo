@@ -21,6 +21,8 @@ public interface javax.jdo.Constants {
         = "persistence-unit-name";
     static String PMF_ATTRIBUTE_OPTIMISTIC
         = "optimistic";
+    static String PMF_ATTRIBUTE_READONLY
+        = "readonly";
     static String PMF_ATTRIBUTE_RETAIN_VALUES
         = "retain-values";
     static String PMF_ATTRIBUTE_RESTORE_VALUES
@@ -129,6 +131,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.PersistenceManagerFactoryClass";
     static String PROPERTY_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
+    static String PROPERTY_READONLY
+        = "javax.jdo.option.ReadOnly";
     static String PROPERTY_RETAIN_VALUES
         = "javax.jdo.option.RetainValues";
     static String PROPERTY_RESTORE_VALUES
