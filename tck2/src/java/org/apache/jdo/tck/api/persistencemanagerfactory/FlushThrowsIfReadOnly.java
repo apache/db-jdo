@@ -114,6 +114,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
     public void testUpdate() {
         //Try to update and flush the transaction
         pm = pmf2.getPersistenceManager();
+        pm.getExtent(Company.class); // make sure that oid class is loaded
         Transaction tx = pm.currentTransaction();
         tx.begin();
         Company comp = (Company)pm.getObjectById(oid);
@@ -140,6 +141,7 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
     public void testDeletePersistent() {
         //Try to deletePersistent and flush the transaction
         pm = pmf2.getPersistenceManager();
+        pm.getExtent(Company.class); // make sure that oid class is loaded
         Transaction tx = pm.currentTransaction();
         tx.begin();
         Company comp = (Company)pm.getObjectById(oid);
