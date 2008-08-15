@@ -94,6 +94,9 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
         try {
             pm.makePersistent(comp);
             pm.flush();
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of a persistent-new instance must throw " +
+                    "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
         }
@@ -106,13 +109,16 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
     /** */
     public void testUpdate() {
         //Try to update and flush the transaction
-        pm = getPM();
+        pm = pmf2.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         Company comp = (Company)pm.getObjectById(oid);
         try {
             comp.setName("new name");
             pm.flush();
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of an updated instance must throw " +
+                    "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
         }
@@ -125,13 +131,16 @@ public class FlushThrowsIfReadOnly extends JDO_Test {
     /** */
     public void testDeletePersistent() {
         //Try to deletePersistent and flush the transaction
-        pm = getPM();
+        pm = pmf2.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
         tx.begin();
         Company comp = (Company)pm.getObjectById(oid);
         try {
             pm.deletePersistent(comp);
             pm.flush();
+            fail("When the PersistenceManagerFactory is read only, " +
+                    "flush of a persistent-deleted instance must throw " +
+                    "JDOReadOnlyException.");
         } catch (JDOReadOnlyException jDOReadOnlyException) {
             // good catch
         }
