@@ -23,6 +23,7 @@ jdo.tck.cfglist = \
                  enhancement.conf \
                  extents.conf \
                  fetchplan.conf \
+                 fetchgroup.conf \
                  lifecycle.conf \
                  models.conf \
                  models1.conf \
