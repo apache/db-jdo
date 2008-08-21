@@ -838,7 +838,7 @@
         </j:if>
         <j:else>
             <echo>The top-level directory name must terminate in "jdo".</echo>
-            <echo>Please rename your directory to "jdo" or "jdoXXX".</echo>
+            <echo>Please rename your directory to "jdo" or "XXXjdo".</echo>
             <echo>Otherwise the dist directory will be incorrectly named.</echo>
         </j:else>
     </goal>

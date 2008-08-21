@@ -30,7 +30,6 @@ public interface javax.jdo.Constants {
         = "http://java.sun.com/xml/ns/jdo/jdoquery";
     static String ELEMENT_PERSISTENCE_MANAGER_FACTORY
         = "persistence-manager-factory";
- //fooo3 fooo foo
     static String PMF_ATTRIBUTE_CLASS
         = "class";
     static String PMF_ATTRIBUTE_NAME
