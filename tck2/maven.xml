@@ -220,6 +220,10 @@
                 </j:forEach>
             </j:forEach>
         </j:forEach>
+        <echo>Schema installation is complete.
+            Check the logs in ${jdo.tck.log.directory.database}
+            for diagnostic output.
+        </echo>
     </goal>
 
     <goal name="doInstallSchema">
@@ -242,7 +246,8 @@
 
         <echo>Install schema: ${jdo.tck.schema}
               for db ${jdo.tck.database} id ${jdo.tck.identitytype}</echo>
-        <java classname="org.apache.derby.tools.ij" fork="true">
+          <java classname="org.apache.derby.tools.ij" fork="true" 
+              output="${jdo.tck.log.directory.database}/${jdo.tck.database}_${jdo.tck.identitytype}_schema${nextMapping}.txt" append="false">
               <classpath>
                   <pathelement location="${derbytools.jarfile}"/>
                   <pathelement location="${derby.jarfile}"/>
@@ -386,7 +391,7 @@
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
-        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the IUT.</echo>
         <java fork="yes" dir="${jdo.tck.testdir}"
               classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.iut.classpath"/>
@@ -431,7 +436,7 @@
             
             <arg line="${jdo.tck.classes}"/>
         </java>
-        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the IUT.</echo>
     </goal>
 
     <goal name="doRuntck.jdori">
@@ -461,7 +466,7 @@
             <echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
         </j:if>
         
-        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+        <echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the Reference Implementation.</echo>
         <java fork="yes" dir="${jdo.tck.testdir}"
                classname="${jdo.tck.testrunnerclass}">
             <classpath refid="this.jdori.classpath"/>
@@ -527,7 +532,7 @@
             
             <arg line="${jdo.tck.classes}"/>
         </java>
-        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}".</echo>
+        <echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the Reference Implementation.</echo>
     </goal>
 
     <goal name="result">
