@@ -85,10 +85,10 @@ public interface FetchGroup {
 
     /**
      * For use with {@link #addCategory} and {@link #removeCategory} calls.
-     * This category includes members of all basic (primitive and immutable
-     * object class) types as defined in section 6.4 of the specification,
-     * including String, Date and its jdbc subtypes, Locale, Currency,
-     * and Enum types.
+     * This category includes members of all primitive and immutable
+     * object class types as defined in section 6.4 of the specification,
+     * including String, Locale, Currency, BigDecimal, and BigInteger; 
+     * as well as Date and its jdbc subtypes and Enum types.
      * @since 2.2
      */
     public static final String BASIC = "basic";
