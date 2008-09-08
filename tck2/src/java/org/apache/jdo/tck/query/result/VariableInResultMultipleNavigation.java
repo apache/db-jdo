@@ -53,7 +53,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * fields in the corresponding Company. It navigates from the candidate
  * Company class to Department, Employee, and Project.
  */
-public class VariableInResultNavigation extends QueryTest {
+public class VariableInResultMultipleNavigation extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -66,26 +66,12 @@ public class VariableInResultNavigation extends QueryTest {
     private static final QueryElementHolder[] VALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
+        /*RESULT*/      "this, d, e, p",
         /*INTO*/        null, 
-        /*FROM*/        Department.class,
+        /*FROM*/        Company.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p) && p.name == 'orange'",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
+        /*WHERE*/       "name == \"Sun Microsystems, Inc.\" && departments.contains(d) && d.employees.contains(e) && e.projects.contains(p)",
+        /*VARIABLES*/   "Department d; Employee e; Project p",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -96,10 +82,10 @@ public class VariableInResultNavigation extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      "this, e, p",
         /*INTO*/        null, 
-        /*FROM*/        Department.class,
+        /*FROM*/        Company.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
+        /*WHERE*/       "name == \"Sun Microsystems, Inc.\" && departments.contains(d) && d.employees.contains(e) && e.projects.contains(p)",
+        /*VARIABLES*/   "Department d; Employee e; Project p",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -108,26 +94,12 @@ public class VariableInResultNavigation extends QueryTest {
         /*TO*/          null),
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
+        /*RESULT*/      "d, e, p",
         /*INTO*/        null, 
-        /*FROM*/        Department.class,
+        /*FROM*/        Company.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "deptid == 1 && employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "company.name == \"Sun Microsystems, Inc.\" && employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
+        /*WHERE*/       "name == \"Sun Microsystems, Inc.\" && departments.contains(d) && d.employees.contains(e) && e.projects.contains(p)",
+        /*VARIABLES*/   "Department d; Employee e; Project p",
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
@@ -139,6 +111,7 @@ public class VariableInResultNavigation extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
+    private Object company1 = getTransientCompanyModelInstance("company1");
     private Object emp1 = getTransientCompanyModelInstance("emp1");
     private Object emp2 = getTransientCompanyModelInstance("emp2");
     private Object emp3 = getTransientCompanyModelInstance("emp3");
@@ -152,17 +125,21 @@ public class VariableInResultNavigation extends QueryTest {
 
     private Object[] expectedResult = {
         Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1}}),
+            new Object[] {company1, dept1, emp1, proj1},
+            new Object[] {company1, dept1, emp2, proj1},
+            new Object[] {company1, dept1, emp3, proj1},
+            new Object[] {company1, dept1, emp2, proj2},
+            new Object[] {company1, dept1, emp3, proj2},
+            new Object[] {company1, dept2, emp4, proj3},
+            new Object[] {company1, dept2, emp5, proj3}}),
         Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2},
-            new Object[] {emp4, proj3},
-            new Object[] {emp5, proj3}}),
+            new Object[] {company1, emp1, proj1},
+            new Object[] {company1, emp2, proj1},
+            new Object[] {company1, emp3, proj1},
+            new Object[] {company1, emp2, proj2},
+            new Object[] {company1, emp3, proj2},
+            new Object[] {company1, emp4, proj3},
+            new Object[] {company1, emp5, proj3}}),
         Arrays.asList(new Object[] {
             new Object[] {dept1, emp1, proj1},
             new Object[] {dept1, emp2, proj1},
@@ -170,21 +147,7 @@ public class VariableInResultNavigation extends QueryTest {
             new Object[] {dept1, emp2, proj2},
             new Object[] {dept1, emp3, proj2},
             new Object[] {dept2, emp4, proj3},
-            new Object[] {dept2, emp5, proj3}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2},
-            new Object[] {emp4, proj3},
-            new Object[] {emp5, proj3}})
+            new Object[] {dept2, emp5, proj3}})
     };
 
     /**
@@ -197,7 +160,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
     
     /** */
-    public void testNavigationWithConstraint() {
+    public void testNavigationWithCompanyAndDepartmentAndEmployeeAndProject() {
         int index = 0;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
@@ -206,7 +169,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
-    public void testNavigationWithoutConstraint() {
+    public void testNavigationWithCompanyAndEmployeeAndProject() {
         int index = 1;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
@@ -215,7 +178,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
-    public void testNavigationWithThis() {
+    public void testNavigationWithDepartmentAndEmployeeAndProject() {
         int index = 2;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 expectedResult[index]);
@@ -223,23 +186,6 @@ public class VariableInResultNavigation extends QueryTest {
                 expectedResult[index]);
     }
 
-    /** */
-    public void testNavigationWithThisConstraint() {
-        int index = 3;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
-    /** */
-    public void testNavigationWithCompanyConstraint() {
-        int index = 4;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
     /**
      * @see QueryTest#localSetUp()
      */
