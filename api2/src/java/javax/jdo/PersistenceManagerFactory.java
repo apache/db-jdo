@@ -27,6 +27,7 @@ import javax.jdo.listener.InstanceLifecycleListener;
 import javax.jdo.spi.JDOPermission; // for getFetchGroups javadoc
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -52,7 +53,7 @@ import java.util.Set;
  * <P>Operational state (<code>PersistenceManager</code> pooling, connection 
  * pooling, operational parameters) must not be serialized.
  *
- * @version 2.1
+ * @version 2.2
  */
 
 public interface PersistenceManagerFactory extends Serializable {
@@ -664,4 +665,33 @@ public interface PersistenceManagerFactory extends Serializable {
      * @since 2.2
      */
     Set getFetchGroups();
+
+    /** 
+     * Create a PersistenceManagerFactory from the properties in the
+     * parameter props. 
+     * This method behaves as a static method: none of the
+     * properties of the instance on which the method is called are used
+     * to construct the new PersistenceManagerFactory.
+     * @param props a Map of configuration properties
+     * @return an unconfigurable PersistenceManagerFactory based on the
+     * properties in the parameter Map
+     * @since 2.2
+     */
+    PersistenceManagerFactory getPersistenceManagerFactory (Map props);
+
+    /** 
+     * Create a PersistenceManagerFactory from the properties in the
+     * parameters props and overrides. 
+     * This method behaves as a static method: none of the
+     * properties of the instance on which the method is called are used
+     * to construct the new PersistenceManagerFactory.
+     * @param overrides a Map of configuration properties that override the 
+     * properties in the props parameter
+     * @param props a Map of configuration properties
+     * @return an unconfigurable PersistenceManagerFactory based on the
+     * properties in the parameter Map
+     * @since 2.2
+     */
+    PersistenceManagerFactory getPersistenceManagerFactory (
+            Map overrides, Map props);
 }
