@@ -561,9 +561,9 @@ public class JDOHelperTest extends AbstractTest {
     }
 
     public static class BadPMFNonStaticGetPMFMethod {
-        public BadPMFNonStaticGetPMFMethod 
+        public PersistenceManagerFactory
                 getPersistenceManagerFactory(Map props) {
-            return new BadPMFNonStaticGetPMFMethod();
+            return null;
         }
     }
         
