@@ -737,11 +737,13 @@ public class JDOHelper implements Constants {
      * <BR>"javax.jdo.option.Mapping",
      * <BR>"javax.jdo.mapping.Catalog",
      * <BR>"javax.jdo.mapping.Schema",
-     * <BR>"javax.jdo.option.PersistenceUnitName".
-     * <BR>"javax.jdo.option.DetachAllOnCommit".
-     * <BR>"javax.jdo.option.CopyOnAttach".
-     * <BR>"javax.jdo.option.TransactionType".
-     * <BR>"javax.jdo.option.ServerTimeZoneID".
+     * <BR>"javax.jdo.option.PersistenceUnitName",
+     * <BR>"javax.jdo.option.DetachAllOnCommit",
+     * <BR>"javax.jdo.option.CopyOnAttach",
+     * <BR>"javax.jdo.option.ReadOnly",
+     * <BR>"javax.jdo.option.TransactionIsolationLevel",
+     * <BR>"javax.jdo.option.TransactionType",
+     * <BR>"javax.jdo.option.ServerTimeZoneID",
      * <BR>"javax.jdo.option.Name".
      * </code>
      * and properties of the form
@@ -773,6 +775,13 @@ public class JDOHelper implements Constants {
      * <code>PersistenceManagerFactory</code>.
      * @param pmfClassLoader the class loader to use to load the
      * <code>PersistenceManagerFactory</code> class
+     * @throws JDOFatalUserException if
+     * <ul><li>the pmfClassLoader passed is invalid; or 
+     * </li><li>a valid class name cannot be obtained from
+     * either <code>props</code> or system resources 
+     * (an entry in META-INF/services/javax.jdo.PersistenceManagerFactory); or
+     * </li><li>all implementations throw an exception.
+     * </li></ul>
      * @since 2.1
      */
     protected static PersistenceManagerFactory getPersistenceManagerFactory
@@ -782,34 +791,65 @@ public class JDOHelper implements Constants {
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
 
+	    // first try to get the class name from the properties object.
         String pmfClassName = (String) props.get (
                 PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
 
         if (!isNullOrBlank(pmfClassName)) {
+	    // a valid name was returned from the properties.
             return invokeGetPersistenceManagerFactoryOnImplementation(
                         pmfClassName, overrides, props, pmfClassLoader);
 
         } else {
-        // PMF class name null or blank -- try services
-        // for each file META-INF/services/javax.jdo.PersistenceManagerFactory
-        // try to invoke the getPersistenceManagerFactory method of the
-        // implementation class
+            /*
+             * If you have a jar file that provides the jdo implementation,
+             * a file naming the implementation goes into the file 
+             * packaged into the jar file, called
+             * META-INF/services/javax.jdo.PersistenceManagerFactory.
+             * The contents of the file is a string that is the PMF class name, 
+             * null or blank. 
+             * For each file in pmfClassLoader named
+             * META-INF/services/javax.jdo.PersistenceManagerFactory,
+             * this method will try to invoke the getPersistenceManagerFactory
+             * method of the implementation class. 
+             * Return the factory if a valid class name is extracted from 
+             * resources and the invocation returns an instance.  
+             * Otherwise add the exception thrown to 
+             * an exception list.
+             */
+            Enumeration urls = null;
             try {
-                Enumeration urls = getResources(pmfClassLoader, 
-                    SERVICE_LOOKUP_PMF_RESOURCE_NAME);
-                while (urls.hasMoreElements()) {
-                    pmfClassName = getClassNameFromURL((URL)urls.nextElement());
-                        return invokeGetPersistenceManagerFactoryOnImplementation(
-                            pmfClassName, overrides, props, pmfClassLoader);
-                }
+                urls = getResources(pmfClassLoader,
+                        SERVICE_LOOKUP_PMF_RESOURCE_NAME);
             } catch (Throwable ex) {
-                // remember exceptions from failed pmf invocations
                 exceptions.add(ex);
+            }
+
+            if (urls != null){
+                while (urls.hasMoreElements()) {
+
+                    try {
+                        pmfClassName = getClassNameFromURL(
+                                (URL) urls.nextElement());
+
+                        // return the implementation that is valid.
+                        PersistenceManagerFactory pmf = 
+                            invokeGetPersistenceManagerFactoryOnImplementation(
+                                pmfClassName, overrides, props, pmfClassLoader);
+                        return pmf;
+
+                    } catch (Throwable ex) {
+
+                        // remember exceptions from failed pmf invocations
+                        exceptions.add(ex);
+
+                    }
+                }
             }
         }
 
-        // no PMF class name and no services
-        
+        // no PMF class name in props and no services.  
+
         throw new JDOFatalUserException(msg.msg(
                 "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"),
                 (Throwable[])
@@ -1073,23 +1113,29 @@ public class JDOHelper implements Constants {
             try {
                 Class implClass = forName(pmfClassName, true, cl);
                 Method m = getMethod(implClass,
-                        "getPersistenceManagerFactory",
+                        "getPersistenceManagerFactory", //NOI18N
                         new Class[]{Map.class, Map.class});
-                return (PersistenceManagerFactory) invoke(m,
+                PersistenceManagerFactory pmf = 
+                    (PersistenceManagerFactory) invoke(m,
                         null, new Object[]{overrides, properties});
+                if (pmf == null) {
+                        throw new JDOFatalInternalException(msg.msg (
+                            "EXC_GetPMFNullPMF", pmfClassName)); //NOI18N
+                    }
+                return pmf;
 
             } catch (ClassNotFoundException e) {
                 throw new JDOFatalUserException(msg.msg(
-                        "EXC_GetPMFClassNotFound", pmfClassName), e);
+                        "EXC_GetPMFClassNotFound", pmfClassName), e); //NOI18N
             } catch (NoSuchMethodException e) {
                 throw new JDOFatalInternalException(msg.msg(
-                        "EXC_GetPMFNoSuchMethod2", pmfClassName), e);
+                        "EXC_GetPMFNoSuchMethod2", pmfClassName), e); //NOI18N
             } catch (NullPointerException e) {
                 throw new JDOFatalInternalException (msg.msg(
                     "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
             } catch (IllegalAccessException e) {
                 throw new JDOFatalUserException(msg.msg(
-                        "EXC_GetPMFIllegalAccess", pmfClassName), e);
+                        "EXC_GetPMFIllegalAccess", pmfClassName), e); //NOI18N
             } catch (ClassCastException e) {
                 throw new JDOFatalInternalException (msg.msg(
                     "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
@@ -1105,22 +1151,28 @@ public class JDOHelper implements Constants {
             try {
                 Class implClass = forName(pmfClassName, true, cl);
                 Method m = getMethod(implClass,
-                        "getPersistenceManagerFactory",
+                        "getPersistenceManagerFactory", //NOI18N
                         new Class[]{Map.class});
-                return (PersistenceManagerFactory) invoke(m,
+                PersistenceManagerFactory pmf = 
+                    (PersistenceManagerFactory) invoke(m,
                         null, new Object[]{properties});
+                if (pmf == null) {
+                        throw new JDOFatalInternalException(msg.msg (
+                            "EXC_GetPMFNullPMF", pmfClassName)); //NOI18N
+                    }
+                return pmf;
             } catch (ClassNotFoundException e) {
                 throw new JDOFatalUserException(msg.msg(
-                        "EXC_GetPMFClassNotFound", pmfClassName), e);
+                        "EXC_GetPMFClassNotFound", pmfClassName), e); //NOI18N
             } catch (NoSuchMethodException e) {
                 throw new JDOFatalInternalException(msg.msg(
-                        "EXC_GetPMFNoSuchMethod2", pmfClassName), e);
+                        "EXC_GetPMFNoSuchMethod", pmfClassName), e); //NOI18N
             } catch (NullPointerException e) {
                 throw new JDOFatalInternalException (msg.msg(
                     "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
             } catch (IllegalAccessException e) {
                 throw new JDOFatalUserException(msg.msg(
-                        "EXC_GetPMFIllegalAccess", pmfClassName), e);
+                        "EXC_GetPMFIllegalAccess", pmfClassName), e); //NOI18N
             } catch (ClassCastException e) {
                 throw new JDOFatalInternalException (msg.msg(
                     "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N

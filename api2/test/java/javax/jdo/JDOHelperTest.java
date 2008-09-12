@@ -548,6 +548,25 @@ public class JDOHelperTest extends AbstractTest {
         }
     }
 
+    /** Test bad PMF class getPersistenceManagerFactory returns null.
+     */
+    public void testBadPMFGetPMFMethodReturnsNull() {
+        PersistenceManagerFactory pmf = null;
+        Properties props = new Properties();
+        props.put("javax.jdo.PersistenceManagerFactoryClass", 
+                "javax.jdo.JDOHelperTest$BadPMFGetPMFMethodReturnsNull");
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            fail("BadPMFGetPMFMethodReturnsNull.GetPersistenceManagerFactory " +
+                    "should result in JDOFatalInternalException. " +
+                    "No exception was thrown.");
+        }
+        catch (JDOFatalInternalException ex) {
+            if (verbose)
+                println("Caught expected exception " + ex);
+        }
+    }
+
     private Context getInitialContext() {
         try {
             return new InitialContext();
@@ -579,6 +598,13 @@ public class JDOHelperTest extends AbstractTest {
                 getPersistenceManagerFactory(Map props) {
             throw new JDOUnsupportedOptionException(
                     "GetPMF method throws JDOUnsupportedOptionException");
+        }
+    }
+
+    public static class BadPMFGetPMFMethodReturnsNull {
+        public static PersistenceManagerFactory
+                getPersistenceManagerFactory(Map props) {
+            return null;
         }
     }
 }

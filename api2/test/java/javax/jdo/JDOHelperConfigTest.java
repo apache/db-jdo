@@ -48,6 +48,24 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
             = initJDOConfigClasspathPrefix();
 
     protected static String initJDOConfigClasspathPrefix() {
+        return initBasedir() + "test/schema/jdoconfig";
+    }
+
+    protected static String TEST_CLASSPATH =
+            initTestClasspath();
+
+    protected static String initTestClasspath() {
+        return initBasedir() + "target/test-classes/";
+    }
+
+    protected static String API_CLASSPATH =
+            initAPIClasspath();
+
+    protected static String initAPIClasspath() {
+        return initBasedir() + "target/classes/";
+    }
+
+    protected static String initBasedir() {
         String basedir = System.getProperty("basedir");
         if (basedir != null) {
             if (!basedir.endsWith("/")) {
@@ -56,7 +74,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         } else {
             basedir = "";
         }
-        return basedir + "test/schema/jdoconfig";
+        return basedir;
     }
 
     protected static Random RANDOM = new Random(System.currentTimeMillis());
@@ -527,6 +545,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         }
     }
 
+    
     public void testNegative07_EmptyServicesFile()
             throws IOException {
         JDOConfigTestClassLoader testLoader = new JDOConfigTestClassLoader(
@@ -568,6 +587,50 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         assertNull(shouldBeNull);
     }
     
+    public void testNegative09_MultipleInvalidClassesInDifferentServicesFiles()
+            throws IOException {
+
+        // no class name in Negative09/jdoconfig.xml
+        // 9a and 9b include services/javax.jdo.PersistenceManagerFactory
+        // with bad implementations
+        try {
+            URLClassLoader loader = new JDOConfigTestClassLoader(
+                    JDOCONFIG_CLASSPATH_PREFIX,
+                    getClass().getClassLoader());
+            ClasspathHelper.addFile(
+                    JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9a", loader);
+            ClasspathHelper.addFile(
+                    JDOCONFIG_CLASSPATH_PREFIX + "/Negative09/9b", loader);
+            ClasspathHelper.addFile(
+                    TEST_CLASSPATH, loader);
+            ClasspathHelper.addFile(
+                    API_CLASSPATH, loader);
+
+            JDOHelper.getPersistenceManagerFactory("name.negative09", loader);
+
+            fail("JDOHelper failed to throw JDOFatalUserException");
+        }
+        catch (JDOFatalException x) {
+
+            Throwable[] nestedExceptions = x.getNestedExceptions();
+            if (nestedExceptions.length != 2) {
+                appendMessage(
+                "JDOHelper.getPersistenceManagerFactory wrong number of " +
+                "nested exceptions. Expected 2, got " + nestedExceptions.length +
+                        "\n" + x);
+            }
+            for (int i = 0; i < nestedExceptions.length; ++i) {
+                Throwable exception = nestedExceptions[i];
+                if (!(exception instanceof JDOFatalException)) {
+                    appendMessage("Nested exception " + 
+                            exception.getClass().getName() + 
+                            " is not a JDOFatalException.");
+                }
+            }
+        }
+        failOnError();
+    }
+
     private String getPMFClassNameViaServiceLookup(ClassLoader loader) {
         try {
             Enumeration urls = JDOHelper.getResources(loader, 
