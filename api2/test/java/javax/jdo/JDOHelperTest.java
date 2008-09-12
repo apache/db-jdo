@@ -557,24 +557,24 @@ public class JDOHelperTest extends AbstractTest {
         }
     }
     
-    private class BadPMFNoGetPMFMethod {
+    public static class BadPMFNoGetPMFMethod {
     }
 
-    private class BadPMFNonStaticGetPMFMethod {
+    public static class BadPMFNonStaticGetPMFMethod {
         public BadPMFNonStaticGetPMFMethod 
                 getPersistenceManagerFactory(Map props) {
             return new BadPMFNonStaticGetPMFMethod();
         }
     }
         
-    private static class BadPMFWrongReturnType {
+    public static class BadPMFWrongReturnType {
         public static BadPMFWrongReturnType 
                 getPersistenceManagerFactory(Map props) {
             return new BadPMFWrongReturnType();
         }
     }
     
-    private static class BadPMFGetPMFMethodThrowsJDOException {
+    public static class BadPMFGetPMFMethodThrowsJDOException {
         public static PersistenceManagerFactory
                 getPersistenceManagerFactory(Map props) {
             throw new JDOUnsupportedOptionException(
