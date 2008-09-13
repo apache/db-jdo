@@ -25,8 +25,13 @@ package javax.jdo;
 import java.util.Set;
 
 /**
- * Fetch groups are created and updated using methods on this interface. An
- * instance of this interface can be obtained from
+ * FetchGroup represents a named fetch group for a specific class or 
+ * interface. A fetch group instance identifies the name of the class or 
+ * interface, the list of members (fields or properties) to be fetched when 
+ * the fetch group is active, and the recursion depth for each member.
+ * <p> 
+ * Fetch groups are updated using methods on this interface. An instance of
+ * a class implementing this interface can be obtained from
  * {@link PersistenceManager#getFetchGroup} or
  * {@link PersistenceManagerFactory#getFetchGroup}.
  * <p> 
