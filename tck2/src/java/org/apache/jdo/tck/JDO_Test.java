@@ -858,7 +858,12 @@ public abstract class JDO_Test extends TestCase {
         return getPMF().supportedOptions().contains(
             "javax.jdo.option.GetDataStoreConnection");
     }
-    
+
+    /** Reports whether a feature is supported */
+    public boolean isSupported(String option) {
+        return getPMF().supportedOptions().contains(option);
+    }
+
     /**
      * Determine if a class is loadable in the current environment.
      */
