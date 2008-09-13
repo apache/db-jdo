@@ -34,13 +34,16 @@ import java.security.PrivilegedAction;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import javax.jdo.Constants;
 import javax.jdo.Extent;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalException;
@@ -166,6 +169,16 @@ public abstract class JDO_Test extends TestCase {
     /** identitytype value for datastoreidentity. */
     public static final String DATASTORE_IDENTITY = "datastoreidentity";
 
+    /** Map of transaction isolation String values to Integer */
+    protected final static Map levelValues = new HashMap();
+    static {
+        levelValues.put(Constants.TX_READ_UNCOMMITTED, 0);
+        levelValues.put(Constants.TX_READ_COMMITTED, 1);
+        levelValues.put(Constants.TX_REPEATABLE_READ, 2);
+        levelValues.put(Constants.TX_SNAPSHOT, 3);
+        levelValues.put(Constants.TX_SERIALIZABLE, 4);
+    }
+
     /** 
      * String indicating the type of identity used for the current test case.
      * The value is either "applicationidentity" or "datastoreidentity".
@@ -200,7 +213,7 @@ public abstract class JDO_Test extends TestCase {
     protected static PersistenceManagerFactory pmf;
     
     /** The collection of supported options of the pmf. */
-    private static Collection supportedOptions;
+    protected static Collection supportedOptions;
 
     /** The name of the pmf supported options summary file. */
     private static final String PMF_SUPPORTED_OPTIONS_FILE_NAME = "pmf_supported_options.txt";
@@ -716,152 +729,152 @@ public abstract class JDO_Test extends TestCase {
 
     /** Reports whether TransientTransactional is supported. */
     public boolean isTransientTransactionalSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.TransientTransactional");
     }
     
     /** Reports whether NontransactionalRead is supported. */
     public boolean isNontransactionalReadSupported(){
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.NontransactionalRead");
     }
     
     /** Reports whether NontransactionalWrite is supported. */
     public boolean isNontransactionalWriteSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.NontransactionalWrite");
     }
 
     /** Reports whether RetainValues is supported. */
     public boolean isRetainValuesSupported()
     {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.RetainValues");
     }
 
     /** Reports whether Optimistic is supported. */
     public boolean isOptimisticSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.Optimistic");
     }
 
     /** Reports whether Application Identity is supported. */
     public boolean isApplicationIdentitySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.ApplicationIdentity");
     }
 
     /** Reports whether Datastore Identity is supported. */
     public boolean isDatastoreIdentitySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.DatastoreIdentity");
     }
 
     /** Reports whether Non-Durable Identity is supported. */
     public boolean isNonDurableIdentitySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.NonDurableIdentity");
     }
 
     /** Reports whether an <code>ArrayList</code> collection is supported. */
     public boolean isArrayListSupported() {        
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.ArrayList");
     }
 
     /** Reports whether a <code>HashMap</code> collection is supported. */
     public boolean isHashMapSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.HashMap");
     }
 
     /** Reports whether a <code>Hashtable</code> collection is supported. */
     public boolean isHashtableSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.Hashtable");
     }
 
     /** Reports whether a <code>LinkedList</code> collection is supported. */
     public boolean isLinkedListSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.LinkedList");
     }
 
     /** Reports whether a <code>TreeMap</code> collection is supported. */
     public boolean isTreeMapSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.TreeMap");
     }
 
     /** Reports whether a <code>TreeSet</code> collection is supported. */
     public boolean isTreeSetSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.TreeSet");
     }
 
     /** Reports whether a <code>Vector</code> collection is supported. */
     public boolean isVectorSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.Vector");
     }
 
     /** Reports whether a <code>Map</code> collection is supported. */
     public boolean isMapSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.Map");
     }
 
     /** Reports whether a <code>List</code> collection is supported. */
     public boolean isListSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.List");
     }
 
     /** Reports whether arrays are supported. */
     public boolean isArraySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.Array");
     }
 
     /** Reports whether a null collection is supported. */
     public boolean isNullCollectionSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.NullCollection");
     }
 
     /** Reports whether Changing Application Identity is supported. */
     public boolean isChangeApplicationIdentitySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.ChangeApplicationIdentity");
     }
 
     /** Reports whether Binary Compatibility is supported. */
     public boolean isBinaryCompatibilitySupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.BinaryCompatibility");
     }
 
     /** Reports whether UnconstrainedVariables is supported. */
     public boolean isUnconstrainedVariablesSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.UnconstrainedVariables");
     }
     
     /** Reports whether SQL queries are supported. */
     public boolean isSQLSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.query.SQL");
     }
     
     /** Reports whether getting the DataStoreConnection is supported. */
     public boolean isDataStoreConnectionSupported() {
-        return getPMF().supportedOptions().contains(
+        return supportedOptions.contains(
             "javax.jdo.option.GetDataStoreConnection");
     }
 
     /** Reports whether a feature is supported */
     public boolean isSupported(String option) {
-        return getPMF().supportedOptions().contains(option);
+        return supportedOptions.contains(option);
     }
 
     /**
@@ -1082,7 +1095,7 @@ public abstract class JDO_Test extends TestCase {
     protected boolean isTestToBePerformed() {
         boolean isTestToBePerformed = true;
         String requiredOptions = System.getProperty("jdo.tck.requiredOptions");
-        Collection supportedOptions = getPMF().supportedOptions();
+//        Collection supportedOptions = supportedOptions;
         StringTokenizer tokenizer = new StringTokenizer(
                 requiredOptions, " ,;\n\r\t");
         while (tokenizer.hasMoreTokens()) {
@@ -1147,4 +1160,12 @@ public abstract class JDO_Test extends TestCase {
             fail (errors);
         }
     }
+
+    /** Validate an actual isolation level against the requested level. */
+    protected boolean validLevelSubstitution(String requested, String actual) {
+        int requestedLevel = ((Integer)levelValues.get(requested)).intValue();
+        int actualLevel = ((Integer)levelValues.get(actual)).intValue();
+        return actualLevel >= requestedLevel;
+    }
+
 }

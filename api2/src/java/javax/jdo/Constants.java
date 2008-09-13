@@ -21,6 +21,7 @@ package javax.jdo;
  * Constant values used in JDO.
  *
  * @since 2.1
+ * @version 2.2
  */
 public interface Constants {
 
@@ -611,6 +612,53 @@ public interface Constants {
     static String PROPERTY_MULTITHREADED
         = "javax.jdo.option.Multithreaded";
     /**
+     * "javax.jdo.option.TransactionIsolationLevel"
+     *
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL
+        = "javax.jdo.option.TransactionIsolationLevel";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.read-uncommitted"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.read-committed"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-committed";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.repeatable-read"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
+        = "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.snapshot"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
+        = "javax.jdo.option.TransactionIsolationLevel.snapshot";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.serializable"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
+        = "javax.jdo.option.TransactionIsolationLevel.serializable";
+    /**
      * "javax.jdo.option.DetachAllOnCommit"
      *
      * @see PersistenceManagerFactory#getDetachAllOnCommit()
@@ -877,5 +925,50 @@ public interface Constants {
      */
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
-}
 
+    /**
+     * Transaction isolation level representing the ability to read
+     * uncommitted data.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
+
+    /**
+     * Transaction isolation level representing the requirement to read
+     * committed data only.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_READ_COMMITTED = "read-committed"; 
+
+    /**
+     * Transaction isolation level representing the requirement to read
+     * the same data in the same transaction.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_REPEATABLE_READ = "repeatable-read"; 
+
+    /**
+     * Transaction isolation level representing the requirement to keep
+     * a snapshot for reading data.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_SNAPSHOT = "snapshot"; 
+
+    /**
+     * Transaction isolation level representing the requirement to serialize
+     * transactions.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_SERIALIZABLE = "serializable"; 
+
+}

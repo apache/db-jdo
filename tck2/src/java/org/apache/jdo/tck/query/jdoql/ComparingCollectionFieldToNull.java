@@ -69,12 +69,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
-        // emp1 should be in the query result set,
-        // if the JDO Implentation supports null values for Collections
-        getTransientCompanyModelInstancesAsList(
-            isNullCollectionSupported() ? new String[]{"emp1"} : new String[]{})
-    };
+    private Object[] expectedResult;
     
     /**
      * The <code>main</code> is called when the class
@@ -102,6 +97,13 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
         Employee employee = (Employee) getPersistentCompanyModelInstance("emp1");
+        expectedResult = new Object[] {
+            // emp1 should be in the query result set,
+            // if the JDO Implentation supports null values for Collections
+            getTransientCompanyModelInstancesAsList(
+                isNullCollectionSupported() ? 
+                    new String[]{"emp1"} : new String[]{})
+        };
         if (isNullCollectionSupported()) {
             getPM().currentTransaction().begin();
             employee.setProjects(null);
