@@ -129,6 +129,8 @@
     <xs:attribute name="nontransactional-write" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.Multithreaded. -->
     <xs:attribute name="multithreaded" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.TransactionIsolationLevel. -->
+    <xs:attribute name="transaction-isolation-level" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionDriverName. -->
     <xs:attribute name="connection-driver-name" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionUserName. -->

@@ -33,6 +33,7 @@
 <!ATTLIST persistence-manager-factory nontransactional-read (true|false) CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory nontransactional-write (true|false) CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory multithreaded (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory transaction-isolation-level CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory connection-driver-name CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory connection-user-name CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory connection-password CDATA #IMPLIED>

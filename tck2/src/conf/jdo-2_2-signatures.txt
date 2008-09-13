@@ -162,6 +162,18 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.NontransactionalWrite";
     static String PROPERTY_MULTITHREADED
         = "javax.jdo.option.Multithreaded";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL
+        = "javax.jdo.option.TransactionIsolationLevel";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-committed";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
+        = "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
+        = "javax.jdo.option.TransactionIsolationLevel.snapshot";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
+        = "javax.jdo.option.TransactionIsolationLevel.serializable";
     static String PROPERTY_DETACH_ALL_ON_COMMIT
         = "javax.jdo.option.DetachAllOnCommit";
     static String PROPERTY_COPY_ON_ATTACH
@@ -222,6 +234,11 @@ public interface javax.jdo.Constants {
         = "javax/jdo/jdoquery_2_2.xsd";
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
+    public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
+    public static final String TX_READ_COMMITTED = "read-committed"; 
+    public static final String TX_REPEATABLE_READ = "repeatable-read"; 
+    public static final String TX_SNAPSHOT = "snapshot"; 
+    public static final String TX_SERIALIZABLE = "serializable"; 
 }
 
 public interface javax.jdo.datastore.DataStoreCache {
@@ -803,6 +820,8 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public void setTransactionType(java.lang.String);
     public void setReadOnly(boolean flag);
     public boolean getReadOnly();
+    public void setTransactionIsolationLevel(String);
+    public String getTransactionIsolationLevel();
     public java.util.Properties getProperties();
     public java.util.Collection supportedOptions();
     public javax.jdo.datastore.DataStoreCache getDataStoreCache();
@@ -1088,6 +1107,8 @@ public interface javax.jdo.Transaction {
     public boolean getRestoreValues();
     public void setOptimistic(boolean optimistic);
     public boolean getOptimistic();
+    void setIsolationLevel(String level);
+    String getIsolationLevel();
     public void setSynchronization(javax.transaction.Synchronization sync);
     public javax.transaction.Synchronization getSynchronization();
     public javax.jdo.PersistenceManager getPersistenceManager();

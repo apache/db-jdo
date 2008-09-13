@@ -488,6 +488,37 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void setReadOnly(boolean flag);
 
+    /** Get the value for transaction isolation level for this PMF.
+     * @return the transaction isolation level
+     * @see #setTransactionIsolationLevel(String)
+     * @since 2.2
+     */
+    String getTransactionIsolationLevel();
+
+    /** Set the value for transaction isolation level for this PMF.
+     * Transaction isolation levels are defined in javax.jdo.Constants.
+     * If the requested level is not available, but a higher level is
+     * available, the higher level is silently used. 
+     * If the requested level is not available, and no higher level is
+     * available, then JDOUnsupportedOptionException is thrown.
+     * Standard values in order from low to high are:
+     * <ul><li>read-uncommitted
+     * </li><li>read-committed
+     * </li><li>repeatable-read
+     * </li><li>snapshot
+     * </li><li>serializable
+     * </li></ul>
+     * @param level the transaction isolation level
+     * @see #getTransactionIsolationLevel()
+     * @see Constants#TX_READ_UNCOMMITTED
+     * @see Constants#TX_READ_COMMITTED
+     * @see Constants#TX_REPEATABLE_READ
+     * @see Constants#TX_SNAPSHOT
+     * @see Constants#TX_SERIALIZABLE
+     * @since 2.2
+     */
+    void setTransactionIsolationLevel(String level);
+
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.
      * Properties with keys <code>VendorName</code> and 
@@ -500,7 +531,7 @@ public interface PersistenceManagerFactory extends Serializable {
     /** The application can determine from the results of this
      * method which optional features, and which query languages 
      * are supported by the JDO implementation.
-     * <P>Each supported JDO optional feature is represented by a
+     * <P>Each supported JDO feature is represented by a
      * <code>String</code> with one of the following values:
      *
      * <P><code>javax.jdo.option.TransientTransactional
@@ -510,7 +541,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.option.Optimistic
      * <BR>javax.jdo.option.ApplicationIdentity
      * <BR>javax.jdo.option.DatastoreIdentity
-     * <BR>javax.jdo.option.NonDatastoreIdentity
+     * <BR>javax.jdo.option.NonDurableIdentity
      * <BR>javax.jdo.option.ArrayList
      * <BR>javax.jdo.option.HashMap
      * <BR>javax.jdo.option.Hashtable
@@ -526,6 +557,11 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.option.BinaryCompatibility
      * <BR>javax.jdo.option.GetDataStoreConnection
      * <BR>javax.jdo.option.UnconstrainedQueryVariables
+     * <BR>javax.jdo.option.TransactionIsolationLevel.read-uncommitted
+     * <BR>javax.jdo.option.TransactionIsolationLevel.read-committed
+     * <BR>javax.jdo.option.TransactionIsolationLevel.repeatable-read
+     * <BR>javax.jdo.option.TransactionIsolationLevel.snapshot
+     * <BR>javax.jdo.option.TransactionIsolationLevel.serializable
      * <BR>javax.jdo.query.SQL
      * <BR>javax.jdo.query.JDOQL
      * </code>
