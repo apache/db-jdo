@@ -702,32 +702,4 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     Set getFetchGroups();
 
-    /** 
-     * Create a PersistenceManagerFactory from the properties in the
-     * parameter props. 
-     * This method behaves as a static method: none of the
-     * properties of the instance on which the method is called are used
-     * to construct the new PersistenceManagerFactory.
-     * @param props a Map of configuration properties
-     * @return an unconfigurable PersistenceManagerFactory based on the
-     * properties in the parameter Map
-     * @since 2.2
-     */
-    PersistenceManagerFactory getPersistenceManagerFactory (Map props);
-
-    /** 
-     * Create a PersistenceManagerFactory from the properties in the
-     * parameters props and overrides. 
-     * This method behaves as a static method: none of the
-     * properties of the instance on which the method is called are used
-     * to construct the new PersistenceManagerFactory.
-     * @param overrides a Map of configuration properties that override the 
-     * properties in the props parameter
-     * @param props a Map of configuration properties
-     * @return an unconfigurable PersistenceManagerFactory based on the
-     * properties in the parameter Map
-     * @since 2.2
-     */
-    PersistenceManagerFactory getPersistenceManagerFactory (
-            Map overrides, Map props);
 }
