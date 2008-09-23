@@ -24,9 +24,12 @@ package javax.jdo;
 
 import javax.jdo.datastore.DataStoreCache;
 import javax.jdo.listener.InstanceLifecycleListener;
+import javax.jdo.spi.JDOPermission;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Properties;
+import java.util.Set;
 
 /** The <code>PersistenceManagerFactory</code> is the interface to use to obtain
  * <code>PersistenceManager</code> instances.  
@@ -584,5 +587,83 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void removeInstanceLifecycleListener (InstanceLifecycleListener listener);
 
+    /**
+     * Add the <code>FetchGroup</code>s to the set of active fetch groups. 
+     * <code>FetchGroup</code>s are made unmodifiable before being added. 
+     * <code>FetchGroup</code>s that match existing <code>FetchGroup</code>s
+     * replace the corresponding <code>FetchGroup</code>s.
+     * The replaced <code>FetchGroup</code>s become unscoped.
+     * Match is based on identical class and equal name.
+     * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * are internally serialized.
+     * @param groups an array of FetchGroups
+     * @throws SecurityException if the caller is not authorized for
+     * {@link JDOPermission} ("manageMetadata")
+     * @since 2.2
+     */
+    void addFetchGroups(FetchGroup[] groups);
+
+    /**
+     * Remove the <code>FetchGroup</code>s from the set of active 
+     * <code>FetchGroup</code>s. Existing <code>FetchGroup</code>s that match 
+     * parameter <code>FetchGroup</code>s are removed. Parameter 
+     * <code>FetchGroup</code>s that do not match any existing 
+     * <code>FetchGroup</code> are ignored.
+     * Removed <code>FetchGroup</code>s become unscoped.
+     * Match is based on identical class and equal name.
+     * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * are internally serialized.
+     * @param groups an array of FetchGroups
+     * @throws SecurityException if the caller is not authorized for
+     * {@link JDOPermission} ("manageMetadata")
+     * @since 2.2
+     */
+    void removeFetchGroups(FetchGroup[] groups);
+
+    /**
+     * Remove all <code>FetchGroup</code>s from the set of active 
+     * <code>FetchGroup</code>s.
+     * All removed <code>FetchGroup</code>s become unscoped.
+     * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * are internally serialized.
+     * @throws SecurityException if the caller is not authorized for
+     * {@link JDOPermission} ("manageMetadata")
+     * @since 2.2
+     */
+    void removeAllFetchGroups();
+
+    /**
+     * Create an unscoped, modifiable <code>FetchGroup</code> for the Class and 
+     * name. If a corresponding <code>FetchGroup</code> already exists in 
+     * <code>PersistenceManagerFactory</code> scope, copy its definition
+     * to a new <code>FetchGroup</code>. 
+     * If the <code>FetchGroup</code> does not already exist, create it 
+     * with no members. The <code>FetchGroup</code> does not become 
+     * in scope until it is added to the current set via 
+     * {@link #addFetchGroups}.
+     * @param cls the class or interface for the FetchGroup
+     * @param name the name of the fetch group
+     * @return the FetchGroup
+     * @throws JDOUserException if the class is not a persistence-capable
+     * class or interface
+     * @since 2.2
+     */
+    FetchGroup getFetchGroup(Class cls, String name);
+
+    /**
+     * Get a modifiable Set containing a mutable copy of all currently active
+     * (in scope) fetch groups.
+     * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * are internally serialized.
+     * @return a copy of all currently active fetch groups
+     * @throws SecurityException if the caller is not authorized for
+     * {@link JDOPermission} ("getMetadata")
+     * @since 2.2
+     */
+    Set getFetchGroups();
 }
 
