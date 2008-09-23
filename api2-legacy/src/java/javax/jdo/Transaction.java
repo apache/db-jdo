@@ -165,7 +165,40 @@ public interface Transaction
      * @return the value of the Optimistic property.
      */
     boolean getOptimistic();
-    
+
+    /** Get the value for transaction isolation level for this transaction.
+     * @return the transaction isolation level
+     * @see #setIsolationLevel(String)
+     * @since 2.2
+     */
+    String getIsolationLevel();
+
+    /** Set the value for transaction isolation level for this transaction.
+     * Transaction isolation levels are defined in javax.jdo.Constants.
+     * If the requested level is not available, but a higher level is
+     * available, the higher level is silently used. 
+     * If the requested level is not available, and no higher level is
+     * available, then JDOUnsupportedOptionException is thrown.
+     * Five standard isolation levels are defined. Other isolation levels
+     * might be supported by an implementation but are not standard.
+     * <p>Standard values in order of low to high are:
+     * <ul><li>read-uncommitted
+     * </li><li>read-committed
+     * </li><li>repeatable-read
+     * </li><li>snapshot
+     * </li><li>serializable
+     * </li></ul>
+     * @param level the transaction isolation level
+     * @see #getIsolationLevel()
+     * @see Constants#TX_READ_UNCOMMITTED
+     * @see Constants#TX_READ_COMMITTED
+     * @see Constants#TX_REPEATABLE_READ
+     * @see Constants#TX_SNAPSHOT
+     * @see Constants#TX_SERIALIZABLE
+     * @since 2.2
+     */
+    void setIsolationLevel(String level);
+
     /** The user can specify a <code>Synchronization</code> instance to be 
      * notified on transaction completions.  The <code>beforeCompletion</code> 
      * method is called prior to flushing instances to the data store.

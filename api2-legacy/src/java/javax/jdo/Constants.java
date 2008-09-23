@@ -861,5 +861,49 @@ public interface Constants {
      */
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
-}
 
+    /**
+     * Transaction isolation level representing the ability to read
+     * uncommitted data.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
+
+    /**
+     * Transaction isolation level representing the requirement to read
+     * committed data only.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_READ_COMMITTED = "read-committed"; 
+
+    /**
+     * Transaction isolation level representing the requirement to read
+     * the same data in the same transaction.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_REPEATABLE_READ = "repeatable-read"; 
+
+    /**
+     * Transaction isolation level representing the requirement to keep
+     * a snapshot for reading data.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_SNAPSHOT = "snapshot"; 
+
+    /**
+     * Transaction isolation level representing the requirement to serialize
+     * transactions.
+     * @see PersistenceManagerFactory#getTransactionIsolationLevel()
+     * @see Transaction#getIsolationLevel()
+     * @since 2.2
+     */
+    public static final String TX_SERIALIZABLE = "serializable"; 
+}
