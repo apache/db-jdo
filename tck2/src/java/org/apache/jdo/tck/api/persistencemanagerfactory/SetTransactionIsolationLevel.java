@@ -113,31 +113,38 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** */
     private void setTransactionIsolationLevelByAPI(String level) {
         pmf = getUnconfiguredPMF();
+        // Set datastore details so the implementation knows what is supported
+        pmf.setConnectionURL(getPMFProperty(CONNECTION_URL_PROP));
+        pmf.setConnectionUserName(getPMFProperty(CONNECTION_USERNAME_PROP));
+        pmf.setConnectionPassword(getPMFProperty(CONNECTION_PASSWORD_PROP));
+        pmf.setConnectionDriverName(getPMFProperty(PROPERTY_CONNECTION_DRIVER_NAME));
+
         String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
-        if (isSupported(property)) {
-            pmf.setTransactionIsolationLevel(level);
-            String actual = pmf.getTransactionIsolationLevel();
-            if (!validLevelSubstitution(level, actual)) {
-                appendMessage(ASSERTION_FAILED +
-                        "\nTransactionIsolationLevel set to " + level +
-                        "; value returned by PMF is " + actual);
-            }
-        } else {
-            try {
-                pmf.setTransactionIsolationLevel(level);
-                // no exception thrown; bad
-                appendMessage(ASSERTION_FAILED +
-                        "\nThe expected JDOUnsupportedOptionException was not " +
-                        "thrown for unsupported isolation level " + level + ".");            
-            } catch (JDOUnsupportedOptionException ex) {
-                // good catch
-            } catch (Throwable t) {
-                appendMessage(ASSERTION_FAILED +
-                        "\nThe expected JDOUnsupportedOptionException was not " +
-                        "thrown for unsupported isolation level " + level +
-                        " but unexpected exception:\n" + t);
-            }
+        try {
+        	pmf.setTransactionIsolationLevel(level);
+
+        	// Get first PM so the PMF is frozen
+        	pmf.getPersistenceManager();
+        	if (!isSupported(property)) {
+        		appendMessage(ASSERTION_FAILED +
+        				"\nCreated PersistenceManager for isolation level "+
+        				level + " yet the PMF says that this level is not supported!\n");
+        	}
+        } catch (JDOUnsupportedOptionException ex) {
+        	// not supported, so check with the PMF if this should be supported
+        	if (isSupported(property)) {
+        		appendMessage(ASSERTION_FAILED +
+        				"\nReceived JDOUnsupportedOptionException on creating the "+
+        				"first PersistenceManager yet the PMF says that isolation level "+
+        				"is supported!\n");
+        	}
+        } catch (Throwable t) {
+            appendMessage(ASSERTION_FAILED +
+                    "\nThe expected JDOUnsupportedOptionException was not " +
+                    "thrown for unsupported isolation level " + level +
+                    " but unexpected exception:\n" + t);
         }
+
         closePMF();
         return;
     }
