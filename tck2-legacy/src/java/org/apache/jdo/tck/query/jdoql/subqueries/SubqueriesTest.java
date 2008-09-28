@@ -48,16 +48,29 @@ public abstract class SubqueriesTest extends QueryTest {
      * @return a List including all persistent Employee instances
      */
     protected List getAllEmployees(PersistenceManager pm) {
+        return getAllPersistentInstances(pm, Employee.class);
+    }
+
+    /** 
+     * Helper method retuning all persistent instances of the specified class.
+     * Note, this methods executes a JDO query in a new transaction.
+     * @param pm the PersistenceManager
+     * @param pcClass the persistent capable class 
+     * @return a List including all persistent instances of the specified class.
+     */
+    protected List getAllPersistentInstances(PersistenceManager pm, 
+                                             Class pcClass) {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List allEmployees = (List)pm.newQuery(Employee.class).execute();
+            List all = (List)pm.newQuery(pcClass).execute();
             tx.commit();
-            return allEmployees;
+            return all;
         } finally { 
             if ((tx != null) && tx.isActive()) {
                 tx.rollback();
             }
         }
     }
+
 }
