@@ -832,8 +832,6 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     void removeAllFetchGroups();
     javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
     java.util.Set getFetchGroups();
-    public javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map, java.util.Map);
-    public javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.util.Map);
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
