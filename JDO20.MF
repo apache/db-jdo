@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
-Specification-Version: JDO 2.1
+Specification-Version: JDO 2.2
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Data Objects
 Bundle-SymbolicName: javax.jdo
-Bundle-Version: 2.1
+Bundle-Version: 2.2
 Bundle-Localization: plugin
 Bundle-Vendor: Apache
