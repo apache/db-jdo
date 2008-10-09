@@ -246,15 +246,6 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
-    public void testNavigationWithThisAndCompany() {
-        int index = 3;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
-    /** */
     public void testNavigationWithThisConstraint() {
         int index = 4;
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
