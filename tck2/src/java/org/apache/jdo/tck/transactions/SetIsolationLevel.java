@@ -18,7 +18,7 @@
 package org.apache.jdo.tck.transactions;
 
 import javax.jdo.Constants;
-import javax.jdo.JDOUnsupportedOptionException;
+import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -94,12 +94,12 @@ public class SetIsolationLevel extends JDO_Test
                 appendMessage(ASSERTION_25_FAILED + 
                         "active datastore transaction; no exception thrown for "
                         + "setIsolationLevel(" + isolationLevel + ").");
-            } catch (JDOUnsupportedOptionException ex) {
+            } catch (JDOUserException ex) {
                 // good catch
             } catch (Throwable t) {
                 appendMessage(ASSERTION_25_FAILED + 
                         "active datastore transaction; " +
-                        "JDOUnsupportedOptionException not thrown for " +
+                        "JDOUserException not thrown for " +
                         "setIsolationLevel(" + isolationLevel +
                         "). Unexpected exception: \n" + t);
                 
@@ -150,14 +150,14 @@ public class SetIsolationLevel extends JDO_Test
                 // no exception thrown; bad
                 appendMessage(ASSERTION_29_FAILED
                         + "\nThe expected JDOUserException was not thrown.");            
-            } catch (JDOUnsupportedOptionException ex) {
+            } catch (JDOUserException ex) {
                 // good catch
                 return;
             } catch (Throwable t) {
                 // wrong exception thrown; bad
                 appendMessage(ASSERTION_29_FAILED +
                         "active datastore transaction; " +
-                        "JDOUnsupportedOptionException not thrown for " +
+                        "JDOJDOUserException not thrown for " +
                         "setIsolationLevel(" + level +
                         "). Unexpected exception: \n" + t);
                 return;
