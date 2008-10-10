@@ -618,22 +618,71 @@ public class SignatureVerifier {
             nextToken = t;
         }
 
-        /**
-         * Skips any "white space" and returns whether there are more
+       /**
+         * Skips any "white space" and /* style comments
+         * and returns whether there are more
          * characters to be parsed.
          */
         protected boolean skip() throws IOException {
-            char c;
-            do {
-                ir.mark(1);
-                int i;
-                if ((i = ir.read()) < 0) {
+            Character c;
+            Character cnext;
+            // Permitted states are white, commentSlashStar, commentSlashSlash
+            String state = "white";
+            final Character SLASH = new Character('/');
+            final Character STAR = new Character('*');
+            while (true) {
+                c = peek();
+                if (c == null)
                     return false;
-                }            
-                c = (char)i;
-            } while (Character.isWhitespace(c));
+                if (state.equals("commentSlashStar") && STAR.equals(c)) {
+                    cnext = peek();
+                    if (cnext == null)
+                        return false;
+                    if (SLASH.equals(cnext)) {
+                        state = "white";
+                    }
+                    continue;
+                }
+                if (state.equals("white")) {
+                    if (SLASH.equals(c)) {
+                        cnext = peek();
+                        if (cnext == null)
+                            return false;
+                        if (STAR.equals(cnext)) {
+                            state = "commentSlashStar";
+                            continue;
+                        }
+                        if (SLASH.equals(cnext)) {
+                            state = "commentSlashSlash";
+                            continue;
+                        }
+                    }
+                    if (!Character.isWhitespace(c.charValue())) {
+                        break;
+                    }
+                }
+                if (state.equals("commentSlashSlash")
+                    && (c.charValue() == Character.LINE_SEPARATOR
+                        || c.charValue() == '\n'
+                        || c.charValue() == '\r')) {
+                    state = "white";
+                    continue;
+                }
+            }
             ir.reset();
             return true;
+        }
+
+        /**
+         * Returns next char, or null if there is none
+         */
+        protected Character peek() throws IOException {
+            ir.mark(1);
+            int i;
+            if ((i = ir.read()) < 0) {
+                return null;
+            }            
+            return Character.valueOf((char)i);
         }
 
         /**

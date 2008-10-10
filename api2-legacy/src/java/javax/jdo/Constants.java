@@ -21,6 +21,7 @@ package javax.jdo;
  * Constant values used in JDO.
  *
  * @since 2.1
+ * @version 2.2
  */
 public interface Constants {
 
@@ -120,6 +121,14 @@ public interface Constants {
      */
     static String PMF_ATTRIBUTE_OPTIMISTIC
         = "optimistic";
+    /**
+     * The name of the persistence manager factory element's "readonly"
+     * attribute.
+     *
+     * @since 2.2
+     */
+    static String PMF_ATTRIBUTE_READONLY
+        = "readonly";
     /**
      * The name of the persistence manager factory element's "retain-values"
      * attribute.
@@ -547,6 +556,14 @@ public interface Constants {
     static String PROPERTY_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
     /**
+     * "javax.jdo.option.ReadOnly"
+     *
+     * @see PersistenceManagerFactory#getReadOnly()
+     * @since 2.2
+     */
+    static String PROPERTY_READONLY
+        = "javax.jdo.option.ReadOnly";
+    /**
      * "javax.jdo.option.RetainValues"
      *
      * @see PersistenceManagerFactory#getRetainValues()
@@ -594,6 +611,53 @@ public interface Constants {
      */
     static String PROPERTY_MULTITHREADED
         = "javax.jdo.option.Multithreaded";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel"
+     *
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL
+        = "javax.jdo.option.TransactionIsolationLevel";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.read-uncommitted"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.read-committed"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-committed";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.repeatable-read"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
+        = "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.snapshot"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
+        = "javax.jdo.option.TransactionIsolationLevel.snapshot";
+    /**
+     * "javax.jdo.option.TransactionIsolationLevel.serializable"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.2
+     */
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
+        = "javax.jdo.option.TransactionIsolationLevel.serializable";
     /**
      * "javax.jdo.option.DetachAllOnCommit"
      *
@@ -789,7 +853,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOCONFIG_DTD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.dtd";
+        = "javax/jdo/jdoconfig_2_2.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -798,7 +862,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOCONFIG_XSD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.xsd";
+        = "javax/jdo/jdoconfig_2_2.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO metadata file.
@@ -806,7 +870,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDO_DTD_RESOURCE
-        = "javax/jdo/jdo_2_0.dtd";
+        = "javax/jdo/jdo_2_2.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -815,7 +879,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_1.xsd";
+        = "javax/jdo/jdo_2_2.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO
@@ -824,7 +888,7 @@ public interface Constants {
      * @since 2.1
      */
     static String ORM_DTD_RESOURCE
-        = "javax/jdo/orm_2_0.dtd";
+        = "javax/jdo/orm_2_2.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -833,7 +897,7 @@ public interface Constants {
      * @since 2.1
      */
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_1.xsd";
+        = "javax/jdo/orm_2_2.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO query
@@ -842,7 +906,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOQUERY_DTD_RESOURCE
-        = "javax/jdo/jdoquery_2_0.dtd";
+        = "javax/jdo/jdoquery_2_2.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO query
@@ -851,7 +915,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_1.xsd";
+        = "javax/jdo/jdoquery_2_2.xsd";
 
     /**
      * The name of the anonymous PersistenceManagerFactory, which
@@ -906,4 +970,5 @@ public interface Constants {
      * @since 2.2
      */
     public static final String TX_SERIALIZABLE = "serializable"; 
+
 }

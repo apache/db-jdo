@@ -1,3 +1,20 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+
 public interface javax.jdo.Constants {
     static String SERVICE_LOOKUP_PMF_RESOURCE_NAME
         = "META-INF/services/javax.jdo.PersistenceManagerFactory";
@@ -59,6 +76,8 @@ public interface javax.jdo.Constants {
         = "name";
     static String PROPERTY_ATTRIBUTE_VALUE
         = "value";
+    static String PMF_ATTRIBUTE_READONLY
+        = "readonly";
     static String ELEMENT_INSTANCE_LIFECYCLE_LISTENER
         = "instance-lifecycle-listener";
     static String INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER
@@ -129,6 +148,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.PersistenceManagerFactoryClass";
     static String PROPERTY_OPTIMISTIC
         = "javax.jdo.option.Optimistic";
+    static String PROPERTY_READONLY
+        = "javax.jdo.option.ReadOnly";
     static String PROPERTY_RETAIN_VALUES
         = "javax.jdo.option.RetainValues";
     static String PROPERTY_RESTORE_VALUES
@@ -141,6 +162,18 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.NontransactionalWrite";
     static String PROPERTY_MULTITHREADED
         = "javax.jdo.option.Multithreaded";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL
+        = "javax.jdo.option.TransactionIsolationLevel";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_UNCOMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-uncommitted";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_READ_COMMITTED
+        = "javax.jdo.option.TransactionIsolationLevel.read-committed";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_REPEATABLE_READ
+        = "javax.jdo.option.TransactionIsolationLevel.repeatable-read";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SNAPSHOT
+        = "javax.jdo.option.TransactionIsolationLevel.snapshot";
+    static String PROPERTY_TRANSACTION_ISOLATION_LEVEL_SERIALIZABLE
+        = "javax.jdo.option.TransactionIsolationLevel.serializable";
     static String PROPERTY_DETACH_ALL_ON_COMMIT
         = "javax.jdo.option.DetachAllOnCommit";
     static String PROPERTY_COPY_ON_ATTACH
@@ -184,23 +217,28 @@ public interface javax.jdo.Constants {
     static String RESOURCE_LOCAL
         = "RESOURCE_LOCAL";
     static String JDOCONFIG_DTD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.dtd";
+        = "javax/jdo/jdoconfig_2_2.dtd";
     static String JDOCONFIG_XSD_RESOURCE
-        = "javax/jdo/jdoconfig_2_1.xsd";
+        = "javax/jdo/jdoconfig_2_2.xsd";
     static String JDO_DTD_RESOURCE
-        = "javax/jdo/jdo_2_0.dtd";
+        = "javax/jdo/jdo_2_2.dtd";
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_1.xsd";
+        = "javax/jdo/jdo_2_2.xsd";
     static String ORM_DTD_RESOURCE
-        = "javax/jdo/orm_2_0.dtd";
+        = "javax/jdo/orm_2_2.dtd";
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_1.xsd";
+        = "javax/jdo/orm_2_2.xsd";
     static String JDOQUERY_DTD_RESOURCE
-        = "javax/jdo/jdoquery_2_0.dtd";
+        = "javax/jdo/jdoquery_2_2.dtd";
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_1.xsd";
+        = "javax/jdo/jdoquery_2_2.xsd";
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
+    public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
+    public static final String TX_READ_COMMITTED = "read-committed"; 
+    public static final String TX_REPEATABLE_READ = "repeatable-read"; 
+    public static final String TX_SNAPSHOT = "snapshot"; 
+    public static final String TX_SERIALIZABLE = "serializable";
 }
 
 public interface javax.jdo.datastore.DataStoreCache {
@@ -717,6 +755,7 @@ public interface javax.jdo.PersistenceManager {
     public void flush();
     public void checkConsistency();
     public javax.jdo.FetchPlan getFetchPlan();
+    javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
     public Object newInstance(Class pcClass);
     public java.util.Date getServerDate();
     public javax.jdo.datastore.Sequence getSequence(String name);
@@ -778,11 +817,18 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public void setTransactionType(java.lang.String);
     public void setReadOnly(boolean flag);
     public boolean getReadOnly();
+    public void setTransactionIsolationLevel(String);
+    public String getTransactionIsolationLevel();
     public java.util.Properties getProperties();
     public java.util.Collection supportedOptions();
     public javax.jdo.datastore.DataStoreCache getDataStoreCache();
     public void addInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener, Class[] classes);
     public void removeInstanceLifecycleListener(javax.jdo.listener.InstanceLifecycleListener listener);
+    void addFetchGroups(javax.jdo.FetchGroup[] groups);
+    void removeFetchGroups(javax.jdo.FetchGroup[] groups);
+    void removeAllFetchGroups();
+    javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
+    java.util.Set getFetchGroups();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -1056,6 +1102,8 @@ public interface javax.jdo.Transaction {
     public boolean getRestoreValues();
     public void setOptimistic(boolean optimistic);
     public boolean getOptimistic();
+    void setIsolationLevel(String level);
+    String getIsolationLevel();
     public void setSynchronization(javax.transaction.Synchronization sync);
     public javax.transaction.Synchronization getSynchronization();
     public javax.jdo.PersistenceManager getPersistenceManager();
