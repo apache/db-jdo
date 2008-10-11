@@ -15,7 +15,7 @@
  * limitations under the License.
  */
  
-package org.apache.jdo.tck.query.jdoql.result;
+package org.apache.jdo.tck.query.result;
 
 import java.math.BigInteger;
 import java.util.Arrays;
