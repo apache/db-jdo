@@ -34,7 +34,7 @@
 The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request 12 JSR 12 under the auspices of the Java Community Process.
-<br/>
+
 The JDO TCK is a test suite designed to test implementations of the Java Data Objects 
 specification. In order to claim compatibility with JDO, an implementation must pass 
 all relevant tests of the JDOTCK.
