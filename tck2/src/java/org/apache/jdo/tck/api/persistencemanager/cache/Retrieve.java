@@ -73,6 +73,15 @@ public class Retrieve extends PersistenceManagerTest {
     private static final Integer one = new Integer(1);
     private static final Integer three = new Integer(3);
 
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(PCPoint2.class);
+        addTearDownClass(PCRect.class);
+        addTearDownClass(PCPoint.class);
+    }
+
     /** */
     public void test () {
         pm = getPM();
