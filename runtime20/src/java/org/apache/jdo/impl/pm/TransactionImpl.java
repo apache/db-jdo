@@ -1175,7 +1175,15 @@ class TransactionImpl implements javax.jdo.Transaction {
             default:                        break;
         }
         return "UNKNOWN"; // NOI18N
-    }      
+    }
+
+    public String getIsolationLevel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setIsolationLevel(String arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
 
 

@@ -215,7 +215,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     /**
      * @see javax.jdo.PersistenceManager#evictAll(Object[] pcs)
      */
-    public  void evictAll(Object[] pcs) {
+    public  void evictAll(Object... pcs) {
         if (isValid) {
             pm.evictAll(pcs);
         } else {
@@ -273,9 +273,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /**
-     * @see javax.jdo.PersistenceManager#refreshAll(Object[] pcs)
+     * @see javax.jdo.PersistenceManager#refreshAll(Object... pcs)
      */
-    public  void refreshAll(Object[] pcs) {
+    public  void refreshAll(Object... pcs) {
         if (isValid) {
             pm.refreshAll(pcs);
         } else {
@@ -574,9 +574,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /** 
-     * @see javax.jdo.PersistenceManager#getObjectsById (Object[] oids, boolean validate)
+     * @see javax.jdo.PersistenceManager#getObjectsById (Object... oids, boolean validate)
      */
-    public Object[] getObjectsById (Object[] oids, boolean validate) {
+    public Object[] getObjectsById (boolean validate, Object... oids) {
         if (isValid) { 
             return pm.getObjectsById (oids, validate);
         } else { 
@@ -586,9 +586,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /** 
-     * @see javax.jdo.PersistenceManager#getObjectsById (Object[] oids)
+     * @see javax.jdo.PersistenceManager#getObjectsById (Object... oids)
      */
-    public Object[] getObjectsById (Object[] oids) {
+    public Object[] getObjectsById (Object... oids) {
         if (isValid) { 
             return pm.getObjectsById (oids);
         } else { 
@@ -610,9 +610,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#makePersistentAll(Object[] pc)
+     * @see javax.jdo.PersistenceManager#makePersistentAll(Object... pc)
      */
-    public Object[] makePersistentAll(Object[] pcs){
+    public Object[] makePersistentAll(Object... pcs){
         if (isValid) { 
             return pm.makePersistentAll(pcs);
         } else { 
@@ -646,9 +646,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#deletePersistentAll(Object[] pc)
+     * @see javax.jdo.PersistenceManager#deletePersistentAll(Object... pc)
      */
-    public void deletePersistentAll (Object[] pcs){
+    public void deletePersistentAll (Object... pcs){
         if (isValid) { 
             pm.deletePersistentAll(pcs);
         } else { 
@@ -682,9 +682,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#makeTransientAll(Object[] pc)
+     * @see javax.jdo.PersistenceManager#makeTransientAll(Object... pc)
      */
-    public void makeTransientAll(Object[] pcs){
+    public void makeTransientAll(Object... pcs){
         if (isValid) { 
             pm.makeTransientAll(pcs);
         } else { 
@@ -720,11 +720,11 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     
     /** 
      * @see javax.jdo.PersistenceManager#makeTransientAll
-     * (Object[] pc, boolean useFetchPlan)
+     * (Object... pc, boolean useFetchPlan)
      */
     public void makeTransientAll(Object[] pcs, boolean useFetchPlan){
         if (isValid) { 
-            pm.makeTransientAll(pcs, useFetchPlan);
+            pm.makeTransientAll(useFetchPlan, pcs);
         } else { 
             throw new JDOFatalUserException(msg.msg(
                 "EXC_PersistenceManagerClosed"));// NOI18N
@@ -757,9 +757,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#makeTransactionalAll(Object[] pc)
+     * @see javax.jdo.PersistenceManager#makeTransactionalAll(Object... pc)
      */
-    public void makeTransactionalAll(Object[] pcs){
+    public void makeTransactionalAll(Object... pcs){
         if (isValid) { 
             pm.makeTransactionalAll(pcs);
         } else { 
@@ -793,9 +793,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
    }
     
     /** 
-     * @see javax.jdo.PersistenceManager#makeNontransactionalAll(Object[] pc)
+     * @see javax.jdo.PersistenceManager#makeNontransactionalAll(Object... pc)
      */
-    public void makeNontransactionalAll(Object[] pcs){
+    public void makeNontransactionalAll(Object... pcs){
         if (isValid) { 
             pm.makeNontransactionalAll(pcs);
         } else { 
@@ -856,7 +856,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
      * class to retrieve associated instances.
      * @param pcs the instances
      */
-    public void retrieveAll(Object[] pcs) {
+    public void retrieveAll(Object... pcs) {
         if (isValid) { 
             pm.retrieveAll(pcs);
         } else { 
@@ -997,9 +997,9 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /** 
-     * @see javax.jdo.PersistenceManager#detachCopyAll (Object [] pcs)
+     * @see javax.jdo.PersistenceManager#detachCopyAll (Object ... pcs)
      */
-    public Object[] detachCopyAll (Object [] pcs) {
+    public Object[] detachCopyAll (Object ... pcs) {
         if (isValid) { 
             return pm.detachCopyAll(pcs);
         } else { 
@@ -1033,7 +1033,7 @@ public class PersistenceManagerWrapper implements PersistenceManager {
     }
 
     /** 
-     * @see javax.jdo.PersistenceManager#attachCopyAll (Object[] pcs, boolean makeTransactional)
+     * @see javax.jdo.PersistenceManager#attachCopyAll (Object... pcs, boolean makeTransactional)
      */
     public Object[] attachCopyAll (Object[] pcs, boolean makeTransactional) {
         if (isValid) { 
@@ -1154,10 +1154,10 @@ public class PersistenceManagerWrapper implements PersistenceManager {
 
     /** 
      * @see javax.jdo.PersistenceManager#addInstanceLifecycleListener (
-     * InstanceLifecycleListener listener, Class[] classes)
+     * InstanceLifecycleListener listener, Class... classes)
      */
     public void addInstanceLifecycleListener (
-        InstanceLifecycleListener listener, Class[] classes) {
+        InstanceLifecycleListener listener, Class... classes) {
         if (isValid) { 
             pm.addInstanceLifecycleListener(listener, classes);
         } else { 
@@ -1233,4 +1233,41 @@ public class PersistenceManagerWrapper implements PersistenceManager {
         }
         return false;
     }
+
+    public void evictAll(boolean arg0, Class arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void makeTransientAll(boolean arg0, Object... arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void retrieveAll(boolean arg0, Object... arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Set getManagedObjects() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Set getManagedObjects(EnumSet<ObjectState> arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Set getManagedObjects(Class... arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Set getManagedObjects(EnumSet<ObjectState> arg0, Class... arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public FetchGroup getFetchGroup(Class arg0, String arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Object[] getObjectsById(Object[] arg0, boolean arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
