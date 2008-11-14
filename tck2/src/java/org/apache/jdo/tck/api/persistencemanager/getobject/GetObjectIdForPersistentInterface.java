@@ -27,6 +27,7 @@ import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.PICompany;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -60,7 +61,7 @@ public class GetObjectIdForPersistentInterface extends PersistenceManagerTest {
     }
 
     public void localSetUp() {
-        addTearDownClass(ICompany.class);
+        addTearDownClass(PICompany.class);
     }
 
     /** */
@@ -73,7 +74,7 @@ public class GetObjectIdForPersistentInterface extends PersistenceManagerTest {
         }
         pm = getPM();
         Transaction tx = pm.currentTransaction();
-        ICompany icompany = (ICompany)pm.newInstance(ICompany.class);
+        ICompany icompany = (ICompany)pm.newInstance(PICompany.class);
         icompany.setCompanyid(1001);
         icompany.setName("GooTube");
         icompany.setFounded(new Date());
@@ -83,12 +84,12 @@ public class GetObjectIdForPersistentInterface extends PersistenceManagerTest {
         LongIdentity ioid = (LongIdentity)pm.getObjectId(icompany);
         tx.commit();
 
-        Class icompanyOidClass = ioid.getTargetClass();
-        if (icompanyOidClass != icompany.getClass()) 
+        Class pICompanyOidTargetClass = ioid.getTargetClass();
+        if (pICompanyOidTargetClass != PICompany.class) 
             appendMessage(ASSERTION_FAILED +
                  " getObjectId(icompany) should return interface class.\n" +
                     "expected: " + icompany.getClass().getName() + "\n" +
-                    "actual: " + icompanyOidClass.getName());
+                    "actual: " + pICompanyOidTargetClass.getName());
         failOnError();
 
     }
