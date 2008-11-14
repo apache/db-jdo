@@ -584,7 +584,7 @@ public class QueryImpl
      * @return the filtered Collection.
      * @param parameters the Object array with all of the parameters.
      */
-    public Object executeWithArray(Object[] parameters)
+    public Object executeWithArray(Object... parameters)
     {
         synchronized (this.paramtab)
         {
@@ -843,9 +843,9 @@ public class QueryImpl
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    public long deletePersistentAll (Object[] parameters) {
+    public long deletePersistentAll (Object... parameters) {
         throw new UnsupportedOperationException(
-            "method deletePersistentAll(Object[]) is not yet implemented");
+            "method deletePersistentAll(Object...) is not yet implemented");
     }
 
     /**
@@ -1022,5 +1022,17 @@ public class QueryImpl
         if (candidateClass != null)
             this.candidateClassName = candidateClass.getName();
         out.defaultWriteObject();
+    }
+
+    public void addSubquery(Query arg0, String arg1, String arg2, String arg3) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void addSubquery(Query arg0, String arg1, String arg2, String... arg3) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void addSubquery(Query arg0, String arg1, String arg2, Map arg3) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
