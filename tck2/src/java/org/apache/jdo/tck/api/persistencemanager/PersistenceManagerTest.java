@@ -27,9 +27,6 @@ import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-import org.apache.jdo.tck.pc.newInstance.Address;
-import org.apache.jdo.tck.pc.newInstance.AAddress;
-import org.apache.jdo.tck.pc.newInstance.IAddress;
 
 public abstract class PersistenceManagerTest extends JDO_Test {
     
@@ -46,9 +43,6 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         addTearDownClass(PCPoint.class);
         addTearDownClass(Department.class);
         addTearDownClass(Company.class);
-        addTearDownClass(Address.class);
-        addTearDownClass(AAddress.class);
-        addTearDownClass(IAddress.class);
     }
     
     /** */
