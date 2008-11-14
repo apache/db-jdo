@@ -74,6 +74,13 @@ public class OptimisticFailure extends PersistenceManagerTest {
     private Object p4oid = null;
     private Object p5oid = null;
     
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(VersionedPCPoint.class);
+    }
+
     /** */
     public void test() {
         pm = getPM();
