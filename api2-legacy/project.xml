@@ -25,7 +25,7 @@
     <name>JDO2 API Legacy</name>
     <groupId>javax.jdo</groupId>
     <artifactId>jdo2-api-legacy</artifactId>
-    <currentVersion>${currentVersion}</currentVersion>
+    <currentVersion>${jdo.currentVersion}</currentVersion>
     <package>javax.jdo</package>
     <shortDescription>Java Data Objects 2 (JDO) API legacy</shortDescription>
     <description>The Java Data Objects 2 (JDO) API is a standard interface-based 

@@ -26,7 +26,7 @@
     <name>JDO2 Implementation (Query)</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo2-query</artifactId>
-    <currentVersion>${currentVersion}</currentVersion>
+    <currentVersion>${jdo.currentVersion}</currentVersion>
     <package>org.apache.jdo</package>
     <shortDescription>Java Data Objects 2 (JDO) Query</shortDescription>
     <description>The Java Data Objects 2 (JDO) API is a standard interface-based 
@@ -39,22 +39,22 @@ Request JSR 243 under the auspices of the Java Community Process.</description>
         <dependency>
             <groupId>javax.jdo</groupId>
             <artifactId>jdo2-api</artifactId>
-            <version>${currentVersion}</version>
+            <version>${jdo.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-util</artifactId>
-            <version>${currentVersion}</version>
+            <version>${jdo.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-model</artifactId>
-            <version>${currentVersion}</version>
+            <version>${jdo.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jdo</groupId>
             <artifactId>jdo2-runtime</artifactId>
-            <version>${currentVersion}</version>
+            <version>${jdo.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
