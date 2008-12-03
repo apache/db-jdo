@@ -1820,6 +1820,66 @@ public class JDOHelper implements Constants {
         return getPersistenceManagerFactory (props, loader);
     }
 
+    /**
+     * Get a <code>JDOEnhancer</code> using the available enhancer(s) specified in
+     * "META-INF/services/JDOEnhancer" using the context class loader.
+     * @return the <code>JDOEnhancer</code>.
+     * @throws JDOFatalUserException if no available enhancer
+     * @since 2.3
+     */
+    public static JDOEnhancer getEnhancer() {
+    	return getEnhancer(getContextClassLoader());
+    }
+
+    /**
+     * Get a <code>JDOEnhancer</code> using the available enhancer(s) specified in
+     * "META-INF/services/JDOEnhancer"
+     * @param loader the loader to use for loading the JDOEnhancer class (if any)
+     * @return the <code>JDOEnhancer</code>.
+     * @throws JDOFatalUserException if no available enhancer
+     * @since 2.3
+     */
+    public static JDOEnhancer getEnhancer(ClassLoader loader) {
+    	ClassLoader ctrLoader = loader;
+    	if (ctrLoader == null) {
+    		ctrLoader = Thread.currentThread().getContextClassLoader();
+    	}
+
+    	/*
+    	 * If you have a jar file that provides the jdo enhancer implementation,
+    	 * a file naming the implementation goes into the file 
+    	 * packaged into the jar file, called "META-INF/services/javax.jdo.JDOEnhancer".
+    	 * The contents of the file is a string that is the enhancer class name.
+    	 * For each file in the class loader named "META-INF/services/javax.jdo.JDOEnhancer",
+    	 * this method will invoke the default constructor of the implementation class.
+    	 * Return the enhancer if a valid class name is extracted from resources and
+    	 * the invocation returns an instance.
+    	 * Otherwise add the exception thrown to an exception list.
+    	 */
+    	ArrayList exceptions = new ArrayList();
+    	try {
+    		Enumeration urls = getResources(loader, SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
+        	if (urls != null) {
+        		while (urls.hasMoreElements()) {
+        			try {
+                        String enhancerClassName = getClassNameFromURL((URL)urls.nextElement());
+                        Class enhancerClass = forName(enhancerClassName, true, ctrLoader);
+                        JDOEnhancer enhancer = (JDOEnhancer)enhancerClass.newInstance();
+                        return enhancer;
+        			} catch (Throwable ex) {
+        				// remember exceptions from failed enhancer invocations
+        				exceptions.add(ex);
+        			}
+        		}
+        	}
+    	} catch (Throwable ex) {
+    		exceptions.add(ex);
+    	}
+
+        throw new JDOFatalUserException(msg.msg("EXC_GetEnhancerNoValidEnhancerAvailable"),
+                (Throwable[])exceptions.toArray(new Throwable[exceptions.size()]));
+    }
+
     /** Get the context class loader associated with the current thread. 
      * This is done in a doPrivileged block because it is a secure method.
      * @return the current thread's context class loader.

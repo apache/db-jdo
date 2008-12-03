@@ -36,6 +36,15 @@ public interface Constants {
         = "META-INF/services/javax.jdo.PersistenceManagerFactory";
 
     /**
+     * The name of the standard service configuration resource text file containing
+     * the name of an enhancer of {@link JDOEnhancer}.
+     * Constant value is <code>META-INF/services/javax.jdo.JDOEnhancer</code>.
+     * @since 2.3
+     */
+    static String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
+        = "META-INF/services/javax.jdo.JDOEnhancer";
+
+    /**
      * The name of the standard JDO configuration resource file(s).
      * Constant value is <code>META-INF/jdoconfig.xml</code>.
      *
