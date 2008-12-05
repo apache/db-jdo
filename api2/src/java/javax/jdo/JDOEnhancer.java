@@ -103,14 +103,20 @@ public interface JDOEnhancer extends ClassFileTransformer
     /**
      * Method to enhance the items specified using addJar, addFiles, addClasses, addClass,
      * addPersistenceUnit.
+     * @return Number of classes enhanced
+     * @throws JDOEnhanceException if an error occurs during enhancement. If multiple
+     * errors occur then the nested exceptions provides this detail.
      */
-    void enhance();
+    int enhance();
 
     /**
      * Method to validate the items specified using addJar, addFiles, addClasses, addClass,
      * addPersistenceUnit.
+     * @return Number of classes validated
+     * @throws JDOEnhanceException if an error occurs during validation. If multiple
+     * errors occur then the nested exceptions provides this detail.
      */
-    void validate();
+    int validate();
 
     /**
      * Method to retrieve the (enhanced) bytes of the specified class.
