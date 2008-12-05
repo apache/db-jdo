@@ -45,8 +45,8 @@ public class ObjectIdentity extends SingleFieldIdentity {
      */
     private static JDOImplHelper helper = (JDOImplHelper)
         AccessController.doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
+            new PrivilegedAction<JDOImplHelper> () {
+                public JDOImplHelper run () {
                     return JDOImplHelper.getInstance();
                 }
             }

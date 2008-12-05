@@ -103,7 +103,7 @@ public class JDOHelper implements Constants {
      * properties.
      */
     static Map createAttributePropertyXref() {
-        Map xref = new HashMap();
+        Map<String,String> xref = new HashMap<String,String>();
 
         xref.put(
             PMF_ATTRIBUTE_CLASS,
@@ -171,8 +171,8 @@ public class JDOHelper implements Constants {
      */
     private static JDOImplHelper implHelper = (JDOImplHelper)
         AccessController.doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
+            new PrivilegedAction<JDOImplHelper> () {
+                public JDOImplHelper run () {
                     return JDOImplHelper.getInstance();
                 }
             }
@@ -391,8 +391,8 @@ public class JDOHelper implements Constants {
      * @see #getObjectIds(Object[] pcs)
      * @since 2.0
      */
-    public static Collection getObjectIds(Collection pcs) {
-        ArrayList result = new ArrayList();
+    public static Collection<Object> getObjectIds(Collection<Object> pcs) {
+        ArrayList<Object> result = new ArrayList<Object>();
         for (Iterator it = pcs.iterator(); it.hasNext();) {
             result.add(getObjectId(it.next()));
         }
@@ -786,7 +786,7 @@ public class JDOHelper implements Constants {
      */
     protected static PersistenceManagerFactory getPersistenceManagerFactory
             (Map overrides, Map props, ClassLoader pmfClassLoader) {
-        List exceptions = new ArrayList();
+        List<Throwable> exceptions = new ArrayList<Throwable>();
         if (pmfClassLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
@@ -1057,7 +1057,7 @@ public class JDOHelper implements Constants {
                 "EXC_GetPMFNullPropsLoader")); //NOI18N
         }
 
-        Map props = null;
+        Map<Object,Object> props = null;
         // trim spaces from name and ensure non-null
         name = (name == null?ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME:name.trim());
         if (!ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME.equals(name)) {
@@ -1192,7 +1192,7 @@ public class JDOHelper implements Constants {
      * @param name the name of the resource
      * @return a Properties instance or null if no resource is found
      */
-    protected static Map loadPropertiesFromResource(
+    protected static Map<Object,Object> loadPropertiesFromResource(
             ClassLoader resourceLoader, String name) {
         InputStream in = null;
         Properties props = null;
@@ -1223,7 +1223,7 @@ public class JDOHelper implements Constants {
      * @see #getNamedPMFProperties(String,ClassLoader,String)
      * @since 2.1
      */
-    protected static Map getPropertiesFromJdoconfig(
+    protected static Map<Object,Object> getPropertiesFromJdoconfig(
             String name,
             ClassLoader resourceLoader) {
         return getNamedPMFProperties(
@@ -1252,27 +1252,27 @@ public class JDOHelper implements Constants {
      * @throws JDOFatalUserException if multiple named PMF property sets are
      * found with the given name, or any other exception is encountered.
      */
-    protected static Map getNamedPMFProperties(
+    protected static Map<Object,Object> getNamedPMFProperties(
             String name,
             ClassLoader resourceLoader,
             String jdoconfigResourceName) {
         // key is PU name, value is Map of PU properties
-        Map/*<String,Map>*/ propertiesByNameInAllConfigs
-                = new HashMap/*<String,Map>*/();
+        Map<String,Map<Object,Object>> propertiesByNameInAllConfigs
+                = new HashMap<String,Map<Object,Object>>();
         try {
             URL firstFoundConfigURL = null;
 
             // get all JDO configurations
-            Enumeration resources =
+            Enumeration<URL> resources =
                 getResources(resourceLoader, jdoconfigResourceName);
 
             if (resources.hasMoreElements()) {
-                ArrayList processedResources = new ArrayList();
+                ArrayList<URL> processedResources = new ArrayList<URL>();
 
                 // get ready to parse XML
                 DocumentBuilderFactory factory = getDocumentBuilderFactory();
                 do {
-                    URL currentConfigURL = (URL) resources.nextElement();
+                    URL currentConfigURL = resources.nextElement();
                     if (processedResources.contains(currentConfigURL)) {
                         continue;
                     }
@@ -1280,7 +1280,7 @@ public class JDOHelper implements Constants {
                         processedResources.add(currentConfigURL);
                     }
                     
-                    Map/*<String,Map>*/ propertiesByNameInCurrentConfig =
+                    Map<String,Map<Object,Object>> propertiesByNameInCurrentConfig =
                         readNamedPMFProperties(
                             currentConfigURL,
                             name,
@@ -1319,11 +1319,12 @@ public class JDOHelper implements Constants {
 
         // done with reading all config resources;
         // return what we found, which may very well be null
-        return (Map) propertiesByNameInAllConfigs.get(name);
+        return (Map<Object,Object>) propertiesByNameInAllConfigs.get(name);
     }
 
 
     protected static DocumentBuilderFactory getDocumentBuilderFactory() {
+        @SuppressWarnings("static-access")
         DocumentBuilderFactory factory =
                 implHelper.getRegisteredDocumentBuilderFactory();
         if (factory == null) {
@@ -1344,6 +1345,7 @@ public class JDOHelper implements Constants {
     }
 
     protected static ErrorHandler getErrorHandler() {
+        @SuppressWarnings("static-access")
         ErrorHandler handler = implHelper.getRegisteredErrorHandler();
         if (handler == null) {
             handler = getDefaultErrorHandler();
@@ -1383,7 +1385,7 @@ public class JDOHelper implements Constants {
      * the anonymous persistence unit, the
      * value of the String key is the empty string, "".
      */
-    protected static Map/*<String,Map>*/ readNamedPMFProperties(
+    protected static Map<String,Map<Object,Object>> readNamedPMFProperties(
             URL url,
             String requestedPMFName,
             DocumentBuilderFactory factory) {
@@ -1391,7 +1393,8 @@ public class JDOHelper implements Constants {
             ? ""
             : requestedPMFName.trim();
 
-        Map propertiesByName = new HashMap();
+        Map<String,Map<Object,Object>>
+                propertiesByName = new HashMap<String,Map<Object,Object>>();
         InputStream in = null;
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -1856,7 +1859,7 @@ public class JDOHelper implements Constants {
     	 * the invocation returns an instance.
     	 * Otherwise add the exception thrown to an exception list.
     	 */
-    	ArrayList exceptions = new ArrayList();
+    	ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
     	try {
     		Enumeration urls = getResources(loader, SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
         	if (urls != null) {
@@ -1886,9 +1889,9 @@ public class JDOHelper implements Constants {
      * @since 2.0
      */
     private static ClassLoader getContextClassLoader() {
-        return (ClassLoader)AccessController.doPrivileged(
-            new PrivilegedAction () {
-                public Object run () {
+        return AccessController.doPrivileged(
+            new PrivilegedAction<ClassLoader> () {
+                public ClassLoader run () {
                     return Thread.currentThread().getContextClassLoader();
                 }
             }
@@ -1900,9 +1903,9 @@ public class JDOHelper implements Constants {
      */
     private static InputStream getResourceAsStream(
             final ClassLoader resourceLoader, final String name) {
-        return (InputStream)AccessController.doPrivileged(
-            new PrivilegedAction() {
-                public Object run() {
+        return AccessController.doPrivileged(
+            new PrivilegedAction<InputStream>() {
+                public InputStream run() {
                     return resourceLoader.getResourceAsStream(name);
                 }
             }
@@ -1924,9 +1927,9 @@ public class JDOHelper implements Constants {
             final Class[] parameterTypes) 
                 throws NoSuchMethodException {
         try {
-            return (Method) AccessController.doPrivileged(
-                new PrivilegedExceptionAction() {
-                    public Object run() throws NoSuchMethodException {
+            return AccessController.doPrivileged(
+                new PrivilegedExceptionAction<Method>() {
+                    public Method run() throws NoSuchMethodException {
                         return implClass.getMethod(methodName, parameterTypes);
                     }
                 }
@@ -1944,7 +1947,7 @@ public class JDOHelper implements Constants {
                 throws IllegalAccessException, InvocationTargetException {
         try {
             return (Object) AccessController.doPrivileged(
-                new PrivilegedExceptionAction() {
+                new PrivilegedExceptionAction<Object>() {
                     public Object run() 
                         throws IllegalAccessException, 
                             InvocationTargetException {
@@ -1967,14 +1970,14 @@ public class JDOHelper implements Constants {
      * @param resourceName
      * @return the resources
      */
-    protected static Enumeration getResources(
+    protected static Enumeration<URL> getResources(
             final ClassLoader resourceLoader, 
             final String resourceName) 
                 throws IOException {
         try {
-            return (Enumeration) AccessController.doPrivileged(
-                new PrivilegedExceptionAction() {
-                    public Object run() throws IOException {
+            return AccessController.doPrivileged(
+                new PrivilegedExceptionAction<Enumeration<URL>>() {
+                    public Enumeration<URL> run() throws IOException {
                         return resourceLoader.getResources(resourceName);
                     }
                 }
@@ -1998,9 +2001,9 @@ public class JDOHelper implements Constants {
             final ClassLoader loader) 
                 throws ClassNotFoundException {
         try {
-            return (Class) AccessController.doPrivileged(
-                new PrivilegedExceptionAction() {
-                    public Object run() throws ClassNotFoundException {
+            return AccessController.doPrivileged(
+                new PrivilegedExceptionAction<Class>() {
+                    public Class run() throws ClassNotFoundException {
                         return Class.forName(name, init, loader);
                     }
                 }
@@ -2019,9 +2022,9 @@ public class JDOHelper implements Constants {
     private static InputStream openStream(final URL url) 
             throws IOException {
         try {
-            return (InputStream) AccessController.doPrivileged(
-                new PrivilegedExceptionAction() {
-                    public Object run() throws IOException {
+            return AccessController.doPrivileged(
+                new PrivilegedExceptionAction<InputStream>() {
+                    public InputStream run() throws IOException {
                         return url.openStream();
                     }
                 }

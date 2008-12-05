@@ -49,11 +49,13 @@ public class I18NHelper {
 
     /** Bundles that have already been loaded 
      */
-    private static Hashtable    bundles = new Hashtable();
+    private static Hashtable<String,ResourceBundle>
+            bundles = new Hashtable<String,ResourceBundle>();
     
     /** Helper instances that have already been created 
      */
-    private static Hashtable    helpers = new Hashtable();
+    private static Hashtable<String,I18NHelper>
+            helpers = new Hashtable<String,I18NHelper>();
     
     /** The default locale for this VM.
      */
@@ -111,9 +113,9 @@ public class I18NHelper {
      * @return the helper instance bound to the bundle
      */
     public static I18NHelper getInstance (final Class cls) {
-        ClassLoader classLoader = (ClassLoader) AccessController.doPrivileged (
-            new PrivilegedAction () {
-                public Object run () {
+        ClassLoader classLoader = AccessController.doPrivileged (
+            new PrivilegedAction<ClassLoader> () {
+                public ClassLoader run () {
                     return cls.getClassLoader();
                 }
             }
@@ -393,9 +395,9 @@ public class I18NHelper {
      * block because of security.
      */
     private static ClassLoader getSystemClassLoaderPrivileged() {
-        return (ClassLoader) AccessController.doPrivileged (
-            new PrivilegedAction () {
-                public Object run () {
+        return AccessController.doPrivileged (
+            new PrivilegedAction<ClassLoader> () {
+                public ClassLoader run () {
                     return ClassLoader.getSystemClassLoader();
                 }
             }

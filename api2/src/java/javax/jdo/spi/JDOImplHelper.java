@@ -76,22 +76,26 @@ public class JDOImplHelper extends java.lang.Object {
      * are added by the static method in each <code>PersistenceCapable</code> 
      * class.  Entries are never removed.
      */    
-    private static Map registeredClasses = 
-            Collections.synchronizedMap(new HashMap ());
+    private static Map<Class,Meta> registeredClasses =
+            Collections.synchronizedMap(new HashMap<Class,Meta> ());
     
     /** This Set contains all classes that have registered for setStateManager
      * permissions via authorizeStateManagerClass.
+     * Only the key is used in order to maintain a weak set of classes.
      */
-    private static Map authorizedStateManagerClasses = new WeakHashMap();
+    private static final Map<Class,Class>
+            authorizedStateManagerClasses = new WeakHashMap<Class,Class>();
 
     /** This list contains the registered listeners for 
      * <code>RegisterClassEvent</code>s.
      */
-    private static List listeners = new ArrayList();
+    private static final List<RegisterClassListener>
+            listeners = new ArrayList<RegisterClassListener>();
     
     /** The list of registered StateInterrogation instances
      */
-    private static List stateInterrogations = new ArrayList();
+    private static List<StateInterrogation>
+            stateInterrogations = new ArrayList<StateInterrogation>();
 
     /** The singleton <code>JDOImplHelper</code> instance.
      */    
@@ -445,7 +449,7 @@ public class JDOImplHelper extends java.lang.Object {
             // registrations might occur, and will then all wait until this 
             // synchronized block completes. Some of the class registrations 
             // might be delivered twice to the newly registered listener.
-            alreadyRegisteredClasses = new HashSet (registeredClasses.keySet());
+            alreadyRegisteredClasses = new HashSet<Class> (registeredClasses.keySet());
         }
         // new registrations will call the new listener while the following 
         // occurs notify the new listener about already-registered classes
@@ -475,7 +479,7 @@ public class JDOImplHelper extends java.lang.Object {
      * persistence-capable classes.
      * @return registered persistence-capable classes
      */
-    public Collection getRegisteredClasses() {
+    public Collection<Class> getRegisteredClasses() {
         return Collections.unmodifiableCollection(registeredClasses.keySet());
     }
 
@@ -649,7 +653,8 @@ public class JDOImplHelper extends java.lang.Object {
      * keyed on class instance and the value is an instance of 
      * StringConstructor.
      */
-    static Map stringConstructorMap = new HashMap();
+    static final Map<Class,StringConstructor> stringConstructorMap =
+            new HashMap<Class,StringConstructor>();
 
     /**
      * 
@@ -810,9 +815,9 @@ public class JDOImplHelper extends java.lang.Object {
     static DateFormat getDateTimeInstance() {
         DateFormat result = null;
         try {
-        result = (DateFormat) AccessController.doPrivileged (
-            new PrivilegedAction () {
-                public Object run () {
+        result = AccessController.doPrivileged (
+            new PrivilegedAction<DateFormat> () {
+                public DateFormat run () {
                     return DateFormat.getDateTimeInstance();
                 }
             }
@@ -943,7 +948,8 @@ public class JDOImplHelper extends java.lang.Object {
      * @param si the StateInterrogation to add
      */
     public synchronized void addStateInterrogation(StateInterrogation si) {
-        List newList = new ArrayList(stateInterrogations);
+        List<StateInterrogation> newList =
+                new ArrayList<StateInterrogation>(stateInterrogations);
         newList.add(si);
         stateInterrogations = newList;
     }
@@ -954,7 +960,8 @@ public class JDOImplHelper extends java.lang.Object {
      * @param si the StateInterrogation to remove
      */
     public synchronized void removeStateInterrogation(StateInterrogation si) {
-        List newList = new ArrayList(stateInterrogations);
+        List<StateInterrogation> newList =
+                new ArrayList<StateInterrogation>(stateInterrogations);
         newList.remove(si);
         stateInterrogations = newList;
     }
