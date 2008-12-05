@@ -475,7 +475,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testBadPMFNoGetPMFMapMethod() {
         PersistenceManagerFactory pmf = null;
-        Map props = new HashMap();
+        Map<String,String> props = new HashMap<String,String>();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
         try {
