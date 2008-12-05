@@ -22,7 +22,7 @@ import java.io.PrintStream;
 import junit.framework.TestCase;
 
 /** */
-public class AbstractTest extends TestCase {
+public abstract class AbstractTest extends TestCase {
 
     /** */
     protected static PrintStream out = System.out;
