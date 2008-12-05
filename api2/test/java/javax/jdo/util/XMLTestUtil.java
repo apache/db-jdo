@@ -303,7 +303,7 @@ public class XMLTestUtil {
                 try {
                     BufferedReader bufferedReader =
                         new BufferedReader(new FileReader(fileUnderTest));
-                    ArrayList tmp = new ArrayList();
+                    ArrayList<String> tmp = new ArrayList<String>();
                     while (bufferedReader.ready()) {
                         tmp.add(bufferedReader.readLine());
                     }
@@ -381,8 +381,8 @@ public class XMLTestUtil {
         private static final String JDOQUERY_DTD_FILENAME = 
             "javax/jdo/jdoquery_2_2.dtd";
 
-        static Map publicIds = new HashMap();
-        static Map systemIds = new HashMap();
+        static Map<String,String> publicIds = new HashMap<String,String>();
+        static Map<String,String> systemIds = new HashMap<String,String>();
         static {
             publicIds.put(RECOGNIZED_JDO_PUBLIC_ID, JDO_DTD_FILENAME);
             publicIds.put(RECOGNIZED_ORM_PUBLIC_ID, ORM_DTD_FILENAME);
@@ -410,9 +410,9 @@ public class XMLTestUtil {
                 // but only if the publicId is equal to RECOGNIZED_PUBLIC_ID
                 // or there is no publicID and the systemID is equal to
                 // RECOGNIZED_SYSTEM_ID. 
-                    InputStream stream = (InputStream) AccessController.doPrivileged (
-                        new PrivilegedAction () {
-                            public Object run () {
+                    InputStream stream = AccessController.doPrivileged (
+                        new PrivilegedAction<InputStream> () {
+                            public InputStream run () {
                             return getClass().getClassLoader().
                                 getResourceAsStream(finalName);
                             }
@@ -433,7 +433,7 @@ public class XMLTestUtil {
     /** Helper class to find all test JDO metadata files. */
     public static class XMLFinder {
 
-        private List metadataFiles = new ArrayList();
+        private List<File> metadataFiles = new ArrayList<File>();
         private final boolean recursive;
         
         /** Constructor. */
@@ -504,7 +504,7 @@ public class XMLTestUtil {
         String[] ret = null;
         String metadata = System.getProperty(METADATA_PROP);
         if ((metadata != null) && (metadata.length() > 0)) {
-            List entries = new ArrayList();
+            List<String> entries = new ArrayList<String>();
             StringTokenizer st = new StringTokenizer(metadata, DELIM);
             while (st.hasMoreTokens()) {
                 entries.add(st.nextToken());
