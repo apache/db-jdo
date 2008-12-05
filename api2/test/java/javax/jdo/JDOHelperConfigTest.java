@@ -32,7 +32,9 @@ import java.util.Map;
 import java.util.Random;
 
 /**
+ * 
  * Tests class javax.jdo.JDOHelper for META-INF/jdoconfig.xml compliance.
+ * 
  */
 public class JDOHelperConfigTest extends AbstractTest implements Constants {
 
@@ -40,31 +42,73 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         BatchTestRunner.run(JDOHelperConfigTest.class);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     public static TestSuite suite() {
         return new TestSuite(JDOHelperConfigTest.class);
     }
 
+    /**
+     * A class path prefix used in the various tests where the class path
+     * needs to be set.
+     */
     protected static String JDOCONFIG_CLASSPATH_PREFIX
             = initJDOConfigClasspathPrefix();
 
+    /**
+     * Returns the JDO configuration class path prefix's default value, which is
+     * the project base directory suffixed by the path to the configuration
+     * directory (<tt>test/schema/jdoconfig</tt>).
+     * 
+     * @return the default class path prefix used by this test suite.
+     * 
+     */
     protected static String initJDOConfigClasspathPrefix() {
         return initBasedir() + "test/schema/jdoconfig";
     }
 
+    /**
+     * The class path used to specify the location of test class files.
+     * @return the class path where test class files can be found.
+     */
     protected static String TEST_CLASSPATH =
             initTestClasspath();
 
+    /**
+     * Returns the default class path for JDO test class files 
+     * (<tt>target/test-classes/</tt>).
+     * @return the default class path for JDO test class files.
+     */
     protected static String initTestClasspath() {
         return initBasedir() + "target/test-classes/";
     }
 
+    /**
+     * The class path used to locate the JDO API class files.
+     */
     protected static String API_CLASSPATH =
             initAPIClasspath();
 
+    /**
+     * Returns the default class path for JDO API class files
+     * (<tt>target/classes/</tt>).
+     * @return the default class path for JDO API class files.
+     */
     protected static String initAPIClasspath() {
         return initBasedir() + "target/classes/";
     }
 
+    /**
+     * Returns the base directory for this project.  This base directory
+     * is used to build up the other class paths defined in this test suite.
+     * The value returned is the value returned by 
+     * <code>System.getProperty("basedir")</code>.
+     * A trailing slash is appended to the path if it doesn't exist.
+     * 
+     * @return the default base directory of the project.
+     */
     protected static String initBasedir() {
         String basedir = System.getProperty("basedir");
         if (basedir != null) {
@@ -76,9 +120,35 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         }
         return basedir;
     }
-
+    
+    /**
+     * A radomizer seeded with the system clock's current time.
+     */
     protected static Random RANDOM = new Random(System.currentTimeMillis());
 
+    /**
+     * Builds up a {@link java.util.Map Map} object that contains key 
+     * parameter values specific to a named test.  All of the properties
+     * needed to run a particular test are loaded into this object.
+     * @param testVariant the name of the test to include in the 
+     *        {@link java.util.Map Map} values.
+     * @param listenerCount the number of life cycle listener class names to 
+     *        add to this map.  The listener names will begin with the value
+     *        stored in {@link 
+     *        javax.jdo.Constants.PROPERTY_INSTANCE_LIFECYCLE_LISTENER
+     *        PROPERTY_INSTANCE_LIFECYCLE_LISTENER}.
+     * @param vendorSpecificPropertyCount  the number of properties named of
+     *        the form <pre>"property." + testVariant + ".name"</pre> that
+     *        are added to the map.
+     * @param excludeName if true the property specified by 
+     *        {@link javax.jdo.Constants.PROPERTY_NAME PROPERTY_NAME} is
+     *        not added to the map.
+     * @param excludePUName if true the property specified by 
+     *        {@link javax.jdo.Constants.PROPERTY_PERSISTENCE_UNIT_NAME
+     *        PROPERTY_PERSISTENCE_UNIT_NAME} is not added to the map.
+     * @return a new {@link java.util.Map Map} object populated with properties
+     *         that can be used in this test suite.
+     */
     protected Map prepareInitialExpectedMap(
             String testVariant,
             int listenerCount,
@@ -86,7 +156,7 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
             boolean excludeName,
             boolean excludePUName
     ) {
-        Map expected = new HashMap();
+        Map<String,String> expected = new HashMap<String,String>();
 
         if (!excludeName) {
             expected.put(
@@ -170,6 +240,13 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         return expected;
     }
 
+    /**
+     * Fails the test if the number of properties in the two specified
+     * {@link java.util.Map Map} objects are not identical or their values
+     * do not match.
+     * @param expected the first {@link java.util.Map Map} object to test.
+     * @param actual the second {@link java.util.Map Map} object to test.
+     */
     static void assertEqualProperties(Map expected, Map actual) {
         Iterator i = expected.entrySet().iterator();
         while (i.hasNext()) {
@@ -187,6 +264,25 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
         }
     }
 
+    /**
+     * Performs a test specified by <tt>testVariantName</tt>, by building
+     * up a property map and executing the test according to the property 
+     * values.  With this version of <tt>doPositiveTest</tt> the property
+     * name ({@link javax.jdo.Constants.PROPERTY_NAME PROPERTY_NAME}) and 
+     * the {@link javax.jdo.Constants.PERSISTENCE_UNIT_NAME 
+     * PERSISTENCE_UNIT_NAME}) are included in the property map that is used
+     * to run the test.
+     * 
+     * @param classpaths class paths to add to the class loader that runs the 
+     *        test that specify where <tt>jdoconfig.xml</tt> can be found.
+     * @param testVariantName the name of the test.
+     * @param listenerCount number of listeners utilized in the test.
+     * @param vendorSpecificPropertyCount number of vendor properties used
+     *        in the test.
+     * @param checkEqualProperties if true the test's properties are tested.
+     * @throws java.io.IOException if an {@java.io.IOException IOException}
+     *         occurs during class loading or any part of the test.
+     */
     protected void doPositiveTest(
             String[] classpaths,
             String testVariantName,
@@ -205,6 +301,33 @@ public class JDOHelperConfigTest extends AbstractTest implements Constants {
                 false);
     }
 
+    /**
+     * Performs a test specified by <tt>testVariantName</tt>, by building
+     * up a property map and executing the test according to the property 
+     * values.  An assertion exeception is thrown if the test being run 
+     * has a negative (non-true) result. With this version of 
+     * <tt>doPositiveTest</tt> the property
+     * name ({@link javax.jdo.Constants.PROPERTY_NAME PROPERTY_NAME}) and 
+     * the {@link javax.jdo.Constants.PERSISTENCE_UNIT_NAME 
+     * PERSISTENCE_UNIT_NAME}) are included in the property map that is used
+     * to run the test.
+     * 
+     * @param classpaths class paths to add to the class loader that runs the 
+     *        test that specify where <tt>jdoconfig.xml</tt> can be found.
+     * @param testVariantName the name of the test.
+     * @param listenerCount number of listeners utilized in the test.
+     * @param vendorSpecificPropertyCount number of vendor properties used
+     *        in the test.
+     * @param checkEqualProperties if true the test's properties are tested.
+     * @param excludeName if true the property specified by 
+     *        {@link javax.jdo.Constants.PROPERTY_NAME PROPERTY_NAME} is
+     *        not added to the map.
+     * @param excludePUName if true the property specified by 
+     *        {@link javax.jdo.Constants.PROPERTY_PERSISTENCE_UNIT_NAME
+     *        PROPERTY_PERSISTENCE_UNIT_NAME} is not added to the map.
+     * @throws java.io.IOException if an {@java.io.IOException IOException}
+     *         occurs during class loading or any part of the test.
+     */
     protected void doPositiveTest(
             String[] classpaths,
             String testVariantName,
