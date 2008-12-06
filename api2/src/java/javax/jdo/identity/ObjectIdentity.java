@@ -60,6 +60,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param param the key
      */
+    @SuppressWarnings("static-access")
     public ObjectIdentity (Class pcClass, Object param) {
         super (pcClass);
         assertKeyNotNull(param);
@@ -112,6 +113,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * of the key is used to construct the key itself.
      * @return the String form of the key
      */
+    @Override
     public String toString () {
         return keyAsObject.getClass().getName()
                 + STRING_DELIMITER
@@ -122,6 +124,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * @param obj the other object
      * @return true if both objects represent the same object id
      */
+    @Override
     public boolean equals (Object obj) {
         if (this == obj) {
             return true;
@@ -131,6 +134,15 @@ public class ObjectIdentity extends SingleFieldIdentity {
             ObjectIdentity other = (ObjectIdentity) obj;
             return keyAsObject.equals(other.keyAsObject);
         }
+    }
+
+    /** Provide the hash code for this instance. The hash code is the
+     * hash code of the contained key.
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+        return keyAsObject.hashCode();
     }
 
     /** Determine the ordering of identity objects.
@@ -168,6 +180,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
     /** Write this object. Write the superclass first.
      * @param out the output
      */
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         super.writeExternal (out);
         out.writeObject(keyAsObject);
@@ -176,6 +189,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
     /** Read this object. Read the superclass first.
      * @param in the input
      */
+    @Override
     public void readExternal(ObjectInput in)
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
