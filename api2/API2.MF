@@ -10,7 +10,8 @@ Export-Package: javax.jdo,
  javax.jdo.datastore,
  javax.jdo.identity,
  javax.jdo.listener,
- javax.jdo.spi
+ javax.jdo.spi,
+ javax.jdo.metadata
 Bundle-Vendor: Apache
 Import-Package: javax.transaction;resolution:=optional,
  javax.persistence;resolution:=optional
