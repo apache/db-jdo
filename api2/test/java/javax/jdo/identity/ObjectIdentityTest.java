@@ -407,7 +407,8 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
             fail ("Nested exception is not == getCause()");
         }
         if (!(expected.isAssignableFrom(nested.getClass()))) {
-            fail ("Wrong nested exception. Expected ClassNotFoundException, got "
+            fail ("Wrong nested exception. Expected "
+                    + expected.getName() + ", got "
                     + nested.toString());
         }
         return;
