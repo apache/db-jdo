@@ -397,12 +397,15 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
         assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new IdClass(1));
     }
 
-    private void validateNestedException(JDOUserException ex, Class expected) {
+    private <T> void validateNestedException(JDOUserException ex, Class<T> expected) {
         Throwable[] nesteds = ex.getNestedExceptions();
-        if (nesteds == null || nesteds.length == 0) {
+        if (nesteds == null || nesteds.length != 1) {
             fail ("Nested exception is null or length 0");
         }
         Throwable nested = nesteds[0];
+        if (nested != ex.getCause()) {
+            fail ("Nested exception is not == getCause()");
+        }
         if (!(expected.isAssignableFrom(nested.getClass()))) {
             fail ("Wrong nested exception. Expected ClassNotFoundException, got "
                     + nested.toString());
