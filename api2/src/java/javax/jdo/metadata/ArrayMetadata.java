@@ -26,7 +26,7 @@ public interface ArrayMetadata extends Metadata {
      * 
      * @param type Name of the element type
      */
-    void setElementType(String type);
+    ArrayMetadata setElementType(String type);
 
     /**
      * Accessor for the element type
@@ -40,7 +40,7 @@ public interface ArrayMetadata extends Metadata {
      * 
      * @param val Whether it is embedded
      */
-    void setEmbeddedElement(boolean val);
+    ArrayMetadata setEmbeddedElement(boolean val);
 
     /**
      * Accessor for whether the element is embedded
@@ -54,7 +54,7 @@ public interface ArrayMetadata extends Metadata {
      * 
      * @param val Whether it is serialised
      */
-    void setSerializedElement(boolean val);
+    ArrayMetadata setSerializedElement(boolean val);
 
     /**
      * Accessor for whether the element is serialised
@@ -68,7 +68,7 @@ public interface ArrayMetadata extends Metadata {
      * 
      * @param val Whether it is dependent
      */
-    void setDependentElement(boolean val);
+    ArrayMetadata setDependentElement(boolean val);
 
     /**
      * Accessor for whether the element is dependent

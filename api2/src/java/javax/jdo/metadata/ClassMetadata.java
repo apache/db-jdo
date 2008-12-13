@@ -25,7 +25,7 @@ public interface ClassMetadata extends ComponentMetadata {
      * Method to define the persistence modifier.
      * @param mod persistence modifier
      */
-    void setPersistenceModifier(ClassPersistenceModifier mod);
+    ClassMetadata setPersistenceModifier(ClassPersistenceModifier mod);
 
     /**
      * Accessor for the persistence modifier.

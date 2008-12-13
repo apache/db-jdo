@@ -28,7 +28,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param name Name of the constraint
      */
-    void setName(String name);
+    ForeignKeyMetadata setName(String name);
 
     /**
      * Accessor for the constraint name.
@@ -42,7 +42,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    ForeignKeyMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -56,7 +56,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param unique Unique?
      */
-    void setUnique(boolean unique);
+    ForeignKeyMetadata setUnique(boolean unique);
 
     /**
      * Accessor for whether unique.
@@ -70,7 +70,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param def Deferred?
      */
-    void setDeferred(boolean def);
+    ForeignKeyMetadata setDeferred(boolean def);
 
     /**
      * Accessor for whether the constraint can be deferred.
@@ -84,7 +84,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param action Delete action of the FK
      */
-    void setDeleteAction(ForeignKeyAction action);
+    ForeignKeyMetadata setDeleteAction(ForeignKeyAction action);
 
     /**
      * Accessor for the delete action of the FK
@@ -98,7 +98,7 @@ public interface ForeignKeyMetadata extends Metadata {
      * 
      * @param action Update action of the FK
      */
-    void setUpdateAction(ForeignKeyAction action);
+    ForeignKeyMetadata setUpdateAction(ForeignKeyAction action);
 
     /**
      * Accessor for the update action of the FK

@@ -26,7 +26,7 @@ public interface JDOMetadata extends Metadata {
      * 
      * @param catalog Catalog name
      */
-    void setCatalog(String catalog);
+    JDOMetadata setCatalog(String catalog);
 
     /**
      * Accessor for the catalog (ORM) that all classes in this JDO Metadata
@@ -42,7 +42,7 @@ public interface JDOMetadata extends Metadata {
      * 
      * @param schema Schema name
      */
-    void setSchema(String schema);
+    JDOMetadata setSchema(String schema);
 
     /**
      * Accessor for the schema (ORM) that all classes in this JDO Metadata

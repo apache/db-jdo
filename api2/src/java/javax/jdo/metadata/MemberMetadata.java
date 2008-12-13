@@ -30,7 +30,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param name name
      */
-    void setName(String name);
+    MemberMetadata setName(String name);
 
     /**
      * Accessor for the name of the field/property.
@@ -44,7 +44,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    MemberMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -58,7 +58,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param col Column name
      */
-    void setColumn(String col);
+    MemberMetadata setColumn(String col);
 
     /**
      * Accessor for the name of the column.
@@ -73,7 +73,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param type Type of field
      */
-    void setFieldType(String type);
+    MemberMetadata setFieldType(String type);
 
     /**
      * Accessor for the type storable in the field
@@ -87,7 +87,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param action Delete action of the FK
      */
-    void setDeleteAction(ForeignKeyAction action);
+    MemberMetadata setDeleteAction(ForeignKeyAction action);
 
     /**
      * Accessor for the delete action of the FK
@@ -101,7 +101,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param mod persistence modifier
      */
-    void setPersistenceModifier(PersistenceModifier mod);
+    MemberMetadata setPersistenceModifier(PersistenceModifier mod);
 
     /**
      * Accessor for the persistence modifier of the field/property.
@@ -115,7 +115,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param val Null value behaviour
      */
-    void setNullValue(NullValue val);
+    MemberMetadata setNullValue(NullValue val);
 
     /**
      * Accessor for the behaviour of a null value
@@ -129,7 +129,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param dfg DFG?
      */
-    void setDefaultFetchGroup(boolean dfg);
+    MemberMetadata setDefaultFetchGroup(boolean dfg);
 
     /**
      * Accessor for whether part of the DFG.
@@ -143,7 +143,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param unique Unique?
      */
-    void setDependent(boolean unique);
+    MemberMetadata setDependent(boolean unique);
 
     /**
      * Accessor for whether unique.
@@ -157,7 +157,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param emb Embedded?
      */
-    void setEmbedded(boolean emb);
+    MemberMetadata setEmbedded(boolean emb);
 
     /**
      * Accessor for whether it is embedded.
@@ -171,7 +171,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param ser serialized?
      */
-    void setSerialized(boolean ser);
+    MemberMetadata setSerialized(boolean ser);
 
     /**
      * Accessor for whether it is serialized.
@@ -185,7 +185,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param pk PK?
      */
-    void setPrimaryKey(boolean unique);
+    MemberMetadata setPrimaryKey(boolean unique);
 
     /**
      * Accessor for whether it is part of the pk.
@@ -199,7 +199,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param index Indexed?
      */
-    void setIndexed(boolean index);
+    MemberMetadata setIndexed(boolean index);
 
     /**
      * Accessor for whether it is indexed.
@@ -213,7 +213,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param unique Unique?
      */
-    void setUnique(boolean unique);
+    MemberMetadata setUnique(boolean unique);
 
     /**
      * Accessor for whether unique.
@@ -227,7 +227,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param cacheable Cacheable?
      */
-    void setCacheable(boolean cacheable);
+    MemberMetadata setCacheable(boolean cacheable);
 
     /**
      * Accessor for whether this is cacheable.
@@ -241,7 +241,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param depth Recursion depth
      */
-    void setRecursionDepth(int depth);
+    MemberMetadata setRecursionDepth(int depth);
 
     /**
      * Accessor for the recursion depth (when part of a fetch group).
@@ -255,7 +255,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param grp Load fetch group
      */
-    void setLoadFetchGroup(String type);
+    MemberMetadata setLoadFetchGroup(String type);
 
     /**
      * Accessor for the name of the load fetch group
@@ -269,7 +269,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param str Value strategy
      */
-    void setValueStrategy(String str);
+    MemberMetadata setValueStrategy(String str);
 
     /**
      * Accessor for the value strategy
@@ -283,7 +283,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setCustomStrategy(String strategy);
+    MemberMetadata setCustomStrategy(String strategy);
 
     /**
      * Accessor for the custom strategy (overriding "strategy").
@@ -297,7 +297,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param seq Sequence key
      */
-    void setSequence(String seq);
+    MemberMetadata setSequence(String seq);
 
     /**
      * Accessor for the sequence (when using value-strategy of "sequence")
@@ -312,7 +312,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param map  mapped-by field/property
      */
-    void setMappedBy(String map);
+    MemberMetadata setMappedBy(String map);
 
     /**
      * Accessor for the mapped-by field/property

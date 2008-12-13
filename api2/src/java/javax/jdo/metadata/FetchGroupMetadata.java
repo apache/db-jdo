@@ -33,14 +33,14 @@ public interface FetchGroupMetadata extends Metadata {
      * 
      * @param load Call post load
      */
-    void setPostLoad(boolean load);
+    FetchGroupMetadata setPostLoad(boolean load);
 
     /**
      * Accessor for whether to call post load for this fetch group
      * 
      * @return Whether to call post-load
      */
-    boolean getPostLoad();
+    Boolean getPostLoad();
 
     /**
      * Accessor for all fields defined on the fetch group.

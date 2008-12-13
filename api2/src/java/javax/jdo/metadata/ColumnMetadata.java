@@ -26,7 +26,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param name Column name
      */
-    void setName(String name);
+    ColumnMetadata setName(String name);
 
     /**
      * Accessor for the name of the column.
@@ -40,7 +40,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param target Target column
      */
-    void setTarget(String target);
+    ColumnMetadata setTarget(String target);
 
     /**
      * Accessor for the name of the target column.
@@ -54,7 +54,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param target Target field
      */
-    void setTargetField(String target);
+    ColumnMetadata setTargetField(String target);
 
     /**
      * Accessor for the name of the target field.
@@ -68,7 +68,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param type JDBC Type
      */
-    void setJDBCType(String type);
+    ColumnMetadata setJDBCType(String type);
 
     /**
      * Accessor for the JDBC Type
@@ -82,7 +82,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param type SQL Type
      */
-    void setSQLType(String type);
+    ColumnMetadata setSQLType(String type);
 
     /**
      * Accessor for the SQL Type
@@ -96,7 +96,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param len Length
      */
-    void setLength(int len);
+    ColumnMetadata setLength(int len);
 
     /**
      * Accessor for the length
@@ -110,7 +110,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param scale scale
      */
-    void setScale(int scale);
+    ColumnMetadata setScale(int scale);
 
     /**
      * Accessor for the scale
@@ -124,7 +124,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param nulls Allows null?
      */
-    void setAllowsNull(boolean nulls);
+    ColumnMetadata setAllowsNull(boolean nulls);
 
     /**
      * Accessor for whether the column allows null.
@@ -138,7 +138,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param val Default value
      */
-    void setDefaultValue(String val);
+    ColumnMetadata setDefaultValue(String val);
 
     /**
      * Accessor for the default value
@@ -152,7 +152,7 @@ public interface ColumnMetadata extends Metadata {
      * 
      * @param val Insert value
      */
-    void setInsertValue(String val);
+    ColumnMetadata setInsertValue(String val);
 
     /**
      * Accessor for the insert value (for columns with no field/property)

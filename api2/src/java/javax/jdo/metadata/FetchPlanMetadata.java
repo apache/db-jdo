@@ -33,7 +33,7 @@ public interface FetchPlanMetadata extends Metadata {
      * 
      * @param depth The max fetch depth
      */
-    void setMaxFetchDepth(int depth);
+    FetchPlanMetadata setMaxFetchDepth(int depth);
 
     /**
      * Accessor for the max fetch depth.
@@ -47,7 +47,7 @@ public interface FetchPlanMetadata extends Metadata {
      * 
      * @param size The fetch size
      */
-    void setFetchSize(int size);
+    FetchPlanMetadata setFetchSize(int size);
 
     /**
      * Accessor for the max fetch depth.

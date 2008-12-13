@@ -35,7 +35,7 @@ public interface PackageMetadata extends Metadata {
      * 
      * @param catalog Catalog name
      */
-    void setCatalog(String catalog);
+    PackageMetadata setCatalog(String catalog);
 
     /**
      * Accessor for the catalog (ORM) that all classes in this package default
@@ -50,7 +50,7 @@ public interface PackageMetadata extends Metadata {
      * 
      * @param schema Schema name
      */
-    void setSchema(String schema);
+    PackageMetadata setSchema(String schema);
 
     /**
      * Accessor for the schema (ORM) that all classes in this package default to.

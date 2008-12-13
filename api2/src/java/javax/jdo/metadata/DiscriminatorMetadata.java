@@ -28,7 +28,7 @@ public interface DiscriminatorMetadata extends Metadata {
      * 
      * @param column Name of the discriminator clumn
      */
-    void setColumn(String column);
+    DiscriminatorMetadata setColumn(String column);
 
     /**
      * Accessor for the discriminator column name
@@ -42,7 +42,7 @@ public interface DiscriminatorMetadata extends Metadata {
      * 
      * @param val Value for the discriminator for this class
      */
-    void setValue(String val);
+    DiscriminatorMetadata setValue(String val);
 
     /**
      * Accessor for the discriminator value (when using "value-map" strategy).
@@ -56,7 +56,7 @@ public interface DiscriminatorMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setStrategy(DiscriminatorStrategy strategy);
+    DiscriminatorMetadata setStrategy(DiscriminatorStrategy strategy);
 
     /**
      * Accessor for the discriminator strategy.
@@ -70,7 +70,7 @@ public interface DiscriminatorMetadata extends Metadata {
      * 
      * @param indexed Whether indexed (true | false | unique)
      */
-    void setIndexed(Indexed indexed);
+    DiscriminatorMetadata setIndexed(Indexed indexed);
 
     /**
      * Accessor for whether indexed (true|false|unique)

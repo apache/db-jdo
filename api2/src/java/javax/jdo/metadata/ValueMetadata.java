@@ -28,7 +28,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @param column Column name
      */
-    void setColumn(String column);
+    ValueMetadata setColumn(String column);
 
     /**
      * Accessor for the name of the column.
@@ -42,7 +42,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    ValueMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -56,7 +56,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @param action Delete action of the FK
      */
-    void setDeleteAction(ForeignKeyAction action);
+    ValueMetadata setDeleteAction(ForeignKeyAction action);
 
     /**
      * Accessor for the delete action of the FK
@@ -70,7 +70,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @param action Update action of the FK
      */
-    void setUpdateAction(ForeignKeyAction action);
+    ValueMetadata setUpdateAction(ForeignKeyAction action);
 
     /**
      * Accessor for the update action of the FK

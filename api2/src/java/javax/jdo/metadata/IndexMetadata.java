@@ -26,7 +26,7 @@ public interface IndexMetadata extends Metadata {
      * 
      * @param name Name of the index
      */
-    void setName(String name);
+    IndexMetadata setName(String name);
 
     /**
      * Accessor for the index name.
@@ -40,7 +40,7 @@ public interface IndexMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    IndexMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -54,14 +54,14 @@ public interface IndexMetadata extends Metadata {
      * 
      * @param unique Unique?
      */
-    void setUnique(boolean unique);
+    IndexMetadata setUnique(boolean unique);
 
     /**
      * Accessor for whether unique.
      * 
      * @return Unique?
      */
-    Boolean getUnique();
+    boolean getUnique();
 
     /**
      * Accessor for all column(s) defined on the index.

@@ -42,7 +42,7 @@ public interface SequenceMetadata extends Metadata {
      * 
      * @param seq Datastore sequence name
      */
-    void setDatastoreSequence(String seq);
+    SequenceMetadata setDatastoreSequence(String seq);
 
     /**
      * Accessor for the name of the datastore sequence that this maps to
@@ -56,7 +56,7 @@ public interface SequenceMetadata extends Metadata {
      * 
      * @param clsName Result class name
      */
-    void setFactoryClass(String clsName);
+    SequenceMetadata setFactoryClass(String clsName);
 
     /**
      * Accessor for the factory class for this sequence.

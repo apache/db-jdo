@@ -28,7 +28,7 @@ public interface DatastoreIdentityMetadata extends Metadata {
      * 
      * @param column Name of the datastore identity column
      */
-    void setColumn(String column);
+    DatastoreIdentityMetadata setColumn(String column);
 
     /**
      * Accessor for the datastore identity column name
@@ -42,7 +42,7 @@ public interface DatastoreIdentityMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setStrategy(VersionStrategy strategy);
+    DatastoreIdentityMetadata setStrategy(VersionStrategy strategy);
 
     /**
      * Accessor for the identity generation strategy.
@@ -56,7 +56,7 @@ public interface DatastoreIdentityMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setCustomStrategy(String strategy);
+    DatastoreIdentityMetadata setCustomStrategy(String strategy);
 
     /**
      * Accessor for the custom strategy (overriding "strategy").
@@ -70,7 +70,7 @@ public interface DatastoreIdentityMetadata extends Metadata {
      * 
      * @param seq Sequence key
      */
-    void setSequence(String seq);
+    DatastoreIdentityMetadata setSequence(String seq);
 
     /**
      * Accessor for the sequence key (when using "sequence" strategy)

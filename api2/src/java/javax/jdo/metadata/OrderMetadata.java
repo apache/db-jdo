@@ -26,7 +26,7 @@ public interface OrderMetadata extends Metadata {
      * 
      * @param column Name of the version clumn
      */
-    void setColumn(String column);
+    OrderMetadata setColumn(String column);
 
     /**
      * Accessor for the version column name
@@ -40,7 +40,7 @@ public interface OrderMetadata extends Metadata {
      * 
      * @param mappedBy Field/property name in which to store the ordering in the element
      */
-    void setMappedBy(String mappedBy);
+    OrderMetadata setMappedBy(String mappedBy);
 
     /**
      * Accessor for the mapped-by field/property name in the element class.

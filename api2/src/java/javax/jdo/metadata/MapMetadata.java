@@ -26,7 +26,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param type Name of the key type
      */
-    void setKeyType(String type);
+    MapMetadata setKeyType(String type);
 
     /**
      * Accessor for the key type
@@ -40,7 +40,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is embedded
      */
-    void setEmbeddedKey(boolean val);
+    MapMetadata setEmbeddedKey(boolean val);
 
     /**
      * Accessor for whether the key is embedded
@@ -54,7 +54,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is serialised
      */
-    void setSerializedKey(boolean val);
+    MapMetadata setSerializedKey(boolean val);
 
     /**
      * Accessor for whether the key is serialised
@@ -68,7 +68,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is dependent
      */
-    void setDependentKey(boolean val);
+    MapMetadata setDependentKey(boolean val);
 
     /**
      * Accessor for whether the key is dependent
@@ -82,7 +82,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param type Name of the value type
      */
-    void setValueType(String type);
+    MapMetadata setValueType(String type);
 
     /**
      * Accessor for the value type
@@ -96,7 +96,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is embedded
      */
-    void setEmbeddedValue(boolean val);
+    MapMetadata setEmbeddedValue(boolean val);
 
     /**
      * Accessor for whether the value is embedded
@@ -110,7 +110,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is serialised
      */
-    void setSerializedValue(boolean val);
+    MapMetadata setSerializedValue(boolean val);
 
     /**
      * Accessor for whether the value is serialised
@@ -124,7 +124,7 @@ public interface MapMetadata extends Metadata {
      * 
      * @param val Whether it is dependent
      */
-    void setDependentValue(boolean val);
+    MapMetadata setDependentValue(boolean val);
 
     /**
      * Accessor for whether the value is dependent

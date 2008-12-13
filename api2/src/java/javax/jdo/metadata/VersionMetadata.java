@@ -28,7 +28,7 @@ public interface VersionMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setStrategy(VersionStrategy strategy);
+    VersionMetadata setStrategy(VersionStrategy strategy);
 
     /**
      * Accessor for the version strategy.
@@ -42,7 +42,7 @@ public interface VersionMetadata extends Metadata {
      * 
      * @param column Name of the version clumn
      */
-    void setColumn(String column);
+    VersionMetadata setColumn(String column);
 
     /**
      * Accessor for the version column name
@@ -56,7 +56,7 @@ public interface VersionMetadata extends Metadata {
      * 
      * @param indexed Whether indexed (true | false | unique)
      */
-    void setIndexed(Indexed indexed);
+    VersionMetadata setIndexed(Indexed indexed);
 
     /**
      * Accessor for whether indexed (true|false|unique)

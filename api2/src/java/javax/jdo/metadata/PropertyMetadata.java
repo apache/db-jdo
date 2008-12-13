@@ -26,7 +26,7 @@ public interface PropertyMetadata extends MemberMetadata {
      * 
      * @param name field name
      */
-    void setFieldName(String str);
+    PropertyMetadata setFieldName(String str);
 
     /**
      * Accessor for the field name

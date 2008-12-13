@@ -33,7 +33,7 @@ public interface QueryMetadata extends Metadata {
      * 
      * @param lang Query language
      */
-    void setLanguage(String lang);
+    QueryMetadata setLanguage(String lang);
 
     /**
      * Accessor for the query language.
@@ -47,7 +47,7 @@ public interface QueryMetadata extends Metadata {
      * 
      * @param query The query
      */
-    void setQuery(String query);
+    QueryMetadata setQuery(String query);
 
     /**
      * Accessor for the single-string query.
@@ -61,7 +61,7 @@ public interface QueryMetadata extends Metadata {
      * 
      * @param clsName Result class name
      */
-    void setResultClass(String clsName);
+    QueryMetadata setResultClass(String clsName);
 
     /**
      * Accessor for the result class name for the query.
@@ -75,7 +75,7 @@ public interface QueryMetadata extends Metadata {
      * 
      * @param unique Whether they are unique
      */
-    void setUnique(boolean unique);
+    QueryMetadata setUnique(boolean unique);
 
     /**
      * Accessor for whether results from the query are unique
@@ -87,7 +87,7 @@ public interface QueryMetadata extends Metadata {
     /**
      * Method to set the query as not being modifiable from now.
      */
-    void setUnmodifiable();
+    QueryMetadata setUnmodifiable();
 
     /**
      * Accessor for whether the query is unmodifiable.
@@ -101,7 +101,7 @@ public interface QueryMetadata extends Metadata {
      * 
      * @param fetchPlanName name of the FetchPlan
      */
-    void setFetchPlan(String fetchPlanName);
+    QueryMetadata setFetchPlan(String fetchPlanName);
 
     /**
      * Accessor for the name of a fetch plan to use (if any).

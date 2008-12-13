@@ -28,7 +28,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param column Name of the join column
      */
-    void setColumn(String column);
+    JoinMetadata setColumn(String column);
 
     /**
      * Accessor for the join column name
@@ -42,7 +42,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    JoinMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -56,7 +56,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param outer Outer join?
      */
-    void setOuter(boolean outer);
+    JoinMetadata setOuter(boolean outer);
 
     /**
      * Accessor for whether to use an outer join.
@@ -70,7 +70,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param action Delete action of the FK
      */
-    void setDeleteAction(ForeignKeyAction action);
+    JoinMetadata setDeleteAction(ForeignKeyAction action);
 
     /**
      * Accessor for the delete action of the FK
@@ -84,7 +84,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param indexed Whether indexed (true | false | unique)
      */
-    void setIndexed(Indexed indexed);
+    JoinMetadata setIndexed(Indexed indexed);
 
     /**
      * Accessor for whether indexed (true|false|unique)
@@ -98,7 +98,7 @@ public interface JoinMetadata extends Metadata {
      * 
      * @param unique Unique?
      */
-    void setUnique(boolean unique);
+    JoinMetadata setUnique(boolean unique);
 
     /**
      * Accessor for whether unique.

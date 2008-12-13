@@ -35,7 +35,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param id identity type
      */
-    void setIdentityType(IdentityType id);
+    ComponentMetadata setIdentityType(IdentityType id);
 
     /**
      * Accessor for the identity type to use.
@@ -49,7 +49,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param idclass Object-id class
      */
-    void setObjectIdClass(String idclass);
+    ComponentMetadata setObjectIdClass(String idclass);
 
     /**
      * Accessor for the object-id class (if defined).
@@ -63,7 +63,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param extent Requires extent?
      */
-    void setRequiresExtent(boolean extent);
+    ComponentMetadata setRequiresExtent(boolean extent);
 
     /**
      * Accessor for whether the component requires an extent.
@@ -77,7 +77,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param detachable Detachable?
      */
-    void setDetachable(boolean detachable);
+    ComponentMetadata setDetachable(boolean detachable);
 
     /**
      * Accessor for whether this is detachable.
@@ -91,7 +91,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param cacheable Cacheable?
      */
-    void setCacheable(boolean cacheable);
+    ComponentMetadata setCacheable(boolean cacheable);
 
     /**
      * Accessor for whether this is cacheable.
@@ -105,7 +105,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param embedded Whether it is only stored embedded
      */
-    void setEmbeddedOnly(boolean extent);
+    ComponentMetadata setEmbeddedOnly(boolean extent);
 
     /**
      * Accessor for whether this is embedded only.
@@ -119,7 +119,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param catalog Catalog name
      */
-    void setCatalog(String catalog);
+    ComponentMetadata setCatalog(String catalog);
 
     /**
      * Accessor for the catalog (ORM) for this component
@@ -133,7 +133,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param schema Schema name
      */
-    void setSchema(String schema);
+    ComponentMetadata setSchema(String schema);
 
     /**
      * Accessor for the schema (ORM) for this component
@@ -147,7 +147,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    ComponentMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.

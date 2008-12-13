@@ -26,7 +26,7 @@ public interface UniqueMetadata extends Metadata {
      * 
      * @param name Name of the constraint
      */
-    void setName(String name);
+    UniqueMetadata setName(String name);
 
     /**
      * Accessor for the constraint name.
@@ -40,7 +40,7 @@ public interface UniqueMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    void setTable(String table);
+    UniqueMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
@@ -54,7 +54,7 @@ public interface UniqueMetadata extends Metadata {
      * 
      * @param def Deferred?
      */
-    void setDeferred(boolean def);
+    UniqueMetadata setDeferred(boolean def);
 
     /**
      * Accessor for whether deferred.

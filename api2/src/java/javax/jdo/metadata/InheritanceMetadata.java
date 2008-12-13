@@ -28,7 +28,7 @@ public interface InheritanceMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setStrategy(InheritanceStrategy strategy);
+    InheritanceMetadata setStrategy(InheritanceStrategy strategy);
 
     /**
      * Accessor for the inheritance strategy.
@@ -42,7 +42,7 @@ public interface InheritanceMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    void setCustomStrategy(String strategy);
+    InheritanceMetadata setCustomStrategy(String strategy);
 
     /**
      * Accessor for the custom inheritance (overriding "strategy").

@@ -26,7 +26,7 @@ public interface EmbeddedMetadata extends Metadata {
      * 
      * @param fld Name of the owner field
      */
-    void setOwnerField(String fld);
+    EmbeddedMetadata setOwnerField(String fld);
 
     /**
      * Accessor for the owner field name.
@@ -40,7 +40,7 @@ public interface EmbeddedMetadata extends Metadata {
      * 
      * @param col Null indicator column
      */
-    void setNullIndicatorColumn(String col);
+    EmbeddedMetadata setNullIndicatorColumn(String col);
 
     /**
      * Accessor for any column indicating a null embedded object
@@ -54,7 +54,7 @@ public interface EmbeddedMetadata extends Metadata {
      * 
      * @param val Null indicator value
      */
-    void setNullIndicatorValue(String val);
+    EmbeddedMetadata setNullIndicatorValue(String val);
 
     /**
      * Accessor for a null indicator value
