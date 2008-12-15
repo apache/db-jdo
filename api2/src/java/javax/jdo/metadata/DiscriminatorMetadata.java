@@ -105,7 +105,7 @@ public interface DiscriminatorMetadata extends Metadata {
      * 
      * @return The IndexMetadata
      */
-    IndexMetadata newtIndexMetadata();
+    IndexMetadata newIndexMetadata();
 
     /**
      * Accessor for any index metadata for the discriminator
