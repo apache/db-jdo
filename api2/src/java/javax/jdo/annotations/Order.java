@@ -49,4 +49,9 @@ public @interface Order
      * @return the columns to use for ordering
      */
     Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }
