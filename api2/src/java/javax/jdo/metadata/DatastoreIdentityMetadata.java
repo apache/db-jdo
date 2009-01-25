@@ -16,7 +16,7 @@
  */
 package javax.jdo.metadata;
 
-import javax.jdo.annotations.VersionStrategy;
+import javax.jdo.annotations.IdGeneratorStrategy;
 
 /**
  * Represents the datastore identity of a class.
@@ -42,14 +42,14 @@ public interface DatastoreIdentityMetadata extends Metadata {
      * 
      * @param strategy The strategy
      */
-    DatastoreIdentityMetadata setStrategy(VersionStrategy strategy);
+    DatastoreIdentityMetadata setStrategy(IdGeneratorStrategy strategy);
 
     /**
      * Accessor for the identity generation strategy.
      * 
      * @return The strategy
      */
-    VersionStrategy getStrategy();
+    IdGeneratorStrategy getStrategy();
 
     /**
      * Method to set the custom identity generation strategy.
