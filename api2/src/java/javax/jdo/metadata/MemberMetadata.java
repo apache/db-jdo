@@ -17,6 +17,7 @@
 package javax.jdo.metadata;
 
 import javax.jdo.annotations.ForeignKeyAction;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NullValue;
 import javax.jdo.annotations.PersistenceModifier;
 
@@ -269,14 +270,14 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param str Value strategy
      */
-    MemberMetadata setValueStrategy(String str);
+    MemberMetadata setValueStrategy(IdGeneratorStrategy str);
 
     /**
      * Accessor for the value strategy
      * 
      * @return Value strategy
      */
-    String getValueStrategy();
+    IdGeneratorStrategy getValueStrategy();
 
     /**
      * Method to set the custom identity generation strategy.
