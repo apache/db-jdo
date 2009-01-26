@@ -98,7 +98,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @return The IndexMetadata
      */
-    IndexMetadata setIndexMetadata();
+    IndexMetadata newIndexMetadata();
 
     /**
      * Accessor for any index metadata on this value
@@ -112,7 +112,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @return The UniqueMetadata
      */
-    UniqueMetadata setUniqueMetadata();
+    UniqueMetadata newUniqueMetadata();
 
     /**
      * Accessor for any unique constraint metadata on this value.
@@ -126,7 +126,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @return The ForeignKeyMetadata
      */
-    ForeignKeyMetadata setForeignKeyMetadata();
+    ForeignKeyMetadata newForeignKeyMetadata();
 
     /**
      * Accessor for any foreign key metadata on this value.
