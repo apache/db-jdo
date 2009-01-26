@@ -34,21 +34,9 @@ public interface ClassMetadata extends ComponentMetadata {
     ClassPersistenceModifier getPersistenceModifier();
 
     /**
-     * Accessor for all fields defined on the class.
-     * @return The fields
-     */
-    FieldMetadata[] getFields();
-
-    /**
      * Add a new field to this class.
      * @param name Name of the field
      * @return The FieldMetadata
      */
     FieldMetadata newFieldMetadata(String name);
-
-    /**
-     * Accessor for the number of fields defined for this class.
-     * @return The number of fields
-     */
-    int getNumberOfFields();
 }

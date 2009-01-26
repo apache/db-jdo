@@ -297,11 +297,18 @@ public interface ComponentMetadata extends Metadata {
     int getNumberOfUniques();
 
     /**
-     * Accessor for all properties defined on the component.
+     * Accessor for all fields/properties defined on the component.
      * 
-     * @return The properties
+     * @return The members
      */
-    PropertyMetadata[] getProperties();
+    MemberMetadata[] getMembers();
+
+    /**
+     * Accessor for the number of fields/properties defined for this component.
+     * 
+     * @return The number of members
+     */
+    int getNumberOfMembers();
 
     /**
      * Add a new property for this component.
@@ -310,13 +317,6 @@ public interface ComponentMetadata extends Metadata {
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
-
-    /**
-     * Accessor for the number of properties defined for this component.
-     * 
-     * @return The number of properties
-     */
-    int getNumberOfProperties();
 
     /**
      * Accessor for all named queries defined on the component.
