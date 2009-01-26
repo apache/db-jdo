@@ -85,11 +85,18 @@ public interface IndexMetadata extends Metadata {
     int getNumberOfColumns();
 
     /**
-     * Accessor for all field(s) defined on the index.
+     * Accessor for all member(s) defined on the index.
      * 
-     * @return The field(s)
+     * @return The fields/properties
      */
-    FieldMetadata[] getFields();
+    MemberMetadata[] getMembers();
+
+    /**
+     * Accessor for the number of fields/properties defined for this index.
+     * 
+     * @return The number of members
+     */
+    int getNumberOfMembers();
 
     /**
      * Add a new field for this index.
@@ -100,31 +107,10 @@ public interface IndexMetadata extends Metadata {
     FieldMetadata newFieldMetadata(String name);
 
     /**
-     * Accessor for the number of fields defined for this index.
-     * 
-     * @return The number of fields
-     */
-    int getNumberOfFields();
-
-    /**
-     * Accessor for all properties defined on the index.
-     * 
-     * @return The properties
-     */
-    PropertyMetadata[] getProperties();
-
-    /**
      * Add a new property for this index.
      * 
      * @param name Name of the property
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
-
-    /**
-     * Accessor for the number of properties defined for this index.
-     * 
-     * @return The number of properties
-     */
-    int getNumberOfProperties();
 }

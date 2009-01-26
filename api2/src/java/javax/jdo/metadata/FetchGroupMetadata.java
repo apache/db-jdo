@@ -43,11 +43,17 @@ public interface FetchGroupMetadata extends Metadata {
     Boolean getPostLoad();
 
     /**
-     * Accessor for all fields defined on the fetch group.
-     * 
-     * @return The fields
+     * Accessor for all fields/properties defined on the fetch group.
+     * @return The members
      */
-    FieldMetadata[] getFields();
+    MemberMetadata[] getMembers();
+
+    /**
+     * Accessor for the number of fields/properties defined for this fetch group.
+     * 
+     * @return The number of members
+     */
+    int getNumberOfMembers();
 
     /**
      * Add a new field for this fetch group.
@@ -58,31 +64,10 @@ public interface FetchGroupMetadata extends Metadata {
     FieldMetadata newFieldMetadata(String name);
 
     /**
-     * Accessor for the number of fields defined for this fetch group.
-     * 
-     * @return The number of fields
-     */
-    int getNumberOfFields();
-
-    /**
-     * Accessor for all properties defined on the fetch group.
-     * 
-     * @return The properties
-     */
-    PropertyMetadata[] getProperties();
-
-    /**
      * Add a new property for this fetch group
      * 
      * @param name Name of property
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
-
-    /**
-     * Accessor for the number of properties defined for this fetch group
-     * 
-     * @return The number of properties
-     */
-    int getNumberOfProperties();
 }

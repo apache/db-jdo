@@ -129,11 +129,16 @@ public interface ForeignKeyMetadata extends Metadata {
     int getNumberOfColumns();
 
     /**
-     * Accessor for all field(s) defined on the FK.
-     * 
-     * @return The field(s)
+     * Accessor for all fields/properties defined on the FK.
+     * @return The members
      */
-    FieldMetadata[] getFields();
+    MemberMetadata[] getMembers();
+
+    /**
+     * Accessor for the number of fields/properties defined for this FK.
+     * @return The number of members
+     */
+    int getNumberOfMembers();
 
     /**
      * Add a new field for this FK.
@@ -144,31 +149,10 @@ public interface ForeignKeyMetadata extends Metadata {
     FieldMetadata newFieldMetadata(String name);
 
     /**
-     * Accessor for the number of fields defined for this FK.
-     * 
-     * @return The number of fields
-     */
-    int getNumberOfFields();
-
-    /**
-     * Accessor for all properties defined on the FK.
-     * 
-     * @return The properties
-     */
-    PropertyMetadata[] getProperties();
-
-    /**
      * Add a new property for this FK.
      * 
      * @param name Name of the property
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
-
-    /**
-     * Accessor for the number of properties defined for this FK.
-     * 
-     * @return The number of properties
-     */
-    int getNumberOfProperties();
 }
