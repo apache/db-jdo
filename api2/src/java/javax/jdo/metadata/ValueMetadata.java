@@ -80,11 +80,25 @@ public interface ValueMetadata extends Metadata {
     ForeignKeyAction getUpdateAction();
 
     /**
+     * Accessor for all column(s) defined on the value.
+     * 
+     * @return The column(s)
+     */
+    ColumnMetadata[] getColumns();
+
+    /**
+     * Add a new column for this value.
+     * 
+     * @return The ColumnMetadata
+     */
+    ColumnMetadata newColumn();
+
+    /**
      * Method to set new embedded metadata for the value.
      * 
      * @return The EmbeddedMetadata
      */
-    EmbeddedMetadata setEmbeddedMetadata();
+    EmbeddedMetadata newEmbeddedMetadata();
 
     /**
      * Accessor for any embedded metadata on this value
