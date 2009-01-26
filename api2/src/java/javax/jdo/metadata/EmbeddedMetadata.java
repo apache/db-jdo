@@ -22,18 +22,18 @@ package javax.jdo.metadata;
  */
 public interface EmbeddedMetadata extends Metadata {
     /**
-     * Method to set the name of the owner field.
+     * Method to set the name of the owner field/property.
      * 
-     * @param fld Name of the owner field
+     * @param member Name of the owner member
      */
-    EmbeddedMetadata setOwnerField(String fld);
+    EmbeddedMetadata setOwnerMember(String member);
 
     /**
-     * Accessor for the owner field name.
+     * Accessor for the owner field/property name.
      * 
-     * @return The owner field name
+     * @return The owner member name
      */
-    String getOwnerField();
+    String getOwnerMember();
 
     /**
      * Method to set any column that indicates a null embedded object
@@ -64,33 +64,26 @@ public interface EmbeddedMetadata extends Metadata {
     String getNullIndicatorValue();
 
     /**
-     * Accessor for all fields defined on the fetch group.
+     * Accessor for all fields/properties defined on the fetch group.
      * 
-     * @return The fields
+     * @return The members
      */
-    FieldMetadata[] getFields();
+    MemberMetadata[] getMembers();
 
     /**
-     * Add a new field to be embedded
+     * Accessor for the number of fields/properties defined for embedding
+     * 
+     * @return The number of members
+     */
+    int getNumberOfMembers();
+
+    /**
+     * Add a new field to be embedded.
      * 
      * @param name Name of the field
      * @return The FieldMetadata
      */
     FieldMetadata newFieldMetadata(String name);
-
-    /**
-     * Accessor for the number of fields defined for embedding
-     * 
-     * @return The number of fields
-     */
-    int getNumberOfFields();
-
-    /**
-     * Accessor for all properties defined for embedding
-     * 
-     * @return The properties
-     */
-    PropertyMetadata[] getProperties();
 
     /**
      * Add a new property for embedding
@@ -99,11 +92,4 @@ public interface EmbeddedMetadata extends Metadata {
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
-
-    /**
-     * Accessor for the number of properties defined for embedding
-     * 
-     * @return The number of properties
-     */
-    int getNumberOfProperties();
 }
