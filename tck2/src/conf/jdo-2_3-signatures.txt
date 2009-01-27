@@ -832,6 +832,9 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     void removeAllFetchGroups();
     javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
     java.util.Set getFetchGroups();
+    public void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
+    public javax.jdo.metadata.JDOMetadata newMetadata();
+    public javax.jdo.metadata.ClassMetadata getMetadata(String className);
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -1399,6 +1402,7 @@ public annotation javax.jdo.annotations.Order extends java.lang.annotation.Annot
     String column() default "";
     String mappedBy() default "";
     javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
 }
 
 public annotation javax.jdo.annotations.PersistenceAware extends java.lang.annotation.Annotation
