@@ -24,10 +24,11 @@ package javax.jdo;
 
 import javax.jdo.datastore.DataStoreCache;
 import javax.jdo.listener.InstanceLifecycleListener;
+import javax.jdo.metadata.ClassMetadata;
+import javax.jdo.metadata.JDOMetadata;
 import javax.jdo.spi.JDOPermission; // for getFetchGroups javadoc
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -702,4 +703,28 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     Set getFetchGroups();
 
+    /**
+     * Method to register metadata with the persistence process managed by this
+     * <code>PersistenceManagerFactory</code>. 
+     * Metadata can be created using the method {@link #newMetadata}.
+     * @param metadata The Metadata to register.
+     * @since 2.3
+     */
+    void registerMetadata(JDOMetadata metadata);
+
+    /**
+     * Method to return a new metadata object that can be subsequently modified
+     * and registered with the persistence process using the method {@link #registerMetadata}.
+     * @return The metadata
+     * @since 2.3
+     */
+    JDOMetadata newMetadata();
+
+    /**
+     * Method to return the (class) metadata object for the specified class, if there is
+     * metadata defined for that class.
+     * @return The metadata
+     * @since 2.3
+     */
+    ClassMetadata getMetadata(String className);
 }
