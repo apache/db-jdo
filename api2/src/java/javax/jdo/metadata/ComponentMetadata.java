@@ -16,6 +16,8 @@
  */
 package javax.jdo.metadata;
 
+import java.lang.reflect.Method;
+
 import javax.jdo.annotations.IdentityType;
 
 /**
@@ -317,6 +319,14 @@ public interface ComponentMetadata extends Metadata {
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
+
+    /**
+     * Add a new property for this component.
+     * 
+     * @param method Java bean getter/setter method
+     * @return The PropertyMetadata
+     */
+    PropertyMetadata newPropertyMetadata(Method method);
 
     /**
      * Accessor for all named queries defined on the component.

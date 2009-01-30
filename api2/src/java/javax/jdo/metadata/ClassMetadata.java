@@ -16,6 +16,8 @@
  */
 package javax.jdo.metadata;
 
+import java.lang.reflect.Field;
+
 /**
  * Represents a class.
  * @since 2.3
@@ -39,4 +41,11 @@ public interface ClassMetadata extends ComponentMetadata {
      * @return The FieldMetadata
      */
     FieldMetadata newFieldMetadata(String name);
+
+    /**
+     * Add a new field to this class.
+     * @param name Name of the field
+     * @return The FieldMetadata
+     */
+    FieldMetadata newFieldMetadata(Field fld);
 }

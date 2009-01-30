@@ -75,6 +75,14 @@ public interface PackageMetadata extends Metadata {
     ClassMetadata newClassMetadata(String name);
 
     /**
+     * Add a new class to this package.
+     * 
+     * @param cls The class
+     * @return The ClassMetadata
+     */
+    ClassMetadata newClassMetadata(Class cls);
+
+    /**
      * Accessor for the number of classes defined in this package.
      * 
      * @return The number of classes.
@@ -95,6 +103,14 @@ public interface PackageMetadata extends Metadata {
      * @return The InterfaceMetadata
      */
     InterfaceMetadata newInterfaceMetadata(String name);
+
+    /**
+     * Add a new interface to this package.
+     * 
+     * @param cls The class
+     * @return The ClassMetadata
+     */
+    InterfaceMetadata newInterfaceMetadata(Class cls);
 
     /**
      * Accessor for the number of interfaces defined in this package.

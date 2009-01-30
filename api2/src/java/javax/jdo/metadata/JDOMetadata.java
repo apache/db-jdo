@@ -68,11 +68,37 @@ public interface JDOMetadata extends Metadata {
     PackageMetadata newPackageMetadata(String pkgName);
 
     /**
+     * Add a new package to this JDO Metadata.
+     * 
+     * @param pkg The package
+     * @return The PackageMetadata
+     */
+    PackageMetadata newPackageMetadata(Package pkg);
+
+    /**
      * Accessor for the number of packages defined in this JDO Metadata.
      * 
      * @return The number of packages.
      */
     int getNumberOfPackages();
+
+    /**
+     * Add a new class to this JDO Metadata.
+     * Adds its package also if not yet existing.
+     * 
+     * @param cls Class to add
+     * @return The ClassMetadata
+     */
+    ClassMetadata newClassMetadata(Class cls);
+
+    /**
+     * Add a new interface to this JDO Metadata.
+     * Adds its package also if not yet existing.
+     * 
+     * @param cls Class to add
+     * @return The InterfaceMetadata
+     */
+    InterfaceMetadata newInterfaceMetadata(Class cls);
 
     /**
      * Accessor for any named queries defined on the JDO Metadata.
