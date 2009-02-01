@@ -19,6 +19,8 @@ package javax.jdo;
 import java.lang.instrument.ClassFileTransformer;
 import java.util.Properties;
 
+import javax.jdo.metadata.JDOMetadata;
+
 /**
  * Interface for a JDO Enhancer.
  * @since 2.3
@@ -127,4 +129,23 @@ public interface JDOEnhancer extends ClassFileTransformer
      * @return Enhanced bytes
      */
     byte[] getEnhancedBytes(String className);
+
+    /**
+     * Method to register metadata with the enhancement process managed by this
+     * <code>JDOEnhancer</code>.
+     * Metadata can be created using the method {@link #newMetadata}.
+     * If there is already metadata registered for a class contained in this metadata
+     * object then a JDOUserException will be thrown.
+     * @param metadata The Metadata to register.
+     * @since 2.3
+     */
+    void registerMetadata(JDOMetadata metadata);
+
+    /**
+     * Method to return a new metadata object that can be subsequently modified
+     * and registered with the enhancement process using the method {@link #registerMetadata}.
+     * @return The metadata
+     * @since 2.3
+     */
+    JDOMetadata newMetadata();
 }
