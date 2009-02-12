@@ -269,12 +269,16 @@ public interface Query extends Serializable {
     void compile();
     
     /** Execute the query and return the filtered Collection.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      */
     Object execute();
     
     /** Execute the query and return the filtered <code>Collection</code>.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      * @param p1 the value of the first parameter declared.
@@ -282,6 +286,8 @@ public interface Query extends Serializable {
     Object execute(Object p1);
     
     /** Execute the query and return the filtered <code>Collection</code>.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      * @param p1 the value of the first parameter declared.
@@ -290,6 +296,8 @@ public interface Query extends Serializable {
     Object execute(Object p1, Object p2);
     
     /** Execute the query and return the filtered <code>Collection</code>.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      * @param p1 the value of the first parameter declared.
@@ -305,6 +313,8 @@ public interface Query extends Serializable {
      * is the value used in the <code>execute</code> method.  The keys in the 
      * <code>Map</code> and the declared parameters must exactly match or a 
      * <code>JDOUserException</code> is thrown.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @see #executeWithArray(Object[] parameters)
      * @param parameters the <code>Map</code> containing all of the parameters.
@@ -328,6 +338,8 @@ public interface Query extends Serializable {
      * query.  It is then evaluated by the Boolean expression of the filter.  
      * The element passes the filter if there exist unique values for all 
      * variables for which the filter expression evaluates to <code>true</code>.
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
+     * being thrown here
      * @return the filtered <code>Collection</code>.
      * @param parameters the <code>Object</code> array with all of the 
      * parameters.
@@ -685,4 +697,19 @@ public interface Query extends Serializable {
         (Query sub, String variableDeclaration, 
          String candidateCollectionExpression, Map parameters);
 
+    /**
+     * Specify a timeout interval (milliseconds) for any query executions.
+     * If a query hasn't completed within this interval execute() will throw a
+     * JDOQueryTimeoutException.
+     * @since 2.3
+     * @param interval The timeout interval (millisecs)
+     */
+    void setTimeoutMillis(int interval);
+
+    /**
+     * Method to cancel any executing queries.
+     * If the underlying datastore doesn't support cancellation of queries this will
+     * throw JDOUnsupportedOptionException.
+     */
+    void cancel();
 }

@@ -520,6 +520,22 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void setTransactionIsolationLevel(String level);
 
+    /** Set the default query timeout setting for all <code>PersistenceManager</code>
+     * instances obtained from this factory.
+     *
+     * @param interval The default timeout setting (millisecs).
+     * @since 2.3
+     */
+    void setQueryTimeoutMillis(int interval);
+
+    /** Get the default query timeout setting for all 
+     * <code>PersistenceManager</code> instances obtained from this factory.
+     *
+     * @return the default query timeout setting.
+     * @since 2.3
+     */
+    int getQueryTimeoutMillis();
+
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.
      * Properties with keys <code>VendorName</code> and 

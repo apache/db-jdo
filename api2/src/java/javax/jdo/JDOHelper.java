@@ -162,6 +162,9 @@ public class JDOHelper implements Constants {
         xref.put(
             PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
             PROPERTY_SERVER_TIME_ZONE_ID);
+        xref.put(
+            PMF_ATTRIBUTE_QUERY_TIMEOUT,
+            PROPERTY_QUERY_TIMEOUT);
 
         return Collections.unmodifiableMap(xref);
     }
@@ -1699,7 +1702,6 @@ public class JDOHelper implements Constants {
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullFile")); //NOI18N
 
-        Properties props = new Properties();
         InputStream in = null;
         try {
             in = new FileInputStream(propsFile);
