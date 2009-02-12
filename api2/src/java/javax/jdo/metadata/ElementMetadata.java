@@ -91,7 +91,7 @@ public interface ElementMetadata extends Metadata {
      * 
      * @return The ColumnMetadata
      */
-    ColumnMetadata newColumn();
+    ColumnMetadata newColumnMetadata();
 
     /**
      * Accessor for the number of columns defined for this element.

@@ -91,7 +91,7 @@ public interface ValueMetadata extends Metadata {
      * 
      * @return The ColumnMetadata
      */
-    ColumnMetadata newColumn();
+    ColumnMetadata newColumnMetadata();
 
     /**
      * Method to set new embedded metadata for the value.

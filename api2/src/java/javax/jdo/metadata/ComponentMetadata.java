@@ -372,4 +372,25 @@ public interface ComponentMetadata extends Metadata {
      * @return The number of fetch groups
      */
     int getNumberOfFetchGroups();
+
+    /**
+     * Accessor for all column(s) defined on the join.
+     * 
+     * @return The column(s)
+     */
+    ColumnMetadata[] getColumns();
+
+    /**
+     * Add a new column for this join.
+     * 
+     * @return The ColumnMetadata
+     */
+    ColumnMetadata newColumnMetadata();
+
+    /**
+     * Accessor for the number of columns defined for this join.
+     * 
+     * @return The number of columns
+     */
+    int getNumberOfColumns();
 }
