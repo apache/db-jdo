@@ -268,12 +268,12 @@ public interface Constants {
         = "server-time-zone-id";
     /**
      * The name of the persistence manager factory element's
-     * "query-timeout" attribute.
+     * "query-timeout-millis" attribute.
      *
      * @since 2.3
      */
     static String PMF_ATTRIBUTE_QUERY_TIMEOUT
-        = "query-timeout";
+        = "query-timeout-millis";
 
     /**
      * The name of the persistence manager factory property elements in the JDO
@@ -826,12 +826,12 @@ public interface Constants {
     static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
     /**
-     * Mapping "javax.jdo.option.QueryTimeout"
+     * Mapping "javax.jdo.option.QueryTimeoutMillis"
      *
      * @since 2.3
      */
     static String PROPERTY_QUERY_TIMEOUT
-        = "javax.jdo.option.QueryTimeout";
+        = "javax.jdo.option.QueryTimeoutMillis";
 
     /**
      * Nonconfigurable property constanct "VendorName"
