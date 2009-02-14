@@ -44,10 +44,10 @@ public interface JDOEnhancer extends ClassFileTransformer
     /**
      * Mutator to set the location where enhanced classes are written.
      * Mutator to set the location where enhanced classes are written.
-     * If this method is not called, classes will be enhanced in place, 
-     * overwriting the existing classes. If overwriting classes in a jar file,
-     * the existing files in the jar file will be written unchanged except
-     * for the enhanced classes. The directory name can be absolute or relative.
+     * If this method is not called, classes will be enhanced in place, 
+     * overwriting the existing classes. If overwriting classes in a jar file,
+     * the existing files in the jar file will be written unchanged except
+     * for the enhanced classes. The directory name can be absolute or relative.
      * @param dirName Name of the directory
      * @return The enhancer
      */
