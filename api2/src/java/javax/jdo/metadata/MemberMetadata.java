@@ -477,6 +477,20 @@ public interface MemberMetadata extends Metadata {
     ForeignKeyMetadata getForeignKeyMetadata();
 
     /**
+     * Method to define the order details.
+     * 
+     * @return The OrdeMetadata
+     */
+    OrderMetadata newOrderMetadata();
+
+    /**
+     * Accessor for the order metadata.
+     * 
+     * @return order metadata
+     */
+    OrderMetadata getOrderMetadata();
+
+    /**
      * Accessor for all column(s) defined on the join.
      * 
      * @return The column(s)
