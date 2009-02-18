@@ -18,6 +18,8 @@
 public interface javax.jdo.Constants {
     static String SERVICE_LOOKUP_PMF_RESOURCE_NAME
         = "META-INF/services/javax.jdo.PersistenceManagerFactory";
+    static String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
+        = "META-INF/services/javax.jdo.JDOEnhancer";
     static String JDOCONFIG_RESOURCE_NAME
         = "META-INF/jdoconfig.xml";
     static String JDOCONFIG_XSD_NS
@@ -72,6 +74,8 @@ public interface javax.jdo.Constants {
         = "mapping";
     static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
         = "server-time-zone-id";
+    static String PMF_ATTRIBUTE_QUERY_TIMEOUT
+        = "query-timeout-millis";
     static String ELEMENT_PROPERTY
         = "property";
     static String PROPERTY_ATTRIBUTE_NAME
@@ -208,6 +212,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.mapping.Schema";
     static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
+    static String PROPERTY_QUERY_TIMEOUT
+        = "javax.jdo.option.QueryTimeoutMillis";
     static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME
         = "VendorName";
     static String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER
@@ -368,6 +374,7 @@ public class javax.jdo.identity.ObjectIdentity extends javax.jdo.identity.Single
     public Object getKey();
     public String toString();
     public boolean equals(Object obj);
+    public int hashCode();
     public int compareTo(Object obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
@@ -530,6 +537,8 @@ public class javax.jdo.JDOHelper implements javax.jdo.Constants {
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(String jndiLocation, javax.naming.Context context, ClassLoader loader);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.InputStream stream);
     public static javax.jdo.PersistenceManagerFactory getPersistenceManagerFactory(java.io.InputStream stream, ClassLoader loader);
+    public static javax.jdo.JDOEnhancer getEnhancer();
+    public static javax.jdo.JDOEnhancer getEnhancer(ClassLoader loader);
 }
 
 public class javax.jdo.JDONullIdentityException extends javax.jdo.JDOUserException {
@@ -835,6 +844,8 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
     public javax.jdo.metadata.JDOMetadata newMetadata();
     public javax.jdo.metadata.ComponentMetadata getMetadata(String className);
+    public void setQueryTimeoutMillis(int interval);
+    public int getQueryTimeoutMillis();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -878,6 +889,8 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public long deletePersistentAll();
     public void setUnmodifiable();
     public boolean isUnmodifiable();
+    public void setTimeoutMillis(int interval);
+    public void cancel();
 }
 
 public interface javax.jdo.spi.Detachable {
@@ -1605,3 +1618,22 @@ public interface javax.jdo.FetchGroup {
     int hashCode();
     boolean equals(Object other);
 }
+
+/*** This causes some NPE in SignatureTest whatever that means ***/
+/*
+public interface JDOEnhancer extends java.lang.instrument.ClassFileTransformer {
+    java.util.Properties getProperties();
+    javax.jdo.JDOEnhancer setVerbose(boolean flag);
+    javax.jdo.JDOEnhancer setOutputDirectory(String dirName);
+    javax.jdo.JDOEnhancer setClassLoader(ClassLoader loader);
+    javax.jdo.JDOEnhancer addPersistenceUnit(String persistenceUnit);
+    javax.jdo.JDOEnhancer addClass(String className, byte[] bytes);
+    javax.jdo.JDOEnhancer addClasses(String... classNames);
+    javax.jdo.JDOEnhancer addFiles(String... metadataFiles);
+    javax.jdo.JDOEnhancer addJar(String jarFileName);
+    int enhance();
+    int validate();
+    byte[] getEnhancedBytes(String className);
+    void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
+    javax.jdo.metadata.JDOMetadata newMetadata();
+} */
