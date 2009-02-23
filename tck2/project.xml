@@ -130,7 +130,7 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-connectionpool</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
