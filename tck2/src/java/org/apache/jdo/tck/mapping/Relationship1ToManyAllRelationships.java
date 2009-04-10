@@ -19,7 +19,11 @@ package org.apache.jdo.tck.mapping;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import javax.jdo.JDOHelper;
+
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
@@ -410,7 +414,16 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
             pm.flush();
             
             // Postcondition
-            deferredAssertTrue(!dept1.getEmployees().contains(emp1),
+            boolean contained = false;
+            Iterator iter = dept1.getEmployees().iterator();
+            while (iter.hasNext()) {
+        	Object elem = iter.next();
+        	if (JDOHelper.getObjectId(elem).equals(emp1)) {
+        	    contained = true;
+        	    break;
+        	}
+            }
+            deferredAssertTrue(!contained,
                 ASSERTION_FAILED + testMethod,
                 "Postcondition is false; "
                 + "other side of relationship not set on flush");
