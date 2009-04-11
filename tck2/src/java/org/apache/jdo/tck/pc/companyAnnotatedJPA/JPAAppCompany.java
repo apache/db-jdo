@@ -53,7 +53,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
     @Column(name="NAME")
     private String      name;
     @Column(name="FOUNDEDDATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date        founded;
     @Basic
     @Embedded

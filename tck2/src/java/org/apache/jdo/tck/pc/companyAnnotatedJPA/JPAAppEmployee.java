@@ -42,7 +42,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public abstract class JPAAppEmployee extends JPAAppPerson implements IEmployee {
 
     @Column(name="HIREDATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date             hiredate;
     @Column(name="WEEKLYHOURS")
     private double           weeklyhours;

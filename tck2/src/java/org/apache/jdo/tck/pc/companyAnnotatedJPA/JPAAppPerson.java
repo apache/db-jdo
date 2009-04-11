@@ -58,7 +58,7 @@ public class JPAAppPerson
     @Column(name="MIDDLENAME")
     private String  middlename;
     @Column(name="BIRTHDATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date    birthdate;
     @Embedded
         @AttributeOverrides({
