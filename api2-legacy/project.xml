@@ -31,7 +31,8 @@
     <description>The Java Data Objects 2 (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Request 243 under the auspices of the Java Community Process.
-This version requires only JDK 1.3.</description>
+This version requires only JDK 1.3.
+*** THIS IS DEPRECATED IN JDO2.3+ ***</description>
     <!-- ============ -->
     <!-- Dependencies -->
     <!-- ============ -->
