@@ -45,6 +45,7 @@ Request 243 under the auspices of the Java Community Process.</description>
             <artifactId>ant</artifactId>
             <version>1.7.0</version>
             <properties>
+                <optional>true</optional>
                 <scope>test</scope>
             </properties>
         </dependency>
@@ -60,6 +61,9 @@ Request 243 under the auspices of the Java Community Process.</description>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jpa_3.0_spec</artifactId>
             <version>1.0</version>
+            <properties>
+                <optional>true</optional>
+            </properties>
         </dependency>
     </dependencies>
     <!-- =================== -->
