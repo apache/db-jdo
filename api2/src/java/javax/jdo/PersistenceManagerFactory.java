@@ -526,7 +526,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * @param interval The default timeout setting (millisecs).
      * @since 2.3
      */
-    void setQueryTimeoutMillis(int interval);
+    void setQueryTimeoutMillis(Integer interval);
 
     /** Get the default query timeout setting for all 
      * <code>PersistenceManager</code> instances obtained from this factory.
@@ -534,7 +534,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the default query timeout setting.
      * @since 2.3
      */
-    int getQueryTimeoutMillis();
+    Integer getQueryTimeoutMillis();
 
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.

@@ -704,7 +704,14 @@ public interface Query extends Serializable {
      * @since 2.3
      * @param interval The timeout interval (millisecs)
      */
-    void setTimeoutMillis(int interval);
+    void setTimeoutMillis(Integer interval);
+
+    /** Get the timeout setting for query executions. 
+     *
+     * @return the query timeout setting.
+     * @since 2.3
+     */
+    Integer getQueryTimeoutMillis();
 
     /**
      * Method to cancel any executing queries.

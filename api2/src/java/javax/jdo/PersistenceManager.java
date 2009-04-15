@@ -953,6 +953,22 @@ public interface PersistenceManager {
      */
    boolean getIgnoreCache();
    
+    /** Set the default query timeout setting for all <code>Query</code>
+     * instances obtained from this PersistenceManager.
+     *
+     * @param interval The default timeout setting (millisecs).
+     * @since 2.3
+     */
+    void setQueryTimeoutMillis(Integer interval);
+
+    /** Get the default query timeout setting for all 
+     * <code>Query</code> instances obtained from this PersistenceManager.
+     *
+     * @return the default query timeout setting.
+     * @since 2.3
+     */
+    Integer getQueryTimeoutMillis();
+
    /** Gets the detachAllOnCommit setting.
     * @see #setDetachAllOnCommit(boolean)
     * @since 2.0
