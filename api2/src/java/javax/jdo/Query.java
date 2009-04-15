@@ -711,12 +711,13 @@ public interface Query extends Serializable {
      * @return the query timeout setting.
      * @since 2.3
      */
-    Integer getQueryTimeoutMillis();
+    Integer getTimeoutMillis();
 
     /**
      * Method to cancel any executing queries.
      * If the underlying datastore doesn't support cancellation of queries this will
      * throw JDOUnsupportedOptionException.
+     * @since 2.3
      */
     void cancel();
 }
