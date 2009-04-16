@@ -776,6 +776,8 @@ public interface javax.jdo.PersistenceManager {
     public varargs java.util.Set getManagedObjects(Class[] classes);
     public varargs java.util.Set getManagedObjects(java.util.EnumSet states, Class[] classes);
     javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
+    public void setQueryTimeoutMillis(Integer interval);
+    public Integer getQueryTimeoutMillis();
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
@@ -844,8 +846,8 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
     public javax.jdo.metadata.JDOMetadata newMetadata();
     public javax.jdo.metadata.ComponentMetadata getMetadata(String className);
-    public void setQueryTimeoutMillis(int interval);
-    public int getQueryTimeoutMillis();
+    public void setQueryTimeoutMillis(Integer interval);
+    public Integer getQueryTimeoutMillis();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -889,7 +891,8 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public long deletePersistentAll();
     public void setUnmodifiable();
     public boolean isUnmodifiable();
-    public void setTimeoutMillis(int interval);
+    public void setTimeoutMillis(Integer interval);
+    public Integer getTimeoutMillis();
     public void cancel();
 }
 
