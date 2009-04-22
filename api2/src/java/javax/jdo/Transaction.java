@@ -38,9 +38,8 @@ import javax.transaction.Synchronization;
  * environment. When used in a managed environment, transaction initiation 
  * and completion methods may only be used with bean-managed transaction 
  * semantics.
- * @version 2.2
+ * @version 2.3
  */
-
 public interface Transaction
 {
     /** Begin a transaction.  The type of transaction is determined by the
@@ -229,4 +228,21 @@ public interface Transaction
      * <code>Transaction</code> instance
      */
     PersistenceManager getPersistenceManager();
+    
+    /**
+     * If <code>true</code>, any read of objects in this transaction will add 
+     * a lock on all retrieved objects. 
+     * <P>If <code>false</code> then retrieved objects will not be locked.
+     * If null then it is left to the implementation to decide over locking.
+     * @param serialize the value of the serializeRead property
+     * @since 2.3
+     */
+    void setSerializeRead(Boolean serialize);
+    
+    /**
+     * Return the current value of the serializeRead property.
+     * @return the value of the serializeRead property
+     * @since 2.3
+     */
+    Boolean getSerializeRead();
 }
