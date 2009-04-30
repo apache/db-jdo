@@ -98,9 +98,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
         <developer>
             <name>Matthew Adams</name>
             <id>madams</id>
-            <email>matthew.adams@xcalia.com</email>
+            <email>matthew@matthewadams.me</email>
             <timezone>-8</timezone>
-            <organization>Xcalia</organization>
         </developer>
         <developer>
             <name>Martin Zaun</name>
