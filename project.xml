@@ -100,6 +100,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.
             <id>madams</id>
             <email>matthew@matthewadams.me</email>
             <timezone>-8</timezone>
+            <organization>Apache.org</organization>
         </developer>
         <developer>
             <name>Martin Zaun</name>
