@@ -25,8 +25,9 @@ public interface PrimaryKeyMetadata extends Metadata {
      * Method to set the name of the PK constraint.
      * 
      * @param name Name of the PK constraint
+     * @return The PK metadata
      */
-    PrimaryKeyMetadata setName(String strategy);
+    PrimaryKeyMetadata setName(String name);
 
     /**
      * Accessor for the name of the PK constraint.
@@ -39,6 +40,7 @@ public interface PrimaryKeyMetadata extends Metadata {
      * Method to set the PK column name.
      * 
      * @param column Name of the PK column
+     * @return The PK metadata
      */
     PrimaryKeyMetadata setColumn(String column);
 

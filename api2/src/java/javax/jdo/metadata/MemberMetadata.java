@@ -186,7 +186,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param pk PK?
      */
-    MemberMetadata setPrimaryKey(boolean unique);
+    MemberMetadata setPrimaryKey(boolean pk);
 
     /**
      * Accessor for whether it is part of the pk.
@@ -256,7 +256,7 @@ public interface MemberMetadata extends Metadata {
      * 
      * @param grp Load fetch group
      */
-    MemberMetadata setLoadFetchGroup(String type);
+    MemberMetadata setLoadFetchGroup(String grp);
 
     /**
      * Accessor for the name of the load fetch group
@@ -437,7 +437,7 @@ public interface MemberMetadata extends Metadata {
     /**
      * Method to set index metadata for the field/property
      * 
-     * @param index The metadata for any index
+     * @return The metadata for any index
      */
     IndexMetadata newIndexMetadata();
 

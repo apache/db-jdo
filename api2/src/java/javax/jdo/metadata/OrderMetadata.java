@@ -73,7 +73,7 @@ public interface OrderMetadata extends Metadata {
     /**
      * Method to set index metadata for the ordering
      * 
-     * @param index The metadata for any index
+     * @return The metadata for any index
      */
     IndexMetadata newIndexMetadata();
 

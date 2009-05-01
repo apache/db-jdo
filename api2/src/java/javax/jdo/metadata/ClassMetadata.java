@@ -44,7 +44,7 @@ public interface ClassMetadata extends ComponentMetadata {
 
     /**
      * Add a new field to this class.
-     * @param name Name of the field
+     * @param fld The field
      * @return The FieldMetadata
      */
     FieldMetadata newFieldMetadata(Field fld);

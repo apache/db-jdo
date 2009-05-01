@@ -89,7 +89,7 @@ public interface VersionMetadata extends Metadata {
     /**
      * Method to set index metadata for the version
      * 
-     * @version The IndexMetadata
+     * @return The IndexMetadata
      */
     IndexMetadata newIndexMetadata();
 
