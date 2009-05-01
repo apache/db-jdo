@@ -107,7 +107,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param embedded Whether it is only stored embedded
      */
-    ComponentMetadata setEmbeddedOnly(boolean extent);
+    ComponentMetadata setEmbeddedOnly(boolean embedded);
 
     /**
      * Accessor for whether this is embedded only.
