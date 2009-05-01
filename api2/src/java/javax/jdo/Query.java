@@ -717,7 +717,19 @@ public interface Query extends Serializable {
      * Method to cancel any executing queries.
      * If the underlying datastore doesn't support cancellation of queries this will
      * throw JDOUnsupportedOptionException.
+     * If the cancellation fails (e.g in the underlying datastore) then this will throw
+     * a JDOException.
      * @since 2.3
      */
-    void cancel();
+    void cancelAll();
+
+    /**
+     * Method to cancel an executing query in the specified thread.
+     * If the underlying datastore doesn't support cancellation of queries this will
+     * throw JDOUnsupportedOptionException.
+     * If the cancellation fails (e.g in the underlying datastore) then this will throw
+     * a JDOException.
+     * @since 2.3
+     */
+    void cancel(Thread thread);
 }

@@ -579,6 +579,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.option.TransactionIsolationLevel.repeatable-read
      * <BR>javax.jdo.option.TransactionIsolationLevel.snapshot
      * <BR>javax.jdo.option.TransactionIsolationLevel.serializable
+     * <BR>javax.jdo.option.QueryCancel
      * <BR>javax.jdo.query.SQL
      * <BR>javax.jdo.query.JDOQL
      * </code>
