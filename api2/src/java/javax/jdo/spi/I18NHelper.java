@@ -61,10 +61,6 @@ public class I18NHelper {
      */
     private static Locale       locale = Locale.getDefault();
 
-    /** The name of the bundle used by this instance of the helper.
-     */
-    private final String        bundleName;
-
     /** The bundle used by this instance of the helper.
      */
     private ResourceBundle      bundle = null;
@@ -78,7 +74,6 @@ public class I18NHelper {
 
     /** Constructor */
     private I18NHelper() {
-        this.bundleName = null;
     }
 
     /** Constructor for an instance bound to a bundle.
@@ -87,7 +82,6 @@ public class I18NHelper {
      * bundle
      */
     private I18NHelper (String bundleName, ClassLoader loader) {
-        this.bundleName = bundleName;
         try {
             bundle = loadBundle (bundleName, loader);
         }
