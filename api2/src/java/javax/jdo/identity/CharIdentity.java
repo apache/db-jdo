@@ -158,8 +158,4 @@ public class CharIdentity extends SingleFieldIdentity {
         super.readExternal (in);
         key = in.readChar();
     }
-    
-    private void computeHashCode() {
-        hashCode = hashClassName() ^ key;
-    }
 }
