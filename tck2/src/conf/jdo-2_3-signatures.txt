@@ -893,7 +893,10 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public boolean isUnmodifiable();
     public void setTimeoutMillis(Integer interval);
     public Integer getTimeoutMillis();
-    public void cancel();
+    public void cancelAll();
+    public void cancel(Thread);
+    public Boolean getSerializeRead();
+    public void setSerializeRead(Boolean);
 }
 
 public interface javax.jdo.spi.Detachable {
@@ -1129,6 +1132,8 @@ public interface javax.jdo.Transaction {
     public void setSynchronization(javax.transaction.Synchronization sync);
     public javax.transaction.Synchronization getSynchronization();
     public javax.jdo.PersistenceManager getPersistenceManager();
+    public Boolean getSerializeRead();
+    public void setSerializeRead(Boolean);
 }
 
 public final enum javax.jdo.ObjectState extends java.lang.Enum {
@@ -1438,6 +1443,7 @@ public annotation javax.jdo.annotations.PersistenceCapable extends java.lang.ann
     Class objectIdClass() default void.class;
     javax.jdo.annotations.Extension[] extensions() default {};
     String cacheable() default "true";
+    String serializeRead() default "false";
 }
 
 public final enum javax.jdo.annotations.PersistenceModifier extends java.lang.Enum
