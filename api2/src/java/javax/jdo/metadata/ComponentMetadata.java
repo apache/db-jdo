@@ -103,6 +103,20 @@ public interface ComponentMetadata extends Metadata {
     boolean getCacheable();
 
     /**
+     * Method to set the default value of serializeRead for objects of this type.
+     * 
+     * @param flag serializeRead
+     */
+    ComponentMetadata setSerializeRead(boolean flag);
+
+    /**
+     * Accessor for the value of serializeRead for objects of this type.
+     * 
+     * @return SerializeRead?
+     */
+    boolean getSerializeRead();
+
+    /**
      * Method to set whether it is stored only as embedded in other objects.
      * 
      * @param embedded Whether it is only stored embedded

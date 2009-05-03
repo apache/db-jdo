@@ -228,5 +228,21 @@ public interface Transaction
      * <code>Transaction</code> instance
      */
     PersistenceManager getPersistenceManager();
-    
+
+    /**
+     * If <code>true</code>, a lock will be applied to all objects read in this
+     * transaction.
+     * <P>If <code>false</code> then retrieved objects will not be locked.
+     * If null will fallback to the value for metadata for the class in question.
+     * @param serialize the value of the serializeRead property
+     * @since 2.3
+     */
+    void setSerializeRead(Boolean serialize);
+
+    /**
+     * Return the current value of the serializeRead property.
+     * @return the value of the serializeRead property
+     * @since 2.3
+     */
+    Boolean getSerializeRead();
 }
