@@ -217,7 +217,8 @@
               toFile="${jdo.releases.dist.dir}/m1-ibiblio-rsync-repository/${pom.groupId}/poms/${maven.final.name}.pom" />
 
         <copy file="m2_repo_maven_metadata.xml"
-              toFile="${jdo.releases.dist.dir}/m2-ibiblio-rsync-repository/javax/jdo/jdo2-api/maven-metadata.xml"/>
+              toFile="${jdo.releases.dist.dir}/m2-ibiblio-rsync-repository/javax/jdo/${pom.artifactId}/maven-metadata.xml"
+              failonerror="false"/>
     </goal>
 
     <goal name="copy-distribution">
