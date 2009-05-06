@@ -21,7 +21,7 @@
   <groupId>javax.jdo</groupId>
   <artifactId>jdo2-api</artifactId>
   <name>JDO2 API</name>
-  <version>${jdo.version}</version>
+  <version>2.3-ea</version>
   <description>The Java Data Objects 2 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
   <build>
     <sourceDirectory>src/java</sourceDirectory>
