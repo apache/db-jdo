@@ -209,12 +209,16 @@
     <goal name="copy-dependency-artifacts">
         <mkdir dir="${jdo.releases.dist.dir}/m1-ibiblio-rsync-repository/${pom.groupId}/jars"/>
         <mkdir dir="${jdo.releases.dist.dir}/m1-ibiblio-rsync-repository/${pom.groupId}/poms"/>
+        <mkdir dir="${jdo.releases.dist.dir}/m2-ibiblio-rsync-repository/javax/jdo/jdo2-api/"/>
 
         <!-- Copy the artifacts for the remote repository -->
         <copy file="${maven.build.dir}/${maven.final.name}.jar" 
               todir="${jdo.releases.dist.dir}/m1-ibiblio-rsync-repository/${pom.groupId}/jars"/>
         <copy file="project.xml" 
               toFile="${jdo.releases.dist.dir}/m1-ibiblio-rsync-repository/${pom.groupId}/poms/${maven.final.name}.pom" />
+
+        <copy file="m2_repo_maven_metadata.xml"
+            toFile="${jdo.releases.dist.dir}/m2-ibiblio-rsync-repository/javax/jdo/jdo2-api/maven-metadata.xml"/>
     </goal>
 
     <goal name="copy-distribution">
