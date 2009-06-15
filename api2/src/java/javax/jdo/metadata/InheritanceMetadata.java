@@ -63,7 +63,7 @@ public interface InheritanceMetadata extends Metadata {
      * 
      * @return Discriminator
      */
-    DiscriminatorMetadata getDiscriminatorMetaData();
+    DiscriminatorMetadata getDiscriminatorMetadata();
 
     /**
      * Method to define the new join information
@@ -77,5 +77,5 @@ public interface InheritanceMetadata extends Metadata {
      * 
      * @return Join information
      */
-    JoinMetadata getJoinMetaData();
+    JoinMetadata getJoinMetadata();
 }

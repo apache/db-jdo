@@ -24,7 +24,7 @@ package javax.jdo;
 
 import javax.jdo.datastore.DataStoreCache;
 import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.metadata.ComponentMetadata;
+import javax.jdo.metadata.TypeMetadata;
 import javax.jdo.metadata.JDOMetadata;
 import javax.jdo.spi.JDOPermission; // for getFetchGroups javadoc
 import java.io.Serializable;
@@ -746,5 +746,5 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return The metadata
      * @since 2.3
      */
-    ComponentMetadata getMetadata(String className);
+    TypeMetadata getMetadata(String className);
 }

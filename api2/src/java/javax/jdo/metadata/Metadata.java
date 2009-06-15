@@ -28,9 +28,9 @@ public interface Metadata {
      * @param vendor Identifier for the vendor
      * @param key The extension key
      * @param value Value for the extension
-     * @return The ExtensionMetaData
+     * @return The ExtensionMetadata
      */
-    ExtensionMetadata newExtensionMetaData(String vendor, String key, String value);
+    ExtensionMetadata newExtensionMetadata(String vendor, String key, String value);
 
     /**
      * Number of extensions on this component.

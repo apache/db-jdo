@@ -24,7 +24,7 @@ import javax.jdo.annotations.IdentityType;
  * Represents a class or interface. Extended for the specifics of those cases.
  * @since 2.3
  */
-public interface ComponentMetadata extends Metadata {
+public interface TypeMetadata extends Metadata {
     /**
      * Accessor for the name of this component (set on construction).
      * 
@@ -37,7 +37,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param id identity type
      */
-    ComponentMetadata setIdentityType(IdentityType id);
+    TypeMetadata setIdentityType(IdentityType id);
 
     /**
      * Accessor for the identity type to use.
@@ -51,7 +51,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param idclass Object-id class
      */
-    ComponentMetadata setObjectIdClass(String idclass);
+    TypeMetadata setObjectIdClass(String idclass);
 
     /**
      * Accessor for the object-id class (if defined).
@@ -65,7 +65,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param extent Requires extent?
      */
-    ComponentMetadata setRequiresExtent(boolean extent);
+    TypeMetadata setRequiresExtent(boolean extent);
 
     /**
      * Accessor for whether the component requires an extent.
@@ -79,7 +79,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param detachable Detachable?
      */
-    ComponentMetadata setDetachable(boolean detachable);
+    TypeMetadata setDetachable(boolean detachable);
 
     /**
      * Accessor for whether this is detachable.
@@ -93,7 +93,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param cacheable Cacheable?
      */
-    ComponentMetadata setCacheable(boolean cacheable);
+    TypeMetadata setCacheable(boolean cacheable);
 
     /**
      * Accessor for whether this is cacheable.
@@ -107,7 +107,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param flag serializeRead
      */
-    ComponentMetadata setSerializeRead(boolean flag);
+    TypeMetadata setSerializeRead(boolean flag);
 
     /**
      * Accessor for the value of serializeRead for objects of this type.
@@ -121,7 +121,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param embedded Whether it is only stored embedded
      */
-    ComponentMetadata setEmbeddedOnly(boolean embedded);
+    TypeMetadata setEmbeddedOnly(boolean embedded);
 
     /**
      * Accessor for whether this is embedded only.
@@ -135,7 +135,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param catalog Catalog name
      */
-    ComponentMetadata setCatalog(String catalog);
+    TypeMetadata setCatalog(String catalog);
 
     /**
      * Accessor for the catalog (ORM) for this component
@@ -149,7 +149,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param schema Schema name
      */
-    ComponentMetadata setSchema(String schema);
+    TypeMetadata setSchema(String schema);
 
     /**
      * Accessor for the schema (ORM) for this component
@@ -163,7 +163,7 @@ public interface ComponentMetadata extends Metadata {
      * 
      * @param table Table name
      */
-    ComponentMetadata setTable(String table);
+    TypeMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.

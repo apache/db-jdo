@@ -22,7 +22,7 @@ import java.lang.reflect.Field;
  * Represents a class.
  * @since 2.3
  */
-public interface ClassMetadata extends ComponentMetadata {
+public interface ClassMetadata extends TypeMetadata {
     /**
      * Method to define the persistence modifier.
      * @param mod persistence modifier

@@ -20,6 +20,6 @@ package javax.jdo.metadata;
  * Represents a persistent-interface.
  * @since 2.3
  */
-public interface InterfaceMetadata extends ComponentMetadata {
+public interface InterfaceMetadata extends TypeMetadata {
     
 }
