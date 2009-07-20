@@ -59,25 +59,25 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>1.1.5-SNAPSHOT</version>
+            <version>1.1.5</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-rdbms</artifactId>
-            <version>1.1.5-SNAPSHOT</version>
+            <version>1.1.5</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-enhancer</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.4</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-jpa</artifactId>
-            <version>1.1.4-SNAPSHOT</version>
+            <version>1.1.5</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
