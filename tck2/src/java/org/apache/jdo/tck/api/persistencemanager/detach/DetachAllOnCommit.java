@@ -44,9 +44,9 @@ all cached instances are prepared
 for detachment according to the fetch plan 
 in effect at commit. Loading fields and unload- 
 ing fields required by the fetch plan 
-is done after calling the user’s beforeCompletion 
+is done after calling the user's beforeCompletion 
 callback. During afterCompletion, before calling 
-the user’s afterCompletion callback, all detachable 
+the user's afterCompletion callback, all detachable 
 persistent instances in the cache transition 
 to detached; non-detachable persistent instances 
 transition to transient; and detachable instances can be serialized 
