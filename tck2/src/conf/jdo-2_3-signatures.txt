@@ -845,7 +845,7 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     java.util.Set getFetchGroups();
     public void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
     public javax.jdo.metadata.JDOMetadata newMetadata();
-    public javax.jdo.metadata.ComponentMetadata getMetadata(String className);
+    public javax.jdo.metadata.TypeMetadata getMetadata(String className);
     public void setQueryTimeoutMillis(Integer interval);
     public Integer getQueryTimeoutMillis();
 }
