@@ -22,6 +22,9 @@
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="FieldsOfBigDecimal" table="FIELDSOFBIGDECIMAL">
             <field name="identifier" column="IDENTIFIER"/>
+            <field name="BigDecimal0">
+                <column name="BIG_DECIMAL0" jdbc-type="DECIMAL" length="11" scale="4"/>
+            </field>
             <field name="BigDecimal1">
                 <column name="BIG_DECIMAL1" jdbc-type="DECIMAL" length="11" scale="4"/>
             </field>

@@ -23,6 +23,7 @@
         <class name="FieldsOfBigInteger" table="FIELDSOFBIGINTEGER">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <field name="identifier" column="IDENTIFIER"/>
+            <field name="BigInteger0" column="BIG_INTEGER0"/>
             <field name="BigInteger1" column="BIG_INTEGER1"/>
             <field name="BigInteger102" column="BIG_INTEGER102"/>
             <field name="BigInteger103" column="BIG_INTEGER103"/>
