@@ -150,6 +150,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
+    @SuppressWarnings("unchecked")
     public int compareTo(Object o) {
         if (o instanceof ObjectIdentity) {
         	ObjectIdentity other = (ObjectIdentity)o;
