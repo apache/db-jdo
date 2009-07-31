@@ -71,16 +71,16 @@ public class JDOConfigTestClassLoader extends URLClassLoader {
             String[] partialPathsToIgnore,
             AntClassLoader unparent
     ) {
-        List elements = new ArrayList();
+        List<String> elements = new ArrayList<String>();
         String classpath = unparent.getClasspath();
         StringTokenizer st = new StringTokenizer(
                 classpath, System.getProperty("path.separator"));
         while (st.hasMoreTokens()) {
             elements.add("file://" + st.nextToken());
         }
-        Iterator i = elements.iterator();
+        Iterator<String> i = elements.iterator();
         while (i.hasNext()) {
-            String element = (String) i.next();
+            String element = i.next();
             for (int j = 0; j < partialPathsToIgnore.length; j++) {
                 if (element.indexOf(partialPathsToIgnore[j]) == -1) {
                     try {
