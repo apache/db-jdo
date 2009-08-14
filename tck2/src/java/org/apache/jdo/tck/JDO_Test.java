@@ -872,6 +872,12 @@ public abstract class JDO_Test extends TestCase {
             "javax.jdo.option.GetDataStoreConnection");
     }
 
+    /** Reports whether canceling a running query is supported. */
+    public boolean isQueryCancelSupported() {
+        return supportedOptions.contains(
+            "javax.jdo.option.QueryCancel");
+    }
+
     /** Reports whether a feature is supported */
     public boolean isSupported(String option) {
         return supportedOptions.contains(option);
