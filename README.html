@@ -115,6 +115,11 @@ the downloaded zip. It includes the jars fscontext.jar and providerutil.jar.
 <a name="building"></a>
 <h2>Building the TCK from Source</h2>
 For instructions for checking out the JDO source, see the Apache JDO <a href="http://db.apache.org/jdo/svn.html">source code</a> page.
+<p>
+If you are using Java 1.5, before building, edit project.properties in the tck2 directory to comment out the line that sets maven.compile.compilerargs:
+<pre>
+#maven.compile.compilerargs= -proc:none
+</pre>
 To build the TCK dependencies, change to the top level directory of the branch you are working in (or trunk if you are using the latest unreleased code) and run
 <pre>
 maven tck2.default
