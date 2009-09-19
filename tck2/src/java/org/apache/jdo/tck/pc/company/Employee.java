@@ -425,7 +425,8 @@ public abstract class Employee extends Person implements IEmployee {
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(formatter.format(hiredate));
+        rc.append(", hired ").append(
+            hiredate==null ? "null" : formatter.format(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
         return rc.toString();
     }

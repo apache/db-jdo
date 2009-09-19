@@ -495,7 +495,8 @@ public abstract class PCAppEmployee extends PCAppPerson implements IEmployee {
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(formatter.format(_hiredate));
+        rc.append(", hired ").append(
+            _hiredate==null ? "null" : formatter.format(_hiredate));
         rc.append(", weeklyhours ").append(_weeklyhours);
         return rc.toString();
     }

@@ -260,7 +260,8 @@ public class Person
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(formatter.format(birthdate));
+        rc.append(", born ").append(
+            birthdate==null ? "null" : formatter.format(birthdate));
         rc.append(", phone ").append(phoneNumbers);
         return rc.toString();
     }

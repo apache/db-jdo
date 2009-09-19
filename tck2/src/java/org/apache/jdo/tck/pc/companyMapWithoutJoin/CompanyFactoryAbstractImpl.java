@@ -52,28 +52,28 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
     public ICompany newCompany(long companyid, String name,
             java.util.Date founded) {
         ICompany result = newCompany();
-        if (debug) logger.debug("newCompany returned" + result);
         result.setCompanyid(companyid);
         result.setName(name);
         result.setFounded(founded);
+        if (debug) logger.debug("newCompany returned" + result);
         return result;
     }
 
     public IDepartment newDepartment(long deptid, String name) {
         IDepartment result = newDepartment();
-        if (debug) logger.debug("newDepartment returned" + result);
         result.setDeptid(deptid);
         result.setName(name);
+        if (debug) logger.debug("newDepartment returned" + result);
         return result;
     }
 
 
     public IDepartment newDepartment(long deptid, String name, ICompany company) {
         IDepartment result = newDepartment();
-        if (debug) logger.debug("newDepartment returned" + result);
         result.setDeptid(deptid);
         result.setName(name);
         result.setCompany(company);
+        if (debug) logger.debug("newDepartment returned" + result);
         return result;
     }
 
@@ -81,7 +81,6 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
             String last, String middle, java.util.Date born,
                     java.util.Date hired, String role, double sal) {
         IFullTimeEmployee result = newFullTimeEmployee();
-        if (debug) logger.debug("newFullTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -90,6 +89,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
         result.setHiredate(hired);
         result.setRole(role);
         result.setSalary(sal);
+        if (debug) logger.debug("newFullTimeEmployee returned" + result);
         return result;
     }
 
@@ -97,7 +97,6 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
             String last, String middle, java.util.Date born,
                     java.util.Date hired, String role, double wage) {
         IPartTimeEmployee result = newPartTimeEmployee();
-        if (debug) logger.debug("newPartTimeEmployee returned" + result);
         result.setPersonid(personid);
         result.setFirstname(first);
         result.setLastname(last);
@@ -106,6 +105,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
         result.setHiredate(hired);
         result.setRole(role);
         result.setWage(wage);
+        if (debug) logger.debug("newPartTimeEmployee returned" + result);
         return result;
     }
 

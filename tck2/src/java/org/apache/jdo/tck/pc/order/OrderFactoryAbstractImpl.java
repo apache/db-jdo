@@ -51,29 +51,29 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
 
     public Order newOrder(long orderId, long customerId) {
         Order result = newOrder();
-        if (debug) logger.debug("newOrder returned" + result);
         result.setOrderId(orderId);
         result.setCustomerId(customerId);
+        if (debug) logger.debug("newOrder returned" + result);
         return result;
     }
 
     public Order newOrder(long orderId, Set items, long customerId) {
         Order result = newOrder();
-        if (debug) logger.debug("newOrder returned" + result);
         result.setOrderId(orderId);
         result.setItems(items);
         result.setCustomerId(customerId);
+        if (debug) logger.debug("newOrder returned" + result);
         return result;
     }
 
     public OrderItem newOrderItem(Order order, long item, String description,
             int quantity) {
         OrderItem result = newOrderItem();
-        if (debug) logger.debug("newOrderItem returned" + result);
         result.setOrder(order);
         result.setItem(item);
         result.setDescription(description);
         result.setQuantity(quantity);
+        if (debug) logger.debug("newOrderItem returned" + result);
         return result;
     }
 }

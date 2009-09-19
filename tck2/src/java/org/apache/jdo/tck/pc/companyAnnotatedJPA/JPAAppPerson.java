@@ -332,7 +332,8 @@ public class JPAAppPerson
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(formatter.format(birthdate));
+        rc.append(", born ").append(
+            birthdate==null ? "null" : formatter.format(birthdate));
         rc.append(", phone ").append(convertPhone2String(phoneNumbers));
         return rc.toString();
     }

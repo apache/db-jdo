@@ -203,7 +203,8 @@ public class Company
         StringBuffer rc = new StringBuffer();
         rc.append(companyid);
         rc.append(", name ").append(name);
-        rc.append(", founded ").append(formatter.format(founded));
+        rc.append(", founded ").append(
+            founded==null ? "null" : formatter.format(founded));
         return rc.toString();
     }
 

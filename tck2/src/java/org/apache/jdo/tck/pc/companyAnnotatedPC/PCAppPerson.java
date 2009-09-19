@@ -297,7 +297,8 @@ public class PCAppPerson
         rc.append(_personid);
         rc.append(", ").append(_lastname);
         rc.append(", ").append(_firstname);
-        rc.append(", born ").append(formatter.format(_birthdate));
+        rc.append(", born ").append(
+            _birthdate==null ? "null" : formatter.format(_birthdate));
         rc.append(", phone ").append(_phoneNumbers);
         return rc.toString();
     }

@@ -248,7 +248,8 @@ public class PCDSCompany
         StringBuffer rc = new StringBuffer();
         rc.append(_companyid);
         rc.append(", name ").append(_name);
-        rc.append(", founded ").append(formatter.format(_founded));
+        rc.append(", founded ").append(
+            _founded==null ? "null" : formatter.format(_founded));
         return rc.toString();
     }
 
