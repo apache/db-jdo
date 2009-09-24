@@ -85,11 +85,17 @@ Request 243 under the auspices of the Java Community Process.</description>
                 <resource>
                 <directory>${basedir}/test/schema</directory>
                 <includes>
-                    <include>**/*.jdo</include>
-                    <include>**/*.jdoquery</include>
-                    <include>**/*.orm</include>
-                    <include>**/jdoconfig.xml</include>
+                  <include>**/*.jdo</include>
+                  <include>**/*.jdoquery</include>
+                  <include>**/*.orm</include>
+                  <include>**/jdoconfig.xml</include>
                 </includes>
+                </resource>
+                <resource>
+                  <directory>${basedir}/test/resources</directory>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
                 </resource>
             </resources>
         </unitTest>

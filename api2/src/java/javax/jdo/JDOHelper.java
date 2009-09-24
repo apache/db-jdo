@@ -89,7 +89,7 @@ public class JDOHelper implements Constants {
     /**
      * A mapping from jdoconfig.xsd element attributes to PMF properties.
      */
-    static final Map ATTRIBUTE_PROPERTY_XREF
+    static final Map<String, String> ATTRIBUTE_PROPERTY_XREF
         = createAttributePropertyXref();
 
     /** The Internationalization message helper.
@@ -102,8 +102,8 @@ public class JDOHelper implements Constants {
      * @return An unmodifiable Map of jdoconfig.xsd element attributes to PMF
      * properties.
      */
-    static Map createAttributePropertyXref() {
-        Map<String,String> xref = new HashMap<String,String>();
+    static Map<String, String> createAttributePropertyXref() {
+        Map<String, String> xref = new HashMap<String,String>();
 
         xref.put(
             PMF_ATTRIBUTE_CLASS,
@@ -396,7 +396,7 @@ public class JDOHelper implements Constants {
      */
     public static Collection<Object> getObjectIds(Collection<Object> pcs) {
         ArrayList<Object> result = new ArrayList<Object>();
-        for (Iterator it = pcs.iterator(); it.hasNext();) {
+        for (Iterator<?> it = pcs.iterator(); it.hasNext();) {
             result.add(getObjectId(it.next()));
         }
         return result;
@@ -694,7 +694,7 @@ public class JDOHelper implements Constants {
      * @see #getPersistenceManagerFactory(java.util.Map,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map props) {
+            (Map<?, ?> props) {
         return getPersistenceManagerFactory(
                 null, props, getContextClassLoader());
     }
@@ -714,7 +714,7 @@ public class JDOHelper implements Constants {
      * @since 1.0
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map props, ClassLoader pmfClassLoader) {
+            (Map<?, ?> props, ClassLoader pmfClassLoader) {
         return getPersistenceManagerFactory(
                 null, props, pmfClassLoader);
     }
@@ -788,20 +788,20 @@ public class JDOHelper implements Constants {
      * @since 2.1
      */
     protected static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map overrides, Map props, ClassLoader pmfClassLoader) {
+            (Map<?, ?> overrides, Map<?, ?> props, ClassLoader pmfClassLoader) {
         List<Throwable> exceptions = new ArrayList<Throwable>();
         if (pmfClassLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
 
-	    // first try to get the class name from the properties object.
+        // first try to get the class name from the properties object.
         String pmfClassName = (String) props.get (
                 PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
 
         if (!isNullOrBlank(pmfClassName)) {
-	    // a valid name was returned from the properties.
+            // a valid name was returned from the properties.
             return invokeGetPersistenceManagerFactoryOnImplementation(
-                        pmfClassName, overrides, props, pmfClassLoader);
+                    pmfClassName, overrides, props, pmfClassLoader);
 
         } else {
             /*
@@ -820,7 +820,7 @@ public class JDOHelper implements Constants {
              * Otherwise add the exception thrown to 
              * an exception list.
              */
-            Enumeration urls = null;
+            Enumeration<URL> urls = null;
             try {
                 urls = getResources(pmfClassLoader,
                         SERVICE_LOOKUP_PMF_RESOURCE_NAME);
@@ -949,7 +949,7 @@ public class JDOHelper implements Constants {
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map overrides, String name) {
+            (Map<?, ?> overrides, String name) {
 
         ClassLoader cl = getContextClassLoader();
         return getPersistenceManagerFactory(overrides, name, cl, cl);
@@ -963,7 +963,7 @@ public class JDOHelper implements Constants {
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
-            (Map overrides, String name, ClassLoader resourceLoader) {
+            (Map<?, ?> overrides, String name, ClassLoader resourceLoader) {
 
         return getPersistenceManagerFactory(
                 overrides, name, resourceLoader, resourceLoader);
@@ -1048,7 +1048,7 @@ public class JDOHelper implements Constants {
      * @see Constants#ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            Map overrides,
+            Map<?, ?> overrides,
             String name,
             ClassLoader resourceLoader,
             ClassLoader pmfLoader) {
@@ -1110,11 +1110,11 @@ public class JDOHelper implements Constants {
      */
     protected static PersistenceManagerFactory
         invokeGetPersistenceManagerFactoryOnImplementation(
-            String pmfClassName, Map overrides, Map properties, ClassLoader cl) {
+            String pmfClassName, Map<?, ?> overrides, Map<?, ?> properties, ClassLoader cl) {
         if (overrides != null) {
             // overrides is not null; use getPersistenceManagerFactory(Map overrides, Map props)
             try {
-                Class implClass = forName(pmfClassName, true, cl);
+                Class<?> implClass = forName(pmfClassName, true, cl);
                 Method m = getMethod(implClass,
                         "getPersistenceManagerFactory", //NOI18N
                         new Class[]{Map.class, Map.class});
@@ -1152,7 +1152,7 @@ public class JDOHelper implements Constants {
         } else {
             // overrides is null; use getPersistenceManagerFactory(Map props)
             try {
-                Class implClass = forName(pmfClassName, true, cl);
+                Class<?> implClass = forName(pmfClassName, true, cl);
                 Method m = getMethod(implClass,
                         "getPersistenceManagerFactory", //NOI18N
                         new Class[]{Map.class});
@@ -1460,7 +1460,7 @@ public class JDOHelper implements Constants {
 
                 // check for duplicate properties among atts & elems
                 if (requestedPMFName.equals(pmfName)) {
-                    Iterator it =
+                    Iterator<?> it =
                         pmfPropertiesFromAttributes.keySet().iterator();
                     while (it.hasNext()) {
                         String property = (String) it.next();
@@ -1833,7 +1833,7 @@ public class JDOHelper implements Constants {
      * @since 2.3
      */
     public static JDOEnhancer getEnhancer() {
-    	return getEnhancer(getContextClassLoader());
+        return getEnhancer(getContextClassLoader());
     }
 
     /**
@@ -1845,43 +1845,45 @@ public class JDOHelper implements Constants {
      * @since 2.3
      */
     public static JDOEnhancer getEnhancer(ClassLoader loader) {
-    	ClassLoader ctrLoader = loader;
-    	if (ctrLoader == null) {
-    		ctrLoader = Thread.currentThread().getContextClassLoader();
-    	}
+            ClassLoader ctrLoader = loader;
+        if (ctrLoader == null) {
+            ctrLoader = Thread.currentThread().getContextClassLoader();
+        }
 
-    	/*
-    	 * If you have a jar file that provides the jdo enhancer implementation,
-    	 * a file naming the implementation goes into the file 
-    	 * packaged into the jar file, called "META-INF/services/javax.jdo.JDOEnhancer".
-    	 * The contents of the file is a string that is the enhancer class name.
-    	 * For each file in the class loader named "META-INF/services/javax.jdo.JDOEnhancer",
-    	 * this method will invoke the default constructor of the implementation class.
-    	 * Return the enhancer if a valid class name is extracted from resources and
-    	 * the invocation returns an instance.
-    	 * Otherwise add the exception thrown to an exception list.
-    	 */
-    	ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
-    	try {
-    		Enumeration urls = getResources(loader, SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
-        	if (urls != null) {
-        		while (urls.hasMoreElements()) {
-        			try {
+    /*
+     * If you have a jar file that provides the jdo enhancer implementation,
+     * a file naming the implementation goes into the file 
+     * packaged into the jar file, called "META-INF/services/javax.jdo.JDOEnhancer".
+     * The contents of the file is a string that is the enhancer class name.
+     * For each file in the class loader named "META-INF/services/javax.jdo.JDOEnhancer",
+     * this method will invoke the default constructor of the implementation class.
+     * Return the enhancer if a valid class name is extracted from resources and
+     * the invocation returns an instance.
+     * Otherwise add the exception thrown to an exception list.
+     */
+        ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
+        int numberOfJDOEnhancers = 0;
+        try {
+            Enumeration<URL> urls = getResources(loader, SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);
+            if (urls != null) {
+                while (urls.hasMoreElements()) {
+                    numberOfJDOEnhancers++;
+                    try {
                         String enhancerClassName = getClassNameFromURL((URL)urls.nextElement());
-                        Class enhancerClass = forName(enhancerClassName, true, ctrLoader);
+                        Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
                         JDOEnhancer enhancer = (JDOEnhancer)enhancerClass.newInstance();
                         return enhancer;
-        			} catch (Throwable ex) {
-        				// remember exceptions from failed enhancer invocations
-        				exceptions.add(ex);
-        			}
-        		}
-        	}
-    	} catch (Throwable ex) {
-    		exceptions.add(ex);
-    	}
+                    } catch (Throwable ex) {
+                        // remember exceptions from failed enhancer invocations
+                        exceptions.add(ex);
+                    }
+                }
+            }
+        } catch (Throwable ex) {
+            exceptions.add(ex);
+        }
 
-        throw new JDOFatalUserException(msg.msg("EXC_GetEnhancerNoValidEnhancerAvailable"),
+        throw new JDOFatalUserException(msg.msg("EXC_GetEnhancerNoValidEnhancerAvailable", numberOfJDOEnhancers),
                 (Throwable[])exceptions.toArray(new Throwable[exceptions.size()]));
     }
 
@@ -1924,9 +1926,9 @@ public class JDOHelper implements Constants {
      * @return the Method instance
      */
     private static Method getMethod(
-            final Class implClass, 
+            final Class<?> implClass, 
             final String methodName, 
-            final Class[] parameterTypes) 
+            final Class<?>[] parameterTypes) 
                 throws NoSuchMethodException {
         try {
             return AccessController.doPrivileged(
@@ -1997,15 +1999,15 @@ public class JDOHelper implements Constants {
      * @param loader which class loader to use
      * @return the class
      */
-    private static Class forName(
+    private static Class<?> forName(
             final String name, 
             final boolean init, 
             final ClassLoader loader) 
                 throws ClassNotFoundException {
         try {
             return AccessController.doPrivileged(
-                new PrivilegedExceptionAction<Class>() {
-                    public Class run() throws ClassNotFoundException {
+                new PrivilegedExceptionAction<Class<?>>() {
+                    public Class<?> run() throws ClassNotFoundException {
                         return Class.forName(name, init, loader);
                     }
                 }

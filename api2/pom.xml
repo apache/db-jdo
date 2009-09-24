@@ -50,6 +50,9 @@
     </resources>
     <testResources>
       <testResource>
+        <directory>${basedir}/test/resources</directory>
+      </testResource>
+      <testResource>
         <directory>${basedir}/test/schema</directory>
         <includes>
           <include>**/*.jdo</include>
