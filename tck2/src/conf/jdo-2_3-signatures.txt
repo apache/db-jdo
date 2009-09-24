@@ -245,6 +245,11 @@ public interface javax.jdo.Constants {
     public static final String TX_REPEATABLE_READ = "repeatable-read"; 
     public static final String TX_SNAPSHOT = "snapshot"; 
     public static final String TX_SERIALIZABLE = "serializable"; 
+    public static final String PROPERTY_ENHANCER_VENDOR_NAME = "VendorName";
+    public static final String PROPERTY_ENHANCER_VERSION_NUMBER = "VersionNumber";
+    public static final int ENHANCER_EXCEPTION = 1;
+    public static final int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
+    public static final int ENHANCER_USAGE_ERROR = 3;
 }
 
 public interface javax.jdo.datastore.DataStoreCache {

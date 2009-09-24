@@ -570,7 +570,7 @@ public interface Constants {
      * @see JDOEnhancer#getProperties()
      * @since 2.3
      */
-    static String PROPERTY_ENHANCER_VENDOR_NAME
+    public final static String PROPERTY_ENHANCER_VENDOR_NAME
         = "VendorName";
 
     /**
@@ -579,23 +579,23 @@ public interface Constants {
      * @see JDOEnhancer#getProperties()
      * @since 2.3
      */
-    static String PROPERTY_ENHANCER_VERSION_NUMBER
+    public final static String PROPERTY_ENHANCER_VERSION_NUMBER
         = "VersionNumber";
 
     /** Exit value for no enhancer found 
      * @since 2.3
      * */
-    public static int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
+    public final static int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
 
     /** Exit value for usage error 
      * @since 2.3
      * */
-    public static int ENHANCER_USAGE_ERROR = 3;
+    public final static int ENHANCER_USAGE_ERROR = 3;
 
     /** Exit value for an exception from the JDOEnhancer 
      * @since 2.3
      * */
-    public static int ENHANCER_EXCEPTION = 1;
+    public final static int ENHANCER_EXCEPTION = 1;
 
     /**
      * "javax.jdo.option.Optimistic"
