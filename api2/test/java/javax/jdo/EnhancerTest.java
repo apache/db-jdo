@@ -241,6 +241,37 @@ public class EnhancerTest extends AbstractTest {
         assertEquals("Wrong return value ", 3, result.getExitValue());
     }
 
+    public void testDir() {
+        // invoke enhancer with directory and not recurse
+        InvocationResult result = invokeEnhancer("-v " + basedir + "/target/test-classes/enhancer-test-dir");
+        String outputString = result.getOutputString();
+        String errorString = result.getErrorString();
+        assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        assertTrue("Expected directory enhancer-test-dir in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("enhancer-test-dir"));
+        assertTrue("Expected file file1.jdo in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file1.jdo"));
+        assertTrue("Expected file file2.class in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file2.class"));
+        assertTrue("Expected file file3.jar in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file3.jar"));
+        assertFalse("Expected no directory enhancer-test-subdir in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("enhancer-test-subdir"));
+        assertTrue("Expected 3 files to be enhanced in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("3"));
+    }
+
+    public void testDirRecurse() {
+        // invoke enhancer with directory and recurse
+        InvocationResult result = invokeEnhancer("-v -r " + basedir + "/target/test-classes/enhancer-test-dir");
+        String outputString = result.getOutputString();
+        String errorString = result.getErrorString();
+        assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
+        assertTrue("Expected directory enhancer-test-dir in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("enhancer-test-dir"));
+        assertTrue("Expected directory enhancer-test-subdir in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("enhancer-test-subdir"));
+        assertTrue("Expected file file1.jdo in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file1.jdo"));
+        assertTrue("Expected file file2.class in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file2.class"));
+        assertTrue("Expected file file3.jar in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file3.jar"));
+        assertTrue("Expected file file4.jdo in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file4.jdo"));
+        assertTrue("Expected file file5.class in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file5.class"));
+        assertTrue("Expected file file6.jar in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("file6.jar"));
+        assertTrue("Expected 6 files to be enhanced in message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("6"));
+    }
+
     private InvocationResult invokeEnhancer(String string) {
         InvocationResult result = new InvocationResult();
         try {

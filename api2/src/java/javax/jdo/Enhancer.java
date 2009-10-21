@@ -335,12 +335,17 @@ public class Enhancer {
                 classFileNames.add(fileName);
                 addVerboseMessage("MSG_EnhancerClassFileName", fileName); //NOI18N
             } else {
-                // assume a directory if no suffix
-                File directory = new File(fileName);
-                if (directory.isDirectory() && search) {
-                    String[] files = directory.list();
+                // assume a directory if no recognized suffix
+                File directoryFile = new File(fileName);
+                if (directoryFile.isDirectory() && search) {
+                    String directoryPath = directoryFile.getAbsolutePath();
+                    String[] files = directoryFile.list();
+                    String[] pathName = new String[1];
                     if (files != null) {
-                        parseFiles(files, recurse, recurse);
+                        for (String file: files) {
+                            pathName[0] = directoryPath + '/' + file;
+                            parseFiles(pathName, recurse, recurse);
+                        }
                     }
                 }
             }
