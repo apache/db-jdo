@@ -71,13 +71,13 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-enhancer</artifactId>
-            <version>2.0.0-m3</version>
+            <version>2.0.0-m4-SNAPSHOT</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-jpa</artifactId>
-            <version>2.0.0-m3</version>
+            <version>2.0.0-m4-SNAPSHOT</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
@@ -156,8 +156,8 @@ NOTE!! There are no unit tests in this project.</description>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_3.0_spec</artifactId>
-            <version>1.0</version>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+            <version>1.0-PFD2</version>
         </dependency>
     </dependencies>
     <!-- =================== -->
