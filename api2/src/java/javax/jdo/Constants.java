@@ -475,6 +475,14 @@ public interface Constants {
     static String OPTION_QUERY_SQL
         = "javax.jdo.query.SQL";
     /**
+     * "javax.jdo.option.DatastoreTimeout"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.3
+     */
+    static String OPTION_DATASTORE_TIMEOUT
+        = "javax.jdo.option.DatastoreTimeout";
+    /**
      * "javax.jdo.option.UnconstrainedQueryVariables"
      *
      * @see PersistenceManagerFactory#supportedOptions()

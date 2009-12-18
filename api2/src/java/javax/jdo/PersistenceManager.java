@@ -953,21 +953,74 @@ public interface PersistenceManager {
      */
    boolean getIgnoreCache();
    
-    /** Set the default query timeout setting for all <code>Query</code>
-     * instances obtained from this PersistenceManager.
-     *
-     * @param interval The default timeout setting (millisecs).
-     * @since 2.3
-     */
-    void setQueryTimeoutMillis(Integer interval);
+   /**
+    * Specify a timeout interval (milliseconds) for any datastore read
+    * operations associated with this persistence manager. To unset
+    * the explicit timeout, specify null. For no timeout, specify 0.
+    * Read operations include, for example, those associated with query,
+    * getObjectById, refresh, retrieve, and extent iteration operations.
+    * If the datastore granularity is larger than milliseconds, the
+    * timeout value will be rounded up to the nearest supported datastore
+    * value.
+    * If a read operation hasn't completed within this interval, the operation
+    * will throw a JDODatastoreException. 
+    * If multiple datastore operations are required to complete the query,
+    * the timeout value applies to each of them individually.
+    * If the datastore and JDO implementation support timeouts, then
+    * javax.jdo.option.DatastoreTimeout is returned by
+    * PersistenceManagerFactory.supportedOptions().
+    * If timeouts are not supported,this method will throw
+    * JDOUnsupportedOptionException.
+    * @since 2.3
+    * @param interval the timeout interval (milliseconds)
+    */
+   void setDatastoreReadTimeoutMillis(Integer interval);
 
-    /** Get the default query timeout setting for all 
-     * <code>Query</code> instances obtained from this PersistenceManager.
-     *
-     * @return the default query timeout setting.
-     * @since 2.3
-     */
-    Integer getQueryTimeoutMillis();
+   /** Get the effective timeout setting for datastore read operations
+    * associated with this persistence manager.
+    * If the timeout has not been set on this persistence manager explicitly,
+    * the default read timeout value from the persistence manager factory
+    * is returned.
+    * @see #setDatastoreReadTimeoutMillis(Integer)
+    * @see PersistenceManagerFactory#setDatastoreReadTimeoutMillis(Integer)
+    * @return the effective timeout setting (milliseconds).
+    * @since 2.3
+    */
+   Integer getDatastoreReadTimeoutMillis();
+
+   /**
+    * Specify a timeout interval (milliseconds) for any write operations
+    * associated with this persistence manager. To unset the explicit timeout,
+    * specify null. For no timeout, specify 0.
+    * Datastore write operations include, for example, operations associated
+    * with flush, commit, and delete by query.
+    * If the datastore granularity is larger than milliseconds, the
+    * timeout value will be rounded up to the nearest supported datastore
+    * value.
+    * If a write operation hasn't completed within this interval, methods
+    * will throw a JDODatastoreException. 
+    * If multiple datastore operations are required to complete the method,
+    * the timeout value applies to each of them individually.
+    * If the datastore and JDO implementation support timeouts, then
+    * javax.jdo.option.DatastoreTimeout is returned by
+    * PersistenceManagerFactory.supportedOptions().
+    * If timeouts are not supported,this method will throw
+    * JDOUnsupportedOptionException.
+    * @since 2.3
+    * @param interval the timeout interval (milliseconds)
+    */
+   void setDatastoreWriteTimeoutMillis(Integer interval);
+
+   /** Get the effective timeout setting for write operations. 
+    * If the timeout has not been set on this persistence manager explicitly,
+    * the default datastore write timeout value from the persistence manager
+    * factory is returned.
+    * @see #setDatastoreWriteTimeoutMillis(Integer)
+    * @see PersistenceManagerFactory#setDatastoreWriteTimeoutMillis(Integer)
+    * @return the effective timeout setting (milliseconds).
+    * @since 2.3
+    */
+   Integer getDatastoreWriteTimeoutMillis();
 
    /** Gets the detachAllOnCommit setting.
     * @see #setDetachAllOnCommit(boolean)

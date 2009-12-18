@@ -520,21 +520,49 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     void setTransactionIsolationLevel(String level);
 
-    /** Set the default query timeout setting for all <code>PersistenceManager</code>
-     * instances obtained from this factory.
-     *
-     * @param interval The default timeout setting (millisecs).
+    /**
+     * Specify a default timeout interval (milliseconds) for any read
+     * operations for persistence managers obtained from this persistence
+     * manager factory. To unset the explicit timeout, specify null.
+     * For no timeout, specify 0.
+     * If the datastore and JDO implementation support timeouts, then
+     * javax.jdo.option.DatastoreTimeout is returned by supportedOptions().
+     * If timeouts are not supported,this method will throw
+     * JDOUnsupportedOptionException.
      * @since 2.3
+     * @param interval the timeout interval (milliseconds)
      */
-    void setQueryTimeoutMillis(Integer interval);
+    void setDatastoreReadTimeoutMillis(Integer interval);
 
-    /** Get the default query timeout setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.
-     *
-     * @return the default query timeout setting.
+    /** Get the default timeout setting for read operations.
+     * If timeouts are not supported,this method will return null.
+     * @see #setDatastoreReadTimeoutMillis(Integer)
+     * @return the default timeout setting (milliseconds).
      * @since 2.3
      */
-    Integer getQueryTimeoutMillis();
+    Integer getDatastoreReadTimeoutMillis();
+
+    /**
+     * Specify a default timeout interval (milliseconds) for any write
+     * operations for persistence managers obtained from this persistence
+     * manager factory. To unset the explicit timeout, specify null.
+     * For no timeout, specify 0.
+     * If the datastore and JDO implementation support timeouts, then
+     * javax.jdo.option.DatastoreTimeout is returned by supportedOptions().
+     * If timeouts are not supported,this method will throw
+     * JDOUnsupportedOptionException.
+     * @since 2.3
+     * @param interval the timeout interval (milliseconds)
+     */
+    void setDatastoreWriteTimeoutMillis(Integer interval);
+
+    /** Get the default timeout setting for write operations.
+     * If timeouts are not supported,this method will return null.
+     * @see #setDatastoreWriteTimeoutMillis(Integer)
+     * @return the default timeout setting (milliseconds).
+     * @since 2.3
+     */
+    Integer getDatastoreWriteTimeoutMillis();
 
     /** Return non-configurable properties of this 
      * <code>PersistenceManagerFactory</code>.
@@ -580,6 +608,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.option.TransactionIsolationLevel.snapshot
      * <BR>javax.jdo.option.TransactionIsolationLevel.serializable
      * <BR>javax.jdo.option.QueryCancel
+     * <BR>javax.jdo.option.DatastoreTimeout
      * <BR>javax.jdo.query.SQL
      * <BR>javax.jdo.query.JDOQL
      * </code>

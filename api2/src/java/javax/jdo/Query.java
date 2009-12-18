@@ -698,20 +698,66 @@ public interface Query extends Serializable {
          String candidateCollectionExpression, Map parameters);
 
     /**
-     * Specify a timeout interval (milliseconds) for any query executions.
-     * If a query hasn't completed within this interval execute() will throw a
-     * JDOQueryTimeoutException.
+     * Specify a timeout interval (milliseconds) for any read operations
+     * associated with this query. To unset the explicit timeout for this
+     * query, specify null. For no timeout, specify 0.
+     * If the datastore granularity is larger than milliseconds, the
+     * timeout value will be rounded up to the nearest supported datastore
+     * value.
+     * If a read operation hasn't completed within this interval, executeXXX
+     * will throw a JDODatastoreException. 
+     * If multiple datastore operations are required to complete the query,
+     * the timeout value applies to each of them individually.
+     * If the datastore and JDO implementation support timeouts, then
+     * javax.jdo.option.DatastoreTimeout is returned by
+     * PersistenceManagerFactory.supportedOptions().
+     * If timeouts are not supported,this method will throw
+     * JDOUnsupportedOptionException.
      * @since 2.3
-     * @param interval The timeout interval (millisecs)
+     * @param interval the timeout interval (milliseconds)
      */
-    void setTimeoutMillis(Integer interval);
+    void setDatastoreReadTimeoutMillis(Integer interval);
 
-    /** Get the timeout setting for query executions. 
-     *
-     * @return the query timeout setting.
+    /** Get the effective timeout setting for read operations.
+     * If the timeout has not been set on this query explicitly, the effective
+     * datastore read timeout value from the persistence manager is returned.
+     * @see #setDatastoreReadTimeoutMillis(Integer)
+     * @see PersistenceManager#setDatastoreReadTimeoutMillis(Integer)
+     * @return the effective timeout setting (milliseconds).
      * @since 2.3
      */
-    Integer getTimeoutMillis();
+    Integer getDatastoreReadTimeoutMillis();
+
+    /**
+     * Specify a timeout interval (milliseconds) for any write operations
+     * associated with this query. To unset the explicit timeout for this
+     * query, specify null. For no timeout, specify 0.
+     * If the datastore granularity is larger than milliseconds, the
+     * timeout value will be rounded up to the nearest supported datastore
+     * value.
+     * If a write operation hasn't completed within this interval, deleteXXX
+     * will throw a JDODatastoreException. 
+     * If multiple datastore operations are required to complete the query,
+     * the timeout value applies to each of them individually.
+     * If the datastore and JDO implementation support timeouts, then
+     * javax.jdo.option.DatastoreTimeout is returned by
+     * PersistenceManagerFactory.supportedOptions().
+     * If timeouts are not supported,this method will throw
+     * JDOUnsupportedOptionException.
+     * @since 2.3
+     * @param interval the timeout interval (milliseconds)
+     */
+    void setDatastoreWriteTimeoutMillis(Integer interval);
+
+    /** Get the effective timeout setting for write operations. 
+     * If the timeout has not been set on this query explicitly, the effective
+     * datastore write timeout value from the persistence manager is returned.
+     * @see #setDatastoreWriteTimeoutMillis(Integer)
+     * @see PersistenceManager#setDatastoreWriteTimeoutMillis(Integer)
+     * @return the effective timeout setting (milliseconds).
+     * @since 2.3
+     */
+    Integer getDatastoreWriteTimeoutMillis();
 
     /**
      * Method to cancel any executing queries.
