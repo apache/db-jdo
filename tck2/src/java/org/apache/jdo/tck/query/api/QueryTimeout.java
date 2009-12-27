@@ -17,10 +17,10 @@
 
 package org.apache.jdo.tck.query.api;
 
-import javax.jdo.JDOQueryTimeoutException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.jdo.JDODataStoreException;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
@@ -78,14 +78,14 @@ public class QueryTimeout extends QueryTest {
         try {
             tx.begin();
             Query query = pm.newQuery(SSJDOQL);
-            query.setTimeoutMillis(TIMEOUT_MILLIS);
+            query.setDatastoreReadTimeoutMillis(TIMEOUT_MILLIS);
             Object result = query.execute();
             tx.commit();
             tx = null;
             fail(ASSERTION_FAILED,
                  "Query.execute should result in a JDOQueryTimeoutException.");
         }
-        catch (JDOQueryTimeoutException ex) {
+        catch (JDODataStoreException ex) {
             // expected exception
             if (debug) {
                 logger.debug("caught expected exception " + ex);
@@ -105,12 +105,12 @@ public class QueryTimeout extends QueryTest {
         try {
             tx.begin();
             Query query = pm.newQuery(SSJDOQL);
-            query.setTimeoutMillis(0);
+            query.setDatastoreReadTimeoutMillis(0);
             Object result = query.execute();
             tx.commit();
             tx = null;
         }
-        catch (JDOQueryTimeoutException ex) {
+        catch (JDODataStoreException ex) {
             // setting the timeout to 0 should not result in an exception
             fail(ASSERTION_FAILED,
                  "Query.execute should not result in a JDOQueryTimeoutException.");
