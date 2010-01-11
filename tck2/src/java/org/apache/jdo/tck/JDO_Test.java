@@ -878,6 +878,12 @@ public abstract class JDO_Test extends TestCase {
             "javax.jdo.option.QueryCancel");
     }
 
+    /** Reports whether setting a Datastore timout is supported. */
+    public boolean isDatastoreTimeoutSupported() {
+        return supportedOptions.contains(
+            "javax.jdo.option.DatastoreTimeout");
+    }
+
     /** Reports whether a feature is supported */
     public boolean isSupported(String option) {
         return supportedOptions.contains(option);

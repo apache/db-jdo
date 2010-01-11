@@ -126,6 +126,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.GetDataStoreConnection";
     static String OPTION_GET_JDBC_CONNECTION
         = "javax.jdo.option.GetJDBCConnection";
+    static String OPTION_DATASTORE_TIMEOUT
+        = "javax.jdo.option.DatastoreTimeout";
     static String OPTION_QUERY_SQL
         = "javax.jdo.query.SQL";
     static String OPTION_UNCONSTRAINED_QUERY_VARIABLES
@@ -781,8 +783,10 @@ public interface javax.jdo.PersistenceManager {
     public varargs java.util.Set getManagedObjects(Class[] classes);
     public varargs java.util.Set getManagedObjects(java.util.EnumSet states, Class[] classes);
     javax.jdo.FetchGroup getFetchGroup(Class cls, String name);
-    public void setQueryTimeoutMillis(Integer interval);
-    public Integer getQueryTimeoutMillis();
+    public void setDatastoreReadTimeoutMillis(Integer interval);
+    public Integer getDatastoreReadTimeoutMillis();
+    public void setDatastoreWriteTimeoutMillis(Integer interval);
+    public Integer getDatastoreWriteTimeoutMillis();
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
@@ -851,8 +855,10 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public void registerMetadata(javax.jdo.metadata.JDOMetadata metadata);
     public javax.jdo.metadata.JDOMetadata newMetadata();
     public javax.jdo.metadata.TypeMetadata getMetadata(String className);
-    public void setQueryTimeoutMillis(Integer interval);
-    public Integer getQueryTimeoutMillis();
+    public void setDatastoreReadTimeoutMillis(Integer interval);
+    public Integer getDatastoreReadTimeoutMillis();
+    public void setDatastoreWriteTimeoutMillis(Integer interval);
+    public Integer getDatastoreWriteTimeoutMillis();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -896,12 +902,14 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public long deletePersistentAll();
     public void setUnmodifiable();
     public boolean isUnmodifiable();
-    public void setTimeoutMillis(Integer interval);
-    public Integer getTimeoutMillis();
     public void cancelAll();
     public void cancel(Thread);
     public Boolean getSerializeRead();
     public void setSerializeRead(Boolean);
+    public void setDatastoreReadTimeoutMillis(Integer interval);
+    public Integer getDatastoreReadTimeoutMillis();
+    public void setDatastoreWriteTimeoutMillis(Integer interval);
+    public Integer getDatastoreWriteTimeoutMillis();
 }
 
 public interface javax.jdo.spi.Detachable {
