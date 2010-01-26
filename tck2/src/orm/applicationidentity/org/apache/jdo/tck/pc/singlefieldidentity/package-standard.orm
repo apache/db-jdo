@@ -97,6 +97,35 @@
       <field name="y" column="Y"/>
     </class>
 
+    <class name="PartTimeEmployee">
+      <inheritance strategy="superclass-table"/>
+      <field name="wage" column="WAGE"/>
+    </class>
+
+    <class name="FullTimeEmployee">
+      <inheritance strategy="superclass-table"/>
+      <field name="salary" column="SALARY"/>
+    </class>
+
+    <class name="Employee">
+      <inheritance strategy="superclass-table"/>
+      <field name="hiredate" column="HIREDATE"/>
+      <field name="weeklyhours" column="WEEKLYHOURS"/>
+    </class>
+
+    <class name="Person" table="persons">
+      <inheritance strategy="new-table">
+        <discriminator strategy="class-name" column="DISCRIMINATOR"
+        indexed="true"/>
+      </inheritance>
+      <field name="id" column="PERSONID"/>
+      <field name="firstname" column="FIRSTNAME"/>
+      <field name="lastname" column="LASTNAME"/>
+      <field name="middlename">
+        <column name="MIDDLENAME" allows-null="true"/>
+      </field>
+      <field name="birthdate" column="BIRTHDATE"/>
+    </class>
   </package>
 </orm>
 
