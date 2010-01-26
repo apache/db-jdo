@@ -82,6 +82,20 @@
       <field name="id" primary-key="true"/>
     </class>
 
+    <class name="Person"
+           identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
+      <field name="id" primary-key="true"/>
+    </class>
+
+    <class name="Employee">
+    </class>
+
+    <class name="FullTimeEmployee">
+    </class>
+
+    <class name="PartTimeEmployee">
+    </class>
+
   </package>
 </jdo>
 
