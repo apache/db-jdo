@@ -59,13 +59,13 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <version>2.0.1</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-rdbms</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <version>2.0.1</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
@@ -77,7 +77,7 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-jpa</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <version>2.0.1</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
