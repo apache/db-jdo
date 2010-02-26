@@ -43,6 +43,8 @@
 <!ATTLIST persistence-manager-factory mapping CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory detach-all-on-commit (true|false) CDATA #IMPLIED>
 <!ATTLIST persistence-manager-factory server-time-zone-id CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory datastore-read-timeout-millis CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory datastore-write-timeout-millis CDATA #IMPLIED>
 
 <!ELEMENT property EMPTY>
 <!ATTLIST property name CDATA #REQUIRED>

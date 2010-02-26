@@ -149,6 +149,10 @@
     <xs:attribute name="detach-all-on-commit" use="optional"/>
     <!-- Corresponds to standard JDO property javax.jdo.option.ServerTimeZoneID. -->
     <xs:attribute name="server-time-zone-id" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.DatastoreReadTimeoutMillis. -->
+    <xs:attribute name="datastore-read-timeout-millis" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.DatastoreWriteTimeoutMillis. -->
+    <xs:attribute name="datastore-write-timeout-millis" use="optional"/>
     <!-- Any other vendor-specific attributes are allowed and passed literally 
         to the underlying implementation. -->
     <xs:anyAttribute processContents="lax"/>

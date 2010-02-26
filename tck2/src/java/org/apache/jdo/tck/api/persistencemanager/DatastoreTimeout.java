@@ -95,8 +95,8 @@ public class DatastoreTimeout extends JDO_Test {
         Thread t = new Thread(group, runnable, "Parallel Writer");
         t.start();
 
-        // Wait for a second such that the other thread can lock the instancs
-        Thread.currentThread().sleep(MAIN_SLEEP_MILLIS);
+        // Wait for a second such that the other thread can lock the instances
+        Thread.sleep(MAIN_SLEEP_MILLIS);
         
         try {
             runQueryReadingPCPointInstances(READ_TIMEOUT);
@@ -125,8 +125,8 @@ public class DatastoreTimeout extends JDO_Test {
         Thread t = new Thread(group, runnable, "Parallel Reader");
         t.start();
 
-        // Wait for a second such that the other thread can lock the instancs
-        Thread.currentThread().sleep(MAIN_SLEEP_MILLIS);
+        // Wait for a second such that the other thread can lock the instances
+        Thread.sleep(MAIN_SLEEP_MILLIS);
 
         try {
             runUpdatePCointInstance(WRITE_TIMEOUT);
@@ -155,8 +155,8 @@ public class DatastoreTimeout extends JDO_Test {
         Thread t = new Thread(group, runnable, "Parallel Writer");
         t.start();
 
-        // Wait for a second such that the other thread can lock the instancs
-        Thread.currentThread().sleep(MAIN_SLEEP_MILLIS);
+        // Wait for a second such that the other thread can lock the instances
+        Thread.sleep(MAIN_SLEEP_MILLIS);
 
         try {
             runQueryReadingPCPointInstances(ZERO_TIMEOUT);
@@ -183,8 +183,8 @@ public class DatastoreTimeout extends JDO_Test {
         Thread t = new Thread(group, runnable, "Parallel Reader");
         t.start();
 
-        // Wait for a second such that the other thread can lock the instancs
-        Thread.currentThread().sleep(MAIN_SLEEP_MILLIS);
+        // Wait for a second such that the other thread can lock the instances
+        Thread.sleep(MAIN_SLEEP_MILLIS);
 
         try {
             runUpdatePCointInstance(ZERO_TIMEOUT);
@@ -236,7 +236,8 @@ public class DatastoreTimeout extends JDO_Test {
             pm.currentTransaction().begin();
             Query q = pm.newQuery(PCPoint.class);
             q.setDatastoreReadTimeoutMillis(timeout);
-            List result = (List)q.execute();
+            @SuppressWarnings("unused")
+            List<?> result = (List<?>)q.execute();
             pm.currentTransaction().commit();
             if (!isDatastoreTimeoutSupported()) {
                 fail(ASSERTION_FAILED, "Query.setDatastoreReadTimeoutMillis should throw a " +
@@ -269,6 +270,7 @@ public class DatastoreTimeout extends JDO_Test {
         try {
             pm.currentTransaction().begin();
             pm.setDatastoreReadTimeoutMillis(timeout);
+            @SuppressWarnings("unused")
             PCPoint point1 = (PCPoint)pm.getObjectById(point1Oid, true);
             pm.currentTransaction().commit();
             if (!isDatastoreTimeoutSupported()) {
@@ -457,7 +459,7 @@ public class DatastoreTimeout extends JDO_Test {
                 PCPoint p2 = (PCPoint)parallelPM.getObjectById(point2Oid, true);
                 p2.name();
                 // Give the main thread a chance to try to write the instances
-                Thread.currentThread().sleep(sleepMillis);
+                Thread.sleep(sleepMillis);
                 tx.commit();
             }
             catch (InterruptedException ex) {
@@ -494,7 +496,7 @@ public class DatastoreTimeout extends JDO_Test {
                 // Flush will set a write lock on the instances
                 parallelPM.flush();
                 // Give the main thread a chance to try to read the instances
-                Thread.currentThread().sleep(sleepMillis);
+                Thread.sleep(sleepMillis);
                 tx.commit();
             } 
             catch (InterruptedException ex) {

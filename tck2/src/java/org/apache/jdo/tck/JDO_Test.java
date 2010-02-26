@@ -881,7 +881,7 @@ public abstract class JDO_Test extends TestCase {
     /** Reports whether setting a Datastore timout is supported. */
     public boolean isDatastoreTimeoutSupported() {
         return supportedOptions.contains(
-            "javax.jdo.option.DatastoreTimeout");
+            Constants.OPTION_DATASTORE_TIMEOUT);
     }
 
     /** Reports whether a feature is supported */

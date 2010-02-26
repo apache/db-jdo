@@ -74,8 +74,10 @@ public interface javax.jdo.Constants {
         = "mapping";
     static String PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID
         = "server-time-zone-id";
-    static String PMF_ATTRIBUTE_QUERY_TIMEOUT
-        = "query-timeout-millis";
+    static String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS
+        = "datastore-read-timeout-millis";
+    static String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS
+        = "datastore-write-timeout-millis";
     static String ELEMENT_PROPERTY
         = "property";
     static String PROPERTY_ATTRIBUTE_NAME
@@ -130,6 +132,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.DatastoreTimeout";
     static String OPTION_QUERY_SQL
         = "javax.jdo.query.SQL";
+    static String OPTION_QUERY_CANCEL
+        = "javax.jdo.option.QueryCancel";
     static String OPTION_UNCONSTRAINED_QUERY_VARIABLES
         = "javax.jdo.option.UnconstrainedQueryVariables";
     static String OPTION_VERSION_DATETIME
@@ -214,8 +218,10 @@ public interface javax.jdo.Constants {
         = "javax.jdo.mapping.Schema";
     static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
-    static String PROPERTY_QUERY_TIMEOUT
-        = "javax.jdo.option.QueryTimeoutMillis";
+    static String PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS
+        = "javax.jdo.option.DatastoreReadTimeoutMillis";
+    static String PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS
+        = "javax.jdo.option.DatastoreWriteTimeoutMillis";
     static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME
         = "VendorName";
     static String NONCONFIGURABLE_PROPERTY_VERSION_NUMBER

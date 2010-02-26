@@ -163,8 +163,11 @@ public class JDOHelper implements Constants {
             PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
             PROPERTY_SERVER_TIME_ZONE_ID);
         xref.put(
-            PMF_ATTRIBUTE_QUERY_TIMEOUT,
-            PROPERTY_QUERY_TIMEOUT);
+                PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS,
+                PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
+        xref.put(
+                PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS,
+                PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
 
         return Collections.unmodifiableMap(xref);
     }

@@ -36,6 +36,8 @@
 <!ATTLIST query unmodifiable (true|false) 'false'>
 <!ATTLIST query unique (true|false) #IMPLIED>
 <!ATTLIST query result-class CDATA #IMPLIED>
+<!ATTLIST query datastore-read-timeout-millis CDATA #IMPLIED>
+<!ATTLIST query datastore-write-timeout-millis CDATA #IMPLIED>
 
 <!ELEMENT extension ANY>
 <!ATTLIST extension vendor-name CDATA #REQUIRED>

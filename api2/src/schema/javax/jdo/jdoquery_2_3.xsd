@@ -93,6 +93,8 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-class"/>
+        <xs:attribute name="datastore-read-timeout-millis"/>
+        <xs:attribute name="datastore-write-timeout-millis"/>
     </xs:attributeGroup>
     <xs:element name="extension">
         <xs:complexType>

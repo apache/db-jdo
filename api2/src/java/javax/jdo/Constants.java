@@ -268,13 +268,20 @@ public interface Constants {
         = "server-time-zone-id";
     /**
      * The name of the persistence manager factory element's
-     * "query-timeout-millis" attribute.
+     * "datastore-read-timeout-millis" attribute.
      *
      * @since 2.3
      */
-    static String PMF_ATTRIBUTE_QUERY_TIMEOUT
-        = "query-timeout-millis";
-
+    static String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS
+        = "datastore-read-timeout-millis";
+    /**
+     * The name of the persistence manager factory element's
+     * "datastore-write-timeout-millis" attribute.
+     *
+     * @since 2.3
+     */
+    static String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS
+        = "datastore-write-timeout-millis";
     /**
      * The name of the persistence manager factory property elements in the JDO
      * configuration file.
@@ -474,6 +481,14 @@ public interface Constants {
      */
     static String OPTION_QUERY_SQL
         = "javax.jdo.query.SQL";
+    /**
+     * "javax.jdo.option.QueryCancel"
+     *
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.3
+     */
+    static String OPTION_QUERY_CANCEL
+        = "javax.jdo.option.QueryCancel";
     /**
      * "javax.jdo.option.DatastoreTimeout"
      *
@@ -860,30 +875,40 @@ public interface Constants {
         = "javax.jdo.mapping.Schema";
 
     /**
-     * Mapping "javax.jdo.option.ServerTimeZoneID"
+     * Specified value "javax.jdo.option.ServerTimeZoneID"
      *
      * @since 2.1
      */
     static String PROPERTY_SERVER_TIME_ZONE_ID
         = "javax.jdo.option.ServerTimeZoneID";
+
     /**
-     * Mapping "javax.jdo.option.QueryTimeoutMillis"
+     * Specified value "javax.jdo.option.DatastoreReadTimeoutMillis"
      *
      * @since 2.3
      */
-    static String PROPERTY_QUERY_TIMEOUT
-        = "javax.jdo.option.QueryTimeoutMillis";
+    static String PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS
+        = "javax.jdo.option.DatastoreReadTimeoutMillis";
 
     /**
-     * Nonconfigurable property constanct "VendorName"
+     * Specified value "javax.jdo.option.DatastoreWriteTimeoutMillis"
+     *
+     * @since 2.3
+     */
+    static String PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS
+        = "javax.jdo.option.DatastoreWriteTimeoutMillis";
+
+    /**
+     * Nonconfigurable property constant "VendorName"
      *
      * @see PersistenceManagerFactory#getProperties()
      * @since 2.1
      */
     static String NONCONFIGURABLE_PROPERTY_VENDOR_NAME
         = "VendorName";
+
     /**
-     * Nonconfigurable property constanct "VersionNumber"
+     * Nonconfigurable property constant "VersionNumber"
      *
      * @see PersistenceManagerFactory#getProperties()
      * @since 2.1
