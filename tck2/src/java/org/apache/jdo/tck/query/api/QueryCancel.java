@@ -49,6 +49,9 @@ supporting cancel) then JDOUnsupportedOptionException is thrown to the caller.
 
 public class QueryCancel extends QueryTest {
 
+    /** Time for the main thread to sleep after starting a parallel thread. */
+    private static int MAIN_SLEEP_MILLIS = 1000;
+
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.1-8 (QueryCancel) failed: ";
@@ -81,6 +84,9 @@ public class QueryCancel extends QueryTest {
         QueryExecutor runnable = new QueryExecutor(pm, query);
         Thread t = new Thread(group, runnable, "Query Executor");
         t.start();
+
+        // Wait for a second such that the other thread can execute the query
+        Thread.sleep(MAIN_SLEEP_MILLIS);
 
         try {
             // cancel query 
@@ -120,6 +126,9 @@ public class QueryCancel extends QueryTest {
         QueryExecutor runnable = new QueryExecutor(pm, query);
         Thread t = new Thread(group, runnable, "Query Executor");
         t.start();
+
+        // Wait for a second such that the other thread can execute the query
+        Thread.sleep(MAIN_SLEEP_MILLIS);
 
         try {
             // cancel query 
