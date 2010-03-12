@@ -29,7 +29,8 @@ public interface JDOEnhancer extends ClassFileTransformer
 {
     /**
      * Return non-configurable properties of this JDOEnhancer.
-     * Properties with keys "VendorName" and "VersionNumber" are required. Other keys are optional.
+     * Properties with keys "VendorName" and "VersionNumber" are required.
+     * Other keys are optional.
      * @return the non-configurable properties of this JDOEnhancer.
      */
     Properties getProperties();

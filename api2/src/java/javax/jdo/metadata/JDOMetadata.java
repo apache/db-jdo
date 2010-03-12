@@ -22,7 +22,8 @@ package javax.jdo.metadata;
  */
 public interface JDOMetadata extends Metadata {
     /**
-     * Method to set the catalog (ORM) to apply to all classes in this JDO Metadata.
+     * Method to set the catalog (ORM) to apply to all classes in this
+     * JDO Metadata.
      * 
      * @param catalog Catalog name
      */
