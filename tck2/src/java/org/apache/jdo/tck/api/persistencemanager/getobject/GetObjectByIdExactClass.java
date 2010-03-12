@@ -37,14 +37,12 @@ import org.apache.jdo.tck.pc.singlefieldidentity.FullTimeEmployee;
  *<BR>
  *<B>Keywords:</B> identity cache
  *<BR>
- *<B>Assertion ID:</B> A12.5.6-???.
+ *<B>Assertion ID:</B> A12.5.6-2.
  *<BR>
  *<B>Assertion Description: </B>
- If <code>PersistenceManager.getObjectById</code> is called with a value of
- <code>false</code> for the second parameter named <code>validate</code>,
- and there is not an instance already in the cache with the same JDO identity
- as the oid parameter, then this method creates an instance with the specified
- JDO identity, and returns it.
+ * If the validate flag is false, the user asserts that the instance exists
+ * and the object id represents the exact class of the persistent instance
+ * (specifically not a subclass or an interface).
  * If the class is abstract, throw JDOUserException (we cannot construct
  * a hollow instance of an abstract class). 
  * If the class is actually not correct, an exception with an
@@ -56,7 +54,7 @@ public class GetObjectByIdExactClass extends PersistenceManagerTest {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A12.5.6-??? (GetObjectById) failed: ";
+        "Assertion A12.5.6-2 (GetObjectById) failed: ";
 
     /** */
     private LongIdentity oid;
