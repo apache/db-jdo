@@ -17,6 +17,8 @@
 
 package org.apache.jdo.tck.query.api;
 
+import java.util.concurrent.CyclicBarrier;
+
 import junit.framework.AssertionFailedError;
 
 import javax.jdo.JDOFatalException;
@@ -50,7 +52,10 @@ supporting cancel) then JDOUnsupportedOptionException is thrown to the caller.
 public class QueryCancel extends QueryTest {
 
     /** Time for the main thread to sleep after starting a parallel thread. */
-    private static int MAIN_SLEEP_MILLIS = 1000;
+    private static int MAIN_SLEEP_MILLIS = 40;
+
+    /** Number of instances to be created. */
+    private static int NO_OF_INSTANCES = 5000;
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -77,18 +82,24 @@ public class QueryCancel extends QueryTest {
     /** */
     public void testCancel() throws Exception {
         PersistenceManager pm = getPM();
+        // Test query 
         Query query = pm.newQuery(SSJDOQL);
+        query.compile();
 
         // Thread executing the query
+        CyclicBarrier barrier = new CyclicBarrier(2);
         ThreadExceptionHandler group = new ThreadExceptionHandler();
-        QueryExecutor runnable = new QueryExecutor(pm, query);
+        QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
         Thread t = new Thread(group, runnable, "Query Executor");
         t.start();
 
-        // Wait for a second such that the other thread can execute the query
-        Thread.sleep(MAIN_SLEEP_MILLIS);
-
         try {
+            // Wait for the other thread
+            barrier.await();
+
+            // Wait a couple of millis such that the other thread can start query execution
+            Thread.sleep(MAIN_SLEEP_MILLIS);
+
             // cancel query 
             query.cancel(t);
             if (!isQueryCancelSupported()) {
@@ -119,19 +130,25 @@ public class QueryCancel extends QueryTest {
     /** */
     public void testCancelAll() throws Exception {
         PersistenceManager pm = getPM();
+        // Test query
         Query query = pm.newQuery(SSJDOQL);
+        query.compile();
 
         // Thread executing the query
+        CyclicBarrier barrier = new CyclicBarrier(2);
         ThreadExceptionHandler group = new ThreadExceptionHandler();
-        QueryExecutor runnable = new QueryExecutor(pm, query);
+        QueryExecutor runnable = new QueryExecutor(pm, query, barrier);
         Thread t = new Thread(group, runnable, "Query Executor");
         t.start();
 
-        // Wait for a second such that the other thread can execute the query
-        Thread.sleep(MAIN_SLEEP_MILLIS);
-
         try {
             // cancel query 
+            // Wait for the other thread
+            barrier.await();
+
+            // Wait a couple of millis such that the other thread can start query execution
+            Thread.sleep(MAIN_SLEEP_MILLIS);
+
             query.cancelAll();
             if (!isQueryCancelSupported()) {
                 fail(ASSERTION_FAILED,
@@ -162,17 +179,23 @@ public class QueryCancel extends QueryTest {
     class QueryExecutor implements Runnable {
 
         PersistenceManager pm;
+        CyclicBarrier barrier;
         Query query;
         
-        QueryExecutor(PersistenceManager pm, Query query) {
+        QueryExecutor(PersistenceManager pm, Query query, CyclicBarrier barrier) {
             this.pm = pm;
             this.query = query;
+            this.barrier = barrier;
         }
 
         public void run() {
             Transaction tx = pm.currentTransaction();
             try {
                 tx.begin();
+
+                // wait for the other thread
+                barrier.await();
+
                 Object result = query.execute();
                 tx.commit();
                 tx = null;
@@ -188,6 +211,9 @@ public class QueryCancel extends QueryTest {
                          "Query.execute should not result in a JDOQueryInterruptedException, " + 
                          "if query canceling is not supported.");
                 }
+            }
+            catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
             finally {
                 if ((tx != null) && tx.isActive())
@@ -208,11 +234,11 @@ public class QueryCancel extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < NO_OF_INSTANCES; i++) {
                 PCPoint obj = new PCPoint(i, i);
                 pm.makePersistent(obj);
             }
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < NO_OF_INSTANCES; i++) {
                 PCPoint2 obj = new PCPoint2(i, i);
                 pm.makePersistent(obj);
             }
