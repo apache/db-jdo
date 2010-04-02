@@ -47,6 +47,13 @@ These methods cancel a running query (or queries). The thread that has its query
 canceled will throw a JDOQueryInterruptedException.
 If cancel is not supported (most likely due to the underlying implementation not 
 supporting cancel) then JDOUnsupportedOptionException is thrown to the caller.
+
+REMARK:
+This assertion seems to be untestable with the current TCK, thus  
+I drop it from the query.conf configuration.
+
+Looks like Derby is evaluating the query on ResultSet.next() and 
+thus the actual query execution is too fast to be canceled.
  */
 
 public class QueryCancel extends QueryTest {
