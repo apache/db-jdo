@@ -45,7 +45,7 @@ public class GetMetadataTest extends JDO_Test {
     
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A12.x.x-x (Metadata) failed: ";
+        "Assertion A11.10-1 (getMetadata) failed: ";
     
     /**
      * The <code>main</code> is called when the class
