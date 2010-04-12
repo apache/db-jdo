@@ -1270,4 +1270,20 @@ public class PersistenceManagerWrapper implements PersistenceManager {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public Integer getDatastoreWriteTimeoutMillis() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDatastoreWriteTimeoutMillis(Integer val) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Integer getDatastoreReadTimeoutMillis() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setDatastoreReadTimeoutMillis(Integer val) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

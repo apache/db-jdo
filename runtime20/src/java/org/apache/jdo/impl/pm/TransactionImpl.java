@@ -1184,6 +1184,14 @@ class TransactionImpl implements javax.jdo.Transaction {
     public void setIsolationLevel(String arg0) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public Boolean getSerializeRead() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setSerializeRead(Boolean val) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
 
 
