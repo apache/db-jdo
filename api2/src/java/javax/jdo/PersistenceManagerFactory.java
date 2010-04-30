@@ -771,7 +771,8 @@ public interface PersistenceManagerFactory extends Serializable {
     /**
      * Method to return the metadata object for the specified class/interface, if there is
      * metadata defined for that class/interface.
-     * If there is no metadata for the specified class/interface then null will be returned.
+     * If there is no metadata for the specified class/interface, or the parameter is null,
+     * then null will be returned.
      * @return The metadata
      * @since 2.3
      */
