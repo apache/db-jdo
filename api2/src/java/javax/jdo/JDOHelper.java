@@ -163,11 +163,11 @@ public class JDOHelper implements Constants {
             PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID,
             PROPERTY_SERVER_TIME_ZONE_ID);
         xref.put(
-                PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS,
-                PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
+            PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS,
+            PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
         xref.put(
-                PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS,
-                PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
+            PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS,
+            PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
 
         return Collections.unmodifiableMap(xref);
     }
@@ -750,6 +750,8 @@ public class JDOHelper implements Constants {
      * <BR>"javax.jdo.option.TransactionIsolationLevel",
      * <BR>"javax.jdo.option.TransactionType",
      * <BR>"javax.jdo.option.ServerTimeZoneID",
+     * <BR>"javax.jdo.option.DatastoreReadTimeoutMillis",
+     * <BR>"javax.jdo.option.DatastoreWriteTimeoutMillis",
      * <BR>"javax.jdo.option.Name".
      * </code>
      * and properties of the form
@@ -1005,6 +1007,8 @@ public class JDOHelper implements Constants {
      * <BR>"javax.jdo.option.CopyOnAttach".
      * <BR>"javax.jdo.option.TransactionType".
      * <BR>"javax.jdo.option.ServerTimeZoneID".
+     * <BR>"javax.jdo.option.DatastoreReadTimeoutMillis",
+     * <BR>"javax.jdo.option.DatastoreWriteTimeoutMillis",
      * <BR>"javax.jdo.option.Name".
      * </code>
      * and properties of the form
