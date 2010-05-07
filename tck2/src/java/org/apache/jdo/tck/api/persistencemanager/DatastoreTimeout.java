@@ -39,7 +39,7 @@ import org.apache.jdo.tck.util.ThreadExceptionHandler;
  *<BR>
  *<B>Keywords:</B> datastore timeout 
  *<BR>
- *<B>Assertion ID:</B> A??
+ *<B>Assertion ID:</B> A12.6.9-1, A14.6.1-7
  *<BR>
  *<B>Assertion Description: </B>
  */
@@ -48,13 +48,13 @@ public class DatastoreTimeout extends JDO_Test {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A?? (DatastoreTimeout) failed: ";
+        "Assertion A12.6.9-1, A14.6.1-7 (DatastoreTimeout) failed: ";
 
     /** Timeout value for datastore read */
-    private static Integer READ_TIMEOUT = new Integer(10);
+    private static Integer READ_TIMEOUT = new Integer(100);
 
     /** Timeout value for datastore write */
-    private static Integer WRITE_TIMEOUT = new Integer(10);
+    private static Integer WRITE_TIMEOUT = new Integer(100);
 
     /** Zero Timeout value */
     private static Integer ZERO_TIMEOUT = new Integer(0);
@@ -89,6 +89,8 @@ public class DatastoreTimeout extends JDO_Test {
     /** Method testing DatastoreReadTimeout. */
     public void testDatastoreReadTimeout() throws Exception {
 
+        if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
+
         // Parallel thread writing the instances and causing them to be locked
         ThreadExceptionHandler group = new ThreadExceptionHandler();
         ParallelWriter runnable = new ParallelWriter(THREAD_SLEEP_MILLIS_LONG);
@@ -118,6 +120,8 @@ public class DatastoreTimeout extends JDO_Test {
 
     /** Method testing DatastoreWriteTimeout. */
     public void testDatastoreWriteTimeout() throws Exception {
+
+        if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
 
         // Parallel thread reading the instances and causing them to be locked
         ThreadExceptionHandler group = new ThreadExceptionHandler();
