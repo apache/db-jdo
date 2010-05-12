@@ -25,10 +25,12 @@ import java.util.Iterator;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.identity.SingleFieldIdentity;
 
 import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
+import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldInteger;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -82,6 +84,20 @@ public class GetObjectIds extends JDO_Test {
 
     Object[] oids;  
 
+    /** Typed objects
+     */
+    PCPointSingleFieldInteger singleFieldIdentityObj0;
+    PCPointSingleFieldInteger singleFieldIdentityObj1;
+
+    PCPointSingleFieldInteger[] singleFieldIdentityObjs;
+
+    /** Typed object ids
+     */
+    SingleFieldIdentity singleFieldIdentityOid0;
+    SingleFieldIdentity singleFieldIdentityOid1;
+
+    SingleFieldIdentity[] singleFieldIdentityOids;  
+
     /** The second persistence manager.
      */
     PersistenceManager pm2;
@@ -99,9 +115,18 @@ public class GetObjectIds extends JDO_Test {
             obj4 = new PCPoint(23,45) // not persistent
         };
 
+        singleFieldIdentityObjs = new PCPointSingleFieldInteger[] {
+            singleFieldIdentityObj0 = new PCPointSingleFieldInteger(0, 1), // persistent in pm1
+            singleFieldIdentityObj1 = new PCPointSingleFieldInteger(1, 1) // persistent in pm1
+        };
+
         getPM();
         pm.currentTransaction().begin();
         pm.makePersistent(obj2);
+        if (runsWithApplicationIdentity()) {
+            pm.makePersistent(singleFieldIdentityObj0);
+            pm.makePersistent(singleFieldIdentityObj1);
+        }
         pm.currentTransaction().commit();
         
         pm2 = getPMF().getPersistenceManager();
@@ -110,11 +135,16 @@ public class GetObjectIds extends JDO_Test {
         pm2.currentTransaction().commit();
         
         oids = new Object[] {
-            oid0 = JDOHelper.getObjectId(obj0),
-            oid1 = JDOHelper.getObjectId(obj1),
-            oid2 = JDOHelper.getObjectId(obj2),
-            oid3 = JDOHelper.getObjectId(obj3),
-            oid4 = JDOHelper.getObjectId(obj4),
+                oid0 = JDOHelper.getObjectId(obj0),
+                oid1 = JDOHelper.getObjectId(obj1),
+                oid2 = JDOHelper.getObjectId(obj2),
+                oid3 = JDOHelper.getObjectId(obj3),
+                oid4 = JDOHelper.getObjectId(obj4),
+        };
+
+        singleFieldIdentityOids = new SingleFieldIdentity[] {
+                singleFieldIdentityOid0 = (SingleFieldIdentity)JDOHelper.getObjectId(singleFieldIdentityObj0),
+                singleFieldIdentityOid1 = (SingleFieldIdentity)JDOHelper.getObjectId(singleFieldIdentityObj1)
         };
 
     }
@@ -154,7 +184,7 @@ public class GetObjectIds extends JDO_Test {
         StringBuffer messages = new StringBuffer();
         List paramList = Arrays.asList(objs);
         List expectedList = Arrays.asList(oids);
-        Collection actualCollection = JDOHelper.getObjectIds(paramList);
+        Collection<Object> actualCollection = JDOHelper.getObjectIds(paramList);
         Iterator expectedIterator = expectedList.iterator();
         Iterator actualIterator = actualCollection.iterator();
         for (int i = 0; i < objs.length; ++i) {
@@ -174,4 +204,56 @@ public class GetObjectIds extends JDO_Test {
                 messages.toString());
         }
     }
+
+    /** */
+    public void testTypedGetObjectIdsArray() {
+        if (!runsWithApplicationIdentity()) return;
+        StringBuffer messages = new StringBuffer();
+        Object[] expectedArray = singleFieldIdentityOids;
+        Object[] actualArray = JDOHelper.getObjectIds(singleFieldIdentityObjs);
+        for (int i = 0; i < singleFieldIdentityObjs.length; ++i) {
+            Object expected = expectedArray[i];
+            Object actual = actualArray[i];
+            if (expected == null? 
+                    actual != null:
+                    !expected.equals(actual)) {
+                messages.append(
+                        "\nComparison failed for object ids at position " + i +
+                        "\nexpected: " + expected +
+                        "\nactual: " + actual);
+            }
+        }
+        if (messages.length() != 0) {
+            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " +
+                messages.toString());
+        }
+    }
+
+    /** */
+    public void testTypedGetObjectIdsCollection() {
+        if (!runsWithApplicationIdentity()) return;
+        StringBuffer messages = new StringBuffer();
+        List<PCPointSingleFieldInteger> paramList = Arrays.asList(singleFieldIdentityObjs);
+        List<?> expectedList = Arrays.asList(singleFieldIdentityOids);
+        Collection<?> actualCollection = JDOHelper.getObjectIds(paramList);
+        Iterator<?> expectedIterator = expectedList.iterator();
+        Iterator<?> actualIterator = actualCollection.iterator();
+        for (int i = 0; i < singleFieldIdentityObjs.length; ++i) {
+            Object expected = expectedIterator.next();
+            Object actual = actualIterator.next();
+            if (expected == null? 
+                    actual != null:
+                    !expected.equals(actual)) {
+                messages.append(
+                        "\nComparison failed for object ids at position " + i +
+                        "\nexpected: " + expected +
+                        "\nactual: " + actual);
+            }
+        }
+        if (messages.length() != 0) {
+            fail(ASSERTION_FAILED + "getObjectIds(Collection<SingleFieldIdentyty> pcs) " +
+                messages.toString());
+        }
+    }
+
 }

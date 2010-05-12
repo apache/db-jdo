@@ -397,7 +397,7 @@ public class JDOHelper implements Constants {
      * @see #getObjectIds(Object[] pcs)
      * @since 2.0
      */
-    public static Collection<Object> getObjectIds(Collection<Object> pcs) {
+    public static Collection<Object> getObjectIds(Collection<?> pcs) {
         ArrayList<Object> result = new ArrayList<Object>();
         for (Iterator<?> it = pcs.iterator(); it.hasNext();) {
             result.add(getObjectId(it.next()));
