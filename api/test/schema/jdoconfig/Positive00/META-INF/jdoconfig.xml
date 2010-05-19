@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Do not change any values in this file without also making changes to
+    JDOHelperConfigTest.java, as that file depends on the values in this one!
+-->
+<jdoconfig
+    xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
+
+    <!--
+        Basic PMF config using attributes & listeners with no nonstandard
+        properties.
+    -->
+    <persistence-manager-factory
+        class="class.positive00.pmf0"
+        connection-driver-name="connection-driver-name.positive00.pmf0"
+        connection-factory-name="connection-factory-name.positive00.pmf0"
+        connection-factory2-name="connection-factory2-name.positive00.pmf0"
+        connection-password="connection-password.positive00.pmf0"
+        connection-url="connection-url.positive00.pmf0"
+        connection-user-name="connection-user-name.positive00.pmf0"
+        ignore-cache="ignore-cache.positive00.pmf0"
+        mapping="mapping.positive00.pmf0"
+        multithreaded="multithreaded.positive00.pmf0"
+        nontransactional-read="nontransactional-read.positive00.pmf0"
+        nontransactional-write="nontransactional-write.positive00.pmf0"
+        optimistic="optimistic.positive00.pmf0"
+        name="name.positive00.pmf0"
+        persistence-unit-name="persistence-unit-name.positive00.pmf0"
+        restore-values="restore-values.positive00.pmf0"
+        retain-values="retain-values.positive00.pmf0"
+        detach-all-on-commit="detach-all-on-commit.positive00.pmf0"
+        server-time-zone-id="server-time-zone-id.positive00.pmf0">
+
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf0.listener0"
+            classes="classes.positive00.pmf0.classes0"
+            />
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf0.listener1"
+            classes="classes.positive00.pmf0.classes1"
+            />
+    </persistence-manager-factory>
+
+    <!--
+        Basic PMF config using only <property> elements with javax.jdo
+        properties and no nonstandard properties.
+    -->
+    <persistence-manager-factory>
+        <property
+            name="javax.jdo.PersistenceManagerFactoryClass"
+            value="class.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionDriverName"
+            value="connection-driver-name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionFactoryName"
+            value="connection-factory-name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionFactory2Name"
+            value="connection-factory2-name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionPassword"
+            value="connection-password.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionURL"
+            value="connection-url.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ConnectionUserName"
+            value="connection-user-name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.IgnoreCache"
+            value="ignore-cache.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.Mapping"
+            value="mapping.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.Multithreaded"
+            value="multithreaded.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.NontransactionalRead"
+            value="nontransactional-read.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.NontransactionalWrite"
+            value="nontransactional-write.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.Optimistic"
+            value="optimistic.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.Name"
+            value="name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.PersistenceUnitName"
+            value="persistence-unit-name.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.DetachAllOnCommit"
+            value="detach-all-on-commit.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.RestoreValues"
+            value="restore-values.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.RetainValues"
+            value="retain-values.positive00.pmf1"/>
+        <property
+            name="javax.jdo.option.ServerTimeZoneID"
+            value="server-time-zone-id.positive00.pmf1"/>
+
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf1.listener0"
+            classes="classes.positive00.pmf1.classes0"
+            />
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf1.listener1"
+            classes="classes.positive00.pmf1.classes1"
+            />
+    </persistence-manager-factory>
+
+    <!--
+        PMF config that uses nested <property> elements with standard
+        attribute names instead of javax.jdo property names and no nonstandard
+        properties.
+    -->
+    <persistence-manager-factory>
+        <property
+            name="class"
+            value="class.positive00.pmf2"/>
+        <property
+            name="connection-driver-name"
+            value="connection-driver-name.positive00.pmf2"/>
+        <property
+            name="connection-factory-name"
+            value="connection-factory-name.positive00.pmf2"/>
+        <property
+            name="connection-factory2-name"
+            value="connection-factory2-name.positive00.pmf2"/>
+        <property
+            name="connection-password"
+            value="connection-password.positive00.pmf2"/>
+        <property
+            name="connection-url"
+            value="connection-url.positive00.pmf2"/>
+        <property
+            name="connection-user-name"
+            value="connection-user-name.positive00.pmf2"/>
+        <property
+            name="ignore-cache"
+            value="ignore-cache.positive00.pmf2"/>
+        <property
+            name="mapping"
+            value="mapping.positive00.pmf2"/>
+        <property
+            name="multithreaded"
+            value="multithreaded.positive00.pmf2"/>
+        <property
+            name="nontransactional-read"
+            value="nontransactional-read.positive00.pmf2"/>
+        <property
+            name="nontransactional-write"
+            value="nontransactional-write.positive00.pmf2"/>
+        <property
+            name="optimistic"
+            value="optimistic.positive00.pmf2"/>
+        <property
+            name="name"
+            value="name.positive00.pmf2"/>
+        <property
+            name="persistence-unit-name"
+            value="persistence-unit-name.positive00.pmf2"/>
+        <property
+            name="detach-all-on-commit"
+            value="detach-all-on-commit.positive00.pmf2"/>
+        <property
+            name="restore-values"
+            value="restore-values.positive00.pmf2"/>
+        <property
+            name="retain-values"
+            value="retain-values.positive00.pmf2"/>
+        <property
+            name="javax.jdo.option.ServerTimeZoneID"
+            value="server-time-zone-id.positive00.pmf2"/>
+
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf2.listener0"
+            classes="classes.positive00.pmf2.classes0"
+            />
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf2.listener1"
+            classes="classes.positive00.pmf2.classes1"
+            />
+    </persistence-manager-factory>
+
+    <!--
+        PMF config using standard attributes plus nonstandard properties in
+        <property> elements.
+    -->
+    <persistence-manager-factory
+        class="class.positive00.pmf3"
+        connection-driver-name="connection-driver-name.positive00.pmf3"
+        connection-factory-name="connection-factory-name.positive00.pmf3"
+        connection-factory2-name="connection-factory2-name.positive00.pmf3"
+        connection-password="connection-password.positive00.pmf3"
+        connection-url="connection-url.positive00.pmf3"
+        connection-user-name="connection-user-name.positive00.pmf3"
+        ignore-cache="ignore-cache.positive00.pmf3"
+        mapping="mapping.positive00.pmf3"
+        multithreaded="multithreaded.positive00.pmf3"
+        nontransactional-read="nontransactional-read.positive00.pmf3"
+        nontransactional-write="nontransactional-write.positive00.pmf3"
+        optimistic="optimistic.positive00.pmf3"
+        name="name.positive00.pmf3"
+        persistence-unit-name="persistence-unit-name.positive00.pmf3"
+        restore-values="restore-values.positive00.pmf3"
+        retain-values="retain-values.positive00.pmf3"
+        detach-all-on-commit="detach-all-on-commit.positive00.pmf3"
+        server-time-zone-id="server-time-zone-id.positive00.pmf3">
+
+        <property name="property.positive00.pmf3.name0"
+                  value="property.positive00.pmf3.value0"/>
+        <property name="property.positive00.pmf3.name1"
+                  value="property.positive00.pmf3.value1"/>
+
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf3.listener0"
+            classes="classes.positive00.pmf3.classes0"
+            />
+        <instance-lifecycle-listener
+            listener="listener.positive00.pmf3.listener1"
+            classes="classes.positive00.pmf3.classes1"
+            />
+    </persistence-manager-factory>
+
+    <!--
+        PMF config using standard attributes plus nonstandard attributes.
+    -->
+    <persistence-manager-factory
+        class="class.positive00.pmf4"
+        connection-driver-name="connection-driver-name.positive00.pmf4"
+        connection-factory-name="connection-factory-name.positive00.pmf4"
+        connection-factory2-name="connection-factory2-name.positive00.pmf4"
+        connection-password="connection-password.positive00.pmf4"
+        connection-url="connection-url.positive00.pmf4"
+        connection-user-name="connection-user-name.positive00.pmf4"
+        ignore-cache="ignore-cache.positive00.pmf4"
+        mapping="mapping.positive00.pmf4"
+        multithreaded="multithreaded.positive00.pmf4"
+        nontransactional-read="nontransactional-read.positive00.pmf4"
+        nontransactional-write="nontransactional-write.positive00.pmf4"
+        optimistic="optimistic.positive00.pmf4"
+        name="name.positive00.pmf4"
+        persistence-unit-name="persistence-unit-name.positive00.pmf4"
+        restore-values="restore-values.positive00.pmf4"
+        retain-values="retain-values.positive00.pmf4"
+        detach-all-on-commit="detach-all-on-commit.positive00.pmf4"
+        server-time-zone-id="server-time-zone-id.positive00.pmf4"
+
+        property.positive00.pmf4.name0="property.positive00.pmf4.value0"
+        property.positive00.pmf4.name1="property.positive00.pmf4.value1"/>
+</jdoconfig>
+

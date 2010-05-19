@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="ArrayListCollections" table="ARRAYLIST_COLLECTIONS">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="ArrayListOfObject0"
+                   table="ARRAYLIST_OF_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfObject1"
+                   table="ARRAYLIST_OF_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfObject2"
+                   table="ARRAYLIST_OF_OBJECT2">
+                <join column="IDENTIFIER"/>
+                <element column="OBJREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleClass3"
+                   table="ARRAYLIST_OF_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleClass4"
+                   table="ARRAYLIST_OF_SIMPLE_CLASS4">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleClass5"
+                   table="ARRAYLIST_OF_SIMPLE_CLASS5">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPCLSREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleInterface6"
+                   table="ARRAYLIST_OF_SIMPLE_INTERFACE6">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleInterface7"
+                   table="ARRAYLIST_OF_SIMPLE_INTERFACE7">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleInterface8"
+                   table="ARRAYLIST_OF_SIMPLE_INTERFACE8">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPINTREF"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfString9"
+                   table="ARRAYLIST_OF_STRING9">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfString10" column="ARRAYLIST_OF_STRING10"
+                   >
+            </field>
+            <field name="ArrayListOfString11"
+                   table="ARRAYLIST_OF_STRING11">
+                <join column="IDENTIFIER"/>
+                <element column="STRINGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfDate12"
+                   table="ARRAYLIST_OF_DATE12">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfDate13" column="ARRAYLIST_OF_DATE13"
+                   >
+            </field>
+            <field name="ArrayListOfDate14"
+                   table="ARRAYLIST_OF_DATE14">
+                <join column="IDENTIFIER"/>
+                <element column="DATEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfLocale15"
+                   table="ARRAYLIST_OF_LOCALE15">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfLocale16" column="ARRAYLIST_OF_LOCALE16"
+                   >
+            </field>
+            <field name="ArrayListOfLocale17"
+                   table="ARRAYLIST_OF_LOCALE17">
+                <join column="IDENTIFIER"/>
+                <element column="LOCALEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfBigDecimal18"
+                   table="ARRAYLIST_OF_BIG_DECIMAL18">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfBigDecimal19" column="ARRAYLIST_OF_BIG_DECIMAL19"
+                   >
+            </field>
+            <field name="ArrayListOfBigDecimal20"
+                   table="ARRAYLIST_OF_BIG_DECIMAL20">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_DECIMALVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfBigInteger21"
+                   table="ARRAYLIST_OF_BIG_INTEGER21">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfBigInteger22" column="ARRAYLIST_OF_BIG_INTEGER22"
+                   >
+            </field>
+            <field name="ArrayListOfBigInteger23"
+                   table="ARRAYLIST_OF_BIG_INTEGER23">
+                <join column="IDENTIFIER"/>
+                <element column="BIG_INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfByte24"
+                   table="ARRAYLIST_OF_BYTE24">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfByte25" column="ARRAYLIST_OF_BYTE25"
+                   >
+            </field>
+            <field name="ArrayListOfByte26"
+                   table="ARRAYLIST_OF_BYTE26">
+                <join column="IDENTIFIER"/>
+                <element column="BYTEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfDouble27"
+                   table="ARRAYLIST_OF_DOUBLE27">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfDouble28" column="ARRAYLIST_OF_DOUBLE28"
+                   >
+            </field>
+            <field name="ArrayListOfDouble29"
+                   table="ARRAYLIST_OF_DOUBLE29">
+                <join column="IDENTIFIER"/>
+                <element column="DOUBLEVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfFloat30"
+                   table="ARRAYLIST_OF_FLOAT30">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfFloat31" column="ARRAYLIST_OF_FLOAT31"
+                   >
+            </field>
+            <field name="ArrayListOfFloat32"
+                   table="ARRAYLIST_OF_FLOAT32">
+                <join column="IDENTIFIER"/>
+                <element column="FLOATVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfInteger33"
+                   table="ARRAYLIST_OF_INTEGER33">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfInteger34" column="ARRAYLIST_OF_INTEGER34"
+                   >
+            </field>
+            <field name="ArrayListOfInteger35"
+                   table="ARRAYLIST_OF_INTEGER35">
+                <join column="IDENTIFIER"/>
+                <element column="INTEGERVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfLong36"
+                   table="ARRAYLIST_OF_LONG36">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfLong37" column="ARRAYLIST_OF_LONG37"
+                   >
+            </field>
+            <field name="ArrayListOfLong38"
+                   table="ARRAYLIST_OF_LONG38">
+                <join column="IDENTIFIER"/>
+                <element column="LONGVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfShort39"
+                   table="ARRAYLIST_OF_SHORT39">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfShort40" column="ARRAYLIST_OF_SHORT40" >
+            </field>
+            <field name="ArrayListOfShort41"
+                   table="ARRAYLIST_OF_SHORT41">
+                <join column="IDENTIFIER"/>
+                <element column="SHORTVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleEnum42"
+                   table="ARRAYLIST_OF_SIMPLEENUM42">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPLEENUMVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleEnum43"
+                   column="ARRAYLIST_OF_SIMPLEENUM43" >
+            </field>
+            <field name="ArrayListOfSimpleEnum44"
+                   table="ARRAYLIST_OF_SIMPLEENUM44">
+                <join column="IDENTIFIER"/>
+                <element column="SIMPLEENUMVAL"/>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleEnum45"
+                   table="ARRAYLIST_OF_SIMPLEENUM45">
+                <join column="IDENTIFIER"/>
+                <element>
+                    <column name="SIMPLEENUMVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </element>
+                <order column="INDEX"/>
+            </field>
+            <field name="ArrayListOfSimpleEnum46"
+                   table="ARRAYLIST_OF_SIMPLEENUM46">
+                <join column="IDENTIFIER"/>
+                <element>
+                    <column name="SIMPLEENUMVAL" jdbc-type="NUMERIC" length="2" scale="0"/>
+                </element>
+                <order column="INDEX"/>
+            </field>
+        </class>
+    </package>
+</orm>

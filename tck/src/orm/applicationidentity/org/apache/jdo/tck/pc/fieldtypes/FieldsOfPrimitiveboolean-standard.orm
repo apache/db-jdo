@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfPrimitiveboolean" table="FIELDSOFPRIMITIVEBOOLEAN">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="boolean0" column="BOOLEAN0"/>
+            <field name="boolean1" column="BOOLEAN1"/>
+            <field name="boolean102" column="BOOLEAN102"/>
+            <field name="boolean103" column="BOOLEAN103"/>
+            <field name="boolean104" column="BOOLEAN104"/>
+            <field name="boolean108" column="BOOLEAN108"/>
+            <field name="boolean109" column="BOOLEAN109"/>
+            <field name="boolean11" column="BOOLEAN11"/>
+            <field name="boolean110" column="BOOLEAN110"/>
+            <field name="boolean112" column="BOOLEAN112"/>
+            <field name="boolean113" column="BOOLEAN113"/>
+            <field name="boolean114" column="BOOLEAN114"/>
+            <field name="boolean119" column="BOOLEAN119"/>
+            <field name="boolean12" column="BOOLEAN12"/>
+            <field name="boolean120" column="BOOLEAN120"/>
+            <field name="boolean121" column="BOOLEAN121"/>
+            <field name="boolean124" column="BOOLEAN124"/>
+            <field name="boolean125" column="BOOLEAN125"/>
+            <field name="boolean126" column="BOOLEAN126"/>
+            <field name="boolean128" column="BOOLEAN128"/>
+            <field name="boolean129" column="BOOLEAN129"/>
+            <field name="boolean13" column="BOOLEAN13"/>
+            <field name="boolean130" column="BOOLEAN130"/>
+            <field name="boolean138" column="BOOLEAN138"/>
+            <field name="boolean139" column="BOOLEAN139"/>
+            <field name="boolean140" column="BOOLEAN140"/>
+            <field name="boolean16" column="BOOLEAN16"/>
+            <field name="boolean17" column="BOOLEAN17"/>
+            <field name="boolean18" column="BOOLEAN18"/>
+            <field name="boolean2" column="BOOLEAN2"/>
+            <field name="boolean20" column="BOOLEAN20"/>
+            <field name="boolean21" column="BOOLEAN21"/>
+            <field name="boolean22" column="BOOLEAN22"/>
+            <field name="boolean30" column="BOOLEAN30"/>
+            <field name="boolean31" column="BOOLEAN31"/>
+            <field name="boolean32" column="BOOLEAN32"/>
+            <field name="boolean36" column="BOOLEAN36"/>
+            <field name="boolean37" column="BOOLEAN37"/>
+            <field name="boolean38" column="BOOLEAN38"/>
+            <field name="boolean4" column="BOOLEAN4"/>
+            <field name="boolean40" column="BOOLEAN40"/>
+            <field name="boolean41" column="BOOLEAN41"/>
+            <field name="boolean42" column="BOOLEAN42"/>
+            <field name="boolean47" column="BOOLEAN47"/>
+            <field name="boolean48" column="BOOLEAN48"/>
+            <field name="boolean49" column="BOOLEAN49"/>
+            <field name="boolean5" column="BOOLEAN5"/>
+            <field name="boolean52" column="BOOLEAN52"/>
+            <field name="boolean53" column="BOOLEAN53"/>
+            <field name="boolean54" column="BOOLEAN54"/>
+            <field name="boolean56" column="BOOLEAN56"/>
+            <field name="boolean57" column="BOOLEAN57"/>
+            <field name="boolean58" column="BOOLEAN58"/>
+            <field name="boolean6" column="BOOLEAN6"/>
+            <field name="boolean66" column="BOOLEAN66"/>
+            <field name="boolean67" column="BOOLEAN67"/>
+            <field name="boolean68" column="BOOLEAN68"/>
+            <field name="boolean72" column="BOOLEAN72"/>
+            <field name="boolean73" column="BOOLEAN73"/>
+            <field name="boolean74" column="BOOLEAN74"/>
+            <field name="boolean76" column="BOOLEAN76"/>
+            <field name="boolean77" column="BOOLEAN77"/>
+            <field name="boolean78" column="BOOLEAN78"/>
+            <field name="boolean83" column="BOOLEAN83"/>
+            <field name="boolean84" column="BOOLEAN84"/>
+            <field name="boolean85" column="BOOLEAN85"/>
+            <field name="boolean88" column="BOOLEAN88"/>
+            <field name="boolean89" column="BOOLEAN89"/>
+            <field name="boolean90" column="BOOLEAN90"/>
+            <field name="boolean92" column="BOOLEAN92"/>
+            <field name="boolean93" column="BOOLEAN93"/>
+            <field name="boolean94" column="BOOLEAN94"/>
+        </class>
+    </package>
+</orm>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfLocale" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfLocale$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="Locale1"  embedded="true">
+</field>
+<field name="Locale2"  embedded="false">
+</field>
+<field name="Locale3" persistence-modifier="none" >
+</field>
+<field name="Locale4" persistence-modifier="persistent" >
+</field>
+<field name="Locale5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale7" persistence-modifier="transactional" >
+</field>
+<field name="Locale10" persistence-modifier="none" >
+</field>
+<field name="Locale11" persistence-modifier="persistent" >
+</field>
+<field name="Locale12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale14" persistence-modifier="transactional" >
+</field>
+<field name="Locale17"  embedded="true">
+</field>
+<field name="Locale18"  embedded="false">
+</field>
+<field name="Locale19" persistence-modifier="none" >
+</field>
+<field name="Locale20" persistence-modifier="persistent" >
+</field>
+<field name="Locale21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale23" persistence-modifier="transactional" >
+</field>
+<field name="Locale29" persistence-modifier="none" >
+</field>
+<field name="Locale30" persistence-modifier="persistent" >
+</field>
+<field name="Locale31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale33" persistence-modifier="transactional" >
+</field>
+<field name="Locale37"  embedded="true">
+</field>
+<field name="Locale38"  embedded="false">
+</field>
+<field name="Locale39" persistence-modifier="none" >
+</field>
+<field name="Locale40" persistence-modifier="persistent" >
+</field>
+<field name="Locale41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale43" persistence-modifier="transactional" >
+</field>
+<field name="Locale46" persistence-modifier="none" >
+</field>
+<field name="Locale47" persistence-modifier="persistent" >
+</field>
+<field name="Locale48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale50" persistence-modifier="transactional" >
+</field>
+<field name="Locale53"  embedded="true">
+</field>
+<field name="Locale54"  embedded="false">
+</field>
+<field name="Locale55" persistence-modifier="none" >
+</field>
+<field name="Locale56" persistence-modifier="persistent" >
+</field>
+<field name="Locale57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale59" persistence-modifier="transactional" >
+</field>
+<field name="Locale65" persistence-modifier="none" >
+</field>
+<field name="Locale66" persistence-modifier="persistent" >
+</field>
+<field name="Locale67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale69" persistence-modifier="transactional" >
+</field>
+<field name="Locale73"  embedded="true">
+</field>
+<field name="Locale74"  embedded="false">
+</field>
+<field name="Locale75" persistence-modifier="none" >
+</field>
+<field name="Locale76" persistence-modifier="persistent" >
+</field>
+<field name="Locale77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale79" persistence-modifier="transactional" >
+</field>
+<field name="Locale82" persistence-modifier="none" >
+</field>
+<field name="Locale83" persistence-modifier="persistent" >
+</field>
+<field name="Locale84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale86" persistence-modifier="transactional" >
+</field>
+<field name="Locale89"  embedded="true">
+</field>
+<field name="Locale90"  embedded="false">
+</field>
+<field name="Locale91" persistence-modifier="none" >
+</field>
+<field name="Locale92" persistence-modifier="persistent" >
+</field>
+<field name="Locale93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale95" persistence-modifier="transactional" >
+</field>
+<field name="Locale101" persistence-modifier="none" >
+</field>
+<field name="Locale102" persistence-modifier="persistent" >
+</field>
+<field name="Locale103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale105" persistence-modifier="transactional" >
+</field>
+<field name="Locale109"  embedded="true">
+</field>
+<field name="Locale110"  embedded="false">
+</field>
+<field name="Locale111" persistence-modifier="none" >
+</field>
+<field name="Locale112" persistence-modifier="persistent" >
+</field>
+<field name="Locale113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale115" persistence-modifier="transactional" >
+</field>
+<field name="Locale118" persistence-modifier="none" >
+</field>
+<field name="Locale119" persistence-modifier="persistent" >
+</field>
+<field name="Locale120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale122" persistence-modifier="transactional" >
+</field>
+<field name="Locale125"  embedded="true">
+</field>
+<field name="Locale126"  embedded="false">
+</field>
+<field name="Locale127" persistence-modifier="none" >
+</field>
+<field name="Locale128" persistence-modifier="persistent" >
+</field>
+<field name="Locale129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale131" persistence-modifier="transactional" >
+</field>
+<field name="Locale137" persistence-modifier="none" >
+</field>
+<field name="Locale138" persistence-modifier="persistent" >
+</field>
+<field name="Locale139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="Locale140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="Locale141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

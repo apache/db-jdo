@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfByte" table="FieldsOfByte">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="Byte0" column="BYTE0"/>
+            <field name="Byte1" column="BYTE1"/>
+            <field name="Byte2" column="BYTE2"/>
+            <field name="Byte4" column="BYTE4"/>
+            <field name="Byte5" column="BYTE5"/>
+            <field name="Byte6" column="BYTE6"/>
+            <field name="Byte11" column="BYTE11"/>
+            <field name="Byte12" column="BYTE12"/>
+            <field name="Byte13" column="BYTE13"/>
+            <field name="Byte16" column="BYTE16"/>
+            <field name="Byte17" column="BYTE17"/>
+            <field name="Byte18" column="BYTE18"/>
+            <field name="Byte20" column="BYTE20"/>
+            <field name="Byte21" column="BYTE21"/>
+            <field name="Byte22" column="BYTE22"/>
+            <field name="Byte30" column="BYTE30"/>
+            <field name="Byte31" column="BYTE31"/>
+            <field name="Byte32" column="BYTE32"/>
+            <field name="Byte36" column="BYTE36"/>
+            <field name="Byte37" column="BYTE37"/>
+            <field name="Byte38" column="BYTE38"/>
+            <field name="Byte40" column="BYTE40"/>
+            <field name="Byte41" column="BYTE41"/>
+            <field name="Byte42" column="BYTE42"/>
+            <field name="Byte43" column="BYTE43"/>
+            <field name="Byte47" column="BYTE47"/>
+            <field name="Byte48" column="BYTE48"/>
+            <field name="Byte49" column="BYTE49"/>
+            <field name="Byte52" column="BYTE52"/>
+            <field name="Byte53" column="BYTE53"/>
+            <field name="Byte54" column="BYTE54"/>
+            <field name="Byte56" column="BYTE56"/>
+            <field name="Byte57" column="BYTE57"/>
+            <field name="Byte58" column="BYTE58"/>
+            <field name="Byte66" column="BYTE66"/>
+            <field name="Byte67" column="BYTE67"/>
+            <field name="Byte68" column="BYTE68"/>
+            <field name="Byte72" column="BYTE72"/>
+            <field name="Byte73" column="BYTE73"/>
+            <field name="Byte74" column="BYTE74"/>
+            <field name="Byte76" column="BYTE76"/>
+            <field name="Byte77" column="BYTE77"/>
+            <field name="Byte78" column="BYTE78"/>
+            <field name="Byte83" column="BYTE83"/>
+            <field name="Byte84" column="BYTE84"/>
+            <field name="Byte85" column="BYTE85"/>
+            <field name="Byte88" column="BYTE88"/>
+            <field name="Byte89" column="BYTE89"/>
+            <field name="Byte90" column="BYTE90"/>
+            <field name="Byte92" column="BYTE92"/>
+            <field name="Byte93" column="BYTE93"/>
+            <field name="Byte94" column="BYTE94"/>
+            <field name="Byte102" column="BYTE102"/>
+            <field name="Byte103" column="BYTE103"/>
+            <field name="Byte104" column="BYTE104"/>
+            <field name="Byte108" column="BYTE108"/>
+            <field name="Byte109" column="BYTE109"/>
+            <field name="Byte110" column="BYTE110"/>
+            <field name="Byte112" column="BYTE112"/>
+            <field name="Byte113" column="BYTE113"/>
+            <field name="Byte114" column="BYTE114"/>
+            <field name="Byte119" column="BYTE119"/>
+            <field name="Byte120" column="BYTE120"/>
+            <field name="Byte121" column="BYTE121"/>
+            <field name="Byte124" column="BYTE124"/>
+            <field name="Byte125" column="BYTE125"/>
+            <field name="Byte126" column="BYTE126"/>
+            <field name="Byte128" column="BYTE128"/>
+            <field name="Byte129" column="BYTE129"/>
+            <field name="Byte130" column="BYTE130"/>
+            <field name="Byte138" column="BYTE138"/>
+            <field name="Byte139" column="BYTE139"/>
+            <field name="Byte140" column="BYTE140"/>
+        </class>
+    </package>
+</orm>

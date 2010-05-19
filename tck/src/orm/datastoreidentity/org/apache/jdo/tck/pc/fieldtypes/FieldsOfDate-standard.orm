@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfDate" table="FIELDSOFDATE">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="Date0" column="DATE0"/>
+            <field name="Date1" column="DATE1"/>
+            <field name="Date102" column="DATE102"/>
+            <field name="Date103" column="DATE103"/>
+            <field name="Date104" column="DATE104"/>
+            <field name="Date108" column="DATE108"/>
+            <field name="Date109" column="DATE109"/>
+            <field name="Date11" column="DATE11"/>
+            <field name="Date110" column="DATE110"/>
+            <field name="Date112" column="DATE112"/>
+            <field name="Date113" column="DATE113"/>
+            <field name="Date114" column="DATE114"/>
+            <field name="Date119" column="DATE119"/>
+            <field name="Date12" column="DATE12"/>
+            <field name="Date120" column="DATE120"/>
+            <field name="Date121" column="DATE121"/>
+            <field name="Date124" column="DATE124"/>
+            <field name="Date125" column="DATE125"/>
+            <field name="Date126" column="DATE126"/>
+            <field name="Date128" column="DATE128"/>
+            <field name="Date129" column="DATE129"/>
+            <field name="Date13" column="DATE13"/>
+            <field name="Date130" column="DATE130"/>
+            <field name="Date138" column="DATE138"/>
+            <field name="Date139" column="DATE139"/>
+            <field name="Date140" column="DATE140"/>
+            <field name="Date16" column="DATE16"/>
+            <field name="Date17" column="DATE17"/>
+            <field name="Date18" column="DATE18"/>
+            <field name="Date2" column="DATE2"/>
+            <field name="Date20" column="DATE20"/>
+            <field name="Date21" column="DATE21"/>
+            <field name="Date22" column="DATE22"/>
+            <field name="Date30" column="DATE30"/>
+            <field name="Date31" column="DATE31"/>
+            <field name="Date32" column="DATE32"/>
+            <field name="Date36" column="DATE36"/>
+            <field name="Date37" column="DATE37"/>
+            <field name="Date38" column="DATE38"/>
+            <field name="Date4" column="DATE4"/>
+            <field name="Date40" column="DATE40"/>
+            <field name="Date41" column="DATE41"/>
+            <field name="Date42" column="DATE42"/>
+            <field name="Date47" column="DATE47"/>
+            <field name="Date48" column="DATE48"/>
+            <field name="Date49" column="DATE49"/>
+            <field name="Date5" column="DATE5"/>
+            <field name="Date52" column="DATE52"/>
+            <field name="Date53" column="DATE53"/>
+            <field name="Date54" column="DATE54"/>
+            <field name="Date56" column="DATE56"/>
+            <field name="Date57" column="DATE57"/>
+            <field name="Date58" column="DATE58"/>
+            <field name="Date6" column="DATE6"/>
+            <field name="Date66" column="DATE66"/>
+            <field name="Date67" column="DATE67"/>
+            <field name="Date68" column="DATE68"/>
+            <field name="Date72" column="DATE72"/>
+            <field name="Date73" column="DATE73"/>
+            <field name="Date74" column="DATE74"/>
+            <field name="Date76" column="DATE76"/>
+            <field name="Date77" column="DATE77"/>
+            <field name="Date78" column="DATE78"/>
+            <field name="Date83" column="DATE83"/>
+            <field name="Date84" column="DATE84"/>
+            <field name="Date85" column="DATE85"/>
+            <field name="Date88" column="DATE88"/>
+            <field name="Date89" column="DATE89"/>
+            <field name="Date90" column="DATE90"/>
+            <field name="Date92" column="DATE92"/>
+            <field name="Date93" column="DATE93"/>
+            <field name="Date94" column="DATE94"/>
+        </class>
+    </package>
+</orm>

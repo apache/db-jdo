@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfPrimitivedouble" table="FIELDSOFPRIMITIVEDOUBLE">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="double0" column="DOUBLE0"/>
+            <field name="double1" column="DOUBLE1"/>
+            <field name="double102" column="DOUBLE102"/>
+            <field name="double103" column="DOUBLE103"/>
+            <field name="double104" column="DOUBLE104"/>
+            <field name="double108" column="DOUBLE108"/>
+            <field name="double109" column="DOUBLE109"/>
+            <field name="double11" column="DOUBLE11"/>
+            <field name="double110" column="DOUBLE110"/>
+            <field name="double112" column="DOUBLE112"/>
+            <field name="double113" column="DOUBLE113"/>
+            <field name="double114" column="DOUBLE114"/>
+            <field name="double119" column="DOUBLE119"/>
+            <field name="double12" column="DOUBLE12"/>
+            <field name="double120" column="DOUBLE120"/>
+            <field name="double121" column="DOUBLE121"/>
+            <field name="double124" column="DOUBLE124"/>
+            <field name="double125" column="DOUBLE125"/>
+            <field name="double126" column="DOUBLE126"/>
+            <field name="double128" column="DOUBLE128"/>
+            <field name="double129" column="DOUBLE129"/>
+            <field name="double13" column="DOUBLE13"/>
+            <field name="double130" column="DOUBLE130"/>
+            <field name="double138" column="DOUBLE138"/>
+            <field name="double139" column="DOUBLE139"/>
+            <field name="double140" column="DOUBLE140"/>
+            <field name="double16" column="DOUBLE16"/>
+            <field name="double17" column="DOUBLE17"/>
+            <field name="double18" column="DOUBLE18"/>
+            <field name="double2" column="DOUBLE2"/>
+            <field name="double20" column="DOUBLE20"/>
+            <field name="double21" column="DOUBLE21"/>
+            <field name="double22" column="DOUBLE22"/>
+            <field name="double30" column="DOUBLE30"/>
+            <field name="double31" column="DOUBLE31"/>
+            <field name="double32" column="DOUBLE32"/>
+            <field name="double36" column="DOUBLE36"/>
+            <field name="double37" column="DOUBLE37"/>
+            <field name="double38" column="DOUBLE38"/>
+            <field name="double4" column="DOUBLE4"/>
+            <field name="double40" column="DOUBLE40"/>
+            <field name="double41" column="DOUBLE41"/>
+            <field name="double42" column="DOUBLE42"/>
+            <field name="double47" column="DOUBLE47"/>
+            <field name="double48" column="DOUBLE48"/>
+            <field name="double49" column="DOUBLE49"/>
+            <field name="double5" column="DOUBLE5"/>
+            <field name="double52" column="DOUBLE52"/>
+            <field name="double53" column="DOUBLE53"/>
+            <field name="double54" column="DOUBLE54"/>
+            <field name="double56" column="DOUBLE56"/>
+            <field name="double57" column="DOUBLE57"/>
+            <field name="double58" column="DOUBLE58"/>
+            <field name="double6" column="DOUBLE6"/>
+            <field name="double66" column="DOUBLE66"/>
+            <field name="double67" column="DOUBLE67"/>
+            <field name="double68" column="DOUBLE68"/>
+            <field name="double72" column="DOUBLE72"/>
+            <field name="double73" column="DOUBLE73"/>
+            <field name="double74" column="DOUBLE74"/>
+            <field name="double76" column="DOUBLE76"/>
+            <field name="double77" column="DOUBLE77"/>
+            <field name="double78" column="DOUBLE78"/>
+            <field name="double83" column="DOUBLE83"/>
+            <field name="double84" column="DOUBLE84"/>
+            <field name="double85" column="DOUBLE85"/>
+            <field name="double88" column="DOUBLE88"/>
+            <field name="double89" column="DOUBLE89"/>
+            <field name="double90" column="DOUBLE90"/>
+            <field name="double92" column="DOUBLE92"/>
+            <field name="double93" column="DOUBLE93"/>
+            <field name="double94" column="DOUBLE94"/>
+        </class>
+    </package>
+</orm>

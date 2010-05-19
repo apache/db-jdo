@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="HashMapStringKeyCollections"
+               table="HASHMAPSTRINGKEY_COLLECTIONS">
+            <datastore-identity strategy="identity"
+                                column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="HashMapOfString_Object0" table="HASHMAP_STR_OBJECT0">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="OBJREF"/>
+            </field>
+            <field name="HashMapOfString_Object1" table="HASHMAP_STR_OBJECT1">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="OBJREF"/>
+            </field>
+            <field name="HashMapOfString_Object2" table="HASHMAP_STR_OBJECT2">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="OBJREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleClass3"
+                   table="HASHMAP_STR_SIMPLE_CLASS3">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPCLSREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleClass4"
+                   table="HASHMAP_STR_SIMPLE_CLASS4">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPCLSREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleClass5"
+                   table="HASHMAP_STR_SIMPLE_CLASS5">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPCLSREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleInterface6"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE6">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleInterface7"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE7">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+            </field>
+            <field name="HashMapOfString_SimpleInterface8"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE8">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="SIMPINTREF"/>
+            </field>
+            <field name="HashMapOfString_String9"
+                   table="HASHMAP_STR_STRING9">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_String10"
+                   table="HASHMAP_STR_STRING10">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_String11"
+                   table="HASHMAP_STR_STRING11">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date12"
+                   table="HASHMAP_STR_DATE12">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date13"
+                   table="HASHMAP_STR_DATE13">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date14"
+                   table="HASHMAP_STR_DATE14">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale15"
+                   table="HASHMAP_STR_LOCALE15">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale16"
+                   table="HASHMAP_STR_LOCALE16">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale17"
+                   table="HASHMAP_STR_LOCALE17">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal18"
+                   table="HASHMAP_STR_BIG_DECIMAL18">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal19"
+                   table="HASHMAP_STR_BIG_DECIMAL19">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal20"
+                   table="HASHMAP_STR_BIG_DECIMAL20">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger21"
+                   table="HASHMAP_STR_BIG_INTEGER21">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger22"
+                   table="HASHMAP_STR_BIG_INTEGER22">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger23"
+                   table="HASHMAP_STR_BIG_INTEGER23">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte24"
+                   table="HASHMAP_STR_BYTE24">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte25"
+                   table="HASHMAP_STR_BYTE25">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte26"
+                   table="HASHMAP_STR_BYTE26">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double27"
+                   table="HASHMAP_STR_DOUBLE27">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double28"
+                   table="HASHMAP_STR_DOUBLE28">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double29"
+                   table="HASHMAP_STR_DOUBLE29">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float30"
+                   table="HASHMAP_STR_FLOAT30">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float31"
+                   table="HASHMAP_STR_FLOAT31">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float32"
+                   table="HASHMAP_STR_FLOAT32">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer33"
+                   table="HASHMAP_STR_INTEGER33">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer34"
+                   table="HASHMAP_STR_INTEGER34">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer35"
+                   table="HASHMAP_STR_INTEGER35">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long36"
+                   table="HASHMAP_STR_LONG36">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long37"
+                   table="HASHMAP_STR_LONG37">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long38"
+                   table="HASHMAP_STR_LONG38">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short39"
+                   table="HASHMAP_STR_SHORT39">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short40"
+                   table="HASHMAP_STR_SHORT40">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short41"
+                   table="HASHMAP_STR_SHORT41">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Object42"
+                   table="HASHMAP_STR_OBJECT42">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_Object43" table="HASHMAP_STR_OBJECT43">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_SimpleClass45"
+                   table="HASHMAP_STR_SIMPLE_CLASS45">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_SimpleClass46"
+                   table="HASHMAP_STR_SIMPLE_CLASS46">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_SimpleInterface48"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE48">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_SimpleInterface49"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE49">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value>
+                    <embedded>
+                        <field name="id" column="ID"/>
+                        <field name="intField" column="INTVAL"/>
+                        <field name="stringField" column="STRINGVAL"/>
+                    </embedded>
+                </value>
+            </field>
+            <field name="HashMapOfString_String51"
+                   table="HASHMAP_STR_STRING51">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_String52"
+                   table="HASHMAP_STR_STRING52">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date54"
+                   table="HASHMAP_STR_DATE54">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date55"
+                   table="HASHMAP_STR_DATE55">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale57"
+                   table="HASHMAP_STR_LOCALE57">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale58"
+                   table="HASHMAP_STR_LOCALE58">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal60"
+                   table="HASHMAP_STR_BIG_DECIMAL60">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal61"
+                   table="HASHMAP_STR_BIG_DECIMAL61">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger63"
+                   table="HASHMAP_STR_BIG_INTEGER63">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger64"
+                   table="HASHMAP_STR_BIG_INTEGER64">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte66"
+                   table="HASHMAP_STR_BYTE66">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte67"
+                   table="HASHMAP_STR_BYTE67">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double69"
+                   table="HASHMAP_STR_DOUBLE69">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double70"
+                   table="HASHMAP_STR_DOUBLE70">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float72"
+                   table="HASHMAP_STR_FLOAT72">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float73"
+                   table="HASHMAP_STR_FLOAT73">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer75"
+                   table="HASHMAP_STR_INTEGER75">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer76"
+                   table="HASHMAP_STR_INTEGER76">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long78"
+                   table="HASHMAP_STR_LONG78">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long79"
+                   table="HASHMAP_STR_LONG79">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short81"
+                   table="HASHMAP_STR_SHORT81">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short82"
+                   table="HASHMAP_STR_SHORT82">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Object84" table="HASHMAP_STR_OBJECT84">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Object86"
+                   column="HASHMAP_STR_OBJECT86">
+            </field>
+            <field name="HashMapOfString_SimpleClass87"
+                   table="HASHMAP_STR_SIMPLE_CLASS87">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_SimpleClass89"
+                   column="HASHMAP_STR_SIMPLECLASS89">
+            </field>
+            <field name="HashMapOfString_SimpleInterface90"
+                   table="HASHMAP_STR_SIMPLE_INTERFACE90">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_SimpleInterface92"
+                   column="HASHMAP_STR_SIMPLEINTERFACE92">
+            </field>
+            <field name="HashMapOfString_String93"
+                   table="HASHMAP_STR_STRING93">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_String95"
+                   column="HASHMAP_STR_STRING95">
+            </field>
+            <field name="HashMapOfString_Date96"
+                   table="HASHMAP_STR_DATE96">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Date98"
+                   column="HASHMAP_STR_DATE98">
+            </field>
+            <field name="HashMapOfString_Locale99"
+                   table="HASHMAP_STR_LOCALE99">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Locale101"
+                   column="HASHMAP_STR_LOCALE101">
+            </field>
+            <field name="HashMapOfString_BigDecimal102"
+                   table="HASHMAP_STR_BIG_DECIMAL102">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigDecimal104"
+                   column="HASHMAP_STR_BIGDECIMAL104">
+            </field>
+            <field name="HashMapOfString_BigInteger105"
+                   table="HASHMAP_STR_BIG_INTEGER105">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_BigInteger107"
+                   column="HASHMAP_STR_BIGINTEGER107">
+            </field>
+            <field name="HashMapOfString_Byte108"
+                   table="HASHMAP_STR_BYTE108">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Byte110"
+                   column="HASHMAP_STR_BYTE110">
+            </field>
+            <field name="HashMapOfString_Double111" 
+                   table="HASHMAP_STR_DOUBLE111">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Double113"
+                   column="HASHMAP_STR_DOUBLE113">
+            </field>
+            <field name="HashMapOfString_Float114"
+                   table="HASHMAP_STR_FLOAT114">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Float116"
+                   column="HASHMAP_STR_FLOAT116">
+            </field>
+            <field name="HashMapOfString_Integer117"
+                   table="HASHMAP_STR_INTEGER117">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Integer119"
+                   column="HASHMAP_STR_INTEGER119">
+            </field>
+            <field name="HashMapOfString_Long120"
+                    table="HASHMAP_STR_LONG120">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Long122"
+                   column="HASHMAP_STR_LONG122">
+            </field>
+            <field name="HashMapOfString_Short123"
+                   table="HASHMAP_STR_SHORT123">
+                <join column="IDENTIFIER"/>
+                <key column="KEYVAL"/>
+                <value column="VALUEVAL"/>
+            </field>
+            <field name="HashMapOfString_Short125"
+                   column="HASHMAP_STR_SHORT125">
+            </field>
+        </class>
+    </package>
+</orm>

@@ -1,0 +1,55 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+ 
+     http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software 
+ distributed under the License is distributed on an "AS IS" BASIS, 
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ See the License for the specific language governing permissions and 
+ limitations under the License.
+-->
+
+<html>
+<head>
+<title>Listener package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+This package contains the JDO specification listener interfaces and classes.
+<P>There are two kinds of interfaces defined to allow an application to 
+manage life cycle changes to persistent objects. 
+<P>The first kind is defined
+on the persistent domain class itself. This allows methods in the domain class
+to be called during life cycle events. The domain class implements one or more
+of the interfaces 
+{@link javax.jdo.listener.AttachCallback}, 
+{@link javax.jdo.listener.ClearCallback}, 
+{@link javax.jdo.listener.DeleteCallback}, 
+{@link javax.jdo.listener.DetachCallback},
+{@link javax.jdo.listener.LoadCallback}, or 
+{@link javax.jdo.listener.StoreCallback}. 
+The methods in the interfaces
+are called during life cycle events.
+<P>The second kind is defined on an external class using the listener pattern.
+Instances of classes that implement one or more of the listener interfaces 
+{@link javax.jdo.listener.AttachLifecycleListener}, 
+{@link javax.jdo.listener.ClearLifecycleListener}, 
+{@link javax.jdo.listener.CreateLifecycleListener}, 
+{@link javax.jdo.listener.DeleteLifecycleListener}, 
+{@link javax.jdo.listener.DetachLifecycleListener}, 
+{@link javax.jdo.listener.DirtyLifecycleListener}, 
+{@link javax.jdo.listener.LoadLifecycleListener}, or 
+{@link javax.jdo.listener.StoreLifecycleListener}
+are registered
+with the PersistenceManager or PersistenceManagerFactory
+and receive callbacks during life cycle events
+of the persistent instances of interest.
+</body>
+</html>

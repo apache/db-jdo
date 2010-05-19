@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<!--
+This file contains the schema information when an implementation
+has datastore identity.
+-->
+    <package name="org.apache.jdo.tck.pc.company">
+
+        <class name="Address" embedded-only="true" requires-extent="false"/>
+
+        <class name="Company" identity-type="datastore">
+            <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
+                   persistence-modifier="persistent"/>
+            <field name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Department"/>
+            </field>
+        </class>
+
+        <class name="DentalInsurance" identity-type="datastore"/>
+
+        <class name="Department" identity-type="datastore">
+            <field name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+            <field name="fundedEmps" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+        </class>
+
+        <class name="Employee" identity-type="datastore">
+            <field name="reviewedProjects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Project"/>
+            </field>
+            <field name="projects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Project"/>
+            </field>
+            <field name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+            <field name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+        </class>
+
+        <class name="FullTimeEmployee" identity-type="datastore"/>
+
+        <class name="Insurance" identity-type="datastore">
+        </class>
+
+        <class name="MedicalInsurance" identity-type="datastore"/>
+
+        <class name="PartTimeEmployee" identity-type="datastore"/>
+
+        <class name="Person" identity-type="datastore">
+            <field name="middlename" default-fetch-group="false"/>
+            <field name="address"
+                   field-type="org.apache.jdo.tck.pc.company.Address"
+                   persistence-modifier="persistent"/>
+            <field name="phoneNumbers" persistence-modifier="persistent">
+                <map key-type="String" value-type="String"/>
+            </field>
+            <query name="validNotUnique">
+                SELECT firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="validUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.Person 
+                WHERE firstname == 'emp1First'
+            </query>
+            <query name="invalidUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="unmodifiable" unmodifiable="true">
+                SELECT firstname, lastname 
+                FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="packageJDO">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+                WHERE personid > 1
+            </query>
+            <query name="changeQuery">
+                SELECT FROM org.apache.jdo.tck.pc.company.Person
+            </query>
+            <query name="invalidQuery">
+                SeLeCt FrOm org.apache.jdo.tck.pc.company.Person
+            </query>
+        </class>
+
+        <class name="Project" identity-type="datastore">
+            <field name="reviewers" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+            <field name="members" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+        </class>
+
+        <interface name="PIAddress" embedded-only="true" requires-extent="false"/>
+
+        <interface name="PICompany"
+            identity-type="datastore">
+            <property name="address"
+                   field-type="org.apache.jdo.tck.pc.company.PIAddress"
+                   persistence-modifier="persistent"/>
+            <property name="departments" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIDepartment"/>
+            </property>
+        </interface>
+
+        <interface name="PIDentalInsurance"
+            identity-type="datastore"/>
+
+        <interface name="PIDepartment"
+            identity-type="datastore">
+            <property name="employeeOfTheMonth"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="company"
+                   field-type="org.apache.jdo.tck.pc.company.PICompany"
+                   persistence-modifier="persistent"/>
+            <property name="employees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+            <property name="fundedEmps" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="PIEmployee"
+            identity-type="datastore">
+            <property name="dentalInsurance"
+                   field-type="org.apache.jdo.tck.pc.company.PIDentalInsurance"
+                   persistence-modifier="persistent"/>
+            <property name="medicalInsurance"
+                   field-type="org.apache.jdo.tck.pc.company.PIMedicalInsurance"
+                   persistence-modifier="persistent"/>
+            <property name="department"
+                   field-type="org.apache.jdo.tck.pc.company.PIDepartment"
+                   persistence-modifier="persistent"/>
+            <property name="fundingDept"
+                   field-type="org.apache.jdo.tck.pc.company.PIDepartment"
+                   persistence-modifier="persistent"/>
+            <property name="manager"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="mentor"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="protege"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="hradvisor"
+                   field-type="org.apache.jdo.tck.pc.company.PIEmployee"
+                   persistence-modifier="persistent"/>
+            <property name="reviewedProjects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
+            </property>
+            <property name="projects" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIProject"/>
+            </property>
+            <property name="team" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+            <property name="hradvisees" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+        </interface>
+
+        <interface name="PIFullTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="PIInsurance"
+            identity-type="datastore">
+            <property name="employee" field-type="org.apache.jdo.tck.pc.company.PIEmployee" persistence-modifier="persistent"/>
+        </interface>
+
+        <interface name="PIMedicalInsurance"
+            identity-type="datastore"/>
+
+        <interface name="PIPartTimeEmployee"
+            identity-type="datastore"/>
+
+        <interface name="PIPerson"
+            identity-type="datastore">
+            <property name="middlename" default-fetch-group="false"/>
+            <property name="address"
+                   field-type="org.apache.jdo.tck.pc.company.PIAddress"
+                   persistence-modifier="persistent"/>
+            <property name="phoneNumbers" persistence-modifier="persistent">
+                <map key-type="String" value-type="String"/>
+            </property>
+            <query name="validNotUnique">
+                SELECT firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.PIPerson
+            </query>
+            <query name="validUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName 
+                FROM org.apache.jdo.tck.pc.company.PIPerson 
+                WHERE firstname == 'emp1First'
+            </query>
+            <query name="invalidUnique">
+                SELECT UNIQUE firstname, lastname 
+                INTO org.apache.jdo.tck.query.result.classes.FullName
+                FROM org.apache.jdo.tck.pc.company.PIPerson
+            </query>
+            <query name="unmodifiable" unmodifiable="true">
+                SELECT firstname, lastname 
+                FROM org.apache.jdo.tck.pc.company.PIPerson
+            </query>
+            <query name="packageJDO">
+                SELECT FROM org.apache.jdo.tck.pc.company.PIPerson
+                WHERE personid > 1
+            </query>
+            <query name="changeQuery">
+                SELECT FROM org.apache.jdo.tck.pc.company.PIPerson
+            </query>
+            <query name="invalidQuery">
+                SeLeCt FrOm org.apache.jdo.tck.pc.company.PIPerson
+            </query>
+        </interface>
+
+        <interface name="PIProject"
+            identity-type="datastore">
+            <property name="reviewers" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+            <property name="members" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.PIEmployee"/>
+            </property>
+        </interface>
+
+    </package>
+</jdo>

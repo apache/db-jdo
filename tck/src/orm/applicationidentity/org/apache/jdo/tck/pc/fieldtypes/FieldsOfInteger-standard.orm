@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfInteger" table="FIELDSOFINTEGER">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="Integer0" column="INTEGER0"/>
+            <field name="Integer1" column="INTEGER1"/>
+            <field name="Integer102" column="INTEGER102"/>
+            <field name="Integer103" column="INTEGER103"/>
+            <field name="Integer104" column="INTEGER104"/>
+            <field name="Integer108" column="INTEGER108"/>
+            <field name="Integer109" column="INTEGER109"/>
+            <field name="Integer11" column="INTEGER11"/>
+            <field name="Integer110" column="INTEGER110"/>
+            <field name="Integer112" column="INTEGER112"/>
+            <field name="Integer113" column="INTEGER113"/>
+            <field name="Integer114" column="INTEGER114"/>
+            <field name="Integer119" column="INTEGER119"/>
+            <field name="Integer12" column="INTEGER12"/>
+            <field name="Integer120" column="INTEGER120"/>
+            <field name="Integer121" column="INTEGER121"/>
+            <field name="Integer124" column="INTEGER124"/>
+            <field name="Integer125" column="INTEGER125"/>
+            <field name="Integer126" column="INTEGER126"/>
+            <field name="Integer128" column="INTEGER128"/>
+            <field name="Integer129" column="INTEGER129"/>
+            <field name="Integer13" column="INTEGER13"/>
+            <field name="Integer130" column="INTEGER130"/>
+            <field name="Integer138" column="INTEGER138"/>
+            <field name="Integer139" column="INTEGER139"/>
+            <field name="Integer140" column="INTEGER140"/>
+            <field name="Integer16" column="INTEGER16"/>
+            <field name="Integer17" column="INTEGER17"/>
+            <field name="Integer18" column="INTEGER18"/>
+            <field name="Integer2" column="INTEGER2"/>
+            <field name="Integer20" column="INTEGER20"/>
+            <field name="Integer21" column="INTEGER21"/>
+            <field name="Integer22" column="INTEGER22"/>
+            <field name="Integer30" column="INTEGER30"/>
+            <field name="Integer31" column="INTEGER31"/>
+            <field name="Integer32" column="INTEGER32"/>
+            <field name="Integer36" column="INTEGER36"/>
+            <field name="Integer37" column="INTEGER37"/>
+            <field name="Integer38" column="INTEGER38"/>
+            <field name="Integer4" column="INTEGER4"/>
+            <field name="Integer40" column="INTEGER40"/>
+            <field name="Integer41" column="INTEGER41"/>
+            <field name="Integer42" column="INTEGER42"/>
+            <field name="Integer47" column="INTEGER47"/>
+            <field name="Integer48" column="INTEGER48"/>
+            <field name="Integer49" column="INTEGER49"/>
+            <field name="Integer5" column="INTEGER5"/>
+            <field name="Integer52" column="INTEGER52"/>
+            <field name="Integer53" column="INTEGER53"/>
+            <field name="Integer54" column="INTEGER54"/>
+            <field name="Integer56" column="INTEGER56"/>
+            <field name="Integer57" column="INTEGER57"/>
+            <field name="Integer58" column="INTEGER58"/>
+            <field name="Integer6" column="INTEGER6"/>
+            <field name="Integer66" column="INTEGER66"/>
+            <field name="Integer67" column="INTEGER67"/>
+            <field name="Integer68" column="INTEGER68"/>
+            <field name="Integer72" column="INTEGER72"/>
+            <field name="Integer73" column="INTEGER73"/>
+            <field name="Integer74" column="INTEGER74"/>
+            <field name="Integer76" column="INTEGER76"/>
+            <field name="Integer77" column="INTEGER77"/>
+            <field name="Integer78" column="INTEGER78"/>
+            <field name="Integer83" column="INTEGER83"/>
+            <field name="Integer84" column="INTEGER84"/>
+            <field name="Integer85" column="INTEGER85"/>
+            <field name="Integer88" column="INTEGER88"/>
+            <field name="Integer89" column="INTEGER89"/>
+            <field name="Integer90" column="INTEGER90"/>
+            <field name="Integer92" column="INTEGER92"/>
+            <field name="Integer93" column="INTEGER93"/>
+            <field name="Integer94" column="INTEGER94"/>
+        </class>
+    </package>
+</orm>

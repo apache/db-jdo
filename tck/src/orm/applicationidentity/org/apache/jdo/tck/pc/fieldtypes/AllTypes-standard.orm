@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="AllTypes" table="ALLTYPES">
+            <field name="id" column="ID"/>
+            <field name="fld_boolean" column="PRIMITIVEBOOLEAN"/>
+            <field name="fld_byte" column="PRIMITIVEBYTE"/>
+            <field name="fld_char">
+                <column name="PRIMITIVECHAR" jdbc-type="INTEGER"/>
+            </field>
+            <field name="fld_double" column="PRIMITIVEDOUBLE"/>
+            <field name="fld_float" column="PRIMITIVEFLOAT"/>
+            <field name="fld_int" column="PRIMITIVEINT"/>
+            <field name="fld_long" column="PRIMITIVELONG"/>
+            <field name="fld_short" column="PRIMITIVESHORT"/>
+            <field name="fld_Boolean" column="BOOLEANVAL"/>
+            <field name="fld_Byte" column="BYTEVAL"/>
+            <field name="fld_Character">
+                <column name="CHARACTERVAL" jdbc-type="INTEGER"/>
+            </field>
+            <field name="fld_Double" column="DOUBLEVAL"/>
+            <field name="fld_Float" column="FLOATVAL"/>
+            <field name="fld_Integer" column="INTEGERVAL"/>
+            <field name="fld_Long" column="LONGVAL"/>
+            <field name="fld_Short" column="SHORTVAL"/>
+            <field name="fld_String" column="STRINGVAL"/>
+            <field name="fld_Locale" column="LOCALEVAL"/>
+            <field name="fld_Date" column="DATEVAL"/>
+            <field name="fld_BigDecimal">
+                <column name="BIGDECIMALVAL" jdbc-type="DECIMAL" length="25" scale="10"/>
+            </field>
+            <field name="fld_BigInteger" column="BIGINTEGERVAL"/>
+        </class>
+    </package>
+</orm>

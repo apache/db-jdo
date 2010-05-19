@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfPrimitivefloat" table="FIELDSOFPRIMITIVEFLOAT">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="float0" column="FLOAT0"/>
+            <field name="float1" column="FLOAT1"/>
+            <field name="float102" column="FLOAT102"/>
+            <field name="float103" column="FLOAT103"/>
+            <field name="float104" column="FLOAT104"/>
+            <field name="float108" column="FLOAT108"/>
+            <field name="float109" column="FLOAT109"/>
+            <field name="float11" column="FLOAT11"/>
+            <field name="float110" column="FLOAT110"/>
+            <field name="float112" column="FLOAT112"/>
+            <field name="float113" column="FLOAT113"/>
+            <field name="float114" column="FLOAT114"/>
+            <field name="float119" column="FLOAT119"/>
+            <field name="float12" column="FLOAT12"/>
+            <field name="float120" column="FLOAT120"/>
+            <field name="float121" column="FLOAT121"/>
+            <field name="float124" column="FLOAT124"/>
+            <field name="float125" column="FLOAT125"/>
+            <field name="float126" column="FLOAT126"/>
+            <field name="float128" column="FLOAT128"/>
+            <field name="float129" column="FLOAT129"/>
+            <field name="float13" column="FLOAT13"/>
+            <field name="float130" column="FLOAT130"/>
+            <field name="float138" column="FLOAT138"/>
+            <field name="float139" column="FLOAT139"/>
+            <field name="float140" column="FLOAT140"/>
+            <field name="float16" column="FLOAT16"/>
+            <field name="float17" column="FLOAT17"/>
+            <field name="float18" column="FLOAT18"/>
+            <field name="float2" column="FLOAT2"/>
+            <field name="float20" column="FLOAT20"/>
+            <field name="float21" column="FLOAT21"/>
+            <field name="float22" column="FLOAT22"/>
+            <field name="float30" column="FLOAT30"/>
+            <field name="float31" column="FLOAT31"/>
+            <field name="float32" column="FLOAT32"/>
+            <field name="float36" column="FLOAT36"/>
+            <field name="float37" column="FLOAT37"/>
+            <field name="float38" column="FLOAT38"/>
+            <field name="float4" column="FLOAT4"/>
+            <field name="float40" column="FLOAT40"/>
+            <field name="float41" column="FLOAT41"/>
+            <field name="float42" column="FLOAT42"/>
+            <field name="float47" column="FLOAT47"/>
+            <field name="float48" column="FLOAT48"/>
+            <field name="float49" column="FLOAT49"/>
+            <field name="float5" column="FLOAT5"/>
+            <field name="float52" column="FLOAT52"/>
+            <field name="float53" column="FLOAT53"/>
+            <field name="float54" column="FLOAT54"/>
+            <field name="float56" column="FLOAT56"/>
+            <field name="float57" column="FLOAT57"/>
+            <field name="float58" column="FLOAT58"/>
+            <field name="float6" column="FLOAT6"/>
+            <field name="float66" column="FLOAT66"/>
+            <field name="float67" column="FLOAT67"/>
+            <field name="float68" column="FLOAT68"/>
+            <field name="float72" column="FLOAT72"/>
+            <field name="float73" column="FLOAT73"/>
+            <field name="float74" column="FLOAT74"/>
+            <field name="float76" column="FLOAT76"/>
+            <field name="float77" column="FLOAT77"/>
+            <field name="float78" column="FLOAT78"/>
+            <field name="float83" column="FLOAT83"/>
+            <field name="float84" column="FLOAT84"/>
+            <field name="float85" column="FLOAT85"/>
+            <field name="float88" column="FLOAT88"/>
+            <field name="float89" column="FLOAT89"/>
+            <field name="float90" column="FLOAT90"/>
+            <field name="float92" column="FLOAT92"/>
+            <field name="float93" column="FLOAT93"/>
+            <field name="float94" column="FLOAT94"/>
+        </class>
+    </package>
+</orm>

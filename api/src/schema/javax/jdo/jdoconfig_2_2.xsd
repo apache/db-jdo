@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<xs:schema
+  targetNamespace="http://java.sun.com/xml/ns/jdo/jdoconfig"
+  xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:jdoconfig="http://java.sun.com/xml/ns/jdo/jdoconfig"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="2.2">
+  <xs:annotation>
+    <xs:documentation>
+      This is the XML Schema for the JDO configuration file.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="jdoconfig">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+          The root configuration element for JDO.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="persistence-manager-factory" minOccurs="1"
+              maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:documentation>
+                Standard JDO PersistenceManagerFactory configuration properties.
+                Vendor-specific properties are set using additional 
+                vendor-specific attributes and/or property elements.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:sequence minOccurs="0" maxOccurs="1">
+              <xs:element name="property" minOccurs="0"
+                    maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:annotation>
+                    <xs:documentation>
+                      Vendor-specific properties.
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:attributeGroup ref="attlist.property"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="instance-lifecycle-listener"
+                    minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:annotation>
+                    <xs:documentation>
+                      javax.jdo.listener.InstanceLifecycleListener instance 
+                      configuration. There is one instance-lifecycle-listener 
+                      element per listener instance. Only one instance of the 
+                      listener class is supported in this configuration file.
+                      If multiple instances of the same listener class is 
+                      required, then the API
+                      PersistenceManagerFactory.addInstanceLifecycleListener(...)
+                      must be used.
+
+                      If attribute "classes" is missing, all persistence-capable
+                      instances are observed; otherwise it is a comma- or
+                      whitespace-delimited list of persistence-capable
+                      classes whose instances will be observed.
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:attributeGroup
+                    ref="attlist.instance-lifecycle-listener"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attributeGroup
+              ref="attlist.persistence-manager-factory"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.jdoconfig"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:attributeGroup name="attlist.jdoconfig"/>
+
+  <xs:attributeGroup name="attlist.persistence-manager-factory">
+    <xs:annotation>
+      <xs:documentation>
+        These are attributes corresponding to the standard properties
+        defined in JDO.
+        Any other attributes present, if unrecognized by a JDO
+        implementation, may be silently ignored.
+      </xs:documentation>
+    </xs:annotation>
+
+    <!-- Corresponds to standard JDO property javax.jdo.PersistenceManagerFactoryClass. -->
+    <xs:attribute name="class" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.Name.
+        The absence of this attribute implies the anonymous PMF. -->
+    <xs:attribute name="name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.PersistenceUnitName. -->
+    <xs:attribute name="persistence-unit-name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.Optimistic. -->
+    <xs:attribute name="optimistic" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ReadOnly. -->
+    <xs:attribute name="readonly" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.RetainValues. -->
+    <xs:attribute name="retain-values" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.RestoreValues. -->
+    <xs:attribute name="restore-values" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.IgnoreCache. -->
+    <xs:attribute name="ignore-cache" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.NontransactionalRead. -->
+    <xs:attribute name="nontransactional-read" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.NontransactionalWrite. -->
+    <xs:attribute name="nontransactional-write" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.Multithreaded. -->
+    <xs:attribute name="multithreaded" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.TransactionIsolationLevel. -->
+    <xs:attribute name="transaction-isolation-level" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionDriverName. -->
+    <xs:attribute name="connection-driver-name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionUserName. -->
+    <xs:attribute name="connection-user-name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionPassword. -->
+    <xs:attribute name="connection-password" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionURL. -->
+    <xs:attribute name="connection-url" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionFactoryName. -->
+    <xs:attribute name="connection-factory-name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ConnectionFactory2Name. -->
+    <xs:attribute name="connection-factory2-name" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.Mapping. -->
+    <xs:attribute name="mapping" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.DetachAllOnCommit. -->
+    <xs:attribute name="detach-all-on-commit" use="optional"/>
+    <!-- Corresponds to standard JDO property javax.jdo.option.ServerTimeZoneID. -->
+    <xs:attribute name="server-time-zone-id" use="optional"/>
+    <!-- Any other vendor-specific attributes are allowed and passed literally 
+        to the underlying implementation. -->
+    <xs:anyAttribute processContents="lax"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="attlist.property">
+    <!-- The name of the vendor-specific property. -->
+    <xs:attribute name="name" use="required"/>
+    <!-- The value of the vendor-specific property. -->
+    <xs:attribute name="value" use="optional"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="attlist.instance-lifecycle-listener">
+    <!-- The name of the listener class to instantiate. -->
+    <xs:attribute name="listener" use="required"/>
+    <!-- Comma- or whitespace-delimited list of persistence-capable classes 
+        whose instances to observe.  The absence of this attribute means 
+        to observe all. -->
+    <xs:attribute name="classes" use="optional"/>
+  </xs:attributeGroup>
+
+</xs:schema>
+

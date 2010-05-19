@@ -1,0 +1,75 @@
+// JUnit code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/junit/jars/junit-3.8.1.jar" {
+    permission java.io.FilePermission "${user.home}${/}junit.properties", "read";
+};
+
+// Springbeans code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/org.springframework/jars/spring-beans-2.0.jar" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
+};
+
+// Springcore code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/org.springframework/jars/spring-core-2.0.jar" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+};
+
+// TCK test classes
+grant codeBase "file:/D:/projects/jdo/workspace/jdo/trunk/tck2/target/classes/-" {
+    permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+// needed for Springbeans
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
+};
+
+// TCK PC enhanced classes
+grant codebase "file:/D:/projects/jdo/workspace/jdo/trunk/tck2/target/enhanced/-" {
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
+// JDO API code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/javax.jdo/jars/jdo2-api-2.2-SNAPSHOT.jar" {
+    permission javax.jdo.spi.JDOPermission "getMetadata";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+};
+
+// JDO RI code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/org.datanucleus/jars/datanucleus-core-1.0-SNAPSHOT.jar" {
+    permission javax.jdo.spi.JDOPermission "closePersistenceManagerFactory";
+    permission javax.jdo.spi.JDOPermission "getMetadata";
+    permission javax.jdo.spi.JDOPermission "setStateManager";
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.reflect";
+};
+
+// JDO RI enhancer base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/org.datanucleus/jars/datanucleus-enhancer-1.0-SNAPSHOT.jar" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.RuntimePermission "accessClassInPackage.sun.reflect";
+};
+
+// JDO RI store.rdbms code base
+grant codeBase "file:/D:/users\\michael\\.maven/repository/org.datanucleus/jars/datanucleus-rdbms-1.0-SNAPSHOT.jar" {
+    permission java.lang.RuntimePermission "accessDeclaredMembers";
+    permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+    permission java.lang.RuntimePermission "getClassLoader";
+};
+
+// All classes in the classpath
+grant {
+// c3p0 seems to require PropertyPermission of write (don't know why)
+    permission java.util.PropertyPermission "*", "read, write";
+    permission java.io.FilePermission "${user.home}${/}.maven/repository${/}-", "read";
+    permission java.io.FilePermission "${jdo.tck.basedir}${/}target${/}-", "read, write";
+// bug in security? needed for Derby to create tck2/target/database/derby/../../logs
+    permission java.io.FilePermission "${jdo.tck.basedir}${/}-", "read, write, delete";
+// needed for JNDI FSContext
+    permission java.io.FilePermission "${/}", "read";
+    permission java.lang.RuntimePermission "createClassLoader";
+    permission java.io.FilePermission "${user.dir}${/}-", "read";
+};

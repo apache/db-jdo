@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
+	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
+    <package name="org.apache.jdo.tck.pc.fieldtypes">
+        <class name="FieldsOfBigInteger" table="FIELDSOFBIGINTEGER">
+            <field name="identifier" column="IDENTIFIER"/>
+            <field name="BigInteger0" column="BIG_INTEGER0"/>
+            <field name="BigInteger1" column="BIG_INTEGER1"/>
+            <field name="BigInteger102" column="BIG_INTEGER102"/>
+            <field name="BigInteger103" column="BIG_INTEGER103"/>
+            <field name="BigInteger104" column="BIG_INTEGER104"/>
+            <field name="BigInteger108" column="BIG_INTEGER108"/>
+            <field name="BigInteger109" column="BIG_INTEGER109"/>
+            <field name="BigInteger11" column="BIG_INTEGER11"/>
+            <field name="BigInteger110" column="BIG_INTEGER110"/>
+            <field name="BigInteger112" column="BIG_INTEGER112"/>
+            <field name="BigInteger113" column="BIG_INTEGER113"/>
+            <field name="BigInteger114" column="BIG_INTEGER114"/>
+            <field name="BigInteger119" column="BIG_INTEGER119"/>
+            <field name="BigInteger12" column="BIG_INTEGER12"/>
+            <field name="BigInteger120" column="BIG_INTEGER120"/>
+            <field name="BigInteger121" column="BIG_INTEGER121"/>
+            <field name="BigInteger124" column="BIG_INTEGER124"/>
+            <field name="BigInteger125" column="BIG_INTEGER125"/>
+            <field name="BigInteger126" column="BIG_INTEGER126"/>
+            <field name="BigInteger128" column="BIG_INTEGER128"/>
+            <field name="BigInteger129" column="BIG_INTEGER129"/>
+            <field name="BigInteger13" column="BIG_INTEGER13"/>
+            <field name="BigInteger130" column="BIG_INTEGER130"/>
+            <field name="BigInteger138" column="BIG_INTEGER138"/>
+            <field name="BigInteger139" column="BIG_INTEGER139"/>
+            <field name="BigInteger140" column="BIG_INTEGER140"/>
+            <field name="BigInteger16" column="BIG_INTEGER16"/>
+            <field name="BigInteger17" column="BIG_INTEGER17"/>
+            <field name="BigInteger18" column="BIG_INTEGER18"/>
+            <field name="BigInteger2" column="BIG_INTEGER2"/>
+            <field name="BigInteger20" column="BIG_INTEGER20"/>
+            <field name="BigInteger21" column="BIG_INTEGER21"/>
+            <field name="BigInteger22" column="BIG_INTEGER22"/>
+            <field name="BigInteger30" column="BIG_INTEGER30"/>
+            <field name="BigInteger31" column="BIG_INTEGER31"/>
+            <field name="BigInteger32" column="BIG_INTEGER32"/>
+            <field name="BigInteger36" column="BIG_INTEGER36"/>
+            <field name="BigInteger37" column="BIG_INTEGER37"/>
+            <field name="BigInteger38" column="BIG_INTEGER38"/>
+            <field name="BigInteger4" column="BIG_INTEGER4"/>
+            <field name="BigInteger40" column="BIG_INTEGER40"/>
+            <field name="BigInteger41" column="BIG_INTEGER41"/>
+            <field name="BigInteger42" column="BIG_INTEGER42"/>
+            <field name="BigInteger47" column="BIG_INTEGER47"/>
+            <field name="BigInteger48" column="BIG_INTEGER48"/>
+            <field name="BigInteger49" column="BIG_INTEGER49"/>
+            <field name="BigInteger5" column="BIG_INTEGER5"/>
+            <field name="BigInteger52" column="BIG_INTEGER52"/>
+            <field name="BigInteger53" column="BIG_INTEGER53"/>
+            <field name="BigInteger54" column="BIG_INTEGER54"/>
+            <field name="BigInteger56" column="BIG_INTEGER56"/>
+            <field name="BigInteger57" column="BIG_INTEGER57"/>
+            <field name="BigInteger58" column="BIG_INTEGER58"/>
+            <field name="BigInteger6" column="BIG_INTEGER6"/>
+            <field name="BigInteger66" column="BIG_INTEGER66"/>
+            <field name="BigInteger67" column="BIG_INTEGER67"/>
+            <field name="BigInteger68" column="BIG_INTEGER68"/>
+            <field name="BigInteger72" column="BIG_INTEGER72"/>
+            <field name="BigInteger73" column="BIG_INTEGER73"/>
+            <field name="BigInteger74" column="BIG_INTEGER74"/>
+            <field name="BigInteger76" column="BIG_INTEGER76"/>
+            <field name="BigInteger77" column="BIG_INTEGER77"/>
+            <field name="BigInteger78" column="BIG_INTEGER78"/>
+            <field name="BigInteger83" column="BIG_INTEGER83"/>
+            <field name="BigInteger84" column="BIG_INTEGER84"/>
+            <field name="BigInteger85" column="BIG_INTEGER85"/>
+            <field name="BigInteger88" column="BIG_INTEGER88"/>
+            <field name="BigInteger89" column="BIG_INTEGER89"/>
+            <field name="BigInteger90" column="BIG_INTEGER90"/>
+            <field name="BigInteger92" column="BIG_INTEGER92"/>
+            <field name="BigInteger93" column="BIG_INTEGER93"/>
+            <field name="BigInteger94" column="BIG_INTEGER94"/>
+        </class>
+    </package>
+</orm>

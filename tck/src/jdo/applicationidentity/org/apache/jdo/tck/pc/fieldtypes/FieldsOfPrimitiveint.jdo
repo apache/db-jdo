@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfPrimitiveint" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfPrimitiveint$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="int1"  embedded="true">
+</field>
+<field name="int2"  embedded="false">
+</field>
+<field name="int3" persistence-modifier="none" >
+</field>
+<field name="int4" persistence-modifier="persistent" >
+</field>
+<field name="int5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int7" persistence-modifier="transactional" >
+</field>
+<field name="int10" persistence-modifier="none" >
+</field>
+<field name="int11" persistence-modifier="persistent" >
+</field>
+<field name="int12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int14" persistence-modifier="transactional" >
+</field>
+<field name="int17"  embedded="true">
+</field>
+<field name="int18"  embedded="false">
+</field>
+<field name="int19" persistence-modifier="none" >
+</field>
+<field name="int20" persistence-modifier="persistent" >
+</field>
+<field name="int21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int23" persistence-modifier="transactional" >
+</field>
+<field name="int29" persistence-modifier="none" >
+</field>
+<field name="int30" persistence-modifier="persistent" >
+</field>
+<field name="int31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int33" persistence-modifier="transactional" >
+</field>
+<field name="int37"  embedded="true">
+</field>
+<field name="int38"  embedded="false">
+</field>
+<field name="int39" persistence-modifier="none" >
+</field>
+<field name="int40" persistence-modifier="persistent" >
+</field>
+<field name="int41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int43" persistence-modifier="transactional" >
+</field>
+<field name="int46" persistence-modifier="none" >
+</field>
+<field name="int47" persistence-modifier="persistent" >
+</field>
+<field name="int48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int50" persistence-modifier="transactional" >
+</field>
+<field name="int53"  embedded="true">
+</field>
+<field name="int54"  embedded="false">
+</field>
+<field name="int55" persistence-modifier="none" >
+</field>
+<field name="int56" persistence-modifier="persistent" >
+</field>
+<field name="int57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int59" persistence-modifier="transactional" >
+</field>
+<field name="int65" persistence-modifier="none" >
+</field>
+<field name="int66" persistence-modifier="persistent" >
+</field>
+<field name="int67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int69" persistence-modifier="transactional" >
+</field>
+<field name="int73"  embedded="true">
+</field>
+<field name="int74"  embedded="false">
+</field>
+<field name="int75" persistence-modifier="none" >
+</field>
+<field name="int76" persistence-modifier="persistent" >
+</field>
+<field name="int77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int79" persistence-modifier="transactional" >
+</field>
+<field name="int82" persistence-modifier="none" >
+</field>
+<field name="int83" persistence-modifier="persistent" >
+</field>
+<field name="int84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int86" persistence-modifier="transactional" >
+</field>
+<field name="int89"  embedded="true">
+</field>
+<field name="int90"  embedded="false">
+</field>
+<field name="int91" persistence-modifier="none" >
+</field>
+<field name="int92" persistence-modifier="persistent" >
+</field>
+<field name="int93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int95" persistence-modifier="transactional" >
+</field>
+<field name="int101" persistence-modifier="none" >
+</field>
+<field name="int102" persistence-modifier="persistent" >
+</field>
+<field name="int103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int105" persistence-modifier="transactional" >
+</field>
+<field name="int109"  embedded="true">
+</field>
+<field name="int110"  embedded="false">
+</field>
+<field name="int111" persistence-modifier="none" >
+</field>
+<field name="int112" persistence-modifier="persistent" >
+</field>
+<field name="int113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int115" persistence-modifier="transactional" >
+</field>
+<field name="int118" persistence-modifier="none" >
+</field>
+<field name="int119" persistence-modifier="persistent" >
+</field>
+<field name="int120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int122" persistence-modifier="transactional" >
+</field>
+<field name="int125"  embedded="true">
+</field>
+<field name="int126"  embedded="false">
+</field>
+<field name="int127" persistence-modifier="none" >
+</field>
+<field name="int128" persistence-modifier="persistent" >
+</field>
+<field name="int129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int131" persistence-modifier="transactional" >
+</field>
+<field name="int137" persistence-modifier="none" >
+</field>
+<field name="int138" persistence-modifier="persistent" >
+</field>
+<field name="int139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="int140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="int141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

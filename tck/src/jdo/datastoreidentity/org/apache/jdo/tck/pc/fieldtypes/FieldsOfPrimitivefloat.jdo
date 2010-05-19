@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="FieldsOfPrimitivefloat" identity-type="datastore">
+<field name="float1"  embedded="true">
+</field>
+<field name="float2"  embedded="false">
+</field>
+<field name="float3" persistence-modifier="none" >
+</field>
+<field name="float4" persistence-modifier="persistent" >
+</field>
+<field name="float5" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float6" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float7" persistence-modifier="transactional" >
+</field>
+<field name="float10" persistence-modifier="none" >
+</field>
+<field name="float11" persistence-modifier="persistent" >
+</field>
+<field name="float12" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float13" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float14" persistence-modifier="transactional" >
+</field>
+<field name="float17"  embedded="true">
+</field>
+<field name="float18"  embedded="false">
+</field>
+<field name="float19" persistence-modifier="none" >
+</field>
+<field name="float20" persistence-modifier="persistent" >
+</field>
+<field name="float21" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float22" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float23" persistence-modifier="transactional" >
+</field>
+<field name="float29" persistence-modifier="none" >
+</field>
+<field name="float30" persistence-modifier="persistent" >
+</field>
+<field name="float31" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float32" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float33" persistence-modifier="transactional" >
+</field>
+<field name="float37"  embedded="true">
+</field>
+<field name="float38"  embedded="false">
+</field>
+<field name="float39" persistence-modifier="none" >
+</field>
+<field name="float40" persistence-modifier="persistent" >
+</field>
+<field name="float41" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float42" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float43" persistence-modifier="transactional" >
+</field>
+<field name="float46" persistence-modifier="none" >
+</field>
+<field name="float47" persistence-modifier="persistent" >
+</field>
+<field name="float48" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float49" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float50" persistence-modifier="transactional" >
+</field>
+<field name="float53"  embedded="true">
+</field>
+<field name="float54"  embedded="false">
+</field>
+<field name="float55" persistence-modifier="none" >
+</field>
+<field name="float56" persistence-modifier="persistent" >
+</field>
+<field name="float57" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float58" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float59" persistence-modifier="transactional" >
+</field>
+<field name="float65" persistence-modifier="none" >
+</field>
+<field name="float66" persistence-modifier="persistent" >
+</field>
+<field name="float67" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float68" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float69" persistence-modifier="transactional" >
+</field>
+<field name="float73"  embedded="true">
+</field>
+<field name="float74"  embedded="false">
+</field>
+<field name="float75" persistence-modifier="none" >
+</field>
+<field name="float76" persistence-modifier="persistent" >
+</field>
+<field name="float77" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float78" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float79" persistence-modifier="transactional" >
+</field>
+<field name="float82" persistence-modifier="none" >
+</field>
+<field name="float83" persistence-modifier="persistent" >
+</field>
+<field name="float84" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float85" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float86" persistence-modifier="transactional" >
+</field>
+<field name="float89"  embedded="true">
+</field>
+<field name="float90"  embedded="false">
+</field>
+<field name="float91" persistence-modifier="none" >
+</field>
+<field name="float92" persistence-modifier="persistent" >
+</field>
+<field name="float93" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float94" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float95" persistence-modifier="transactional" >
+</field>
+<field name="float101" persistence-modifier="none" >
+</field>
+<field name="float102" persistence-modifier="persistent" >
+</field>
+<field name="float103" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float104" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float105" persistence-modifier="transactional" >
+</field>
+<field name="float109"  embedded="true">
+</field>
+<field name="float110"  embedded="false">
+</field>
+<field name="float111" persistence-modifier="none" >
+</field>
+<field name="float112" persistence-modifier="persistent" >
+</field>
+<field name="float113" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float114" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float115" persistence-modifier="transactional" >
+</field>
+<field name="float118" persistence-modifier="none" >
+</field>
+<field name="float119" persistence-modifier="persistent" >
+</field>
+<field name="float120" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float121" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float122" persistence-modifier="transactional" >
+</field>
+<field name="float125"  embedded="true">
+</field>
+<field name="float126"  embedded="false">
+</field>
+<field name="float127" persistence-modifier="none" >
+</field>
+<field name="float128" persistence-modifier="persistent" >
+</field>
+<field name="float129" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float130" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float131" persistence-modifier="transactional" >
+</field>
+<field name="float137" persistence-modifier="none" >
+</field>
+<field name="float138" persistence-modifier="persistent" >
+</field>
+<field name="float139" persistence-modifier="persistent" embedded="true">
+</field>
+<field name="float140" persistence-modifier="persistent" embedded="false">
+</field>
+<field name="float141" persistence-modifier="transactional" >
+</field>
+</class>
+</package>
+</jdo>

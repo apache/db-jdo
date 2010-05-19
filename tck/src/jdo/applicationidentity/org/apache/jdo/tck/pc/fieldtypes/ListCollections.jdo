@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
+	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+<package name="org.apache.jdo.tck.pc.fieldtypes">
+<class name="ListCollections" identity-type="application"
+    objectid-class="org.apache.jdo.tck.pc.fieldtypes.ListCollections$Oid">
+<field name="identifier" primary-key="true"/>
+<field name="ListOfObject0" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ListOfObject1" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfObject2" >
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
+</field>
+<field name="ListOfSimpleClass3" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ListOfSimpleClass4" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfSimpleClass5" >
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" serialized-element="true">
+  </collection>
+</field>
+<field name="ListOfSimpleClass42" serialized="true">
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfSimpleInterface6" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass">
+</collection>
+</field>
+<field name="ListOfSimpleInterface7" >
+<collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfSimpleInterface8">
+  <collection element-type="org.apache.jdo.tck.pc.fieldtypes.SimpleClass"
+              serialized-element="true">
+  </collection>
+</field>
+<field name="ListOfString9" >
+<collection element-type="java.lang.String">
+</collection>
+</field>
+<field name="ListOfString10" >
+<collection element-type="java.lang.String" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfString11" serialized="true">
+<collection element-type="java.lang.String" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfDate12" >
+<collection element-type="java.util.Date">
+</collection>
+</field>
+<field name="ListOfDate13" >
+<collection element-type="java.util.Date" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfDate14" serialized="true">
+<collection element-type="java.util.Date" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfLocale15" >
+<collection element-type="java.util.Locale">
+</collection>
+</field>
+<field name="ListOfLocale16" >
+<collection element-type="java.util.Locale" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfLocale17" serialized="true">
+<collection element-type="java.util.Locale" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfBigDecimal18" >
+<collection element-type="java.math.BigDecimal">
+</collection>
+</field>
+<field name="ListOfBigDecimal19" >
+<collection element-type="java.math.BigDecimal" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfBigDecimal20" serialized="true">
+<collection element-type="java.math.BigDecimal" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfBigInteger21" >
+<collection element-type="java.math.BigInteger">
+</collection>
+</field>
+<field name="ListOfBigInteger22" >
+<collection element-type="java.math.BigInteger" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfBigInteger23" serialized="true">
+<collection element-type="java.math.BigInteger" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfByte24" >
+<collection element-type="java.lang.Byte">
+</collection>
+</field>
+<field name="ListOfByte25" >
+<collection element-type="java.lang.Byte" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfByte26" serialized="true">
+<collection element-type="java.lang.Byte" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfDouble27" >
+<collection element-type="java.lang.Double">
+</collection>
+</field>
+<field name="ListOfDouble28" >
+<collection element-type="java.lang.Double" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfDouble29" serialized="true">
+<collection element-type="java.lang.Double" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfFloat30" >
+<collection element-type="java.lang.Float">
+</collection>
+</field>
+<field name="ListOfFloat31" >
+<collection element-type="java.lang.Float" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfFloat32" serialized="true">
+<collection element-type="java.lang.Float" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfInteger33" >
+<collection element-type="java.lang.Integer">
+</collection>
+</field>
+<field name="ListOfInteger34" >
+<collection element-type="java.lang.Integer" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfInteger35" serialized="true">
+<collection element-type="java.lang.Integer" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfLong36" >
+<collection element-type="java.lang.Long">
+</collection>
+</field>
+<field name="ListOfLong37" >
+<collection element-type="java.lang.Long" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfLong38" serialized="true">
+<collection element-type="java.lang.Long" embedded-element="false">
+</collection>
+</field>
+<field name="ListOfShort39" >
+<collection element-type="java.lang.Short">
+</collection>
+</field>
+<field name="ListOfShort40" >
+<collection element-type="java.lang.Short" embedded-element="true">
+</collection>
+</field>
+<field name="ListOfShort41" serialized="true">
+<collection element-type="java.lang.Short" embedded-element="false">
+</collection>
+</field>
+</class>
+</package>
+</jdo>
