@@ -19,10 +19,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>javax.jdo</groupId>
-  <artifactId>jdo2-api</artifactId>
-  <name>JDO2 API</name>
+  <artifactId>jdo-api</artifactId>
+  <name>JDO API</name>
   <version>3.0</version>
-  <description>The Java Data Objects 2 (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
+  <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
   <build>
     <sourceDirectory>src/java</sourceDirectory>
     <testSourceDirectory>test/java</testSourceDirectory>
