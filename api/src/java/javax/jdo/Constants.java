@@ -39,7 +39,7 @@ public interface Constants {
      * The name of the standard service configuration resource text file containing
      * the name of an enhancer of {@link JDOEnhancer}.
      * Constant value is <code>META-INF/services/javax.jdo.JDOEnhancer</code>.
-     * @since 2.3
+     * @since 3.0
      */
     static String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
         = "META-INF/services/javax.jdo.JDOEnhancer";
@@ -270,7 +270,7 @@ public interface Constants {
      * The name of the persistence manager factory element's
      * "datastore-read-timeout-millis" attribute.
      *
-     * @since 2.3
+     * @since 3.0
      */
     static String PMF_ATTRIBUTE_DATASTORE_READ_TIMEOUT_MILLIS
         = "datastore-read-timeout-millis";
@@ -278,7 +278,7 @@ public interface Constants {
      * The name of the persistence manager factory element's
      * "datastore-write-timeout-millis" attribute.
      *
-     * @since 2.3
+     * @since 3.0
      */
     static String PMF_ATTRIBUTE_DATASTORE_WRITE_TIMEOUT_MILLIS
         = "datastore-write-timeout-millis";
@@ -485,7 +485,7 @@ public interface Constants {
      * "javax.jdo.option.QueryCancel"
      *
      * @see PersistenceManagerFactory#supportedOptions()
-     * @since 2.3
+     * @since 3.0
      */
     static String OPTION_QUERY_CANCEL
         = "javax.jdo.option.QueryCancel";
@@ -493,7 +493,7 @@ public interface Constants {
      * "javax.jdo.option.DatastoreTimeout"
      *
      * @see PersistenceManagerFactory#supportedOptions()
-     * @since 2.3
+     * @since 3.0
      */
     static String OPTION_DATASTORE_TIMEOUT
         = "javax.jdo.option.DatastoreTimeout";
@@ -591,7 +591,7 @@ public interface Constants {
      * "VendorName"
      *
      * @see JDOEnhancer#getProperties()
-     * @since 2.3
+     * @since 3.0
      */
     public final static String PROPERTY_ENHANCER_VENDOR_NAME
         = "VendorName";
@@ -600,23 +600,23 @@ public interface Constants {
      * "VersionNumber"
      *
      * @see JDOEnhancer#getProperties()
-     * @since 2.3
+     * @since 3.0
      */
     public final static String PROPERTY_ENHANCER_VERSION_NUMBER
         = "VersionNumber";
 
     /** Exit value for no enhancer found 
-     * @since 2.3
+     * @since 3.0
      * */
     public final static int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
 
     /** Exit value for usage error 
-     * @since 2.3
+     * @since 3.0
      * */
     public final static int ENHANCER_USAGE_ERROR = 3;
 
     /** Exit value for an exception from the JDOEnhancer 
-     * @since 2.3
+     * @since 3.0
      * */
     public final static int ENHANCER_EXCEPTION = 1;
 
@@ -885,7 +885,7 @@ public interface Constants {
     /**
      * Specified value "javax.jdo.option.DatastoreReadTimeoutMillis"
      *
-     * @since 2.3
+     * @since 3.0
      */
     static String PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS
         = "javax.jdo.option.DatastoreReadTimeoutMillis";
@@ -893,7 +893,7 @@ public interface Constants {
     /**
      * Specified value "javax.jdo.option.DatastoreWriteTimeoutMillis"
      *
-     * @since 2.3
+     * @since 3.0
      */
     static String PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS
         = "javax.jdo.option.DatastoreWriteTimeoutMillis";

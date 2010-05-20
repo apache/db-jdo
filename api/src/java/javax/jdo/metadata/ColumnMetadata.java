@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents an element in a collection/array.
- * @since 2.3
+ * @since 3.0
  */
 public interface ColumnMetadata extends Metadata {
     /**

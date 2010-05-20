@@ -20,7 +20,7 @@ import javax.jdo.annotations.ForeignKeyAction;
 
 /**
  * Represents join information.
- * @since 2.3
+ * @since 3.0
  */
 public interface JoinMetadata extends Metadata {
     /**

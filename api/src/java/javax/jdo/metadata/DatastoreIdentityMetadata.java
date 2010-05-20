@@ -20,7 +20,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 
 /**
  * Represents the datastore identity of a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface DatastoreIdentityMetadata extends Metadata {
     /**

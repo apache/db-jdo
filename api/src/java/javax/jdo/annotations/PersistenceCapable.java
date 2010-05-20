@@ -76,7 +76,7 @@ public @interface PersistenceCapable
     String cacheable() default "true";
 
     /** Whether objects of this type should, by default, be locked when read.
-     * @since 2.3
+     * @since 3.0
      */
     String serializeRead() default "false";
 

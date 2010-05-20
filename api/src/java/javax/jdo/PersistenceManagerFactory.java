@@ -529,7 +529,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * javax.jdo.option.DatastoreTimeout is returned by supportedOptions().
      * If timeouts are not supported,this method will throw
      * JDOUnsupportedOptionException.
-     * @since 2.3
+     * @since 3.0
      * @param interval the timeout interval (milliseconds)
      */
     void setDatastoreReadTimeoutMillis(Integer interval);
@@ -538,7 +538,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * If timeouts are not supported,this method will return null.
      * @see #setDatastoreReadTimeoutMillis(Integer)
      * @return the default timeout setting (milliseconds).
-     * @since 2.3
+     * @since 3.0
      */
     Integer getDatastoreReadTimeoutMillis();
 
@@ -551,7 +551,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * javax.jdo.option.DatastoreTimeout is returned by supportedOptions().
      * If timeouts are not supported,this method will throw
      * JDOUnsupportedOptionException.
-     * @since 2.3
+     * @since 3.0
      * @param interval the timeout interval (milliseconds)
      */
     void setDatastoreWriteTimeoutMillis(Integer interval);
@@ -560,7 +560,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * If timeouts are not supported,this method will return null.
      * @see #setDatastoreWriteTimeoutMillis(Integer)
      * @return the default timeout setting (milliseconds).
-     * @since 2.3
+     * @since 3.0
      */
     Integer getDatastoreWriteTimeoutMillis();
 
@@ -756,7 +756,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * If there is already metadata registered for a class contained in this metadata
      * object then a JDOUserException will be thrown.
      * @param metadata The Metadata to register.
-     * @since 2.3
+     * @since 3.0
      */
     void registerMetadata(JDOMetadata metadata);
 
@@ -764,7 +764,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * Method to return a new metadata object that can be subsequently modified
      * and registered with the persistence process using the method {@link #registerMetadata}.
      * @return The metadata
-     * @since 2.3
+     * @since 3.0
      */
     JDOMetadata newMetadata();
 
@@ -774,7 +774,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * If there is no metadata for the specified class/interface, or the parameter is null,
      * then null will be returned.
      * @return The metadata
-     * @since 2.3
+     * @since 3.0
      */
     TypeMetadata getMetadata(String className);
 }

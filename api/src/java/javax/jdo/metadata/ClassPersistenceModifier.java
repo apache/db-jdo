@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Enumeration of the persistence-modifier values for a class.
- * @since 2.3
+ * @since 3.0
  */
 public enum ClassPersistenceModifier
 {

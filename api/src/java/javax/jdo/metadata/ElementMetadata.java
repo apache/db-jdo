@@ -20,7 +20,7 @@ import javax.jdo.annotations.ForeignKeyAction;
 
 /**
  * Represents an element in a collection/array.
- * @since 2.3
+ * @since 3.0
  */
 public interface ElementMetadata extends Metadata {
     /**

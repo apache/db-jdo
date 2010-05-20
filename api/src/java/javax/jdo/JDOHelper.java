@@ -1837,7 +1837,7 @@ public class JDOHelper implements Constants {
      * "META-INF/services/JDOEnhancer" using the context class loader.
      * @return the <code>JDOEnhancer</code>.
      * @throws JDOFatalUserException if no available enhancer
-     * @since 2.3
+     * @since 3.0
      */
     public static JDOEnhancer getEnhancer() {
         return getEnhancer(getContextClassLoader());
@@ -1849,7 +1849,7 @@ public class JDOHelper implements Constants {
      * @param loader the loader to use for loading the JDOEnhancer class (if any)
      * @return the <code>JDOEnhancer</code>.
      * @throws JDOFatalUserException if no available enhancer
-     * @since 2.3
+     * @since 3.0
      */
     public static JDOEnhancer getEnhancer(ClassLoader loader) {
             ClassLoader ctrLoader = loader;

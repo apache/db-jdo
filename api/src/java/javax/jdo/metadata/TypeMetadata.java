@@ -22,7 +22,7 @@ import javax.jdo.annotations.IdentityType;
 
 /**
  * Represents a class or interface. Extended for the specifics of those cases.
- * @since 2.3
+ * @since 3.0
  */
 public interface TypeMetadata extends Metadata {
     /**

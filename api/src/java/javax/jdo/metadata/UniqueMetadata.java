@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents a unique constraint.
- * @since 2.3
+ * @since 3.0
  */
 public interface UniqueMetadata extends Metadata {
     /**

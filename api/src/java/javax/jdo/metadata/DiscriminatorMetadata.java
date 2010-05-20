@@ -20,7 +20,7 @@ import javax.jdo.annotations.DiscriminatorStrategy;
 
 /**
  * Represents the discriminator for inheritance purposes for this class.
- * @since 2.3
+ * @since 3.0
  */
 public interface DiscriminatorMetadata extends Metadata {
     /**

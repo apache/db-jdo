@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents a fetch plan for a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface FetchPlanMetadata extends Metadata {
     /**

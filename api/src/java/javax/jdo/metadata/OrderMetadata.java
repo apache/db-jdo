@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents ordering of a collection field/property.
- * @since 2.3
+ * @since 3.0
  */
 public interface OrderMetadata extends Metadata {
     /**

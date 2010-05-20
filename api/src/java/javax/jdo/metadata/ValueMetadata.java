@@ -20,7 +20,7 @@ import javax.jdo.annotations.ForeignKeyAction;
 
 /**
  * Represents a value in a map.
- * @since 2.3
+ * @since 3.0
  */
 public interface ValueMetadata extends Metadata {
     /**

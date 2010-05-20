@@ -18,7 +18,7 @@ package javax.jdo;
 
 /**
  * Exception thrown when an error occurs during enhancement.
- * @since 2.3
+ * @since 3.0
  */
 public class JDOEnhanceException extends JDOException
 {

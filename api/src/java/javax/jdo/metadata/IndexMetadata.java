@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents an index.
- * @since 2.3
+ * @since 3.0
  */
 public interface IndexMetadata extends Metadata {
     /**

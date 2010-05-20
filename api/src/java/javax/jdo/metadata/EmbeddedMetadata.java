@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents embedding details of a field/property in a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface EmbeddedMetadata extends Metadata {
     /**

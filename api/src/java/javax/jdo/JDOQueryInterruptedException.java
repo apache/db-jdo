@@ -25,7 +25,7 @@ package javax.jdo;
  * This class represents exceptions caused when a query is cancelled by a user calling
  * Query.cancel().
  * 
- * @since 2.3
+ * @since 3.0
  */
 public class JDOQueryInterruptedException extends JDOUserException {
     /**

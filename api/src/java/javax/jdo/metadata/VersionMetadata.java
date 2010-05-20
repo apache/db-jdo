@@ -20,7 +20,7 @@ import javax.jdo.annotations.VersionStrategy;
 
 /**
  * Represents versioning of a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface VersionMetadata extends Metadata {
     /**

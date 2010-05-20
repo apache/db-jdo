@@ -19,7 +19,7 @@ package javax.jdo.metadata;
 /**
  * A vendor extension defined in Metadata.
  *
- * @version 2.3
+ * @version 3.0
  */
 public interface ExtensionMetadata {
     /**

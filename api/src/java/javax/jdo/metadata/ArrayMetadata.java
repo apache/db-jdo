@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents details of an array in a field/property in a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface ArrayMetadata extends Metadata {
     /**

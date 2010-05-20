@@ -713,7 +713,7 @@ public interface Query extends Serializable {
      * PersistenceManagerFactory.supportedOptions().
      * If timeouts are not supported,this method will throw
      * JDOUnsupportedOptionException.
-     * @since 2.3
+     * @since 3.0
      * @param interval the timeout interval (milliseconds)
      */
     void setDatastoreReadTimeoutMillis(Integer interval);
@@ -724,7 +724,7 @@ public interface Query extends Serializable {
      * @see #setDatastoreReadTimeoutMillis(Integer)
      * @see PersistenceManager#setDatastoreReadTimeoutMillis(Integer)
      * @return the effective timeout setting (milliseconds).
-     * @since 2.3
+     * @since 3.0
      */
     Integer getDatastoreReadTimeoutMillis();
 
@@ -744,7 +744,7 @@ public interface Query extends Serializable {
      * PersistenceManagerFactory.supportedOptions().
      * If timeouts are not supported,this method will throw
      * JDOUnsupportedOptionException.
-     * @since 2.3
+     * @since 3.0
      * @param interval the timeout interval (milliseconds)
      */
     void setDatastoreWriteTimeoutMillis(Integer interval);
@@ -755,7 +755,7 @@ public interface Query extends Serializable {
      * @see #setDatastoreWriteTimeoutMillis(Integer)
      * @see PersistenceManager#setDatastoreWriteTimeoutMillis(Integer)
      * @return the effective timeout setting (milliseconds).
-     * @since 2.3
+     * @since 3.0
      */
     Integer getDatastoreWriteTimeoutMillis();
 
@@ -765,7 +765,7 @@ public interface Query extends Serializable {
      * throw JDOUnsupportedOptionException.
      * If the cancellation fails (e.g in the underlying datastore) then this will throw
      * a JDOException.
-     * @since 2.3
+     * @since 3.0
      */
     void cancelAll();
 
@@ -775,7 +775,7 @@ public interface Query extends Serializable {
      * throw JDOUnsupportedOptionException.
      * If the cancellation fails (e.g in the underlying datastore) then this will throw
      * a JDOException.
-     * @since 2.3
+     * @since 3.0
      */
     void cancel(Thread thread);
 
@@ -785,14 +785,14 @@ public interface Query extends Serializable {
      * <P>If <code>false</code> then retrieved objects will not be locked.
      * If null will fallback to the value for metadata for the class in question.
      * @param serialize the value of the serializeRead property
-     * @since 2.3
+     * @since 3.0
      */
     void setSerializeRead(Boolean serialize);
 
     /**
      * Return the current value of the serializeRead property.
      * @return the value of the serializeRead property
-     * @since 2.3
+     * @since 3.0
      */
     Boolean getSerializeRead();
 }

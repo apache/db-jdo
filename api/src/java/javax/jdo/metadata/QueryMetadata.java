@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents a named query.
- * @since 2.3
+ * @since 3.0
  */
 public interface QueryMetadata extends Metadata {
     /**

@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents a property in a class/persistent-interface.
- * @since 2.3
+ * @since 3.0
  */
 public interface PropertyMetadata extends MemberMetadata {
     /**

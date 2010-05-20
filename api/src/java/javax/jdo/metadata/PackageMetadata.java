@@ -20,7 +20,7 @@ import javax.jdo.annotations.SequenceStrategy;
 
 /**
  * Represents a package within a JDOMetadata.
- * @since 2.3
+ * @since 3.0
  */
 public interface PackageMetadata extends Metadata {
     /**

@@ -65,7 +65,7 @@ import javax.jdo.spi.I18NHelper;
  * </li><li>Directories will be searched recursively if the -r option is set
  * </li></ul>
  * 
- * @since 2.3
+ * @since 3.0
  */
 public class Enhancer {
 

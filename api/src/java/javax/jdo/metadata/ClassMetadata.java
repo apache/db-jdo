@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 
 /**
  * Represents a class.
- * @since 2.3
+ * @since 3.0
  */
 public interface ClassMetadata extends TypeMetadata {
     /**

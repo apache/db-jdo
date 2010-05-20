@@ -20,7 +20,7 @@ import javax.jdo.annotations.ForeignKeyAction;
 
 /**
  * Represents a FK constraint in an ORM context.
- * @since 2.3
+ * @since 3.0
  */
 public interface ForeignKeyMetadata extends Metadata {
     /**

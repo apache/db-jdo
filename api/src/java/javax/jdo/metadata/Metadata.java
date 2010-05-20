@@ -19,7 +19,7 @@ package javax.jdo.metadata;
 /**
  * This interface provides base level definitions for all metadata components.
  *
- * @version 2.3
+ * @version 3.0
  */
 public interface Metadata {
     /**

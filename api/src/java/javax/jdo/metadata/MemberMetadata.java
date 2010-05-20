@@ -23,7 +23,7 @@ import javax.jdo.annotations.PersistenceModifier;
 
 /**
  * Represents a field/property in a class/persistent-interface.
- * @since 2.3
+ * @since 3.0
  */
 public interface MemberMetadata extends Metadata {
     /**

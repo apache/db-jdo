@@ -18,7 +18,7 @@ package javax.jdo.metadata;
 
 /**
  * Represents the top-level JDO metadata.
- * @since 2.3
+ * @since 3.0
  */
 public interface JDOMetadata extends Metadata {
     /**

@@ -971,7 +971,7 @@ public interface PersistenceManager {
     * PersistenceManagerFactory.supportedOptions().
     * If timeouts are not supported,this method will throw
     * JDOUnsupportedOptionException.
-    * @since 2.3
+    * @since 3.0
     * @param interval the timeout interval (milliseconds)
     */
    void setDatastoreReadTimeoutMillis(Integer interval);
@@ -984,7 +984,7 @@ public interface PersistenceManager {
     * @see #setDatastoreReadTimeoutMillis(Integer)
     * @see PersistenceManagerFactory#setDatastoreReadTimeoutMillis(Integer)
     * @return the effective timeout setting (milliseconds).
-    * @since 2.3
+    * @since 3.0
     */
    Integer getDatastoreReadTimeoutMillis();
 
@@ -1006,7 +1006,7 @@ public interface PersistenceManager {
     * PersistenceManagerFactory.supportedOptions().
     * If timeouts are not supported,this method will throw
     * JDOUnsupportedOptionException.
-    * @since 2.3
+    * @since 3.0
     * @param interval the timeout interval (milliseconds)
     */
    void setDatastoreWriteTimeoutMillis(Integer interval);
@@ -1018,7 +1018,7 @@ public interface PersistenceManager {
     * @see #setDatastoreWriteTimeoutMillis(Integer)
     * @see PersistenceManagerFactory#setDatastoreWriteTimeoutMillis(Integer)
     * @return the effective timeout setting (milliseconds).
-    * @since 2.3
+    * @since 3.0
     */
    Integer getDatastoreWriteTimeoutMillis();
 
