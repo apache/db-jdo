@@ -18,7 +18,7 @@
 <jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
-	http://java.sun.com/xml/ns/jdo/jdo_2_1.xsd">
+	http://java.sun.com/xml/ns/jdo/jdo_3_0.xsd">
     <package name="org.apache.jdo.tck.pc.inheritance">
         <class
             name="AllPersist"

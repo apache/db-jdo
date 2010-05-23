@@ -21,7 +21,7 @@ package javax.jdo;
  * Constant values used in JDO.
  *
  * @since 2.1
- * @version 2.2
+ * @version 3.0
  */
 public interface Constants {
 
@@ -943,7 +943,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOCONFIG_DTD_RESOURCE
-        = "javax/jdo/jdoconfig_2_2.dtd";
+        = "javax/jdo/jdoconfig_3_0.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -952,7 +952,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOCONFIG_XSD_RESOURCE
-        = "javax/jdo/jdoconfig_2_2.xsd";
+        = "javax/jdo/jdoconfig_3_0.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO metadata file.
@@ -960,7 +960,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDO_DTD_RESOURCE
-        = "javax/jdo/jdo_2_2.dtd";
+        = "javax/jdo/jdo_3_0.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -969,7 +969,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_2.xsd";
+        = "javax/jdo/jdo_3_0.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO
@@ -978,7 +978,7 @@ public interface Constants {
      * @since 2.1
      */
     static String ORM_DTD_RESOURCE
-        = "javax/jdo/orm_2_2.dtd";
+        = "javax/jdo/orm_3_0.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO
@@ -987,7 +987,7 @@ public interface Constants {
      * @since 2.1
      */
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_2.xsd";
+        = "javax/jdo/orm_3_0.xsd";
 
     /**
      * The name of the resource for the DTD of the standard JDO query
@@ -996,7 +996,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOQUERY_DTD_RESOURCE
-        = "javax/jdo/jdoquery_2_2.dtd";
+        = "javax/jdo/jdoquery_3_0.dtd";
 
     /**
      * The name of the resource for the XML schema of the standard JDO query
@@ -1005,7 +1005,7 @@ public interface Constants {
      * @since 2.1
      */
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_2.xsd";
+        = "javax/jdo/jdoquery_3_0.xsd";
 
     /**
      * The name of the anonymous PersistenceManagerFactory, which

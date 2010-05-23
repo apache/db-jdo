@@ -18,7 +18,7 @@
 <xs:schema targetNamespace="http://java.sun.com/xml/ns/jdo/jdoquery"
            xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           version="2.3">
+           version="3.0">
     <xs:element name="jdoquery">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">

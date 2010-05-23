@@ -15,23 +15,37 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<xs:schema targetNamespace="http://java.sun.com/xml/ns/jdo/orm"
-           xmlns="http://java.sun.com/xml/ns/jdo/orm"
+<xs:schema targetNamespace="http://java.sun.com/xml/ns/jdo/jdo"
+           xmlns="http://java.sun.com/xml/ns/jdo/jdo"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           version="2.3">
-    <xs:element name="orm">
+           version="3.0">
+    <xs:element name="jdo">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="extension"/>
                 <xs:element ref="package"/>
                 <xs:element ref="query"/>
+                <xs:element ref="fetch-plan"/>
             </xs:choice>
-            <xs:attributeGroup ref="attlist.orm"/>
+            <xs:attributeGroup ref="attlist.jdo"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.orm">
+    <xs:attributeGroup name="attlist.jdo">
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
+    </xs:attributeGroup>
+    <xs:element name="fetch-plan">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="fetch-group"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.fetch-plan"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.fetch-plan">
+        <xs:attribute name="name" default=""/>
+        <xs:attribute name="max-fetch-depth" default="1"/>
+        <xs:attribute name="fetch-size" default="0"/>
     </xs:attributeGroup>
     <xs:element name="package">
         <xs:complexType>
@@ -71,6 +85,7 @@
                 <xs:element ref="unique"/>
                 <xs:element ref="property"/>
                 <xs:element ref="query"/>
+                <xs:element ref="fetch-group"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.interface"/>
         </xs:complexType>
@@ -78,8 +93,58 @@
     <xs:attributeGroup name="attlist.interface">
         <xs:attribute name="name" use="required"/>
         <xs:attribute name="table"/>
+        <xs:attribute name="identity-type">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="datastore"/>
+                    <xs:enumeration value="application"/>
+                    <xs:enumeration value="nondurable"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="objectid-class"/>
+        <xs:attribute name="requires-extent" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="detachable" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="embedded-only">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
+        <xs:attribute name="cacheable" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialize-read" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="property">
         <xs:complexType>
@@ -87,6 +152,7 @@
                 <xs:annotation><xs:documentation>
                     Please note, 
                     the following subelements must not occur more than once:
+                    - the choice of array, collection and map,
                     - join
                     - embedded
                     - key
@@ -97,6 +163,11 @@
                     - unique
                 </xs:documentation></xs:annotation>
                 <xs:element ref="extension"/>
+                <xs:choice minOccurs="0" maxOccurs="1">
+                    <xs:element ref="array"/>
+                    <xs:element ref="collection"/>
+                    <xs:element ref="map"/>
+                </xs:choice>
                 <xs:element ref="join"/>
                 <xs:element ref="embedded"/>
                 <xs:element ref="element"/>
@@ -113,6 +184,57 @@
     </xs:element>
     <xs:attributeGroup name="attlist.property">
         <xs:attribute name="name" use="required"/>
+        <xs:attribute name="persistence-modifier">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="persistent"/>
+                    <xs:enumeration value="transactional"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="default-fetch-group">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="load-fetch-group"/>
+        <xs:attribute name="null-value" default="none">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="exception"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="embedded">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="primary-key" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="value-strategy"/>
         <xs:attribute name="sequence"/>
         <xs:attribute name="serialized">
@@ -123,6 +245,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="field-type"/>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
         <xs:attribute name="delete-action">
@@ -156,6 +279,14 @@
         <xs:attribute name="mapped-by"/>
         <xs:attribute name="recursion-depth"/>
         <xs:attribute name="field-name"/>
+        <xs:attribute name="cacheable" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="class">
         <xs:complexType>
@@ -169,6 +300,7 @@
                     - version
                 </xs:documentation></xs:annotation>
                 <xs:element ref="extension"/>
+                <xs:element ref="implements"/>
                 <xs:element ref="datastore-identity"/>
                 <xs:element ref="primary-key"/>
                 <xs:element ref="inheritance"/>
@@ -181,15 +313,76 @@
                 <xs:element ref="field"/>
                 <xs:element ref="property"/>
                 <xs:element ref="query"/>
+                <xs:element ref="fetch-group"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.class"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.class">
         <xs:attribute name="name" use="required"/>
+        <xs:attribute name="identity-type">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="application"/>
+                    <xs:enumeration value="datastore"/>
+                    <xs:enumeration value="nondurable"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="objectid-class"/>
         <xs:attribute name="table"/>
+        <xs:attribute name="requires-extent" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="persistence-capable-superclass"/>
+        <xs:attribute name="detachable" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="embedded-only">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="persistence-modifier">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="persistence-capable"/>
+                    <xs:enumeration value="persistence-aware"/>
+                    <xs:enumeration value="non-persistent"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="catalog"/>
         <xs:attribute name="schema"/>
+        <xs:attribute name="cacheable" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialize-read" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="primary-key">
         <xs:complexType>
@@ -400,6 +593,7 @@
                 <xs:annotation><xs:documentation>
                     Please note, 
                     the following subelements must not occur more than once:
+                    - the choice of array, collection, and map
                     - join
                     - embedded
                     - key
@@ -410,6 +604,11 @@
                     - unique
                 </xs:documentation></xs:annotation>
                 <xs:element ref="extension"/>
+                <xs:choice minOccurs="0" maxOccurs="1">
+                    <xs:element ref="array"/>
+                    <xs:element ref="collection"/>
+                    <xs:element ref="map"/>
+                </xs:choice>
                 <xs:element ref="join"/>
                 <xs:element ref="embedded"/>
                 <xs:element ref="element"/>
@@ -426,8 +625,67 @@
     </xs:element>
     <xs:attributeGroup name="attlist.field">
         <xs:attribute name="name" use="required"/>
+        <xs:attribute name="persistence-modifier">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="persistent"/>
+                    <xs:enumeration value="transactional"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="field-type"/>
         <xs:attribute name="table"/>
         <xs:attribute name="column"/>
+        <xs:attribute name="primary-key" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="null-value" default="none">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="exception"/>
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="none"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="default-fetch-group">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="embedded">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="value-strategy"/>
         <xs:attribute name="delete-action">
             <xs:simpleType>
@@ -458,7 +716,17 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="sequence"/>
+        <xs:attribute name="load-fetch-group"/>
+        <xs:attribute name="recursion-depth"/>
         <xs:attribute name="mapped-by"/>
+        <xs:attribute name="cacheable" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="foreign-key">
         <xs:complexType>
@@ -519,6 +787,101 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="name"/>
+    </xs:attributeGroup>
+    <xs:element name="collection">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.collection"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.collection">
+        <xs:attribute name="element-type"/>
+        <xs:attribute name="embedded-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="map">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.map"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.map">
+        <xs:attribute name="key-type"/>
+        <xs:attribute name="embedded-key">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent-key">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized-key">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="value-type"/>
+        <xs:attribute name="embedded-value">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent-value">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized-value">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="key">
         <xs:complexType>
@@ -650,6 +1013,41 @@
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
     </xs:attributeGroup>
+    <xs:element name="array">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="extension"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.array"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.array">
+        <xs:attribute name="element-type"/>
+        <xs:attribute name="embedded-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="dependent-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="serialized-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="element">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -733,6 +1131,28 @@
     <xs:attributeGroup name="attlist.order">
         <xs:attribute name="column"/>
         <xs:attribute name="mapped-by"/>
+    </xs:attributeGroup>
+    <xs:element name="fetch-group">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="extension"/>
+                <xs:element ref="fetch-group"/>
+                <xs:element ref="field"/>
+                <xs:element ref="property"/>
+            </xs:choice>
+            <xs:attributeGroup ref="attlist.fetch-group"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.fetch-group">
+        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="post-load">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="embedded">
         <xs:complexType>
@@ -829,6 +1249,7 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-class"/>
+        <xs:attribute name="fetch-plan"/>
     </xs:attributeGroup>
     <xs:element name="unique">
         <xs:complexType>

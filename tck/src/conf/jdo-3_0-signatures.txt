@@ -231,21 +231,21 @@ public interface javax.jdo.Constants {
     static String RESOURCE_LOCAL
         = "RESOURCE_LOCAL";
     static String JDOCONFIG_DTD_RESOURCE
-        = "javax/jdo/jdoconfig_2_2.dtd";
+        = "javax/jdo/jdoconfig_3_0.dtd";
     static String JDOCONFIG_XSD_RESOURCE
-        = "javax/jdo/jdoconfig_2_2.xsd";
+        = "javax/jdo/jdoconfig_3_0.xsd";
     static String JDO_DTD_RESOURCE
-        = "javax/jdo/jdo_2_2.dtd";
+        = "javax/jdo/jdo_3_0.dtd";
     static String JDO_XSD_RESOURCE
-        = "javax/jdo/jdo_2_2.xsd";
+        = "javax/jdo/jdo_3_0.xsd";
     static String ORM_DTD_RESOURCE
-        = "javax/jdo/orm_2_2.dtd";
+        = "javax/jdo/orm_3_0.dtd";
     static String ORM_XSD_RESOURCE
-        = "javax/jdo/orm_2_2.xsd";
+        = "javax/jdo/orm_3_0.xsd";
     static String JDOQUERY_DTD_RESOURCE
-        = "javax/jdo/jdoquery_2_2.dtd";
+        = "javax/jdo/jdoquery_3_0.dtd";
     static String JDOQUERY_XSD_RESOURCE
-        = "javax/jdo/jdoquery_2_2.xsd";
+        = "javax/jdo/jdoquery_3_0.xsd";
     static String ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
         = "";
     public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 

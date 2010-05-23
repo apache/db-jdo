@@ -23,7 +23,7 @@
   xmlns:jdoconfig="http://java.sun.com/xml/ns/jdo/jdoconfig"
   elementFormDefault="qualified"
   attributeFormDefault="unqualified"
-  version="2.3">
+  version="3.0">
   <xs:annotation>
     <xs:documentation>
       This is the XML Schema for the JDO configuration file.
