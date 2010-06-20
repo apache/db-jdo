@@ -21,7 +21,7 @@
     <!-- ============== -->
     <!-- Identification -->
     <!-- ============== -->
-    <name>JDO2 Technology Compatibility Kit</name>
+    <name>JDO 3 Technology Compatibility Kit</name>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo-tck</artifactId>
     <currentVersion>${jdo.currentVersion}</currentVersion>

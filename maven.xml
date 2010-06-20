@@ -28,9 +28,9 @@
 
     <goal name="help">
         <echo>Custom goals for this project are:</echo>
-        <echo>  jdo11.build   - builds all JDO1 projects</echo>
-        <echo>  jdo11.default - calls the default goal for all JDO1 projects</echo>
-        <echo>  jdo11.clean   - cleans all JDO1 projects</echo>
+        <echo>  jdo3.build   - builds all JDO 3 projects</echo>
+        <echo>  jdo3.default - calls the default goal for all JDO 3 projects</echo>
+        <echo>  jdo3.clean   - cleans all JDO 3 projects</echo>
         <echo>  jdo2.build   - builds all JDO2 projects</echo>
         <echo>  jdo2.default - calls the default goal for  all JDO2 projects</echo>
         <echo>  jdo2.clean   - cleans all JDO2 projects</echo>
@@ -41,6 +41,9 @@
         <echo>  fostore20.clean   - cleans fostore20 and dependencies</echo>
         <echo>  fostore20.build   - builds fostore20 and dependencies</echo>
         <echo>  fostore20.default - calls the default goal for fostore20 and dependencies</echo>
+        <echo>  jdo11.build   - builds all JDO1 projects</echo>
+        <echo>  jdo11.default - calls the default goal for all JDO1 projects</echo>
+        <echo>  jdo11.clean   - cleans all JDO1 projects</echo>
         <echo>Please check README.txt for more details.</echo>
     </goal>
 
@@ -48,23 +51,23 @@
     <!-- JDO1 Goals -->
     <!-- ========== -->
 
-    <goal name="jdo11.build" 
-          description="Builds all JDO1 projects">
-        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+    <goal name="jdo3.build" 
+          description="Builds all JDO 3 projects">
+        <j:set var="maven.multiproject.includes">${jdo3.projects}</j:set>
         <j:set var="goal">build</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="jdo11.default" 
-          description="Calls the default goal for all JDO1 projects">
-        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+    <goal name="jdo3.default" 
+          description="Calls the default goal for all JDO 3 projects">
+        <j:set var="maven.multiproject.includes">${jdo3.projects}</j:set>
         <j:set var="goal">default</j:set>
         <attainGoal name="multiproject:goal"/>
     </goal>
 
-    <goal name="jdo11.clean" 
-          description="Cleans all JDO1 projects">
-        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+    <goal name="jdo3.clean" 
+          description="Cleans all JDO 3 projects">
+        <j:set var="maven.multiproject.includes">${jdo3.projects}</j:set>
         <attainGoal name="multiproject:clean"/>
     </goal>
 
@@ -139,6 +142,29 @@
         <attainGoal name="multiproject:clean"/>
     </goal>
   
+    <!-- ========== -->
+    <!-- JDO1 Goals -->
+    <!-- ========== -->
+
+    <goal name="jdo11.build" 
+          description="Builds all JDO1 projects">
+        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+        <j:set var="goal">build</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="jdo11.default" 
+          description="Calls the default goal for all JDO1 projects">
+        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+        <j:set var="goal">default</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal>
+
+    <goal name="jdo11.clean" 
+          description="Cleans all JDO1 projects">
+        <j:set var="maven.multiproject.includes">${jdo11.projects}</j:set>
+        <attainGoal name="multiproject:clean"/>
+    </goal>
 
     <!-- ==== -->
     <!-- Misc -->
