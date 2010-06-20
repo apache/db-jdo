@@ -5,6 +5,7 @@ import org.apache.tools.ant.AntClassLoader;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.MalformedURLException;
+import java.io.File;
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
@@ -73,10 +74,13 @@ public class JDOConfigTestClassLoader extends URLClassLoader {
     ) {
         List<String> elements = new ArrayList<String>();
         String classpath = unparent.getClasspath();
-        StringTokenizer st = new StringTokenizer(
-                classpath, System.getProperty("path.separator"));
+        StringTokenizer st = new StringTokenizer(classpath, File.pathSeparator);
         while (st.hasMoreTokens()) {
-            elements.add("file://" + st.nextToken());
+            String nextToken = st.nextToken();
+            if(!nextToken.endsWith(".jar")) {
+                nextToken = nextToken.concat(File.separator);
+            }
+            elements.add("file://" + nextToken);
         }
         Iterator<String> i = elements.iterator();
         while (i.hasNext()) {
