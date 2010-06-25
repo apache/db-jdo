@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Do not change any values in this file without also making changes to
+    JDOHelperConfigTest.java, as that file depends on the values in this one!
+-->
+<jdoconfig
+    xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
+
+    <!-- -->
+    <persistence-manager-factory
+        class="javax.jdo.PMFService">
+        <property
+            name="javax.jdo.option.ConnectionDriverName"
+            value="Jane Doe"/>
+    </persistence-manager-factory>
+
+    <persistence-manager-factory
+        name="BookSearch"
+        class="javax.jdo.PMFService">
+        <property
+            name="javax.jdo.option.ConnectionDriverName"
+            value="Larry"/>
+    </persistence-manager-factory>
+
+</jdoconfig>
+
+    
