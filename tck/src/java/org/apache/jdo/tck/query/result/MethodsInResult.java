@@ -152,11 +152,11 @@ public class MethodsInResult extends QueryTest {
      */
     private Object[] expectedResult = {
         // collection.size()
-        Arrays.asList(new Object[] { new Long(3), new Long(2) }),
+        Arrays.asList(new Object[] { new Integer(3), new Integer(2) }),
         // map.size()
-        Arrays.asList(new Object[] { new Long(2), new Long(2), new Long(2), new Long(2), new Long(2) }),
+        Arrays.asList(new Object[] { new Integer(2), new Integer(2), new Integer(2), new Integer(2), new Integer(2) }),
         // MAX(collection.size())
-        new Long(3),
+        new Integer(3),
         // map.get()
         Arrays.asList(new Object[] { "1111", "2222", "3333", "3343", "3363" }),
         // String.substring()
