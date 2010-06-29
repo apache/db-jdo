@@ -111,6 +111,12 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
                              failed.toString());
                     }
                 }
+                if (pm1.isClosed()){
+                    fail(ASSERTION_FAILED, "Unexpected pm1 is closed.");
+                }
+                if (pm2.isClosed()){
+                    fail(ASSERTION_FAILED, "Unexpected pm2 is closed.");
+                }
             } 
             catch (Exception uex) {
                 setAborted();

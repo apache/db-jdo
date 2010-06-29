@@ -19,7 +19,10 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.security.Permission;
 
+import javax.jdo.JDOException;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.spi.JDOPermission;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -57,6 +60,14 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
     public void test() {
 	    pmf = getPMF();
 
+        closeWithMySecurityManager(pmf);
+
+        closePMF(pmf);
+
+        closeWithMySecurityManager(pmf);
+    }
+
+    private void closeWithMySecurityManager(PersistenceManagerFactory pmf) {
         SecurityManager oldSecMgr = System.getSecurityManager();
         try {
             System.setSecurityManager(new MySecurityManager());
@@ -67,10 +78,15 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
 
         try {
             pmf.close();
+            fail(ASSERTION_FAILED,
+                "SecurityException was not thrown when calling pmf.close() " +
+                "without JDOPermission.CLOSE_PERSISTENCE_MANAGER_FACTORY");
         } catch (SecurityException ex) {
             // expected exception if JDOPermission("closePersistenceManagerFactory") is not set
             if (debug)
                 logger.debug("caught expected exception " + ex.toString());
+        } catch (JDOException e) {
+            fail(ASSERTION_FAILED, "Unexpected exception at pmf.close(): " + e);
         }
         finally {
             System.setSecurityManager(oldSecMgr);

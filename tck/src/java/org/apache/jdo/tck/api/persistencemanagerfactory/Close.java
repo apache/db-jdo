@@ -17,6 +17,9 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
 
@@ -78,7 +81,28 @@ public class Close extends JDO_Test {
             fail(ASSERTION_FAILED, 
                  "Unexpected exception at pmf.close()/isClosed(): " + ex);
         }
-        
+
+        // pmf.close() on already-closed pmf should not throw an exception
+        try {
+            // don't use closePMF methods because they check isClosed before calling
+            AccessController.doPrivileged(
+                new PrivilegedAction () {
+                    public Object run () {
+                        pmf.close();
+                        return null;
+                    }
+                }
+            );
+        } catch (JDOUserException ex) {
+            // unexpected exception
+            fail(ASSERTION_FAILED, 
+                 "Unexpected exception at repeated pmf.close(): " + ex);
+        } catch (JDOFatalUserException ex) {
+            // unexpected exception
+            fail(ASSERTION_FAILED, 
+                 "Unexpected exception at repeated pmf.close(): " + ex);
+        }
+
         // trying to get a getPersistenceManager should result in a exception
         try {
             pm = pmf.getPersistenceManager();
