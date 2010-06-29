@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManagerFactory;
@@ -67,40 +66,69 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     public void test() {
         Class[] stringParameters = new Class[]{String.class};
         Class[] booleanParameters = new Class[]{boolean.class};
+        Class[] objectParameters = new Class[]{Object.class};
+        Class[] integerParameters = new Class[]{Integer.class};
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
         Object[] booleanParameter = new Object[]{new Boolean(false)};
+        Object[] objectParameter = new Object[]{null};
+        Object[] integerParameter = new Object[]{new Integer(0)};
         
         SetProperty[] setMethods = new SetProperty[] {
             new SetProperty("setConnectionDriverName", stringParameters, stringParameter),
+            new SetProperty("setConnectionFactory", objectParameters, objectParameter),
+            new SetProperty("setConnectionFactory2", objectParameters, objectParameter),
             new SetProperty("setConnectionFactoryName", stringParameters, stringParameter),
             new SetProperty("setConnectionFactory2Name", stringParameters, stringParameter),
+            new SetProperty("setConnectionPassword", stringParameters, stringParameter),
             new SetProperty("setConnectionURL", stringParameters, stringParameter),
             new SetProperty("setConnectionUserName", stringParameters, stringParameter),
-            new SetProperty("setConnectionPassword", stringParameters, stringParameter),
+            new SetProperty("setCopyOnAttach", booleanParameters, booleanParameter),
+            new SetProperty("setDetachAllOnCommit", booleanParameters, booleanParameter),
             new SetProperty("setIgnoreCache", booleanParameters, booleanParameter),
+            new SetProperty("setMapping", stringParameters, stringParameter),
             new SetProperty("setMultithreaded", booleanParameters, booleanParameter),
+            new SetProperty("setName", stringParameters, stringParameter),
             new SetProperty("setNontransactionalRead", booleanParameters, booleanParameter),
             new SetProperty("setNontransactionalWrite", booleanParameters, booleanParameter),
             new SetProperty("setOptimistic", booleanParameters, booleanParameter),
+            new SetProperty("setPersistenceUnitName", stringParameters, stringParameter),
+            new SetProperty("setReadOnly", booleanParameters, booleanParameter),
             new SetProperty("setRestoreValues", booleanParameters, booleanParameter),
-            new SetProperty("setRetainValues", booleanParameters, booleanParameter)
+            new SetProperty("setRetainValues", booleanParameters, booleanParameter),
+            new SetProperty("setServerTimeZoneID", stringParameters, stringParameter),
+            new SetProperty("setTransactionIsolationLevel", stringParameters, stringParameter),
+            new SetProperty("setTransactionType", stringParameters, stringParameter)
         };
-       
+
         GetProperty[] getMethods = new GetProperty[] {
             new GetProperty("getConnectionDriverName"),
+            new GetProperty("getConnectionFactory"),
+            new GetProperty("getConnectionFactory2"),
             new GetProperty("getConnectionFactoryName"),
             new GetProperty("getConnectionFactory2Name"),
             new GetProperty("getConnectionURL"),
             new GetProperty("getConnectionUserName"),
+            new GetProperty("getCopyOnAttach"),
+            new GetProperty("getDataStoreCache"),
+            new GetProperty("getDetachAllOnCommit"),
+            new GetProperty("getFetchGroups"),
             new GetProperty("getIgnoreCache"),
+            new GetProperty("getMapping"),
             new GetProperty("getMultithreaded"),
+            new GetProperty("getName"),
             new GetProperty("getNontransactionalRead"),
             new GetProperty("getNontransactionalWrite"),
             new GetProperty("getOptimistic"),
+            new GetProperty("getPersistenceUnitName"),
+            new GetProperty("getProperties"),
+            new GetProperty("getReadOnly"),
             new GetProperty("getRestoreValues"),
-            new GetProperty("getRetainValues")
+            new GetProperty("getRetainValues"),
+            new GetProperty("getServerTimeZoneID"),
+            new GetProperty("getTransactionIsolationLevel"),
+            new GetProperty("getTransactionType")
         };
-       
+
         pmf = getPMF();
         closePMF(pmf); // don't use closePMF() because that sets pmf to null
         // each set method should throw an exception
@@ -111,11 +139,14 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             try {
                 sp.execute(pmf);
                 fail(ASSERTION_FAILED,
-                     "pmf method " + where + " shoudl throw JDOUserException when called for closed pmf");
+                    "pmf method " + where + " should throw JDOUserException when called for closed pmf");
             } catch (JDOUserException ex) {
                 if (debug)
                     logger.debug("Caught expected exception " + ex.toString() +
                                  " from " + where);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED,
+                     "Caught unexpected exception " + ex.toString() + " from " + where);
             }
         }
         // each get method should succeed
@@ -125,7 +156,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
-            } catch (JDOUserException ex) {
+            } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
                      "Caught unexpected exception " + ex.toString() + " from " +
                      where);
@@ -157,7 +188,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             } catch (IllegalAccessException ex) {
                 throw new JDOFatalInternalException("IllegalAccessException", ex);
             } catch (java.lang.reflect.InvocationTargetException ex) {
-                throw (JDOException)ex.getTargetException();
+                throw (RuntimeException)ex.getTargetException();
             }
         }
        
@@ -187,7 +218,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             } catch (IllegalAccessException ex) {
                 throw new JDOFatalInternalException("IllegalAccessException", ex);
             } catch (java.lang.reflect.InvocationTargetException ex) {
-                throw (JDOException)ex.getTargetException();
+                throw (RuntimeException)ex.getTargetException();
             }
         }
        
