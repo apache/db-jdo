@@ -71,6 +71,13 @@
         <attainGoal name="multiproject:clean"/>
     </goal>
 
+    <goal name="jdo3.dist"
+          description="Creates distributions of tck and dependent projects">
+        <j:set var="maven.multiproject.includes">${jdo3.projects}</j:set>
+        <j:set var="goal">dist</j:set>
+        <attainGoal name="multiproject:goal"/>
+    </goal> 
+
     <!-- ========== -->
     <!-- JDO2 Goals -->
     <!-- ========== -->
