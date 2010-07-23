@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<project>
+    <pomVersion>3</pomVersion>
+    <extend>../project.xml</extend>
+    <!-- ============== -->
+    <!-- Identification -->
+    <!-- ============== -->
+    <name>JDO API</name>
+    <groupId>javax.jdo</groupId>
+    <artifactId>jdo-api</artifactId>
+    <currentVersion>3.0</currentVersion>
+    <package>javax.jdo</package>
+    <shortDescription>Java Data Objects (JDO) API</shortDescription>
+    <description>The Java Data Objects (JDO) API is a standard interface-based 
+Java model abstraction of persistence, developed as Java Specification 
+Request 243 under the auspices of the Java Community Process.</description>
+    <!-- ============ -->
+    <!-- Dependencies -->
+    <!-- ============ -->
+    <dependencies>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>transaction-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.7.0</version>
+            <properties>
+                <optional>true</optional>
+                <scope>test</scope>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <properties>
+                <scope>test</scope>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <version>1.0</version>
+            <properties>
+                <optional>true</optional>
+            </properties>
+        </dependency>
+    </dependencies>
+    <!-- =================== -->
+    <!-- Build Specification -->
+    <!-- =================== -->
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>test/java</unitTestSourceDirectory>
+        <!-- Unit test cases -->
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+            <excludes>
+                <exclude>javax/jdo/util/AbstractTest.java</exclude>
+                <exclude>javax/jdo/pc/*.java</exclude>
+            </excludes>
+            <resources>
+                <resource>
+                <directory>${basedir}/test/schema</directory>
+                <includes>
+                  <include>**/*.jdo</include>
+                  <include>**/*.jdoquery</include>
+                  <include>**/*.orm</include>
+                  <include>**/jdoconfig.xml</include>
+                </includes>
+                </resource>
+                <resource>
+                  <directory>${basedir}/test/resources</directory>
+                  <includes>
+                    <include>**/*</include>
+                  </includes>
+                </resource>
+            </resources>
+        </unitTest>
+        <defaultGoal>jar:install</defaultGoal>
+
+        <!-- J A R  R E S O U R C E S -->
+        <!-- Resources that are packaged up inside the JAR file -->
+        <resources>
+            <resource>
+                <directory>${basedir}/..</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/java</directory>
+                <includes>
+                    <include>javax/jdo/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/schema</directory>
+                <includes>
+                    <include>javax/jdo/*.dtd</include>
+                    <include>javax/jdo/*.xsd</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>
+
