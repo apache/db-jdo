@@ -16,7 +16,7 @@
     limitations under the License.
 -->     
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>javax.jdo</groupId>
   <artifactId>jdo-api</artifactId>
@@ -51,6 +51,9 @@
     <testResources>
       <testResource>
         <directory>${basedir}/test/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
       </testResource>
       <testResource>
         <directory>${basedir}/test/schema</directory>
@@ -94,13 +97,32 @@
           </archive>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <doctitle>${pom.name} ${pom.currentVersion}</doctitle>
+          <windowtitle>${pom.name} ${pom.currentVersion}</windowtitle>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>javax/jdo/util/AbstractTest.java</exclude>
+            <exclude>javax/jdo/pc/*.java</exclude>
+          </excludes>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
   <dependencies>
     <dependency>
       <groupId>javax.transaction</groupId>
-      <artifactId>jta</artifactId>
+      <artifactId>transaction-api</artifactId>
       <version>1.1</version>
     </dependency>
     <dependency>
@@ -108,6 +130,7 @@
       <artifactId>ant</artifactId>
       <version>1.7.0</version>
       <scope>test</scope>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -120,7 +143,24 @@
       <artifactId>geronimo-jpa_3.0_spec</artifactId>
       <version>1.0</version>
       <scope>provided</scope>
-      <optional/>
+      <optional>true</optional>
     </dependency>
   </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <configuration>
+          <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>${basedir}/../jdo_checks.xml</configLocation>
+          <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
