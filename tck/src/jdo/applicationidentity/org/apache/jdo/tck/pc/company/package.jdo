@@ -27,6 +27,11 @@ has application identity.
 
         <class name="Address" embedded-only="true" requires-extent="false"/>
 
+        <class name="MeetingRoom" identity-type="application"
+            objectid-class="org.apache.jdo.tck.pc.company.MeetingRoom$Oid">
+            <field name="roomid" primary-key="true"/>
+        </class>
+
         <class name="Company"
             identity-type="application"
             objectid-class="org.apache.jdo.tck.pc.company.Company$Oid">
@@ -52,6 +57,10 @@ has application identity.
             </field>
             <field name="fundedEmps" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+            <field name="meetingRooms" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.MeetingRoom"/>
+                <join/>
             </field>
         </class>
 

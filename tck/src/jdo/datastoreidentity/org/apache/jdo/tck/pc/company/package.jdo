@@ -27,6 +27,9 @@ has datastore identity.
 
         <class name="Address" embedded-only="true" requires-extent="false"/>
 
+        <class name="MeetingRoom" identity-type="datastore">
+        </class>
+
         <class name="Company" identity-type="datastore">
             <field name="address"
                    field-type="org.apache.jdo.tck.pc.company.Address"
@@ -44,6 +47,10 @@ has datastore identity.
             </field>
             <field name="fundedEmps" persistence-modifier="persistent">
                 <collection element-type="org.apache.jdo.tck.pc.company.Employee"/>
+            </field>
+            <field name="meetingRooms" persistence-modifier="persistent">
+                <collection element-type="org.apache.jdo.tck.pc.company.MeetingRoom"/>
+                <join/>
             </field>
         </class>
 

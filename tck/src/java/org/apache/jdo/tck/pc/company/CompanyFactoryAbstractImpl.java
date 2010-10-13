@@ -53,6 +53,7 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
     public boolean isAppIdentity = "applicationidentity".equals(identitytype);
 
     abstract public IAddress newAddress();
+    abstract public IMeetingRoom newMeetingRoom();
     abstract public ICompany newCompany();
     abstract public IDentalInsurance newDentalInsurance();
     abstract public IDepartment newDepartment();
@@ -71,6 +72,14 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
         result.setZipcode(zipcode);
         result.setCountry(country);
         if (debug) logger.debug("newAddress returned" + result);
+        return result;
+    }
+
+    public IMeetingRoom newMeetingRoom(long roomid, String name) {
+        IMeetingRoom result = newMeetingRoom();
+        result.setRoomid(roomid);
+        result.setName(name);
+        if (debug) logger.debug("newMeetingRoom returned" + result);
         return result;
     }
 

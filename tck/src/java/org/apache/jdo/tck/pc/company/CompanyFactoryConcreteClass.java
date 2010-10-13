@@ -33,7 +33,7 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
     public static final Class[] tearDownClasses = new Class[] {
         DentalInsurance.class, MedicalInsurance.class,
         PartTimeEmployee.class, FullTimeEmployee.class,  
-        Project.class, Department.class, Company.class
+        Project.class, Department.class, Company.class, MeetingRoom.class
     };
 
     public CompanyFactoryConcreteClass(PersistenceManager pm) {
@@ -56,6 +56,10 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
             String street, String city, String state, String zipcode, 
             String country) {
         return new Address(addrid, street, city, state, zipcode, country);
+    }
+
+    public IMeetingRoom newMeetingRoom(long roomid, String name) {
+        return new MeetingRoom(roomid, name);
     }
 
     public IDentalInsurance newDentalInsurance(long insid, 

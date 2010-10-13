@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.apache.jdo.tck.pc.company.ICompany;
 import org.apache.jdo.tck.pc.company.IDepartment;
@@ -253,7 +254,19 @@ public class PCDSDepartment
         this._fundedEmps = (employees != null) ? new HashSet(employees) : null;
     }
 
-    /** Serialization support: initialize transient fields. */
+    @Override
+	public List getMeetingRooms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMeetingRooms(List rooms) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/** Serialization support: initialize transient fields. */
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();

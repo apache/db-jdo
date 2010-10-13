@@ -21,9 +21,11 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.jdo.tck.util.DeepEquality;
@@ -43,6 +45,7 @@ public class Department
     private Employee employeeOfTheMonth;
     private transient Set employees = new HashSet(); // element type is Employee
     private transient Set fundedEmps = new HashSet(); // element type is Employee
+    private transient List meetingRooms = new ArrayList(); // element type is MeetingRoom
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -226,12 +229,45 @@ public class Department
         this.fundedEmps = (fundedEmps != null) ? new HashSet(employees) : null;
     }
 
+    /**
+     * Get the meeting rooms in the department as an unmodifiable list.
+     * @return List of meeting rooms in the department, as an unmodifiable list.
+     */
+    public List getMeetingRooms() {
+        return Collections.unmodifiableList(meetingRooms);
+    }
+
+    /**
+     * Add a meeting room to the department.
+     * @param room Meeting room to add to the department.
+     */
+    public void addMeetingRoom(MeetingRoom room) {
+        meetingRooms.add(room);
+    }
+
+    /**
+     * Remove a meeting room from the department.
+     * @param room Meeting room to remove from the department.
+     */
+    public void removeMeetingRoom(MeetingRoom room) {
+        meetingRooms.remove(room);
+    }
+
+    /**
+     * Set the rooms for this department.
+     * @param rooms The rooms for this department.
+     */
+    public void setMeetingRooms(List rooms) {
+        this.meetingRooms = (rooms != null) ? new ArrayList(rooms) : null;
+    }
+
     /** Serialization support: initialize transient fields. */
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         employees = new HashSet();
         fundedEmps = new HashSet();
+        meetingRooms = new ArrayList();
     }
 
     /** 
@@ -256,6 +292,7 @@ public class Department
             helper.deepEquals(employeeOfTheMonth, otherDept.getEmployeeOfTheMonth(), where + ".employeeOfTheMonth") &
             helper.deepEquals(employees, otherDept.getEmployees(), where + ".employees") &
             helper.deepEquals(fundedEmps, otherDept.getFundedEmps(), where + ".fundedEmps");
+        // TODO Add meetingRooms to comparison
     }
     
     /**

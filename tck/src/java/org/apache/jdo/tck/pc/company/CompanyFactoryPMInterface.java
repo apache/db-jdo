@@ -46,6 +46,10 @@ public class CompanyFactoryPMInterface
         return pm.newInstance(PIAddress.class);
     }
     
+    public IMeetingRoom newMeetingRoom() {
+        return pm.newInstance(PIMeetingRoom.class);
+    }
+    
     public ICompany newCompany() {
         return pm.newInstance(PICompany.class);
     }

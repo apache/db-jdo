@@ -17,6 +17,7 @@
  
 package org.apache.jdo.tck.pc.company;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,12 +33,13 @@ public interface IDepartment {
     IEmployee getEmployeeOfTheMonth();
     Set getEmployees();
     Set getFundedEmps();
-    
+    List getMeetingRooms();
+
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
     void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
     void setEmployees(Set employees);
     void setFundedEmps(Set employees);
-
+    void setMeetingRooms(List rooms);
 }

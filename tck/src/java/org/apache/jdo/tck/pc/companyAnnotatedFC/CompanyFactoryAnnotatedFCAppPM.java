@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedFCAppPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(FCAppAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(FCAppCompany.class);

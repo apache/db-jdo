@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedPIDSPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(PIDSAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(PIDSCompany.class);

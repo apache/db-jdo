@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedFCDSConcrete
     public IAddress newAddress() {
         return (IAddress) new FCDSAddress();
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany) new FCDSCompany();

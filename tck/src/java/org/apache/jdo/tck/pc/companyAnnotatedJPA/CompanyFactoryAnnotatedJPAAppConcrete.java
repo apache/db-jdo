@@ -55,6 +55,10 @@ public class CompanyFactoryAnnotatedJPAAppConcrete
     public IAddress newAddress() {
         return (IAddress) new JPAAppAddress();
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany) new JPAAppCompany();

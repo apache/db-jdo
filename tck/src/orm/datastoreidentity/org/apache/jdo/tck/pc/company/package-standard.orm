@@ -60,6 +60,12 @@ has datastore identity.
             <field name="departments" mapped-by="company"/>
         </class>
 
+        <class name="MeetingRoom" table="meetingrooms">
+            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <field name="roomid" column="ID"/>
+            <field name="name" column="NAME"/>
+        </class>
+
         <class name="Department" table="departments">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
             <inheritance strategy="new-table">
@@ -71,6 +77,11 @@ has datastore identity.
             <field name="employees" mapped-by="department"/>
             <field name="fundedEmps" mapped-by="fundingDept"/>
             <field name="employeeOfTheMonth" column="EMP_OF_THE_MONTH"/>
+            <field name="meetingRooms" table="department_rooms">
+                <join column="DEPTID"/>
+                <element column="ROOMID"/>
+                <order column="ROOM_ORDER"/>
+            </field>
         </class>
 
         <class name="PartTimeEmployee">

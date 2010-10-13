@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedPCDSPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(PCDSAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(PCDSCompany.class);

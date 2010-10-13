@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedPCAppPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(PCAppAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(PCAppCompany.class);

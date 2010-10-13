@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedFCAppConcrete
     public IAddress newAddress() {
         return (IAddress) new FCAppAddress();
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom) null;
+    }
     
     public ICompany newCompany() {
         return (ICompany) new FCAppCompany();

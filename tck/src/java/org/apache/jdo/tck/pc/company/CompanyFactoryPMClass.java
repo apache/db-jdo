@@ -32,7 +32,7 @@ public class CompanyFactoryPMClass
     public static final Class[] tearDownClasses = new Class[] {
         DentalInsurance.class, MedicalInsurance.class,
         PartTimeEmployee.class, FullTimeEmployee.class,  
-        Project.class, Department.class, Company.class
+        Project.class, Department.class, Company.class, MeetingRoom.class
     };
 
     /**
@@ -44,6 +44,10 @@ public class CompanyFactoryPMClass
     
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(Address.class);
+    }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)pm.newInstance(MeetingRoom.class);
     }
     
     public ICompany newCompany() {

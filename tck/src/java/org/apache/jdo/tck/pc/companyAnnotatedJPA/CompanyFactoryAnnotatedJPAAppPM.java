@@ -53,6 +53,10 @@ public class CompanyFactoryAnnotatedJPAAppPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(JPAAppAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(JPAAppCompany.class);

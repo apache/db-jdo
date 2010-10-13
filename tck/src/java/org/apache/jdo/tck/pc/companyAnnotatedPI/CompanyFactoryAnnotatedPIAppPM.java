@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedPIAppPM
     public IAddress newAddress() {
         return (IAddress)pm.newInstance(PIAppAddress.class);
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany)pm.newInstance(PIAppCompany.class);

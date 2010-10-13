@@ -37,6 +37,7 @@ public interface CompanyFactory {
             IAddress addr);
     IAddress newAddress(long addrid, String street, String city, 
             String state, String zipcode, String country);
+    IMeetingRoom newMeetingRoom(long roomid, String name);
     IDentalInsurance newDentalInsurance(long insid, String carrier, 
             BigDecimal lifetimeOrthoBenefit);
     IDentalInsurance newDentalInsurance(long insid, String carrier, 

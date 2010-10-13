@@ -135,6 +135,18 @@ public class CompanyModelReader extends XmlBeanFactory {
     }
 
     /** 
+     * Convenience method returning a MeetingRoom instance for the specified
+     * name. The method returns <code>null</code> if there is no MeetingRoom
+     * bean with the specified name. 
+     * @param name the name of the bean to return.
+     * @return the instance of the bean or <code>null</code> if there no
+     * MeetingRoom bean.
+     */
+    public IMeetingRoom getMeetingRoom(String name) {
+        return (IMeetingRoom)getBean(name, MeetingRoom.class);
+    }
+
+    /** 
      * Convenience method returning a Company instance for the specified 
      * name. The method returns <code>null</code> if there is no Company
      * bean with the specified name. 

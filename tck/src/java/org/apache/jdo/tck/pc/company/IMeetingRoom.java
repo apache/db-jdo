@@ -18,18 +18,15 @@
 package org.apache.jdo.tck.pc.company;
 
 /**
- *
+ * This interface represents the persistent state of MeetingRoom.
+ * Javadoc was deliberately omitted because it would distract from
+ * the purpose of the interface.
  */
-public interface CompanyFactoryNewInstance {
+public interface IMeetingRoom {
 
-    abstract public IAddress newAddress();
-    abstract public IMeetingRoom newMeetingRoom();
-    abstract public ICompany newCompany();
-    abstract public IDentalInsurance newDentalInsurance();
-    abstract public IDepartment newDepartment();
-    abstract public IFullTimeEmployee newFullTimeEmployee();
-    abstract public IMedicalInsurance newMedicalInsurance();
-    abstract public IPartTimeEmployee newPartTimeEmployee();
-    abstract public IProject newProject();
-    Class[] getTearDownClasses();    
+    long getRoomid();
+    String getName();
+
+    void setRoomid(long roomid);
+    void setName(String name);
 }

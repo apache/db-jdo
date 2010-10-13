@@ -44,7 +44,11 @@ public abstract class CompanyFactoryAnnotatedAbstractDelegator
     public IAddress newAddress() {
         return (IAddress)delegate.newAddress();
     }
-    
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)delegate.newMeetingRoom();
+    }
+
     public ICompany newCompany() {
         return (ICompany)delegate.newCompany();
     }

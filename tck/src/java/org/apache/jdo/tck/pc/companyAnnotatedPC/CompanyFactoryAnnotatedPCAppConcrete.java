@@ -54,6 +54,10 @@ public class CompanyFactoryAnnotatedPCAppConcrete
     public IAddress newAddress() {
         return (IAddress) new PCAppAddress();
     }
+
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
     
     public ICompany newCompany() {
         return (ICompany) new PCAppCompany();
