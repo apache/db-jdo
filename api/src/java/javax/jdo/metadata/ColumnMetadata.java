@@ -160,4 +160,18 @@ public interface ColumnMetadata extends Metadata {
      * @return Insert value
      */
     String getInsertValue();
+
+    /**
+     * Method to set the position
+     * 
+     * @param pos Position
+     */
+    ColumnMetadata setPosition(int pos);
+
+    /**
+     * Accessor for the position
+     * 
+     * @return position
+     */
+    Integer getPosition();
 }
