@@ -100,4 +100,11 @@ public @interface Column
      * @return the vendor extensions
      */
     Extension[] extensions() default {};
+
+    /**
+     * Position of this column in the table for this class (0=first, -1=unset).
+     * @return (relative) position of this column
+     * @since 3.1
+     */
+    int position() default -1;
 }
