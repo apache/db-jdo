@@ -124,6 +124,7 @@
 <!ATTLIST column allows-null (true|false) #IMPLIED>
 <!ATTLIST column default-value CDATA #IMPLIED>
 <!ATTLIST column insert-value CDATA #IMPLIED>
+<!ATTLIST column position CDATA #IMPLIED>
 
 <!ELEMENT field (extension*, (array|collection|map)?, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST field name CDATA #REQUIRED>

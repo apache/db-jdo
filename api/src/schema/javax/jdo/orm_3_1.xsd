@@ -393,6 +393,7 @@
         </xs:attribute>
         <xs:attribute name="default-value"/>
         <xs:attribute name="insert-value"/>
+		<xs:attribute name="position"/>
     </xs:attributeGroup>
     <xs:element name="field">
         <xs:complexType>
