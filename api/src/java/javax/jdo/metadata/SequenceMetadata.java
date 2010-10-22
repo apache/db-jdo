@@ -64,4 +64,36 @@ public interface SequenceMetadata extends Metadata {
      * @return The factory class
      */
     String getFactoryClass();
+
+    /**
+     * Method to set the initial value for the sequence
+     * 
+     * @param val Initial value to use
+     * @since 3.1
+     */
+    SequenceMetadata setInitialValue(int val);
+
+    /**
+     * Accessor for the initial value of the sequence (if any).
+     * 
+     * @return initial value
+     * @since 3.1
+     */
+    Integer getInitialValue();
+
+    /**
+     * Method to set the allocation size for the sequence
+     * 
+     * @param size Allocation size to use
+     * @since 3.1
+     */
+    SequenceMetadata setAllocationSize(int size);
+
+    /**
+     * Accessor for the allocation size of the sequence (if any).
+     * 
+     * @return allocation size
+     * @since 3.1
+     */
+    Integer getAllocationSize();
 }

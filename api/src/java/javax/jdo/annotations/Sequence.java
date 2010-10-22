@@ -56,4 +56,18 @@ public @interface Sequence
      * @return vendor extensions
      */
     Extension[] extensions() default {};
+
+    /**
+     * Initial value for the sequence.
+     * @return Initial value for the sequence
+     * @since 3.1
+     */
+    int initialValue() default 1;
+
+    /**
+     * Allocation size for the sequence.
+     * @return Allocation size for the sequence
+     * @since 3.1
+     */
+    int allocationSize() default 50;
 }

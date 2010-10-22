@@ -1191,6 +1191,8 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="allocation-size" default="50"/>
+        <xs:attribute name="initial-value" default="1"/>
     </xs:attributeGroup>
     <xs:element name="index">
         <xs:complexType>

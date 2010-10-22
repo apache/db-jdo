@@ -228,6 +228,8 @@
 <!ATTLIST sequence datastore-sequence CDATA #IMPLIED>
 <!ATTLIST sequence factory-class CDATA #IMPLIED>
 <!ATTLIST sequence strategy (nontransactional|contiguous|noncontiguous) #REQUIRED>
+<!ATTLIST sequence allocation-size CDATA #IMPLIED>
+<!ATTLIST sequence initial-value CDATA #IMPLIED>
 
 <!ELEMENT index (extension*, (column* | field* | property*), extension*)>
 <!ATTLIST index name CDATA #IMPLIED>
