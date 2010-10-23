@@ -168,8 +168,9 @@ public class SupportedCollectionMethods extends QueryTest {
                 expectedResult[index]);
         
         index++;
-        Object[] parameters = new Object[]{
-                getParameter(Employee.class, "personid == 1", true)};
+        getPM().currentTransaction().begin();
+        Object[] parameters = new Object[]{1, getPersistentCompanyModelInstance("emp1")};
+        getPM().currentTransaction().commit(); 
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
@@ -202,30 +203,5 @@ public class SupportedCollectionMethods extends QueryTest {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
     }
-    
-    /** */
-    private Object getParameter(
-            Class candidateClass, String filter, boolean unique) {
-        Object result;
-        PersistenceManager pm = getPM();
-        Transaction transaction = pm.currentTransaction();
-        transaction.begin();
-        try {
-            Query query = filter == null ? pm.newQuery(candidateClass) :
-                pm.newQuery(candidateClass, filter);
-            if (unique) {
-                query.setUnique(unique);
-            }
-            try {
-                result = query.execute();
-            } finally {
-                query.closeAll();
-            }
-        } finally {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
+
 }

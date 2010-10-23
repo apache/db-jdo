@@ -108,8 +108,9 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInFilter() {
         int index = 0;
-        Object[] parameters = new Object[]{1, 
-                getParameter(MeetingRoom.class, "roomid == 2", true)};
+        getPM().currentTransaction().begin();
+        Object[] parameters = new Object[]{1, getPersistentCompanyModelInstance("room2")};
+        getPM().currentTransaction().commit(); 
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult[index]);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
@@ -132,29 +133,5 @@ public class SupportedListMethods extends QueryTest {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
     }
-    
-    /** */
-    private Object getParameter(Class candidateClass, String filter, boolean unique) {
-        Object result;
-        PersistenceManager pm = getPM();
-        Transaction transaction = pm.currentTransaction();
-        transaction.begin();
-        try {
-            Query query = filter == null ? pm.newQuery(candidateClass) :
-                pm.newQuery(candidateClass, filter);
-            if (unique) {
-                query.setUnique(unique);
-            }
-            try {
-                result = query.execute();
-            } finally {
-                query.closeAll();
-            }
-        } finally {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
+
 }
