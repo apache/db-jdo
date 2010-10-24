@@ -1187,6 +1187,7 @@ public annotation javax.jdo.annotations.Column extends java.lang.annotation.Anno
     String defaultValue() default "";
     String insertValue() default "";
     javax.jdo.annotations.Extension[] extensions() default {};
+    int position() default -1;
 }
 
 public annotation javax.jdo.annotations.Columns extends java.lang.annotation.Annotation
@@ -1541,6 +1542,8 @@ public annotation javax.jdo.annotations.Sequence extends java.lang.annotation.An
     String datastoreSequence() default "";
     Class factoryClass() default void.class;
     javax.jdo.annotations.Extension[] extensions() default {};
+    int initialValue() default 1;
+    int allocationSize() default 50;
 }
 
 public final enum javax.jdo.annotations.SequenceStrategy extends java.lang.Enum
