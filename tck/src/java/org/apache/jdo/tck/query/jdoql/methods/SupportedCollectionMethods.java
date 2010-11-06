@@ -169,7 +169,7 @@ public class SupportedCollectionMethods extends QueryTest {
         
         index++;
         getPM().currentTransaction().begin();
-        Object[] parameters = new Object[]{1, getPersistentCompanyModelInstance("emp1")};
+        Object[] parameters = new Object[]{getPersistentCompanyModelInstance("emp1")};
         getPM().currentTransaction().commit(); 
         executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult[index]);
