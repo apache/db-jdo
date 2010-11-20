@@ -356,14 +356,19 @@ public class ArrayListCollections {
          break;
       case(41):
         ArrayListOfShort41= value;
+         break;
       case(42):
         ArrayListOfSimpleEnum42= value;
+         break;
       case(43):
         ArrayListOfSimpleEnum43= value;
+         break;
       case(44):
         ArrayListOfSimpleEnum44= value;
+         break;
       case(45):
         ArrayListOfSimpleEnum45= value;
+         break;
       case(46):
         ArrayListOfSimpleEnum46= value;
          break;
