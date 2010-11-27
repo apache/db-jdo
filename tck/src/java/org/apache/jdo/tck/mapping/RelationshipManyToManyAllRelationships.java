@@ -162,7 +162,7 @@ public class RelationshipManyToManyAllRelationships
             IEmployee empNew = new FullTimeEmployee(100, "Jerry", "Valentine",
                     "Brown", new Date(500L), new Date(10000L), 125000);
             pm.makePersistent(empNew);
-            Set members = new HashSet();
+            Set<IEmployee> members = new HashSet<IEmployee>();
             members.add(empNew);
             proj1.setMembers(members);
             Object empNewOid = pm.getObjectId((Object)empNew);
@@ -201,7 +201,7 @@ public class RelationshipManyToManyAllRelationships
             IProject projNew = new Project(99L, "Skunkworks",
                     new BigDecimal(10000.35));
             pm.makePersistent(projNew);
-            Set projects = new HashSet();
+            Set<IProject> projects = new HashSet<IProject>();
             projects.add(projNew);
             emp1.setProjects(projects);
             Object projNewOid = pm.getObjectId((Object)projNew);
@@ -438,12 +438,14 @@ public class RelationshipManyToManyAllRelationships
     public void testDeleteFromMappedSide() {
     testMethod = "testDeleteFromMappedSide";
         if (isTestToBePerformed) {
+            // remember id
+            long proj1Id = proj1.getProjid();
             // Set relationship
             pm.deletePersistent(proj1);
             pm.flush();
             
             // Postcondition
-            deferredAssertTrue(!emp1.getProjects().contains(proj1),
+            deferredAssertTrue(!containsProject(emp1.getProjects(), proj1Id),
                     ASSERTION_FAILED + testMethod,
                     "Postcondition is false; "
                     + "other side of relationship not set on flush");
@@ -454,7 +456,7 @@ public class RelationshipManyToManyAllRelationships
             pm.currentTransaction().begin();
             emp1 = (Employee)pm.getObjectById(emp1Oid);
             deferredAssertTrue(
-                    !emp1.getProjects().contains(proj1),
+                    !containsProject(emp1.getProjects(), proj1Id),
                     ASSERTION_FAILED + testMethod,
                     "In new transaction, postcondition is false; " +
                     "other side of relationship is not set.");
@@ -468,13 +470,14 @@ public class RelationshipManyToManyAllRelationships
     public void testDeleteFromMappedbySide() {
         testMethod = "testDeleteFromMappedbySide";
         if (isTestToBePerformed) {
-            
+            // remember id
+            long emp1Id = emp1.getPersonid();
             // Set relationship
             pm.deletePersistent(emp1);
             pm.flush();
             
             // Postcondition
-            deferredAssertTrue(!proj1.getMembers().contains(emp1),
+            deferredAssertTrue(!containsEmployee(proj1.getMembers(), emp1Id),
                     ASSERTION_FAILED + testMethod,
                     "Postcondition is false; "
                     + "other side of relationship not set on flush");
@@ -485,7 +488,7 @@ public class RelationshipManyToManyAllRelationships
             pm.currentTransaction().begin();
             proj1 = (Project)pm.getObjectById(proj1Oid);
             deferredAssertTrue(
-                    !proj1.getMembers().contains(emp1),
+                    !containsEmployee(proj1.getMembers(), emp1Id),
                     ASSERTION_FAILED + testMethod,
                     "In new transaction, postcondition is false; " +
                     "other side of relationship is not set.");

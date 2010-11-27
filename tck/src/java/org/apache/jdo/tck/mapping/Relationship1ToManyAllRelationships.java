@@ -409,21 +409,14 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
     public void testDeleteFromMappedSide() {
         testMethod = "testDeleteFromMappedSide";
         if (isTestToBePerformed) {
+            // remember id
+            long emp1Id = emp1.getPersonid();
             // Set relationship
             pm.deletePersistent(emp1);
             pm.flush();
             
             // Postcondition
-            boolean contained = false;
-            Iterator iter = dept1.getEmployees().iterator();
-            while (iter.hasNext()) {
-        	Object elem = iter.next();
-        	if (JDOHelper.getObjectId(elem).equals(emp1)) {
-        	    contained = true;
-        	    break;
-        	}
-            }
-            deferredAssertTrue(!contained,
+            deferredAssertTrue(!containsEmployee(dept1.getEmployees(), emp1Id),
                 ASSERTION_FAILED + testMethod,
                 "Postcondition is false; "
                 + "other side of relationship not set on flush");
@@ -434,7 +427,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
             pm.currentTransaction().begin();
             dept1 = (Department)pm.getObjectById(dept1Oid);
             deferredAssertTrue(
-                !dept1.getEmployees().contains(emp1),
+                !containsEmployee(dept1.getEmployees(), emp1Id),
                 ASSERTION_FAILED + testMethod,
                 "In new transaction, postcondition is false; " +
                 "other side of relationship is not set.");
