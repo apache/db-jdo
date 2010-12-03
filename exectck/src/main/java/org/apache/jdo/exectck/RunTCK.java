@@ -14,10 +14,12 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -367,7 +369,8 @@ public class RunTCK extends AbstractMojo {
         Properties props = null;
         boolean alreadyran = false;
         String runonce = "false";
-        StringBuffer propsString = new StringBuffer(" ");
+//        StringBuffer propsString = new StringBuffer(" ");
+        List<String> propsString = new ArrayList<String>();
 
         if (cfgs != null) {
             System.out.println("Configurations specified in cfgs are " + cfgs.toString());
@@ -390,16 +393,15 @@ public class RunTCK extends AbstractMojo {
                 + "\n  identity types: " + identitytypes.toString());
 
         // Properties required for test execution
-        propsString.append(" -DResultPrinterClass=" + resultPrinterClass);
-        propsString.append(" -Dverbose=" + verbose);
-        propsString.append(" -Djdo.tck.cleanupaftertest=" + cleanupaftertest);
-        propsString.append(" -DPMFProperties=" + pmfProperties);
-        propsString.append(" -DPMFProperties=" + confDirectory + File.separator
-                + pmfProperties + " ");
-        propsString.append(" -DPMF2Properties=" + buildDirectory + File.separator
+        propsString.add("-DResultPrinterClass=" + resultPrinterClass);
+        propsString.add("-Dverbose=" + verbose);
+        propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
+        propsString.add("-DPMFProperties=" + buildDirectory + File.separator
+                + "classes" + File.separator + pmfProperties);
+        propsString.add("-DPMF2Properties=" + buildDirectory + File.separator
                 + "classes" + File.separator + pmfProperties);
         String excludeFile = confDirectory + File.separator + exclude;
-        propsString.append(" -Djdo.tck.exclude=" +
+        propsString.add("-Djdo.tck.exclude=" +
                 PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
 
         // Create configuration log directory
@@ -412,7 +414,7 @@ public class RunTCK extends AbstractMojo {
             throw new MojoExecutionException("Failed to create directory "
                     + cfgDirName);
         }
-        propsString.append(" -Djdo.tck.log.directory=" + thisLogDir);
+        propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
 
         // Get ClassLoader URLs to build classpath below
         URL[] cpURLs = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
@@ -423,7 +425,7 @@ public class RunTCK extends AbstractMojo {
             alreadyran = false;
 
             for (String idtype : idtypes) {
-                propsString.append(" -Djdo.tck.identitytype=" + idtype);
+                propsString.add("-Djdo.tck.identitytype=" + idtype);
                 String enhancedDirName = buildDirectory + File.separator + "enhanced"
                         + File.separator + impl + File.separator + idtype + File.separator;
                 File enhancedDir = new File(enhancedDirName);
@@ -454,15 +456,15 @@ public class RunTCK extends AbstractMojo {
                     // Parse conf file and set properties String
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
-                    propsString.append(" -Djdo.tck.testdata=" +
+                    propsString.add("-Djdo.tck.testdata=" +
                             props.getProperty("jdo.tck.testdata"));
-                    propsString.append(" -Djdo.tck.standarddata=" +
+                    propsString.add("-Djdo.tck.standarddata=" +
                             props.getProperty("jdo.tck.standarddata"));
-//                    propsString.append(" -Djdo.tck.description=\"" +
+//                    propsString.append("-Djdo.tck.description=\"" +
 //                            props.getProperty("jdo.tck.description") + "\"");
-                    propsString.append(" -Djdo.tck.requiredOptions=" +
+                    propsString.add("-Djdo.tck.requiredOptions=" +
                             props.getProperty("jdo.tck.requiredOptions"));
-                    propsString.append(" -Djdo.tck.signaturefile=" +
+                    propsString.add("-Djdo.tck.signaturefile=" +
                             signaturefile);
                     String mapping = props.getProperty("jdo.tck.mapping");
                     if (mapping == null) {
@@ -474,9 +476,11 @@ public class RunTCK extends AbstractMojo {
                         throw new MojoExecutionException(
                                 "Could not find classes value in conf file: " + cfg);
                     }
+                    List<String> classesList = Arrays.asList(classes.split(" "));
 
-                    propsString.append(" -Djdo.tck.schemaname=" + idtype + mapping);
-                    propsString.append(" -Djdo.tck.cfg=" + cfg);
+
+                    propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
+                    propsString.add("-Djdo.tck.cfg=" + cfg);
 
                     runonce = props.getProperty("runonce");
                     runonce = (runonce == null) ? "false" : runonce;
@@ -499,17 +503,31 @@ public class RunTCK extends AbstractMojo {
                     }
 
                     // build command line string
-                    StringBuffer cmdBuf = new StringBuffer();
-                    cmdBuf.append("java " + " ");
-                    cmdBuf.append("-cp " + cpString + " ");
-                    cmdBuf.append(propsString + " ");
-                    cmdBuf.append(dbproperties + " ");
-                    cmdBuf.append(jvmproperties + " ");
+//                    StringBuffer cmdBuf = new StringBuffer();
+                    List<String> command = new ArrayList<String>();
+                    command.add("java");
+                    command.add("-cp");
+                    command.add(cpString);
+                    command.addAll(propsString);
+                    command.add(dbproperties);
+                    // TODO!!! split jvmproperties into a List!!
+                    command.add(jvmproperties);
                     if (debugTCK) {
-                        cmdBuf.append(debugDirectives + " ");
+                        command.add(debugDirectives);
                     }
-                    cmdBuf.append(testRunnerClass + " ");
-                    cmdBuf.append(classes);
+                    command.add(testRunnerClass);
+                    command.addAll(classesList);
+
+//                    cmdBuf.append("java ");
+//                    cmdBuf.append("-cp " + cpString + " ");
+//                    cmdBuf.append(propsString + " ");
+//                    cmdBuf.append(dbproperties + " ");
+//                    cmdBuf.append(jvmproperties + " ");
+//                    if (debugTCK) {
+//                        cmdBuf.append(debugDirectives + " ");
+//                    }
+//                    cmdBuf.append(testRunnerClass + " ");
+//                    cmdBuf.append(classes);
 
                     // invoke class runner
                     System.out.println("Starting configuration=" + cfg +
@@ -522,21 +540,15 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
-                    System.out.println("Command line is: \n" + cmdBuf.toString());
-                    try {
-                        Process proc = Runtime.getRuntime().exec(cmdBuf.toString());
-//                        System.out.println("Err: "
-//                                + Utilities.convertStreamToString(proc.getErrorStream()));
-//                        System.out.println("Out: "
-//                                + Utilities.convertStreamToString(proc.getInputStream()));
-                        try {
-                            proc.waitFor();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } catch (IOException ex) {
-                        Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Command line is: \n" + command.toString());
+                    InvocationResult result = (new Utilities()).invokeTest(command);
+
+                    if (runtckVerbose) {
+                        System.out.println("Test exit value is" + result.getExitValue());
+                        System.out.println("Test result output:\n" + result.getOutputString());
+                        System.out.println("Test result error:\n" + result.getErrorString());
                     }
+
                     if (runonce.equals("true")) {
                         alreadyran = true;
                     }
