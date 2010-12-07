@@ -420,6 +420,15 @@ public class RunTCK extends AbstractMojo {
         URL[] cpURLs = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
         ArrayList<URL> urlList = new ArrayList<URL>(Arrays.asList(cpURLs));
 
+        // Get contents of pmf properties file to build new file below
+        String pmfPropsReadFileName = confDirectory + File.separator + pmfProperties;
+        String defaultPropsContents = "";
+        try {
+            defaultPropsContents = Utilities.readFile(pmfPropsReadFileName);
+        } catch (IOException ex) {
+            Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         for (String db : dbs) {
             System.setProperty("jdo.tck.database", db);
             alreadyran = false;
@@ -435,7 +444,8 @@ public class RunTCK extends AbstractMojo {
                 }
 
                 // Set classpath string: add new entries to URLS from loader
-                ArrayList<URL> cpList = urlList;
+                ArrayList<URL> cpList = new ArrayList<URL>();
+                cpList.addAll(urlList);
                 try {
                     URL url1 = enhancedDir.toURI().toURL();
                     URL url2 = new File(buildDirectory + File.separator
@@ -448,7 +458,7 @@ public class RunTCK extends AbstractMojo {
                 }
                 String cpString = Utilities.urls2ClasspathString(cpList);
                 if (runtckVerbose) {
-                    System.out.println("Classpath is " + cpString);
+                    System.out.println("\nClasspath is " + cpString);
                 }
 
                 for (String cfg : cfgs) {
@@ -487,16 +497,16 @@ public class RunTCK extends AbstractMojo {
 
                     // Add Mapping and schemaname to properties file
                     StringBuffer propsFileData = new StringBuffer();
-                    propsFileData.append("\n### Properties below added by maven goal doRuntck.jdori");
+                    propsFileData.append("\n### Properties below added by maven 2 goal RunTCK.jdori");
                     propsFileData.append("\njavax.jdo.mapping.Schema=" + idtype + mapping);
                     mapping = (mapping.equals("0")) ? "" : mapping;
                     propsFileData.append("\njavax.jdo.option.Mapping=standard" + mapping);
                     propsFileData.append("\n");
-                    String pmfPropsFileName = buildDirectory + File.separator
+                    String pmfPropsWriteFileName = buildDirectory + File.separator
                             + "classes" + File.separator + pmfProperties;
                     try {
-                        BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsFileName, true));
-                        out.write(propsFileData.toString());
+                        BufferedWriter out = new BufferedWriter(new FileWriter(pmfPropsWriteFileName, false));
+                        out.write(defaultPropsContents + propsFileData.toString());
                         out.close();
                     } catch (IOException ex) {
                         Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -518,17 +528,6 @@ public class RunTCK extends AbstractMojo {
                     command.add(testRunnerClass);
                     command.addAll(classesList);
 
-//                    cmdBuf.append("java ");
-//                    cmdBuf.append("-cp " + cpString + " ");
-//                    cmdBuf.append(propsString + " ");
-//                    cmdBuf.append(dbproperties + " ");
-//                    cmdBuf.append(jvmproperties + " ");
-//                    if (debugTCK) {
-//                        cmdBuf.append(debugDirectives + " ");
-//                    }
-//                    cmdBuf.append(testRunnerClass + " ");
-//                    cmdBuf.append(classes);
-
                     // invoke class runner
                     System.out.println("Starting configuration=" + cfg +
                             " with database=" + db + " identitytype=" + idtype
@@ -540,7 +539,7 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
-                    System.out.println("Command line is: \n" + command.toString());
+                    System.out.println("\nCommand line is: \n" + command.toString());
                     InvocationResult result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {
