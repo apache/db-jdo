@@ -7,6 +7,7 @@ package org.apache.jdo.exectck;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -36,6 +37,22 @@ public class PropertyUtils {
     }
 
     /**
+     * Separates white space separated items from a String into HashSet entries
+     * Used to collect command line argument lists into a Collection
+     *
+     * @param names String of white space separated items
+     * @param list  HashSet to contain String items
+     */
+    public static void string2List(String names, ArrayList<String> list) {
+//        System.out.println("names are " + names);
+        String[] items = names.split("[ \t\n]");
+        for (String s : items) {
+            list.add(s);
+        }
+//        System.out.println("List names are " + list.toString());
+    }
+
+    /**
      * Parses a set of config files for the mapping entry and
      * provides the mapping values in a HashSet<String>.
      * @param cfglist config file names
@@ -56,6 +73,7 @@ public class PropertyUtils {
                 fis = new FileInputStream(confName);
                 props.load(fis);
                 mapping = props.getProperty("jdo.tck.mapping");
+//                System.out.println("Next mapping is " + mapping);
             } catch (IOException e) {
                 e.printStackTrace();
                 try {

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.apache.jdo.exectck;
 
 import java.io.BufferedWriter;
@@ -18,161 +15,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
 import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-/*
- *     <goal name="privateRuntck.jdori"
-
-<echo>Run all configurations on jdori</echo>
-<j:set var="runOnceTestRanOnce" value="false"/>
-<j:forEach var="jdo.tck.database" items="${jdo.tck.dblist}">
-<j:forEach var="jdo.tck.identitytype" items="${jdo.tck.identitytypes}">
-<j:forEach var="jdo.tck.cfg" items="${jdo.tck.cfglist}">
-<j:set var="runOnce" value="false"/>
-<u:properties file="${basedir}/src/conf/${jdo.tck.cfg}"/>
-<j:if test="${runOnce == false || (runOnce == true &amp;&amp; runOnceTestRanOnce == false)}">
-<attainGoal name="exclude"/>
-<j:new var="schemaname" className="java.lang.String"/>
-<j:set var="id" value="${jdo.tck.identitytype}"/>
-<j:set var="mapping" value="${jdo.tck.mapping}"/>
-<j:if test="${mapping == zeroval}">
-<j:set var="jdo.tck.mapping" value=""/>
-</j:if>
-<j:set var="schemaname">
-<j:expr value="${schemaname.concat(id)}"/>
-<j:expr value="${schemaname.concat(mapping)}"/>
-</j:set>
-<attainGoal name="doRuntck.jdori"/>
-<j:if test="${runOnce == true}">
-<j:set var="runOnceTestRanOnce" value="true"/>
-</j:if>
-</j:if>
-</j:forEach>
-</j:forEach>
-</j:forEach>
-<attainGoal name="result"/>
-</goal>
- *
- *     <goal name="doRuntck.jdori">
-<j:if test="${jdo.tck.security}">
-<j:set var="jdo.tck.security.jvmargs"
-value="-Djava.security.manager -Djava.security.policy=${basedir}/src/conf/security.policy"/>
-<echo message="Running with Java security manager settings: ${jdo.tck.security.jvmargs}"/>
-</j:if>
-
-<path id="this.jdori.classpath">
-<pathelement location="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
-<path refid="jdori.classpath"/>
-</path>
-<u:loadText file="${basedir}/src/conf/${jdori.pmf.properties}"
-var="PMFProps"/>
-<j:file name="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"
-omitXmlDeclaration="true">
-${PMFProps}
-### Properties below added by maven goal doRuntck.jdori
-<!-- javax.jdo.option.Mapping=${jdo.tck.database}${jdo.tck.mapping} -->
-javax.jdo.option.Mapping=standard${jdo.tck.mapping}
-javax.jdo.mapping.Schema=${schemaname}
-</j:file>
-
-<j:set var="debugJvmargs" value="${jdo.tck.debug.jvmargs}"/>
-<j:if test="${not empty debugJvmargs}">
-<echo>JVM will wait until debugger attaches on port ${jdo.tck.debug.port}...</echo>
-</j:if>
-
-<echo>Starting configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the Reference Implementation.</echo>
-<java fork="yes" dir="${jdo.tck.testdir}"
-classname="${jdo.tck.testrunnerclass}">
-<classpath refid="this.jdori.classpath"/>
-<sysproperty key="ResultPrinterClass"
-value="${jdo.tck.resultprinterclass}"/>
-<sysproperty key="verbose" value="${verbose}"/>
-<sysproperty key="PMFProperties"
-value="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"/>
-<sysproperty key="PMF2Properties"
-value="${jdo.tck.testclasses.dir}/${jdori.pmf.properties}"/>
-<sysproperty key="jdo.tck.testdata" value="${jdo.tck.testdata}"/>
-<sysproperty key="jdo.tck.standarddata"
-value="${jdo.tck.standarddata}"/>
-<sysproperty key="jdo.tck.description"
-value="${jdo.tck.description}"/>
-<sysproperty key="jdo.tck.identitytype"
-value="${jdo.tck.identitytype}"/>
-<sysproperty key="jdo.tck.database"
-value="${jdo.tck.database}"/>
-<sysproperty key="jdo.tck.cfg"
-value="${jdo.tck.cfg}"/>
-<sysproperty key="jdo.tck.exclude"
-value="${jdo.tck.exclude}"/>
-<sysproperty key="jdo.tck.log.directory"
-value="${jdo.tck.log.directory}/${timestamp}"/>
-<sysproperty key="jdo.tck.cleanupaftertest"
-value="${jdo.tck.cleanupaftertest}"/>
-<sysproperty key="jdo.tck.requiredOptions"
-value="${jdo.tck.requiredOptions}"/>
-<sysproperty key="jdo.tck.schemaname"
-value="${schemaname}"/>
-<sysproperty key="jdo.tck.mapping.companyfactory"
-value="${jdo.tck.mapping.companyfactory}"/>
-<sysproperty key="jdo.tck.closePMFAfterEachTest"
-value="${jdo.tck.closePMFAfterEachTest}"/>
-<sysproperty key="jdo.tck.signaturefile"
-value="${jdo.tck.signaturefile}"/>
-<sysproperty key="jdo.tck.junit.jarfile"
-value="${junit.jarfile}"/>
-<sysproperty key="jdo.tck.testclasses.dir"
-value="${jdo.tck.testclasses.dir}"/>
-<sysproperty key="jdo.tck.enhanced.jarfile"
-value="${jdo.tck.enhanced.dir}/${jdo.tck.identitytype}.jar"/>
-<sysproperty key="jdo.api.jarfile"
-value="${jdo.api.jarfile}"/>
-<sysproperty key="jdo.tck.basedir"
-value="${jdo.tck.basedir}"/>
-<sysproperty key="jdo.tck.jdori.jarfile"
-value="${datanucleus.jdori.jarfile}"/>
-<sysproperty key="jdo.tck.jdori.rdbms.jarfile"
-value="${datanucleus.rdbms.jarfile}"/>
-<sysproperty key="jdo.tck.jdori.enhancer.jarfile"
-value="${datanucleus.enhancer.jarfile}"/>
-<sysproperty key="jdo.tck.springcore.jarfile"
-value="${springcore.jarfile}"/>
-<sysproperty key="jdo.tck.springbeans.jarfile"
-value="${springbeans.jarfile}"/>
-
-<jvmarg line="${database.runtck.sysproperties}"/>
-<jvmarg line="${jdori.runtck.sysproperties}"/>
-<jvmarg line="${jdo.tck.debug.jvmargs}"/>
-<jvmarg line="${jdo.tck.security.jvmargs}"/>
-
-<arg line="${jdo.tck.classes}"/>
-</java>
-<echo>Finished configuration="${jdo.tck.cfg}" with database="${jdo.tck.database}" identitytype="${jdo.tck.identitytype}" mapping="${jdo.tck.mapping}" on the Reference Implementation.</echo>
-</goal>
- */
-/*     <goal name="result">
-<java fork="yes" dir="${jdo.tck.testdir}"
-classname="org.apache.jdo.tck.util.ResultSummary">
-<classpath refid="jdori.classpath"/>
-<arg line="${jdo.tck.log.directory}/${timestamp}"/>
-</java>
-<java fork="yes" dir="${jdo.tck.testdir}"
-classname="org.apache.jdo.tck.util.SystemCfgSummary">
-<classpath refid="jdori.classpath"/>
-<arg line="${jdo.tck.log.directory}/${timestamp}/configuration"/>
-<arg line="system_config.txt"/>
-</java>
- */
-//        <copy todir="${jdo.tck.log.directory}/${timestamp}/configuration">
-//            <fileset dir="${basedir}" includes="*.properties, *.xml"/>
-//            <fileset dir="${basedir}/src/conf" includes="**/*"/>
-//            <fileset dir="${basedir}/src/jdo" includes="**/*.jdo"/>
-//            <fileset dir="${basedir}/src/orm" includes="**/*.orm"/>
-//        </copy>
-//    </goal>
 /**
  * Goal that runs the JDO TCK against the Reference Implementation (RI)
  * or an implementation under test (IUT).
@@ -248,7 +95,7 @@ public class RunTCK extends AbstractMojo {
      * @parameter
      * @required
      */
-    private HashSet<String> cfgs;
+    private ArrayList<String> cfgs;
     /**
      * List of configuration files, each describing a test configuration.
      * Allows command line override of configured cfgs value.
@@ -369,14 +216,13 @@ public class RunTCK extends AbstractMojo {
         Properties props = null;
         boolean alreadyran = false;
         String runonce = "false";
-//        StringBuffer propsString = new StringBuffer(" ");
         List<String> propsString = new ArrayList<String>();
 
         if (cfgs != null) {
             System.out.println("Configurations specified in cfgs are " + cfgs.toString());
         } else if (cfgList != null) {
-            cfgs = new HashSet();
-            PropertyUtils.string2Set(cfgList, cfgs);
+            cfgs = new ArrayList();
+            PropertyUtils.string2List(cfgList, cfgs);
             System.out.println("Configurations are " + cfgs.toString());
         } else {
             throw new MojoExecutionException(
@@ -529,7 +375,7 @@ public class RunTCK extends AbstractMojo {
                     command.addAll(classesList);
 
                     // invoke class runner
-                    System.out.println("Starting configuration=" + cfg +
+                    System.out.println("*> Starting configuration=" + cfg +
                             " with database=" + db + " identitytype=" + idtype
                             + " mapping=" + mapping + " on the " + impl + ".");
                     if (debugTCK) {
@@ -539,11 +385,11 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
-                    System.out.println("\nCommand line is: \n" + command.toString());
+//                    System.out.println("\nCommand line is: \n" + command.toString());
                     InvocationResult result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {
-                        System.out.println("Test exit value is" + result.getExitValue());
+                        System.out.println("Test exit value is " + result.getExitValue());
                         System.out.println("Test result output:\n" + result.getOutputString());
                         System.out.println("Test result error:\n" + result.getErrorString());
                     }

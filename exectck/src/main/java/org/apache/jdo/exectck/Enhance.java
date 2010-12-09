@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.apache.jdo.exectck;
 
 import java.net.MalformedURLException;
@@ -187,7 +184,7 @@ public class Enhance extends AbstractMojo {
                     classPathURLs[0] = (new File(enhancedIdDirName)).toURI().toURL();
                     classPathURLs[1] = (new File(fromDirName)).toURI().toURL();
                     loader = new URLClassLoader(classPathURLs, getClass().getClassLoader());
-                    Utilities.printClasspath(loader);
+//                    Utilities.printClasspath(loader);
                     // debugging
 //                Class cls = null;
 //                try {
