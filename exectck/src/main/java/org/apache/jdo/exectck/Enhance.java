@@ -139,6 +139,13 @@ public class Enhance extends AbstractMojo {
                                     + pkgName);
 //                        System.out.println("Copy from source dir to " + toFile.toString());
                             FileUtils.copyFile(fromFile, toFile);
+                        } else if (srcDir.equals("testdata")) {
+                            startIdx = fromFileName.indexOf("org" + File.separator);
+                            pkgName = fromFileName.substring(startIdx);
+                            toFile = new File(enhancedDirName + File.separator
+                                    + idtype + File.separator + pkgName);
+                            System.out.println("Copy from " + fromFile.toString() + " to " + toFile.toString());
+                            FileUtils.copyFile(fromFile, toFile);
                         } else {
                             continue;  // idtype not in pathname, do not copy
                         }

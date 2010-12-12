@@ -219,11 +219,11 @@ public class RunTCK extends AbstractMojo {
         List<String> propsString = new ArrayList<String>();
 
         if (cfgs != null) {
-            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
+//            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
         } else if (cfgList != null) {
             cfgs = new ArrayList();
             PropertyUtils.string2List(cfgList, cfgs);
-            System.out.println("Configurations are " + cfgs.toString());
+//            System.out.println("Configurations are " + cfgs.toString());
         } else {
             throw new MojoExecutionException(
                     "Could not find configurations to run TCK. "
@@ -316,6 +316,8 @@ public class RunTCK extends AbstractMojo {
                             props.getProperty("jdo.tck.testdata"));
                     propsString.add("-Djdo.tck.standarddata=" +
                             props.getProperty("jdo.tck.standarddata"));
+                    propsString.add("-Djdo.tck.mapping.companyfactory=" +
+                            props.getProperty("jdo.tck.mapping.companyfactory"));
 //                    propsString.append("-Djdo.tck.description=\"" +
 //                            props.getProperty("jdo.tck.description") + "\"");
                     propsString.add("-Djdo.tck.requiredOptions=" +
