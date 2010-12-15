@@ -1,4 +1,3 @@
-
 package org.apache.jdo.exectck;
 
 import java.io.BufferedWriter;
@@ -11,10 +10,12 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -150,21 +151,18 @@ public class RunTCK extends AbstractMojo {
      * @optional
      */
     private String cleanupaftertest;
-
     /**
      * Properties to use in accessing database.
      * @parameter expression="${database.runtck.sysproperties}"
      * @optional
      */
     private String dbproperties;    // NOTE: only allows for one db
-
     /**
      * Properties to use in accessing database.
      * @parameter expression="${jdo.tck.signaturefile}"
      * @optional
      */
     private String signaturefile;
-
     /**
      * JVM properties.
      * @parameter expression="${jdo.tck.jvmproperties}"
@@ -172,7 +170,6 @@ public class RunTCK extends AbstractMojo {
      * @optional
      */
     private String jvmproperties;
-
     /**
      * The port number the JVM should listen for a debugger on.
      * @parameter expression="${jdo.tck.debug.port}"
@@ -217,6 +214,9 @@ public class RunTCK extends AbstractMojo {
         boolean alreadyran = false;
         String runonce = "false";
         List<String> propsString = new ArrayList<String>();
+        List<String> command;
+        String cpString = null;
+        InvocationResult result;
 
         if (cfgs != null) {
 //            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
@@ -247,8 +247,8 @@ public class RunTCK extends AbstractMojo {
         propsString.add("-DPMF2Properties=" + buildDirectory + File.separator
                 + "classes" + File.separator + pmfProperties);
         String excludeFile = confDirectory + File.separator + exclude;
-        propsString.add("-Djdo.tck.exclude=" +
-                PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
+        propsString.add("-Djdo.tck.exclude="
+                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
 
         // Create configuration log directory
         String timestamp = Utilities.now();
@@ -302,7 +302,7 @@ public class RunTCK extends AbstractMojo {
                     ex.printStackTrace();
                     Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                String cpString = Utilities.urls2ClasspathString(cpList);
+                cpString = Utilities.urls2ClasspathString(cpList);
                 if (runtckVerbose) {
                     System.out.println("\nClasspath is " + cpString);
                 }
@@ -312,18 +312,18 @@ public class RunTCK extends AbstractMojo {
                     // Parse conf file and set properties String
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
-                    propsString.add("-Djdo.tck.testdata=" +
-                            props.getProperty("jdo.tck.testdata"));
-                    propsString.add("-Djdo.tck.standarddata=" +
-                            props.getProperty("jdo.tck.standarddata"));
-                    propsString.add("-Djdo.tck.mapping.companyfactory=" +
-                            props.getProperty("jdo.tck.mapping.companyfactory"));
+                    propsString.add("-Djdo.tck.testdata="
+                            + props.getProperty("jdo.tck.testdata"));
+                    propsString.add("-Djdo.tck.standarddata="
+                            + props.getProperty("jdo.tck.standarddata"));
+                    propsString.add("-Djdo.tck.mapping.companyfactory="
+                            + props.getProperty("jdo.tck.mapping.companyfactory"));
 //                    propsString.append("-Djdo.tck.description=\"" +
 //                            props.getProperty("jdo.tck.description") + "\"");
-                    propsString.add("-Djdo.tck.requiredOptions=" +
-                            props.getProperty("jdo.tck.requiredOptions"));
-                    propsString.add("-Djdo.tck.signaturefile=" +
-                            signaturefile);
+                    propsString.add("-Djdo.tck.requiredOptions="
+                            + props.getProperty("jdo.tck.requiredOptions"));
+                    propsString.add("-Djdo.tck.signaturefile="
+                            + signaturefile);
                     String mapping = props.getProperty("jdo.tck.mapping");
                     if (mapping == null) {
                         throw new MojoExecutionException(
@@ -361,8 +361,7 @@ public class RunTCK extends AbstractMojo {
                     }
 
                     // build command line string
-//                    StringBuffer cmdBuf = new StringBuffer();
-                    List<String> command = new ArrayList<String>();
+                    command = new ArrayList<String>();
                     command.add("java");
                     command.add("-cp");
                     command.add(cpString);
@@ -377,8 +376,8 @@ public class RunTCK extends AbstractMojo {
                     command.addAll(classesList);
 
                     // invoke class runner
-                    System.out.println("*> Starting configuration=" + cfg +
-                            " with database=" + db + " identitytype=" + idtype
+                    System.out.println("*> Starting configuration=" + cfg
+                            + " with database=" + db + " identitytype=" + idtype
                             + " mapping=" + mapping + " on the " + impl + ".");
                     if (debugTCK) {
                         System.out.println("Using debug arguments: \n"
@@ -388,7 +387,7 @@ public class RunTCK extends AbstractMojo {
                         continue;
                     }
 //                    System.out.println("\nCommand line is: \n" + command.toString());
-                    InvocationResult result = (new Utilities()).invokeTest(command);
+                    result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {
                         System.out.println("Test exit value is " + result.getExitValue());
@@ -400,33 +399,57 @@ public class RunTCK extends AbstractMojo {
                         alreadyran = true;
                     }
 
-
-                    // Output results
- /*     <goal name="result">
-                    <java fork="yes" dir="${jdo.tck.testdir}"
-                    classname="org.apache.jdo.tck.util.ResultSummary">
-                    <classpath refid="jdori.classpath"/>
-                    <arg line="${jdo.tck.log.directory}/${timestamp}"/>
-                    </java>
-                    <java fork="yes" dir="${jdo.tck.testdir}"
-                    classname="org.apache.jdo.tck.util.SystemCfgSummary">
-                    <classpath refid="jdori.classpath"/>
-                    <arg line="${jdo.tck.log.directory}/${timestamp}/configuration"/>
-                    <arg line="system_config.txt"/>
-                    </java>
-                     */
-
-                    // Copy files to configuration logs directory
-//        <copy todir="${jdo.tck.log.directory}/${timestamp}/configuration">
-//            <fileset dir="${basedir}" includes="*.properties, *.xml"/>
-//            <fileset dir="${basedir}/src/conf" includes="**/*"/>
-//            <fileset dir="${basedir}/src/jdo" includes="**/*.jdo"/>
-//            <fileset dir="${basedir}/src/orm" includes="**/*.orm"/>
-//        </copy>
-
                 }
             }
         }
 
+        // Output results
+        command = new ArrayList<String>();
+        command.add("java");
+        command.add("-cp");
+        command.add(cpString);
+        command.add("org.apache.jdo.tck.util.ResultSummary");
+        command.add(thisLogDir);
+        result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+
+        // Create system configuration description file
+        command.set(3, "org.apache.jdo.tck.util.SystemCfgSummary");
+        command.set(4, cfgDirName);
+        command.add("system_config.txt");
+        result = (new Utilities()).invokeTest(command, new File(buildDirectory));
+
+        // Copy metadata from enhanced to configuration logs directory
+        for (String idtype : idtypes) {
+            String fromDirName = buildDirectory + File.separator + "enhanced"
+                    + File.separator + impl + File.separator + idtype + File.separator;
+            String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
+            File fromFile = null;
+            File toFile = null;
+            String fromFileName = null;
+            String pkgName = null;
+            int startIdx = -1;
+            // iterator over list of abs name of metadata files in src
+            Iterator<File> fi = FileUtils.iterateFiles(
+                    new File(fromDirName), metadataExtensions, true);
+            while (fi.hasNext()) {
+                try {
+                    fromFile = fi.next();
+                    fromFileName = fromFile.toString();
+//                    System.out.println("Copying " + fromFileName);
+                    if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
+                        // fully specified name of file (idtype + package + filename)
+                        pkgName = fromFileName.substring(startIdx);
+                        toFile = new File(cfgDirName + File.separator
+                                + pkgName);
+//                        System.out.println("Copy from source dir to " + toFile.toString());
+                        FileUtils.copyFile(fromFile, toFile);
+                    }
+                } catch (IOException ex) {
+                    throw new MojoExecutionException("Failed to copy files from "
+                            + fromFileName + " to " + toFile.toString()
+                            + ": " + ex.getLocalizedMessage());
+                }
+            }
+        }
     }
 }

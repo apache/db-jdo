@@ -141,6 +141,41 @@ public class Utilities {
         return result;
     }
 
+        InvocationResult invokeTest(List command, File directory) {
+        InvocationResult result = new InvocationResult();
+        try {
+            ProcessBuilder builder = new ProcessBuilder(command);
+            builder.directory(directory);
+            Map<String, String> env = builder.environment();
+            Process proc = builder.start();
+            InputStream stdout = proc.getInputStream();
+            InputStream stderr = proc.getErrorStream();
+            CharBuffer outBuffer = CharBuffer.allocate(1000000);
+            CharBuffer errBuffer = CharBuffer.allocate(1000000);
+            Thread outputThread = createReaderThread(stdout, outBuffer);
+            Thread errorThread = createReaderThread(stderr, errBuffer);
+            int exitValue = proc.waitFor();
+            result.setExitValue(exitValue);
+            errorThread.join(10000); // wait ten seconds to get stderr after process terminates
+            outputThread.join(10000); // wait ten seconds to get stdout after process terminates
+            result.setErrorString(errBuffer.toString());
+            result.setOutputString(outBuffer.toString());
+            // wait until the Enhancer command finishes
+        } catch (InterruptedException ex) {
+            throw new RuntimeException("InterruptedException", ex);
+        } catch (IOException ex) {
+            throw new RuntimeException("IOException", ex);
+        } catch (JDOException jdoex) {
+            jdoex.printStackTrace();
+            Throwable[] throwables = jdoex.getNestedExceptions();
+            System.out.println("Exception throwables of size: " + throwables.length);
+            for (Throwable throwable: throwables) {
+                throwable.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     private Thread createReaderThread(final InputStream input, final CharBuffer output) {
         final Reader reader = new InputStreamReader(input);
         Thread thread = new Thread(
