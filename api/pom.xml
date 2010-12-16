@@ -130,7 +130,6 @@
       <artifactId>ant</artifactId>
       <version>1.7.0</version>
       <scope>test</scope>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
