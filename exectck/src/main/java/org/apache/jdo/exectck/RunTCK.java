@@ -248,7 +248,7 @@ public class RunTCK extends AbstractMojo {
                 + "classes" + File.separator + pmfProperties);
         String excludeFile = confDirectory + File.separator + exclude;
         propsString.add("-Djdo.tck.exclude="
-                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
+                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude").trim());
 
         // Create configuration log directory
         String timestamp = Utilities.now();
@@ -313,23 +313,23 @@ public class RunTCK extends AbstractMojo {
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
                     propsString.add("-Djdo.tck.testdata="
-                            + props.getProperty("jdo.tck.testdata"));
+                            + props.getProperty("jdo.tck.testdata").trim());
                     propsString.add("-Djdo.tck.standarddata="
-                            + props.getProperty("jdo.tck.standarddata"));
+                            + props.getProperty("jdo.tck.standarddata").trim());
                     propsString.add("-Djdo.tck.mapping.companyfactory="
-                            + props.getProperty("jdo.tck.mapping.companyfactory"));
+                            + props.getProperty("jdo.tck.mapping.companyfactory").trim());
 //                    propsString.append("-Djdo.tck.description=\"" +
-//                            props.getProperty("jdo.tck.description") + "\"");
+//                            props.getProperty("jdo.tck.description").trim() + "\"");
                     propsString.add("-Djdo.tck.requiredOptions="
-                            + props.getProperty("jdo.tck.requiredOptions"));
+                            + props.getProperty("jdo.tck.requiredOptions").trim());
                     propsString.add("-Djdo.tck.signaturefile="
                             + signaturefile);
-                    String mapping = props.getProperty("jdo.tck.mapping");
+                    String mapping = props.getProperty("jdo.tck.mapping").trim();
                     if (mapping == null) {
                         throw new MojoExecutionException(
                                 "Could not find mapping value in conf file: " + cfg);
                     }
-                    String classes = props.getProperty("jdo.tck.classes");
+                    String classes = props.getProperty("jdo.tck.classes").trim();
                     if (classes == null) {
                         throw new MojoExecutionException(
                                 "Could not find classes value in conf file: " + cfg);
@@ -340,7 +340,7 @@ public class RunTCK extends AbstractMojo {
                     propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
                     propsString.add("-Djdo.tck.cfg=" + cfg);
 
-                    runonce = props.getProperty("runonce");
+                    runonce = props.getProperty("runonce").trim();
                     runonce = (runonce == null) ? "false" : runonce;
 
                     // Add Mapping and schemaname to properties file
@@ -435,13 +435,13 @@ public class RunTCK extends AbstractMojo {
                 try {
                     fromFile = fi.next();
                     fromFileName = fromFile.toString();
-//                    System.out.println("Copying " + fromFileName);
+                    System.out.println("Copying " + fromFileName);
                     if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
                         // fully specified name of file (idtype + package + filename)
                         pkgName = fromFileName.substring(startIdx);
                         toFile = new File(cfgDirName + File.separator
                                 + pkgName);
-//                        System.out.println("Copy from source dir to " + toFile.toString());
+                        System.out.println("Copy from source dir to " + toFile.toString());
                         FileUtils.copyFile(fromFile, toFile);
                     }
                 } catch (IOException ex) {
