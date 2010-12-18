@@ -102,8 +102,6 @@ public class Enhance extends AbstractMojo {
                     + enhancedDir);
         }
 
-
-
         String[] pcPkgNames = {"org/apache/jdo/tck/api/",
             "org/apache/jdo/tck/pc/",
             "org/apache/jdo/tck/models/inheritance/"};

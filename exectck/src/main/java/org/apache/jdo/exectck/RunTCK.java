@@ -90,6 +90,13 @@ public class RunTCK extends AbstractMojo {
      */
     private String impl;
     /**
+     * Location of third party libraries such as JNDI.
+     * @parameter expression="${project.lib.ext.directory}"
+     *      default-value="${basedir}/../lib/ext"
+     * @required
+     */
+    private String extLibsDirectory;
+    /**
      * List of configuration files, each describing a test configuration.
      * Note: Collection can only be configured in pom.xml. Using multi-valued
      *       type because long String cannot be broken across lines in pom.xml.
@@ -217,6 +224,8 @@ public class RunTCK extends AbstractMojo {
         List<String> command;
         String cpString = null;
         InvocationResult result;
+        File fromFile = null;
+        File toFile = null;
 
         if (cfgs != null) {
 //            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
@@ -233,7 +242,7 @@ public class RunTCK extends AbstractMojo {
 
         PropertyUtils.string2Set(dblist, dbs);
         PropertyUtils.string2Set(identitytypes, idtypes);
-        System.out.println("*>TCK to be run for " + impl
+        System.out.println("*>TCK to be run for implementation " + impl
                 + " on \n configurations: "
                 + cfgs.toString() + "\n  databases: " + dbs.toString()
                 + "\n  identity types: " + identitytypes.toString());
@@ -248,7 +257,7 @@ public class RunTCK extends AbstractMojo {
                 + "classes" + File.separator + pmfProperties);
         String excludeFile = confDirectory + File.separator + exclude;
         propsString.add("-Djdo.tck.exclude="
-                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude").trim());
+                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
 
         // Create configuration log directory
         String timestamp = Utilities.now();
@@ -261,6 +270,22 @@ public class RunTCK extends AbstractMojo {
                     + cfgDirName);
         }
         propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
+
+        // Copy JDO config files to classes dir
+        try {
+            fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
+            toFile = new File(buildDirectory + File.separator + "classes" + 
+                    File.separator + "META-INF" + File.separator + "jdoconfig.xml");
+            System.out.println("Copying from " + fromFile + " to " + toFile);
+            FileUtils.copyFile(fromFile, toFile);
+            fromFile = new File(confDirectory + File.separator + impl + "-persistence.xml");
+            toFile = new File(buildDirectory + File.separator + "classes" +
+                    File.separator + "META-INF" + File.separator + "persistence.xml");
+            System.out.println("Copying from " + fromFile + " to " + toFile);
+            FileUtils.copyFile(fromFile, toFile);
+        } catch (IOException ex) {
+            Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // Get ClassLoader URLs to build classpath below
         URL[] cpURLs = ((URLClassLoader) Thread.currentThread().getContextClassLoader()).getURLs();
@@ -298,6 +323,13 @@ public class RunTCK extends AbstractMojo {
                             + "classes" + File.separator).toURI().toURL();
                     cpList.add(url1);
                     cpList.add(url2);
+                    String[] jars = {"jar"};
+                    Iterator<File> fi = FileUtils.iterateFiles(
+                            new File(extLibsDirectory), jars, true);
+                    while (fi.hasNext()) {
+                        cpList.add(fi.next().toURI().toURL());
+                    }
+
                 } catch (MalformedURLException ex) {
                     ex.printStackTrace();
                     Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,23 +345,23 @@ public class RunTCK extends AbstractMojo {
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
                     propsString.add("-Djdo.tck.testdata="
-                            + props.getProperty("jdo.tck.testdata").trim());
+                            + props.getProperty("jdo.tck.testdata"));
                     propsString.add("-Djdo.tck.standarddata="
-                            + props.getProperty("jdo.tck.standarddata").trim());
+                            + props.getProperty("jdo.tck.standarddata"));
                     propsString.add("-Djdo.tck.mapping.companyfactory="
-                            + props.getProperty("jdo.tck.mapping.companyfactory").trim());
+                            + props.getProperty("jdo.tck.mapping.companyfactory"));
 //                    propsString.append("-Djdo.tck.description=\"" +
-//                            props.getProperty("jdo.tck.description").trim() + "\"");
+//                            props.getProperty("jdo.tck.description") + "\"");
                     propsString.add("-Djdo.tck.requiredOptions="
-                            + props.getProperty("jdo.tck.requiredOptions").trim());
+                            + props.getProperty("jdo.tck.requiredOptions"));
                     propsString.add("-Djdo.tck.signaturefile="
                             + signaturefile);
-                    String mapping = props.getProperty("jdo.tck.mapping").trim();
+                    String mapping = props.getProperty("jdo.tck.mapping");
                     if (mapping == null) {
                         throw new MojoExecutionException(
                                 "Could not find mapping value in conf file: " + cfg);
                     }
-                    String classes = props.getProperty("jdo.tck.classes").trim();
+                    String classes = props.getProperty("jdo.tck.classes");
                     if (classes == null) {
                         throw new MojoExecutionException(
                                 "Could not find classes value in conf file: " + cfg);
@@ -340,7 +372,7 @@ public class RunTCK extends AbstractMojo {
                     propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
                     propsString.add("-Djdo.tck.cfg=" + cfg);
 
-                    runonce = props.getProperty("runonce").trim();
+                    runonce = props.getProperty("runonce");
                     runonce = (runonce == null) ? "false" : runonce;
 
                     // Add Mapping and schemaname to properties file
@@ -423,8 +455,6 @@ public class RunTCK extends AbstractMojo {
             String fromDirName = buildDirectory + File.separator + "enhanced"
                     + File.separator + impl + File.separator + idtype + File.separator;
             String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
-            File fromFile = null;
-            File toFile = null;
             String fromFileName = null;
             String pkgName = null;
             int startIdx = -1;
