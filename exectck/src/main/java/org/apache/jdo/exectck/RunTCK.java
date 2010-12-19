@@ -206,6 +206,16 @@ public class RunTCK extends AbstractMojo {
      */
     private String resultPrinterClass;
 
+    /**
+     * Helper method returning the trimmed value of the specified property.
+     * @param props the Properties object
+     * @param ke the key of the property to be returned
+     * @return the trimmed property value or the empty string if the property is not defined. +     */
+    private String getTrimmedPropertyValue (Properties props, String key) {
+        String value = props.getProperty(key);
+        return value == null ? "" : value.trim();
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
@@ -257,7 +267,7 @@ public class RunTCK extends AbstractMojo {
                 + "classes" + File.separator + pmfProperties);
         String excludeFile = confDirectory + File.separator + exclude;
         propsString.add("-Djdo.tck.exclude="
-                + PropertyUtils.getProperties(excludeFile).getProperty("jdo.tck.exclude"));
+                + getTrimmedPropertyValue(PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude"));
 
         // Create configuration log directory
         String timestamp = Utilities.now();
@@ -345,23 +355,23 @@ public class RunTCK extends AbstractMojo {
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
                     propsString.add("-Djdo.tck.testdata="
-                            + props.getProperty("jdo.tck.testdata"));
+                            + getTrimmedPropertyValue(props, "jdo.tck.testdata"));
                     propsString.add("-Djdo.tck.standarddata="
-                            + props.getProperty("jdo.tck.standarddata"));
+                            + getTrimmedPropertyValue(props, "jdo.tck.standarddata"));
                     propsString.add("-Djdo.tck.mapping.companyfactory="
-                            + props.getProperty("jdo.tck.mapping.companyfactory"));
+                            + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
 //                    propsString.append("-Djdo.tck.description=\"" +
 //                            props.getProperty("jdo.tck.description") + "\"");
                     propsString.add("-Djdo.tck.requiredOptions="
-                            + props.getProperty("jdo.tck.requiredOptions"));
+                            + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
                     propsString.add("-Djdo.tck.signaturefile="
                             + signaturefile);
-                    String mapping = props.getProperty("jdo.tck.mapping");
+                    String mapping = getTrimmedPropertyValue(props, "jdo.tck.mapping");
                     if (mapping == null) {
                         throw new MojoExecutionException(
                                 "Could not find mapping value in conf file: " + cfg);
                     }
-                    String classes = props.getProperty("jdo.tck.classes");
+                    String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
                     if (classes == null) {
                         throw new MojoExecutionException(
                                 "Could not find classes value in conf file: " + cfg);
@@ -372,7 +382,7 @@ public class RunTCK extends AbstractMojo {
                     propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
                     propsString.add("-Djdo.tck.cfg=" + cfg);
 
-                    runonce = props.getProperty("runonce");
+                    runonce = getTrimmedPropertyValue(props, "runonce");
                     runonce = (runonce == null) ? "false" : runonce;
 
                     // Add Mapping and schemaname to properties file
