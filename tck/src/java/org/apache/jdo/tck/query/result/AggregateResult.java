@@ -558,7 +558,7 @@ public class AggregateResult extends QueryTest {
         // MAX(((FullTimeEmployee)manager).salary)
         new Double(10000),
         // AVG(long)
-        new Long(3),
+        new Double(3),
         // AVG(double)
         new Double(25000.0),
         // AVG(BigDecimal)

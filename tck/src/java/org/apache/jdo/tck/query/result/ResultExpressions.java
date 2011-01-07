@@ -415,7 +415,7 @@ public class ResultExpressions extends QueryTest {
         // MAX
         new Long(5),
         // AVG
-        new Long(3),
+        new Double(3),
         // field expression
         Arrays.asList(new Object[]{new Long(2), new Long(3), 
                 new Long(4), new Long(5), new Long(6)}),
