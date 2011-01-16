@@ -29,9 +29,6 @@ import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-
 /**
  *<B>Title:</B> Default Unique.
  *<BR>
@@ -224,13 +221,13 @@ public class DefaultUnique extends QueryTest {
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // results for aggregate queries
         new Long(5),
-        new BigDecimal("99.999"),
+        new Double("99.999"),
         new BigDecimal("2000.99"),
         new BigDecimal("2500000.99"),
         new BigDecimal("2552001.98"),
         // results for aggregate queries with grouping
         Arrays.asList(new Object[]{new Long(3), new Long(2)}),
-        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
+        Arrays.asList(new Object[]{new Double("99.999"), new Double("99.999")}),
         Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
         Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
         Arrays.asList(new Object[]{new BigDecimal("299.997"), new BigDecimal("199.998")})

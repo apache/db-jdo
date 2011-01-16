@@ -562,7 +562,7 @@ public class AggregateResult extends QueryTest {
         // AVG(double)
         new Double(25000.0),
         // AVG(BigDecimal)
-        new BigDecimal("99.999"),
+        new Double("99.999"),
         // AVG(lifetimeOrthoBenefit)
         null,
         // AVG(((FullTimeEmployee)manager).salary)
