@@ -132,24 +132,20 @@
     <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>transaction-api</artifactId>
-      <version>${transaction.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
-      <version>${ant.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
       <artifactId>geronimo-jpa_3.0_spec</artifactId>
-      <version>${geronimo-jpa.version}</version>
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
