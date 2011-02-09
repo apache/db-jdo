@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>8</version>
+  </parent>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>javax.jdo</groupId>
   <artifactId>root</artifactId>
@@ -12,10 +19,17 @@ Java model abstraction of persistence, developed as Java Specification
 Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
   <url>http://db.apache.org/jdo</url>
   <inceptionYear>2005</inceptionYear>
+
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
   </organization>
+
+  <modules>
+    <module>api</module>
+    <module>exectck</module>
+    <module>tck</module>
+  </modules>
 
   <dependencyManagement>
     <dependencies>
@@ -168,6 +182,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-commits/</archive>
     </mailingList>
   </mailingLists>
+
   <developers>
     <developer>
       <id>clr</id>
@@ -233,11 +248,13 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <timezone>-8</timezone>
     </developer>
   </developers>
+
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
     <url>http://svn.apache.org/viewcvs.cgi/</url>
   </scm>
+
   <build>
     <plugins>
       <plugin>
