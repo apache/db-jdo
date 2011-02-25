@@ -57,14 +57,6 @@ Request 243 under the auspices of the Java Community Process.</description>
                 <scope>test</scope>
             </properties>
         </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jpa_2.0_spec</artifactId>
-            <version>1.0</version>
-            <properties>
-                <optional>true</optional>
-            </properties>
-        </dependency>
     </dependencies>
     <!-- =================== -->
     <!-- Build Specification -->
