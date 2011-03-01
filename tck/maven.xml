@@ -647,6 +647,7 @@
                     <pathelement location="${enhanced.dir}"/>
                 </path>
                 <echo>datanucleus.enhancer.jarfile is ${datanucleus.enhancer.jarfile}</echo>
+                <echo>datanucleus.jdo.jarfile is ${datanucleus.jdo.jarfile}</echo>
                 <echo>datanucleus.jpa.jarfile is ${datanucleus.jpa.jarfile}</echo>
                 <echo>jdori.enhancer.classpath is ${jdori.enhancer.classpath}</echo>
                 <echo>enhance.classpath is ${enhance.classpath}</echo>
@@ -714,6 +715,7 @@
         <pathelement location="${datanucleus.jdori.jarfile}" />
         <pathelement location="${datanucleus.enhancer.jarfile}" />
         <pathelement location="${datanucleus.rdbms.jarfile}" />
+        <pathelement location="${datanucleus.jdo.jarfile}" />
         <pathelement location="${datanucleus.jpa.jarfile}" />
         <pathelement location="${jta.jarfile}" />
         <pathelement location="${xmlparser}" />
@@ -746,6 +748,8 @@
         <pathelement location="${junit.jarfile}"/>
         <!-- Commons-logging jar file (for compiling pa/pc classes) -->
         <pathelement location="${logging.commons.jarfile}"/>
+        <!-- DataNucleus JDO jar file -->
+        <pathelement location="${datanucleus.jdo.jarfile}" />
         <!-- DataNucleus JPA jar file -->
         <pathelement location="${datanucleus.jpa.jarfile}" />
         <!-- JPA jar file -->
