@@ -66,7 +66,11 @@
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-jpa</artifactId>
+            <artifactId>datanucleus-api-jdo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-api-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -79,10 +83,6 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-connectionpool</artifactId>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
