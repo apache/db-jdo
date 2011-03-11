@@ -93,7 +93,7 @@
                                 <cfg>fetchgroup.conf</cfg>
                                 <cfg>fetchplan.conf</cfg>
                                 <cfg>inheritance1.conf</cfg>
-                                -<cfg>inheritance2.conf</cfg>
+                                <cfg>inheritance2.conf</cfg>
                                 <cfg>inheritance3.conf</cfg>
                                 <cfg>inheritance4.conf</cfg>
                                 <cfg>instancecallbacks.conf</cfg>
@@ -194,7 +194,7 @@
                                 <cfg>fetchgroup.conf</cfg>
                                 <cfg>fetchplan.conf</cfg>
                                 <cfg>inheritance1.conf</cfg>
-                                -<cfg>inheritance2.conf</cfg>
+                                <cfg>inheritance2.conf</cfg>
                                 <cfg>inheritance3.conf</cfg>
                                 <cfg>inheritance4.conf</cfg>
                                 <cfg>instancecallbacks.conf</cfg>
