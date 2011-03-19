@@ -25,6 +25,7 @@ package javax.jdo;
 import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.jdo.datastore.JDOConnection;
@@ -1313,4 +1314,33 @@ public interface PersistenceManager {
      * @since 2.2
      */
     FetchGroup getFetchGroup(Class cls, String name);
+
+    /**
+     * Set a persistence manager property. This can be a standard property
+     * or a vendor-extension property. If a vendor-extension property is 
+     * not recognized, it is silently ignored.
+     * @param propertyName name of property
+     * @param value The value
+     * @throws JDOUserException if the value is not supported for the property
+     * @since 3.1
+     */
+    public void setProperty(String propertyName, Object value);
+
+    /**
+     * Get the properties and associated values currently in effect for the
+     * persistence manager. Changing entries in the map will not have affect
+     * the configuration of the persistence manager.
+     * @return map of properties in effect
+     * @since 3.1
+     */
+    public Map<String, Object> getProperties();
+
+    /**
+     * Get the names of the properties that are supported for use with the 
+     * persistence manager. These can be standard JDO properties, or can be
+     * vendor-extension properties.
+     * @return property names Names of the properties accepted
+     * @since 3.1
+     */
+    public Set<String> getSupportedProperties();
 }
