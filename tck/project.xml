@@ -44,31 +44,31 @@ NOTE!! There are no unit tests in this project.</description>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
-            <version>3.0.0-m2</version>
+            <version>3.0.0-m3</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-rdbms</artifactId>
-            <version>3.0.0-m2</version>
+            <version>3.0.0-m3</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-enhancer</artifactId>
-            <version>3.0.0-m2</version>
+            <version>3.0.0-m3</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jdo</artifactId>
-            <version>3.0.0-m2</version>
+            <version>3.0.0-m3</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jpa</artifactId>
-            <version>3.0.0-m2</version>
+            <version>3.0.0-m3</version>
             <url>http://www.datanucleus.org/downloads/maven-nightly</url>
         </dependency>
         <dependency>
