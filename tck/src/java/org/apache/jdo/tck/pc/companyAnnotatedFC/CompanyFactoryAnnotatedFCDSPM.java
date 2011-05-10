@@ -46,6 +46,7 @@ public class CompanyFactoryAnnotatedFCDSPM
             FCDSFullTimeEmployee.class,
             FCDSProject.class,
             FCDSDepartment.class,
+            FCDSMeetingRoom.class,
             FCDSCompany.class,
             FCDSAddress.class
         };
@@ -56,7 +57,7 @@ public class CompanyFactoryAnnotatedFCDSPM
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return (IMeetingRoom)pm.newInstance(FCDSMeetingRoom.class);
     }
     
     public ICompany newCompany() {

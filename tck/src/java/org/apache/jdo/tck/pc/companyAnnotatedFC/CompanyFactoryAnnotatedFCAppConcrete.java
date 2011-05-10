@@ -46,6 +46,7 @@ public class CompanyFactoryAnnotatedFCAppConcrete
             FCAppFullTimeEmployee.class,
             FCAppProject.class,
             FCAppDepartment.class,
+            FCAppMeetingRoom.class,
             FCAppCompany.class,
             FCAppAddress.class
         };
@@ -56,7 +57,7 @@ public class CompanyFactoryAnnotatedFCAppConcrete
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom) null;
+        return (IMeetingRoom) new FCAppMeetingRoom();
     }
     
     public ICompany newCompany() {

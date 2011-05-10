@@ -15,13 +15,14 @@
  * limitations under the License.
  */
  
-package org.apache.jdo.tck.pc.company;
+package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
 import javax.jdo.annotations.*;
 
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

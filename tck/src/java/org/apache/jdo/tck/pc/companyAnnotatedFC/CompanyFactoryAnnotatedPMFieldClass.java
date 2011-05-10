@@ -36,6 +36,7 @@ public class CompanyFactoryAnnotatedPMFieldClass
     Class fullTimeEmployeeClass = null;
     Class projectClass = null;
     Class departmentClass = null;
+    Class meetingRoomClass = null;
     Class companyClass = null;
     
     /**
@@ -58,6 +59,8 @@ public class CompanyFactoryAnnotatedPMFieldClass
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppProject.class;
             departmentClass =
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class;
+            meetingRoomClass =
+                    org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppMeetingRoom.class;
             companyClass =
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppCompany.class;
         } else { //datastoreidentity
@@ -75,6 +78,8 @@ public class CompanyFactoryAnnotatedPMFieldClass
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSProject.class;
             departmentClass =
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSDepartment.class;
+            meetingRoomClass =
+                    org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSMeetingRoom.class;
             companyClass =
                     org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSCompany.class;
         }
@@ -89,6 +94,7 @@ public class CompanyFactoryAnnotatedPMFieldClass
             fullTimeEmployeeClass,
             projectClass,
             departmentClass,
+            meetingRoomClass,
             companyClass
         };
     }
@@ -98,7 +104,7 @@ public class CompanyFactoryAnnotatedPMFieldClass
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return (IMeetingRoom)pm.newInstance(meetingRoomClass);
     }
     
     public ICompany newCompany() {
