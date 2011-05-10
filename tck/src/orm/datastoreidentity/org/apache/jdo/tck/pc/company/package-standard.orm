@@ -62,6 +62,9 @@ has datastore identity.
 
         <class name="MeetingRoom" table="meetingrooms">
             <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+            <inheritance strategy="new-table">
+                <discriminator strategy="class-name" column="DISCRIMINATOR"/>
+            </inheritance>
             <field name="roomid" column="ID"/>
             <field name="name" column="NAME"/>
         </class>
