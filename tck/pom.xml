@@ -63,7 +63,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <doInstallSchema>false</doInstallSchema>
+                    <doInstallSchema>true</doInstallSchema>
                     <doEnhance>true</doEnhance>
                     <doRunTCK>true</doRunTCK>
                     <impl>jdori</impl>
