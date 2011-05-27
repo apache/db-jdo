@@ -97,6 +97,13 @@ public class RunTCK extends AbstractMojo {
      */
     private String extLibsDirectory;
     /**
+     * Location of jar files for implementation under test.
+     * @parameter expression="${project.lib.iut.directory}"
+     *      default-value="${basedir}/../lib/iut"
+     * @required
+     */
+    private String iutLibsDirectory;
+    /**
      * List of configuration files, each describing a test configuration.
      * Note: Collection can only be configured in pom.xml. Using multi-valued
      *       type because long String cannot be broken across lines in pom.xml.
@@ -115,6 +122,7 @@ public class RunTCK extends AbstractMojo {
     /**
      * Name of file in src/conf containing pmf properties.
      * @parameter expression="${jdo.tck.pmfproperties}"
+     *      default-value-"jdori-pmf.properties"
      * @optional
      */
     private String pmfProperties;
@@ -123,7 +131,7 @@ public class RunTCK extends AbstractMojo {
      *   whose value is a list of files to be excluded from testing.
      * @parameter expression="${jdo.tck.excludefile}"
      *      default-value="exclude.list"
-     * @optional
+     * @required
      */
     private String exclude;
     /**
@@ -220,7 +228,7 @@ public class RunTCK extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
 
         if (!doRunTCK) {
-            System.out.println("Skipping RunTCK!");
+            System.out.println("Skipping RunTCK goal!");
             return;
         }
 
@@ -237,6 +245,9 @@ public class RunTCK extends AbstractMojo {
         File fromFile = null;
         File toFile = null;
 
+        if (impl.equals("iut")) {
+            pmfProperties="iut-pmf.properties";
+        }
         if (cfgs != null) {
 //            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
         } else if (cfgList != null) {
@@ -286,12 +297,12 @@ public class RunTCK extends AbstractMojo {
             fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
             toFile = new File(buildDirectory + File.separator + "classes" + 
                     File.separator + "META-INF" + File.separator + "jdoconfig.xml");
-            System.out.println("Copying from " + fromFile + " to " + toFile);
+//            System.out.println("Copying from " + fromFile + " to " + toFile);
             FileUtils.copyFile(fromFile, toFile);
             fromFile = new File(confDirectory + File.separator + impl + "-persistence.xml");
             toFile = new File(buildDirectory + File.separator + "classes" +
                     File.separator + "META-INF" + File.separator + "persistence.xml");
-            System.out.println("Copying from " + fromFile + " to " + toFile);
+//            System.out.println("Copying from " + fromFile + " to " + toFile);
             FileUtils.copyFile(fromFile, toFile);
         } catch (IOException ex) {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -339,7 +350,13 @@ public class RunTCK extends AbstractMojo {
                     while (fi.hasNext()) {
                         cpList.add(fi.next().toURI().toURL());
                     }
-
+                    if (impl.equals("iut")) {
+                        fi = FileUtils.iterateFiles(
+                            new File(iutLibsDirectory), jars, true);
+                        while (fi.hasNext()) {
+                            cpList.add(fi.next().toURI().toURL());
+                        }
+                    }
                 } catch (MalformedURLException ex) {
                     ex.printStackTrace();
                     Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -372,9 +389,17 @@ public class RunTCK extends AbstractMojo {
                                 "Could not find mapping value in conf file: " + cfg);
                     }
                     String classes = getTrimmedPropertyValue(props, "jdo.tck.classes");
+                    String excludeList = getTrimmedPropertyValue(
+                            PropertyUtils.getProperties(excludeFile), "jdo.tck.exclude");
                     if (classes == null) {
                         throw new MojoExecutionException(
                                 "Could not find classes value in conf file: " + cfg);
+                    }
+                    classes = Utilities.removeSubstrs(classes, excludeList);
+                    if (classes.equals("")) {
+                        System.out.println("Skipping configuration " + cfg +
+                                ": classes excluded");
+                        continue;
                     }
                     List<String> classesList = Arrays.asList(classes.split(" "));
 
@@ -475,13 +500,13 @@ public class RunTCK extends AbstractMojo {
                 try {
                     fromFile = fi.next();
                     fromFileName = fromFile.toString();
-                    System.out.println("Copying " + fromFileName);
+//                    System.out.println("Copying " + fromFileName);
                     if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
                         // fully specified name of file (idtype + package + filename)
                         pkgName = fromFileName.substring(startIdx);
                         toFile = new File(cfgDirName + File.separator
                                 + pkgName);
-                        System.out.println("Copy from source dir to " + toFile.toString());
+//                        System.out.println("Copy from source dir to " + toFile.toString());
                         FileUtils.copyFile(fromFile, toFile);
                     }
                 } catch (IOException ex) {

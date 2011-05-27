@@ -66,6 +66,13 @@ public class Enhance extends AbstractMojo {
      */
     private String impl;
     /**
+     * Location of jar files for implementation under test.
+     * @parameter expression="${project.lib.iut.directory}"
+     *      default-value="${basedir}/../lib/iut"
+     * @required
+     */
+    private String iutLibsDirectory;
+    /**
      * List of identity types to be tested.
      * @parameter expression="${jdo.tck.identitytypes}"
      *      default-value="applicationidentity datastoreidentity"
@@ -78,7 +85,7 @@ public class Enhance extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
 
         if (!doEnhance) {
-            System.out.println("Skipping Enhance!");
+            System.out.println("Skipping Enhance goal!");
             return;
         }
 
@@ -129,20 +136,17 @@ public class Enhance extends AbstractMojo {
                     try {
                         fromFile = fi.next();
                         fromFileName = fromFile.toString();
-//                    System.out.println("Copying " + fromFileName);
                         if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
                             // fully specified name of file (idtype + package + filename)
                             pkgName = fromFileName.substring(startIdx);
                             toFile = new File(enhancedDirName + File.separator
                                     + pkgName);
-//                        System.out.println("Copy from source dir to " + toFile.toString());
                             FileUtils.copyFile(fromFile, toFile);
                         } else if (srcDir.equals("testdata")) {
                             startIdx = fromFileName.indexOf("org" + File.separator);
                             pkgName = fromFileName.substring(startIdx);
                             toFile = new File(enhancedDirName + File.separator
                                     + idtype + File.separator + pkgName);
-                            System.out.println("Copy from " + fromFile.toString() + " to " + toFile.toString());
                             FileUtils.copyFile(fromFile, toFile);
                         } else {
                             continue;  // idtype not in pathname, do not copy
@@ -184,19 +188,21 @@ public class Enhance extends AbstractMojo {
                 // Enhance classes
 
                 URL[] classPathURLs = new URL[2];
+                ArrayList<URL> cpList = new ArrayList<URL>();
                 ClassLoader loader = null;
                 try {
-                    classPathURLs[0] = (new File(enhancedIdDirName)).toURI().toURL();
-                    classPathURLs[1] = (new File(fromDirName)).toURI().toURL();
-                    loader = new URLClassLoader(classPathURLs, getClass().getClassLoader());
-//                    Utilities.printClasspath(loader);
-                    // debugging
-//                Class cls = null;
-//                try {
-//                    cls = loader.loadClass("org.apache.jdo.tck.pc.companyListWithoutJoin.CompanyModelReader");
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                    cpList.add((new File(enhancedIdDirName)).toURI().toURL());
+                    cpList.add((new File(fromDirName)).toURI().toURL());
+                    String[] jars = {"jar"};
+                    if (impl.equals("iut")) {
+                        fi = FileUtils.iterateFiles(
+                            new File(iutLibsDirectory), jars, true);
+                        while (fi.hasNext()) {
+                            cpList.add(fi.next().toURI().toURL());
+                        }
+                    }
+                    loader = new URLClassLoader(cpList.toArray(classPathURLs),
+                             getClass().getClassLoader());
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -205,7 +211,8 @@ public class Enhance extends AbstractMojo {
                 String[] classArr = classes.toArray(classArray);
                 enhancer.addClasses(classArr);
                 enhancer.setClassLoader(loader);
-                System.out.println("Enhancing classes");
+                System.out.println("Enhancing classes in " +
+                        srcDirectory + File.separator + srcDir);
                 enhancer.enhance();
             }
         }

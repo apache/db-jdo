@@ -47,6 +47,15 @@ public class Utilities {
         return cp.toString();
     }
 
+    public static String removeSubstrs(String master, String exclude) {
+        String [] deleteThese = exclude.split(" ");
+        String filtered = master;
+        for (String sub: deleteThese) {
+            filtered = filtered.replaceAll(sub.trim(), "");
+        }
+        return filtered.trim();
+    }
+
     public static void printClasspath(ClassLoader loader) {
 
         //Get the URLs
@@ -56,19 +65,6 @@ public class Utilities {
         for (int i = 0; i < urls.length; i++) {
             System.out.println("    " + urls[i].getFile());
         }
-
-//        //Get the Context Classloader
-//        loader = Thread.currentThread().getContextClassLoader();
-//
-//        //Get the URLs
-//        urls = ((URLClassLoader)loader).getURLs();
-//
-//        System.out.println(urls.length + "URLs for loader: ");
-//        for(int i=0; i< urls.length; i++)
-//        {
-//            System.out.println("    " + urls[i].getFile());
-//        }
-
     }
 
     public void printClasspath() {

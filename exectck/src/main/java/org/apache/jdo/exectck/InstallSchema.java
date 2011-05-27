@@ -127,7 +127,7 @@ public class InstallSchema
             throws MojoExecutionException {
 
         if (!doInstallSchema) {
-            System.out.println("Skipping InstallSchema!");
+            System.out.println("Skipping InstallSchema goal!");
             return;
         }
         
