@@ -203,10 +203,11 @@ public class Enhance extends AbstractMojo {
                     }
                     loader = new URLClassLoader(cpList.toArray(classPathURLs),
                              getClass().getClassLoader());
+//                    Utilities.printClasspath(loader);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                JDOEnhancer enhancer = JDOHelper.getEnhancer();
+                JDOEnhancer enhancer = JDOHelper.getEnhancer(loader);
                 enhancer.setVerbose(true);
                 String[] classArr = classes.toArray(classArray);
                 enhancer.addClasses(classArr);
