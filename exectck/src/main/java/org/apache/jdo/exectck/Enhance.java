@@ -209,9 +209,9 @@ public class Enhance extends AbstractMojo {
                 }
                 JDOEnhancer enhancer = JDOHelper.getEnhancer(loader);
                 enhancer.setVerbose(true);
+                enhancer.setClassLoader(loader);
                 String[] classArr = classes.toArray(classArray);
                 enhancer.addClasses(classArr);
-                enhancer.setClassLoader(loader);
                 System.out.println("Enhancing classes in " +
                         srcDirectory + File.separator + srcDir);
                 enhancer.enhance();

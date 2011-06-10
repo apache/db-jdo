@@ -43,7 +43,7 @@ public class Help extends AbstractMojo{
         msg.append("To set parameters from the command line, \n  use the -D option and the parameter name.\n");
         msg.append("  For example, \"mvn -Djdo.tck.identitytype=applicationidentity\"\n");
         msg.append("* jdo.tck.impl\n");
-        msg.append("  jdori (reference implementation) or iut (mplementation under test");
+        msg.append("  jdori (reference implementation) or iut (mplementation under test\n");
         msg.append("* jdo.tck.cfglist\n");
         msg.append("  List of configuration files, each describing a test configuration.\n");
         msg.append("  Default is all configurations.\n");
@@ -61,6 +61,10 @@ public class Help extends AbstractMojo{
         msg.append("  Setting this parameter to false will bypass enhancement.\n");
         msg.append("* doRunTCK\n");
         msg.append("  Setting this parameter to false will bypass running the TCK.\n");
+        msg.append("\n  To run the TCK on an implementation under test, \n"
+                + "      place all required jars and their dependencies in lib/iut"
+                + "      and set jdo.tck.impl to iut:\n");
+        msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n\n");
         msg.append("\n END EXECTCK HELP INFORMATION\n");
 
         System.out.println(msg.toString());

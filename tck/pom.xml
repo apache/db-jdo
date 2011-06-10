@@ -66,10 +66,9 @@
                     <doInstallSchema>true</doInstallSchema>
                     <doEnhance>true</doEnhance>
                     <doRunTCK>true</doRunTCK>
-                    <impl>jdori</impl>
                     <pmfProperties>jdori-pmf.properties</pmfProperties>
                     <verbose>true</verbose>
-                    <runtckVerbose>false</runtckVerbose>
+                    <runtckVerbose>true</runtckVerbose>
                     <debugTCK>false</debugTCK>
                     <cleanupaftertest>true</cleanupaftertest>
                     <identitytypes>applicationidentity datastoreidentity</identitytypes>
@@ -160,6 +159,23 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>iut</id>
+            <activation>
+                <property>
+                    <name>jdo.tck.impl</name>
+                    <value>iut</value>
+                </property>
+            </activation>
+        </profile>
+        <profile>
+            <id>jdori</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>javax.jdo</groupId>
