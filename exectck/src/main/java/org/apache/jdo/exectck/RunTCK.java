@@ -41,7 +41,7 @@ public class RunTCK extends AbstractMojo {
     private boolean doRunTCK;
     /**
      * To run the RunTCK plugin goal in verbose mode.
-     * @parameter expression="${jdo.tck.doRunTCK}"
+     * @parameter expression="${jdo.tck.runTCKVerbose}"
      *      default-value=false
      * @required
      */

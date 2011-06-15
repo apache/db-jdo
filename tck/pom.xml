@@ -63,15 +63,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <doInstallSchema>true</doInstallSchema>
-                    <doEnhance>true</doEnhance>
-                    <doRunTCK>true</doRunTCK>
                     <pmfProperties>jdori-pmf.properties</pmfProperties>
                     <verbose>true</verbose>
-                    <runtckVerbose>true</runtckVerbose>
                     <debugTCK>false</debugTCK>
                     <cleanupaftertest>true</cleanupaftertest>
-                    <identitytypes>applicationidentity datastoreidentity</identitytypes>
                     <dbproperties>-Dderby.system.home=${basedir}/target/database/derby</dbproperties>
                     <signaturefile>${basedir}/src/conf/jdo-3_1-signatures.txt</signaturefile>
                     <cfgs>

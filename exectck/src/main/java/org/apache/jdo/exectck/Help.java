@@ -55,14 +55,17 @@ public class Help extends AbstractMojo{
         msg.append("  Default value is \"applicationidentity datastoreidentity\"\n");
         msg.append("* project.lib.iut.directory\n");
         msg.append("  Location of implementation jar files. Default: ${basedir}/../lib/iut\n");
-        msg.append("* doInstallSchema\n");
+        msg.append("* jdo.tck.doInstallSchema\n");
         msg.append("  Setting this parameter to false will bypass schema installation.\n");
-        msg.append("* doEnhance\n");
+        msg.append("* jdo.tck.doEnhance\n");
         msg.append("  Setting this parameter to false will bypass enhancement.\n");
-        msg.append("* doRunTCK\n");
+        msg.append("* jdo.tck.doRunTCK\n");
         msg.append("  Setting this parameter to false will bypass running the TCK.\n");
+        msg.append("* jdo.tck.runTCKVerbose\n");
+        msg.append("  Setting this parameter to true will display test progress and"
+                + "error output while the TCK is running.\n");
         msg.append("\n  To run the TCK on an implementation under test, \n"
-                + "      place all required jars and their dependencies in lib/iut"
+                + "      place all required jars and their dependencies in lib/iut\n"
                 + "      and set jdo.tck.impl to iut:\n");
         msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n\n");
         msg.append("\n END EXECTCK HELP INFORMATION\n");
