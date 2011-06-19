@@ -32,7 +32,7 @@ public class Enhance extends AbstractMojo {
     /**
      * Location of TCK generated output.
      * @parameter expression="${jdo.tck.doEnhance}"
-     *      default-value=true
+     *      default-value="true"
      * @required
      */
     private boolean doEnhance;

@@ -37,7 +37,7 @@ public class InstallSchema
     /**
      * Location of TCK generated output.
      * @parameter expression="${jdo.tck.doInstallSchema}"
-     *      default-value=true
+     *      default-value="true"
      * @required
      */
     private boolean doInstallSchema;
@@ -87,7 +87,7 @@ public class InstallSchema
      * Note: Collection can only be configured in pom.xml. Using multi-valued
      *       type because long String cannot be broken across lines in pom.xml.
      * @parameter
-     * @required
+     * @optional
      */
     private HashSet<String> cfgs;
 
@@ -95,6 +95,7 @@ public class InstallSchema
      * List of configuration files, each describing a test configuration.
      * Allows command line override of configured cfgs value.
      * @parameter expression="${jdo.tck.cfglist}
+     * default-value="company1-1Relationships.conf company1-MRelationships.conf companyAnnotated1-1RelationshipsFCPM.conf companyAnnotated1-MRelationshipsFCPM.conf companyAnnotatedAllRelationshipsFCConcrete.conf companyAnnotatedAllRelationshipsFCPM.conf companyAnnotatedAllRelationshipsJPAConcrete.conf companyAnnotatedAllRelationshipsJPAPM.conf companyAnnotatedAllRelationshipsPCConcrete.conf companyAnnotatedAllRelationshipsPCPM.conf companyAnnotatedAllRelationshipsPIPM.conf companyAnnotatedEmbeddedFCPM.conf companyAnnotatedEmbeddedJPAConcrete.conf companyAnnotatedEmbeddedJPAPM.conf companyAnnotatedM-MRelationshipsFCConcrete.conf companyAnnotatedM-MRelationshipsFCPM.conf companyAnnotatedNoRelationshipsFCConcrete.conf companyAnnotatedNoRelationshipsFCPM.conf companyAnnotatedNoRelationshipsPCConcrete.conf companyAnnotatedNoRelationshipsPCPM.conf companyAnnotatedNoRelationshipsPIPM.conf companyEmbedded.conf companyListWithoutJoin.conf companyMapWithoutJoin.conf companyM-MRelationships.conf companyNoRelationships.conf companyOverrideAnnotatedAllRelationshipsFCPM.conf companyPMClass.conf companyPMInterface.conf compoundIdentity.conf detach.conf enhancement.conf extents.conf fetchgroup.conf fetchplan.conf inheritance1.conf inheritance2.conf inheritance3.conf inheritance4.conf instancecallbacks.conf jdohelper.conf jdoql.conf lifecycle.conf models1.conf models.conf pm.conf pmf.conf query.conf relationshipAllRelationships.conf relationshipNoRelationships.conf runonce.conf schemaAttributeClass.conf schemaAttributeOrm.conf schemaAttributePackage.conf security.conf transactions.conf"
      * @optional
      */
     private String cfgList;
@@ -135,6 +136,7 @@ public class InstallSchema
         idtypes = new HashSet();
         mappings = new HashSet();
 
+        System.out.println("cfgList is " + cfgList);
         if (cfgList != null) {
             cfgs = new HashSet();
             PropertyUtils.string2Set(cfgList, cfgs);

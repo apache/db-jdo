@@ -108,21 +108,21 @@ public class RunTCK extends AbstractMojo {
      * Note: Collection can only be configured in pom.xml. Using multi-valued
      *       type because long String cannot be broken across lines in pom.xml.
      * @parameter
-     * @required
+     * @optional
      */
     private ArrayList<String> cfgs;
     /**
      * List of configuration files, each describing a test configuration.
      * Allows command line override of configured cfgs value.
      * @parameter expression="${jdo.tck.cfglist}"
-     *      default-value="detach.conf"
+     * default-value="company1-1Relationships.conf company1-MRelationships.conf companyAnnotated1-1RelationshipsFCPM.conf companyAnnotated1-MRelationshipsFCPM.conf companyAnnotatedAllRelationshipsFCConcrete.conf companyAnnotatedAllRelationshipsFCPM.conf companyAnnotatedAllRelationshipsJPAConcrete.conf companyAnnotatedAllRelationshipsJPAPM.conf companyAnnotatedAllRelationshipsPCConcrete.conf companyAnnotatedAllRelationshipsPCPM.conf companyAnnotatedAllRelationshipsPIPM.conf companyAnnotatedEmbeddedFCPM.conf companyAnnotatedEmbeddedJPAConcrete.conf companyAnnotatedEmbeddedJPAPM.conf companyAnnotatedM-MRelationshipsFCConcrete.conf companyAnnotatedM-MRelationshipsFCPM.conf companyAnnotatedNoRelationshipsFCConcrete.conf companyAnnotatedNoRelationshipsFCPM.conf companyAnnotatedNoRelationshipsPCConcrete.conf companyAnnotatedNoRelationshipsPCPM.conf companyAnnotatedNoRelationshipsPIPM.conf companyEmbedded.conf companyListWithoutJoin.conf companyMapWithoutJoin.conf companyM-MRelationships.conf companyNoRelationships.conf companyOverrideAnnotatedAllRelationshipsFCPM.conf companyPMClass.conf companyPMInterface.conf compoundIdentity.conf detach.conf enhancement.conf extents.conf fetchgroup.conf fetchplan.conf inheritance1.conf inheritance2.conf inheritance3.conf inheritance4.conf instancecallbacks.conf jdohelper.conf jdoql.conf lifecycle.conf models1.conf models.conf pm.conf pmf.conf query.conf relationshipAllRelationships.conf relationshipNoRelationships.conf runonce.conf schemaAttributeClass.conf schemaAttributeOrm.conf schemaAttributePackage.conf security.conf transactions.conf"
      * @optional
      */
     private String cfgList;
     /**
      * Name of file in src/conf containing pmf properties.
      * @parameter expression="${jdo.tck.pmfproperties}"
-     *      default-value-"jdori-pmf.properties"
+     *      default-value="jdori-pmf.properties"
      * @optional
      */
     private String pmfProperties;
@@ -137,7 +137,8 @@ public class RunTCK extends AbstractMojo {
     /**
      * List of databases to run tests under.
      * Currently only derby is supported.
-     * @parameter expression="${jdo.tck.dblist}" default-value="derby"
+     * @parameter expression="${jdo.tck.dblist}"
+     *      default-value="derby"
      * @required
      */
     private String dblist;
@@ -151,30 +152,34 @@ public class RunTCK extends AbstractMojo {
     private String identitytypes;
     private HashSet<String> idtypes;
     /**
-     * List of mappings required by the current configurationd
+     * List of mappings required by the current configuration
      */
     private HashSet<String> mappings;
     /**
      * Run the TCK tests in verbose mode.
-     * @parameter expression="${jdo.tck.verbose} default-value="false"
+     * @parameter expression="${jdo.tck.verbose}
+     *      default-value="false"
      * @optional
      */
     private String verbose;
     /**
      * To retain test output for debugging, set to false.
-     * @parameter expression="${jdo.tck.cleanupaftertest} default-value="true"
+     * @parameter expression="${jdo.tck.cleanupaftertest}
+     *      default-value="true"
      * @optional
      */
     private String cleanupaftertest;
     /**
      * Properties to use in accessing database.
      * @parameter expression="${database.runtck.sysproperties}"
+     *      default-value="-Dderby.system.home=${basedir}/target/database/derby"
      * @optional
      */
     private String dbproperties;    // NOTE: only allows for one db
     /**
      * Properties to use in accessing database.
      * @parameter expression="${jdo.tck.signaturefile}"
+     *      default-value="${basedir}/src/conf/jdo-3_1-signatures.txt"
      * @optional
      */
     private String signaturefile;
@@ -269,6 +274,7 @@ public class RunTCK extends AbstractMojo {
                 + "\n  identity types: " + identitytypes.toString());
 
         // Properties required for test execution
+        System.out.println("cleanupaftertest is " + cleanupaftertest);
         propsString.add("-DResultPrinterClass=" + resultPrinterClass);
         propsString.add("-Dverbose=" + verbose);
         propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
@@ -453,10 +459,10 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
-//                    System.out.println("\nCommand line is: \n" + command.toString());
                     result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {
+                        System.out.println("\nCommand line is: \n" + command.toString());
                         System.out.println("Test exit value is " + result.getExitValue());
                         System.out.println("Test result output:\n" + result.getOutputString());
                         System.out.println("Test result error:\n" + result.getErrorString());
