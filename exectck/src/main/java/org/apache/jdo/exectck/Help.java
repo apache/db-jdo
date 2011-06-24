@@ -37,7 +37,7 @@ public class Help extends AbstractMojo{
         msg.append("  in the current test configurations.\n");
         msg.append("* enhance\n");
         msg.append("  Enhances classes. Classes must first be compiled (mvn compile).\n");
-        msg.append("* runTCK\n");
+        msg.append("* runtck\n");
         msg.append("  Runs the JDO Technology Compatibility Kit. Schema must first be installed and classes enhanced.\n");
         msg.append("\nPARAMETERS\n");
         msg.append("To set parameters from the command line, \n  use the -D option and the parameter name.\n");

@@ -413,7 +413,7 @@ public class RunTCK extends AbstractMojo {
                     propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
                     propsString.add("-Djdo.tck.cfg=" + cfg);
 
-                    runonce = getTrimmedPropertyValue(props, "runonce");
+                    runonce = getTrimmedPropertyValue(props, "runOnce");
                     runonce = (runonce == null) ? "false" : runonce;
 
                     // Add Mapping and schemaname to properties file
@@ -459,6 +459,7 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
+                    System.out.println("runonce is " + runonce);
                     result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {

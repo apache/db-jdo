@@ -123,6 +123,8 @@ public class Enhance extends AbstractMojo {
         int startIdx = -1;
         Iterator<File> fi = null;
         String[] classArray = new String[10];
+        String enhancedIdDirName = null;
+        ArrayList<String> classes = null;
 
         // Copy metadata from src to enhanced
         for (String idtype : idtypes) {
@@ -162,8 +164,8 @@ public class Enhance extends AbstractMojo {
                 String[] extensions = {"class"};
                 fromDirName = buildDirectory + File.separator
                         + "classes" + File.separator;
-                String enhancedIdDirName = enhancedDirName + idtype + File.separator;
-                ArrayList<String> classes = new ArrayList<String>();
+                enhancedIdDirName = enhancedDirName + idtype + File.separator;
+                classes = new ArrayList<String>();
                 for (String pcPkgName : pcPkgNames) {
                     // iterator over list of abs name of class files in target/classes
                     fi = FileUtils.iterateFiles(
@@ -184,7 +186,7 @@ public class Enhance extends AbstractMojo {
                         }
                     }
                 }
-
+            }
                 // Enhance classes
 
                 URL[] classPathURLs = new URL[2];
@@ -212,10 +214,9 @@ public class Enhance extends AbstractMojo {
                 enhancer.setClassLoader(loader);
                 String[] classArr = classes.toArray(classArray);
                 enhancer.addClasses(classArr);
-                System.out.println("Enhancing classes in " +
-                        srcDirectory + File.separator + srcDir);
+                System.out.println("Enhancing classes for identity type " +
+                        idtype);
                 enhancer.enhance();
-            }
         }
     }
 }
