@@ -459,7 +459,6 @@ public class RunTCK extends AbstractMojo {
                     if (runonce.equals("true") && alreadyran) {
                         continue;
                     }
-                    System.out.println("runonce is " + runonce);
                     result = (new Utilities()).invokeTest(command);
 
                     if (runtckVerbose) {
