@@ -267,8 +267,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <doctitle>${pom.name} ${pom.currentVersion}</doctitle>
-          <windowtitle>${pom.name} ${pom.currentVersion}</windowtitle>
+          <doctitle>${project.name} ${pom.currentVersion}</doctitle>
+          <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
         </configuration>
       </plugin>
     </plugins>
@@ -276,13 +276,17 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
   <reporting>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
+        <version>2.6</version>
         <configuration>
           <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.6</version>
         <configuration>
           <configLocation>${basedir}/../jdo_checks.xml</configLocation>
           <headerLocation>${basedir}/../LICENSE.txt</headerLocation>

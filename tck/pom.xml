@@ -81,8 +81,8 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doctitle>${pom.name} ${pom.currentVersion}</doctitle>
-                    <windowtitle>${pom.name} ${pom.currentVersion}</windowtitle>
+                    <doctitle>${project.name} ${pom.currentVersion}</doctitle>
+                    <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
                 </configuration>
             </plugin>
         </plugins>
