@@ -794,8 +794,8 @@ public interface javax.jdo.PersistenceManager {
     public void setDatastoreWriteTimeoutMillis(Integer interval);
     public Integer getDatastoreWriteTimeoutMillis();
     public void setProperty(String propertyName, Object value);
-    public Map<String, Object> getProperties();
-    public Set<String> getSupportedProperties();
+    public java.util.Map getProperties();
+    public java.util.Set getSupportedProperties();
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
