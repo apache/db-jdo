@@ -106,7 +106,7 @@
     
     <persistence-manager-factory
         name="testInstanceLifecycleListenerStore"
-        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
+        class="org.datanucleus.api.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -139,7 +139,7 @@
         
     <persistence-manager-factory
         name="testInstanceLifecycleListenerStoreGetInstance"
-        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
+        class="org.datanucleus.api.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
@@ -171,7 +171,7 @@
         
     <persistence-manager-factory
         name="testInstanceLifecycleListenerStoreOverrides"
-        class="org.datanucleus.jdo.JDOPersistenceManagerFactory"
+        class="org.datanucleus.api.jdo.JDOPersistenceManagerFactory"
         connection-driver-name="org.apache.derby.jdbc.EmbeddedDriver"
         connection-url="jdbc:derby:jdotckdb"
         connection-user-name="tckuser"
