@@ -793,6 +793,9 @@ public interface javax.jdo.PersistenceManager {
     public Integer getDatastoreReadTimeoutMillis();
     public void setDatastoreWriteTimeoutMillis(Integer interval);
     public Integer getDatastoreWriteTimeoutMillis();
+    public void setProperty(String propertyName, Object value);
+    public Map<String, Object> getProperties();
+    public Set<String> getSupportedProperties();
 }
 
 public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializable {
@@ -1376,6 +1379,7 @@ public final enum javax.jdo.annotations.InheritanceStrategy extends java.lang.En
     public static final enum javax.jdo.annotations.InheritanceStrategy NEW_TABLE;
     public static final enum javax.jdo.annotations.InheritanceStrategy SUBCLASS_TABLE;
     public static final enum javax.jdo.annotations.InheritanceStrategy SUPERCLASS_TABLE;
+    public static final enum javax.jdo.annotations.InheritanceStrategy COMPLETE_TABLE;
     public static enum javax.jdo.annotations.InheritanceStrategy valueOf(java.lang.String);
     public static javax.jdo.annotations.InheritanceStrategy[] values();
 }
