@@ -1,3 +1,4 @@
+
 package org.apache.jdo.exectck;
 
 import java.net.MalformedURLException;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import javax.jdo.JDOEnhancer;
@@ -66,13 +66,6 @@ public class Enhance extends AbstractMojo {
      */
     private String impl;
     /**
-     * Name of the log4j properties file to be used by the iut.
-     * @parameter expression="${jdo.tck.iutLog4jProperties}"
-     *      default-value="iut-log4j.properties"
-     * @optional
-     */
-    private String iutLog4jProperties;
-    /**
      * Location of jar files for implementation under test.
      * @parameter expression="${project.lib.iut.directory}"
      *      default-value="${basedir}/../lib/iut"
@@ -98,9 +91,6 @@ public class Enhance extends AbstractMojo {
 
         idtypes = new HashSet();
         PropertyUtils.string2Set(identitytypes, idtypes);
-        if (impl.equals("iut")) {
-            System.setProperty("log4j.configuration", iutLog4jProperties);
-        }
 
         // Create directory for enhancer logs
         String enhanceLogsDirName = logsDirectory + File.separator + "enhancer";
@@ -123,7 +113,7 @@ public class Enhance extends AbstractMojo {
             "org/apache/jdo/tck/pc/",
             "org/apache/jdo/tck/models/inheritance/"};
         String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};  // we really want "jdo.properties", but this is easier
-        String[] srcDirs = {"jdo", "orm", "testdata", "conf"};
+        String[] srcDirs = {"jdo", "orm", "testdata"};
         String genericPkgName = "org";
         File toFile = null;
         File fromFile = null;
@@ -154,18 +144,11 @@ public class Enhance extends AbstractMojo {
                             toFile = new File(enhancedDirName + File.separator
                                     + pkgName);
                             FileUtils.copyFile(fromFile, toFile);
-//                            System.out.println("Copying from " + fromFile.toString()
-//                                    + " to " + toFile.toString());
                         } else if (srcDir.equals("testdata")) {
                             startIdx = fromFileName.indexOf("org" + File.separator);
                             pkgName = fromFileName.substring(startIdx);
                             toFile = new File(enhancedDirName + File.separator
                                     + idtype + File.separator + pkgName);
-                            FileUtils.copyFile(fromFile, toFile);
-                        } else if (srcDir.equals("conf")) {
-                            startIdx = fromFileName.lastIndexOf(File.separator) + 1;
-                            pkgName = fromFileName.substring(startIdx);
-                            toFile = new File(enhancedDirName + File.separator + pkgName);
                             FileUtils.copyFile(fromFile, toFile);
                         } else {
                             continue;  // idtype not in pathname, do not copy
@@ -195,9 +178,6 @@ public class Enhance extends AbstractMojo {
                             toFile = new File(enhancedIdDirName + fromFileName.substring(
                                     fromFileName.indexOf(pcPkgName)));
                             FileUtils.copyFile(fromFile, toFile);
-//                            System.out.println("Copying from " + fromFile.toString()
-//                                    + " to " + toFile.toString());
-                            // to be provided to enhancer
                             classes.add(toFile.toString());
                         } catch (IOException ex) {
                             throw new MojoExecutionException("Failed to copy files from "
@@ -207,62 +187,36 @@ public class Enhance extends AbstractMojo {
                     }
                 }
             }
+                // Enhance classes
 
-            // Get the enhancer
-            ArrayList<URL> cpList = new ArrayList<URL>();
-            ClassLoader getEnhancerLoader = null;
-            try {
-                if (impl.equals("iut")) {
-                    cpList.add((new File(iutLibsDirectory)).toURI().toURL());
+                URL[] classPathURLs = new URL[2];
+                ArrayList<URL> cpList = new ArrayList<URL>();
+                ClassLoader loader = null;
+                try {
+                    cpList.add((new File(enhancedIdDirName)).toURI().toURL());
+                    cpList.add((new File(fromDirName)).toURI().toURL());
                     String[] jars = {"jar"};
-                    fi = FileUtils.iterateFiles(
+                    if (impl.equals("iut")) {
+                        fi = FileUtils.iterateFiles(
                             new File(iutLibsDirectory), jars, true);
-                    while (fi.hasNext()) {
-                        cpList.add(fi.next().toURI().toURL());
+                        while (fi.hasNext()) {
+                            cpList.add(fi.next().toURI().toURL());
+                        }
                     }
+                    loader = new URLClassLoader(cpList.toArray(classPathURLs),
+                             getClass().getClassLoader());
+//                    Utilities.printClasspath(loader);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                cpList.trimToSize();
-                URL[] classPathURLs = new URL[cpList.size()];
-                getEnhancerLoader = new URLClassLoader(cpList.toArray(classPathURLs),
-                        Thread.currentThread().getContextClassLoader());//
-                Utilities.printClasspath(getEnhancerLoader);
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            ClassLoader startingContextClassLoader =
-                    Thread.currentThread().getContextClassLoader();
-            Thread.currentThread().setContextClassLoader(getEnhancerLoader);
-            JDOEnhancer enhancer = JDOHelper.getEnhancer();
-            Thread.currentThread().setContextClassLoader(startingContextClassLoader);
-            
-            // Enhance
-            try {
-                cpList = new ArrayList<URL>();  // start fresh for new classloader
-                if (impl.equals("iut")) {
-                    cpList.add((new File(iutLibsDirectory)).toURI().toURL());
-                    String[] jars = {"jar"};
-                    fi = FileUtils.iterateFiles(
-                            new File(iutLibsDirectory), jars, true);
-                    while (fi.hasNext()) {
-                        cpList.add(fi.next().toURI().toURL());
-                    }
-                }
-                cpList.add((new File(enhancedIdDirName)).toURI().toURL());
-                cpList.add((new File(enhancedDirName)).toURI().toURL());
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            enhancer.setVerbose(true);
-            URL[] classPathURLs = new URL[cpList.size()];
-            URLClassLoader enhancementClassLoader =
-                    new URLClassLoader(cpList.toArray(classPathURLs));
-            Utilities.printClasspath(enhancementClassLoader);
-            enhancer.setClassLoader(enhancementClassLoader);
-            String[] classArr = classes.toArray(classArray);
-            enhancer.addClasses(classArr);
-            System.out.println("Enhancing classes for identity type "
-                    + idtype);
-            enhancer.enhance();
+                JDOEnhancer enhancer = JDOHelper.getEnhancer(loader);
+                enhancer.setVerbose(true);
+                enhancer.setClassLoader(loader);
+                String[] classArr = classes.toArray(classArray);
+                enhancer.addClasses(classArr);
+                System.out.println("Enhancing classes for identity type " +
+                        idtype);
+                enhancer.enhance();
         }
     }
 }
