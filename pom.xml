@@ -92,12 +92,12 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <dependency>
         <groupId>org.datanucleus</groupId>
         <artifactId>datanucleus-core</artifactId>
-        <version>3.0.0-m6</version>
+        <version>3.0.0-release</version>
       </dependency>
       <dependency>
         <groupId>org.datanucleus</groupId>
         <artifactId>datanucleus-rdbms</artifactId>
-        <version>3.0.0-m6</version>
+        <version>3.0.0-release</version>
       </dependency>
       <dependency>
         <groupId>org.datanucleus</groupId>
@@ -107,12 +107,12 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <dependency>
         <groupId>org.datanucleus</groupId>
         <artifactId>datanucleus-api-jdo</artifactId>
-        <version>3.0.0-m6</version>
+        <version>3.0.0-release</version>
       </dependency>
       <dependency>
         <groupId>org.datanucleus</groupId>
         <artifactId>datanucleus-api-jpa</artifactId>
-        <version>3.0.0-m6</version>
+        <version>3.0.0-release</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
