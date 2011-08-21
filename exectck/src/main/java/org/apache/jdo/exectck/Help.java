@@ -50,7 +50,7 @@ public class Help extends AbstractMojo{
         msg.append("* jdo.tck.dblist\n");
         msg.append("  List of databases to run tests under.\n");
         msg.append("  Currently only derby is supported\n");
-        msg.append("* jdo.tck.identitytype\n");
+        msg.append("* jdo.tck.identitytypes\n");
         msg.append("  List of identity types to be tested\n");
         msg.append("  Default value is \"applicationidentity datastoreidentity\"\n");
         msg.append("* project.lib.iut.directory\n");
