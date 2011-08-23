@@ -30,6 +30,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -85,7 +86,35 @@ public class SupportedJDOHelperMethods extends QueryTest {
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
-                /*TO*/          null)
+                /*TO*/          null),
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "JDOHelper.getVersion(this)", 
+                /*INTO*/        null, 
+                /*FROM*/        VersionedPCPoint.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+        new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        VersionedPCPoint.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "JDOHelper.getVersion(this) == ver",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Long ver",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
     };
 
     /**
@@ -119,6 +148,43 @@ public class SupportedJDOHelperMethods extends QueryTest {
                 parameters, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
                 parameters, expectedResult);
+    }
+
+    /** Test for JDOHelper.getVersion() in queries. */
+    public void testGetVersion() {
+        // create some sample data
+        pm.currentTransaction().begin();
+        VersionedPCPoint pt1 = new VersionedPCPoint(1, 2);
+        pm.makePersistent(pt1);
+        pm.currentTransaction().commit();
+        Object id = pm.getObjectId(pt1);
+
+        try
+        {
+        	// query 1
+        	int index = 2;
+        	List expectedResult = new ArrayList();
+        	expectedResult.add((long) 1);
+        	executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+        			expectedResult);
+        	executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+        			expectedResult);
+
+            // query 2
+            index = 3;
+            expectedResult = getExpectedResult(false, VersionedPCPoint.class, "x == 1");
+            Object[] parameters = new Object[]{new Long(1)};
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                    parameters, expectedResult);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
+                    parameters, expectedResult);
+        }
+        finally
+        {
+        	pm.currentTransaction().begin();
+        	pm.deletePersistent(pm.getObjectById(id));
+        	pm.currentTransaction().commit();
+        }
     }
     
     /**
