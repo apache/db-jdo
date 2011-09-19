@@ -29,6 +29,7 @@ jdo.tck.cfglist = \
                  models1.conf \
                  query.conf \
                  jdoql.conf \
+                 jdoql1.conf \
                  transactions.conf \
                  companyNoRelationships.conf \
                  companyEmbedded.conf \

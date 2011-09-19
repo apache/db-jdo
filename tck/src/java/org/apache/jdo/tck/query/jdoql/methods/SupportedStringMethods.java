@@ -44,8 +44,10 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <li> substring(int, int)
  * <li> startsWith(String)
  * <li> endsWith(String)
+ * <li> charAt(int)
  * <li> startsWith(String, int)
  * <li> length()
+ * <li> trim()
  * </ul>
  */
 public class SupportedStringMethods extends QueryTest {
@@ -219,7 +221,7 @@ public class SupportedStringMethods extends QueryTest {
                 /*INTO*/        null, 
                 /*FROM*/        Person.class,
                 /*EXCLUDE*/     null,
-                /*WHERE*/       "firstname.startsWith('mp', 1)",
+                /*WHERE*/       "firstname.charAt(3) == '1'",
                 /*VARIABLES*/   null,
                 /*PARAMETERS*/  null,
                 /*IMPORTS*/     null,
@@ -228,6 +230,20 @@ public class SupportedStringMethods extends QueryTest {
                 /*FROM*/        null,
                 /*TO*/          null),
         new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null, 
+                /*INTO*/        null, 
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "firstname.startsWith('mp', 1)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null),
+       new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
@@ -240,21 +256,21 @@ public class SupportedStringMethods extends QueryTest {
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
-                /*TO*/          null),
+                /*TO*/          null), 
         new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
                 /*FROM*/        Person.class,
                 /*EXCLUDE*/     null,
-                /*WHERE*/       "firstname.charAt(3) == '1'",
+                /*WHERE*/       "firstname.trim() == 'emp1First'",
                 /*VARIABLES*/   null,
                 /*PARAMETERS*/  null,
                 /*IMPORTS*/     null,
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
-                /*TO*/          null),
+                /*TO*/          null)
     };
 
     /** 
@@ -278,6 +294,8 @@ public class SupportedStringMethods extends QueryTest {
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         getTransientCompanyModelInstancesAsList(new String[]{
         		"emp1", "emp2", "emp3", "emp4", "emp5"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
+        		"emp1"}),
         getTransientCompanyModelInstancesAsList(new String[]{
         		"emp1", "emp2", "emp3", "emp4", "emp5"}),
         getTransientCompanyModelInstancesAsList(new String[]{
@@ -366,6 +384,12 @@ public class SupportedStringMethods extends QueryTest {
     /** */
     public void testCharAt() {
         int index = 13;
+        executeQuery(index);
+    }
+
+    /** */
+    public void testTrim() {
+        int index = 14;
         executeQuery(index);
     }
 

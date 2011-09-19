@@ -35,17 +35,12 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  * New supported Date methods:
  * <ul>
- * <li> toLowerCase()
- * <li> toUpperCase()
- * <li> indexOf(String)
- * <li> indexOf(String, int)
- * <li> matches(String)
- * <li> substring(int)
- * <li> substring(int, int)
- * <li> startsWith(String)
- * <li> endsWith(String)
- * <li> startsWith(String, int)
- * <li> length()
+ * <li> getHour()
+ * <li> getMinutes()
+ * <li> getSeconds()
+ * <li> getDay()
+ * <li> getMonth()
+ * <li> getYear()
  * </ul>
  */
 public class SupportedDateMethods extends QueryTest {

@@ -1,0 +1,123 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+
+package org.apache.jdo.tck.query.jdoql.methods;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
+import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleEnum;
+import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;
+import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.util.BatchTestRunner;
+
+/**
+ *<B>Title:</B> Supported Enum methods.
+ *<BR>
+ *<B>Keywords:</B> query
+ *<BR>
+ *<B>Assertion ID:</B> A14.6.2-47.
+ *<BR>
+ *<B>Assertion Description: </B>
+ * New supported Enum methods:
+ * <ul>
+ * <li> ordinal()
+ * <li> toString()
+ * </ul>
+ */
+public class EnumMethodToString extends QueryTest {
+
+    /** */
+    private static final String ASSERTION_FAILED = 
+        "Assertion A14.6.2-47 (EnumMethodToString) failed: ";
+
+    /** */
+    private Object oidOfExpectedResult;
+
+    /**
+     * The <code>main</code> is called when the class
+     * is directly executed from the command line.
+     * @param args The arguments passed to the program.
+     */
+    public static void main(String[] args) {
+        BatchTestRunner.run(EnumMethodToString.class);
+    }
+    
+    /** */
+    public void testToString() {
+        final String filter = "SimpleEnum0.toString() == 'CA'";
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfExpectedResult));
+
+            Query q =  pm.newQuery();
+            q.setClass(FieldsOfSimpleEnum.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /**
+     * @see JDO_Test#localSetUp()
+     */
+    protected void localSetUp() {
+        addTearDownClass(FieldsOfSimpleEnum.class);
+        insertFieldsOfSimpleEnums(getPM());
+    }
+
+    /** */
+    private void insertFieldsOfSimpleEnums(PersistenceManager pm) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            FieldsOfSimpleEnum f1 = new FieldsOfSimpleEnum();
+            f1.set(0, SimpleEnum.CA);
+            f1.identifier = 1;
+            pm.makePersistent(f1);
+            FieldsOfSimpleEnum f2 = new FieldsOfSimpleEnum();
+            f2.set(0, SimpleEnum.HI);
+            f2.identifier = 2;
+            pm.makePersistent(f2);
+            FieldsOfSimpleEnum f3 = new FieldsOfSimpleEnum();
+            f3.set(0, SimpleEnum.DC);
+            f3.identifier = 3;
+            pm.makePersistent(f3);
+            oidOfExpectedResult = pm.getObjectId(f1);
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+}
