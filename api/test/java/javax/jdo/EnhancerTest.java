@@ -17,18 +17,15 @@
 
 package javax.jdo;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.jdo.Constants.ENHANCER_USAGE_ERROR;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
+import java.util.UUID;
 
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
@@ -213,17 +210,20 @@ public class EnhancerTest extends AbstractTest {
         // invoke enhancer with a classpath parameter
         // JDOHelper must be loadable from this path
         // create the jar file from the target/classes directory
-        Process create = Runtime.getRuntime().exec("jar -cf " + basedir + "/target/enhancer-test.jar -C " + basedir + "/target/classes .");
+        String uuid = UUID.randomUUID().toString();
+        File uuidDir = new File(basedir + "/target/" + uuid);
+        uuidDir.mkdirs();
+        String enhancerJar = "target/" + uuid + "/enhancer-test.jar";
+        String enhancerJarPathname = basedir + "/" + enhancerJar;
+        Process create = Runtime.getRuntime().exec("jar -cf " + enhancerJarPathname + " -C " + basedir + "/target/classes .");
         int returnCode = create.waitFor();
         assertEquals("jar command returned wrong return code.", 0, returnCode);
         // find the jdo.jar in target
-        InvocationResult result = invokeEnhancer("-v -cp " + basedir + "/target/enhancer-test.jar");
+        InvocationResult result = invokeEnhancer("-v -cp " + enhancerJar);
         String outputString = result.getOutputString();
         String errorString = result.getErrorString();
         assertEquals("Wrong exit code from Enhancer with stderr:\n" + errorString, 0, result.getExitValue());
-        assertTrue("Expected classpath message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains("target/enhancer-test.jar"));
-        // remove the jar file if successful
-        Runtime.getRuntime().exec("rm target/enhancer-test.jar").waitFor();
+        assertTrue("Expected classpath message from out:\n" + outputString + " with err:\n" + errorString, outputString.contains(enhancerJar));
     }
 
     public void testOutputDirectory() {
