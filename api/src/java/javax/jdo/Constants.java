@@ -917,6 +917,14 @@ public interface Constants {
         = "VersionNumber";
 
     /**
+     * Specified value "javax.jdo.option.TransactionType"
+     *
+     * @since 2.1
+     */
+    static String PROPERTY_TRANSACTION_TYPE
+        = "javax.jdo.option.TransactionType";
+
+    /**
      * The value for TransactionType to specify that transactions
      * are managed by the Java Transactions API, as documented in
      * JSR-220.
