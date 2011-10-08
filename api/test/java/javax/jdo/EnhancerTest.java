@@ -27,6 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static javax.jdo.Constants.ENHANCER_USAGE_ERROR;
+import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
+import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
+
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 
