@@ -10,7 +10,7 @@
 
     <!-- -->
     <persistence-manager-factory
-        class="javax.jdo.PMFService">
+        class="javax.jdo.stub.StubPMF">
         <property
             name="javax.jdo.option.ConnectionDriverName"
             value="Jane Doe"/>
@@ -18,7 +18,7 @@
 
     <persistence-manager-factory
         name="BookSearch"
-        class="javax.jdo.PMFService">
+        class="javax.jdo.stub.StubPMF">
         <property
             name="javax.jdo.option.ConnectionDriverName"
             value="Larry"/>

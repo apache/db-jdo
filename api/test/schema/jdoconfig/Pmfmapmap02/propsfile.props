@@ -1,2 +1,2 @@
-javax.jdo.PersistenceManagerFactoryClass    javax.jdo.PMFService
+javax.jdo.PersistenceManagerFactoryClass    javax.jdo.stub.StubPMF
 javax.jdo.option.ConnectionDriverName       Jane Doe
