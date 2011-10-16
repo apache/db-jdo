@@ -1,17 +1,27 @@
 Manifest-Version: 1.0
-Specification-Version: JDO 3.0
+Specification-Title: Java Data Objects
+Specification-Version: 3.0
+Specification-Vendor: Oracle, Inc.
+Implementation-Title: javax.jdo
+Implementation-Version: 3.0.1
+Implementation-Vendor: Apache Software Foundation
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Data Objects
+Bundle-Vendor: Apache Software Foundation
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.html
 Bundle-SymbolicName: javax.jdo
-Bundle-Version: 3.0.0
-Bundle-Localization: plugin
-Export-Package: javax.jdo,
- javax.jdo.annotations,
- javax.jdo.datastore,
- javax.jdo.identity,
- javax.jdo.listener,
- javax.jdo.spi,
- javax.jdo.metadata
-Bundle-Vendor: Apache
-Import-Package: javax.transaction;resolution:=optional,
- javax.persistence;resolution:=optional
+Bundle-Version: 3.0.1
+Export-Package: javax.jdo;version="3.0.1",
+ javax.jdo.annotations;version="3.0.1",
+ javax.jdo.datastore;version="3.0.1",
+ javax.jdo.identity;version="3.0.1",
+ javax.jdo.listener;version="3.0.1",
+ javax.jdo.spi;version="3.0.1",
+ javax.jdo.metadata;version="3.0.1"
+Import-Package: javax.rmi,
+ javax.xml.parsers,
+ org.w3c.dom,
+ org.xml.sax,
+ javax.transaction;resolution:=optional,
+ javax.persistence;version="[1.0.0,2.0.0)";resolution:="optional",
+ javax.naming;resolution:=optional
