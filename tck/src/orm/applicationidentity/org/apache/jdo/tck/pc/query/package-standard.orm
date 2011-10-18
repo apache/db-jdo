@@ -29,6 +29,17 @@
       <field name="id" column="ID"/>
     </class>
 
+    <class name="TimeSample" table="TimeSample">
+      <field name="id" column="ID"/>
+      <field name="time" column="TIME"/>
+    </class>
+
+    <class name="MathSample" table="MathSample">
+      <field name="id" column="ID"/>
+      <field name="angle">
+        <column name="ANGLE" precision="18" scale="8"/>
+      </field>
+    </class>
   </package>
 </orm>
 

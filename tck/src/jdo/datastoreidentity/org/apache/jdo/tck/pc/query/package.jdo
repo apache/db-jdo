@@ -21,7 +21,17 @@
 	http://java.sun.com/xml/ns/jdo/jdo_3_0.xsd">
   <package name="org.apache.jdo.tck.pc.query">
     <class name="JDOQLKeywordsAsFieldNames" identity-type="datastore"/>
+
     <class name="NoExtent" requires-extent="false" identity-type="datastore"/>
+
+    <class name="TimeSample">
+      <field name="time" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="MathSample">
+      <field name="angle" persistence-modifier="persistent"/>
+    </class>
   </package>
+
 </jdo>
 

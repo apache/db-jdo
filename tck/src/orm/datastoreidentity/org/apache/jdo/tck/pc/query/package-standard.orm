@@ -16,24 +16,37 @@
   limitations under the License.
 -->
 <!--
-This file contains the schema information when an implementation
-has datastore identity.
+This file contains the schema information when an implementation has datastore identity.
 -->
 <orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
 	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
-    <package name="org.apache.jdo.tck.pc.query">
+  <package name="org.apache.jdo.tck.pc.query">
 
-        <class name="JDOQLKeywordsAsFieldNames" table="JDOQLKeywordsAsFieldNames">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
-            <field name="select" column="ID"/>
-        </class>
+    <class name="JDOQLKeywordsAsFieldNames" table="JDOQLKeywordsAsFieldNames">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="select" column="ID"/>
+    </class>
 
-        <class name="NoExtent" table="NoExtent">
-            <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
-            <field name="id" column="ID"/>
-        </class>
+    <class name="NoExtent" table="NoExtent">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+    </class>
+
+    <class name="TimeSample" table="TimeSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="time" column="TIME"/>
+    </class>
+
+    <class name="MathSample" table="MathSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="angle">
+        <column name="ANGLE" precision="18" scale="8"/>
+      </field>
+    </class>
 
     </package>
 </orm>

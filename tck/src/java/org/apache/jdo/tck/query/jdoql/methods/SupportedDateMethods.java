@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql.methods;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -35,12 +34,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  * New supported Date methods:
  * <ul>
- * <li> getHour()
- * <li> getMinutes()
- * <li> getSeconds()
- * <li> getDay()
- * <li> getMonth()
- * <li> getYear()
+ * <li>getDay()</li>
+ * <li>getMonth()</li>
+ * <li>getYear()</li>
  * </ul>
  */
 public class SupportedDateMethods extends QueryTest {

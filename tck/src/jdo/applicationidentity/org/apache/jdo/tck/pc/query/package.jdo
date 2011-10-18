@@ -32,6 +32,14 @@
       <field name="id" primary-key="true"/>
     </class>
 
+    <class name="TimeSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="time" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="MathSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="angle" persistence-modifier="persistent"/>
+    </class>
   </package>
 </jdo>
-

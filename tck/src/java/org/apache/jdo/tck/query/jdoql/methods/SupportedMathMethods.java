@@ -17,9 +17,18 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
+import org.apache.jdo.tck.pc.query.MathSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -34,8 +43,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  * Supported Math methods:
  * <ul>
- * <li> Math.abs(numeric)
- * <li> Math.sqrt(numeric)
+ * <li>Math.abs(numeric)</li>
+ * <li>Math.sqrt(numeric)</li>
+ * <li>Math.sin(numeric)</li>
  * </ul>
  */
 public class SupportedMathMethods extends QueryTest {
@@ -240,6 +250,15 @@ public class SupportedMathMethods extends QueryTest {
                 /*TO*/          null),
     };
 
+    /** */
+    private Object oidOfMath1;
+
+    /** */
+    private Object oidOfMath2;
+
+    /** */
+    private Object oidOfMath3;
+
     /** 
      * The expected results of valid queries testing Math.abs.
      */
@@ -290,7 +309,7 @@ public class SupportedMathMethods extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(SupportedMathMethods.class);
     }
-    
+
     /** */
     public void testAbs() {
         for (int i = 0; i < VALID_QUERIES_ABS.length; i++) {
@@ -300,7 +319,7 @@ public class SupportedMathMethods extends QueryTest {
                     expectedResultABS[i]);
         }
     }
-    
+
     /** */
     public void testSqrt() {
         for (int i = 0; i < VALID_QUERIES_SQRT.length; i++) {
@@ -311,12 +330,175 @@ public class SupportedMathMethods extends QueryTest {
         }
     }
 
+    /** 
+     * Tests for Math.sin()
+     */
+    @SuppressWarnings("unchecked")
+	public void testSin() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.sin(angle) < 0.02 && Math.sin(angle) > -0.02";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.sin(angle) < 1.02 && Math.sin(angle) > 0.98";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.sin(angle) < -0.98 && Math.sin(angle) > -1.02";
+            expectedResult.clear();
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.cos()
+     */
+    @SuppressWarnings("unchecked")
+	public void testCos() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.cos(angle) < 0.02 && Math.cos(angle) > -0.02";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.cos(angle) < -0.98 && Math.cos(angle) > -1.02";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.cos(angle) < 1.02 && Math.cos(angle) > 0.98";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.tan()
+     */
+    @SuppressWarnings("unchecked")
+	public void testTan() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.tan(angle) < 0.02 && Math.tan(angle) > -0.02";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
     /**
      * @see JDO_Test#localSetUp()
      */
     protected void localSetUp() {
         addTearDownClass(MylibReader.getTearDownClasses());
+        addTearDownClass(MathSample.class);
         loadAndPersistMylib(getPM());
     }
 
+    /** */
+	private void insertMathSampleData(PersistenceManager pm) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            // Sample 1 : angle=PI (180 degrees)
+            MathSample ms1 = new MathSample();
+            ms1.setId(1);
+            ms1.setAngle(new BigDecimal(Math.PI));
+            pm.makePersistent(ms1);
+
+            // Sample 2 : angle=PI/2 (90 degrees)
+            MathSample ms2 = new MathSample();
+            ms2.setId(2);
+            ms2.setAngle(new BigDecimal(Math.PI/2.0));
+            pm.makePersistent(ms2);
+
+            // Sample 3 : angle=0 (0 degrees)
+            MathSample ms3 = new MathSample();
+            ms3.setId(3);
+            ms3.setAngle(new BigDecimal(0));
+            pm.makePersistent(ms3);
+
+            tx.commit();
+            oidOfMath1 = pm.getObjectId(ms1);
+            oidOfMath2 = pm.getObjectId(ms2);
+            oidOfMath3 = pm.getObjectId(ms3);
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
 }
