@@ -153,6 +153,20 @@
                     <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}</directory>
+                            <includes>
+                                <include>query.ser</include>
+                                <include>datanucleus.txt</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
         </plugins>
     </reporting>
 </project>
