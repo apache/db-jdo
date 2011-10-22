@@ -29,6 +29,12 @@ import javax.jdo.JDOHelper;
  */
 public class Enhance extends AbstractMojo {
 
+    private static final String[] PC_PKG_DIRS = {
+        "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "api" + File.separator,
+        "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "pc" + File.separator,
+        "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "models" + File.separator + "inheritance" + File.separator
+    };
+
     /**
      * Location of TCK generated output.
      * @parameter expression="${jdo.tck.doEnhance}"
@@ -109,9 +115,6 @@ public class Enhance extends AbstractMojo {
                     + enhancedDir);
         }
 
-        String[] pcPkgNames = {"org/apache/jdo/tck/api/",
-            "org/apache/jdo/tck/pc/",
-            "org/apache/jdo/tck/models/inheritance/"};
         String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};  // we really want "jdo.properties", but this is easier
         String[] srcDirs = {"jdo", "orm", "testdata"};
         String genericPkgName = "org";
@@ -166,7 +169,7 @@ public class Enhance extends AbstractMojo {
                         + "classes" + File.separator;
                 enhancedIdDirName = enhancedDirName + idtype + File.separator;
                 classes = new ArrayList<String>();
-                for (String pcPkgName : pcPkgNames) {
+                for (String pcPkgName : PC_PKG_DIRS) {
                     // iterator over list of abs name of class files in target/classes
                     fi = FileUtils.iterateFiles(
                             new File(fromDirName + pcPkgName), extensions, true);
@@ -175,8 +178,13 @@ public class Enhance extends AbstractMojo {
                             fromFile = fi.next();
                             fromFileName = fromFile.toString();
                             // fully specified name of file (package + filename)
-                            toFile = new File(enhancedIdDirName + fromFileName.substring(
-                                    fromFileName.indexOf(pcPkgName)));
+                            int index = fromFileName.indexOf(pcPkgName);
+                            if (index == -1) {
+                                throw new MojoExecutionException(
+                                    "Cannot get index of package path " + pcPkgName + 
+                                    " in file name" + fromFileName);
+                            }
+                            toFile = new File(enhancedIdDirName + fromFileName.substring(index));
                             FileUtils.copyFile(fromFile, toFile);
                             classes.add(toFile.toString());
                         } catch (IOException ex) {
