@@ -601,6 +601,14 @@ public class JDOHelperTest extends AbstractTest {
         }
     }
 
+    public static class BadPMFGetPMFMethodThrowsJDOFatalInternalException {
+        public static PersistenceManagerFactory
+                getPersistenceManagerFactory(Map props) {
+            throw new JDOFatalInternalException(
+                    "GetPMF method throws JDOFatalInternalException");
+        }
+    }
+
     public static class BadPMFGetPMFMethodReturnsNull {
         public static PersistenceManagerFactory
                 getPersistenceManagerFactory(Map props) {

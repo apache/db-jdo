@@ -1,100 +1,43 @@
 package javax.jdo;
 
-import org.apache.tools.ant.AntClassLoader;
-
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.MalformedURLException;
-import java.io.File;
-import java.util.StringTokenizer;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
- * A class loader used to ensure that classpath URLs added in JUnit tests
- * aren't included in subsequent JUnit tests.
+ * A class loader that allows the user to add classpath entries.
  */
 public class JDOConfigTestClassLoader extends URLClassLoader {
 
-    public JDOConfigTestClassLoader(
-            String partialPathToIgnore,
-            ClassLoader unparent
-    ) {
-        this(new String[]{partialPathToIgnore}, unparent);
+    /**
+     * Uses the CTCCL as the parent and adds the given path to this loader's classpath.
+     */
+    public JDOConfigTestClassLoader(String... additionalPath) throws IOException {
+	this(Thread.currentThread().getContextClassLoader(), additionalPath);
+    }
+    
+    /**
+     * Uses the given ClassLoader as the parent & adds the given paths to this loader's classpath.
+     */
+    public JDOConfigTestClassLoader(ClassLoader parent, String... additionalPaths) throws IOException {
+	super(new URL[] {}, parent);
+
+	for (String path : additionalPaths) {
+	    addFile(path);
+	}
     }
 
-    public JDOConfigTestClassLoader(
-            String[] partialPathsToIgnore,
-            ClassLoader unparent
-    ) {
-        super(new URL[]{}, null);
-        
-        if (unparent instanceof URLClassLoader) {
-            addNonTestURLs(
-                    partialPathsToIgnore == null
-                            ? new String[]{}
-                            : partialPathsToIgnore,
-                    (URLClassLoader) unparent);
-        }
-        else if (unparent instanceof AntClassLoader) {
-            addNonTestURLs(
-                    partialPathsToIgnore == null
-                            ? new String[]{}
-                            : partialPathsToIgnore,
-                    (AntClassLoader) unparent);
-        }
-        else {
-            throw new RuntimeException(
-                    "unknown ClassLoader type: "
-                            + unparent.getClass().getName());
-        }
+    public void addFile(String s) throws IOException {
+	addFile(new File(s));
     }
 
-    // HACK:  need to identify a better way of controlling test classpath
-    protected void addNonTestURLs(
-            String[] partialPathsToIgnore,
-            URLClassLoader unparent
-    ) {
-        URL[] urls = unparent.getURLs();
-        for (int i = 0; i < urls.length; i++) {
-            URL url = urls[i];
-            String urlString = url.toString();
-            for (int j = 0; j < partialPathsToIgnore.length; j++) {
-                if (urlString.indexOf(partialPathsToIgnore[j]) == -1) {
-                    addURL(url);
-                }
-            }
-        }
+    public void addFile(File f) throws IOException {
+	addURL(f.toURI().toURL());
     }
 
-    protected void addNonTestURLs(
-            String[] partialPathsToIgnore,
-            AntClassLoader unparent
-    ) {
-        List<String> elements = new ArrayList<String>();
-        String classpath = unparent.getClasspath();
-        StringTokenizer st = new StringTokenizer(classpath, File.pathSeparator);
-        while (st.hasMoreTokens()) {
-            String nextToken = st.nextToken();
-            if(!nextToken.endsWith(".jar")) {
-                nextToken = nextToken.concat(File.separator);
-            }
-            elements.add("file://" + nextToken);
-        }
-        Iterator<String> i = elements.iterator();
-        while (i.hasNext()) {
-            String element = i.next();
-            for (int j = 0; j < partialPathsToIgnore.length; j++) {
-                if (element.indexOf(partialPathsToIgnore[j]) == -1) {
-                    try {
-                        addURL(new URL(element));
-                    }
-                    catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        }
+    @Override
+    public void addURL(URL url) {
+	super.addURL(url);
     }
 }

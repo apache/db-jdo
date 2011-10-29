@@ -25,7 +25,7 @@
     <name>JDO API</name>
     <groupId>javax.jdo</groupId>
     <artifactId>jdo-api</artifactId>
-    <currentVersion>3.0</currentVersion>
+    <currentVersion>${jdo.currentVersion}</currentVersion>
     <package>javax.jdo</package>
     <shortDescription>Java Data Objects (JDO) API</shortDescription>
     <description>The Java Data Objects (JDO) API is a standard interface-based 
@@ -80,6 +80,7 @@ Request 243 under the auspices of the Java Community Process.</description>
             <excludes>
                 <exclude>javax/jdo/util/AbstractTest.java</exclude>
                 <exclude>javax/jdo/pc/*.java</exclude>
+                <exclude>javax/jdo/AbstractJDOConfigTest.java</exclude>
             </excludes>
             <resources>
                 <resource>

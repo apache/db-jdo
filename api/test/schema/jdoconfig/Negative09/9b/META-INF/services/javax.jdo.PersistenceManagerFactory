@@ -1,1 +1,1 @@
-javax.jdo.JDOHelperTest$BadPMFGetPMFMethodThrowsJDOException
+javax.jdo.JDOHelperTest$BadPMFGetPMFMethodThrowsJDOFatalInternalException
