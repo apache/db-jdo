@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>javax.jdo</groupId>
+  <artifactId>jdo-api</artifactId>
+  <versioning>
+    <versions>
+      <version>3.0</version>
+      <version>3.0.1</version>
+    </versions>
+    <lastUpdated>20111025120000</lastUpdated>
+  </versioning>
+</metadata>
+
