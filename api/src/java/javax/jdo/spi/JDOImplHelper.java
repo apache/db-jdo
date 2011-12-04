@@ -44,11 +44,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
+import javax.jdo.Constants;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOHelper;
 import javax.jdo.JDOUserException;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -124,6 +127,68 @@ public class JDOImplHelper extends java.lang.Object {
      */
     private static ErrorHandler errorHandler;
 
+    /**
+     * JDO standard properties that the user can configure.
+     */
+    public static final Set<String> USER_CONFIGURABLE_STANDARD_PROPERTIES = createUserConfigurableStandardProperties();
+
+    private static Set<String> createUserConfigurableStandardProperties() {
+        Set<String> props = new HashSet<String>();
+        
+        props.add(Constants.PROPERTY_CONNECTION_DRIVER_NAME);
+        props.add(Constants.PROPERTY_CONNECTION_FACTORY2_NAME);
+        props.add(Constants.PROPERTY_CONNECTION_FACTORY_NAME);
+        props.add(Constants.PROPERTY_CONNECTION_PASSWORD);
+        props.add(Constants.PROPERTY_CONNECTION_URL);
+        props.add(Constants.PROPERTY_CONNECTION_USER_NAME);
+        props.add(Constants.PROPERTY_COPY_ON_ATTACH);
+        props.add(Constants.PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS);
+        props.add(Constants.PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS);
+        props.add(Constants.PROPERTY_DETACH_ALL_ON_COMMIT);
+        props.add(Constants.PROPERTY_IGNORE_CACHE);
+        props.add(Constants.PROPERTY_INSTANCE_LIFECYCLE_LISTENER);
+        props.add(Constants.PROPERTY_MAPPING);
+        props.add(Constants.PROPERTY_MAPPING_CATALOG);
+        props.add(Constants.PROPERTY_MAPPING_SCHEMA);
+        props.add(Constants.PROPERTY_MULTITHREADED);
+        props.add(Constants.PROPERTY_NAME);
+        props.add(Constants.PROPERTY_NONTRANSACTIONAL_READ);
+        props.add(Constants.PROPERTY_NONTRANSACTIONAL_WRITE);
+        props.add(Constants.PROPERTY_OPTIMISTIC);
+        props.add(Constants.PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);
+        props.add(Constants.PROPERTY_PERSISTENCE_UNIT_NAME);
+        props.add(Constants.PROPERTY_READONLY);
+        props.add(Constants.PROPERTY_RESTORE_VALUES);
+        props.add(Constants.PROPERTY_RETAIN_VALUES);
+        props.add(Constants.PROPERTY_SERVER_TIME_ZONE_ID);
+        props.add(Constants.PROPERTY_SPI_RESOURCE_NAME);
+        props.add(Constants.PROPERTY_TRANSACTION_ISOLATION_LEVEL);
+        props.add(Constants.PROPERTY_TRANSACTION_TYPE);
+        
+        return Collections.unmodifiableSet(props);
+    }
+
+    static final String JAVAX_JDO_PREFIX_LOWER_CASED =
+	    Constants.JAVAX_JDO_PREFIX.toLowerCase();
+    
+    static final String PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER_LOWER_CASED =
+	    Constants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER.toLowerCase();
+    
+    static final Set<String> USER_CONFIGURABLE_STANDARD_PROPERTIES_LOWER_CASED =
+	    createUserConfigurableStandardPropertiesLowerCased();
+    
+    static Set<String> createUserConfigurableStandardPropertiesLowerCased() {
+	Set<String> mixedCased = createUserConfigurableStandardProperties();
+	Set<String> lowerCased =
+		new HashSet<String>(mixedCased.size());
+
+	for (String propertyName : mixedCased) {
+	    lowerCased.add(propertyName.toLowerCase());
+	}
+	return Collections.unmodifiableSet(lowerCased);
+    }
+    
+    
     /** Register the default DateFormat instance.
      */
     static {
@@ -133,7 +198,7 @@ public class JDOImplHelper extends java.lang.Object {
     /** Creates new JDOImplHelper */
     private JDOImplHelper() {
     }
-    
+
     /** Get an instance of <code>JDOImplHelper</code>.  This method
      * checks that the caller is authorized for 
      * <code>JDOPermission("getMetadata")</code>, and if not, throws 
@@ -1078,5 +1143,60 @@ public class JDOImplHelper extends java.lang.Object {
          * @return the associated object or null
          */
         public Object get(Object pc, StateInterrogation si);
+    }
+
+    /**
+     * Examines the given map for keys beginning with the JDO standard prefix,
+     * {@link Constants#JAVAX_JDO_PREFIX}. If any property keys are found with
+     * that prefix but are unknown to this version of the JDO standard, a
+     * JDOUserException is thrown with a message indicating the unknown
+     * property. Keys that are not strings are ignored, as are string keys
+     * beginning with
+     * {@link Constants#PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER} or not
+     * beginning with {@link Constants#JAVAX_JDO_PREFIX}.
+     * 
+     * @param properties
+     *            The properties to examine.
+     * 
+     * @see Constants#JAVAX_JDO_PREFIX
+     * @see JDOHelper#USER_CONFIGURABLE_STANDARD_PROPERTIES
+     * @since 3.1
+     */
+    public static void assertOnlyKnownStandardProperties(Map<?, ?> properties) {
+        if (properties == null || properties.isEmpty())
+            return;
+
+        List<JDOUserException> exceptions = new ArrayList<JDOUserException>();
+        StringBuilder unknowns = new StringBuilder();
+
+        for (Object key : properties.keySet()) {
+            if (!(key instanceof String)) {
+                continue; // ignore keys not of type string
+            }
+            String s = ((String) key).toLowerCase(); // compare case-insensitively
+            if (!s.startsWith(JAVAX_JDO_PREFIX_LOWER_CASED)) {
+                continue; // ignore vendor-specific keys
+            }
+            if (s.startsWith(PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER_LOWER_CASED)) {
+                continue; // ignore listener class names
+            }
+            if (!USER_CONFIGURABLE_STANDARD_PROPERTIES_LOWER_CASED.contains(s)) {
+                exceptions.add(new JDOUserException(msg.msg(
+                        "EXC_UnknownStandardProperty", s)));
+
+                if (exceptions.size() > 1) {
+                    unknowns.append(",");
+                }
+                unknowns.append(s);
+            }
+        }
+
+        if (exceptions.size() == 1) {
+            throw exceptions.get(0);
+        } else if (exceptions.size() > 1) {
+            throw new JDOUserException(msg.msg("EXC_UnknownStandardProperties",
+                    unknowns.toString()),
+                    exceptions.toArray(new JDOUserException[] {}));
+        }
     }
 }

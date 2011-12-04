@@ -26,6 +26,17 @@ package javax.jdo;
 public interface Constants {
 
     /**
+     * The JDO standard package name.
+     * @since 3.1
+     */
+    static String JAVAX_JDO = "javax.jdo";
+    
+    /**
+     * The JDO standard property string and option string prefix.
+     */
+    static String JAVAX_JDO_PREFIX = JAVAX_JDO + ".";
+    
+    /**
      * The name of the standard service configuration resource text file containing
      * the name of an implementation of {@link PersistenceManagerFactory}.
      * Constant value is <code>META-INF/services/javax.jdo.PersistenceManagerFactory</code>.
@@ -1068,5 +1079,4 @@ public interface Constants {
      * @since 2.2
      */
     public static final String TX_SERIALIZABLE = "serializable"; 
-
 }

@@ -18,7 +18,11 @@
 package javax.jdo.spi;
 
 import java.util.Collection;
+import java.util.Properties;
 
+import javax.jdo.Constants;
+import javax.jdo.JDOHelper;
+import javax.jdo.JDOUserException;
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
@@ -191,6 +195,95 @@ public class JDOImplHelperTest extends AbstractTest {
         if (event != null) {
             fail("Unexpected event " + event);
         }
+    }
+
+    /**
+     * Test that an unknown standard property causes JDOUserException.
+     */
+    public void testUnknownStandardProperty() {
+        Properties p = new Properties();
+        p.setProperty("javax.jdo.unknown.standard.property", "value");
+
+        JDOUserException x = null;
+
+        try {
+            JDOImplHelper.assertOnlyKnownStandardProperties(p);
+            fail("testUnknownStandardProperty should result in JDOUserException. "
+                    + "No exception was thrown.");
+        } catch (JDOUserException thrown) {
+            if (verbose)
+                println("Caught expected exception " + thrown);
+            x = thrown;
+        }
+        assertNull("should have had no nested exceptions",
+                x.getNestedExceptions());
+    }
+
+    /**
+     * Test that unknown standard properties cause JDOUserException w/nested
+     * exceptions.
+     */
+    public void testUnknownStandardProperties() {
+        Properties p = new Properties();
+        p.setProperty("javax.jdo.unknown.standard.property.1", "value");
+        p.setProperty("javax.jdo.unknown.standard.property.2", "value");
+
+        JDOUserException x = null;
+
+        try {
+            JDOImplHelper.assertOnlyKnownStandardProperties(p);
+            fail("testUnknownStandardProperties should result in JDOUserException. "
+                    + "No exception was thrown.");
+        } catch (JDOUserException thrown) {
+            if (verbose)
+                println("Caught expected exception " + thrown);
+            x = thrown;
+        }
+
+        Throwable[] nesteds = x.getNestedExceptions();
+
+        assertNotNull(nesteds);
+        assertEquals("should have been 2 nested exceptions", 2, nesteds.length);
+        for (int i = 0; i < nesteds.length; i++) {
+            Throwable t = nesteds[i];
+            assertTrue("nested exception " + i
+                    + " should have been JDOUserException",
+                    t instanceof JDOUserException);
+        }
+    }
+
+    /**
+     * Test that unknown non-standard properties & well-formed listener
+     * properties don't cause JDOUserException.
+     */
+    public void testUnknownNonStandardPropertiesAndListeners() {
+        Properties p = new Properties();
+        p.put("unknown.property", "value");
+        p.put(new Object(), "value");
+        p.put(Constants.PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER
+                + "unknown.listener", "value");
+        JDOImplHelper.assertOnlyKnownStandardProperties(p);
+    }
+
+    /**
+     * Test that all JDO standard properties don't cause JDOUserException.
+     */
+    public void testOnlyStandardProperties() {
+        Properties props = new Properties();
+        for (String p : JDOImplHelper.USER_CONFIGURABLE_STANDARD_PROPERTIES) {
+            props.setProperty(p, p);
+        }
+        JDOImplHelper.assertOnlyKnownStandardProperties(props);
+    }
+    
+    /**
+     * Test that an known standard property in mixed case succeeds.
+     */
+    public void testKnownStandardPropertyThatDiffersInCaseOnly() {
+        Properties p = new Properties();
+        p.setProperty("JaVaX.jDo.oPtIoN.CoNNectionDRiVerNamE", "value");
+        p.setProperty("jAvAx.JdO.lIsTeNeR.InstaNceLifeCycleLisTener.foo.Bar", "");
+        JDOImplHelper.assertOnlyKnownStandardProperties(p);
     }
 
     /** */

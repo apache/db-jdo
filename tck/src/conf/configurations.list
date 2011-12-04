@@ -70,4 +70,5 @@ jdo.tck.cfglist = \
                  schemaAttributeClass.conf \
                  schemaAttributeOrm.conf \
                  schemaAttributePackage.conf \
-                 compoundIdentity.conf
+                 compoundIdentity.conf \
+                 throwOnUnknownStandardProperties.conf

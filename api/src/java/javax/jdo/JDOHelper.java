@@ -22,14 +22,29 @@
  
 package javax.jdo;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.ErrorHandler;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.NamedNodeMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.jdo.spi.I18NHelper;
 import javax.jdo.spi.JDOImplHelper;
@@ -45,29 +60,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collections;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.Enumeration;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 
 /**
@@ -794,11 +795,15 @@ public class JDOHelper implements Constants {
      */
     protected static PersistenceManagerFactory getPersistenceManagerFactory
             (Map<?, ?> overrides, Map<?, ?> props, ClassLoader pmfClassLoader) {
+        
         List<Throwable> exceptions = new ArrayList<Throwable>();
         if (pmfClassLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
 
+        JDOImplHelper.assertOnlyKnownStandardProperties(overrides);
+        JDOImplHelper.assertOnlyKnownStandardProperties(props);
+        
         // first try to get the class name from the properties object.
         String pmfClassName = (String) props.get (
                 PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS);

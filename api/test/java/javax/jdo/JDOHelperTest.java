@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.jdo.pc.PCPoint;
+import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 
@@ -566,7 +567,55 @@ public class JDOHelperTest extends AbstractTest {
                 println("Caught expected exception " + ex);
         }
     }
+    
+    /** Test that an unknown standard property cause JDOUserException.
+     */
+    public void testUnknownStandardProperty() {
+        Properties p = new Properties();
+        p.setProperty("javax.jdo.unknown.standard.property", "value");
+        try {
+            JDOHelper.getPersistenceManagerFactory(p);
+            fail("testUnknownStandardProperties should result in JDOUserException. "
+                    + "No exception was thrown.");
+        } catch (JDOUserException x) {
+            if (verbose)
+                println("Caught expected exception " + x);
+        }
+    }
 
+    /**
+     * Test that unknown standard properties cause JDOUserException w/nested
+     * exceptions.
+     */
+    public void testUnknownStandardProperties() {
+        Properties p = new Properties();
+        p.setProperty("javax.jdo.unknown.standard.property.1", "value");
+        p.setProperty("javax.jdo.unknown.standard.property.2", "value");
+
+        JDOUserException x = null;
+
+        try {
+            JDOHelper.getPersistenceManagerFactory(p);
+            fail("testUnknownStandardProperties should result in JDOUserException. "
+                    + "No exception was thrown.");
+        } catch (JDOUserException thrown) {
+            if (verbose)
+                println("Caught expected exception " + thrown);
+            x = thrown;
+        }
+
+        Throwable[] nesteds = x.getNestedExceptions();
+
+        assertNotNull(nesteds);
+        assertEquals("should have been 2 nested exceptions", 2, nesteds.length);
+        for (int i = 0; i < nesteds.length; i++) {
+            Throwable t = nesteds[i];
+            assertTrue("nested exception " + i
+                    + " should have been JDOUserException",
+                    t instanceof JDOUserException);
+        }
+    }
+    
     private Context getInitialContext() {
         try {
             return new InitialContext();

@@ -58,6 +58,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.util.ClassUtils;
 
 public abstract class JDO_Test extends TestCase {
     public static final int TRANSIENT                           = 0;
@@ -249,8 +250,19 @@ public abstract class JDO_Test extends TestCase {
      */
     private Collection tearDownClasses = new LinkedList();
     
-    /** */
+    /**
+     * Intended for subclasses so that they may skip this class's normal set up procedure.
+     * @return true to run normal set up, false to skip normal set up
+     */
+    protected boolean preSetUp() {
+        return true;
+    }
+
     protected final void setUp() throws Exception {
+        if (!preSetUp()) {
+            return;
+        }
+
         pmf = getPMF();
         localSetUp();
     }
@@ -305,6 +317,14 @@ public abstract class JDO_Test extends TestCase {
     }
     
     /**
+     * Intended for subclasses so that they may skip this class's normal tear down procedure.
+     * @return true to run normal tear down, false to skip normal tear down
+     */
+    protected boolean preTearDown() {
+        return true;
+    }
+    
+    /**
      * This method clears data and resources allocated by testcases.
      * It first closes the persistence manager of this testcase.
      * Then it calls method <code>localTearDown</code>. 
@@ -324,6 +344,10 @@ public abstract class JDO_Test extends TestCase {
      *  jdo.tck.closePMFAfterEachTest is set to true.
      */
     protected final void tearDown() {
+        if (!preTearDown()) {
+            return;
+        }
+
         try {
             cleanupPM();
         } 
@@ -498,6 +522,22 @@ public abstract class JDO_Test extends TestCase {
         return pmf;
     }
 
+    protected Class getPMFClass()
+    {
+        if (pmf != null) {
+            return pmf.getClass();
+        }
+        
+        PMFPropertiesObject = loadProperties(PMFProperties);
+        String name = PMFPropertiesObject.getProperty(PMF_CLASS_PROP);
+        try {
+            return Class.forName(name);
+        } catch (ClassNotFoundException ex) {
+            throw new JDOException("Cannot find PMF class '" + name + "'.",
+                                   ex);
+        }
+    }
+    
     /**
      * Get the <code>PersistenceManagerFactory</code> instance 
      * for the implementation under test. This method does NOT use the
@@ -510,17 +550,14 @@ public abstract class JDO_Test extends TestCase {
     protected PersistenceManagerFactory getUnconfiguredPMF()
     {
         if (pmf == null) {
-            PMFPropertiesObject = loadProperties(PMFProperties); // will exit here if no properties
-            String name = PMFPropertiesObject.getProperty(PMF_CLASS_PROP);
+            String name = null;
             try {
-                Class pmfClass = Class.forName(name);
+                Class pmfClass = getPMFClass();
+                name = pmfClass.getName();
                 pmf = (PersistenceManagerFactory) pmfClass.newInstance();
                 if (supportedOptions == null) {
                     supportedOptions = pmf.supportedOptions();
                 }
-            } catch (ClassNotFoundException ex) {
-                throw new JDOException("Cannot find PMF class '" + name + "'.",
-                                       ex);
             } catch (InstantiationException ex) {
                 throw new JDOException("Cannot instantiate PMF class '" + 
                                        name + "'.", ex);
