@@ -218,7 +218,7 @@
 <!ATTLIST fetch-plan max-fetch-depth CDATA #IMPLIED>
 <!ATTLIST fetch-plan fetch-size CDATA #IMPLIED>
 
-<!ELEMENT embedded (extension*, (field|property)*, extension*)>
+<!ELEMENT embedded (extension*, discriminator?, (field|property)*, extension*)>
 <!ATTLIST embedded owner-field CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-column CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-value CDATA #IMPLIED>

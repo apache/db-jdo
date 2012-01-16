@@ -148,7 +148,7 @@
 <!ATTLIST order column CDATA #IMPLIED>
 <!ATTLIST order mapped-by CDATA #IMPLIED>
 
-<!ELEMENT embedded (extension*, (field|property)*, extension*)>
+<!ELEMENT embedded (extension*, discriminator?, (field|property)*, extension*)>
 <!ATTLIST embedded owner-field CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-column CDATA #IMPLIED>
 <!ATTLIST embedded null-indicator-value CDATA #IMPLIED>

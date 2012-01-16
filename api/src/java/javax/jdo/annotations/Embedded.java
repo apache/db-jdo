@@ -54,4 +54,10 @@ public @interface Embedded
      * @return the members embedded in the field or property being annotated
      */
     Persistent[] members() default {};
+
+    /**
+     * Discriminator for cases where the embedded object has inheritance.
+     * @return the discriminator for inheritance determination
+     */
+    Discriminator discriminatorColumnName() default @Discriminator;
 }

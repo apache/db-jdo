@@ -92,4 +92,16 @@ public interface EmbeddedMetadata extends Metadata {
      * @return The PropertyMetadata
      */
     PropertyMetadata newPropertyMetadata(String name);
+
+    /**
+     * Accessor for the discriminator metadata when handling inherited objects.
+     * @return Discriminator details
+     */
+    DiscriminatorMetadata getDiscriminatorMetadata();
+
+    /**
+     * Method to define the new discriminator metadata for handling inherited embedded objects.
+     * @return Discriminator metadata
+     */
+    DiscriminatorMetadata newDiscriminatorMetadata();
 }

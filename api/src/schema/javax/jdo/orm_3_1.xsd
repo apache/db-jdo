@@ -741,6 +741,7 @@
                 <xs:element ref="extension"/>
                 <xs:element ref="field"/>
                 <xs:element ref="property"/>
+                <xs:element ref="discriminator"/>
             </xs:choice>
             <xs:attributeGroup ref="attlist.embedded"/>
         </xs:complexType>
