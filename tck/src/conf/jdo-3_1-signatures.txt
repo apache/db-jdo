@@ -16,6 +16,8 @@
  */
 
 public interface javax.jdo.Constants {
+    static String JAVAX_JDO = "javax.jdo";
+    static String JAVAX_JDO_PREFIX = "javax.jdo.";
     static String SERVICE_LOOKUP_PMF_RESOURCE_NAME
         = "META-INF/services/javax.jdo.PersistenceManagerFactory";
     static String SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME
@@ -255,6 +257,7 @@ public interface javax.jdo.Constants {
     public static final String TX_SERIALIZABLE = "serializable"; 
     public static final String PROPERTY_ENHANCER_VENDOR_NAME = "VendorName";
     public static final String PROPERTY_ENHANCER_VERSION_NUMBER = "VersionNumber";
+    public static final String PROPERTY_TRANSACTION_TYPE = "javax.jdo.option.TransactionType";
     public static final int ENHANCER_EXCEPTION = 1;
     public static final int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
     public static final int ENHANCER_USAGE_ERROR = 3;
@@ -868,6 +871,7 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public Integer getDatastoreReadTimeoutMillis();
     public void setDatastoreWriteTimeoutMillis(Integer interval);
     public Integer getDatastoreWriteTimeoutMillis();
+    public java.util.Collection getManagedClasses();
 }
 
 public interface javax.jdo.Query extends java.io.Serializable {
@@ -959,6 +963,8 @@ public class javax.jdo.spi.JDOImplHelper extends Object {
     public void nonBinaryCompatibleMakeDirty(Object pc, String fieldName);
     public boolean nonBinaryCompatibleIs(Object pc, javax.jdo.spi.JDOImplHelper$StateInterrogationBooleanReturn sibr);
     public Object nonBinaryCompatibleGet(Object pc, javax.jdo.spi.JDOImplHelper$StateInterrogationObjectReturn sibr);
+    public static void assertOnlyKnownStandardProperties(java.util.Map properties);
+    public static final java.util.Set USER_CONFIGURABLE_STANDARD_PROPERTIES;
 }
 
 static public interface javax.jdo.spi.JDOImplHelper$StringConstructor {
