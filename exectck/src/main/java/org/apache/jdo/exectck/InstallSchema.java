@@ -1,7 +1,5 @@
-package org.apache.jdo.exectck;
-
 /*
- * Copyright 2001-2005 The Apache Software Foundation.
+ * Copyright 2006-2012 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +13,14 @@ package org.apache.jdo.exectck;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.jdo.exectck;
+
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -29,10 +29,8 @@ import java.util.HashSet;
  * @goal installSchema
  * 
  * @phase integration-test
- *
  */
-public class InstallSchema
-        extends AbstractMojo {
+public class InstallSchema extends AbstractTCKMojo {
 
     /**
      * Location of TCK generated output.
@@ -43,103 +41,38 @@ public class InstallSchema
     private boolean doInstallSchema;
 
     /**
-     * Root of the TCK installation.
-     * @parameter expression="${project.base.directory}"
-     *      default-value="${basedir}"
-     * @required
+     * List of mappings required by the current configuration
      */
-//    private String baseDirectory;
-    
-    /**
-     * Location of TCK generated output.
-     * @parameter expression="${project.build.directory}"
-     *      default-value="${basedir}/target"
-     * @required
-     */
-    private String buildDirectory;
-    
-    /**
-     * Location of the logs directory.
-     * @parameter expression="${project.log.directory}"
-     *      default-value="${project.build.directory}/logs"
-     * @required
-     */
-    private File logsDirectory;
-    
-    /**
-     * Location of the configuration directory.
-     * @parameter expression="${project.conf.directory}"
-     *      default-value="${basedir}/src/conf"
-     * @required
-     */
-    private String confDirectory;
-    
-    /**
-     * Location of the configuration directory.
-     * @parameter expression="${project.sql.directory}"
-     *      default-value="${basedir}/src/sql"
-     * @required
-     */
-    private String sqlDirectory;
-
-    /**
-     * List of configuration files, each describing a test configuration.
-     * Note: Collection can only be configured in pom.xml. Using multi-valued
-     *       type because long String cannot be broken across lines in pom.xml.
-     * @parameter
-     * @optional
-     */
-    private HashSet<String> cfgs;
-
-    /**
-     * List of configuration files, each describing a test configuration.
-     * Allows command line override of configured cfgs value.
-     * @parameter expression="${jdo.tck.cfglist}
-     * default-value="company1-1Relationships.conf company1-MRelationships.conf companyAnnotated1-1RelationshipsFCPM.conf companyAnnotated1-MRelationshipsFCPM.conf companyAnnotatedAllRelationshipsFCConcrete.conf companyAnnotatedAllRelationshipsFCPM.conf companyAnnotatedAllRelationshipsJPAConcrete.conf companyAnnotatedAllRelationshipsJPAPM.conf companyAnnotatedAllRelationshipsPCConcrete.conf companyAnnotatedAllRelationshipsPCPM.conf companyAnnotatedAllRelationshipsPIPM.conf companyAnnotatedEmbeddedFCPM.conf companyAnnotatedEmbeddedJPAConcrete.conf companyAnnotatedEmbeddedJPAPM.conf companyAnnotatedM-MRelationshipsFCConcrete.conf companyAnnotatedM-MRelationshipsFCPM.conf companyAnnotatedNoRelationshipsFCConcrete.conf companyAnnotatedNoRelationshipsFCPM.conf companyAnnotatedNoRelationshipsPCConcrete.conf companyAnnotatedNoRelationshipsPCPM.conf companyAnnotatedNoRelationshipsPIPM.conf companyEmbedded.conf companyListWithoutJoin.conf companyMapWithoutJoin.conf companyM-MRelationships.conf companyNoRelationships.conf companyOverrideAnnotatedAllRelationshipsFCPM.conf companyPMClass.conf companyPMInterface.conf compoundIdentity.conf detach.conf enhancement.conf extents.conf fetchgroup.conf fetchplan.conf inheritance1.conf inheritance2.conf inheritance3.conf inheritance4.conf instancecallbacks.conf jdohelper.conf jdoql.conf jdoql1.conf lifecycle.conf models1.conf models.conf pm.conf pmf.conf query.conf relationshipAllRelationships.conf relationshipNoRelationships.conf runonce.conf schemaAttributeClass.conf schemaAttributeOrm.conf schemaAttributePackage.conf security.conf transactions.conf"
-     * @optional
-     */
-    private String cfgList;
-    
-    /**
-     * List of databases to run tests under.
-     * Currently only derby is supported.
-     * @parameter expression="${jdo.tck.dblist}" default-value="derby"
-     * @required
-     */
-    private String dblist;
-    private HashSet<String> dbs;
-    
-    /**
-     * List of identity types to be tested.
-     * @parameter expression="${jdo.tck.identitytypes}"
-     *      default-value="applicationidentity datastoreidentity"
-     * @required
-     */
-    private String identitytypes;
-    private HashSet<String> idtypes;
-    
-    /**
-     * List of mappings required by the current configurationd
-     */
-    private HashSet<String> mappings;
+    protected Collection<String> mappings = new HashSet<String>();
 
     @Override
-    public void execute()
-            throws MojoExecutionException {
+    public void execute() throws MojoExecutionException {
 
         if (!doInstallSchema) {
             System.out.println("Skipping InstallSchema goal!");
             return;
         }
-        
-        dbs = new HashSet();
-        idtypes = new HashSet();
-        mappings = new HashSet();
 
-        System.out.println("cfgList is " + cfgList);
-        if (cfgList != null) {
-            cfgs = new HashSet();
-            PropertyUtils.string2Set(cfgList, cfgs);
+        if (cfgs == null) {
+        	if (cfgList != null) {
+        		System.out.println("cfgList is " + cfgList);
+        		cfgs = new HashSet<String>();
+        		PropertyUtils.string2Set(cfgList, cfgs);
+        	}
+        	else {
+        		// Fallback to "src/conf/configurations.list"
+        		setCfgListFromFile();
+                if (cfgList != null) {
+                    cfgs = new HashSet<String>();
+                    PropertyUtils.string2Set(cfgList, cfgs);
+                }
+
+                if (cfgList == null) {
+                    throw new MojoExecutionException(
+                        "Could not find configurations to run TCK. " +
+                        "Set cfgList parameter on command line or cfgs in pom.xml.");
+            	}
+        	}
         }
 
         PropertyUtils.string2Set(dblist, dbs);
@@ -186,6 +119,14 @@ public class InstallSchema
                         + " to " + dbDir + ": " + ex.getLocalizedMessage());
             }
 
+            if (mappings.contains("0")) {
+            	// If schema was explicitly specified as "0" change to "" since
+            	// the schema file in that case is "schema.sql". Note that this
+            	// removes a duplicate entry too
+            	mappings.remove("0");
+            	mappings.add("");
+            }
+
             // Create database
             for (String idtype : idtypes) {
 
@@ -195,9 +136,6 @@ public class InstallSchema
                             + "database" + File.separator + db + "_" + idtype
                             + "_" + mapping + ".txt");
 
-                    if (mapping.equals("0")) {
-                        mapping = "";
-                    }
                     System.out.println("*> Installing schema" + mapping
                                 + ".sql for " + db + " " + idtype);
 

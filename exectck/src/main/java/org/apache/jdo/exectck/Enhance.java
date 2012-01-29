@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import javax.jdo.JDOEnhancer;
@@ -25,7 +26,6 @@ import javax.jdo.JDOHelper;
  * @goal enhance
  *
  * @phase integration-test
- *
  */
 public class Enhance extends AbstractMojo {
 
@@ -78,6 +78,7 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String iutLibsDirectory;
+
     /**
      * List of identity types to be tested.
      * @parameter expression="${jdo.tck.identitytypes}"
@@ -85,7 +86,7 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String identitytypes;
-    private HashSet<String> idtypes;
+    private Collection<String> idtypes;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -95,7 +96,7 @@ public class Enhance extends AbstractMojo {
             return;
         }
 
-        idtypes = new HashSet();
+        idtypes = new HashSet<String>();
         PropertyUtils.string2Set(identitytypes, idtypes);
 
         // Create directory for enhancer logs
@@ -117,7 +118,6 @@ public class Enhance extends AbstractMojo {
 
         String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};  // we really want "jdo.properties", but this is easier
         String[] srcDirs = {"jdo", "orm", "testdata"};
-        String genericPkgName = "org";
         File toFile = null;
         File fromFile = null;
         String fromFileName = null;

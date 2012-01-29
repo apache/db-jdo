@@ -1,3 +1,18 @@
+/*
+ * Copyright 2006-2012 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.jdo.exectck;
 
 import java.io.BufferedWriter;
@@ -9,7 +24,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -17,7 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.apache.jdo.exectck.Utilities.InvocationResult;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
@@ -30,7 +43,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @phase integration-test
  *
  */
-public class RunTCK extends AbstractMojo {
+public class RunTCK extends AbstractTCKMojo {
 
     /**
      * To skip running of TCK, set to false.
@@ -54,34 +67,6 @@ public class RunTCK extends AbstractMojo {
      */
     private boolean debugTCK;
     /**
-     * Location of TCK generated output.
-     * @parameter expression="${project.build.directory}"
-     *      default-value="${basedir}/target"
-     * @required
-     */
-    private String buildDirectory;
-    /**
-     * Location of the logs directory.
-     * @parameter expression="${project.log.directory}"
-     *      default-value="${project.build.directory}/logs"
-     * @required
-     */
-    private File logsDirectory;
-    /**
-     * Location of the configuration directory.
-     * @parameter expression="${project.conf.directory}"
-     *      default-value="${basedir}/src/conf"
-     * @required
-     */
-    private String confDirectory;
-    /**
-     * Location of the configuration directory.
-     * @parameter expression="${project.sql.directory}"
-     *      default-value="${basedir}/src/sql"
-     * @required
-     */
-    private String sqlDirectory;
-    /**
      * Implementation to be tested (jdori or iut).
      * Any value other than "jdori" will test an appropriately configured IUT
      * @parameter expression="${jdo.tck.impl}"
@@ -103,22 +88,7 @@ public class RunTCK extends AbstractMojo {
      * @required
      */
     private String iutLibsDirectory;
-    /**
-     * List of configuration files, each describing a test configuration.
-     * Note: Collection can only be configured in pom.xml. Using multi-valued
-     *       type because long String cannot be broken across lines in pom.xml.
-     * @parameter
-     * @optional
-     */
-    private ArrayList<String> cfgs;
-    /**
-     * List of configuration files, each describing a test configuration.
-     * Allows command line override of configured cfgs value.
-     * @parameter expression="${jdo.tck.cfglist}"
-     * default-value="company1-1Relationships.conf company1-MRelationships.conf companyAnnotated1-1RelationshipsFCPM.conf companyAnnotated1-MRelationshipsFCPM.conf companyAnnotatedAllRelationshipsFCConcrete.conf companyAnnotatedAllRelationshipsFCPM.conf companyAnnotatedAllRelationshipsJPAConcrete.conf companyAnnotatedAllRelationshipsJPAPM.conf companyAnnotatedAllRelationshipsPCConcrete.conf companyAnnotatedAllRelationshipsPCPM.conf companyAnnotatedAllRelationshipsPIPM.conf companyAnnotatedEmbeddedFCPM.conf companyAnnotatedEmbeddedJPAConcrete.conf companyAnnotatedEmbeddedJPAPM.conf companyAnnotatedM-MRelationshipsFCConcrete.conf companyAnnotatedM-MRelationshipsFCPM.conf companyAnnotatedNoRelationshipsFCConcrete.conf companyAnnotatedNoRelationshipsFCPM.conf companyAnnotatedNoRelationshipsPCConcrete.conf companyAnnotatedNoRelationshipsPCPM.conf companyAnnotatedNoRelationshipsPIPM.conf companyEmbedded.conf companyListWithoutJoin.conf companyMapWithoutJoin.conf companyM-MRelationships.conf companyNoRelationships.conf companyOverrideAnnotatedAllRelationshipsFCPM.conf companyPMClass.conf companyPMInterface.conf compoundIdentity.conf detach.conf enhancement.conf extents.conf fetchgroup.conf fetchplan.conf inheritance1.conf inheritance2.conf inheritance3.conf inheritance4.conf instancecallbacks.conf jdohelper.conf jdoql.conf jdoql1.conf lifecycle.conf models1.conf models.conf pm.conf pmf.conf query.conf relationshipAllRelationships.conf relationshipNoRelationships.conf runonce.conf schemaAttributeClass.conf schemaAttributeOrm.conf schemaAttributePackage.conf security.conf transactions.conf"
-     * @optional
-     */
-    private String cfgList;
+
     /**
      * Name of file in src/conf containing pmf properties.
      * @parameter expression="${jdo.tck.pmfproperties}"
@@ -134,27 +104,7 @@ public class RunTCK extends AbstractMojo {
      * @required
      */
     private String exclude;
-    /**
-     * List of databases to run tests under.
-     * Currently only derby is supported.
-     * @parameter expression="${jdo.tck.dblist}"
-     *      default-value="derby"
-     * @required
-     */
-    private String dblist;
-    private HashSet<String> dbs;
-    /**
-     * List of identity types to be tested.
-     * @parameter expression="${jdo.tck.identitytypes}"
-     *      default-value="applicationidentity datastoreidentity"
-     * @required
-     */
-    private String identitytypes;
-    private HashSet<String> idtypes;
-    /**
-     * List of mappings required by the current configuration
-     */
-    private HashSet<String> mappings;
+
     /**
      * Run the TCK tests in verbose mode.
      * @parameter expression="${jdo.tck.verbose}
@@ -190,13 +140,7 @@ public class RunTCK extends AbstractMojo {
      * @optional
      */
     private String jvmproperties;
-    /**
-     * The port number the JVM should listen for a debugger on.
-     * @parameter expression="${jdo.tck.debug.port}"
-     *      default-value="8787"
-     * @optional
-     */
-    private String debugPort;
+
     /**
      * User-supplied arguments for debug directives.
      * @parameter expression="${jdo.tck.debug.jvmargs}"
@@ -237,9 +181,6 @@ public class RunTCK extends AbstractMojo {
             return;
         }
 
-        dbs = new HashSet();
-        idtypes = new HashSet();
-        mappings = new HashSet();
         Properties props = null;
         boolean alreadyran = false;
         String runonce = "false";
@@ -253,17 +194,25 @@ public class RunTCK extends AbstractMojo {
         if (impl.equals("iut")) {
             pmfProperties="iut-pmf.properties";
         }
-        if (cfgs != null) {
-//            System.out.println("Configurations specified in cfgs are " + cfgs.toString());
-        } else if (cfgList != null) {
-            cfgs = new ArrayList();
-            PropertyUtils.string2List(cfgList, cfgs);
-//            System.out.println("Configurations are " + cfgs.toString());
-        } else {
-            throw new MojoExecutionException(
-                    "Could not find configurations to run TCK. "
-                    + "Set cfgList parameter on command line "
-                    + "or cfgs in pom.xml.");
+
+        if (cfgs == null) {
+            if (cfgList != null) {
+                cfgs = new ArrayList<String>();
+                PropertyUtils.string2List(cfgList, (List<String>)cfgs);
+            } else {
+            	// Fallback to "src/conf/configurations.list"
+            	setCfgListFromFile();
+                if (cfgList != null) {
+                    cfgs = new ArrayList<String>();
+                    PropertyUtils.string2List(cfgList, (List<String>)cfgs);
+                }
+
+                if (cfgList == null) {
+                    throw new MojoExecutionException(
+                        "Could not find configurations to run TCK. " +
+                        "Set cfgList parameter on command line or cfgs in pom.xml");
+            	}
+            }
         }
 
         PropertyUtils.string2Set(dblist, dbs);
