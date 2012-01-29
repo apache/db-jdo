@@ -175,6 +175,7 @@ public class InstallSchema extends AbstractTCKMojo {
                 }
             }
             System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
+            System.out.println("");
         }
     }
 }
