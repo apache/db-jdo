@@ -41,7 +41,6 @@ import org.apache.maven.plugin.MojoFailureException;
  * @goal runtck
  *
  * @phase integration-test
- *
  */
 public class RunTCK extends AbstractTCKMojo {
 
@@ -52,6 +51,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private boolean doRunTCK;
+
     /**
      * To run the RunTCK plugin goal in verbose mode.
      * @parameter expression="${jdo.tck.runTCKVerbose}"
@@ -59,6 +59,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private boolean runtckVerbose;
+
     /**
      * Run the TCK in a debugger.
      * @parameter expression="${jdo.tck.debugTCK}"
@@ -66,6 +67,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private boolean debugTCK;
+
     /**
      * Implementation to be tested (jdori or iut).
      * Any value other than "jdori" will test an appropriately configured IUT
@@ -74,6 +76,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private String impl;
+
     /**
      * Location of third party libraries such as JNDI.
      * @parameter expression="${project.lib.ext.directory}"
@@ -81,6 +84,15 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private String extLibsDirectory;
+
+    /**
+     * Location of implementation log file.
+     * @parameter expression="${jdo.tck.impl.logfile}"
+     *      default-value="${user.dir}/datanucleus.txt"
+     * @required
+     */
+    private String implLogFile;
+
     /**
      * Location of jar files for implementation under test.
      * @parameter expression="${project.lib.iut.directory}"
@@ -96,6 +108,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @optional
      */
     private String pmfProperties;
+
     /**
      * Name of file in src/conf containing property jdo.tck.exclude,
      *   whose value is a list of files to be excluded from testing.
@@ -148,6 +161,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @optional
      */
     private String debugDirectives;
+
     /**
      * Class used to run a batch of tests.
      * @parameter expression="${jdo.tck.testrunnerclass}"
@@ -155,6 +169,7 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private String testRunnerClass;
+
     /**
      * Class used to output test result and configuration information.
      * @parameter expression="${jdo.tck.resultprinterclass}"
@@ -217,10 +232,11 @@ public class RunTCK extends AbstractTCKMojo {
 
         PropertyUtils.string2Set(dblist, dbs);
         PropertyUtils.string2Set(identitytypes, idtypes);
-        System.out.println("*>TCK to be run for implementation " + impl
-                + " on \n configurations: "
-                + cfgs.toString() + "\n  databases: " + dbs.toString()
-                + "\n  identity types: " + identitytypes.toString());
+        System.out.println("*>TCK to be run for implementation '" + impl +
+                "' on \n" +
+                " configurations: " + cfgs.toString() + "\n" +
+                " databases: " + dbs.toString() + "\n" +
+                " identitytypes: " + identitytypes.toString());
 
         // Properties required for test execution
         System.out.println("cleanupaftertest is " + cleanupaftertest);
@@ -358,7 +374,6 @@ public class RunTCK extends AbstractTCKMojo {
                     }
                     List<String> classesList = Arrays.asList(classes.split(" "));
 
-
                     propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
                     propsString.add("-Djdo.tck.cfg=" + cfg);
 
@@ -397,18 +412,48 @@ public class RunTCK extends AbstractTCKMojo {
                     command.add(testRunnerClass);
                     command.addAll(classesList);
 
-                    // invoke class runner
-                    System.out.println("*> Starting configuration=" + cfg
-                            + " with database=" + db + " identitytype=" + idtype
-                            + " mapping=" + mapping + " on the " + impl + ".");
+                    if (runonce.equals("true") && alreadyran) {
+                        continue;
+                    }
+
                     if (debugTCK) {
                         System.out.println("Using debug arguments: \n"
                                 + debugDirectives);
                     }
-                    if (runonce.equals("true") && alreadyran) {
-                        continue;
-                    }
+
+                    // invoke class runner
+                    System.out.print("*> Running tests for " + cfg +
+                    		" with " + idtype +
+                    		" on '" + db + "'" +
+                            " mapping=" + mapping + " ... ");
                     result = (new Utilities()).invokeTest(command);
+                    if (result.getExitValue() == 0) {
+                    	System.out.println("success");
+                    } else {
+                    	System.out.println("FAIL");
+                    }
+
+                    // TODO This is only for the RI right now, but could be made to work for UIT
+                    if ("jdori".equals(impl)) {
+                    	// Move log to per-test location
+                    	String idname = "dsid";
+                        if (idtype.trim().equals("applicationidentity")) {
+                            idname = "app";
+                        }
+                    	String configName = cfg;
+                    	if (cfg.indexOf('.') > 0) {
+                    		configName = configName.substring(0, cfg.indexOf('.'));
+                    	}
+                    	String testLogFilename = thisLogDir +
+                    	    idname + "-" + configName + "-datanucleus.txt";
+                    	try {
+                        	File logFile = new File(implLogFile);
+							FileUtils.moveFile(logFile, new File(testLogFilename));
+						} catch (Exception e) {
+							System.out.println(">> Error moving implementation log file " +
+									e.getMessage());
+						}
+                    }
 
                     if (runtckVerbose) {
                         System.out.println("\nCommand line is: \n" + command.toString());

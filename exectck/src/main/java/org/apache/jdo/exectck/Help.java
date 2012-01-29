@@ -55,6 +55,8 @@ public class Help extends AbstractMojo{
         msg.append("  Default value is \"applicationidentity datastoreidentity\"\n");
         msg.append("* project.lib.iut.directory\n");
         msg.append("  Location of implementation jar files. Default: ${basedir}/../lib/iut\n");
+        msg.append("* jdo.tck.impl.logfile\n");
+        msg.append("  Location of implementation log file. Default: ${basedir}/datanucleus.txt\n");
         msg.append("* jdo.tck.doInstallSchema\n");
         msg.append("  Setting this parameter to false will bypass schema installation.\n");
         msg.append("* jdo.tck.doEnhance\n");
