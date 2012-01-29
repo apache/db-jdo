@@ -129,28 +129,31 @@ public class InstallSchema extends AbstractTCKMojo {
 
             // Create database
             for (String idtype : idtypes) {
-
                 for (String mapping : mappings) {
-
                     System.setProperty("ij.outfile", logsDirectory + File.separator
                             + "database" + File.separator + db + "_" + idtype
                             + "_" + mapping + ".txt");
 
-                    System.out.println("*> Installing schema" + mapping
-                                + ".sql for " + db + " " + idtype);
+                    System.out.print("*> Installing schema" + mapping
+                                + ".sql for " + db + " " + idtype + " ... ");
 
                     String[] args = {sqlDirectory + File.separator + db
                         + File.separator + idtype + File.separator
                         + "schema" + mapping + ".sql"};
                     System.setProperty("derby.system.home", dbDirName);
 
+                    boolean success = true;
                     try {
                         org.apache.derby.tools.ij.main(args);
                     } catch (IOException ioex) {
+                    	success = false;
+                    	System.out.println("FAILED!");
                         throw new MojoExecutionException(
                                 "*> Failed to execute ij: " +
                                 ioex.getLocalizedMessage());
                     } catch (Exception ex) {
+                    	success = false;
+                    	System.out.println("FAILED!");
                         ex.printStackTrace();
                         System.out.println("*> Classpath is ");
                         new Utilities().printClasspath();
@@ -165,13 +168,13 @@ public class InstallSchema extends AbstractTCKMojo {
                         System.out.println("*> java.security.policy is \n    "
                                 + System.getProperty("java.security.policy"));
                     } finally {
-                        System.out.println("*> Installation of schema" + mapping
-                                + ".sql for " + db + " " + idtype
-                                + " is complete. See diagnostic output in "
-                                + dbLogsDir + ".");
+                    	if (success) {
+                    		System.out.println("done");
+                    	}
                     }
                 }
             }
+            System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
         }
     }
 }
