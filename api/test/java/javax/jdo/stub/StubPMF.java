@@ -550,4 +550,9 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
 	}
 
     }
+
+	@Override
+	public Collection<Class> getManagedClasses() {
+		throw new UnsupportedOperationException("not implemented");
+	}
 }

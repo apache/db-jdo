@@ -777,4 +777,11 @@ public interface PersistenceManagerFactory extends Serializable {
      * @since 3.0
      */
     TypeMetadata getMetadata(String className);
+
+    /**
+     * Method to return the currently managed classes for this factory.
+     * @return Collection of persistable classes that are managed by this factory
+     * @since 3.1
+     */
+    Collection<Class> getManagedClasses();
 }
