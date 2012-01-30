@@ -20,6 +20,7 @@ jdo.tck.cfglist = \
                  pm.conf \
                  pmf.conf \
                  detach.conf \
+                 embeddedInheritance.conf \
                  enhancement.conf \
                  extents.conf \
                  fetchplan.conf \
