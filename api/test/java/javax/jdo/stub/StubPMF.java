@@ -17,35 +17,35 @@ import javax.jdo.metadata.TypeMetadata;
 public class StubPMF implements PersistenceManagerFactory, Constants {
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-	    Map props) {
+        Map props) {
 
-	StubPMF pmf = new StubPMF();
+        StubPMF pmf = new StubPMF();
 
-	pmf.setProperties(props);
+        pmf.setProperties(props);
 
-	for (Object key : props.keySet()) {
-	    if (!(key instanceof String)) {
-		continue;
-	    }
-	    String prop = (String) key;
-	    if (!prop.startsWith("javax.jdo.")) {
-		continue;
-	    }
-	    pmf.setProperty(prop, props.get(prop));
-	}
+        for (Object key : props.keySet()) {
+            if (!(key instanceof String)) {
+            continue;
+            }
+            String prop = (String) key;
+            if (!prop.startsWith("javax.jdo.")) {
+            continue;
+            }
+            pmf.setProperty(prop, props.get(prop));
+        }
 
-	return pmf;
+        return pmf;
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-	    Map overrides, Map props) {
+        Map overrides, Map props) {
 
-	StubPMF pmf = new StubPMF();
+        StubPMF pmf = new StubPMF();
 
-	pmf.setProperties(props);
-	pmf.setProperties(overrides);
+        pmf.setProperties(props);
+        pmf.setProperties(overrides);
 
-	return pmf;
+        return pmf;
     }
 
     String name;
@@ -81,478 +81,475 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     Properties properties = new Properties();
 
     public String getConnectionUserName() {
-	return optionConnectionUserName;
+        return optionConnectionUserName;
     }
 
     public void setConnectionUserName(String connectionUserName) {
-	this.optionConnectionUserName = connectionUserName;
+        this.optionConnectionUserName = connectionUserName;
     }
 
     public void setConnectionPassword(String connectionPassword) {
-	this.optionConnectionPassword = connectionPassword;
+        this.optionConnectionPassword = connectionPassword;
     }
 
     public String getConnectionURL() {
-	return optionConnectionURL;
+        return optionConnectionURL;
     }
 
     public void setConnectionURL(String connectionURL) {
-	this.optionConnectionURL = connectionURL;
+        this.optionConnectionURL = connectionURL;
     }
 
     public String getConnectionDriverName() {
-	return optionConnectionDriverName;
+        return optionConnectionDriverName;
     }
 
     public void setConnectionDriverName(String connectionDriverName) {
-	this.optionConnectionDriverName = connectionDriverName;
+        this.optionConnectionDriverName = connectionDriverName;
     }
 
     public String getConnectionFactoryName() {
-	return optionConnectionFactoryName;
+        return optionConnectionFactoryName;
     }
 
     public void setConnectionFactoryName(String connectionFactoryName) {
-	this.optionConnectionFactoryName = connectionFactoryName;
+        this.optionConnectionFactoryName = connectionFactoryName;
     }
 
     public Object getConnectionFactory() {
-	return optionConnectionFactory;
+        return optionConnectionFactory;
     }
 
     public void setConnectionFactory(Object connectionFactory) {
-	this.optionConnectionFactory = connectionFactory;
+        this.optionConnectionFactory = connectionFactory;
     }
 
     public String getConnectionFactory2Name() {
-	return optionConnectionFactory2Name;
+        return optionConnectionFactory2Name;
     }
 
     public void setConnectionFactory2Name(String connectionFactory2Name) {
-	this.optionConnectionFactory2Name = connectionFactory2Name;
+        this.optionConnectionFactory2Name = connectionFactory2Name;
     }
 
     public Object getConnectionFactory2() {
-	return optionConnectionFactory2;
+        return optionConnectionFactory2;
     }
 
     public void setConnectionFactory2(Object connectionFactory2) {
-	this.optionConnectionFactory2 = connectionFactory2;
+        this.optionConnectionFactory2 = connectionFactory2;
     }
 
     public boolean getMultithreaded() {
-	return optionMultithreaded;
+        return optionMultithreaded;
     }
 
     public void setMultithreaded(boolean multithreaded) {
-	this.optionMultithreaded = multithreaded;
+        this.optionMultithreaded = multithreaded;
     }
 
     public String getMapping() {
-	return optionMapping;
+        return optionMapping;
     }
 
     public void setMapping(String mapping) {
-	this.optionMapping = mapping;
+        this.optionMapping = mapping;
     }
 
     public boolean getOptimistic() {
-	return optionOptimistic;
+        return optionOptimistic;
     }
 
     public void setOptimistic(boolean optimistic) {
-	this.optionOptimistic = optimistic;
+        this.optionOptimistic = optimistic;
     }
 
     public boolean getRetainValues() {
-	return optionRetainValues;
+        return optionRetainValues;
     }
 
     public void setRetainValues(boolean retainValues) {
-	this.optionRetainValues = retainValues;
+        this.optionRetainValues = retainValues;
     }
 
     public boolean getRestoreValues() {
-	return optionRestoreValues;
+        return optionRestoreValues;
     }
 
     public void setRestoreValues(boolean restoreValues) {
-	this.optionRestoreValues = restoreValues;
+        this.optionRestoreValues = restoreValues;
     }
 
     public boolean getNontransactionalRead() {
-	return optionNontransactionalRead;
+        return optionNontransactionalRead;
     }
 
     public void setNontransactionalRead(boolean nontransactionalRead) {
-	this.optionNontransactionalRead = nontransactionalRead;
+        this.optionNontransactionalRead = nontransactionalRead;
     }
 
     public boolean getNontransactionalWrite() {
-	return optionNontransactionalWrite;
+        return optionNontransactionalWrite;
     }
 
     public void setNontransactionalWrite(boolean nontransactionalWrite) {
-	this.optionNontransactionalWrite = nontransactionalWrite;
+        this.optionNontransactionalWrite = nontransactionalWrite;
     }
 
     public boolean getIgnoreCache() {
-	return optionIgnoreCache;
+        return optionIgnoreCache;
     }
 
     public void setIgnoreCache(boolean ignoreCache) {
-	this.optionIgnoreCache = ignoreCache;
+        this.optionIgnoreCache = ignoreCache;
     }
 
     public boolean getDetachAllOnCommit() {
-	return optionDetachAllOnCommit;
+        return optionDetachAllOnCommit;
     }
 
     public void setDetachAllOnCommit(boolean detachAllOnCommit) {
-	this.optionDetachAllOnCommit = detachAllOnCommit;
+        this.optionDetachAllOnCommit = detachAllOnCommit;
     }
 
     public boolean getCopyOnAttach() {
-	return optionCopyOnAttach;
+        return optionCopyOnAttach;
     }
 
     public void setCopyOnAttach(boolean copyOnAttach) {
-	this.optionCopyOnAttach = copyOnAttach;
+        this.optionCopyOnAttach = copyOnAttach;
     }
 
     public String getName() {
-	return optionName;
+        return optionName;
     }
 
     public void setName(String name) {
-	this.optionName = name;
+        this.optionName = name;
     }
 
     public String getPersistenceUnitName() {
-	return optionPersistenceUnitName;
+        return optionPersistenceUnitName;
     }
 
     public void setPersistenceUnitName(String persistenceUnitName) {
-	this.optionPersistenceUnitName = persistenceUnitName;
+        this.optionPersistenceUnitName = persistenceUnitName;
     }
 
     public String getServerTimeZoneID() {
-	return optionServerTimeZoneID;
+        return optionServerTimeZoneID;
     }
 
     public void setServerTimeZoneID(String serverTimeZoneID) {
-	this.optionServerTimeZoneID = serverTimeZoneID;
+        this.optionServerTimeZoneID = serverTimeZoneID;
     }
 
     public String getTransactionType() {
-	return optionTransactionType;
+        return optionTransactionType;
     }
 
     public void setTransactionType(String transactionType) {
-	this.optionTransactionType = transactionType;
+        this.optionTransactionType = transactionType;
     }
 
     public boolean getReadOnly() {
-	return optionReadOnly;
+        return optionReadOnly;
     }
 
     public void setReadOnly(boolean readOnly) {
-	this.optionReadOnly = readOnly;
+        this.optionReadOnly = readOnly;
     }
 
     public String getTransactionIsolationLevel() {
-	return optionTransactionIsolationLevel;
+        return optionTransactionIsolationLevel;
     }
 
     public void setTransactionIsolationLevel(String transactionIsolationLevel) {
-	this.optionTransactionIsolationLevel = transactionIsolationLevel;
+        this.optionTransactionIsolationLevel = transactionIsolationLevel;
     }
 
     public Integer getDatastoreReadTimeoutMillis() {
-	return optionDatastoreReadTimeoutMillis;
+        return optionDatastoreReadTimeoutMillis;
     }
 
     public void setDatastoreReadTimeoutMillis(Integer datastoreReadTimeoutMillis) {
-	this.optionDatastoreReadTimeoutMillis = datastoreReadTimeoutMillis;
+        this.optionDatastoreReadTimeoutMillis = datastoreReadTimeoutMillis;
     }
 
     public Integer getDatastoreWriteTimeoutMillis() {
-	return optionDatastoreWriteTimeoutMillis;
+        return optionDatastoreWriteTimeoutMillis;
     }
 
     public void setDatastoreWriteTimeoutMillis(
-	    Integer datastoreWriteTimeoutMillis) {
-	this.optionDatastoreWriteTimeoutMillis = datastoreWriteTimeoutMillis;
+        Integer datastoreWriteTimeoutMillis) {
+        this.optionDatastoreWriteTimeoutMillis = datastoreWriteTimeoutMillis;
     }
 
     public void close() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public boolean isClosed() {
-	return true;
+        return true;
     }
 
     public PersistenceManager getPersistenceManager() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public PersistenceManager getPersistenceManagerProxy() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public PersistenceManager getPersistenceManager(String userid,
-	    String password) {
-	throw new UnsupportedOperationException("not implemented");
+        String password) {
+    throw new UnsupportedOperationException("not implemented");
     }
 
     public Properties getProperties() {
-	return properties;
+        return properties;
     }
 
     public Collection<String> supportedOptions() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public DataStoreCache getDataStoreCache() {
-	return new DataStoreCache() {
+    return new DataStoreCache() {
 
-	    public void evict(Object oid) {
-	    }
+        public void evict(Object oid) {
+        }
 
-	    public void evictAll() {
-	    }
+        public void evictAll() {
+        }
 
-	    public void evictAll(Object... oids) {
-	    }
+        public void evictAll(Object... oids) {
+        }
 
-	    public void evictAll(Collection oids) {
-	    }
+        public void evictAll(Collection oids) {
+        }
 
-	    public void evictAll(Class pcClass, boolean subclasses) {
-	    }
+        public void evictAll(Class pcClass, boolean subclasses) {
+        }
 
-	    public void evictAll(boolean subclasses, Class pcClass) {
-	    }
+        public void evictAll(boolean subclasses, Class pcClass) {
+        }
 
-	    public void pin(Object oid) {
-	    }
+        public void pin(Object oid) {
+        }
 
-	    public void pinAll(Collection oids) {
-	    }
+        public void pinAll(Collection oids) {
+        }
 
-	    public void pinAll(Object... oids) {
-	    }
+        public void pinAll(Object... oids) {
+        }
 
-	    public void pinAll(Class pcClass, boolean subclasses) {
-	    }
+        public void pinAll(Class pcClass, boolean subclasses) {
+        }
 
-	    public void pinAll(boolean subclasses, Class pcClass) {
-	    }
+        public void pinAll(boolean subclasses, Class pcClass) {
+        }
 
-	    public void unpin(Object oid) {
-	    }
+        public void unpin(Object oid) {
+        }
 
-	    public void unpinAll(Collection oids) {
-	    }
+        public void unpinAll(Collection oids) {
+        }
 
-	    public void unpinAll(Object... oids) {
-	    }
+        public void unpinAll(Object... oids) {
+        }
 
-	    public void unpinAll(Class pcClass, boolean subclasses) {
-	    }
+        public void unpinAll(Class pcClass, boolean subclasses) {
+        }
 
-	    public void unpinAll(boolean subclasses, Class pcClass) {
-	    }
-	};
+        public void unpinAll(boolean subclasses, Class pcClass) {
+        }
+    };
     }
 
     public void addInstanceLifecycleListener(
-	    InstanceLifecycleListener listener, Class[] classes) {
-	throw new UnsupportedOperationException("not implemented");
+        InstanceLifecycleListener listener, Class[] classes) {
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public void removeInstanceLifecycleListener(
-	    InstanceLifecycleListener listener) {
-	throw new UnsupportedOperationException("not implemented");
+        InstanceLifecycleListener listener) {
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public void addFetchGroups(FetchGroup... groups) {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public void removeFetchGroups(FetchGroup... groups) {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public void removeAllFetchGroups() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     @SuppressWarnings("rawtypes")
     public FetchGroup getFetchGroup(Class cls, String name) {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     @SuppressWarnings("rawtypes")
     public Set getFetchGroups() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public void registerMetadata(JDOMetadata metadata) {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public JDOMetadata newMetadata() {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public TypeMetadata getMetadata(String className) {
-	throw new UnsupportedOperationException("not implemented");
+        throw new UnsupportedOperationException("not implemented");
     }
 
     void setSpiResourceName(String spiPropertiesResourceName) {
-	this.spiResourceName = spiPropertiesResourceName;
+        this.spiResourceName = spiPropertiesResourceName;
     }
 
     public String getSpiPropertiesResourceName() {
-	return spiResourceName;
+        return spiResourceName;
     }
 
     void setPersistenceManagerFactoryClass(String className) {
-	this.persistenceManagerFactoryClassName = className;
+        this.persistenceManagerFactoryClassName = className;
     }
 
     public String getPersistenceManagerFactoryClass() {
-	return this.persistenceManagerFactoryClassName;
+        return this.persistenceManagerFactoryClassName;
     }
 
     void setProperty(String name, Object value) {
+        String val = value.toString();
 
-	String val = value.toString();
+        if (name.equals(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS)) {
+            setPersistenceManagerFactoryClass(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_DRIVER_NAME)) {
+            setConnectionDriverName(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_FACTORY_NAME)) {
+            setConnectionFactoryName(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_FACTORY2_NAME)) {
+            setConnectionFactory2Name(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_PASSWORD)) {
+            setConnectionPassword(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_URL)) {
+            setConnectionURL(val);
+            return;
+        }
+        if (name.equals(PROPERTY_CONNECTION_USER_NAME)) {
+            setConnectionUserName(val);
+            return;
+        }
+        if (name.equals(PROPERTY_IGNORE_CACHE)) {
+            setCopyOnAttach(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS)) {
+            setDatastoreReadTimeoutMillis(Integer.parseInt(val));
+            return;
+        }
+        if (name.equals(PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS)) {
+            setDatastoreWriteTimeoutMillis(Integer.parseInt(val));
+            return;
+        }
+        if (name.equals(PROPERTY_DETACH_ALL_ON_COMMIT)) {
+            setDetachAllOnCommit(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_IGNORE_CACHE)) {
+            setIgnoreCache(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_MAPPING)) {
+            setMapping(val);
+            return;
+        }
+        if (name.equals(PROPERTY_MULTITHREADED)) {
+            setMultithreaded(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_NAME)) {
+            setName(val);
+            return;
+        }
+        if (name.equals(PROPERTY_NONTRANSACTIONAL_READ)) {
+            setNontransactionalRead(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_NONTRANSACTIONAL_WRITE)) {
+            setNontransactionalWrite(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_OPTIMISTIC)) {
+            setOptimistic(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_PERSISTENCE_UNIT_NAME)) {
+            setPersistenceUnitName(val);
+            return;
+        }
+        if (name.equals(PROPERTY_READONLY)) {
+            setReadOnly(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_RESTORE_VALUES)) {
+            setRestoreValues(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_RETAIN_VALUES)) {
+            setRetainValues(Boolean.parseBoolean(val));
+            return;
+        }
+        if (name.equals(PROPERTY_SERVER_TIME_ZONE_ID)) {
+            setServerTimeZoneID(val);
+            return;
+        }
+        if (name.equals(PROPERTY_TRANSACTION_ISOLATION_LEVEL)) {
+            setTransactionIsolationLevel(val);
+            return;
+        }
+        if (name.equals(PROPERTY_TRANSACTION_TYPE)) {
+            setTransactionType(val);
+            return;
+        }
+        if (name.equals(PROPERTY_SPI_RESOURCE_NAME)) {
+            setSpiResourceName(val);
+            return;
+        }
 
-	if (name.equals(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS)) {
-	    setPersistenceManagerFactoryClass(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_DRIVER_NAME)) {
-	    setConnectionDriverName(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_FACTORY_NAME)) {
-	    setConnectionFactoryName(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_FACTORY2_NAME)) {
-	    setConnectionFactory2Name(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_PASSWORD)) {
-	    setConnectionPassword(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_URL)) {
-	    setConnectionURL(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_CONNECTION_USER_NAME)) {
-	    setConnectionUserName(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_IGNORE_CACHE)) {
-	    setCopyOnAttach(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS)) {
-	    setDatastoreReadTimeoutMillis(Integer.parseInt(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS)) {
-	    setDatastoreWriteTimeoutMillis(Integer.parseInt(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_DETACH_ALL_ON_COMMIT)) {
-	    setDetachAllOnCommit(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_IGNORE_CACHE)) {
-	    setIgnoreCache(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_MAPPING)) {
-	    setMapping(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_MULTITHREADED)) {
-	    setMultithreaded(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_NAME)) {
-	    setName(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_NONTRANSACTIONAL_READ)) {
-	    setNontransactionalRead(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_NONTRANSACTIONAL_WRITE)) {
-	    setNontransactionalWrite(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_OPTIMISTIC)) {
-	    setOptimistic(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_PERSISTENCE_UNIT_NAME)) {
-	    setPersistenceUnitName(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_READONLY)) {
-	    setReadOnly(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_RESTORE_VALUES)) {
-	    setRestoreValues(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_RETAIN_VALUES)) {
-	    setRetainValues(Boolean.parseBoolean(val));
-	    return;
-	}
-	if (name.equals(PROPERTY_SERVER_TIME_ZONE_ID)) {
-	    setServerTimeZoneID(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_TRANSACTION_ISOLATION_LEVEL)) {
-	    setTransactionIsolationLevel(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_TRANSACTION_TYPE)) {
-	    setTransactionType(val);
-	    return;
-	}
-	if (name.equals(PROPERTY_SPI_RESOURCE_NAME)) {
-	    setSpiResourceName(val);
-	    return;
-	}
-
-	throw new IllegalArgumentException("unhandled stub PMF property "
-		+ name);
+        throw new IllegalArgumentException("unhandled stub PMF property "
+            + name);
     }
 
     void setProperties(Map properties) {
-	for (Object key : properties.keySet()) {
-	    String k = key.toString();
-	    Object v = properties.get(key);
+        for (Object key : properties.keySet()) {
+            String k = key.toString();
+            Object v = properties.get(key);
 
-	    this.properties.put(k, v);
-	    setProperty(k, v);
-	}
-
+            this.properties.put(k, v);
+            setProperty(k, v);
+        }
     }
 
-	@Override
-	public Collection<Class> getManagedClasses() {
-		throw new UnsupportedOperationException("not implemented");
-	}
+    public Collection<Class> getManagedClasses() {
+        throw new UnsupportedOperationException("not implemented");
+    }
 }
