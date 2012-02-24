@@ -1,0 +1,10 @@
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Uniques
+{
+    /**
+     * The unique constraints.
+     * @return The unique constraints
+     */
+    Unique[] value();
+}

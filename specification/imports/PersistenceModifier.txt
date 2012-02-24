@@ -1,0 +1,8 @@
+
+public enum PersistenceModifier
+{
+    UNSPECIFIED,
+    PERSISTENT,
+    TRANSACTIONAL,
+    NONE
+}

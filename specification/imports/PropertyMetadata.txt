@@ -1,0 +1,19 @@
+/**
+ * Represents a property in a class/persistent-interface.
+ * @since 2.3
+ */
+public interface PropertyMetadata extends MemberMetadata {
+    /**
+     * Method to set the field name (persistent interfaces)
+     * 
+     * @param name field name
+     */
+    PropertyMetadata setFieldName(String name);
+
+    /**
+     * Accessor for the field name
+     * 
+     * @return Field name
+     */
+    String getFieldName();
+}

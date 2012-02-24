@@ -1,0 +1,8 @@
+
+public enum IdentityType
+{
+    UNSPECIFIED,
+    APPLICATION,
+    DATASTORE,
+    NONDURABLE
+}

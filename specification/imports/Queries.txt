@@ -1,0 +1,10 @@
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Queries
+{
+    /**
+     * The named queries
+     * @return The named queries
+     */
+    Query[] value();
+}

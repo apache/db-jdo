@@ -1,0 +1,25 @@
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Order
+{
+    /** The name of the column to use for ordering the elements of the member.
+     * @return the name of the ordering column
+     */
+    String column() default "";
+
+    /** Name of a field or property in the target class that acts as the 
+     * ordering field or property for this member.
+     * Return the name of the field or property in the target class
+     */
+    String mappedBy() default "";
+
+    /** The definition of the column(s) to use for ordering.
+     * @return the columns to use for ordering
+     */
+    Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
+}

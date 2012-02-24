@@ -1,0 +1,13 @@
+/**
+ * Enumeration of the indexed values.
+ * 
+ * @version 2.3
+ * @since 2.3
+ */
+public enum Indexed
+{
+    UNSPECIFIED,
+    TRUE,
+    FALSE,
+    UNIQUE
+}

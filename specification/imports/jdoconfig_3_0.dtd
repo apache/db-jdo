@@ -1,0 +1,40 @@
+<!--
+<!DOCTYPE jdoconfig
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Configuration 3.0//EN"
+    "http://java.sun.com/dtd/jdoconfig_3_0.dtd">
+-->
+<!ELEMENT jdoconfig (persistence-manager-factory+)>
+
+<!ELEMENT persistence-manager-factory (property*, instance-lifecycle-listener*)>
+<!ATTLIST persistence-manager-factory class CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory persistence-unit-name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory optimistic (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory readonly (true|false) CDATA 'false'>
+<!ATTLIST persistence-manager-factory retain-values (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory restore-values (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory ignore-cache (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory nontransactional-read (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory nontransactional-write (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory multithreaded (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory transaction-isolation-level CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-driver-name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-user-name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-password CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-url CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-factory-name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory connection-factory2-name CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory mapping CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory detach-all-on-commit (true|false) CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory server-time-zone-id CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory datastore-read-timeout-millis CDATA #IMPLIED>
+<!ATTLIST persistence-manager-factory datastore-write-timeout-millis CDATA #IMPLIED>
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property value CDATA #IMPLIED>
+
+<!ELEMENT instance-lifecycle-listener EMPTY>
+<!ATTLIST instance-lifecycle-listener listener CDATA #REQUIRED>
+<!ATTLIST instance-lifecycle-listener classes CDATA #IMPLIED>
+

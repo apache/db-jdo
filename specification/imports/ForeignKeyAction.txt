@@ -1,0 +1,10 @@
+
+public enum ForeignKeyAction
+{
+    UNSPECIFIED,
+    RESTRICT,
+    CASCADE,
+    NULL,
+    DEFAULT,
+    NONE
+}

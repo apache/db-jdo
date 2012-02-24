@@ -1,0 +1,10 @@
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ForeignKeys
+{
+    /**
+     * The foreign keys.
+     * @return The foreign keys
+     */
+    ForeignKey[] value();
+}

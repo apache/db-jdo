@@ -1,0 +1,26 @@
+@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Embedded
+{
+    /** The member in the embedded object that links back to the owning object
+     * where it has a bidirectional relationship. 
+     * @return the member that refers to the owner
+     */
+    String ownerMember() default "";
+
+    /** The column in the embedded object used to judge if the embedded object
+     * is null. 
+     * @return the null indicator column
+     */
+    String nullIndicatorColumn() default "";
+
+    /** The value in the null column to interpret the object as being null.
+     * @return the null indicator value
+     */
+    String nullIndicatorValue() default "";
+
+    /** Members for this embedding. 
+     * @return the members embedded in the field or property being annotated
+     */
+    Persistent[] members() default {};
+}

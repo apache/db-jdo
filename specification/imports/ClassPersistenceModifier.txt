@@ -1,0 +1,10 @@
+/**
+ * Enumeration of the persistence-modifier values for a class.
+ * @since 2.3
+ */
+public enum ClassPersistenceModifier
+{
+    PERSISTENCE_CAPABLE,
+    PERSISTENCE_AWARE,
+    NON_PERSISTENT
+}

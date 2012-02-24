@@ -1,0 +1,10 @@
+@Target(ElementType.TYPE) 
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FetchPlans
+{
+    /**
+     * The Fetch Plans
+     * @return The Fetch Plans
+     */
+    FetchPlan[] value();
+}

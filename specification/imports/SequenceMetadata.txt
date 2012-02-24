@@ -1,0 +1,47 @@
+/**
+ * Represents a sequence.
+ * @since 2.3
+ */
+public interface SequenceMetadata extends Metadata {
+    /**
+     * Accessor for the name of the sequence (set on construction).
+     * 
+     * @return The name
+     */
+    String getName();
+
+    /**
+     * Accessor for the sequence strategy (set on construction).
+     * 
+     * @return Sequence strategy
+     */
+    SequenceStrategy getSequenceStrategy();
+
+    /**
+     * Method to set the name of the datastore sequence that this maps to.
+     * 
+     * @param seq Datastore sequence name
+     */
+    SequenceMetadata setDatastoreSequence(String seq);
+
+    /**
+     * Accessor for the name of the datastore sequence that this maps to
+     * 
+     * @return The datastore sequence name
+     */
+    String getDatastoreSequence();
+
+    /**
+     * Method to set the result class name for the query
+     * 
+     * @param clsName Result class name
+     */
+    SequenceMetadata setFactoryClass(String clsName);
+
+    /**
+     * Accessor for the factory class for this sequence.
+     * 
+     * @return The factory class
+     */
+    String getFactoryClass();
+}
