@@ -25,8 +25,11 @@ has datastore identity.
 	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
     <package name="org.apache.jdo.tck.pc.shoppingcart">
 
+        <sequence name="id_seq" datastore-sequence="datastore_seq"/>
+
         <class name="Cart" table="CARTS">
-            <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <datastore-identity strategy="sequence" sequence="id_seq" 
+                                column="DATASTORE_ID"/>
             <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="CART_ID"/>
@@ -35,7 +38,8 @@ has datastore identity.
         </class>
 
         <class name="CartEntry" table="CART_ENTRIES">
-            <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <datastore-identity strategy="sequence" sequence="id_seq" 
+                                column="DATASTORE_ID"/>
             <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="ID"/>
@@ -53,7 +57,8 @@ has datastore identity.
         </class>
 
         <class name="Undetachable" table="UNDETACHABLES">
-            <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <datastore-identity strategy="sequence" sequence="id_seq" 
+                                column="DATASTORE_ID"/>
             <version strategy="version-number" column="VERSION"/>
 
             <field name="id" column="ID"/>
