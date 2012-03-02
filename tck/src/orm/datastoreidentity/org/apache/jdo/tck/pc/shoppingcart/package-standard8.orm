@@ -25,7 +25,7 @@ has datastore identity.
 	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
     <package name="org.apache.jdo.tck.pc.shoppingcart">
 
-        <sequence name="id_seq" datastore-sequence="datastore_seq"/>
+        <sequence name="id_seq" datastore-sequence="DATASTORE_SEQ"/>
 
         <class name="Cart" table="CARTS">
             <datastore-identity strategy="sequence" sequence="id_seq" 
