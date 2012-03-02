@@ -201,21 +201,20 @@ public class Enhance extends AbstractMojo {
             ArrayList<URL> cpList = new ArrayList<URL>();
             ClassLoader loader = null;
             try {
-            	cpList.add((new File(enhancedIdDirName)).toURI().toURL());
-            	cpList.add((new File(fromDirName)).toURI().toURL());
-            	String[] jars = {"jar"};
-            	if (impl.equals("iut")) {
-            		fi = FileUtils.iterateFiles(
-            				new File(iutLibsDirectory), jars, true);
-            		while (fi.hasNext()) {
-            			cpList.add(fi.next().toURI().toURL());
-            		}
-            	}
-            	loader = new URLClassLoader(cpList.toArray(classPathURLs),
-            			getClass().getClassLoader());
-            	//                    Utilities.printClasspath(loader);
+                cpList.add((new File(enhancedIdDirName)).toURI().toURL());
+                cpList.add((new File(fromDirName)).toURI().toURL());
+                String[] jars = {"jar"};
+                if (impl.equals("iut")) {
+                    fi = FileUtils.iterateFiles(new File(iutLibsDirectory), jars, true);
+                    while (fi.hasNext()) {
+                        cpList.add(fi.next().toURI().toURL());
+                    }
+                }
+                loader = new URLClassLoader(cpList.toArray(classPathURLs),
+                        getClass().getClassLoader());
+                // Utilities.printClasspath(loader);
             } catch (MalformedURLException ex) {
-            	Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
             }
             JDOEnhancer enhancer = JDOHelper.getEnhancer(loader);
             enhancer.setVerbose(true);
