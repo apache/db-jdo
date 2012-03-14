@@ -22,9 +22,12 @@ This file contains the schema information when an implementation has application
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
 	http://java.sun.com/xml/ns/jdo/orm_2_1.xsd">
-    <package name="org.apache.jdo.tck.pc.building">
+    <package name="org.apache.jdo.tck.pc.building" schema="datastoreidentity12">
+
+        <sequence name="id_seq" datastore-sequence="DATASTORE_SEQ"/>
+
         <class name="Kitchen" table="KITCHEN">
-            <datastore-identity strategy="increment" column="DATASTORE_ID"/>
+            <datastore-identity strategy="sequence" sequence="id_seq"  column="DATASTORE_ID"/>
             <field name="id" column="KITCHEN_ID"/>
             <field name="oven">
                 <embedded null-indicator-column="OVEN_MAKE">

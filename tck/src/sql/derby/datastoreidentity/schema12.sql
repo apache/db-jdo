@@ -20,7 +20,10 @@ connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 CREATE SCHEMA datastoreidentity12;
 SET SCHEMA datastoreidentity12;
 
+DROP SEQUENCE DATASTORE_SEQ;
 DROP TABLE KITCHEN;
+
+CREATE SEQUENCE DATASTORE_SEQ AS BIGINT START WITH 1;
 
 CREATE TABLE KITCHEN (
     DATASTORE_ID BIGINT NOT NULL,
