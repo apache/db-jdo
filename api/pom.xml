@@ -22,7 +22,6 @@
     <groupId>javax.jdo</groupId>
     <artifactId>root</artifactId>
     <version>3.1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -38,10 +37,7 @@
     <resources>
       <resource>
         <targetPath>META-INF</targetPath>
-        <directory>${basedir}/..</directory>
-        <includes>
-          <include>NOTICE.txt</include>
-        </includes>
+        <directory>src/main/resources</directory>
       </resource>
       <resource>
         <directory>${basedir}/src/java</directory>
