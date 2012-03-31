@@ -17,8 +17,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
-	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-	<TITLE>JDO 3 TCK README</TITLE>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+    <TITLE>JDO 3 TCK README</TITLE>
 </HEAD>
 <BODY LANG="en-US" DIR="LTR">
 <H1>The JDO 3.x Technology Compatibility Kit</H1>
@@ -30,7 +30,7 @@
         <LI><a href="#jndi">JNDI Implementation (for TCK)</a></LI>
     </UL>
     </LI>
-	<LI><a href="#api">Building the API</a></LI>
+    <LI><a href="#api">Building the API</a></LI>
     <LI><a href="#tck">Running the TCK</a>
     <UL>
         <LI><a href="#goals">Custom Goals</a></LI>
@@ -42,14 +42,18 @@
 <a name="overview"></a>
 <H2>Overview of the JDO 3.x Technology Compatibility Kit</H2>
 <p>
-The JDO 3 project includes the JDO 3 TCK and its dependencies:
+The JDO 3 project includes the following subprojects:
 </p>
 <UL>
     <LI>api contains source to build jdo-api-3.x.jar, which defines the JDO API version 3.x for Java 1.5 and later.</LI>
+    <LI>exectck contains source to build the maven plugin to run the TCK the Reference Implementation (RI)
+    or an implementation under test (IUT) </LI>
     <LI>tck contains the JDO 3.x Technology Compatibility Kit for Java 1.5 and later.</LI>
 </UL>
 <p>
-JDO releases may be downloaded from <a href="http://db.apache.org/jdo/downloads.html">the Apache JDO downloads page</a>. Minor updates of releases are only available as source from the Subversion repository. Follow the instructions <a href="#building">below</a> to build the TCK from source.
+JDO releases may be downloaded from <a href="http://db.apache.org/jdo/downloads.html">the Apache JDO downloads page</a>.
+Minor updates of releases are only available as source from the Subversion repository.
+Follow the instructions <a href="#building">below</a> to build the API from source.
 <p>
 For complete rules for certifying a JDO implementation,
 see RunRules.html in the top level tck project directory.
@@ -75,22 +79,14 @@ Note that Apache JDO uses the apache commons logging package for logging.
 <h3>Maven</h3>
 <p>
 You must have Maven version 2+ to build the projects from source and to execute
-the TCK. You can download maven from http://maven.apache.org/start/download.html
+the TCK. You can download maven from http://maven.apache.org/download.html
 </p><p>
 Note that maven uses the user.home system property for the location
-of the maven local repostitory: ${user.home}/.maven/repository.
+of the maven local repostitory: ${user.home}/.m2/repository.
 Under Windows this system property is C:\Documents and Settings\<i>user</i> 
 no matter what the HOME variable is set to. As a workaround you may set the 
 system property by adding -Duser.home=%HOME% to the environment variable 
 MAVEN_OPTS.
-</p> <p>
-Mevenide is a nice maven plugin for IDEs available from http://mevenide.codehaus.org.
-In Netbeans, after you install the plugin, you can open an 
-existing maven project by File -> Open Project -> Open Project Folder.
-Navigate to a directory including a maven project (e.g. api) and choose this 
-directory. Netbeans will create a project folder. If you right-click the Maven 
-project you can examine the contents of the project.xml (see Properties) or 
-execute goals.
 </p>
 <a name="jndi"></a>
 <h3>JNDI implementation (fscontext.jar and providerutil.jar)</h3>
@@ -106,10 +102,18 @@ agreement, download <b>File System Service Provider, 1.2 Beta 3</b> and then unp
 the downloaded zip into <i>tck/lib/ext</i>. It includes the jars fscontext.jar and providerutil.jar.
 </p>
 
-<a name="api"></a>
-<h2>Building the API</h2>
+<a name="building"></a>
+<h2>Building from top level tck project</h2>
 For instructions for checking out the JDO source, see the Apache JDO 
 <a href="http://db.apache.org/jdo/svn.html">source code</a> page.
+
+To build JDO with all subprojects go to the root directory of the branch you are working in (or trunk)
+<pre>mvn clean install</pre>
+This will build the artifacts <i>jdo-api</i> and <i>jdo-exectck</i> and will run the TCK.
+
+<a name="api"></a>
+<h2>Building the API</h2>
+
 <p>
 To build the API, change to the "api" directory of the branch you are working in (or trunk) and run
 <pre>mvn clean install</pre>
@@ -125,15 +129,16 @@ local Maven2 repository.
 </p>
 <p>
 Change to the "tck" directory of the branch you are working in (or trunk) and run
-<pre>mvn clean install</pre> and this will run the TCK (via the "jdo-exectck" plugin) on the RI on all 
-supported databases and identitytypes.
+<pre>mvn clean install</pre> and this will run the TCK (via the "jdo-exectck" plugin) on the JDO Reference Implementation on all 
+supported databases and identity types.
 </p>
 <p>
-The "jdo-exectck" plugin has various options so you can run other implementations, or
+The "jdo-exectck" plugin has various options so you can run other implementations or
 only run particular tests.
 </p>
 <a name="goals"></a>
 <h3>Custom Goals</h3>
+mvn jdo-exectck:&lt;goal&gt;
 <DL>
     <DT>help</DT>
     <DD>Displays help text describing custom goals and options</DD>
@@ -144,19 +149,33 @@ only run particular tests.
     <DT>runtck</DT>
     <DD>Runs the TCK</DD>
 </DL>
-
 <a name="cli"></a>
     <h3>Command Line Options</h3>
     <DL>
-        <DT>-Djdo.tck.impl=<DD>either ri or iut for the implementation under test.
+        <DT>-Djdo.tck.impl=<DD>either jdori (reference implementation) or iut (implementation under test).
         <DT>-Djdo.tck.cfglist=<i>configuration file list</i><DD>Overrides the definition of jdo.tck.cfglist found in tck/src/conf/configuration.list by supplying one or more comma-separated test configuration files. Test configuration files typically have the .conf extension. To run a single test, create a .conf file (copy an existing file) and put the test into the jdo.tck.classes property.
-        <DT>-Djdo.tck.dblist=<i>database list</i><DD>Overrides the property value in project.properties by supplying one or more comma-separated database names
+        <DT>-Djdo.tck.dblist=<i>database list</i><DD>Overrides the property value in project.properties by supplying one or more comma-separated database names. Currently only derby is supported.
         <DT>-Djdo.tck.identitytypes=<i>identity type list</i><DD>Overrides the identity types to be run, supplying one or more comma-separated identity types ("applicationidentity" or "datastoreidentity") to use for this run.
-        <DT>-Djdo.tck.debug.jvmargs=<i>args</i><DD>Sets the "-Xdebug ..." arguments to allow you to supply your own debug directives.
+        <DT>-Dproject.lib.iut.directory=<DD>Location of implementation jar files. Default: ${basedir}/../lib/iut
+        <DT>-Djdo.tck.impl.logfile=<DD>  Location of implementation log file. Default: ${user.dir}/datanucleus.txt
+        <DT>-Djdo.tck.doInstallSchema=<DD>  Setting this parameter to false will bypass schema installation.
+        <DT>-Djdo.tck.doEnhance=<DD>  Setting this parameter to false will bypass enhancement.
+        <DT>-Djdo.tck.doRunTCK=<DD>  Setting this parameter to false will bypass running the TCK.
+        <DT>-Djdo.tck.runTCKVerbose=<DD>  Setting this parameter to true will display test progress and error output while the TCK is running.
+    </DL>
+<a name="examples"></a>
+<h3>Examples</h3>
+<DL>
+    <DT>mvn -Djdo.tck.identitytypes=datastoreidentity jdo-exectck:installSchema
+    <DD>Installs the database schema for datastore identity for all supported databases
+
+    <DT>mvn -Djdo.tck.cfglist="alltests.conf cfg1.conf" jdo-exectck:runtck
+    <DD>Runs the test configurations specified in alltests.conf and cfg1.conf on the JDORI, using all supported identity types and databases.
 </DL>
+
 <a name="files"></a>
 <h3>Files</h3>
-<p>Maven looks for the following configuration files in src/conf:
+<p>While running the TCK, maven uses the following configuration files in src/conf:
 <UL>
     <LI>configurations.list
     <br>A list of files. Each file listed is a test configuration file.</LI>
@@ -177,23 +196,8 @@ only run particular tests.
      <LI>exclude.list
         <br>A list of test classes NOT to execute during a TCK test run</LI>
 </UL>
-<a name="examples"></a>
-<h3>Examples</h3>
-<DL>
-    <DT>mvn -Djdo.tck.identitytypes=datastoreidentity jdo-exectck:installSchema
-    <DD>Installs the database schema for datastore identity for all supported databases
 
-    <DT>mvn -Djdo.tck.cfglist="alltests.conf cfg1.conf" jdo-exectck:runtck
-    <DD>Runs the test configurations specified in alltests.conf and cfg1.conf on the JDORI, using all supported identity types and databases.
-</DL>
-<p>
-Note:
-</p>
-<UL>
-    <LI type="none">By default, the database schema is NOT installed when the custom goals runtck.iut and runtck.jdori are run.</LI>
-    <LI type="none">"mvn install" installs the database schema and runs the TCK on the JDO Reference Implementation.</LI>
-    <LI type="none">Enhancement is always done before running the TCK when the enhanced classes are not up to date.</LI>
-</UL>
+
 
 </BODY>
 </HTML>
