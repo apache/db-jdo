@@ -1263,6 +1263,7 @@ public annotation javax.jdo.annotations.Embedded extends java.lang.annotation.An
     String nullIndicatorColumn() default "";
     String nullIndicatorValue() default "";
     javax.jdo.annotations.Persistent[] members() default {};
+    javax.jdo.annotations.Discriminator discriminatorColumnName() default @javax.jdo.annotations.Discriminator;
 }
 
 public annotation javax.jdo.annotations.EmbeddedOnly extends java.lang.annotation.Annotation

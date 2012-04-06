@@ -403,6 +403,11 @@ public class SignatureVerifier {
                 // don't check the actual values because only empty arrays
                 // are supported.
                 ok = actual.getClass().getComponentType().equals(expClass);
+            } else if (expClass.isAnnotation()) {
+                // check whether the type isAssignableFrom the class of the actual value, 
+                // if type is an annotation. The actual value is a dynamic proxy, 
+                // so an equals comparison does not work. 
+                ok = expClass.isAssignableFrom(actual.getClass());
             } else {
                 // get the actual value which must be a static class.field
                 Object expectedValue = null;
@@ -601,6 +606,11 @@ public class SignatureVerifier {
             mods |= Modifier.PUBLIC;
             mods |= Modifier.ABSTRACT;
         }
+        Class resultType = getClass(result);
+        if (resultType.isAnnotation()) {
+            // add ANNOTATION modifier if the result type is an annotation
+            mods |= ANNOTATION;
+        }
         if (mods != convertModifiers(method)) {
             handleMismatch(
                 "method declaration: non-matching modifiers;",
@@ -738,7 +748,8 @@ public class SignatureVerifier {
      * as if they had a special modifier.
      * @param cls the class
      * @return modifiers of the class with extra flags for enum and annotation
-     */protected int convertModifiers(Class cls) {
+     */
+    protected int convertModifiers(Class cls) {
         int result = cls.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
@@ -755,7 +766,8 @@ public class SignatureVerifier {
      * as if they had a special modifier.
      * @param method the method
      * @return modifiers of the class with extra flags for enum and annotation
-     */protected int convertModifiers(Method method) {
+     */
+    protected int convertModifiers(Method method) {
         int result = method.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
@@ -776,7 +788,8 @@ public class SignatureVerifier {
      * as if it had a special modifier.
      * @param field the field
      * @return modifiers of the class with extra flag for enum
-     */protected int convertModifiers(Field field) {
+     */
+    protected int convertModifiers(Field field) {
         int result = field.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
@@ -1078,7 +1091,7 @@ public class SignatureVerifier {
             String t;
             if ((t = getLookAhead()) != null) {
                 if (t.charAt(0) != '{' || t.charAt(1) != '}') {
-                    setLookAhead(t); // not a string literal
+                    setLookAhead(t); // not an array literal
                     return null;
                 }
                 return t;
@@ -1091,16 +1104,46 @@ public class SignatureVerifier {
             ir.mark(1);
             char c = (char)ir.read();
             if (c != '{') {
-                ir.reset(); // not start of a string literal
+                ir.reset(); // not start of an array literal
                 return null;
             }
             c = (char)ir.read();
             if (c != '}') {
-                ir.reset(); // not end of a string literal
+                ir.reset(); // not end of an array literal
                 return null;
             }
         
             return "{}";
+        }
+
+        /**
+         * Scans for an at-sign
+         * @return <code>null</code> if the next token is not an at-sign
+         */
+        protected String scanAtSign()
+            throws IOException, ParseException {
+            // parse stored token if any
+            String t;
+            if ((t = getLookAhead()) != null) {
+                if (t.charAt(0) != '@') {
+                    setLookAhead(t); // not an at-sign
+                    return null;
+                }
+                return t;
+            }
+
+            // parse first char
+            if (!skip()) {
+                throw new ParseException(msgUnexpectedEOF(), 0);
+            }
+            ir.mark(1);
+            char c = (char)ir.read();
+            if (c != '@') {
+                ir.reset(); // not an at-sign
+                return null;
+            }
+
+            return "@";
         }
     
         /**
@@ -1115,6 +1158,7 @@ public class SignatureVerifier {
             } else if ((t = scanNumberLiteral()) != null) {
             } else if ((t = scanStringLiteral()) != null) {
             } else if ((t = scanCharacterLiteral()) != null) {
+            } else if ((t = scanAtSign()) != null) {
             } else {
                 setLookAhead(t); // not an identifier, number, or string
                 // next non-white char
@@ -1185,6 +1229,51 @@ public class SignatureVerifier {
                 throw new ParseException(msgUnexpectedToken(parseToken()), 0);
             }
             return field;
+        }
+
+        /**
+         * Parses an annotation which is an at-sign followed by a fully qualified interface name.
+         * @return <code>null</code> if the next token is not an annotation, otherwise return 
+         * the annotation type name without the at-sign.
+         */
+        protected String parseAnnotation()
+            throws IOException, ParseException {
+            String t;
+            // parse stored token if any
+            if ((t = getLookAhead()) != null) {
+                if (t.charAt(0) != '@') {
+                    setLookAhead(t); // not a annotation
+                    return null;
+                }
+            } else if ((t = scanAtSign()) != null) {
+            } else {
+                return null;
+            }
+
+            final String identifier = demandIdentifier();
+            if (identifier == null) {
+                throw new ParseException(msgUnexpectedToken(parseToken()), 0);
+            }
+
+            return identifier;
+        }
+
+        /**
+         * Parses the default value specification of an annotation element and validates 
+         * that it is an element value, which is either an annotation or a constant.
+         * @return never <code>null</code>
+         */
+        protected String demandElementValue()
+            throws IOException, ParseException { 
+            final String annotation = parseAnnotation();
+            if (annotation != null) {
+                return annotation;
+            }
+            final String constant = demandConstant();
+            if (constant == null) {
+                throw new ParseException(msgUnexpectedToken(parseToken()), 0);
+            }
+            return constant;
         }
     
         /**
@@ -1379,7 +1468,7 @@ public class SignatureVerifier {
                         excepts = new String[]{};
                         value = null;
                     } else if (tt.equals("default")) {
-                        value = demandConstant();
+                        value = demandElementValue();
                         demandToken(";");
                         excepts = new String[]{};
                     } else {
