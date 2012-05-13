@@ -55,13 +55,13 @@ public class InstallSchema extends AbstractTCKMojo {
 
         if (cfgs == null) {
         	if (cfgList != null) {
-        		System.out.println("cfgList is " + cfgList);
-        		cfgs = new HashSet<String>();
-        		PropertyUtils.string2Set(cfgList, cfgs);
+                    System.out.println("cfgList is " + cfgList);
+                    cfgs = new HashSet<String>();
+                    PropertyUtils.string2Set(cfgList, cfgs);
         	}
         	else {
-        		// Fallback to "src/conf/configurations.list"
-        		setCfgListFromFile();
+                    // Fallback to "src/conf/configurations.list"
+                    setCfgListFromFile();
                 if (cfgList != null) {
                     cfgs = new HashSet<String>();
                     PropertyUtils.string2Set(cfgList, cfgs);
@@ -82,7 +82,6 @@ public class InstallSchema extends AbstractTCKMojo {
                 + cfgs.toString() + "\n  databases: " + dbs.toString()
                 + "\n  identity types: " + identitytypes.toString());
 
-//        System.setProperty("jdo.tck.basedir", baseDirectory);
         System.setProperty("java.security.manager", "default");
         System.setProperty("java.security.policy", confDirectory
                 + File.separator + "security.policy");

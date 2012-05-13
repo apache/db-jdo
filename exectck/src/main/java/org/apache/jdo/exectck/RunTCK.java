@@ -100,7 +100,13 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private String iutLibsDirectory;
-
+    /**
+     * Location of jar files for implementation under test.
+     * @parameter expression="${project.lib.iut.directory}"
+     *      default-value="${basedir}/../lib/jdori"
+     * @required
+     */
+    private String jdoriLibsDirectory;
     /**
      * Name of file in src/conf containing pmf properties.
      * @parameter expression="${jdo.tck.pmfproperties}"
@@ -268,12 +274,10 @@ public class RunTCK extends AbstractTCKMojo {
             fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
             toFile = new File(buildDirectory + File.separator + "classes" + 
                     File.separator + "META-INF" + File.separator + "jdoconfig.xml");
-//            System.out.println("Copying from " + fromFile + " to " + toFile);
             FileUtils.copyFile(fromFile, toFile);
             fromFile = new File(confDirectory + File.separator + impl + "-persistence.xml");
             toFile = new File(buildDirectory + File.separator + "classes" +
                     File.separator + "META-INF" + File.separator + "persistence.xml");
-//            System.out.println("Copying from " + fromFile + " to " + toFile);
             FileUtils.copyFile(fromFile, toFile);
         } catch (IOException ex) {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
@@ -297,7 +301,9 @@ public class RunTCK extends AbstractTCKMojo {
             alreadyran = false;
 
             for (String idtype : idtypes) {
-                propsString.add("-Djdo.tck.identitytype=" + idtype);
+                List<String> idPropsString = new ArrayList<String>();
+                idPropsString.addAll(propsString);
+                idPropsString.add("-Djdo.tck.identitytype=" + idtype);
                 String enhancedDirName = buildDirectory + File.separator + "enhanced"
                         + File.separator + impl + File.separator + idtype + File.separator;
                 File enhancedDir = new File(enhancedDirName);
@@ -313,6 +319,7 @@ public class RunTCK extends AbstractTCKMojo {
                     URL url1 = enhancedDir.toURI().toURL();
                     URL url2 = new File(buildDirectory + File.separator
                             + "classes" + File.separator).toURI().toURL();
+                    System.out.println("url2 is " + url2.toString());
                     cpList.add(url1);
                     cpList.add(url2);
                     String[] jars = {"jar"};
@@ -327,6 +334,12 @@ public class RunTCK extends AbstractTCKMojo {
                         while (fi.hasNext()) {
                             cpList.add(fi.next().toURI().toURL());
                         }
+                    } else {
+                        fi = FileUtils.iterateFiles(
+                            new File(jdoriLibsDirectory), jars, true);
+                        while (fi.hasNext()) {
+                            cpList.add(fi.next().toURI().toURL());
+                        }
                     }
                 } catch (MalformedURLException ex) {
                     ex.printStackTrace();
@@ -338,21 +351,22 @@ public class RunTCK extends AbstractTCKMojo {
                 }
 
                 for (String cfg : cfgs) {
-
+                    List<String> cfgPropsString = new ArrayList<String>();
+                    cfgPropsString.addAll(idPropsString);
                     // Parse conf file and set properties String
                     props = PropertyUtils.getProperties(confDirectory
                             + File.separator + cfg);
-                    propsString.add("-Djdo.tck.testdata="
+                    cfgPropsString.add("-Djdo.tck.testdata="
                             + getTrimmedPropertyValue(props, "jdo.tck.testdata"));
-                    propsString.add("-Djdo.tck.standarddata="
+                    cfgPropsString.add("-Djdo.tck.standarddata="
                             + getTrimmedPropertyValue(props, "jdo.tck.standarddata"));
-                    propsString.add("-Djdo.tck.mapping.companyfactory="
+                    cfgPropsString.add("-Djdo.tck.mapping.companyfactory="
                             + getTrimmedPropertyValue(props, "jdo.tck.mapping.companyfactory"));
-//                    propsString.append("-Djdo.tck.description=\"" +
+//                    innerPropsString.append("-Djdo.tck.description=\"" +
 //                            props.getProperty("jdo.tck.description") + "\"");
-                    propsString.add("-Djdo.tck.requiredOptions="
+                    cfgPropsString.add("-Djdo.tck.requiredOptions="
                             + getTrimmedPropertyValue(props, "jdo.tck.requiredOptions"));
-                    propsString.add("-Djdo.tck.signaturefile="
+                    cfgPropsString.add("-Djdo.tck.signaturefile="
                             + signaturefile);
                     String mapping = getTrimmedPropertyValue(props, "jdo.tck.mapping");
                     if (mapping == null) {
@@ -374,8 +388,8 @@ public class RunTCK extends AbstractTCKMojo {
                     }
                     List<String> classesList = Arrays.asList(classes.split(" "));
 
-                    propsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
-                    propsString.add("-Djdo.tck.cfg=" + cfg);
+                    cfgPropsString.add("-Djdo.tck.schemaname=" + idtype + mapping);
+                    cfgPropsString.add("-Djdo.tck.cfg=" + cfg);
 
                     runonce = getTrimmedPropertyValue(props, "runOnce");
                     runonce = (runonce == null) ? "false" : runonce;
@@ -402,9 +416,8 @@ public class RunTCK extends AbstractTCKMojo {
                     command.add("java");
                     command.add("-cp");
                     command.add(cpString);
-                    command.addAll(propsString);
+                    command.addAll(cfgPropsString);
                     command.add(dbproperties);
-                    // TODO!!! split jvmproperties into a List!!
                     command.add(jvmproperties);
                     if (debugTCK) {
                         command.add(debugDirectives);
@@ -426,40 +439,40 @@ public class RunTCK extends AbstractTCKMojo {
                     		" with " + idtype +
                     		" on '" + db + "'" +
                             " mapping=" + mapping + " ... ");
-                    result = (new Utilities()).invokeTest(command);
-                    if (result.getExitValue() == 0) {
-                    	System.out.println("success");
-                    } else {
-                    	System.out.println("FAIL");
-                    }
-
-                    // TODO This is only for the RI right now, but could be made to work for UIT
-                    if ("jdori".equals(impl)) {
-                    	// Move log to per-test location
-                    	String idname = "dsid";
-                        if (idtype.trim().equals("applicationidentity")) {
-                            idname = "app";
+                    try {
+                        result = (new Utilities()).invokeTest(command);
+                        if (result.getExitValue() == 0) {
+                            System.out.println("success");
+                        } else {
+                            System.out.println("FAIL");
                         }
-                    	String configName = cfg;
-                    	if (cfg.indexOf('.') > 0) {
-                    		configName = configName.substring(0, cfg.indexOf('.'));
-                    	}
-                    	String testLogFilename = thisLogDir +
-                    	    idname + "-" + configName + "-datanucleus.txt";
-                    	try {
-                        	File logFile = new File(implLogFile);
-							FileUtils.moveFile(logFile, new File(testLogFilename));
-						} catch (Exception e) {
-							System.out.println(">> Error moving implementation log file " +
-									e.getMessage());
-						}
+                        if (runtckVerbose) {
+                            System.out.println("\nCommand line is: \n" + command.toString());
+                            System.out.println("Test exit value is " + result.getExitValue());
+                            System.out.println("Test result output:\n" + result.getOutputString());
+                            System.out.println("Test result error:\n" + result.getErrorString());
+                        }
+                    } catch (java.lang.RuntimeException re) {
+                        System.out.println("Exception on command " + command);
                     }
 
-                    if (runtckVerbose) {
-                        System.out.println("\nCommand line is: \n" + command.toString());
-                        System.out.println("Test exit value is " + result.getExitValue());
-                        System.out.println("Test result output:\n" + result.getOutputString());
-                        System.out.println("Test result error:\n" + result.getErrorString());
+                    // Move log to per-test location
+                    String idname = "dsid";
+                    if (idtype.trim().equals("applicationidentity")) {
+                        idname = "app";
+                    }
+                    String configName = cfg;
+                    if (cfg.indexOf('.') > 0) {
+                        configName = configName.substring(0, cfg.indexOf('.'));
+                    }
+                    String testLogFilename = thisLogDir
+                            + idname + "-" + configName + "-" + impl + ".txt";
+                    try {
+                        File logFile = new File(implLogFile);
+                        FileUtils.copyFile(logFile, new File(testLogFilename));
+                    } catch (Exception e) {
+                        System.out.println(">> Error copying implementation log file: "
+                                + e.getMessage());
                     }
 
                     if (runonce.equals("true")) {
@@ -468,6 +481,13 @@ public class RunTCK extends AbstractTCKMojo {
 
                 }
             }
+        }
+        // Remove log file
+        try {
+            FileUtils.forceDelete(new File(implLogFile));
+        } catch (Exception e) {
+            System.out.println(">> Error deleting log file: "
+                    + e.getMessage());
         }
 
         // Output results

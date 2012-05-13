@@ -19,8 +19,8 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.lang.reflect.Method;
 
+import java.io.File;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -52,9 +52,7 @@ abstract class AbstractGetPMF extends JDO_Test {
      * This file does not contain valid JDO properties.
      */
 /*    protected static final String invalidPropertiesFile =
-        //we use '/' instead of File.separatorChar because
-        //this character is passed by maven
-        validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf('/')+1) +
+        validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf(File.separatorChar)+1) +
         "logging.properties";
 */
     protected static String invalidPropertiesFile;
@@ -62,9 +60,7 @@ abstract class AbstractGetPMF extends JDO_Test {
     {
         if (validPropertiesFile==null)
             System.out.println ("******************************");
-        //we use '/' instead of File.separatorChar because
-        //this character is passed by maven
-        invalidPropertiesFile = validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf('/')+1) +
+        invalidPropertiesFile = validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf(File.separatorChar)+1) +
         "logging.properties";
     }
 
@@ -74,9 +70,7 @@ abstract class AbstractGetPMF extends JDO_Test {
      * This resource contains valid JDO properties.
      */
     protected static final String jndiName =
-        //we use '/' instead of File.separatorChar because
-        //this character is passed by maven
-        validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf('/')+1) +
+        validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf(File.separatorChar)+1) +
         "pmf.ser";
     
     /**
@@ -84,9 +78,7 @@ abstract class AbstractGetPMF extends JDO_Test {
      * @return argument <code>name</code> removed by the path prefix.
      */
     protected String removePathPrefix(String name) {
-        //we use '/' instead of File.separatorChar because
-        //this character is passed by maven
-        int index = name.lastIndexOf('/');
+        int index = name.lastIndexOf(File.separatorChar);
         if (index!=-1) {
             name = name.substring(index+1);
         }

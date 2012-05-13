@@ -72,7 +72,7 @@ public class PropertyUtils {
 
         for (String cfg : cfglist) {
             String mapping = "";
-            String confName = confDir + "/" + cfg;
+            String confName = confDir + File.separator + cfg;
 
             Properties props = new Properties();
             FileInputStream fis = null;

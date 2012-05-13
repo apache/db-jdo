@@ -1,4 +1,3 @@
-
 package org.apache.jdo.exectck;
 
 import java.net.MalformedURLException;
@@ -34,7 +33,6 @@ public class Enhance extends AbstractMojo {
         "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "pc" + File.separator,
         "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "models" + File.separator + "inheritance" + File.separator
     };
-
     /**
      * Location of TCK generated output.
      * @parameter expression="${jdo.tck.doEnhance}"
@@ -71,6 +69,13 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String impl;
+        /**
+     * Location of implementation log file.
+     * @parameter expression="${jdo.tck.impl.logfile}"
+     *      default-value="${user.dir}/datanucleus.txt"
+     * @required
+     */
+    private String implLogFile;
     /**
      * Location of jar files for implementation under test.
      * @parameter expression="${project.lib.iut.directory}"
@@ -78,7 +83,13 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String iutLibsDirectory;
-
+    /**
+     * Location of jar files for implementation under test.
+     * @parameter expression="${project.lib.iut.directory}"
+     *      default-value="${basedir}/../lib/jdori"
+     * @required
+     */
+    private String jdoriLibsDirectory;
     /**
      * List of identity types to be tested.
      * @parameter expression="${jdo.tck.identitytypes}"
@@ -100,7 +111,7 @@ public class Enhance extends AbstractMojo {
         PropertyUtils.string2Set(identitytypes, idtypes);
 
         // Create directory for enhancer logs
-        String enhanceLogsDirName = logsDirectory + File.separator + "enhancer";
+        String enhanceLogsDirName = logsDirectory + File.separator + "enhanced";
         File enhancerLogsDir = new File(enhanceLogsDirName);
         if (!(enhancerLogsDir.exists()) && !(enhancerLogsDir.mkdirs())) {
             throw new MojoExecutionException("Failed to create directory "
@@ -116,26 +127,27 @@ public class Enhance extends AbstractMojo {
                     + enhancedDir);
         }
 
-        String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};  // we really want "jdo.properties", but this is easier
+        String[] metadataExtensions = {"jdo", "jdoquery", "orm", "xml", "properties"};
         String[] srcDirs = {"jdo", "orm", "testdata"};
         File toFile = null;
         File fromFile = null;
         String fromFileName = null;
-        String fromDirName = null;
         String pkgName = null;
         int startIdx = -1;
         Iterator<File> fi = null;
         String[] classArray = new String[10];
         String enhancedIdDirName = null;
+        String classesDirName = buildDirectory + File.separator
+                        + "classes" + File.separator;
         ArrayList<String> classes = null;
 
         // Copy metadata from src to enhanced
         for (String idtype : idtypes) {
             for (String srcDir : srcDirs) {
-                fromDirName = srcDirectory + File.separator + srcDir;
+                String srcDirName = srcDirectory + File.separator + srcDir;
                 // iterator over list of abs name of metadata files in src
                 fi = FileUtils.iterateFiles(
-                        new File(fromDirName), metadataExtensions, true);
+                        new File(srcDirName), metadataExtensions, true);
 
                 while (fi.hasNext()) {
                     try {
@@ -165,14 +177,12 @@ public class Enhance extends AbstractMojo {
 
                 // Copy pc and pa classes from target/classes to enhanced
                 String[] extensions = {"class"};
-                fromDirName = buildDirectory + File.separator
-                        + "classes" + File.separator;
                 enhancedIdDirName = enhancedDirName + idtype + File.separator;
                 classes = new ArrayList<String>();
                 for (String pcPkgName : PC_PKG_DIRS) {
                     // iterator over list of abs name of class files in target/classes
                     fi = FileUtils.iterateFiles(
-                            new File(fromDirName + pcPkgName), extensions, true);
+                            new File(classesDirName + pcPkgName), extensions, true);
                     while (fi.hasNext()) {
                         try {
                             fromFile = fi.next();
@@ -181,8 +191,8 @@ public class Enhance extends AbstractMojo {
                             int index = fromFileName.indexOf(pcPkgName);
                             if (index == -1) {
                                 throw new MojoExecutionException(
-                                    "Cannot get index of package path " + pcPkgName + 
-                                    " in file name" + fromFileName);
+                                        "Cannot get index of package path " + pcPkgName
+                                        + " in file name" + fromFileName);
                             }
                             toFile = new File(enhancedIdDirName + fromFileName.substring(index));
                             FileUtils.copyFile(fromFile, toFile);
@@ -197,32 +207,87 @@ public class Enhance extends AbstractMojo {
             }
 
             // Enhance classes
-            URL[] classPathURLs = new URL[2];
-            ArrayList<URL> cpList = new ArrayList<URL>();
-            ClassLoader loader = null;
+
+            // Build ClassLoader for finding enhancer
+            URL[] classPathURLs1 = new URL[2];
+            ArrayList<URL> cpList1 = new ArrayList<URL>();
+            ClassLoader enhancerLoader = null;
             try {
-                cpList.add((new File(enhancedIdDirName)).toURI().toURL());
-                cpList.add((new File(fromDirName)).toURI().toURL());
+                // Must add enhancedIdDirName first!!
+                cpList1.add((new File(enhancedIdDirName)).toURI().toURL());
                 String[] jars = {"jar"};
-                if (impl.equals("iut")) {
+                if (impl.equals("jdori")) {
+                    cpList1.add((new File(jdoriLibsDirectory)).toURI().toURL());
+                    fi = FileUtils.iterateFiles(new File(jdoriLibsDirectory), jars, true);
+                    while (fi.hasNext()) {
+                        cpList1.add(fi.next().toURI().toURL());
+                    }
+                } else {
+                    cpList1.add((new File(iutLibsDirectory)).toURI().toURL());
                     fi = FileUtils.iterateFiles(new File(iutLibsDirectory), jars, true);
                     while (fi.hasNext()) {
-                        cpList.add(fi.next().toURI().toURL());
+                        cpList1.add(fi.next().toURI().toURL());
                     }
                 }
-                loader = new URLClassLoader(cpList.toArray(classPathURLs),
+                enhancerLoader = new URLClassLoader(cpList1.toArray(classPathURLs1),
                         getClass().getClassLoader());
-                // Utilities.printClasspath(loader);
+                System.out.println("ClassLoader enhancerLoader:");
+                Utilities.printClasspath(enhancerLoader);
             } catch (MalformedURLException ex) {
                 Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JDOEnhancer enhancer = JDOHelper.getEnhancer(loader);
+            
+            // Context classloader for finding log4j.properties
+            ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
+            try {
+                URL implUrl;
+                if (impl.equals("jdori")) {
+                    implUrl = (new File(jdoriLibsDirectory)).toURI().toURL();
+                } else {
+                     implUrl = (new File(iutLibsDirectory)).toURI().toURL();
+                }
+                URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
+                // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
+                URL classesUrl = (new File(classesDirName)).toURI().toURL();
+                ClassLoader loggingPropsCl =
+                        URLClassLoader.newInstance(new URL[]{implUrl,
+                        enhancedClassesUrl, classesUrl}, prevCl);
+                Thread.currentThread().setContextClassLoader(loggingPropsCl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("ClassLoader ContextClassLoader:");
+            Utilities.printClasspath(Thread.currentThread().getContextClassLoader());
+            System.out.println("Get enhancer");
+            JDOEnhancer enhancer = JDOHelper.getEnhancer(enhancerLoader);
+            System.out.println("enhancer.setVerbose()");
             enhancer.setVerbose(true);
-            enhancer.setClassLoader(loader);
+            System.out.println("enhancer.setClassLoader()");
+            enhancer.setClassLoader(enhancerLoader);
             String[] classArr = classes.toArray(classArray);
             enhancer.addClasses(classArr);
             System.out.println("Enhancing classes for identity type " + idtype);
+            // enhancer needs  org/apache/jdo/tck/util/DeepEquality
             enhancer.enhance();
+            Thread.currentThread().setContextClassLoader(prevCl);
+
+            // Move log to per-test location
+            String idname = "dsid";
+            if (idtype.trim().equals("applicationidentity")) {
+                idname = "app";
+            }
+            String testLogFilename = logsDirectory + File.separator +
+                    "enhanced" + File.separator + idname +
+                    "-" + impl + ".txt";
+            System.out.println("testLogFilename is " + testLogFilename);
+            try {
+                File logFile = new File(implLogFile);
+                File testLogFile = new File(testLogFilename);
+                FileUtils.copyFile(logFile, testLogFile);
+            } catch (Exception e) {
+                System.out.println(">> Error copying implementation log file: " +
+                    e.getMessage());
+            }
         }
         System.out.println("");
     }

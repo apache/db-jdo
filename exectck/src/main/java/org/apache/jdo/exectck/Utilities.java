@@ -63,7 +63,9 @@ public class Utilities {
 
         System.out.println(urls.length + " URL(s) for loader: ");
         for (int i = 0; i < urls.length; i++) {
-            System.out.println("    " + urls[i].getFile());
+            if (urls[i] != null) {
+                System.out.println("    " + urls[i].getFile());
+            }
         }
     }
 
