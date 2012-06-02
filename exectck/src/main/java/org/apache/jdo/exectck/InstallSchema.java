@@ -54,12 +54,12 @@ public class InstallSchema extends AbstractTCKMojo {
         }
 
         if (cfgs == null) {
-        	if (cfgList != null) {
+            if (cfgList != null) {
                     System.out.println("cfgList is " + cfgList);
                     cfgs = new HashSet<String>();
                     PropertyUtils.string2Set(cfgList, cfgs);
-        	}
-        	else {
+            }
+            else {
                     // Fallback to "src/conf/configurations.list"
                     setCfgListFromFile();
                 if (cfgList != null) {
@@ -71,8 +71,8 @@ public class InstallSchema extends AbstractTCKMojo {
                     throw new MojoExecutionException(
                         "Could not find configurations to run TCK. " +
                         "Set cfgList parameter on command line or cfgs in pom.xml.");
-            	}
-        	}
+                }
+            }
         }
 
         PropertyUtils.string2Set(dblist, dbs);
@@ -86,95 +86,97 @@ public class InstallSchema extends AbstractTCKMojo {
         System.setProperty("java.security.policy", confDirectory
                 + File.separator + "security.policy");
 
-        // Currently we support only derby. To support additional db's,
-        //   configuration data must be parameterized.
         for (String db : dbs) {
+            if ("derby".equalsIgnoreCase(db)) {
+                // Currently we support only derby. To support additional db's, configuration 
+                // data must be parameterized.
 
-            // Create directory for db logs
-            String dbLogsDirName = logsDirectory + File.separator + "database";
-            File dbLogsDir = new File(dbLogsDirName);
-            if (!(dbLogsDir.exists()) && !(dbLogsDir.mkdirs())) {
-                throw new MojoExecutionException("Failed to create directory "
-                        + dbLogsDir);
-            }
+                // Create directory for db logs
+                String dbLogsDirName = logsDirectory + File.separator + "database";
+                File dbLogsDir = new File(dbLogsDirName);
+                if (!(dbLogsDir.exists()) && !(dbLogsDir.mkdirs())) {
+                    throw new MojoExecutionException("Failed to create directory "
+                            + dbLogsDir);
+                }
 
-            // Create database directory
-            String dbDirName = buildDirectory + File.separator + "database"
-                    + File.separator + db;
-            File dbDir = new File(dbDirName);
-            if (!(dbDir.exists()) && !(dbDir.mkdirs())) {
-                throw new MojoExecutionException("Failed to create directory "
-                        + dbDir);
-            }
+                // Create database directory
+                String dbDirName = buildDirectory + File.separator + "database"
+                + File.separator + db;
+                File dbDir = new File(dbDirName);
+                if (!(dbDir.exists()) && !(dbDir.mkdirs())) {
+                    throw new MojoExecutionException("Failed to create directory "
+                            + dbDir);
+                }
 
-            // Copy derby.properties to db dir
-            File dbConf = new File(confDirectory + File.separator + db
-                    + ".properties");
-            File targetDir = new File(dbDirName);
-            try {
-                FileUtils.copyFileToDirectory(dbConf, targetDir, false);
-            } catch (IOException ex) {
-                throw new MojoExecutionException("Failed to copy file " + dbConf
-                        + " to " + dbDir + ": " + ex.getLocalizedMessage());
-            }
+                // Copy derby.properties to db dir
+                File dbConf = new File(confDirectory + File.separator + db
+                        + ".properties");
+                File targetDir = new File(dbDirName);
+                try {
+                    FileUtils.copyFileToDirectory(dbConf, targetDir, false);
+                } catch (IOException ex) {
+                    throw new MojoExecutionException("Failed to copy file " + dbConf
+                            + " to " + dbDir + ": " + ex.getLocalizedMessage());
+                }
 
-            if (mappings.contains("0")) {
-            	// If schema was explicitly specified as "0" change to "" since
-            	// the schema file in that case is "schema.sql". Note that this
-            	// removes a duplicate entry too
-            	mappings.remove("0");
-            	mappings.add("");
-            }
+                if (mappings.contains("0")) {
+                    // If schema was explicitly specified as "0" change to "" since
+                    // the schema file in that case is "schema.sql". Note that this
+                    // removes a duplicate entry too
+                    mappings.remove("0");
+                    mappings.add("");
+                }
 
-            // Create database
-            for (String idtype : idtypes) {
-                for (String mapping : mappings) {
-                    System.setProperty("ij.outfile", logsDirectory + File.separator
-                            + "database" + File.separator + db + "_" + idtype
-                            + "_" + mapping + ".txt");
+                // Create database
+                for (String idtype : idtypes) {
+                    for (String mapping : mappings) {
+                        System.setProperty("ij.outfile", logsDirectory + File.separator
+                                + "database" + File.separator + db + "_" + idtype
+                                + "_" + mapping + ".txt");
 
-                    System.out.print("*> Installing schema" + mapping
+                        System.out.print("*> Installing schema" + mapping
                                 + ".sql for " + db + " " + idtype + " ... ");
 
-                    String[] args = {sqlDirectory + File.separator + db
-                        + File.separator + idtype + File.separator
-                        + "schema" + mapping + ".sql"};
-                    System.setProperty("derby.system.home", dbDirName);
+                        String[] args = {sqlDirectory + File.separator + db
+                                + File.separator + idtype + File.separator
+                                + "schema" + mapping + ".sql"};
+                        System.setProperty("derby.system.home", dbDirName);
 
-                    boolean success = true;
-                    try {
-                        org.apache.derby.tools.ij.main(args);
-                    } catch (IOException ioex) {
-                    	success = false;
-                    	System.out.println("FAILED!");
-                        throw new MojoExecutionException(
-                                "*> Failed to execute ij: " +
-                                ioex.getLocalizedMessage());
-                    } catch (Exception ex) {
-                    	success = false;
-                    	System.out.println("FAILED!");
-                        ex.printStackTrace();
-                        System.out.println("*> Classpath is ");
-                        new Utilities().printClasspath();
-                        System.out.println("*> derby.system.home is \n    "
-                                + System.getProperty("derby.system.home"));
-                        System.out.println("*> jdo.tck.basedir is \n    "
-                                + System.getProperty("jdo.tck.basedir"));
-                        System.out.println("*> ij.outfile is \n    "
-                                + System.getProperty("ij.outfile"));
-                        System.out.println("*> java.security.manager is \n    "
-                                + System.getProperty("java.security.manager"));
-                        System.out.println("*> java.security.policy is \n    "
-                                + System.getProperty("java.security.policy"));
-                    } finally {
-                    	if (success) {
-                    		System.out.println("done");
-                    	}
+                        boolean success = true;
+                        try {
+                            org.apache.derby.tools.ij.main(args);
+                        } catch (IOException ioex) {
+                            success = false;
+                            System.out.println("FAILED!");
+                            throw new MojoExecutionException(
+                                    "*> Failed to execute ij: " +
+                                    ioex.getLocalizedMessage());
+                        } catch (Exception ex) {
+                            success = false;
+                            System.out.println("FAILED!");
+                            ex.printStackTrace();
+                            System.out.println("*> Classpath is ");
+                            new Utilities().printClasspath();
+                            System.out.println("*> derby.system.home is \n    "
+                                    + System.getProperty("derby.system.home"));
+                            System.out.println("*> jdo.tck.basedir is \n    "
+                                    + System.getProperty("jdo.tck.basedir"));
+                            System.out.println("*> ij.outfile is \n    "
+                                    + System.getProperty("ij.outfile"));
+                            System.out.println("*> java.security.manager is \n    "
+                                    + System.getProperty("java.security.manager"));
+                            System.out.println("*> java.security.policy is \n    "
+                                    + System.getProperty("java.security.policy"));
+                        } finally {
+                            if (success) {
+                                System.out.println("done");
+                            }
+                        }
                     }
                 }
+                System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
+                System.out.println("");
             }
-            System.out.println("*> See diagnostic output in " + dbLogsDir + ".");
-            System.out.println("");
         }
     }
 }
