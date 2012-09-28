@@ -20,14 +20,14 @@
 
   <parent>
     <groupId>javax.jdo</groupId>
-    <artifactId>root</artifactId>
+    <artifactId>parent-pom</artifactId>
     <version>3.1-SNAPSHOT</version>
+    <relativePath>../parent-pom</relativePath>
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>javax.jdo</groupId>
   <artifactId>copy-jdori-jars</artifactId>
-  <name>Copy JDORI Jars</name>
+  <name>JDO RI Jar Copy</name>
   <version>3.1-SNAPSHOT</version>
   <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
   

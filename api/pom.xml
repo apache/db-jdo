@@ -22,12 +22,12 @@
 
   <parent>
     <groupId>javax.jdo</groupId>
-    <artifactId>root</artifactId>
+    <artifactId>parent-pom</artifactId>
     <version>3.1-SNAPSHOT</version>
+    <relativePath>../parent-pom</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>javax.jdo</groupId>
   <artifactId>jdo-api</artifactId>
   <name>JDO API</name>
   <version>3.1-SNAPSHOT</version>
