@@ -34,12 +34,12 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query list
  *<BR>
- *<B>Assertion ID:</B> A14.6.????.
+ *<B>Assertion ID:</B> A14.6.2-58.
  *<BR>
  *<B>Assertion Description: </B>
  * Supported list methods:
  * <UL>
- * <LI>get</LI>
+ * <LI>get(int)</LI>
  * </UL>
  */
 
@@ -47,7 +47,7 @@ public class SupportedListMethods extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.2-36 (SupportedListMethods) failed: ";
+        "Assertion A14.6.2-58 (SupportedListMethods) failed: ";
     
     /** 
      * The array of valid queries which may be executed as 

@@ -46,6 +46,8 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <li>Math.abs(numeric)</li>
  * <li>Math.sqrt(numeric)</li>
  * <li>Math.sin(numeric)</li>
+ * <li>Math.cos(numeric)</li>
+ * <li>Math.tan(numeric)</li>
  * </ul>
  */
 public class SupportedMathMethods extends QueryTest {

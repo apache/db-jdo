@@ -46,6 +46,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * Supported JDOHelper methods:
  * <ul>
  * <li> JDOHelper.getObjectId(Object)
+ * <li> JDOHelper.getVersion(Object)
  * </ul>
  */
 public class SupportedJDOHelperMethods extends QueryTest {

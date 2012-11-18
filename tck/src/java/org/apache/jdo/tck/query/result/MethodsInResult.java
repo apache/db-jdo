@@ -35,15 +35,18 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query result
  *<BR>
- *<B>Assertion ID:</B>
+ *<B>Assertion ID:</B> A14.6.9-5.
  *<BR>
- *<B>Assertion Description: </B> 
+ *<B>Assertion Description: </B>
+ * The result expressions include:
+ * method expression: the value of an expression calling any of the methods allowed in 
+ * queries applied to fields is returned.
  */
 public class MethodsInResult extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion (MethodsInResult) failed: ";
+        "Assertion A14.6.9-5 (MethodsInResult) failed: ";
     
     /** 
      * The array of valid queries which may be executed as 

@@ -33,20 +33,21 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> embedded query
  *<BR>
- *<B>Assertion ID:</B> [None yet]
+ *<B>Assertion ID:</B> A14.6.9-9.
  *<BR>
  *<B>Assertion Description: </B>
-Section 14.6.9: Projected SCOs are never owned, projected FCOs are always
-managed. Modifying unowned SCOs never has an effect on the database.
-Modifying FCOs no matter how you get them always has an effect if the
-tx commits.
+ * If an SCO field is in the result, the projected field is not owned by any persistent 
+ * instance, and modifying the SCO value has no effect on any persistent instance. 
+ * If an FCO field is in the result, the projected field is a persistent instance, and 
+ * modifications made to the instance are reflected as changes to the datastore per
+ * transaction requirements.
  */
 
 public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A?? (ProjectedSCODoesNotTrackChanges) failed: ";
+        "Assertion A14.6.9-3 (ProjectedSCODoesNotTrackChanges) failed: ";
 
     private static final Date expectedDate = new Date(2007908); // pm
     

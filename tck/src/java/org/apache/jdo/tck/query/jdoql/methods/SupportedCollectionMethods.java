@@ -34,7 +34,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query collection 
  *<BR>
- *<B>Assertion ID:</B> A14.6.2-44.
+ *<B>Assertion ID:</B> A14.6.2-45.
  *<BR>
  *<B>Assertion Description: </B>
  * Supported collection methods:
@@ -49,7 +49,7 @@ public class SupportedCollectionMethods extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.2-36 (SupportedCollectionMethods) failed: ";
+        "Assertion A14.6.2-45 (SupportedCollectionMethods) failed: ";
     
     /** 
      * The array of valid queries which may be executed as 

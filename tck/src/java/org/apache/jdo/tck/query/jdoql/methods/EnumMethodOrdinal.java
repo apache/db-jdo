@@ -35,7 +35,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
- *<B>Assertion ID:</B> A14.6.2-47.
+ *<B>Assertion ID:</B> A14.6.2-59.
  *<BR>
  *<B>Assertion Description: </B>
  * New supported Enum methods:
@@ -48,7 +48,7 @@ public class EnumMethodOrdinal extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.2-47 (EnumMethodOrdinal) failed: ";
+        "Assertion A14.6.2-59 (EnumMethodOrdinal) failed: ";
 
     /** */
     private Object oidOfExpectedResult;

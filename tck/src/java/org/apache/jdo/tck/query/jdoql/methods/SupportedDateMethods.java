@@ -29,7 +29,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
- *<B>Assertion ID:</B> A14.6.2-47.
+ *<B>Assertion ID:</B> A14.6.2-60.
  *<BR>
  *<B>Assertion Description: </B>
  * New supported Date methods:
@@ -43,7 +43,7 @@ public class SupportedDateMethods extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.2-47 (SupportedDateMethods) failed: ";
+        "Assertion A14.6.2-60 (SupportedDateMethods) failed: ";
     
     /** 
      * The array of valid queries which may be executed as 
