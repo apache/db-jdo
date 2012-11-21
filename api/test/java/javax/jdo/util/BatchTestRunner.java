@@ -111,7 +111,7 @@ public class BatchTestRunner
                 String msg = null;
                 try {
                     // get class instance
-                    Class clazz = Class.forName(className);
+                    Class<?> clazz = Class.forName(className);
                     // constructor taking PrintStream arg
                     Constructor ctor = clazz.getConstructor(
                         new Class[] { PrintStream.class } );

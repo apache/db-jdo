@@ -217,7 +217,8 @@ public class ObjectStateTest extends AbstractTest {
     private static Method getDeclaredMethod
             (Class clazz, String methodName, Class[] parameters) {
         try {
-            Method result = clazz.getDeclaredMethod(methodName, parameters);
+            @SuppressWarnings("unchecked")
+			Method result = clazz.getDeclaredMethod(methodName, parameters);
             return result;
         } catch (Exception ex) {
             // human-readable class.methodName(parameter[,parameter])

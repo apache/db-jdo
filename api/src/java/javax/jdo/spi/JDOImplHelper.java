@@ -839,7 +839,7 @@ public class JDOImplHelper extends java.lang.Object {
     public static Object construct(String className, String keyString) {
         StringConstructor stringConstructor;
         try {
-            Class keyClass = Class.forName(className);
+            Class<?> keyClass = Class.forName(className);
             synchronized(stringConstructorMap) {
                 stringConstructor = 
                         (StringConstructor) stringConstructorMap.get(keyClass);
