@@ -14,7 +14,7 @@
   <artifactId>parent-pom</artifactId>
   <version>3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Java Data Objects (JDO)</name>
+  <name>JDO PARENT</name>
   <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>

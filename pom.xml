@@ -10,6 +10,7 @@
   <name>JDO Root POM</name>
 
   <modules>
+    <module>parent-pom</module>
     <module>api</module>
     <module>exectck</module>
     <module>copyjdorijars</module>
