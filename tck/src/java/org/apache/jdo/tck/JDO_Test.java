@@ -1187,6 +1187,36 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
+    /** Appends an error if the actual value does not equal the expected value.
+     * Primitive values are autoboxed. Null values are ok for both expected and actual.
+     */
+    protected void errorIfNotEqual(String message, Object expected, Object actual) {
+        if (expected == null) {
+            if (actual != null) {
+                appendMessage(message + " failed. expected: null; actual: " + actual);
+            }
+        } else {
+            if (!expected.equals(actual)) {
+                appendMessage(message + " failed. expected: " + expected + "; actual: " + actual);
+            }
+        }
+    }
+
+    /** Appends an error if the actual value equals the unexpected value.
+     * Primitive values are autoboxed. Null values are ok for both unexpected and actual.
+     */
+    protected void errorIfEqual(String message, Object unexpected, Object actual) {
+        if (unexpected == null) {
+            if (actual == null) {
+                appendMessage(message + " failed. unexpected: null");
+            }
+        } else {
+            if (unexpected.equals(actual)) {
+                appendMessage(message + " failed. unexpected: " + unexpected);
+            }
+        }
+    }
+
     /**
      * Returns collected error messages, or <code>null</code> if there
      * are none, and clears the buffer.
