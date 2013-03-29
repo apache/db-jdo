@@ -319,7 +319,9 @@ public class RunTCK extends AbstractTCKMojo {
                     URL url1 = enhancedDir.toURI().toURL();
                     URL url2 = new File(buildDirectory + File.separator
                             + "classes" + File.separator).toURI().toURL();
-                    System.out.println("url2 is " + url2.toString());
+                    if (runtckVerbose) {
+                        System.out.println("url2 is " + url2.toString());
+                    }
                     cpList.add(url1);
                     cpList.add(url2);
                     String[] jars = {"jar"};
