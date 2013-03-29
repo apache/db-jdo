@@ -109,12 +109,13 @@ public class GetProperties extends JDO_Test implements Constants {
             errorIfEqual("getProperties().get(" + propertyName + ")", null, result0);
             pm.setProperty(propertyName, testValue1);
             Object result1 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setProperty(" + propertyName + "), getProperties().get(" + propertyName + ")",
+            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue1 + "), getProperties().get(" + propertyName + ")",
                     testValue1, result1);
+
             pm.setProperty(propertyName, testValue2);
             Object result2 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setProperty(" + propertyName + ")" + " getProperties().get(" + propertyName + ")",
-                    testValue1, result2);
+            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue2 + "), getProperties().get(" + propertyName + ")",
+                    testValue2, result2);
         }
     }
 
@@ -131,11 +132,12 @@ public class GetProperties extends JDO_Test implements Constants {
         public void test(PersistenceManager pm, Set<String> supportedProperties) {
             pm.setProperty(propertyName, testValue1);
             Object result1 = get(pm);
-            errorIfNotEqual("after pm.setProperty(XXX), getXXX for " + propertyName,
+            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue1 + "), getXXX for " + propertyName,
                     testValue1, result1);
+
             set(pm, testValue2);
             Object result2 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setXXX(), getProperties.get(XXX) for " + propertyName,
+            errorIfNotEqual("after pm.setXXX(), getProperties.get(" + propertyName + ")",
                     testValue2, result2);
         }
     };
