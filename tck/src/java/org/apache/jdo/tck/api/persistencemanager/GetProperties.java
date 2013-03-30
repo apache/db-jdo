@@ -69,6 +69,15 @@ public class GetProperties extends JDO_Test implements Constants {
         BatchTestRunner.run(GetProperties.class);
     }
 
+    public void localSetUp() {
+        getPM();
+    }
+
+    public void localTearDown() {
+        // the PM is left in an unknown state due to setting properties so it must be cleaned up
+        cleanupPM();
+    }
+
     private Collection<String> supportedOptions;
     private Set<String> supportedProperties;
     private static Set<TestProperty> testRequiredProperties = new HashSet<TestProperty>();
@@ -119,7 +128,8 @@ public class GetProperties extends JDO_Test implements Constants {
         }
     }
 
-    /** For each required property, and for each of two values
+    /** For each api supported property, and for each of two values
+     * getProperty(XXX) should return a value
      * setProperty(XXX, value1) should succeed
      * getXXX() should return value1
      * setXXX(value2) should succeed
@@ -130,6 +140,8 @@ public class GetProperties extends JDO_Test implements Constants {
             super(propertyName, testValue1, testValue2);
         }
         public void test(PersistenceManager pm, Set<String> supportedProperties) {
+            Object result0 = pm.getProperties().get(propertyName);
+            errorIfEqual("getProperties().get(" + propertyName + ")", null, result0);
             pm.setProperty(propertyName, testValue1);
             Object result1 = get(pm);
             errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue1 + "), getXXX for " + propertyName,
@@ -149,7 +161,7 @@ public class GetProperties extends JDO_Test implements Constants {
     };
 
     private TestProperty testDatastoreReadTimeoutMillis = 
-        new AbstractAPITestProperty(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS, 20, 40) {
+            new AbstractAPITestProperty(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS, 20, 40) {
         public Object get(PersistenceManager pm) {return pm.getDatastoreReadTimeoutMillis();}
         public void set(PersistenceManager pm, Object value) {pm.setDatastoreReadTimeoutMillis((Integer) value);}
     };
@@ -173,31 +185,43 @@ public class GetProperties extends JDO_Test implements Constants {
     };
 
     private TestProperty testIgnoreCache =
-        new AbstractAPITestProperty(PROPERTY_IGNORE_CACHE, true, false) {
-    public Object get(PersistenceManager pm) {return pm.getIgnoreCache();}
-    public void set(PersistenceManager pm, Object value) {pm.setIgnoreCache((Boolean) value);}
-};
-
-    private TestProperty testOptimistic =
-        new AbstractNonAPITestProperty(PROPERTY_OPTIMISTIC, true, false) {
+            new AbstractAPITestProperty(PROPERTY_IGNORE_CACHE, true, false) {
         public Object get(PersistenceManager pm) {return pm.getIgnoreCache();}
         public void set(PersistenceManager pm, Object value) {pm.setIgnoreCache((Boolean) value);}
     };
 
+    private TestProperty testOptimistic =
+            new AbstractAPITestProperty(PROPERTY_OPTIMISTIC, true, false) {
+        public Object get(PersistenceManager pm) {return pm.currentTransaction().getOptimistic();}
+        public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setOptimistic((Boolean) value);}
+    };
+
     private TestProperty testRetainValues =
-        new AbstractNonAPITestProperty(PROPERTY_RETAIN_VALUES, true, false) {
+            new AbstractAPITestProperty(PROPERTY_RETAIN_VALUES, true, false) {
+        public Object get(PersistenceManager pm) {return pm.currentTransaction().getRetainValues();}
+        public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setRetainValues((Boolean) value);}
     };
 
     private TestProperty testRestoreValues =
-        new AbstractNonAPITestProperty(PROPERTY_RESTORE_VALUES, true, false) {
+            new AbstractAPITestProperty(PROPERTY_RESTORE_VALUES, true, false) {
+        public Object get(PersistenceManager pm) {return pm.currentTransaction().getRestoreValues();}
+        public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setRestoreValues((Boolean) value);}
     };
 
     private TestProperty testNontransactionalRead =
-        new AbstractNonAPITestProperty(PROPERTY_NONTRANSACTIONAL_READ, true, false) {
+            new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_READ, true, false) {
+        public Object get(PersistenceManager pm) {return pm.currentTransaction().getNontransactionalRead();}
+        public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setNontransactionalRead((Boolean) value);}
     };
 
     private TestProperty testNontransactionalWrite =
-        new AbstractNonAPITestProperty(PROPERTY_NONTRANSACTIONAL_WRITE, true, false) {
+            new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_WRITE, true, false) {
+        public Object get(PersistenceManager pm) {return pm.currentTransaction().getNontransactionalWrite();}
+        public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setNontransactionalWrite((Boolean) value);}
+    };
+
+    private TestProperty testIllegalArgument = 
+        new AbstractNonAPITestProperty(PROPERTY_IGNORE_CACHE, 1, false) { 
     };
 
     private Set<TestProperty> setOf(TestProperty... testPropertys) {
@@ -216,16 +240,15 @@ public class GetProperties extends JDO_Test implements Constants {
         testRequiredProperties.add(testCopyOnAttach);
         testRequiredProperties.add(testDetachAllOnCommit);
         testRequiredProperties.add(testIgnoreCache);
-        testRequiredProperties.add(testOptimistic);
-        testRequiredProperties.add(testRetainValues);
         testRequiredProperties.add(testRestoreValues);
-        testRequiredProperties.add(testNontransactionalRead);
-        testRequiredProperties.add(testNontransactionalWrite);
         
         testOptionalProperties.put(PROPERTY_MULTITHREADED, setOf(testMultithreaded));
         testOptionalProperties.put(OPTION_DATASTORE_TIMEOUT, 
                 setOf(testDatastoreReadTimeoutMillis, testDatastoreWriteTimeoutMillis));
-        getPM();
+        testOptionalProperties.put(PROPERTY_OPTIMISTIC, setOf(testOptimistic));
+        testOptionalProperties.put(PROPERTY_RETAIN_VALUES, setOf(testRetainValues));
+        testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
+        testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
         
         supportedOptions = pmf.supportedOptions();
         for (String supportedOption: supportedOptions) {
@@ -251,15 +274,29 @@ public class GetProperties extends JDO_Test implements Constants {
         for (String supportedOption: supportedOptions) {
             Set<TestProperty> supportedOptionTestList = testOptionalProperties.get(supportedOption);
             if (supportedOptionTestList != null) {
+                System.out.println("testing " + supportedOption);
                 for (TestProperty supportedOptionTest: supportedOptionTestList) {
-                    System.out.println("testing " + supportedOption);
                     supportedOptionTest.test(pm, supportedProperties);
                 }
             }
         }
 
+        try {
+            testIllegalArgument.test(pm, supportedProperties);
+            appendMessage("setProperty(PROPERTY_IGNORE_CACHE, 1) failed: " +
+                    "Illegal argument failed to throw an exception.");
+        } catch (Throwable t) {
+            // good catch
+        }
+
+        try {
+            // unknown property should be ignored
+            pm.setProperty("com.mystery.property", true);
+        } catch (Throwable t) {
+           appendMessage("Unknown property threw an exception.");
+        }
+
         failOnError();
     }
-
 
 }
