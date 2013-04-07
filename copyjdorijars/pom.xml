@@ -114,5 +114,12 @@
       <version>1.2.16</version>
     </dependency>
   </dependencies>
-  
+
+  <repositories>
+    <repository>
+      <id>DataNucleus Nightly</id>
+      <url>http://www.datanucleus.org/downloads/maven2-nightly</url>
+    </repository>
+  </repositories>
+
 </project>
