@@ -34,7 +34,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  * New supported Date methods:
  * <ul>
- * <li>getDay()</li>
+ * <li>getDate()</li>
  * <li>getMonth()</li>
  * <li>getYear()</li>
  * </ul>
@@ -56,7 +56,7 @@ public class SupportedDateMethods extends QueryTest {
                 /*INTO*/        null, 
                 /*FROM*/        Person.class,
                 /*EXCLUDE*/     null,
-                /*WHERE*/       "birthdate.getDay() == 10",
+                /*WHERE*/       "birthdate.getDate() == 10",
                 /*VARIABLES*/   null,
                 /*PARAMETERS*/  null,
                 /*IMPORTS*/     null,
@@ -113,7 +113,7 @@ public class SupportedDateMethods extends QueryTest {
     }
     
     /** */
-    public void testGetDay() {
+    public void testGetDate() {
         int index = 0;
         executeQuery(index);
     }
