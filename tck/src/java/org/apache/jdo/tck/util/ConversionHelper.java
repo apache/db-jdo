@@ -56,6 +56,15 @@ public class ConversionHelper {
         }
     }
 
+    public static Date toUtilDate(String pattern, Locale locale, String value) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, locale);
+        try {
+            return formatter.parse(value);
+        } catch (ParseException e) {
+            throw new JDOFatalException("", e);
+        }
+    }
+
     /**
      * Converts the given array into a {@link Map}. 
      * The first dimension represents the map entries,

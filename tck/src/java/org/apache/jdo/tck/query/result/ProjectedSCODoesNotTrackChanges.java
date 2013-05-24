@@ -18,6 +18,7 @@
 
 package org.apache.jdo.tck.query.result;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -49,8 +50,15 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.9-3 (ProjectedSCODoesNotTrackChanges) failed: ";
 
-    private static final Date expectedDate = new Date(2007908); // pm
-    
+    private static final Date expectedDate;
+
+    static {
+        Calendar cal = Calendar.getInstance();
+        cal.set(1970, 0, 1, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        expectedDate = cal.getTime();
+    }    
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -135,6 +143,7 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
         query.setUnique(true);
         Date retrievedDate = (Date) query.execute();
         retrievedDate.setTime(123789L);
+
         if (JDOHelper.isDirty((Object)comp)) {
             appendMessage("Expected Company instance not to be dirty; "
                 + "actual state is " + getStateOfInstance((Object)comp));

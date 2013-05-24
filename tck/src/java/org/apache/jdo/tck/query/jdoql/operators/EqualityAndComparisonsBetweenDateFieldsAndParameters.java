@@ -117,8 +117,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
     private static final Date FIRST_OF_JAN_1999;
     static {
         // initialize static field FIRST_OF_JAN_1999
-        Calendar cal = new GregorianCalendar(
-            TimeZone.getTimeZone("America/New_York"));
+        Calendar cal = new GregorianCalendar();
         cal.set(1999, GregorianCalendar.JANUARY, 1, 0, 0, 0);
         cal.set(GregorianCalendar.MILLISECOND, 0);
         FIRST_OF_JAN_1999 = cal.getTime();

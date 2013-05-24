@@ -94,8 +94,7 @@ public class OrderModelReader extends XmlBeanFactory {
     private void configureFactory() {
         SimpleDateFormat formatter =
             new SimpleDateFormat(DATE_PATTERN, Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        CustomDateEditor dateEditor = 
+        CustomDateEditor dateEditor =
             new CustomDateEditor(formatter, true);
         registerCustomEditor(Date.class, dateEditor);
         orderFactory = OrderFactoryRegistry.getInstance();
@@ -143,8 +142,7 @@ public class OrderModelReader extends XmlBeanFactory {
     }
 
     public static Date stringToUtilDate(String value) {
-        return ConversionHelper.toUtilDate(DATE_PATTERN, "America/New_York",
-                Locale.US, value);
+        return ConversionHelper.toUtilDate(DATE_PATTERN, Locale.US, value);
     }
 }
 

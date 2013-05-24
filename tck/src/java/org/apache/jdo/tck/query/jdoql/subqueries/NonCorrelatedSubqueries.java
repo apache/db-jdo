@@ -111,8 +111,7 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
             "this.weeklyhours> (SELECT AVG(e.weeklyhours) FROM " +
             Employee.class.getName() + " e)";
 
-        Calendar cal = Calendar.getInstance(
-            TimeZone.getTimeZone("America/New_York"), Locale.US);
+        Calendar cal = Calendar.getInstance(Locale.US);
         cal.set(2002, Calendar.SEPTEMBER, 1, 0, 0, 0);
         Date hired = cal.getTime();
 

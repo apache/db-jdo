@@ -90,8 +90,7 @@ public class MylibReader extends XmlBeanFactory {
      */
     private void configureFactory() {
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN, Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        CustomDateEditor dateEditor = 
+        CustomDateEditor dateEditor =
             new CustomDateEditor(formatter, true);
         registerCustomEditor(Date.class, dateEditor);
     }
