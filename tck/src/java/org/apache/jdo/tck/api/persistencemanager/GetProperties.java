@@ -178,6 +178,18 @@ public class GetProperties extends JDO_Test implements Constants {
         public void set(PersistenceManager pm, Object value) {pm.setMultithreaded((Boolean) value);}
     };
 
+    private TestProperty testLowerCaseMultithreaded = 
+            new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
+        public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
+        public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.multithreaded", (Boolean) value);}
+    };
+
+    private TestProperty testUpperCaseMultithreaded = 
+        new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
+    public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
+    public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.MULTITHREADED", (Boolean) value);}
+};
+
     private TestProperty testDetachAllOnCommit =
             new AbstractAPITestProperty(PROPERTY_DETACH_ALL_ON_COMMIT, true, false) {
         public Object get(PersistenceManager pm) {return pm.getDetachAllOnCommit();}
@@ -242,7 +254,8 @@ public class GetProperties extends JDO_Test implements Constants {
         testRequiredProperties.add(testIgnoreCache);
         testRequiredProperties.add(testRestoreValues);
         
-        testOptionalProperties.put(PROPERTY_MULTITHREADED, setOf(testMultithreaded));
+        testOptionalProperties.put(PROPERTY_MULTITHREADED, setOf(testMultithreaded, testLowerCaseMultithreaded,
+                testUpperCaseMultithreaded));
         testOptionalProperties.put(OPTION_DATASTORE_TIMEOUT, 
                 setOf(testDatastoreReadTimeoutMillis, testDatastoreWriteTimeoutMillis));
         testOptionalProperties.put(PROPERTY_OPTIMISTIC, setOf(testOptimistic));
