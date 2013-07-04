@@ -238,6 +238,14 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
           <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+       </plugin>
     </plugins>
   </reporting>
 </project>

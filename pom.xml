@@ -4,7 +4,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>javax.jdo</groupId>
-  <artifactId>root</artifactId>
+  <artifactId>jdo</artifactId>
   <packaging>pom</packaging>
   <version>3.1</version>
   <name>JDO Root POM</name>
@@ -16,5 +16,50 @@
     <module>copyjdorijars</module>
     <module>tck</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>apache-release</id>
+          <modules>
+            <module>api</module>
+            <module>parent-pom</module>
+          </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <appendAssemblyId>true</appendAssemblyId>
+              <descriptors>
+                <descriptor>assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+	  <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-gpg-plugin</artifactId>
+	    <version>1.1</version>
+	    <executions>
+	       <execution>
+		  <configuration>
+		    <file>${file}.jar</file>
+		    <keyname>${gpg.keyname}</keyname>
+		  </configuration>
+	      </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
