@@ -10,7 +10,7 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>javax.jdo</groupId>
+  <groupId>org.apache.jdo</groupId>
   <artifactId>parent-pom</artifactId>
   <version>3.1</version>
   <packaging>pom</packaging>
@@ -34,12 +34,12 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         <version>3.1</version>
       </dependency>
       <dependency>
-        <groupId>javax.jdo</groupId>
+        <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-exectck</artifactId>
         <version>1.0</version>
       </dependency>
       <dependency>
-        <groupId>javax.jdo</groupId>
+        <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-tck</artifactId>
         <version>3.1</version>
       </dependency>

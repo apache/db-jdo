@@ -21,13 +21,14 @@
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <parent>
-    <groupId>javax.jdo</groupId>
+    <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
     <version>3.1</version>
     <relativePath>../parent-pom</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
+  <groupId>javax.jdo</groupId>
   <artifactId>jdo-api</artifactId>
   <name>JDO API</name>
   <version>3.1</version>
