@@ -20,11 +20,9 @@ package org.apache.jdo.tck.api.persistencemanager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Constants;
 
@@ -47,18 +45,28 @@ public class GetProperties extends JDO_Test implements Constants {
 
     /** */
     private static final String ASSERTION_FAILED_12_19_1 = 
-        "Assertion 12-9-1 setProperty() Set the property name to the specified value. " +
-        "If a vendor-specific property is not recognized, it is silently ignored. ";
+        "Assertion 12.19-1 setProperty() " +
+        "If a vendor-specific property is not recognized, it is silently ignored.\n";
     private static final String ASSERTION_FAILED_12_19_2 = 
-        "Assertion 12-9-2 setProperty() If the value for the property is not supported by the implementation, " +
-        "a JDOUserException is thrown. ";
+        "Assertion 12.19-2 setProperty() If the value for the property is not supported by the implementation, " +
+        "a JDOUserException is thrown.\n";
     private static final String ASSERTION_FAILED_12_19_3 = 
-        "Assertion 12-9-3 getProperties() Return a map of String, " +
-        "Object with the properties and values currently in effect. ";
-    private static final String ASSERTION_FAILED_12_19_4 = 
-        "Assertion 12-9-4 Changing the values in the map will not affect the properties in the PersistenceManager. ";
-    private static final String ASSERTION_FAILED_12_19_5 = 
-        "Assertion 12-9-5 getSupportedProperties() Return the set of properties supported by this PersistenceManager. ";
+        "Assertion 12.19-3 setProperty() " +
+        "Property names might exactly match the names of the properties in javax.jdo.Constants " +
+        "or might differ in case only.\n";
+    private static final String ASSERTION_FAILED_12_19_4 =
+        "Assertion 12.19-4 setProperty() " +
+        "Properties of the transaction associated with a persistence manager " +
+        "can be accessed via the named property in javax.jdo.Constants.\n";
+    private static final String ASSERTION_FAILED_12_19_5 =
+        "Assertion 12.19-5 getProperties() " +
+        "getProperties() Return a map of String, " +
+        "Object with the properties and values currently in effect.\n";
+    private static final String ASSERTION_FAILED_12_19_6 = 
+        "Assertion 12.19-6 Changing the values in the map will not affect the properties in the PersistenceManager. ";
+    private static final String ASSERTION_FAILED_12_19_7 = 
+        "Assertion 12.19-7 getSupportedProperties() Return the set of properties " +
+        "supported by this PersistenceManager.\n";
 
     /**
      * The <code>main</code> is called when the class
@@ -87,16 +95,26 @@ public class GetProperties extends JDO_Test implements Constants {
         void test(PersistenceManager pm, Set<String> supportedProperties);
         Object get(PersistenceManager pm);
         void set(PersistenceManager pm, Object value);
+        void setMessageForNullResult(String messageForNullResult);
+        void setMessageForWrongResultAfterSet(String messageForWrongResultAfterSet);
     }
 
     abstract class AbstractTestProperty implements TestProperty {
         String propertyName;
         Object testValue1;
         Object testValue2;
+        protected String messageForNullResult = ASSERTION_FAILED_12_19_5;
+        protected String messageForWrongResultAfterSet = ASSERTION_FAILED_12_19_5;
         AbstractTestProperty(String propertyName, Object testValue1, Object testValue2) {
             this.propertyName = propertyName;
             this.testValue1 = testValue1;
             this.testValue2 = testValue2;
+        }
+        public void setMessageForNullResult(String messageForNullResult) {
+            this.messageForNullResult = messageForNullResult;
+        }
+        public void setMessageForWrongResultAfterSet(String messageForWrongResultAfterSet) {
+            this.messageForWrongResultAfterSet = messageForWrongResultAfterSet;
         }
     }
 
@@ -115,15 +133,15 @@ public class GetProperties extends JDO_Test implements Constants {
         public void set(PersistenceManager pm, Object value) {throw new RuntimeException("not implemented");};
         public void test(PersistenceManager pm, Set<String> supportedProperties) {
             Object result0 = pm.getProperties().get(propertyName);
-            errorIfEqual("getProperties().get(" + propertyName + ")", null, result0);
+            errorIfEqual(this.messageForNullResult + "getProperties().get(" + propertyName + ")", null, result0);
             pm.setProperty(propertyName, testValue1);
             Object result1 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue1 + "), getProperties().get(" + propertyName + ")",
+            errorIfNotEqual(this.messageForWrongResultAfterSet + "after pm.setProperty(" + propertyName + ", " + testValue1 + "), getProperties().get(" + propertyName + ")",
                     testValue1, result1);
 
             pm.setProperty(propertyName, testValue2);
             Object result2 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue2 + "), getProperties().get(" + propertyName + ")",
+            errorIfNotEqual(this.messageForWrongResultAfterSet + "after pm.setProperty(" + propertyName + ", " + testValue2 + "), getProperties().get(" + propertyName + ")",
                     testValue2, result2);
         }
     }
@@ -141,15 +159,15 @@ public class GetProperties extends JDO_Test implements Constants {
         }
         public void test(PersistenceManager pm, Set<String> supportedProperties) {
             Object result0 = pm.getProperties().get(propertyName);
-            errorIfEqual("getProperties().get(" + propertyName + ")", null, result0);
+            errorIfEqual(this.messageForNullResult + "getProperties().get(" + propertyName + ")", null, result0);
             pm.setProperty(propertyName, testValue1);
             Object result1 = get(pm);
-            errorIfNotEqual("after pm.setProperty(" + propertyName + ", " + testValue1 + "), getXXX for " + propertyName,
+            errorIfNotEqual(this.messageForWrongResultAfterSet + "after pm.setProperty(" + propertyName + ", " + testValue1 + "), getXXX for " + propertyName,
                     testValue1, result1);
 
             set(pm, testValue2);
             Object result2 = pm.getProperties().get(propertyName);
-            errorIfNotEqual("after pm.setXXX(), getProperties.get(" + propertyName + ")",
+            errorIfNotEqual(this.messageForWrongResultAfterSet + "after pm.setXXX(), getProperties.get(" + propertyName + ")",
                     testValue2, result2);
         }
     };
@@ -252,15 +270,23 @@ public class GetProperties extends JDO_Test implements Constants {
         testRequiredProperties.add(testCopyOnAttach);
         testRequiredProperties.add(testDetachAllOnCommit);
         testRequiredProperties.add(testIgnoreCache);
+        testRestoreValues.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
         testRequiredProperties.add(testRestoreValues);
         
+        testLowerCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
+        testUpperCaseMultithreaded.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_3);
         testOptionalProperties.put(PROPERTY_MULTITHREADED, setOf(testMultithreaded, testLowerCaseMultithreaded,
                 testUpperCaseMultithreaded));
         testOptionalProperties.put(OPTION_DATASTORE_TIMEOUT, 
                 setOf(testDatastoreReadTimeoutMillis, testDatastoreWriteTimeoutMillis));
+
+        testOptimistic.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
         testOptionalProperties.put(PROPERTY_OPTIMISTIC, setOf(testOptimistic));
+        testRetainValues.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
         testOptionalProperties.put(PROPERTY_RETAIN_VALUES, setOf(testRetainValues));
+        testNontransactionalRead.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
         testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_READ, setOf(testNontransactionalRead));
+        testNontransactionalWrite.setMessageForWrongResultAfterSet(ASSERTION_FAILED_12_19_4);
         testOptionalProperties.put(PROPERTY_NONTRANSACTIONAL_WRITE, setOf(testNontransactionalWrite));
         
         supportedOptions = pmf.supportedOptions();
@@ -269,6 +295,7 @@ public class GetProperties extends JDO_Test implements Constants {
         }
 
         supportedProperties = pm.getSupportedProperties();
+        errorIfEqual(ASSERTION_FAILED_12_19_7, null, supportedProperties);
         for (String supportedProperty: supportedProperties) {
             System.out.println("supportedProperties returned: " + supportedProperty);
         }
@@ -296,8 +323,8 @@ public class GetProperties extends JDO_Test implements Constants {
 
         try {
             testIllegalArgument.test(pm, supportedProperties);
-            appendMessage("setProperty(PROPERTY_IGNORE_CACHE, 1) failed: " +
-                    "Illegal argument failed to throw an exception.");
+            appendMessage(ASSERTION_FAILED_12_19_2 + "setProperty(PROPERTY_IGNORE_CACHE, 1) failed: " +
+                    "Illegal argument PROPERTY_IGNORE_CACHE failed to throw an exception.");
         } catch (Throwable t) {
             // good catch
         }
@@ -306,8 +333,14 @@ public class GetProperties extends JDO_Test implements Constants {
             // unknown property should be ignored
             pm.setProperty("com.mystery.property", true);
         } catch (Throwable t) {
-           appendMessage("Unknown property threw an exception.");
+           appendMessage(ASSERTION_FAILED_12_19_1 + "Property com.mystery.property threw an exception.");
         }
+
+        // changing a property of the returned set of property values must not change the underlying property value
+        pm.setProperty(PROPERTY_COPY_ON_ATTACH, true);
+        Map<String, Object> props = pm.getProperties();
+        props.put(PROPERTY_COPY_ON_ATTACH, false);
+        errorIfNotEqual(ASSERTION_FAILED_12_19_6, true, pm.getCopyOnAttach());
 
         failOnError();
     }
