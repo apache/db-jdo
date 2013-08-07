@@ -6,7 +6,7 @@
   <groupId>org.apache</groupId>
   <artifactId>jdo</artifactId>
   <packaging>pom</packaging>
-  <version>3.1</version>
+  <version>3.1.SNAPSHOT</version>
   <name>JDO Root POM</name>
 
   <modules>
@@ -17,6 +17,13 @@
     <module>tck</module>
   </modules>
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://svn.apache.org/viewvc/db/jdo</url>
+  </scm>
+  
   <profiles>
     <profile>
       <id>apache-release</id>
