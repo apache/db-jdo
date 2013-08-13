@@ -106,7 +106,9 @@
 	  <include>README.html</include>
 	  <include>assembly.xml</include>
 	  <include>pom.xml</include>
-	  <include>lib/**</include>
+	  <include>lib/ext</include>
+	  <include>lib/iut</include>
+	  <include>lib/jdori</include>
 	</includes>
       </fileSet>
     </fileSets>
