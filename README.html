@@ -46,9 +46,11 @@ The JDO 3 project includes the following subprojects:
 </p>
 <UL>
     <LI>api contains source to build jdo-api-3.x.jar, which defines the JDO API version 3.x for Java 1.5 and later.</LI>
+    <LI>copyjdorijars contains source to build jdo-api-3.x.jar, which defines the JDO API version 3.x for Java 1.5 and later.</LI>
     <LI>exectck contains source to build the maven plugin to run the TCK the Reference Implementation (RI)
     or an implementation under test (IUT) </LI>
     <LI>tck contains the JDO 3.x Technology Compatibility Kit for Java 1.5 and later.</LI>
+    <LI>parent-pom contains the maven pom.xml that ties the projects together.</LI>
 </UL>
 <p>
 JDO releases may be downloaded from <a href="http://db.apache.org/jdo/downloads.html">the Apache JDO downloads page</a>.
@@ -89,7 +91,7 @@ system property by adding -Duser.home=%HOME% to the environment variable
 MAVEN_OPTS.
 </p>
 <a name="jndi"></a>
-<h3>JNDI implementation (fscontext.jar and providerutil.jar)</h3>
+<h3>JNDI Implementation (fscontext.jar and providerutil.jar)</h3>
 <p>
 The JNDI test cases in tck need a JNDI implementation.
 The TCK is configured to use Sun's JNDI implementation.
@@ -103,7 +105,7 @@ the downloaded zip into <i>tck/lib/ext</i>. It includes the jars fscontext.jar a
 </p>
 
 <a name="building"></a>
-<h2>Building from top level tck project</h2>
+<h2>Building from Top Level TCK Project</h2>
 For instructions for checking out the JDO source, see the Apache JDO 
 <a href="http://db.apache.org/jdo/svn.html">source code</a> page.
 
@@ -117,37 +119,23 @@ This will build the artifacts <i>jdo-api</i> and <i>jdo-exectck</i> and will run
 <p>
 To build the API, change to the "api" directory of the branch you are working in (or trunk) and run
 <pre>mvn clean install</pre>
-This will build the <i>jdo-api</i> artifact and install it in your local Maven2 repository.
+This will build the <i>jdo-api</i> artifact and install it in your local Maven2 repository and
+run the TCK on the Reference Implementation.
 </p>
 
 <a name="tck"></a>
-<h2>Running the TCK</h2>
+<h2>Running the TCK on an Implementation Under Test</h2>
 <p>
-To run the JDO TCK on the Reference Implementation, copy the following files to the top-level
-lib/jdori directory. Copy log4j.properties from tck/src/conf. The others may be downloaded from the maven repository.
-<DL>
-	<DT>asm-3.0.jar</DT>
-	<DT>c3p0-0.9.0.2.jar</DT>
-	<DT>datanucleus-api-jdo-3.0.7.jar</DT>
-	<DT>datanucleus-api-jpa-3.0.8.jar</DT>
-	<DT>datanucleus-core-3.0.9.jar</DT>
-	<DT>datanucleus-enhancer-3.0.1.jar</DT>
-	<DT>datanucleus-rdbms-3.0.8.jar</DT>
-	<DT>log4j-1.2.13.jar</DT>
-	<DT>log4j.properties</DT>
-</DL>
+First build the from the top level TCK project as described above.
 To run the JDO TCK on an Implementation Under Test, copy the jars needed by the implementation
-to the top-level lib/jdori directory, as well as log4j.properties and log4j-1.2.13.jar.
-<DL>
-<p>
-Then change to the "exectck" directory of the branch you are working in (or trunk) and run
-<pre>mvn clean install</pre> This builds and installs the "jdo-exectck" Maven plugin in your
-local Maven2 repository.
+to the top-level lib/iut directory, as well as log4j.properties and log4j-1.2.13.jar.
+The log4j jar file may be copied from lib/jdori.
 </p>
 <p>
 Change to the "tck" directory of the branch you are working in (or trunk) and run
-<pre>mvn clean install</pre> and this will run the TCK (via the "jdo-exectck" plugin) on the JDO Reference Implementation on all 
-supported databases and identity types.
+<pre>mvn -Djdo.tck.impl="iut" clean install</pre> and this will run the TCK
+(via the "jdo-exectck" plugin) on the Implementation Under Test
+on all supported databases and identity types.
 </p>
 <p>
 The "jdo-exectck" plugin has various options so you can run other implementations or
