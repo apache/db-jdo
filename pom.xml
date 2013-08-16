@@ -17,6 +17,14 @@
     <module>tck</module>
   </modules>
 
+  <parent>
+    <groupId>org.apache.jdo</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>3.1-SNAPSHOT</version>
+    <relativePath>parent-pom</relativePath>
+  </parent>
+  
+
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</developerConnection>
