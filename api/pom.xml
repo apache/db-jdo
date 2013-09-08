@@ -16,14 +16,12 @@
     limitations under the License.
 -->
 
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1-rc1</version>
     <relativePath>../parent-pom</relativePath>
   </parent>
 
@@ -31,14 +29,14 @@
   <groupId>javax.jdo</groupId>
   <artifactId>jdo-api</artifactId>
   <name>JDO API</name>
-  <version>3.1-SNAPSHOT</version>
+  <version>3.1-rc1</version>
   <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/tags/3.1-rc1/3.1-rc1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/tags/3.1-rc1/3.1-rc1</developerConnection>
     <tag>HEAD</tag>
-    <url>http://svn.apache.org/viewvc/db/jdo</url>
+    <url>http://svn.apache.org/viewvc/db/jdo/tags/3.1-rc1/jdo</url>
   </scm>
 
   <build>
