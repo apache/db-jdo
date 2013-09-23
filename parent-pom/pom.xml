@@ -11,7 +11,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.jdo</groupId>
   <artifactId>parent-pom</artifactId>
-  <version>3.1-rc1</version>
+  <version>3.1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>JDO PARENT</name>
   <description>The Java Data Objects (JDO) API is a standard interface-based 
@@ -21,21 +21,21 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
   <inceptionYear>2005</inceptionYear>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1-rc1/3.1-rc1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1-rc1/3.1-rc1</developerConnection> <url>http://svn.apache.org/viewvc/db/jdo/tags/jdo-3.1-rc1/jdo</url> </scm> <organization> <name>Apache Software Foundation</name> <url>http://www.apache.org</url> </organization> <dependencyManagement> <dependencies> <dependency>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1-rc1</developerConnection> <url>http://svn.apache.org/viewvc/db/jdo</url> </scm> <organization> <name>Apache Software Foundation</name> <url>http://www.apache.org</url> </organization> <dependencyManagement> <dependencies> <dependency>
         <groupId>javax.jdo</groupId>
         <artifactId>jdo-api</artifactId>
-        <version>3.1-rc1</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-exectck</artifactId>
-        <version>3.1-rc1</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-tck</artifactId>
-        <version>3.1-rc1</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
      <dependency>
         <groupId>org.apache.maven</groupId>
