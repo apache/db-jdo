@@ -86,22 +86,22 @@
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-core</artifactId>
-      <version>3.2.5</version>
+      <version>3.2.11</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-rdbms</artifactId>
-      <version>3.2.4</version>
+      <version>3.2.10</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jdo</artifactId>
-      <version>3.2.4</version>
+      <version>3.2.7</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jpa</artifactId>
-      <version>3.2.4</version>
+      <version>3.3.5</version>
     </dependency>
     <dependency>
       <groupId>c3p0</groupId>
@@ -119,6 +119,12 @@
     <repository>
       <id>DataNucleus Nightly</id>
       <url>http://www.datanucleus.org/downloads/maven2-nightly</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
 
