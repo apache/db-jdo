@@ -51,4 +51,9 @@ public @interface PrimaryKey
      * @return the column(s) for the primary key
      */
     Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }

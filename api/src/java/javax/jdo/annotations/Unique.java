@@ -60,4 +60,9 @@ public @interface Unique
      * @return columns that compose this unique constraint
      */
     Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }

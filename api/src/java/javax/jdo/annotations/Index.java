@@ -58,4 +58,9 @@ public @interface Index
      * @return columns that compose this index
      */
     Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }

@@ -73,4 +73,9 @@ public @interface ForeignKey
      * @return the columns that compose this foreign key
      */
     Column[] columns() default {};
+
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }
