@@ -1318,6 +1318,7 @@ public annotation javax.jdo.annotations.ForeignKey extends java.lang.annotation.
     enum javax.jdo.annotations.ForeignKeyAction updateAction() default javax.jdo.annotations.ForeignKeyAction.RESTRICT;
     String[] members() default {};
     javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
 }
 
 public final enum javax.jdo.annotations.ForeignKeyAction extends java.lang.Enum
@@ -1367,6 +1368,7 @@ public annotation javax.jdo.annotations.Index extends java.lang.annotation.Annot
     String unique() default "";
     String[] members() default {};
     javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
 }
 
 public annotation javax.jdo.annotations.Indices extends java.lang.annotation.Annotation
@@ -1527,6 +1529,7 @@ public annotation javax.jdo.annotations.PrimaryKey extends java.lang.annotation.
     String name() default "";
     String column() default "";
     javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
 }
 
 public annotation javax.jdo.annotations.Queries extends java.lang.annotation.Annotation
@@ -1581,6 +1584,7 @@ public annotation javax.jdo.annotations.Unique extends java.lang.annotation.Anno
     String deferred() default "";
     String[] members() default {};
     javax.jdo.annotations.Column[] columns() default {};
+    javax.jdo.annotations.Extension[] extensions() default {};
 }
 
 public annotation javax.jdo.annotations.Uniques extends java.lang.annotation.Annotation
