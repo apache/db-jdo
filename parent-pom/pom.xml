@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>10</version>
+    <version>11</version>
     <relativePath></relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>javax.jdo</groupId>
+  <groupId>org.apache.jdo</groupId>
   <artifactId>parent-pom</artifactId>
   <version>3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -20,6 +19,12 @@ Java model abstraction of persistence, developed as Java Specification
 Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
   <url>http://db.apache.org/jdo</url>
   <inceptionYear>2005</inceptionYear>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/db/jdo</url> 
+  </scm>
 
   <organization>
     <name>Apache Software Foundation</name>
@@ -34,12 +39,12 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         <version>3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>javax.jdo</groupId>
+        <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-exectck</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
-        <groupId>javax.jdo</groupId>
+        <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-tck</artifactId>
         <version>3.1-SNAPSHOT</version>
       </dependency>
@@ -194,12 +199,6 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
     </developer>
   </developers>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/</url>
-  </scm>
-
   <build>
     <plugins>
       <plugin>
@@ -238,6 +237,14 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
           <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
         </configuration>
       </plugin>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+       </plugin>
     </plugins>
   </reporting>
 </project>

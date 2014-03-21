@@ -18,7 +18,7 @@
 <HTML>
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-	<TITLE>JDO 3.0 Technology Compatibility Kit Run Rules</TITLE>
+	<TITLE>JDO 3.1 Technology Compatibility Kit Run Rules</TITLE>
 	<STYLE>
 	<!--
 		@page { size: 8.5in 11in }
@@ -26,7 +26,7 @@
 	</STYLE>
 </HEAD>
 <BODY LANG="en-US" DIR="LTR">
-<H1 ALIGN=CENTER>Running the JDO 3.0 Technology Compatibility Kit</H1>
+<H1 ALIGN=CENTER>Running the JDO 3.1 Technology Compatibility Kit</H1>
 <P ALIGN=CENTER><BR><BR>
 </P>
 <P ALIGN=CENTER>24-May-2010</P>
@@ -52,47 +52,36 @@ This includes different hardware and operating systems, different
 versions of Java, and different datastores. The TCK supports Java
 versions 1.5 to 1.6. </P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Installation</FONT></FONT></P>
-<P>Download the zip file from the distribution location.  Unpack the zip
-file into a directory of your choice. In this directory you will
-find: 
+<P>Download the jdo.3.x-src.zip or jdo.3.x-src.gz file from the distribution location.  Unpack the archive file into a directory of your choice.
+Follow the instructions in the root level README.html file for building and running the JDO TCK.
+Please take note of the following files:
 </P>
 <UL>
 	<UL>
-		<LI><P>README.html 
 		</P>
 		<LI><P>Maven configuration file "pom.xml"
-		(common project definition for all Apache JDO projects including
-		the TCK). This file must not be changed.</P>
-		<LI><P ALIGN=LEFT STYLE="margin-bottom: 0.2in">lib - this directory
-		contains a directory ext that should contain jar files<FONT FACE="Times New Roman, serif">
-		<FONT COLOR="#000000">fscontext.jar and providerutil.jar </FONT>us</FONT>ed
-		by the JNDI tests. <FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">The
-		jar files can be found at
-		</FONT></FONT><A HREF="http://java.sun.com/products/jndi/downloads/index.html"><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">http://java.sun.com/products/jndi/downloads/index.html</FONT></FONT></A><FONT FACE="Times New Roman, serif"><FONT COLOR="#000000">.
-		Choose &quot;File System Service Provider, 1.2 Beta 3&quot; from
-		the &quot;Download JNDI 1.2.1 &amp; More&quot; page. Unzip the
-		archive and install them into the lib/ext directory. It is
-		permitted to use a different JNDI implementation; see the
-		README.txt for information on how to configure a different JNDI
-		implementation.</FONT></FONT></P>
-		<LI><P>the TCK directory, which has a release-specific name (e.g.
-		jdo-tck-3.1) and contains:</P>
+		in the top level directory and subprojects.
+		These files must not be changed.</P>
+		<LI><P ALIGN=LEFT STYLE="margin-bottom: 0.2in">lib/ext - 
+		Copy the jar files fscontext.jar and providerutil.jar used by the JNDI tests
+		into this directory. 
+		It is permitted to use a different JNDI implementation; see
+		README.html for more information.
+		</P>
+		<LI><P>lib/iut - this directory is where the JDO implementation
+		jars are installed. It is empty in the distribution. To use the
+		maven target runtck (required for an implementation to prove
+		compliance), copy the JDO implementation jar files into this
+		directory. Alternatively, update the build.properties file in the
+		TCK directory to refer to an existing location of the IUT jar
+		files.</P>
+		<LI><P>the TCK directory, which contains:</P>
 		<UL>
-			<LI><P>pom.xml - the Maven definition of the project.
-			This file must not be modified.</P>
-			<LI><P>this RunRules.html</P>
 			<LI><P>assertions - contains the assertions file identifying the
 			assertions tested by the tests. This is for reference.</P>
 			<LI><P>target - this directory contains artifacts of compiling and
 			running the tests. It does not exist in the distribution and will
 			be created by the maven build process.</P>
-			<LI><P>iut_jars - this directory is where the JDO implementation
-			jars are installed. It is empty in the distribution. To use the
-			maven target runtck (required for an implementation to prove
-			compliance), copy the JDO implementation jar files into this
-			directory. Alternatively, update the build.properties file in the
-			TCK directory to refer to an existing location of the IUT jar
-			files.</P>
 			<LI><P>src - this directory contains the test configuration files
 			and directories:</P>
 			<UL>
@@ -128,7 +117,7 @@ find:
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Modifying
 the Configuration</FONT></FONT></P>
 <P>The Implementation Under Test (IUT) can be installed into the
-iut_jars directory in the TCK directory. Any .jar files in this
+lib/iut directory. Any jar files in this
 directory are added to the class path used to run the tests.</P>
 <P>There are properties in the build.properties file in the TCK
 directory that must be changed to configure the IUT execution and
@@ -149,15 +138,10 @@ directory in order to provide DDL for additional databases supported
 by the JDO implementation under test.</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Running
 the Tests</FONT></FONT></P>
-<P>From the installation directory, change to the TCK directory. From
-the TCK directory, call &quot;mvn clean install&quot; which will build the
-jar files used in the tests, create the Derby database, install the
-schema into the Derby database, and run the TCK on the Reference
-Implementation. Success indicates that the TCK was installed
-correctly.</P>
-<P>Then call &quot;mvn clean -Djdo.tck.impl="iut"&quot; to run the tests on the
-Implementation Under Test. This will produce console output plus a
-directory in the TCK/target/logs directory whose name contains the
+<P>Follow the instructions in README.html for running the TCK on the JDO Reference Implementation
+and the Implementation Under Test.
+This will produce console output plus a
+directory in the tck/target/logs directory whose name contains the
 date/time the tests were started. This directory contains the output
 of the tests. This is the directory to be published.</P>
 <P>Some of the TCK tests require the implementation to support up to
