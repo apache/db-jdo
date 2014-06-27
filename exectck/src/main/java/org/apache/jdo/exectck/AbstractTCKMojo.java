@@ -31,7 +31,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
 	/**
      * Location of TCK generated output.
-     * @parameter expression="${project.build.directory}"
+     * @parameter property="project.build.directory"
      *      default-value="${basedir}/target"
      * @required
      */
@@ -39,7 +39,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
     /**
      * Location of the logs directory.
-     * @parameter expression="${project.log.directory}"
+     * @parameter property="project.log.directory"
      *      default-value="${project.build.directory}/logs"
      * @required
      */
@@ -47,7 +47,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
     /**
      * Location of the configuration directory.
-     * @parameter expression="${project.conf.directory}"
+     * @parameter property="project.conf.directory"
      *      default-value="${basedir}/src/conf"
      * @required
      */
@@ -55,7 +55,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
     /**
      * Location of the configuration directory.
-     * @parameter expression="${project.sql.directory}"
+     * @parameter property="project.sql.directory"
      *      default-value="${basedir}/src/sql"
      * @required
      */
@@ -73,7 +73,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
     /**
      * List of configuration files, each describing a test configuration.
      * Allows command line override of configured cfgs value.
-     * @parameter expression="${jdo.tck.cfglist}"
+     * @parameter property="jdo.tck.cfglist"
      * @optional
      */
     protected String cfgList;
@@ -81,7 +81,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
     /**
      * List of databases to run tests under.
      * Currently only derby is supported.
-     * @parameter expression="${jdo.tck.dblist}"
+     * @parameter property="jdo.tck.dblist"
      *      default-value="derby"
      * @required
      */
@@ -91,7 +91,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
     /**
      * List of identity types to be tested.
-     * @parameter expression="${jdo.tck.identitytypes}"
+     * @parameter property="jdo.tck.identitytypes"
      *      default-value="applicationidentity datastoreidentity"
      * @required
      */

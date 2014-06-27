@@ -46,7 +46,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * To skip running of TCK, set to false.
-     * @parameter expression="${jdo.tck.doRunTCK}"
+     * @parameter property="jdo.tck.doRunTCK"
      *      default-value=true
      * @required
      */
@@ -54,7 +54,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * To run the RunTCK plugin goal in verbose mode.
-     * @parameter expression="${jdo.tck.runTCKVerbose}"
+     * @parameter property="jdo.tck.runTCKVerbose"
      *      default-value=false
      * @required
      */
@@ -62,7 +62,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Run the TCK in a debugger.
-     * @parameter expression="${jdo.tck.debugTCK}"
+     * @parameter property="jdo.tck.debugTCK"
      *      default-value=false
      * @required
      */
@@ -71,7 +71,7 @@ public class RunTCK extends AbstractTCKMojo {
     /**
      * Implementation to be tested (jdori or iut).
      * Any value other than "jdori" will test an appropriately configured IUT
-     * @parameter expression="${jdo.tck.impl}"
+     * @parameter property="jdo.tck.impl"
      *      default-value="jdori"
      * @required
      */
@@ -79,7 +79,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Location of third party libraries such as JNDI.
-     * @parameter expression="${project.lib.ext.directory}"
+     * @parameter property="project.lib.ext.directory"
      *      default-value="${basedir}/../lib/ext"
      * @required
      */
@@ -87,7 +87,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Location of implementation log file.
-     * @parameter expression="${jdo.tck.impl.logfile}"
+     * @parameter property="jdo.tck.impl.logfile"
      *      default-value="${user.dir}/datanucleus.txt"
      * @required
      */
@@ -95,21 +95,21 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Location of jar files for implementation under test.
-     * @parameter expression="${project.lib.iut.directory}"
+     * @parameter property="project.lib.iut.directory"
      *      default-value="${basedir}/../lib/iut"
      * @required
      */
     private String iutLibsDirectory;
     /**
      * Location of jar files for implementation under test.
-     * @parameter expression="${project.lib.iut.directory}"
+     * @parameter property="project.lib.iut.directory"
      *      default-value="${basedir}/../lib/jdori"
      * @required
      */
     private String jdoriLibsDirectory;
     /**
      * Name of file in src/conf containing pmf properties.
-     * @parameter expression="${jdo.tck.pmfproperties}"
+     * @parameter property="jdo.tck.pmfproperties"
      *      default-value="jdori-pmf.properties"
      * @optional
      */
@@ -118,7 +118,7 @@ public class RunTCK extends AbstractTCKMojo {
     /**
      * Name of file in src/conf containing property jdo.tck.exclude,
      *   whose value is a list of files to be excluded from testing.
-     * @parameter expression="${jdo.tck.excludefile}"
+     * @parameter property="jdo.tck.excludefile"
      *      default-value="exclude.list"
      * @required
      */
@@ -126,35 +126,35 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Run the TCK tests in verbose mode.
-     * @parameter expression="${jdo.tck.verbose}
+     * @parameter property="jdo.tck.verbose"
      *      default-value="false"
      * @optional
      */
     private String verbose;
     /**
      * To retain test output for debugging, set to false.
-     * @parameter expression="${jdo.tck.cleanupaftertest}
+     * @parameter property="jdo.tck.cleanupaftertest"
      *      default-value="true"
      * @optional
      */
     private String cleanupaftertest;
     /**
      * Properties to use in accessing database.
-     * @parameter expression="${database.runtck.sysproperties}"
+     * @parameter property="database.runtck.sysproperties"
      *      default-value="-Dderby.system.home=${basedir}/target/database/derby"
      * @optional
      */
     private String dbproperties;    // NOTE: only allows for one db
     /**
      * Properties to use in accessing database.
-     * @parameter expression="${jdo.tck.signaturefile}"
+     * @parameter property="jdo.tck.signaturefile"
      *      default-value="${basedir}/src/conf/jdo-3_1-signatures.txt"
      * @optional
      */
     private String signaturefile;
     /**
      * JVM properties.
-     * @parameter expression="${jdo.tck.jvmproperties}"
+     * @parameter property="jdo.tck.jvmproperties"
      *      default-value="-Xmx512m"
      * @optional
      */
@@ -162,7 +162,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * User-supplied arguments for debug directives.
-     * @parameter expression="${jdo.tck.debug.jvmargs}"
+     * @parameter property="jdo.tck.debug.jvmargs"
      *      default-value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
      * @optional
      */
@@ -170,7 +170,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Class used to run a batch of tests.
-     * @parameter expression="${jdo.tck.testrunnerclass}"
+     * @parameter property="jdo.tck.testrunnerclass"
      *      default-value="org.apache.jdo.tck.util.BatchTestRunner"
      * @required
      */
@@ -178,7 +178,7 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * Class used to output test result and configuration information.
-     * @parameter expression="${jdo.tck.resultprinterclass}"
+     * @parameter property="jdo.tck.resultprinterclass"
      *      default-value="org.apache.jdo.tck.util.BatchResultPrinter"
      * @required
      */

@@ -35,28 +35,28 @@ public class Enhance extends AbstractMojo {
     };
     /**
      * Location of TCK generated output.
-     * @parameter expression="${jdo.tck.doEnhance}"
+     * @parameter property="jdo.tck.doEnhance"
      *      default-value="true"
      * @required
      */
     private boolean doEnhance;
     /**
      * Root of the TCK source installation.
-     * @parameter expression="${project.src.directory}"
+     * @parameter property="project.src.directory"
      *      default-value="${basedir}/src"
      * @required
      */
     private String srcDirectory;
     /**
      * Location of the logs directory.
-     * @parameter expression="${project.log.directory}"
+     * @parameter property="project.log.directory"
      *      default-value="${project.build.directory}/logs"
      * @required
      */
     private File logsDirectory;
     /**
      * Location of TCK generated output.
-     * @parameter expression="${project.build.directory}"
+     * @parameter property="project.build.directory"
      *      default-value="${basedir}/target"
      * @required
      */
@@ -64,35 +64,35 @@ public class Enhance extends AbstractMojo {
     /**
      * Implementation to be tested (jdori or iut).
      * Any value other than "jdori" will test an appropriately configured IUT
-     * @parameter expression="${jdo.tck.impl}"
+     * @parameter property="jdo.tck.impl"
      *      default-value="jdori"
      * @required
      */
     private String impl;
         /**
      * Location of implementation log file.
-     * @parameter expression="${jdo.tck.impl.logfile}"
+     * @parameter property="jdo.tck.impl.logfile"
      *      default-value="${user.dir}/datanucleus.txt"
      * @required
      */
     private String implLogFile;
     /**
      * Location of jar files for implementation under test.
-     * @parameter expression="${project.lib.iut.directory}"
+     * @parameter property="project.lib.iut.directory"
      *      default-value="${basedir}/../lib/iut"
      * @required
      */
     private String iutLibsDirectory;
     /**
      * Location of jar files for implementation under test.
-     * @parameter expression="${project.lib.iut.directory}"
+     * @parameter property="project.lib.iut.directory"
      *      default-value="${basedir}/../lib/jdori"
      * @required
      */
     private String jdoriLibsDirectory;
     /**
      * List of identity types to be tested.
-     * @parameter expression="${jdo.tck.identitytypes}"
+     * @parameter property="jdo.tck.identitytypes"
      *      default-value="applicationidentity datastoreidentity"
      * @required
      */

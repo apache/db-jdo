@@ -34,7 +34,7 @@ public class InstallSchema extends AbstractTCKMojo {
 
     /**
      * Location of TCK generated output.
-     * @parameter expression="${jdo.tck.doInstallSchema}"
+     * @parameter property="jdo.tck.doInstallSchema"
      *      default-value="true"
      * @required
      */
