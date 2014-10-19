@@ -161,7 +161,7 @@ public class DefaultUnique extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       null,
+        /*WHERE*/       "employee != null",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -175,7 +175,7 @@ public class DefaultUnique extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       null,
+        /*WHERE*/       "employee != null",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -189,7 +189,7 @@ public class DefaultUnique extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       null,
+        /*WHERE*/       "employee != null",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -203,7 +203,7 @@ public class DefaultUnique extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       null,
+        /*WHERE*/       "employee != null",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -221,16 +221,16 @@ public class DefaultUnique extends QueryTest {
                 "emp1", "emp2", "emp3", "emp4", "emp5"}),
         // results for aggregate queries
         new Long(5),
-        new Double("99.999"),
+        new Double("99.997"),
         new BigDecimal("2000.99"),
         new BigDecimal("2500000.99"),
         new BigDecimal("2552001.98"),
         // results for aggregate queries with grouping
         Arrays.asList(new Object[]{new Long(3), new Long(2)}),
-        Arrays.asList(new Object[]{new Double("99.999"), new Double("99.999")}),
-        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
-        Arrays.asList(new Object[]{new BigDecimal("99.999"), new BigDecimal("99.999")}),
-        Arrays.asList(new Object[]{new BigDecimal("299.997"), new BigDecimal("199.998")})
+        Arrays.asList(new Object[]{new Double("99.996"), new Double("99.9985")}),
+        Arrays.asList(new Object[]{new BigDecimal("99.995"), new BigDecimal("99.998")}),
+        Arrays.asList(new Object[]{new BigDecimal("99.997"), new BigDecimal("99.999")}),
+        Arrays.asList(new Object[]{new BigDecimal("299.988"), new BigDecimal("199.997")})
     };
             
     /**

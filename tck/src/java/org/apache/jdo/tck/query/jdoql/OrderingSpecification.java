@@ -27,8 +27,11 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
+import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -58,6 +61,55 @@ public class OrderingSpecification extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.6-1 (OrderingSpecification) failed: ";
     
+    /** 
+     * The array of valid queries which may be executed as 
+     * single string queries and as API queries.
+     */
+    private static final QueryElementHolder[] VALID_QUERIES = {
+        // nulls first
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls first",
+        /*FROM*/        null,
+        /*TO*/          null),
+        // nulls last
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls last",
+        /*FROM*/        null,
+        /*TO*/          null)
+    };
+    
+    /** 
+     * The expected results of valid queries.
+     */
+    private Object[] expectedResult = {
+        // nulls first
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5"}),
+        // nulls last
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99"})
+    };
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -65,6 +117,14 @@ public class OrderingSpecification extends QueryTest {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(OrderingSpecification.class);
+    }
+
+    /** */
+    public void testPositiveCompanyQueries() {
+        for (int i = 0; i < VALID_QUERIES.length; i++) {
+            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
+            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
+        }
     }
 
     /** */
@@ -194,5 +254,7 @@ public class OrderingSpecification extends QueryTest {
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         loadAndPersistPCPoints(getPM());
+        addTearDownClass(CompanyModelReader.getTearDownClasses());
+        loadAndPersistCompanyModel(getPM());
     }
 }

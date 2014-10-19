@@ -24,6 +24,7 @@
         <constructor-arg index="0">
             <list>
                 <ref local="company1"/>
+                <ref local="dentalIns99"/>
             </list>
         </constructor-arg>
     </bean>
@@ -346,28 +347,28 @@
     <bean id="dentalIns1" factory-bean="companyFactory" factory-method="newDentalInsurance">
         <constructor-arg index="0" type="long"><value>11</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Carrier1</value></constructor-arg>
-        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.995</value></constructor-arg>
         <property name="employee"><ref bean="emp1"/></property>
     </bean>
 
     <bean id="dentalIns2" factory-bean="companyFactory" factory-method="newDentalInsurance">
         <constructor-arg index="0" type="long"><value>12</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Carrier2</value></constructor-arg>
-        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.996</value></constructor-arg>
         <property name="employee"><ref bean="emp2"/></property>
     </bean>
 
     <bean id="dentalIns3" factory-bean="companyFactory" factory-method="newDentalInsurance">
         <constructor-arg index="0" type="long"><value>13</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Carrier3</value></constructor-arg>
-        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.997</value></constructor-arg>
         <property name="employee"><ref bean="emp3"/></property>
     </bean>
 
     <bean id="dentalIns4" factory-bean="companyFactory" factory-method="newDentalInsurance">
         <constructor-arg index="0" type="long"><value>14</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Carrier4</value></constructor-arg>
-        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><value>99.998</value></constructor-arg>
         <property name="employee"><ref bean="emp4"/></property>
     </bean>
 
@@ -376,6 +377,12 @@
         <constructor-arg index="1" type="java.lang.String"><value>Carrier5</value></constructor-arg>
         <constructor-arg index="2" type="java.math.BigDecimal"><value>99.999</value></constructor-arg>
         <property name="employee"><ref bean="emp5"/></property>
+    </bean>
+
+    <bean id="dentalIns99" factory-bean="companyFactory" factory-method="newDentalInsurance">
+        <constructor-arg index="0" type="long"><value>99</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Carrier99</value></constructor-arg>
+        <constructor-arg index="2" type="java.math.BigDecimal"><null/></constructor-arg>
     </bean>
 
     <bean id="proj1" factory-bean="companyFactory" factory-method="newProject">

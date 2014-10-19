@@ -97,13 +97,13 @@ public class DeletePersistentAll extends QueryTest {
     /** */
     public void testNoParametersAPI() {
         deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[0], null, 10);
+                VALID_QUERIES[0], null, 11);
     }
     
     /** */
     public void testNoParametersSingleString() {
         deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[0], null, 10);
+                VALID_QUERIES[0], null, 11);
     }
     
     /** */
