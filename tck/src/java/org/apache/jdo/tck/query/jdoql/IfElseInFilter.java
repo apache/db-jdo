@@ -57,7 +57,7 @@ public class IfElseInFilter extends QueryTest {
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
-        /*ORDER BY*/    "this.empid",
+        /*ORDER BY*/    "this.personid",
         /*FROM*/        null,
         /*TO*/          null),
         new QueryElementHolder(
@@ -71,7 +71,7 @@ public class IfElseInFilter extends QueryTest {
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
         /*GROUP BY*/    null,
-        /*ORDER BY*/    "this.empid",
+        /*ORDER BY*/    "this.personid",
         /*FROM*/        null,
         /*TO*/          null)
     };
