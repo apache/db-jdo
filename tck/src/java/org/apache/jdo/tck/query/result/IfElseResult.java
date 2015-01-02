@@ -113,10 +113,25 @@ public class IfElseResult extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
-        //  
+        // missing ELSE  
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "IF (this.employee == null) 0",
+        /*INTO*/        null, 
+        /*FROM*/        DentalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       null,
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // type of THEN expr must be the same as type of ELSE expr
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      "IF (this.employee == null) 'Michael' ELSE this.employee",
         /*INTO*/        null, 
         /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,

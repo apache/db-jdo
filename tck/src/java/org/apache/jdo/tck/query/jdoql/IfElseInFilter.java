@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -64,9 +65,9 @@ public class IfElseInFilter extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
+        /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "IF (this.department.name == 'Development') this.salary > 15000 ELSE this.salary > 25000",
+        /*WHERE*/       "(IF (this.manager == null) this.mentor.department ELSE this.manager.department) == this.department",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -96,14 +97,29 @@ public class IfElseInFilter extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
-        //  
+        // missing ELSE
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "IF (this.department.name == 'Development') this.salary > 15000",
+        /*WHERE*/       "IF (this.department.name == 'Development') 15000",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // type of THEN expr must be the same as type of ELSE expr
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "IF (this.department == null) 'Michael' ELSE this.department",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -117,7 +133,8 @@ public class IfElseInFilter extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
     };
     
     /**
@@ -126,7 +143,7 @@ public class IfElseInFilter extends QueryTest {
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(DenoteUniquenessInFilter.class);
+        BatchTestRunner.run(IfElseInFilter.class);
     }
     
     /** */
