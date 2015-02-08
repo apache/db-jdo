@@ -101,7 +101,7 @@ public class IfElseResult extends QueryTest {
         // Invalid type of condition expression 
         new QueryElementHolder(
         /*UNIQUE*/      null,
-        /*RESULT*/      "IF (this.firstName) 0 ELSE 1",
+        /*RESULT*/      "IF (this.firstname) 0 ELSE 1",
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,

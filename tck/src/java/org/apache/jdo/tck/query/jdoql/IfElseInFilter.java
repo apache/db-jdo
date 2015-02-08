@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -67,7 +68,21 @@ public class IfElseInFilter extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "(IF (this.manager == null) this.mentor.department ELSE this.manager.department) == this.department",
+        /*WHERE*/       "(IF (this.manager == null) this.mentor.department.deptid ELSE this.manager.department.deptid) == this.department.deptid",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    "this.personid",
+        /*FROM*/        null,
+        /*TO*/          null),
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "(IF (this.salary < 10001.0) 1 ELSE IF (this.salary < 20001.0) 2 ELSE IF (this.salary < 30001.0) 3 ELSE 4) == 2",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -87,9 +102,9 @@ public class IfElseInFilter extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
+        /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "IF (this.department) 0 ELSE 1",
+        /*WHERE*/       "(IF (this.firstname) 0 ELSE 1) == 0",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -102,9 +117,9 @@ public class IfElseInFilter extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
+        /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "IF (this.department.name == 'Development') 15000",
+        /*WHERE*/       "(IF (this.employee == null) 15000) == 15000",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -117,9 +132,9 @@ public class IfElseInFilter extends QueryTest {
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
-        /*FROM*/        Employee.class,
+        /*FROM*/        DentalInsurance.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "IF (this.department == null) 'Michael' ELSE this.department",
+        /*WHERE*/       "(IF (this.employee == null) 'Michael' ELSE this.employee) == 'Michael'",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -134,7 +149,8 @@ public class IfElseInFilter extends QueryTest {
      */
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
     };
     
     /**
