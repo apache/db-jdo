@@ -47,7 +47,7 @@ public class IfElseInFilter extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] VALID_QUERIES = {
-        // 
+        // simple If/Else using literals
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
@@ -62,6 +62,7 @@ public class IfElseInFilter extends QueryTest {
         /*ORDER BY*/    "this.personid",
         /*FROM*/        null,
         /*TO*/          null),
+        // simple If/Else using relationships
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
@@ -76,13 +77,29 @@ public class IfElseInFilter extends QueryTest {
         /*ORDER BY*/    "this.personid",
         /*FROM*/        null,
         /*TO*/          null),
+        // multiple If/Else with distinct conditions
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "(IF (this.salary < 10001.0) 1 ELSE IF (this.salary < 20001.0) 2 ELSE IF (this.salary < 30001.0) 3 ELSE 4) == 2",
+        /*WHERE*/       "(IF (0.0 <= this.salary && this.salary < 10000.1) 1 ELSE IF (10000.1 <= this.salary && this.salary < 20000.1) 2 ELSE IF (20000.1 <= this.salary && this.salary < 30000.1) 3 ELSE 4) == 2",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    "this.personid",
+        /*FROM*/        null,
+        /*TO*/          null),
+        // multiple If/Else with overlapping conditions
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        FullTimeEmployee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "(IF (this.salary < 10000.1) 1 ELSE IF (this.salary < 20000.1) 2 ELSE IF (this.salary < 30000.1) 3 ELSE 4) == 2",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -150,6 +167,7 @@ public class IfElseInFilter extends QueryTest {
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"}),
+        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
     };
     
