@@ -45,6 +45,23 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
     <url>http://svn.apache.org/viewvc/db/jdo</url>
   </scm>
+
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>specification/**</exclude>
+                        <exclude>.svnignore</exclude>
+                        <exclude>assembly.xml</exclude>
+                        <exclude>tck.txt</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+  </build>
   
   <profiles>
     <profile>
@@ -55,11 +72,6 @@
           </modules>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.rat</groupId>
-            <artifactId>apache-rat-plugin</artifactId>
-            <version>0.11</version>
-          </plugin>
           <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>2.4</version>
