@@ -22,13 +22,13 @@
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
     <version>11</version>
-    <relativePath></relativePath>
+    <relativePath />
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.jdo</groupId>
   <artifactId>parent-pom</artifactId>
-  <version>3.1-SNAPSHOT</version>
+  <version>3.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>JDO PARENT</name>
   <description>The Java Data Objects (JDO) API is a standard interface-based 
