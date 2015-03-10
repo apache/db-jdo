@@ -1,7 +1,0 @@
-/**
- * Represents a field in a class.
- * @since 2.3
- */
-public interface FieldMetadata extends MemberMetadata {
-
-}
