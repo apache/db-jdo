@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.1</version>
+    <version>3.1.1-SNAPSHOT</version>
     <relativePath>../parent-pom</relativePath>
   </parent>
 
@@ -29,13 +29,13 @@
   <groupId>javax.jdo</groupId>
   <artifactId>jdo-api</artifactId>
   <name>JDO API</name>
-  <version>3.1</version>
+  <version>3.1.1-SNAPSHOT</version>
   <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo/tags/jdo-3.1/jdo</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/db/jdo</url>
   </scm>
 
   <build>
