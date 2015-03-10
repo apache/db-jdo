@@ -33,8 +33,8 @@
     <url>http://maven.apache.org</url>
 
    <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1</developerConnection>
     <url>http://svn.apache.org/viewvc/db/jdo</url>
   </scm>
 
