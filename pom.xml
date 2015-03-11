@@ -18,11 +18,18 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <parent>
+    <groupId>org.apache.jdo</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>3.1</version>
+    <relativePath>parent-pom</relativePath>
+  </parent>
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache</groupId>
   <artifactId>jdo</artifactId>
   <packaging>pom</packaging>
-  <version>3.1-SNAPSHOT</version>
+  <version>3.1</version>
   <name>JDO Root POM</name>
 
   <modules>
@@ -33,17 +40,10 @@
     <module>tck</module>
   </modules>
 
-  <parent>
-    <groupId>org.apache.jdo</groupId>
-    <artifactId>parent-pom</artifactId>
-    <version>3.1-SNAPSHOT</version>
-    <relativePath>parent-pom</relativePath>
-  </parent>
-  
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1</developerConnection>
+    <url>http://svn.apache.org/viewvc/db/jdo/tags/jdo-3.1</url>
   </scm>
 
   <build>
