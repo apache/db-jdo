@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1</version>
     <relativePath>parent-pom</relativePath>
   </parent>
   
@@ -29,7 +29,7 @@
   <groupId>org.apache</groupId>
   <artifactId>jdo</artifactId>
   <packaging>pom</packaging>
-  <version>3.1-SNAPSHOT</version>
+  <version>3.1</version>
   <name>JDO Root POM</name>
 
   <modules>
@@ -41,9 +41,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/branches/3.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/branches/3.1</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo/branches/3.1</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/tags/jdo-3.1</developerConnection>
+    <url>http://svn.apache.org/viewvc/db/jdo/tags/jdo-3.1</url>
   </scm>
 
   <build>
