@@ -18,6 +18,13 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <parent>
+    <groupId>org.apache.jdo</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>3.2-SNAPSHOT</version>
+    <relativePath>parent-pom</relativePath>
+  </parent>
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache</groupId>
   <artifactId>jdo</artifactId>
@@ -33,13 +40,6 @@
     <module>tck</module>
   </modules>
 
-  <parent>
-    <groupId>org.apache.jdo</groupId>
-    <artifactId>parent-pom</artifactId>
-    <version>3.2-SNAPSHOT</version>
-    <relativePath>parent-pom</relativePath>
-  </parent>
-  
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
