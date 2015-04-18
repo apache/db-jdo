@@ -1,0 +1,45 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- The DOCTYPE should be as follows for jdoquery documents.
+<!DOCTYPE jdoquery
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 3.2//EN"
+    "http://java.sun.com/dtd/jdoquery_3_2.dtd">
+-->
+<!ELEMENT jdoquery (extension*, (package|query)+, (extension)*)>
+
+<!ELEMENT package (extension*, (interface|class)+, (extension)*)>
+<!ATTLIST package name CDATA ''>
+
+<!ELEMENT interface (extension*, query+, extension*)>
+<!ATTLIST interface name CDATA #REQUIRED>
+
+<!ELEMENT class (extension*, query+, extension*)>
+<!ATTLIST class name CDATA #REQUIRED>
+
+<!ELEMENT query (#PCDATA|extension)*>
+<!ATTLIST query name CDATA #REQUIRED>
+<!ATTLIST query language CDATA #IMPLIED>
+<!ATTLIST query unmodifiable (true|false) 'false'>
+<!ATTLIST query unique (true|false) #IMPLIED>
+<!ATTLIST query result-class CDATA #IMPLIED>
+<!ATTLIST query datastore-read-timeout-millis CDATA #IMPLIED>
+<!ATTLIST query datastore-write-timeout-millis CDATA #IMPLIED>
+
+<!ELEMENT extension ANY>
+<!ATTLIST extension vendor-name CDATA #REQUIRED>
+<!ATTLIST extension key CDATA #IMPLIED>
+<!ATTLIST extension value CDATA #IMPLIED>
