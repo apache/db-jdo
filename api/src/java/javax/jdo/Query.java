@@ -795,4 +795,13 @@ public interface Query extends Serializable {
      * @since 3.0
      */
     Boolean getSerializeRead();
+
+    /**
+     * Save the query, as it is currently defined, as a named query under the specified name.
+     * If a named query already exists under this name (either defined in metadata, or previously saved)
+     * then it will be overwritten.
+     * @param name Name to save it under.
+     * @return This query
+     */
+    Query saveAsNamedQuery(String name);
 }
