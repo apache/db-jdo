@@ -19,17 +19,14 @@
  * DataStoreCache.java
  *
  */
- 
 package javax.jdo.datastore;
 
 import java.util.Collection;
 
-
 /** 
  * Many JDO implementations allow instances to be cached in a
  * second-level cache, and allow direct management of the cache by
- * knowledgeable applications. This interface standardizes this
- * behavior.
+ * knowledgeable applications. This interface standardizes this behavior.
  * @since 2.0
  * @version 2.0
  */
@@ -63,14 +60,6 @@ public interface DataStoreCache {
     /** Evict the parameter instances from the second-level cache.
      * @param pcClass the class of instances to evict
      * @param subclasses if true, evict instances of subclasses also
-     * @since 2.0
-     * @deprecated use evictAll (boolean subclasses, Class pcClass)
-     */
-    void evictAll (Class pcClass, boolean subclasses);
-
-    /** Evict the parameter instances from the second-level cache.
-     * @param pcClass the class of instances to evict
-     * @param subclasses if true, evict instances of subclasses also
      * @since 2.1
      */
     void evictAll (boolean subclasses, Class pcClass);
@@ -96,14 +85,6 @@ public interface DataStoreCache {
     /** Pin instances in the second-level cache.
      * @param pcClass the class of instances to pin
      * @param subclasses if true, pin instances of subclasses also
-     * @since 2.0
-     * @deprecated use pinAll (boolean subclasses, Class pcClass)
-     */
-    void pinAll (Class pcClass, boolean subclasses);
-
-    /** Pin instances in the second-level cache.
-     * @param pcClass the class of instances to pin
-     * @param subclasses if true, pin instances of subclasses also
      * @since 2.1
      */
     void pinAll (boolean subclasses, Class pcClass);
@@ -125,14 +106,6 @@ public interface DataStoreCache {
      * @since 2.0
      */
     void unpinAll(Object... oids);
-
-    /** Unpin instances from the second-level cache.
-     * @param pcClass the class of instances to unpin
-     * @param subclasses if true, unpin instances of subclasses also
-     * @since 2.0
-     * @deprecated use unpinAll(boolean subclasses, Class pcClass)
-     */
-    void unpinAll(Class pcClass, boolean subclasses);
     
     /** Unpin instances from the second-level cache.
      * @param pcClass the class of instances to unpin
@@ -164,9 +137,6 @@ public interface DataStoreCache {
         public void evictAll(Collection oids) {
         }
 
-        public void evictAll(Class pcClass, boolean subclasses) {
-        }
-
         public void evictAll(boolean subclasses, Class pcClass) {
         }
 
@@ -179,9 +149,6 @@ public interface DataStoreCache {
         public void pinAll(Collection oids) {
         }
 
-        public void pinAll(Class pcClass, boolean subclasses) {
-        }
-
         public void pinAll(boolean subclasses, Class pcClass) {
         }
 
@@ -192,9 +159,6 @@ public interface DataStoreCache {
         }
 
         public void unpinAll(Collection oids) {
-        }
-
-        public void unpinAll(Class pcClass, boolean subclasses) {
         }
 
         public void unpinAll(boolean subclasses, Class pcClass) {
