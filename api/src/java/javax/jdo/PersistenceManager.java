@@ -19,7 +19,6 @@
  * PersistenceManager.java
  *
  */
- 
 package javax.jdo;
 
 import java.util.Collection;
@@ -44,7 +43,7 @@ import javax.jdo.listener.InstanceLifecycleListener;
  * @version 2.1
  */
 
-public interface PersistenceManager {
+public interface PersistenceManager extends AutoCloseable {
     /** 
      * A <code>PersistenceManager</code> instance can be used until it is 
      * closed.

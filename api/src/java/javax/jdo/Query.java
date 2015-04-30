@@ -90,8 +90,7 @@ import java.util.Map;
  * for this execution, and are not remembered for future execution.
  * @version 2.1
  */
-
-public interface Query extends Serializable {
+public interface Query extends AutoCloseable, Serializable {
     
     /**
      * The string constant used as the first argument to 
