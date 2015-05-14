@@ -1,0 +1,20 @@
+<BODY>
+    Package providing expressions for building a typed JDOQL query.
+    Fields/Params/Vars of a persistable type are represented as <i>Expression</i>. 
+    All generated "Q" classes extend "PersistableExpression", and provide the fields/properties 
+    of the persistable class as Expression types.
+    Fields/Params/Vars of a container type are represented as <i>CollectionExpression</i>, <i>MapExpression</i>.
+    Fields/Params/Vars of other types, or literals are represented by
+    <ul>
+        <li>StringExpression</li>
+        <li>EnumExpression</li>
+        <li>NumericExpression</li>
+        <li>BooleanExpression</li>
+        <li>ByteExpression</li>
+        <li>CharacterExpression</li>
+        <li>DateExpression</li>
+        <li>DateTimeExpression</li>
+        <li>TimeExpression</li>
+        <li>ObjectExpression</li>
+    </ul>
+</BODY>
