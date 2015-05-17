@@ -50,12 +50,14 @@ public @interface Convert {
 
 	/**
 	 * Whether this conversion is enabled. True by default.
+	 * Setting this to false allows disabling conversion that was specified at PMF level.
 	 */
 	boolean enabled() default true;
 
 	/**
 	 * The name of the field or property to which this conversion applies.
-	 * Ignored if this annotation is on a field or property.
+	 * Ignored if this annotation is for a non-container member.
+	 * Specifying "key", "value" defines which part of a Map this applies to.
 	 */
 	String name() default "";
 }
