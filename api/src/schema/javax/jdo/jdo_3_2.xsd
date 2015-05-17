@@ -145,6 +145,14 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="disable-all-converters" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="property">
         <xs:complexType>
@@ -287,6 +295,15 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="class">
         <xs:complexType>
@@ -376,6 +393,14 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="serialize-read" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="disable-all-converters" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -728,6 +753,15 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="foreign-key">
         <xs:complexType>
@@ -948,6 +982,15 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="value">
         <xs:complexType>
@@ -1013,6 +1056,15 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="array">
         <xs:complexType>
@@ -1041,6 +1093,15 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="serialized-element">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1113,6 +1174,15 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
+        <xs:attribute name="converter"/>
+        <xs:attribute name="disable-converter" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="order">
         <xs:complexType>
