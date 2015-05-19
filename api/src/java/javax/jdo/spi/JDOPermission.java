@@ -75,10 +75,11 @@ package javax.jdo.spi;
  * @see javax.jdo.spi.PersistenceCapable
  * @version 1.0.2
  */
-public final
-class JDOPermission extends java.security.BasicPermission {
-    
-    /**
+public final class JDOPermission extends java.security.BasicPermission {
+
+	private static final long serialVersionUID = 3087132628681636890L;
+
+	/**
      * Constructs a <code>JDOPermission</code> with the specified name.
      *
      * @param name the name of the <code>JDOPermission</code>

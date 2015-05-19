@@ -76,7 +76,7 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
     
     public void testIllegalStringConstructor() {
         try {
-            LongIdentity c1 = new LongIdentity(Object.class, "b");
+            new LongIdentity(Object.class, "b");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -113,7 +113,7 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullShortParam() {
         try {
-            LongIdentity c1 = new LongIdentity(Object.class, (Long)null);
+            new LongIdentity(Object.class, (Long)null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -122,7 +122,7 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullStringParam() {
         try {
-            LongIdentity c1 = new LongIdentity(Object.class, (String)null);
+            new LongIdentity(Object.class, (String)null);
         } catch (JDONullIdentityException ex) {
             return;
         }

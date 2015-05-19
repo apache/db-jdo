@@ -75,7 +75,7 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
     
     public void testStringConstructorTooLong() {
         try {
-            CharIdentity c1 = new CharIdentity(Object.class, "ab");
+            new CharIdentity(Object.class, "ab");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -84,7 +84,7 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
     
     public void testStringConstructorTooShort() {
         try {
-            CharIdentity c1 = new CharIdentity(Object.class, "");
+            new CharIdentity(Object.class, "");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -120,7 +120,7 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullCharacterParam() {
         try {
-            CharIdentity c1 = new CharIdentity(Object.class, (Character)null);
+            new CharIdentity(Object.class, (Character)null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -129,7 +129,7 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullStringParam() {
         try {
-            CharIdentity c1 = new CharIdentity(Object.class, (String)null);
+            new CharIdentity(Object.class, (String)null);
         } catch (JDONullIdentityException ex) {
             return;
         }

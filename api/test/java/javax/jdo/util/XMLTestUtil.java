@@ -31,7 +31,6 @@ import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -41,7 +40,6 @@ import javax.jdo.JDOFatalException;
 import javax.xml.parsers.*;
 import org.w3c.dom.Document;
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 /**
  * Tests schema files.

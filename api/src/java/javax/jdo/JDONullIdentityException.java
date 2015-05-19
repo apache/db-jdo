@@ -32,47 +32,49 @@ package javax.jdo;
  */
 public class JDONullIdentityException extends JDOUserException {
 
-  /**
-   * Constructs a new <code>JDONullIdentityException</code> without a detail message.
-   */
-  public JDONullIdentityException() {
-  }
+	private static final long serialVersionUID = 8912096213726707815L;
 
-  /**
-   * Constructs a new <code>JDONullIdentityException</code> with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDONullIdentityException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDONullIdentityException</code> without a detail message.
+     */
+    public JDONullIdentityException() {
+    }
 
-  /** Constructs a new <code>JDONullIdentityException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDONullIdentityException(String msg, Object failed) {
-    super(msg, failed);
-  }
+    /**
+     * Constructs a new <code>JDONullIdentityException</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDONullIdentityException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDONullIdentityException</code> with the specified
-   * detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDONullIdentityException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDONullIdentityException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDONullIdentityException(String msg, Object failed) {
+        super(msg, failed);
+    }
 
-  /**
-   * Constructs a new <code>JDONullIdentityException</code> with the specified detail message
-   * and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDONullIdentityException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDONullIdentityException</code> with the specified
+     * detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDONullIdentityException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
 
+    /**
+     * Constructs a new <code>JDONullIdentityException</code> with the specified detail message
+     * and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDONullIdentityException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
 }

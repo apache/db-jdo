@@ -19,10 +19,8 @@
  * ObjectIdentityTest.java
  *
  */
-
 package javax.jdo.identity;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import java.io.Serializable;
@@ -155,7 +153,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadStringConstructorNullClass() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(null, "1");
+            new ObjectIdentity(null, "1");
         } catch (NullPointerException ex) {
             return;
         }
@@ -164,7 +162,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorNullParam() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, null);
+            new ObjectIdentity(Object.class, null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -173,7 +171,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorTooShort() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, "xx");
+            new ObjectIdentity(Object.class, "xx");
         } catch (JDOUserException ex) {
             return;
         }
@@ -182,7 +180,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorNoDelimiter() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, "xxxxxxxxx");
+            new ObjectIdentity(Object.class, "xxxxxxxxx");
         } catch (JDOUserException ex) {
             return;
         }
@@ -191,7 +189,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorBadClassName() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, "xx:yy");
+            new ObjectIdentity(Object.class, "xx:yy");
         } catch (JDOUserException ex) {
             validateNestedException(ex, ClassNotFoundException.class);
             return;
@@ -201,7 +199,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorNoStringConstructor() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, 
+            new ObjectIdentity(Object.class, 
                     "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoStringConstructor:yy");
         } catch (JDOUserException ex) {
             validateNestedException(ex, NoSuchMethodException.class);
@@ -212,7 +210,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorNoPublicStringConstructor() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, 
+            new ObjectIdentity(Object.class, 
                     "javax.jdo.identity.ObjectIdentityTest$BadIdClassNoPublicStringConstructor:yy");
         } catch (JDOUserException ex) {
             validateNestedException(ex, NoSuchMethodException.class);
@@ -223,7 +221,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     public void testBadStringConstructorIllegalArgument() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, 
+            new ObjectIdentity(Object.class, 
                     "javax.jdo.identity.ObjectIdentityTest$IdClass:yy");
         } catch (JDOUserException ex) {
             validateNestedException(ex, InvocationTargetException.class);
@@ -236,22 +234,19 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
         SimpleDateFormat usDateFormat = new SimpleDateFormat
                 ("MMM dd, yyyy hh:mm:ss a", Locale.US);
         helper.registerDateFormat(usDateFormat);
-        Object c1 = new ObjectIdentity(Object.class, 
-            "java.util.Date:Jan 01, 1970 00:00:00 AM");
+        new ObjectIdentity(Object.class, "java.util.Date:Jan 01, 1970 00:00:00 AM");
         helper.registerDateFormat(DateFormat.getDateTimeInstance());
     }
 
     public void testStringDefaultDateConstructor() {
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         String rightNow = dateFormat.format(new Date());
-        Object c1 = new ObjectIdentity(Object.class, 
-            "java.util.Date:" + rightNow);
+        new ObjectIdentity(Object.class, "java.util.Date:" + rightNow);
     }
 
     public void testBadStringDateConstructor() {
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, 
-                "java.util.Date:Jop 1, 1970 00:00:00");
+            new ObjectIdentity(Object.class, "java.util.Date:Jop 1, 1970 00:00:00");
         } catch (JDOUserException ex) {
             return;
         }
@@ -285,15 +280,13 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
 
     public void testStringCurrencyConstructor() {
         if (!isClassLoadable("java.util.Currency")) return;
-        SingleFieldIdentity c1 = new ObjectIdentity(Object.class, 
-                    "java.util.Currency:USD");
+        new ObjectIdentity(Object.class, "java.util.Currency:USD");
     }
 
     public void testBadStringCurrencyConstructor() {
         if (!isClassLoadable("java.util.Currency")) return;
         try {
-            ObjectIdentity c1 = new ObjectIdentity(Object.class, 
-                    "java.util.Currency:NowhereInTheWorld");
+            new ObjectIdentity(Object.class, "java.util.Currency:NowhereInTheWorld");
         } catch (JDOUserException ex) {
             validateNestedException(ex, IllegalArgumentException.class);
             return;
@@ -413,8 +406,11 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
         }
         return;
     }
+
     public static class IdClass implements Serializable {
-        public int value;
+		private static final long serialVersionUID = 5718122068872969580L;
+
+		public int value;
         public IdClass() {value = 0;}
         public IdClass(int value) {this.value = value;}
         public IdClass(String str) {this.value = Integer.parseInt(str);}

@@ -32,10 +32,11 @@ import javax.jdo.spi.I18NHelper;
  * @version 2.0
  * @since 2.0
  */
-public class InstanceLifecycleEvent
-    extends java.util.EventObject {
+public class InstanceLifecycleEvent extends java.util.EventObject {
 
-    private static final int FIRST_EVENT_TYPE = 0;
+	private static final long serialVersionUID = -1338786292441991812L;
+
+	private static final int FIRST_EVENT_TYPE = 0;
     public static final int CREATE = 0;
     public static final int LOAD = 1;
     public static final int STORE = 2;
@@ -46,18 +47,13 @@ public class InstanceLifecycleEvent
     public static final int ATTACH = 7;
     private static final int LAST_EVENT_TYPE = 7;
 
-    /** The Internationalization message helper.
-     */
+    /** The Internationalization message helper. */
     private final static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
-    /**
-     * The event type that triggered the construction of this event object.
-     */
+    /** The event type that triggered the construction of this event object. */
     private final int eventType;
     
-    /** 
-     * The "other" object associated with the event.
-     */
+    /** The "other" object associated with the event. */
     private final Object target;
 
     /**

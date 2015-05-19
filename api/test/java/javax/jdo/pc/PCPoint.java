@@ -17,8 +17,6 @@
 
 package javax.jdo.pc;
 
-import java.io.*;
-import java.util.*;
 import javax.jdo.PersistenceManager;
 import javax.jdo.spi.*;
 

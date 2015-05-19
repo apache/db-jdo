@@ -29,44 +29,44 @@ package javax.jdo;
  */
 public class JDOReadOnlyException extends JDOUserException {
 
-  /**
-   * Constructs a new <code>JDOReadOnlyException</code> without a 
-   * detail message.
-   * @since 2.2
-   */
-  public JDOReadOnlyException() {
-  }
-  
+	private static final long serialVersionUID = -6612305192571046806L;
 
-  /**
-   * Constructs a new <code>JDOReadOnlyException</code> with the 
-   * specified detail message.
-   * @param msg the detail message.
-   * @since 2.2
-   */
-  public JDOReadOnlyException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDOReadOnlyException</code> without a detail message.
+     * @since 2.2
+     */
+    public JDOReadOnlyException() {
+    }
 
-  /**
-   * Constructs a new <code>JDOReadOnlyException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @since 2.2
-   */
-  public JDOReadOnlyException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOReadOnlyException</code> with the 
+     * specified detail message.
+     * @param msg the detail message.
+     * @since 2.2
+     */
+    public JDOReadOnlyException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDOReadOnlyException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @since 2.2
-   */
-  public JDOReadOnlyException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOReadOnlyException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @since 2.2
+     */
+    public JDOReadOnlyException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
+
+    /**
+     * Constructs a new <code>JDOReadOnlyException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @since 2.2
+     */
+    public JDOReadOnlyException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
 }

@@ -30,73 +30,72 @@ package javax.jdo;
  */
 public class JDOObjectNotFoundException extends JDODataStoreException {
 
-  /**
-   * Constructs a new <code>JDOObjectNotFoundException</code> 
-   * without a detail message.
-   */
-  public JDOObjectNotFoundException() {
-  }
-  
+	private static final long serialVersionUID = 1367920495587689648L;
 
-  /**
-   * Constructs a new <code>JDOObjectNotFoundException</code> 
-   * with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDOObjectNotFoundException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDOObjectNotFoundException</code> without a detail message.
+     */
+    public JDOObjectNotFoundException() {
+    }
 
-  /** Constructs a new <code>JDOObjectNotFoundException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDOObjectNotFoundException(String msg, Object failed) {
-    super(msg, failed);
-  }
-  
-  /**
-   * Constructs a new <code>JDOObjectNotFoundException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDOObjectNotFoundException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOObjectNotFoundException</code> 
+     * with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDOObjectNotFoundException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDOObjectNotFoundException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDOObjectNotFoundException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /** Constructs a new <code>JDOObjectNotFoundException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDOObjectNotFoundException(String msg, Object failed) {
+        super(msg, failed);
+    }
 
+    /**
+     * Constructs a new <code>JDOObjectNotFoundException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDOObjectNotFoundException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
 
-  /**
-   * Constructs a new <code>JDOObjectNotFoundException</code> with the specified
-   * detail message, nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @param failed the failed object.
-   */
-  public JDOObjectNotFoundException(String msg, Throwable[] nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /**
+     * Constructs a new <code>JDOObjectNotFoundException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDOObjectNotFoundException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
 
-  /**
-   * Constructs a new <code>JDOFatalInternalException</code> with the specified
-   * detail message, nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @param failed the failed object.
-   */
-  public JDOObjectNotFoundException(String msg, Throwable nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /**
+     * Constructs a new <code>JDOObjectNotFoundException</code> with the specified
+     * detail message, nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @param failed the failed object.
+     */
+    public JDOObjectNotFoundException(String msg, Throwable[] nested, Object failed) {
+        super(msg, nested, failed);
+    }
+
+    /**
+     * Constructs a new <code>JDOFatalInternalException</code> with the specified
+     * detail message, nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @param failed the failed object.
+     */
+    public JDOObjectNotFoundException(String msg, Throwable nested, Object failed) {
+        super(msg, nested, failed);
+    }
 }
 

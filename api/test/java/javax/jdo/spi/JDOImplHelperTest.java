@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.jdo.Constants;
-import javax.jdo.JDOHelper;
 import javax.jdo.JDOUserException;
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
@@ -47,7 +46,7 @@ public class JDOImplHelperTest extends AbstractTest {
     /** */
     public void setUp() {
         // make sure PCClass is loaded before any tests are run
-        PCPoint p = new PCPoint(1, new Integer(1));        
+        new PCPoint(1, new Integer(1));        
     }
 
     /** */

@@ -28,7 +28,9 @@ package javax.jdo;
  * @since 3.0
  */
 public class JDOQueryInterruptedException extends JDOUserException {
-    /**
+	private static final long serialVersionUID = -5832046548440677226L;
+
+	/**
      * Constructs a new <code>JDOQueryInterruptedException</code> without a detail message.
      */
     public JDOQueryInterruptedException() {

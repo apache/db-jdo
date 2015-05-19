@@ -30,55 +30,53 @@ package javax.jdo;
  */
 public class JDODetachedFieldAccessException extends JDOUserException {
 
-  /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> without a 
-   * detail message.
-   * @since 2.0
-   */
-  public JDODetachedFieldAccessException() {
-  }
+	private static final long serialVersionUID = 5035418119865472625L;
+
+    /**
+     * Constructs a new <code>JDODetachedFieldAccessException</code> without a detail message.
+     * @since 2.0
+     */
+    public JDODetachedFieldAccessException() {
+    }
+
+    /**
+     * Constructs a new <code>JDODetachedFieldAccessException</code> with the 
+     * specified detail message.
+     * @param msg the detail message.
+     * @since 2.0
+     */
+    public JDODetachedFieldAccessException(String msg) {
+        super(msg);
+    }
+
+    /** Constructs a new <code>JDODetachedFieldAccessException</code> 
+     * with the specified detail message and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDODetachedFieldAccessException(String msg, Object failed) {
+        super(msg, failed);
+    }
   
+    /**
+     * Constructs a new <code>JDODetachedFieldAccessException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @since 2.0
+     */
+    public JDODetachedFieldAccessException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
 
-  /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> with the 
-   * specified detail message.
-   * @param msg the detail message.
-   * @since 2.0
-   */
-  public JDODetachedFieldAccessException(String msg) {
-    super(msg);
-  }
-
-  /** Constructs a new <code>JDODetachedFieldAccessException</code> 
-   * with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDODetachedFieldAccessException(String msg, Object failed) {
-    super(msg, failed);
-  }
-  
-  /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @since 2.0
-   */
-  public JDODetachedFieldAccessException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
-
-  /**
-   * Constructs a new <code>JDODetachedFieldAccessException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @since 2.0
-   */
-  public JDODetachedFieldAccessException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDODetachedFieldAccessException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @since 2.0
+     */
+    public JDODetachedFieldAccessException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
 }
-

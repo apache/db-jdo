@@ -19,12 +19,9 @@ package javax.jdo;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.net.MalformedURLException;
 
-import javax.jdo.util.AbstractTest;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Properties;
 import junit.framework.TestSuite;
@@ -32,10 +29,8 @@ import junit.framework.TestSuite;
 import javax.jdo.util.BatchTestRunner;
 
 /**
- * 
  * Tests class javax.jdo.JDOHelper for calls to the impl's static method
  * getPersistenceManagerFactory(Map overrides, Map props).
- * 
  */
 public class PMFMapMapTest extends AbstractJDOConfigTest {
 

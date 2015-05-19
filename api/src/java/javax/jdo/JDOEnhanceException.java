@@ -22,7 +22,9 @@ package javax.jdo;
  */
 public class JDOEnhanceException extends JDOException
 {
-    /**
+	private static final long serialVersionUID = 7953336394264555958L;
+
+	/**
      * Constructs a new <code>JDOEnhanceException</code> without a 
      * detail message.
      */

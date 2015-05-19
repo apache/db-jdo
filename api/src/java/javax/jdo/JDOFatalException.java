@@ -29,68 +29,68 @@ package javax.jdo;
  */
 public class JDOFatalException extends JDOException {
 
-  /**
-   * Constructs a new <code>JDOFatalException</code> without a detail message.
-   */
-  public JDOFatalException() {
-  }
-  
+	private static final long serialVersionUID = -414371106009364006L;
 
-  /**
-   * Constructs a new <code>JDOFatalException</code> with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDOFatalException(String msg) {
-    super(msg);
-  }
+	/**
+     * Constructs a new <code>JDOFatalException</code> without a detail message.
+     */
+    public JDOFatalException() {
+    }
 
-  /**
-   * Constructs a new <code>JDOFatalException</code> with the specified detail
-   * message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDOFatalException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOFatalException</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDOFatalException(String msg) {
+        super(msg);
+    }
+
+    /**
+     * Constructs a new <code>JDOFatalException</code> with the specified detail
+     * message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDOFatalException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
   
-  /**
-   * Constructs a new <code>JDOFatalException</code> with the specified detail
-   * message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDOFatalException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOFatalException</code> with the specified detail
+     * message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDOFatalException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
   
-  /** Constructs a new <code>JDOFatalException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDOFatalException(String msg, Object failed) {
-    super(msg, failed);
-  }
+    /** Constructs a new <code>JDOFatalException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDOFatalException(String msg, Object failed) {
+        super(msg, failed);
+    }
   
-  /** Constructs a new <code>JDOFatalException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @param failed the failed object.
-   */
-  public JDOFatalException(String msg, Throwable[] nested, Object failed) {
-    super(msg, nested, failed);
-    
-  }
-  /** Constructs a new <code>JDOFatalException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @param failed the failed object.
-   */
-  public JDOFatalException(String msg, Throwable nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /** Constructs a new <code>JDOFatalException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @param failed the failed object.
+     */
+    public JDOFatalException(String msg, Throwable[] nested, Object failed) {
+        super(msg, nested, failed);
+    }
+
+    /** Constructs a new <code>JDOFatalException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @param failed the failed object.
+     */
+    public JDOFatalException(String msg, Throwable nested, Object failed) {
+        super(msg, nested, failed);
+    }
 }
-

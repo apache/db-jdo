@@ -74,7 +74,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     
     public void testIllegalStringConstructor() {
         try {
-            ShortIdentity c1 = new ShortIdentity(Object.class, "b");
+            new ShortIdentity(Object.class, "b");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -110,7 +110,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullShortParam() {
         try {
-            ShortIdentity c1 = new ShortIdentity(Object.class, (Short)null);
+            new ShortIdentity(Object.class, (Short)null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -119,7 +119,7 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullStringParam() {
         try {
-            ShortIdentity c1 = new ShortIdentity(Object.class, (String)null);
+            new ShortIdentity(Object.class, (String)null);
         } catch (JDONullIdentityException ex) {
             return;
         }

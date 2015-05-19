@@ -33,7 +33,9 @@ import javax.jdo.metadata.TypeMetadata;
 
 public class StubPMF implements PersistenceManagerFactory, Constants {
 
-    public static PersistenceManagerFactory getPersistenceManagerFactory(
+	private static final long serialVersionUID = 488698916248368422L;
+
+	public static PersistenceManagerFactory getPersistenceManagerFactory(
         Map props) {
 
         StubPMF pmf = new StubPMF();
@@ -346,9 +348,6 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
         public void evictAll(Collection oids) {
         }
 
-        public void evictAll(Class pcClass, boolean subclasses) {
-        }
-
         public void evictAll(boolean subclasses, Class pcClass) {
         }
 
@@ -361,9 +360,6 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
         public void pinAll(Object... oids) {
         }
 
-        public void pinAll(Class pcClass, boolean subclasses) {
-        }
-
         public void pinAll(boolean subclasses, Class pcClass) {
         }
 
@@ -374,9 +370,6 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
         }
 
         public void unpinAll(Object... oids) {
-        }
-
-        public void unpinAll(Class pcClass, boolean subclasses) {
         }
 
         public void unpinAll(boolean subclasses, Class pcClass) {

@@ -74,7 +74,7 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     
     public void testIllegalStringConstructor() {
         try {
-            IntIdentity c1 = new IntIdentity(Object.class, "b");
+            new IntIdentity(Object.class, "b");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -110,7 +110,7 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullIntegerParam() {
         try {
-            IntIdentity c1 = new IntIdentity(Object.class, (Integer)null);
+            new IntIdentity(Object.class, (Integer)null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -119,7 +119,7 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullStringParam() {
         try {
-            IntIdentity c1 = new IntIdentity(Object.class, (String)null);
+            new IntIdentity(Object.class, (String)null);
         } catch (JDONullIdentityException ex) {
             return;
         }

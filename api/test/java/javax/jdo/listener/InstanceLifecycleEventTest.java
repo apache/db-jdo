@@ -113,7 +113,7 @@ public class InstanceLifecycleEventTest extends AbstractTest {
     
     public void testIllegalConstructorTooSmall() {
         try {
-            InstanceLifecycleEvent e = new InstanceLifecycleEvent (new Object(), -1);
+            new InstanceLifecycleEvent (new Object(), -1);
         } catch (IllegalArgumentException e) {
             return; // good catch
         } 
@@ -122,7 +122,7 @@ public class InstanceLifecycleEventTest extends AbstractTest {
     
     public void testIllegalConstructorTooBig() {
         try {
-            InstanceLifecycleEvent e = new InstanceLifecycleEvent (new Object(), 8);
+            new InstanceLifecycleEvent (new Object(), 8);
         } catch (IllegalArgumentException e) {
             return; // good catch
         }

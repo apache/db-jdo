@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.jdo.pc.PCPoint;
-import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 
@@ -53,27 +52,26 @@ public class JDOHelperTest extends AbstractTest {
      * @since 2.1
      */
     public void testConstructor() {
-        JDOHelper helper = new JDOHelper();
         assertNull("getObjectId(null) returned non-null", 
-                helper.getObjectId(null));
+                JDOHelper.getObjectId(null));
         assertNull("getPersistenceManager(null) returned non-null", 
-                helper.getPersistenceManager(null));
+        		JDOHelper.getPersistenceManager(null));
         assertNull("getTransactionalObjectId(null) returned non-null", 
-                helper.getTransactionalObjectId(null));
+        		JDOHelper.getTransactionalObjectId(null));
         assertNull("getVersion(null) returned non-null", 
-                helper.getVersion(null));
+        		JDOHelper.getVersion(null));
         assertFalse("isDeleted(null) returned non-null", 
-                helper.isDeleted(null));
+        		JDOHelper.isDeleted(null));
         assertFalse("isDetached(null) returned non-null", 
-                helper.isDetached(null));
+        		JDOHelper.isDetached(null));
         assertFalse("isDirty(null) returned non-null", 
-                helper.isDirty(null));
+        		JDOHelper.isDirty(null));
         assertFalse("isNew(null) returned non-null", 
-                helper.isNew(null));
+        		JDOHelper.isNew(null));
         assertFalse("isPersistent(null) returned non-null", 
-                helper.isPersistent(null));
+        		JDOHelper.isPersistent(null));
         assertFalse("isTransactional(null) returned non-null", 
-                helper.isTransactional(null));
+        		JDOHelper.isTransactional(null));
     }
 
     /** The purpose of this test is simply to call some of the
@@ -82,27 +80,26 @@ public class JDOHelperTest extends AbstractTest {
      * @since 2.1
      */
     public void testGetInstance() {
-        JDOHelper helper = JDOHelper.getInstance();
         assertNull("getObjectId(null) returned non-null", 
-                helper.getObjectId(null));
+        		JDOHelper.getObjectId(null));
         assertNull("getPersistenceManager(null) returned non-null", 
-                helper.getPersistenceManager(null));
+        		JDOHelper.getPersistenceManager(null));
         assertNull("getTransactionalObjectId(null) returned non-null", 
-                helper.getTransactionalObjectId(null));
+        		JDOHelper.getTransactionalObjectId(null));
         assertNull("getVersion(null) returned non-null", 
-                helper.getVersion(null));
+        		JDOHelper.getVersion(null));
         assertFalse("isDeleted(null) returned non-null", 
-                helper.isDeleted(null));
+        		JDOHelper.isDeleted(null));
         assertFalse("isDetached(null) returned non-null", 
-                helper.isDetached(null));
+        		JDOHelper.isDetached(null));
         assertFalse("isDirty(null) returned non-null", 
-                helper.isDirty(null));
+        		JDOHelper.isDirty(null));
         assertFalse("isNew(null) returned non-null", 
-                helper.isNew(null));
+        		JDOHelper.isNew(null));
         assertFalse("isPersistent(null) returned non-null", 
-                helper.isPersistent(null));
+        		JDOHelper.isPersistent(null));
         assertFalse("isTransactional(null) returned non-null", 
-                helper.isTransactional(null));
+        		JDOHelper.isTransactional(null));
     }
 
     /** */
@@ -194,9 +191,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null String resource with no class loader.
      */
     public void testGetPMFNullResource() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((String)null);
+            JDOHelper.getPersistenceManagerFactory((String)null);
             fail("Null resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -208,9 +204,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null String resource with good class loader.
      */
     public void testGetPMFNullResourceGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((String)null, this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory((String)null, this.getClass().getClassLoader());
             fail("Null resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -222,9 +217,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad String resource with no class loader.
      */
     public void testGetPMFBadResource() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory("Whatever");
+            JDOHelper.getPersistenceManagerFactory("Whatever");
             fail("Null resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -236,9 +230,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null String resource with good class loader.
      */
     public void testGetPMFBadResourceGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory("Whatever", this.getClass().getClassLoader());
             fail("Null resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -250,9 +243,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null File resource with no class loader.
      */
     public void testGetPMFNullFile() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((File)null);
+            JDOHelper.getPersistenceManagerFactory((File)null);
             fail("Null file should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -264,9 +256,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null File resource with good class loader.
      */
     public void testGetPMFNullFileGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((File)null, this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory((File)null, this.getClass().getClassLoader());
             fail("Null file should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -278,9 +269,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad File resource with no class loader.
      */
     public void testGetPMFBadFile() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(new File("Whatever"));
+            JDOHelper.getPersistenceManagerFactory(new File("Whatever"));
             fail("Null file should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -292,9 +282,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad File resource with good class loader.
      */
     public void testGetPMFBadFileGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(new File("Whatever"), this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory(new File("Whatever"), this.getClass().getClassLoader());
             fail("Null file should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -306,9 +295,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null JNDI resource name with no class loader.
      */
     public void testGetPMFNullJNDI() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext());
+            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -320,9 +308,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null JNDI resource name with good class loader.
      */
     public void testGetPMFNullJNDIGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext(), this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext(), this.getClass().getClassLoader());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -334,9 +321,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad JNDI resource name with no class loader.
      */
     public void testGetPMFBadJNDI() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext());
+            JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext());
             fail("Bad JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -348,9 +334,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad JNDI resource name with good class loader.
      */
     public void testGetPMFBadJNDIGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext(), this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory("Whatever", getInitialContext(), this.getClass().getClassLoader());
             fail("Bad JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -362,9 +347,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null stream with no class loader.
      */
     public void testGetPMFNullStream() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((InputStream)null);
+            JDOHelper.getPersistenceManagerFactory((InputStream)null);
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -376,9 +360,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null stream with good class loader.
      */
     public void testGetPMFNullStreamGoodClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory((InputStream)null, this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory((InputStream)null, this.getClass().getClassLoader());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -390,10 +373,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test null ClassLoader.
      */
     public void testGetPMFNullClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory
-                    ("Whatever", (ClassLoader)null);
+            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null);
             fail("Null ClassLoader should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -405,10 +386,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test both null ClassLoaders.
      */
     public void testGetPMFBothNullClassLoader() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory
-                    ("Whatever", (ClassLoader)null, (ClassLoader)null);
+            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null, (ClassLoader)null);
             fail("Null ClassLoader should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -420,9 +399,8 @@ public class JDOHelperTest extends AbstractTest {
     /** Test missing property javax.jdo.PersistenceManagerFactoryClass.
      */
     public void testGetPMFNoClassNameProperty() {
-        PersistenceManagerFactory pmf = null;
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(new Properties());
+            JDOHelper.getPersistenceManagerFactory(new Properties());
             fail("Missing property PersistenceManagerFactoryClass should result in JDOFatalUserException ");
         }
         catch (JDOFatalUserException ex) {
@@ -434,12 +412,10 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class does not exist.
      */
     public void testBadPMFClassNotFound() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
-        props.put("javax.jdo.PersistenceManagerFactoryClass", 
-                "ThisClassDoesNotExist");
+        props.put("javax.jdo.PersistenceManagerFactoryClass", "ThisClassDoesNotExist");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("Bad PersistenceManagerFactoryClass should result in JDOFatalUserException ");
         }
         catch (JDOFatalUserException ex) {
@@ -451,12 +427,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class no method getPersistenceManagerFactory(Properties).
      */
     public void testBadPMFNoGetPMFPropertiesMethod() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("Bad PersistenceManagerFactory should result in JDOFatalInternalException ");
         }
         catch (JDOFatalInternalException ex) {
@@ -475,12 +450,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class no method getPersistenceManagerFactory(Map).
      */
     public void testBadPMFNoGetPMFMapMethod() {
-        PersistenceManagerFactory pmf = null;
         Map<String,String> props = new HashMap<String,String>();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNoGetPMFMethod");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("Bad PersistenceManagerFactory should result in JDOFatalInternalException ");
         }
         catch (JDOFatalInternalException ex) {
@@ -499,12 +473,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class non-static getPMF method.
      */
     public void testBadPMFNonStaticGetPMFMethod() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFNonStaticGetPMFMethod");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("Bad PersistenceManagerFactoryClass should result in JDOFatalInternalException ");
         }
         catch (JDOFatalInternalException ex) {
@@ -516,12 +489,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class doesn't implement PMF.
      */
     public void testBadPMFWrongReturnType() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFWrongReturnType");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("Bad PersistenceManagerFactoryClass should result in JDOFatalInternalException ");
         }
         catch (JDOFatalInternalException ex) {
@@ -533,12 +505,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class getPersistenceManagerFactory throws Exception.
      */
     public void testBadPMFGetPMFMethodThrowsJDOException() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFGetPMFMethodThrowsJDOException");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("BadPMFGetPMFMethodThrowsJDOException.GetPersistenceManagerFactory " +
                     "should result in JDOUnsupportedOptionException. " +
                     "No exception was thrown.");
@@ -552,12 +523,11 @@ public class JDOHelperTest extends AbstractTest {
     /** Test bad PMF class getPersistenceManagerFactory returns null.
      */
     public void testBadPMFGetPMFMethodReturnsNull() {
-        PersistenceManagerFactory pmf = null;
         Properties props = new Properties();
         props.put("javax.jdo.PersistenceManagerFactoryClass", 
                 "javax.jdo.JDOHelperTest$BadPMFGetPMFMethodReturnsNull");
         try {
-            pmf = JDOHelper.getPersistenceManagerFactory(props);
+            JDOHelper.getPersistenceManagerFactory(props);
             fail("BadPMFGetPMFMethodReturnsNull.GetPersistenceManagerFactory " +
                     "should result in JDOFatalInternalException. " +
                     "No exception was thrown.");

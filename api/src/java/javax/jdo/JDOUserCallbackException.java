@@ -29,69 +29,71 @@ package javax.jdo;
  */
 public class JDOUserCallbackException extends JDOUserException {
 
-  /**
-   * Constructs a new <code>JDOUserCallbackException</code> 
-   * without a detail message.
-   */
-  public JDOUserCallbackException() {
-  }
+	private static final long serialVersionUID = -3317062335034038699L;
 
-  /**
-   * Constructs a new <code>JDOUserCallbackException</code> 
-   * with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDOUserCallbackException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDOUserCallbackException</code> 
+     * without a detail message.
+     */
+    public JDOUserCallbackException() {
+    }
 
-  /**
-   * Constructs a new <code>JDOUserCallbackException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDOUserCallbackException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOUserCallbackException</code> 
+     * with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDOUserCallbackException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDOUserCallbackException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDOUserCallbackException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOUserCallbackException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDOUserCallbackException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
+
+    /**
+     * Constructs a new <code>JDOUserCallbackException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDOUserCallbackException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
   
-  /** Constructs a new <code>JDOUserCallbackException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDOUserCallbackException(String msg, Object failed) {
-    super(msg, failed);
-  }
-  
-  /** Constructs a new <code>JDOUserCallbackException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @param failed the failed object.
-   */
-  public JDOUserCallbackException(String msg, Throwable[] nested, Object failed) {
-    super(msg, nested, failed);
-  }
-  
-  /** Constructs a new <code>JDOUserException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @param failed the failed object.
-   */
-  public JDOUserCallbackException(String msg, Throwable nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /** Constructs a new <code>JDOUserCallbackException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDOUserCallbackException(String msg, Object failed) {
+        super(msg, failed);
+    }
+
+    /** Constructs a new <code>JDOUserCallbackException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @param failed the failed object.
+     */
+    public JDOUserCallbackException(String msg, Throwable[] nested, Object failed) {
+        super(msg, nested, failed);
+    }
+
+    /** Constructs a new <code>JDOUserException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @param failed the failed object.
+     */
+    public JDOUserCallbackException(String msg, Throwable nested, Object failed) {
+        super(msg, nested, failed);
+    }
 }
 

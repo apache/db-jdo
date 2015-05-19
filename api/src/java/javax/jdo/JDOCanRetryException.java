@@ -28,68 +28,68 @@ package javax.jdo;
  */
 public class JDOCanRetryException extends JDOException {
 
-  /**
-   * Constructs a new <code>JDOCanRetryException</code> without a detail message.
-   */
-  public JDOCanRetryException() {
-  }
-  
+	private static final long serialVersionUID = 3046202905626157173L;
 
-  /**
-   * Constructs a new <code>JDOCanRetryException</code> with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDOCanRetryException(String msg) {
-    super(msg);
-  }
+	/**
+     * Constructs a new <code>JDOCanRetryException</code> without a detail message.
+     */
+    public JDOCanRetryException() {
+    }
 
-  /**
-   * Constructs a new <code>JDOCanRetryException</code> with the specified detail
-   * message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDOCanRetryException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOCanRetryException</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDOCanRetryException(String msg) {
+        super(msg);
+    }
+
+    /**
+     * Constructs a new <code>JDOCanRetryException</code> with the specified detail
+     * message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDOCanRetryException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
   
-  /**
-   * Constructs a new <code>JDOCanRetryException</code> with the specified detail
-   * message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDOCanRetryException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOCanRetryException</code> with the specified detail
+     * message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDOCanRetryException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
   
-  /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDOCanRetryException(String msg, Object failed) {
-    super(msg, failed);
-  }
+    /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDOCanRetryException(String msg, Object failed) {
+        super(msg, failed);
+    }
   
-  /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @param failed the failed object.
-   */
-  public JDOCanRetryException(String msg, Throwable[] nested, Object failed) {
-    super(msg, nested, failed);
-    
-  }
-  /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @param failed the failed object.
-   */
-  public JDOCanRetryException(String msg, Throwable nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @param failed the failed object.
+     */
+    public JDOCanRetryException(String msg, Throwable[] nested, Object failed) {
+        super(msg, nested, failed);
+    }
+
+    /** Constructs a new <code>JDOCanRetryException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @param failed the failed object.
+     */
+    public JDOCanRetryException(String msg, Throwable nested, Object failed) {
+        super(msg, nested, failed);
+    }
 }
-

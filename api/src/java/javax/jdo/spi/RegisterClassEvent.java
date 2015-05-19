@@ -30,10 +30,11 @@ import java.util.EventObject;
  *
  * @version 1.0
  */
-public class RegisterClassEvent 
-    extends EventObject
+public class RegisterClassEvent extends EventObject
 {
-    /** The class object of the registered persistence-capable class */
+	private static final long serialVersionUID = 945917130591776973L;
+
+	/** The class object of the registered persistence-capable class */
     protected Class pcClass;
 
     /** The names of managed fields of the persistence-capable class */
@@ -116,8 +117,4 @@ public class RegisterClassEvent
     {
         return persistenceCapableSuperclass;
     }
-    
 }
-
-
-

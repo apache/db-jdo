@@ -29,39 +29,39 @@ package javax.jdo;
  */
 public class JDOUnsupportedOptionException extends JDOUserException {
 
-  /**
-   * Constructs a new <code>JDOUnsupportedOptionException</code> without a detail message.
-   */
-  public JDOUnsupportedOptionException() {
-  }
-  
+	private static final long serialVersionUID = -8357333650749157892L;
 
-  /**
-   * Constructs a new <code>JDOUnsupportedOptionException</code> with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDOUnsupportedOptionException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDOUnsupportedOptionException</code> without a detail message.
+     */
+    public JDOUnsupportedOptionException() {
+    }
 
-  /**
-   * Constructs a new <code>JDOUnsupportedOptionException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDOUnsupportedOptionException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOUnsupportedOptionException</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDOUnsupportedOptionException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDOUnsupportedOptionException</code> with the
-   * specified detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDOUnsupportedOptionException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDOUnsupportedOptionException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDOUnsupportedOptionException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
+
+    /**
+     * Constructs a new <code>JDOUnsupportedOptionException</code> with the
+     * specified detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDOUnsupportedOptionException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
 }
-

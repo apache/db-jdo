@@ -18,21 +18,11 @@
 package javax.jdo.schema;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FilenameFilter;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.jdo.JDOFatalException;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 import javax.jdo.util.XMLTestUtil;
-
-import javax.xml.parsers.*;
-import org.w3c.dom.Document;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 /**
  * Tests schema files.

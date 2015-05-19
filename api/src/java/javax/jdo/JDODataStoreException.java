@@ -28,69 +28,72 @@ package javax.jdo;
  */
 public class JDODataStoreException extends JDOCanRetryException {
 
-  /**
-   * Constructs a new <code>JDODataStoreException</code> without a detail message.
-   */
-  public JDODataStoreException() {
-  }
-  
+	private static final long serialVersionUID = -8728485891077403354L;
 
-  /**
-   * Constructs a new <code>JDODataStoreException</code> with the specified detail message.
-   * @param msg the detail message.
-   */
-  public JDODataStoreException(String msg) {
-    super(msg);
-  }
+    /**
+     * Constructs a new <code>JDODataStoreException</code> without a detail message.
+     */
+    public JDODataStoreException() {
+    }
 
-  /**
-   * Constructs a new <code>JDODataStoreException</code> with the specified 
-   * detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   */
-  public JDODataStoreException(String msg, Throwable[] nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public JDODataStoreException(String msg) {
+        super(msg);
+    }
 
-  /**
-   * Constructs a new <code>JDODataStoreException</code> with the specified 
-   * detail message and nested <code>Throwable</code>s.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   */
-  public JDODataStoreException(String msg, Throwable nested) {
-    super(msg, nested);
-  }
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified 
+     * detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     */
+    public JDODataStoreException(String msg, Throwable[] nested) {
+        super(msg, nested);
+    }
 
-  /** Constructs a new <code>JDODataStoreException</code> with the specified detail message
-   * and failed object.
-   * @param msg the detail message.
-   * @param failed the failed object.
-   */
-  public JDODataStoreException(String msg, Object failed) {
-    super(msg, failed);
-  }
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified 
+     * detail message and nested <code>Throwable</code>s.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     */
+    public JDODataStoreException(String msg, Throwable nested) {
+        super(msg, nested);
+    }
+
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified detail message
+     * and failed object.
+     * @param msg the detail message.
+     * @param failed the failed object.
+     */
+    public JDODataStoreException(String msg, Object failed) {
+        super(msg, failed);
+    }
  
-  /** Constructs a new <code>JDODataStoreException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable[]</code>.
-   * @param failed the failed object.
-   */
-  public JDODataStoreException(String msg, Throwable[] nested, Object failed) {
-    super(msg, nested, failed);
-  }
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable[]</code>.
+     * @param failed the failed object.
+     */
+    public JDODataStoreException(String msg, Throwable[] nested, Object failed) {
+        super(msg, nested, failed);
+    }
 
-  /** Constructs a new <code>JDODataStoreException</code> with the specified detail message,
-   * nested <code>Throwable</code>s, and failed object.
-   * @param msg the detail message.
-   * @param nested the nested <code>Throwable</code>.
-   * @param failed the failed object.
-   */
-  public JDODataStoreException(String msg, Throwable nested, Object failed) {
-    super(msg, nested, failed);
-  }
-
+    /**
+     * Constructs a new <code>JDODataStoreException</code> with the specified detail message,
+     * nested <code>Throwable</code>s, and failed object.
+     * @param msg the detail message.
+     * @param nested the nested <code>Throwable</code>.
+     * @param failed the failed object.
+     */
+    public JDODataStoreException(String msg, Throwable nested, Object failed) {
+        super(msg, nested, failed);
+    }
 }
 

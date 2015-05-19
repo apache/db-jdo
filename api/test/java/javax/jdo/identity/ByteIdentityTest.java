@@ -74,7 +74,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     
     public void testIllegalStringConstructor() {
         try {
-            ByteIdentity c1 = new ByteIdentity(Object.class, "b");
+            new ByteIdentity(Object.class, "b");
         } catch (IllegalArgumentException iae) {
             return; // good
         }
@@ -111,7 +111,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullByteParam() {
         try {
-            ByteIdentity c1 = new ByteIdentity(Object.class, (Byte)null);
+            new ByteIdentity(Object.class, (Byte)null);
         } catch (JDONullIdentityException ex) {
             return;
         }
@@ -120,7 +120,7 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullStringParam() {
         try {
-            ByteIdentity c1 = new ByteIdentity(Object.class, (String)null);
+            new ByteIdentity(Object.class, (String)null);
         } catch (JDONullIdentityException ex) {
             return;
         }

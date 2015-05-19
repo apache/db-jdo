@@ -23,7 +23,6 @@
 package javax.jdo.identity;
 
 import javax.jdo.JDONullIdentityException;
-import javax.jdo.JDOUserException;
 
 import javax.jdo.util.BatchTestRunner;
 
@@ -82,7 +81,7 @@ public class StringIdentityTest extends SingleFieldIdentityTest {
 
     public void testBadConstructorNullParam() {
         try {
-            StringIdentity c1 = new StringIdentity(Object.class, null);
+            new StringIdentity(Object.class, null);
         } catch (JDONullIdentityException ex) {
             return;
         }
