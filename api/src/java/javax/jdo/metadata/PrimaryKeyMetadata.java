@@ -23,7 +23,6 @@ package javax.jdo.metadata;
 public interface PrimaryKeyMetadata extends Metadata {
     /**
      * Method to set the name of the PK constraint.
-     * 
      * @param name Name of the PK constraint
      * @return The PK metadata
      */
@@ -31,43 +30,37 @@ public interface PrimaryKeyMetadata extends Metadata {
 
     /**
      * Accessor for the name of the PK constraint.
-     * 
      * @return The PK constraint name
      */
     String getName();
 
     /**
      * Method to set the PK column name.
-     * 
      * @param column Name of the PK column
      * @return The PK metadata
      */
     PrimaryKeyMetadata setColumn(String column);
 
     /**
-     * Accessor for the PK column name
-     * 
+     * Accessor for the PK column name.
      * @return The column name
      */
     String getColumn();
 
     /**
      * Accessor for all column(s) defined on the PK.
-     * 
      * @return The column(s)
      */
     ColumnMetadata[] getColumns();
 
     /**
-     * Add a new column for this PK
-     * 
+     * Add a new column for this PK.
      * @return The ColumnMetadata
      */
     ColumnMetadata newColumnMetadata();
 
     /**
-     * Accessor for the number of columns defined for this PK
-     * 
+     * Accessor for the number of columns defined for this PK.
      * @return The number of columns
      */
     int getNumberOfColumns();

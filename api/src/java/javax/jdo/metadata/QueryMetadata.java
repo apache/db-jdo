@@ -23,89 +23,83 @@ package javax.jdo.metadata;
 public interface QueryMetadata extends Metadata {
     /**
      * Accessor for the name of the query (set on construction).
-     * 
      * @return The name
      */
     String getName();
 
     /**
      * Method to set the language of the query.
-     * 
      * @param lang Query language
+     * @return This metadata object
      */
     QueryMetadata setLanguage(String lang);
 
     /**
      * Accessor for the query language.
-     * 
      * @return The language
      */
     String getLanguage();
 
     /**
      * Method to set the single-string query.
-     * 
      * @param query The query
+     * @return This metadata object
      */
     QueryMetadata setQuery(String query);
 
     /**
      * Accessor for the single-string query.
-     * 
      * @return The query
      */
     String getQuery();
 
     /**
-     * Method to set the result class name for the query
-     * 
+     * Method to set the result class name for the query.
      * @param clsName Result class name
+     * @return This metadata object
      */
     QueryMetadata setResultClass(String clsName);
 
     /**
      * Accessor for the result class name for the query.
-     * 
      * @return The result class name
      */
     String getResultClass();
 
     /**
-     * Method to set if the query results are unique
-     * 
+     * Method to set if the query results are unique.
      * @param unique Whether they are unique
+     * @return This metadata object
      */
     QueryMetadata setUnique(boolean unique);
 
     /**
-     * Accessor for whether results from the query are unique
-     * 
+     * Accessor for whether results from the query are unique.
      * @return Results are unique?
      */
     Boolean getUnique();
 
     /**
      * Method to set the query as not being modifiable from now.
+     * @return This metadata object
      */
     QueryMetadata setUnmodifiable();
 
     /**
      * Accessor for whether the query is unmodifiable.
-     * 
      * @return Can't be changed?
      */
     boolean getUnmodifiable();
 
     /**
      * Method to set the FetchPlan to use for this named query.
-     * 
      * @param fetchPlanName name of the FetchPlan
+     * @return This metadata object
      */
     QueryMetadata setFetchPlan(String fetchPlanName);
 
     /**
      * Accessor for the name of a fetch plan to use (if any).
-     * 
      * @return The fetch plan name
      */
     String getFetchPlan();

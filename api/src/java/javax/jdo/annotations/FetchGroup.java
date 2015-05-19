@@ -54,6 +54,7 @@ public @interface FetchGroup
 
     /** 
      * Fetch groups to be nested (included) in this fetch group.
+     * @return The nested fetch groups in this fetch group
      */
     String[] fetchGroups() default {};
 }

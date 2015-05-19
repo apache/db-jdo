@@ -28,21 +28,22 @@ package javax.jdo.listener;
  * @version 2.0
  * @since 2.0
  */
-public interface DirtyLifecycleListener
-    extends InstanceLifecycleListener {
+public interface DirtyLifecycleListener extends InstanceLifecycleListener {
 
     /**
-     *	Invoked whenever a persistent instance is first made dirty,
-     *	during an operation that modifies the value of a persistent or
-     *	transactional field. Called before the value is changed.
+     * Invoked whenever a persistent instance is first made dirty,
+     * during an operation that modifies the value of a persistent or
+     * transactional field. Called before the value is changed.
+     * @param event The lifecycle event
      * @since 2.0
      */
     void preDirty (InstanceLifecycleEvent event);
 
     /**
-     *	Invoked whenever a persistent instance is first made dirty,
-     *	during an operation that modifies the value of a persistent or
-     *	transactional field. Called after the value is changed.
+     * Invoked whenever a persistent instance is first made dirty,
+     * during an operation that modifies the value of a persistent or
+     * transactional field. Called after the value is changed.
+     * @param event The lifecycle event
      * @since 2.0
      */
     void postDirty (InstanceLifecycleEvent event);

@@ -23,21 +23,19 @@ package javax.jdo.metadata;
 public interface FetchGroupMetadata extends Metadata {
     /**
      * Accessor for the fetch group name (set on construction).
-     * 
      * @return The fetch group name
      */
     String getName();
 
     /**
      * Method to set whether to call post load with this fetch group
-     * 
      * @param load Call post load
+     * @return This metadata object
      */
     FetchGroupMetadata setPostLoad(boolean load);
 
     /**
-     * Accessor for whether to call post load for this fetch group
-     * 
+     * Accessor for whether to call post load for this fetch group.
      * @return Whether to call post-load
      */
     Boolean getPostLoad();
@@ -50,22 +48,19 @@ public interface FetchGroupMetadata extends Metadata {
 
     /**
      * Accessor for the number of fields/properties defined for this fetch group.
-     * 
      * @return The number of members
      */
     int getNumberOfMembers();
 
     /**
      * Add a new field for this fetch group.
-     * 
      * @param name Name of field
      * @return The FieldMetadata
      */
     FieldMetadata newFieldMetadata(String name);
 
     /**
-     * Add a new property for this fetch group
-     * 
+     * Add a new property for this fetch group.
      * @param name Name of property
      * @return The PropertyMetadata
      */

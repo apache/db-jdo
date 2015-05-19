@@ -181,7 +181,8 @@ public class InstanceLifecycleEvent
 
     /**
      * Serialization is not supported for InstanceLifecycleEvents.
-     * param out the output stream
+     * @param out the output stream
+     * @throws java.io.IOException Thrown when an error occurs
      * @since 2.0
      */
     private void writeObject(java.io.ObjectOutputStream out) 

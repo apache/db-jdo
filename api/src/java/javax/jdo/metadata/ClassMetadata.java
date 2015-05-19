@@ -26,6 +26,7 @@ public interface ClassMetadata extends TypeMetadata {
     /**
      * Method to define the persistence modifier.
      * @param mod persistence modifier
+     * @return This metadata object
      */
     ClassMetadata setPersistenceModifier(ClassPersistenceModifier mod);
 

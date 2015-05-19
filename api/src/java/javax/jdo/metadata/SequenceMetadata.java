@@ -25,73 +25,67 @@ import javax.jdo.annotations.SequenceStrategy;
 public interface SequenceMetadata extends Metadata {
     /**
      * Accessor for the name of the sequence (set on construction).
-     * 
      * @return The name
      */
     String getName();
 
     /**
      * Accessor for the sequence strategy (set on construction).
-     * 
      * @return Sequence strategy
      */
     SequenceStrategy getSequenceStrategy();
 
     /**
      * Method to set the name of the datastore sequence that this maps to.
-     * 
      * @param seq Datastore sequence name
+     * @return This metadata object
      */
     SequenceMetadata setDatastoreSequence(String seq);
 
     /**
      * Accessor for the name of the datastore sequence that this maps to
-     * 
      * @return The datastore sequence name
      */
     String getDatastoreSequence();
 
     /**
-     * Method to set the result class name for the query
-     * 
+     * Method to set the result class name for the query.
      * @param clsName Result class name
+     * @return This metadata object
      */
     SequenceMetadata setFactoryClass(String clsName);
 
     /**
      * Accessor for the factory class for this sequence.
-     * 
      * @return The factory class
      */
     String getFactoryClass();
 
     /**
-     * Method to set the initial value for the sequence
-     * 
+     * Method to set the initial value for the sequence.
      * @param val Initial value to use
+     * @return This metadata object
      * @since 3.1
      */
     SequenceMetadata setInitialValue(int val);
 
     /**
      * Accessor for the initial value of the sequence (if any).
-     * 
      * @return initial value
      * @since 3.1
      */
     Integer getInitialValue();
 
     /**
-     * Method to set the allocation size for the sequence
-     * 
+     * Method to set the allocation size for the sequence.
      * @param size Allocation size to use
+     * @return This metadata object
      * @since 3.1
      */
     SequenceMetadata setAllocationSize(int size);
 
     /**
      * Accessor for the allocation size of the sequence (if any).
-     * 
      * @return allocation size
      * @since 3.1
      */

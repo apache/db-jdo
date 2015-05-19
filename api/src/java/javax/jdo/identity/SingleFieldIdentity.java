@@ -81,6 +81,7 @@ public abstract class SingleFieldIdentity
 
     /** Set the given key as the key for this instance. 
      * Compute the hash code for the instance.
+     * @param key The key to use
      * @since 2.0
      */
     protected void setKeyAsObject(Object key) {
@@ -90,6 +91,7 @@ public abstract class SingleFieldIdentity
 
     /** Assert that the key is not null. Throw a JDONullIdentityException
      * if the given key is null.
+     * @param key The key to check
      * @since 2.0
      */ 
     protected void assertKeyNotNull(Object key) {

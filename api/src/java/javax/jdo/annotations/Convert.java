@@ -29,14 +29,10 @@ import javax.jdo.AttributeConverter;
  *
  * If this annotation is placed on a type, then the conversion applies to all fields or properties whose types
  * match the entity type of the given {@link AttributeConverter}.
- * If {@link #name()} is not the empty string, then the conversion only holds for the field or property
- * whose name matches the given name. Placing this annotation on a class allow
- * for centralized configuration of class-scoped {@link AttributeConverter}s.
- * Any {@link Convert} annotations placed on attributes within the annotated
- * type override this annotation.
+ * Any {@link Convert} annotations placed on members overrides any type-level conversion specifications.
  * 
- * If this annotation is placed on a field or property, then {@link #name()} is ignored and the annotated
- * attribute's type must be assignment-compatible with the {@link AttributeConverter}'s entity type argument.
+ * If this annotation is placed on a field or property, the annotated attribute's type must be 
+ * assignment-compatible with the {@link AttributeConverter}'s entity type argument.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
@@ -44,6 +40,7 @@ public @interface Convert {
 
 	/**
 	 * The {@link AttributeConverter} to use for conversion.
+	 * @return Converter class to use
 	 */
 	@SuppressWarnings("rawtypes")
 	Class<? extends AttributeConverter> value();
@@ -51,13 +48,7 @@ public @interface Convert {
 	/**
 	 * Whether this conversion is enabled. True by default.
 	 * Setting this to false allows disabling conversion that was specified at PMF level.
+	 * @return Whether the PMF default converter is enabled
 	 */
 	boolean enabled() default true;
-
-	/**
-	 * The name of the field or property to which this conversion applies.
-	 * Ignored if this annotation is for a non-container member.
-	 * Specifying "key", "value" defines which part of a Map this applies to.
-	 */
-	String name() default "";
 }

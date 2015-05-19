@@ -22,64 +22,58 @@ package javax.jdo.metadata;
  */
 public interface UniqueMetadata extends Metadata {
     /**
-     * Method to set the name of the constraint
-     * 
+     * Method to set the name of the constraint.
      * @param name Name of the constraint
+     * @return This metadata object
      */
     UniqueMetadata setName(String name);
 
     /**
      * Accessor for the constraint name.
-     * 
      * @return The constraint name
      */
     String getName();
 
     /**
      * Method to set the table name.
-     * 
      * @param table Table name
+     * @return This metadata object
      */
     UniqueMetadata setTable(String table);
 
     /**
      * Accessor for the name of the table.
-     * 
      * @return The name
      */
     String getTable();
 
     /**
      * Method to set whether the constraint is deferred.
-     * 
      * @param def Deferred?
+     * @return This metadata object
      */
     UniqueMetadata setDeferred(boolean def);
 
     /**
      * Accessor for whether deferred.
-     * 
      * @return Deferred?
      */
     Boolean getDeferred();
 
     /**
      * Accessor for all column(s) defined on the unique constraint.
-     * 
      * @return The column(s)
      */
     ColumnMetadata[] getColumns();
 
     /**
      * Add a new column for this unique constraint.
-     * 
      * @return The ColumnMetadata
      */
     ColumnMetadata newColumnMetadata();
 
     /**
      * Accessor for the number of columns defined for this unique constraint.
-     * 
      * @return The number of columns
      */
     int getNumberOfColumns();

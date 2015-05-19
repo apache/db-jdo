@@ -22,15 +22,14 @@ package javax.jdo.metadata;
  */
 public interface PropertyMetadata extends MemberMetadata {
     /**
-     * Method to set the field name (persistent interfaces)
-     * 
+     * Method to set the field name (persistent interfaces).
      * @param name field name
+     * @return This metadata object
      */
     PropertyMetadata setFieldName(String name);
 
     /**
-     * Accessor for the field name
-     * 
+     * Accessor for the field name.
      * @return Field name
      */
     String getFieldName();

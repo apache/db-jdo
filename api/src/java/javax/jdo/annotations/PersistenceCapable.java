@@ -38,49 +38,71 @@ public @interface PersistenceCapable
      */
     Persistent[] members() default {};
 
-    /** Table to use for persisting this class or interface. 
+    /**
+     * Table to use for persisting this class or interface. 
+     * @return The table
      */
     String table() default "";
 
-    /** Catalog to use for persisting this class or interface. 
+    /**
+     * Catalog to use for persisting this class or interface. 
+     * @return The catalog
      */
     String catalog() default "";
 
-    /** Schema to use for persisting this class or interface. 
+    /**
+     * Schema to use for persisting this class or interface. 
+     * @return The schema
      */
     String schema() default "";
 
-    /** Whether this class or interface manages an extent. 
+    /**
+     * Whether this class or interface manages an extent. 
+     * @return Whether an extent is required
      */
     String requiresExtent() default "";
 
-    /** Whether objects of this class or interface can only be embedded. 
+    /**
+     * Whether objects of this class or interface can only be embedded.
+     * @return Whether this is embedded only
      */
     String embeddedOnly() default "";
 
-    /** Whether this class or interface is detachable. 
+    /**
+     * Whether this class or interface is detachable. 
+     * @return Whether this is detachable
      */
     String detachable() default "";
 
-    /** Type of identity for this class or interface. 
+    /**
+     * Type of identity for this class or interface. 
+     * @return The identity type for this class
      */
     IdentityType identityType() default IdentityType.UNSPECIFIED;
 
-    /** Primary key class when using application identity and using own PK. 
+    /**
+     * Primary key class when using application identity and using own PK. 
+     * @return Object-id class (if specified)
      */
     Class objectIdClass() default void.class;
 
-    /** Whether this class is cacheable in a Level2 cache.
+    /**
+     * Whether this class is cacheable in a Level2 cache.
+     * @return Whether the class is L2 cacheable
      * @since 2.2
      */
     String cacheable() default "true";
 
-    /** Whether objects of this type should, by default, be locked when read.
+    /**
+     * Whether objects of this type should, by default, be locked when read.
+     * @return Whether we should lock this type of object by default
      * @since 3.0
      */
     String serializeRead() default "false";
 
-    /** Any vendor extensions.
+    /**
+     * Any vendor extensions.
+     * @return The extensions defined for this class
      */
     Extension[] extensions() default {};
 }

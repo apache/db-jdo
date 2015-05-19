@@ -30,6 +30,7 @@ public @interface Converts {
 
 	/**
 	 * The conversion specifications to be configured.
+	 * @return Array of converters
 	 */
 	Convert[] value();
 }

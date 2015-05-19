@@ -245,6 +245,7 @@ public interface StateInterrogation {
      * @see PersistenceCapable#jdoMakeDirty(String fieldName)
      * @param pc the instance.
      * @param fieldName the name of the field to be marked dirty.
+     * @return Whether it was made dirty
      */
     boolean makeDirty (Object pc, String fieldName);
 

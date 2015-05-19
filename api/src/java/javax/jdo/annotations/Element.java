@@ -21,6 +21,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.jdo.AttributeConverter;
+import javax.jdo.AttributeConverter.NullAttributeConverter;
+
 
 /**
  * Annotation for the element of a collection/array relation.
@@ -138,6 +141,20 @@ public @interface Element
      * @return the name of the generated foreign key constraint
      */
     String foreignKey() default "";
+
+	/**
+	 * Optional {@link AttributeConverter} to use for converting this element.
+	 * @return The converter class (or NullAttributeConverter if not specified).
+	 */
+	@SuppressWarnings("rawtypes")
+	Class<? extends AttributeConverter> converter() default NullAttributeConverter.class;
+
+	/**
+	 * Whether we should disable any converter that was specified as default for this type on the PMF.
+	 * If the converter is specified on this annotation then this is ignored
+	 * @return Whether PMF attribute conversion is to be disabled.
+	 */
+	boolean disableConversion() default false;
 
     /** Vendor extensions.
      * @return the vendor extensions
