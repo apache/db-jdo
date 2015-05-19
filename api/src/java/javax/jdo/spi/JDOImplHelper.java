@@ -51,7 +51,6 @@ import javax.jdo.Constants;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
-import javax.jdo.JDOHelper;
 import javax.jdo.JDOUserException;
 import javax.xml.parsers.DocumentBuilderFactory;
 
