@@ -40,14 +40,14 @@ import javax.jdo.spi.I18NHelper;
 /**
  * Main class to invoke a JDO Enhancer.
  * The enhancer is invoked with the following command line:
- * <xmp>
- * java -cp <classpath> javax.jdo.Enhancer <options> <directory, file, or resource names>
- * </xmp>
+ * <pre>
+ * java -cp {classpath} javax.jdo.Enhancer {options} {directory, file, or resource names}
+ * </pre>
  * &lt;classpath&gt; must contain the jdo specification jar, the implementation jar and any 
  * implementation dependencies, the statically-compiled classes, and the jdo 
  * metadata files loadable as resources.
  * 
- * <p/>&lt;options&gt; include: 
+ * &lt;options&gt; include: 
  * <ul><li>? : print usage to stderr and exit
  * </li><li>-h : print usage to stderr and exit
  * </li><li>-help : print usage to stderr and exit

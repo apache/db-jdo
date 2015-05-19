@@ -28,15 +28,13 @@ package javax.jdo.spi;
  * The following table
  * provides a summary description of what each named permission allows,
  * and discusses the risks of granting code the permission.
- * <P>
  *
- * <table border=1 cellpadding=5>
+ * <table border=1 cellpadding=5 summary="">
  * <tr>
  * <th>Permission Target Name</th>
  * <th>What the Permission Allows</th>
  * <th>Risks of Allowing this Permission</th>
  * </tr>
- *
  * <tr>
  *   <td><code>setStateManager</code></td>
  *   <td>This allows setting the <code>StateManager</code> for an instance of 
@@ -46,7 +44,6 @@ package javax.jdo.spi;
  *   <td>This is dangerous in that information (possibly confidential) 
  *   normally unavailable would be accessible to malicious code.</td>
  * </tr>
- *
  * <tr>
  *   <td><code>getMetadata</code></td>
  *   <td>This allows getting metadata for any <code>PersistenceCapable</code> 
@@ -54,7 +51,6 @@ package javax.jdo.spi;
  *   <td>This is dangerous in that metadata information (possibly confidential) 
  *   normally unavailable would be accessible to malicious code.</td>
  * </tr>
- *
  * <tr>
  *   <td><code>manageMetadata</code></td>
  *   <td>This allows managing metadata for any <code>PersistenceCapable</code> 
@@ -63,7 +59,6 @@ package javax.jdo.spi;
  *   normally unavailable would be manageable (modifiable) by malicious code.
  *   </td>
  * </tr>
- *
  * <tr>
  *   <td><code>closePersistenceManagerFactory</code></td>
  *   <td>This allows closing a <code>PersistenceManagerFactory</code>,
@@ -72,7 +67,6 @@ package javax.jdo.spi;
  *       <code>PersistenceManagerFactory</code> would be releaseable by
  *       malicious code.</td>  
  * </tr>
- *
  * </table>
  *
  * @see java.security.Permission

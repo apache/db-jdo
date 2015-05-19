@@ -151,6 +151,7 @@ public interface FetchGroup {
 
     /** 
      * Set the post-load property of this FetchGroup.
+     * @param postLoad Whether to post load this fetch group
      * @return the FetchGroup
      * @throws JDOUserException if the FetchGroup is unmodifiable
      * @since 2.2
@@ -182,11 +183,10 @@ public interface FetchGroup {
     FetchGroup addMembers(String... memberNames);
 
     /**
-     * Remove the member (field or property) from the set of members in this
-     * FetchGroup.
+     * Remove the member (field or property) from the set of members in this FetchGroup.
+     * @param memberName Name of the member of the class to remove from the FetchGroup.
      * @return the FetchGroup
-     * @throws JDOUserException if the parameter is not a member of the
-     * persistent type
+     * @throws JDOUserException if the parameter is not a member of the persistent type
      * @throws JDOUserException if the FetchGroup is unmodifiable
      * @since 2.2
      */
@@ -196,9 +196,9 @@ public interface FetchGroup {
      * Remove the member (field or property) from the set of members in this
      * FetchGroup. Duplicates in the parameter list are eliminated before
      * removing them from the membership.
+     * @param memberNames Member names of the class to remove from this FetchGroup.
      * @return the FetchGroup
-     * @throws JDOUserException if any parameter is not a member of the
-     * persistent type
+     * @throws JDOUserException if any parameter is not a member of the persistent type
      * @throws JDOUserException if the FetchGroup is unmodifiable
      * @since 2.2
      */
@@ -210,6 +210,7 @@ public interface FetchGroup {
      * resolves the category name to a set of members and then adds
      * the members as if {@link #addMembers} was called. After this
      * method executes, the category is not remembered.
+     * @param categoryName Category to add to this FetchGroup.
      * @return the FetchGroup
      * @throws JDOUserException if the FetchGroup is unmodifiable
      * @since 2.2
@@ -222,6 +223,7 @@ public interface FetchGroup {
      * resolves the category name to a set of members and then removes
      * the members as if {@link #removeMembers} was called. After this
      * method executes, the category is not remembered.
+     * @param categoryName Category to remove from this FetchGroup.
      * @return the FetchGroup
      * @throws JDOUserException if the FetchGroup is unmodifiable
      * @since 2.2

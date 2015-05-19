@@ -779,11 +779,12 @@ public class JDOHelper implements Constants {
      * <code>PersistenceManagerFactory</code> instance.  In this case, the 
      * properties of the returned instance must exactly match the requested 
      * properties.
-     * @return the <code>PersistenceManagerFactory</code>.
+     * @param overrides Overrides of properties
      * @param props a <code>Properties</code> instance with properties of the 
      * <code>PersistenceManagerFactory</code>.
      * @param pmfClassLoader the class loader to use to load the
      * <code>PersistenceManagerFactory</code> class
+     * @return the <code>PersistenceManagerFactory</code>.
      * @throws JDOFatalUserException if
      * <ul><li>the pmfClassLoader passed is invalid; or 
      * </li><li>a valid class name cannot be obtained from
@@ -875,10 +876,9 @@ public class JDOHelper implements Constants {
      * and comments.
      * @param url the URL of the services file
      * @return the name of the class contained in the file
-     * @throws java.io.IOException
+     * @throws java.io.IOException Throw if an error occurs on accessing this URL
      * @since 2.1
      */
-
     protected static String getClassNameFromURL (URL url) 
             throws IOException {
         InputStream is = openStream(url);
@@ -912,11 +912,11 @@ public class JDOHelper implements Constants {
     }
 
     /**
-     * Returns a named {@link PersistenceManagerFactory} or persistence
-     * unit.
-     *
+     * Returns a named {@link PersistenceManagerFactory} or persistence unit.
      * @since 2.1
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
+     * @param name Name of the PMF
+     * @return PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (String name) {
@@ -925,11 +925,12 @@ public class JDOHelper implements Constants {
     }
 
     /**
-     * Returns a named {@link PersistenceManagerFactory} or persistence
-     * unit.
-     *
+     * Returns a named {@link PersistenceManagerFactory} or persistence unit.
      * @since 1.0
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
+     * @param name Name of the PMF
+     * @param loader ClassLoader to use
+     * @return PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (String name, ClassLoader loader) {
@@ -938,11 +939,13 @@ public class JDOHelper implements Constants {
     }
 
     /**
-     * Returns a named {@link PersistenceManagerFactory} or persistence
-     * unit.
-     *
+     * Returns a named {@link PersistenceManagerFactory} or persistence unit.
      * @since 2.0
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
+     * @param name Name of the PMF
+     * @param resourceLoader ClassLoader to use for loading resources
+     * @param pmfLoader ClassLoader to use for loading the PMF
+     * @return PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
         (String name, ClassLoader resourceLoader, ClassLoader pmfLoader) {
@@ -952,11 +955,12 @@ public class JDOHelper implements Constants {
     }
 
     /**
-     * Returns a named {@link PersistenceManagerFactory} or persistence
-     * unit.
-     *
+     * Returns a named {@link PersistenceManagerFactory} or persistence unit.
      * @since 2.1
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
+     * @param name Name of the PMF
+     * @param overrides Property overrides
+     * @return PersistenceManagerFactory
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (Map<?, ?> overrides, String name) {
@@ -966,11 +970,13 @@ public class JDOHelper implements Constants {
     }
 
     /**
-     * Returns a named {@link PersistenceManagerFactory} or persistence
-     * unit.
-     *
+     * Returns a named {@link PersistenceManagerFactory} or persistence unit.
      * @since 2.1
      * @see #getPersistenceManagerFactory(Map,String,ClassLoader,ClassLoader)
+     * @param overrides Property overrides
+     * @param name Name of the PMF
+     * @param resourceLoader ClassLoader to use for loading resources
+     * @return The PMF
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (Map<?, ?> overrides, String name, ClassLoader resourceLoader) {
@@ -1055,8 +1061,7 @@ public class JDOHelper implements Constants {
      * {@link PersistenceManagerFactory} or
      * <code>javax.persistence.EntityManagerFactory</code> classes
      * @return the {@link PersistenceManagerFactory} with properties in the
-     * given resource, with the given name, or with the given persitence unit
-     * name
+     * given resource, with the given name, or with the given persitence unit name
      * @see Constants#ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME
      */
     public static PersistenceManagerFactory getPersistenceManagerFactory(
@@ -1237,12 +1242,14 @@ public class JDOHelper implements Constants {
     /**
      * @see #getNamedPMFProperties(String,ClassLoader,String)
      * @since 2.1
+     * @param name Name of the PMF
+     * @param resourceLoader ClassLoader to use for loading resources
+     * @return The properties for this PMF
      */
     protected static Map<Object,Object> getPropertiesFromJdoconfig(
             String name,
             ClassLoader resourceLoader) {
-        return getNamedPMFProperties(
-            name, resourceLoader, JDOCONFIG_RESOURCE_NAME);
+        return getNamedPMFProperties(name, resourceLoader, JDOCONFIG_RESOURCE_NAME);
     }
 
     /**
@@ -1388,17 +1395,15 @@ public class JDOHelper implements Constants {
     }
 
 
-    /** Reads JDO configuration file, creates a Map for each
+    /**
+     * Reads JDO configuration file, creates a Map for each
      * persistence-manager-factory, then returns the map.
-     * @param url URL of a JDO configuration file compliant with
-     * javax/jdo/jdoconfig.xsd.
+     * @param url URL of a JDO configuration file compliant with javax/jdo/jdoconfig.xsd.
      * @param requestedPMFName The name of the requested
-     * persistence unit (allows for fail-fast).
-     * @param factory The <code>DocumentBuilderFactory</code> to use for XML
-     * parsing.
-     * @return a Map<String,Map> holding persistence unit configurations; for
-     * the anonymous persistence unit, the
-     * value of the String key is the empty string, "".
+     *   persistence unit (allows for fail-fast).
+     * @param factory The <code>DocumentBuilderFactory</code> to use for XML parsing.
+     * @return a Map&lt;String,Map&gt; holding persistence unit configurations; for the
+     *   anonymous persistence unit, the value of the String key is the empty string, "".
      */
     protected static Map<String,Map<Object,Object>> readNamedPMFProperties(
             URL url,
@@ -1980,11 +1985,13 @@ public class JDOHelper implements Constants {
         }
     }
 
-    /** Get resources of the resource loader. 
+    /**
+     * Get resources of the resource loader. 
      * Perform this operation in a doPrivileged block.
-     * @param resourceLoader
-     * @param resourceName
+     * @param resourceLoader ClassLoader to use for loading resources
+     * @param resourceName Name of the resource
      * @return the resources
+     * @throws IOException if an error occurs accessing the resources
      */
     protected static Enumeration<URL> getResources(
             final ClassLoader resourceLoader, 
@@ -2003,9 +2010,9 @@ public class JDOHelper implements Constants {
         }
     }
 
-    /** Get the named class.
+    /** 
+     * Get the named class.
      * Perform this operation in a doPrivileged block.
-     * 
      * @param name the name of the class
      * @param init whether to initialize the class
      * @param loader which class loader to use

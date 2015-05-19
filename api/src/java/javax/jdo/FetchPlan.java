@@ -88,6 +88,7 @@ public interface FetchPlan {
 
     /** 
      * Add the fetch group to the set of active fetch groups.
+     * @param fetchGroupName Name of the FetchGroup to add
      * @return the FetchPlan
      * @since 2.0
      */
@@ -95,6 +96,7 @@ public interface FetchPlan {
 
     /** 
      * Remove the fetch group from the set active fetch groups. 
+     * @param fetchGroupName Name of the FetchGroup to remove
      * @return the FetchPlan
      * @since 2.0
      */
@@ -164,6 +166,7 @@ public interface FetchPlan {
     /**
      * Set the roots for DetachAllOnCommit.
      * @param roots Collection of the detachment roots.
+     * @return This FetchPlan
      * @since 2.0
      */
     FetchPlan setDetachmentRoots(Collection roots);
@@ -178,6 +181,7 @@ public interface FetchPlan {
     /**
      * Set the root classes for DetachAllOnCommit.
      * @param rootClasses The root classes.
+     * @return This FetchPlan
      * @since 2.0
      */
     FetchPlan setDetachmentRootClasses(Class... rootClasses);
@@ -210,11 +214,14 @@ public interface FetchPlan {
     /**
      * Set options to be used during detachment. Options are {@link
      * #DETACH_LOAD_FIELDS} and {@link #DETACH_UNLOAD_FIELDS}.
+     * @param options Options for use during detachment.
+     * @return This FetchPlan
      */
     FetchPlan setDetachmentOptions(int options);
  
     /**
      * Get options used during detachment.
+     * @return Options to use during detachment.
      */
     int getDetachmentOptions();
   

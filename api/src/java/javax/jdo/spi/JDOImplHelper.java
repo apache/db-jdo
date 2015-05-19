@@ -1154,12 +1154,8 @@ public class JDOImplHelper extends java.lang.Object {
      * beginning with
      * {@link Constants#PROPERTY_PREFIX_INSTANCE_LIFECYCLE_LISTENER} or not
      * beginning with {@link Constants#JAVAX_JDO_PREFIX}.
-     * 
-     * @param properties
-     *            The properties to examine.
-     * 
+     * @param properties The properties to examine.
      * @see Constants#JAVAX_JDO_PREFIX
-     * @see JDOHelper#USER_CONFIGURABLE_STANDARD_PROPERTIES
      * @since 3.1
      */
     public static void assertOnlyKnownStandardProperties(Map<?, ?> properties) {

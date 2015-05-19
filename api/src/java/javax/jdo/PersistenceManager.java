@@ -153,7 +153,7 @@ public interface PersistenceManager extends AutoCloseable {
 
     /**
      * Refreshes all instances in the exception that failed verification.
-     *
+     * @param jdoe The exception defining object(s) to be refreshed
      * @since 2.0
      */
     void refreshAll (JDOException jdoe);
@@ -263,14 +263,17 @@ public interface PersistenceManager extends AutoCloseable {
      * @param subclasses whether to include instances of subclasses
      * @return an <code>Extent</code> of the specified <code>Class</code>
      * @see Query
+     * @param <T> Type for the candidate of the Extent
      */
     <T> Extent<T> getExtent (Class<T> persistenceCapableClass, boolean subclasses);
 
     /**
-     * Equivalent to <code>getExtent (persistenceCapableClass,
-     * true)</code>.
+     * Equivalent to <code>getExtent (persistenceCapableClass, true)</code>.
      * @see #getExtent(Class,boolean)
      * @since 2.0
+     * @param persistenceCapableClass Candidate class for the extent
+     * @return an <code>Extent</code> of the specified <code>Class</code>
+     * @param <T> Type for the candidate of the Extent
      */
     <T> Extent<T> getExtent (Class<T> persistenceCapableClass);
 
@@ -346,12 +349,13 @@ public interface PersistenceManager extends AutoCloseable {
      * an object representation of a single field identity key
      * @return the corresponding persistent instance
      * @since 2.0
+     * @param <T> Type of the persistable object being retrieved
      */
     <T> T getObjectById (Class<T> cls, Object key);
 
     /**
      * Looks up the instance corresponding to the specified oid. This is
-     * equivalent to <code>getObjectById(oid, true);
+     * equivalent to <code>getObjectById(oid, true);</code>
      * @param oid The object id of the object to load
      * @return the corresponding persistent instance
      */
@@ -524,6 +528,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the parameter instance for parameters in the transient or
      * persistent state, or the corresponding persistent instance 
      * for detached parameter instances
+     * @param <T> Type of the persistable object
      */
     <T> T makePersistent (T pc);
     
@@ -534,6 +539,7 @@ public interface PersistenceManager extends AutoCloseable {
      * for detached parameter instances, in the same order as in the 
      * parameter array
      * @see #makePersistent(Object pc)
+     * @param <T> Type of the persistable object
      */
     <T> T[] makePersistentAll (T... pcs);
     
@@ -544,6 +550,7 @@ public interface PersistenceManager extends AutoCloseable {
      * for detached parameter instances, with an iteration in the same order
      * as in the parameter Collection
      * @see #makePersistent(Object pc)
+     * @param <T> Type of the persistable object
      */
     <T> Collection<T> makePersistentAll (Collection<T> pcs);
     
@@ -984,7 +991,7 @@ public interface PersistenceManager extends AutoCloseable {
     * persistent instances transition to transient; and detachable
     * instances can be serialized as detached instances. Transient
     * transactional instances are unaffected by this flag.
-    *
+    * @param flag Flag for whether to detach all on commit
     * @see #getDetachAllOnCommit()
     * @since 2.0
     */
@@ -1005,7 +1012,7 @@ public interface PersistenceManager extends AutoCloseable {
     * instances are attached directly and change their state from
     * detached-clean to persistent-clean or from detached-dirty to
     * persistent-dirty.
-    *
+    * @param flag Flag for whether to copy on attach
     * @see #getCopyOnAttach()
     * @since 2.1
     */
@@ -1021,6 +1028,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the detached instance
      * @see #detachCopyAll(Object[])
      * @since 2.0
+     * @param <T> Type of the persistable object
      */
     <T> T detachCopy (T pc);
 
@@ -1034,6 +1042,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @return the detached instances
      * @see #detachCopyAll(Object[])
      * @since 2.0
+     * @param <T> Type of the persistable objects
      */
     <T> Collection<T> detachCopyAll (Collection<T> pcs);
 
@@ -1060,12 +1069,16 @@ public interface PersistenceManager extends AutoCloseable {
      * @see #makePersistentAll(Object[])
      * @see #getFetchPlan
      * @since 2.0
+     * @param <T> Type of the persistable object
      */
     <T> T[] detachCopyAll (T... pcs);
 
     /**
      * Put the specified key-value pair into the map of user objects.
      * @since 2.0
+     * @param key Key to store the user object under
+     * @param val User object to store
+     * @return The previous object under this key
      */
     Object putUserObject (Object key, Object val);
 
@@ -1080,6 +1093,7 @@ public interface PersistenceManager extends AutoCloseable {
     /**
      * Remove the specified key and its value from the map of user objects.
      * @param key the key of the object to be removed
+     * @return The user object that was removed
      * @since 2.0
      */
     Object removeUserObject (Object key);
@@ -1140,6 +1154,7 @@ public interface PersistenceManager extends AutoCloseable {
      * or a concrete or abstract class that is declared in the metadata.
      * @return the created instance
      * @since 2.0
+     * @param <T> Type of the persistable object
      */
     <T> T newInstance (Class<T> pcClass);
 

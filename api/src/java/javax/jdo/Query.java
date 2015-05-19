@@ -449,7 +449,7 @@ public interface Query extends AutoCloseable, Serializable {
      * and is of the type (treating wrapper types equivalent to primitive 
      * types) of the result expression; 
      * <li>or if no public field matches the name and type, a public 
-     * <code>set</code method that returns void and matches the name of the 
+     * <code>set</code> method that returns void and matches the name of the 
      * result expression and takes a single parameter which is the 
      * exact type of the result expression;
      * <li>or if neither of the above applies,a public method must be found 
@@ -460,7 +460,7 @@ public interface Query extends AutoCloseable, Serializable {
      * </ul>
      * </ul>
      * Portable result classes do not invoke any persistence behavior 
-     * during their no-args constructor or <code>set</code methods.
+     * during their no-args constructor or <code>set</code> methods.
      * @param cls the result class
      * @since 2.0
      */
@@ -774,6 +774,7 @@ public interface Query extends AutoCloseable, Serializable {
      * throw JDOUnsupportedOptionException.
      * If the cancellation fails (e.g in the underlying datastore) then this will throw
      * a JDOException.
+     * @param thread The thread to cancel
      * @since 3.0
      */
     void cancel(Thread thread);

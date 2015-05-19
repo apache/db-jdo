@@ -379,7 +379,7 @@ public interface PersistenceManagerFactory extends Serializable {
     * instances are attached directly and change their state from
     * detached-clean to persistent-clean or from detached-dirty to
     * persistent-dirty.
-    *
+    * @param flag Whether we should copy on attach
     * @see #getCopyOnAttach()
     * @since 2.1
     */
@@ -483,7 +483,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * <P>ReadOnly set to <code>false</code> specifies that no updates
      * can be performed to the datastore, and if updates are attempted
      * a JDOReadOnlyException is thrown.
-     *
+     * @param flag whether we should consider this datastore read-only
      * @see #getReadOnly()
      * @since 2.2
      */
@@ -773,6 +773,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * metadata defined for that class/interface.
      * If there is no metadata for the specified class/interface, or the parameter is null,
      * then null will be returned.
+     * @param className Name of the class to get metadata for
      * @return The metadata
      * @since 3.0
      */

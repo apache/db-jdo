@@ -55,7 +55,7 @@ public class JDOCanRetryException extends JDOException {
   
   /**
    * Constructs a new <code>JDOCanRetryException</code> with the specified detail
-   * message and nested <code>Throwable<code>s.
+   * message and nested <code>Throwable</code>s.
    * @param msg the detail message.
    * @param nested the nested <code>Throwable</code>.
    */

@@ -389,14 +389,13 @@ public interface PersistenceCapable {
      * example, an ObjectId class that has three key fields <code>(int id,
      * String name, and Float salary)</code> would have the method generated:
      * <code>
-     * <P>void jdoCopyKeyFieldsToObjectId
-     * <P>(ObjectIdFieldSupplier fm, Object objectId) {
-     * <P>EmployeeKey oid = (EmployeeKey)objectId;
-     * <P>oid.id = fm.fetchIntField (0);
-     * <P>oid.name = fm.fetchStringField (1);
-     * <P>oid.salary = fm.fetchObjectField (2);
-     * <P>}
-     * </code>
+     * void jdoCopyKeyFieldsToObjectId
+     * (ObjectIdFieldSupplier fm, Object objectId) {
+     * EmployeeKey oid = (EmployeeKey)objectId;
+     * oid.id = fm.fetchIntField (0);
+     * oid.name = fm.fetchStringField (1);
+     * oid.salary = fm.fetchObjectField (2);
+     * }</code>
      * <P>The implementation is responsible for implementing the
      * <code>ObjectIdFieldSupplier</code> to produce the values 
      * for the key fields.
@@ -414,14 +413,12 @@ public interface PersistenceCapable {
      * example, an ObjectId class that has three key fields <code>(int id,
      * String name, and Float salary)</code> would have the method generated:
      * <code>
-     * <P>void copyKeyFieldsFromObjectId
-     * <P>        (ObjectIdFieldConsumer fm, Object objectId) {
-     * <P>     EmployeeKey oid = (EmployeeKey)objectId;
-     * <P>     fm.storeIntField (0, oid.id);
-     * <P>     fm.storeStringField (1, oid.name);
-     * <P>     fm.storeObjectField (2, oid.salary);
-     * <P>}
-     * </code>
+     * void copyKeyFieldsFromObjectId(ObjectIdFieldConsumer fm, Object objectId) {
+     *     EmployeeKey oid = (EmployeeKey)objectId;
+     *     fm.storeIntField (0, oid.id);
+     *     fm.storeStringField (1, oid.name);
+     *     fm.storeObjectField (2, oid.salary);
+     * }</code>
      * <P>The implementation is responsible for implementing the
      * <code>ObjectIdFieldConsumer</code> to store the values for the 
      * key fields.

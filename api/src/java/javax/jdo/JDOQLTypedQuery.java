@@ -61,6 +61,7 @@ public interface JDOQLTypedQuery<T>
      * @param name Name of the parameter
      * @param type Java type of the parameter
      * @return Expression for the parameter
+     * @param <P> type for the parameter
      */
     <P> Expression<P> parameter(String name, Class<P> type);
 
@@ -133,6 +134,7 @@ public interface JDOQLTypedQuery<T>
      * @param name Name of the variable
      * @param type Type of the variable
      * @return Expression for the variable
+     * @param <V> type for the variable
      */
     <V> Expression<V> variable(String name, Class<V> type);
 
@@ -280,14 +282,12 @@ public interface JDOQLTypedQuery<T>
      * Method to execute the query where there are (potentially) multiple rows and we are returning
      * the candidate type.
      * @return The results
-     * @param <T> result type
      */
     List<T> executeList();
 
     /**
      * Method to execute the query where there is a single row and we are returning the candidate type.
      * @return The result
-     * @param <T> result type
      */
     T executeUnique();
 
