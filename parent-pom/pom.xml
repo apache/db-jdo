@@ -53,17 +53,17 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <dependency>
         <groupId>javax.jdo</groupId>
         <artifactId>jdo-api</artifactId>
-        <version>3.1-SNAPSHOT</version>
+        <version>3.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-exectck</artifactId>
-        <version>3.1-SNAPSHOT</version>
+        <version>3.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.jdo</groupId>
         <artifactId>jdo-tck</artifactId>
-        <version>3.1-SNAPSHOT</version>
+        <version>3.2-SNAPSHOT</version>
       </dependency>
      <dependency>
         <groupId>org.apache.maven</groupId>
