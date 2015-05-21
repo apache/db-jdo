@@ -59,7 +59,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
             pm.retrieveAll(pcs, false);
         }
         public void pmApi(PersistenceManager pm, Object[] pcs) {
-            pm.retrieveAll(pcs, false);
+            pm.retrieveAll(false, pcs);
         }
     };
 

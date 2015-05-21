@@ -84,7 +84,7 @@ public class FetchPlanRetrieve extends AbstractFetchPlanTest {
         pm.currentTransaction().begin();
         PCRect instance = (PCRect)pm.getObjectById(pcrectoid, false);
         Object[] instances = new Object[]{instance};
-        pm.retrieveAll(instances, true);
+        pm.retrieveAll(true, instances);
         checkBothLoaded(ASSERTION_FAILED, instance);
         pm.currentTransaction().commit();
         failOnError();

@@ -155,7 +155,7 @@ public class GetObjectsById extends JDO_Test {
     /** */
     public void testArrayTrue() {
         getPM().currentTransaction().begin();
-        Object[] result = pm.getObjectsById(oidArray, true);
+        Object[] result = pm.getObjectsById(true, oidArray);
         pm.currentTransaction().commit();
         checkResultArray("after getObjectsById(Object[], false)", result);
         failOnError();
@@ -164,7 +164,7 @@ public class GetObjectsById extends JDO_Test {
     /** */
     public void testArrayFalse() {
         getPM().currentTransaction().begin();
-        Object[] result = pm.getObjectsById(oidArray, false);
+        Object[] result = pm.getObjectsById(false, oidArray);
         pm.currentTransaction().commit();
         checkResultArray("after getObjectsById(Object[], false)", result);
         failOnError();

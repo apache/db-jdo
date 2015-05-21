@@ -233,7 +233,7 @@ public class Retrieve extends PersistenceManagerTest {
             objs[0] = p1;
             objs[1] = p3;
             objs[2] = rect;
-            pm.retrieveAll(objs, true);
+            pm.retrieveAll(true, objs);
             pm.makeTransientAll(objs);
             tx.commit();
             tx = null;
@@ -258,7 +258,7 @@ public class Retrieve extends PersistenceManagerTest {
             objs[0] = p1;
             objs[1] = p3;
             objs[2] = rect;
-            pm.retrieveAll(objs, false);
+            pm.retrieveAll(false, objs);
             pm.makeTransientAll(objs);
             tx.commit();
             tx = null;

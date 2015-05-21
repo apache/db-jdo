@@ -76,7 +76,7 @@ public class FetchPlanMakeTransient extends AbstractFetchPlanTest {
         setBothGroup();
         pm.currentTransaction().begin();
         PCRect instance = (PCRect)pm.getObjectById(pcrectoid, false);
-        pm.makeTransientAll(new Object[]{instance}, true);
+        pm.makeTransientAll(true, new Object[]{instance});
         checkBothLoaded(ASSERTION_FAILED, instance);
         pm.currentTransaction().commit();
         failOnError();
