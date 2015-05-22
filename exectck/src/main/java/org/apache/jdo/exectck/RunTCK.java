@@ -148,7 +148,7 @@ public class RunTCK extends AbstractTCKMojo {
     /**
      * Properties to use in accessing database.
      * @parameter property="jdo.tck.signaturefile"
-     *      default-value="${basedir}/src/conf/jdo-3_1-signatures.txt"
+     *      default-value="${basedir}/src/conf/jdo-signatures.txt"
      * @optional
      */
     private String signaturefile;
