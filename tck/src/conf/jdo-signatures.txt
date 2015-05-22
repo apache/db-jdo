@@ -268,17 +268,14 @@ public interface javax.jdo.datastore.DataStoreCache {
     public void evictAll();
     public varargs void evictAll(Object[] oids);
     public void evictAll(java.util.Collection oids);
-    public void evictAll(Class pcClass, boolean subclasses);
     public void evictAll(boolean subclasses, Class pcClass);
     public void pin(Object oid);
     public void pinAll(java.util.Collection oids);
     public varargs void pinAll(Object[] oids);
-    public void pinAll(Class pcClass, boolean subclasses);
     public void pinAll(boolean subclasses, Class pcClass);
     public void unpin(Object oid);
     public void unpinAll(java.util.Collection oids);
     public varargs void unpinAll(Object[] oids);
-    public void unpinAll(Class pcClass, boolean subclasses);
     public void unpinAll(boolean subclasses, Class pcClass);
 }
 
@@ -696,7 +693,7 @@ public interface javax.jdo.listener.StoreLifecycleListener extends javax.jdo.lis
     public void postStore(javax.jdo.listener.InstanceLifecycleEvent event);
 }
 
-public interface javax.jdo.PersistenceManager {
+public interface javax.jdo.PersistenceManager extends java.lang.AutoCloseable {
     public boolean isClosed();
     public void close();
     public javax.jdo.Transaction currentTransaction();
@@ -731,7 +728,6 @@ public interface javax.jdo.PersistenceManager {
     public Object newObjectIdInstance(Class pcClass, Object key);
     public java.util.Collection getObjectsById(java.util.Collection oids, boolean validate);
     public java.util.Collection getObjectsById(java.util.Collection oids);
-    public Object[] getObjectsById(Object[] oids, boolean validate);
     public varargs Object[] getObjectsById(boolean validate,Object[] oids);
     public varargs Object[] getObjectsById(Object[] oids);
     public Object makePersistent(Object pc);
@@ -744,7 +740,6 @@ public interface javax.jdo.PersistenceManager {
     public varargs void makeTransientAll(Object[] pcs);
     public void makeTransientAll(java.util.Collection pcs);
     public void makeTransient(Object pc, boolean useFetchPlan);
-    public void makeTransientAll(Object[] pcs, boolean useFetchPlan);
     public varargs void makeTransientAll(boolean useFetchPlan, Object[] pcs);
     public void makeTransientAll(java.util.Collection pcs, boolean useFetchPlan);
     public void makeTransactional(Object pc);
@@ -758,7 +753,6 @@ public interface javax.jdo.PersistenceManager {
     public void retrieveAll(java.util.Collection pcs);
     public void retrieveAll(java.util.Collection pcs, boolean FGOnly);
     public varargs void retrieveAll(Object[] pcs);
-    public void retrieveAll(Object[] pcs, boolean FGOnly);
     public varargs void retrieveAll(boolean FGOnly, Object[] pcs);
     public void setUserObject(Object o);
     public Object getUserObject();
@@ -874,7 +868,7 @@ public interface javax.jdo.PersistenceManagerFactory extends java.io.Serializabl
     public java.util.Collection getManagedClasses();
 }
 
-public interface javax.jdo.Query extends java.io.Serializable {
+public interface javax.jdo.Query extends java.lang.AutoCloseable, java.io.Serializable {
     public static final String JDOQL = "javax.jdo.query.JDOQL";
     public static final String SQL = "javax.jdo.query.SQL";
     public void setClass(Class cls);
@@ -923,6 +917,7 @@ public interface javax.jdo.Query extends java.io.Serializable {
     public Integer getDatastoreReadTimeoutMillis();
     public void setDatastoreWriteTimeoutMillis(Integer interval);
     public Integer getDatastoreWriteTimeoutMillis();
+    public javax.jdo.Query saveAsNamedQuery(String);
 }
 
 public interface javax.jdo.spi.Detachable {
