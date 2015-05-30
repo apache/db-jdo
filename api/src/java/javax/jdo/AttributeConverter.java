@@ -44,14 +44,17 @@ public interface AttributeConverter<A, D> {
      */
     A convertToAttribute(D datastoreValue);
 
-	public static class NullAttributeConverter implements AttributeConverter<Object, Object>
+    /**
+     * Dummy converter to represent "use the implementation default for this type" when using annotations.
+     */
+	public static class UseDefault implements AttributeConverter<Object, Object>
 	{
 		public Object convertToDatastore(Object attributeValue) {
-			return null;
+			throw new JDOUserException("This converter is not usable.");
 		}
 
 		public Object convertToAttribute(Object datastoreValue) {
-			return null;
+			throw new JDOUserException("This converter is not usable.");
 		}
 	}
 }

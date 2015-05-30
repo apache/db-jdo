@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.jdo.AttributeConverter;
-import javax.jdo.AttributeConverter.NullAttributeConverter;
+import javax.jdo.AttributeConverter.UseDefault;
 
 /**
  * Annotation for defining the persistence of a member.
@@ -220,7 +220,7 @@ public @interface Persistent
 	 *   (or NullAttributeConverter when not specified).
 	 */
 	@SuppressWarnings("rawtypes")
-	Class<? extends AttributeConverter> converter() default NullAttributeConverter.class;
+	Class<? extends AttributeConverter> converter() default UseDefault.class;
 
 	/**
 	 * Whether we should disable any converter that was specified as default for this type on the PMF.
