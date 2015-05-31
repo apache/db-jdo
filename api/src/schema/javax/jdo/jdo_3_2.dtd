@@ -40,7 +40,7 @@
 <!ATTLIST interface schema CDATA #IMPLIED>
 <!ATTLIST interface cacheable (true|false) 'true'>
 <!ATTLIST interface serialize-read (true|false) 'false'>
-<!ATTLIST interface disable-all-converters (true|false) 'false'>
+<!ATTLIST interface use-default-conversion (true|false) 'false'>
 
 <!ELEMENT property (extension*, (array|collection|map)?, join?, embedded?, element?, key?, value?, order?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST property name CDATA #REQUIRED>
@@ -65,7 +65,7 @@
 <!ATTLIST property field-name CDATA #IMPLIED>
 <!ATTLIST property cacheable (true|false) 'true'>
 <!ATTLIST property converter CDATA #IMPLIED>
-<!ATTLIST property disable-converter (true|false) 'false'>
+<!ATTLIST property use-default-conversion (true|false) 'false'>
 
 <!ELEMENT class (extension*, implements*, datastore-identity?, primary-key?, inheritance?, version?, join*, foreign-key*, index*, unique*, column*, field*, property*, query*, fetch-group*, extension*)>
 <!ATTLIST class name CDATA #REQUIRED>
@@ -81,7 +81,7 @@
 <!ATTLIST class schema CDATA #IMPLIED>
 <!ATTLIST class cacheable (true|false) 'true'>
 <!ATTLIST class serialize-read (true|false) 'false'>
-<!ATTLIST class disable-all-converters (true|false) 'false'>
+<!ATTLIST class use-default-conversion (true|false) 'false'>
 
 <!ELEMENT primary-key (extension*, column*, extension*)>
 <!ATTLIST primary-key name CDATA #IMPLIED>
@@ -152,7 +152,7 @@
 <!ATTLIST field mapped-by CDATA #IMPLIED>
 <!ATTLIST field cacheable (true|false) 'true'>
 <!ATTLIST field converter CDATA #IMPLIED>
-<!ATTLIST field disable-converter (true|false) 'false'>
+<!ATTLIST field use-default-conversion (true|false) 'false'>
 
 <!ELEMENT foreign-key (extension*, (column* | field* | property*), extension*)>
 <!ATTLIST foreign-key table CDATA #IMPLIED>
@@ -187,7 +187,7 @@
 <!ATTLIST key unique (true|false) #IMPLIED>
 <!ATTLIST key mapped-by CDATA #IMPLIED>
 <!ATTLIST key converter CDATA #IMPLIED>
-<!ATTLIST key disable-converter (true|false) 'false'>
+<!ATTLIST key use-default-conversion (true|false) 'false'>
 
 <!ELEMENT value (extension*, embedded?, column*, foreign-key?, index?, unique?, extension*)>
 <!ATTLIST value column CDATA #IMPLIED>
@@ -198,7 +198,7 @@
 <!ATTLIST value unique (true|false) #IMPLIED>
 <!ATTLIST value mapped-by CDATA #IMPLIED>
 <!ATTLIST value converter CDATA #IMPLIED>
-<!ATTLIST value disable-converter (true|false) 'false'>
+<!ATTLIST value use-default-conversion (true|false) 'false'>
 
 <!ELEMENT array (extension*)>
 <!ATTLIST array element-type CDATA #IMPLIED>
@@ -215,7 +215,7 @@
 <!ATTLIST element unique (true|false) #IMPLIED>
 <!ATTLIST element mapped-by CDATA #IMPLIED>
 <!ATTLIST element converter CDATA #IMPLIED>
-<!ATTLIST element disable-converter (true|false) 'false'>
+<!ATTLIST element use-default-conversion (true|false) 'false'>
 
 <!ELEMENT order (extension*, column*, index?, extension*)>
 <!ATTLIST order column CDATA #IMPLIED>

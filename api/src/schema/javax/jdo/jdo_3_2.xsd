@@ -145,7 +145,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="disable-all-converters" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -296,7 +296,7 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -400,7 +400,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="disable-all-converters" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -754,7 +754,7 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -983,7 +983,7 @@
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1057,7 +1057,7 @@
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1101,7 +1101,7 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1175,7 +1175,7 @@
         </xs:attribute>
         <xs:attribute name="mapped-by"/>
         <xs:attribute name="converter"/>
-        <xs:attribute name="disable-converter" default="false">
+        <xs:attribute name="use-default-conversion" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>

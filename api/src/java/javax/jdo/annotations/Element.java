@@ -146,14 +146,15 @@ public @interface Element
 	 * @return The converter class (or NullAttributeConverter if not specified).
 	 */
 	@SuppressWarnings("rawtypes")
-	Class<? extends AttributeConverter> converter() default UseDefault.class;
+	Class<? extends AttributeConverter> converter() default UseDefault.class; // TODO Current JDK doesn't allow "default null"
 
 	/**
 	 * Whether we should disable any converter that was specified as default for this type on the PMF.
-	 * If the converter is specified on this annotation then this is ignored
+	 * Only has any effect when this is explicitly set to true, when any AttributeConverter specified for this type
+	 * either here or for the class or at the PMF will be ignored and will use the JDO implementation default handling.
 	 * @return Whether PMF attribute conversion is to be disabled.
 	 */
-	boolean disableConversion() default false;
+	boolean useDefaultConversion() default false; // TODO Current JDK doesn't allow "default null"
 
     /** Vendor extensions.
      * @return the vendor extensions

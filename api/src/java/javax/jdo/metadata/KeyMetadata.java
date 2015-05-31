@@ -157,16 +157,15 @@ public interface KeyMetadata extends Metadata {
     KeyMetadata setConverter(AttributeConverter<?, ?> conv);
 
     /**
-     * Accessor for whether the PMF defined converter for this key type is disabled.
+     * Accessor for whether any AttributeConverter for this key type is explicitly disabled and should use the implementation default.
      * @return Whether it is disabled
      */
-    boolean getDisableConverter();
+    Boolean getUseDefaultConversion();
 
     /**
-     * Method to enable/disable the PMF defined converter for this member (if present).
-     * If a converter is defined on this metadata element then this flag will be ignored.
-     * @param disable Whether to disable
+     * Method to explicitly set whether to disable use of AttributeConverter for this type (either here, class-level or PMF level).
+     * @param flag Whether to disable
      * @return This metadata
      */
-    KeyMetadata setDisableConverter(boolean disable);
+    KeyMetadata setUseDefaultConversion(Boolean flag);
 }
