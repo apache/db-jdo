@@ -64,15 +64,15 @@ public class XMLTestUtil {
     
     /** jdo namespace */
     protected static final String JDO_XSD_NS = 
-        "http://java.sun.com/xml/ns/jdo/jdo";
+        "http://xmlns.jcp.org/xml/ns/jdo/jdo";
 
     /** orm namespace */
     protected static final String ORM_XSD_NS = 
-        "http://java.sun.com/xml/ns/jdo/orm";
+        "http://xmlns.jcp.org/xml/ns/jdo/orm";
 
     /** jdoquery namespace */
     protected static final String JDOQUERY_XSD_NS = 
-        "http://java.sun.com/xml/ns/jdo/jdoquery";
+        "http://xmlns.jcp.org/xml/ns/jdo/jdoquery";
 
     /** jdo xsd file */
     protected static final File JDO_XSD_FILE = 
@@ -349,8 +349,10 @@ public class XMLTestUtil {
         }
     }
 
-    /** Implementation of EntityResolver interface to check the jdo.dtd location
-     **/
+    /**
+     * Implementation of EntityResolver interface to check the jdo.dtd location.
+     * TODO Somebody should update these 2.2 to 3.1 or later at some point.
+     */
     private static class JDOEntityResolver 
         implements EntityResolver {
 
@@ -359,19 +361,19 @@ public class XMLTestUtil {
         private static final String RECOGNIZED_JDO_SYSTEM_ID = 
             "file:/javax/jdo/jdo_2_2.dtd";
         private static final String RECOGNIZED_JDO_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/jdo_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/jdo_2_2.dtd";
         private static final String RECOGNIZED_ORM_PUBLIC_ID = 
             "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.2//EN";
         private static final String RECOGNIZED_ORM_SYSTEM_ID = 
             "file:/javax/jdo/orm_2_2.dtd";
         private static final String RECOGNIZED_ORM_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/orm_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/orm_2_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_PUBLIC_ID = 
             "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.2//EN";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID = 
             "file:/javax/jdo/jdoquery_2_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID2 = 
-            "http://java.sun.com/dtd/jdoquery_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/jdoquery_2_2.dtd";
         private static final String JDO_DTD_FILENAME = 
             "javax/jdo/jdo_2_2.dtd";
         private static final String ORM_DTD_FILENAME = 

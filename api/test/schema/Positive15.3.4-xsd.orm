@@ -15,10 +15,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<orm xmlns="http://java.sun.com/xml/ns/jdo/orm"
+<orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/orm 
-                         http://java.sun.com/xml/ns/jdo/orm_2_2.xsd">
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm 
+                         http://xmlns.jcp.org/xml/ns/jdo/orm_2_2.xsd">
 	<package name="com.xyz">
 		<class name="Employee" table="EMP">
 			<field name="ssn" column="SSN"/>

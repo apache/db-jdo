@@ -17,7 +17,7 @@
 <!-- The DOCTYPE should be as follows for jdoquery documents.
 <!DOCTYPE jdoquery
     PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.2//EN"
-    "http://java.sun.com/dtd/jdoquery_2_2.dtd">
+    "http://xmlns.jcp.org/dtd/jdoquery_2_2.dtd">
 -->
 <!ELEMENT jdoquery (extension*, (package|query)+, (extension)*)>
 

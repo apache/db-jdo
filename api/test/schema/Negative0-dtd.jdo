@@ -18,6 +18,6 @@
 <!-- Negative test: empty jdo element --> 
 <!DOCTYPE jdo PUBLIC 
     "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.2//EN"
-        "http://java.sun.com/dtd/jdo_2_2.dtd">
+        "http://xmlns.jcp.org/dtd/jdo_2_2.dtd">
 <jdo>
 </jdo>

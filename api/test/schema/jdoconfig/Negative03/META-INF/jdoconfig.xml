@@ -20,9 +20,9 @@
     JDOHelperConfigTest.java, as that file depends on the values in this one!
 -->
 <jdoconfig
-    xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+    xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://java.sun.com/xml/ns/jdo/jdoconfig">
+    xsi:noNamespaceSchemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig">
 
     <!-- Duplicate named PMF -->
     <persistence-manager-factory

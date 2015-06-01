@@ -18,6 +18,6 @@
 <!-- Negative test: empty orm element --> 
 <!DOCTYPE orm PUBLIC 
     "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.2//EN"
-        "http://java.sun.com/dtd/orm_2_2.dtd">
+        "http://xmlns.jcp.org/dtd/orm_2_2.dtd">
 <orm>
 </orm>

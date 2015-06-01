@@ -17,7 +17,7 @@
 <!-- The DOCTYPE should be as follows for metadata documents.
 <!DOCTYPE orm
     PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 3.2//EN"
-    "http://java.sun.com/dtd/orm_3_2.dtd">
+    "http://xmlns.jcp.org/dtd/orm_3_2.dtd">
 -->
 <!ELEMENT orm (extension*, (package|query)+, extension*)>
 <!ATTLIST orm catalog CDATA #IMPLIED>

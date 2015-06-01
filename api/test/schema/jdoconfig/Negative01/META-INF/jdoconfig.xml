@@ -16,7 +16,7 @@
   limitations under the License.
 -->
 <jdoconfig
-        xmlns="http://java.sun.com/xml/ns/jdo/jdoconfig"
+        xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <!-- No PMFs defined -->

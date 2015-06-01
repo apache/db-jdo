@@ -16,9 +16,9 @@
   limitations under the License.
 -->
 <!-- Negative test: empty jdoquery element --> 
-<jdoquery xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
+<jdoquery xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoquery"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdoquery 
-                         http://java.sun.com/xml/ns/jdo/jdoquery_2_2.xsd">
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdoquery 
+                         http://xmlns.jcp.org/xml/ns/jdo/jdoquery_2_2.xsd">
 
 </jdoquery>

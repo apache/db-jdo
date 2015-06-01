@@ -15,8 +15,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<xs:schema targetNamespace="http://java.sun.com/xml/ns/jdo/jdoquery"
-           xmlns="http://java.sun.com/xml/ns/jdo/jdoquery"
+<xs:schema targetNamespace="http://xmlns.jcp.org/xml/ns/jdo/jdoquery"
+           xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoquery"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            version="2.1">
     <xs:element name="jdoquery">
