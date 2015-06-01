@@ -19,22 +19,20 @@
  * Query.java
  *
  */
-
 package javax.jdo;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
 /** The <code>Query</code> interface allows applications to obtain persistent
- * instances, values, and aggregate data
- * from the data store.
+ * instances, values, and aggregate data from the data store.
  *
  * The {@link PersistenceManager} is the factory for <code>Query</code> 
  * instances.  There may be many <code>Query</code> instances associated with a 
  * <code>PersistenceManager</code>.  Multiple queries might be executed 
  * simultaneously by different threads, but the implementation might choose to 
- * execute them serially.  In either case, the implementation must be thread 
- * safe.
+ * execute them serially.  In either case, the implementation must be thread-safe.
  *
  * <P>There are three required elements in a <code>Query</code>: the class of 
  * the results, the candidate collection of instances, and the filter.
@@ -47,15 +45,12 @@ import java.util.Map;
  * <P>The query namespace is modeled after methods in Java:
  * <ul>
  * <li><code>setClass</code> corresponds to the class definition
- * <li><code>declareParameters</code> corresponds to formal parameters of a 
- * method
+ * <li><code>declareParameters</code> corresponds to formal parameters of a method
  * <li><code>declareVariables</code> corresponds to local variables of a method
- * <li><code>setFilter</code> and <code>setOrdering</code> correspond to the 
- * method body
+ * <li><code>setFilter</code> and <code>setOrdering</code> correspond to the method body
  * </ul>
- * <P>There are two namespaces in queries. Type names have their own
- * namespace that is separate from the namespace for fields, variables
- * and parameters.
+ * <P>There are two namespaces in queries. Type names have their own namespace 
+ * that is separate from the namespace for fields, variables and parameters.
  * <P>The method <code>setClass</code> introduces the name of the candidate 
  * class in the type namespace. The method <code>declareImports</code> 
  * introduces the names of the imported class or interface types in the type 
@@ -76,10 +71,8 @@ import java.util.Map;
  * not conflict with parameter names.
  * <P>The result of the query by default is a list of result class instances,
  * but might be specified via <code>setResult</code>. The class of the result
- * by default is the candidate class, but might be specified via 
- * <code>setResultClass</code>.
- * <P>A hidden field may be accessed using the 'this' qualifier:
- * <code>this.fieldName</code>.
+ * by default is the candidate class, but might be specified via <code>setResultClass</code>.
+ * <P>A hidden field may be accessed using the 'this' qualifier: <code>this.fieldName</code>.
  * <P>The <code>Query</code> interface provides methods which execute the query
  * based on the parameters given. They return a single instance or a 
  * <code>List</code> of result class instances which the
@@ -804,4 +797,52 @@ public interface Query extends AutoCloseable, Serializable {
      * @return This query
      */
     Query saveAsNamedQuery(String name);
+
+    /**
+     * Set the filter for the query.
+     * Shortcut for the {@link setFilter(String)} method
+     * @param filter the query filter.
+     * @return This query
+     */
+    Query filter(String filter);
+
+    /**
+     * Set the ordering specification for the result <code>Collection</code>.
+     * Shortcut for the {@link setOrdering(String)} method
+     * @param ordering the ordering specification.
+     * @return This query
+     */
+    Query orderBy(String ordering);
+
+    /**
+     * Set the grouping expressions, optionally including a "having" clause.
+     * Shortcut for the {@link setGrouping(String)} method
+     * @param group a comma-delimited list of expressions, optionally followed by the "having" keyword and a boolean expression
+     * @return This query
+     */
+    Query groupBy(String group);
+
+    /**
+     * Set the having expression.
+     * @param having A boolean expression for the having expression
+     * @return This query
+     */
+    Query having(String having);
+
+    /**
+     * Set the range of results to return.
+     * Shortcut for the {@link setRange(long, long)} method
+     * @param fromIncl 0-based inclusive start index
+     * @param toExcl 0-based exclusive end index, or {@link Long#MAX_VALUE} for no limit.
+     * @return This query
+     */
+    Query range(long fromIncl, long toExcl);
+
+    /**
+     * Set the range of results to return.
+     * Shortcut for the {@link setRange(String)} method
+     * @param fromInclToExcl comma-separated fromIncl and toExcl values
+     * @return This query
+     */
+    Query range(String fromInclToExcl);
 }
