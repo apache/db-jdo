@@ -830,6 +830,14 @@ public interface Query extends AutoCloseable, Serializable {
     Query having(String having);
 
     /**
+     * Set the result clause for the query.
+     * Shortcut for the {@link setResult(String)} method
+     * @param result The result clause
+     * @return This query
+     */
+    Query result (String result);
+
+    /**
      * Set the range of results to return.
      * Shortcut for the {@link setRange(long, long)} method
      * @param fromIncl 0-based inclusive start index
