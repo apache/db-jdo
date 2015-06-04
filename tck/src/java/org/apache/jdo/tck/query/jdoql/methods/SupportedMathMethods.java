@@ -48,6 +48,9 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * <li>Math.sin(numeric)</li>
  * <li>Math.cos(numeric)</li>
  * <li>Math.tan(numeric)</li>
+ * <li>Math.asin(numeric)</li>
+ * <li>Math.acos(numeric)</li>
+ * <li>Math.atan(numeric)</li>
  * </ul>
  */
 public class SupportedMathMethods extends QueryTest {
@@ -459,6 +462,290 @@ public class SupportedMathMethods extends QueryTest {
         }
     }
 
+    /** 
+     * Tests for Math.asin()
+     */
+    @SuppressWarnings("unchecked")
+	public void testArcSin() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.asin(trigValue) < 0.1 && Math.asin(trigValue) > -0.1";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.asin(trigValue) < 1.5714 && Math.asin(trigValue) > 1.570";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.asin(trigValue) < -1.570 && Math.asin(trigValue) > -1.5714";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.acos()
+     */
+    @SuppressWarnings("unchecked")
+	public void testArcCos() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.acos(trigValue) < 1.5714 && Math.acos(trigValue) > 1.570";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.acos(trigValue) < 0.1 && Math.acos(trigValue) > -0.1";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.acos(trigValue) < 3.147 && Math.acos(trigValue) > 3.14";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.atan()
+     */
+    @SuppressWarnings("unchecked")
+	public void testArcTan() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.atan(trigValue) < 0.5 && Math.atan(trigValue) > -0.5";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.ceil()
+     */
+    @SuppressWarnings("unchecked")
+	public void testCeil() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.ceil(doubleValue) == 5";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.ceil(floatValue) == 3";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.ceil(intValue) == 5";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.floor()
+     */
+    @SuppressWarnings("unchecked")
+	public void testFloor() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.floor(doubleValue) == 4";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath1));
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.floor(floatValue) == 2";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath3));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            filter = "Math.floor(intValue) == 4";
+            expectedResult.clear();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.exp()
+     */
+    @SuppressWarnings("unchecked")
+	public void testExp() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.exp(doubleValue) < 85.63 && Math.exp(doubleValue) > 85.62";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /** 
+     * Tests for Math.log()
+     */
+    @SuppressWarnings("unchecked")
+	public void testLog() {
+    	insertMathSampleData(getPM());
+
+        PersistenceManager pm  = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            String filter = "Math.log(doubleValue) < 1.4935 && Math.log(doubleValue) > 1.491";
+            Collection expectedResult = new ArrayList();
+            expectedResult.add(pm.getObjectById(oidOfMath2));
+            Query q =  pm.newQuery();
+            q.setClass(MathSample.class);
+            q.setFilter(filter);
+            Collection results = (Collection)q.execute();
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
+
+            tx.commit();
+            tx = null;
+        } 
+        finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
     /**
      * @see JDO_Test#localSetUp()
      */
@@ -478,18 +765,30 @@ public class SupportedMathMethods extends QueryTest {
             MathSample ms1 = new MathSample();
             ms1.setId(1);
             ms1.setAngle(new BigDecimal(Math.PI));
+            ms1.setTrigValue(new BigDecimal(0.0));
+            ms1.setDoubleValue(new Double(4.55));
+            ms1.setFloatValue(new Float(4.55));
+            ms1.setIntValue(new Integer(5));
             pm.makePersistent(ms1);
 
             // Sample 2 : angle=PI/2 (90 degrees)
             MathSample ms2 = new MathSample();
             ms2.setId(2);
             ms2.setAngle(new BigDecimal(Math.PI/2.0));
+            ms2.setTrigValue(new BigDecimal(1.0));
+            ms2.setDoubleValue(new Double(4.45));
+            ms2.setFloatValue(new Float(4.45));
+            ms2.setIntValue(new Integer(4));
             pm.makePersistent(ms2);
 
             // Sample 3 : angle=0 (0 degrees)
             MathSample ms3 = new MathSample();
             ms3.setId(3);
             ms3.setAngle(new BigDecimal(0));
+            ms3.setTrigValue(new BigDecimal(-1.0));
+            ms3.setDoubleValue(new Double(2.49));
+            ms3.setFloatValue(new Float(2.49));
+            ms3.setIntValue(new Integer(3));
             pm.makePersistent(ms3);
 
             tx.commit();

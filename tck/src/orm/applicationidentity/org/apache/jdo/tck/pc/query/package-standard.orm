@@ -39,6 +39,18 @@
       <field name="angle">
         <column name="ANGLE" precision="18" scale="8"/>
       </field>
+      <field name="trigValue">
+        <column name="TRIG_VALUE" precision="12" scale="8"/>
+      </field>
+      <field name="doubleValue">
+        <column name="DOUBLE_VALUE" precision="12" scale="8"/>
+      </field>
+      <field name="floatValue">
+        <column name="FLOAT_VALUE" precision="12" scale="8"/>
+      </field>
+      <field name="intValue">
+        <column name="INT_VALUE"/>
+      </field>
     </class>
   </package>
 </orm>

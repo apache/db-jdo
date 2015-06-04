@@ -40,6 +40,10 @@
     <class name="MathSample" identity-type="application">
       <field name="id" primary-key="true"/>
       <field name="angle" persistence-modifier="persistent"/>
+      <field name="trigValue" persistence-modifier="persistent"/>
+      <field name="doubleValue" persistence-modifier="persistent"/>
+      <field name="floatValue" persistence-modifier="persistent"/>
+      <field name="intValue" persistence-modifier="persistent"/>
     </class>
   </package>
 </jdo>
