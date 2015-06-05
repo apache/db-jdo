@@ -25,7 +25,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-/** The <code>Query</code> interface allows applications to obtain persistent
+/**
+ * The <code>Query</code> interface allows applications to obtain persistent
  * instances, values, and aggregate data from the data store.
  *
  * The {@link PersistenceManager} is the factory for <code>Query</code> 
@@ -83,8 +84,8 @@ import java.util.Map;
  * for this execution, and are not remembered for future execution.
  * @version 2.1
  */
-public interface Query extends AutoCloseable, Serializable {
-    
+public interface Query<T> extends AutoCloseable, Serializable {
+
     /**
      * The string constant used as the first argument to 
      * {@link PersistenceManager#newQuery(String,Object)} to identify that the 
@@ -110,7 +111,8 @@ public interface Query extends AutoCloseable, Serializable {
      */
     String SQL = "javax.jdo.query.SQL";
 
-    /** Set the class of the candidate instances of the query.
+    /**
+     * Set the class of the candidate instances of the query.
      * <P>The class specifies the class
      * of the candidates of the query.  Elements of the candidate collection
      * that are of the specified class are filtered before being
@@ -118,20 +120,22 @@ public interface Query extends AutoCloseable, Serializable {
      *
      * @param cls the <code>Class</code> of the candidate instances.
      */
-    void setClass(Class cls);
+    void setClass(Class<T> cls);
     
-    /** Set the candidate <code>Extent</code> to query.
+    /**
+     * Set the candidate <code>Extent</code> to query.
      * @param pcs the candidate <code>Extent</code>.
      */
-    void setCandidates(Extent pcs);
+    void setCandidates(Extent<T> pcs);
     
-    /** Set the candidate <code>Collection</code> to query.
+    /**
+     * Set the candidate <code>Collection</code> to query.
      * @param pcs the candidate <code>Collection</code>.
      */
-    void setCandidates(Collection pcs);
+    void setCandidates(Collection<T> pcs);
     
-    /** Set the filter for the query.
-     *
+    /**
+     * Set the filter for the query.
      * <P>The filter specification is a <code>String</code> containing a Boolean
      * expression that is to be evaluated for each of the instances
      * in the candidate collection. If the filter is not specified,
@@ -357,7 +361,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param queryResult the result of <code>execute(...)</code> on this 
      * <code>Query</code> instance.
      */    
-    void close (Object queryResult);
+    void close(Object queryResult);
     
     /** Close all query results associated with this <code>Query</code> 
      * instance, and release all resources associated with them.  The query 
@@ -366,7 +370,7 @@ public interface Query extends AutoCloseable, Serializable {
      * they return <code>false</code> to <code>hasNext()</code> and throw 
      * <code>NoSuchElementException</code> to <code>next()</code>.
      */    
-    void closeAll ();
+    void closeAll();
 
     /**
      * Set the grouping expressions, optionally including a "having"
@@ -378,7 +382,7 @@ public interface Query extends AutoCloseable, Serializable {
      * followed by the "having" keyword and a boolean expression
      * @since	2.0
      */
-    void setGrouping (String group);
+    void setGrouping(String group);
 
     /**
      * Specify that only the first result of the query should be
@@ -387,7 +391,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @since 2.0
      * @param unique if true, only one element is returned
      */
-    void setUnique (boolean unique);
+    void setUnique(boolean unique);
 
     /**
      * Specifies what type of data this query should return. If this
@@ -400,7 +404,7 @@ public interface Query extends AutoCloseable, Serializable {
      * to return from this query
      * @since 2.0
      */
-    void setResult (String data);
+    void setResult(String data);
 
     /**
      * Specify the type of object in which to return each element of
@@ -457,7 +461,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param cls the result class
      * @since 2.0
      */
-    void setResultClass (Class cls);
+    void setResultClass(Class cls);
 
     /**
      * Set the range of results to return. The execution of the query is
@@ -472,7 +476,7 @@ public interface Query extends AutoCloseable, Serializable {
      *     {@link Long#MAX_VALUE} for no limit.
      * @since 2.0
      */
-    void setRange (long fromIncl, long toExcl);
+    void setRange(long fromIncl, long toExcl);
 
     /**
      * Set the range of results to return. The parameter is a String
@@ -493,7 +497,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @see #setRange(long, long)
      * @since 2.0
      */
-    void setRange (String fromInclToExcl);
+    void setRange(String fromInclToExcl);
 
     /**
      * Add a vendor-specific extension to this query. The key and value
@@ -503,7 +507,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param value the value of the extension
      * @since 2.0
      */
-    void addExtension (String key, Object value);
+    void addExtension(String key, Object value);
 
     /**
      * Set multiple extensions, or use null to clear all extensions.
@@ -513,7 +517,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @see #addExtension
      * @since 2.0
      */
-    void setExtensions (Map extensions);
+    void setExtensions(Map extensions);
 
     /**
      * Returns the <code>FetchPlan</code> used by this
@@ -523,7 +527,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @since 2.0
      * @return the fetch plan used by this query
      */
-    FetchPlan getFetchPlan ();
+    FetchPlan getFetchPlan();
 
     /**
      * Deletes all the instances of the candidate class that pass the
@@ -533,7 +537,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    long deletePersistentAll (Object... parameters);
+    long deletePersistentAll(Object... parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the
@@ -543,7 +547,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    long deletePersistentAll (Map parameters);
+    long deletePersistentAll(Map parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the
@@ -568,7 +572,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    long deletePersistentAll ();
+    long deletePersistentAll();
     
     /**
      * The unmodifiable flag, when set, disallows further 
@@ -599,9 +603,7 @@ public interface Query extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery
-        (Query sub, String variableDeclaration, 
-            String candidateCollectionExpression);
+    void addSubquery(Query sub, String variableDeclaration, String candidateCollectionExpression);
 
     /**
      * Add a subquery to this query.
@@ -619,9 +621,7 @@ public interface Query extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery
-        (Query sub, String variableDeclaration, 
-         String candidateCollectionExpression, String parameter);
+    void addSubquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
 
     /**
      * Add a subquery to this query.
@@ -662,8 +662,7 @@ public interface Query extends AutoCloseable, Serializable {
      * the parameters in the subquery
      * @since 2.1
      */
-    void addSubquery
-        (Query sub, String variableDeclaration, 
+    void addSubquery(Query sub, String variableDeclaration, 
          String candidateCollectionExpression, String... parameters);
 
     /**
@@ -685,8 +684,7 @@ public interface Query extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery
-        (Query sub, String variableDeclaration, 
+    void addSubquery(Query sub, String variableDeclaration, 
          String candidateCollectionExpression, Map parameters);
 
     /**
@@ -796,7 +794,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param name Name to save it under.
      * @return This query
      */
-    Query saveAsNamedQuery(String name);
+    Query<T> saveAsNamedQuery(String name);
 
     /**
      * Set the filter for the query.
@@ -804,7 +802,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param filter the query filter.
      * @return This query
      */
-    Query filter(String filter);
+    Query<T> filter(String filter);
 
     /**
      * Set the ordering specification for the result <code>Collection</code>.
@@ -812,7 +810,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param ordering the ordering specification.
      * @return This query
      */
-    Query orderBy(String ordering);
+    Query<T> orderBy(String ordering);
 
     /**
      * Set the grouping expressions, optionally including a "having" clause.
@@ -820,14 +818,14 @@ public interface Query extends AutoCloseable, Serializable {
      * @param group a comma-delimited list of expressions, optionally followed by the "having" keyword and a boolean expression
      * @return This query
      */
-    Query groupBy(String group);
+    Query<T> groupBy(String group);
 
     /**
      * Set the having expression.
      * @param having A boolean expression for the having expression
      * @return This query
      */
-    Query having(String having);
+    Query<T> having(String having);
 
     /**
      * Set the result clause for the query.
@@ -835,7 +833,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param result The result clause
      * @return This query
      */
-    Query result (String result);
+    Query<T> result(String result);
 
     /**
      * Set the range of results to return.
@@ -844,7 +842,7 @@ public interface Query extends AutoCloseable, Serializable {
      * @param toExcl 0-based exclusive end index, or {@link Long#MAX_VALUE} for no limit.
      * @return This query
      */
-    Query range(long fromIncl, long toExcl);
+    Query<T> range(long fromIncl, long toExcl);
 
     /**
      * Set the range of results to return.
@@ -852,5 +850,5 @@ public interface Query extends AutoCloseable, Serializable {
      * @param fromInclToExcl comma-separated fromIncl and toExcl values
      * @return This query
      */
-    Query range(String fromInclToExcl);
+    Query<T> range(String fromInclToExcl);
 }
