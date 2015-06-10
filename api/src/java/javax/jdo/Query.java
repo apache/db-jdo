@@ -851,4 +851,117 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @return This query
      */
     Query<T> range(String fromInclToExcl);
+
+    /**
+     * Add a subquery to this query.
+     * Shortcut for the {@link subquery(Query, String, String)} method
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable in the outer query to bind the results of the subquery
+     * @param candidateCollectionExpression the candidate collection of the subquery as an expression using terms of the outer query
+     */
+    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression);
+
+    /**
+     * Add a subquery to this query.
+     * Shortcut for the {@link subquery(Query, String, String, String)} method
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable to be used in this Query
+     * @param candidateCollectionExpression the candidate collection to apply to the subquery
+     * @param parameter the expression from the outer query to bind the parameter in the subquery
+     */
+    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
+
+    /**
+     * Add a subquery to this query.
+     * Shortcut for the {@link subquery(Query, String, String, String...)} method
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable in the outer query to bind the results of the subquery
+     * @param candidateCollectionExpression the candidate collection of the subquery as an expression using terms of the outer query
+     * @param parameters the expressions from the outer query to bind the parameters in the subquery
+     */
+    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String... parameters);
+
+    /**
+     * Add a subquery to this query.
+     * Shortcut for the {@link subquery(Query, String, String, Map)} method
+     * @param sub the subquery to add to this Query
+     * @param variableDeclaration the name of the variable to be used in this Query
+     * @param candidateCollectionExpression the candidate collection to apply to the subquery
+     * @param parameters the expressions from the outer query to bind the parameter in the subquery
+     */
+    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, Map parameters);
+
+    /**
+     * Set the import statements to be used to identify the fully qualified name of variables or parameters. 
+     * Shortcut for {@link declareImports(String)} method.
+     * @param parameters the list of parameters separated by commas.
+     */
+    Query<T> imports(String imports);
+    
+    /**
+     * Declare the list of parameters for query execution.
+     * Shortcut for {@link declareParameters(String)} method.
+     * @param parameters the list of parameters separated by commas.
+     */
+    Query<T> parameters(String parameters);
+    
+    /**
+     * Declare the unbound variables to be used in the query.
+     * Shortcut for {@link declareVariables(String)} method.
+     * @param variables the variables separated by semicolons.
+     */
+    Query<T> variables(String variables);
+
+    /**
+     * Set the datastore read timeout (millis).
+     * Shortcut for {@link setDatastoreReadTimeoutMillis(Integer)} method.
+     * @param interval The interval
+     * @return This query
+     */
+    Query<T> datastoreReadTimeoutMillis(Integer interval);
+
+    /**
+     * Set the datastore write timeout (millis).
+     * Shortcut for {@link setDatastoreWriteTimeoutMillis(Integer)} method.
+     * @param interval The interval
+     * @return This query
+     */
+    Query<T> datastoreWriteTimeoutMillis(Integer interval);
+
+    /**
+     * Set whether we to lock all objects read by this query.
+     * Shortcut for {@link setSerializeRead(Boolean)} method.
+     * @param serialize Whether to lock
+     * @return This query
+     */
+    Query<T> serializeRead(Boolean serialize);
+
+    /**
+     * Set whether to make this query unmodifiable.
+     * Shortcut for {@link setUnmodifiable()} method.
+     * @return This query
+     */
+    Query<T> unmodifiable();
+
+    /**
+     * Set whether we to ignore the cache with this query.
+     * Shortcut for {@link setIgnoreCache(boolean)} method.
+     * @param flag Whether to ignore the cache
+     * @return This query
+     */
+    Query<T> ignoreCache(boolean flag);
+
+    /**
+     * Specify an extension for this query.
+     * Shortcut for {@link addExtension(String, Object)} method.
+     * @return This query
+     */
+    Query<T> extension(String key, Object value);
+
+    /**
+     * Specify a map of extensions for this query.
+     * Shortcut for {@link setExtension(Map)} method.
+     * @return This query
+     */
+    Query<T> extensions(Map values);
 }
