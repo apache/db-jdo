@@ -277,6 +277,8 @@ public interface JDOQLTypedQuery<T>
 
 
     // Everything below here needs modification to fit in with JDO-652 and discussions on QueryExecution
+    // TODO Do we put "boolean distinct, Expression<?>... exprs" in the execute() or have a result(...) method?
+    // TODO Do we pass parameters into the execute method(s), and if so, as a Map, or array or both variants?
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we are returning
@@ -356,6 +358,102 @@ public interface JDOQLTypedQuery<T>
     long deletePersistentAll();
 
     /**
+     * Get the effective timeout setting for read operations.
+     * If the timeout has not been set on this query explicitly, the effective
+     * datastore read timeout value from the persistence manager is returned.
+     * @see PersistenceManager#setDatastoreReadTimeoutMillis(Integer)
+     * @return the effective timeout setting (milliseconds).
+     */
+    Integer getDatastoreReadTimeoutMillis();
+
+    /**
+     * Set the datastore read timeout (millis).
+     * @param interval The interval
+     * @return This query
+     */
+    JDOQLTypedQuery<T> datastoreReadTimeoutMillis(Integer interval);
+
+    /**
+     * Get the effective timeout setting for write operations. 
+     * If the timeout has not been set on this query explicitly, the effective
+     * datastore write timeout value from the persistence manager is returned.
+     * @see PersistenceManager#setDatastoreWriteTimeoutMillis(Integer)
+     * @return the effective timeout setting (milliseconds).
+     */
+    Integer getDatastoreWriteTimeoutMillis();
+
+    /**
+     * Set the datastore write timeout (millis).
+     * @param interval The interval
+     * @return This query
+     */
+    JDOQLTypedQuery<T> datastoreWriteTimeoutMillis(Integer interval);
+
+    /**
+     * Return the current value of the serializeRead property.
+     * @return the value of the serializeRead property
+     */
+    Boolean getSerializeRead();
+
+    /**
+     * Set whether we to lock all objects read by this query.
+     * @param serialize Whether to lock
+     * @return This query
+     */
+    JDOQLTypedQuery<T> serializeRead(Boolean serialize);
+
+    /**
+     * The unmodifiable flag, when set, disallows further modification of the query, 
+     * except for specifying the range, result class, and ignoreCache option.
+     * @return the current setting of the flag
+     */
+    boolean isUnmodifiable();
+
+    /**
+     * Set to make this query unmodifiable hereafter.
+     * @return This query
+     */
+    JDOQLTypedQuery<T> unmodifiable();
+    
+    /**
+     * Get the ignoreCache option setting.
+     * @return the ignoreCache option setting.
+     * @see #setIgnoreCache
+     */
+    boolean getIgnoreCache();
+
+    /**
+     * Set whether we to ignore the cache with this query.
+     * @param flag Whether to ignore the cache
+     * @return This query
+     */
+    JDOQLTypedQuery<T> ignoreCache(boolean flag);
+
+    /**
+     * Specify an extension for this query.
+     * @param key The extension key
+     * @param value The extension value
+     * @return This query
+     */
+    JDOQLTypedQuery<T> extension(String key, Object value);
+
+    /**
+     * Specify a map of extensions for this query.
+     * @param values The extension map of keys and values
+     * @return This query
+     */
+    JDOQLTypedQuery<T> extensions(Map values);
+
+    /**
+     * Save the query, as it is currently defined, as a named query under the specified name.
+     * If a named query already exists under this name (either defined in metadata, or previously saved)
+     * then it will be overwritten.
+     * @param name Name to save it under.
+     * @return This query
+     */
+    JDOQLTypedQuery<T> saveAsNamedQuery(String name);
+
+    /**
      * Accessor for the PersistenceManager for this query
      * @return The PersistenceManager
      */
@@ -366,6 +464,21 @@ public interface JDOQLTypedQuery<T>
      * @return The FetchPlan
      */
     FetchPlan getFetchPlan();
+
+    /**
+     * Method to cancel any executing queries.
+     * If the underlying datastore doesn't support cancellation of queries this will throw JDOUnsupportedOptionException.
+     * If the cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
+     */
+    void cancelAll();
+
+    /**
+     * Method to cancel an executing query in the specified thread.
+     * If the underlying datastore doesn't support cancellation of queries this will throw JDOUnsupportedOptionException.
+     * If the cancellation fails (e.g in the underlying datastore) then this will throw a JDOException.
+     * @param thread The thread to cancel
+     */
+    void cancel(Thread thread);
 
     /**
      * Method to close the specified query result.
