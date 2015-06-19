@@ -23,6 +23,7 @@ package javax.jdo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -976,4 +977,44 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @return This query
      */
     Query<T> extensions(Map values);
+
+    /**
+     * Method to execute the query where there are (potentially) multiple rows and we are returning the candidate type.
+     * @return The List of candidate objects
+     */
+    List<T> executeList();
+
+    /**
+     * Method to execute the query where there is a single row and we are returning the candidate type.
+     * @return The candidate object returned by the query (or null)
+     */
+    T executeUnique();
+
+    /**
+     * Method to execute the query where there are (potentially) multiple rows and we are returning a result type for the specified result.
+     * @param resultCls The result class
+     * @return List of result objects
+     * @param <R> The result type
+     */
+    <R> List<R> executeResultList(Class<R> resultCls);
+
+    /**
+     * Method to execute the query where there is a single row and we are returning a result type for the specified result.
+     * @param resultCls The result class
+     * @return The result object (or null)
+     * @param <R> The result type
+     */
+    <R> R executeResultUnique(Class<R> resultCls);
+
+    /**
+     * Method to execute the query where there are (potentially) multiple rows and we have a result defined but no result class.
+     * @return The list of query results
+     */
+    List<Object> executeResultList();
+
+    /**
+     * Method to execute the query where there is a single row and we have a result defined but no result class.
+     * @return The query result (or null)
+     */
+    Object executeResultUnique();
 }

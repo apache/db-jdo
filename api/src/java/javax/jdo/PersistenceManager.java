@@ -158,12 +158,14 @@ public interface PersistenceManager extends AutoCloseable {
      */
     void refreshAll (JDOException jdoe);
     
-    /** Create a new <code>Query</code> with no elements.
+    /**
+     * Create a new <code>Query</code> with no elements.
      * @return the new <code>Query</code>.
      */
     Query newQuery ();
-    
-    /** Create a new <code>Query</code> using elements from another 
+
+    /**
+     * Create a new <code>Query</code> using elements from another 
      * <code>Query</code>. The other <code>Query</code> must have been created 
      * by the same JDO implementation. It might be active in a different 
      * <code>PersistenceManager</code> or might have been serialized and 
@@ -172,65 +174,74 @@ public interface PersistenceManager extends AutoCloseable {
      * <code>Query</code>, except for the candidate <code>Collection</code> or 
      * <code>Extent</code>.
      * @return the new <code>Query</code>
-     * @param compiled another <code>Query</code> from the same JDO 
-     * implementation
+     * @param compiled another <code>Query</code> from the same JDO implementation
      */
     Query newQuery (Object compiled);
-    
-    /** Create a Construct a new query instance using the specified String 
+
+    /**
+     * Create a Construct a new query instance using the specified String 
      * as the single-string representation of the query.
      * @param query the single-string query
      * @return the new <code>Query</code>
      * @since 2.0
      */
     Query newQuery (String query);
-    
+
     /** Create a new <code>Query</code> using the specified language.
      * @param language the language of the query parameter
      * @param query the query, which is of a form determined by the language
      * @return the new <code>Query</code>
      */    
     Query newQuery (String language, Object query);
-    
-    /** Create a new <code>Query</code> specifying the <code>Class</code> of the 
+
+    /**
+     * Create a new <code>Query</code> specifying the <code>Class</code> of the 
      * candidate instances.
      * @param cls the <code>Class</code> of the candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Class cls);
-    
-    /** Create a new <code>Query</code> with the <code>Class</code> of the
+    <T> Query<T> newQuery (Class<T> cls);
+
+    /**
+     * Create a new <code>Query</code> with the <code>Class</code> of the
      * candidate instances and candidate <code>Extent</code>.
      * @param cln the <code>Extent</code> of candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Extent cln);
+    <T> Query<T> newQuery (Extent<T> cln);
     
-    /** Create a new <code>Query</code> with the candidate <code>Class</code> 
+    /**
+     * Create a new <code>Query</code> with the candidate <code>Class</code> 
      * and <code>Collection</code>.
      * @param cls the <code>Class</code> of results
      * @param cln the <code>Collection</code> of candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Class cls, Collection cln);
+    <T> Query<T> newQuery (Class<T> cls, Collection<T> cln);
     
-    /** Create a new <code>Query</code> with the <code>Class</code> of the
+    /**
+     * Create a new <code>Query</code> with the <code>Class</code> of the
      * candidate instances and filter.
      * @param cls the <code>Class</code> of results
      * @param filter the filter for candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Class cls, String filter);
+    <T> Query<T> newQuery (Class<T> cls, String filter);
     
-    /** Create a new <code>Query</code> with the <code>Class</code> of the 
-     * candidate instances, 
+    /**
+     * Create a new <code>Query</code> with the <code>Class</code> of the candidate instances, 
      * candidate <code>Collection</code>, and filter.
      * @param cls the <code>Class</code> of candidate instances
      * @param cln the <code>Collection</code> of candidate instances
      * @param filter the filter for candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Class cls, Collection cln, String filter);
+    <T> Query<T> newQuery (Class<T> cls, Collection<T> cln, String filter);
     
     /** Create a new <code>Query</code> with the
      * candidate <code>Extent</code> and filter; the class
@@ -238,8 +249,18 @@ public interface PersistenceManager extends AutoCloseable {
      * @param cln the <code>Extent</code> of candidate instances
      * @param filter the filter for candidate instances
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newQuery (Extent cln, String filter);
+    <T> Query<T> newQuery (Extent<T> cln, String filter);
+
+    /**
+     * Create a new <code>JDOQLTypedQuery</code> with the specified candidate class.
+     * @param cls Candidate class for the query
+     * @return The JDOQLTypedQuery
+     * @param <T> Candidate type for the query
+     * @since 3.2
+     */
+    <T> JDOQLTypedQuery<T> newJDOQLTypedQuery(Class<T> cls);
 
     /**
      * Create a new <code>Query</code> with the given candidate class
@@ -248,8 +269,9 @@ public interface PersistenceManager extends AutoCloseable {
      * @param cls the <code>Class</code> of candidate instances
      * @param queryName the name of the query to look up in metadata
      * @return the new <code>Query</code>
+     * @param <T> Candidate type for the query
      */
-    Query newNamedQuery (Class cls, String queryName);
+    <T> Query<T> newNamedQuery (Class<T> cls, String queryName);
 
     /** The <code>PersistenceManager</code> manages a collection of instances in
      * the data store based on the class of the instances.  This method returns
