@@ -16,6 +16,8 @@
  */
 package javax.jdo;
 
+import java.io.Serializable;
+
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.CharacterExpression;
 import javax.jdo.query.CollectionExpression;
@@ -34,7 +36,7 @@ import javax.jdo.query.TimeExpression;
  * 
  * @param <T> (Candidate) type being represented
  */
-public interface JDOQLTypedSubquery<T>
+public interface JDOQLTypedSubquery<T> extends Serializable
 {
     /**
      * Method to return an expression for the candidate of the subquery.
