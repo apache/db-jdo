@@ -254,7 +254,6 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable
 
     /**
      * Method to set a parameter value for use when executing the query.
-     * TODO Drop this
      * @param paramExpr Parameter expression
      * @param value The value
      * @return The query

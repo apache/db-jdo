@@ -337,11 +337,9 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * query.  It is then evaluated by the Boolean expression of the filter.  
      * The element passes the filter if there exist unique values for all 
      * variables for which the filter expression evaluates to <code>true</code>.
-     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException
-     * being thrown here
+     * <P>Cancellation of the query using cancel() will result in JDOQueryInterruptedException being thrown here
      * @return the filtered <code>Collection</code>.
-     * @param parameters the <code>Object</code> array with all of the 
-     * parameters.
+     * @param parameters the <code>Object</code> array with all of the parameters.
      */
     Object executeWithArray (Object... parameters);
     
@@ -977,6 +975,22 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @return This query
      */
     Query<T> extensions(Map values);
+
+    /**
+     * Method to set the named parameters on this query prior to execution.
+     * If using the execute methods taking parameters then those parameter values will override these values.
+     * @param namedParamMap The map of parameter values keyed by their names.
+     * @return This query
+     */
+    Query<T> setParameters(Map<String, ?> namedParamMap);
+
+    /**
+     * Method to set the values of the numbered parameters on this query prior to execution.
+     * If using the execute methods taking parameters then those parameter values will override these values.
+     * @param paramValues Values of the numbered parameters, in order.
+     * @return This query
+     */
+    Query<T> setParameters(Object... paramValues);
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we are returning the candidate type.
