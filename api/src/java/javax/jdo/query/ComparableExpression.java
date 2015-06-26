@@ -18,13 +18,6 @@ package javax.jdo.query;
 
 /**
  * Representation of an expression for a Java type that implements java.lang.Comparable.
- * Nore that the methods taking Expression as an argument could have been defined to take
- * ComparableExpression but that would then have prevented code like
- * <pre>
- * NumericExpression param = (NumericExpression)tq.parameter("criticalValue", Double.class);
- * tq.filter(cand.value.lt(param));
- * </pre>
- * and we would have had to cast the parameter to NumericExpression
  *
  * @param <T> Java type being represented here
  */
