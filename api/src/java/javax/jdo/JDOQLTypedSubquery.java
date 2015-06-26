@@ -36,8 +36,7 @@ import javax.jdo.query.TimeExpression;
  * 
  * @param <T> (Candidate) type being represented
  */
-public interface JDOQLTypedSubquery<T> extends Serializable
-{
+public interface JDOQLTypedSubquery<T> extends Serializable {
     /**
      * Method to return an expression for the candidate of the subquery.
      * Cast the returned expression to the candidate "Q" type to be able to call methods on it.

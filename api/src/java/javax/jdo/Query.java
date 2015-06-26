@@ -994,18 +994,24 @@ public interface Query<T> extends AutoCloseable, Serializable {
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we are returning the candidate type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The List of candidate objects
      */
     List<T> executeList();
 
     /**
      * Method to execute the query where there is a single row and we are returning the candidate type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The candidate object returned by the query (or null)
      */
     T executeUnique();
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we are returning a result type for the specified result.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @param resultCls The result class
      * @return List of result objects
      * @param <R> The result type
@@ -1014,6 +1020,8 @@ public interface Query<T> extends AutoCloseable, Serializable {
 
     /**
      * Method to execute the query where there is a single row and we are returning a result type for the specified result.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @param resultCls The result class
      * @return The result object (or null)
      * @param <R> The result type
@@ -1022,12 +1030,16 @@ public interface Query<T> extends AutoCloseable, Serializable {
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we have a result defined but no result class.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The list of query results
      */
     List<Object> executeResultList();
 
     /**
      * Method to execute the query where there is a single row and we have a result defined but no result class.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The query result (or null)
      */
     Object executeResultUnique();

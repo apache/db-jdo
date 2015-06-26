@@ -41,10 +41,10 @@ import javax.jdo.query.TimeExpression;
 /**
  * Interface for a type-safe query, using a fluent API.
  * Designed to handle JDO query requirements as a whole.
+ * 
  * @param <T> candidate type for this query
  */
-public interface JDOQLTypedQuery<T> extends Serializable, Closeable
-{
+public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
     public static final String QUERY_CLASS_PREFIX = "Q";
 
     /**
@@ -246,13 +246,6 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable
     JDOQLTypedQuery<T> setParameters(Map namedParamMap);
 
     /**
-     * Method to set the values of the numbered parameters on this query prior to execution.
-     * @param paramValues Values of the numbered parameters, in order.
-     * @return This query
-     */
-    JDOQLTypedQuery<T> setParameters(Object... paramValues);
-
-    /**
      * Method to set a parameter value for use when executing the query.
      * @param paramExpr Parameter expression
      * @param value The value
@@ -270,28 +263,25 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable
     JDOQLTypedQuery<T> setParameter(String paramName, Object value);
 
     /**
-     * Method to clear all parameter values.
-     * TODO Drop this
-     * @return The query
-     */
-    JDOQLTypedQuery<T> clearParameters();
-
-    /**
-     * Method to execute the query where there are (potentially) multiple rows and we are returning
-     * the candidate type.
+     * Method to execute the query where there are (potentially) multiple rows and we are returning the candidate type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The results
      */
     List<T> executeList();
 
     /**
      * Method to execute the query where there is a single row and we are returning the candidate type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The result
      */
     T executeUnique();
 
     /**
-     * Method to execute the query where there are (potentially) multiple rows and we are returning either a
-     * result type or the candidate type.
+     * Method to execute the query where there are (potentially) multiple rows and we are returning either the result type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @param resultCls Result class
      * @return The results
      * @param <R> result type
@@ -299,8 +289,9 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable
     <R> List<R> executeResultList(Class<R> resultCls);
 
     /**
-     * Method to execute the query where there is a single row and we are returning either a result type
-     * or the candidate type.
+     * Method to execute the query where there is a single row and we are returning either the result type.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @param resultCls Result class
      * @return The result
      * @param <R> result type
@@ -308,21 +299,24 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable
     <R> R executeResultUnique(Class<R> resultCls);
 
     /**
-     * Method to execute the query where there are (potentially) multiple rows and we have a result defined
-     * but no result class.
+     * Method to execute the query where there are (potentially) multiple rows and we have a result defined but no result class.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The results
      */
     List<Object> executeResultList();
 
     /**
-     * Method to execute the query where there is a single row and we have a result defined
-     * but no result class.
+     * Method to execute the query where there is a single row and we have a result defined but no result class.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The results
      */
     Object executeResultUnique();
 
     /**
      * Method to execute the query deleting the affected instances.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
      * @return The number of objects deleted
      */
     long deletePersistentAll();
