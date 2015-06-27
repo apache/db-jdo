@@ -39,8 +39,10 @@ import javax.jdo.query.StringExpression;
 import javax.jdo.query.TimeExpression;
 
 /**
- * Interface for a type-safe query, using a fluent API.
- * Designed to handle JDO query requirements as a whole.
+ * Interface for a type-safe refactorable JDOQL query, using a fluent API, based around expressions.
+ * Note that a JDOQLTypedQuery only supports named parameters, and the values of these parameters
+ * should be set using the relevant setter methods prior to execution, and that the values for the 
+ * parameters will only be retained until the subsequent query execution.
  * 
  * @param <T> candidate type for this query
  */
@@ -240,22 +242,24 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to set the named parameters on this query prior to execution.
+     * All parameter values specified in this method will only be retained until the subsequent query execution.
      * @param namedParamMap The map of parameter values keyed by their names.
      * @return This query
      */
-    JDOQLTypedQuery<T> setParameters(Map namedParamMap);
+    JDOQLTypedQuery<T> setParameters(Map<String, ?> namedParamMap);
 
     /**
-     * Method to set a parameter value for use when executing the query.
-     * @param paramExpr Parameter expression
+     * Method to set a parameter value for the specified (parameter) expression when executing the query.
+     * All parameter values specified in this method will only be retained until the subsequent query execution.
+     * @param paramExpr Expression defining the parameter
      * @param value The value
      * @return The query
      */
     JDOQLTypedQuery<T> setParameter(Expression<?> paramExpr, Object value);
 
     /**
-     * Method to set a parameter value for use when executing the query.
-     * TODO Drop this
+     * Method to set the value for a named parameter for use when executing the query.
+     * All parameter values specified in this method will only be retained until the subsequent query execution.
      * @param paramName Parameter name
      * @param value The value
      * @return The query
@@ -264,7 +268,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we are returning the candidate type.
-     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameter</cite> methods.
      * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The results
      */
@@ -272,7 +276,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to execute the query where there is a single row and we are returning the candidate type.
-     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameter</cite> methods.
      * <P>Calling this method with a result being specified will result in JDOUserException being thrown.
      * @return The result
      */
@@ -290,7 +294,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to execute the query where there is a single row and we are returning either the result type.
-     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameter</cite> methods.
      * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @param resultCls Result class
      * @return The result
@@ -300,7 +304,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to execute the query where there are (potentially) multiple rows and we have a result defined but no result class.
-     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameter</cite> methods.
      * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The results
      */
@@ -316,7 +320,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
 
     /**
      * Method to execute the query deleting the affected instances.
-     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameters</cite> methods.
+     * Any parameters required should be set prior to calling this method, using one of the <cite>setParameter</cite> methods.
      * @return The number of objects deleted
      */
     long deletePersistentAll();

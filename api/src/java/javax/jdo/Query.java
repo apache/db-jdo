@@ -979,14 +979,16 @@ public interface Query<T> extends AutoCloseable, Serializable {
     /**
      * Method to set the named parameters on this query prior to execution.
      * If using the execute methods taking parameters then those parameter values will override these values.
+     * All parameter values specified in this method will only be retained until the subsequent query execution.
      * @param namedParamMap The map of parameter values keyed by their names.
      * @return This query
      */
-    Query<T> setParameters(Map<String, ?> namedParamMap);
+    Query<T> setNamedParameters(Map<String, ?> namedParamMap);
 
     /**
      * Method to set the values of the numbered parameters on this query prior to execution.
      * If using the execute methods taking parameters then those parameter values will override these values.
+     * All parameter values specified in this method will only be retained until the subsequent query execution.
      * @param paramValues Values of the numbered parameters, in order.
      * @return This query
      */
