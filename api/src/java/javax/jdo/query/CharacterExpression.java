@@ -32,4 +32,16 @@ public interface CharacterExpression extends ComparableExpression<Character>
      * @return The upper case expression
      */
     CharacterExpression toUpperCase();
+
+    /**
+     * Method to return an expression that is the current expression negated.
+     * @return The negated expression
+     */
+    CharacterExpression neg();
+
+    /**
+     * Method to return an expression that is the complement of the current expression.
+     * @return The complement expression
+     */
+    CharacterExpression com();
 }
