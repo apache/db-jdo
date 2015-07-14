@@ -94,6 +94,12 @@ public interface NumericExpression<T> extends ComparableExpression<Number>
     NumericExpression mod(Number num);
 
     /**
+     * Method to return an expression that is the current expression negated.
+     * @return The negated expression
+     */
+    NumericExpression neg();
+
+    /**
      * Method to return a numeric expression representing the aggregated average of this expression.
      * @return Numeric expression for the average
      */
