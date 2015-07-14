@@ -40,4 +40,10 @@ public interface BooleanExpression extends ComparableExpression<Boolean>
      * @return The negated expression
      */
     BooleanExpression not();
+
+    /**
+     * Method to return an expression that is the current expression negated.
+     * @return The negated expression
+     */
+    BooleanExpression neg();
 }

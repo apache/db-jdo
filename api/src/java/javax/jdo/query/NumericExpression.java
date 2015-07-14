@@ -100,6 +100,12 @@ public interface NumericExpression<T> extends ComparableExpression<Number>
     NumericExpression neg();
 
     /**
+     * Method to return an expression that is the complement of the current expression.
+     * @return The complement expression
+     */
+    NumericExpression com();
+
+    /**
      * Method to return a numeric expression representing the aggregated average of this expression.
      * @return Numeric expression for the average
      */
