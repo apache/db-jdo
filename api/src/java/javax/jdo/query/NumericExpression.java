@@ -188,4 +188,25 @@ public interface NumericExpression<T> extends ComparableExpression<Number>
      * @return The floor value expression
      */
     NumericExpression floor();
+
+    /**
+     * Method to return a bitwise AND expression for this expression with the supplied bit path.
+     * @param bitExpr Bit expression
+     * @return Bitwise AND expression
+     */
+    NumericExpression bAnd(NumericExpression bitExpr);
+
+    /**
+     * Method to return a bitwise OR expression for this expression with the supplied bit path.
+     * @param bitExpr Bit expression
+     * @return Bitwise OR expression
+     */
+    NumericExpression bOr(NumericExpression bitExpr);
+
+    /**
+     * Method to return a bitwise XOR expression for this expression with the supplied bit path.
+     * @param bitExpr Bit expression
+     * @return Bitwise XOR expression
+     */
+    NumericExpression bXor(NumericExpression bitExpr);
 }
