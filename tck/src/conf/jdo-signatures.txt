@@ -922,7 +922,6 @@ public interface javax.jdo.Query extends java.lang.AutoCloseable, java.io.Serial
     javax.jdo.Query filter(String filter);
     javax.jdo.Query orderBy(String ordering);
     javax.jdo.Query groupBy(String group);
-    javax.jdo.Query having(String having);
     javax.jdo.Query result(String result);
     javax.jdo.Query range(long fromIncl, long toExcl);
     javax.jdo.Query range(String fromInclToExcl);
