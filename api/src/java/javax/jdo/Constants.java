@@ -507,11 +507,11 @@ public interface Constants {
     static String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS = "javax.jdo.query.JDOQL.BitwiseOperations";
 
     /**
-     * "javax.jdo.option.UnconstrainedQueryVariables"
+     * "javax.jdo.query.JDOQL.UnconstrainedQueryVariables"
      * @see PersistenceManagerFactory#supportedOptions()
      * @since 2.1
      */
-    static String OPTION_UNCONSTRAINED_QUERY_VARIABLES = "javax.jdo.option.UnconstrainedQueryVariables";
+    static String OPTION_UNCONSTRAINED_QUERY_VARIABLES = "javax.jdo.query.JDOQL.UnconstrainedQueryVariables";
 
     /**
      * "javax.jdo.option.DatastoreTimeout"
