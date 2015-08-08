@@ -490,16 +490,29 @@ public interface Constants {
      * @see PersistenceManagerFactory#supportedOptions()
      * @since 2.1
      */
-    static String OPTION_QUERY_SQL
-        = "javax.jdo.query.SQL";
+    static String OPTION_QUERY_SQL = "javax.jdo.query.SQL";
+
     /**
      * "javax.jdo.option.QueryCancel"
-     *
      * @see PersistenceManagerFactory#supportedOptions()
      * @since 3.0
      */
-    static String OPTION_QUERY_CANCEL
-        = "javax.jdo.option.QueryCancel";
+    static String OPTION_QUERY_CANCEL = "javax.jdo.option.QueryCancel";
+
+    /**
+     * "javax.jdo.query.JDOQL.BitwiseOperations"
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 3.2
+     */
+    static String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS = "javax.jdo.query.JDOQL.BitwiseOperations";
+
+    /**
+     * "javax.jdo.option.UnconstrainedQueryVariables"
+     * @see PersistenceManagerFactory#supportedOptions()
+     * @since 2.1
+     */
+    static String OPTION_UNCONSTRAINED_QUERY_VARIABLES = "javax.jdo.option.UnconstrainedQueryVariables";
+
     /**
      * "javax.jdo.option.DatastoreTimeout"
      *
@@ -508,14 +521,6 @@ public interface Constants {
      */
     static String OPTION_DATASTORE_TIMEOUT
         = "javax.jdo.option.DatastoreTimeout";
-    /**
-     * "javax.jdo.option.UnconstrainedQueryVariables"
-     *
-     * @see PersistenceManagerFactory#supportedOptions()
-     * @since 2.1
-     */
-    static String OPTION_UNCONSTRAINED_QUERY_VARIABLES
-        = "javax.jdo.option.UnconstrainedQueryVariables";
     /**
      * "javax.jdo.option.version.DateTime"
      *
