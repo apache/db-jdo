@@ -25,13 +25,13 @@ public interface javax.jdo.Constants {
     static String JDOCONFIG_RESOURCE_NAME
         = "META-INF/jdoconfig.xml";
     static String JDOCONFIG_XSD_NS
-        = "http://java.sun.com/xml/ns/jdo/jdoconfig";
+        = "http://xmlns.jcp.org/xml/ns/jdo/jdoconfig";
     static String JDO_XSD_NS
-        = "http://java.sun.com/xml/ns/jdo/jdo";
+        = "http://xmlns.jcp.org/xml/ns/jdo/jdo";
     static String ORM_XSD_NS
-        = "http://java.sun.com/xml/ns/jdo/orm";
+        = "http://xmlns.jcp.org/xml/ns/jdo/orm";
     static String JDOQUERY_XSD_NS
-        = "http://java.sun.com/xml/ns/jdo/jdoquery";
+        = "http://xmlns.jcp.org/xml/ns/jdo/jdoquery";
     static String ELEMENT_PERSISTENCE_MANAGER_FACTORY
         = "persistence-manager-factory";
     static String PMF_ATTRIBUTE_CLASS
@@ -718,6 +718,7 @@ public interface javax.jdo.PersistenceManager extends java.lang.AutoCloseable {
     public javax.jdo.Query newQuery(Class cls, java.util.Collection cln, String filter);
     public javax.jdo.Query newQuery(javax.jdo.Extent cln, String filter);
     public javax.jdo.Query newNamedQuery(Class cls, String queryName);
+    public javax.jdo.JDOQLTypedQuery newJDOQLTypedQuery(Class cls);
     public javax.jdo.Extent getExtent(Class persistenceCapableClass, boolean subclasses);
     public javax.jdo.Extent getExtent(Class persistenceCapableClass);
     public Object getObjectById(Object oid, boolean validate);
@@ -918,6 +919,35 @@ public interface javax.jdo.Query extends java.lang.AutoCloseable, java.io.Serial
     public void setDatastoreWriteTimeoutMillis(Integer interval);
     public Integer getDatastoreWriteTimeoutMillis();
     public javax.jdo.Query saveAsNamedQuery(String);
+    javax.jdo.Query filter(String filter);
+    javax.jdo.Query orderBy(String ordering);
+    javax.jdo.Query groupBy(String group);
+    javax.jdo.Query having(String having);
+    javax.jdo.Query result(String result);
+    javax.jdo.Query range(long fromIncl, long toExcl);
+    javax.jdo.Query range(String fromInclToExcl);
+    javax.jdo.Query subquery(javax.jdo.Query sub, String variableDeclaration, String candidateCollectionExpression);
+    javax.jdo.Query subquery(javax.jdo.Query sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
+    varargs javax.jdo.Query subquery(javax.jdo.Query sub, String variableDeclaration, String candidateCollectionExpression, String[] parameters);
+    javax.jdo.Query subquery(javax.jdo.Query sub, String variableDeclaration, String candidateCollectionExpression, java.util.Map parameters);
+    javax.jdo.Query imports(String imports);
+    javax.jdo.Query parameters(String parameters);
+    javax.jdo.Query variables(String variables);
+    javax.jdo.Query datastoreReadTimeoutMillis(Integer interval);
+    javax.jdo.Query datastoreWriteTimeoutMillis(Integer interval);
+    javax.jdo.Query serializeRead(Boolean serialize);
+    javax.jdo.Query unmodifiable();
+    javax.jdo.Query ignoreCache(boolean flag);
+    javax.jdo.Query extension(String key, Object value);
+    javax.jdo.Query extensions(java.util.Map values);
+    javax.jdo.Query setNamedParameters(java.util.Map namedParamMap);
+    varargs javax.jdo.Query setParameters(Object[] paramValues);
+    java.util.List executeList();
+    Object executeUnique();
+    java.util.List executeResultList(Class resultCls);
+    Object executeResultUnique(Class resultCls);
+    java.util.List executeResultList();
+    Object executeResultUnique();
 }
 
 public interface javax.jdo.spi.Detachable {
@@ -1159,6 +1189,12 @@ public interface javax.jdo.Transaction {
     public void setSerializeRead(Boolean);
 }
 
+public interface javax.jdo.AttributeConverter
+{
+    Object convertToDatastore(Object attributeValue);
+    Object convertToAttribute(Object datastoreValue);
+}
+
 public final enum javax.jdo.ObjectState extends java.lang.Enum {
 
     public static final enum javax.jdo.ObjectState TRANSIENT;
@@ -1249,6 +1285,8 @@ public annotation javax.jdo.annotations.Element extends java.lang.annotation.Ann
     javax.jdo.annotations.Column[] columns() default {};
     String generateForeignKey() default "";
     String foreignKey() default "";
+	Class converter() default javax.jdo.AttributeConverter$UseDefault.class;
+	boolean useDefaultConversion() default false;
     javax.jdo.annotations.Extension[] extensions() default {};
 }
 
@@ -1430,6 +1468,8 @@ public annotation javax.jdo.annotations.Key extends java.lang.annotation.Annotat
     javax.jdo.annotations.Column[] columns() default {};
     String generateForeignKey() default "";
     String foreignKey() default "";
+	Class converter() default javax.jdo.AttributeConverter$UseDefault.class;
+	boolean useDefaultConversion() default false;
     javax.jdo.annotations.Extension[] extensions() default {};
 }
 
@@ -1515,6 +1555,8 @@ public annotation javax.jdo.annotations.Persistent extends java.lang.annotation.
     String nullIndicatorColumn() default "";
     String name() default ""; 
     int recursionDepth() default 1;
+	Class converter() default javax.jdo.AttributeConverter$UseDefault.class;
+	boolean useDefaultConversion() default false;
     javax.jdo.annotations.Extension[] extensions() default {};
     String cacheable() default "true";
 }
@@ -1606,6 +1648,8 @@ public annotation javax.jdo.annotations.Value extends java.lang.annotation.Annot
     javax.jdo.annotations.Column[] columns() default {};
     String generateForeignKey() default "";
     String foreignKey() default "";
+	Class converter() default javax.jdo.AttributeConverter$UseDefault.class;
+	boolean useDefaultConversion() default false;
     javax.jdo.annotations.Extension[] extensions() default {};
 }
 
@@ -1635,7 +1679,8 @@ public annotation javax.jdo.annotations.Cacheable extends java.lang.annotation.A
     String value() default "true";
 }
 
-public interface javax.jdo.FetchGroup {
+public interface javax.jdo.FetchGroup 
+{
     public static final String DEFAULT = "default";
     public static final String RELATIONSHIP = "relationship";
     public static final String MULTIVALUED = "multivalued";
@@ -1660,9 +1705,253 @@ public interface javax.jdo.FetchGroup {
     boolean equals(Object other);
 }
 
+public interface javax.jdo.JDOQLTypedQuery extends java.io.Serializable, java.io.Closeable 
+{
+    public static final String QUERY_CLASS_PREFIX;
+    javax.jdo.query.PersistableExpression candidate();
+    javax.jdo.query.Expression parameter(String name, Class type);
+    javax.jdo.query.StringExpression stringParameter(String name);
+    javax.jdo.query.CharacterExpression characterParameter(String name);
+    javax.jdo.query.NumericExpression numericParameter(String name);
+    javax.jdo.query.DateExpression dateParameter(String name);
+    javax.jdo.query.TimeExpression timeParameter(String name);
+    javax.jdo.query.DateTimeExpression datetimeParameter(String name);
+    javax.jdo.query.CollectionExpression collectionParameter(String name);
+    javax.jdo.query.MapExpression mapParameter(String name);
+    javax.jdo.query.ListExpression listParameter(String name);
+    javax.jdo.query.Expression variable(String name, Class type);
+    javax.jdo.JDOQLTypedQuery setCandidates(java.util.Collection candidates);
+    javax.jdo.JDOQLTypedQuery excludeSubclasses();
+    javax.jdo.JDOQLTypedQuery includeSubclasses();
+    javax.jdo.JDOQLTypedQuery filter(javax.jdo.query.BooleanExpression expr);
+    varargs javax.jdo.JDOQLTypedQuery groupBy(javax.jdo.query.Expression[] exprs);
+    javax.jdo.JDOQLTypedQuery having(javax.jdo.query.Expression expr);
+    varargs javax.jdo.JDOQLTypedQuery orderBy(javax.jdo.query.OrderExpression[] orderExprs);
+    varargs javax.jdo.JDOQLTypedQuery result(boolean distinct, javax.jdo.query.Expression[] exprs);
+    javax.jdo.JDOQLTypedQuery range(javax.jdo.query.NumericExpression lowerInclExpr, javax.jdo.query.NumericExpression upperExclExpr);
+    javax.jdo.JDOQLTypedQuery range(long lowerIncl, long upperExcl);
+    javax.jdo.JDOQLTypedQuery range(javax.jdo.query.Expression paramLowerInclExpr, javax.jdo.query.Expression paramUpperExclExpr);
+    javax.jdo.JDOQLTypedSubquery subquery(String candidateAlias);
+    javax.jdo.JDOQLTypedSubquery subquery(Class candidate, String candidateAlias);
+    javax.jdo.JDOQLTypedQuery setParameters(java.util.Map namedParamMap);
+    javax.jdo.JDOQLTypedQuery setParameter(javax.jdo.query.Expression paramExpr, Object value);
+    javax.jdo.JDOQLTypedQuery setParameter(String paramName, Object value);
+    java.util.List executeList();
+    Object executeUnique();
+    java.util.List executeResultList(Class resultCls);
+    Object executeResultUnique(Class resultCls);
+    java.util.List executeResultList();
+    Object executeResultUnique();
+    long deletePersistentAll();
+    Integer getDatastoreReadTimeoutMillis();
+    javax.jdo.JDOQLTypedQuery datastoreReadTimeoutMillis(Integer interval);
+    Integer getDatastoreWriteTimeoutMillis();
+    javax.jdo.JDOQLTypedQuery datastoreWriteTimeoutMillis(Integer interval);
+    Boolean getSerializeRead();
+    javax.jdo.JDOQLTypedQuery serializeRead(Boolean serialize);
+    boolean isUnmodifiable();
+    javax.jdo.JDOQLTypedQuery unmodifiable();
+    boolean getIgnoreCache();
+    javax.jdo.JDOQLTypedQuery ignoreCache(boolean flag);
+    javax.jdo.JDOQLTypedQuery extension(String key, Object value);
+    javax.jdo.JDOQLTypedQuery extensions(java.util.Map values);
+    javax.jdo.JDOQLTypedQuery saveAsNamedQuery(String name);
+    javax.jdo.PersistenceManager getPersistenceManager();
+    javax.jdo.FetchPlan getFetchPlan();
+    void cancelAll();
+    void cancel(Thread thread);
+    void close(Object result);
+    void closeAll();
+    String toString();
+}
+
+public interface javax.jdo.JDOQLTypedSubquery extends java.io.Serializable 
+{
+    javax.jdo.query.PersistableExpression candidate();
+    javax.jdo.JDOQLTypedSubquery filter(javax.jdo.query.BooleanExpression expr);
+    varargs javax.jdo.JDOQLTypedSubquery groupBy(javax.jdo.query.Expression[] exprs);
+    javax.jdo.JDOQLTypedSubquery having(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression selectUnique(javax.jdo.query.NumericExpression expr);
+    javax.jdo.query.StringExpression selectUnique(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.DateExpression selectUnique(javax.jdo.query.DateExpression expr);
+    javax.jdo.query.DateTimeExpression selectUnique(javax.jdo.query.DateTimeExpression expr);
+    javax.jdo.query.TimeExpression selectUnique(javax.jdo.query.TimeExpression expr);
+    javax.jdo.query.CharacterExpression selectUnique(javax.jdo.query.CharacterExpression expr);
+    javax.jdo.query.CollectionExpression select(javax.jdo.query.CollectionExpression expr);
+}
+
+public interface javax.jdo.query.BooleanExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.BooleanExpression and(javax.jdo.query.BooleanExpression expr);
+    javax.jdo.query.BooleanExpression or(javax.jdo.query.BooleanExpression expr);
+    javax.jdo.query.BooleanExpression not();
+    javax.jdo.query.BooleanExpression neg();
+}
+public interface javax.jdo.query.ByteExpression extends javax.jdo.query.ComparableExpression
+{
+}
+public interface javax.jdo.query.CharacterExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.CharacterExpression toLowerCase();
+    javax.jdo.query.CharacterExpression toUpperCase();
+    javax.jdo.query.CharacterExpression neg();
+    javax.jdo.query.CharacterExpression com();
+}
+public interface javax.jdo.query.CollectionExpression extends javax.jdo.query.Expression
+{
+    javax.jdo.query.BooleanExpression contains(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression contains(Object elem);
+    javax.jdo.query.BooleanExpression isEmpty();
+    javax.jdo.query.NumericExpression size();
+}
+public interface javax.jdo.query.ComparableExpression extends javax.jdo.query.Expression
+{
+    javax.jdo.query.BooleanExpression lt(javax.jdo.query.ComparableExpression expr);
+    javax.jdo.query.BooleanExpression lt(Object t);
+    javax.jdo.query.BooleanExpression lteq(javax.jdo.query.ComparableExpression expr);
+    javax.jdo.query.BooleanExpression lteq(Object t);
+    javax.jdo.query.BooleanExpression gt(javax.jdo.query.ComparableExpression expr);
+    javax.jdo.query.BooleanExpression gt(Object t);
+    javax.jdo.query.BooleanExpression gteq(javax.jdo.query.ComparableExpression expr);
+    javax.jdo.query.BooleanExpression gteq(Object t);
+    javax.jdo.query.NumericExpression min();
+    javax.jdo.query.NumericExpression max();
+    javax.jdo.query.OrderExpression asc();
+    javax.jdo.query.OrderExpression desc();
+}
+public interface javax.jdo.query.DateExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.NumericExpression getYear();
+    javax.jdo.query.NumericExpression getMonth();
+    javax.jdo.query.NumericExpression getDay();
+}
+public interface javax.jdo.query.DateTimeExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.NumericExpression getYear();
+    javax.jdo.query.NumericExpression getMonth();
+    javax.jdo.query.NumericExpression getDay();
+    javax.jdo.query.NumericExpression getHour();
+    javax.jdo.query.NumericExpression getMinute();
+    javax.jdo.query.NumericExpression getSecond();
+}
+public interface javax.jdo.query.EnumExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.NumericExpression ordinal();
+}
+public interface javax.jdo.query.Expression
+{
+    javax.jdo.query.BooleanExpression eq(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression eq(Object t);
+    javax.jdo.query.BooleanExpression ne(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression ne(Object t);
+    javax.jdo.query.NumericExpression count();
+    javax.jdo.query.NumericExpression countDistinct();
+    javax.jdo.query.BooleanExpression instanceOf(Class cls);
+    javax.jdo.query.Expression cast(Class cls);
+}
+public interface javax.jdo.query.ListExpression extends javax.jdo.query.CollectionExpression
+{
+    javax.jdo.query.Expression get(javax.jdo.query.NumericExpression posExpr);
+    javax.jdo.query.Expression get(int pos);
+}
+public interface javax.jdo.query.MapExpression extends javax.jdo.query.Expression
+{
+    javax.jdo.query.BooleanExpression containsKey(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression containsKey(Object key);
+    javax.jdo.query.BooleanExpression containsValue(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression containsValue(Object value);
+    javax.jdo.query.BooleanExpression containsEntry(javax.jdo.query.Expression expr);
+    javax.jdo.query.BooleanExpression containsEntry(java.util.Map$Entry entry);
+    javax.jdo.query.BooleanExpression isEmpty();
+    javax.jdo.query.NumericExpression size();
+}
+public interface javax.jdo.query.NumericExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.NumericExpression add(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression add(Number num);
+    javax.jdo.query.NumericExpression sub(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression sub(Number num);
+    javax.jdo.query.NumericExpression mul(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression mul(Number num);
+    javax.jdo.query.NumericExpression div(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression div(Number num);
+    javax.jdo.query.NumericExpression mod(javax.jdo.query.Expression expr);
+    javax.jdo.query.NumericExpression mod(Number num);
+    javax.jdo.query.NumericExpression neg();
+    javax.jdo.query.NumericExpression com();
+    javax.jdo.query.NumericExpression avg();
+    javax.jdo.query.NumericExpression sum();
+    javax.jdo.query.NumericExpression abs();
+    javax.jdo.query.NumericExpression sqrt();
+    javax.jdo.query.NumericExpression acos();
+    javax.jdo.query.NumericExpression asin();
+    javax.jdo.query.NumericExpression atan();
+    javax.jdo.query.NumericExpression sin();
+    javax.jdo.query.NumericExpression cos();
+    javax.jdo.query.NumericExpression tan();
+    javax.jdo.query.NumericExpression exp();
+    javax.jdo.query.NumericExpression log();
+    javax.jdo.query.NumericExpression ceil();
+    javax.jdo.query.NumericExpression floor();
+    javax.jdo.query.NumericExpression bAnd(javax.jdo.query.NumericExpression bitExpr);
+    javax.jdo.query.NumericExpression bOr(javax.jdo.query.NumericExpression bitExpr);
+    javax.jdo.query.NumericExpression bXor(javax.jdo.query.NumericExpression bitExpr);
+}
+public interface javax.jdo.query.ObjectExpression extends javax.jdo.query.Expression
+{
+}
+
+public interface javax.jdo.query.OrderExpression
+{
+    enum javax.jdo.query.OrderExpression$OrderDirection getDirection();
+    javax.jdo.query.Expression getExpression();
+}
+
+public interface javax.jdo.query.PersistableExpression extends javax.jdo.query.Expression
+{
+    javax.jdo.query.Expression jdoObjectId();
+    javax.jdo.query.Expression jdoVersion();
+}
+
+public interface javax.jdo.query.StringExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.StringExpression add(javax.jdo.query.Expression expr);
+    javax.jdo.query.CharacterExpression charAt(int pos);
+    javax.jdo.query.CharacterExpression charAt(javax.jdo.query.NumericExpression pos);
+    javax.jdo.query.BooleanExpression endsWith(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.BooleanExpression endsWith(String str);
+    javax.jdo.query.BooleanExpression equalsIgnoreCase(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.BooleanExpression equalsIgnoreCase(String str);
+    javax.jdo.query.NumericExpression indexOf(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.NumericExpression indexOf(String str);
+    javax.jdo.query.NumericExpression indexOf(javax.jdo.query.StringExpression expr, javax.jdo.query.NumericExpression pos);
+    javax.jdo.query.NumericExpression indexOf(String str, javax.jdo.query.NumericExpression pos);
+    javax.jdo.query.NumericExpression indexOf(String str, int pos);
+    javax.jdo.query.NumericExpression indexOf(javax.jdo.query.StringExpression expr, int pos);
+    javax.jdo.query.NumericExpression length();
+    javax.jdo.query.BooleanExpression startsWith(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.BooleanExpression startsWith(String str);
+    javax.jdo.query.StringExpression substring(javax.jdo.query.NumericExpression pos);
+    javax.jdo.query.StringExpression substring(int pos);
+    javax.jdo.query.StringExpression substring(javax.jdo.query.NumericExpression startPos, javax.jdo.query.NumericExpression endPos);
+    javax.jdo.query.StringExpression substring(int startPos, int endPos);
+    javax.jdo.query.StringExpression toLowerCase();
+    javax.jdo.query.StringExpression toUpperCase();
+    javax.jdo.query.StringExpression trim();
+}
+public interface javax.jdo.query.SubqueryExpression
+{
+}
+public interface javax.jdo.query.TimeExpression extends javax.jdo.query.ComparableExpression
+{
+    javax.jdo.query.NumericExpression getHour();
+    javax.jdo.query.NumericExpression getMinute();
+    javax.jdo.query.NumericExpression getSecond();
+}
+
 /*** This causes some NPE in SignatureTest whatever that means ***/
 /*
-public interface JDOEnhancer extends java.lang.instrument.ClassFileTransformer {
+public interface javax.jdo.JDOEnhancer extends java.lang.instrument.ClassFileTransformer {
     java.util.Properties getProperties();
     javax.jdo.JDOEnhancer setVerbose(boolean flag);
     javax.jdo.JDOEnhancer setOutputDirectory(String dirName);

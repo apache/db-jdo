@@ -335,6 +335,12 @@ public class SignatureVerifier {
             } else {
                 ok = Byte.valueOf(value).equals(actual);
             }
+        } else if (type.equals("boolean")) {
+            if (isArray) {
+                ok = actual.getClass().getComponentType().equals(boolean.class);
+            } else {
+                ok = Boolean.valueOf(value).equals(actual);
+            }
         } else if (type.equals("short")) {
             if (isArray) {
                 ok = actual.getClass().getComponentType().equals(short.class);
@@ -607,6 +613,10 @@ public class SignatureVerifier {
             mods |= Modifier.ABSTRACT;
         }
         Class resultType = getClass(result);
+        if (resultType == null) {
+        	System.out.println("WARNING : checkMethod " + name + " result=" + result + " comes up with null resultType!");
+        }
+
         if (resultType.isAnnotation()) {
             // add ANNOTATION modifier if the result type is an annotation
             mods |= ANNOTATION;
