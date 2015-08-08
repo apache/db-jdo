@@ -822,13 +822,6 @@ public interface Query<T> extends AutoCloseable, Serializable {
     Query<T> groupBy(String group);
 
     /**
-     * Set the having expression.
-     * @param having A boolean expression for the having expression
-     * @return This query
-     */
-    Query<T> having(String having);
-
-    /**
      * Set the result clause for the query.
      * Shortcut for the {@link #setResult(String)} method
      * @param result The result clause
