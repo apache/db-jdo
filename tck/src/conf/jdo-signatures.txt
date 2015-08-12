@@ -137,7 +137,9 @@ public interface javax.jdo.Constants {
     static String OPTION_QUERY_CANCEL
         = "javax.jdo.option.QueryCancel";
     static String OPTION_UNCONSTRAINED_QUERY_VARIABLES
-        = "javax.jdo.option.UnconstrainedQueryVariables";
+        = "javax.jdo.query.JDOQL.UnconstrainedQueryVariables";
+    static String OPTION_QUERY_JDOQL_BITWISE_OPERATIONS
+        = "javax.jdo.query.JDOQL.BitwiseOperations";
     static String OPTION_VERSION_DATETIME
         = "javax.jdo.option.version.DateTime";
     static String OPTION_VERSION_STATE_IMAGE
