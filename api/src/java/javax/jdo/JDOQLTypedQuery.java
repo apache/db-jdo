@@ -386,7 +386,6 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
     /**
      * Get the ignoreCache option setting.
      * @return the ignoreCache option setting.
-     * @see #setIgnoreCache
      */
     boolean getIgnoreCache();
 
