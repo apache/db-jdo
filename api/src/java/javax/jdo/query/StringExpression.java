@@ -125,6 +125,20 @@ public interface StringExpression extends ComparableExpression<String>
     NumericExpression<Integer> length();
 
     /**
+     * Method to return an expression for whether this string expression matches the provided expression.
+     * @param expr The expression to match against
+     * @return Whether this expression matches the provided expression
+     */
+    BooleanExpression matches(StringExpression expr);
+
+    /**
+     * Method to return an expression for whether this string expression matches the provided string.
+     * @param str String literal to match against
+     * @return Whether this expression matches the provided string
+     */
+    BooleanExpression matches(String str);
+
+    /**
      * Method returning an expression for whether this string expression starts with the passed string expression.
      * @param expr The expression that it starts with.
      * @return Whether it starts with the other string
