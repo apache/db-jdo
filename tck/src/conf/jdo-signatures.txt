@@ -1930,6 +1930,8 @@ public interface javax.jdo.query.StringExpression extends javax.jdo.query.Compar
     javax.jdo.query.NumericExpression indexOf(String str, int pos);
     javax.jdo.query.NumericExpression indexOf(javax.jdo.query.StringExpression expr, int pos);
     javax.jdo.query.NumericExpression length();
+    javax.jdo.query.BooleanExpression matches(javax.jdo.query.StringExpression expr);
+    javax.jdo.query.BooleanExpression matches(String str);
     javax.jdo.query.BooleanExpression startsWith(javax.jdo.query.StringExpression expr);
     javax.jdo.query.BooleanExpression startsWith(String str);
     javax.jdo.query.StringExpression substring(javax.jdo.query.NumericExpression pos);
