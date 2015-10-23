@@ -37,7 +37,7 @@
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
         <property name="jdo.tck.mapping" value="0"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -63,7 +63,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -89,7 +89,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -115,7 +115,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -147,7 +147,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -178,7 +178,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
@@ -207,7 +207,7 @@
         
         <property name="javax.jdo.mapping.Schema" value="schemaDoesNotExist"/> 
         <property name="javax.jdo.option.Mapping" value="standard"/>
-        <property name="datanucleus.metadata.validate" value="false"/>
+        <property name="datanucleus.metadata.xml.validate" value="false"/>
         <property name="datanucleus.schema.validateTables" value="false"/>
         <property name="datanucleus.schema.validateConstraints" value="false"/>
         <property name="datanucleus.schema.autoCreateAll" value="false"/>
