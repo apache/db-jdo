@@ -93,22 +93,22 @@
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-core</artifactId>
-      <version>4.1.0-release</version>
+      <version>4.1.7</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-rdbms</artifactId>
-      <version>4.1.0-release</version>
+      <version>4.1.9</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jdo</artifactId>
-      <version>4.1.0-release</version>
+      <version>4.2.1</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jpa</artifactId>
-      <version>4.1.0-release</version>
+      <version>4.1.7</version>
     </dependency>
     <dependency>
       <groupId>c3p0</groupId>
