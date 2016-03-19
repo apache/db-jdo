@@ -38,7 +38,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
- *<B>Assertion ID:</B> 
+ *<B>Assertion ID:</B> A14.6.2-61 
  *<BR>
  *<B>Assertion Description: </B>
  */
@@ -46,7 +46,7 @@ public class DomainObjectsAsParameters extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.x (DomainObjectsAsParameters) failed: ";
+        "Assertion A14.6.2-61 (DomainObjectsAsParameters) failed: ";
 
     private Object oidDept1Copy;
     
