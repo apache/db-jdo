@@ -58,40 +58,166 @@ public class LogicalComplement extends QueryTest {
         BatchTestRunner.run(LogicalComplement.class);
     }
     
-    /** */
-    public void testPositive() {
+    /**
+     * Tests logical complement operator ! used with constants or simple boolean fields
+     */
+    public void testPositiveSimpleComplement() {
         PersistenceManager pm = getPM();
-        if (debug) logger.debug("\nExecuting test LogicalComplement() ...");
-
         Transaction tx = pm.currentTransaction();
-        tx.begin();
+        try {
+            tx.begin();
 
-        Collection instancesLess3 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id < 3").execute();
-        Collection allEvenInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "booleanNull == false").execute();
-        Collection allInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "true").execute();
-        Collection empty = new HashSet();
+            Collection allEvenInstances = (Collection)pm.newQuery(
+                PrimitiveTypes.class, "booleanNull == false").execute();
+            Collection allInstances = (Collection)pm.newQuery(
+                PrimitiveTypes.class, "true").execute();
+            Collection empty = new HashSet();
 
-        // case !false
-        runSimplePrimitiveTypesQuery("! false", 
-                                     pm, allInstances, ASSERTION_FAILED);
+            // case !false
+            runSimplePrimitiveTypesQuery(
+                    "! false", pm, allInstances, ASSERTION_FAILED);
 
-        // case !true
-        runSimplePrimitiveTypesQuery("! true", 
-                                     pm, empty, ASSERTION_FAILED);
+            // case !true
+            runSimplePrimitiveTypesQuery(
+                    "! true", pm, empty, ASSERTION_FAILED);
 
-        // case !boolean
-        runSimplePrimitiveTypesQuery("! booleanNotNull", 
-                                     pm, allEvenInstances, ASSERTION_FAILED);
-        runSimplePrimitiveTypesQuery("! (id >= 3)",
-                                     pm, instancesLess3, ASSERTION_FAILED);
-        // case ! Boolean
-        runSimplePrimitiveTypesQuery("! booleanNull", 
-                                     pm, allEvenInstances, ASSERTION_FAILED);
+            // case !boolean
+            runSimplePrimitiveTypesQuery(
+                    "! booleanNotNull", pm, allEvenInstances, ASSERTION_FAILED);
 
-        tx.commit();
+            // case ! Boolean
+            runSimplePrimitiveTypesQuery(
+                    "! booleanNull", pm, allEvenInstances, ASSERTION_FAILED);
+
+            tx.commit();
+            tx = null;
+        } finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /**
+     * Tests logical complement operator ! negating the result of a relational.
+     */
+    public void testPositiveComplementOfRelationalOp() {
+        PersistenceManager pm = getPM();
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            Collection instancesLess3 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id < 3").execute();
+            Collection instancesNot3 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id != 3").execute();
+            Collection instances3 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id == 3").execute();
+
+            // case !(field >= value)
+            runSimplePrimitiveTypesQuery("! (id >= 3)",
+                    pm, instancesLess3, ASSERTION_FAILED);
+
+            // case !(field == value)
+            runSimplePrimitiveTypesQuery(
+                    "! (id == 3)", pm, instancesNot3, ASSERTION_FAILED);
+
+            // case !(field != value)
+            runSimplePrimitiveTypesQuery(
+                    "! (id != 3)", pm, instances3, ASSERTION_FAILED);
+
+            // case !!(field == value)
+            runSimplePrimitiveTypesQuery(
+                    "!! (id == 3)", pm, instances3, ASSERTION_FAILED);
+
+            // case !!(field != value)
+            runSimplePrimitiveTypesQuery(
+                    "!! (id != 3)", pm, instancesNot3, ASSERTION_FAILED);
+
+            tx.commit();
+            tx = null;
+        } finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /**
+     * Tests logical complement operator ! negating field comparison with a non null value.
+     */
+    public void testPositiveNullFieldComparison() {
+        PersistenceManager pm = getPM();
+        createAndStoreNullInstance(pm);
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            Collection instances3 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id == 3").execute();
+            Collection instancesNot0Not3 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id != 3 && id != 0").execute();
+
+
+            // case (nullableField == value)
+            runSimplePrimitiveTypesQuery(
+                    "intNull == 3", pm, instances3, ASSERTION_FAILED);
+
+            // case (nullableField != value)
+            runSimplePrimitiveTypesQuery(
+                    "intNull != 3", pm, instancesNot0Not3, ASSERTION_FAILED);
+
+            // case ! (nullableField == value)
+            runSimplePrimitiveTypesQuery(
+                    "!(intNull == 3)", pm, instancesNot0Not3, ASSERTION_FAILED);
+
+            // case ! (nullableField != value)
+            runSimplePrimitiveTypesQuery(
+                    "!(intNull != 3)", pm, instances3, ASSERTION_FAILED);
+
+            tx.commit();
+            tx = null;
+        } finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
+    }
+
+    /**
+     * Tests logical complement operator ! negating a null check.
+     */
+    public void testPositiveNullCheck() {
+        PersistenceManager pm = getPM();
+        createAndStoreNullInstance(pm);
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            Collection instancesGreater0 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id > 0").execute();
+            Collection instances0 = (Collection)pm.newQuery(
+                    PrimitiveTypes.class, "id == 0").execute();
+
+            // case !(field == null)
+            runSimplePrimitiveTypesQuery(
+                    "! (intNull == null)", pm, instancesGreater0, ASSERTION_FAILED);
+
+            // case !(field != null)
+            runSimplePrimitiveTypesQuery(
+                    "! (intNull != null)", pm, instances0, ASSERTION_FAILED);
+
+            // case !!(field == null)
+            runSimplePrimitiveTypesQuery(
+                    "!! (intNull == null)", pm, instances0, ASSERTION_FAILED);
+
+            // case !!(field != null)
+            runSimplePrimitiveTypesQuery(
+                    "!! (intNull != null)", pm, instancesGreater0, ASSERTION_FAILED);
+
+            tx.commit();
+            tx = null;
+        } finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
     }
 
     /**
@@ -100,5 +226,27 @@ public class LogicalComplement extends QueryTest {
     protected void localSetUp() {
         addTearDownClass(PrimitiveTypes.class);
         loadAndPersistPrimitiveTypes(getPM());
+    }
+
+    private void createAndStoreNullInstance(PersistenceManager pm) {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            PrimitiveTypes primitiveObject = new PrimitiveTypes(
+                    (long)0, false, null, (byte)0, null,
+                    (short)0, null, (int) 0, null,
+                    (long)0, null, (float)0, null,
+                    (double)0, null, '0', null,
+                    null, null,
+                    null,
+                    null,
+                    null);
+            pm.makePersistent(primitiveObject);
+            tx.commit();
+            tx = null;
+        } finally {
+            if ((tx != null) && tx.isActive())
+                tx.rollback();
+        }
     }
 }
