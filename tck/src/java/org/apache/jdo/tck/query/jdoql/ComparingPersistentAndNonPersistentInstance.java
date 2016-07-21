@@ -41,7 +41,7 @@ public class ComparingPersistentAndNonPersistentInstance
 
     /** */
     private static final String ASSERTION_FAILED = 
-        "Assertion A14.6.2-36 (ComparingPersistentAndNonPersistentInstance) failed: ";
+        "Assertion A14.6.2-44 (ComparingPersistentAndNonPersistentInstance) failed: ";
     
     /** 
      * The array of valid queries which may be executed as 
