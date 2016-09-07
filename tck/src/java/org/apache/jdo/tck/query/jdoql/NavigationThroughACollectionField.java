@@ -43,6 +43,18 @@ public class NavigationThroughACollectionField extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-10 (NavigationThroughACollectionField) failed: ";
     
+    /** */
+    public static final String NAVIGATION_TEST_COMPANY_TESTDATA = 
+        "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
+
+    /**
+     * Returns the name of the company test data resource.
+     * @return name of the company test data resource. 
+     */
+    protected String getCompanyTestDataResource() {
+        return NAVIGATION_TEST_COMPANY_TESTDATA;
+    }
+
     /** 
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.

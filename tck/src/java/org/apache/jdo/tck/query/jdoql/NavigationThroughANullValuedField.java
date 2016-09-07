@@ -46,13 +46,25 @@ public class NavigationThroughANullValuedField extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-9 (NavigationThroughANullValuedField) failed: ";
     
+    /** */
+    public static final String NAVIGATION_TEST_COMPANY_TESTDATA = 
+        "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
+
+    /**
+     * Returns the name of the company test data resource.
+     * @return name of the company test data resource. 
+     */
+    protected String getCompanyTestDataResource() {
+        return NAVIGATION_TEST_COMPANY_TESTDATA;
+    }
+
     /** 
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] VALID_QUERIES = {
         // navigation through reference relationship field
-        // the relationship medicalInsurence is not set for emp2 and emp3 =>
+        // the relationship medicalInsurance is not set for emp2 and emp3 =>
         // they should not be part of the result
         new QueryElementHolder(
         /*UNIQUE*/      null,
@@ -60,7 +72,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         /*INTO*/        null, 
         /*FROM*/        Employee.class,
         /*EXCLUDE*/     null,
-        /*WHERE*/       "medicalInsurance.carrier == \"Carrier1\"",
+        /*WHERE*/       "this.medicalInsurance.carrier == \"Carrier1\"",
         /*VARIABLES*/   null,
         /*PARAMETERS*/  null,
         /*IMPORTS*/     null,
@@ -68,8 +80,42 @@ public class NavigationThroughANullValuedField extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
+
+        // navigation through reference relationship field
+        // emp5 and emp6 have have emp4 as manager
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "this.manager.lastname == \"emp4Last\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+
+        // multiple navigation through reference relationship field
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        Employee.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "this.manager.manager.lastname == \"emp0Last\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+
         // navigation through collection relationship field
-        // employees emp2 and emp3 do not have a medicalInsurence, but emp1 
+        // employees emp2 and emp3 do not have a medicalInsurance, but emp1
         // matches the filter such that dept1 qualifies for inclusion in the 
         // result set.
         new QueryElementHolder(
@@ -93,11 +139,16 @@ public class NavigationThroughANullValuedField extends QueryTest {
      */
     private Object[] expectedResult = {
         // navigation through reference relationship field
-        // the relationship medicalInsurence is not set for emp2 and emp3 =>
+        // the relationship medicalInsurance is not set for emp2 and emp3 =>
         // they should not be part of the result
         getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
+        // navigation through reference relationship field
+        // emp5 and emp6 have have emp4 as manager
+        getTransientCompanyModelInstancesAsList(new String[]{"emp5", "emp6"}),
+        // multiple navigation through reference relationship field
+        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp10"}),
         // navigation through collection relationship field
-        // employees emp2 and emp3 do not have a medicalInsurence, but emp1 
+        // employees emp2 and emp3 do not have a medicalInsurance, but emp1
         // matches the filter such that dept1 qualifies for inclusion in the 
         // result set.
         getTransientCompanyModelInstancesAsList(new String[]{"dept1"})

@@ -42,7 +42,19 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-13 (NavigationThroughReferencesUsesDotOperator) failed: ";
-    
+
+    /** */
+    public static final String NAVIGATION_TEST_COMPANY_TESTDATA = 
+        "org/apache/jdo/tck/pc/company/companyForNavigationTests.xml";
+
+    /**
+     * Returns the name of the company test data resource.
+     * @return name of the company test data resource. 
+     */
+    protected String getCompanyTestDataResource() {
+        return NAVIGATION_TEST_COMPANY_TESTDATA;
+    }
+
     /** 
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
@@ -77,6 +89,36 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         /*GROUP BY*/    null,
         /*ORDER BY*/    null,
         /*FROM*/        null,
+        /*TO*/          null),
+        // navigation through a self referencing relationship
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        MedicalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "this.employee.manager.firstname == \"emp1First\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
+        /*TO*/          null),
+        // navigation through a self referencing relationship multiple times
+        new QueryElementHolder(
+        /*UNIQUE*/      null,
+        /*RESULT*/      null,
+        /*INTO*/        null, 
+        /*FROM*/        MedicalInsurance.class,
+        /*EXCLUDE*/     null,
+        /*WHERE*/       "this.employee.manager.manager.firstname == \"emp0First\"",
+        /*VARIABLES*/   null,
+        /*PARAMETERS*/  null,
+        /*IMPORTS*/     null,
+        /*GROUP BY*/    null,
+        /*ORDER BY*/    null,
+        /*FROM*/        null,
         /*TO*/          null)
     };
         
@@ -88,9 +130,13 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
         // navigation through multiple relationships
         getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns1", "medicalIns2", "medicalIns3"})
+                "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "medicalIns2", "medicalIns3"}),
+        getTransientCompanyModelInstancesAsList(new String[]{
+                "medicalIns2", "medicalIns3"})
     };
-    
+        
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -109,7 +155,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
                     expectedResult[i]);
         }
     }
-    
+
     /**
      * @see JDO_Test#localSetUp()
      */
