@@ -46,7 +46,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
     </persistence-manager-factory>
     
     <persistence-manager-factory
@@ -72,7 +71,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
     </persistence-manager-factory>
     
     <persistence-manager-factory
@@ -98,7 +96,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
     </persistence-manager-factory>
     
     <persistence-manager-factory
@@ -124,7 +121,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
         
         <instance-lifecycle-listener
             listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListener"
@@ -156,7 +152,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
         
         <instance-lifecycle-listener
             listener="org.apache.jdo.tck.api.persistencemanagerfactory.config.StoreListenerGetInstance"
@@ -187,7 +182,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
         
         />
     </persistence-manager-factory> 
@@ -216,7 +210,6 @@
         <property name="datanucleus.schema.autoCreateColumns" value="false"/>
         <property name="datanucleus.rdbms.CheckExistTablesOrViews" value="false"/>
         <property name="datanucleus.autoStartMechanism" value="None"/>
-        <property name="datanucleus.connectionPoolingType" value="C3P0"/>
         
         <!-- Use no classes attribute here - testing null classes behavior -->
         <instance-lifecycle-listener
