@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * Container annotation to allow for multiple {@link Convert} annotations.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.PACKAGE, ElementType.TYPE })
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 public @interface Converts {
 
 	/**

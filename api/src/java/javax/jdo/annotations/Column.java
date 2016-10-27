@@ -17,6 +17,7 @@
 package javax.jdo.annotations;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -28,8 +29,9 @@ import java.lang.annotation.Target;
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE}) 
 @Retention(RetentionPolicy.RUNTIME)
+@Repeatable(Columns.class)
 public @interface Column
 {
     /**
