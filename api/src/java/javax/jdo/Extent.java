@@ -36,7 +36,7 @@ import java.util.Iterator;
  * </ol>
  * @version 2.1
  */
-public interface Extent<E> extends Iterable<E> {
+public interface Extent<E> extends Iterable<E>, AutoCloseable {
         
     /** Returns an iterator over all the instances in the <code>Extent</code>.
      * The behavior of the returned iterator might depend on the setting of the
