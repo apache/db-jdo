@@ -83,7 +83,13 @@ public interface Extent<E> extends Iterable<E> {
      * <code>iterator()</code> on this <code>Extent</code> instance.
      */    
     void close (Iterator<E> it);
-    
+
+    /**
+     * Don't use this method directly; use <code>closeAll()</code> instead. It is intended for use with try-with-resources.
+     * @throws Exception if this resource cannot be closed
+     */
+    void close() throws Exception;
+
     /** Get the fetch plan associated with this Extent.
      * @return the fetch plan
      * @since 2.0
