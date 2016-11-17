@@ -295,13 +295,14 @@ public interface javax.jdo.datastore.Sequence {
     public long currentValue();
 }
 
-public interface javax.jdo.Extent extends java.lang.Iterable {
+public interface javax.jdo.Extent extends java.lang.Iterable, java.lang.AutoCloseable {
     public java.util.Iterator iterator();
     public boolean hasSubclasses();
     public Class getCandidateClass();
     public javax.jdo.PersistenceManager getPersistenceManager();
     public void closeAll();
     public void close(java.util.Iterator it);
+    public void close() throws java.lang.Exception;
     public javax.jdo.FetchPlan getFetchPlan();
 }
 
@@ -898,6 +899,7 @@ public interface javax.jdo.Query extends java.lang.AutoCloseable, java.io.Serial
     public javax.jdo.PersistenceManager getPersistenceManager();
     public void close(Object queryResult);
     public void closeAll();
+    public void close() throws java.lang.Exception;
     public void setGrouping(String group);
     public void setUnique(boolean unique);
     public void setResult(String data);
