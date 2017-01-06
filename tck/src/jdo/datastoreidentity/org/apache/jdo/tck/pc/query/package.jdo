@@ -28,6 +28,15 @@
       <field name="time" persistence-modifier="persistent"/>
     </class>
 
+    <class name="OptionalSample">
+      <field name="optionalPC" 
+                   	field-type="org.apache.jdo.tck.pc.query.OptionalSample"
+                   	persistence-modifier="persistent"/>
+      <field name="optionalDate" persistence-modifier="persistent"/>
+      <field name="optionalInteger" persistence-modifier="persistent"/>
+      <field name="optionalString" persistence-modifier="persistent"/>
+    </class>
+
     <class name="MathSample">
       <field name="angle" persistence-modifier="persistent"/>
       <field name="trigValue" persistence-modifier="persistent"/>

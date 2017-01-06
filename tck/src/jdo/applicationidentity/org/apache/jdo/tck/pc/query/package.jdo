@@ -37,6 +37,16 @@
       <field name="time" persistence-modifier="persistent"/>
     </class>
 
+     <class name="OptionalSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="optionalPC" 
+                   	field-type="org.apache.jdo.tck.pc.query.OptionalSample"
+                   	persistence-modifier="persistent"/>
+      <field name="optionalDate" persistence-modifier="persistent"/>
+      <field name="optionalInteger" persistence-modifier="persistent"/>
+      <field name="optionalString" persistence-modifier="persistent"/>
+    </class>
+
     <class name="MathSample" identity-type="application">
       <field name="id" primary-key="true"/>
       <field name="angle" persistence-modifier="persistent"/>

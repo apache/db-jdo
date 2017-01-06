@@ -40,6 +40,24 @@ This file contains the schema information when an implementation has datastore i
       <field name="time" column="TIME"/>
     </class>
 
+   <class name="OptionalSample" table="OptionalSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="optionalPC">
+        <column name="OPTIONAL_PC"/>
+        <foreign-key/>
+      </field>
+      <field name="optionalDate">
+        <column name="OPTIONAL_DATE"/>
+      </field>
+      <field name="optionalInteger">
+        <column name="OPTIONAL_INTEGER"/>
+      </field>
+      <field name="optionalString">
+        <column name="OPTIONAL_STRING"/>
+      </field>
+    </class>
+ 
     <class name="MathSample" table="MathSample">
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
       <field name="id" column="ID"/>
