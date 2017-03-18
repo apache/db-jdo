@@ -17,9 +17,7 @@
 
 package org.apache.jdo.tck.api.persistencemanager.close;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -32,7 +30,8 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion IDs:</B> A12.6 ?.
  *<BR>
  *<B>Assertion Description: </B>
-In a non-managed environment, if the PM is created with try-with-resources then it is automatically closed at the end of that block.
+ * In a non-managed environment, if the PM is created with try-with-resources 
+ * then it is automatically closed at the end of that block.
  */
 
 public class AutoCloseable extends PersistenceManagerTest {
@@ -50,15 +49,50 @@ public class AutoCloseable extends PersistenceManagerTest {
         BatchTestRunner.run(AutoCloseable.class);
     }
 
-    /** */
-    public void test() {
+    /** 
+     * The method creates a pm with try-with-resources and checks that it is closed after the block.
+     */
+    public void testTryWithResource() {
 
-        try (PersistenceManager pm1 = getPM())
-        {
+        try (PersistenceManager pm1 = getPM()) {
             pm = pm1;
-            assertFalse(pm.isClosed());
+            if (pm.isClosed()) {
+                fail(ASSERTION_FAILED,
+                        "PersistenceManager is expected to be open inside try-with-resource block.");
+            }
         }
 
-        assertTrue(pm.isClosed());
+        if (!pm.isClosed()) {
+            fail(ASSERTION_FAILED,
+                    "PersistenceManager should be closed after try-with-resource block.");
+        }
     }
+
+   /** 
+     * The method creates a pm with try-with-resources and checks that it is closed after the block,
+     * if the block is ended with an exception. 
+     */
+    public void testTryWithResourceThrowingException() {
+
+        try (PersistenceManager pm1 = getPM()) {
+            pm = pm1;
+            if (pm.isClosed()) {
+                fail(ASSERTION_FAILED,
+                        "PersistenceManager is expected to be open inside try-with-resource block.");
+            }
+            throw new DummyException();
+        } catch (DummyException ex) {
+            // exception is expected
+        }
+
+        if (!pm.isClosed()) {
+            fail(ASSERTION_FAILED,
+                    "PersistenceManager should be closed after try-with-resource block.");
+        }
+    }
+
+    /**
+     * DummyException used in method testTryWithResourceThrowingException.
+     */
+    private static final class DummyException extends Exception {}
 }
