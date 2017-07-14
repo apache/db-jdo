@@ -26,6 +26,14 @@ import java.util.Map;
  *<BR>
  *<B>Assertion Description: </B>
  * This test class runs the example queries from the JDO specification.
+ *
+ * There are up to four test methods per test case:
+ * testQueryxxa: runtime constructed JDO query using execute to run the query
+ * testQueryxxb: runtime constructed JDO query using setNamedParameters to specify the parameter values and 
+ *               executeList/executeResultList/executeResultUnique to run the query
+ * testQueryxxc: runtime constructed JDO query using setParameters to specify the parameter values and
+ *               executeList/executeResultList/executeResultUnique to run the query
+ * testQueryxxd: single string version of the JDO query
  */
 public class SampleQueries extends QueryTest {
 
@@ -59,7 +67,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > 30000";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > 30000";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000");
             List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute();
             List<FullTimeEmployee> expected =
@@ -87,8 +96,38 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > 30000";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > 30000";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000");
+            List<FullTimeEmployee> emps = q.executeList();
+            List<FullTimeEmployee> expected =
+                    getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp5"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, emps, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Basic query.
+     *
+     * This query selects all Employee instances from the candidate collection where
+     * the salary is greater than the constant 30000.
+     * Note that the float value for salary is unwrapped for the comparison with the
+     * literal int value, which is promoted to float using numeric promotion.
+     * If the value for the salary field in a candidate instance isnull, then it cannot
+     * be unwrapped for the comparison, and the candidate instance is rejected.
+     */
+    public void testQuery01d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > 30000";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             List<FullTimeEmployee> emps = q.executeList();
             List<FullTimeEmployee> expected =
                     getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp5"});
@@ -111,7 +150,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > 30000 order by salary ascending";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > 30000 order by salary ascending";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000");
             q.setOrdering ("salary ascending");
             List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute();
@@ -136,9 +177,37 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > 30000 order by salary ascending";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > 30000 order by salary ascending";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000");
             q.setOrdering ("salary ascending");
+            List<FullTimeEmployee> emps = q.executeList();
+            List<FullTimeEmployee> expected =
+                    getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp5", "emp2"});
+            checkQueryResultWithOrder(ASSERTION_FAILED, singleStringQuery, emps, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Basic query with ordering.
+     *
+     * This query selects all Employee instances from the candidate collection where the salary
+     * is greater than the constant 30000, and returns a Collection ordered based on employee salary.
+     */
+    public void testQuery02d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > 30000 order by salary ascending";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             List<FullTimeEmployee> emps = q.executeList();
             List<FullTimeEmployee> expected =
                     getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp5", "emp2"});
@@ -164,7 +233,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > :sal && firstname.startsWith(:begin)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > :sal && firstname.startsWith(:begin)";
             Query<FullTimeEmployee> q =
                     pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)");
             q.declareParameters("Double sal, String begin");
@@ -192,7 +263,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > :sal && firstname.startsWith(:begin)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > :sal && firstname.startsWith(:begin)";
             Query<FullTimeEmployee> q =
                     pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)");
             q.declareParameters("Double sal, String begin");
@@ -224,7 +297,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where salary > :sal && firstname.startsWith(:begin)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > :sal && firstname.startsWith(:begin)";
             Query<FullTimeEmployee> q =
                     pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)");
             q.declareParameters("Double sal, String begin");
@@ -241,6 +316,34 @@ public class SampleQueries extends QueryTest {
     }
 
     /**
+     * Parameter passing.
+     *
+     * This query selects all Employee instances from the candidate collection where the salary
+     * is greater than the value passed as a parameter and the name starts with the value passed
+     * as a second parameter.
+     * If the value for the salary field in a candidate instance is null, then it cannot be
+     * unwrapped for the comparison, and the candidate instance is rejected.
+     */
+    public void testQuery03d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where salary > :sal && firstname.startsWith(:begin)";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute(30000., "M");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(new String[] {"emp1"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, emps, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+    
+    /**
      * Navigation through single-valued field.
      *
      * This query selects all Employee instances from the candidate collection where the value
@@ -253,7 +356,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where department.name == :dep";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Employee where department.name == :dep";
             Query<Employee> q = pm.newQuery(Employee.class, "department.name == dep");
             q.declareParameters("String dep");
             List<Employee> emps = (List<Employee>)q.execute ("R&D");
@@ -280,7 +384,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where department.name == :dep";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Employee where department.name == :dep";
             Query<Employee> q = pm.newQuery (Employee.class, "department.name == dep");
             q.declareParameters ("String dep");
             Map<String, Object> paramValues = new HashMap<>();
@@ -310,7 +415,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where department.name == :dep";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Employee where department.name == :dep";
             Query<Employee> q = pm.newQuery (Employee.class, "department.name == dep");
             q.declareParameters ("String dep");
             q.setParameters("R&D");
@@ -326,6 +432,36 @@ public class SampleQueries extends QueryTest {
     }
 
     /**
+     * Navigation through single-valued field.
+     *
+     * This query selects all Employee instances from the candidate collection where the value
+     * of the name field in the Department instance associated with the Employee instance
+     * is equal to the value passed as a parameter.
+     * If the value for the dept field in a candidate instance is null, then it cannot be
+     * navigated for the comparison, and the candidate instance is rejected.
+     */
+    public void testQuery04d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Employee where department.name == :dep";
+            Query<Employee> q = pm.newQuery (singleStringQuery);
+            Map<String, Object> paramValues = new HashMap<>();
+            paramValues.put("dep", "R&D");
+            q.setNamedParameters(paramValues);
+            List<Employee> emps = q.executeList();
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, emps, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+    
+    /**
      * Navigation through multi-valued field.
      *
      * This query selects all Department instances from the candidate collection where
@@ -336,7 +472,10 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where employees.contains(e) && e.weeklyhours > :hours";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department " +
+                     "where employees.contains(emp) && emp.weeklyhours > :hours " +
+                     "variables Employee emp";
             String filter = "employees.contains (emp) && emp.weeklyhours > hours";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareVariables("Employee emp");
@@ -363,7 +502,10 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where employees.contains(e) && e.weeklyhours > :hours";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department " +
+                    "where employees.contains(emp) && emp.weeklyhours > :hours " +
+                    "variables Employee emp";
             String filter = "employees.contains (emp) && emp.weeklyhours > hours";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareVariables("Employee emp");
@@ -393,7 +535,10 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where employees.contains(e) && e.weeklyhours > :hours";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department " +
+                    "where employees.contains(emp) && emp.weeklyhours > :hours " +
+                    "variables Employee emp";
             String filter = "employees.contains (emp) && emp.weeklyhours > hours";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareVariables("Employee emp");
@@ -401,6 +546,33 @@ public class SampleQueries extends QueryTest {
             q.setParameters(30.);
             List<Department> deps = q.executeList();
             List<Department> expected = getTransientCompanyModelInstancesAsList(new String[] {"dept1"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, deps, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Navigation through multi-valued field.
+     *
+     * This query selects all Department instances from the candidate collection where
+     * the collection of Employee instances contains at least one Employee instance
+     * having a salary greater than the value passed as a parameter.
+     */
+    public void testQuery05d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department " +
+                    "where employees.contains(emp) && emp.weeklyhours > :hours " +
+                    "variables Employee emp";
+            Query<Department> q = pm.newQuery(singleStringQuery);
+            List<Department> deps = (List<Department>)q.execute (30.);
+            List expected = getTransientCompanyModelInstancesAsList(new String[] {"dept1"});
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, deps, expected);
             tx.commit();
         } finally {
@@ -420,7 +592,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where :depts.contains(name)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department where :depts.contains(name)";
             String filter = "depts.contains(name)";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareParameters("java.util.Collection depts");
@@ -447,7 +620,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where :depts.contains(name)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department where :depts.contains(name)";
             String filter = "depts.contains(name)";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareParameters("java.util.Collection depts");
@@ -476,11 +650,40 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select where :depts.contains(name)";
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department where :depts.contains(name)";
             String filter = "depts.contains(name)";
             Query<Department> q = pm.newQuery(Department.class, filter);
             q.declareParameters("java.util.Collection depts");
             q.setParameters(Arrays.asList("R&D", "Sales", "Marketing"));
+            List<Department> result = q.executeList();
+            List<Department> expected =
+                    getTransientCompanyModelInstancesAsList(new String[] {"dept1", "dept2", "dept3"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Membership in a collection.
+     *
+     * This query selects all Department instances where the name field is contained in
+     * a parameter collection, which in this example consists of three department names.
+     */
+    public void testQuery06d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Department where :depts.contains(name)";
+            Query<Department> q = pm.newQuery(singleStringQuery);
+            Map<String, Object> paramValues = new HashMap<>();
+            paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
+            q.setNamedParameters(paramValues);
             List<Department> result = q.executeList();
             List<Department> expected =
                     getTransientCompanyModelInstancesAsList(new String[] {"dept1", "dept2", "dept3"});
@@ -502,7 +705,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select firstname where department.name == :deptName";
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
             Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName");
             q.setResult("firstname");
             q.declareParameters("String deptName");
@@ -526,7 +730,8 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select firstname where department.name == :deptName";
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
             Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName");
             q.setResult("firstname");
             q.declareParameters("String deptName");
@@ -553,11 +758,38 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select firstname where department.name == :deptName";
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
             Query<Employee> q = pm.newQuery(Employee.class, "department.name == deptName");
             q.setResult("firstname");
             q.declareParameters("String deptName");
             q.setParameters("R&D");
+            List<String> names = q.executeResultList(String.class);
+            List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Projection of a Single Field.
+     *
+     * This query selects names of all Employees who work in the parameter department.
+     */
+    public void testQuery07d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee where department.name == :deptName";
+            Query<Employee> q = pm.newQuery(singleStringQuery);
+            Map<String, Object> paramValues = new HashMap<>();
+            paramValues.put("deptName", "R&D");
+            q.setNamedParameters(paramValues);
             List<String> names = q.executeResultList(String.class);
             List<String> expected = Arrays.asList("Joe", "Craig", "Michael");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
@@ -579,8 +811,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select firstname, salary, manager as reportsTo " +
-                    "into org.apache.jdo.tck.query.api.SampleQueries$Info where department.name == :deptName";
+                    "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("firstname, salary, manager as reportsTo");
             q.setResultClass(Info.class);
@@ -615,8 +847,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select firstname, salary, manager as reportsTo " +
-                            "into org.apache.jdo.tck.query.api.SampleQueries$Info where department.name == :deptName";
+                    "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("firstname, salary, manager as reportsTo");
             q.setResultClass(Info.class);
@@ -654,8 +886,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select firstname, salary, manager as reportsTo " +
-                            "into org.apache.jdo.tck.query.api.SampleQueries$Info where department.name == :deptName";
+                    "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("firstname, salary, manager as reportsTo");
             q.setResultClass(Info.class);
@@ -680,7 +912,41 @@ public class SampleQueries extends QueryTest {
             }
         }
     }
-    
+
+    /**
+     * Projection of Multiple Fields and Expressions.
+     *
+     * This query selects names, salaries, and bosses of Employees who work in the parameter department.
+     */
+    public void testQuery08d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select firstname, salary, manager as reportsTo into org.apache.jdo.tck.query.api.SampleQueries$Info " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where department.name == :deptName";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            q.setParameters("R&D");
+            List<Info> infos = q.executeResultList(Info.class);
+
+            Info info1 = new Info();
+            info1.firstname = "Michael";
+            info1.salary = 40000.;
+            info1.reportsTo = (Employee)getTransientCompanyModelInstance("emp2");
+            Info info2 = new Info();
+            info2.firstname = "Craig";
+            info2.salary = 50000.;
+            info2.reportsTo = null;
+            List expected = Arrays.asList(info1, info2);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, infos, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
     /**
      * Projection of Multiple Fields and Expressions into a Constructed instance.
      *
@@ -693,6 +959,7 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
                     "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
@@ -724,7 +991,8 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
-                            "where department.name == :deptName";
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
             q.declareParameters("String deptName");
@@ -758,10 +1026,42 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
-                            "where department.name == :deptName";
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("new org.apache.jdo.tck.query.api.SampleQueries$Info(firstname, salary, manager)");
             q.declareParameters("String deptName");
+            q.setParameters("R&D");
+            List<Info> infos = q.executeResultList(Info.class);
+
+            List<Info> expected = Arrays.asList(
+                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Craig", 50000., null)
+            );
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, infos, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Projection of Multiple Fields and Expressions into a Constructed instance.
+     *
+     * This query selects names, salaries, and bosses of Employees who work in the parameter department,
+     * and uses the constructor for the result class.
+     */
+    public void testQuery09d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             q.setParameters("R&D");
             List<Info> infos = q.executeResultList(Info.class);
 
@@ -788,7 +1088,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary)");
             q.declareParameters("String deptName");
@@ -814,7 +1116,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary)");
             q.declareParameters("String deptName");
@@ -843,10 +1147,39 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary)");
             q.declareParameters("String deptName");
+            q.setParameters("R&D");
+            Double avgSalary = q.executeResultUnique(Double.class);
+
+            Double expected = 45000.;
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, avgSalary, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Aggregation of a single Field.
+     *
+     * This query averages the salaries of Employees who work in the parameter department
+     * and returns a single value.
+     */
+    public void testQuery10d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select avg(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             q.setParameters("R&D");
             Double avgSalary = q.executeResultUnique(Double.class);
 
@@ -869,7 +1202,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary), sum(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary), sum(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary), sum(salary)");
             q.declareParameters("String deptName");
@@ -894,14 +1229,16 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary), sum(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary), sum(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary), sum(salary)");
             q.declareParameters("String deptName");
             Map<String, Object> paramValues = new HashMap<>();
             paramValues.put("deptName", "R&D");
             q.setNamedParameters(paramValues);
-            Object[] avgSum = (Object[])q.executeResultUnique();
+            Object[] avgSum = q.executeResultUnique(Object[].class);
 
             Double[] expected = new Double[] {45000., 90000.};
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, avgSum, expected);
@@ -922,12 +1259,40 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select avg(salary), sum(salary) where department.name == :deptName";
+            String singleStringQuery =
+                    "select avg(salary), sum(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "department.name == deptName");
             q.setResult("avg(salary), sum(salary)");
             q.declareParameters("String deptName");
             q.setParameters("R&D");
-            Object[] avgSum = (Object[])q.executeResultUnique();
+            Object[] avgSum = q.executeResultUnique(Object[].class);
+
+            Double[] expected = new Double[] {45000., 90000.};
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, avgSum, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Aggregation of Multiple Fields and Expressions.
+     *
+     * This query averages and sums the salaries of Employees who work in the parameter department.
+     */
+    public void testQuery11d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select avg(salary), sum(salary) from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where department.name == :deptName";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            q.setParameters("R&D");
+            Object[] avgSum = q.executeResultUnique(Object[].class);
 
             Double[] expected = new Double[] {45000., 90000.};
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, avgSum, expected);
@@ -952,7 +1317,6 @@ public class SampleQueries extends QueryTest {
             String singleStringQuery =
                     "select avg(salary), sum(salary), department.name " +
                     "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
-                    "where department.name == :deptName " +
                     "group by department.name having count(department.name)";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class);
             q.setResult("avg(salary), sum(salary), department.name");
@@ -985,12 +1349,42 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select avg(salary), sum(salary), department.name " +
-                            "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
-                            "where department.name == :deptName " +
-                            "group by department.name having count(department.name)";
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "group by department.name having count(department.name)";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class);
             q.setResult("avg(salary), sum(salary), department.name");
             q.setGrouping("department.name having count(department.name) > 1");
+            List<Object[]> results = q.executeResultList(Object[].class);
+            if (results.size() != 1) {
+                fail(ASSERTION_FAILED,
+                        "Query result has size " + results.size() + ", expected query result of size 1");
+            }
+            Object[] row = results.get(0);
+            Object[] expectedRow = new Object[]{45000., 90000., "R&D"};
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, row, expectedRow);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Aggregation of Multiple fields with Grouping.
+     *
+     * This query averages and sums the salaries of Employees who work in all departments having
+     * more than one employee and aggregates by department name.
+     */
+    public void testQuery12d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select avg(salary), sum(salary), department.name " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "group by department.name having count(department.name) > 1";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             List<Object[]> results = q.executeResultList(Object[].class);
             if (results.size() != 1) {
                 fail(ASSERTION_FAILED,
@@ -1016,7 +1410,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique this where firstname == :empName";
+            String singleStringQuery =
+                    "select unique this from org.apache.jdo.tck.pc.company.Employee " +
+                    "where firstname == :empName";
             Query<Employee> q = pm.newQuery(Employee.class, "firstname == empName");
             q.setUnique(true);
             q.declareParameters ("String empName");
@@ -1040,7 +1436,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique this where firstname == :empName";
+            String singleStringQuery =
+                    "select unique this from org.apache.jdo.tck.pc.company.Employee " +
+                    "where firstname == :empName";
             Query<Employee> q = pm.newQuery (Employee.class, "firstname == empName");
             q.setUnique(true);
             q.declareParameters ("String empName");
@@ -1067,12 +1465,39 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique this where firstname == :empName";
+            String singleStringQuery =
+                    "select unique this from org.apache.jdo.tck.pc.company.Employee " +
+                    "where firstname == :empName";
             Query<Employee> q = pm.newQuery (Employee.class, "firstname == empName");
             q.setUnique(true);
             q.declareParameters ("String empName");
             q.setParameters("Michael");
             Employee emp = q.executeUnique();
+            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, emp, expectedEmp);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Selection of a Single Instance.
+     *
+     * This query returns a single instance of Employee.
+     */
+    public void testQuery13d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select unique this from org.apache.jdo.tck.pc.company.Employee " +
+                    "where firstname == :empName";
+            Query<Employee> q = pm.newQuery (singleStringQuery);
+            q.setParameters("Michael");
+            Employee emp = q.executeResultUnique(Employee.class);
             Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, emp, expectedEmp);
             tx.commit();
@@ -1092,7 +1517,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique new Double(salary) where firstname == :empName";
+            String singleStringQuery =
+                    "select unique salary from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where firstname == :empName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "firstname == empName");
             q.setResult("salary");
             q.setResultClass(Double.class);
@@ -1118,7 +1545,9 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique new Double(salary) where firstname == :empName";
+            String singleStringQuery =
+                    "select unique salary from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where firstname == :empName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "firstname == empName");
             q.setResult("salary");
             q.setResultClass(Double.class);
@@ -1146,11 +1575,38 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select unique new Double(salary) where firstname == :empName";
+            String singleStringQuery =
+                    "select unique salary from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where firstname == :empName";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "firstname == empName");
             q.setResult("salary");
             q.setResultClass(Double.class);
             q.declareParameters("String empName");
+            q.setParameters("Michael");
+            Double salary = q.executeResultUnique(Double.class);
+            Double expectedSalary = 40000.;
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, salary, expectedSalary);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Selection of a Single Field.
+     *
+     * This query returns a single field of a single Employee.
+     */
+    public void testQuery14d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select unique salary from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                    "where firstname == :empName";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
             q.setParameters("Michael");
             Double salary = q.executeResultUnique(Double.class);
             Double expectedSalary = 40000.;
@@ -1175,7 +1631,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1216,7 +1673,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1260,7 +1718,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1291,6 +1750,47 @@ public class SampleQueries extends QueryTest {
     }
 
     /**
+     * Projection of "this" to User-defined Result Class with Matching Field.
+     *
+     * This query selects instances of Employee who make more than the parameter salary and
+     * stores the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
+     * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
+     */
+    public void testQuery15d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            // ToDo: the following line should no be necessary
+            // org.datanucleus.exceptions.NucleusUserException:
+            // Query needs to return objects of type "org.apache.jdo.tck.query.api.SampleQueries$EmpWrapper"
+            // but it was impossible to set the field "birthdate" type "java.util.Date". The field should
+            // have either a public set/put method, or be public.
+            //q.setResult("distinct this as FullTimeEmployee");
+
+            q.setParameters(30000.);
+            List<EmpWrapper> infos = q.executeResultList(EmpWrapper.class);
+
+            EmpWrapper wrapper1 = new EmpWrapper();
+            wrapper1.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp1");
+            EmpWrapper wrapper2 = new EmpWrapper();
+            wrapper2.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp2");
+            EmpWrapper wrapper3 = new EmpWrapper();
+            wrapper3.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp5");
+            List<EmpWrapper> expected = Arrays.asList(wrapper1, wrapper2, wrapper3);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, infos, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
      * Projection of "this" to User-defined Result Class with Matching Method
      *
      * This query selects instances of FullTimeEmployee who make more than the parameter salary and
@@ -1301,7 +1801,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1341,7 +1842,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1384,7 +1886,8 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             String singleStringQuery =
-                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo where salary > sal";
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
             Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > sal");
             // ToDo: the following line should no be necessary
             // org.datanucleus.exceptions.NucleusUserException:
@@ -1415,6 +1918,46 @@ public class SampleQueries extends QueryTest {
     }
 
     /**
+     * Projection of "this" to User-defined Result Class with Matching Method
+     *
+     * This query selects instances of FullTimeEmployee who make more than the parameter salary and
+     * stores the result in a user-defined class.
+     */
+    public void testQuery16d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select into org.apache.jdo.tck.query.api.SampleQueries$EmpInfo " +
+                    "from org.apache.jdo.tck.pc.company.FullTimeEmployee where salary > :sal";
+            Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            // ToDo: the following line should no be necessary
+            // org.datanucleus.exceptions.NucleusUserException:
+            // Query needs to return objects of type "org.apache.jdo.tck.query.api.SampleQueries$EmpInfo"
+            // but it was impossible to set the field "birthdate" type "java.util.Date". The field should
+            // have either a public set/put method, or be public.
+            //q.setResult("distinct this as FullTimeEmployee");
+
+            q.setParameters(30000.);
+            List<EmpInfo> infos = q.executeResultList(EmpInfo.class);
+
+            EmpInfo info1 = new EmpInfo();
+            info1.setFullTimeEmployee((FullTimeEmployee)getTransientCompanyModelInstance("emp1"));
+            EmpInfo info2 = new EmpInfo();
+            info2.setFullTimeEmployee((FullTimeEmployee)getTransientCompanyModelInstance("emp2"));
+            EmpInfo info3 = new EmpInfo();
+            info3.setFullTimeEmployee((FullTimeEmployee)getTransientCompanyModelInstance("emp5"));
+            List<EmpInfo> expected = Arrays.asList(info1, info2, info3);
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, infos, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
      * Projection of variables.
      *
      * This query returns the names of all Employees of all "Research" departments.
@@ -1423,8 +1966,10 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select e.firstname where name.startsWith('R&D') " +
-                    "&& employees.contains((org.apache.jdo.tck.pc.company.Employee) e)";
+            String singleStringQuery =
+                    "select e.firstname from org.apache.jdo.tck.pc.company.Department " +
+                    "where name.startsWith('R&D') && employees.contains(e) " +
+                    "variables org.apache.jdo.tck.pc.company.Employee e";
             Query<Department> q = pm.newQuery(Department.class);
             q.declareVariables("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter("name.startsWith('R&D') && employees.contains(e)");
@@ -1449,12 +1994,39 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            String singleStringQuery = "select e.firstname where name.startsWith('R&D') " +
-                    "&& employees.contains((org.apache.jdo.tck.pc.company.Employee) e)";
+            String singleStringQuery =
+                    "select e.firstname from org.apache.jdo.tck.pc.company.Department " +
+                     "where name.startsWith('R&D') && employees.contains(e) " +
+                     "variables org.apache.jdo.tck.pc.company.Employee e";
             Query<Department> q = pm.newQuery(Department.class);
             q.declareVariables("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter("name.startsWith('R&D') && employees.contains(e)");
             q.setResult("e.firstname");
+            List<String> names = q.executeResultList(String.class);
+            List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Projection of variables.
+     *
+     * This query returns the names of all Employees of all "Research" departments.
+     */
+    public void testQuery17d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select e.firstname from org.apache.jdo.tck.pc.company.Department " +
+                    "where name.startsWith('R&D') && employees.contains(e) " +
+                    "variables org.apache.jdo.tck.pc.company.Employee e";
+            Query<Department> q = pm.newQuery(singleStringQuery);
             List<String> names = q.executeResultList(String.class);
             List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
@@ -1507,8 +2079,8 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select firstname from org.apache.jdo.tck.pc.company.Employee " +
-                            "where this.weeklyhours > " +
-                            " (select avg(e.weeklyhours) from org.apache.jdo.tck.pc.company.Employee e)";
+                    "where this.weeklyhours > " +
+                    " (select avg(e.weeklyhours) from org.apache.jdo.tck.pc.company.Employee e)";
             Query<Employee> subq = pm.newQuery(Employee.class);
             subq.setResult("avg(weeklyhours)");
             Query<Employee> q = pm.newQuery(Employee.class);
@@ -1525,7 +2097,32 @@ public class SampleQueries extends QueryTest {
             }
         }
     }
-    
+
+    /**
+     * Non-correlated subquery
+     *
+     * This query returns names of employees who work more than the average of all employees.
+     */
+    public void testQuery18d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee " +
+                    "where this.weeklyhours > " +
+                    " (select avg(e.weeklyhours) from org.apache.jdo.tck.pc.company.Employee e)";
+            Query<Employee> q = pm.newQuery(singleStringQuery);
+            List<String> names = q.executeResultList(String.class);
+            List<String> expected = Arrays.asList("Michael", "Craig");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
     /**
      * Correlated subquery.
      * 
@@ -1541,8 +2138,8 @@ public class SampleQueries extends QueryTest {
             String singleStringQuery =
                     "select firstname from org.apache.jdo.tck.pc.company.Employee " +
                     "where this.weeklyhours > " +
-                    "(select AVG(e.weeklyhours) from this.department.employees e " +
-                    " where e.manager == this.manager)";
+                    " (select AVG(e.weeklyhours) from this.department.employees e " +
+                    "  where e.manager == this.manager)";
             Query<Employee> subq = pm.newQuery(Employee.class);
             subq.setFilter("this.manager == :manager");
             subq.setResult("avg(weeklyhours)");
@@ -1576,9 +2173,9 @@ public class SampleQueries extends QueryTest {
             tx.begin();
             String singleStringQuery =
                     "select firstname from org.apache.jdo.tck.pc.company.Employee " +
-                            "where this.weeklyhours > " +
-                            "(select AVG(e.weeklyhours) from this.department.employees e " +
-                            " where e.manager == this.manager)";
+                    "where this.weeklyhours > " +
+                    " (select AVG(e.weeklyhours) from this.department.employees e " +
+                    "  where e.manager == this.manager)";
             Query<Employee> subq = pm.newQuery(Employee.class);
             subq.setFilter("this.manager == :manager");
             subq.setResult("avg(weeklyhours)");
@@ -1587,6 +2184,35 @@ public class SampleQueries extends QueryTest {
             q.setResult("firstname");
             q.addSubquery(subq, "double average_hours","this.department.employees",
                     "this.manager");
+            List<String> names = q.executeResultList(String.class);
+            List<String> expected = Arrays.asList("Michael");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Correlated subquery.
+     *
+     * This query returns names of employees who work more than the average of employees
+     * in the same department having the same manager. The candidate collection of the
+     * subquery is the collection of employees in the department of the candidate employee
+     * and the parameter passed to the subquery is the manager of the candidate employee.
+     */
+    public void testQuery19d() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select firstname from org.apache.jdo.tck.pc.company.Employee " +
+                     "where this.weeklyhours > " +
+                     " (select AVG(e.weeklyhours) from this.department.employees e " +
+                     "  where e.manager == this.manager)";
+            Query<Employee> q = pm.newQuery(singleStringQuery);
             List<String> names = q.executeResultList(String.class);
             List<String> expected = Arrays.asList("Michael");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
