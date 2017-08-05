@@ -62,6 +62,11 @@ has application identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.MeetingRoom"/>
                 <join/>
             </field>
+            <query name="variables">
+                select e.firstname
+                where name.startsWith('R&amp;D') &amp;&amp; employees.contains(e)
+                variables org.apache.jdo.tck.pc.company.Employee e
+            </query>
         </class>
 
         <class name="Employee"
@@ -83,7 +88,16 @@ has application identity.
 
         <class name="FullTimeEmployee"
             identity-type="application"
-            persistence-capable-superclass="org.apache.jdo.tck.pc.company.Employee"/>
+            persistence-capable-superclass="org.apache.jdo.tck.pc.company.Employee">
+            <query name="construct">
+                select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager)
+                where department.name == :deptName
+            </query>
+            <query name="group">
+                select avg(salary), sum(salary), department.name
+                group by department.name having count(department.name) > 1
+            </query>
+        </class>
 
         <class name="Insurance"
             identity-type="application"

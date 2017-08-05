@@ -27,13 +27,14 @@ import java.util.Map;
  *<B>Assertion Description: </B>
  * This test class runs the example queries from the JDO specification.
  *
- * There are up to four test methods per test case:
+ * There are up to five test methods per test case:
  * testQueryxxa: runtime constructed JDO query using execute to run the query
  * testQueryxxb: runtime constructed JDO query using setNamedParameters to specify the parameter values and 
  *               executeList/executeResultList/executeResultUnique to run the query
  * testQueryxxc: runtime constructed JDO query using setParameters to specify the parameter values and
  *               executeList/executeResultList/executeResultUnique to run the query
  * testQueryxxd: single string version of the JDO query
+ * testQueryxxe: named query version of the JDO query
  */
 public class SampleQueries extends QueryTest {
 
@@ -1079,6 +1080,37 @@ public class SampleQueries extends QueryTest {
     }
 
     /**
+     * Projection of Multiple Fields and Expressions into a Constructed instance.
+     *
+     * This query selects names, salaries, and bosses of Employees who work in the parameter department,
+     * and uses the constructor for the result class.
+     */
+    public void testQuery09e() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
+                            "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                            "where department.name == :deptName";
+            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "construct");
+            q.setParameters("R&D");
+            List<Info> infos = q.executeResultList(Info.class);
+
+            List<Info> expected = Arrays.asList(
+                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Craig", 50000., null)
+            );
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, infos, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
      * Aggregation of a single Field.
      *
      * This query averages the salaries of Employees who work in the parameter department
@@ -1385,6 +1417,37 @@ public class SampleQueries extends QueryTest {
                     "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
                     "group by department.name having count(department.name) > 1";
             Query<FullTimeEmployee> q = pm.newQuery(singleStringQuery);
+            List<Object[]> results = q.executeResultList(Object[].class);
+            if (results.size() != 1) {
+                fail(ASSERTION_FAILED,
+                        "Query result has size " + results.size() + ", expected query result of size 1");
+            }
+            Object[] row = results.get(0);
+            Object[] expectedRow = new Object[]{45000., 90000., "R&D"};
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, row, expectedRow);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Aggregation of Multiple fields with Grouping.
+     *
+     * This query averages and sums the salaries of Employees who work in all departments having
+     * more than one employee and aggregates by department name.
+     */
+    public void testQuery12e() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select avg(salary), sum(salary), department.name " +
+                            "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
+                            "group by department.name having count(department.name) > 1";
+            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "group");
             List<Object[]> results = q.executeResultList(Object[].class);
             if (results.size() != 1) {
                 fail(ASSERTION_FAILED,
@@ -2027,6 +2090,31 @@ public class SampleQueries extends QueryTest {
                     "where name.startsWith('R&D') && employees.contains(e) " +
                     "variables org.apache.jdo.tck.pc.company.Employee e";
             Query<Department> q = pm.newQuery(singleStringQuery);
+            List<String> names = q.executeResultList(String.class);
+            List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /**
+     * Projection of variables.
+     *
+     * This query returns the names of all Employees of all "Research" departments.
+     */
+    public void testQuery17e() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select e.firstname from org.apache.jdo.tck.pc.company.Department " +
+                            "where name.startsWith('R&D') && employees.contains(e) " +
+                            "variables org.apache.jdo.tck.pc.company.Employee e";
+            Query<Department> q = pm.newNamedQuery(Department.class, "variables");
             List<String> names = q.executeResultList(String.class);
             List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
