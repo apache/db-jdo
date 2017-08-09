@@ -34,6 +34,9 @@ import javax.jdo.AttributeConverter;
  * 
  * If this annotation is placed on a field or property, the annotated attribute's type must be 
  * assignment-compatible with the {@link AttributeConverter}'s entity type argument.
+ * 
+ * @version 3.2
+ * @since 3.2
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})

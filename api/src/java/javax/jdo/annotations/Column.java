@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Annotation for a column in the database.
  * Corresponds to the xml element "column".
  * 
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE}) 

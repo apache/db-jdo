@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * generation to create indexes.
  * Corresponds to the xml element "index".
  *
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 

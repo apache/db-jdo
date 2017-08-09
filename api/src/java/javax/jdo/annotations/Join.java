@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Annotation for the join of a relation.
  * Corresponds to the xml element "join".
  * 
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 

@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Annotation for the fetch plan of a persistence manager, query, or extent.
  * Corresponds to the xml element "fetch-plan".
  * 
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target(ElementType.TYPE) 

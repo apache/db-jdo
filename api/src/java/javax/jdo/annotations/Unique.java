@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * operations when flushing changes to avoid unique constraint violations.
  * Corresponds to the xml element "unique".
  *
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 

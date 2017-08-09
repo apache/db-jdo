@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Annotation for a named query.
  * Corresponds to the xml element "query".
  * 
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target(ElementType.TYPE) 

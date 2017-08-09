@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
  * Annotation for a database foreign-key.
  * Corresponds to the xml element "foreign-key".
  *
- * @version 2.1
+ * @version 3.2
  * @since 2.1
  */
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
