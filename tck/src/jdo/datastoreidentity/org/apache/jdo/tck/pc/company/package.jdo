@@ -52,10 +52,12 @@ has datastore identity.
                 <collection element-type="org.apache.jdo.tck.pc.company.MeetingRoom"/>
                 <join/>
             </field>
-            <query name="variables">
-                select e.firstname
-                where name.startsWith('R&amp;D') &amp;&amp; employees.contains(e)
-                variables org.apache.jdo.tck.pc.company.Employee e
+           <query name="projectingVariables">
+	        <![CDATA[
+		    select e.firstname
+                    where name.startsWith('R&D') && employees.contains(e)
+                    variables org.apache.jdo.tck.pc.company.Employee e
+	        ]]>  
             </query>
         </class>
 
@@ -75,13 +77,17 @@ has datastore identity.
         </class>
 
         <class name="FullTimeEmployee" identity-type="datastore">
-            <query name="construct">
-                select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager)
-                where department.name == :deptName
+            <query name="constructor">
+	        <![CDATA[
+                    select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager)
+                    where department.name == :deptName
+	        ]]>
             </query>
-            <query name="group">
-                select avg(salary), sum(salary), department.name
-                group by department.name having count(department.name) > 1
+            <query name="grouping">
+	        <![CDATA[
+                    select avg(salary), sum(salary), department.name
+                    group by department.name having count(department.name) > 1
+                ]]>
             </query>
         </class>
 

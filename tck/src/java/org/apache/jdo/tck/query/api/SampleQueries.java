@@ -1093,7 +1093,7 @@ public class SampleQueries extends QueryTest {
                     "select new org.apache.jdo.tck.query.api.SampleQueries$Info (firstname, salary, manager) " +
                             "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
                             "where department.name == :deptName";
-            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "construct");
+            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "constructor");
             q.setParameters("R&D");
             List<Info> infos = q.executeResultList(Info.class);
 
@@ -1447,7 +1447,7 @@ public class SampleQueries extends QueryTest {
                     "select avg(salary), sum(salary), department.name " +
                             "from org.apache.jdo.tck.pc.company.FullTimeEmployee " +
                             "group by department.name having count(department.name) > 1";
-            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "group");
+            Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "grouping");
             List<Object[]> results = q.executeResultList(Object[].class);
             if (results.size() != 1) {
                 fail(ASSERTION_FAILED,
@@ -2114,7 +2114,7 @@ public class SampleQueries extends QueryTest {
                     "select e.firstname from org.apache.jdo.tck.pc.company.Department " +
                             "where name.startsWith('R&D') && employees.contains(e) " +
                             "variables org.apache.jdo.tck.pc.company.Employee e";
-            Query<Department> q = pm.newNamedQuery(Department.class, "variables");
+            Query<Department> q = pm.newNamedQuery(Department.class, "projectingVariables");
             List<String> names = q.executeResultList(String.class);
             List<String> expected = Arrays.asList("Michael", "Craig", "Joe");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, names, expected);
