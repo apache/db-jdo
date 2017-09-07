@@ -138,10 +138,10 @@ public class BooleanLogicalOR extends QueryTest {
         
         try {
             Query q = pm.newQuery(PrimitiveTypes.class, 
-                                  "intNotNull | intNotNull");
+                                  "stringNull | stringNull");
             Object result = q.execute();
             fail(ASSERTION_FAILED,
-                 "Query uisng bitwise | operator should throw JDOUserException.");
+                 "Query using | operator for non-supported types should throw JDOUserException.");
         }
         catch (JDOUserException ex) {
             // expected exception
