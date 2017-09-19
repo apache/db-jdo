@@ -28,6 +28,18 @@
       <field name="time" persistence-modifier="persistent"/>
     </class>
 
+    <class name="LocalDateSample">
+      <field name="localDate" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="LocalDateTimeSample">
+      <field name="localDateTime" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="LocalTimeSample">
+      <field name="localTime" persistence-modifier="persistent"/>
+    </class>
+
     <class name="OptionalSample">
       <field name="optionalPC" 
                    	field-type="org.apache.jdo.tck.pc.query.OptionalSample"

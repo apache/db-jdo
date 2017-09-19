@@ -37,7 +37,22 @@
       <field name="time" persistence-modifier="persistent"/>
     </class>
 
-     <class name="OptionalSample" identity-type="application">
+    <class name="LocalDateSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="localDate" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="LocalDateTimeSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="localDateTime" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="LocalTimeSample" identity-type="application">
+      <field name="id" primary-key="true"/>
+      <field name="localTime" persistence-modifier="persistent"/>
+    </class>
+
+    <class name="OptionalSample" identity-type="application">
       <field name="id" primary-key="true"/>
       <field name="optionalPC" 
                    	field-type="org.apache.jdo.tck.pc.query.OptionalSample"

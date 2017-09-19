@@ -34,6 +34,21 @@
       <field name="time" column="TIME"/>
     </class>
 
+    <class name="LocalDateSample" table="LocalDateSample">
+      <field name="id" column="ID"/>
+      <field name="localDate" column="LOCAL_DATE"/>
+    </class>
+
+    <class name="LocalDateTimeSample" table="LocalDateTimeSample">
+      <field name="id" column="ID"/>
+      <field name="localDateTime" column="LOCAL_DATE_TIME"/>
+    </class>
+
+    <class name="LocalTimeSample" table="LocalTimeSample">
+      <field name="id" column="ID"/>
+      <field name="localTime" column="LOCAL_TIME"/>
+    </class>
+
     <class name="OptionalSample" table="OptionalSample">
       <field name="id" column="ID"/>
       <field name="optionalPC">

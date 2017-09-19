@@ -40,7 +40,25 @@ This file contains the schema information when an implementation has datastore i
       <field name="time" column="TIME"/>
     </class>
 
-   <class name="OptionalSample" table="OptionalSample">
+    <class name="LocalDateSample" table="LocalDateSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="localDate" column="LOCAL_DATE"/>
+    </class>
+
+    <class name="LocalDateTimeSample" table="LocalDateTimeSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="localDateTime" column="LOCAL_DATE_TIME"/>
+    </class>
+
+    <class name="LocalTimeSample" table="LocalTimeSample">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="localTime" column="LOCAL_TIME"/>
+    </class>
+
+    <class name="OptionalSample" table="OptionalSample">
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
       <field name="id" column="ID"/>
       <field name="optionalPC">
