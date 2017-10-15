@@ -894,7 +894,13 @@ public abstract class JDO_Test extends TestCase {
     /** Reports whether UnconstrainedVariables is supported. */
     public boolean isUnconstrainedVariablesSupported() {
         return supportedOptions.contains(
-            "javax.jdo.option.UnconstrainedVariables");
+            "javax.jdo.query.JDOQL.UnconstraintedQueryVariables");
+    }
+
+    /** Reports whether BitwiseOperations is supported. */
+    public boolean isBitwiseOperationsSupported() {
+        return supportedOptions.contains(
+                "javax.jdo.query.JDOQL.bitwiseOperations");
     }
     
     /** Reports whether SQL queries are supported. */

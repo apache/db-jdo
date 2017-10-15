@@ -126,30 +126,6 @@ public class BooleanLogicalAND extends QueryTest {
         tx.commit();
     }
 
-    /** */
-    public void testNegative() {
-        PersistenceManager pm = getPM();
-        if (debug) logger.debug("\nExecuting positive test BooleanLogicalAND() ...");
-
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        
-        try {
-            Query q = pm.newQuery(PrimitiveTypes.class, 
-                                  "stringNull & stringNull");
-            Object result = q.execute();
-            fail(ASSERTION_FAILED,
-                 "Query using & operator for non-supported types should throw JDOUserException.");
-        }
-        catch (JDOUserException ex) {
-            // expected exception
-            if (debug) {
-                logger.debug("expected exception: " + ex);
-            }
-        }
-        tx.commit();
-    }
-
     /**
      * @see JDO_Test#localSetUp()
      */
