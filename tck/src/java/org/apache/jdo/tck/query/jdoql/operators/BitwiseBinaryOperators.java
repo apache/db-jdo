@@ -33,7 +33,7 @@ import java.util.List;
  *<BR>
  *<B>Keywords:</B> query
  *<BR>
- *<B>Assertion ID:</B> A14.6.2-22 and A14.6.2-23.
+ *<B>Assertion ID:</B> A14.6.2-20 and A14.6.2-22.
  *<BR>
  *<B>Assertion Description: </B>
  A JDO implementation including javax.jdo.query.JDOQL.bitwiseOperations in the result of
@@ -48,7 +48,7 @@ public class BitwiseBinaryOperators extends QueryTest {
 
     /** */
     private static final String ASSERTION_FAILED =
-            "Assertion A14.6.2-22 and A14.6.2-23 (BitwiseBinaryOperators) failed: ";
+            "Assertion A14.6.2-20 and A14.6.2-22 (BitwiseBinaryOperators) failed: ";
 
     /**
      * The <code>main</code> is called when the class
