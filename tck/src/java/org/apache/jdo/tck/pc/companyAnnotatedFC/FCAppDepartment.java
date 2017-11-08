@@ -32,16 +32,18 @@ import org.apache.jdo.tck.pc.company.ICompany;
 
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
+
+import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClassName;
+
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents a department within a company.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION, table="departments")
+@PersistenceCapable(table="departments")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR")
+@ApplicationIdDiscriminatorClassName
 public class FCAppDepartment
     implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 

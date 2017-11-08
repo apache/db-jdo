@@ -39,11 +39,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a department within a company.
  */
 @PersistenceCapable(table="departments")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
-        column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSDepartment
     implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 

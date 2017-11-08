@@ -32,14 +32,10 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents an insurance carrier selection for a particular
  * <code>FCDSEmployee</code>.
  */
+@DatastoreIdDiscriminatorClassNameInheritanceNew
 @PersistenceCapable(table="insuranceplans")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR", indexed="true")
 @Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
         columns=@Column(name="DISCRIMINATOR"))
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
-        column="DATASTORE_IDENTITY")
 public class FCDSInsurance 
     implements IInsurance, Serializable, Comparable, Comparator, DeepEquality  {
 

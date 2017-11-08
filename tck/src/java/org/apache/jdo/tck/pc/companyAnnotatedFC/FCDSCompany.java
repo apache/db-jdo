@@ -40,11 +40,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents information about a company.
  */
 @PersistenceCapable(table="companies")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
-        column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSCompany 
     implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
 

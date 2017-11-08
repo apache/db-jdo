@@ -27,9 +27,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents a part-time employee.
  */
-@PersistenceCapable
-@Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceSuperclass
+@PersistenceCapable(table="persons")
 public class FCDSPartTimeEmployee extends FCDSEmployee implements IPartTimeEmployee {
 
     @Column(name="WAGE")

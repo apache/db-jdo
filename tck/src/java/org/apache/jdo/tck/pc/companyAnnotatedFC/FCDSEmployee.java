@@ -35,9 +35,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 /**
  * This class represents an employee.
  */
-@PersistenceCapable
-@Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceSuperclass
+@PersistenceCapable(table="persons")
 public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
 
     @Column(name="HIREDATE")

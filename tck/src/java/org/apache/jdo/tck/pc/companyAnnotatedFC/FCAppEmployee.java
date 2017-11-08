@@ -32,13 +32,16 @@ import org.apache.jdo.tck.pc.company.IDepartment;
 
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+
+import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClassName;
+
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents an employee.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
+@ApplicationIdDiscriminatorClassName
 public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
 
     @Column(name="HIREDATE")

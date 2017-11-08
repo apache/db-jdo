@@ -30,11 +30,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a meeting room.
  */
 @PersistenceCapable(table="meetingrooms")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
-        column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSMeetingRoom 
     implements IMeetingRoom, Serializable, Comparable, Comparator, DeepEquality {
 

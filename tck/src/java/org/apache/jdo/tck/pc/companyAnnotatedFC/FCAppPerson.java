@@ -33,16 +33,17 @@ import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.IPerson;
 import org.apache.jdo.tck.util.DeepEquality;
-import org.apache.jdo.tck.util.EqualityHelper;
 
+import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClassName;
 /**
  * This class represents a person.
  */
-@PersistenceCapable(identityType=IdentityType.APPLICATION,table="persons")
+@PersistenceCapable(table="persons")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR", indexed="true")
-public class FCAppPerson 
+@ApplicationIdDiscriminatorClassName
+
+public class FCAppPerson
     implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
 
     @PrimaryKey

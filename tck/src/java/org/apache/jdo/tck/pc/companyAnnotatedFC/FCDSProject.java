@@ -38,10 +38,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * employees working on it.
  */
 @PersistenceCapable(table="projects")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-@Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
-        column="DISCRIMINATOR")
-@DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
+@DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSProject 
     implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
 
