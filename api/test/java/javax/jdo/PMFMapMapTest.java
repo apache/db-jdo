@@ -49,7 +49,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     ClassLoader saveContextClassLoader;
 
     public static void main(String args[]) {
-	BatchTestRunner.run(PMFMapMapTest.class);
+        BatchTestRunner.run(PMFMapMapTest.class);
     }
 
     /**
@@ -58,25 +58,25 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * @return {@inheritDoc}
      */
     public static TestSuite suite() {
-	return new TestSuite(PMFMapMapTest.class);
+        return new TestSuite(PMFMapMapTest.class);
     }
 
     void setupResourceClassLoader(String dir) throws IOException {
 
-	switch (dir.charAt(dir.length() - 1)) {
-	case '\\':
-	    dir = dir.substring(0, dir.length() - 1) + '/';
-	    break;
-	case '/':
-	    break;
-	default:
-	    if (new File(dir).isDirectory()) {
-		dir += '/';
-	    }
-	}
+        switch (dir.charAt(dir.length() - 1)) {
+        case '\\':
+            dir = dir.substring(0, dir.length() - 1) + '/';
+            break;
+        case '/':
+            break;
+        default:
+            if (new File(dir).isDirectory()) {
+                dir += '/';
+            }
+        }
 
-	resourceClassLoader = new JDOConfigTestClassLoader(getClass()
-		.getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + dir);
+        resourceClassLoader = new JDOConfigTestClassLoader(getClass()
+                .getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + dir);
     }
 
     /*
@@ -88,21 +88,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testJDOConfigXML() throws IOException {
 
-	setupResourceClassLoader(resourceDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        setupResourceClassLoader(resourceDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory();
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory();
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -113,20 +113,20 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testJDOConfigXMLWithLoader() throws IOException {
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -136,21 +136,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testPropsFile() throws IOException {
 
-	setupResourceClassLoader(propsDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        setupResourceClassLoader(propsDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(propertiesFile);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(propertiesFile);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -161,21 +161,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testPropsFileAndLoader() throws IOException {
 
-	setupResourceClassLoader(propsDir);
+        setupResourceClassLoader(propsDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(propertiesFile,
-		    resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(propertiesFile,
+                    resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -184,35 +184,35 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * configured based on the Properties stored in the input stream at stream.
      */
     public void testInputStream() throws IOException {
-	props = new Properties();
-	props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
-		pmfServiceClass);
-	props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
+        props = new Properties();
+        props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+                pmfServiceClass);
+        props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
 
-	ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-	try {
-	    props.store(outstream, "");
-	} catch (IOException ex) {
-	    fail(ex.getMessage());
-	}
-	InputStream byteArrayInputStream = new ByteArrayInputStream(
-		outstream.toByteArray());
+        ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+        try {
+            props.store(outstream, "");
+        } catch (IOException ex) {
+            fail(ex.getMessage());
+        }
+        InputStream byteArrayInputStream = new ByteArrayInputStream(
+                outstream.toByteArray());
 
-	setupResourceClassLoader(resourceDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        setupResourceClassLoader(resourceDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(byteArrayInputStream);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(byteArrayInputStream);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -222,35 +222,35 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * the input stream at stream.
      */
     public void testInputStreamWithLoader() throws IOException {
-	props = new Properties();
-	props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
-		pmfServiceClass);
-	props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
+        props = new Properties();
+        props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+                pmfServiceClass);
+        props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
 
-	ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-	try {
-	    props.store(outstream, "");
-	} catch (IOException ex) {
-	    fail(ex.getMessage());
-	}
-	InputStream byteArrayInputStream = new ByteArrayInputStream(
-		outstream.toByteArray());
+        ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+        try {
+            props.store(outstream, "");
+        } catch (IOException ex) {
+            fail(ex.getMessage());
+        }
+        InputStream byteArrayInputStream = new ByteArrayInputStream(
+                outstream.toByteArray());
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(byteArrayInputStream,
-		    resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(byteArrayInputStream,
+                    resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -260,25 +260,25 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * locate the PersistenceManagerFactory class.
      */
     public void testProperties() throws IOException {
-	props = new Properties();
-	props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
-		pmfServiceClass);
-	props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
+        props = new Properties();
+        props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+                pmfServiceClass);
+        props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
 
-	setupResourceClassLoader(resourceDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(props);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        setupResourceClassLoader(resourceDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -287,25 +287,25 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * PersistenceManagerFactory based on a Map and a class loader.
      */
     public void testPropertiesAndLoader() throws IOException {
-	props = new Properties();
-	props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
-		pmfServiceClass);
-	props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
+        props = new Properties();
+        props.setProperty(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+                pmfServiceClass);
+        props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
 
-	setupResourceClassLoader(resourceDir);
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(props,
-		    resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        setupResourceClassLoader(resourceDir);
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(props,
+                    resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName + "\"");
+        }
     }
 
     /*
@@ -314,26 +314,26 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * PersistenceManagerFactory or persistence unit.
      */
     public void testNamedPMFWithOverrides() throws IOException {
-	overrides = new Properties();
-	overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
-		expectedDriverNameWithOverrides);
+        overrides = new Properties();
+        overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
+                expectedDriverNameWithOverrides);
 
-	setupResourceClassLoader(resourceDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        setupResourceClassLoader(resourceDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverNameWithOverrides.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverNameWithOverrides
-		    + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverNameWithOverrides.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverNameWithOverrides
+                    + "\"");
+        }
     }
 
     /*
@@ -343,26 +343,26 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * PersistenceManagerFactory or persistence unit.
      */
     public void testNamedPMFWithOverridesAndLoader() throws IOException {
-	overrides = new Properties();
-	overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
-		expectedDriverNameWithOverrides);
+        overrides = new Properties();
+        overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
+                expectedDriverNameWithOverrides);
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
-		    resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass."
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
+                    resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass."
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverNameWithOverrides.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverNameWithOverrides
-		    + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverNameWithOverrides.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverNameWithOverrides
+                    + "\"");
+        }
     }
 
     /*
@@ -376,27 +376,27 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      * PersistenceManagerFactory.
      */
     public void testNamedPMFWithOverridesAndTwoLoaders() throws IOException {
-	overrides = new Properties();
-	overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
-		expectedDriverNameWithOverrides);
+        overrides = new Properties();
+        overrides.setProperty(PROPERTY_CONNECTION_DRIVER_NAME,
+                expectedDriverNameWithOverrides);
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
-		    resourceClassLoader, Thread.currentThread()
-			    .getContextClassLoader());
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass. "
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
+                    resourceClassLoader, Thread.currentThread()
+                            .getContextClassLoader());
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass. "
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverNameWithOverrides.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverNameWithOverrides
-		    + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverNameWithOverrides.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverNameWithOverrides
+                    + "\"");
+        }
     }
 
     /*
@@ -406,21 +406,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testNamedPMF() throws IOException {
 
-	setupResourceClassLoader(resourceDir);
-	Thread.currentThread().setContextClassLoader(resourceClassLoader);
+        setupResourceClassLoader(resourceDir);
+        Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(PMFName);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass. "
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(PMFName);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass. "
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName4NamedPMF.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName4NamedPMF.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
+        }
     }
 
     /*
@@ -430,21 +430,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testNamedPMFWithLoader() throws IOException {
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
-		    resourceClassLoader);
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass. "
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
+                    resourceClassLoader);
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass. "
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName4NamedPMF.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName4NamedPMF.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
+        }
     }
 
     /*
@@ -455,21 +455,21 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
      */
     public void testNamedPMFWithTwoLoaders() throws IOException {
 
-	setupResourceClassLoader(resourceDir);
+        setupResourceClassLoader(resourceDir);
 
-	try {
-	    pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
-		    resourceClassLoader, Thread.currentThread()
-			    .getContextClassLoader());
-	} catch (JDOFatalUserException ex) {
-	    fail("Failed to find PersistenceManagerFactoryClass. "
-		    + ex.getMessage());
-	}
+        try {
+            pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
+                    resourceClassLoader, Thread.currentThread()
+                            .getContextClassLoader());
+        } catch (JDOFatalUserException ex) {
+            fail("Failed to find PersistenceManagerFactoryClass. "
+                    + ex.getMessage());
+        }
 
-	String driverName = pmf.getConnectionDriverName();
-	if (!expectedDriverName4NamedPMF.equals(driverName)) {
-	    fail("Bad ConnectionDriverName(): " + driverName
-		    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
-	}
+        String driverName = pmf.getConnectionDriverName();
+        if (!expectedDriverName4NamedPMF.equals(driverName)) {
+            fail("Bad ConnectionDriverName(): " + driverName
+                    + ".  Expected: \"" + expectedDriverName4NamedPMF + "\"");
+        }
     }
 }

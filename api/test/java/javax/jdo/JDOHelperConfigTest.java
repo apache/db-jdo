@@ -273,7 +273,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     public void testPositive03_PMF0_PMFClassNameViaServicesLookup()
         throws IOException {
         URLClassLoader loader = new JDOConfigTestClassLoader(
-        		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive03/");
+                getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive03/");
 
         String expected = "class.positive03.pmf0";
         String actual = getPMFClassNameViaServiceLookup(loader);
@@ -286,7 +286,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         throws IOException {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
-    		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive04/");
+            getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive04/");
 
         String expected = "class.positive04.pmf0";
         String actual = getPMFClassNameViaServiceLookup(loader);
@@ -312,7 +312,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         throws IOException {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
-        		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive06/");
+                getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive06/");
 
         Map expected = prepareInitialExpectedMap("positive06.pmf0", 2, 0, true, true);
         Map actual = JDOHelper.getPropertiesFromJdoconfig(
@@ -326,7 +326,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         throws IOException {
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
-        		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive07/");
+                getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive07/");
 
         Map expected = prepareInitialExpectedMap("positive07.pmf0", 2, 0, true, false);
         Map actual = JDOHelper.getPropertiesFromJdoconfig(
@@ -339,7 +339,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     public void testNegative00_EmptyJDOConfigXML() throws IOException {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
-        		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative0/");
+                getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative0/");
             JDOHelper.getPersistenceManagerFactory(loader);
             fail("JDOHelper failed to throw JDOFatalUserException");
         } catch (JDOFatalUserException x) {
@@ -350,7 +350,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
     public void testNegative01_NoPersistenceUnitsDefined() throws IOException {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
-            		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative01/");
+                    getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative01/");
             JDOHelper.getPersistenceManagerFactory(loader);
             fail("JDOHelper failed to throw JDOFatalUserException");
         } catch (JDOFatalUserException x) {
@@ -362,7 +362,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         throws IOException {
         try {
             URLClassLoader loader = new JDOConfigTestClassLoader(
-            		getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative02/");
+                    getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Negative02/");
             JDOHelper.getPersistenceManagerFactory(loader);
             fail("JDOHelper failed to throw JDOFatalUserException");
         } catch (JDOFatalUserException x) {

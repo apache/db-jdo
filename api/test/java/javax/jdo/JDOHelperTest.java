@@ -55,23 +55,23 @@ public class JDOHelperTest extends AbstractTest {
         assertNull("getObjectId(null) returned non-null", 
                 JDOHelper.getObjectId(null));
         assertNull("getPersistenceManager(null) returned non-null", 
-        		JDOHelper.getPersistenceManager(null));
+                JDOHelper.getPersistenceManager(null));
         assertNull("getTransactionalObjectId(null) returned non-null", 
-        		JDOHelper.getTransactionalObjectId(null));
+                JDOHelper.getTransactionalObjectId(null));
         assertNull("getVersion(null) returned non-null", 
-        		JDOHelper.getVersion(null));
+                JDOHelper.getVersion(null));
         assertFalse("isDeleted(null) returned non-null", 
-        		JDOHelper.isDeleted(null));
+                JDOHelper.isDeleted(null));
         assertFalse("isDetached(null) returned non-null", 
-        		JDOHelper.isDetached(null));
+                JDOHelper.isDetached(null));
         assertFalse("isDirty(null) returned non-null", 
-        		JDOHelper.isDirty(null));
+                JDOHelper.isDirty(null));
         assertFalse("isNew(null) returned non-null", 
-        		JDOHelper.isNew(null));
+                JDOHelper.isNew(null));
         assertFalse("isPersistent(null) returned non-null", 
-        		JDOHelper.isPersistent(null));
+                JDOHelper.isPersistent(null));
         assertFalse("isTransactional(null) returned non-null", 
-        		JDOHelper.isTransactional(null));
+                JDOHelper.isTransactional(null));
     }
 
     /** The purpose of this test is simply to call some of the
@@ -81,25 +81,25 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetInstance() {
         assertNull("getObjectId(null) returned non-null", 
-        		JDOHelper.getObjectId(null));
+                JDOHelper.getObjectId(null));
         assertNull("getPersistenceManager(null) returned non-null", 
-        		JDOHelper.getPersistenceManager(null));
+                JDOHelper.getPersistenceManager(null));
         assertNull("getTransactionalObjectId(null) returned non-null", 
-        		JDOHelper.getTransactionalObjectId(null));
+                JDOHelper.getTransactionalObjectId(null));
         assertNull("getVersion(null) returned non-null", 
-        		JDOHelper.getVersion(null));
+                JDOHelper.getVersion(null));
         assertFalse("isDeleted(null) returned non-null", 
-        		JDOHelper.isDeleted(null));
+                JDOHelper.isDeleted(null));
         assertFalse("isDetached(null) returned non-null", 
-        		JDOHelper.isDetached(null));
+                JDOHelper.isDetached(null));
         assertFalse("isDirty(null) returned non-null", 
-        		JDOHelper.isDirty(null));
+                JDOHelper.isDirty(null));
         assertFalse("isNew(null) returned non-null", 
-        		JDOHelper.isNew(null));
+                JDOHelper.isNew(null));
         assertFalse("isPersistent(null) returned non-null", 
-        		JDOHelper.isPersistent(null));
+                JDOHelper.isPersistent(null));
         assertFalse("isTransactional(null) returned non-null", 
-        		JDOHelper.isTransactional(null));
+                JDOHelper.isTransactional(null));
     }
 
     /** */
