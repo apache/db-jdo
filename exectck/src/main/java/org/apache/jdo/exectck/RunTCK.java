@@ -44,6 +44,10 @@ import org.apache.maven.plugin.MojoFailureException;
  */
 public class RunTCK extends AbstractTCKMojo {
 
+    private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast"; 
+    private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; 
+    private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; 
+
     /**
      * To skip running of TCK, set to false.
      * @parameter property="jdo.tck.doRunTCK"
@@ -59,6 +63,14 @@ public class RunTCK extends AbstractTCKMojo {
      * @required
      */
     private boolean runtckVerbose;
+
+    /**
+     * Define handling of TCK failures.
+     * @parameter property="jdo.tck.onFailure"
+     *      default-value="failGoal"
+     * @required
+     */
+    private String onFailure;
 
     /**
      * Run the TCK in a debugger.
@@ -196,7 +208,6 @@ public class RunTCK extends AbstractTCKMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-
         if (!doRunTCK) {
             System.out.println("Skipping RunTCK goal!");
             return;
@@ -296,6 +307,7 @@ public class RunTCK extends AbstractTCKMojo {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        int failureCount = 0;
         for (String db : dbs) {
             System.setProperty("jdo.tck.database", db);
             alreadyran = false;
@@ -447,6 +459,7 @@ public class RunTCK extends AbstractTCKMojo {
                             System.out.println("success");
                         } else {
                             System.out.println("FAIL");
+                            failureCount++;
                         }
                         if (runtckVerbose) {
                             System.out.println("\nCommand line is: \n" + command.toString());
@@ -481,7 +494,16 @@ public class RunTCK extends AbstractTCKMojo {
                         alreadyran = true;
                     }
 
+                    if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+                    	break;
+                    }
                 }
+                if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+                	break;
+                }
+            }
+            if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+            	break;
             }
         }
         // Remove log file
@@ -537,6 +559,12 @@ public class RunTCK extends AbstractTCKMojo {
                             + ": " + ex.getLocalizedMessage());
                 }
             }
+        }
+        if (TCK_PARAM_ON_FAILURE_FAIL_FAST.equals(onFailure) && failureCount > 0) {
+        	throw new MojoExecutionException("Aborted TCK test run after 1 failure.");
+        }
+        if (TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY.equals(onFailure) && failureCount > 0) {
+        	throw new MojoExecutionException("There were " + failureCount + " TCK test failures.");
         }
     }
 }

@@ -78,6 +78,11 @@ public class Help extends AbstractMojo{
         msg.append("* jdo.tck.runTCKVerbose\n");
         msg.append("  Setting this parameter to true will display test progress and"
                 + "error output while the TCK is running.\n");
+        msg.append("* jdo.tck.onFailure\n");
+        msg.append("  Specifies how test failures are treated. \"failFast\" will immediately abort the test run. "
+        		+ "\"failGoal\" (default) will execute the whole TCK (maven goal) before failing. "
+        		+ "\"logOnly\" will report failures to console and logs only but return 'SUCCESS' to the "
+        		+ "Maven execution environment.\n");
         msg.append("\n  To run the TCK on an implementation under test, \n"
                 + "      place all required jars and their dependencies in lib/iut\n"
                 + "      and set jdo.tck.impl to iut:\n");

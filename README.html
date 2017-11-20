@@ -167,6 +167,7 @@ mvn jdo-exectck:&lt;goal&gt;
         <DT>-Djdo.tck.doEnhance=<DD>  Setting this parameter to false will bypass enhancement.
         <DT>-Djdo.tck.doRunTCK=<DD>  Setting this parameter to false will bypass running the TCK.
         <DT>-Djdo.tck.runTCKVerbose=<DD>  Setting this parameter to true will display test progress and error output while the TCK is running.
+        <DT>-Djdo.tck.onFailure=<DD>  Specifies how test failures are treated. "failFast" will immediately abort the test run. "failGoal" (default) will execute the whole TCK before failing. "logOnly" will report failures to console and logs only but return 'SUCCESS' to the Maven execution environment.
     </DL>
 <a name="examples"></a>
 <h3>Examples</h3>
