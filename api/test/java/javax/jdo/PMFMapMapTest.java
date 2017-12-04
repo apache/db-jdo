@@ -46,7 +46,6 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     Properties props;
     Properties overrides;
     URLClassLoader resourceClassLoader;
-    ClassLoader saveContextClassLoader;
 
     public static void main(String args[]) {
         BatchTestRunner.run(PMFMapMapTest.class);
@@ -89,6 +88,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     public void testJDOConfigXML() throws IOException {
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
         try {
@@ -96,6 +96,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass."
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -137,6 +139,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     public void testPropsFile() throws IOException {
 
         setupResourceClassLoader(propsDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
         try {
@@ -144,6 +147,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass."
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -199,6 +204,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
                 outstream.toByteArray());
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
         try {
@@ -206,6 +212,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass."
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -266,12 +274,15 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         props.setProperty(PROPERTY_CONNECTION_DRIVER_NAME, expectedDriverName);
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(props);
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass."
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -319,6 +330,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
                 expectedDriverNameWithOverrides);
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
         try {
@@ -326,6 +338,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass."
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -384,8 +398,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
 
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
-                    resourceClassLoader, Thread.currentThread()
-                            .getContextClassLoader());
+                    resourceClassLoader, resourceClassLoader);
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass. "
                     + ex.getMessage());
@@ -407,6 +420,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     public void testNamedPMF() throws IOException {
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader saveContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(resourceClassLoader);
 
         try {
@@ -414,6 +428,8 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass. "
                     + ex.getMessage());
+        } finally {
+            Thread.currentThread().setContextClassLoader(saveContextClassLoader);
         }
 
         String driverName = pmf.getConnectionDriverName();
@@ -459,8 +475,7 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
 
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
-                    resourceClassLoader, Thread.currentThread()
-                            .getContextClassLoader());
+                    resourceClassLoader, resourceClassLoader);
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass. "
                     + ex.getMessage());
