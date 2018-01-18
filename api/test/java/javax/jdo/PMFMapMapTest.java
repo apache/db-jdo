@@ -395,10 +395,11 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
                 expectedDriverNameWithOverrides);
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader pmfLoader = getClass().getClassLoader();
 
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(overrides, PMFName,
-                    resourceClassLoader, resourceClassLoader);
+                    resourceClassLoader, pmfLoader);
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass. "
                     + ex.getMessage());
@@ -472,10 +473,11 @@ public class PMFMapMapTest extends AbstractJDOConfigTest {
     public void testNamedPMFWithTwoLoaders() throws IOException {
 
         setupResourceClassLoader(resourceDir);
+        ClassLoader pmfLoader = getClass().getClassLoader();
 
         try {
             pmf = JDOHelper.getPersistenceManagerFactory(PMFName,
-                    resourceClassLoader, resourceClassLoader);
+                    resourceClassLoader, pmfLoader);
         } catch (JDOFatalUserException ex) {
             fail("Failed to find PersistenceManagerFactoryClass. "
                     + ex.getMessage());
