@@ -1093,7 +1093,7 @@ public class JDOHelper implements Constants {
             return getPersistenceManagerFactory(overrides, props, pmfLoader);
         }
         // props were null; try getting from jdoconfig.xml
-        props = getPropertiesFromJdoconfig(name, pmfLoader);
+        props = getPropertiesFromJdoconfig(name, resourceLoader);
         if (props != null) {
             // inform the impl that the config came from a jdoconfig.xml
             // element with the given name
