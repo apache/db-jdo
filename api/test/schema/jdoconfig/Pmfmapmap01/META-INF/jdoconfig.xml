@@ -28,7 +28,7 @@
     <persistence-manager-factory
         class="javax.jdo.stub.StubPMF">
         <property
-            name="javax.jdo.option.ConnectionDriverName"
+            name="javax.jdo.option.ConnectionFactory2Name"
             value="Jane Doe"/>
     </persistence-manager-factory>
 
@@ -36,7 +36,7 @@
         name="BookSearch"
         class="javax.jdo.stub.StubPMF">
         <property
-            name="javax.jdo.option.ConnectionDriverName"
+            name="javax.jdo.option.ConnectionFactory2Name"
             value="Larry"/>
     </persistence-manager-factory>
 

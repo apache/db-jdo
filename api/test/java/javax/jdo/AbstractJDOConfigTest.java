@@ -50,8 +50,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
      * The class path used to specify the location of test class files.
      * @return the class path where test class files can be found.
      */
-    protected static String TEST_CLASSPATH =
-            initTestClasspath();
+    protected static String TEST_CLASSPATH = initTestClasspath();
 
     /**
      * Returns the default class path for JDO test class files 
@@ -65,8 +64,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
     /**
      * The class path used to locate the JDO API class files.
      */
-    protected static String API_CLASSPATH =
-            initAPIClasspath();
+    protected static String API_CLASSPATH = initAPIClasspath();
 
     /**
      * Returns the default class path for JDO API class files
@@ -118,8 +116,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
             String expectedValue = (String) entry.getValue();
             String actualValue = (String) actual.get(key);
 
-            assertEquals(
-                    "Actual property at key [" + key + "] with value [" +
+            assertEquals("Actual property at key [" + key + "] with value [" +
                             actualValue + "] not equal to expected value [" +
                             expectedValue + "]",
                     expectedValue,

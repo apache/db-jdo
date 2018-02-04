@@ -89,40 +89,40 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
                 PMF_ATTRIBUTE_PERSISTENCE_UNIT_NAME + "." + testVariant);
         }
 
-    expected.put(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
-        PMF_ATTRIBUTE_CLASS + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_DRIVER_NAME,
-        PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_FACTORY_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_FACTORY2_NAME,
-        PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_PASSWORD,
-        PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_URL, PMF_ATTRIBUTE_CONNECTION_URL
-        + "." + testVariant);
-    expected.put(PROPERTY_CONNECTION_USER_NAME,
-        PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
-    expected.put(PROPERTY_IGNORE_CACHE, PMF_ATTRIBUTE_IGNORE_CACHE + "."
-        + testVariant);
-    expected.put(PROPERTY_MAPPING, PMF_ATTRIBUTE_MAPPING + "."
-        + testVariant);
-    expected.put(PROPERTY_MULTITHREADED, PMF_ATTRIBUTE_MULTITHREADED + "."
-        + testVariant);
-    expected.put(PROPERTY_NONTRANSACTIONAL_READ,
-        PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
-    expected.put(PROPERTY_NONTRANSACTIONAL_WRITE,
-        PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
-    expected.put(PROPERTY_OPTIMISTIC, PMF_ATTRIBUTE_OPTIMISTIC + "."
-        + testVariant);
-    expected.put(PROPERTY_RESTORE_VALUES, PMF_ATTRIBUTE_RESTORE_VALUES
-        + "." + testVariant);
-    expected.put(PROPERTY_RETAIN_VALUES, PMF_ATTRIBUTE_RETAIN_VALUES + "."
-        + testVariant);
-    expected.put(PROPERTY_DETACH_ALL_ON_COMMIT,
-        PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
-    expected.put(PROPERTY_SERVER_TIME_ZONE_ID,
-        PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
+        expected.put(PROPERTY_PERSISTENCE_MANAGER_FACTORY_CLASS,
+                PMF_ATTRIBUTE_CLASS + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_DRIVER_NAME,
+                PMF_ATTRIBUTE_CONNECTION_DRIVER_NAME + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_FACTORY_NAME,
+                PMF_ATTRIBUTE_CONNECTION_FACTORY_NAME + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_FACTORY2_NAME,
+                PMF_ATTRIBUTE_CONNECTION_FACTORY2_NAME + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_PASSWORD,
+                PMF_ATTRIBUTE_CONNECTION_PASSWORD + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_URL, PMF_ATTRIBUTE_CONNECTION_URL
+                + "." + testVariant);
+        expected.put(PROPERTY_CONNECTION_USER_NAME,
+                PMF_ATTRIBUTE_CONNECTION_USER_NAME + "." + testVariant);
+        expected.put(PROPERTY_IGNORE_CACHE, PMF_ATTRIBUTE_IGNORE_CACHE + "."
+                + testVariant);
+        expected.put(PROPERTY_MAPPING, PMF_ATTRIBUTE_MAPPING + "."
+                + testVariant);
+        expected.put(PROPERTY_MULTITHREADED, PMF_ATTRIBUTE_MULTITHREADED + "."
+                + testVariant);
+        expected.put(PROPERTY_NONTRANSACTIONAL_READ,
+                PMF_ATTRIBUTE_NONTRANSACTIONAL_READ + "." + testVariant);
+        expected.put(PROPERTY_NONTRANSACTIONAL_WRITE,
+                PMF_ATTRIBUTE_NONTRANSACTIONAL_WRITE + "." + testVariant);
+        expected.put(PROPERTY_OPTIMISTIC, PMF_ATTRIBUTE_OPTIMISTIC + "."
+                + testVariant);
+        expected.put(PROPERTY_RESTORE_VALUES, PMF_ATTRIBUTE_RESTORE_VALUES
+                + "." + testVariant);
+        expected.put(PROPERTY_RETAIN_VALUES, PMF_ATTRIBUTE_RETAIN_VALUES + "."
+                + testVariant);
+        expected.put(PROPERTY_DETACH_ALL_ON_COMMIT,
+                PMF_ATTRIBUTE_DETACH_ALL_ON_COMMIT + "." + testVariant);
+        expected.put(PROPERTY_SERVER_TIME_ZONE_ID,
+                PMF_ATTRIBUTE_SERVER_TIME_ZONE_ID + "." + testVariant);
 
         // listeners
         for (int i = 0; i < listenerCount; i++) {
@@ -167,8 +167,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         int listenerCount, int vendorSpecificPropertyCount,
         boolean checkEqualProperties) throws IOException {
 
-    doPositiveTest(classpaths, testVariantName, listenerCount,
-        vendorSpecificPropertyCount, checkEqualProperties, false, false);
+        doPositiveTest(classpaths, testVariantName, listenerCount,
+                vendorSpecificPropertyCount, checkEqualProperties, false, false);
     }
 
     /**
@@ -291,8 +291,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         String expected = "class.positive04.pmf0";
         String actual = getPMFClassNameViaServiceLookup(loader);
 
-    assertNotNull("No PMF name found via services lookup", actual);
-    assertEquals(expected, actual);
+        assertNotNull("No PMF name found via services lookup", actual);
+        assertEquals(expected, actual);
     }
 
     public void testPositive05_PMF0_PMFClassNameViaServicesLookup()
