@@ -5,13 +5,13 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
@@ -19,7 +19,7 @@
  * PersistenceManagerFactory.java
  *
  */
- 
+
 package javax.jdo;
 
 import javax.jdo.datastore.DataStoreCache;
@@ -33,25 +33,25 @@ import java.util.Properties;
 import java.util.Set;
 
 /** The <code>PersistenceManagerFactory</code> is the interface to use to obtain
- * <code>PersistenceManager</code> instances.  
- * All <code>PersistenceManager</code> instances obtained from the same 
+ * <code>PersistenceManager</code> instances.
+ * All <code>PersistenceManager</code> instances obtained from the same
  * <code>PersistenceManagerFactory</code> will have the same default properties.
  *
  * <P><code>PersistenceManagerFactory</code> instances may be configured and
  * serialized for later use.  They may be stored via JNDI and looked up
  * and used later.  Any properties configured will be saved and restored.
  *
- * <P>Once the first <code>PersistenceManager</code> is obtained from the 
- * <code>PersistenceManagerFactory</code>, the factory can no longer be 
+ * <P>Once the first <code>PersistenceManager</code> is obtained from the
+ * <code>PersistenceManagerFactory</code>, the factory can no longer be
  * configured.
- * <P>If the <code>ConnectionFactory</code> property is set 
- * (non-<code>null</code>) then all other Connection properties including 
+ * <P>If the <code>ConnectionFactory</code> property is set
+ * (non-<code>null</code>) then all other Connection properties including
  * <code>ConnectionFactoryName</code> are ignored;
- * otherwise, if <code>ConnectionFactoryName</code> is set 
+ * otherwise, if <code>ConnectionFactoryName</code> is set
  * (non-<code>null</code>) then all other Connection properties are ignored.
- * Similarly, if the <code>ConnectionFactory2</code> property is set 
+ * Similarly, if the <code>ConnectionFactory2</code> property is set
  * (non-<code>null</code>) then <code>ConnectionFactory2Name</code> is ignored.
- * <P>Operational state (<code>PersistenceManager</code> pooling, connection 
+ * <P>Operational state (<code>PersistenceManager</code> pooling, connection
  * pooling, operational parameters) must not be serialized.
  *
  * @version 2.2
@@ -59,27 +59,27 @@ import java.util.Set;
 
 public interface PersistenceManagerFactory extends Serializable {
 
-    
-    /** Close this PersistenceManagerFactory. Check for 
-     * JDOPermission("closePersistenceManagerFactory") and if not authorized, 
-     * throw SecurityException. 
-     * <P>If the authorization check succeeds, check to see that all 
-     * PersistenceManager instances obtained from this PersistenceManagerFactory 
-     * have no active transactions. If any PersistenceManager instances have 
-     * an active transaction, throw a JDOUserException, with one nested 
-     * JDOUserException for each PersistenceManager with an active Transaction. 
-     * <P>If there are no active transactions, then close all PersistenceManager 
-     * instances obtained from this PersistenceManagerFactory, mark this 
-     * PersistenceManagerFactory as closed, disallow getPersistenceManager 
-     * methods, and allow all other get methods. If a set method or 
-     * getPersistenceManager method is called after close, then 
+
+    /** Close this PersistenceManagerFactory. Check for
+     * JDOPermission("closePersistenceManagerFactory") and if not authorized,
+     * throw SecurityException.
+     * <P>If the authorization check succeeds, check to see that all
+     * PersistenceManager instances obtained from this PersistenceManagerFactory
+     * have no active transactions. If any PersistenceManager instances have
+     * an active transaction, throw a JDOUserException, with one nested
+     * JDOUserException for each PersistenceManager with an active Transaction.
+     * <P>If there are no active transactions, then close all PersistenceManager
+     * instances obtained from this PersistenceManagerFactory, mark this
+     * PersistenceManagerFactory as closed, disallow getPersistenceManager
+     * methods, and allow all other get methods. If a set method or
+     * getPersistenceManager method is called after close, then
      * JDOUserException is thrown.
      * @since 1.0.1
      */
     void close();
-    
-    /** 
-     * A <code>PersistenceManagerFactory</code> instance can be used 
+
+    /**
+     * A <code>PersistenceManagerFactory</code> instance can be used
      * until it is closed.
      * @return <code>true</code> if this <code>PersistenceManagerFactory</code>
      * has been closed.
@@ -87,24 +87,24 @@ public interface PersistenceManagerFactory extends Serializable {
      * @since 2.0
      */
     boolean isClosed();
-    
-    /** Get an instance of <code>PersistenceManager</code> from this factory.  
+
+    /** Get an instance of <code>PersistenceManager</code> from this factory.
      * The instance has default values for options.
      *
-     * <P>After the first use of <code>getPersistenceManager</code>, no "set" 
+     * <P>After the first use of <code>getPersistenceManager</code>, no "set"
      * methods will succeed.
      *
      * @return a <code>PersistenceManager</code> instance with default options.
      */
     PersistenceManager getPersistenceManager();
 
-    /** Get a thread-safe instance of a proxy that dynamically binds 
+    /** Get a thread-safe instance of a proxy that dynamically binds
      * on each method call to an instance of <code>PersistenceManager</code>.
      * <P>When used with a <code>PersistenceManagerFactory</code>
      * that uses TransactionType JTA,
-     * the proxy can be used in a server to dynamically bind to an instance 
+     * the proxy can be used in a server to dynamically bind to an instance
      * from this factory associated with the thread's current transaction.
-     * In this case, the close method is ignored, as the 
+     * In this case, the close method is ignored, as the
      * <code>PersistenceManager</code> is automatically closed when the
      * transaction completes.
      * <P>When used with a <code>PersistenceManagerFactory</code>
@@ -121,12 +121,12 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     PersistenceManager getPersistenceManagerProxy();
 
-    /** Get an instance of <code>PersistenceManager</code> from this factory.  
-     * The instance has default values for options.  
-     * The parameters <code>userid</code> and <code>password</code> are used 
+    /** Get an instance of <code>PersistenceManager</code> from this factory.
+     * The instance has default values for options.
+     * The parameters <code>userid</code> and <code>password</code> are used
      * when obtaining datastore connections from the connection pool.
      *
-     * <P>After the first use of <code>getPersistenceManager</code>, no "set" 
+     * <P>After the first use of <code>getPersistenceManager</code>, no "set"
      * methods will succeed.
      *
      * @return a <code>PersistenceManager</code> instance with default options.
@@ -144,12 +144,12 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the user name for the data store connection.
      */
     String getConnectionUserName ();
-  
+
     /** Set the password for the data store connection.
      * @param password the password for the data store connection.
      */
     void setConnectionPassword (String password);
-  
+
     /** Set the URL for the data store connection.
      * @param url the URL for the data store connection.
      */
@@ -159,19 +159,23 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the URL for the data store connection.
      */
     String getConnectionURL ();
-  
+
     /** Set the driver name for the data store connection.
+     * This property might be ignored by the JDO implementation
+     * because the JDBC DriverManager handles the driver name.
      * @param driverName the driver name for the data store connection.
      */
     void setConnectionDriverName  (String driverName);
 
     /** Get the driver name for the data store connection.
+     * This property might be ignored by the JDO implementation
+     * because the JDBC DriverManager handles the driver name.
      * @return the driver name for the data store connection.
      */
     String getConnectionDriverName ();
-    
+
     /** Set the name for the data store connection factory.
-     * @param connectionFactoryName the name of the data store connection 
+     * @param connectionFactoryName the name of the data store connection
      * factory.
      */
     void setConnectionFactoryName (String connectionFactoryName);
@@ -180,23 +184,23 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the name of the data store connection factory.
      */
     String getConnectionFactoryName ();
-  
+
     /** Set the data store connection factory.  JDO implementations
      * will support specific connection factories.  The connection
      * factory interfaces are not part of the JDO specification.
      * @param connectionFactory the data store connection factory.
      */
     void setConnectionFactory (Object connectionFactory);
-  
+
     /** Get the data store connection factory.
      * @return the data store connection factory.
      */
     Object getConnectionFactory ();
-  
+
     /** Set the name for the second data store connection factory.  This is
      * needed for managed environments to get nontransactional connections for
      * optimistic transactions.
-     * @param connectionFactoryName the name of the data store connection 
+     * @param connectionFactoryName the name of the data store connection
      * factory.
      */
     void setConnectionFactory2Name (String connectionFactoryName);
@@ -207,7 +211,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * @return the name of the data store connection factory.
      */
     String getConnectionFactory2Name ();
-  
+
     /** Set the second data store connection factory.  This is
      * needed for managed environments to get nontransactional connections for
      * optimistic transactions.  JDO implementations
@@ -216,141 +220,141 @@ public interface PersistenceManagerFactory extends Serializable {
      * @param connectionFactory the data store connection factory.
      */
     void setConnectionFactory2 (Object connectionFactory);
-  
+
     /** Get the second data store connection factory.  This is
      * needed for managed environments to get nontransactional connections for
      * optimistic transactions.
      * @return the data store connection factory.
      */
     Object getConnectionFactory2 ();
-  
-    /** Set the default Multithreaded setting for all 
+
+    /** Set the default Multithreaded setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default Multithreaded setting.
      */
     void setMultithreaded (boolean flag);
-  
-    /** Get the default Multithreaded setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.  
+
+    /** Get the default Multithreaded setting for all
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default Multithreaded setting.
      */
     boolean getMultithreaded();
-    
-    /** Set the Mapping setting for this factory. This is used to find the 
+
+    /** Set the Mapping setting for this factory. This is used to find the
      * object-datastore mapping file(s).
      *
      * @param mapping the Mapping setting.
      */
     void setMapping (String mapping);
-  
-    /** Get the Mapping setting for this factory.  This is used to find the 
+
+    /** Get the Mapping setting for this factory.  This is used to find the
      * object-datastore mapping file(s).
      *
      * @return the Mapping setting.
      */
     String getMapping ();
-    
-    /** Set the default Optimistic setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.  
+
+    /** Set the default Optimistic setting for all
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default Optimistic setting.
      */
     void setOptimistic (boolean flag);
-  
-    /** Get the default Optimistic setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.  
+
+    /** Get the default Optimistic setting for all
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default Optimistic setting.
      */
     boolean getOptimistic();
-    
-    /** Set the default RetainValues setting for all 
+
+    /** Set the default RetainValues setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default RetainValues setting.
      */
     void setRetainValues (boolean flag);
-  
-   /** Get the default RetainValues setting for all 
+
+   /** Get the default RetainValues setting for all
     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default RetainValues setting.
      */
     boolean getRetainValues ();
-    
-    /** Set the default value for the RestoreValues property.  
-     * If <code>true</code>, at rollback, fields of newly persistent instances 
-     * are restored to 
+
+    /** Set the default value for the RestoreValues property.
+     * If <code>true</code>, at rollback, fields of newly persistent instances
+     * are restored to
      * their values as of the beginning of the transaction, and the instances
      * revert to transient.  Additionally, fields of modified
      * instances of primitive types and immutable reference types
-     * are restored to their values as of the beginning of the 
+     * are restored to their values as of the beginning of the
      * transaction.
-     * <P>If <code>false</code>, at rollback, the values of fields of 
+     * <P>If <code>false</code>, at rollback, the values of fields of
      * newly persistent instances are unchanged and the instances revert to
      * transient.  Additionally, dirty instances transition to hollow.
-     * If an implementation does not support this option, a 
+     * If an implementation does not support this option, a
      * <code>JDOUnsupportedOptionException</code> is thrown.
      * @param restoreValues the value of the restoreValues property
      */
     void setRestoreValues(boolean restoreValues);
-    
-    /** Get the default value for the RestoreValues property.  
+
+    /** Get the default value for the RestoreValues property.
      * @return the value of the restoreValues property
      */
     boolean getRestoreValues();
-    
-    /** Set the default NontransactionalRead setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.  
+
+    /** Set the default NontransactionalRead setting for all
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default NontransactionalRead setting.
      */
     void setNontransactionalRead (boolean flag);
-  
-    /** Get the default NontransactionalRead setting for all 
+
+    /** Get the default NontransactionalRead setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default NontransactionalRead setting.
      */
     boolean getNontransactionalRead ();
-    
-    /** Set the default NontransactionalWrite setting for all 
-     * <code>PersistenceManager</code> instances obtained from this factory.  
+
+    /** Set the default NontransactionalWrite setting for all
+     * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default NontransactionalWrite setting.
      */
     void setNontransactionalWrite (boolean flag);
-  
-    /** Get the default NontransactionalWrite setting for all 
+
+    /** Get the default NontransactionalWrite setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default NontransactionalWrite setting.
      */
     boolean getNontransactionalWrite ();
-    
-    /** Set the default IgnoreCache setting for all 
+
+    /** Set the default IgnoreCache setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @param flag the default IgnoreCache setting.
      */
     void setIgnoreCache (boolean flag);
-  
-    /** Get the default IgnoreCache setting for all 
+
+    /** Get the default IgnoreCache setting for all
      * <code>PersistenceManager</code> instances obtained from this factory.
      *
      * @return the default IngoreCache setting.
      */
     boolean getIgnoreCache ();
-  
+
     /** Gets the detachAllOnCommit setting.
      * @see #setDetachAllOnCommit(boolean)
      * @since 2.0
      * @return the default detachAllOnCommit setting.
      */
     boolean getDetachAllOnCommit();
-    
+
     /** Sets the default detachAllOnCommit setting for all
      * <code>PersistenceManager</code> instances obtained from this
      * factory.
@@ -374,7 +378,7 @@ public interface PersistenceManagerFactory extends Serializable {
     * factory.
     *
     * <P>CopyOnAttach set to <code>true</code> specifies that during
-    * makePersistent, copies are made of detached parameter instances. 
+    * makePersistent, copies are made of detached parameter instances.
     * With this flag set to <code>false</code>, detached parameter
     * instances are attached directly and change their state from
     * detached-clean to persistent-clean or from detached-dirty to
@@ -384,7 +388,7 @@ public interface PersistenceManagerFactory extends Serializable {
     * @since 2.1
     */
    void setCopyOnAttach(boolean flag);
-   
+
     /**
      * Sets the name of this PersistenceManagerFactory.
      * @since 2.1
@@ -499,7 +503,7 @@ public interface PersistenceManagerFactory extends Serializable {
     /** Set the value for transaction isolation level for this PMF.
      * Transaction isolation levels are defined in javax.jdo.Constants.
      * If the requested level is not available, but a higher level is
-     * available, the higher level is silently used. 
+     * available, the higher level is silently used.
      * If the requested level is not available, and no higher level is
      * available, then JDOUnsupportedOptionException is thrown.
      * Standard values in order from low to high are:
@@ -564,17 +568,17 @@ public interface PersistenceManagerFactory extends Serializable {
      */
     Integer getDatastoreWriteTimeoutMillis();
 
-    /** Return non-configurable properties of this 
+    /** Return non-configurable properties of this
      * <code>PersistenceManagerFactory</code>.
-     * Properties with keys <code>VendorName</code> and 
+     * Properties with keys <code>VendorName</code> and
      * <code>VersionNumber</code> are required.  Other keys are optional.
      * @return the non-configurable properties of this
      * <code>PersistenceManagerFactory</code>.
      */
     Properties getProperties();
-    
+
     /** The application can determine from the results of this
-     * method which optional features, and which query languages 
+     * method which optional features, and which query languages
      * are supported by the JDO implementation.
      * <P>Each supported JDO feature is represented by a
      * <code>String</code> with one of the following values:
@@ -596,7 +600,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.option.Vector
      * <BR>javax.jdo.option.Map
      * <BR>javax.jdo.option.List
-     * <BR>javax.jdo.option.Array  
+     * <BR>javax.jdo.option.Array
      * <BR>javax.jdo.option.NullCollection
      * <BR>javax.jdo.option.ChangeApplicationIdentity
      * <BR>javax.jdo.option.BinaryCompatibility
@@ -613,14 +617,14 @@ public interface PersistenceManagerFactory extends Serializable {
      * <BR>javax.jdo.query.JDOQL
      * </code>
      *
-     *<P>The standard JDO query language is represented by a 
+     *<P>The standard JDO query language is represented by a
      * <code>String</code>:
      *<P><code>javax.jdo.query.JDOQL</code>
-     * @return the <code>Collection</code> of <code>String</code>s representing 
+     * @return the <code>Collection</code> of <code>String</code>s representing
      * the supported options.
-     */    
+     */
     Collection<String> supportedOptions();
-   
+
     /**
      * Return the {@link DataStoreCache} that this factory uses for
      * controlling a second-level cache. If this factory does not use
@@ -634,8 +638,8 @@ public interface PersistenceManagerFactory extends Serializable {
     /**
      * Add the parameter listener to the list of
      * instance lifecycle event listeners set as the initial listeners
-     * for each PersistenceManager created by this PersistenceManagerFactory. 
-     * The <code>addInstanceLifecycleListener</code> and 
+     * for each PersistenceManager created by this PersistenceManagerFactory.
+     * The <code>addInstanceLifecycleListener</code> and
      * <code>removeInstanceLifecycleListener</code>
      * methods are considered to be configuration methods and
      * can only be called when the PersistenceManagerFactory
@@ -658,8 +662,8 @@ public interface PersistenceManagerFactory extends Serializable {
     /**
      * Remove the parameter listener instance from the list of
      * instance lifecycle event listeners set as the initial listeners
-     * for each PersistenceManager created by this PersistenceManagerFactory. 
-     * The <code>addInstanceLifecycleListener</code> and 
+     * for each PersistenceManager created by this PersistenceManagerFactory.
+     * The <code>addInstanceLifecycleListener</code> and
      * <code>removeInstanceLifecycleListener</code>
      * methods are considered to be configuration methods and
      * can only be called when the PersistenceManagerFactory
@@ -671,14 +675,14 @@ public interface PersistenceManagerFactory extends Serializable {
     void removeInstanceLifecycleListener (InstanceLifecycleListener listener);
 
     /**
-     * Add the <code>FetchGroup</code>s to the set of active fetch groups. 
-     * <code>FetchGroup</code>s are made unmodifiable before being added. 
+     * Add the <code>FetchGroup</code>s to the set of active fetch groups.
+     * <code>FetchGroup</code>s are made unmodifiable before being added.
      * <code>FetchGroup</code>s that match existing <code>FetchGroup</code>s
      * replace the corresponding <code>FetchGroup</code>s.
      * The replaced <code>FetchGroup</code>s become unscoped.
      * Match is based on identical class and equal name.
      * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
-     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups}
      * are internally serialized.
      * @param groups an array of FetchGroups
      * @throws SecurityException if the caller is not authorized for
@@ -688,15 +692,15 @@ public interface PersistenceManagerFactory extends Serializable {
     void addFetchGroups(FetchGroup... groups);
 
     /**
-     * Remove the <code>FetchGroup</code>s from the set of active 
-     * <code>FetchGroup</code>s. Existing <code>FetchGroup</code>s that match 
-     * parameter <code>FetchGroup</code>s are removed. Parameter 
-     * <code>FetchGroup</code>s that do not match any existing 
+     * Remove the <code>FetchGroup</code>s from the set of active
+     * <code>FetchGroup</code>s. Existing <code>FetchGroup</code>s that match
+     * parameter <code>FetchGroup</code>s are removed. Parameter
+     * <code>FetchGroup</code>s that do not match any existing
      * <code>FetchGroup</code> are ignored.
      * Removed <code>FetchGroup</code>s become unscoped.
      * Match is based on identical class and equal name.
      * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
-     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups}
      * are internally serialized.
      * @param groups an array of FetchGroups
      * @throws SecurityException if the caller is not authorized for
@@ -706,11 +710,11 @@ public interface PersistenceManagerFactory extends Serializable {
     void removeFetchGroups(FetchGroup... groups);
 
     /**
-     * Remove all <code>FetchGroup</code>s from the set of active 
+     * Remove all <code>FetchGroup</code>s from the set of active
      * <code>FetchGroup</code>s.
      * All removed <code>FetchGroup</code>s become unscoped.
      * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
-     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups}
      * are internally serialized.
      * @throws SecurityException if the caller is not authorized for
      * {@link JDOPermission} ("manageMetadata")
@@ -719,13 +723,13 @@ public interface PersistenceManagerFactory extends Serializable {
     void removeAllFetchGroups();
 
     /**
-     * Create an unscoped, modifiable <code>FetchGroup</code> for the Class and 
-     * name. If a corresponding <code>FetchGroup</code> already exists in 
+     * Create an unscoped, modifiable <code>FetchGroup</code> for the Class and
+     * name. If a corresponding <code>FetchGroup</code> already exists in
      * <code>PersistenceManagerFactory</code> scope, copy its definition
-     * to a new <code>FetchGroup</code>. 
-     * If the <code>FetchGroup</code> does not already exist, create it 
-     * with no members. The <code>FetchGroup</code> does not become 
-     * in scope until it is added to the current set via 
+     * to a new <code>FetchGroup</code>.
+     * If the <code>FetchGroup</code> does not already exist, create it
+     * with no members. The <code>FetchGroup</code> does not become
+     * in scope until it is added to the current set via
      * {@link #addFetchGroups}.
      * @param cls the class or interface for the FetchGroup
      * @param name the name of the fetch group
@@ -740,7 +744,7 @@ public interface PersistenceManagerFactory extends Serializable {
      * Get a modifiable Set containing a mutable copy of all currently active
      * (in scope) fetch groups.
      * The methods {@link #addFetchGroups}, {@link #removeFetchGroups},
-     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups} 
+     * {@link #getFetchGroups}, and {@link #removeAllFetchGroups}
      * are internally serialized.
      * @return a copy of all currently active fetch groups
      * @throws SecurityException if the caller is not authorized for
@@ -751,7 +755,7 @@ public interface PersistenceManagerFactory extends Serializable {
 
     /**
      * Method to register metadata with the persistence process managed by this
-     * <code>PersistenceManagerFactory</code>. 
+     * <code>PersistenceManagerFactory</code>.
      * Metadata can be created using the method {@link #newMetadata}.
      * If there is already metadata registered for a class contained in this metadata
      * object then a JDOUserException will be thrown.

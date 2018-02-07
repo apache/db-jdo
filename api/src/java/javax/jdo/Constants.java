@@ -30,12 +30,12 @@ public interface Constants {
      * @since 3.1
      */
     static String JAVAX_JDO = "javax.jdo";
-    
+
     /**
      * The JDO standard property string and option string prefix.
      */
     static String JAVAX_JDO_PREFIX = JAVAX_JDO + ".";
-    
+
     /**
      * The name of the standard service configuration resource text file containing
      * the name of an implementation of {@link PersistenceManagerFactory}.
@@ -621,17 +621,17 @@ public interface Constants {
     public final static String PROPERTY_ENHANCER_VERSION_NUMBER
         = "VersionNumber";
 
-    /** Exit value for no enhancer found 
+    /** Exit value for no enhancer found
      * @since 3.0
      * */
     public final static int ENHANCER_NO_JDO_ENHANCER_FOUND = 2;
 
-    /** Exit value for usage error 
+    /** Exit value for usage error
      * @since 3.0
      * */
     public final static int ENHANCER_USAGE_ERROR = 3;
 
-    /** Exit value for an exception from the JDOEnhancer 
+    /** Exit value for an exception from the JDOEnhancer
      * @since 3.0
      * */
     public final static int ENHANCER_EXCEPTION = 1;
@@ -765,7 +765,8 @@ public interface Constants {
         = "javax.jdo.option.CopyOnAttach";
     /**
      * "javax.jdo.option.ConnectionDriverName"
-     *
+     * This property might be ignored by the JDO implementation
+     * because the JDBC DriverManager handles the driver name.
      * @see PersistenceManagerFactory#getConnectionDriverName()
      * @since 2.1
      */
@@ -1047,7 +1048,7 @@ public interface Constants {
      * @see Transaction#getIsolationLevel()
      * @since 2.2
      */
-    public static final String TX_READ_UNCOMMITTED = "read-uncommitted"; 
+    public static final String TX_READ_UNCOMMITTED = "read-uncommitted";
 
     /**
      * Transaction isolation level representing the requirement to read
@@ -1056,7 +1057,7 @@ public interface Constants {
      * @see Transaction#getIsolationLevel()
      * @since 2.2
      */
-    public static final String TX_READ_COMMITTED = "read-committed"; 
+    public static final String TX_READ_COMMITTED = "read-committed";
 
     /**
      * Transaction isolation level representing the requirement to read
@@ -1065,7 +1066,7 @@ public interface Constants {
      * @see Transaction#getIsolationLevel()
      * @since 2.2
      */
-    public static final String TX_REPEATABLE_READ = "repeatable-read"; 
+    public static final String TX_REPEATABLE_READ = "repeatable-read";
 
     /**
      * Transaction isolation level representing the requirement to keep
@@ -1074,7 +1075,7 @@ public interface Constants {
      * @see Transaction#getIsolationLevel()
      * @since 2.2
      */
-    public static final String TX_SNAPSHOT = "snapshot"; 
+    public static final String TX_SNAPSHOT = "snapshot";
 
     /**
      * Transaction isolation level representing the requirement to serialize
@@ -1083,5 +1084,5 @@ public interface Constants {
      * @see Transaction#getIsolationLevel()
      * @since 2.2
      */
-    public static final String TX_SERIALIZABLE = "serializable"; 
+    public static final String TX_SERIALIZABLE = "serializable";
 }
