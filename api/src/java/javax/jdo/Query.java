@@ -1035,7 +1035,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * <P>Calling this method with no result being specified will result in JDOUserException being thrown.
      * @return The list of query results
      */
-    List<Object> executeResultList();
+    <R> List<R> executeResultList();
 
     /**
      * Method to execute the query where there is a single row and we have a result defined but no result class.

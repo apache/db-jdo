@@ -143,6 +143,7 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+<skipTests>true</skipTests>
           <excludes>
             <exclude>javax/jdo/util/AbstractTest.java</exclude>
             <exclude>javax/jdo/pc/*.java</exclude>

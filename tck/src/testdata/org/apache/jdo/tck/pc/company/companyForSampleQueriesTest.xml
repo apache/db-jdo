@@ -264,7 +264,7 @@
     <bean id="emp5" factory-bean="companyFactory" factory-method="newFullTimeEmployee">
         <constructor-arg index="0" type="long"><value>5</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Tillmann</value></constructor-arg>
-        <constructor-arg index="2" type="java.lang.String"><value>Zäschke</value></constructor-arg>
+        <constructor-arg index="2" type="java.lang.String"><value>ZÃ¤schke</value></constructor-arg>
         <constructor-arg index="3" type="java.lang.String"><value></value></constructor-arg>
         <constructor-arg index="4" type="java.util.Date"><value>5/Jul/1979</value></constructor-arg>
         <constructor-arg index="5" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr3"/></constructor-arg>
