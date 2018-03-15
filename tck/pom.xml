@@ -80,7 +80,7 @@
                             <goal>help</goal>
                             <goal>installSchema</goal>
                             <goal>enhance</goal>
-<!--                              <goal>runtck</goal> -->
+                            <goal>runtck</goal>
                         </goals>
                     </execution>
                 </executions>
