@@ -157,8 +157,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>transaction-api</artifactId>
+	  <groupId>javax.transaction</groupId>
+	  <artifactId>javax.transaction-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
