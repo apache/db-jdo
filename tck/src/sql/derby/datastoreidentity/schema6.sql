@@ -15,7 +15,7 @@
 
 -- SchemaType: datastore identity pkg
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity_pkg;
 SET SCHEMA datastoreidentity_pkg;

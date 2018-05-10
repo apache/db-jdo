@@ -15,7 +15,7 @@
 
 -- SchemaType: application identity pkg
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity_pkg;
 SET SCHEMA applicationidentity_pkg;

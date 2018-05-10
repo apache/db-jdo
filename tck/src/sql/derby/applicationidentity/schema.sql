@@ -15,7 +15,7 @@
 
 -- SchemaType: application identity
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity0;
 SET SCHEMA applicationidentity0;
@@ -10248,4 +10248,4 @@ CREATE TABLE LIFECYCLELISTENERSTORE (
     CONSTRAINT LIFECYCLE_STORE_PK PRIMARY KEY (ID)
 );
 
-disconnect;
+-- disconnect;

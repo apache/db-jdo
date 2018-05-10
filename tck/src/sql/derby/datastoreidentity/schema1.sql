@@ -21,7 +21,7 @@
 -- See tables "persons", "employees", "parttimeemployees", 
 -- "fulltimeemployees", "insuranceplans", "medicalinsurance", and "dentalinsurance".
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity1;
 SET SCHEMA datastoreidentity1;
@@ -304,4 +304,4 @@ CREATE TABLE FIELDSOFENUMORDINAL
 ALTER TABLE FIELDSOFENUMORDINAL ADD CONSTRAINT
     FIELDSOFENUMORDINAL_PK PRIMARY KEY (DATASTORE_IDENTITY);
 
-disconnect;
+-- disconnect;

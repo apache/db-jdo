@@ -15,7 +15,7 @@
 
 -- SchemaType: datastore identity
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity0;
 SET SCHEMA datastoreidentity0;
@@ -10249,4 +10249,4 @@ CREATE TABLE LIFECYCLELISTENERSTORE (
     CONSTRAINT LIFECYCLE_STORE_PK PRIMARY KEY (DATASTORE_IDENTITY)
 );
 
-disconnect;
+-- disconnect;

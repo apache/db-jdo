@@ -29,7 +29,7 @@
 -- "fulltimeemployees", "medicalinsurance", "dentalinsurance",
 -- "fulltime_employee_phoneno_type", and "parttime_employee_phoneno_type".
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity2;
 SET SCHEMA applicationidentity2;
@@ -214,4 +214,4 @@ ALTER TABLE departments
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees(PERSONID) ON DELETE SET NULL;
 
-disconnect;
+-- disconnect;

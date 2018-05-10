@@ -24,7 +24,7 @@
 -- See tables "persons", "parttimeemployees", "fulltimeemployees",
 -- "medicalinsurance" and "dentalinsurance".
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity3;
 SET SCHEMA applicationidentity3;
@@ -177,4 +177,4 @@ ALTER TABLE departments
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID) ON DELETE SET NULL;
 
-disconnect;
+-- disconnect;

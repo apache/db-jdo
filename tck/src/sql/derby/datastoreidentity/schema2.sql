@@ -29,7 +29,7 @@
 -- "fulltimeemployees", "medicalinsurance", "dentalinsurance",
 -- "fulltime_employee_phoneno_type", and "parttime_employee_phoneno_type".
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity2;
 SET SCHEMA datastoreidentity2;
@@ -267,4 +267,4 @@ ALTER TABLE departments
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES fulltimeemployees ON DELETE SET NULL;
 
-disconnect;
+-- disconnect;

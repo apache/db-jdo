@@ -21,7 +21,7 @@
 -- have inheritance strategy "superclass-table".
 -- See tables "persons", "employees", and "insuranceplans".
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity4;
 SET SCHEMA applicationidentity4;
@@ -154,4 +154,4 @@ ALTER TABLE departments
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES persons(PERSONID) ON DELETE SET NULL;
 
-disconnect;
+-- disconnect;

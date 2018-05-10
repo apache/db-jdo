@@ -15,7 +15,7 @@
 
 -- SchemaType: application identity orm
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity_orm;
 SET SCHEMA applicationidentity_orm;

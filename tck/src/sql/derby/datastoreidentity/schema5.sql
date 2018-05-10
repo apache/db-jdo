@@ -15,7 +15,7 @@
 
 -- SchemaType: datastore identity orm
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity_orm;
 SET SCHEMA datastoreidentity_orm;

@@ -15,7 +15,7 @@
 
 -- SchemaType: application identity
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA applicationidentity9;
 SET SCHEMA applicationidentity9;

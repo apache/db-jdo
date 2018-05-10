@@ -15,7 +15,7 @@
 
 -- SchemaType: datastore identity
 
-connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity11;
 SET SCHEMA datastoreidentity11;
@@ -175,4 +175,4 @@ ALTER TABLE comp_depts
     ADD CONSTRAINT EMP_MO_FK FOREIGN KEY
         (EMP_OF_THE_MONTH) REFERENCES persons ON DELETE SET NULL;
 
-disconnect;
+-- disconnect;
