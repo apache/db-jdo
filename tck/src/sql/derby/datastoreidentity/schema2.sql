@@ -29,7 +29,7 @@
 -- "fulltimeemployees", "medicalinsurance", "dentalinsurance",
 -- "fulltime_employee_phoneno_type", and "parttime_employee_phoneno_type".
 
--- user 'tckuser' password 'tckuser';
+-- connect 'jdbc:derby:jdotckdb;create=true' user 'tckuser' password 'tckuser';
 
 CREATE SCHEMA datastoreidentity2;
 SET SCHEMA datastoreidentity2;
