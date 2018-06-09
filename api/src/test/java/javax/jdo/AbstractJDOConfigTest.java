@@ -37,13 +37,13 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
     /**
      * Returns the JDO configuration class path prefix's default value, which is
      * the project base directory suffixed by the path to the configuration
-     * directory (<tt>test/schema/jdoconfig</tt>).
+     * directory (<tt>src/test/resources/jdoconfig</tt>).
      * 
      * @return the default class path prefix used by this test suite.
      * 
      */
     protected static String initJDOConfigClasspathPrefix() {
-        return initBasedir() + "test/schema/jdoconfig";
+        return initBasedir() + "src/test/resources/jdoconfig";
     }
 
     /**

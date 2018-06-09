@@ -66,7 +66,7 @@ public class InstallSchema extends AbstractTCKMojo {
                     PropertyUtils.string2Set(cfgList, cfgs);
             }
             else {
-                    // Fallback to "src/conf/configurations.list"
+                    // Fallback to "src/conf/main/resources/configurations.list"
                     setCfgListFromFile();
                 if (cfgList != null) {
                     cfgs = new HashSet<String>();

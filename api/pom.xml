@@ -39,44 +39,6 @@
   </scm>
 
   <build>
-    <sourceDirectory>src/java</sourceDirectory>
-    <testSourceDirectory>test/java</testSourceDirectory>
-    <resources>
-      <resource>
-        <targetPath>META-INF</targetPath>
-        <directory>src/main/resources</directory>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/java</directory>
-        <includes>
-          <include>javax/jdo/*.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/schema</directory>
-        <includes>
-          <include>javax/jdo/*.dtd</include>
-          <include>javax/jdo/*.xsd</include>
-        </includes>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>${basedir}/test/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </testResource>
-      <testResource>
-        <directory>${basedir}/test/schema</directory>
-        <includes>
-          <include>**/*.jdo</include>
-          <include>**/*.jdoquery</include>
-          <include>**/*.orm</include>
-          <include>**/jdoconfig.xml</include>
-        </includes>
-      </testResource>
-    </testResources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

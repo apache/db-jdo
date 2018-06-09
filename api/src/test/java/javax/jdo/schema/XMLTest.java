@@ -34,7 +34,7 @@ public class XMLTest extends AbstractTest {
     protected static String BASEDIR = System.getProperty("basedir", ".");
 
     /** File prefix */
-    protected static final String FILE_PREFIX = BASEDIR + "/test/schema/";
+    protected static final String FILE_PREFIX = BASEDIR + "/src/test/resources/";
 
     /** */
     protected static final File JDO_XSD_FILE = 

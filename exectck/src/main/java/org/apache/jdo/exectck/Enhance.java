@@ -60,7 +60,7 @@ public class Enhance extends AbstractMojo {
     /**
      * Root of the TCK source installation.
      * @parameter property="project.src.directory"
-     *      default-value="${basedir}/src"
+     *      default-value="${basedir}/src/main/resources"
      * @required
      */
     private String srcDirectory;

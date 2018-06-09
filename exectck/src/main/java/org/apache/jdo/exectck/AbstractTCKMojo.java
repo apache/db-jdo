@@ -48,7 +48,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
     /**
      * Location of the configuration directory.
      * @parameter property="project.conf.directory"
-     *      default-value="${basedir}/src/conf"
+     *      default-value="${basedir}/src/main/resources/conf"
      * @required
      */
     protected String confDirectory;
@@ -56,7 +56,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
     /**
      * Location of the configuration directory.
      * @parameter property="project.sql.directory"
-     *      default-value="${basedir}/src/sql"
+     *      default-value="${basedir}/src/main/resources/sql"
      * @required
      */
     protected String sqlDirectory;
@@ -101,7 +101,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
     /**
      * Convenience method to set the cfgList from the file
-     * "src/conf/configurations.list".
+     * "src/main/resources/conf/configurations.list".
      * @throws MojoExecutionException If the file could not be found/opened
      */
     protected void setCfgListFromFile() throws MojoExecutionException {
@@ -116,7 +116,7 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
         catch (Exception e) {
             // Error finding configurations.list
             throw new MojoExecutionException("No configuration specified and could not " +
-                "find 'src/conf/configurations.list'");
+                "find 'src/main/resources/conf/configurations.list'");
 		}
     }
 }
