@@ -109,7 +109,7 @@ public interface NumericExpression<T> extends ComparableExpression<Number>
      * Method to return a numeric expression representing the aggregated average of this expression.
      * @return Numeric expression for the average
      */
-    NumericExpression avg();
+    NumericExpression<Double> avg();
 
     /**
      * Method to return a numeric expression representing the aggregated sum of this expression.

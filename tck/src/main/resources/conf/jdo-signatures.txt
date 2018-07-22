@@ -1919,6 +1919,7 @@ public interface javax.jdo.query.PersistableExpression extends javax.jdo.query.E
 public interface javax.jdo.query.StringExpression extends javax.jdo.query.ComparableExpression
 {
     javax.jdo.query.StringExpression add(javax.jdo.query.Expression expr);
+    javax.jdo.query.StringExpression add(java.lang.String);
     javax.jdo.query.CharacterExpression charAt(int pos);
     javax.jdo.query.CharacterExpression charAt(javax.jdo.query.NumericExpression pos);
     javax.jdo.query.BooleanExpression endsWith(javax.jdo.query.StringExpression expr);
