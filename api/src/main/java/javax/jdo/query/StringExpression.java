@@ -160,6 +160,24 @@ public interface StringExpression extends ComparableExpression<String>
     BooleanExpression startsWith(String str);
 
     /**
+     * Method returning an expression for whether the substring of this string beginning at the specified
+     * index starts with the passed string expression.
+     * @param expr The expression that it starts with.
+     * @param index where to begin looking in this string
+     * @return Whether it starts with the other string
+     */
+    BooleanExpression startsWith(StringExpression expr, int index);
+
+    /**
+     * Method returning an expression for whether the substring of this string beginning at the specified
+     * index starts with the passed string.
+     * @param str The string that it starts with.
+     * @param index where to begin looking in this string
+     * @return Whether it starts with the other string
+     */
+    BooleanExpression startsWith(String str, int index);
+
+    /**
      * Method to return an expression for the substring of this string expression.
      * @param pos The position of the start point of the substring
      * @return Expression for the substring

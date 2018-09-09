@@ -29,6 +29,12 @@ public interface OrderExpression<T>
         DESC
     }
 
+    public enum OrderNullsPosition
+    {
+        FIRST,
+        LAST
+    }
+
     /**
      * Accessor for the direction of the ordering with this expression.
      * @return The direction
@@ -40,4 +46,22 @@ public interface OrderExpression<T>
      * @return Ordering expression
      */
     Expression<T> getExpression();
+
+    /**
+     * Accessor for the position of nulls with this expression.
+     * @return The nulls position (or null if not defined)
+     */
+    OrderNullsPosition getNullsPosition();
+
+    /**
+     * Method to set nulls to be ordered BEFORE non-nulls.
+     * @return The order expression
+     */
+    OrderExpression<T> nullsFirst();
+
+    /**
+     * Method to set nulls to be ordered AFTER non-nulls.
+     * @return The order expression
+     */
+    OrderExpression<T> nullsLast();
 }
