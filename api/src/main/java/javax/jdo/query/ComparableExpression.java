@@ -28,7 +28,7 @@ public interface ComparableExpression<T> extends Expression<T>
      * @param expr Other expression
      * @return Whether this is less than the other
      */
-    BooleanExpression lt(ComparableExpression<T> expr);
+    BooleanExpression lt(ComparableExpression<? extends T> expr);
 
     /**
      * Method returning whether this expression is less than the literal.
@@ -42,7 +42,7 @@ public interface ComparableExpression<T> extends Expression<T>
      * @param expr Other expression
      * @return Whether this is less than or equal the other
      */
-    BooleanExpression lteq(ComparableExpression<T> expr);
+    BooleanExpression lteq(ComparableExpression<? extends T> expr);
 
     /**
      * Method returning whether this expression is less than or equal the literal.
@@ -56,7 +56,7 @@ public interface ComparableExpression<T> extends Expression<T>
      * @param expr Other expression
      * @return Whether this is greater than the other
      */
-    BooleanExpression gt(ComparableExpression<T> expr);
+    BooleanExpression gt(ComparableExpression<? extends T> expr);
 
     /**
      * Method returning whether this expression is greater than the literal.
@@ -70,7 +70,7 @@ public interface ComparableExpression<T> extends Expression<T>
      * @param expr Other expression
      * @return Whether this is greater than or equal to the other
      */
-    BooleanExpression gteq(ComparableExpression<T> expr);
+    BooleanExpression gteq(ComparableExpression<? extends T> expr);
 
     /**
      * Method returning whether this expression is greater than or equal the literal.
@@ -81,15 +81,15 @@ public interface ComparableExpression<T> extends Expression<T>
 
     /**
      * Method to return a numeric expression representing the aggregated minimum of this expression.
-     * @return Numeric expression for the minimum
+     * @return expression for the minimum
      */
-    NumericExpression<T> min();
+    ComparableExpression<T> min();
 
     /**
      * Method to return a numeric expression representing the aggregated maximum of this expression.
-     * @return Numeric expression for the maximum
+     * @return expression for the maximum
      */
-    NumericExpression<T> max();
+    ComparableExpression<T> max();
 
     /**
      * Method to return an order expression for this expression in ascending order.
