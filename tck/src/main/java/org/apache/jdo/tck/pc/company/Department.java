@@ -31,9 +31,12 @@ import java.util.Set;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents a department within a company.
  */
+@PersistenceCapable
 public class Department
     implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
 

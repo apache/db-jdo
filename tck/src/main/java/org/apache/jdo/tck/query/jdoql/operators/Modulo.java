@@ -19,12 +19,14 @@ package org.apache.jdo.tck.query.jdoql.operators;
 
 import java.util.Collection;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -45,34 +47,6 @@ public class Modulo extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-40 (Modulo) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid % 2 == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp4"})
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -82,21 +56,40 @@ public class Modulo extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(Modulo.class);
     }
-    
-    /** */
+
     public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
-        
-        runTestUsingPrimitiveTypes();
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp4"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.mod(2).eq(0L));
+
+        // Import Department twice
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid % 2 == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: Dont currently support operator  %  in JDOQL conversion
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
-    private void runTestUsingPrimitiveTypes() {
+    public void testPostiveUsingPrimitiveTypes() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
         tx.begin();

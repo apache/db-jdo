@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql.variables;
 
 import java.util.LinkedList;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
@@ -47,34 +48,6 @@ public class VariablesWithoutExtent extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.5-2 (VariablesWithoutExtent) failed: ";
     
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.personid = noExtent.id",
-        /*VARIABLES*/   "NoExtent noExtent",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.query.NoExtent;",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        new LinkedList()
-    };
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -83,16 +56,32 @@ public class VariablesWithoutExtent extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(VariablesWithoutExtent.class);
     }
-    
+
     /** */
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
-            for (int i = 0; i < VALID_QUERIES.length; i++) {
-                executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-                executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-            }
+
+            Object expected = new LinkedList();
+
+            QueryElementHolder holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Person.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "this.personid = noExtent.id",
+                    /*VARIABLES*/   "NoExtent noExtent",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     "import org.apache.jdo.tck.pc.query.NoExtent;",
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  null,
+                    /*paramValues*/ null);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expected);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         }
     }
     
@@ -105,6 +94,8 @@ public class VariablesWithoutExtent extends QueryTest {
         NoExtent noExtent = new NoExtent(1);
         makePersistent(noExtent);
         addTearDownInstance(noExtent);
+        logger.info("Michael " + noExtent);
+        logger.info("ID " + JDOHelper.getObjectId(noExtent));
     }
     
     /**

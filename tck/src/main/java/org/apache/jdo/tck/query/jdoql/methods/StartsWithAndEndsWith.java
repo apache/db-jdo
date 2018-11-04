@@ -20,9 +20,12 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> StartsWith and EndsWith Query Operators
@@ -45,53 +48,6 @@ public class StartsWithAndEndsWith extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-33 (StartsWithAndEndsWith) failed: ";
     
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // startsWith
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname.startsWith(\"emp1\")",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        // endsWith
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname.endsWith(\"1First\")",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // startsWith
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-        // endsWith
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
-    };
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -102,13 +58,65 @@ public class StartsWithAndEndsWith extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive0() {
+        // startsWith
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.firstname.startsWith("emp1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "firstname.startsWith(\"emp1\")",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositive1() {
+        // endsWith
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.firstname.endsWith("1First"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "firstname.endsWith(\"1First\")",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

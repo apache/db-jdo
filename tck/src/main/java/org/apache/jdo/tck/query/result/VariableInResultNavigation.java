@@ -22,9 +22,14 @@ import java.util.Arrays;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.QDepartment;
+import org.apache.jdo.tck.pc.company.QEmployee;
+import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Variable in Result.
@@ -58,84 +63,7 @@ public class VariableInResultNavigation extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.9-3 (VariableInResult) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p) && p.name == 'orange'",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this, e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "deptid == 1 && employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e, p",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "company.name == \"Sun Microsystems, Inc.\" && employees.contains(e) && e.projects.contains(p)",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
+
     /** 
      * The expected results of valid queries.
      */
@@ -150,43 +78,6 @@ public class VariableInResultNavigation extends QueryTest {
     private Object dept1 = getTransientCompanyModelInstance("dept1");
     private Object dept2 = getTransientCompanyModelInstance("dept2");
 
-    private Object[] expectedResult = {
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2},
-            new Object[] {emp4, proj3},
-            new Object[] {emp5, proj3}}),
-        Arrays.asList(new Object[] {
-            new Object[] {dept1, emp1, proj1},
-            new Object[] {dept1, emp2, proj1},
-            new Object[] {dept1, emp3, proj1},
-            new Object[] {dept1, emp2, proj2},
-            new Object[] {dept1, emp3, proj2},
-            new Object[] {dept2, emp4, proj3},
-            new Object[] {dept2, emp5, proj3}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2}}),
-        Arrays.asList(new Object[] {
-            new Object[] {emp1, proj1},
-            new Object[] {emp2, proj1},
-            new Object[] {emp3, proj1},
-            new Object[] {emp2, proj2},
-            new Object[] {emp3, proj2},
-            new Object[] {emp4, proj3},
-            new Object[] {emp5, proj3}})
-    };
-
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -198,47 +89,196 @@ public class VariableInResultNavigation extends QueryTest {
     
     /** */
     public void testNavigationWithConstraint() {
-        int index = 0;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        Object expected = Arrays.asList(
+                new Object[] {emp1, proj1},
+                new Object[] {emp2, proj1},
+                new Object[] {emp3, proj1});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        QProject p = QProject.variable("p");
+        query.filter(cand.employees.contains(e).and(e.projects.contains(p)).and(p.name.eq("orange")));
+        query.result(false, e, p);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "e, p",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && e.projects.contains(p) && p.name == 'orange'",
+                /*VARIABLES*/   "Employee e; Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testNavigationWithoutConstraint() {
-        int index = 1;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        Object expected = Arrays.asList(
+                new Object[] {emp1, proj1},
+                new Object[] {emp2, proj1},
+                new Object[] {emp3, proj1},
+                new Object[] {emp2, proj2},
+                new Object[] {emp3, proj2},
+                new Object[] {emp4, proj3},
+                new Object[] {emp5, proj3});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        QProject p = QProject.variable("p");
+        query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
+        query.result(false, e, p);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "e, p",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
+                /*VARIABLES*/   "Employee e; Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testNavigationWithThis() {
-        int index = 2;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        Object expected = Arrays.asList(
+                new Object[] {dept1, emp1, proj1},
+                new Object[] {dept1, emp2, proj1},
+                new Object[] {dept1, emp3, proj1},
+                new Object[] {dept1, emp2, proj2},
+                new Object[] {dept1, emp3, proj2},
+                new Object[] {dept2, emp4, proj3},
+                new Object[] {dept2, emp5, proj3});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        QProject p = QProject.variable("p");
+        query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
+        query.result(false, cand, e, p);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "this, e, p",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && e.projects.contains(p)",
+                /*VARIABLES*/   "Employee e; Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testNavigationWithThisConstraint() {
-        int index = 3;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        Object expected = Arrays.asList(
+                new Object[] {emp1, proj1},
+                new Object[] {emp2, proj1},
+                new Object[] {emp3, proj1},
+                new Object[] {emp2, proj2},
+                new Object[] {emp3, proj2});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        QProject p = QProject.variable("p");
+        query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
+        query.result(false, e, p);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "e, p",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "deptid == 1 && employees.contains(e) && e.projects.contains(p)",
+                /*VARIABLES*/   "Employee e; Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testNavigationWithCompanyConstraint() {
-        int index = 4;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        Object expected = Arrays.asList(
+                new Object[] {emp1, proj1},
+                new Object[] {emp2, proj1},
+                new Object[] {emp3, proj1},
+                new Object[] {emp2, proj2},
+                new Object[] {emp3, proj2},
+                new Object[] {emp4, proj3},
+                new Object[] {emp5, proj3});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        QProject p = QProject.variable("p");
+        query.filter(cand.company.name.eq("Sun Microsystems, Inc.").and(cand.employees.contains(e)).and(e.projects.contains(p)));
+        query.result(false, e, p);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "e, p",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "company.name == \"Sun Microsystems, Inc.\" && employees.contains(e) && e.projects.contains(p)",
+                /*VARIABLES*/   "Employee e; Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
     /**
      * @see QueryTest#localSetUp()

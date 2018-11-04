@@ -22,10 +22,13 @@ import java.io.Serializable;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents a dental insurance carrier selection for a
  * particular <code>Employee</code>.
  */
+@PersistenceCapable
 public class MedicalInsurance extends Insurance implements IMedicalInsurance {
 
     private String planType; // possible values: "PPO", "EPO", "NPO" 

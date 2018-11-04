@@ -18,15 +18,25 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.Project;
+import org.apache.jdo.tck.pc.company.QEmployee;
+import org.apache.jdo.tck.pc.company.QPerson;
+import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
 
 /**
  *<B>Title:</B> Result Expressions.
@@ -44,284 +54,6 @@ public class ResultExpressions extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.9-5 (ResultExpressions) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // this
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // variable.field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p.projid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) && personid == 1",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // variable
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) && personid == 1",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(this)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(this)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(variable)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(p)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) && personid == 1",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // field expression
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "personid + 1",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // navigational expression this
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this.personid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // navigational expression variable
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p.projid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projects.contains(p) && personid == 1",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // navigational expression parameter
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p.projid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "Project p",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // navigational expression field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department.deptid",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // parameter
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "p",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "Project p",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // cast
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "(FullTimeEmployee)manager",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
     
     /** 
      * The array of invalid queries which may be executed as 
@@ -390,49 +122,7 @@ public class ResultExpressions extends QueryTest {
         /*TO*/          null)
     };
 
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // this
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        // field
-        Arrays.asList(new Object[]{new Long(1), new Long(2), 
-                new Long(3), new Long(4), new Long(5)}),
-        // variable.field
-        Arrays.asList(new Object[]{new Long(1)}),
-        // variable
-        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
-        // COUNT(this)
-        new Long(5),
-        // COUNT(variable)
-        new Long(1),
-        // SUM
-        new Long(1+2+3+4+5),
-        // MIN
-        new Long(1),
-        // MAX
-        new Long(5),
-        // AVG
-        new Double(3),
-        // field expression
-        Arrays.asList(new Object[]{new Long(2), new Long(3), 
-                new Long(4), new Long(5), new Long(6)}),
-        // navigational expression this
-        Arrays.asList(new Object[]{new Long(1), new Long(2), 
-                new Long(3), new Long(4), new Long(5)}),
-        // navigational expression variable
-        Arrays.asList(new Object[]{new Long(1)}),
-        // navigational expression parameter
-        Arrays.asList(new Object[]{new Long(1)}),
-        // navigational expression field
-        Arrays.asList(new Object[]{new Long(1)}),
-        // parameter
-        getTransientCompanyModelInstancesAsList(new String[]{"proj1"}),
-        // cast
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
-    };
+
             
     /**
      * The <code>main</code> is called when the class
@@ -445,106 +135,559 @@ public class ResultExpressions extends QueryTest {
     
     /** */
     public void testThis() {
-        int index = 0;
-        executeQuery(index, null);
+        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "this",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        // DataNucleus: org.datanucleus.exceptions.NucleusUserException: Query needs to return objects of type
+        // "org.apache.jdo.tck.pc.company.Employee" but it was impossible to create a new instance of this type.
+        // The result class needs a no-args constructor.
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
     }
 
     /** */
     public void testField() {
-        int index = 1;
-        executeQuery(index, null);
+        Object expectedResult = Arrays.asList(
+                Long.valueOf(1), Long.valueOf(2), Long.valueOf(3), Long.valueOf(4), Long.valueOf(5));
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "personid",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testVariableField() {
-        int index = 2;
-        executeQuery(index, null);
+        Object expectedResult = Arrays.asList(new Object[]{new Long(1)});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QProject p = QProject.variable("p");
+        query.result(false, p.projid);
+        query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "p.projid",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projects.contains(p) && personid == 1",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testVariable() {
-        int index = 3;
-        executeQuery(index, null);
+        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"proj1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QProject variable = QProject.variable("p");
+        query.result(false, variable);
+        query.filter(cand.projects.contains(variable).and(cand.personid.eq(1l)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "p",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projects.contains(p) && personid == 1",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Project.class, expectedResult);
     }
 
     /** */
     public void testCountThis() {
-        int index = 4;
-        executeQuery(index, null);
+        // COUNT(this)
+        Object expectedResult = Long.valueOf(5);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.count());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(this)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testCountVariable() {
-        int index = 5;
-        executeQuery(index, null);
+        // COUNT(variable)
+        Object expectedResult = Long.valueOf(1);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QProject p = QProject.variable("p");
+        query.result(false, p.count());
+        query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(p)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projects.contains(p) && personid == 1",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testSum() {
-        int index = 6;
-        executeQuery(index, null);
+        // SUM
+        Object expectedResult = new Long(1+2+3+4+5);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid.sum());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(personid)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testMin() {
-        int index = 7;
-        executeQuery(index, null);
+        // MIN
+        Object expectedResult = Long.valueOf(1);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid.min());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(personid)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testMax() {
-        int index = 8;
-        executeQuery(index, null);
+        // MAX
+        Object expectedResult = Long.valueOf(5);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid.max());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(personid)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testAvg() {
-        int index = 9;
-        executeQuery(index, null);
+        // AVG
+        Object expectedResult = new Double(3);
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid.avg());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(personid)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expectedResult);
     }
 
     /** */
     public void testFieldExpression() {
-        int index = 10;
-        executeQuery(index, null);
+        // field expression
+        Object expectedResult = Arrays.asList(
+                Long.valueOf(2), Long.valueOf(3), Long.valueOf(4), Long.valueOf(5), Long.valueOf(6));
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand.personid.add(1));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "personid + 1",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testNavigationalExpressionThis() {
-        int index = 11;
-        executeQuery(index, null);
+        // navigational expression this
+        Object expectedResult = Arrays.asList(
+                Long.valueOf(1), Long.valueOf(2),Long.valueOf(3), Long.valueOf(4), Long.valueOf(5));
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.personid);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "this.personid",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testNavigationalExpressionVariable() {
-        int index = 12;
-        executeQuery(index, null);
+        // navigational expression variable
+        Object expectedResult =
+                Arrays.asList(new Object[]{"Development", "Human Resources"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QEmployee e = QEmployee.variable("e");
+        Expression<Employee> eExpr = query.variable("e", Employee.class);
+        query.result(true, e.department.name);
+        query.filter(cand.team.contains(eExpr).and(cand.personid.eq(2l)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "distinct e.department.name",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "team.contains(e) && personid == 2",
+                /*VARIABLES*/   "Employee e",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        // DataNucleus: wrong result: [Development, Development, Development, Development]
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expectedResult);
     }
 
     /** */
     public void testNavigationalExpressionParameter() {
-        int index = 13;
-        Object[] parameters = getPersistentCompanyModelInstances(new String[]{"proj1"});
-        executeQuery(index, parameters);
+        // navigational expression parameter
+        Object expectedResult = Arrays.asList(Long.valueOf(1));
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QProject p = QProject.parameter("p");
+        query.parameter("p", Project.class);
+        query.result(false, p.projid);
+        query.filter(cand.personid.eq(1l).and(p.projid.eq(cand.personid)));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "p.projid",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1 && p.projid == this.personid",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Project p",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testNavigationalExpressionField() {
-        int index = 14;
-        executeQuery(index, null);
+        // navigational expression field
+        Object expectedResult = Arrays.asList(new Object[]{new Long(1)});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.department.deptid);
+        query.filter(cand.personid.eq(1l));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "department.deptid",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
     }
 
     /** */
     public void testParameter() {
-        int index = 15;
-        Object[] parameters = getPersistentCompanyModelInstances(new String[]{"proj1"});
-        executeQuery(index, parameters);
+        // parameter
+        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"proj1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QProject p = QProject.parameter("p");
+        query.parameter("p", Project.class);
+        query.result(false, p);
+        query.filter(cand.personid.eq(1l).and(cand.personid.eq(p.projid)));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "p",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1 && personid == p.projid",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Project p",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Project.class, expectedResult);
     }
 
     /** */
     public void testCast() {
-        int index = 16;
-        executeQuery(index, null);
+        // cast
+        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //query.result(false, cand.manager.cast(FullTimeEmployee.class));
+        //query.filter(cand.personid.eq(1l));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "(FullTimeEmployee)manager",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, FullTimeEmployee.class, expectedResult);
     }
 
     /** */
@@ -554,14 +697,6 @@ public class ResultExpressions extends QueryTest {
             compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
                     false);
         }
-    }
-
-    /** */
-    private void executeQuery(int index, Object[] parameters) {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult[index]);
     }
 
     /**

@@ -17,6 +17,7 @@
  
 package org.apache.jdo.tck.pc.mylib;
 
+import javax.jdo.annotations.PersistenceCapable;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +26,7 @@ import java.util.Date;
 *
 * @author Marina Vatkina
 */
+@PersistenceCapable
 public class VersionedPCPoint implements Serializable {
     
     

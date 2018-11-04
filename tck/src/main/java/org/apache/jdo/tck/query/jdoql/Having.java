@@ -22,9 +22,12 @@ import java.util.Arrays;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Having.
@@ -42,43 +45,7 @@ public class Having extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.10-2 (Having) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, AVG(weeklyhours)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING COUNT(department) > 0",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        // HAVING clause uses field that isn't contained in the SELECT clause.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, AVG(weeklyhours)",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department HAVING COUNT(personid) > 1",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
+
     /** 
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
@@ -115,26 +82,6 @@ public class Having extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null)
     };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        Arrays.asList(new Object[] {
-            new Object[] {
-                    getTransientCompanyModelInstance("dept1"),
-                    new Double(33.0)},
-            new Object[] {
-                    getTransientCompanyModelInstance("dept2"),
-                    new Double(0.0)}}),
-        Arrays.asList(new Object[] {
-            new Object[] {
-                    getTransientCompanyModelInstance("dept1"),
-                    new Double(33.0)},
-            new Object[] {
-                    getTransientCompanyModelInstance("dept2"),
-                    new Double(0.0)}})
-    };
         
     /**
      * The <code>main</code> is called when the class
@@ -144,17 +91,82 @@ public class Having extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(Having.class);
     }
-    
+
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive0() {
+        Object expected = Arrays.asList(new Object[] {
+                new Object[] {
+                        getTransientCompanyModelInstance("dept1"),
+                        new Double(33.0)},
+                new Object[] {
+                        getTransientCompanyModelInstance("dept2"),
+                        new Double(0.0)}});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.groupBy(cand.department).having(cand.department.count().gt(0L));
+        query.result(false, cand.department, cand.weeklyhours.avg());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "department, AVG(weeklyhours)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    "department HAVING COUNT(department) > 0",
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
+    /** */
+    public void testPositive1() {
+        // HAVING clause uses field that isn't contained in the SELECT clause.
+        Object expected = Arrays.asList(new Object[] {
+                new Object[] {
+                        getTransientCompanyModelInstance("dept1"),
+                        new Double(33.0)},
+                new Object[] {
+                        getTransientCompanyModelInstance("dept2"),
+                        new Double(0.0)}});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.groupBy(cand.department).having(cand.personid.count().gt(1L));
+        query.result(false, cand.department, cand.weeklyhours.avg());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "department, AVG(weeklyhours)",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    "department HAVING COUNT(personid) > 1",
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null ,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
+    }
+    
     /** */
     public void testNegative() {
         for (int i = 0; i < INVALID_QUERIES.length; i++) {

@@ -20,9 +20,12 @@ package org.apache.jdo.tck.query.jdoql;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
+import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Character and String Literals.
@@ -80,49 +83,6 @@ public class CharacterAndStringLiterals extends QueryTest {
         /*TO*/          null)
     };
     
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "stringNull.startsWith('Even') || charNotNull == 'O'",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "stringNull.startsWith(\"Even\") || charNotNull == \"O\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientMylibInstancesAsList(new String[]{
-            "primitiveTypesCharacterStringLiterals"})
-    };
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -131,17 +91,71 @@ public class CharacterAndStringLiterals extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(CharacterAndStringLiterals.class);
     }
-    
-    /** */
-    public void testPositive() {
-        if (isUnconstrainedVariablesSupported()) {
-            for (int i = 0; i < VALID_QUERIES.length; i++) {
-                executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-                executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-            }
-        }
+
+    /**
+     *
+     */
+    public void testPositive1() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                        "primitiveTypesCharacterStringLiterals"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "stringNull.startsWith('Even') || charNotNull == 'O'",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /**
+     * 
+     */
+    public void testPositive2() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesCharacterStringLiterals"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "stringNull.startsWith(\"Even\") || charNotNull == \"O\"",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */

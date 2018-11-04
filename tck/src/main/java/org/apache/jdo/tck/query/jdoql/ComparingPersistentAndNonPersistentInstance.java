@@ -20,9 +20,15 @@ package org.apache.jdo.tck.query.jdoql;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *<B>Title:</B> Comparing persistent and non-persistent instance
@@ -42,55 +48,6 @@ public class ComparingPersistentAndNonPersistentInstance
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-44 (ComparingPersistentAndNonPersistentInstance) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this == param",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "Employee param",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.personid == param.personid",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "Employee param",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-            getTransientCompanyModelInstancesAsList(new String[]{}),
-            getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
-    };
-    
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        {getTransientCompanyModelInstance("emp1")},
-        {getTransientCompanyModelInstance("emp1")}
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -100,15 +57,74 @@ public class ComparingPersistentAndNonPersistentInstance
     public static void main(String[] args) {
         BatchTestRunner.run(ComparingPersistentAndNonPersistentInstance.class);
     }
-    
+
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-        }
+    public void testPositive0() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        Expression<Employee> empParam = query.parameter("param", Employee.class);
+        query.filter(cand.eq(empParam));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this == param",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Employee param",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositive1() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        Expression<Employee> empParamExpression = query.parameter("param", Employee.class);
+        QEmployee empParam = QEmployee.parameter("param");
+        query.filter(cand.personid.eq(empParam.personid));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.personid == param.personid",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Employee param",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

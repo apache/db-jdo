@@ -21,9 +21,15 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Project;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *<B>Title:</B> Null Collections and Contains Method
@@ -43,62 +49,6 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-35 (NullCollectionsAndContainsMethod) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // contains 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1 && projects.contains(p)",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "org.apache.jdo.tck.pc.company.Project p",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        // contains 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "!team.contains(null)",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // contains 
-        getTransientCompanyModelInstancesAsList(new String[]{}),
-        // contains 
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"})
-    };
-    
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        // contains 
-        {new Project(999l, "TestProject", null)},
-        // contains 
-        null
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -108,15 +58,79 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(NullCollectionsAndContainsMethod.class);
     }
-    
-    /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-        }
+
+    /**
+     *
+     */
+    public void testContains1() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        Expression<Project> empParam = query.parameter("p", Project.class);
+        query.filter(cand.personid.eq(1L).and(cand.projects.contains(empParam)));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+
+        // contains
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1 && projects.contains(p)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "org.apache.jdo.tck.pc.company.Project p",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /**
+     *
+     */
+    public void testContains2() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        Expression<Project> empParam = query.parameter("p", Project.class);
+        query.filter(cand.projects.contains(empParam));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+
+        // contains
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projects.contains(p)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "org.apache.jdo.tck.pc.company.Project p",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

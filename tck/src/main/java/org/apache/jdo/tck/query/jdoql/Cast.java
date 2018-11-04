@@ -21,9 +21,16 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.QDepartment;
+import org.apache.jdo.tck.pc.company.QEmployee;
+import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
 
 /**
  *<B>Title:</B> Cast Query Operator
@@ -43,49 +50,6 @@ public class Cast extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-38 (Cast) failed: ";
     
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "((FullTimeEmployee)this).salary > 15000.0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && ((FullTimeEmployee)e).salary > 15000.0",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-        
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"})
-    };
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -96,13 +60,70 @@ public class Cast extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive0() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp5"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
+        //query.filter(cast.salary.gt(15000.0));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "((FullTimeEmployee)this).salary > 15000.0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositive1() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1", "dept2"});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
+        //query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && ((FullTimeEmployee)e).salary > 15000.0",
+                /*VARIABLES*/   "Employee e",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.FullTimeEmployee",
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  null,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

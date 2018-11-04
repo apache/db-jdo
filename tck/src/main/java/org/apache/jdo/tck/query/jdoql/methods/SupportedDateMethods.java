@@ -20,9 +20,12 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Supported Date methods.
@@ -44,64 +47,6 @@ public class SupportedDateMethods extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-60 (SupportedDateMethods) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "birthdate.getDate() == 10",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "birthdate.getMonth() == 5",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "birthdate.getYear() == 1970",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-    };
-
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -114,20 +59,92 @@ public class SupportedDateMethods extends QueryTest {
     
     /** */
     public void testGetDate() {
-        int index = 0;
-        executeQuery(index);
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.birthdate.getDay().eq(10));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "birthdate.getDate() == 10",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /** */
     public void testGetMonth() {
-        int index = 1;
-        executeQuery(index);
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.birthdate.getMonth().eq(5));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "birthdate.getMonth() == 5",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testGetYear() {
-        int index = 2;
-        executeQuery(index);
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.birthdate.getYear().eq(1970));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "birthdate.getYear() == 1970",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
@@ -138,11 +155,4 @@ public class SupportedDateMethods extends QueryTest {
         loadAndPersistCompanyModel(getPM());
     }
 
-    /** */
-    private void executeQuery(int index) {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
 }

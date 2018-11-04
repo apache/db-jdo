@@ -17,17 +17,21 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
+import javax.jdo.query.NumericExpression;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
+import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *<B>Title:</B>Supported list methods
@@ -48,53 +52,6 @@ public class SupportedListMethods extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-58 (SupportedListMethods) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // get(PARAMETER) in filter
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null,
-                /*INTO*/        null,
-                /*FROM*/        Department.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "meetingRooms.get(pos) == room1",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "int pos, MeetingRoom room1",
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        // get(LITERAL) in result
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      "meetingRooms.get(1)",
-                /*INTO*/        null,
-                /*FROM*/        Department.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "deptid == 1",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null)
-    };
-
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // get(PARAMETER) in filter
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
-        // get(LITERAL) in result
-        getTransientCompanyModelInstancesAsList(new String[]{"room2"})
-    };
 
     /**
      * The <code>main</code> is called when the class
@@ -107,23 +64,73 @@ public class SupportedListMethods extends QueryTest {
 
     /** */
     public void testGetInFilter() {
-        int index = 0;
+        // get(PARAMETER) in filter
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        Expression<MeetingRoom> roomParam = query.parameter("room1", MeetingRoom.class);
+        NumericExpression<?> posParam = query.numericParameter("pos");
+        query.filter(cand.meetingRooms.get(posParam).eq(roomParam));
+
         getPM().currentTransaction().begin();
-        Object[] parameters = new Object[]{1, getPersistentCompanyModelInstance("room2")};
-        getPM().currentTransaction().commit(); 
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult[index]);
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("pos", Integer.valueOf(1));
+        paramValues.put("room1", getPersistentCompanyModelInstance("room2"));
+        getPM().currentTransaction().commit();
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "meetingRooms.get(pos) == room1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "int pos, MeetingRoom room1",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testGetInResult() {
-        int index = 1;
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
+        // get(LITERAL) in result
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"room2"});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        query.result(false, cand.meetingRooms.get(1));
+        query.filter(cand.deptid.eq(1L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "meetingRooms.get(1)",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "deptid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, MeetingRoom.class, expected);
     }
 
     /**

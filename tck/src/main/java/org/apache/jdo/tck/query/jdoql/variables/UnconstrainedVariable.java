@@ -20,9 +20,15 @@ package org.apache.jdo.tck.query.jdoql.variables;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.NumericExpression;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *<B>Title:</B> Unconstrained Variables.
@@ -41,40 +47,6 @@ public class UnconstrainedVariable extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.5-1 (UnconstrainedVariable) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.hireDate > e.hireDate & e.personid = id",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  "int id",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp2", "emp3", "emp4"})
-    };
-            
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        {new Integer(1)},
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -88,12 +60,37 @@ public class UnconstrainedVariable extends QueryTest {
     /** */
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
-            for (int i = 0; i < VALID_QUERIES.length; i++) {
-                executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        parameters[i], expectedResult[i]);
-                executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        parameters[i], expectedResult[i]);
-            }
+            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp4"});
+
+            JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+            QEmployee cand = QEmployee.candidate();
+            QEmployee e = QEmployee.variable("e");
+            NumericExpression<?> param = query.numericParameter("id");
+            query.filter(cand.hiredate.gt(e.hiredate).and(e.hiredate.eq(param)));
+
+            Map<String, Object> paramValues = new HashMap<>();
+            paramValues.put("id", Integer.valueOf(1));
+
+            QueryElementHolder holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "this.hiredate > e.hiredate & e.personid = id",
+                    /*VARIABLES*/   "Employee e",
+                    /*PARAMETERS*/  "int id",
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  query,
+                    /*paramValues*/ paramValues);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expected);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
         }
     }
     

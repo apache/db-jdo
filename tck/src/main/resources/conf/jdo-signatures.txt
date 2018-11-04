@@ -1727,6 +1727,12 @@ public interface javax.jdo.JDOQLTypedQuery extends java.io.Serializable, java.io
     javax.jdo.JDOQLTypedQuery excludeSubclasses();
     javax.jdo.JDOQLTypedQuery includeSubclasses();
     javax.jdo.JDOQLTypedQuery filter(javax.jdo.query.BooleanExpression expr);
+    javax.jdo.query.IfThenElseExpression ifThen(java.lang.Class, javax.jdo.query.BooleanExpression, javax.jdo.query.Expression);
+    javax.jdo.query.IfThenElseExpression ifThen(javax.jdo.query.BooleanExpression, java.lang.Object);
+    javax.jdo.query.IfThenElseExpression ifThenElse(javax.jdo.query.BooleanExpression, java.lang.Object, java.lang.Object);
+    javax.jdo.query.IfThenElseExpression ifThenElse(javax.jdo.query.BooleanExpression, javax.jdo.query.Expression, java.lang.Object);
+    javax.jdo.query.IfThenElseExpression ifThenElse(javax.jdo.query.BooleanExpression, java.lang.Object, javax.jdo.query.Expression);
+    javax.jdo.query.IfThenElseExpression ifThenElse(java.lang.Class, javax.jdo.query.BooleanExpression, javax.jdo.query.Expression, javax.jdo.query.Expression);
     varargs javax.jdo.JDOQLTypedQuery groupBy(javax.jdo.query.Expression[] exprs);
     javax.jdo.JDOQLTypedQuery having(javax.jdo.query.Expression expr);
     varargs javax.jdo.JDOQLTypedQuery orderBy(javax.jdo.query.OrderExpression[] orderExprs);
@@ -1817,8 +1823,8 @@ public interface javax.jdo.query.ComparableExpression extends javax.jdo.query.Ex
     javax.jdo.query.BooleanExpression gt(Object t);
     javax.jdo.query.BooleanExpression gteq(javax.jdo.query.ComparableExpression expr);
     javax.jdo.query.BooleanExpression gteq(Object t);
-    javax.jdo.query.NumericExpression min();
-    javax.jdo.query.NumericExpression max();
+    javax.jdo.query.ComparableExpression min();
+    javax.jdo.query.ComparableExpression max();
     javax.jdo.query.OrderExpression asc();
     javax.jdo.query.OrderExpression desc();
 }
@@ -1859,6 +1865,8 @@ public interface javax.jdo.query.ListExpression extends javax.jdo.query.Collecti
 }
 public interface javax.jdo.query.MapExpression extends javax.jdo.query.Expression
 {
+    javax.jdo.query.Expression get(javax.jdo.query.Expression);
+    javax.jdo.query.Expression get(java.lang.Object);
     javax.jdo.query.BooleanExpression containsKey(javax.jdo.query.Expression expr);
     javax.jdo.query.BooleanExpression containsKey(Object key);
     javax.jdo.query.BooleanExpression containsValue(javax.jdo.query.Expression expr);
@@ -1883,7 +1891,9 @@ public interface javax.jdo.query.NumericExpression extends javax.jdo.query.Compa
     javax.jdo.query.NumericExpression neg();
     javax.jdo.query.NumericExpression com();
     javax.jdo.query.NumericExpression avg();
+    javax.jdo.query.NumericExpression avgDistinct();
     javax.jdo.query.NumericExpression sum();
+    javax.jdo.query.NumericExpression sumDistinct();
     javax.jdo.query.NumericExpression abs();
     javax.jdo.query.NumericExpression sqrt();
     javax.jdo.query.NumericExpression acos();
@@ -1908,6 +1918,9 @@ public interface javax.jdo.query.OrderExpression
 {
     enum javax.jdo.query.OrderExpression$OrderDirection getDirection();
     javax.jdo.query.Expression getExpression();
+    enum javax.jdo.query.OrderExpression$OrderNullsPosition getNullsPosition();
+    javax.jdo.query.OrderExpression nullsFirst();
+    javax.jdo.query.OrderExpression nullsLast();
 }
 
 public interface javax.jdo.query.PersistableExpression extends javax.jdo.query.Expression
@@ -1937,6 +1950,8 @@ public interface javax.jdo.query.StringExpression extends javax.jdo.query.Compar
     javax.jdo.query.BooleanExpression matches(String str);
     javax.jdo.query.BooleanExpression startsWith(javax.jdo.query.StringExpression expr);
     javax.jdo.query.BooleanExpression startsWith(String str);
+    javax.jdo.query.BooleanExpression startsWith(javax.jdo.query.StringExpression, int);
+    javax.jdo.query.BooleanExpression startsWith(java.lang.String, int);
     javax.jdo.query.StringExpression substring(javax.jdo.query.NumericExpression pos);
     javax.jdo.query.StringExpression substring(int pos);
     javax.jdo.query.StringExpression substring(javax.jdo.query.NumericExpression startPos, javax.jdo.query.NumericExpression endPos);

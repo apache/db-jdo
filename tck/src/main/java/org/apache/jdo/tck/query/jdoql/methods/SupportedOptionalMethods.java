@@ -20,6 +20,8 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.jdo.PersistenceManager;
@@ -156,7 +158,9 @@ public class SupportedOptionalMethods extends QueryTest {
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
-                /*TO*/          null);
+                /*TO*/          null,
+                /*JDOQLTyped*/  null,
+                /*paramValues*/ null);
 
         ArrayList<Object> expectedResults = new ArrayList<>();
         Transaction tx = pm.currentTransaction();
@@ -181,18 +185,23 @@ public class SupportedOptionalMethods extends QueryTest {
     public void testParameterOptional() {
         OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
         String paramDecl = "java.util.Optional op";
+        Map<String, Object> paramValues = new HashMap<>();
+
+        paramValues.put("op", Optional.of(osReferencedPC1));
         checkQuery("this.optionalPC == op", paramDecl, 
-                new Object[]{Optional.of(osReferencedPC1)}, 
-                new Object[]{oidPC});
-        checkQuery("this.optionalDate == op", paramDecl,  
-                new Object[]{Optional.of(DATE)}, 
-                new Object[]{oidPC});
-        checkQuery("this.optionalInteger == op", paramDecl,  
-                new Object[]{Optional.of(INTEGER)}, 
-                new Object[]{oidPC});
-        checkQuery("this.optionalString == op", paramDecl,  
-                new Object[]{Optional.of(STRING)}, 
-                new Object[]{oidPC});
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", Optional.of(DATE));
+        checkQuery("this.optionalDate == op", paramDecl,
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", Optional.of(INTEGER));
+        checkQuery("this.optionalInteger == op", paramDecl,
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", Optional.of(STRING));
+        checkQuery("this.optionalString == op", paramDecl,
+                paramValues, new Object[]{oidPC});
     }
 
     /**
@@ -201,18 +210,27 @@ public class SupportedOptionalMethods extends QueryTest {
      */
     public void testParameterOptionalAutoDeref() {
         OptionalSample osReferencedPC1 = getOptionalSampleById(oidReferencedPC1);
-        checkQuery("this.optionalPC == op", 
+        Map<String, Object> paramValues = new HashMap<>();
+
+        paramValues.put("op", osReferencedPC1);
+        checkQuery("this.optionalPC == op",
                 OptionalSample.class.getName() + " op", 
-                new Object[]{osReferencedPC1}, new Object[]{oidPC});
-        checkQuery("this.optionalDate == op", 
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", DATE);
+        checkQuery("this.optionalDate == op",
                 "java.util.Date op",  
-                new Object[]{DATE}, new Object[]{oidPC});
-        checkQuery("this.optionalInteger == op", 
-                "Integer op",  
-                new Object[]{INTEGER}, new Object[]{oidPC});
-        checkQuery("this.optionalString == op", 
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", INTEGER);
+        checkQuery("this.optionalInteger == op",
+                "Integer op",
+                paramValues, new Object[]{oidPC});
+
+        paramValues.put("op", STRING);
+        checkQuery("this.optionalString == op",
                 "String op",  
-                new Object[]{STRING}, new Object[]{oidPC});
+                paramValues, new Object[]{oidPC});
     }
 
     private OptionalSample getOptionalSampleById(Object id) {
@@ -233,14 +251,15 @@ public class SupportedOptionalMethods extends QueryTest {
      */
     public void testParameterOptionalWithEmptyFields() {
         String paramDecl = "java.util.Optional op";
-        Object[] params = new Object[]{Optional.empty()}; 
-        checkQuery("this.optionalPC == op", paramDecl, params, 
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("op", Optional.empty());
+        checkQuery("this.optionalPC == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC2});
-        checkQuery("this.optionalDate == op", paramDecl, params, 
+        checkQuery("this.optionalDate == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalInteger == op", paramDecl, params, 
+        checkQuery("this.optionalInteger == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalString == op", paramDecl, params, 
+        checkQuery("this.optionalString == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
     }
 
@@ -250,14 +269,15 @@ public class SupportedOptionalMethods extends QueryTest {
      */
     public void testParameterOptionalWithNull() {
         String paramDecl = "java.util.Optional op";
-        Object[] params = new Object[]{null}; 
-        checkQuery("this.optionalPC == op", paramDecl, params, 
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("op", null);
+        checkQuery("this.optionalPC == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC2});
-        checkQuery("this.optionalDate == op", paramDecl, params, 
+        checkQuery("this.optionalDate == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalInteger == op", paramDecl, params, 
+        checkQuery("this.optionalInteger == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalString == op", paramDecl, params, 
+        checkQuery("this.optionalString == op", paramDecl, paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
     }
 
@@ -266,14 +286,15 @@ public class SupportedOptionalMethods extends QueryTest {
      * (Object)null.
      */
     public void testParameterOptionalNull() {
-        Object[] params = new Object[]{null}; 
-        checkQuery("this.optionalPC == op", OptionalSample.class.getName() + " op", params, 
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("op", null);
+        checkQuery("this.optionalPC == op", OptionalSample.class.getName() + " op", paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC2});
-        checkQuery("this.optionalDate == op", "java.util.Date op", params, 
+        checkQuery("this.optionalDate == op", "java.util.Date op", paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalInteger == op", "java.lang.Integer op", params, 
+        checkQuery("this.optionalInteger == op", "java.lang.Integer op", paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
-        checkQuery("this.optionalString == op", "java.lang.String op", params, 
+        checkQuery("this.optionalString == op", "java.lang.String op", paramValues,
                 new Object[]{oidEmpty, oidNull, oidReferencedPC1, oidReferencedPC2});
 
     }
@@ -352,7 +373,7 @@ public class SupportedOptionalMethods extends QueryTest {
                             false, null, expectedResults, true);
     }
 
-    private void checkQuery(String filter, String paramDecl, Object[] params, Object[] result) {
+    private void checkQuery(String filter, String paramDecl, Map<String, ?> paramValues, Object[] result) {
         QueryElementHolder qeh = new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
@@ -366,7 +387,9 @@ public class SupportedOptionalMethods extends QueryTest {
                 /*GROUP BY*/    null,
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
-                /*TO*/          null);
+                /*TO*/          null,
+                /*JDOQLTyped*/   null,
+                /*paramValues*/  paramValues);
 
         ArrayList<Object> expectedResults = new ArrayList<>();
         PersistenceManager pm  = getPM();
@@ -387,8 +410,8 @@ public class SupportedOptionalMethods extends QueryTest {
             }
         }
 
-        executeAPIQuery(ASSERTION_FAILED, qeh, params, expectedResults);
-        executeSingleStringQuery(ASSERTION_FAILED, qeh, params, expectedResults);
+        executeAPIQuery(ASSERTION_FAILED, qeh, expectedResults);
+        executeSingleStringQuery(ASSERTION_FAILED, qeh, expectedResults);
     }
 
 

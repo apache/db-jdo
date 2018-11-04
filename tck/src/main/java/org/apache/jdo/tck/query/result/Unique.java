@@ -17,11 +17,13 @@
 
 package org.apache.jdo.tck.query.result;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -47,64 +49,6 @@ public class Unique extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.11-1 (Unique) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    "personid ASCENDING",
-        /*FROM*/        "0",
-        /*TO*/          "1"),
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstance("emp1"),
-        null,
-        getTransientCompanyModelInstance("emp1")
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -116,13 +60,93 @@ public class Unique extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive0() {
+        Object expected = getTransientCompanyModelInstance("emp1");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositive1() {
+        Object expected = null;
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(0l));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositive2() {
+        Object expected = getTransientCompanyModelInstance("emp1");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.orderBy(cand.personid.asc());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    "personid ASCENDING",
+                /*FROM*/        "0",
+                /*TO*/          "1",
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     public void testNegative() {

@@ -18,8 +18,10 @@
 package org.apache.jdo.tck.query;
 
 import javax.jdo.Extent;
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import java.util.Map;
 
 /**
  * This class is an abstraction of a JDOQL query,
@@ -56,6 +58,8 @@ public class QueryElementHolder {
     private String toString;
     private Long   fromLong;
     private Long   toLong;
+    private JDOQLTypedQuery<?> jdoqlTypedQuery;
+    private Map<String, ?> paramValues;
     
     /**
      * Returns an instance of this class holding the given arguments
@@ -103,7 +107,58 @@ public class QueryElementHolder {
         this.fromString = from;
         this.toString = to;
     }
-    
+
+    /**
+     * Returns an instance of this class holding the given arguments
+     * such as the candidate class, the filter, etc.
+     * The given arguments represent JDOQL query elements.
+     * It is valid to pass <code>null</code> as a value
+     * for JDOQL querys elements. Such elements are not transfered into a
+     * JDO {@link javax.jdo.Query} instance.
+     * Instead, the default of JDO {@link javax.jdo.Query} instance is taken.
+     * @param unique the JDOQL unique query element
+     * @param result the JDOQL result query element
+     * @param resultClass the JDOQL result class query element
+     * @param candidateClass the JDOQL candidate class query element
+     * @param excludeSubClasses the JDOQL exclude subclasses query element
+     * @param filter the JDOQL filter query element
+     * @param variables the JDOQL variables query element
+     * @param parameters the JDOQL parameters query element
+     * @param imports the JDOQL imports query element
+     * @param grouping the JDOQL grouping query element
+     * @param ordering the JDOQL ordering query element
+     * @param from the JDOQL range from query element
+     * @param to the JDOQL range to query element
+     */
+    public QueryElementHolder(Boolean unique, String result,
+                              Class resultClass, Class candidateClass,
+                              Boolean excludeSubClasses, String filter,
+                              String variables, String parameters, String imports,
+                              String grouping, String ordering, String from, String to,
+                              JDOQLTypedQuery<?> jdoqlTypedQuery,
+                              Map<String, ?> paramValues) {
+        if (from == null ^ to == null) {
+            throw new IllegalArgumentException(
+                    "Arguments from and to must both be null, " +
+                            "or must not be null both.");
+        }
+        this.unique = unique;
+        this.result = result;
+        this.resultClass = resultClass;
+        this.candidateClass = candidateClass;
+        this.excludeSubClasses = excludeSubClasses;
+        this.filter = filter;
+        this.variables = variables;
+        this.parameters = parameters;
+        this.imports = imports;
+        this.grouping = grouping;
+        this.ordering = ordering;
+        this.fromString = from;
+        this.toString = to;
+        this.jdoqlTypedQuery = jdoqlTypedQuery;
+        this.paramValues = paramValues;
+    }
+
     /**
      * Returns an instance of this class holding the given arguments
      * such as the candidate class, the filter, etc. 
@@ -144,6 +199,52 @@ public class QueryElementHolder {
         this.ordering = ordering;
         this.fromLong = new Long(from);
         this.toLong = new Long(to);
+    }
+
+    /**
+     * Returns an instance of this class holding the given arguments
+     * such as the candidate class, the filter, etc.
+     * The given arguments represent JDOQL query elements.
+     * It is valid to pass <code>null</code> as a value
+     * for JDOQL querys elements. Such elements are not transfered into a
+     * JDO {@link javax.jdo.Query} instance.
+     * Instead, the default of JDO {@link javax.jdo.Query} instance is taken.
+     * @param unique the JDOQL unique query element
+     * @param result the JDOQL result query element
+     * @param resultClass the JDOQL result class query element
+     * @param candidateClass the JDOQL candidate class query element
+     * @param excludeSubClasses the JDOQL exclude subclasses query element
+     * @param filter the JDOQL filter query element
+     * @param variables the JDOQL variables query element
+     * @param parameters the JDOQL parameters query element
+     * @param imports the JDOQL imports query element
+     * @param grouping the JDOQL grouping query element
+     * @param ordering the JDOQL ordering query element
+     * @param from the JDOQL from query element
+     * @param to the JDOQL to query element
+     */
+    public QueryElementHolder(Boolean unique, String result,
+                              Class resultClass, Class candidateClass,
+                              Boolean excludeSubClasses, String filter,
+                              String variables, String parameters, String imports,
+                              String grouping, String ordering, long from, long to,
+                              JDOQLTypedQuery<?> jdoqlTypedQuery,
+                              Map<String, ?> paramValues) {
+        this.unique = unique;
+        this.result = result;
+        this.resultClass = resultClass;
+        this.candidateClass = candidateClass;
+        this.excludeSubClasses = excludeSubClasses;
+        this.filter = filter;
+        this.variables = variables;
+        this.parameters = parameters;
+        this.imports = imports;
+        this.grouping = grouping;
+        this.ordering = ordering;
+        this.fromLong = new Long(from);
+        this.toLong = new Long(to);
+        this.jdoqlTypedQuery = jdoqlTypedQuery;
+        this.paramValues = paramValues;
     }
     
     /**
@@ -226,7 +327,18 @@ public class QueryElementHolder {
         rangeToAPI(query);
         return query;
     }
-    
+
+    /**
+     * Returns the JDOQLTypedQuery instance.
+     * @return the JDOQLTypedQuery instance
+     */
+    public JDOQLTypedQuery<?> getJDOQLTypedQuery() {
+        if (this.jdoqlTypedQuery != null) {
+            this.rangeToJDOQLTypedQuery(this.jdoqlTypedQuery);
+        }
+        return this.jdoqlTypedQuery;
+    }
+
     /**
      * Returns the unique JDOQL query element.
      * @return the unique JDOQL query element.
@@ -249,6 +361,14 @@ public class QueryElementHolder {
      */
     public Class getCandidateClass() {
         return this.candidateClass;
+    }
+
+    /**
+     * Returns the map of parameter values.
+     * @return the map of parameter values
+     */
+    public Map<String, ?> getParamValues() {
+        return this.paramValues;
     }
 
     /**
@@ -332,6 +452,19 @@ public class QueryElementHolder {
         } 
         else if (this.fromLong != null && this.toLong != null) {
             query.setRange(this.fromLong.longValue(), this.toLong.longValue());
+        }
+    }
+
+    /**
+     * Call JDOQLTypedQuery API method {@link javax.jdo.JDOQLTypedQuery#range(long, long)}.
+     * @param query the JDOQLTypedQuery instance
+     */
+    private void rangeToJDOQLTypedQuery(JDOQLTypedQuery query) {
+        if (this.fromString != null && this.toString != null) {
+            query.range(Long.parseLong(this.fromString),  Long.parseLong(this.toString));
+        }
+        else if (this.fromLong != null && this.toLong != null) {
+            query.range(this.fromLong.longValue(), this.toLong.longValue());
         }
     }
 }

@@ -22,10 +22,13 @@ import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
+import org.apache.jdo.tck.pc.company.QEmployee;
+import org.apache.jdo.tck.pc.company.QMedicalInsurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import java.util.Calendar;
@@ -64,188 +67,6 @@ public class NavigationComparisonWithNull extends QueryTest {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
 
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // 0: simple manager check being nill
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 1: simple manager check being not null
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager != null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 2: simple manager check being not null using not operator
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "!(this.manager == null)",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 3: manager's manager check
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager.manager == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 4: manager's manager check with extra check on first level manager
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager != null && this.manager.manager == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 5 : manager's manager check not being null
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager.manager != null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 6 : manager's manager check not being null using not operator
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "!(this.manager.manager == null)",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 7 : multiple relationships 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        MedicalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.employee.manager.manager == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // 8 : multiple relationships 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        MedicalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.employee != null && this.employee.manager != null && this.employee.manager.manager == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 9 : multiple relationships 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        MedicalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.employee.manager.manager != null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // 10 : multiple relationships 
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null,
-        /*FROM*/        MedicalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "!(this.employee.manager.manager == null)",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-
     /**
      * Manager relationship:
      * emp0
@@ -261,47 +82,6 @@ public class NavigationComparisonWithNull extends QueryTest {
      *   emp9
      */
     
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // 0 : this.manager == null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp0", "emp4", "emp7"}),
-        // 1 : this.manager != null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"}),
-        // 2 : !(this.manager == null)
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"}),
-        
-        // 3 : this.manager.manager == null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp0", "emp1", "emp4", "emp5", "emp6", "emp7", "emp8", "emp9"}),
-        // 4: this.manager != null && this.manager.manager == null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp5", "emp6", "emp8", "emp9"}),
-        // 5 : this.manager.manager != null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp2", "emp3", "emp10"}),
-        // 6 : !(this.manager.manager == null)
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp2", "emp3", "emp10"}),
-
-        // 7 : this.employee.manager.manager == null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns1", "medicalIns4", "medicalIns5", "medicalIns98"}),
-        // 8 : this.employee != null && this.employee.manager != null && this.employee.manager.manager == null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns1",  "medicalIns5"}),
-        // 9 : this.employee.manager.manager != null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"}),
-        // 10 : !(this.employee.manager.manager == null)
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"})
-    };
-    
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -315,30 +95,100 @@ public class NavigationComparisonWithNull extends QueryTest {
      * this.manager == null
      */
     public void testPositive0() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[0], 
-                        expectedResult[0]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[0], 
-                                 expectedResult[0]);
+        // 0: simple manager check being null
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp0", "emp4", "emp7"});
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.eq((Employee)null));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * this.manager != null
      */
     public void testPositive1() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[1], 
-                        expectedResult[1]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[1], 
-                                 expectedResult[1]);
+        // 1: simple manager check being not null
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"});
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.ne((Employee)null));
+        
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager != null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * !(this.manager == null)
      */
     public void testPositive2() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[2], 
-                        expectedResult[2]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[2], 
-                                 expectedResult[2]);
+        // 2: simple manager check being not null using not operator
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"});
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.eq((Employee)null).not());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "!(this.manager == null)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
@@ -346,40 +196,138 @@ public class NavigationComparisonWithNull extends QueryTest {
      * Disabled, because it currently fails on the RI.
      */
     public void testPositive3() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[3], 
-                        expectedResult[3]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[3], 
-                                 expectedResult[3]);
+        // 3: manager's manager check
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp0", "emp1", "emp4", "emp5", "emp6", "emp7", "emp8", "emp9"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.manager.eq((Employee)null));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager.manager == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**
      * this.manager != null && this.manager.manager == null
      */
     public void testPositive4() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[4], 
-                        expectedResult[4]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[4], 
-                                 expectedResult[4]);
+       // 4: manager's manager check with extra check on first level manager
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp1", "emp5", "emp6", "emp8", "emp9"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.ne((Employee)null).and(cand.manager.manager.eq((Employee)null)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager != null && this.manager.manager == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * this.manager.manager != null
      */
     public void testPositive5() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[5], 
-                        expectedResult[5]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[5], 
-                                 expectedResult[5]);
+        // 5 : manager's manager check not being null
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"emp2", "emp3", "emp10"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.manager.ne((Employee)null));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager.manager != null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * !(this.manager.manager == null)
      */
     public void testPositive6() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[6], 
-                        expectedResult[6]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[6], 
-                                 expectedResult[6]);
+        // 6 : manager's manager check not being null using not operator
+        Object expected = getTransientCompanyModelInstancesAsList(
+            new String[]{"emp2", "emp3", "emp10"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        QEmployee e = QEmployee.variable("e");
+        query.filter(cand.manager.manager.eq((Employee)null).not());
+
+        QueryElementHolder holder  =new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "!(this.manager.manager == null)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
@@ -387,40 +335,137 @@ public class NavigationComparisonWithNull extends QueryTest {
      * Disabled, because it currently fails on the RI.
      */
     public void testPositive7() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[7], 
-                        expectedResult[7]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[7], 
-                                 expectedResult[7]);
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"medicalIns1", "medicalIns4", "medicalIns5", "medicalIns98"});
+
+        JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
+        QMedicalInsurance cand = QMedicalInsurance.candidate();
+        query.filter(cand.employee.manager.manager.eq((Employee)null));
+
+        QueryElementHolder holder  = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        MedicalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.employee.manager.manager == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * this.employee != null && this.employee.manager != null && this.employee.manager.manager == null
      */
     public void testPositive8() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[8], 
-                        expectedResult[8]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[8], 
-                                 expectedResult[8]);
+        // 8 : multiple relationships 
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"medicalIns1", "medicalIns5"});
+
+        JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
+        QMedicalInsurance cand = QMedicalInsurance.candidate();
+        query.filter(cand.employee.ne((Employee)null).and(cand.employee.manager.ne((Employee)null))
+                .and(cand.employee.manager.manager.eq((Employee)null)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        MedicalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.employee != null && this.employee.manager != null && " +
+                                 "this.employee.manager.manager == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * this.employee.manager.manager != null
      */
     public void testPositive9() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[9], 
-                        expectedResult[9]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[9], 
-                                 expectedResult[9]);
+        // 9 : multiple relationships 
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"medicalIns2", "medicalIns3"});
+
+        JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
+        QMedicalInsurance cand = QMedicalInsurance.candidate();
+        query.filter(cand.employee.manager.manager.ne((Employee)null));
+
+        QueryElementHolder holder  = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        MedicalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.employee.manager.manager != null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
      * !(this.employee.manager.manager == null)
      */
     public void testPositive10() {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[10], 
-                        expectedResult[10]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[10], 
-                                 expectedResult[10]);
+        Object expected = getTransientCompanyModelInstancesAsList(
+                new String[]{"medicalIns2", "medicalIns3"});
+
+        JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
+        QMedicalInsurance cand = QMedicalInsurance.candidate();
+        query.filter(cand.employee.manager.manager.eq((Employee)null).not());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        MedicalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "!(this.employee.manager.manager == null)",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

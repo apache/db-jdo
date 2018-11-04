@@ -21,9 +21,13 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QDepartment;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Navigation Through a Null-Valued Field
@@ -57,102 +61,6 @@ public class NavigationThroughANullValuedField extends QueryTest {
     protected String getCompanyTestDataResource() {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
-
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // navigation through reference relationship field
-        // the relationship medicalInsurance is not set for emp2 and emp3 =>
-        // they should not be part of the result
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.medicalInsurance.carrier == \"Carrier1\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // navigation through reference relationship field
-        // emp5 and emp6 have have emp4 as manager
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager.lastname == \"emp4Last\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // multiple navigation through reference relationship field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "this.manager.manager.lastname == \"emp0Last\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // navigation through collection relationship field
-        // employees emp2 and emp3 do not have a medicalInsurance, but emp1
-        // matches the filter such that dept1 qualifies for inclusion in the 
-        // result set.
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e) && e.medicalInsurance.carrier == \"Carrier1\"",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-        
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // navigation through reference relationship field
-        // the relationship medicalInsurance is not set for emp2 and emp3 =>
-        // they should not be part of the result
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-        // navigation through reference relationship field
-        // emp5 and emp6 have have emp4 as manager
-        getTransientCompanyModelInstancesAsList(new String[]{"emp5", "emp6"}),
-        // multiple navigation through reference relationship field
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp10"}),
-        // navigation through collection relationship field
-        // employees emp2 and emp3 do not have a medicalInsurance, but emp1
-        // matches the filter such that dept1 qualifies for inclusion in the 
-        // result set.
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
-    };
     
     /**
      * The <code>main</code> is called when the class
@@ -163,14 +71,131 @@ public class NavigationThroughANullValuedField extends QueryTest {
         BatchTestRunner.run(NavigationThroughANullValuedField.class);
     }
     
-    /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive1() {
+        // navigation through reference relationship field
+        // the relationship medicalInsurance is not set for emp2 and emp3 =>
+        // they should not be part of the result
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.medicalInsurance.carrier == \"Carrier1\"",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+
+    }
+    public void testPositive2() {
+        // navigation through reference relationship field
+        // emp5 and emp6 have have emp4 as manager
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp5", "emp6"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.lastname.eq("emp4Last"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager.lastname == \"emp4Last\"",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+    public void testPositive3() {
+        // multiple navigation through reference relationship field
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp10"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.manager.manager.lastname.eq("emp0Last"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "this.manager.manager.lastname == \"emp0Last\"",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+    public void testPositive4() {
+        // navigation through collection relationship field
+        // employees emp2 and emp3 do not have a medicalInsurance, but emp1
+        // matches the filter such that dept1 qualifies for inclusion in the
+        // result set.
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        query.filter(cand.employees.contains(e).and(e.medicalInsurance.carrier.eq("Carrier1")));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e) && e.medicalInsurance.carrier == \"Carrier1\"",
+                /*VARIABLES*/   "Employee e",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/   query,
+                /*paramValues*/  null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: NucleusUserException: Variable 'medicalInsurance' is unbound and cannot be determined
+        // (is it a misspelled field name? or is not intended to be a variable?)
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

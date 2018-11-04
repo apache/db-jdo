@@ -25,9 +25,15 @@ import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Project;
+import org.apache.jdo.tck.pc.company.QDentalInsurance;
+import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
+import org.apache.jdo.tck.pc.company.QPerson;
+import org.apache.jdo.tck.pc.company.QProject;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Aggregate Result.
@@ -50,445 +56,6 @@ public class AggregateResult extends QueryTest {
         "Assertion A14.6.9-6 (AggregateResult) failed: ";
     
     /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // COUNT(this)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(this)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(this)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(this)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(manager)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(manager)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(manager.personid)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(manager.personid)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // COUNT(DISTINCT manager)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "COUNT(DISTINCT manager)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(long)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(double)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(BigDecimal)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(budget)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "SUM(DISTINCT ((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN(long)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN(double)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN(BigDecimal)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN(budget)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MIN(((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MIN(((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX(long)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX(double)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX(BigDecimal)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX(budget)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(budget)",
-        /*INTO*/        null, 
-        /*FROM*/        Project.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "projid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // MAX(((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "MAX(((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG(long)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(personid)",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG(double)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG(BigDecimal)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-
-        // AVG(lifetimeOrthoBenefit)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "insid == 0",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG(((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "AVG(DISTINCT ((FullTimeEmployee)manager).salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-        
-    };
-    
-    /** 
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
@@ -509,67 +76,6 @@ public class AggregateResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null)
     };
-        
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // COUNT(this)
-        new Long(3),
-        // COUNT(this)
-        new Long(0),
-        // COUNT(manager)
-        new Long(2),
-        // COUNT(manager.personid)
-        new Long(2),
-        // COUNT(DISTINCT manager)
-        new Long(1),
-        // SUM(long)
-        new Long(1+2+5),
-        // SUM(double)
-        new Double(20000.0+10000.0+45000.0),
-        // SUM(BigDecimal)
-        new BigDecimal("2500000.99").add
-            (new BigDecimal("50000.00")).add(new BigDecimal("2000.99")),
-        // SUM(budget)
-        null,
-        // SUM(((FullTimeEmployee)manager).salary)
-        new Double(20000),
-        // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
-        new Double(10000),
-        // MIN(long)
-        new Long(1),
-        // MIN(double)
-        new Double(10000.0),
-        // MIN(BigDecimal)
-        new BigDecimal("2000.99"),
-        // MIN(budget)
-        null,
-        // MIN(((FullTimeEmployee)manager).salary)
-        new Double(10000),
-        // MAX(long)
-        new Long(5),
-        // MAX(double)
-        new Double(45000.0),
-        // MAX(BigDecimal)
-        new BigDecimal("2500000.99"),
-        // MAX(budget)
-        null,
-        // MAX(((FullTimeEmployee)manager).salary)
-        new Double(10000),
-        // AVG(long)
-        new Double(3),
-        // AVG(double)
-        new Double(25000.0),
-        // AVG(BigDecimal)
-        new Double("99.997"),
-        // AVG(lifetimeOrthoBenefit)
-        null,
-        // AVG(((FullTimeEmployee)manager).salary)
-        new Double(10000),
-        // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
-        new Double(10000)
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -579,40 +85,865 @@ public class AggregateResult extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(AggregateResult.class);
     }
-    
+
     /** */
-    public void testCount() {
-        for(int i = 0; i < 5; i++) {
-            executeQuery(i);
-        }
+    public void testCount0() {
+        // COUNT(this)
+        Object expected = new Long(3);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.count());
+
+        QueryElementHolder holder =  new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(this)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
     }
 
     /** */
-    public void testSUM() {
-        for(int i = 5; i < 11; i++) {
-            executeQuery(i);
-        }
+    public void testCount1() {
+        // COUNT(this)
+        Object expected = new Long(0);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.count());
+        query.filter(cand.personid.eq(0L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(this)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
     }
 
     /** */
-    public void testMIN() {
-        for(int i = 11; i < 16; i++) {
-            executeQuery(i);
-        }
+    public void testCount2() {
+        // COUNT(manager)
+        Object expected = new Long(2);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.manager.count());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(manager)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
     }
 
     /** */
-    public void testMAX() {
-        for(int i = 16; i < 21; i++) {
-            executeQuery(i);
-        }
+    public void testCount3() {
+        // COUNT(manager.personid)
+        Object expected = new Long(2);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.manager.personid.count());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(manager.personid)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
     }
 
     /** */
-    public void testAVG() {
-        for(int i = 21; i < 27; i++) {
-            executeQuery(i);
-        }
+    public void testCount4() {
+        // COUNT(DISTINCT manager)
+        Object expected = new Long(1);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.manager.countDistinct());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "COUNT(DISTINCT manager)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+    }
+
+    /** */
+    public void testSum0() {
+        // SUM(long)
+        Object expected = new Long(1+2+5);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.personid.sum());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(personid)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+    }
+
+    /** */
+    public void testSum1() {
+        // SUM(double)
+        Object expected = new Double(20000.0+10000.0+45000.0);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.salary.sum());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testSum2() {
+        // SUM(BigDecimal)
+        Object expected = new BigDecimal("2500000.99").add
+            (new BigDecimal("50000.00")).add(new BigDecimal("2000.99"));
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.sum());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testSum3() {
+        // SUM(budget)
+        Object expected = null;
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.sum());
+        query.filter(cand.projid.eq(0L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testSum4() {
+        // SUM(((FullTimeEmployee)manager).salary)
+        Object expected =  new Double(20000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.sum());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testSum5() {
+        // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
+        Object expected = new Double(10000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.sumDistinct());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "SUM(DISTINCT ((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testMin0() {
+        // MIN(long)
+        Object expected = new Long(1);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.personid.min());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(personid)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+    }
+
+    /** */
+    public void testMin1() {
+        // MIN(double)
+        Object expected = new Double(10000.0);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.salary.min());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testMin2() {
+        // MIN(BigDecimal)
+        Object expected = new BigDecimal("2000.99");
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.min());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testMin3() {
+        // MIN(budget)
+        Object expected = null;
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.min());
+        query.filter(cand.projid.eq(0L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testMin4() {
+        // MIN(((FullTimeEmployee)manager).salary)
+        Object expected = new Double(10000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.min());
+
+        QueryElementHolder holder =  new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MIN(((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+    /** */
+    public void testMax0() {
+        // MAX(long)
+        Object expected = new Long(5);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.personid.max());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(personid)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+    }
+
+    /** */
+    public void testMax1() {
+        // MAX(double)
+        Object expected = new Double(45000.0);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.salary.max());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testMax2() {
+        // MAX(BigDecimal)
+        Object expected = new BigDecimal("2500000.99");
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.max());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testMax3() {
+        // MAX(budget)
+        Object expected = null;
+
+        JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
+        QProject cand = QProject.candidate();
+        query.result(false, cand.budget.max());
+        query.filter(cand.projid.eq(0L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(budget)",
+                /*INTO*/        null,
+                /*FROM*/        Project.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "projid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+    }
+
+    /** */
+    public void testMAX4() {
+        // MAX(((FullTimeEmployee)manager).salary)
+        Object expected = new Double(10000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.max());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "MAX(((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG0() {
+        // AVG(long)
+        Object expected = new Double(3);
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand.personid.avg());
+
+        QueryElementHolder holder =  new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(personid)",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG1() {
+        // AVG(double)
+        Object expected = new Double(25000.0);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.salary.avg());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG2() {
+        // AVG(BigDecimal)
+        Object expected = new Double("99.997");
+
+        JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
+        QDentalInsurance cand = QDentalInsurance.candidate();
+        query.result(false, cand.lifetimeOrthoBenefit.avg());
+
+        QueryElementHolder holder =  new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG3() {
+        // AVG(lifetimeOrthoBenefit)
+        Object expected = null;
+
+        JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
+        QDentalInsurance cand = QDentalInsurance.candidate();
+        query.result(false, cand.lifetimeOrthoBenefit.avg());
+        query.filter(cand.insid.eq(0L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "insid == 0",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG4() {
+        // AVG(((FullTimeEmployee)manager).salary)
+        Object expected = new Double(10000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.avg());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+    }
+
+    /** */
+    public void testAVG5() {
+        // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
+        Object expected = new Double(10000);
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        //query.result(false, cast.salary.avgDistinct());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "AVG(DISTINCT ((FullTimeEmployee)manager).salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: cast not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
     }
 
     public void testNegative() {
@@ -622,15 +953,7 @@ public class AggregateResult extends QueryTest {
                     false);
         }
     }
-
-    /** */
-    private void executeQuery(int index) {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult[index]);
-    }
-
+    
     /**
      * @see JDO_Test#localSetUp()
      */

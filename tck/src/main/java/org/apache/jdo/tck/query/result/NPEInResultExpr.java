@@ -23,9 +23,13 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QDepartment;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> NullPointerException in Result Expression.
@@ -45,52 +49,6 @@ public class NPEInResultExpr extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.9-4 (NPEInResultExpr) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "manager.lastname",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "e.manager.lastname",
-        /*INTO*/        null, 
-        /*FROM*/        Department.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "employees.contains(e)",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        //Note: None of the entries below are bean names!
-        Arrays.asList(new Object[]{
-                "emp2Last", null, "emp2Last", "emp2Last", "emp2Last"}),
-        Arrays.asList(new Object[]{
-                "emp2Last", null, "emp2Last", "emp2Last", "emp2Last"})
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -102,13 +60,65 @@ public class NPEInResultExpr extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+    public void testPositive0() {
+        Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.result(false, cand.manager.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "manager.lastname",
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
+    }
+
+    /** */
+    public void testPositive1() {
+        Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
+
+        JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
+        QDepartment cand = QDepartment.candidate();
+        QEmployee e = QEmployee.variable("e");
+        query.filter(cand.employees.contains(e));
+        query.result(false, e.manager.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "e.manager.lastname",
+                /*INTO*/        null,
+                /*FROM*/        Department.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "employees.contains(e)",
+                /*VARIABLES*/   "Employee e",
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
     }
 
     /**

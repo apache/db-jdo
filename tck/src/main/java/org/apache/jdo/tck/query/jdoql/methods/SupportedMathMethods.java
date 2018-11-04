@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -28,6 +29,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
+import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
 import org.apache.jdo.tck.pc.query.MathSample;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -58,202 +60,6 @@ public class SupportedMathMethods extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-48 (SupportedMathMethods) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     * These queries are used to test Math.abs.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES_ABS = {
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(intNotNull) == 4",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(intNull) == 4",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(longNotNull) == 4",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(longNull) == 4",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(floatNotNull) < 4.1 &&" +
-                                "Math.abs(floatNotNull) > 3.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(floatNull) < 4.1 &&" +
-                                "Math.abs(floatNull) > 3.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(doubleNotNull) < 4.1 &&" +
-                                "Math.abs(doubleNotNull) > 3.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "Math.abs(doubleNull) < 4.1 &&" +
-                                "Math.abs(doubleNull) > 3.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null)
-    };
-
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     * These queries are used to test Math.sqrt.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES_SQRT = {
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "doubleNotNull > 0 && " +
-                                "Math.sqrt(doubleNotNull) < 2.1 && " +
-                                "Math.sqrt(doubleNotNull) > 1.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "doubleNull > 0 && " +
-                                "Math.sqrt(doubleNull) < 2.1 && " +
-                                "Math.sqrt(doubleNull) > 1.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "intNotNull > 0 && " +
-                                "Math.sqrt(intNotNull) < 2.1 && " +
-                                "Math.sqrt(intNotNull) > 1.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        PrimitiveTypes.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "intNull > 0 && " +
-                                "Math.sqrt(intNull) < 2.1 && " +
-                                "Math.sqrt(intNull) > 1.9",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-    };
 
     /** */
     private Object oidOfMath1;
@@ -263,49 +69,7 @@ public class SupportedMathMethods extends QueryTest {
 
     /** */
     private Object oidOfMath3;
-
-    /** 
-     * The expected results of valid queries testing Math.abs.
-     */
-    private Object[] expectedResultABS = {
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive", "primitiveTypesNegative"})
-    };
-        
-    /** The expected results of valid queries testing Math.sqrt. */
-    private Object[] expectedResultSQRT = {
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"}),
-            getTransientMylibInstancesAsList(new String[]{
-                    "primitiveTypesPositive"})
-    };
-            
+     
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -316,23 +80,391 @@ public class SupportedMathMethods extends QueryTest {
     }
 
     /** */
-    public void testAbs() {
-        for (int i = 0; i < VALID_QUERIES_ABS.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES_ABS[i], 
-                    expectedResultABS[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES_ABS[i], 
-                    expectedResultABS[i]);
-        }
+    public void testAbs0() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.intNotNull.abs().eq(4));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(intNotNull) == 4",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
-    public void testSqrt() {
-        for (int i = 0; i < VALID_QUERIES_SQRT.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES_SQRT[i], 
-                    expectedResultSQRT[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES_SQRT[i], 
-                    expectedResultSQRT[i]);
-        }
+    public void testAbs1() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.intNull.abs().eq(4));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(intNull) == 4",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs2() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.longNotNull.abs().eq(4L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(longNotNull) == 4",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs3() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.longNull.abs().eq(4L));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(longNull) == 4",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs4() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.floatNotNull.abs().lt(4.1f).
+                and(cand.floatNotNull.abs().gt(3.9f)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(floatNotNull) < 4.1 &&" +
+                "Math.abs(floatNotNull) > 3.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs5() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.floatNull.abs().lt(4.1f).
+                and(cand.floatNull.abs().gt(3.9f)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(floatNull) < 4.1 &&" +
+                "Math.abs(floatNull) > 3.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs6() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.doubleNotNull.abs().lt(4.1).
+                and(cand.doubleNotNull.abs().gt(3.9)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(doubleNotNull) < 4.1 &&" +
+                "Math.abs(doubleNotNull) > 3.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testAbs7() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{
+                "primitiveTypesPositive", "primitiveTypesNegative"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.doubleNull.abs().lt(4.1).
+                and(cand.doubleNull.abs().gt(3.9)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "Math.abs(doubleNull) < 4.1 &&" +
+                "Math.abs(doubleNull) > 3.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testSqrt0() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.doubleNotNull.gt(0d).and(cand.doubleNotNull.sqrt().lt(2.1).
+                and(cand.doubleNotNull.sqrt().gt(1.9))));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "doubleNotNull > 0 && " +
+                "Math.sqrt(doubleNotNull) < 2.1 && " +
+                "Math.sqrt(doubleNotNull) > 1.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testSqrt1() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.doubleNull.gt(0d).and(cand.doubleNull.sqrt().lt(2.1).
+                and(cand.doubleNull.sqrt().gt(1.9))));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "doubleNull > 0 && " +
+                "Math.sqrt(doubleNull) < 2.1 && " +
+                "Math.sqrt(doubleNull) > 1.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testSqrt2() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.intNotNull.gt(0).and(cand.intNotNull.sqrt().lt(2.1).
+                and(cand.intNotNull.sqrt().gt(1.9))));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "intNotNull > 0 && " +
+                "Math.sqrt(intNotNull) < 2.1 && " +
+                "Math.sqrt(intNotNull) > 1.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testSqrt3() {
+        Object expected = getTransientMylibInstancesAsList(new String[]{"primitiveTypesPositive"});
+
+        JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
+        QPrimitiveTypes cand = QPrimitiveTypes.candidate();
+        query.filter(cand.intNull.gt(0).and(cand.intNull.sqrt().lt(2.1).
+                and(cand.intNull.sqrt().gt(1.9))));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        PrimitiveTypes.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "intNull > 0 && " +
+                "Math.sqrt(intNull) < 2.1 && " +
+                "Math.sqrt(intNull) > 1.9",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** 

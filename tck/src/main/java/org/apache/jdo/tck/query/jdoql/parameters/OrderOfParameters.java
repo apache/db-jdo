@@ -24,6 +24,10 @@ import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import java.util.List;
+
 /**
  *<B>Title:</B> Order of Parameters.
  *<BR>
@@ -40,39 +44,6 @@ public class OrderOfParameters extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.13-3 (OrderOfParameters) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname == :param1 & lastname == :param2",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
-    };
-            
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        {"emp1First", "emp1Last"}
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -84,12 +55,52 @@ public class OrderOfParameters extends QueryTest {
     }
     
     /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
+    public void testAPIQuery() {
+        // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter values
+        Transaction tx = pm.currentTransaction();
+        Query<Person> query = null;
+        Object result = null;
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Person where firstname == :param1 & lastname == :param2";
+            query = pm.newQuery(Person.class, "firstname == :param1 & lastname == :param2");
+            result = query.execute("emp1First", "emp1Last");
+            List<Person> expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
+            tx.commit();
+        } finally {
+            if (query != null) {
+                query.close(result);
+            }
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /** */
+    public void testSingleStringAPIQuery() {
+        // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter values
+        Transaction tx = pm.currentTransaction();
+        Query<Person> query = null;
+        Object result = null;
+        try {
+            tx.begin();
+            String singleStringQuery =
+                    "select from org.apache.jdo.tck.pc.company.Person where firstname == :param1 & lastname == :param2";
+            query = pm.newQuery(singleStringQuery);
+            result = query.execute("emp1First", "emp1Last");
+            List<Person> expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+            checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
+            tx.commit();
+        } finally {
+            if (query != null) {
+                query.close(result);
+            }
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
     

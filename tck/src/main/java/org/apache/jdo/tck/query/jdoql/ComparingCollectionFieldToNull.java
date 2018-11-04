@@ -20,9 +20,14 @@ package org.apache.jdo.tck.query.jdoql;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *<B>Title:</B> Comparing a Collection Field to Null
@@ -46,30 +51,9 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         "Assertion A14.6.2-36 (ComparingCollectionFieldToNull) failed: ";
     
     /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1 && projects == null",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult;
+    private List<Employee> expectedResult;
     
     /**
      * The <code>main</code> is called when the class
@@ -82,12 +66,30 @@ public class ComparingCollectionFieldToNull extends QueryTest {
     
     /** */
     public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1 && projects == null",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
     }
     
     /**
@@ -97,13 +99,12 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
         Employee employee = (Employee) getPersistentCompanyModelInstance("emp1");
-        expectedResult = new Object[] {
+        expectedResult =
             // emp1 should be in the query result set,
             // if the JDO Implentation supports null values for Collections
             getTransientCompanyModelInstancesAsList(
                 isNullCollectionSupported() ? 
-                    new String[]{"emp1"} : new String[]{})
-        };
+                    new String[]{"emp1"} : new String[]{});
         if (isNullCollectionSupported()) {
             getPM().currentTransaction().begin();
             employee.setProjects(null);

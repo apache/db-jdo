@@ -30,11 +30,14 @@ import java.math.BigDecimal;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents a project, a budgeted task with one or more
  * employees working on it.
  */
-public class Project 
+@PersistenceCapable
+public class Project
     implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long       projid;

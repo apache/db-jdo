@@ -25,12 +25,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+
+import javax.jdo.annotations.PersistenceCapable;
 
 /**
  * This class represents an employee.
  */
+@PersistenceCapable
 public abstract class Employee extends Person implements IEmployee {
 
     private Date             hiredate;

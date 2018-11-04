@@ -32,10 +32,13 @@ import java.util.Date;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents information about a company.
  */
-public class Company 
+@PersistenceCapable
+public class Company
     implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
 
     private long        companyid;

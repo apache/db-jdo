@@ -18,18 +18,25 @@
 package org.apache.jdo.tck.query.jdoql.methods;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.JDOHelper;
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
+import javax.jdo.query.Expression;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QPerson;
+import org.apache.jdo.tck.pc.mylib.QVersionedPCPoint;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -54,69 +61,6 @@ public class SupportedJDOHelperMethods extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-49 (SupportedJDOHelperMethods) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      "JDOHelper.getObjectId(this)", 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       null,
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        Person.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "JDOHelper.getObjectId(this) == oid",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "Object oid",
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      "JDOHelper.getVersion(this)", 
-                /*INTO*/        null, 
-                /*FROM*/        VersionedPCPoint.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       null,
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  null,
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-        new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null, 
-                /*INTO*/        null, 
-                /*FROM*/        VersionedPCPoint.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "JDOHelper.getVersion(this) == ver",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "Long ver",
-                /*IMPORTS*/     null,
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null),
-    };
 
     /**
      * The <code>main</code> is called when the class
@@ -128,27 +72,70 @@ public class SupportedJDOHelperMethods extends QueryTest {
     }
     
     /** */
-    public void testGetObjectById() {
-        // query 1
-        int index = 0;
+    public void testGetObjectById1() {
+        Class oidClass = getPM().getObjectIdClass(Person.class);
         List expectedResult = getExpectedResult(true, Person.class);
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expectedResult);
 
-        // query 2
-        index = 1;
-        expectedResult = getExpectedResult(false, Person.class, "personid == 1");
-        // The query above returns a collection of size 1.
-        // The collection element is a pc instances 
-        // whose oid is the parameter of the query below.
-        Object[] parameters = new Object[]{
-                JDOHelper.getObjectId(expectedResult.get(0))};
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                parameters, expectedResult);
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand.jdoObjectId());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "JDOHelper.getObjectId(this)",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, oidClass, expectedResult);
+    }
+
+    /** */
+    public void testGetObjectById2() {
+        List expectedResult = getExpectedResult(false, Person.class, "personid == 1");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        Expression<Object> oid = query.parameter("oid", Object.class);
+        query.filter(cand.jdoObjectId().eq(oid));
+
+        // The query above returns a collection of size 1. The collection element is a
+        // pc instance whose oid is the parameter of the query below.
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("oid", JDOHelper.getObjectId(expectedResult.get(0)));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "JDOHelper.getObjectId(this) == oid",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "Object oid",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
     }
 
     /** Test for JDOHelper.getVersion() in queries. */
@@ -160,31 +147,71 @@ public class SupportedJDOHelperMethods extends QueryTest {
         pm.currentTransaction().commit();
         Object id = pm.getObjectId(pt1);
 
-        try
-        {
-        	// query 1
-        	int index = 2;
-        	List expectedResult = new ArrayList();
-        	expectedResult.add((long) 1);
-        	executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-        			expectedResult);
-        	executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-        			expectedResult);
+        try {
+            // query 1
+            List expectedResult = Arrays.asList(Long.valueOf(1));
+
+            JDOQLTypedQuery<VersionedPCPoint> query = getPM().newJDOQLTypedQuery(VersionedPCPoint.class);
+            QVersionedPCPoint cand = QVersionedPCPoint.candidate();
+            query.result(false, cand.jdoVersion());
+
+            QueryElementHolder holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "JDOHelper.getVersion(this)",
+                    /*INTO*/        null,
+                    /*FROM*/        VersionedPCPoint.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  query,
+                    /*paramValues*/ null);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+            //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
 
             // query 2
-            index = 3;
             expectedResult = getExpectedResult(false, VersionedPCPoint.class, "x == 1");
-            Object[] parameters = new Object[]{new Long(1)};
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                    parameters, expectedResult);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                    parameters, expectedResult);
-        }
-        finally
-        {
-        	pm.currentTransaction().begin();
-        	pm.deletePersistent(pm.getObjectById(id));
-        	pm.currentTransaction().commit();
+
+            query = getPM().newJDOQLTypedQuery(VersionedPCPoint.class);
+            cand = QVersionedPCPoint.candidate();
+            Expression<Object> ver = query.parameter("ver", Object.class);
+            query.filter(cand.jdoVersion().eq(ver));
+
+            Map<String, Object> paramValues = new HashMap<>();
+            paramValues.put("ver", Long.valueOf(1));
+
+            holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        VersionedPCPoint.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "JDOHelper.getVersion(this) == ver",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  "Long ver",
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  query,
+                    /*paramValues*/ paramValues);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
+            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+
+        } finally {
+            pm.currentTransaction().begin();
+            pm.deletePersistent(pm.getObjectById(id));
+            pm.currentTransaction().commit();
         }
     }
     

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -29,6 +30,7 @@ import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
+import org.apache.jdo.tck.pc.company.QDentalInsurance;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -60,55 +62,6 @@ public class OrderingSpecification extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.6-1 (OrderingSpecification) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // nulls first
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls first",
-        /*FROM*/        null,
-        /*TO*/          null),
-        // nulls last
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls last",
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // nulls first
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5"}),
-        // nulls last
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99"})
-    };
 
     /**
      * The <code>main</code> is called when the class
@@ -120,11 +73,67 @@ public class OrderingSpecification extends QueryTest {
     }
 
     /** */
-    public void testPositiveCompanyQueries() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], expectedResult[i]);
-        }
+    public void testPositiveCompanyQueries0() {
+        // nulls first
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
+                "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5"});
+
+        JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
+        QDentalInsurance cand = QDentalInsurance.candidate();
+        query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsFirst());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls first",
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    /** */
+    public void testPositiveCompanyQueries1() {
+        // nulls last
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
+                "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99"});
+
+        JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
+        QDentalInsurance cand = QDentalInsurance.candidate();
+        query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsLast());
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    "this.lifetimeOrthoBenefit ascending nulls last",
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */

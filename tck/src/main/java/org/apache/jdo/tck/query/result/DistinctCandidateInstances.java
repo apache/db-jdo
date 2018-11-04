@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
@@ -27,6 +28,7 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -51,49 +53,6 @@ public class DistinctCandidateInstances extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.9-2 (DistintCandidateInstances) failed: ";
     
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "DISTINCT",
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"})
-    };
-            
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -104,14 +63,66 @@ public class DistinctCandidateInstances extends QueryTest {
     }
     
     /** */
-    public void testExtentQueries() {
+    public void testExtentQueries0() {
         if (isUnconstrainedVariablesSupported()) {
-            for (int i = 0; i < VALID_QUERIES.length; i++) {
-                executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-                executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                        expectedResult[i]);
-            }
+            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"});
+
+            JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+            query.variable("p", Person.class);
+
+            QueryElementHolder holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   "Project p",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  query,
+                    /*paramValues*/ null);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expected);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        }
+    }
+
+    /** */
+    public void testExtentQueries1() {
+        if (isUnconstrainedVariablesSupported()) {
+            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+            JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+            QEmployee cand = QEmployee.candidate();
+            query.result(true, cand);
+            query.variable("p", Person.class);
+
+            QueryElementHolder holder = new QueryElementHolder(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "DISTINCT",
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   "Project p",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null,
+                    /*JDOQLTyped*/  query,
+                    /*paramValues*/ null);
+
+            executeAPIQuery(ASSERTION_FAILED, holder, expected);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
         }
     }
      
@@ -128,11 +139,13 @@ public class DistinctCandidateInstances extends QueryTest {
         query.setCandidates(candidates);
         query.setResult("this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
-                false, null, expectedResult[0], true);
+                false, null,
+                getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp1"}), true);
         
         query.setResult("DISTINCT this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringDistinctQuery, 
-                false, null, expectedResult[1], true);
+                false, null,
+                getTransientCompanyModelInstancesAsList(new String[]{"emp1"}), true);
     }
 
     /**

@@ -20,9 +20,15 @@ package org.apache.jdo.tck.query.jdoql.operators;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.StringExpression;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *<B>Title:</B> Equality and Comparisons Between String Fields and Parameters
@@ -43,83 +49,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-5 (EqualityAndComparisonsBetweenStringFieldsAndParameters) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // string field == string parameter
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname == param",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "java.lang.String param",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        // string field >= string parameter
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "firstname >= param",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "java.lang.String param",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        // string parameter < string field
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "param < firstname",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  "java.lang.String param",
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // string field == string parameter
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1"}),
-        // string field >= string parameter
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        // string parameter < string field
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp3", "emp4", "emp5"}),
-    };
-    
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        // string field == string parameter
-        {"emp1First"},
-        // string field >= string parameter
-        {"emp1First"},
-        // string parameter < string field
-        {"emp2First"}
-    };
-            
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -129,14 +59,105 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         BatchTestRunner.run(EqualityAndComparisonsBetweenStringFieldsAndParameters.class);
     }
     
-    /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-        }
+    public void testStringFieldEqualsStringParameter() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        StringExpression paramVariable = query.stringParameter("param");
+        query.filter(cand.firstname.eq(paramVariable));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("param", "emp1First");
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "firstname == param",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "java.lang.String param",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    public void testStringFieldGEStringParameter() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
+                "emp1", "emp2", "emp3", "emp4", "emp5"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        StringExpression paramVariable = query.stringParameter("param");
+        query.filter(cand.firstname.gteq(paramVariable));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("param", "emp1First");
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "firstname >= param",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "java.lang.String param",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
+
+    public void testStringParameterLTStringField() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
+                "emp3", "emp4", "emp5"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        StringExpression paramVariable = query.stringParameter("param");
+        query.filter(paramVariable.lt(cand.firstname));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("param", "emp2First");
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "param < firstname",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  "java.lang.String param",
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

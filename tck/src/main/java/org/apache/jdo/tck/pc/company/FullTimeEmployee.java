@@ -19,12 +19,14 @@ package org.apache.jdo.tck.pc.company;
 
 import java.util.Date;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+
+import javax.jdo.annotations.PersistenceCapable;
 
 /**
  * This class represents a full-time employee.
  */
+@PersistenceCapable
 public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
 
     private double  salary;

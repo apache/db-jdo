@@ -18,15 +18,15 @@
 package org.apache.jdo.tck.query.delete;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
-import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.query.result.classes.FullName;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -49,29 +49,6 @@ public class DeleteQueryElements extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.8-1 (DeleteQueryElements) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        DentalInsurance.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "((FullTimeEmployee)employee).salary > 10000 & " +
-                        "employee.projects.contains(p) & p.budget > limit",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  "BigDecimal limit",
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
-                        "import java.math.BigDecimal;",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
     
     /** 
      * The array of invalid queries which may be executed as 
@@ -220,25 +197,63 @@ public class DeleteQueryElements extends QueryTest {
     
     /** */
     public void testAPI() {
-        int index = 0;
-        deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[index], parameters[index], 1);
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("limit", new BigDecimal("2500000"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "((FullTimeEmployee)employee).salary > 10000 & " +
+                "employee.projects.contains(p) & p.budget > limit",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  "BigDecimal limit",
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
+                "import java.math.BigDecimal;",
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  null,
+                /*paramValues*/ paramValues);
+
+        deletePersistentAllByAPIQuery(ASSERTION_FAILED, holder, 1);
     }
     
     /** */
     public void testSingleString() {
-        int index = 0;
-        deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                VALID_QUERIES[index], parameters[index], 1);
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("limit", new BigDecimal("2500000"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        DentalInsurance.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "((FullTimeEmployee)employee).salary > 10000 & " +
+                "employee.projects.contains(p) & p.budget > limit",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  "BigDecimal limit",
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
+                "import java.math.BigDecimal;",
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  null,
+                /*paramValues*/ paramValues);
+
+        deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, holder,1);
     }
     
     /** */
     public void testNegative() {
         for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            deletePersistentAllByAPIQuery(ASSERTION_FAILED, 
-                    INVALID_QUERIES[i], null, -1);
-            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, 
-                    INVALID_QUERIES[i], null, -1);
+            deletePersistentAllByAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
+            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
         }
     }
     

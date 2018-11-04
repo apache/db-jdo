@@ -22,9 +22,12 @@ import java.util.Arrays;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Grouping.
@@ -46,37 +49,16 @@ public class Grouping extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.10-1 (Grouping) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, SUM(salary)",
-        /*INTO*/        null, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-    
-    /** 
-     * The array of invalid queries which may be executed as 
+
+    /**
+     * The array of invalid queries which may be executed as
      * single string queries and as API queries.
      */
     private static final QueryElementHolder[] INVALID_QUERIES = {
         new QueryElementHolder(
         /*UNIQUE*/      null,
         /*RESULT*/      "department, salary",
-        /*INTO*/        null, 
+        /*INTO*/        null,
         /*FROM*/        FullTimeEmployee.class,
         /*EXCLUDE*/     null,
         /*WHERE*/       null,
@@ -87,15 +69,6 @@ public class Grouping extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        Arrays.asList(new Object[] {
-            new Object[] {getTransientCompanyModelInstance("dept1"), new Double(30000.0)},
-            new Object[] {getTransientCompanyModelInstance("dept2"), new Double(45000.0)}})
     };
         
     /**
@@ -109,12 +82,35 @@ public class Grouping extends QueryTest {
     
     /** */
     public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+        Object expected = Arrays.asList(new Object[] {
+                new Object[] {getTransientCompanyModelInstance("dept1"), new Double(30000.0)},
+                new Object[] {getTransientCompanyModelInstance("dept2"), new Double(45000.0)}});
+
+        JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
+        QFullTimeEmployee cand = QFullTimeEmployee.candidate();
+        query.result(false, cand.department, cand.salary.sum());
+        query.groupBy(cand.department);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "department, SUM(salary)",
+                /*INTO*/        null,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    "department",
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */

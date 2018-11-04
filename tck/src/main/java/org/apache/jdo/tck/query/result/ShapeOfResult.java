@@ -22,10 +22,13 @@ import java.util.Arrays;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
+import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Shape of Result.
@@ -42,212 +45,6 @@ public class ShapeOfResult extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.12-2 (ShapeOfResult) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        // result: null
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: this AS C
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this AS Person",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: null, unique: true
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      null,
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: this AS C, unique: true
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      "this AS Person",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: expression of type T
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "firstname",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: expression of type T, unique: true
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      "firstname",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: multiple expressions of type T
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "firstname, lastname",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: multiple expressions of type T, unique: true
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      "firstname, lastname",
-        /*INTO*/        null, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: multiple expressions of type T, result class
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "firstname, lastname",
-        /*INTO*/        FullName.class, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-        // result: multiple expressions of type T, result class, unique: true
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.TRUE,
-        /*RESULT*/      "firstname, lastname",
-        /*INTO*/        FullName.class, 
-        /*FROM*/        Person.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "personid == 1",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        // result: null
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        // result: this AS C
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        // result: null, unique: true
-        getTransientCompanyModelInstance("emp1"),
-        // result: this AS C, unique: true
-        getTransientCompanyModelInstance("emp1"),
-        // result: expression of type T
-        Arrays.asList(new Object[]{"emp1First", "emp2First", 
-                "emp3First", "emp4First", "emp5First"}),
-        // result: expression of type T, unique: true
-        "emp1First",
-        // result: multiple expressions of type T
-        Arrays.asList(new Object[]{
-                new Object[]{"emp1First", "emp1Last"},
-                new Object[]{"emp2First", "emp2Last"},
-                new Object[]{"emp3First", "emp3Last"},
-                new Object[]{"emp4First", "emp4Last"},
-                new Object[]{"emp5First", "emp5Last"}}),
-        // result: multiple expressions of type T, unique: true
-        new Object[]{"emp1First", "emp1Last"},
-        // result: multiple expressions of type T, result class
-        Arrays.asList(new Object[]{
-                new FullName("emp1First", "emp1Last"),
-                new FullName("emp2First", "emp2Last"),
-                new FullName("emp3First", "emp3Last"),
-                new FullName("emp4First", "emp4Last"),
-                new FullName("emp5First", "emp5Last")}),
-        // result: multiple expressions of type T, result class, unique: true
-        new FullName("emp1First", "emp1Last")
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -260,69 +57,326 @@ public class ShapeOfResult extends QueryTest {
     
     /** */
     public void testNoResult() {
-        int index = 0;
-        execute(index, expectedResult[index]);
+        // result: null
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testThisAsC() {
-        int index = 1;
-        execute(index, expectedResult[index]);
+        // result: this AS C
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "this AS Person",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testNoResultUnique() {
-        int index = 2;
-        execute(index, expectedResult[index]);
+        // result: null, unique: true
+        Object expected = getTransientCompanyModelInstance("emp1");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testThisAsCUnique() {
-        int index = 3;
-        execute(index, expectedResult[index]);
+        // result: this AS C, unique: true
+        Object expected = getTransientCompanyModelInstance("emp1");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+        query.result(false, cand);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "this AS Person",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
     public void testSingleExpression() {
-        int index = 4;
-        execute(index, expectedResult[index]);
+        // result: expression of type T
+        Object expected = Arrays.asList("emp1First", "emp2First", "emp3First", "emp4First", "emp5First");
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand.firstname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "firstname",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
     }
 
     /** */
     public void testSingleExpressionUnique() {
-        int index = 5;
-        execute(index, expectedResult[index]);
+        // result: expression of type T, unique: true
+        Object expected = "emp1First";
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+        query.result(false, cand.firstname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "firstname",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
     }
 
     /** */
     public void testMultipleExpressions() {
-        int index = 6;
-        execute(index, expectedResult[index]);
+        // result: multiple expressions of type T
+        Object expected = Arrays.asList(
+                        new Object[]{"emp1First", "emp1Last"},
+                        new Object[]{"emp2First", "emp2Last"},
+                        new Object[]{"emp3First", "emp3Last"},
+                        new Object[]{"emp4First", "emp4Last"},
+                        new Object[]{"emp5First", "emp5Last"});
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.result(false, cand.firstname, cand.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "firstname, lastname",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testMultipleExpressionsUnique() {
-        int index = 7;
-        execute(index, expectedResult[index]);
+        // result: multiple expressions of type T, unique: true
+        Object expected = new Object[]{"emp1First", "emp1Last"};
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+        query.result(false, cand.firstname, cand.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "firstname, lastname",
+                /*INTO*/        null,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
     }
 
     /** */
     public void testMultipleExpressionsResultClass() {
-        int index = 8;
-        execute(index, expectedResult[index]);
+        // result: multiple expressions of type T, result class
+        Object expected = Arrays.asList(
+                        new FullName("emp1First", "emp1Last"),
+                        new FullName("emp2First", "emp2Last"),
+                        new FullName("emp3First", "emp3Last"),
+                        new FullName("emp4First", "emp4Last"),
+                        new FullName("emp5First", "emp5Last"));
+
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        // JDOQLTypedQuery API
+        query.result(false, cand.firstname, cand.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      "firstname, lastname",
+                /*INTO*/        FullName.class,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       null,
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, FullName.class, expected);
     }
 
     /** */
     public void testMultipleExpressionResultClassUnique() {
-        int index = 9;
-        execute(index, expectedResult[index]);
-    }
+        // result: multiple expressions of type T, result class, unique: true
+        Object expected = new FullName("emp1First", "emp1Last");
 
-    /** */
-    private void execute(int index, Object expected) {
-        executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[index], expected);
-        executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[index], 
-                expected);
+        JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
+        QPerson cand = QPerson.candidate();
+        query.filter(cand.personid.eq(1l));
+        // JDOQLTypedQuery API
+        query.result(false, cand.firstname, cand.lastname);
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.TRUE,
+                /*RESULT*/      "firstname, lastname",
+                /*INTO*/        FullName.class,
+                /*FROM*/        Person.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "personid == 1",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, FullName.class, expected);
     }
     
     /**

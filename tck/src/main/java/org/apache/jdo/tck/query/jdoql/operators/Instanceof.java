@@ -20,9 +20,13 @@ package org.apache.jdo.tck.query.jdoql.operators;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.PartTimeEmployee;
+import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
+
+import javax.jdo.JDOQLTypedQuery;
 
 /**
  *<B>Title:</B> Instanceof operator.
@@ -39,50 +43,6 @@ public class Instanceof extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-41 (Instanceof) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "mentor instanceof " +
-                        "org.apache.jdo.tck.pc.company.PartTimeEmployee",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "mentor instanceof PartTimeEmployee",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.PartTimeEmployee",
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
-    };
-
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"})
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -92,17 +52,70 @@ public class Instanceof extends QueryTest {
     public static void main(String[] args) {
         BatchTestRunner.run(Instanceof.class);
     }
-    
-    /** */
-    public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    expectedResult[i]);
-        }
+
+    public void testPositive1() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
+        //query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
+
+        // Import Department twice
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "mentor instanceof org.apache.jdo.tck.pc.company.PartTimeEmployee",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     null,
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
+    public void testPositive2() {
+        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+
+        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+        QEmployee cand = QEmployee.candidate();
+        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
+        //query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
+
+        // Import Department twice
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      null,
+                /*RESULT*/      null,
+                /*INTO*/        null,
+                /*FROM*/        Employee.class,
+                /*EXCLUDE*/     null,
+                /*WHERE*/       "mentor instanceof PartTimeEmployee",
+                /*VARIABLES*/   null,
+                /*PARAMETERS*/  null,
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.PartTimeEmployee",
+                /*GROUP BY*/    null,
+                /*ORDER BY*/    null,
+                /*FROM*/        null,
+                /*TO*/          null,
+                /*JDOQLTyped*/  query,
+                /*paramValues*/ null);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+    }
     /**
      * @see JDO_Test#localSetUp()
      */

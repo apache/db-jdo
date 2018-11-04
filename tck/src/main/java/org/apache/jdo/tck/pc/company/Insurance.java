@@ -24,11 +24,14 @@ import java.util.Comparator;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents an insurance carrier selection for a particular
  * <code>Employee</code>.
  */
-public abstract class Insurance 
+@PersistenceCapable
+public abstract class Insurance
     implements IInsurance, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long     insid;

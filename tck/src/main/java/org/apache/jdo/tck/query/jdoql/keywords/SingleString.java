@@ -19,6 +19,8 @@ package org.apache.jdo.tck.query.jdoql.keywords;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -44,44 +46,6 @@ public class SingleString extends QueryTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.13-1 (SingleString) failed: ";
-    
-    /** 
-     * The array of valid queries which may be executed as 
-     * single string queries and as API queries.
-     */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
-        /*UNIQUE*/      Boolean.FALSE,
-        /*RESULT*/      "firstname AS firstName, lastname AS lastName",
-        /*INTO*/        FullName.class, 
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     Boolean.TRUE,
-        /*WHERE*/       "salary > 1000 & projects.contains(p) & " +
-                        "p.budget > limit",
-        /*VARIABLES*/   "Project p",
-        /*PARAMETERS*/  "BigDecimal limit",
-        /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
-                        "import java.math.BigDecimal",
-        /*GROUP BY*/    "firstname, lastname HAVING lastname.startsWith('emp')",
-        /*ORDER BY*/    "lastname ASCENDING",
-        /*FROM*/        0,
-        /*TO*/          3)
-    };
-    
-    /** 
-     * The expected results of valid queries.
-     */
-    private Object[] expectedResult = {
-        Arrays.asList(new Object[]{
-                new FullName("emp1First", "emp1Last"), 
-                new FullName("emp2First", "emp2Last"),
-                new FullName("emp5First", "emp5Last")})
-    };
-            
-    /** Parameters of valid queries. */
-    private Object[][] parameters = {
-        {new BigDecimal("2000")}
-    };
             
     /**
      * The <code>main</code> is called when the class
@@ -94,12 +58,33 @@ public class SingleString extends QueryTest {
     
     /** */
     public void testPositive() {
-        for (int i = 0; i < VALID_QUERIES.length; i++) {
-            executeAPIQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-            executeSingleStringQuery(ASSERTION_FAILED, VALID_QUERIES[i], 
-                    parameters[i], expectedResult[i]);
-        }
+        Object expected = Arrays.asList(new FullName("emp1First", "emp1Last"),
+                                        new FullName("emp2First", "emp2Last"),
+                                        new FullName("emp5First", "emp5Last"));
+
+        Map<String, Object> paramValues = new HashMap<>();
+        paramValues.put("limit", new BigDecimal("2000"));
+
+        QueryElementHolder holder = new QueryElementHolder(
+                /*UNIQUE*/      Boolean.FALSE,
+                /*RESULT*/      "firstname AS firstName, lastname AS lastName",
+                /*INTO*/        FullName.class,
+                /*FROM*/        FullTimeEmployee.class,
+                /*EXCLUDE*/     Boolean.TRUE,
+                /*WHERE*/       "salary > 1000 & projects.contains(p) & p.budget > limit",
+                /*VARIABLES*/   "Project p",
+                /*PARAMETERS*/  "BigDecimal limit",
+                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Project; " +
+                                        "import java.math.BigDecimal",
+                /*GROUP BY*/    "firstname, lastname HAVING lastname.startsWith('emp')",
+                /*ORDER BY*/    "lastname ASCENDING",
+                /*FROM*/        0,
+                /*TO*/          3,
+                /*JDOQLTyped*/   null,
+                /*paramValues*/  paramValues);
+
+        executeAPIQuery(ASSERTION_FAILED, holder, expected);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**

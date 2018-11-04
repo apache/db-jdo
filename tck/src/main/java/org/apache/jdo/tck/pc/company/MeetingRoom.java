@@ -23,10 +23,13 @@ import java.util.Comparator;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents a meeting room.
  */
-public class MeetingRoom 
+@PersistenceCapable
+public class MeetingRoom
     implements IMeetingRoom, Serializable, Comparable, Comparator, DeepEquality {
 
     private long    roomid;

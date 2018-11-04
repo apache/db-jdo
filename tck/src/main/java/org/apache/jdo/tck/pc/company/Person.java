@@ -31,10 +31,13 @@ import java.util.Map;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 /**
  * This class represents a person.
  */
-public class Person 
+@PersistenceCapable
+public class Person
     implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
 
     private long    personid;

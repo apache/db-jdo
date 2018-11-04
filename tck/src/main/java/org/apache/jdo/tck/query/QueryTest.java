@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jdo.JDOException;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -1046,28 +1048,10 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected void executeAPIQuery(String assertion,
             QueryElementHolder queryElementHolder, Object expectedResult) {
-        executeAPIQuery(assertion, queryElementHolder, null, expectedResult);
-    }
-
-    /**
-     * Executes the given query element holder instance as a JDO API query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
-     * @param expectedResult the expected query result.
-     */
-    protected void executeAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object expectedResult) {
         if (logger.isDebugEnabled()) {
             logger.debug("Executing API query: " + queryElementHolder);
         }
-        execute(assertion, queryElementHolder, false, 
-                parameters, expectedResult);
+        execute(assertion, queryElementHolder, false, expectedResult);
     }
     
     /**
@@ -1083,30 +1067,87 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected void executeSingleStringQuery(String assertion,
             QueryElementHolder queryElementHolder, Object expectedResult) {
-        executeSingleStringQuery(assertion, queryElementHolder, 
-                null, expectedResult);
-    }
-    
-    /**
-     * Executes the given query element holder instance 
-     * as a JDO single string query.
-     * The result of that query is compared against the given argument 
-     * <code>expectedResult</code>. 
-     * If the expected result does not match the returned query result,
-     * then the test case fails prompting argument <code>assertion</code>.
-     * @param assertion the assertion to prompt if the test case fails.
-     * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
-     * @param expectedResult the expected query result.
-     */
-    protected void executeSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
-            Object[] parameters, Object expectedResult) {
         if (logger.isDebugEnabled())
-            logger.debug("Executing single string query: " + 
+            logger.debug("Executing single string query: " +
                     queryElementHolder);
-        execute(assertion, queryElementHolder, true, 
-                parameters, expectedResult);
+        execute(assertion, queryElementHolder, true, expectedResult);
+    }
+
+    /**
+     * 
+     * @param assertion
+     * @param queryElementHolder
+     * @param expectedResult
+     */
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+                                          Object expectedResult) {
+        executeJDOQLTypedQuery(assertion, queryElementHolder, null, expectedResult);
+    }
+
+    /**
+     *
+     * @param assertion
+     * @param queryElementHolder
+     * @param resultClass
+     * @param expectedResult
+     */
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+                                          Class<?> resultClass, Object expectedResult) {
+        String singleStringQuery = queryElementHolder.toString();
+        getPM();
+        Transaction tx = pm.currentTransaction();
+        tx.begin();
+        try {
+            JDOQLTypedQuery<?> query = queryElementHolder.getJDOQLTypedQuery();
+            if (query == null) {
+                throw new JDOFatalInternalException("Missing JDOQLTyped instance");
+            }
+            Object result = null;
+            try {
+                Map<String, ?> paramValues = queryElementHolder.getParamValues();
+                if (paramValues != null) {
+                    query.setParameters(paramValues);
+                }
+
+                if (resultClass != null) {
+                    if (queryElementHolder.isUnique()) {
+                        // result class specified and unique result
+                        result = query.executeResultUnique(resultClass);
+                    } else {
+                        // result class specified and list result
+                        result = query.executeResultList(resultClass);
+                    }
+                } else {
+                    if (queryElementHolder.isUnique()) {
+                        // no result class and unique result
+                        result = query.executeUnique();
+                    } else {
+                        // no result class and list result
+                        result = query.executeList();
+                    }
+                }
+
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Query result: " + ConversionHelper.
+                            convertObjectArrayElements(result));
+                }
+
+                checkResult(assertion, singleStringQuery, queryElementHolder.hasOrdering(),
+                        result, expectedResult, true);
+            } finally {
+                query.close(result);
+            }
+        } catch (JDOUserException e) {
+            String msg = "JDOUserException thrown while executing query:\n" + singleStringQuery;
+            throw new JDOException(msg, e);
+        } catch (JDOException e) {
+            String msg = "JDOException thrown while executing query:\n" + singleStringQuery;
+            throw new JDOException(msg, e);
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 
     /**
@@ -1119,20 +1160,18 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param queryElementHolder the query to execute.
      * @param asSingleString determines if the query is executed as
      * single string query or as API query.
-     * @param parameters the parmaters of the query.
      * @param expectedResult the expected query result.
      * @return the query result
      */
-    private Object execute(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString,
-            Object parameters, Object expectedResult) {
+    private Object execute(String assertion, QueryElementHolder queryElementHolder,
+                           boolean asSingleString, Object expectedResult) {
         getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
         Object result = execute(assertion, query, 
                 queryElementHolder.toString(), 
-                queryElementHolder.hasOrdering(), parameters, 
+                queryElementHolder.hasOrdering(), queryElementHolder.getParamValues(),
                 expectedResult, true);
         return result;
     }
@@ -1285,18 +1324,8 @@ public abstract class QueryTest extends AbstractReaderTest {
                         convertObjectArrayElements(result));
                 }
     
-                if (positive) {
-                    if (hasOrdering) {
-                        checkQueryResultWithOrder(assertion, singleStringQuery, result, 
-                                expectedResult);
-                    } else {
-                        checkQueryResultWithoutOrder(assertion, singleStringQuery, result, 
-                                expectedResult);
-                    }
-                } else {
-                    fail(assertion, "Query must throw JDOUserException: " + 
-                            singleStringQuery);
-                }
+                checkResult(assertion, singleStringQuery, hasOrdering, result, expectedResult, positive);
+
             } finally {
                 query.close(result);
             }
@@ -1319,6 +1348,31 @@ public abstract class QueryTest extends AbstractReaderTest {
     }
 
     /**
+     * @param assertion the assertion to prompt if the test case fails.
+     * @param singleStringQuery the single string representation of the query.
+     * This parameter is only used as part of the falure message.
+     * @param hasOrdering indicates if the query has an ordering clause.
+     * @param positive indicates if query execution is supposed to fail
+     * @param result the query result.
+     * @param expectedResult the expected query result.
+    */
+    private void checkResult(String assertion, String singleStringQuery, boolean hasOrdering,
+                             Object result, Object expectedResult, boolean positive) {
+        if (positive) {
+            if (hasOrdering) {
+                checkQueryResultWithOrder(assertion, singleStringQuery, result,
+                        expectedResult);
+            } else {
+                checkQueryResultWithoutOrder(assertion, singleStringQuery, result,
+                        expectedResult);
+            }
+        } else {
+            fail(assertion, "Query must throw JDOUserException: " +
+                    singleStringQuery);
+        }
+    }
+
+    /**
      * Converts the given query element holder instance to a
      * JDO query instance.
      * Calls {@link Query#deletePersistentAll()}, or
@@ -1330,18 +1384,16 @@ public abstract class QueryTest extends AbstractReaderTest {
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllByAPIQuery(String assertion,
             QueryElementHolder queryElementHolder, 
-            Object parameters, long expectedNrOfDeletedObjects) {
+            long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by API query: " + 
                     queryElementHolder);
         }
-        delete(assertion, queryElementHolder, false, 
-                parameters, expectedNrOfDeletedObjects);
+        delete(assertion, queryElementHolder, false, expectedNrOfDeletedObjects);
     }
     
     /**
@@ -1356,18 +1408,15 @@ public abstract class QueryTest extends AbstractReaderTest {
      * then the test case fails prompting argument <code>assertion</code>.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
-     * @param parameters the parmaters of the query.
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllBySingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
-            Object parameters, long expectedNrOfDeletedObjects) {
+            QueryElementHolder queryElementHolder, long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by single string query: " + 
                     queryElementHolder);
         }
-        delete(assertion, queryElementHolder, true, 
-                parameters, expectedNrOfDeletedObjects);
+        delete(assertion, queryElementHolder, true, expectedNrOfDeletedObjects);
     }
 
     /**
@@ -1388,17 +1437,16 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     private void delete(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString,
-            Object parameters, long expectedNrOfDeletedObjects) {
+            QueryElementHolder queryElementHolder, boolean asSingleString, long expectedNrOfDeletedObjects) {
         getPM();
         Query query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :
                     queryElementHolder.getAPIQuery(pm);
         delete(assertion, query, queryElementHolder.toString(), 
-                parameters, expectedNrOfDeletedObjects);
+                queryElementHolder.getParamValues(), expectedNrOfDeletedObjects);
         boolean positive = expectedNrOfDeletedObjects >= 0;
         if (positive) {
-            execute(assertion, queryElementHolder, asSingleString, parameters, 
+            execute(assertion, queryElementHolder, asSingleString,
                     queryElementHolder.isUnique() ? null : new ArrayList());
         }
     }
