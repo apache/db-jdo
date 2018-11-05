@@ -126,7 +126,7 @@ public class Having extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -164,7 +164,7 @@ public class Having extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Object[].class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
     
     /** */

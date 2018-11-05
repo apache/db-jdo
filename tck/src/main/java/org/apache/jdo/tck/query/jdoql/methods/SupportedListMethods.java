@@ -130,7 +130,7 @@ public class SupportedListMethods extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, MeetingRoom.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /**

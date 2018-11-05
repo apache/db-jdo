@@ -211,7 +211,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, true, expected);
     }
 
     /** */
@@ -241,7 +241,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, true, expected);
     }
 
     /** */
@@ -272,7 +272,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, true, expected);
     }
 
     /** */
@@ -305,7 +305,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, java.util.Date.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, java.util.Date.class, true, expected);
     }
 
     /** */
@@ -318,7 +318,7 @@ public class ResultClassRequirements extends QueryTest {
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         // JDOQLTypedQuery API: Map Result
-        query.result(false, cand.personid, cand.lastname);
+        query.result(false, cand.personid.as("id"), cand.lastname.as("name"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -339,7 +339,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Map.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Map.class, true, expected);
     }
 
     /** */
@@ -352,7 +352,7 @@ public class ResultClassRequirements extends QueryTest {
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         // JDOQLTypedQuery API: user defined class
-        query.result(false, cand.personid, cand.lastname);
+        query.result(false, cand.personid.as("l"), cand.lastname.as("s"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -373,15 +373,15 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, true, expected);
     }
 
     /** */
     public void testConstructor() {
-        Object expected = Arrays.asList(new Object[]{
+        Object expected = Arrays.asList(
                 new LongString(1, "emp1Last"),
                 new LongString(2, "emp2Last"),
-                new LongString(5, "emp5Last")});
+                new LongString(5, "emp5Last"));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -407,15 +407,15 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, true, expected);
     }
 
     /** */
     public void testConstructorWithoutConstructorCall() {
-        Object expected = Arrays.asList(new Object[]{
+        Object expected = Arrays.asList(
                 new LongString(1, "emp1Last"),
                 new LongString(2, "emp2Last"),
-                new LongString(5, "emp5Last")});
+                new LongString(5, "emp5Last"));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -441,20 +441,20 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, LongString.class, true, expected);
     }
 
     /** */
     public void testFields() {
-        Object expected = Arrays.asList(new Object[]{
+        Object expected = Arrays.asList(
                 new PublicLongField(1),
                 new PublicLongField(2),
-                new PublicLongField(5)});
+                new PublicLongField(5));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         // JDOQLTypedQuery API:
-        query.result(false, cand.personid);
+        query.result(false, cand.personid.as("l"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -475,20 +475,20 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, PublicLongField.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, PublicLongField.class, true, expected);
     }
 
     /** */
     public void testPut() {
-        Object expected = Arrays.asList(new Object[]{
+        Object expected = Arrays.asList(
                 new PublicPutMethod(ConversionHelper.arrayToMap(publicPutMethod1)),
                 new PublicPutMethod(ConversionHelper.arrayToMap(publicPutMethod2)),
-                new PublicPutMethod(ConversionHelper.arrayToMap(publicPutMethod5))});
+                new PublicPutMethod(ConversionHelper.arrayToMap(publicPutMethod5)));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         // JDOQLTypedQuery API: constructor
-        query.result(false, cand.personid, cand.lastname);
+        query.result(false, cand.personid.as("personid"), cand.lastname.as("lastname"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -509,7 +509,7 @@ public class ResultClassRequirements extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, PublicPutMethod.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, PublicPutMethod.class, true, expected);
     }
 
     /** */
@@ -524,6 +524,7 @@ public class ResultClassRequirements extends QueryTest {
     /**
      * @see JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

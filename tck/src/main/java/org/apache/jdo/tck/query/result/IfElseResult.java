@@ -139,7 +139,7 @@ public class IfElseResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -173,7 +173,7 @@ public class IfElseResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -182,7 +182,7 @@ public class IfElseResult extends QueryTest {
 
         JDOQLTypedQuery<Project> query = getPM().newJDOQLTypedQuery(Project.class);
         QProject cand = QProject.candidate();
-        IfThenElseExpression<String> ifThenElse = query.ifThen(cand.reviewers.isEmpty(), "No Reviewer").
+        IfThenElseExpression<String> ifThenElse = query.ifThen(cand.reviewers.isEmpty(), "No reviewer").
                 ifThen(cand.reviewers.size().eq(1), "Single reviewer").elseEnd("Reviewer team");
         query.result(false, ifThenElse);
         query.orderBy(cand.projid.asc());
@@ -207,7 +207,7 @@ public class IfElseResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */

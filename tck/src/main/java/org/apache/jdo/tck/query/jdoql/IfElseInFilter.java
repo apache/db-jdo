@@ -120,6 +120,7 @@ public class IfElseInFilter extends QueryTest {
         IfThenElseExpression<Double> ifExpr =
                 query.ifThenElse(cand.department.name.eq("Development"), 15000.0,25000.0);
         query.filter(cand.salary.gt(ifExpr));
+        query.orderBy(cand.personid.asc());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -152,6 +153,7 @@ public class IfElseInFilter extends QueryTest {
         IfThenElseExpression<Long> ifExpr = query.ifThenElse(Long.class,
                 cand.manager.eq((Employee)null), cand.mentor.department.deptid, cand.manager.department.deptid);
         query.filter(ifExpr.eq(cand.department.deptid));
+        query.orderBy(cand.personid.asc());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -167,7 +169,7 @@ public class IfElseInFilter extends QueryTest {
                 /*ORDER BY*/    "this.personid",
                 /*FROM*/        null,
                 /*TO*/          null,
-                /*JDOQLTyped*/  null,
+                /*JDOQLTyped*/  query,
                 /*paramValues*/ null);
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
@@ -187,6 +189,7 @@ public class IfElseInFilter extends QueryTest {
         IfThenElseExpression<Integer> ifExpr =
                 query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
         query.filter(ifExpr.eq(2));
+        query.orderBy(cand.personid.asc());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,

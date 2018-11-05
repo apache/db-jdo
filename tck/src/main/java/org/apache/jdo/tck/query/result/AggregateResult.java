@@ -114,7 +114,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -146,7 +146,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -177,7 +177,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -208,7 +208,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -239,7 +239,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -270,7 +270,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -301,7 +301,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -333,7 +333,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -365,7 +365,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -399,7 +399,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -433,7 +433,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -464,7 +464,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -495,7 +495,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -526,7 +526,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -558,7 +558,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -592,7 +592,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
     /** */
     public void testMax0() {
@@ -622,7 +622,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -653,7 +653,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -684,7 +684,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -716,7 +716,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, BigDecimal.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -750,7 +750,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -781,7 +781,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -812,7 +812,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -843,7 +843,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -875,7 +875,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -909,7 +909,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -943,7 +943,7 @@ public class AggregateResult extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expected);
+        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     public void testNegative() {

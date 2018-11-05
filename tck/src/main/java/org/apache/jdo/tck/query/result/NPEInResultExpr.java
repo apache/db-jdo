@@ -86,7 +86,7 @@ public class NPEInResultExpr extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -118,7 +118,7 @@ public class NPEInResultExpr extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /**

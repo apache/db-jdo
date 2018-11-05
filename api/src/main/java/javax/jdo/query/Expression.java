@@ -76,4 +76,11 @@ public interface Expression<T>
      * @return The cast expression
      */
     Expression cast(Class cls);
+
+    /**
+     * Method to return an expression with the specified alias assigned to this expression.
+     * @param alias the alias for this expression
+     * @return the expression with an alias
+     */
+    Expression as(String alias);
 }

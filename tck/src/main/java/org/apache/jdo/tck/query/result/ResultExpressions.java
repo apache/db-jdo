@@ -195,7 +195,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -227,7 +227,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -259,7 +259,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Project.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -290,7 +290,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -323,7 +323,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -354,7 +354,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -385,7 +385,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -416,7 +416,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -447,7 +447,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Double.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -479,7 +479,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -511,7 +511,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -547,7 +547,7 @@ public class ResultExpressions extends QueryTest {
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
         // DataNucleus: wrong result: [Development, Development, Development, Development]
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, String.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -584,7 +584,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -616,7 +616,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */
@@ -653,7 +653,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Project.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */

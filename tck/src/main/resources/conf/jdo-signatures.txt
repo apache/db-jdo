@@ -1857,6 +1857,7 @@ public interface javax.jdo.query.Expression
     javax.jdo.query.NumericExpression countDistinct();
     javax.jdo.query.BooleanExpression instanceOf(Class cls);
     javax.jdo.query.Expression cast(Class cls);
+    javax.jdo.query.Expression as(String alias);
 }
 public interface javax.jdo.query.ListExpression extends javax.jdo.query.CollectionExpression
 {

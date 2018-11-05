@@ -99,7 +99,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, oidClass, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */

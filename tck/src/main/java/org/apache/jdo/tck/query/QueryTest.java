@@ -1081,7 +1081,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
                                           Object expectedResult) {
-        executeJDOQLTypedQuery(assertion, queryElementHolder, null, expectedResult);
+        executeJDOQLTypedQuery(assertion, queryElementHolder, null, false, expectedResult);
     }
 
     /**
@@ -1089,10 +1089,12 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param assertion
      * @param queryElementHolder
      * @param resultClass
+     * @param resultClauseSpecified
      * @param expectedResult
      */
     protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
-                                          Class<?> resultClass, Object expectedResult) {
+                                          Class<?> resultClass, boolean resultClauseSpecified,
+                                          Object expectedResult) {
         String singleStringQuery = queryElementHolder.toString();
         getPM();
         Transaction tx = pm.currentTransaction();
@@ -1116,6 +1118,14 @@ public abstract class QueryTest extends AbstractReaderTest {
                     } else {
                         // result class specified and list result
                         result = query.executeResultList(resultClass);
+                    }
+                } else if (resultClauseSpecified) {
+                    if (queryElementHolder.isUnique()) {
+                        // result class specified and unique result
+                        result = query.executeResultUnique();
+                    } else {
+                        // result class specified and list result
+                        result = query.executeResultList();
                     }
                 } else {
                     if (queryElementHolder.isUnique()) {
