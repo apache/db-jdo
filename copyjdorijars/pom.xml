@@ -93,32 +93,32 @@
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-core</artifactId>
-      <version>5.2.0-m2-SNAPSHOT</version>
+      <version>5.2.0-m2</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-rdbms</artifactId>
-      <version>5.2.0-m2-SNAPSHOT</version> 
+      <version>5.2.0-m2</version> 
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>javax.jdo</artifactId>
-      <version>3.2.0-m10-SNAPSHOT</version>  
+      <version>3.2.0-m10</version>  
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jdo</artifactId>
-      <version>5.2.0-m2-SNAPSHOT</version>  
+      <version>5.2.0-m2</version>  
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-jdo-query</artifactId>
-      <version>5.0.8-SNAPSHOT</version>
+      <version>5.0.8</version>
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jpa</artifactId>
-      <version>5.2.0-m2-SNAPSHOT</version>  
+      <version>5.2.0-m2</version>  
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
