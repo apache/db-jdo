@@ -151,7 +151,7 @@ public class IfElseResult extends QueryTest {
         QProject cand = QProject.candidate();
         query.result(false,
                 query.ifThenElse(BigDecimal.class, cand.members.size().gt(2),
-                        cand.budget.mul(new BigDecimal(1.2)), cand.budget.mul(new BigDecimal(1.1))));
+                        cand.budget.mul(new BigDecimal("1.2")), cand.budget.mul(new BigDecimal("1.1"))));
         query.orderBy(cand.projid.asc());
 
         QueryElementHolder holder = new QueryElementHolder(
