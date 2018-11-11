@@ -58,8 +58,7 @@ public class Instanceof extends QueryTest {
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
-        //query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
+        query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
         QueryElementHolder holder = new QueryElementHolder(
@@ -81,8 +80,7 @@ public class Instanceof extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     public void testPositive2() {
@@ -90,8 +88,7 @@ public class Instanceof extends QueryTest {
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
-        //query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
+        query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
         QueryElementHolder holder = new QueryElementHolder(
@@ -113,8 +110,7 @@ public class Instanceof extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: instanceOf not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     /**
      * @see JDO_Test#localSetUp()

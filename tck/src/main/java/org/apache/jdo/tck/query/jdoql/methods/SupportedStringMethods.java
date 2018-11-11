@@ -523,7 +523,6 @@ public class SupportedStringMethods extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: NullPointerException at org.datanucleus.store.rdbms.sql.method.StringTrim2Method.getExpression(StringTrim2Method.java:48)
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 

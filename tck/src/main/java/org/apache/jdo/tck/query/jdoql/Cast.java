@@ -65,9 +65,10 @@ public class Cast extends QueryTest {
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
-        //query.filter(cast.salary.gt(15000.0));
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
+        query.filter(cast.salary.gt(15000.0));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -88,8 +89,7 @@ public class Cast extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /** */
@@ -99,9 +99,10 @@ public class Cast extends QueryTest {
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
         QEmployee e = QEmployee.variable("e");
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
-        //query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
+        query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -117,13 +118,12 @@ public class Cast extends QueryTest {
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
                 /*TO*/          null,
-                /*JDOQLTyped*/  null,
+                /*JDOQLTyped*/  query,
                 /*paramValues*/ null);
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

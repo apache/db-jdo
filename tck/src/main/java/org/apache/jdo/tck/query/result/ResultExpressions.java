@@ -161,9 +161,6 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        // DataNucleus: org.datanucleus.exceptions.NucleusUserException: Query needs to return objects of type
-        // "org.apache.jdo.tck.pc.company.Employee" but it was impossible to create a new instance of this type.
-        // The result class needs a no-args constructor.
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
     }
 
@@ -546,7 +543,6 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        // DataNucleus: wrong result: [Development, Development, Development, Development]
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
@@ -663,9 +659,8 @@ public class ResultExpressions extends QueryTest {
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //query.result(false, cand.manager.cast(FullTimeEmployee.class));
-        //query.filter(cand.personid.eq(1l));
+        query.result(false, cand.manager.cast(FullTimeEmployee.class));
+        query.filter(cand.personid.eq(1l));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -686,8 +681,7 @@ public class ResultExpressions extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, FullTimeEmployee.class, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expectedResult);
     }
 
     /** */

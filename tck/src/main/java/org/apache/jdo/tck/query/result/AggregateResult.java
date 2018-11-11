@@ -375,9 +375,10 @@ public class AggregateResult extends QueryTest {
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.sum());
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.sum());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -398,8 +399,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -409,9 +409,10 @@ public class AggregateResult extends QueryTest {
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.sumDistinct());
+        // DataNucleus: )java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.sumDistinct());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -432,8 +433,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
@@ -568,9 +568,10 @@ public class AggregateResult extends QueryTest {
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.min());
+        // DataNucleus: ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.min());
 
         QueryElementHolder holder =  new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -591,8 +592,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
     /** */
     public void testMax0() {
@@ -720,15 +720,16 @@ public class AggregateResult extends QueryTest {
     }
 
     /** */
-    public void testMAX4() {
+    public void testMax4() {
         // MAX(((FullTimeEmployee)manager).salary)
         Object expected = new Double(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.max());
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.max());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -749,12 +750,11 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
-    public void testAVG0() {
+    public void testAvg0() {
         // AVG(long)
         Object expected = new Double(3);
 
@@ -785,7 +785,7 @@ public class AggregateResult extends QueryTest {
     }
 
     /** */
-    public void testAVG1() {
+    public void testAvg1() {
         // AVG(double)
         Object expected = new Double(25000.0);
 
@@ -816,7 +816,7 @@ public class AggregateResult extends QueryTest {
     }
 
     /** */
-    public void testAVG2() {
+    public void testAvg2() {
         // AVG(BigDecimal)
         Object expected = new Double("99.997");
 
@@ -847,7 +847,7 @@ public class AggregateResult extends QueryTest {
     }
 
     /** */
-    public void testAVG3() {
+    public void testAvg3() {
         // AVG(lifetimeOrthoBenefit)
         Object expected = null;
 
@@ -879,15 +879,16 @@ public class AggregateResult extends QueryTest {
     }
 
     /** */
-    public void testAVG4() {
+    public void testAvg4() {
         // AVG(((FullTimeEmployee)manager).salary)
         Object expected = new Double(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.avg());
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.avg());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -908,20 +909,20 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     /** */
-    public void testAVG5() {
+    public void testAvg5() {
         // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
         Object expected = new Double(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
-        //query.result(false, cast.salary.avgDistinct());
+        // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
+        // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
+        QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
+        query.result(false, cast.salary.avgDistinct());
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      Boolean.TRUE,
@@ -942,8 +943,7 @@ public class AggregateResult extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: cast not yet supported
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
     public void testNegative() {

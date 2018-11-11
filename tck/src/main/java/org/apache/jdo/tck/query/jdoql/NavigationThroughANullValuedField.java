@@ -193,8 +193,6 @@ public class NavigationThroughANullValuedField extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: NucleusUserException: Variable 'medicalInsurance' is unbound and cannot be determined
-        // (is it a misspelled field name? or is not intended to be a variable?)
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     

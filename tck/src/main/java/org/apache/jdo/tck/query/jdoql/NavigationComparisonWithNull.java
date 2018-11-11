@@ -187,8 +187,7 @@ public class NavigationComparisonWithNull extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
@@ -326,8 +325,7 @@ public class NavigationComparisonWithNull extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
     /**
@@ -464,8 +462,7 @@ public class NavigationComparisonWithNull extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expected);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        // DataNucleus: UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
     
     /**

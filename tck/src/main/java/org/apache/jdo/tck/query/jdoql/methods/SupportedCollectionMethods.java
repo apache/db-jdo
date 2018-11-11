@@ -159,8 +159,7 @@ public class SupportedCollectionMethods extends QueryTest {
 
         executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
         executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        // DataNucleus: exception UnsupportedOperationException: Dont currently support operator NOT  in JDOQL conversion
-        //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
 
         // isEmpty
         expectedResult = getTransientCompanyModelInstancesAsList(new String[]{
