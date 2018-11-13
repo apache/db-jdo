@@ -101,7 +101,7 @@ public class Cast extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         // DataNucleus: java.lang.ClassCastException: org.datanucleus.api.jdo.query.PersistableExpressionImpl
         // cannot be cast to org.apache.jdo.tck.pc.company.QFullTimeEmployee
-        QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
+        QFullTimeEmployee cast = (QFullTimeEmployee)e.cast(FullTimeEmployee.class);
         query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
 
         QueryElementHolder holder = new QueryElementHolder(
