@@ -102,11 +102,6 @@
     </dependency>
     <dependency>
       <groupId>org.datanucleus</groupId>
-      <artifactId>javax.jdo</artifactId>
-      <version>3.2.0-m10</version>  
-    </dependency>
-    <dependency>
-      <groupId>org.datanucleus</groupId>
       <artifactId>datanucleus-api-jdo</artifactId>
       <version>5.2.0-m3-SNAPSHOT</version>  
     </dependency>
