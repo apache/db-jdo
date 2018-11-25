@@ -161,48 +161,6 @@ public class QueryElementHolder {
 
     /**
      * Returns an instance of this class holding the given arguments
-     * such as the candidate class, the filter, etc. 
-     * The given arguments represent JDOQL query elements. 
-     * It is valid to pass <code>null</code> as a value
-     * for JDOQL querys elements. Such elements are not transfered into a 
-     * JDO {@link javax.jdo.Query} instance.
-     * Instead, the default of JDO {@link javax.jdo.Query} instance is taken.
-     * @param unique the JDOQL unique query element
-     * @param result the JDOQL result query element
-     * @param resultClass the JDOQL result class query element
-     * @param candidateClass the JDOQL candidate class query element
-     * @param excludeSubClasses the JDOQL exclude subclasses query element
-     * @param filter the JDOQL filter query element
-     * @param variables the JDOQL variables query element
-     * @param parameters the JDOQL parameters query element
-     * @param imports the JDOQL imports query element
-     * @param grouping the JDOQL grouping query element
-     * @param ordering the JDOQL ordering query element
-     * @param from the JDOQL from query element
-     * @param to the JDOQL to query element
-     */
-    public QueryElementHolder(Boolean unique, String result, 
-            Class resultClass, Class candidateClass, 
-            Boolean excludeSubClasses, String filter,
-            String variables, String parameters, String imports, 
-            String grouping, String ordering, long from, long to) {
-        this.unique = unique;
-        this.result = result;
-        this.resultClass = resultClass;
-        this.candidateClass = candidateClass;
-        this.excludeSubClasses = excludeSubClasses;
-        this.filter = filter;
-        this.variables = variables;
-        this.parameters = parameters;
-        this.imports = imports;
-        this.grouping = grouping;
-        this.ordering = ordering;
-        this.fromLong = new Long(from);
-        this.toLong = new Long(to);
-    }
-
-    /**
-     * Returns an instance of this class holding the given arguments
      * such as the candidate class, the filter, etc.
      * The given arguments represent JDOQL query elements.
      * It is valid to pass <code>null</code> as a value
