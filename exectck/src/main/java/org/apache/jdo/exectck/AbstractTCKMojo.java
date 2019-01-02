@@ -17,10 +17,12 @@ package org.apache.jdo.exectck;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -87,6 +89,31 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
      */
     protected String dblist;
 
+    /**
+     * Implementation to be tested (jdori or iut).
+     * Any value other than "jdori" will test an appropriately configured IUT
+     * @parameter property="jdo.tck.impl"
+     *      default-value="jdori"
+     * @required
+     */
+    protected String impl;
+
+    /**
+     * Location of implementation log file.
+     * @parameter property="jdo.tck.impl.logfile"
+     *      default-value="${user.dir}/datanucleus.txt"
+     * @required
+     */
+    protected String implLogFile;
+
+    /**
+     * Classpath including the dependencies using : as separator between entries.
+     * @parameter property="jdo.tck.dependencyClasspath"
+     *      default-value=""
+     * @required
+     */
+    protected String dependencyClasspath;
+
     protected Collection<String> dbs = new HashSet<String>();
 
     /**
@@ -118,5 +145,12 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
             throw new MojoExecutionException("No configuration specified and could not " +
                 "find 'src/main/resources/conf/configurations.list'");
 		}
+    }
+
+    protected void copyLog4jPropertiesFile () throws IOException {
+        File fromFile = new File(confDirectory + File.separator + impl + "-log4j.properties");
+        File toFile = new File(buildDirectory + File.separator + "classes" +
+                File.separator + "log4j.properties");
+        FileUtils.copyFile(fromFile, toFile);
     }
 }

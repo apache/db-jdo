@@ -36,7 +36,6 @@
     <module>parent-pom</module>
     <module>api</module>
     <module>exectck</module>
-    <module>copyjdorijars</module>
     <module>tck</module>
   </modules>
 

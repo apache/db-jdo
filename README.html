@@ -127,9 +127,10 @@ run the TCK on the Reference Implementation.
 <h2>Running the TCK on an Implementation Under Test</h2>
 <p>
 First build the from the top level TCK project as described above.
-To run the JDO TCK on an Implementation Under Test, copy the jars needed by the implementation
-to the top-level lib/iut directory, as well as log4j.properties and log4j-1.2.13.jar.
-The log4j jar file may be copied from lib/jdori.
+To run the JDO TCK on an Implementation Under Test, edit tck/pom.xml and add the iut dependencies to the
+profile called iut. Also check the following files under tck/src/main/resources/conf and change the content
+to the needs of the Implementation Under Test:
+    iut-jdoconfig.xml, iut-log4j.properties, iut-persistence.xml and iut-pmf.properties
 </p>
 <p>
 Change to the "tck" directory of the branch you are working in (or trunk) and run
@@ -161,7 +162,6 @@ mvn jdo-exectck:&lt;goal&gt;
         <DT>-Djdo.tck.cfglist=<i>configuration file list</i><DD>Overrides the definition of jdo.tck.cfglist found in tck/src/conf/configuration.list by supplying one or more comma-separated test configuration files. Test configuration files typically have the .conf extension. To run a single test, create a .conf file (copy an existing file) and put the test into the jdo.tck.classes property.
         <DT>-Djdo.tck.dblist=<i>database list</i><DD>Overrides the property value in project.properties by supplying one or more comma-separated database names. Currently only derby is supported.
         <DT>-Djdo.tck.identitytypes=<i>identity type list</i><DD>Overrides the identity types to be run, supplying one or more comma-separated identity types ("applicationidentity" or "datastoreidentity") to use for this run.
-        <DT>-Dproject.lib.iut.directory=<DD>Location of implementation jar files. Default: ${basedir}/../lib/iut
         <DT>-Djdo.tck.impl.logfile=<DD>  Location of implementation log file. Default: ${user.dir}/datanucleus.txt
         <DT>-Djdo.tck.doInstallSchema=<DD>  Setting this parameter to false will bypass schema installation.
         <DT>-Djdo.tck.doEnhance=<DD>  Setting this parameter to false will bypass enhancement.

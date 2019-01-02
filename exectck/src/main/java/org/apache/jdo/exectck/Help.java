@@ -65,8 +65,6 @@ public class Help extends AbstractMojo{
         msg.append("* jdo.tck.identitytypes\n");
         msg.append("  List of identity types to be tested\n");
         msg.append("  Default value is \"applicationidentity datastoreidentity\"\n");
-        msg.append("* project.lib.iut.directory\n");
-        msg.append("  Location of implementation jar files. Default: ${basedir}/../lib/iut\n");
         msg.append("* jdo.tck.impl.logfile\n");
         msg.append("  Location of implementation log file. Default: ${user.dir}/datanucleus.txt\n");
         msg.append("* jdo.tck.doInstallSchema\n");
@@ -84,7 +82,7 @@ public class Help extends AbstractMojo{
         		+ "\"logOnly\" will report failures to console and logs only but return 'SUCCESS' to the "
         		+ "Maven execution environment.\n");
         msg.append("\n  To run the TCK on an implementation under test, \n"
-                + "      place all required jars and their dependencies in lib/iut\n"
+                + "      edit the pom.xml in tck and add the iut dependencies to the iut profile\n"
                 + "      and set jdo.tck.impl to iut:\n");
         msg.append("     mvn integration-test -D jdo.tck.impl=\"iut\"\n\n");
         msg.append("\n END EXECTCK HELP INFORMATION\n");

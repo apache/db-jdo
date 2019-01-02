@@ -81,15 +81,6 @@ public class RunTCK extends AbstractTCKMojo {
     private boolean debugTCK;
 
     /**
-     * Implementation to be tested (jdori or iut).
-     * Any value other than "jdori" will test an appropriately configured IUT
-     * @parameter property="jdo.tck.impl"
-     *      default-value="jdori"
-     * @required
-     */
-    private String impl;
-
-    /**
      * Location of third party libraries such as JNDI.
      * @parameter property="project.lib.ext.directory"
      *      default-value="${basedir}/../lib/ext"
@@ -105,20 +96,6 @@ public class RunTCK extends AbstractTCKMojo {
      */
     private String implLogFile;
 
-    /**
-     * Location of jar files for implementation under test.
-     * @parameter property="project.lib.iut.directory"
-     *      default-value="${basedir}/../lib/iut"
-     * @required
-     */
-    private String iutLibsDirectory;
-    /**
-     * Location of jar files for implementation under test.
-     * @parameter property="project.lib.iut.directory"
-     *      default-value="${basedir}/../lib/jdori"
-     * @required
-     */
-    private String jdoriLibsDirectory;
     /**
      * Name of file in src/conf containing pmf properties.
      * @parameter property="jdo.tck.pmfproperties"
@@ -199,7 +176,7 @@ public class RunTCK extends AbstractTCKMojo {
     /**
      * Helper method returning the trimmed value of the specified property.
      * @param props the Properties object
-     * @param ke the key of the property to be returned
+     * @param key the key of the property to be returned
      * @return the trimmed property value or the empty string if the property is not defined. +     */
     private String getTrimmedPropertyValue (Properties props, String key) {
         String value = props.getProperty(key);
@@ -280,6 +257,12 @@ public class RunTCK extends AbstractTCKMojo {
         }
         propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
 
+        try {
+            copyLog4jPropertiesFile();
+        } catch (IOException ex) {
+            Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Copy JDO config files to classes dir
         try {
             fromFile = new File(confDirectory + File.separator + impl + "-jdoconfig.xml");
@@ -342,18 +325,8 @@ public class RunTCK extends AbstractTCKMojo {
                     while (fi.hasNext()) {
                         cpList.add(fi.next().toURI().toURL());
                     }
-                    if (impl.equals("iut")) {
-                        fi = FileUtils.iterateFiles(
-                            new File(iutLibsDirectory), jars, true);
-                        while (fi.hasNext()) {
-                            cpList.add(fi.next().toURI().toURL());
-                        }
-                    } else {
-                        fi = FileUtils.iterateFiles(
-                            new File(jdoriLibsDirectory), jars, true);
-                        while (fi.hasNext()) {
-                            cpList.add(fi.next().toURI().toURL());
-                        }
+                    for (String dependency : this.dependencyClasspath.split(":")) {
+                        cpList.add(new File(dependency).toURI().toURL());
                     }
                 } catch (MalformedURLException ex) {
                     ex.printStackTrace();

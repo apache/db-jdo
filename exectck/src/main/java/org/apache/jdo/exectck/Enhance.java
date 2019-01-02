@@ -43,7 +43,7 @@ import javax.jdo.JDOHelper;
  *
  * @phase integration-test
  */
-public class Enhance extends AbstractMojo {
+public class Enhance extends AbstractTCKMojo {
 
     private static final String[] PC_PKG_DIRS = {
         "org" + File.separator + "apache" + File.separator + "jdo" + File.separator + "tck" + File.separator + "api" + File.separator,
@@ -64,49 +64,7 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String srcDirectory;
-    /**
-     * Location of the logs directory.
-     * @parameter property="project.log.directory"
-     *      default-value="${project.build.directory}/logs"
-     * @required
-     */
-    private File logsDirectory;
-    /**
-     * Location of TCK generated output.
-     * @parameter property="project.build.directory"
-     *      default-value="${basedir}/target"
-     * @required
-     */
-    private String buildDirectory;
-    /**
-     * Implementation to be tested (jdori or iut).
-     * Any value other than "jdori" will test an appropriately configured IUT
-     * @parameter property="jdo.tck.impl"
-     *      default-value="jdori"
-     * @required
-     */
-    private String impl;
-        /**
-     * Location of implementation log file.
-     * @parameter property="jdo.tck.impl.logfile"
-     *      default-value="${user.dir}/datanucleus.txt"
-     * @required
-     */
-    private String implLogFile;
-    /**
-     * Location of jar files for implementation under test.
-     * @parameter property="project.lib.iut.directory"
-     *      default-value="${basedir}/../lib/iut"
-     * @required
-     */
-    private String iutLibsDirectory;
-    /**
-     * Location of jar files for implementation under test.
-     * @parameter property="project.lib.iut.directory"
-     *      default-value="${basedir}/../lib/jdori"
-     * @required
-     */
-    private String jdoriLibsDirectory;
+
     /**
      * List of identity types to be tested.
      * @parameter property="jdo.tck.identitytypes"
@@ -114,6 +72,7 @@ public class Enhance extends AbstractMojo {
      * @required
      */
     private String identitytypes;
+
     private Collection<String> idtypes;
 
     @Override
@@ -133,6 +92,12 @@ public class Enhance extends AbstractMojo {
         if (!(enhancerLogsDir.exists()) && !(enhancerLogsDir.mkdirs())) {
             throw new MojoExecutionException("Failed to create directory "
                     + enhancerLogsDir);
+        }
+
+        try {
+            copyLog4jPropertiesFile();
+        } catch (IOException ex) {
+            Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Create directory for enhanced classes
@@ -232,19 +197,8 @@ public class Enhance extends AbstractMojo {
             try {
                 // Must add enhancedIdDirName first!!
                 cpList1.add((new File(enhancedIdDirName)).toURI().toURL());
-                String[] jars = {"jar"};
-                if (impl.equals("jdori")) {
-                    cpList1.add((new File(jdoriLibsDirectory)).toURI().toURL());
-                    fi = FileUtils.iterateFiles(new File(jdoriLibsDirectory), jars, true);
-                    while (fi.hasNext()) {
-                        cpList1.add(fi.next().toURI().toURL());
-                    }
-                } else {
-                    cpList1.add((new File(iutLibsDirectory)).toURI().toURL());
-                    fi = FileUtils.iterateFiles(new File(iutLibsDirectory), jars, true);
-                    while (fi.hasNext()) {
-                        cpList1.add(fi.next().toURI().toURL());
-                    }
+                for (String dependency : this.dependencyClasspath.split(":")) {
+                    cpList1.add(new File(dependency).toURI().toURL());
                 }
                 enhancerLoader = new URLClassLoader(cpList1.toArray(classPathURLs1),
                         getClass().getClassLoader());
@@ -257,17 +211,11 @@ public class Enhance extends AbstractMojo {
             // Context classloader for finding log4j.properties
             ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
             try {
-                URL implUrl;
-                if (impl.equals("jdori")) {
-                    implUrl = (new File(jdoriLibsDirectory)).toURI().toURL();
-                } else {
-                     implUrl = (new File(iutLibsDirectory)).toURI().toURL();
-                }
                 URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
                 // Classes dir needed for org.apache.jdo.tck.util.TCKFileAppender
                 URL classesUrl = (new File(classesDirName)).toURI().toURL();
                 ClassLoader loggingPropsCl =
-                        URLClassLoader.newInstance(new URL[]{implUrl,
+                        URLClassLoader.newInstance(new URL[]{
                         enhancedClassesUrl, classesUrl}, prevCl);
                 Thread.currentThread().setContextClassLoader(loggingPropsCl);
             } catch (Exception e) {

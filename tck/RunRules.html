@@ -29,7 +29,7 @@
 <H1 ALIGN=CENTER>Running the JDO 3.2 Technology Compatibility Kit</H1>
 <P ALIGN=CENTER><BR><BR>
 </P>
-<P ALIGN=CENTER>7-March-2015</P>
+<P ALIGN=CENTER>21-December-2018</P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Overview</FONT></FONT></P>
 <P>In order to demonstrate compliance with the Java Data Objects
 specification, an implementation must successfully run all of the TCK
@@ -50,7 +50,7 @@ driver of the test programs.</P>
 <P>You must test the IUT on all configurations that the IUT supports.
 This includes different hardware and operating systems, different
 versions of Java, and different datastores. The TCK supports Java
-versions 1.5 to 1.6. </P>
+version 1.8. </P>
 <P STYLE="margin-top: 0.17in; page-break-after: avoid"><FONT FACE="Albany, sans-serif"><FONT SIZE=4>Installation</FONT></FONT></P>
 <P>Download the jdo.3.x-src.zip or jdo.3.x-src.gz file from the distribution location.  Unpack the archive file into a directory of your choice.
 Follow the instructions in the root level README.html file for building and running the JDO TCK.
@@ -61,22 +61,17 @@ Please take note of the following files:
 		</P>
 		<LI><P>Maven configuration file "pom.xml"
 		in the top level directory and subprojects.
-		These files must not be changed.</P>
+		These files must not be changed with the exception of the one in tck (see below).</P>
 		<LI><P ALIGN=LEFT STYLE="margin-bottom: 0.2in">lib/ext - 
 		Copy the jar files fscontext.jar and providerutil.jar used by the JNDI tests
 		into this directory. 
 		It is permitted to use a different JNDI implementation; see
 		README.html for more information.
 		</P>
-		<LI><P>lib/iut - this directory is where the JDO implementation
-		jars are installed. It is empty in the distribution. To use the
-		maven target runtck (required for an implementation to prove
-		compliance), copy the JDO implementation jar files into this
-		directory. Alternatively, update the build.properties file in the
-		TCK directory to refer to an existing location of the IUT jar
-		files.</P>
 		<LI><P>the TCK directory, which contains:</P>
 		<UL>
+			<LI><P>Maven configuration file "pom.xml". Please edit the file and add
+			the iut dependencies to the profile called iut.</P></LI>
 			<LI><P>assertions - contains the assertions file identifying the
 			assertions tested by the tests. This is for reference.</P>
 			<LI><P>target - this directory contains artifacts of compiling and
@@ -102,14 +97,13 @@ Please take note of the following files:
                 (which is not used by the TCK).</P>
 				<LI><P>java - this directory contains the source code to the TCK
 				tests. These files must not be modified.</P>
-				<LI><P>conf - this directory contains the configuration
-                information for the test runs. The files iut-pmf.properties,
-                iut-jdoconfig.xml, and iut-persistence.xml in this directory
-                must be changed to provide properties for the IUT persistence
-                manager factory.  The file jndi.properties may be changed
-                to use a different jndi provider. Other files must not be
-				modified, except to put a successfully challenged test case into
-				the trunk/tck20/test/conf/exclude.list. Please see below.</P>
+				<LI><P>conf - this directory contains the configuration information
+				for the test runs. The files iut-pmf.properties, iut-log4j.properties,
+				iut-jdoconfig.xml, and iut-persistence.xml in this directory must be
+				changed to provide properties for the IUT persistence manager factory.
+				The file jndi.properties may be changed to use a different jndi provider.
+				Other files must not be modified, except to put a successfully challenged
+				test case into the trunk/tck/test/conf/exclude.list. Please see below.</P>
 			</UL>
 		</UL>
 	</UL>
