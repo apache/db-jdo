@@ -325,7 +325,7 @@ public class RunTCK extends AbstractTCKMojo {
                     while (fi.hasNext()) {
                         cpList.add(fi.next().toURI().toURL());
                     }
-                    for (String dependency : this.dependencyClasspath.split(":")) {
+                    for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
                         cpList.add(new File(dependency).toURI().toURL());
                     }
                 } catch (MalformedURLException ex) {

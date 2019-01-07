@@ -197,7 +197,7 @@ public class Enhance extends AbstractTCKMojo {
             try {
                 // Must add enhancedIdDirName first!!
                 cpList1.add((new File(enhancedIdDirName)).toURI().toURL());
-                for (String dependency : this.dependencyClasspath.split(":")) {
+                for (String dependency : this.dependencyClasspath.split(File.pathSeparator)) {
                     cpList1.add(new File(dependency).toURI().toURL());
                 }
                 enhancerLoader = new URLClassLoader(cpList1.toArray(classPathURLs1),
