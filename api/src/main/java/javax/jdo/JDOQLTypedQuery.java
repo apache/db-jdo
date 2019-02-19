@@ -96,6 +96,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * @param <N> Type for the numeric parameter
      * @return NumericExpression for the parameter
      */
+    @SuppressWarnings("unchecked")
     default <N> NumericExpression<N> numericParameter(String name, Class<N> type) {
         return (NumericExpression<N>)numericParameter(name);
     }
@@ -136,6 +137,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * @param <E> Element type for the collection parameter
      * @return Expression for the parameter
      */
+    @SuppressWarnings("unchecked")
     default <E> CollectionExpression<Collection<E>, E> collectionParameter(String name, Class<E> elementType) {
         return (CollectionExpression<Collection<E>, E>)collectionParameter(name);
     }
@@ -156,6 +158,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * @param <V> Value type for the map parameter
      * @return Expression for the parameter
      */
+    @SuppressWarnings("unchecked")
     default <K,V> MapExpression<Map<K,V>, K, V> mapParameter(String name, Class<K> keyType, Class<V> valueType) {
         return (MapExpression<Map<K,V>, K, V>)mapParameter(name);
     }
@@ -174,6 +177,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * @param <E> Element type for the list parameter
      * @return
      */
+    @SuppressWarnings("unchecked")
     default <E> ListExpression<List<E>, E> listParameter(String name, Class<E> elementType) {
         return (ListExpression<List<E>, E>)listParameter(name);
     }
