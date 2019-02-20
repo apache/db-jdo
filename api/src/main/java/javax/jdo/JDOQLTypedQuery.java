@@ -90,6 +90,18 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
     NumericExpression<?> numericParameter(String name);
 
     /**
+     * Method to return a numeric parameter for the query.
+     * @param name Name of the parameter
+     * @param type Type of the numeric parameter
+     * @param <N> Type for the numeric parameter
+     * @return NumericExpression for the parameter
+     */
+    @SuppressWarnings("unchecked")
+    default <N> NumericExpression<N> numericParameter(String name, Class<N> type) {
+        return (NumericExpression<N>)numericParameter(name);
+    }
+
+    /**
      * Method to return a date parameter for the query.
      * @param name Name of the parameter
      * @return Expression for the parameter
@@ -118,6 +130,19 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
     CollectionExpression<?, ?> collectionParameter(String name);
 
     /**
+     * Method to return a collection parameter for the query.
+     *
+     * @param name Name of the parameter
+     * @param elementType Element type of the collection parameter
+     * @param <E> Element type for the collection parameter
+     * @return Expression for the parameter
+     */
+    @SuppressWarnings("unchecked")
+    default <E> CollectionExpression<Collection<E>, E> collectionParameter(String name, Class<E> elementType) {
+        return (CollectionExpression<Collection<E>, E>)collectionParameter(name);
+    }
+
+    /**
      * Method to return a map parameter for the query.
      * @param name Name of the parameter
      * @return Expression for the parameter
@@ -125,11 +150,37 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
     MapExpression<?, ?, ?> mapParameter(String name);
 
     /**
+     * Method to return a map parameter for the query.
+     * @param name Name of the parameter
+     * @param keyType Key type of the map parameter
+     * @param valueType Value type of the map parameter
+     * @param <K> Key type for the map parameter
+     * @param <V> Value type for the map parameter
+     * @return Expression for the parameter
+     */
+    @SuppressWarnings("unchecked")
+    default <K,V> MapExpression<Map<K,V>, K, V> mapParameter(String name, Class<K> keyType, Class<V> valueType) {
+        return (MapExpression<Map<K,V>, K, V>)mapParameter(name);
+    }
+
+    /**
      * Method to return a list parameter for the query.
      * @param name Name of the parameter
      * @return Expression for the parameter
      */
     ListExpression<?, ?> listParameter(String name);
+
+    /**
+     * Method to return a list parameter for the query.
+     * @param name Name of the parameter
+     * @param elementType Element type of the list parameter
+     * @param <E> Element type for the list parameter
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    default <E> ListExpression<List<E>, E> listParameter(String name, Class<E> elementType) {
+        return (ListExpression<List<E>, E>)listParameter(name);
+    }
 
     /**
      * Method to return a variable for this query.

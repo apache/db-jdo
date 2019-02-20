@@ -409,6 +409,9 @@ public class SignatureVerifier {
                 // don't check the actual values because only empty arrays
                 // are supported.
                 ok = actual.getClass().getComponentType().equals(expClass);
+            } else if (expClass == null) {
+                System.out.println("WARNING : checkValue value=" + value + " type=" + type + " comes up with null class");
+                ok = false;
             } else if (expClass.isAnnotation()) {
                 // check whether the type isAssignableFrom the class of the actual value, 
                 // if type is an annotation. The actual value is a dynamic proxy, 
@@ -608,16 +611,13 @@ public class SignatureVerifier {
         
         // check modifiers
         if (cls.isInterface()) {
-            // methods in interfaces are implicitly public and abstract final
+            // methods in interfaces are implicitly public
             mods |= Modifier.PUBLIC;
-            mods |= Modifier.ABSTRACT;
         }
         Class resultType = getClass(result);
         if (resultType == null) {
         	System.out.println("WARNING : checkMethod " + name + " result=" + result + " comes up with null resultType!");
-        }
-
-        if (resultType.isAnnotation()) {
+        } else if (resultType.isAnnotation()) {
             // add ANNOTATION modifier if the result type is an annotation
             mods |= ANNOTATION;
         }
