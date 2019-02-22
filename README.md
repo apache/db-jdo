@@ -36,14 +36,13 @@ The JNDI test cases in tck need a JNDI implementation.
 The TCK is configured to use Sun's JNDI implementation.
 To use your own implementation, put the implementation
 jar files into <i>lib/ext</i> and update `jndi.properties` in the TCK directory src/conf.  
-To download Oracle's implementation, go [here](http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#7110-jndi-1.2.1-oth-JPR)
+To download Oracle's implementation, go [here](http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#7110-jndi-1.2.1-oth-JPR).
 Accept the license agreement and download *File System Service Provider, 1.2 Beta 3* and then unpack the downloaded zip into `lib/ext`. It includes the jars `fscontext.jar` and `providerutil.jar`.
 
 
 ## Building from Top Level TCK Project
 
-For instructions for checking out the JDO source, see the Apache JDO [source
-code](http://db.apache.org/jdo/svn.html) page.
+For instructions for checking out the JDO source, see the Apache JDO [source code](http://db.apache.org/jdo/svn.html) page.
 
 To build JDO with all subprojects go to the root directory of the branch you are working in (or trunk)
 
@@ -121,12 +120,12 @@ Example 2 : Runs the test configurations specified in `alltests.conf` and `cfg1.
 While running the TCK, maven uses the following configuration files in src/conf:
 
 * configurations.list  : A list of files. Each file listed is a test configuration file.
-* * test configuration files (*.conf). Each of these files sets values for
-* * * jdo.tck.testdescription : An optional string describing the purpose of these tests
-* * * jdo.tck.classes : A list of one or more test classes (required)
-* * * jdo.tck.testdata : The fully qualified file name of the xml test data file(optional)
-* * * jdo.tck.standarddata : The fully qualified file name of the xml test data file(optional)
-* * * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
+    * test configuration files (*.conf). Each of these files sets values for
+        * jdo.tck.testdescription : An optional string describing the purpose of these tests
+        * jdo.tck.classes : A list of one or more test classes (required)
+        * jdo.tck.testdata : The fully qualified file name of the xml test data file(optional)
+        * jdo.tck.standarddata : The fully qualified file name of the xml test data file(optional)
+        * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
 * exclude.list  : A list of test classes NOT to execute during a TCK test run</LI>
 
 
