@@ -120,12 +120,12 @@ Example 2 : Runs the test configurations specified in `alltests.conf` and `cfg1.
 While running the TCK, maven uses the following configuration files in src/conf:
 
 * configurations.list  : A list of files. Each file listed is a test configuration file.
-    * test configuration files (*.conf). Each of these files sets values for
-        * jdo.tck.testdescription : An optional string describing the purpose of these tests
-        * jdo.tck.classes : A list of one or more test classes (required)
-        * jdo.tck.testdata : The fully qualified file name of the xml test data file(optional)
-        * jdo.tck.standarddata : The fully qualified file name of the xml test data file(optional)
-        * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
-* exclude.list  : A list of test classes NOT to execute during a TCK test run</LI>
+* test configuration files (*.conf). Each of these files sets values for
+    * jdo.tck.testdescription : An optional string describing the purpose of these tests
+    * jdo.tck.classes : A list of one or more test classes (required)
+    * jdo.tck.testdata : The fully qualified file name of the xml test data file(optional)
+    * jdo.tck.standarddata : The fully qualified file name of the xml test data file(optional)
+    * jdo.tck.mapping : The file designator that maven.xml uses to build a javax.jdo.option.Mapping value and corresponding schema name (required)
+* exclude.list  : A list of test classes NOT to execute during a TCK test run
 
 
