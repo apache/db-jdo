@@ -1,10 +1,10 @@
 # Apache JDO
 
-The JDO project includes the following subprojects:
+The Apache JDO project includes the following subprojects:
 
-* *api* contains source to build jdo-api-{version}.jar, which defines the JDO API for Java 1.5 and later.
+* *api* contains source to build jdo-api-{version}.jar, which defines the JDO API for Java 1.8 and later.
 * *exectck* contains source to build the maven plugin to run the TCK the Reference Implementation (RI) or an implementation under test (IUT)
-* *tck* contains the JDO Technology Compatibility Kit for Java 1.5 and later.
+* *tck* contains the JDO Technology Compatibility Kit for Java 1.8 and later.
 * *parent-pom* contains the maven pom.xml that ties the projects together.
 
 JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
@@ -16,11 +16,9 @@ For complete rules for certifying a JDO implementation, see [RunRules.html](http
 
 ## Prerequisites
 
-You must install the software listed in the following sections
-to successfully run the TCK.
-Other dependencies, such as the reference implementation, DataNucleus,
-and the Apache Derby database, are downloaded automatically by maven.
-Note that Apache JDO uses the apache commons logging package for logging.
+You must install the software listed in the following sections to successfully run the TCK.
+Other dependencies, such as the reference implementation, DataNucleus, and the Apache Derby database, are downloaded automatically by Maven.
+Note that Apache JDO uses the Apache Commons Logging package for logging.
 
 ### Maven
 
@@ -51,7 +49,7 @@ To build JDO with all subprojects go to the root directory of the branch you are
 This will build the artifacts *jdo-api* and *jdo-exectck* and will run the TCK.
 
 
-## Building the API
+## Building the JDO API
 
 To build the API, change to the "api" directory of the branch you are working in (or trunk) and run
 
@@ -60,7 +58,7 @@ To build the API, change to the "api" directory of the branch you are working in
 This will build the *jdo-api* artifact and install it in your local Maven repository and run the TCK on the Reference Implementation.
 
 
-## Running the TCK on an Implementation Under Test
+## Running the JDO TCK on an Implementation Under Test
 
 First build the from the top level TCK project as described above.
 To run the JDO TCK on an Implementation Under Test, edit [tck/pom.xml](https://github.com/apache/db-jdo/blob/master/tck/pom.xml) and add the iut dependencies to the profile called *iut*. 
