@@ -38,9 +38,17 @@ To download Oracle's implementation, go [here](http://www.oracle.com/technetwork
 
 ## Building from Top Level TCK Project
 
-For instructions for checking out the JDO source, see the Apache JDO [source code](http://db.apache.org/jdo/svn.html) page.
+You can check out the source for this project using the `Clone or Download` option above. For example you can type either of the following
 
-To build JDO with all subprojects go to the root directory of the branch you are working in (or master)
+    git clone git@github.com:apache/db-jdo.git
+
+or
+
+    git clone https://github.com/apache/db-jdo.git
+
+which will create a folder `db-jdo` with all code in it. You can read up on [GIT here](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
+
+To build Apache JDO with all subprojects go to the root directory of the branch you are working in (or master)
 
     mvn clean install
 
