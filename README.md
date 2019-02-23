@@ -2,10 +2,10 @@
 
 The Apache JDO project includes the following subprojects:
 
-* *api* contains source to build jdo-api-{version}.jar, which defines the JDO API for Java 1.8 and later.
-* *exectck* contains source to build the maven plugin to run the TCK the Reference Implementation (RI) or an implementation under test (IUT)
-* *tck* contains the JDO Technology Compatibility Kit for Java 1.8 and later.
-* *parent-pom* contains the maven pom.xml that ties the projects together.
+* [api](https://github.com/apache/db-jdo/tree/master/api) contains source to build `jdo-api-{version}.jar`, which defines the JDO API for Java 1.8 and later.
+* [exectck](https://github.com/apache/db-jdo/tree/master/exectck) contains source to build the maven plugin to run the TCK the Reference Implementation (RI) or an implementation under test (IUT)
+* [tck](https://github.com/apache/db-jdo/tree/master/tck) contains the JDO Technology Compatibility Kit for Java 1.8 and later.
+* [parent-pom](https://github.com/apache/db-jdo/tree/master/parent-pom) contains the Maven `pom.xml` that ties the projects together.
 
 JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
 Minor updates of releases are only available as source from the GitHub repository.
@@ -22,11 +22,10 @@ Note that Apache JDO uses the Apache Commons Logging package for logging.
 
 ### Maven
 
-You must have Maven version 2+ to build the projects from source and to execute the TCK. You can download maven from [here](http://maven.apache.org/download.html)
+You must have Maven (version 2+) to build the projects from source and to execute the TCK. You can download Maven from [here](http://maven.apache.org/download.html)
 
-Note that maven uses the `user.home` system property for the location of the maven local repostitory: `${user.home}/.m2/repository`.
-Under Windows this system property is `C:\Documents and Settings\{user}` no matter what the HOME variable is set to. 
-As a workaround you may set the system property by adding -Duser.home=%HOME% to the environment variable `MAVEN_OPTS`.
+Note that Maven uses the `user.home` system property for the location of the maven local repostitory: `${user.home}/.m2/repository`.
+Under Windows this system property is `C:\Documents and Settings\{user}` no matter what the HOME variable is set to. As a workaround you may set the system property by adding `-Duser.home=%HOME%` to the environment variable `MAVEN_OPTS`.
 
 ### JNDI Implementation (fscontext.jar and providerutil.jar)
 
