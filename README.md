@@ -8,11 +8,13 @@ The Apache JDO project includes the following subprojects:
 * [parent-pom](https://github.com/apache/db-jdo/tree/master/parent-pom) contains the Maven `pom.xml` that ties the projects together.
 * [specification](https://github.com/apache/db-jdo/tree/master/specification) contains the JDO API specification, in OpenDocument format.
 
-JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
+Apache JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
 Minor updates of releases are only available as source from the GitHub repository.
 Follow the instructions [below](link:#building) to build the API from source.
 
 For complete rules for certifying a JDO implementation, see [RunRules.html](https://github.com/apache/db-jdo/blob/master/tck/RunRules.html) in the *tck* project directory.
+
+Raise any issues with the content of this project over in [Apache JIRA](https://issues.apache.org/jira/browse/JDO).
 
 
 ## Prerequisites
