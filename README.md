@@ -3,23 +3,36 @@
 The Apache JDO project includes the following subprojects:
 
 * [api](https://github.com/apache/db-jdo/tree/master/api) contains source to build `jdo-api-{version}.jar`, which defines the JDO API for Java 1.8 and later.
-* [exectck](https://github.com/apache/db-jdo/tree/master/exectck) contains source to build the maven plugin to run the TCK the Reference Implementation (RI) or an implementation under test (IUT)
-* [tck](https://github.com/apache/db-jdo/tree/master/tck) contains the JDO Technology Compatibility Kit for Java 1.8 and later.
+* [exectck](https://github.com/apache/db-jdo/tree/master/exectck) contains source to build the maven plugin to run the JDO TCK the Reference Implementation (RI) or an implementation under test (IUT)
+* [tck](https://github.com/apache/db-jdo/tree/master/tck) contains the JDO TCK for Java 1.8 and later.
 * [parent-pom](https://github.com/apache/db-jdo/tree/master/parent-pom) contains the Maven `pom.xml` that ties the projects together.
 * [specification](https://github.com/apache/db-jdo/tree/master/specification) contains the JDO API specification, in OpenDocument format.
 
 Apache JDO releases may be downloaded from [the Apache JDO downloads page](http://db.apache.org/jdo/downloads.html).
 Minor updates of releases are only available as source from the GitHub repository.
-Follow the instructions [below](link:#building) to build the API from source.
+Follow the instructions [below](link:#building-the-jdo-api) to build the API from source.
 
 For complete rules for certifying a JDO implementation, see [RunRules.html](https://github.com/apache/db-jdo/blob/master/tck/RunRules.html) in the *tck* project directory.
 
 Raise any issues with the content of this project over in [Apache JIRA](https://issues.apache.org/jira/browse/JDO).
 
 
+## Checking Out The Project
+
+You can check out the source for this project using the `Clone or Download` option above. For example you can type either of the following
+
+    git clone git@github.com:apache/db-jdo.git
+
+or
+
+    git clone https://github.com/apache/db-jdo.git
+
+which will create a folder `db-jdo` with all code in it. You can read up on [GIT here](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
+
+
 ## Prerequisites
 
-You must install the software listed in the following sections to successfully run the TCK.
+You must install the software listed in the following sections to build the API, and successfully run the TCK.
 Other dependencies, such as the reference implementation, [DataNucleus](https://github.com/datanucleus), and the Apache Derby database, are downloaded automatically by Maven.
 Note that Apache JDO uses the Apache Commons Logging package for logging.
 
@@ -32,45 +45,35 @@ Under Windows this system property is `C:\Documents and Settings\{user}` no matt
 
 ### JNDI Implementation (fscontext.jar and providerutil.jar)
 
-The JNDI test cases in tck need a JNDI implementation. The TCK is configured to use Sun's JNDI implementation. To use your own implementation, put the implementation jar files into `lib/ext` and update `jndi.properties` in the TCK directory `src/conf`.  
+The JNDI test cases in *tck* need a JNDI implementation. The TCK is configured to use Sun's JNDI implementation. To use your own implementation, put the implementation jar files into `lib/ext` and update `jndi.properties` in the TCK directory `src/conf`.  
 To download Oracle's implementation, go [here](http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#7110-jndi-1.2.1-oth-JPR). Accept the license agreement and download *File System Service Provider, 1.2 Beta 3* and then unpack the downloaded zip into `lib/ext`. It includes the jars `fscontext.jar` and `providerutil.jar`.
 
 
-## Building from Top Level TCK Project
+## Building from Top Level Project
 
-You can check out the source for this project using the `Clone or Download` option above. For example you can type either of the following
-
-    git clone git@github.com:apache/db-jdo.git
-
-or
-
-    git clone https://github.com/apache/db-jdo.git
-
-which will create a folder `db-jdo` with all code in it. You can read up on [GIT here](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control).
-
-To build Apache JDO with all subprojects go to the root directory of the branch you are working in (or master)
+To build Apache JDO with all subprojects (api, exectck, tck) go to the root directory of the branch you are working in
 
     mvn clean install
 
-This will build the artifacts *jdo-api* and *jdo-exectck* and will run the TCK.
+This will build the artifacts *jdo-api* and *jdo-exectck* and will then run the TCK.
 
 
 ## Building the JDO API
 
-To build the API, change to the "api" directory of the branch you are working in (or master) and run
+To build just the API, change to the "api" directory of the branch you are working in and run
 
     mvn clean install
 
-This will build the *jdo-api* artifact and install it in your local Maven repository and run the TCK on the Reference Implementation.
+This will build the *jdo-api* artifact and install it in your local Maven repository.
 
 
 ## Running the JDO TCK on an Implementation Under Test
 
-Firstly build from the top level TCK project as described above.
+Firstly build from the top level project as described above.
 To run the JDO TCK on an Implementation Under Test, edit [tck/pom.xml](https://github.com/apache/db-jdo/blob/master/tck/pom.xml) and add the iut dependencies to the profile called *iut*. 
 Also check the following files under [tck/src/main/resources/conf](https://github.com/apache/db-jdo/tree/master/tck/src/main/resources/conf) and change the content to the needs of the Implementation Under Test: `iut-jdoconfig.xml`, `iut-log4j.properties`, `iut-persistence.xml` and `iut-pmf.properties`.
 
-Change to the "tck" directory of the branch you are working in (or master) and run
+Change to the "tck" directory of the branch you are working in and run
 
     mvn -Djdo.tck.impl="iut" clean install
 
