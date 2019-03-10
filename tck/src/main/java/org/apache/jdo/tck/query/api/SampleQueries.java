@@ -2453,7 +2453,7 @@ public class SampleQueries extends QueryTest {
             List<EmpInfo> expected = testQuery16Helper();
             try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
                 QFullTimeEmployee cand = QFullTimeEmployee.candidate();
-                q.result(true, cand);
+                q.result(true, cand.as("FullTimeEmployee"));
                 NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
                 q.filter(cand.salary.gt(sal));
                 Map<String, Object> paramValues = new HashMap<>();
@@ -3014,7 +3014,7 @@ public class SampleQueries extends QueryTest {
         public String toString() {
             StringBuilder builder = new StringBuilder();
             builder.append("EmpInfo(");
-            builder.append(", worker:").append(worker == null ? "null" : worker.getFirstname());
+            builder.append("worker:").append(worker == null ? "null" : worker.getFirstname());
             builder.append(")");
             return builder.toString();
         }
