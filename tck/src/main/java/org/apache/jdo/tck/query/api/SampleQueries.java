@@ -2816,6 +2816,7 @@ public class SampleQueries extends QueryTest {
      * subquery is the collection of employees in the department of the candidate employee
      * and the parameter passed to the subquery is the manager of the candidate employee.
      */
+    /* subquery method not yet implemented by datanucleus
     public void testQuery19f() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2824,7 +2825,7 @@ public class SampleQueries extends QueryTest {
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
                 q.result(false, cand.firstname);
-                JDOQLTypedSubquery<Employee> subquery = q.subquery("e");
+                JDOQLTypedSubquery<Employee> subquery = q.subquery(cand.department.employees, "e");
                 QEmployee candsub = QEmployee.candidate("e");
                 subquery.filter(candsub.manager.eq(cand.manager));
                 q.filter(cand.weeklyhours.gt(subquery.selectUnique(candsub.weeklyhours.avg())));
@@ -2840,6 +2841,7 @@ public class SampleQueries extends QueryTest {
             }
         }
     }
+    */
 
     /**
      * Deleting Multiple Instances.
