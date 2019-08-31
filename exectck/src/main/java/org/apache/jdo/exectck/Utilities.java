@@ -31,7 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 import javax.jdo.JDOException;
 
 public class Utilities {
@@ -39,7 +38,7 @@ public class Utilities {
     Utilities() {
     }
     
-    public static final String DATE_FORMAT_NOW = "yyyyMMdd-HHmmss";
+    private static final String DATE_FORMAT_NOW = "yyyyMMdd-HHmmss";
 
     /*
      * Return the current date/time as a String.
@@ -52,12 +51,12 @@ public class Utilities {
 
     /*
      * From an array of URLs, create a classpath String suitable for use
-     *   as a command line argument
+     * as a command line argument
      */
-    public static String urls2ClasspathString(ArrayList<URL> urls) {
-        StringBuffer cp = new StringBuffer();
+    public static String urls2ClasspathString(List<URL> urls) {
+        StringBuilder cp = new StringBuilder();
 
-        for (URL url: urls) {
+        for (URL url : urls) {
             cp.append(url.getPath());
             cp.append(File.pathSeparator);
         }
@@ -65,7 +64,7 @@ public class Utilities {
     }
 
     public static String removeSubstrs(String master, String exclude) {
-        String [] deleteThese = exclude.split(" ");
+        String[] deleteThese = exclude.split(" ");
         String filtered = master;
         for (String sub: deleteThese) {
             filtered = filtered.replaceAll(sub.trim(), "");
@@ -74,13 +73,13 @@ public class Utilities {
     }
 
     public static void printClasspath(ClassLoader loader) {
-        if (loader != null && loader instanceof URLClassLoader) {
-            //Get the URLs
+        if (loader instanceof URLClassLoader) {
+            // Get the URLs
             URL[] urls = ((URLClassLoader) loader).getURLs();
             System.out.println(urls.length + " URL(s) for loader: ");
-            for (int i = 0; i < urls.length; i++) {
-                if (urls[i] != null) {
-                    System.out.println("    " + urls[i].getFile());
+            for (URL url : urls) {
+                if (url != null) {
+                    System.out.println("    " + url.getFile());
                 }
             }
         }
@@ -88,66 +87,39 @@ public class Utilities {
 
     public void printClasspath() {
 
-        //Get the System Classloader
+        // Get the System Classloader
         printClasspath(ClassLoader.getSystemClassLoader());
 
-        //Get the System Classloader
+        // Get the System Classloader
         printClasspath(Thread.currentThread().getContextClassLoader());
 
     }
 
     static String readFile( String fileName ) throws IOException {
-    BufferedReader reader = new BufferedReader( new FileReader (fileName));
-    String line  = null;
-    StringBuffer stringBuf = new StringBuffer();
-    String ls = System.getProperty("line.separator");
-    while( ( line = reader.readLine() ) != null ) {
-        stringBuf.append( line );
-        stringBuf.append( ls );
-    }
-    return stringBuf.toString();
- }
-
-    InvocationResult invokeTest(List command) {
-        InvocationResult result = new InvocationResult();
-        try {
-            ProcessBuilder builder = new ProcessBuilder(command);
-            Map<String, String> env = builder.environment();
-            Process proc = builder.start();
-            InputStream stdout = proc.getInputStream();
-            InputStream stderr = proc.getErrorStream();
-            CharBuffer outBuffer = CharBuffer.allocate(1000000);
-            CharBuffer errBuffer = CharBuffer.allocate(1000000);
-            Thread outputThread = createReaderThread(stdout, outBuffer);
-            Thread errorThread = createReaderThread(stderr, errBuffer);
-            int exitValue = proc.waitFor();
-            result.setExitValue(exitValue);
-            errorThread.join(10000); // wait ten seconds to get stderr after process terminates
-            outputThread.join(10000); // wait ten seconds to get stdout after process terminates
-            result.setErrorString(errBuffer.toString());
-            result.setOutputString(outBuffer.toString());
-            // wait until the Enhancer command finishes
-        } catch (InterruptedException ex) {
-            throw new RuntimeException("InterruptedException", ex);
-        } catch (IOException ex) {
-            throw new RuntimeException("IOException", ex);
-        } catch (JDOException jdoex) {
-            jdoex.printStackTrace();
-            Throwable[] throwables = jdoex.getNestedExceptions();
-            System.out.println("Exception throwables of size: " + throwables.length);
-            for (Throwable throwable: throwables) {
-                throwable.printStackTrace();
-            }
+        BufferedReader reader = new BufferedReader( new FileReader (fileName));
+        String line  = null;
+        StringBuffer stringBuf = new StringBuffer();
+        String ls = System.getProperty("line.separator");
+        while ((line = reader.readLine()) != null) {
+            stringBuf.append( line );
+            stringBuf.append( ls );
         }
-        return result;
+        return stringBuf.toString();
     }
 
-        InvocationResult invokeTest(List command, File directory) {
+    InvocationResult invokeTest(List<String> command) {
+        return invokeTest(new ProcessBuilder(command));
+    }
+
+    InvocationResult invokeTest(List<String> command, File directory) {
+        ProcessBuilder builder = new ProcessBuilder(command);
+        builder.directory(directory);
+        return invokeTest(builder);
+    }
+
+    private InvocationResult invokeTest(ProcessBuilder builder) {
         InvocationResult result = new InvocationResult();
         try {
-            ProcessBuilder builder = new ProcessBuilder(command);
-            builder.directory(directory);
-            Map<String, String> env = builder.environment();
             Process proc = builder.start();
             InputStream stdout = proc.getInputStream();
             InputStream stderr = proc.getErrorStream();
