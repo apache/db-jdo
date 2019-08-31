@@ -74,14 +74,14 @@ public class Utilities {
     }
 
     public static void printClasspath(ClassLoader loader) {
-
-        //Get the URLs
-        URL[] urls = ((URLClassLoader) loader).getURLs();
-
-        System.out.println(urls.length + " URL(s) for loader: ");
-        for (int i = 0; i < urls.length; i++) {
-            if (urls[i] != null) {
-                System.out.println("    " + urls[i].getFile());
+        if (loader != null && loader instanceof URLClassLoader) {
+            //Get the URLs
+            URL[] urls = ((URLClassLoader) loader).getURLs();
+            System.out.println(urls.length + " URL(s) for loader: ");
+            for (int i = 0; i < urls.length; i++) {
+                if (urls[i] != null) {
+                    System.out.println("    " + urls[i].getFile());
+                }
             }
         }
     }
@@ -89,28 +89,14 @@ public class Utilities {
     public void printClasspath() {
 
         //Get the System Classloader
-        ClassLoader loader = ClassLoader.getSystemClassLoader();
-
-        //Get the URLs
-        URL[] urls = ((URLClassLoader) loader).getURLs();
-
-        for (int i = 0; i < urls.length; i++) {
-            System.out.println("    " + urls[i].getFile());
-        }
+        printClasspath(ClassLoader.getSystemClassLoader());
 
         //Get the System Classloader
-        loader = Thread.currentThread().getContextClassLoader();
-
-        //Get the URLs
-        urls = ((URLClassLoader) loader).getURLs();
-
-        for (int i = 0; i < urls.length; i++) {
-            System.out.println("    " + urls[i].getFile());
-        }
+        printClasspath(Thread.currentThread().getContextClassLoader());
 
     }
 
- static String readFile( String fileName ) throws IOException {
+    static String readFile( String fileName ) throws IOException {
     BufferedReader reader = new BufferedReader( new FileReader (fileName));
     String line  = null;
     StringBuffer stringBuf = new StringBuffer();
