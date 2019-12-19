@@ -153,7 +153,7 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jdo</artifactId>
-                    <version>5.2.2-SNAPSHOT</version>
+                    <version>5.2.3-SNAPSHOT</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>

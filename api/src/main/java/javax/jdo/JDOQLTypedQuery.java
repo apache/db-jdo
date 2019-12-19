@@ -352,34 +352,37 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * The candidate collection of the subquery is defined using a collection relationship of the outer query.
      * To obtain the expression for the subquery to link it back to this query, call "result(...)" on the subquery.
      * @param candidateCollection Expression defining the candidate collection for the subquery
+     * @param candidate Candidate for the subquery
      * @param candidateAlias Alias for the candidate
      * @return The subquery
      * @param <E> Candidate type for subquery
      */
-    <E> JDOQLTypedSubquery<E> subquery(CollectionExpression<Collection<E>, E> candidateCollection, String candidateAlias);
+    <E> JDOQLTypedSubquery<E> subquery(CollectionExpression<Collection<E>, E> candidateCollection, Class<E> candidate, String candidateAlias);
 
     /**
      * Method to return a correlated subquery for use in this query.
      * The candidate collection of the subquery is defined using a list relationship of the outer query.
      * To obtain the expression for the subquery to link it back to this query, call "result(...)" on the subquery.
-     * @param candidateList Expression defining the candidate collection for the subquery
+     * @param candidateList Expression defining the candidate list for the subquery
+     * @param candidate Candidate for the subquery
      * @param candidateAlias Alias for the candidate
      * @return The subquery
      * @param <E> Candidate type for subquery
      */
-    <E> JDOQLTypedSubquery<E> subquery(ListExpression<List<E>, E> candidateList, String candidateAlias);
+    <E> JDOQLTypedSubquery<E> subquery(ListExpression<List<E>, E> candidateList, Class<E> candidate, String candidateAlias);
 
     /**
      * Method to return a correlated subquery for use in this query.
      * The candidate collection of the subquery is defined using a map relationship of the outer query.
      * To obtain the expression for the subquery to link it back to this query, call "result(...)" on the subquery.
-     * @param candidateMap Expression defining the candidate collection for the subquery
+     * @param candidateMap Expression defining the candidate map for the subquery
+     * @param candidate Candidate for the subquery
      * @param candidateAlias Alias for the candidate
      * @return The subquery
      * @param <K> The key type of the map relationship
      * @param <V> The value type the map relationship
      */
-    <K, V> JDOQLTypedSubquery<Map.Entry<K, V>> subquery(MapExpression<Map<K, V>, K, V> candidateMap, String candidateAlias);
+    <K, V> JDOQLTypedSubquery<Map.Entry<K, V>> subquery(MapExpression<Map<K, V>, K, V> candidateMap, Class<Map.Entry<K, V>> candidate, String candidateAlias);
 
     /**
      * Method to set the named parameters on this query prior to execution.
