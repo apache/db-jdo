@@ -1747,8 +1747,6 @@ public interface javax.jdo.JDOQLTypedQuery extends java.io.Serializable, java.io
     abstract javax.jdo.JDOQLTypedSubquery subquery(String candidateAlias);
     abstract javax.jdo.JDOQLTypedSubquery subquery(Class candidate, String candidateAlias);
     abstract javax.jdo.JDOQLTypedSubquery subquery(javax.jdo.query.CollectionExpression candidateCollection, Class candidate , String candidateAlias);
-    abstract javax.jdo.JDOQLTypedSubquery subquery(javax.jdo.query.ListExpression candidateList, Class candidate , String candidateAlias);
-    abstract javax.jdo.JDOQLTypedSubquery subquery(javax.jdo.query.MapExpression candidateMap, Class candidate , String candidateAlias);
     abstract javax.jdo.JDOQLTypedQuery setParameters(java.util.Map namedParamMap);
     abstract javax.jdo.JDOQLTypedQuery setParameter(javax.jdo.query.Expression paramExpr, Object value);
     abstract javax.jdo.JDOQLTypedQuery setParameter(String paramName, Object value);

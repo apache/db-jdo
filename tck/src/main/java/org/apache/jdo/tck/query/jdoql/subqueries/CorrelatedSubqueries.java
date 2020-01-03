@@ -19,12 +19,19 @@ package org.apache.jdo.tck.query.jdoql.subqueries;
 
 import java.util.List;
 
-import javax.jdo.PersistenceManager;
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.JDOQLTypedSubquery;
 import javax.jdo.Query;
+import javax.jdo.Transaction;
+import javax.jdo.query.NumericExpression;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.MeetingRoom;
+import org.apache.jdo.tck.pc.company.QEmployee;
+import org.apache.jdo.tck.pc.company.QMeetingRoom;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -44,7 +51,17 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     /** */
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6.2-56 (CorrelatedSubqueries) failed: ";
-    
+
+    // Select employees who work more than the average of their department employees.
+    private static final String SINGLE_STRING_QUERY_COLLECTION_SUBQUERY =
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE this.weeklyhours > (SELECT AVG(e.weeklyhours) FROM this.department.employees e)";
+
+    // Select employees who work in a department having a meeting room with the maximum roomid.
+    private static final String SINGLE_STRING_QUERY_LIST_SUBQUERY =
+            "SELECT FROM " + Employee.class.getName() +
+            " WHERE (SELECT max(r.roomid) FROM this.department.meetingRooms r) == 3";
+
     /**
      * The <code>main</code> is called when the class
      * is directly executed from the command line.
@@ -55,38 +72,165 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
-        PersistenceManager pm = getPM();
+    public void testCollectionApiQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
 
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            // API query
+            try (Query apiQuery = pm.newQuery(Employee.class)) {
+                Query sub = pm.newQuery(Employee.class);
+                sub.setResult("avg(this.weeklyhours)");
+                apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
+                apiQuery.addSubquery(sub, "double averageWeeklyhours",
+                              "this.department.employees");
+                List<FullTimeEmployee> emps = apiQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
 
-        // Select employees who work more than the average of 
-        // their department employees. 
-        String singleStringJDOQL = 
-            "SELECT FROM " + Employee.class.getName() + " WHERE this.weeklyhours > " + 
-            "(SELECT AVG(e.weeklyhours) FROM this.department.employees e)";
+                // API query against memory model
+                List allEmployees = (List)pm.newQuery(Employee.class).execute();
+                apiQuery.setCandidates(allEmployees);
+                emps = apiQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 
-        // API query
-        Query sub = pm.newQuery(Employee.class);
-        sub.setResult("avg(this.weeklyhours)");
-        Query apiQuery = pm.newQuery(Employee.class);
-        apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
-        apiQuery.addSubquery(sub, "double averageWeeklyhours", 
-                          "this.department.employees"); 
-        executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
-                        false, null, expectedResult, true);
+    /** */
+    public void testCollectionSingleStringQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            // single String JDOQL
+            try (Query singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_COLLECTION_SUBQUERY)) {
+                List<FullTimeEmployee> emps = singleStringQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 
-        // API query against memory model
-        List allEmployees = getAllEmployees(pm);
-        apiQuery.setCandidates(allEmployees);
-        executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
-                        false, null, expectedResult, true);
+    /** */
+    public void testCollectionJDOQLTypedQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
+                QEmployee cand = QEmployee.candidate();
+                JDOQLTypedSubquery<Employee> subquery = q.subquery(cand.department.employees, Employee.class,"e");
+                QEmployee candsub = QEmployee.candidate("e");
+                q.filter(cand.weeklyhours.gt(subquery.selectUnique(candsub.weeklyhours.avg())));
+                List<Employee> emps = q.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 
-        // single String JDOQL
-        Query singleStringQuery = pm.newQuery(singleStringJDOQL);
-        executeJDOQuery(ASSERTION_FAILED, singleStringQuery, singleStringJDOQL, 
-                        false, null, expectedResult, true);
+    /** */
+    public void testListApiQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+
+            // API query
+            try (Query apiQuery = pm.newQuery(Employee.class)) {
+                 Query sub = pm.newQuery(MeetingRoom.class);
+                sub.setResult("max(roomid)");
+                apiQuery.setFilter("maxNumber == 3");
+                apiQuery.addSubquery(sub, "long maxNumber", "this.department.meetingRooms");
+                List<FullTimeEmployee> emps = apiQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
+
+                // API query against memory model
+                List allEmployees = (List)pm.newQuery(Employee.class).execute();
+                apiQuery.setCandidates(allEmployees);
+                emps = apiQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /** */
+    public void testListSingleStringQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+            // single String JDOQL
+            try (Query singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_LIST_SUBQUERY)) {
+                List<FullTimeEmployee> emps = singleStringQuery.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    /** */
+    public void testListJDOQLTypedQuery() {
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+            List expected = getTransientCompanyModelInstancesAsList(
+                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+            try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
+                QEmployee cand = QEmployee.candidate();
+                JDOQLTypedSubquery<MeetingRoom> subquery =
+                        q.subquery(cand.department.meetingRooms, MeetingRoom.class,"r");
+                QMeetingRoom candsub = QMeetingRoom.candidate("r");
+                q.filter(subquery.selectUnique((NumericExpression)candsub.roomid.max()).eq(3l));
+                List<Employee> emps = q.executeList();
+                checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
+            } catch (Exception ex) {
+                fail(ASSERTION_FAILED, ex.getLocalizedMessage());
+            }
+            tx.commit();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 
     /**
