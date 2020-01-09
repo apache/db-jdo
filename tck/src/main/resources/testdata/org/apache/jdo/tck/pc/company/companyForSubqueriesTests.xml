@@ -41,6 +41,19 @@
         </property>
     </bean>
 
+    <bean id="room1" factory-bean="companyFactory" factory-method="newMeetingRoom">
+        <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Comfy Room</value></constructor-arg>
+    </bean>
+    <bean id="room2" factory-bean="companyFactory" factory-method="newMeetingRoom">
+        <constructor-arg index="0" type="long"><value>2</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Large Discussion Room</value></constructor-arg>
+    </bean>
+    <bean id="room3" factory-bean="companyFactory" factory-method="newMeetingRoom">
+        <constructor-arg index="0" type="long"><value>3</value></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String"><value>Conference Room</value></constructor-arg>
+    </bean>
+
     <bean id="dept1" factory-bean="companyFactory" factory-method="newDepartment">
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" ><value>Development</value></constructor-arg>
@@ -55,6 +68,12 @@
                 <ref local="emp6"/>
             </set>
         </property>
+        <property name="meetingRooms">
+            <list>
+                <ref local="room1"/>
+                <ref local="room2"/>
+            </list>
+        </property>
     </bean>
 
     <bean id="dept2" factory-bean="companyFactory" factory-method="newDepartment">
@@ -68,6 +87,11 @@
                 <ref local="emp9"/>
                 <ref local="emp10"/>
             </set>
+        </property>
+        <property name="meetingRooms">
+            <list>
+                <ref local="room3"/>
+            </list>
         </property>
     </bean>
 
