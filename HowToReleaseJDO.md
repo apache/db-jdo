@@ -1,6 +1,4 @@
 [[index]]
-image:images/JDOx150.png[float="left"]
-image:images/jdo_text.png[float="left"]
 
 '''''
 
