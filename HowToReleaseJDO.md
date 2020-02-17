@@ -1,10 +1,19 @@
-= Apache JDO Release Process
+[[index]]
+image:images/JDOx150.png[float="left"]
+image:images/jdo_text.png[float="left"]
+
+'''''
+
+:_basedir: 
+:_imagesdir: images/
+:notoc:
+:titlepage:
+:grid: cols
 
 * xref:procoverview[Overview of the process]
 * xref:procdetail[Detailed process steps]
 * xref:site[Site updates]
 * xref:postrelease[Post release modifications and documentation]
-
 
 == How to Release an Apache JDO Distribution
 
@@ -14,7 +23,6 @@ Once released, it is propagated to mirror servers around the world.
 
 The process is performed by a release manager with cooperation from
 testers in the community.
-
 
 anchor:procoverview[]
 
@@ -64,7 +72,6 @@ The release manager updates the JDO web sites
 If bugs are found or test challenges are sustained after the release is
 approved and distributed, the release manager creates a new branch to
 address the bugs found.
-
 
 anchor:procdetail[]
 
@@ -194,7 +201,6 @@ community via email to announce@apache.org This must be sent from an
 you will be bombarded with piles of emails from people with "I'm out of
 the Office" as if you really cared ***
 
-
 anchor:site[]
 
 === Site updates
@@ -242,7 +248,6 @@ _docsdir_.
 .. Edit xdocs/javadoc.xml and add links to the new javadoc.
 . Build and test. Follow the instructions in site/HOWTO to push the site
 changes to the Apache web site.
-
 
 anchor:postrelease[]
 
