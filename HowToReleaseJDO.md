@@ -1,3 +1,5 @@
+= Apache JDO Release Process
+
 * xref:procoverview[Overview of the process]
 * xref:procdetail[Detailed process steps]
 * xref:site[Site updates]
