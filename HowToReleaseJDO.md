@@ -1,7 +1,8 @@
-* link:#procoverview[Overview of the process]
-* link:#procdetail[Detailed process steps]
-* link:#site[Site updates]
-* link:#postrelease[Post release modifications and documentation]
+* xref:procoverview[Overview of the process]
+* xref:procdetail[Detailed process steps]
+* xref:site[Site updates]
+* xref:postrelease[Post release modifications and documentation]
+
 
 == How to Release an Apache JDO Distribution
 
@@ -12,7 +13,8 @@ Once released, it is propagated to mirror servers around the world.
 The process is performed by a release manager with cooperation from
 testers in the community.
 
-[#procoverview]##
+
+anchor:procoverview[]
 
 === Overview of the process
 
@@ -61,7 +63,8 @@ If bugs are found or test challenges are sustained after the release is
 approved and distributed, the release manager creates a new branch to
 address the bugs found.
 
-[#procdetail]##
+
+anchor:procdetail[]
 
 === Detailed process steps
 
@@ -189,7 +192,8 @@ community via email to announce@apache.org This must be sent from an
 you will be bombarded with piles of emails from people with "I'm out of
 the Office" as if you really cared ***
 
-[#site]##
+
+anchor:site[]
 
 === Site updates
 
@@ -237,7 +241,8 @@ _docsdir_.
 . Build and test. Follow the instructions in site/HOWTO to push the site
 changes to the Apache web site.
 
-[#postrelease]##
+
+anchor:postrelease[]
 
 === Post release modifications and documentation
 
