@@ -62,7 +62,7 @@ public class PropertyUtils {
 
     /**
      * Parses a set of config files for the mapping entry and
-     * provides the mapping values in a Collection<String>.
+     * provides the mapping values in a Collection.
      * @param cfglist config file names
      * @param confDir directory where config files are found
      * @param mappings object to containg mapping values

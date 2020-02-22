@@ -17,6 +17,8 @@ package org.apache.jdo.exectck;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,19 +33,14 @@ import java.util.List;
 
 /**
  * Goal that installs a database schema for testing a JDO implementation.
- *
- * @goal installSchema
- * 
- * @phase integration-test
  */
+@Mojo( name = "installSchema" )
 public class InstallSchema extends AbstractTCKMojo {
 
     /**
      * Location of TCK generated output.
-     * @parameter property="jdo.tck.doInstallSchema"
-     *      default-value="true"
-     * @required
      */
+    @Parameter( property = "jdo.tck.doInstallSchema", defaultValue = "true", required = true)
     private boolean doInstallSchema;
 
     /**
@@ -174,8 +171,8 @@ public class InstallSchema extends AbstractTCKMojo {
 
     /**
      *
-     * @param db
-     * @param dbDirName
+     * @param db database name
+     * @param dbDirName database home directory
      */
     protected void initializeDB(String db, String dbDirName) {
         if ("derby".equalsIgnoreCase(db)) {
@@ -185,8 +182,8 @@ public class InstallSchema extends AbstractTCKMojo {
 
     /**
      *
-     * @param db
-     * @param dbDirName
+     * @param db database name
+     * @param dbDirName database home directory
      */
     protected void finalizeDB(String db, String dbDirName) {
         if ("derby".equalsIgnoreCase(db)) {
@@ -199,11 +196,12 @@ public class InstallSchema extends AbstractTCKMojo {
     }
 
     /**
-     * 
-     * @param dbDirName
-     * @param sqlFileName
-     * @param outFileName
-     * @throws MojoExecutionException
+     *
+     * @param db database name
+     * @param dbDirName database home directory
+     * @param sqlFileName name of the sql file
+     * @param outFileName name of the output file
+     * @throws MojoExecutionException exception indicating error case
      */
     protected void loadSQLFileUsingIJ(String db, String dbDirName, String sqlFileName, String outFileName)
             throws MojoExecutionException {
@@ -220,10 +218,11 @@ public class InstallSchema extends AbstractTCKMojo {
 
     /**
      *
-     * @param dbDirName
-     * @param sqlFileName
-     * @param outFileName
-     * @throws MojoExecutionException
+     * @param db database name
+     * @param dbDirName database home directory
+     * @param sqlFileName name of the sql file
+     * @param outFileName name of the output file
+     * @throws MojoExecutionException exception indicating error case
      */
     protected void loadSQLFileUsingJDBC(String db, String dbDirName,
                                         String sqlFileName, String outFileName)

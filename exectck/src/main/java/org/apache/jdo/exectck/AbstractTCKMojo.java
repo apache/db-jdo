@@ -25,6 +25,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Abstract Mojo to be extended for the actual goals of this maven plugin.
@@ -33,95 +34,75 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 
 	/**
      * Location of TCK generated output.
-     * @parameter property="project.build.directory"
-     *      default-value="${basedir}/target"
-     * @required
      */
+    @Parameter( property = "project.build.directory", defaultValue = "${basedir}/target", required = true)
     protected String buildDirectory;
 
     /**
      * Location of the logs directory.
-     * @parameter property="project.log.directory"
-     *      default-value="${project.build.directory}/logs"
-     * @required
      */
+    @Parameter( property = "project.log.directory", defaultValue = "${project.build.directory}/logs", required = true)
     protected File logsDirectory;
 
     /**
      * Location of the configuration directory.
-     * @parameter property="project.conf.directory"
-     *      default-value="${basedir}/src/main/resources/conf"
-     * @required
      */
+    @Parameter( property = "project.conf.directory", defaultValue = "${basedir}/src/main/resources/conf", required = true)
     protected String confDirectory;
 
     /**
      * Location of the configuration directory.
-     * @parameter property="project.sql.directory"
-     *      default-value="${basedir}/src/main/resources/sql"
-     * @required
      */
+    @Parameter( property = "project.sql.directory", defaultValue = "${basedir}/src/main/resources/sql", required = true)
     protected String sqlDirectory;
 
     /**
      * List of configuration files, each describing a test configuration.
      * Note: Collection can only be configured in pom.xml. Using multi-valued
      *       type because long String cannot be broken across lines in pom.xml.
-     * @parameter
-     * @optional
      */
+    @Parameter
     protected Collection<String> cfgs;
 
     /**
      * List of configuration files, each describing a test configuration.
      * Allows command line override of configured cfgs value.
-     * @parameter property="jdo.tck.cfglist"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.cfglist")
     protected String cfgList;
 
     /**
      * List of databases to run tests under.
      * Currently only derby is supported.
-     * @parameter property="jdo.tck.dblist"
-     *      default-value="derby"
-     * @required
      */
+    @Parameter( property = "jdo.tck.dblist", defaultValue = "derby", required = true)
     protected String dblist;
 
     /**
      * Implementation to be tested (jdori or iut).
      * Any value other than "jdori" will test an appropriately configured IUT
-     * @parameter property="jdo.tck.impl"
-     *      default-value="jdori"
-     * @required
      */
+    @Parameter( property = "jdo.tck.impl", defaultValue = "jdori", required = true)
     protected String impl;
 
     /**
      * Location of implementation log file.
-     * @parameter property="jdo.tck.impl.logfile"
-     *      default-value="${user.dir}/datanucleus.txt"
-     * @required
      */
+    @Parameter( property = "jdo.tck.impl.logfile", defaultValue = "${user.dir}/datanucleus.txt", required = true)
     protected String implLogFile;
 
     /**
      * Classpath including the dependencies using : as separator between entries.
-     * @parameter property="jdo.tck.dependencyClasspath"
-     *      default-value=""
-     * @required
      */
+    @Parameter( property = "jdo.tck.dependencyClasspath", defaultValue = "", required = true)
     protected String dependencyClasspath;
 
     protected Collection<String> dbs = new HashSet<String>();
 
     /**
      * List of identity types to be tested.
-     * @parameter property="jdo.tck.identitytypes"
-     *      default-value="applicationidentity datastoreidentity"
-     * @required
      */
+    @Parameter( property = "jdo.tck.identitytypes", defaultValue = "applicationidentity datastoreidentity", required = true)
     protected String identitytypes;
 
     protected Collection<String> idtypes = new HashSet<String>();

@@ -21,9 +21,10 @@ import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,11 +39,8 @@ import javax.jdo.JDOHelper;
 
 /**
  * Goal that enhances test classes for testing a JDO implementation.
- *
- * @goal enhance
- *
- * @phase integration-test
  */
+@Mojo( name = "enhance" )
 public class Enhance extends AbstractTCKMojo {
 
     private static final String[] PC_PKG_DIRS = {
@@ -52,25 +50,20 @@ public class Enhance extends AbstractTCKMojo {
     };
     /**
      * Location of TCK generated output.
-     * @parameter property="jdo.tck.doEnhance"
-     *      default-value="true"
-     * @required
      */
+    @Parameter( property = "jdo.tck.doEnhance", defaultValue = "true", required = true)
     private boolean doEnhance;
+
     /**
      * Root of the TCK source installation.
-     * @parameter property="project.src.directory"
-     *      default-value="${basedir}/src/main/resources"
-     * @required
      */
+    @Parameter( property = "project.src.directory", defaultValue = "${basedir}/src/main/resources", required = true)
     private String srcDirectory;
 
     /**
      * List of identity types to be tested.
-     * @parameter property="jdo.tck.identitytypes"
-     *      default-value="applicationidentity datastoreidentity"
-     * @required
      */
+    @Parameter( property = "jdo.tck.identitytypes", defaultValue = "applicationidentity datastoreidentity", required = true)
     private String identitytypes;
 
     private Collection<String> idtypes;

@@ -33,15 +33,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.jdo.exectck.Utilities.InvocationResult;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Goal that runs the JDO TCK against the Reference Implementation (RI)
  * or an implementation under test (IUT).
- *
- * @goal runtck
- *
- * @phase integration-test
  */
+@Mojo( name = "runtck" )
 public class RunTCK extends AbstractTCKMojo {
 
     private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast"; 
@@ -50,127 +49,104 @@ public class RunTCK extends AbstractTCKMojo {
 
     /**
      * To skip running of TCK, set to false.
-     * @parameter property="jdo.tck.doRunTCK"
-     *      default-value=true
-     * @required
      */
+    @Parameter( property = "jdo.tck.doRunTCK", defaultValue = "true", required = true)
     private boolean doRunTCK;
 
     /**
      * To run the RunTCK plugin goal in verbose mode.
-     * @parameter property="jdo.tck.runTCKVerbose"
-     *      default-value=false
-     * @required
      */
+    @Parameter( property = "jdo.tck.runTCKVerbose", defaultValue = "false", required = true)
     private boolean runtckVerbose;
 
     /**
      * Define handling of TCK failures.
-     * @parameter property="jdo.tck.onFailure"
-     *      default-value="failGoal"
-     * @required
      */
+    @Parameter( property = "jdo.tck.onFailure", defaultValue = "failGoal", required = true)
     private String onFailure;
 
     /**
      * Run the TCK in a debugger.
-     * @parameter property="jdo.tck.debugTCK"
-     *      default-value=false
-     * @required
      */
+    @Parameter( property = "jdo.tck.debugTCK", defaultValue = "false", required = true)
     private boolean debugTCK;
 
     /**
      * Location of third party libraries such as JNDI.
-     * @parameter property="project.lib.ext.directory"
-     *      default-value="${basedir}/../lib/ext"
-     * @required
      */
+    @Parameter( property = "project.lib.ext.directory", defaultValue = "${basedir}/../lib/ext", required = true)
     private String extLibsDirectory;
 
     /**
      * Location of implementation log file.
-     * @parameter property="jdo.tck.impl.logfile"
-     *      default-value="${user.dir}/datanucleus.txt"
-     * @required
      */
+    @Parameter( property = "jdo.tck.impl.logfile", defaultValue = "${user.dir}/datanucleus.txt", required = true)
     private String implLogFile;
 
     /**
      * Name of file in src/conf containing pmf properties.
-     * @parameter property="jdo.tck.pmfproperties"
-     *      default-value="jdori-pmf.properties"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.pmfproperties", defaultValue = "jdori-pmf.properties")
     private String pmfProperties;
 
     /**
      * Name of file in src/conf containing property jdo.tck.exclude,
      *   whose value is a list of files to be excluded from testing.
-     * @parameter property="jdo.tck.excludefile"
-     *      default-value="exclude.list"
-     * @required
      */
+    @Parameter( property = "jdo.tck.excludefile", defaultValue = "exclude.list", required = true)
     private String exclude;
 
     /**
      * Run the TCK tests in verbose mode.
-     * @parameter property="jdo.tck.verbose"
-     *      default-value="false"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.verbose", defaultValue = "false")
     private String verbose;
+
     /**
      * To retain test output for debugging, set to false.
-     * @parameter property="jdo.tck.cleanupaftertest"
-     *      default-value="true"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.cleanupaftertest", defaultValue = "true")
     private String cleanupaftertest;
+
     /**
      * Properties to use in accessing database.
-     * @parameter property="database.runtck.sysproperties"
-     *      default-value="-Dderby.system.home=${basedir}/target/database/derby"
-     * @optional
      */
+    @Parameter( property = "database.runtck.sysproperties",
+                defaultValue = "-Dderby.system.home=${basedir}/target/database/derby")
     private String dbproperties;    // NOTE: only allows for one db
+
     /**
      * Properties to use in accessing database.
-     * @parameter property="jdo.tck.signaturefile"
-     *      default-value="${basedir}/src/main/resources/conf/jdo-signatures.txt"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.signaturefile",
+                defaultValue = "${basedir}/src/main/resources/conf/jdo-signatures.txt")
     private String signaturefile;
+
     /**
      * JVM properties.
-     * @parameter property="jdo.tck.jvmproperties"
-     *      default-value="-Xmx512m"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.jvmproperties", defaultValue = "-Xmx512m")
     private String jvmproperties;
 
     /**
      * User-supplied arguments for debug directives.
-     * @parameter property="jdo.tck.debug.jvmargs"
-     *      default-value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}"
-     * @optional
      */
+    @Parameter( property = "jdo.tck.debug.jvmargs",
+                defaultValue = "-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${jdo.tck.debug.port}")
     private String debugDirectives;
 
     /**
      * Class used to run a batch of tests.
-     * @parameter property="jdo.tck.testrunnerclass"
-     *      default-value="org.apache.jdo.tck.util.BatchTestRunner"
-     * @required
      */
+    @Parameter( property = "jdo.tck.testrunnerclass", defaultValue = "org.apache.jdo.tck.util.BatchTestRunner",
+                required = true)
     private String testRunnerClass;
 
     /**
      * Class used to output test result and configuration information.
-     * @parameter property="jdo.tck.resultprinterclass"
-     *      default-value="org.apache.jdo.tck.util.BatchResultPrinter"
-     * @required
      */
+    @Parameter( property = "jdo.tck.resultprinterclass", defaultValue = "org.apache.jdo.tck.util.BatchResultPrinter",
+                required = true)
     private String resultPrinterClass;
 
     /**

@@ -331,7 +331,7 @@ public class SQLFileLoader {
 
     /**
      * main method For testing; prints the internal state to System.out.
-     * @param args
+     * @param args command line arguments
      */
     public static void main(String[] args) {
         for (String arg : args) {

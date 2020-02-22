@@ -20,15 +20,12 @@ package org.apache.jdo.exectck;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Goal that displays help text for the exectck Maven plugin.
- *
- * @goal help
- *
- * @phase integration-test
- *
  */
+@Mojo( name = "help" )
 public class Help extends AbstractMojo{
 
     @Override
