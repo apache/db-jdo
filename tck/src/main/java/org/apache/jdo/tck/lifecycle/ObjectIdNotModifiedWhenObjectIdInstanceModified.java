@@ -61,8 +61,9 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         pm = getPM();
         addTearDownClass(StateTransitionObj.class);

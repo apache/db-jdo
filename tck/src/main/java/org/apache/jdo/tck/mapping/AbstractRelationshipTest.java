@@ -39,8 +39,9 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
     protected final boolean isTestToBePerformed = isTestToBePerformed();
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         if (isTestToBePerformed()) {
             getPM();

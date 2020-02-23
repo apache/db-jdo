@@ -37,9 +37,10 @@ public class CompanyFactoryAnnotatedPMFieldClassJPA
     Class projectClass = null;
     Class departmentClass = null;
     Class companyClass = null;
-    
+
     /**
      * Creates a new instance of CompanyFactoryAnnotatedPMFieldClassJPA
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPMFieldClassJPA(PersistenceManager pm) {
         super(pm);

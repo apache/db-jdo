@@ -38,9 +38,10 @@ public class CompanyFactoryAnnotatedPMFieldClass
     Class departmentClass = null;
     Class meetingRoomClass = null;
     Class companyClass = null;
-    
+
     /**
      * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPMFieldClass(PersistenceManager pm) {
         super(pm);

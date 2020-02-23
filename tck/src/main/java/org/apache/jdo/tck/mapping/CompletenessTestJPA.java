@@ -59,8 +59,9 @@ public class CompletenessTestJPA extends AbstractReaderTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         if (runsWithApplicationIdentity()) {
             getPM();

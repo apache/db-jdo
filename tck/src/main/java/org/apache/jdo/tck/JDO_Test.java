@@ -58,7 +58,6 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.util.ClassUtils;
 
 public abstract class JDO_Test extends TestCase {
     public static final int TRANSIENT                           = 0;
@@ -486,7 +485,12 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** */
+    /**
+     * Returns a collection of persistence instances of the specified class.
+     * @param pm the PersistenceManager
+     * @param pcClass the class object of the PersistenceCapabale class
+     * @return a Collection of persistence objects
+     */
     protected Collection getAllObjects(PersistenceManager pm, Class pcClass) {
         Collection col = new Vector() ;
         Query query = pm.newQuery();
@@ -510,8 +514,7 @@ public abstract class JDO_Test extends TestCase {
      * @return field <code>pmf</code> if it is not <code>null</code>, 
      * else sets field <code>pmf</code> to a new instance and returns that instance.
      */
-    protected PersistenceManagerFactory getPMF()
-    {
+    protected PersistenceManagerFactory getPMF() {
         if (pmf == null) {
             PMFPropertiesObject = loadProperties(PMFProperties); // will exit here if no properties
             pmf = JDOHelper.getPersistenceManagerFactory(PMFPropertiesObject);
@@ -522,8 +525,7 @@ public abstract class JDO_Test extends TestCase {
         return pmf;
     }
 
-    protected Class getPMFClass()
-    {
+    protected Class getPMFClass() {
         if (pmf != null) {
             return pmf.getClass();
         }
@@ -547,8 +549,7 @@ public abstract class JDO_Test extends TestCase {
      * @return field <code>pmf</code> if it is not <code>null</code>, 
      * else sets field <code>pmf</code> to a new instance and returns that instance.
      */
-    protected PersistenceManagerFactory getUnconfiguredPMF()
-    {
+    protected PersistenceManagerFactory getUnconfiguredPMF() {
         if (pmf == null) {
             String name = null;
             try {
@@ -572,6 +573,7 @@ public abstract class JDO_Test extends TestCase {
     /**
      * Get the <code>PersistenceManager</code> instance 
      * for the implementation under test.
+     * @return the PersistenceManager
      */
     protected PersistenceManager getPM() {
         if (pm == null) {
@@ -587,8 +589,7 @@ public abstract class JDO_Test extends TestCase {
      * multiple PersistenceManager instances around, in case the
      * PersistenceManagerFactory performs PersistenceManager pooling.  
      */
-    protected void cleanupPM() 
-    {
+    protected void cleanupPM() {
         cleanupPM(pm);
         pm = null;
     }
@@ -597,9 +598,9 @@ public abstract class JDO_Test extends TestCase {
      * This method cleans up the specified 
      * <code>PersistenceManager</code>. If the pm still has an open
      * transaction, it will be rolled back, before closing the pm.
+     * @param pm the PersistenceManager
      */
-    protected static void cleanupPM(PersistenceManager pm) 
-    {
+    protected static void cleanupPM(PersistenceManager pm) {
         if ((pm != null) && !pm.isClosed()) {
             if (pm.currentTransaction().isActive()) {
                 pm.currentTransaction().rollback();
@@ -640,8 +641,10 @@ public abstract class JDO_Test extends TestCase {
             throw failure;
     }
 
-    /** Closes the pmf passed as a parameter. 
+    /**
+     * Closes the pmf passed as a parameter.
      * This must be done in a doPrivileged block.
+     * @param PMF the PersistenceManagerFactory
      */
     public static void closePMF(final PersistenceManagerFactory PMF) {
         if (PMF != null) {
@@ -658,8 +661,12 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-
-    /** */
+    /**
+     * Returns failed PersistenceManagers
+     * @param assertionFailure failure
+     * @param ex exception
+     * @return failed PersistenceManagers
+     */
     protected static PersistenceManager[] getFailedPersistenceManagers(
         String assertionFailure, JDOException ex) {
         Throwable[] nesteds = ex.getNestedExceptions();
@@ -681,9 +688,10 @@ public abstract class JDO_Test extends TestCase {
 
     /**
      * This method load Properties from a given file.
+     * @param fileName the name of the properties file
+     * @return a Properties instance with the loaded properties
      */
-    protected Properties loadProperties(String fileName)
-    {
+    protected Properties loadProperties(String fileName) {
         if (fileName == null) {
             fileName = System.getProperty("user.home") + "/.jdo/PMFProperties.properties";
         }
@@ -710,9 +718,11 @@ public abstract class JDO_Test extends TestCase {
         return props;
     }
 
-    /** 
+    /**
      * Prints the specified msg (if debug is true), before it aborts the
      * test case.
+     * @param assertionFailure the assertion failure
+     * @param msg the message text
      */
     public void fail(String assertionFailure, String msg) {
         if (debug) logger.debug(msg);
@@ -723,6 +733,7 @@ public abstract class JDO_Test extends TestCase {
 
     /**
      * Dump the supportedOptions to the a file in the specified directory.
+     * @param directory the directory the options are dumped to
      */
     public static void dumpSupportedOptions(String directory) {
         if (supportedOptions == null)
@@ -764,176 +775,262 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** Reports whether TransientTransactional is supported. */
+    /**
+     * Reports whether TransientTransactional is supported.
+     * @return true if TransientTransactional is supported.
+     */
     public boolean isTransientTransactionalSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.TransientTransactional");
     }
     
-    /** Reports whether NontransactionalRead is supported. */
+    /**
+     * Reports whether NontransactionalRead is supported.
+     * @return true if NontransactionalRead is supported.
+     */
     public boolean isNontransactionalReadSupported(){
         return supportedOptions.contains(
             "javax.jdo.option.NontransactionalRead");
     }
     
-    /** Reports whether NontransactionalWrite is supported. */
+    /**
+     * Reports whether NontransactionalWrite is supported.
+     * @return true if NontransactionalWrite is supported.
+     */
     public boolean isNontransactionalWriteSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.NontransactionalWrite");
     }
 
-    /** Reports whether RetainValues is supported. */
-    public boolean isRetainValuesSupported()
-    {
+    /**
+     * Reports whether RetainValues is supported.
+     * @return true if RetainValues is supported.
+     */
+    public boolean isRetainValuesSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.RetainValues");
     }
 
-    /** Reports whether Optimistic is supported. */
+    /**
+     * Reports whether Optimistic is supported.
+     * @return true if Optimistic is supported.
+     */
     public boolean isOptimisticSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.Optimistic");
     }
 
-    /** Reports whether Application Identity is supported. */
+    /**
+     * Reports whether Application Identity is supported.
+     * @return true if Application Identity is supported.
+     */
     public boolean isApplicationIdentitySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.ApplicationIdentity");
     }
 
-    /** Reports whether Datastore Identity is supported. */
+    /**
+     * Reports whether Datastore Identity is supported.
+     * @return true if Datastore Identity is supported.
+     */
     public boolean isDatastoreIdentitySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.DatastoreIdentity");
     }
 
-    /** Reports whether Non-Durable Identity is supported. */
+    /**
+     * Reports whether Non-Durable Identity is supported.
+     * @return true if Non-Durable Identity is supported.
+     */
     public boolean isNonDurableIdentitySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.NonDurableIdentity");
     }
 
-    /** Reports whether an <code>ArrayList</code> collection is supported. */
-    public boolean isArrayListSupported() {        
+    /**
+     * Reports whether an <code>ArrayList</code> collection is supported.
+     * @return true if an <code>ArrayList</code> collection is supported.
+     */
+    public boolean isArrayListSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.ArrayList");
     }
 
-    /** Reports whether a <code>HashMap</code> collection is supported. */
+    /**
+     * Reports whether a <code>HashMap</code> collection is supported.
+     * @return true if a <code>HashMap</code> collection is supported.
+     */
     public boolean isHashMapSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.HashMap");
     }
 
-    /** Reports whether a <code>Hashtable</code> collection is supported. */
+    /**
+     * Reports whether a <code>Hashtable</code> collection is supported.
+     * @return true if a <code>Hashtable</code> collection is supported.
+     */
     public boolean isHashtableSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.Hashtable");
     }
 
-    /** Reports whether a <code>LinkedList</code> collection is supported. */
+    /**
+     * Reports whether a <code>LinkedList</code> collection is supported.
+     * @return true if a <code>LinkedList</code> collection is supported.
+     */
     public boolean isLinkedListSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.LinkedList");
     }
 
-    /** Reports whether a <code>TreeMap</code> collection is supported. */
+    /**
+     * Reports whether a <code>TreeMap</code> collection is supported.
+     * @return true if a <code>TreeMap</code> collection is supported.
+     */
     public boolean isTreeMapSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.TreeMap");
     }
 
-    /** Reports whether a <code>TreeSet</code> collection is supported. */
+    /**
+     * Reports whether a <code>TreeSet</code> collection is supported.
+     * @return true if a <code>TreeSet</code> collection is supported.
+     */
     public boolean isTreeSetSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.TreeSet");
     }
 
-    /** Reports whether a <code>Vector</code> collection is supported. */
+    /**
+     * Reports whether a <code>Vector</code> collection is supported.
+     * @return true if a <code>Vector</code> collection is supported.
+     */
     public boolean isVectorSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.Vector");
     }
 
-    /** Reports whether a <code>Map</code> collection is supported. */
+    /**
+     * Reports whether a <code>Map</code> collection is supported.
+     * @return true if a <code>Map</code> collection is supported.
+     */
     public boolean isMapSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.Map");
     }
 
-    /** Reports whether a <code>List</code> collection is supported. */
+    /**
+     * Reports whether a <code>List</code> collection is supported.
+     * @return true if a <code>List</code> collection is supported.
+     */
     public boolean isListSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.List");
     }
 
-    /** Reports whether arrays are supported. */
+    /**
+     * Reports whether arrays are supported.
+     * @return true if arrays are supported.
+     */
     public boolean isArraySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.Array");
     }
 
-    /** Reports whether a null collection is supported. */
+    /**
+     * Reports whether a null collection is supported.
+     * @return true if a null collection is supported.
+     */
     public boolean isNullCollectionSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.NullCollection");
     }
 
-    /** Reports whether Changing Application Identity is supported. */
+    /**
+     * Reports whether Changing Application Identity is supported.
+     * @return true if Changing Application Identity is supported.
+     */
     public boolean isChangeApplicationIdentitySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.ChangeApplicationIdentity");
     }
 
-    /** Reports whether Binary Compatibility is supported. */
+    /**
+     * Reports whether Binary Compatibility is supported.
+     * @return true if Binary Compatibility is supported.
+     */
     public boolean isBinaryCompatibilitySupported() {
         return supportedOptions.contains(
             "javax.jdo.option.BinaryCompatibility");
     }
 
-    /** Reports whether UnconstrainedVariables is supported. */
+    /**
+     * Reports whether UnconstrainedVariables is supported.
+     * @return true if UnconstrainedVariables is supported.
+     */
     public boolean isUnconstrainedVariablesSupported() {
         return supportedOptions.contains(
             "javax.jdo.query.JDOQL.UnconstraintedQueryVariables");
     }
 
-    /** Reports whether BitwiseOperations is supported. */
+    /**
+     * Reports whether BitwiseOperations is supported.
+     * @return true if BitwiseOperations is supported.
+     */
     public boolean isBitwiseOperationsSupported() {
         return supportedOptions.contains(
                 "javax.jdo.query.JDOQL.bitwiseOperations");
     }
     
-    /** Reports whether SQL queries are supported. */
+    /**
+     * Reports whether SQL queries are supported.
+     * @return true if SQL queries are supported.
+     */
     public boolean isSQLSupported() {
         return supportedOptions.contains(
             "javax.jdo.query.SQL");
     }
     
-    /** Reports whether getting the DataStoreConnection is supported. */
+    /**
+     * Reports whether getting the DataStoreConnection is supported.
+     * @return true if  getting the DataStoreConnection is supported.
+     */
     public boolean isDataStoreConnectionSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.GetDataStoreConnection");
     }
 
-    /** Reports whether canceling a running query is supported. */
+    /**
+     * Reports whether canceling a running query is supported.
+     * @return true if canceling a running query is supported.
+     */
     public boolean isQueryCancelSupported() {
         return supportedOptions.contains(
             "javax.jdo.option.QueryCancel");
     }
 
-    /** Reports whether setting a Datastore timout is supported. */
+    /**
+     * Reports whether setting a Datastore timout is supported.
+     * @return true if setting a Datastore timout is supported.
+     */
     public boolean isDatastoreTimeoutSupported() {
         return supportedOptions.contains(
             Constants.OPTION_DATASTORE_TIMEOUT);
     }
 
-    /** Reports whether a feature is supported */
+    /**
+     * Reports whether a feature is supported
+     * @param option the option
+     * @return true if the specified option is supported
+     */
     public boolean isSupported(String option) {
         return supportedOptions.contains(option);
     }
 
     /**
      * Determine if a class is loadable in the current environment.
+     * @param className the name of the class
+     * @return true if the class is loadable in the current environment.
      */
     public static boolean isClassLoadable(String className) {
         try {
@@ -944,8 +1041,9 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** 
+    /**
      * Determine if the environment is 1.4 version of JRE or better.
+     * @return true if 1.4 version of JRE or better.
      */
     public static boolean isJRE14orBetter() {
         return isClassLoadable("java.util.Currency");
@@ -958,8 +1056,7 @@ public abstract class JDO_Test extends TestCase {
      * @return The current state of the instance, by using the
      * <code>JDOHelper</code> state interrogation methods.
      */
-    public static String getStateOfInstance(Object o)
-    {
+    public static String getStateOfInstance(Object o) {
         boolean existingEntries = false;
         StringBuffer buff = new StringBuffer("{");
         if( JDOHelper.isPersistent(o) ){
@@ -992,12 +1089,13 @@ public abstract class JDO_Test extends TestCase {
         buff.append("}");
         return buff.toString();
     }
-    
+
     /**
      * This method will return the current lifecycle state of an instance.
+     * @param o the object
+     * @return the current lifecycle state
      */
-    public static int currentState(Object o)
-    {
+    public static int currentState(Object o) {
         boolean[] status = new boolean[NUM_STATUSES];
         status[IS_PERSISTENT]       = JDOHelper.isPersistent(o);
         status[IS_TRANSACTIONAL]    = JDOHelper.isTransactional(o);
@@ -1019,9 +1117,11 @@ public abstract class JDO_Test extends TestCase {
 
     /**
      * Tests if a found state matches an expected state.
+     * @param found_state the  found state
+     * @param expected_state the expected state
+     * @return true if the found state matches the expected state
      */
-    public static boolean compareStates(int found_state, int expected_state)
-    {
+    public static boolean compareStates(int found_state, int expected_state) {
         // status interrogation gives same values for PERSISTENT_NONTRANSACTIONAL and HOLLOW
         return (expected_state < 0
                 || found_state == expected_state
@@ -1033,6 +1133,9 @@ public abstract class JDO_Test extends TestCase {
      *  non-final fields.
      *  It returns true if the object was mangled, and false if there
      *  are no fields to mangle.
+     * @param oid the oid of the object
+     * @return a mangled object
+     * @throws Exception exception
      */
     protected boolean mangleObject (Object oid) 
         throws Exception {
@@ -1067,8 +1170,9 @@ public abstract class JDO_Test extends TestCase {
         }
         return true;
     }
-    
-    /** Returns modifiable Fields of the class of the parameter. 
+
+    /**
+     Returns modifiable Fields of the class of the parameter.
      * Fields are considered modifiable if they are not static or final.
      * This method requires several permissions in order to run with
      * a SecurityManager, hence the doPrivileged block:
@@ -1076,6 +1180,8 @@ public abstract class JDO_Test extends TestCase {
      * <li>ReflectPermission("suppressAccessChecks")</li>
      * <li>RuntimePermission("accessDeclaredMembers")</li>
      * </ul>
+     * @param obj the object
+     * @return an array of fields
      */
     protected Field[] getModifiableFields(final Object obj) {
         return (Field[])AccessController.doPrivileged(
@@ -1173,8 +1279,10 @@ public abstract class JDO_Test extends TestCase {
     /** A buffer of of error messages.
      */
     protected static StringBuffer messages;
-    
-    /** Appends to error messages.
+
+    /**
+     * Appends to error messages.
+     * @param message the message
      */
     protected static synchronized void appendMessage(String message) {
         if (messages == null) {
@@ -1183,8 +1291,12 @@ public abstract class JDO_Test extends TestCase {
         messages.append(message);
         messages.append(NL);
     }
-    
-    /** Appends to error messages.
+
+    /**
+     * Appends to error messages.
+     * @param test test option
+     * @param context context
+     * @param message message
      */
     protected static synchronized void deferredAssertTrue(boolean test,
         String context, String message) {
@@ -1193,8 +1305,12 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** Appends an error if the actual value does not equal the expected value.
+    /**
+     * Appends an error if the actual value does not equal the expected value.
      * Primitive values are autoboxed. Null values are ok for both expected and actual.
+     * @param message the message
+     * @param expected the expected value
+     * @param actual the actual value
      */
     protected void errorIfNotEqual(String message, Object expected, Object actual) {
         if (expected == null) {
@@ -1208,8 +1324,12 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** Appends an error if the actual value equals the unexpected value.
+    /**
+     * Appends an error if the actual value equals the unexpected value.
      * Primitive values are autoboxed. Null values are ok for both unexpected and actual.
+     * @param message the message
+     * @param unexpected  the unexpected value
+     * @param actual the actual value
      */
     protected void errorIfEqual(String message, Object unexpected, Object actual) {
         if (unexpected == null) {
@@ -1226,6 +1346,7 @@ public abstract class JDO_Test extends TestCase {
     /**
      * Returns collected error messages, or <code>null</code> if there
      * are none, and clears the buffer.
+     * @return collected error messages
      */
     protected static synchronized String retrieveMessages() {
         if (messages == null) {
@@ -1246,7 +1367,12 @@ public abstract class JDO_Test extends TestCase {
         }
     }
 
-    /** Validate an actual isolation level against the requested level. */
+    /**
+     * Validate an actual isolation level against the requested level.
+     * @param requested requested level
+     * @param actual actual level
+     * @return true if the actual level is greater or equal the requsted level
+     */
     protected boolean validLevelSubstitution(String requested, String actual) {
         int requestedLevel = ((Integer)levelValues.get(requested)).intValue();
         int actualLevel = ((Integer)levelValues.get(actual)).intValue();

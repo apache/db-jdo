@@ -68,77 +68,55 @@ public class OneInstanceOfObjectPerPersistenceManager extends
 	 * therefore must be identical in the same PersistenceManager.
 	 */
     public void test() {
-        /** The getPM method is declared in a superclass. 
-         * This is the standard way to get a PersistenceManager.
-         * The method automatically gets a PersistenceManagerFactory,
-         * gets a PersistenceManager, and puts the PersistenceManager into
-         * the field pm.
-         */
+        // The getPM method is declared in a superclass.
+        // This is the standard way to get a PersistenceManager.
+        // The method automatically gets a PersistenceManagerFactory, gets a PersistenceManager,
+        // and puts the PersistenceManager into the field pm.
         getPM();
-        /** This is the standard way to get a Transaction.
-         */
+        // This is the standard way to get a Transaction.
         Transaction tx = pm.currentTransaction();
 
-        /** Any values for these flags should be set before 
-         * beginning a transaction.
-         */
+        // Any values for these flags should be set before beginning a transaction.
         tx.setRetainValues(false);
         tx.setRestoreValues(false);
 
-        /** This is the standard way to begin a transaction.
-         */
+        // This is the standard way to begin a transaction.
         tx.begin();
-        /** Create new objects to be persisted.
-         */
+        // Create new objects to be persisted.
         PCPoint p1 = new PCPoint(10, 20);
         PCPoint p2 = new PCPoint(20, 40);
         PCRect rect = new PCRect(0, p1, p2);
-        /** This test relies on persistence by reachability.
-         */
+        // This test relies on persistence by reachability.
         pm.makePersistent(rect);
-        /** This is the standard way to commit a transaction.
-         */
+        // This is the standard way to commit a transaction.
         tx.commit();
 
-        /** Begin a new transaction so that the navigation 
-         * uses the object id to load the target object into the cache.
-         * The RetainValues flag false guarantees that the object fields
-         * are no longer loaded.
-         */
+        // Begin a new transaction so that the navigation uses the object id to load the target object
+        // into the cache. The RetainValues flag false guarantees that the object fields are no longer loaded.
         tx.begin();
         Object p1Id = pm.getObjectId(p1);
-        /** Retrieves the field values from the datastore.
-         */
+        // Retrieves the field values from the datastore.
         PCPoint p1a = (PCPoint)pm.getObjectById(p1Id, true);
-        /** Navigate to the point.
-         */
+        // Navigate to the point.
         PCPoint p1b = rect.getUpperLeft();
-        /** Query for the point by its values in the datastore.
-         */
+        // Query for the point by its values in the datastore.
         PCPoint p1c = findPoint(10, 20);
         tx.commit();
         tx = null;
 
-        /** Use a StringBuffer to collect results.
-         */
+        // Use a StringBuffer to collect results.
         StringBuffer results = new StringBuffer();
 
-        /** Compare the original object with the object obtained
-         * by getObjectById.
-         */
+        // Compare the original object with the object obtained by getObjectById.
         if (p1 != p1a) {
             results.append("getObjectById results differ. ");
         }
 
-        /** Compare the original object with the object obtained
-         * by navigating from another object.
-         */
+        // Compare the original object with the object obtained by navigating from another object.
         if (p1 != p1b) {
             results.append("navigation results differ. ");
         }
-        /** Compare the original object with the object obtained
-         * by query.
-         */
+        // Compare the original object with the object obtained by query.
         if (p1 != p1c) {
             results.append("query results differ. ");
         }
@@ -146,11 +124,8 @@ public class OneInstanceOfObjectPerPersistenceManager extends
             fail(ASSERTION_FAILED + results.toString());
         }
 
-    /** The standard way to end each test method is to simply return.
-     * Exceptions are caught by JUnit.
-     * The tearDown method ends the transaction and closes
-     * the PersistenceManager.
-     */
+        // The standard way to end each test method is to simply return. Exceptions are caught by JUnit.
+        // The tearDown method ends the transaction and closes the PersistenceManager.
     }
 
     /** */

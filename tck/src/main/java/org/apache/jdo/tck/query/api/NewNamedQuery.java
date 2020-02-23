@@ -89,10 +89,11 @@ public class NewNamedQuery extends QueryTest {
         executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
                 false, null, expectedResult, positive);
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

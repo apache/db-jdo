@@ -56,14 +56,6 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
         BatchTestRunner.run(FetchPlanIsCopy.class);
     }
 
-    /**
-     * @see JDO_Test#localSetUp()
-    protected void localSetUp() {
-        addTearDownClass(PCRect.class);
-        addTearDownClass(PCPoint.class);
-    }
-     */
-
     /** */
     public void testRemoveGroup() {
         beginFPTest();
@@ -132,7 +124,10 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
         extent = pm.getExtent(PCRect.class);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     */
     public void closeFPTest(String location) {
         // check that pm fetch plan is unchanged
         checkGroups(ASSERTION_FAILED + " " + location, 

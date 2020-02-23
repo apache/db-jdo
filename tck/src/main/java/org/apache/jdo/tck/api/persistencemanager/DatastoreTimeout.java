@@ -86,7 +86,10 @@ public class DatastoreTimeout extends JDO_Test {
         BatchTestRunner.run(DatastoreTimeout.class);
     }
 
-    /** Method testing DatastoreReadTimeout. */
+    /**
+     * Method testing DatastoreReadTimeout.
+     * @throws Exception exception
+     */
     public void testDatastoreReadTimeout() throws Exception {
 
         if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
@@ -118,7 +121,10 @@ public class DatastoreTimeout extends JDO_Test {
         }
     }
 
-    /** Method testing DatastoreWriteTimeout. */
+    /**
+     * Method testing DatastoreWriteTimeout.
+     * @throws Exception exception
+     */
     public void testDatastoreWriteTimeout() throws Exception {
 
         if (debug) logger.debug("isDatastoreTimeoutSupported:" + isDatastoreTimeoutSupported());
@@ -150,7 +156,10 @@ public class DatastoreTimeout extends JDO_Test {
         }
     }
 
-    /** Method testing zero DatastoreReadTimeout. */
+    /**
+     * Method testing zero DatastoreReadTimeout.
+     * @throws Exception exception
+     */
     public void testZeroDatastoreReadTimeout() throws Exception {
 
         // Parallel thread writing the instances and causing them to be locked
@@ -178,7 +187,10 @@ public class DatastoreTimeout extends JDO_Test {
         }
     }
 
-    /** Method testing zero DatastoreWriteTimeout. */
+    /**
+     * Method testing zero DatastoreWriteTimeout.
+     * @throws Exception exception
+     */
     public void testZeroDatastoreWriteTimeout() throws Exception {
 
         // Parallel thread reading the instances and causing them to be locked
@@ -207,8 +219,9 @@ public class DatastoreTimeout extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCRect.class);
         addTearDownClass(PCPoint.class);

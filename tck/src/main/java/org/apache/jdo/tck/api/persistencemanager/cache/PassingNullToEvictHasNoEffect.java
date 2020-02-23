@@ -62,7 +62,10 @@ public class PassingNullToEvictHasNoEffect extends PersistenceManagerTest {
         pm = null;
     }
     
-    /* test evict (object pc) */
+    /**
+     * test evict (object pc)
+     * @param pm the PersistenceManager
+     */
     public void runTestPassingNullToEvictHasNoEffect(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

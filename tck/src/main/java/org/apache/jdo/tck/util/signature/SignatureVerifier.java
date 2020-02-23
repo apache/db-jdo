@@ -119,7 +119,13 @@ public class SignatureVerifier {
     /** Counts other reported problems (e.g., accessing field values). */
     private int otherProblems;
 
-    /** Constructs a test instance. */
+    /**
+     * Constructs a test instance.
+     * @param loader ClassLoader
+     * @param log writer for logging
+     * @param quiet quiet option
+     * @param verbose verbose option
+     */
     public SignatureVerifier(ClassLoader loader, PrintWriter log,
                              boolean quiet, boolean verbose) {
         classLoader = this.getClass().getClassLoader();
@@ -128,7 +134,12 @@ public class SignatureVerifier {
         this.verbose = (!quiet && verbose);
     }    
 
-    /** Constructs a test instance. */
+    /**
+     * Constructs a test instance.
+     * @param log writer for logging
+     * @param quiet quiet option
+     * @param verbose verbose option
+     */
     public SignatureVerifier(PrintWriter log,
                              boolean quiet, boolean verbose) {
         this(SignatureVerifier.class.getClassLoader(), log, quiet, verbose);
@@ -138,19 +149,28 @@ public class SignatureVerifier {
     // Local Logging Methods
     // ----------------------------------------------------------------------
 
-    /** Prints an error message. */
+    /**
+     * Prints an error message.
+     * @param msg error message
+     */
     protected void logError(String msg) {
         log.println(msg);
     }
 
-    /** Prints an info message. */
+    /**
+     * Prints an info message.
+     * @param msg info message
+     */
     protected void logInfo(String msg) {
         if (!quiet) {
             log.println(msg);
         }
     }
 
-    /** Prints a verbose message. */
+    /**
+     * Prints a verbose message.
+     * @param msg  verbose message
+     */
     protected void logVerbose(String msg) {
         if (verbose) {
             log.println(msg);
@@ -166,6 +186,8 @@ public class SignatureVerifier {
      * a list of signature descriptor files; returns with a status code.
      * @param descrFileNames list of signature descriptor file names
      * @return zero if all tests have passed and no problems were detected
+     * @throws IOException error reading file
+     * @throws ParseException error during parsing
      */
     public int test(List descrFileNames)
         throws IOException, ParseException {
@@ -222,7 +244,10 @@ public class SignatureVerifier {
     // Test Logic
     // ----------------------------------------------------------------------
 
-    /** Handles class loading problems. */
+    /**
+     * Handles class loading problems.
+     * @param t Throwable
+     */
     protected void handleNotLoading(Throwable t) {
         notLoading.add(t.getMessage().replace('/', '.'));
         final String m = ("--- failed loading class;" + NL
@@ -230,7 +255,11 @@ public class SignatureVerifier {
         logError(m);
     }
 
-    /** Handles missing members. */
+    /**
+     * Handles missing members.
+     * @param msg message
+     * @param exp expected
+     */
     protected void handleMissing(String msg, String exp) {
         missing++;
         final String m = ("--- " + msg + NL
@@ -239,7 +268,12 @@ public class SignatureVerifier {
         logError(m);
     }
 
-    /** Handles non-matching features. */
+    /**
+     * Handles non-matching features.
+     * @param msg message
+     * @param exp expected
+     * @param fnd feature
+     */
     protected void handleMismatch(String msg, String exp, String fnd) {
         mismatch++;
         final String m = ("--- " + msg + NL
@@ -249,7 +283,11 @@ public class SignatureVerifier {
         logError(m);
     }
 
-    /** Handles public non-standard features. */
+    /**
+     * Handles public non-standard features.
+     * @param msg message
+     * @param fnd feature
+     */
     protected void handleNonStandard(String msg, String fnd) {
         nonStandard++;
         final String m = ("--- " + msg + NL
@@ -258,7 +296,11 @@ public class SignatureVerifier {
         logError(m);
     }
 
-    /** Handles other problems. */
+    /**
+     * Handles other problems.
+     * @param msg message
+     * @param exp expected
+     */
     protected void handleProblem(String msg, String exp) {
         otherProblems++;
         final String m = ("--- " + msg + NL
@@ -267,14 +309,22 @@ public class SignatureVerifier {
         logError(m);
     }
 
-    /** Handles a perfect feature match. */
+    /**
+     * Handles a perfect feature match.
+     * @param msg message
+     * @param fnd feature
+     */
     protected void handleMatch(String msg, String fnd) {
         matching++;
         final String m = ("+++ " + msg + fnd);
         logVerbose(m);
     }
 
-    /** Returns the class objects for given (Java) user type names. */
+    /**
+     * Returns the class objects for given (Java) user type names.
+     * @param userTypeName user type names
+     * @return class objects
+     */
     protected Class[] getClasses(String[] userTypeName) {
         final Class[] cls = new Class[userTypeName.length];
         for (int i = userTypeName.length - 1; i >= 0; i--) {
@@ -283,7 +333,11 @@ public class SignatureVerifier {
         return cls;
     }
     
-    /** Returns the class object for a given (Java) user type name. */
+    /**
+     * Returns the class object for a given (Java) user type name.
+     * @param userTypeName user type name
+     * @return class object
+     */
     protected Class getClass(String userTypeName) {
         // use helper for retrieving class objects for primitive types
         Class cls = TypeHelper.primitiveClass(userTypeName);
@@ -313,7 +367,7 @@ public class SignatureVerifier {
      * @param type the type as declared in the class
      * @param actual the actual value
      * @return the description of the expected value, or null if ok
-     * @throws java.lang.NumberFormatException
+     * @throws java.lang.NumberFormatException format exception
      */
     protected String checkValue(String value, String type, Object actual) 
             throws NumberFormatException {
@@ -454,7 +508,13 @@ public class SignatureVerifier {
         else return value;
     }
 
-    /** Validates a field against a prescribed signature. */
+    /**
+     * Validates a field against a prescribed signature.
+     * @param mods modifier
+     * @param type type
+     * @param name name
+     * @param value value
+     */
     protected void checkField(int mods, String type, String name,
                               String value) {
         tested++;
@@ -529,7 +589,12 @@ public class SignatureVerifier {
         handleMatch("has field: ", Formatter.toString(field, actualValue));
     }
 
-    /** Validates a constructor against a prescribed signature. */
+    /**
+     * Validates a constructor against a prescribed signature.
+     * @param mods modifier
+     * @param params parameters
+     * @param excepts excepts
+     */
     protected void checkConstructor(int mods, String[] params,
                                     String[] excepts) {
         tested++;
@@ -580,7 +645,15 @@ public class SignatureVerifier {
         handleMatch("has constructor: ", Formatter.toString(ctor));
     }
     
-    /** Validates a method against a prescribed signature. */
+    /**
+     * Validates a method against a prescribed signature.
+     * @param mods modifier
+     * @param result result
+     * @param name name
+     * @param params parameters
+     * @param excepts excepts
+     * @param value value
+     */
     protected void checkMethod(int mods, String result, String name,
                                String[] params, String[] excepts, 
                                String value) {
@@ -670,7 +743,13 @@ public class SignatureVerifier {
         handleMatch("has method: ", Formatter.toString(method));
     }
 
-    /** Validates a class declaration against a prescribed signature. */
+    /**
+     * Validates a class declaration against a prescribed signature.
+     * @param mods modifier
+     * @param name name
+     * @param ext ext
+     * @param impl implementation
+     */
     protected void checkClass(int mods, String name,
                               String[] ext, String[] impl) {
         logVerbose("");
@@ -826,27 +905,40 @@ public class SignatureVerifier {
         /** A look-ahead token to be read next. */
         private String nextToken;
 
-        /** Returns an error message reporting an unextected end of file. */
+        /**
+         * Returns an error message reporting an unexpected end of file.
+         * @return message
+         */
         protected String msgUnexpectedEOF() {
             return ("unexpected end of file at line: " + ir.getLineNumber()
                     + ", file: " + descriptorFile.getPath());
         }
 
-        /** Returns an error message reporting an unextected token. */
+        /**
+         * Returns an error message reporting an unextected token.
+         * @param t token
+         * @return error message
+         */
         protected String msgUnexpectedToken(String t) {
             return ("unexpected token: '" + t + "'"
                     + " in line: " + ir.getLineNumber()
                     + ", file: " + descriptorFile.getPath());
         }
 
-        /** Retrieves the look-ahead token to be parsed next. */
+        /**
+         * Retrieves the look-ahead token to be parsed next.
+         * @return look ahead
+         */
         protected String getLookAhead() {
             final String t = nextToken;
             nextToken = null;
             return t;
         }
 
-        /** Sets the look-ahead token to be parsed next. */
+        /**
+         * Sets the look-ahead token to be parsed next.
+         * @param t token
+         */
         protected void setLookAhead(String t) {
             //assert (nextToken == null);
             nextToken = t;
@@ -856,6 +948,8 @@ public class SignatureVerifier {
          * Skips any "white space" and /* style comments
          * and returns whether there are more
          * characters to be parsed.
+         * @return true if there are more characters to be parsed
+         * @throws IOException IO error
          */
         protected boolean skip() throws IOException {
             Character c;
@@ -909,6 +1003,8 @@ public class SignatureVerifier {
 
         /**
          * Returns next char, or null if there is none
+         * @return next char
+         * @throws IOException IO error
          */
         protected Character peek() throws IOException {
             ir.mark(1);
@@ -922,6 +1018,8 @@ public class SignatureVerifier {
         /**
          * Scans for an (unqualified) identifier.
          * @return <code>null</code> if the next token is not an identifier
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanIdentifier()
             throws IOException, ParseException {
@@ -963,6 +1061,8 @@ public class SignatureVerifier {
         /**
          * Scans for a number literal.
          * @return <code>null</code> if the next token is not a number
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanNumberLiteral()
             throws IOException, ParseException {
@@ -1007,6 +1107,8 @@ public class SignatureVerifier {
         /**
          * Scans for a character literal.
          * @return <code>null</code> if the next token is not a character
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanCharacterLiteral()
             throws IOException, ParseException {
@@ -1052,6 +1154,8 @@ public class SignatureVerifier {
         /**
          * Scans for a string literal.
          * @return <code>null</code> if the next token is not a string
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanStringLiteral()
             throws IOException, ParseException {
@@ -1094,6 +1198,8 @@ public class SignatureVerifier {
          * Scans for an array literal. 
          * Limitation: only the empty array "{}" can be scanned.
          * @return <code>null</code> if the next token is not an array
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanArrayLiteral()
             throws IOException, ParseException {
@@ -1129,6 +1235,8 @@ public class SignatureVerifier {
         /**
          * Scans for an at-sign
          * @return <code>null</code> if the next token is not an at-sign
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String scanAtSign()
             throws IOException, ParseException {
@@ -1159,6 +1267,8 @@ public class SignatureVerifier {
         /**
          * Returns the next token to be parsed.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseToken()
             throws IOException, ParseException {
@@ -1183,7 +1293,10 @@ public class SignatureVerifier {
 
         /**
          * Parses the next token and validates it against an expected one.
+         * @param token the token
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandToken(String token)
             throws IOException, ParseException {
@@ -1197,6 +1310,8 @@ public class SignatureVerifier {
         /**
          * Parses a literal.
          * @return <code>null</code> if the next token is not a literal
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseLiteral()
             throws IOException, ParseException {
@@ -1213,6 +1328,8 @@ public class SignatureVerifier {
         /**
          * Parses the next token and validates that it is a literal.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandLiteral()
             throws IOException, ParseException {
@@ -1227,6 +1344,8 @@ public class SignatureVerifier {
          * Parses the next token and validates that it is a constant,
          * which is either a literal or a static member.
          * @return the description of the field
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandConstant()
             throws IOException, ParseException {
@@ -1245,6 +1364,8 @@ public class SignatureVerifier {
          * Parses an annotation which is an at-sign followed by a fully qualified interface name.
          * @return <code>null</code> if the next token is not an annotation, otherwise return 
          * the annotation type name without the at-sign.
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseAnnotation()
             throws IOException, ParseException {
@@ -1272,6 +1393,8 @@ public class SignatureVerifier {
          * Parses the default value specification of an annotation element and validates 
          * that it is an element value, which is either an annotation or a constant.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandElementValue()
             throws IOException, ParseException { 
@@ -1289,6 +1412,8 @@ public class SignatureVerifier {
         /**
          * Parses any available Java modifiers.
          * @return an int value with the parsed modifiers' bit set
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected int parseModifiers()
             throws IOException, ParseException {
@@ -1324,6 +1449,8 @@ public class SignatureVerifier {
         /**
          * Parses a (qualified) identifier.
          * @return <code>null</code> if the next token is not an identifier
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseIdentifier()
             throws IOException, ParseException {
@@ -1351,6 +1478,8 @@ public class SignatureVerifier {
         /**
          * Parses the next token(s) and validates that it is an identifier.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandIdentifier()
             throws IOException, ParseException {
@@ -1364,6 +1493,8 @@ public class SignatureVerifier {
         /**
          * Parses a comma-separated list of identifiers.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String[] demandIdentifierList()
             throws IOException, ParseException {
@@ -1380,6 +1511,8 @@ public class SignatureVerifier {
         /**
          * Parses a type expression.
          * @return <code>null</code> if the next token is not a type
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseType()
             throws IOException, ParseException {
@@ -1401,6 +1534,8 @@ public class SignatureVerifier {
         /**
          * Parses the next token and validates that it is a type expression.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String demandType()
             throws IOException, ParseException {
@@ -1414,6 +1549,8 @@ public class SignatureVerifier {
         /**
          * Parses a comma-separated parameter list.
          * @return never <code>null</code>
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String[] parseParameterList()
             throws IOException, ParseException {
@@ -1435,6 +1572,8 @@ public class SignatureVerifier {
          * Parses a class member declaration and provides the information
          * to a field, constructor, or method handler.
          * @return <code>null</code> if there's no member declaration
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         protected String parseMember()
             throws IOException, ParseException {
@@ -1510,6 +1649,8 @@ public class SignatureVerifier {
          * Parses a class definition and provides the information
          * to a handler.
          * @return <code>null</code> if there's no class definition
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         @SuppressWarnings("empty-statement")
         protected String parseClass()
@@ -1566,6 +1707,8 @@ public class SignatureVerifier {
          * Parses a list of signature descriptor files and processes
          * the class definitions.
          * @param descrFileNames list of signature descriptor file names
+         * @throws IOException IO error
+         * @throws ParseException parsing error
          */
         @SuppressWarnings("empty-statement")
         public void parse(List descrFileNames)
@@ -1621,7 +1764,11 @@ public class SignatureVerifier {
         out.println();
     }
 
-    /** Parses command line arguments. */
+    /**
+     * Parses command line arguments.
+     * @param args arguments
+     * @return status code
+     */
     static public int parseArgs(String args[]) {
         out.println("parse main() arguments");
 
@@ -1672,7 +1819,10 @@ public class SignatureVerifier {
         return 0;
     }
 
-    /** Runs the signature test and exits with a status code. */
+    /**
+     * Runs the signature test and exits with a status code.
+     * @param args command line arguments
+     */
     static public void main(String[] args) {
         out.println("run SignatureVerifier ...");
         if (parseArgs(args) != 0) {

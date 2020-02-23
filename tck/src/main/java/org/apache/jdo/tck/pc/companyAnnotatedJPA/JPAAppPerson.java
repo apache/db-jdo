@@ -221,7 +221,7 @@ public class JPAAppPerson
 
     /**
      * Get the map of phone numbers as an unmodifiable map.
-     * @return A Map<String, String> of phone numbers.
+     * @return A Map of phone numbers.
      */
     public Map getPhoneNumbers() {
         return (convertPhone2String(phoneNumbers));
@@ -274,7 +274,7 @@ public class JPAAppPerson
 
     /**
      * Set the phoneNumber map to be in this person.
-     * @param phoneNumbers A Map<String, String> of phoneNumbers for this person.
+     * @param phoneNumbers A Map of phoneNumbers for this person.
      */
     public void setPhoneNumbers(Map phoneNumbers) {
         this.phoneNumbers = (phoneNumbers != null) ? 
@@ -282,7 +282,9 @@ public class JPAAppPerson
     }
     
     /**
-     * Converts HashMap<String, String> to HashMap<String, JPAAppPhoneNmber>
+     * Converts HashMap of String, String to HashMap of String, JPAAppPhoneNmber
+     * @param pnums Map of phoneNumbers
+     * @return Map of phoneNumbers
      */
     protected HashMap convertString2Phone(Map pnums) {
         HashMap retval = new HashMap();
@@ -299,7 +301,9 @@ public class JPAAppPerson
     }
     
     /**
-     * Converts HashMap<String, JPAAppPhoneNmber> to HashMap<String, String>
+     * Converts HashMap of String, JPAAppPhoneNmber to HashMap of String, String
+     * @param pnums Map of phoneNumbers
+     * @return Map of phoneNumbers
      */
     protected HashMap convertPhone2String(Map pnums) {
         HashMap retval = new HashMap();

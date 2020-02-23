@@ -63,7 +63,10 @@ public class ThreadSafe extends PersistenceManagerTest {
     private int successCount = 0;
     private int exceptionCount = 0;
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void testThreadSafe() throws Exception  {
         if (debug) logger.debug("\nSTART testThreadSafe");
         
@@ -93,7 +96,12 @@ public class ThreadSafe extends PersistenceManagerTest {
                    + "shared transient PC)", 1);
     }
 
-    /** */
+    /**
+     *
+     * @param pc objects
+     * @param header header
+     * @param toSucceed to succeed
+     */
     public void runThreads(Object[] pc, String header, int toSucceed) {
         // start threads with their pc instance
         final Thread[] threads = new Thread[threadCount];
@@ -118,7 +126,11 @@ public class ThreadSafe extends PersistenceManagerTest {
         checkResults(header, toSucceed);
     }
 
-    /** */
+    /**
+     *
+     * @param header header
+     * @param toSucceed to succeed
+     */
     protected synchronized void checkResults(String header, int toSucceed) {
         // check unhandled exceptions
         final Set uncaught = group.getAllUncaughtExceptions();

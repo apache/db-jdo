@@ -59,7 +59,10 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
         BatchTestRunner.run(NewQueryFromRestoredSerializedQuery.class);
     }
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void testPositive() throws Exception {
         PersistenceManager pm = getPM();
         if (debug)
@@ -120,8 +123,9 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         loadAndPersistPCPoints(getPM());

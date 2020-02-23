@@ -163,8 +163,6 @@ public class GetPutRemoveUserObject extends JDO_Test {
     }
     
     private class UserObject {
-        /** No implementation needed for this class. It is only used
-         * with == comparisons.
-         */
+        // No implementation needed for this class. It is only usedwith == comparisons.
     }
 }

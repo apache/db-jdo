@@ -38,8 +38,11 @@ public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
 
     /** true if debug logging is enabled. */
     protected boolean debug = logger.isDebugEnabled();
-    
-    /** Creates a new instance of CompanyFactoryAbstractImpl */
+
+    /**
+     * Creates a new instance of CompanyFactoryAbstractImpl
+     * @param pm the PersistenceManager
+     */
     public CompanyFactoryAbstractImpl(PersistenceManager pm) {
         this.pm = pm;
     }

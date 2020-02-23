@@ -57,7 +57,7 @@ public class NullVariableDeclaration extends SubqueriesTest {
     }
 
     /** */
-    public void testNegative() throws Exception {
+    public void testNegative() {
         PersistenceManager pm = getPM();
         runTestNullVariable(pm);
         runTestEmptyVariable(pm);

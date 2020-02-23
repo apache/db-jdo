@@ -27,7 +27,7 @@ import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 /**
  *<B>Title:</B> Set IgnoreCache To False
  *<BR>
- *<B>Keywords:cache
+ *<B>Keywords:cache</B>
  *<BR>
  *<B>Assertion ID:</B> A12.5.3-3.
  *<BR>
@@ -63,7 +63,9 @@ public class SetIgnoreCacheToFalse extends PersistenceManagerTest {
         pm = null;
     }
 
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     private void runTestSetIgnoreCacheToFalse(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

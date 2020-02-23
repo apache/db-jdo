@@ -69,8 +69,9 @@ public class SetNontransactionalRead extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(Department.class);
         addTearDownClass(Company.class);
@@ -86,7 +87,10 @@ public class SetNontransactionalRead extends JDO_Test {
         pm = null;
     }
 
-    /** test transactions.setNonteansactionalRead() */
+    /**
+     * test transactions.setNonteansactionalRead()
+     * @param pm the PersistenceManager
+     */
     public void runTestSetNontransactionalRead(PersistenceManager pm) {
         if (!isNontransactionalReadSupported()) {
             if (debug)

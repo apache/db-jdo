@@ -39,8 +39,6 @@ the occurrence of commit failures due to mismatch between the state of cached in
 data in the data store.)) This can be tested by using 2 PersistenceManagers, independently change an object,
 then refresh.
  */
-
-/** */
 public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     
     /** */
@@ -51,8 +49,6 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     PersistenceManager pm1;
     PersistenceManager pm2;
     PersistenceManager pmVerify;
-    
-    /** */
 
     /**
      * The <code>main</code> is called when the class
@@ -76,7 +72,7 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     }
 
     /** */
-    public void test() throws Exception {
+    public void test() {
         if (!isOptimisticSupported()) {
             printUnsupportedOptionalFeatureNotTested(
                 "RefreshAllNoParameterSideEffect",
@@ -104,10 +100,12 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
         }
         failOnError();
     }
-    
-    /** */
-    private void runTestRefreshAllNoParameterSideEffects(boolean doRefresh)
-            throws Exception {
+
+    /**
+     *
+     * @param doRefresh doRefresh flag
+     */
+    private void runTestRefreshAllNoParameterSideEffects(boolean doRefresh) {
 
         if (debug) logger.debug ("\nSTART RefreshAllNoParameterSideEffects");
 

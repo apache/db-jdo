@@ -71,8 +71,10 @@ public class CallingEvictAllWithCollectionContainingNulls extends PersistenceMan
         pm.close();
         pm = null;
     }
-    
-    /** */
+
+    /**
+     * @param pm the PersistenceManager
+     */
     private void createObjects(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

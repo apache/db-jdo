@@ -70,7 +70,10 @@ public class SetOptimisticTrueWhenNotSupported extends JDO_Test {
         pm = null;
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetOptimisticTrueWhenNotSupported(PersistenceManager pm) {
         if (isOptimisticSupported()) {
             if (debug) logger.debug("Optimistic supported.");

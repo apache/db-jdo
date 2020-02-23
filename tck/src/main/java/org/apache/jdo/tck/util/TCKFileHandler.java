@@ -76,8 +76,8 @@ public class TCKFileHandler extends Handler {
     
     /**
      * @see Handler#Handler()
-     * @throws IOException
-     * @throws SecurityException
+     * @throws IOException IO exception
+     * @throws SecurityException securiyt exception
      */
     public TCKFileHandler() throws IOException, SecurityException {
         configure();
@@ -223,8 +223,8 @@ public class TCKFileHandler extends Handler {
     /**
      * Sets the encoding property.
      * @param encoding The encoding to set.
-     * @throws UnsupportedEncodingException 
-     * @throws SecurityException 
+     * @throws UnsupportedEncodingException encoding not supported
+     * @throws SecurityException security exception
      */
     public void setEncoding(String encoding) 
         throws SecurityException, UnsupportedEncodingException {

@@ -68,7 +68,9 @@ public class GetRetainValues extends JDO_Test {
         pm = null;
     }
 
-    /** test transaction.getRetainValues()*/
+    /** test transaction.getRetainValues()
+     * @param pm the PersistenceManager
+     */
     public void runTestGetRetainValues(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

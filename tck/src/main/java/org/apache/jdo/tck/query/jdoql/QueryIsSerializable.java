@@ -17,7 +17,6 @@
  
 package org.apache.jdo.tck.query.jdoql;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -63,7 +62,10 @@ public class QueryIsSerializable extends QueryTest {
         BatchTestRunner.run(QueryIsSerializable.class);
     }
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void testPositive() throws Exception {
         PersistenceManager pm = getPM();
 
@@ -183,8 +185,9 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         loadAndPersistPCPoints(getPM());

@@ -48,8 +48,8 @@ public class PCPointSingleFieldPrimitivechar extends AbstractPCPointSingleField 
      * This constructor is used by test cases checking assertion A7.12-39:<br>
      * The instance returned is initialized with the value of the primary key 
      * field of the instance on which the method is called.
-     * @param x
-     * @param y
+     * @param x the x coordinate
+     * @param y the y coordinate
      */
     public PCPointSingleFieldPrimitivechar(int x, int y) {
         this.x = x;

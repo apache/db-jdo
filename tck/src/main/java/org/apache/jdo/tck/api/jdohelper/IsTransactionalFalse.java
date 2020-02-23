@@ -57,9 +57,10 @@ public class IsTransactionalFalse extends JDO_Test {
     }
  
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
-    protected void localSetUp() {
+    @Override
+	protected void localSetUp() {
         addTearDownClass(PCPoint.class);
     }
     

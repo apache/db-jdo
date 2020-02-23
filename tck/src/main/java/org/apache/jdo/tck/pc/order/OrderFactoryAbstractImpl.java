@@ -41,7 +41,10 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
     /** true if debug logging is enabled. */
     protected boolean debug = logger.isDebugEnabled();
     
-    /** Creates a new instance of OrderFactoryAbstractImpl */
+    /**
+     * Creates a new instance of OrderFactoryAbstractImpl
+     * @param pm the PersistnceManager
+     */
     public OrderFactoryAbstractImpl(PersistenceManager pm) {
         this.pm = pm;
     }

@@ -27,11 +27,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B>JDOConfigListener
- *<BR/>
+ *<BR>
  *<B>Keywords:</B> persistencemanagerfactory, jdoconfig.xml
- *<BR/>
+ *<BR>
  *<B>Assertion IDs:</B> A11.1-40
- *<BR/>
+ *<BR>
  *<B>Assertion Description: </B>
  Properties whose key begins with the prefix
  * "javax.jdo.listener.InstanceLifecycleListener." have special treatment.
@@ -69,8 +69,9 @@ public class JDOConfigListener extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         /* Instance can be persisted ONLY if javax.jdo.mapping.Schema
          *   is overriden with 

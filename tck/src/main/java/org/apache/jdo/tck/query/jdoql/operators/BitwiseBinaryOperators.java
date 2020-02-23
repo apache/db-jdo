@@ -38,7 +38,7 @@ import java.util.List;
  *<B>Assertion Description: </B>
  A JDO implementation including javax.jdo.query.JDOQL.bitwiseOperations in the result of
  PMF.supportedOptions() supports JDOQL queries that contain bitwise operations.
- Then the integral binary bitwise operators (<code>& and | and ^</code>) are supported
+ Then the integral binary bitwise operators (<code>ampersand and | and ^</code>) are supported
  for the following types:
  <UL>
  <LI><code>byte, short, int, long, Byte, Short Integer, Long</code></LI>
@@ -267,8 +267,9 @@ public class BitwiseBinaryOperators extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PrimitiveTypes.class);
         loadAndPersistPrimitiveTypes(getPM());

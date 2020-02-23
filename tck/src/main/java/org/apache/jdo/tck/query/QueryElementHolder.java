@@ -129,6 +129,8 @@ public class QueryElementHolder {
      * @param ordering the JDOQL ordering query element
      * @param from the JDOQL range from query element
      * @param to the JDOQL range to query element
+     * @param jdoqlTypedQuery the query instance
+     * @param paramValues the parameter values
      */
     public QueryElementHolder(Boolean unique, String result,
                               Class resultClass, Class candidateClass,
@@ -180,6 +182,8 @@ public class QueryElementHolder {
      * @param ordering the JDOQL ordering query element
      * @param from the JDOQL from query element
      * @param to the JDOQL to query element
+     * @param jdoqlTypedQuery the query instance
+     * @param paramValues the parameter values
      */
     public QueryElementHolder(Boolean unique, String result,
                               Class resultClass, Class candidateClass,

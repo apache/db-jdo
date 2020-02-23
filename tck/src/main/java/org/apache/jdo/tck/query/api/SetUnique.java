@@ -78,10 +78,11 @@ public class SetUnique extends QueryTest {
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
                 false, null, expectedResult[index], true);
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

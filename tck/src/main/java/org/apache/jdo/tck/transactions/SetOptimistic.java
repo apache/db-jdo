@@ -70,7 +70,9 @@ public class SetOptimistic extends JDO_Test {
         pm = null;
     }
 
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     public void runTestSetOptimistic(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

@@ -85,8 +85,11 @@ public class SetNontransactionalReadCalledDuringTxCompletion
                  "tx.setNontransactionalRead called in beforeCompletion throws unexpected exception: " + ex);
         }
     }
-    
-    /** */
+
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         if (debug) logger.debug("afterCompletion.");
         try {
@@ -113,14 +116,11 @@ public class SetNontransactionalReadCalledDuringTxCompletion
         pm = null;
     }
     
-    /** test transactions.setNonteansactionalRead() */
+    /**
+     * Test transactions.setNonteansactionalRead()
+     * @param pm the PersistenceManager
+     */
     public void runTestSetNontransactionalReadCalledDuringTxCompletion(PersistenceManager pm) {
-        /**
-        if (!isNontransactionalReadSupported()) {
-            if (verbose) println("Implementation does not support non transactional read");
-            return;
-        }
-        */
         tx = pm.currentTransaction();
         try {
             tx.setSynchronization(this);          

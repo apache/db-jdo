@@ -44,7 +44,7 @@ public class Person
 
     /**
      * Construct a <code>Person</code> instance.
-     * @param id The person identifier.
+     * @param personid The person identifier.
      * @param firstname The person's first name.
      * @param lastname The person's last name.
      * @param middlename The person's middle name.

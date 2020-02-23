@@ -26,7 +26,7 @@ import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 /**
  *<B>Title:</B> Setting Flags With Transaction instance
  *<BR>
- *<B>Keywords:
+ *<B>Keywords:</B>
  *<BR>
  *<B>Assertion ID:</B> A12.5.2-3.
  *<BR>

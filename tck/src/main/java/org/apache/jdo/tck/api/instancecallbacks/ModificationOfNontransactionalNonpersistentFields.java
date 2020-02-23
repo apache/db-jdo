@@ -66,15 +66,15 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(InstanceCallbackNonPersistFdsClass.class);
     }
     
     /** */
-    public void test() throws Exception
-    {
+    public void test() {
         pm = getPM();
         Transaction t = pm.currentTransaction(); 
         t.setRetainValues(false);

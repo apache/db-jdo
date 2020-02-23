@@ -17,7 +17,6 @@
  
 package org.apache.jdo.tck.query.jdoql.subqueries;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -52,7 +51,7 @@ public class AggregateOnSize extends SubqueriesTest {
     }
 
     /** */
-    public void testMaxAndSizeInSubquery() throws Exception {
+    public void testMaxAndSizeInSubquery() {
         PersistenceManager pm = getPM();
 
         List expectedResult = getTransientCompanyModelInstancesAsList(
@@ -85,8 +84,9 @@ public class AggregateOnSize extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

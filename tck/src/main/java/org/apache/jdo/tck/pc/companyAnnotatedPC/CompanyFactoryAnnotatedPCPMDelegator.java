@@ -28,9 +28,10 @@ import org.apache.jdo.tck.pc.company.CompanyFactoryAnnotatedAbstractDelegator;
  */
 public class CompanyFactoryAnnotatedPCPMDelegator
         extends CompanyFactoryAnnotatedAbstractDelegator {
-    
+
     /**
-     * Creates a new instance of CompanyFactory
+     * Creates a new instance of CompanyFactoryAnnotatedPCPMDelegator
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPCPMDelegator(PersistenceManager pm) {
         super(pm);

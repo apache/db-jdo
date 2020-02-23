@@ -65,11 +65,12 @@ public class AfterCompletionMethodCalledWhenCommitted
      */
     public static void main(String[] args) {
         BatchTestRunner.run(AfterCompletionMethodCalledWhenCommitted.class);
-    }   
-    
+    }
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
     }
@@ -97,7 +98,10 @@ public class AfterCompletionMethodCalledWhenCommitted
         }        
     }
 
-    /** */
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         if (status == javax.transaction.Status.STATUS_COMMITTED) {
             afterCompletionCalled = true;

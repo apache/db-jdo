@@ -56,7 +56,10 @@ public abstract class DetachTest extends JDO_Test {
     public DetachTest() {
     }
 
-    /** */
+    /**
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
+     */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CartEntry.class);
         addTearDownClass(Cart.class);
@@ -88,7 +91,12 @@ public abstract class DetachTest extends JDO_Test {
         fp.setMaxFetchDepth(2);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param obj object
+     * @param persistent persistent option
+     */
     protected void checkState(String location, Object obj, 
             boolean persistent) {
         if(persistent) {
@@ -103,7 +111,12 @@ public abstract class DetachTest extends JDO_Test {
                 states[currentState(obj)] + " " + getStateOfInstance(obj));
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param expected  expected value
+     * @param actual actual value
+     */
     protected void reportDifference(String location, 
             long expected, long actual) {
         appendMessage(location + NL +
@@ -111,20 +124,34 @@ public abstract class DetachTest extends JDO_Test {
                 "actual: " + actual);
     }
 
-    /** */
-    protected void reportDifference(String location, 
+    /**
+     *
+     * @param location location
+     * @param expected  expected value
+     * @param actual actual value
+     */
+    protected void reportDifference(String location,
             Object expected, Object actual) {
         appendMessage(location + NL +
                 "expected: " + expected + NL +
                 "  actual: " + actual);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param cart cart
+     */
     protected void checkCartValues(String location, Cart cart) {
         checkCartValues(location, cart, false);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param cart cart
+     * @param persistent persistent option
+     */
     protected void checkCartValues(String location, Cart cart,
             boolean persistent) {
         checkState(location + "Cart instance", cart, persistent);
@@ -165,7 +192,11 @@ public abstract class DetachTest extends JDO_Test {
         }
     }
 
-    /** */
+    /**
+     *
+     * @param ASSERTION_FAILED assertion
+     * @return cart
+     */
     protected Cart createDetachedInstance(String ASSERTION_FAILED) {
         getPM().currentTransaction().begin();
         setCartFetchGroups();

@@ -57,7 +57,10 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
     }
 
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void test() throws Exception {
         pm = getPM();
 

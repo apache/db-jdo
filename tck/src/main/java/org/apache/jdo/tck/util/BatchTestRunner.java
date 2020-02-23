@@ -78,30 +78,45 @@ public class BatchTestRunner
         super();
         setPrinter(getResultPrinter());
     }
-    
-    /**  
+
+    /**
      * Constructor. Uses the specified resultPrinter to format the test result.
+     * @param resultPrinter the result printer
      */
     public BatchTestRunner(ResultPrinter resultPrinter) {
         super(resultPrinter);
     }
 
-    /** Runs all test methods from the specified class. */
+    /**
+     * Runs all test methods from the specified class.
+     * @param clazz class object
+     */
     public static void run(Class clazz) {
         run(new TestSuite(clazz));
     }
     
-    /** Runs the specified test or test suite */
+    /**
+     * Runs the specified test or test suite
+     * @param test test or test suite
+     * @return the test result
+     */
     public static TestResult run(Test test) {
         return new BatchTestRunner().doRun(test);
     }
 
-    /** Runs the specified test and waits until the user types RETURN. */
+    /**
+     * Runs the specified test and waits until the user types RETURN.
+     * @param suite suite
+     */
     public static void runAndWait(Test suite) {
         new BatchTestRunner().doRun(suite, true);
     }
 
-    /** Runs the specified test or test suite and closes the pmf. */
+    /**
+     * Runs the specified test or test suite and closes the pmf.
+     * @param test test or test suite
+     * @return the test result
+     */
     public TestResult doRun(Test test) {
         TestResult result = null;
         try {
@@ -113,10 +128,11 @@ public class BatchTestRunner
         return result;
     }
 
-    /** 
+    /**
      * Runs in batch mode and sets an exit code. If the specified String
      * array includes a single fully qualified class name, this test class
      * is executed.
+     * @param args command line arguments
      */
     public static void main(String args[]) {
         try {
@@ -130,7 +146,11 @@ public class BatchTestRunner
         }
     }
 
-    /** */
+    /**
+     * Starts the test
+     * @param args arguments
+     * @return the test result
+     */
     public TestResult start(String[] args) {
         Test suite = null;
         if ((args == null) || args.length == 0) {
@@ -147,10 +167,12 @@ public class BatchTestRunner
         }
         return doRun(suite);
     }
-    
+
     /**
      * Returns a JUnit TestSuite instance for the classes of the specified
      * list of class names.
+     * @param classNames class names
+     * @return the test suite
      */
     protected TestSuite getTestSuite(String[] classNames) {
         TestSuite testSuite = new TestSuite();
@@ -167,10 +189,11 @@ public class BatchTestRunner
         return testSuite;
     }
 
-    /** 
+    /**
      * Returns a result printer instance. The system property
      * ResultPrinterClass specifies the class of the returned instanec. The
      * class must extend junit.textui.ResultPrinter.
+     * @return the result printer
      */
     protected ResultPrinter getResultPrinter() {
         String className =  System.getProperty(RESULTPRINTER_PROPERTY);
@@ -239,9 +262,10 @@ public class BatchTestRunner
         return getDefaultResultPrinter();
     }
 
-    /** 
+    /**
      * Returns an instance of the default result printer class
      * BatchResultPrinter.
+     * @return the default result printer
      */
     protected ResultPrinter getDefaultResultPrinter() {
         return new BatchResultPrinter(System.out);
@@ -252,7 +276,6 @@ public class BatchTestRunner
      * {@link BatchTestRunner#changeFileName(String)}.
      * The file name has suffix <code>.txt</code>.
      * @return the file name
-     * @throws IOException
      */
     public static String getFileName() {
         return changeFileName("junit.txt");
@@ -271,7 +294,7 @@ public class BatchTestRunner
      * else it is replaced by <code>"dsid"</code>.</li>
      * </ul>
      * The returned file name is constructed as follows:<br>
-     * <jdo.tck.log.directory>/<jdo.tck.database>-<jdo.tck.identitytype>-<jdo.tck.cfg><given file name>
+     * ${jdo.tck.log.directory}/${jdo.tck.database}-${jdo.tck.identitytype}-${jdo.tck.cfg}${given file name}
      * Values of properties which do not exist default to <code>""</code>. 
      * @param fileName the file name
      * @return the changed file name

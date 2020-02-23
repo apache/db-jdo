@@ -84,8 +84,11 @@ public class SetRetainValuesCalledDuringTxCompletion
                  "tx.setRetainValues called in beforeCompletion throws unexpected exception: " + ex);
         }
     }
-    
-    /** */
+
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         if (debug) logger.debug ("afterCompletion");
         try {
@@ -112,7 +115,10 @@ public class SetRetainValuesCalledDuringTxCompletion
         pm = null;
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetRetainValuesCalledDuringTxCompletion(PersistenceManager pm) {
         tx = pm.currentTransaction();
         try {

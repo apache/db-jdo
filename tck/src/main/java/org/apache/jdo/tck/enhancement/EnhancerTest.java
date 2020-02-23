@@ -43,7 +43,11 @@ public abstract class EnhancerTest extends JDO_Test {
     public EnhancerTest() {
     }
 
-    /** */
+    /**
+     *
+     * @param resourceName name of teh resource
+     * @return Properties object
+     */
     protected Properties getProperties(String resourceName) {
         Properties props = null;
         try {
@@ -58,25 +62,32 @@ public abstract class EnhancerTest extends JDO_Test {
         return props;
     }
     
-    /** */
+    /**
+     *
+     * @param packageName package name
+     * @param fullyQualifiedClassNameList list of class names
+     */
     protected abstract void runTestOnePackage (String packageName, List fullyQualifiedClassNameList);
     
-    /** */
+    /**
+     *
+     * @param packageName package name
+     * @param className class name
+     * @return converted class name
+     */
     protected String convertClassName (String packageName, String className) {
         return packageName + "." + className;
     }
 
     /** */
     void runTestAllPackages() {
-        /** First, get classes to test from properties file.
-         */
+        // First, get classes to test from properties file.
         Properties classesToTest = getProperties("enhancement-test.properties"); //NOI18N
         
         Enumeration enumeration = classesToTest.propertyNames();
         int numberOfPackages = 0;
         
-        /** Each key is a package name; the value is a list of class names to test.
-         */
+        // Each key is a package name; the value is a list of class names to test.
         while (enumeration.hasMoreElements()) {
             ++numberOfPackages;
             String packageName = (String) enumeration.nextElement();
@@ -85,8 +96,7 @@ public abstract class EnhancerTest extends JDO_Test {
             if (debug) logger.debug("EnhancerTest Classes: " + classNames);
             StringTokenizer st = new StringTokenizer(classNames, " ,");
             ArrayList classNameList = new ArrayList();
-            /** Each entry is a list of class names separated by comma or space
-             */
+            // Each entry is a list of class names separated by comma or space
             while (st.hasMoreTokens()) {
                 String className = st.nextToken();
                 String listEntry = convertClassName(packageName, className);

@@ -51,11 +51,12 @@ public class TestFieldsOfByte extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(TestFieldsOfByte.class);
-    }   
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(FieldsOfByte.class);
     }

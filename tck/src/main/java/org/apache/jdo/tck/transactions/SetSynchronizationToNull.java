@@ -66,7 +66,10 @@ public class SetSynchronizationToNull
              "Instance should not be registered, thus this beforeCompletion methgod should not be called.");
     }
 
-    /** */
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         fail(ASSERTION_FAILED,
              "Instance should not be registered, thus this afterCompletion methgod should not be called.");
@@ -82,7 +85,10 @@ public class SetSynchronizationToNull
         pm = null;
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetSynchronizationToNull(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

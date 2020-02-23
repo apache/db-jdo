@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.extents;
 
-
 import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -54,8 +53,9 @@ abstract class ExtentTest extends JDO_Test {
     protected Object companyOID;
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(DentalInsurance.class);
         addTearDownClass(MedicalInsurance.class);
@@ -80,8 +80,7 @@ abstract class ExtentTest extends JDO_Test {
     /** */
     protected void checkPM() {
         try {
-            /** Don't use beginTransaction() because this calls getPM()
-             * which calls checkPM()! */
+            // Don't use beginTransaction() because this calls getPM() which calls checkPM()!
             pm.currentTransaction().begin();
             Extent ex = getPM().getExtent(Company.class, false);
             int count = countIterator(ex.iterator());
@@ -185,8 +184,11 @@ abstract class ExtentTest extends JDO_Test {
         pm.currentTransaction().commit();
         // System.out.println ("Company OID: " + pm.getObjectId(company));
     }
-    
-    /** */
+
+    /**
+     *
+     * @return new employee
+     */
     protected Employee addEmployee() {
         Address addr1 = new Address (7004L, "456 Chelsey Lane", 
                                      "Mountain View", "CA", "94040", "USA");
@@ -195,20 +197,30 @@ abstract class ExtentTest extends JDO_Test {
         getPM().makePersistent (emp1);
         return emp1;
     }
-    
-    /** */
+
+    /**
+     *
+     * @param e employee
+     */
     protected void deleteEmployee(Employee e) {
         getPM().deletePersistent (e);
     }
 
-    /** */
+    /**
+     *
+     * @param it iterator
+     * @return count
+     */
     protected int countIterator(Iterator it) {
         int count = 0;
         for (;it.hasNext();count++, it.next());
         return count;
     }
     
-    /** */
+    /**
+     * @param it iterator
+     * @return count
+     */
     protected int printIterator(Iterator it) {
         int count = 0;
         for (;it.hasNext();count++) {
@@ -216,13 +228,19 @@ abstract class ExtentTest extends JDO_Test {
         }
         return count;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return extent
+     */
     protected Extent getExtent() {
         return getPM().getExtent(extentClass, true);
     }
-    
-    /** */
+
+    /**
+     *
+     * @return OID
+     */
     protected Object getCompanyOID () {
         String companyOIDString = (String)
             PMFPropertiesObject.get("org.apache.jdo.tck.extents.CompanyOID");
@@ -244,8 +262,11 @@ abstract class ExtentTest extends JDO_Test {
                 "\torg.apache.jdo.tck.extents.CompanyOIDClass = <name of companyOID class>\n", ex);
         }
     }
-    
-    /** */
+
+    /**
+     *
+     * @return PersistenceManager
+     */
     protected PersistenceManager getPM() {
         if (pm == null) {
             pm = getPMF().getPersistenceManager();
@@ -253,8 +274,11 @@ abstract class ExtentTest extends JDO_Test {
         }
         return pm;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return PersistenceManagerFactory
+     */
     public PersistenceManagerFactory getPMF() {
         if (pmf == null) {
             pmf = super.getPMF();

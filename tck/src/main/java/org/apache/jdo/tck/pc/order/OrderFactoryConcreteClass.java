@@ -32,6 +32,10 @@ public  class OrderFactoryConcreteClass implements OrderFactory {
         Order.class, OrderItem.class
     };
 
+    /**
+     * Creates a new instance of OrderFactoryConcreteClass
+     * @param pm the PersistnceManager
+     */
     public OrderFactoryConcreteClass(PersistenceManager pm) {
     }
 

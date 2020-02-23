@@ -131,8 +131,9 @@ public class SupportedLocalTimeMethods extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(LocalTimeSample.class);
         insertLocalTimeSampleData(getPM());

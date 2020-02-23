@@ -47,13 +47,19 @@ public class BatchResultPrinter
     /** The time elapsed to run a test suite. */
     private long runtime;
     
-    /** */
+    /**
+     *
+     * @param consoleFileOutput console file output
+     */
     public BatchResultPrinter(ConsoleFileOutput consoleFileOutput) {
         this(new PrintStream(consoleFileOutput));
         this.consoleFileOutput = consoleFileOutput;
     }
-        
-    /** */
+
+    /**
+     *
+      * @param writer the writer
+     */
     public BatchResultPrinter(PrintStream writer) {
         super(writer);
     }

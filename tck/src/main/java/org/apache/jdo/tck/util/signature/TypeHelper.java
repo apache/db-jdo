@@ -86,7 +86,11 @@ public class TypeHelper {
         primitiveClasses.put("void", void.class);
     }
 
-    /** Returns the (Java) user name for a reflection type name. */
+    /**
+     * Returns the (Java) user name for a reflection type name.
+     * @param name typed name
+     * @return user name for a reflection type name
+     */
     static public String userTypeName(String name) {
         check(name != null, MSG_ILLEGAL_RFL_TYPE + name);
 
@@ -118,7 +122,11 @@ public class TypeHelper {
         return (s + sb.toString());
     }
     
-    /** Returns the (Java) user names for reflection type names. */
+    /**
+     * Returns the (Java) user names for reflection type names.
+     * @param names type names
+     * @return the (Java) user names for reflection type names.
+     */
     static public String[] userTypeNames(String[] names) {
         final String[] u = new String[names.length];
         for (int i = names.length - 1; i >= 0; i--) {
@@ -127,7 +135,11 @@ public class TypeHelper {
         return u;
     }
     
-    /** Returns the reflection name for a (Java) user type name. */
+    /**
+     * Returns the reflection name for a (Java) user type name.
+     * @param name type name
+     * @return reflection name for a (Java) user type name
+     */
     static public String reflectionTypeName(String name) {
         check(name != null, MSG_ILLEGAL_USR_TYPE + name);
 
@@ -155,7 +167,11 @@ public class TypeHelper {
         return sb.append(p != null ? p : "L" + s + ";").toString();
     }
 
-    /** Returns the (Java) user names for reflection type names. */
+    /**
+     * Returns the (Java) user names for reflection type names.
+     * @param names type names
+     * @return the (Java) user names for reflection type names.
+     */
     static public String[] reflectionTypeNames(String[] names) {
         final String[] r = new String[names.length];
         for (int i = names.length - 1; i >= 0; i--) {
@@ -163,22 +179,32 @@ public class TypeHelper {
         }
         return r;
     }
-    
+
     /**
      * Returns the class object for a primitive type name, or
      * <code>null</code> if the name does not denote a primitive type
      * (class objects of primitive types cannot be loaded with reflection).
+     * @param name type name
+     * @return class object
      */
     static public Class primitiveClass(String name) {
         return (Class)primitiveClasses.get(name);
     }
 
-    /** Tests if a name denotes a primitive type. */
+    /**
+     * Tests if a name denotes a primitive type.
+     * @param name type name
+     * @return true if a name denotes a primitive type.
+     */
     static public boolean isPrimitive(String name) {
         return primitiveClasses.containsKey(name);
     }
 
-    /** Returns the component type name of a (Java) user type name. */
+    /**
+     * Returns the component type name of a (Java) user type name.
+     * @param name type name
+     * @return component type name of a (Java) user type name
+     */
     static public String componentUserTypeName(String name) {
         check(name != null, MSG_ILLEGAL_USR_TYPE + name);
         final int n = name.length();
@@ -194,16 +220,20 @@ public class TypeHelper {
     /**
      * Returns the <code>java.lang.</code>-qualified name for a given
      * unqualified (Java) user type name.
+     * @param name type name
+     * @return qualified name
      */
     static public String qualifiedUserTypeName(String name) {
         final String c = componentUserTypeName(name);
         return ((isPrimitive(c) || c.indexOf('.') >= 0)
                 ? name : "java.lang." + name);
     }
-    
+
     /**
      * Returns the <code>java.lang.</code>-qualified names for given
      * unqualified (Java) user type names.
+     * @param names type names
+     * @return qualified name
      */
     static public String[] qualifiedUserTypeNames(String[] names) {
         final String[] q = new String[names.length];
@@ -215,6 +245,9 @@ public class TypeHelper {
 
     /**
      * Compares a type name with a class objects for equality in the name.
+     * @param userTypeName type name
+     * @param cls class object
+     * @return true if name matches
      */
     static public boolean isNameMatch(String userTypeName, Class cls) {
         final String c = (cls == null ? null : userTypeName(cls.getName()));
@@ -224,6 +257,9 @@ public class TypeHelper {
     /**
      * Compares an array of type names with an array of class objects
      * for set-equality in the names (i.e., ignoring order).
+     * @param userTypeName type names
+     * @param cls class objects
+     * @return true if names matches
      */
     static public boolean isNameMatch(String[] userTypeName, Class[] cls) {
         final Set s = new HashSet(Arrays.asList(userTypeName));

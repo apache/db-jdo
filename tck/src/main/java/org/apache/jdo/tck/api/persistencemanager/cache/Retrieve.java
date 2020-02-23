@@ -74,8 +74,9 @@ public class Retrieve extends PersistenceManagerTest {
     private static final Integer three = new Integer(3);
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint2.class);
         addTearDownClass(PCRect.class);
@@ -98,7 +99,9 @@ public class Retrieve extends PersistenceManagerTest {
         pm = null;
     }
 
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     private void runTestRetrieve(PersistenceManager pm) {
         createObjects(pm);
         Transaction tx = pm.currentTransaction();

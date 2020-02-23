@@ -155,6 +155,7 @@ public class JPAAppPhoneNumber implements Serializable {
         /**
          * Initialize the identifier.
          * @param person The person identifier.
+         * @param type The phone number type.
          */
         public Oid(JPAAppPerson.Oid person, String type) {
             this.person = person;

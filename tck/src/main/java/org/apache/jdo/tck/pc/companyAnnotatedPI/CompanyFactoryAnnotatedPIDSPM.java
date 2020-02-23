@@ -30,9 +30,10 @@ public class CompanyFactoryAnnotatedPIDSPM
         implements CompanyFactoryNewInstance {
     
     PersistenceManager pm = null;
-    
+
     /**
-     * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
+     * Creates a new instance of CompanyFactoryAnnotatedPIDSPM
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPIDSPM(PersistenceManager pm) {
         this.pm = pm;        

@@ -86,7 +86,10 @@ public class QueryCancel extends QueryTest {
         BatchTestRunner.run(QueryCancel.class);
     }
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void testCancel() throws Exception {
         PersistenceManager pm = getPM();
         // Test query 
@@ -134,7 +137,10 @@ public class QueryCancel extends QueryTest {
         }
     }
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void testCancelAll() throws Exception {
         PersistenceManager pm = getPM();
         // Test query
@@ -230,8 +236,9 @@ public class QueryCancel extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         addTearDownClass(PCPoint2.class);

@@ -58,7 +58,9 @@ public class SetDetachAllOnCommit extends DetachTest {
         pm = null;
     }
 
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     protected void runTestSetDetachAllOnCommit(PersistenceManager pm) {
         pm.setDetachAllOnCommit(false);
         if (pm.getDetachAllOnCommit()) {

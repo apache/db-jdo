@@ -59,7 +59,10 @@ public class RestoredSerializedQueryInstanceLosesAssociationWithPM
         BatchTestRunner.run(RestoredSerializedQueryInstanceLosesAssociationWithPM.class);
     }
 
-    /** */
+    /**
+     *
+     * @throws Exception exception
+     */
     public void test() throws Exception {
         pm = getPM();
 

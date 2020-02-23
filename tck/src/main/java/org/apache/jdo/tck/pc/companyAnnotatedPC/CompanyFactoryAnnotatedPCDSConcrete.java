@@ -30,9 +30,10 @@ public class CompanyFactoryAnnotatedPCDSConcrete
         implements CompanyFactoryNewInstance {
     
     PersistenceManager pm = null;
-    
+
     /**
-     * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
+     * Creates a new instance of CompanyFactoryAnnotatedPCDSConcrete
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPCDSConcrete(PersistenceManager pm) {
         this.pm = pm;        

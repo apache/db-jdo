@@ -69,7 +69,10 @@ public class IsActive extends JDO_Test {
         pm = null;
     }
 
-    /** test transactions.isActive() */
+    /**
+     * test transactions.isActive()
+     * @param pm the PersistenceManager
+     */
     void runTestIsActive(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

@@ -56,7 +56,7 @@ public class NullSubqueryParameter extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
+    public void testPositive() {
         PersistenceManager pm = getPM();
 
         List expectedResult = getTransientCompanyModelInstancesAsList(
@@ -82,8 +82,9 @@ public class NullSubqueryParameter extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

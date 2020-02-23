@@ -93,8 +93,11 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
         col2.add(p4);
         col2.add(p5);
     }
-    
-    /** */
+
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void runTestMakeTransactionalWithinTransactionRolledback(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {
@@ -119,7 +122,10 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
         }
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     private void runTestMakeTransactionalWithinTransactionRolledbackAll1(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {
@@ -151,7 +157,10 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
         }
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     private void runTestMakeTransactionalWithinTransactionRolledbackAll2(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

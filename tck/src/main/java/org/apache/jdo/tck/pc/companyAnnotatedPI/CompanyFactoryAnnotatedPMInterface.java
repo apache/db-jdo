@@ -48,7 +48,8 @@ public class CompanyFactoryAnnotatedPMInterface
     };
 
     /**
-     * Creates a new instance of CompanyFactoryAnnotatedPMInterface 
+     * Creates a new instance of CompanyFactoryAnnotatedPMInterface
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedPMInterface(PersistenceManager pm) {
         super(pm);

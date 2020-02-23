@@ -181,10 +181,11 @@ public class UnmodifiableQuery extends QueryTest {
         fail(ASSERTION_FAILED + method + 
                 " on an unmodifiable query must throw JDOUserException." );
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

@@ -42,6 +42,7 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * @param middle The person's middle name.
      * @param born The person's birthdate.
      * @param hired The date that the person was hired.
+     * @param role The person's role
      * @param sal The salary of the full-time employee.
      */
     public FullTimeEmployee(long personid, String first, String last,

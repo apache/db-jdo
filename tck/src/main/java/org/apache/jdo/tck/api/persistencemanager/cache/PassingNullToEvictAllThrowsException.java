@@ -64,7 +64,10 @@ public class PassingNullToEvictAllThrowsException extends PersistenceManagerTest
         pm = null;
     }
 
-    /* test evictAll (Collection pcs) */
+    /**
+     * test evictAll (Collection pcs)
+     * @param pm the PersistenceManager
+     */
     private void runTestEvictAll1(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         if (debug) logger.debug ("**  in runTestEvictAll1() ");

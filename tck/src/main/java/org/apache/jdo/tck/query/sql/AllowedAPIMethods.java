@@ -214,10 +214,11 @@ public class AllowedAPIMethods extends QueryTest {
         fail(ASSERTION_FAILED + method + 
                 " on a SQL query must throw JDOUserException." );
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         addTearDownClass(MylibReader.getTearDownClasses());

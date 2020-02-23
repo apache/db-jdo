@@ -127,7 +127,10 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
         runTest(true);
     }
 
-    /** */
+    /**
+     *
+     * @param bUserAndPasswd flag whether to use user nad password
+     */
     public void runTest(boolean bUserAndPasswd) {       
         pmf = getPMF();
         if (!bUserAndPasswd)

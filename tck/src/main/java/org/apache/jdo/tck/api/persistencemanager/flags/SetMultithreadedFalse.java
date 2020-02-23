@@ -61,8 +61,10 @@ public class SetMultithreadedFalse extends PersistenceManagerTest{
         pm.close();
         pm = null;
     }
-    
-    /** */
+
+    /**
+     * @param pm the PersistenceManager
+     */
     private void runTestSetMultithreadedFalse(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

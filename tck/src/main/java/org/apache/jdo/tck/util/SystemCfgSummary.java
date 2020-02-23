@@ -76,7 +76,7 @@ public class SystemCfgSummary {
     /**
      * Saves the given message to the system configuration summary file
      *   in the given directory. 
-     * @param directory the directory
+     * @param path the path
      * @param message the message
      */
     static void saveSystemInfo(String path, String message) {

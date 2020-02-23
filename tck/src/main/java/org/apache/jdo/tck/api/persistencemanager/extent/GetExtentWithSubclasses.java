@@ -59,8 +59,9 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(FullTimeEmployee.class);
         addTearDownClass(PartTimeEmployee.class);

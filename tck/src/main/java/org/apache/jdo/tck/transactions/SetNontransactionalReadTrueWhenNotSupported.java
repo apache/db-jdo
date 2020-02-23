@@ -70,8 +70,9 @@ public class SetNontransactionalReadTrueWhenNotSupported extends JDO_Test {
         pm = null;
     }
     
-    /* test transactions.setNonteansactionalRead()
-     *  
+    /**
+     * test transactions.setNonteansactionalRead()
+     * @param pm the PersistenceManager
      */
     public void runTestSetNontransactionalReadTrueWhenNotSupported(
         PersistenceManager pm) {

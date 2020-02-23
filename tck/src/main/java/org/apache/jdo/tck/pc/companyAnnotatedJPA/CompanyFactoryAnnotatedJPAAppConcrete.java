@@ -30,9 +30,10 @@ public class CompanyFactoryAnnotatedJPAAppConcrete
         extends CompanyFactoryAbstractImpl {
     
     PersistenceManager pm = null;
-    
+
     /**
-     * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
+     * Creates a new instance of CompanyFactoryAnnotatedJPAAppConcrete
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedJPAAppConcrete(PersistenceManager pm) {
         super(pm);

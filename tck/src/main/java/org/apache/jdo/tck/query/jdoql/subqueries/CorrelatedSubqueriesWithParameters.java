@@ -21,12 +21,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -59,7 +57,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
+    public void testPositive() {
         PersistenceManager pm = getPM();
         runTestSubqueries01(pm);
         runTestSubqueries02(pm);
@@ -178,8 +176,9 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

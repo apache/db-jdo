@@ -34,8 +34,9 @@ public abstract class PersistenceManagerTest extends JDO_Test {
     protected PersistenceManagerTest() { }
 
     /** 
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         // The order of addTearDownClass calls is significant
         // as it takes into account database FKs.
@@ -44,8 +45,12 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         addTearDownClass(Department.class);
         addTearDownClass(Company.class);
     }
-    
-    /** */
+
+    /**
+     *
+     * @param pm the PersistenceManager
+     * @return PCPOint instance
+     */
     protected Object createPCPointInstance(PersistenceManager pm) {
         PCPoint p1 = new PCPoint(8,8);
         Transaction tx = pm.currentTransaction();
@@ -55,8 +60,12 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         tx.commit();
         return oid;
     }
-  
-    /** */
+
+    /**
+     *
+     * @param pm the PersistenceManager
+     * @param oid the ID of the instance to be deleted
+     */
     public void deletePCPointInstance (PersistenceManager pm, Object oid) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
@@ -65,7 +74,13 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         tx.commit();
     }
 
-    /** */
+    /**
+     *
+     * @param obj PCPoint instance
+     * @param expectState expected state
+     * @param str state description
+     * @return true if test successful
+     */
     public boolean testState(PCPoint obj, int expectState, String str) {
         int actualState = currentState(obj);
         if (actualState != expectState) {
@@ -80,7 +95,13 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         return true;
     }
 
-    /** */
+    /**
+     *
+     * @param obj PCPoint instance
+     * @param expectState expected state
+     * @param str state description
+     * @return true if test successful
+     */
     public boolean testState(PCPoint2 obj, int expectState, String str) {
         int actualState = currentState(obj);
         if (actualState != expectState) {
@@ -94,8 +115,14 @@ public abstract class PersistenceManagerTest extends JDO_Test {
         }
         return true;
     }
-    
-    /** */
+
+    /**
+     *
+     * @param p PCPoint instance
+     * @param value value
+     * @param assertion assertion
+     * @param label label
+     */
     public void assertGetX(PCPoint p, int value, String assertion, String label) {
         if (p.getX() !=  value) {
             fail(assertion, label);

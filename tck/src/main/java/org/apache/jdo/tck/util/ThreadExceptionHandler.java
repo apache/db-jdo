@@ -48,7 +48,11 @@ public class ThreadExceptionHandler extends ThreadGroup
         uncaughtExceptions.put(t, e);
     }
 
-    /** Returns an uncaught exception for the specified thread. */
+    /**
+     * Returns an uncaught exception for the specified thread.
+     * @param t the thread
+     * @return uncaught exception for the specified thread
+     */
     public Throwable getUncaughtException(Thread t) {
         return (Throwable)uncaughtExceptions.get(t);
     }
@@ -57,6 +61,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * Returns all uncaught exceptions stored in this ThreadGroup. 
      * Each element in the returned set is a Map.Entry with the 
      * thread as the key and the uncaught Throwable is the value.
+     * @return Set of uncaught exceptions
      */
     public Set getAllUncaughtExceptions() {
         return uncaughtExceptions.entrySet();

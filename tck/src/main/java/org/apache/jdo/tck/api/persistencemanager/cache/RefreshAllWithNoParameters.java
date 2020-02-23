@@ -73,7 +73,9 @@ public class RefreshAllWithNoParameters extends PersistenceManagerTest {
         pm = null;
     }
     
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     private void runTestRefreshAll(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

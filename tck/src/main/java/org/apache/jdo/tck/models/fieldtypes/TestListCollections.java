@@ -60,11 +60,12 @@ public class TestListCollections extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(Commit.class);
-    }   
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(ListCollections.class);
         addTearDownClass(SimpleClass.class);

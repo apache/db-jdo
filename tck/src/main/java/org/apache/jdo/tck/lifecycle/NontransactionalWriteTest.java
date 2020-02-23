@@ -18,15 +18,12 @@
 package org.apache.jdo.tck.lifecycle;
 
 import javax.jdo.JDOOptimisticVerificationException;
-import javax.jdo.JDOUnsupportedOptionException;
 
 import javax.jdo.PersistenceManager;
 
 import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
-
-import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B> Test NontransactionalWrite abstract base class
@@ -62,6 +59,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      * This method is only executed if the
      * JDO implementation supports the required features, otherwise
      * this method would be localSetUp.
+     * @return PCPoint instance
      */
     protected VersionedPCPoint createAndModifyVersionedPCPoint() {
         addTearDownClass(VersionedPCPoint.class);
@@ -103,6 +101,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      * Begin and commit a transaction using the persistence manager
      * that manages the nontransactional dirty instance. This 
      * transaction must fail due to a conflicting update.
+     * @param location location for error message
      * @param optimistic use optimistic transaction
      */
     protected void beginAndCommitTransactionFails(String location, 
@@ -125,6 +124,8 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
      * value in a new transaction so there is no interference 
      * with the persistence manager that managed the nontransactional
      * dirty instance.
+     * @param location location for error message
+     * @param expectedXValue expected value
      */
     protected void checkXValue(String location, int expectedXValue) {
         PersistenceManager pmCheck = pmf.getPersistenceManager();
@@ -167,6 +168,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
     /** 
      * Check that all Nontransactional features are supported.
      * @param optimistic check for whether Optimistic is supported as well.
+     * @return true if nontransactional supported
      */
     protected boolean checkNontransactionalFeaturesSupported
             (boolean optimistic) {
@@ -185,6 +187,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
     /**
      * Check if NontransactionalWrite is supported, and log a debug
      * message if it is not.
+     * @return true if NontransactionalWriteSupported
      */
     protected boolean checkNontransactionalWriteSupported() {
         if (!isNontransactionalWriteSupported()) {
@@ -199,6 +202,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
     /**
      * Check if NontransactionalRead is supported, and log a debug
      * message if it is not.
+     * @return true NontransactionalReadSupported
      */
     protected boolean checkNontransactionalReadSupported() {
         if (!isNontransactionalReadSupported()) {
@@ -213,6 +217,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
     /**
      * Check if Optimistic is supported, and log a debug
      * message if it is not.
+     * @return true if optimistic is supported
      */
     protected boolean checkOptimisticSupported() {
         if (!isOptimisticSupported()) {
@@ -227,6 +232,7 @@ abstract public class NontransactionalWriteTest extends JDO_Test {
     /**
      * Check if RetainValues is supported, and log a debug
      * message if it is not.
+     * @return true if retain values is supported
      */
     protected boolean checkRetainValuesSupported() {
         if (!isRetainValuesSupported()) {

@@ -60,11 +60,12 @@ public class TestMapStringValueCollections extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(TestMapStringValueCollections.class);
-    }   
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(MapStringValueCollections.class);
         addTearDownClass(SimpleClass.class);

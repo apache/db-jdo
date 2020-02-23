@@ -30,12 +30,18 @@ public class Product implements Serializable {
     /** No-arg constructor required by JDO; not for public consumption */
     protected Product() {}
 
-    /** Domain model constructor */
+    /**
+     * Domain model constructor
+     * @param sku identity field
+     */
     public Product(String sku) {
         setSku(sku);
     }
 
-    /** Constructor with sku and description
+    /**
+     * Constructor with sku and description
+     * @param sku identity field
+     * @param description description
      */
     public Product(String sku, String description) {
         this(sku);

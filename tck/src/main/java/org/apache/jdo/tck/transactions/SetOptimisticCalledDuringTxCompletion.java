@@ -86,8 +86,11 @@ public class SetOptimisticCalledDuringTxCompletion
                  "tx.setOptimistic called in beforeCompletion throws unexpected exception: " + ex);
         }
     }
-    
-    /** */
+
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         if (debug) logger.debug("afterCompletion");
         try {
@@ -109,7 +112,10 @@ public class SetOptimisticCalledDuringTxCompletion
         pm = null;
     }
 
-    /** test transactions.setOptimistic() */
+    /**
+     * test transactions.setOptimistic()
+     * @param pm the PersistenceManager
+     */
     void runTestSetOptimisticCalledDuringTxCompletion(PersistenceManager pm) {
         tx = pm.currentTransaction();
         try {

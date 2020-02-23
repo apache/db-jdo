@@ -170,7 +170,10 @@ public class MakeTransactionalPriorToTransactionRolledback extends PersistenceMa
         }
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void runTestMakeTransactionalPriorToTransactionRolledbackAll2(
         PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();

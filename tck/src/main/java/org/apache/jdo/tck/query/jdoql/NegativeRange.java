@@ -36,7 +36,7 @@ import javax.jdo.JDOQLTypedQuery;
  *<B>Assertion ID:</B> A14.6.8-2.
  *<BR>
  *<B>Assertion Description: </B>
- * If ((toExcl - fromIncl) <= 0) evaluates to true, if the result of the query 
+ * If ((toExcl - fromIncl) LESS THAN EQUAL 0) evaluates to true, if the result of the query
  * execution is a List, the returned List contains no instances, 
  * and an Iterator obtained from the List returns false to hasNext(). 
  * If the result of the query execution is a single instance (setUnique(true)), 
@@ -166,7 +166,7 @@ public class NegativeRange extends QueryTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
     @Override
     protected void localSetUp() {

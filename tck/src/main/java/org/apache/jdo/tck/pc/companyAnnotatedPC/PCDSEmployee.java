@@ -479,7 +479,12 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
         this._hradvisees = (hradvisees != null) ? new HashSet(hradvisees) : null;
     }
 
-    /** Serialization support: initialize transient fields. */
+    /**
+     * Serialization support: initialize transient fields.
+     * @param in stream
+     * @throws IOException error during reading
+     * @throws ClassNotFoundException class could not be found
+     */
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();

@@ -68,7 +68,10 @@ public class SetRetainValues extends JDO_Test {
         pm = null;
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetRetainValues(PersistenceManager pm) {
         if (!isRetainValuesSupported()) {
             if (debug) logger.debug("RetainValues not supported.");

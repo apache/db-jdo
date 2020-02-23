@@ -65,9 +65,6 @@ public class FetchGroupTest extends JDO_Test {
     /** All fetch groups in this PMF. */
     protected Set allPMFFetchGroups;
 
-    /** All fetch groups in this PMF. */
-
-
     /**
      * Employee.java:
     private Date             hiredate;

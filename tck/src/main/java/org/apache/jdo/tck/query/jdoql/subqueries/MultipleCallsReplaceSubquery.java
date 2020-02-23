@@ -21,12 +21,9 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -56,7 +53,7 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
+    public void testPositive() {
         PersistenceManager pm = getPM();
         List expectedResult = getTransientCompanyModelInstancesAsList(
             new String[]{"emp1","emp2","emp4","emp5","emp6","emp7","emp10"});
@@ -86,8 +83,9 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

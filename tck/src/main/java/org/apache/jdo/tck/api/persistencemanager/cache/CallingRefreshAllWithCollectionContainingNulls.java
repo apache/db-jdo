@@ -72,7 +72,9 @@ public class CallingRefreshAllWithCollectionContainingNulls extends PersistenceM
         pm = null;
     }
 
-    /** */
+    /**
+     * @param pm the PersistenceManager
+     */
     private void createObjects(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

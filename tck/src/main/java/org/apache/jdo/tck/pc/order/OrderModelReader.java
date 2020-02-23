@@ -62,6 +62,7 @@ public class OrderModelReader extends XmlBeanFactory {
     /** 
      * Create a OrderModelReader for the specified resourceName. 
      * @param resourceName the name of the resource
+     * @param classLoader the ClassLOader for the lookup
      */
     public OrderModelReader(String resourceName, ClassLoader classLoader) {
         super(new ClassPathResource(resourceName, classLoader));

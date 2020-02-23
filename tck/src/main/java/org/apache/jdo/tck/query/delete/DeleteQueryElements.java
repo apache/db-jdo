@@ -256,10 +256,11 @@ public class DeleteQueryElements extends QueryTest {
             deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
         }
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

@@ -66,8 +66,9 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
     private PCPoint2 p2 = null;
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint2.class);
         super.localSetUp();
@@ -82,8 +83,10 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
         pm.close();
         pm = null;
     }
-    
-    /** */
+
+    /**
+     * @param pm the PersistenceManager
+     */
     private void createObjects(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

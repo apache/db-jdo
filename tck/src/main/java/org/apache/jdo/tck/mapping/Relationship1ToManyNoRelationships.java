@@ -64,6 +64,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
     /**
      * @see AbstractRelationshipTest#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         super.localSetUp();
         if (isTestToBePerformed) {

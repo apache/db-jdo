@@ -70,7 +70,10 @@ public class SetRetainValuesTrueWhenNotSupported extends JDO_Test {
         pm = null;
     }
     
-    /** test transactions.setRetainValues() */
+    /**
+     * test transactions.setRetainValues()
+     * @param pm the PersistenceManager
+     */
     void runTestSetRetainValuesTrueWhenNotSupported(PersistenceManager pm) {
         if (isRetainValuesSupported()) {
             if (debug) logger.debug("RetainValues supported.");

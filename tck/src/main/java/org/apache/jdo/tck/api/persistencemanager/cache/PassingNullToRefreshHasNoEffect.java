@@ -62,7 +62,10 @@ public class PassingNullToRefreshHasNoEffect extends PersistenceManagerTest {
         pm = null;
     }
 
-    /* test evict (object pc) */
+    /**
+     *  test evict (object pc)
+     * @param pm the PersistenceManager
+     */
     private void runTestPassingNullToRefreshHasNoEffect(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

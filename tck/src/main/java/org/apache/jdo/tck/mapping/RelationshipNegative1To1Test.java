@@ -66,6 +66,7 @@ public class RelationshipNegative1To1Test extends AbstractRelationshipTest {
     /**
      * @see AbstractRelationshipTest#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         super.localSetUp();
         if (isTestToBePerformed) {

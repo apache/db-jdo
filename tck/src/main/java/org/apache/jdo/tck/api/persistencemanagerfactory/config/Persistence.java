@@ -30,11 +30,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B>Close of PersistenceManagerFactory  
- *<BR/>
+ *<BR>
  *<B>Keywords:</B> persistencemanagerfactory, jdoconfig.xml
- *<BR/>
+ *<BR>
  *<B>Assertion IDs:</B> A8.7-1
- *<BR/>
+ *<BR>
  *<B>Assertion Description: </B>
  * The application provides a resource named META-INF/persistence.xml and
  * optionally META-INF/services/javax.persistence.EntityManagerFactory which 
@@ -109,7 +109,9 @@ public class Persistence extends JDO_Test {
         runTest(name);
     }
 
-    /** */
+    /**
+     * @param name the name
+     */
     public void runTest(String name) {
         String actualPUName = pmf.getPersistenceUnitName();
         assertEquals("Incorrect PersistenceUnitName", name, actualPUName);

@@ -392,8 +392,9 @@ public class StateTransitions extends JDO_Test {
     };
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         pm = getPM();
         addTearDownClass(StateTransitionObj.class);
@@ -445,7 +446,10 @@ public class StateTransitions extends JDO_Test {
         return ret;
     }
 
-    /** */
+    /**
+     *
+      * @param transaction the transaction
+     */
     public void prepareTransactionAndJDOSettings(Transaction transaction) {
             transaction.setNontransactionalRead(false);
             transaction.setNontransactionalWrite(false);
@@ -788,6 +792,8 @@ public class StateTransitions extends JDO_Test {
 
     /**
      * Get an instance in the specified state.
+     * @param state the state
+     * @return instance in the specified state.
      */
     public StateTransitionObj getInstanceInState(int state)
     {
@@ -823,7 +829,10 @@ public class StateTransitions extends JDO_Test {
         }
     }
 
-    /** */
+    /**
+     *
+     * @return transient instance
+     */
     public StateTransitionObj getTransientInstance()
     {
         StateTransitionObj obj = new StateTransitionObj(23);
@@ -838,7 +847,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return persistent new instance
+     */
     public StateTransitionObj getPersistentNewInstance()
     {
         StateTransitionObj obj = getTransientInstance();
@@ -855,8 +867,11 @@ public class StateTransitions extends JDO_Test {
         }
         return obj;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return persistent clean instance
+     */
     public StateTransitionObj getPersistentCleanInstance()
     {
         StateTransitionObj obj = getHollowInstance();
@@ -874,8 +889,11 @@ public class StateTransitions extends JDO_Test {
         }
         return obj;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return persistent dirty instance
+     */
     public StateTransitionObj getPersistentDirtyInstance()
     {
         StateTransitionObj obj = getHollowInstance();
@@ -894,7 +912,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return hollow instance
+     */
     public StateTransitionObj getHollowInstance()
     {
         if ( !transaction.isActive() )
@@ -928,8 +949,11 @@ public class StateTransitions extends JDO_Test {
         }
         return obj;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return transient clean instance
+     */
     public StateTransitionObj getTransientCleanInstance()
     {
         StateTransitionObj obj = getTransientInstance();
@@ -947,7 +971,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return transient dirty instance
+     */
     public StateTransitionObj getTransientDirtyInstance()
     {
         StateTransitionObj obj = getTransientCleanInstance();
@@ -966,7 +993,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return persitent new deleted instance
+     */
     public StateTransitionObj getPersistentNewDeletedInstance()
     {
         StateTransitionObj obj = getPersistentNewInstance();
@@ -983,8 +1013,11 @@ public class StateTransitions extends JDO_Test {
         }
         return obj;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return persitent deleted instance
+     */
     public StateTransitionObj getPersistentDeletedInstance()
     {
         StateTransitionObj obj = getHollowInstance();
@@ -1002,7 +1035,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return persient nontransactional instance
+     */
     public StateTransitionObj getPersistentNontransactionalInstance()
     {
         StateTransitionObj obj = getHollowInstance();
@@ -1025,7 +1061,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return persient nontransactional dirty instance
+     */
     public StateTransitionObj getPersistentNontransactionalDirtyInstance()
     {
         StateTransitionObj obj = getPersistentNontransactionalInstance();
@@ -1043,7 +1082,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return detached clean instance
+     */
     public StateTransitionObj getDetachedCleanInstance()
     {
         StateTransitionObj obj = getHollowInstance();
@@ -1061,7 +1103,10 @@ public class StateTransitions extends JDO_Test {
         return obj;
     }
 
-    /** */
+    /**
+     *
+     * @return detached dirty instance
+     */
     public StateTransitionObj getDetachedDirtyInstance()
     {
         StateTransitionObj obj = getHollowInstance();

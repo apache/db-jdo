@@ -51,7 +51,7 @@ public class GetIgnoreCache extends QueryTest {
     }
 
     /** */
-    public void test() throws Exception {
+    public void test() {
         pmf = getPMF();
         pm = getPM();
 

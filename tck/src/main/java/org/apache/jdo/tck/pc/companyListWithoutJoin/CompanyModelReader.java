@@ -63,6 +63,7 @@ public class CompanyModelReader extends XmlBeanFactory {
     /** 
      * Create a CompanyModelReader for the specified resourceName. 
      * @param resourceName the name of the resource
+     * @param classLoader the ClassLoader for the lookup
      */
     public CompanyModelReader(String resourceName, ClassLoader classLoader) {
         super(new ClassPathResource(resourceName, classLoader));

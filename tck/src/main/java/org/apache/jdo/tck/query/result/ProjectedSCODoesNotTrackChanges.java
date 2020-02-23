@@ -67,10 +67,11 @@ public class ProjectedSCODoesNotTrackChanges extends JDO_Test {
     public static void main(String[] args) {
         BatchTestRunner.run(ProjectedSCODoesNotTrackChanges.class);
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(Company.class);
     }

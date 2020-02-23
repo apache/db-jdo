@@ -59,11 +59,12 @@ public class EvictingWithRetainValuesFalse extends PersistenceManagerTest {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(EvictingWithRetainValuesFalse.class);
-    }	
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint2.class);
         super.localSetUp();
@@ -108,7 +109,10 @@ public class EvictingWithRetainValuesFalse extends PersistenceManagerTest {
 		return pt;
     }
 
-    /** */
+    /**
+     *
+     * @param pt PCPoint2 instance
+     */
     private void makePersistentClean(PCPoint2 pt) {
 		pm.makeTransactional(pt);
         int curr = currentState(pt);
@@ -118,7 +122,10 @@ public class EvictingWithRetainValuesFalse extends PersistenceManagerTest {
         }
     }
 
-	/** */
+    /**
+     *
+     * @param pt PCPoint2 instance
+     */
     private void verify(PCPoint2 pt) {
 		// When PersistenceManager evicts instances, it: calls the jdoPreClear method on each instance
         if ( !pt.wasClearCalled()) {

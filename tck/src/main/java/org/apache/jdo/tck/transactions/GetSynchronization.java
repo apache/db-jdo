@@ -66,8 +66,9 @@ public class GetSynchronization
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
     }
@@ -85,7 +86,10 @@ public class GetSynchronization
         }
     }
 
-    /** */
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         try {
             if (debug) 

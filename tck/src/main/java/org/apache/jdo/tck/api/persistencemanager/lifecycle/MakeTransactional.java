@@ -82,7 +82,10 @@ public class MakeTransactional extends PersistenceManagerTest{
         p4 = new PCPoint(4,6);
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void testMakeTransactional(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {
@@ -103,7 +106,10 @@ public class MakeTransactional extends PersistenceManagerTest{
         }
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void testMakeTransactionalAll1(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

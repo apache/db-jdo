@@ -61,8 +61,9 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(TopPersistH.class);
     }

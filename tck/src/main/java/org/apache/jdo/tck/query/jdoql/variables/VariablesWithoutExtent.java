@@ -84,10 +84,11 @@ public class VariablesWithoutExtent extends QueryTest {
             executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         }
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

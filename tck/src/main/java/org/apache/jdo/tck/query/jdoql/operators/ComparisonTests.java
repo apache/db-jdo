@@ -55,8 +55,14 @@ public abstract class ComparisonTests extends JDO_Test {
     protected static    String      BigIntegerParameter = "java.math.BigInteger value";
     protected static    String      DateParameter = "java.util.Date value";
     protected static    String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
-    
-    /** */
+
+    /**
+     *
+     * @param assertion assertion
+     * @param message the message
+     * @param filter the filter
+     * @param parameter the parameter
+     */
     protected void fail(String assertion, String message, String filter, String parameter)
     {
         StringBuffer buf = new StringBuffer();
@@ -70,9 +76,16 @@ public abstract class ComparisonTests extends JDO_Test {
         
         fail(assertion, buf.toString());
     }
-    
-    /** */
-    protected void runQuery(PersistenceManager pm, 
+
+    /**
+     *
+     * @param pm the PersistenceManager
+     * @param filter the filter
+     * @param parameter the parameter declaration
+     * @param parameterValue the parameter value
+     * @param assertion assertion
+     */
+    protected void runQuery(PersistenceManager pm,
                             String filter, String parameter, Object parameterValue, 
                             String assertion)
     {

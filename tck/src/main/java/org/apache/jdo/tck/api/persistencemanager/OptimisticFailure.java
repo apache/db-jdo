@@ -75,8 +75,9 @@ public class OptimisticFailure extends PersistenceManagerTest {
     private Object p5oid = null;
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(VersionedPCPoint.class);
     }
@@ -229,8 +230,12 @@ public class OptimisticFailure extends PersistenceManagerTest {
                 tx1.rollback();
         }
     }
-    
-    /** */
+
+    /**
+     *
+     * @param p PCPoint instance
+     * @param value value
+     */
     protected void verify(VersionedPCPoint p, int value) {
         if (p.getX() != value) {
             fail(ASSERTION_FAILED,

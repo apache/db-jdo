@@ -41,6 +41,7 @@ public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
      * @param middle The person's middle name.
      * @param born The person's birthdate.
      * @param hired The date the person was hired.
+     * @param role The person's role
      * @param wage The person's wage.
      */
     public PartTimeEmployee(long personid, String first, String last,

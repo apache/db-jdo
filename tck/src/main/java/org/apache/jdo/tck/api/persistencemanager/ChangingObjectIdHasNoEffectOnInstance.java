@@ -49,7 +49,9 @@ public class ChangingObjectIdHasNoEffectOnInstance extends PersistenceManagerTes
         BatchTestRunner.run(ChangingObjectIdHasNoEffectOnInstance.class);
     }
 
-    /** */
+    /**
+     * @throws Exception exception
+     */
     public void testChangingObjectIdHasNoEffectOnInstance() throws Exception {
         pm = getPM();
         Object oid = createPCPointInstance(pm);

@@ -59,11 +59,12 @@ public class TestSetCollections extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(TestSetCollections.class);
-    }   
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(SetCollections.class);
         addTearDownClass(SimpleClass.class);

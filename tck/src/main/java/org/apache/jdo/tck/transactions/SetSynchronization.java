@@ -75,7 +75,10 @@ public class SetSynchronization extends JDO_Test implements Synchronization {
         
     }
 
-    /** */
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         try {
             if (debug) 
@@ -98,7 +101,10 @@ public class SetSynchronization extends JDO_Test implements Synchronization {
         pm = null;
     }
 
-    /** */ 
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetSynchronization(PersistenceManager pm) {
         tx = pm.currentTransaction();
         try {

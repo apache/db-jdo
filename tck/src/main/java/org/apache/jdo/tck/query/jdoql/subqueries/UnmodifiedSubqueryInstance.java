@@ -61,7 +61,7 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
+    public void testPositive() {
         PersistenceManager pm = getPM();
         runTestUnmodifiedSubquery(pm);
         runTestDifferentPM(pm);
@@ -123,8 +123,9 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

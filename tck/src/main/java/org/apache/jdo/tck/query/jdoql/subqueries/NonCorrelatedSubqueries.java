@@ -60,7 +60,7 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
-    public void testPositive() throws Exception {
+    public void testPositive() {
         PersistenceManager pm = getPM();
         runTestSubqueries01(pm);
         runTestSubqueries02(pm);
@@ -137,8 +137,9 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

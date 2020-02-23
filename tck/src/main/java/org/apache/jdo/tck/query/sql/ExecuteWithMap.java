@@ -164,10 +164,11 @@ public class ExecuteWithMap extends QueryTest {
                     false, illegalMapStringKeys, null, false); 
         }
     }
-    
+
     /**
-     * @see QueryTest#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         addTearDownClass(MylibReader.getTearDownClasses());

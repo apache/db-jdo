@@ -66,7 +66,10 @@ public class PassingNullToRefreshAllThrowsException
         pm = null;
     }
 
-    /* test refreshAll (Collection pcs) */
+    /**
+     * test refreshAll (Collection pcs)
+     * @param pm the PersistenceManager
+     */
     public void runTestRefreshAll1(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         if (debug) logger.debug("**  in runTestRefreshAll1() ");

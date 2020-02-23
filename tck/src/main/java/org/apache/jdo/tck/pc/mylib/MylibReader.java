@@ -59,6 +59,7 @@ public class MylibReader extends XmlBeanFactory {
     /** 
      * Create a MylibReader for the specified resourceName. 
      * @param resourceName the name of the resource
+     * @param classLoader the ClassLoader for the lookup
      */
     public MylibReader(String resourceName, ClassLoader classLoader) {
         super(new ClassPathResource(resourceName, classLoader));

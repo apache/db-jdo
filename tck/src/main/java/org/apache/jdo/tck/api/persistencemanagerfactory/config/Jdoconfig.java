@@ -27,11 +27,11 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  *<B>Title:</B>Close of PersistenceManagerFactory  
- *<BR/>
+ *<BR>
  *<B>Keywords:</B> persistencemanagerfactory, jdoconfig.xml
- *<BR/>
+ *<BR>
  *<B>Assertion IDs:</B> A11.1.2-1
- *<BR/>
+ *<BR>
  *<B>Assertion Description: </B>
  * Users can access a PersistenceManagerFactory by creating a jdoconfig.xml file
  * and making it available on the class path as META-INF/jdoconfig.xml.
@@ -60,8 +60,9 @@ public class Jdoconfig extends JDO_Test {
     }
     
         /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         /* Instance can be persisted ONLY if javax.jdo.mapping.Schema
          *   is overriden with 
@@ -149,7 +150,10 @@ public class Jdoconfig extends JDO_Test {
         checkPersistent(name);
     }
 
-    /** */
+    /**
+     *
+     * @param name the name
+     */
     public void checkIsOpen(String name) {
         assertEquals("Incorrect PMF name", name, privatePmf.getName());
         if (privatePmf.isClosed()) {
@@ -165,6 +169,7 @@ public class Jdoconfig extends JDO_Test {
      * Checks if instance can be persisted. Can be used if
      *    javax.jdo.mapping.Schema is overriden with the correct value
      *    with JDOHelper.getPersistenceManagerFactory(Map overrides, ...).
+     * @param name the name
      */
     public void checkPersistent(String name) {
         assertEquals("Incorrect PMF name", name, privatePmf.getName());

@@ -103,8 +103,9 @@ public class GetObjectIds extends JDO_Test {
     PersistenceManager pm2;
     
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         objs = new Object[] {
@@ -150,8 +151,9 @@ public class GetObjectIds extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localTearDown()
+     * @see org.apache.jdo.tck.JDO_Test#localTearDown()
      */
+    @Override
     protected void localTearDown() {
         pm2.close();
     }

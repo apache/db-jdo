@@ -17,7 +17,6 @@
  
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -99,14 +98,20 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCRect.class);
         addTearDownClass(PCPoint.class);
     }
 
-    /** */
+    /**
+     *
+     * @param expected expected value
+     * @param actual actual value
+     * @return true if equal
+     */
     protected boolean setEquals
             (Collection expected, Collection actual) {
         if (expected == actual) 
@@ -118,15 +123,25 @@ public class FetchPlanInterface extends JDO_Test {
         return expectedSet.equals(actualSet);
     }
 
-    /** */
-    protected void failCompare(String message, 
+    /**
+     *
+     * @param message message
+     * @param expected expected value
+     * @param actual actual value
+     */
+    protected void failCompare(String message,
             Object expected, Object actual) {
         appendMessage(ASSERTION_FAILED + message);
         appendMessage("expected: " + expected);
         appendMessage("actual: " + actual);
     }
 
-    /** */
+    /**
+     *
+     * @param message message
+     * @param expected expected value
+     * @param actual actual value
+     */
     protected void failCompare(String message, 
             int expected, int actual) {
         appendMessage(ASSERTION_FAILED + message);

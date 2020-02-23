@@ -43,7 +43,10 @@ public class EnhancerTest extends AbstractTest {
     /** The maven basedir identifying the directory of the execution environment. */
     private static String basedir = System.getProperty("basedir");
 
-    /** */
+    /**
+     * Main
+     * @param args command line arguments
+     */
     public static void main(String args[]) {
         BatchTestRunner.run(EnhancerTest.class);
     }

@@ -34,7 +34,8 @@ public class OrderFactoryPMClass
     };
 
     /**
-     * Creates a new instance of OrderFactoryPMClass 
+     * Creates a new instance of OrderFactoryPMClass
+     * @param pm the PersistnceManager
      */
     public OrderFactoryPMClass(PersistenceManager pm) {
         super(pm);

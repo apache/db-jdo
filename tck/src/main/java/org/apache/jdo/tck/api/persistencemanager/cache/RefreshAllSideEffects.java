@@ -42,9 +42,6 @@ the occurrence of commit failures due to mismatch between the state of cached in
 data in the data store.)) This can be tested by using 2 PersistenceManagers, independently change an object,
 then refresh.
  */
-
-
-/** */
 public class RefreshAllSideEffects extends PersistenceManagerTest {
     
     /** */
@@ -58,8 +55,6 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     PersistenceManager pmVerify;
     Collection coll = new ArrayList(); // Collection of persistent instances
     boolean useCollection = true;
-    
-    /** */
 
     /**
      * The <code>main</code> is called when the class
@@ -88,19 +83,19 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     }
 
     /** */
-    public void testRefreshAllWithCollection() throws Exception {
+    public void testRefreshAllWithCollection() {
         useCollection = true;
         runtest();
     }
 
     /** */
-    public void testRefreshAllWithArray() throws Exception {
+    public void testRefreshAllWithArray() {
         useCollection = false;
         runtest();
     }
 
     /** */
-    private void runtest() throws Exception {
+    private void runtest() {
         if (!isOptimisticSupported()) {
             printUnsupportedOptionalFeatureNotTested(
                 "RefreshAllSideEffects",
@@ -130,8 +125,7 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     }
     
     /** */
-    private void runTestRefreshAllSideEffects(boolean doRefresh)
-            throws Exception {
+    private void runTestRefreshAllSideEffects(boolean doRefresh) {
 
         if (debug) logger.debug ("\nSTART RefreshAllSideEffects");
 

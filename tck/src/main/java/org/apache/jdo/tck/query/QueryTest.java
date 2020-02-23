@@ -92,13 +92,20 @@ public abstract class QueryTest extends AbstractReaderTest {
     private MylibReader mylibReaderForTransientInstances;
 
     // Helper methods to create persistent PCPoint instances
-    
-    /** */
+
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void loadAndPersistPCPoints(PersistenceManager pm) {
         insertPCPoints(pm, 5);
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     * @param numInsert number of instances to be inserted
+     */
     protected void insertPCPoints(PersistenceManager pm, int numInsert) {
         Transaction tx = pm.currentTransaction();
         try {
@@ -118,7 +125,10 @@ public abstract class QueryTest extends AbstractReaderTest {
         }
     }
        
-    /** */
+    /**
+     * @param list list
+     * @return list
+     */
     public List getFromInserted(List list) {
         if (list == null)
             return null;
@@ -152,8 +162,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * for persistent instances.
      * @return the company model reader for persistent instances.
      */
-    private CompanyModelReader 
-    getCompanyModelReaderForPersistentInstances() {
+    private CompanyModelReader getCompanyModelReaderForPersistentInstances() {
         if (companyModelReaderForPersistentInstances == null) {
             companyModelReaderForPersistentInstances = 
                 new CompanyModelReader(getCompanyTestDataResource());
@@ -166,8 +175,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * for transient instances.
      * @return the company model reader for transient instances.
      */
-    private CompanyModelReader 
-    getCompanyModelReaderForTransientInstances() {
+    private CompanyModelReader getCompanyModelReaderForTransientInstances() {
         if (companyModelReaderForTransientInstances == null) {
             companyModelReaderForTransientInstances = 
                 new CompanyModelReader(getCompanyTestDataResource());
@@ -206,6 +214,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * methods explictly calls makePersistent for all named instances using the
      * specified PersistenceManager. The method returns the CompanyModelReader 
      * instance allowing to access a compay model instance by name.
+     * @param pm the PersistenceManager
+     * @return the company model reader
      */
     public CompanyModelReader loadAndPersistCompanyModel(PersistenceManager pm) {
         makePersistentAll(
@@ -218,6 +228,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * methods explictly calls makePersistent for all named instances using the
      * specified PersistenceManager. The method returns the CompanyModelReader 
      * instance allowing to access a compay model instance by name.
+     * @param pm the PersistenceManager
+     * @return mylib reader
      */
     public MylibReader loadAndPersistMylib(PersistenceManager pm) {
         makePersistentAll(
@@ -386,12 +398,18 @@ public abstract class QueryTest extends AbstractReaderTest {
     
     // PrimitiveTypes helper methods (creation and query)
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     public void loadAndPersistPrimitiveTypes(PersistenceManager pm) {
         insertPrimitiveTypes(pm);
     }
 
-    /** */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     protected void insertPrimitiveTypes(PersistenceManager pm) {
         boolean bFlag = false;
         String strValue = "";
@@ -432,12 +450,16 @@ public abstract class QueryTest extends AbstractReaderTest {
                 tx.rollback();
         }
     }
-    
+
     /**
-     * Creates and executes a PrimitiveTypes query with the specified filter. 
+     * Creates and executes a PrimitiveTypes query with the specified filter.
      * The method checks whether the query returns the expected result.
+     * @param filter the filter
+     * @param pm the PersistenceManager
+     * @param expected expected
+     * @param assertion assertion
      */
-    protected void runSimplePrimitiveTypesQuery(String filter, 
+    protected void runSimplePrimitiveTypesQuery(String filter,
                                                 PersistenceManager pm,
                                                 Collection expected,
                                                 String assertion) {
@@ -453,8 +475,14 @@ public abstract class QueryTest extends AbstractReaderTest {
 
     /**
      * Creates and executes a PrimitiveTypes query with the specified filter,
-     * parameter declarations and parameter values. The method checks whether 
+     * parameter declarations and parameter values. The method checks whether
      * the query returns the expected result.
+     * @param filter the filter
+     * @param paramDecl the parameter declaration
+     * @param paramValue the parameter values
+     * @param pm the PersistenceManager
+     * @param expected expected
+     * @param assertion assertion
      */
     protected void runParameterPrimitiveTypesQuery(String filter,
                                                    String paramDecl,
@@ -474,13 +502,17 @@ public abstract class QueryTest extends AbstractReaderTest {
     }
 
     // Helper methods to check query result
-    
-    /** Verify that expected equals result, including the order of the elements.
+
+    /**
+     * Verify that expected equals result, including the order of the elements.
      * If not equal, fail the test.
      * If there is a filter != null, do not use this method. Use the method
      * of the same name that takes a String as the second argument.
+     * @param assertion assertion
+     * @param result the result
+     * @param expected the expected
      */
-    protected void checkQueryResultWithOrder(String assertion, 
+    protected void checkQueryResultWithOrder(String assertion,
                                              Object result, 
                                              Object expected) {
         if (!equals(result, expected)) {
@@ -488,10 +520,14 @@ public abstract class QueryTest extends AbstractReaderTest {
         }
     }
     
-    /** Verify that expected equals result, ignoring the order of the elements.
+    /**
+     * Verify that expected equals result, ignoring the order of the elements.
      * If not equal, fail the test.
      * If there is a filter != null, do not use this method. Use the method
      * of the same name that takes a String as the second argument.
+     * @param assertion assertion
+     * @param result the result
+     * @param expected the expected
      */
     protected void checkQueryResultWithoutOrder(String assertion, 
                                                 Object result, 
@@ -526,8 +562,14 @@ public abstract class QueryTest extends AbstractReaderTest {
                 " of size " + size(result) + lf + result);
     }
 
-    /** */
-    protected void checkQueryResultWithOrder(String assertion, 
+    /**
+     *
+     * @param assertion assertion
+     * @param query the query
+     * @param result the result
+     * @param expected expected
+     */
+    protected void checkQueryResultWithOrder(String assertion,
                                              String query,
                                              Object result, 
                                              Object expected) {
@@ -535,9 +577,15 @@ public abstract class QueryTest extends AbstractReaderTest {
             queryFailed(assertion, query, result, expected);
         }
     }
-    
-    /** */
-    protected void checkQueryResultWithoutOrder(String assertion, 
+
+    /**
+     *
+     * @param assertion assertion
+     * @param query the query
+     * @param result the result
+     * @param expected expected
+     */
+    protected void checkQueryResultWithoutOrder(String assertion,
                                                 String query,
                                                 Object result, 
                                                 Object expected) {
@@ -563,7 +611,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * collections of object arrays, maps of object arrays.
      * This method implements a narrowing in case of floating point values.
      * In case of big decimals it calls 
-     * {@link BigDecimal#compareTo(java.lang.Object)}.
+     * {@link BigDecimal#compareTo(java.math.BigDecimal)}.
      * It allows <code>o1</code> and/or <code>o2</code>
      * to be <code>null</code>. 
      * @param o1 the first object
@@ -828,6 +876,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * Returns the size of the object. If it is a multivalued object
      * (Collection, Map, or array) return the number of elements. If not, 
      * return 1.
+     * @param o the object
+     * @return size
      */
     protected int size(Object o) {
         if (o instanceof Collection) {
@@ -843,8 +893,12 @@ public abstract class QueryTest extends AbstractReaderTest {
     }
 
     // Debugging helper methods
-     
-    /** */
+
+    /**
+     *
+     * @param results the results
+     * @param expected expected values
+     */
     protected void printOutput(Object results, Collection expected) {
         if (!debug)
             return;
@@ -1004,10 +1058,10 @@ public abstract class QueryTest extends AbstractReaderTest {
      * then the test case fails prompting argument <code>assertion</code>
      * and <code>queryText</code>. 
      * Otherwise the test case succeeds. 
-     * @param assertion
-     * @param query
-     * @param queryText
-     * @param positive
+     * @param assertion asserting text
+     * @param query the query instance
+     * @param queryText the text representation of the query
+     * @param positive positive test
      */
     protected void compile(String assertion, 
             Query query, String queryText, boolean positive) {
@@ -1075,9 +1129,9 @@ public abstract class QueryTest extends AbstractReaderTest {
 
     /**
      * 
-     * @param assertion
-     * @param queryElementHolder
-     * @param expectedResult
+     * @param assertion assertion text
+     * @param queryElementHolder query elements
+     * @param expectedResult expected query result
      */
     protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
                                           Object expectedResult) {
@@ -1086,11 +1140,11 @@ public abstract class QueryTest extends AbstractReaderTest {
 
     /**
      *
-     * @param assertion
-     * @param queryElementHolder
-     * @param resultClass
-     * @param resultClauseSpecified
-     * @param expectedResult
+     * @param assertion assertion text
+     * @param queryElementHolder query elements
+     * @param resultClass result class object
+     * @param resultClauseSpecified flag whether result clause is specified
+     * @param expectedResult the expected query result
      */
     protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
                                           Class<?> resultClass, boolean resultClauseSpecified,
@@ -1165,7 +1219,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to a JDO query instance,
      * based on argument <code>asSingleString</code>.
      * Afterwards, delegates to method 
-     * {@link QueryTest#execute(String, Query, String, boolean, Object[], Object, boolean)}.
+     * {@link QueryTest#execute(String, Query, String, boolean, Object, Object, boolean)}.
      * @param assertion the assertion to prompt if the test case fails.
      * @param queryElementHolder the query to execute.
      * @param asSingleString determines if the query is executed as
@@ -1226,6 +1280,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param sql the SQL string.
      * @param candidateClass the candidate class.
      * @param resultClass the result class.
+     * @param positive positive option
      * @param parameters the parameters of the query.
      * @param expectedResult the expected query result.
      * @param unique indicates, if the query is supposed 
@@ -1269,7 +1324,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * 
      * The result of query execution is compared against the argument 
      * <code>expectedResult</code>. If the two values differ, 
-     * then this method throws an {@link AssertionFailedError} and 
+     * then this method throws an {@link junit.framework.AssertionFailedError} and
      * the calling test case fails prompting argument 
      * <code>assertion</code>.<p>
      * 
@@ -1278,7 +1333,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * a negative test case. 
      * Then, query execution is expected to throw a {@link JDOUserException}.
      * If query execution succeeds in this case, then this method throws
-     * an {@link AssertionFailedError} and the calling test case fails
+     * an {@link junit.framework.AssertionFailedError} and the calling test case fails
      * prompting argument <code>assertion</code>.<p>
      * 
      * @param assertion the assertion to prompt if the test case fails.

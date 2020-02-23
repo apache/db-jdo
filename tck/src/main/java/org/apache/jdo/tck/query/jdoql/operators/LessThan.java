@@ -47,7 +47,7 @@ are defined in the Java language. This includes the following types:
 </UL>
 The operation on object-valued fields of wrapper types (<code>Boolean, Byte,
 Short, Integer, Long, Float</code>, and <code>Double</code>), and numeric types
-<code>(<code>BigDecimal</code> and <code>BigInteger</code>)
+(<code>BigDecimal</code> and <code>BigInteger</code>)
 use the wrapped values as operands.
 
  */

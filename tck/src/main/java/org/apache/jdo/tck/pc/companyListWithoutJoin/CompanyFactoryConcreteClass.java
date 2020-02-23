@@ -35,6 +35,10 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
         Department.class, Company.class
     };
 
+    /**
+     * Creates a new instance of CompanyFactoryConcreteClass
+     * @param pm the PersistenceManager
+     */
     public CompanyFactoryConcreteClass(PersistenceManager pm) {
     }
 

@@ -26,17 +26,14 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
-
 /**
  * This class is an abstract superclass for the fetch plan tests.
  * It contains methods useful for testing the behavior of the
  * fetch plan.
  */
-
 public class AbstractFetchPlanTest extends JDO_Test {
 
-    /**
+    /*
      * The <code>main</code> method is not defined in this abstract class.
      */
 
@@ -63,8 +60,9 @@ public class AbstractFetchPlanTest extends JDO_Test {
     protected String[] bothGroup = new String[]{
         "default", "PCRect.upperLeft", "PCRect.lowerRight"};
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCRect.class);
         addTearDownClass(PCPoint.class);
@@ -107,13 +105,21 @@ public class AbstractFetchPlanTest extends JDO_Test {
         fp.setGroups(bothGroup);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param pcrect PCREct instance
+     */
     protected void checkBothLoaded(String location, PCRect pcrect) {
         checkUpperLeftLoaded(location, pcrect);
         checkLowerRightLoaded(location, pcrect);
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param pcrect PCREct instance
+     */
     protected void checkUpperLeftLoaded(String location, PCRect pcrect) {
         if (pcrect.upperLeft == null) {
             appendMessage(location + NL + "Upper Left was null." + NL +
@@ -122,7 +128,11 @@ public class AbstractFetchPlanTest extends JDO_Test {
         }
     }
 
-    /** */
+    /**
+     *
+     * @param location location
+     * @param pcrect pc instance
+     */
     protected void checkLowerRightLoaded(String location, PCRect pcrect) {
         if (pcrect.lowerRight == null) {
             appendMessage(location + NL + "Lower Right was null." + NL +
@@ -130,7 +140,14 @@ public class AbstractFetchPlanTest extends JDO_Test {
                 " should have been loaded.");
         }
     }
-    protected void checkGroups(String location, 
+
+    /**
+     *
+     * @param location location
+     * @param fetchPlan fetch plan
+     * @param groups groups
+     */
+    protected void checkGroups(String location,
             FetchPlan fetchPlan, String[] groups) {
         Collection expected = new HashSet();
         Collection actual = fetchPlan.getGroups();

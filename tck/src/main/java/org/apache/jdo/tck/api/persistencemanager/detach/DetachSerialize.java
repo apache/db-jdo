@@ -74,7 +74,10 @@ public class DetachSerialize extends DetachTest {
         failOnError();
     }
 
-    /** Detach the parameter instance.
+    /**
+     * Detach the parameter instance.
+     * @param pc pc instance
+     * @return detached instance
      */
     protected Object detachClosure(Object pc) {
         byte[] cartStream = serialize(pc);

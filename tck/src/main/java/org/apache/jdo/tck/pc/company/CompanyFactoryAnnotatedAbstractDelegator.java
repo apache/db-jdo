@@ -33,9 +33,10 @@ public abstract class CompanyFactoryAnnotatedAbstractDelegator
     public final String identitytype =
             System.getProperty("jdo.tck.identitytype");
     public boolean isAppIdentity = "applicationidentity".equals(identitytype);
-    
+
     /**
      * Creates a new instance of CompanyFactory
+     * @param pm the PersistenceManager
      */
     public CompanyFactoryAnnotatedAbstractDelegator(PersistenceManager pm) {
         super(pm);

@@ -44,8 +44,6 @@ import org.apache.jdo.tck.util.ThreadExceptionHandler;
  data in the data store.)) This can be tested by using 2 PersistenceManagers, independently change an object,
  then refresh.
  */
-
-/** */
 public class RefreshSideEffects extends PersistenceManagerTest {
     
     /** */
@@ -64,7 +62,9 @@ public class RefreshSideEffects extends PersistenceManagerTest {
         BatchTestRunner.run(RefreshSideEffects.class);
     }
 
-    /** */
+    /**
+     * @throws Exception exception
+     */
     public void test () throws Exception {
         PersistenceManagerFactory pmf = getPMF();
         PersistenceManager pm1 = pmf.getPersistenceManager();
@@ -81,7 +81,12 @@ public class RefreshSideEffects extends PersistenceManagerTest {
         }
     }
 
-    /** */
+    /**
+     *
+     * @param pm1 the first PersistenceManager
+     * @param pm2 the second PersistenceManager
+     * @throws Exception
+     */
     private void runTestRefreshSideEffects(PersistenceManager pm1, 
                                            PersistenceManager pm2) throws Exception {
         if (debug) logger.debug ("\nSTART RefreshSideEffects");

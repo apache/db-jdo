@@ -59,11 +59,12 @@ public class TestHashtableStringValueCollections extends JDO_Test {
      */
     public static void main(String[] args) {
         BatchTestRunner.run(TestHashtableStringValueCollections.class);
-    }   
+    }
 
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(HashtableStringValueCollections.class);
         addTearDownClass(SimpleClass.class);

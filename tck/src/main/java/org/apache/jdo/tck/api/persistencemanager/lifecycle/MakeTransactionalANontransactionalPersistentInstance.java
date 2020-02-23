@@ -296,7 +296,11 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
         }
     }
 
-    /** */
+    /**
+     *
+     * @param obj the PCPoint instance
+     * @return true
+     */
     public boolean makePersistentNonTranInstance (PCPoint obj) {
         int val = obj.getX();
         int curr = currentState(obj);

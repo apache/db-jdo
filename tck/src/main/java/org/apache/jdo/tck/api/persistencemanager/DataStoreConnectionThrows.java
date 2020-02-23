@@ -67,8 +67,12 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
     public static void main(String[] args) {
         BatchTestRunner.run(DataStoreConnectionThrows.class);
     }
-    
-    /** */
+
+    /**
+     *
+     * @param conn connection
+     * @param call call
+     */
     protected void checkThrow(Connection conn, Call call) {
         try {
             call.execute(conn);
@@ -109,6 +113,7 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
 
    /** 
     * These methods are defined in Java 1.3 Connection.
+    * @param conn connection
     */
     protected void check13Methods(Connection conn) {
         checkThrow(conn,
@@ -152,6 +157,7 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
 
     /**
      * These methods are defined in Java 1.4 Connection.
+     * @param conn connection
      */
     protected void check14Methods(Connection conn) {
         checkThrow(conn,

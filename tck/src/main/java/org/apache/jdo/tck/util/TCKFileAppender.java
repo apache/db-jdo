@@ -35,22 +35,38 @@ public class TCKFileAppender extends FileAppender {
      * @see FileAppender#FileAppender()
      */
     public TCKFileAppender() {}
-    
-    public TCKFileAppender(Layout layout, String filename, boolean append, 
+
+    /**
+     * Constructor
+     * @param layout layout
+     * @param filename filename
+     * @param append append
+     * @param bufferedIO bufferedIO option
+     * @param bufferSize bufferSize
+     * @throws IOException exception
+     */
+    public TCKFileAppender(Layout layout, String filename, boolean append,
             boolean bufferedIO, int bufferSize) throws IOException {
         super(layout, filename, append, bufferedIO, bufferSize);
     }
-    
+
     /**
      * @see FileAppender#FileAppender(org.apache.log4j.Layout, java.lang.String, boolean, boolean, int)
+     * @param layout layout
+     * @param filename file name
+     * @param append append option
+     * @throws IOException exception
      */
-    public TCKFileAppender(Layout layout, String filename, boolean append) 
+    public TCKFileAppender(Layout layout, String filename, boolean append)
         throws IOException {
         super(layout, filename, append);
     }
-    
+
     /**
      * @see FileAppender#FileAppender(org.apache.log4j.Layout, java.lang.String)
+     * @param layout  layout
+     * @param filename file name
+     * @throws IOException exception
      */
     public TCKFileAppender(Layout layout, String filename) throws IOException {
         this(layout, filename, true);

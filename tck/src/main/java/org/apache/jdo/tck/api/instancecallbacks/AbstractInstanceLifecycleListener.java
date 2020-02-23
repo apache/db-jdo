@@ -165,6 +165,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
     /** 
      * The listener to be used for the test. This method is implemented
      * by the subclasses to use the proper listener.
+     * @return listener
      */
     protected abstract InstanceLifecycleListenerImpl getListener();
 
@@ -174,6 +175,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
      * by this method are used for two purposes: they are used to register
      * listeners; and they are used as the teardown classes whose instances
      * are removed from the datastore at the end of the test.
+     * @return classes
      */
     protected abstract Class[] getPersistentClasses();
 
@@ -273,7 +275,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
         public static final int PRE_STORE_LISTENER;
         public static final int POST_STORE_LISTENER;
 
-        /**
+        /*
          * Initialize the list of names and the associated values. For each
          * listener event and callback, add the name and then assign the value.
          */
@@ -450,6 +452,8 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
          * position is the order, starting with 1, of the callback.
          * If the callback or listener was never invoked, the value
          * is 0.
+         * @param where where
+         * @param expected expected
          */
         public void verifyCallbacks(String where, int[] expected) {
             int[] expectedSequence = newExpected(expected);

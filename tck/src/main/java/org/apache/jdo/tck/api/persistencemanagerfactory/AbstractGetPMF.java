@@ -75,6 +75,7 @@ abstract class AbstractGetPMF extends JDO_Test {
     
     /**
      * Removing the path prefix from argument <code>name</code>.
+     * @param name the name
      * @return argument <code>name</code> removed by the path prefix.
      */
     protected String removePathPrefix(String name) {
@@ -133,9 +134,11 @@ abstract class AbstractGetPMF extends JDO_Test {
         verifyProperties(pmf, loadProperties(validPropertiesFile));
         makePersistent();
     }
-    
-    /** 
+
+    /**
      * Verify that the Properties are correctly set in the PMF.
+     * @param pmf the PersistenceManagerFactory
+     * @param props the Properties
      */
     protected void verifyProperties(PersistenceManagerFactory pmf,
             Properties props) {

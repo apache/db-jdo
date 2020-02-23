@@ -44,17 +44,6 @@ import org.apache.jdo.tck.pc.mylib.PCPoint;
 public class PersistenceManagerNullsTest extends JDO_Test {
 
     /**
-    public static interface MethodUnderTest {
-        public void pmApi(PersistenceManager pm, Object obj);
-        public void pmApi(PersistenceManager pm, Collection coll);
-        public void pmApi(PersistenceManager pm, Object[] objs);
-        public Object pmApiReturn(PersistenceManager pm, Object obj);
-        public Collection pmApiReturn(PersistenceManager pm,  Collection coll);
-        public Object[] pmApiReturn(PersistenceManager pm, Object [ ] objs);
-    }
-     */
-
-    /**
      */
     public static class MethodUnderTest {
         public void pmApi(PersistenceManager pm, Object obj) {
@@ -98,8 +87,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     protected PersistenceManagerNullsTest() { }
 
     /** 
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         // The order of addTearDownClass calls is significant
         // as it takes into account database FKs.
@@ -194,8 +184,10 @@ public class PersistenceManagerNullsTest extends JDO_Test {
         return true;
     }
 
-    /** 
+    /**
      * Test that method under test with null valued argument does nothing.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullObjectParameter(MethodUnderTest mut, String method) {
 
@@ -226,6 +218,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with null valued Collection argument
      * throws NullPointerException.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullCollectionParameter(MethodUnderTest mut,
             String method) {
@@ -262,6 +256,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with null valued array argument
      * throws NullPointerException.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullArrayParameter(MethodUnderTest mut,
                 String method) {
@@ -296,6 +292,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with a null element of a 
      * Collection argument ignores the null element.
+     * @param coll collection argument
+     * @param mut method under test
+     * @param method method name
      */
     public void executeCollectionNullElement(Collection coll,
             MethodUnderTest mut, String method) {
@@ -325,6 +324,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with a null element of a 
      * array argument ignores the null element.
+     * @param array argument
+     * @param mut method under test
+     * @param method method name
      */
     public void executeArrayNullElement(Object[] array, MethodUnderTest mut,
                 String method) {
@@ -354,6 +356,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
 
     /** 
      * Test that method under test with null valued argument does nothing.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullObjectParameterReturn(MethodUnderTest mut, 
             String method) {
@@ -392,6 +396,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with null valued Collection argument
      * throws NullPointerException.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullCollectionParameterReturn( MethodUnderTest mut, 
             String method) {
@@ -433,6 +439,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with null valued array argument
      * throws NullPointerException.
+     * @param mut method under test
+     * @param method method name
      */
     public void executeNullArrayParameterReturn(MethodUnderTest mut, 
             String method) {
@@ -472,6 +480,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with a null element of a 
      * Collection argument ignores the null element.
+     * @param coll argument
+     * @param mut method under test
+     * @param method method name
      */
     public void executeCollectionNullElementReturn(Collection coll,
             MethodUnderTest mut, String method) {
@@ -507,6 +518,9 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     /** 
      * Test that the method under test with a null element of a 
      * array argument ignores the null element.
+     * @param obj argument
+     * @param mut method under test
+     * @param method method name
      */
     public void executeArrayNullElementReturn(Object[] obj,
             MethodUnderTest mut, String method) {

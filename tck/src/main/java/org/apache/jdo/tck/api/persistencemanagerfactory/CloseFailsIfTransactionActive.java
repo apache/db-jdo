@@ -149,8 +149,11 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
             }
         }
     }
-    
-    /** */
+
+    /**
+     *
+     * @param pmf the PersistenceManagerFactory
+     */
     protected void cleanupPMF(PersistenceManagerFactory pmf) {
         try {
             closePMF(pmf); // don't use closePMF() because that sets pmf to null
@@ -183,13 +186,20 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
     protected void setAborted() {
         aborted = true;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return true if aborted
+     */
     protected boolean isAborted() {
         return aborted;
     }
 
-    /** */
+    /**
+     *
+     * @param ex JDOException
+     * @return arry of failed PersistenceManager
+     */
     protected PersistenceManager[] getFailedPersistenceManagers(JDOException ex) {
         Throwable[] nesteds = ex.getNestedExceptions();
         int numberOfExceptions = nesteds==null ? 0 : nesteds.length;

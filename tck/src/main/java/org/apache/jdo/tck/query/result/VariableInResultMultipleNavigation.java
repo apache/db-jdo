@@ -219,8 +219,9 @@ public class VariableInResultMultipleNavigation extends QueryTest {
     }
 
     /**
-     * @see QueryTest#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

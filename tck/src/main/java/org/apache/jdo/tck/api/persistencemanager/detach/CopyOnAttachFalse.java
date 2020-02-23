@@ -51,8 +51,6 @@ public class CopyOnAttachFalse extends DetachTest {
         BatchTestRunner.run(CopyOnAttachFalse.class);
     }
 
-    /** */
-
     /** 
      */
     public void testAttachClean() {

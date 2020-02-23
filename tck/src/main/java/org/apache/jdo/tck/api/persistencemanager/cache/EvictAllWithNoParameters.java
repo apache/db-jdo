@@ -68,8 +68,10 @@ public class EvictAllWithNoParameters extends PersistenceManagerTest {
         pm.close();
         pm = null;
     }
-    
-    /** */
+
+    /**
+     * @param pm the PersistenceManager
+     */
     private void createObjects(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

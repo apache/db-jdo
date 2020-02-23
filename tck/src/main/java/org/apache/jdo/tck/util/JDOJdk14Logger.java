@@ -47,10 +47,11 @@ public class JDOJdk14Logger
     
     /** Indicates whether JDK 1.4 logging has been configured by this class. */
     private static boolean configured = false;
-    
-    /** 
+
+    /**
      * Constructor checking whether JDK 1.4 logging should be
-     * configuared after calling super constructor. 
+     * configuared after calling super constructor.
+     * @param name logger name
      */
     public JDOJdk14Logger(String name) {
         super(name);

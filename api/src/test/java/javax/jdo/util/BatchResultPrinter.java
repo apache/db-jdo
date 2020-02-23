@@ -53,7 +53,10 @@ public class BatchResultPrinter
         getWriter().println();
     }
         
-    /** Called when a test case is started. */
+    /**
+     * Called when a test case is started.
+     * @param test test case
+     */
     public void startTest(Test test) {
         String testName;
         if (test instanceof TestCase) {
@@ -65,12 +68,18 @@ public class BatchResultPrinter
         getWriter().print("RUN " + testName);
     }
         
-    /** */
+    /**
+     *
+     * @param runTime time
+     */
     protected void printHeader(long runTime) {
         getWriter().println("Time: "+elapsedTimeAsString(runTime));
     }
-        
-    /** */
+
+    /**
+     *
+     * @param result the result
+     */
     protected void printFooter(TestResult result) {
         if (result.wasSuccessful()) {
             getWriter().print("OK");

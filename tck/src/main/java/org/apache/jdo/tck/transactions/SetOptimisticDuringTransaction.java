@@ -70,7 +70,10 @@ public class SetOptimisticDuringTransaction extends JDO_Test {
         pm = null;
     }
 
-    /**  */
+    /**
+     *
+     * @param pm the PersistenceManager
+     */
     void runTestSetOptimisticDuringTransaction(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         try {

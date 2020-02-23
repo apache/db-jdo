@@ -64,7 +64,11 @@ public class TestSelector extends JDialog {
     private JLabel fDescription;
     private List fSelectedItems;
     
-    /** */
+    /**
+     * Constructor
+     * @param parent parent frame
+     * @param testCollector test collector
+     */
     public TestSelector(Frame parent, TestCollector testCollector) {
         super(parent, true);
         setSize(500, 500);
@@ -99,17 +103,26 @@ public class TestSelector extends JDialog {
         addListeners();
     }
 
-    /** */
+    /**
+     *
+     * @return true if empty
+     */
     public boolean isEmpty() {
         return ((TreeNode)fTree.getModel().getRoot()).getChildCount() == 0;
     }
-    
-    /** */
+
+    /**
+     *
+     * @return selecteditems
+     */
     public List getSelectedItems() {
         return fSelectedItems;
     }
 
-    /** */
+    /**
+     *
+     * @param e event
+     */
     public void checkEnableOK(TreeSelectionEvent e) {
         boolean enabled = false;
         TreePath[] paths = fTree.getSelectionPaths();

@@ -67,7 +67,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
 
-    /**
+    /*
      * Manager relationship:
      * emp0
      *   emp1
@@ -226,7 +226,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     }
     
     /**
-     * this.manager != null && this.manager.manager == null
+     * this.manager != null AND this.manager.manager == null
      */
     public void testPositive4() {
        // 4: manager's manager check with extra check on first level manager
@@ -363,7 +363,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     }
 
     /**
-     * this.employee != null && this.employee.manager != null && this.employee.manager.manager == null
+     * this.employee != null AND this.employee.manager != null AND this.employee.manager.manager == null
      */
     public void testPositive8() {
         // 8 : multiple relationships 
@@ -464,10 +464,11 @@ public class NavigationComparisonWithNull extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
-    
+
     /**
-     * @see JDO_Test#localSetUp()
+     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());

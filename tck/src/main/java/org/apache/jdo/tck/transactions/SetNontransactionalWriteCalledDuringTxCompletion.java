@@ -85,8 +85,11 @@ public class SetNontransactionalWriteCalledDuringTxCompletion
                  "tx.setNontransactionalWrite called in beforeCompletion throws unexpected exception: " + ex);
         }
     }
-    
-    /** */
+
+    /**
+     * This method is called by the transaction manager after the transaction is committed or rolled back.
+     * @param status The status of the transaction completion.
+     */
     public void afterCompletion(int status) {
         if (debug) logger.debug("afterCompletion.");
         try {
@@ -113,7 +116,10 @@ public class SetNontransactionalWriteCalledDuringTxCompletion
         pm = null;
     }
     
-    /** test transactions.setNonteansactionalWrite() */
+    /**
+     * test transactions.setNonteansactionalWrite()
+     * @param pm the PersistenceManager
+     */
     public void runTestSetNontransactionalWriteCalledDuringTxCompletion(PersistenceManager pm) {
         tx = pm.currentTransaction();
         try {
