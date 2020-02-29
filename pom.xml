@@ -40,9 +40,9 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
   </scm>
 
   <build>
