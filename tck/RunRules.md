@@ -150,6 +150,7 @@ instances of PersistenceManager with open transactions simultaneously.
 <span id="debugging"></span>
 
 Debugging the IUT while Running TCK tests
+-----------------------
 
 Execute \"mvn jdo-exectck:help\" in the TCK directory in order to get
 information on running the TCK tests with a debugger. In particular,
