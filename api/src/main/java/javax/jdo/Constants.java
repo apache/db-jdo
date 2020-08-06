@@ -837,6 +837,14 @@ public interface Constants {
         = "javax.jdo.option.Name";
 
     /**
+     * "javax.jdo.spi.PropertiesFileName"
+     *
+     * @since 3.2
+     */
+    static String PROPERTY_SPI_PROPERTIES_FILE_NAME
+            = "javax.jdo.spi.PropertiesFileName";
+
+    /**
      * "javax.jdo.option.spi.ResourceName"
      * @since 2.1
      */
