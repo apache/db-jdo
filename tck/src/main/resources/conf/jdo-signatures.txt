@@ -208,6 +208,8 @@ public interface javax.jdo.Constants {
         = "javax.jdo.option.Mapping";
     static String PROPERTY_NAME
         = "javax.jdo.option.Name";
+    static String PROPERTY_SPI_PROPERTIES_FILE_NAME
+        = "javax.jdo.spi.PropertiesFileName";
     static String PROPERTY_SPI_RESOURCE_NAME
         = "javax.jdo.option.spi.ResourceName";
     static String PROPERTY_PERSISTENCE_UNIT_NAME
