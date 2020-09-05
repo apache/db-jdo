@@ -26,6 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import junit.textui.ResultPrinter;
@@ -179,7 +180,8 @@ public class BatchTestRunner
         for (int i = 0; i < classNames.length; i++) {
             String className = classNames[i];
             try {
-                testSuite.addTestSuite(Class.forName(className));
+                Class<? extends TestCase> clazz = (Class<? extends TestCase>)Class.forName(className);
+                testSuite.addTestSuite(clazz);
             }
             catch (ClassNotFoundException ex) {
                 System.out.println(
