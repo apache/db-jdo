@@ -152,53 +152,42 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
 
   <developers>
     <developer>
-      <id>clr</id>
-      <name>Craig Russell</name>
-      <email>Craig.Russell@Sun.COM</email>
-      <organization>Sun Microsystems, Inc.</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mbo</id>
-      <name>Michael Bouschen</name>
-      <email>mbo.tech@spree.de</email>
-      <organization>Tech@Spree Engineering GmbH</organization>
-      <timezone>1</timezone>
-    </developer>
-    <developer>
-      <id>brazil</id>
-      <name>Michael Watzek</name>
-      <email>mwa.tech@spree.de</email>
-      <organization>Tech@Spree Engineering GmbH</organization>
-      <timezone>1</timezone>
-    </developer>
-    <developer>
-      <id>mcaisse</id>
-      <name>Michelle Caisse</name>
-      <email>Michelle.Caisse@Sun.COM</email>
-      <organization>Apache.org</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
       <id>madams</id>
       <name>Matthew Adams</name>
       <email>matthew@matthewadams.me</email>
-      <organization>Apache.org</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mzaun</id>
-      <name>Martin Zaun</name>
-      <email>martin.zaun@Sun.COM</email>
-      <organization>Sun Microsystems, Inc.</organization>
+      <organization>Northscaler</organization>
       <timezone>-8</timezone>
     </developer>
     <developer>
       <id>ebengtson</id>
       <name>Erik Bengtson</name>
-      <email>erik@jpox.org</email>
-      <organization>JPOX</organization>
+      <email>ebengtson@apache.org</email>
       <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>mbo</id>
+      <name>Michael Bouschen</name>
+      <email>mbo@apache.org</email>
+      <organization>akquinet tech@Spree GmbH</organization>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>mcaisse</id>
+      <name>Michelle Caisse</name>
+      <organization>L-3 Communications</organization>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>andyj</id>
+      <name>Andy Jefferson</name>
+      <email>andyj@apache.org</email>
+      <organization>Datanucleus</organization>
+    </developer>
+    <developer>
+      <id>pcl</id>
+      <name>Patrick Linskey</name>
+      <email>pcl@apache.org</email>
+      <organization>Cisco</organization>
     </developer>
     <developer>
       <id>geirm</id>
@@ -212,6 +201,42 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <name>Brian McCallister</name>
       <email>brianm@apache.org</email>
       <organization>Apache.org</organization>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>clr</id>
+      <name>Craig Russell</name>
+      <email>apache.clr@gmail.com</email>
+      <organization>Apache</organization>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>dain</id>
+      <name>Dain Sundstrom</name>
+      <email>dain@apache.org</email>
+      <organization>Apache.org</organization>
+    </developer>
+    <developer>
+      <id>btopping</id>
+      <name>Brian Topping</name>
+      <email>btopping@apache.org</email>
+      <organization>Apache.org</organization>
+    </developer>
+    <developer>
+      <id>brazil</id>
+      <name>Michael Watzek</name>
+      <organization>akquinet tech@Spree GmbH</organization>
+    </developer>
+    <developer>
+      <id>tilmannz</id>
+      <name>Tilmann Zäschke</name>
+      <email>tilmannz@apache.org</email>
+      <organization>ZooDB</organization>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>mzaun</id>
+      <name>Martin Zaun</name>
       <timezone>-8</timezone>
     </developer>
   </developers>
