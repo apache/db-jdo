@@ -94,12 +94,12 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <dependency>
         <groupId>org.apache.derby</groupId>
         <artifactId>derby</artifactId>
-        <version>10.6.1.0</version>
+        <version>10.15.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.derby</groupId>
         <artifactId>derbytools</artifactId>
-        <version>10.6.1.0</version>
+        <version>10.15.2.0</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
