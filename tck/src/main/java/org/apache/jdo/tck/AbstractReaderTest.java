@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*
  * Abstract class for managed relationship tests
@@ -45,15 +45,15 @@ public class AbstractReaderTest extends JDO_Test {
 
     /** Get the named bean from the bean factory.
      * 
-     * @param reader the xml bean reader
+     * @param factory the bean factory
      * @param name the name of the bean
      * @return the named object
      */
-    protected Object getBean(final XmlBeanFactory reader, final String name) {
+    protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
         return AccessController.doPrivileged(
             new PrivilegedAction() {
                 public Object run() {
-                    return reader.getBean(name);
+                    return factory.getBean(name);
                 }
             }
         );
@@ -61,11 +61,11 @@ public class AbstractReaderTest extends JDO_Test {
 
     /** Get the root object from the bean factory.
      * 
-     * @param reader the xml bean reader
+     * @param factory the bean factory
      * @return the List of objects
      */
-    protected List getRootList(XmlBeanFactory reader) {
-        return (List) getBean(reader, rootName);
+    protected List getRootList(DefaultListableBeanFactory factory) {
+        return (List) getBean(factory, rootName);
     }
 
     /** Get the named object from the Map of objects.

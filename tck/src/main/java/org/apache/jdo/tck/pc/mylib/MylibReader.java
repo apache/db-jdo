@@ -17,26 +17,19 @@
  
 package org.apache.jdo.tck.pc.mylib;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
 
 /**
  * Utility class to create a mylib instances from an xml
  * representation. 
  */
-public class MylibReader extends XmlBeanFactory {
-
-    /** The format of date values in the xml representation */
-    public static final String DATE_PATTERN = "d/MMM/yyyy";
+public class MylibReader extends DefaultListableBeanFactory {
 
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
@@ -46,7 +39,10 @@ public class MylibReader extends XmlBeanFactory {
     private static final Class[] tearDownClasses = new Class[] {
         PrimitiveTypes.class, PCClass.class
     };
-    
+
+    /** Bean definition reader  */
+    private final XmlBeanDefinitionReader reader;
+
     /** 
      * Create a MylibReader for the specified resourceName. 
      * @param resourceName the name of the resource
@@ -62,17 +58,10 @@ public class MylibReader extends XmlBeanFactory {
      * @param classLoader the ClassLoader for the lookup
      */
     public MylibReader(String resourceName, ClassLoader classLoader) {
-        super(new ClassPathResource(resourceName, classLoader));
+        super();
         configureFactory();
-    }
-
-    /**
-     * Create a MylibReader for the specified InputStream.
-     * @param stream the input stream
-     */
-    public MylibReader(InputStream stream) {
-        super(new InputStreamResource(stream));
-        configureFactory();
+        this.reader = new XmlBeanDefinitionReader(this);
+        this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
     }
 
     /** 
@@ -90,10 +79,7 @@ public class MylibReader extends XmlBeanFactory {
      * of the right type.
      */
     private void configureFactory() {
-        SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN, Locale.US);
-        CustomDateEditor dateEditor =
-            new CustomDateEditor(formatter, true);
-        registerCustomEditor(Date.class, dateEditor);
+        registerCustomEditor(Date.class, JDOCustomDateEditor.class);
     }
     
     // Convenience methods

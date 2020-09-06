@@ -17,28 +17,22 @@
  
 package org.apache.jdo.tck.pc.order;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import org.apache.jdo.tck.util.ConversionHelper;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
 
 /**
  * Utility class to create a graph of order model instances from an xml
  * representation. 
  *
  */
-public class OrderModelReader extends XmlBeanFactory {
-
-    /** The format of date values in the xml representation */
-    public static final String DATE_PATTERN = "d/MMM/yyyy";
+public class OrderModelReader extends DefaultListableBeanFactory {
 
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
@@ -49,6 +43,9 @@ public class OrderModelReader extends XmlBeanFactory {
 
     /** The order factory instance. */
     private OrderFactory orderFactory;
+
+    /** Bean definition reader  */
+    private final XmlBeanDefinitionReader reader;
 
     /** 
      * Create a OrderModelReader for the specified resourceName. 
@@ -65,17 +62,10 @@ public class OrderModelReader extends XmlBeanFactory {
      * @param classLoader the ClassLOader for the lookup
      */
     public OrderModelReader(String resourceName, ClassLoader classLoader) {
-        super(new ClassPathResource(resourceName, classLoader));
+        super();
         configureFactory();
-    }
-
-    /**
-     * Create a OrderModelReader for the specified InputStream.
-     * @param stream the input stream
-     */
-    public OrderModelReader(InputStream stream) {
-        super(new InputStreamResource(stream));
-        configureFactory();
+        this.reader = new XmlBeanDefinitionReader(this);
+        this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
     }
 
     /** 
@@ -93,11 +83,7 @@ public class OrderModelReader extends XmlBeanFactory {
      * of the right type.
      */
     private void configureFactory() {
-        SimpleDateFormat formatter =
-            new SimpleDateFormat(DATE_PATTERN, Locale.US);
-        CustomDateEditor dateEditor =
-            new CustomDateEditor(formatter, true);
-        registerCustomEditor(Date.class, dateEditor);
+        registerCustomEditor(Date.class, JDOCustomDateEditor.class);
         orderFactory = OrderFactoryRegistry.getInstance();
         addSingleton(BEAN_FACTORY_NAME, orderFactory);
     }
@@ -143,7 +129,7 @@ public class OrderModelReader extends XmlBeanFactory {
     }
 
     public static Date stringToUtilDate(String value) {
-        return ConversionHelper.toUtilDate(DATE_PATTERN, Locale.US, value);
+        return ConversionHelper.toUtilDate(JDOCustomDateEditor.DATE_PATTERN, Locale.US, value);
     }
 }
 

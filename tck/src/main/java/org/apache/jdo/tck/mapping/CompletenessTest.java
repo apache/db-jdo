@@ -28,8 +28,6 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
-//import org.springframework.beans.factory.xml.XmlBeanFactory;
-
 /**
  *<B>Title:</B>Completeness Test
  *<BR>

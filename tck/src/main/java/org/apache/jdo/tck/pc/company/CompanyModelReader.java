@@ -17,18 +17,15 @@
  
 package org.apache.jdo.tck.pc.company;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import org.apache.jdo.tck.util.ConversionHelper;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
 
 /**
  * Utility class to create a graph of company model instances from an xml
@@ -36,10 +33,7 @@ import org.springframework.core.io.InputStreamResource;
  *
  * @author Michael Bouschen
  */
-public class CompanyModelReader extends XmlBeanFactory {
-
-    /** The format of date values in the xml representation */
-    public static final String DATE_PATTERN = "d/MMM/yyyy";
+public class CompanyModelReader extends DefaultListableBeanFactory {
 
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
@@ -50,6 +44,9 @@ public class CompanyModelReader extends XmlBeanFactory {
 
     /** The company factory instance. */
     private CompanyFactory companyFactory;
+
+    /** Bean definition reader  */
+    private final XmlBeanDefinitionReader reader;
 
     /** 
      * Create a CompanyModelReader for the specified resourceName. 
@@ -66,17 +63,10 @@ public class CompanyModelReader extends XmlBeanFactory {
      * @param classLoader the ClassLoader for the lookup
      */
     public CompanyModelReader(String resourceName, ClassLoader classLoader) {
-        super(new ClassPathResource(resourceName, classLoader));
+        super();
         configureFactory();
-    }
-
-    /**
-     * Create a CompanyModelReader for the specified InputStream.
-     * @param stream the input stream
-     */
-    public CompanyModelReader(InputStream stream) {
-        super(new InputStreamResource(stream));
-        configureFactory();
+        this.reader = new XmlBeanDefinitionReader(this);
+        this.reader.loadBeanDefinitions(new ClassPathResource(resourceName, classLoader));
     }
 
     /** 
@@ -94,10 +84,7 @@ public class CompanyModelReader extends XmlBeanFactory {
      * of the right type.
      */
     private void configureFactory() {
-        SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN, Locale.US);
-        CustomDateEditor dateEditor =
-            new CustomDateEditor(formatter, true);
-        registerCustomEditor(Date.class, dateEditor);
+        registerCustomEditor(Date.class, JDOCustomDateEditor.class);
         companyFactory = CompanyFactoryRegistry.getInstance();
         addSingleton(BEAN_FACTORY_NAME, companyFactory);
     }
@@ -117,7 +104,7 @@ public class CompanyModelReader extends XmlBeanFactory {
     }
 
     public static Date stringToUtilDate(String value) {
-        return ConversionHelper.toUtilDate(DATE_PATTERN, Locale.US, value);
+        return ConversionHelper.toUtilDate(JDOCustomDateEditor.DATE_PATTERN, Locale.US, value);
     }
     
     // Convenience methods
