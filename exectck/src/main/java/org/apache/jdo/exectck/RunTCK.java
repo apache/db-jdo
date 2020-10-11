@@ -45,7 +45,9 @@ public class RunTCK extends AbstractTCKMojo {
 
     private static final String TCK_PARAM_ON_FAILURE_FAIL_FAST = "failFast"; 
     private static final String TCK_PARAM_ON_FAILURE_FAIL_EVENTUALLY = "failGoal"; 
-    private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly"; 
+    private static final String TCK_PARAM_ON_FAILURE_LOG_ONLY = "logOnly";
+
+    private static final String TCK_LOG_FILE = "tck.txt";
 
     /**
      * To skip running of TCK, set to false.
@@ -234,7 +236,7 @@ public class RunTCK extends AbstractTCKMojo {
         propsString.add("-Djdo.tck.log.directory=" + thisLogDir);
 
         try {
-            copyLog4jPropertiesFile();
+            copyLog4j2ConfigurationFile();
         } catch (IOException ex) {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -438,6 +440,14 @@ public class RunTCK extends AbstractTCKMojo {
                         System.out.println(">> Error copying implementation log file: "
                                 + e.getMessage());
                     }
+                    String tckLogFilename = thisLogDir + idname + "-" + configName + "-" + TCK_LOG_FILE;
+                    try {
+                        File logFile = new File(TCK_LOG_FILE);
+                        FileUtils.copyFile(logFile, new File(tckLogFilename));
+                    } catch (Exception e) {
+                        System.out.println(">> Error copying tck log file: "
+                                + e.getMessage());
+                    }
 
                     if (runonce.equals("true")) {
                         alreadyran = true;
@@ -459,8 +469,12 @@ public class RunTCK extends AbstractTCKMojo {
         try {
             FileUtils.forceDelete(new File(implLogFile));
         } catch (Exception e) {
-            System.out.println(">> Error deleting log file: "
-                    + e.getMessage());
+            System.out.println(">> Error deleting log file: " + e.getMessage());
+        }
+        try {
+            FileUtils.forceDelete(new File(TCK_LOG_FILE));
+        } catch (Exception e) {
+            System.out.println(">> Error deleting log file: " + e.getMessage());
         }
 
         // Output results

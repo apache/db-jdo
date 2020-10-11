@@ -88,7 +88,7 @@ public class Enhance extends AbstractTCKMojo {
         }
 
         try {
-            copyLog4jPropertiesFile();
+            copyLog4j2ConfigurationFile();
         } catch (IOException ex) {
             Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -202,7 +202,7 @@ public class Enhance extends AbstractTCKMojo {
                 Logger.getLogger(Enhance.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            // Context classloader for finding log4j.properties
+            // Context classloader for finding log4j2 configuration
             ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
             try {
                 URL enhancedClassesUrl = (new File(enhancedIdDirName)).toURI().toURL();
@@ -242,9 +242,9 @@ public class Enhance extends AbstractTCKMojo {
             try {
                 File logFile = new File(implLogFile);
                 File testLogFile = new File(testLogFilename);
-                FileUtils.copyFile(logFile, testLogFile);
+                FileUtils.moveFile(logFile, testLogFile);
             } catch (Exception e) {
-                System.out.println(">> Error copying implementation log file: " +
+                System.out.println(">> Error moving implementation log file: " +
                     e.getMessage());
             }
         }

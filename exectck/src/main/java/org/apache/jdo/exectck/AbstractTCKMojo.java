@@ -32,7 +32,12 @@ import org.apache.maven.plugins.annotations.Parameter;
  */
 public abstract class AbstractTCKMojo extends AbstractMojo {
 
-	/**
+    /**
+     * Filename of log4j2 configuration file.
+     */
+    protected final String LOG4J2_CONFIGURATION = "log4j2.xml";
+
+    /**
      * Location of TCK generated output.
      */
     @Parameter( property = "project.build.directory", defaultValue = "${basedir}/target", required = true)
@@ -128,10 +133,10 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
 		}
     }
 
-    protected void copyLog4jPropertiesFile () throws IOException {
-        File fromFile = new File(confDirectory + File.separator + impl + "-log4j.properties");
+    protected void copyLog4j2ConfigurationFile() throws IOException {
+        File fromFile = new File(confDirectory + File.separator + impl + "-" + LOG4J2_CONFIGURATION);
         File toFile = new File(buildDirectory + File.separator + "classes" +
-                File.separator + "log4j.properties");
+                File.separator + LOG4J2_CONFIGURATION);
         FileUtils.copyFile(fromFile, toFile);
     }
 }

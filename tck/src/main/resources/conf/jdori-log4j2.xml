@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration
+    status="info"
+    strict="true"
+    name="jdoriConfig">
+  
+  <Properties>
+    <Property name="tckFilename">tck.txt</Property>
+    <Property name="dnFilename">datanucleus.txt</Property>
+  </Properties>
+  
+  <Appenders>
+    <Appender type="File" name="TCK" fileName="${tckFilename}">
+      <Layout type="PatternLayout" pattern="%d{HH:mm:ss,SSS} (%t) %-5p [%c] - %m%n"/>
+    </Appender>
+    <Appender type="File" name="DataNucleus" fileName="${dnFilename}">
+      <Layout type="PatternLayout" pattern="%d{HH:mm:ss,SSS} (%t) %-5p [%c] - %m%n"/>
+    </Appender>
+  </Appenders>
+  
+  <Loggers>
+    
+    <!-- TCK Loggers -->
+
+    <Logger name="org.apache.jdo.tck" level="info" additivity="false">
+      <AppenderRef ref="TCK"/>
+    </Logger>
+    <Logger name="org.springframework" level="error" additivity="false">
+      <AppenderRef ref="TCK"/>
+    </Logger>
+    <Logger name="org.apache.jdo.tck.pc.company.CompanyModelReader" level="error" additivity="false">
+      <AppenderRef ref="TCK"/>
+    </Logger>
+    <Logger name="org.apache.jdo.tck.pc.mylib.MylibReader" level="error" additivity="false">
+      <AppenderRef ref="TCK"/>
+    </Logger>
+     
+     <!-- DataNucleus Loggers -->
+
+    <Logger name="DataNucleus" level="warn" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    
+    <!--
+    <Logger name="DataNucleus.Persistence" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Transaction" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Connection" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Query" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Cache" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.MetaData" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Datastore" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.General" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.Lifecycle" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+     <Logger name="DataNucleus.ValueGeneration" level="info" additivity="false">
+       <AppenderRef ref="DataNucleus"/>
+     </Logger>
+    <Logger name="DataNucleus.Enhancer" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    <Logger name="DataNucleus.SchemaTool" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    <Logger name="DataNucleus.JDO" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    <Logger name="DataNucleus.JPA" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    <Logger name="DataNucleus.JCA" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+    <Logger name="DataNucleus.IDE" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+     -->
+    
+    <!-- C3P0 Loggers -->
+   <Logger name="com.mchange.v2" level="info" additivity="false">
+      <AppenderRef ref="DataNucleus"/>
+    </Logger>
+       
+    <Root level="error">
+      <AppenderRef ref="TCK"/>
+      <AppenderRef ref="DataNucleus"/>
+    </Root>
+  </Loggers>
+     
+</Configuration>
