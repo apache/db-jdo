@@ -108,13 +108,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>4.3.28.RELEASE</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
-        <version>4.3.28.RELEASE</version>
+        <version>5.2.9.RELEASE</version>
       </dependency>
       <dependency>
         <groupId>commons-collections</groupId>

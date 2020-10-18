@@ -15,15 +15,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
     <description>Company instances for CompletenessTest with Map without join table</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="company1"/>
+                <ref bean="company1"/>
             </list>
         </constructor-arg>
     </bean>
@@ -34,8 +36,8 @@
         <constructor-arg index="2" type="java.util.Date"><value>11/Apr/1952</value></constructor-arg>
         <property name="departments">
             <set>
-                <ref local="dept1"/>
-                <ref local="dept2"/>
+                <ref bean="dept1"/>
+                <ref bean="dept2"/>
             </set>
         </property>
     </bean>
@@ -46,9 +48,9 @@
         <property name="company"><ref bean="company1"/></property>
         <property name="employees">
             <list>
-                <ref local="emp1"/>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
+                <ref bean="emp1"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
             </list>
         </property>
     </bean>
@@ -59,8 +61,8 @@
         <property name="company"><ref bean="company1"/></property>
         <property name="employees">
             <list>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
             </list>
         </property>
     </bean>
@@ -93,10 +95,10 @@
         <property name="hradvisor"><ref bean="emp5"/></property>
         <property name="team">
             <set>
-                <ref local="emp1"/>
-                <ref local="emp3"/>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
+                <ref bean="emp1"/>
+                <ref bean="emp3"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
             </set>
         </property>
     </bean>
@@ -140,10 +142,10 @@
         <property name="manager"><ref bean="emp2"/></property>
         <property name="hradvisees">
             <set>
-                <ref local="emp1"/>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
-                <ref local="emp4"/>
+                <ref bean="emp1"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
+                <ref bean="emp4"/>
             </set>
         </property>
     </bean>

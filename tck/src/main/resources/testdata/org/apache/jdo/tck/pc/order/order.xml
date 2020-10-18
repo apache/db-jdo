@@ -15,15 +15,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
     <description>Order instances for CompletenessTest of compound identity</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="order1"/>
+                <ref bean="order1"/>
             </list>
         </constructor-arg>
     </bean>
@@ -33,15 +35,15 @@
         <constructor-arg index="1" type="long"><value>3</value></constructor-arg>
         <property name="items">
             <set>
-                <ref local="item1"/>
-                <ref local="item2"/>
+                <ref bean="item1"/>
+                <ref bean="item2"/>
             </set>
         </property>
     </bean>
 
     <bean id="item1" factory-bean="orderFactory" factory-method="newOrderItem">
         <constructor-arg index="0" type="org.apache.jdo.tck.pc.order.Order">
-            <ref local="order1"/></constructor-arg>
+            <ref bean="order1"/></constructor-arg>
         <constructor-arg index="1" type="long" ><value>1</value>
         </constructor-arg>
         <constructor-arg index="2" type="java.lang.String" >
@@ -52,7 +54,7 @@
 
     <bean id="item2" factory-bean="orderFactory" factory-method="newOrderItem">
         <constructor-arg index="0" type="org.apache.jdo.tck.pc.order.Order">
-            <ref local="order1"/></constructor-arg>
+            <ref bean="order1"/></constructor-arg>
         <constructor-arg index="1" type="long" ><value>1</value>
         </constructor-arg>
         <constructor-arg index="2" type="java.lang.String" >

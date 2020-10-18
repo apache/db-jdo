@@ -15,17 +15,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
     <description>Company instances for navigation query testing</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="company1"/>
-                <ref local="medicalIns98"/>
-                <ref local="dentalIns99"/>
+                <ref bean="company1"/>
+                <ref bean="medicalIns98"/>
+                <ref bean="dentalIns99"/>
             </list>
         </constructor-arg>
     </bean>
@@ -34,11 +36,11 @@
         <constructor-arg index="0" type="long"><value>1</value></constructor-arg>
         <constructor-arg index="1" type="java.lang.String"><value>Sun Microsystems, Inc.</value></constructor-arg>
         <constructor-arg index="2" type="java.util.Date"><value>11/Apr/1952</value></constructor-arg>
-        <constructor-arg index="3" type="org.apache.jdo.tck.pc.company.IAddress"><ref local="addr1"/></constructor-arg>
+        <constructor-arg index="3" type="org.apache.jdo.tck.pc.company.IAddress"><ref bean="addr1"/></constructor-arg>
         <property name="departments">
             <set>
-                <ref local="dept1"/>
-                <ref local="dept2"/>
+                <ref bean="dept1"/>
+                <ref bean="dept2"/>
             </set>
         </property>
     </bean>

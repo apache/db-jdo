@@ -15,26 +15,28 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
     <description>Company instances for CompletenessTest with m-m relationships</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="company1"/>
-                <ref local="dept1"/>
-                <ref local="dept2"/>
-                <ref local="emp1"/>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
-                <ref local="medicalIns1"/>
-                <ref local="medicalIns2"/>
-                <ref local="medicalIns3"/>
-                <ref local="dentalIns1"/>
+                <ref bean="company1"/>
+                <ref bean="dept1"/>
+                <ref bean="dept2"/>
+                <ref bean="emp1"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
+                <ref bean="medicalIns1"/>
+                <ref bean="medicalIns2"/>
+                <ref bean="medicalIns3"/>
+                <ref bean="dentalIns1"/>
             </list>
         </constructor-arg>
     </bean>
@@ -66,12 +68,12 @@
         <property name="weeklyhours"><value>40</value></property>
         <property name="reviewedProjects">
             <set>
-                <ref local="proj3"/>
+                <ref bean="proj3"/>
             </set>
         </property>
         <property name="projects">
             <set>
-                <ref local="proj1"/>
+                <ref bean="proj1"/>
             </set>
         </property>
     </bean>
@@ -86,8 +88,8 @@
         <property name="weeklyhours"><value>40</value></property>
         <property name="projects">
             <set>
-                <ref local="proj1"/>
-                <ref local="proj2"/>
+                <ref bean="proj1"/>
+                <ref bean="proj2"/>
             </set>
         </property>
     </bean>
@@ -102,8 +104,8 @@
         <property name="weeklyhours"><value>19</value></property>
         <property name="projects">
             <set>
-                <ref local="proj1"/>
-                <ref local="proj2"/>
+                <ref bean="proj1"/>
+                <ref bean="proj2"/>
             </set>
         </property>
     </bean>
@@ -117,12 +119,12 @@
         <constructor-arg index="6" type="double"><value>13</value></constructor-arg>
         <property name="projects">
             <set>
-                <ref local="proj3"/>
+                <ref bean="proj3"/>
             </set>
         </property>
         <property name="reviewedProjects">
             <set>
-                <ref local="proj2"/>
+                <ref bean="proj2"/>
             </set>
         </property>
     </bean>
@@ -136,12 +138,12 @@
         <constructor-arg index="6" type="double"><value>45000</value></constructor-arg>
         <property name="projects">
             <set>
-                <ref local="proj3"/>
+                <ref bean="proj3"/>
             </set>
         </property>
         <property name="reviewedProjects">
             <set>
-                <ref local="proj2"/>
+                <ref bean="proj2"/>
             </set>
         </property>
     </bean>
@@ -201,9 +203,9 @@
         <constructor-arg index="2" type="java.math.BigDecimal"><value>2500000.99</value></constructor-arg>
         <property name="members">
             <set>
-                <ref local="emp1"/>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
+                <ref bean="emp1"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
             </set>
         </property>
     </bean>
@@ -213,14 +215,14 @@
         <constructor-arg index="2" type="java.math.BigDecimal"><value>50000.00</value></constructor-arg>
         <property name="reviewers">
             <set>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
             </set>
         </property>
         <property name="members">
             <set>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
             </set>
         </property>
     </bean>
@@ -230,13 +232,13 @@
         <constructor-arg index="2" type="java.math.BigDecimal"><value>2000.99</value></constructor-arg>
         <property name="reviewers">
             <set>
-                <ref local="emp1"/>
+                <ref bean="emp1"/>
             </set>
         </property>
         <property name="members">
             <set>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
             </set>
         </property>
     </bean>

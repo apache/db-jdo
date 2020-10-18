@@ -15,19 +15,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
-    <description>Mylib instances for query testing</description>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="primitiveTypesPositive"/>
-                <ref local="primitiveTypesNegative"/>
-                <ref local="pcClass1"/>
-                <ref local="pcClass2"/>
-                <ref local="primitiveTypesCharacterStringLiterals"/>
+                <ref bean="primitiveTypesPositive"/>
+                <ref bean="primitiveTypesNegative"/>
+                <ref bean="pcClass1"/>
+                <ref bean="pcClass2"/>
+                <ref bean="primitiveTypesCharacterStringLiterals"/>
             </list>
         </constructor-arg>
     </bean>

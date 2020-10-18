@@ -15,29 +15,31 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>
     <description>Company instances for CompletenessTest with no relationships</description>
 
     <bean id="root" class="java.util.ArrayList">
         <constructor-arg index="0">
             <list>
-                <ref local="company1"/>
-                <ref local="dept1"/>
-                <ref local="dept2"/>
-                <ref local="emp1"/>
-                <ref local="emp2"/>
-                <ref local="emp3"/>
-                <ref local="emp4"/>
-                <ref local="emp5"/>
-                <ref local="medicalIns1"/>
-                <ref local="medicalIns2"/>
-                <ref local="medicalIns3"/>
-                <ref local="dentalIns1"/>
-                <ref local="proj1"/>
-                <ref local="proj2"/>
-                <ref local="proj3"/>
+                <ref bean="company1"/>
+                <ref bean="dept1"/>
+                <ref bean="dept2"/>
+                <ref bean="emp1"/>
+                <ref bean="emp2"/>
+                <ref bean="emp3"/>
+                <ref bean="emp4"/>
+                <ref bean="emp5"/>
+                <ref bean="medicalIns1"/>
+                <ref bean="medicalIns2"/>
+                <ref bean="medicalIns3"/>
+                <ref bean="dentalIns1"/>
+                <ref bean="proj1"/>
+                <ref bean="proj2"/>
+                <ref bean="proj3"/>
             </list>
         </constructor-arg>
     </bean>
