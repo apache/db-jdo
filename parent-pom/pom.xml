@@ -299,6 +299,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
+          <source>8</source>
+          <doclint>none</doclint>
           <doctitle>${project.name} ${pom.currentVersion}</doctitle>
           <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
         </configuration>
