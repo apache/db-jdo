@@ -82,9 +82,9 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.13</version>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>5.7.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
