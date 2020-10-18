@@ -43,7 +43,6 @@
 	        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -75,7 +74,6 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
