@@ -125,7 +125,6 @@
       <!-- License: EDL 1.0 https://www.eclipse.org/org/documents/edl-v10.php -->
       <groupId>org.glassfish.corba</groupId>
       <artifactId>glassfish-corba-omgapi</artifactId>
-      <version>4.2.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
