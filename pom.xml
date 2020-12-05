@@ -54,6 +54,7 @@
                       <fileset>
                           <directory>${basedir}</directory>
                           <includes>
+                              <include>datanucleus.txt</include>
                               <include>query.ser</include>
                               <include>tck.txt</include>
                           </includes>
@@ -69,6 +70,8 @@
                         <exclude>specification/**</exclude>
                         <exclude>.svnignore</exclude>
                         <exclude>assembly.xml</exclude>
+                        <exclude>datanucleus.txt</exclude>
+                        <exclude>query.ser</exclude>
                         <exclude>tck.txt</exclude>
                     </excludes>
                 </configuration>
