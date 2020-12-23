@@ -66,14 +66,7 @@
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>specification/**</exclude>
-                        <exclude>.svnignore</exclude>
-                        <exclude>assembly.xml</exclude>
-                        <exclude>datanucleus.txt</exclude>
-                        <exclude>query.ser</exclude>
-                        <exclude>tck.txt</exclude>
-                    </excludes>
+                    <excludesFile>.rat-excludes</excludesFile>
                 </configuration>
             </plugin>
         </plugins>
