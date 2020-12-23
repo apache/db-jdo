@@ -1,0 +1,4 @@
+20:12:14,186 (main) INFO  [org.apache.jdo.tck] - Michael org.apache.jdo.tck.pc.query.NoExtent@6e0c15b5
+20:12:14,186 (main) INFO  [org.apache.jdo.tck] - ID 1[OID]org.apache.jdo.tck.pc.query.NoExtent
+20:15:40,235 (main) INFO  [org.apache.jdo.tck] - Michael org.apache.jdo.tck.pc.query.NoExtent@68f75102
+20:15:40,235 (main) INFO  [org.apache.jdo.tck] - ID 1
