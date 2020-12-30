@@ -467,12 +467,12 @@ public class RunTCK extends AbstractTCKMojo {
         }
         // Remove log file
         try {
-            FileUtils.forceDelete(new File(implLogFile));
+            FileUtils.forceDeleteOnExit(new File(implLogFile));
         } catch (Exception e) {
             System.out.println(">> Error deleting log file: " + e.getMessage());
         }
         try {
-            FileUtils.forceDelete(new File(TCK_LOG_FILE));
+            FileUtils.forceDeleteOnExit(new File(TCK_LOG_FILE));
         } catch (Exception e) {
             System.out.println(">> Error deleting log file: " + e.getMessage());
         }

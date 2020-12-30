@@ -126,6 +126,7 @@
                             </includes>
                         </fileset>
                     </filesets>
+                    <failOnError>false</failOnError>
                 </configuration>
             </plugin>
         </plugins>

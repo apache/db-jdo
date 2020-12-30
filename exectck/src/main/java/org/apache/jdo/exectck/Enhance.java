@@ -242,7 +242,8 @@ public class Enhance extends AbstractTCKMojo {
             try {
                 File logFile = new File(implLogFile);
                 File testLogFile = new File(testLogFilename);
-                FileUtils.moveFile(logFile, testLogFile);
+                FileUtils.copyFile(logFile, testLogFile);
+                FileUtils.forceDeleteOnExit(logFile);
             } catch (Exception e) {
                 System.out.println(">> Error moving implementation log file: " +
                     e.getMessage());
