@@ -18,6 +18,7 @@
 package org.apache.jdo.exectck;
 
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -243,6 +244,8 @@ public class Enhance extends AbstractTCKMojo {
                 File logFile = new File(implLogFile);
                 File testLogFile = new File(testLogFilename);
                 FileUtils.copyFile(logFile, testLogFile);
+                // reset file content
+                FileUtils.write(logFile, "", Charset.defaultCharset());
                 FileUtils.forceDeleteOnExit(logFile);
             } catch (Exception e) {
                 System.out.println(">> Error moving implementation log file: " +

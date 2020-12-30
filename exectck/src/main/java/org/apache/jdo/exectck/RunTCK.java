@@ -15,13 +15,11 @@
  */
 package org.apache.jdo.exectck;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -436,6 +434,8 @@ public class RunTCK extends AbstractTCKMojo {
                     try {
                         File logFile = new File(implLogFile);
                         FileUtils.copyFile(logFile, new File(testLogFilename));
+                        // reset file content
+                        FileUtils.write(logFile, "", Charset.defaultCharset());
                     } catch (Exception e) {
                         System.out.println(">> Error copying implementation log file: "
                                 + e.getMessage());
@@ -444,6 +444,8 @@ public class RunTCK extends AbstractTCKMojo {
                     try {
                         File logFile = new File(TCK_LOG_FILE);
                         FileUtils.copyFile(logFile, new File(tckLogFilename));
+                        // reset file content
+                        FileUtils.write(logFile, "", Charset.defaultCharset());
                     } catch (Exception e) {
                         System.out.println(">> Error copying tck log file: "
                                 + e.getMessage());
