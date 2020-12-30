@@ -80,6 +80,9 @@ public class Enhance extends AbstractTCKMojo {
         idtypes = new HashSet<String>();
         PropertyUtils.string2Set(identitytypes, idtypes);
 
+        // Reset logfile content (may not be empty if previous run crashed)
+        resetFileContent(implLogFile);
+
         // Create directory for enhancer logs
         String enhanceLogsDirName = logsDirectory + File.separator + "enhanced";
         File enhancerLogsDir = new File(enhanceLogsDirName);

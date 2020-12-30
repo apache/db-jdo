@@ -18,6 +18,7 @@ package org.apache.jdo.exectck;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Properties;
@@ -138,5 +139,15 @@ public abstract class AbstractTCKMojo extends AbstractMojo {
         File toFile = new File(buildDirectory + File.separator + "classes" +
                 File.separator + LOG4J2_CONFIGURATION);
         FileUtils.copyFile(fromFile, toFile);
+    }
+
+    protected void resetFileContent(String fileName) throws MojoExecutionException {
+        File file = new File(fileName);
+        // reset file content
+        try {
+            FileUtils.write(file, "", Charset.defaultCharset());
+        } catch (IOException e) {
+            throw new MojoExecutionException("Failed to reset file content: " + file.toURI());
+        }
     }
 }

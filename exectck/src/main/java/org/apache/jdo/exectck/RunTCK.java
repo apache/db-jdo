@@ -266,6 +266,10 @@ public class RunTCK extends AbstractTCKMojo {
             Logger.getLogger(RunTCK.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        // Reset logfile content (may not be empty if previous run crashed)
+        resetFileContent(implLogFile);
+        resetFileContent(TCK_LOG_FILE);
+
         int failureCount = 0;
         for (String db : dbs) {
             System.setProperty("jdo.tck.database", db);
@@ -434,8 +438,7 @@ public class RunTCK extends AbstractTCKMojo {
                     try {
                         File logFile = new File(implLogFile);
                         FileUtils.copyFile(logFile, new File(testLogFilename));
-                        // reset file content
-                        FileUtils.write(logFile, "", Charset.defaultCharset());
+                        resetFileContent(implLogFile);
                     } catch (Exception e) {
                         System.out.println(">> Error copying implementation log file: "
                                 + e.getMessage());
@@ -444,8 +447,7 @@ public class RunTCK extends AbstractTCKMojo {
                     try {
                         File logFile = new File(TCK_LOG_FILE);
                         FileUtils.copyFile(logFile, new File(tckLogFilename));
-                        // reset file content
-                        FileUtils.write(logFile, "", Charset.defaultCharset());
+                        resetFileContent(TCK_LOG_FILE);
                     } catch (Exception e) {
                         System.out.println(">> Error copying tck log file: "
                                 + e.getMessage());
