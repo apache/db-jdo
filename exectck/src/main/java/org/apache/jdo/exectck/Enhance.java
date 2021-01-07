@@ -18,6 +18,7 @@
 package org.apache.jdo.exectck;
 
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -78,6 +79,9 @@ public class Enhance extends AbstractTCKMojo {
 
         idtypes = new HashSet<String>();
         PropertyUtils.string2Set(identitytypes, idtypes);
+
+        // Reset logfile content (may not be empty if previous run crashed)
+        resetFileContent(implLogFile);
 
         // Create directory for enhancer logs
         String enhanceLogsDirName = logsDirectory + File.separator + "enhanced";
@@ -242,7 +246,10 @@ public class Enhance extends AbstractTCKMojo {
             try {
                 File logFile = new File(implLogFile);
                 File testLogFile = new File(testLogFilename);
-                FileUtils.moveFile(logFile, testLogFile);
+                FileUtils.copyFile(logFile, testLogFile);
+                // reset file content
+                FileUtils.write(logFile, "", Charset.defaultCharset());
+                FileUtils.forceDeleteOnExit(logFile);
             } catch (Exception e) {
                 System.out.println(">> Error moving implementation log file: " +
                     e.getMessage());
