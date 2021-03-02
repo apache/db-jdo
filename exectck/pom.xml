@@ -15,8 +15,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
@@ -24,48 +25,12 @@
         <relativePath>../parent-pom</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo-exectck</artifactId>
-    <packaging>maven-plugin</packaging>
     <version>3.2-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
     <name>JDO TCK Execution Maven Mojo</name>
-    <url>http://maven.apache.org</url>
 
-   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo</url>
-  </scm>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-        <profile>
-            <id>iut</id>
-            <activation>
-                <property>
-                    <name>jdo.tck.impl</name>
-                    <value>iut</value>
-                </property>
-            </activation>
-        </profile>
-        <profile>
-            <id>jdori</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -101,10 +66,37 @@
             <artifactId>spring-beans</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.eclipse.persistence</groupId>
-          <artifactId>javax.persistence</artifactId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>iut</id>
+            <activation>
+                <property>
+                    <name>jdo.tck.impl</name>
+                    <value>iut</value>
+                </property>
+            </activation>
+        </profile>
+        <profile>
+            <id>jdori</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>
-
-

@@ -15,323 +15,322 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache</groupId>
-    <artifactId>apache</artifactId>
-    <version>23</version>
-    <relativePath />
-  </parent>
+    <parent>
+        <groupId>org.apache</groupId>
+        <artifactId>apache</artifactId>
+        <version>23</version>
+        <relativePath></relativePath>
+    </parent>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.jdo</groupId>
-  <artifactId>parent-pom</artifactId>
-  <version>3.2-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>JDO PARENT</name>
-  <description>The Java Data Objects (JDO) API is a standard interface-based 
+    <groupId>org.apache.jdo</groupId>
+    <artifactId>parent-pom</artifactId>
+    <version>3.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>JDO PARENT</name>
+    <description>The Java Data Objects (JDO) API is a standard interface-based 
 Java model abstraction of persistence, developed as Java Specification 
 Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
-  <url>http://db.apache.org/jdo</url>
-  <inceptionYear>2005</inceptionYear>
+    <url>http://db.apache.org/jdo</url>
+    <inceptionYear>2005</inceptionYear>
+    <organization>
+        <name>Apache Software Foundation</name>
+        <url>http://www.apache.org</url>
+    </organization>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo</url> 
-  </scm>
+    <developers>
+        <developer>
+            <id>madams</id>
+            <name>Matthew Adams</name>
+            <email>matthew@matthewadams.me</email>
+            <organization>Northscaler</organization>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>ebengtson</id>
+            <name>Erik Bengtson</name>
+            <email>ebengtson@apache.org</email>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>mbo</id>
+            <name>Michael Bouschen</name>
+            <email>mbo@apache.org</email>
+            <organization>akquinet tech@Spree GmbH</organization>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>mcaisse</id>
+            <name>Michelle Caisse</name>
+            <organization>L-3 Communications</organization>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>andyj</id>
+            <name>Andy Jefferson</name>
+            <email>andyj@apache.org</email>
+            <organization>Datanucleus</organization>
+        </developer>
+        <developer>
+            <id>pcl</id>
+            <name>Patrick Linskey</name>
+            <email>pcl@apache.org</email>
+            <organization>Cisco</organization>
+        </developer>
+        <developer>
+            <id>geirm</id>
+            <name>Geir Magnusson, Jr.</name>
+            <email>geirm@apache.org</email>
+            <organization>Apache.org</organization>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>brianm</id>
+            <name>Brian McCallister</name>
+            <email>brianm@apache.org</email>
+            <organization>Apache.org</organization>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>clr</id>
+            <name>Craig Russell</name>
+            <email>apache.clr@gmail.com</email>
+            <organization>Apache</organization>
+            <timezone>-8</timezone>
+        </developer>
+        <developer>
+            <id>dain</id>
+            <name>Dain Sundstrom</name>
+            <email>dain@apache.org</email>
+            <organization>Apache.org</organization>
+        </developer>
+        <developer>
+            <id>btopping</id>
+            <name>Brian Topping</name>
+            <email>btopping@apache.org</email>
+            <organization>Apache.org</organization>
+        </developer>
+        <developer>
+            <id>brazil</id>
+            <name>Michael Watzek</name>
+            <organization>akquinet tech@Spree GmbH</organization>
+        </developer>
+        <developer>
+            <id>tilmannz</id>
+            <name>Tilmann Zäschke</name>
+            <email>tilmannz@apache.org</email>
+            <organization>ZooDB</organization>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>mzaun</id>
+            <name>Martin Zaun</name>
+            <timezone>-8</timezone>
+        </developer>
+    </developers>
 
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org</url>
-  </organization>
+    <mailingLists>
+        <mailingList>
+            <name>JDO User List</name>
+            <subscribe>jdo-user-subscribe@db.apache.org</subscribe>
+            <unsubscribe>jdo-user-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-user/</archive>
+        </mailingList>
+        <mailingList>
+            <name>JDO Developer List</name>
+            <subscribe>jdo-dev-subscribe@db.apache.org</subscribe>
+            <unsubscribe>jdo-dev-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-dev/</archive>
+        </mailingList>
+        <mailingList>
+            <name>JDO Commits List</name>
+            <subscribe>jdo-commits-subscribe@db.apache.org</subscribe>
+            <unsubscribe>jdo-commits-unsubscribe@db.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-commits/</archive>
+        </mailingList>
+    </mailingLists>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>javax.jdo</groupId>
-        <artifactId>jdo-api</artifactId>
-        <version>3.2-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.jdo</groupId>
-        <artifactId>jdo-exectck</artifactId>
-        <version>3.2-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.jdo</groupId>
-        <artifactId>jdo-tck</artifactId>
-        <version>3.2-SNAPSHOT</version>
-      </dependency>
-     <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-plugin-api</artifactId>
-        <version>3.6.3</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.transaction</groupId>
-        <artifactId>javax.transaction-api</artifactId>
-        <version>1.3</version>
-     </dependency>
-      <dependency>
-        <groupId>org.apache.ant</groupId>
-        <artifactId>ant</artifactId>
-        <version>1.10.9</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>5.7.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.persistence</groupId>
-        <artifactId>javax.persistence</artifactId>
-        <version>2.2.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.derby</groupId>
-        <artifactId>derby</artifactId>
-        <version>10.14.2.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.derby</groupId>
-        <artifactId>derbytools</artifactId>
-        <version>10.14.2.0</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.8.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>5.2.9.RELEASE</version>
-      </dependency>
-     <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>1.2</version>
-     </dependency>
-     <dependency>
-       <groupId>org.apache.maven.plugin-tools</groupId>
-       <artifactId>maven-plugin-annotations</artifactId>
-       <version>3.6.0</version>  
-     </dependency>
-     <dependency>
-       <!-- License: EDL 1.0 https://www.eclipse.org/org/documents/edl-v10.php -->
-       <groupId>org.glassfish.corba</groupId>
-       <artifactId>glassfish-corba-omgapi</artifactId>
-       <version>4.2.2</version>
-     </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <scm>
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
+    </scm>
 
-  <mailingLists>
-    <mailingList>
-      <name>JDO User List</name>
-      <subscribe>jdo-user-subscribe@db.apache.org</subscribe>
-      <unsubscribe>jdo-user-unsubscribe@db.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-user/</archive>
-    </mailingList>
-    <mailingList>
-      <name>JDO Developer List</name>
-      <subscribe>jdo-dev-subscribe@db.apache.org</subscribe>
-      <unsubscribe>jdo-dev-unsubscribe@db.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-dev/</archive>
-    </mailingList>
-    <mailingList>
-      <name>JDO Commits List</name>
-      <subscribe>jdo-commits-subscribe@db.apache.org</subscribe>
-      <unsubscribe>jdo-commits-unsubscribe@db.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-commits/</archive>
-    </mailingList>
-  </mailingLists>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.jdo</groupId>
+                <artifactId>jdo-api</artifactId>
+                <version>3.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.jdo</groupId>
+                <artifactId>jdo-exectck</artifactId>
+                <version>3.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.jdo</groupId>
+                <artifactId>jdo-tck</artifactId>
+                <version>3.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>3.6.3</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>javax.transaction-api</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ant</groupId>
+                <artifactId>ant</artifactId>
+                <version>1.10.9</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>5.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>10.14.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derbytools</artifactId>
+                <version>10.14.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>5.2.9.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>3.6.0</version>
+            </dependency>
+            <dependency>
+                <!-- License: EDL 1.0 https://www.eclipse.org/org/documents/edl-v10.php -->
+                <groupId>org.glassfish.corba</groupId>
+                <artifactId>glassfish-corba-omgapi</artifactId>
+                <version>4.2.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-  <developers>
-    <developer>
-      <id>madams</id>
-      <name>Matthew Adams</name>
-      <email>matthew@matthewadams.me</email>
-      <organization>Northscaler</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>ebengtson</id>
-      <name>Erik Bengtson</name>
-      <email>ebengtson@apache.org</email>
-      <timezone>1</timezone>
-    </developer>
-    <developer>
-      <id>mbo</id>
-      <name>Michael Bouschen</name>
-      <email>mbo@apache.org</email>
-      <organization>akquinet tech@Spree GmbH</organization>
-      <timezone>1</timezone>
-    </developer>
-    <developer>
-      <id>mcaisse</id>
-      <name>Michelle Caisse</name>
-      <organization>L-3 Communications</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>andyj</id>
-      <name>Andy Jefferson</name>
-      <email>andyj@apache.org</email>
-      <organization>Datanucleus</organization>
-    </developer>
-    <developer>
-      <id>pcl</id>
-      <name>Patrick Linskey</name>
-      <email>pcl@apache.org</email>
-      <organization>Cisco</organization>
-    </developer>
-    <developer>
-      <id>geirm</id>
-      <name>Geir Magnusson, Jr.</name>
-      <email>geirm@apache.org</email>
-      <organization>Apache.org</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>brianm</id>
-      <name>Brian McCallister</name>
-      <email>brianm@apache.org</email>
-      <organization>Apache.org</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>clr</id>
-      <name>Craig Russell</name>
-      <email>apache.clr@gmail.com</email>
-      <organization>Apache</organization>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>dain</id>
-      <name>Dain Sundstrom</name>
-      <email>dain@apache.org</email>
-      <organization>Apache.org</organization>
-    </developer>
-    <developer>
-      <id>btopping</id>
-      <name>Brian Topping</name>
-      <email>btopping@apache.org</email>
-      <organization>Apache.org</organization>
-    </developer>
-    <developer>
-      <id>brazil</id>
-      <name>Michael Watzek</name>
-      <organization>akquinet tech@Spree GmbH</organization>
-    </developer>
-    <developer>
-      <id>tilmannz</id>
-      <name>Tilmann Zäschke</name>
-      <email>tilmannz@apache.org</email>
-      <organization>ZooDB</organization>
-      <timezone>1</timezone>
-    </developer>
-    <developer>
-      <id>mzaun</id>
-      <name>Martin Zaun</name>
-      <timezone>-8</timezone>
-    </developer>
-  </developers>
+    <build>
 
-  <build>
-    
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.1.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.0.0-M1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-changes-plugin</artifactId>
-          <version>2.12.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.1.1.</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-bundle-plugin</artifactId>
-          <version>5.1.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <source>8</source>
-          <doclint>none</doclint>
-          <doctitle>${project.name} ${pom.currentVersion}</doctitle>
-          <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-changes-plugin</artifactId>
-        <configuration>
-          <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>${basedir}/../jdo_checks.xml</configLocation>
-          <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
-        </configuration>
-      </plugin>
-     <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <skip>false</skip>
-        </configuration>
-       </plugin>
-    </plugins>
-  </reporting>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-changes-plugin</artifactId>
+                    <version>2.12.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.1.</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>5.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <doclint>none</doclint>
+                    <doctitle>${project.name} ${pom.currentVersion}</doctitle>
+                    <windowtitle>${project.name} ${pom.currentVersion}</windowtitle>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>${basedir}/../jdo_checks.xml</configLocation>
+                    <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
