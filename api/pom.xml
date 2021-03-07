@@ -15,143 +15,130 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache.jdo</groupId>
-    <artifactId>parent-pom</artifactId>
+    <parent>
+        <groupId>org.apache.jdo</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>3.2-SNAPSHOT</version>
+        <relativePath>../parent-pom</relativePath>
+    </parent>
+
+    <groupId>javax.jdo</groupId>
+    <artifactId>jdo-api</artifactId>
     <version>3.2-SNAPSHOT</version>
-    <relativePath>../parent-pom</relativePath>
-  </parent>
+    <name>JDO API</name>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>javax.jdo</groupId>
-  <artifactId>jdo-api</artifactId>
-  <name>JDO API</name>
-  <version>3.2-SNAPSHOT</version>
-  <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request 243 under the auspices of the Java Community Process.</description>
+    <dependencies>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>javax.transaction-api</artifactId>
+        </dependency>
+        <dependency>
+            <!-- License: EDL 1.0 https://www.eclipse.org/org/documents/edl-v10.php -->
+            <groupId>org.glassfish.corba</groupId>
+            <artifactId>glassfish-corba-omgapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/jdo/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/jdo/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/db/jdo</url>
-  </scm>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <showWarnings>true</showWarnings>
-          <fork>true</fork>
-          <compilerArgument>-Xlint:unchecked</compilerArgument>
-        </configuration>
-      </plugin>
-      <!-- The next two plugins are required until such time as https://issues.apache.org/jira/browse/FELIX-3352 is fixed. -->
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>bundle-manifest</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>manifest</goal>
-            </goals>
-            <configuration>
-              <instructions>
-                <Specification-Version>JDO 3.2</Specification-Version>
-                <!-- Keep the API project's symbolic name the same as that in 3.0.1 for backward compatibility reasons -->
-                <Bundle-SymbolicName>javax.jdo</Bundle-SymbolicName>
-                <Bundle-Localization>plugin</Bundle-Localization>
-                <Bundle-DocURL>${project.parent.project.url}</Bundle-DocURL>
-                <Import-Package>
-                  javax.transaction;resolution:=optional,
-                  *
-                </Import-Package>
-              </instructions>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestFile>
-              ${project.build.outputDirectory}/META-INF/MANIFEST.MF
-            </manifestFile>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <doctitle>${project.name} ${project.version}</doctitle>
-          <windowtitle>${project.name} ${project.version}</windowtitle>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>javax/jdo/util/AbstractTest.java</exclude>
-            <exclude>javax/jdo/pc/*.java</exclude>
-          </excludes>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <dependencies>
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>javax.transaction-api</artifactId>
-    </dependency>
-    <dependency>
-      <!-- License: EDL 1.0 https://www.eclipse.org/org/documents/edl-v10.php -->
-      <groupId>org.glassfish.corba</groupId>
-      <artifactId>glassfish-corba-omgapi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.ant</groupId>
-      <artifactId>ant</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <reporting>
-    <plugins>
-      <plugin>
-        <artifactId>maven-changes-plugin</artifactId>
-        <configuration>
-          <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>${basedir}/../jdo_checks.xml</configLocation>
-          <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution></execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                </configuration>
+            </plugin>
+            <!-- The next two plugins are required until such time as https://issues.apache.org/jira/browse/FELIX-3352 is fixed. -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <instructions>
+                                <Specification-Version>JDO 3.2</Specification-Version>
+                                <!-- Keep the API project's symbolic name the same as that in 3.0.1 for backward compatibility reasons -->
+                                <Bundle-SymbolicName>javax.jdo</Bundle-SymbolicName>
+                                <Bundle-Localization>plugin</Bundle-Localization>
+                                <Bundle-DocURL>${project.parent.project.url}</Bundle-DocURL>
+                                <Import-Package>javax.transaction;resolution:=optional,
+                                  *</Import-Package>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <doctitle>${project.name} ${project.version}</doctitle>
+                    <windowtitle>${project.name} ${project.version}</windowtitle>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>javax/jdo/util/AbstractTest.java</exclude>
+                        <exclude>javax/jdo/pc/*.java</exclude>
+                    </excludes>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>${basedir}/../jdo_checks.xml</configLocation>
+                    <headerLocation>${basedir}/../LICENSE.txt</headerLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

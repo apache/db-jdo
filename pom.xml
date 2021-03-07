@@ -15,53 +15,48 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <parent>
-    <groupId>org.apache.jdo</groupId>
-    <artifactId>parent-pom</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.jdo</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>3.2-SNAPSHOT</version>
+        <relativePath>parent-pom</relativePath>
+    </parent>
+
+    <groupId>org.apache</groupId>
+    <artifactId>jdo</artifactId>
     <version>3.2-SNAPSHOT</version>
-    <relativePath>parent-pom</relativePath>
-  </parent>
-  
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache</groupId>
-  <artifactId>jdo</artifactId>
-  <packaging>pom</packaging>
-  <version>3.2-SNAPSHOT</version>
-  <name>JDO Root POM</name>
+    <packaging>pom</packaging>
 
-  <modules>
-    <module>parent-pom</module>
-    <module>api</module>
-    <module>exectck</module>
-    <module>tck</module>
-  </modules>
+    <name>JDO Root POM</name>
 
-  <scm>
-    <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
-    <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
-  </scm>
+    <modules>
+        <module>parent-pom</module>
+        <module>api</module>
+        <module>exectck</module>
+        <module>tck</module>
+    </modules>
 
-  <build>
+    <build>
         <plugins>
-          <plugin>
-              <artifactId>maven-clean-plugin</artifactId>
-              <configuration>
-                  <filesets>
-                      <fileset>
-                          <directory>${basedir}</directory>
-                          <includes>
-                              <include>datanucleus.txt</include>
-                              <include>query.ser</include>
-                              <include>tck.txt</include>
-                          </includes>
-                      </fileset>
-                  </filesets>
-                  <failOnError>false</failOnError>
-              </configuration>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}</directory>
+                            <includes>
+                                <include>datanucleus.txt</include>
+                                <include>query.ser</include>
+                                <include>tck.txt</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                    <failOnError>false</failOnError>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.rat</groupId>
@@ -76,52 +71,52 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <arguments>-Djdo.tck.doRunTCK=false -Djdo.tck.doInstallSchema=false -Djdo.tck.doEnhance=false</arguments>
-                 </configuration>
-              </plugin>
-        </plugins>
-  </build>
-  
-  <profiles>
-    <profile>
-      <id>apache-release</id>
-          <modules>
-            <module>api</module>
-            <module>parent-pom</module>
-          </modules>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-              <appendAssemblyId>true</appendAssemblyId>
-              <descriptors>
-                <descriptor>assembly.xml</descriptor>
-              </descriptors>
-            </configuration>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
-                <configuration>
-                  <file>${file}.jar</file>
-                  <keyname>${gpg.keyname}</keyname>
                 </configuration>
-              </execution>
-            </executions>
-          </plugin>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>apache-release</id>
+            <modules>
+                <module>api</module>
+                <module>parent-pom</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <appendAssemblyId>true</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <file>${file}.jar</file>
+                                    <keyname>${gpg.keyname}</keyname>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
