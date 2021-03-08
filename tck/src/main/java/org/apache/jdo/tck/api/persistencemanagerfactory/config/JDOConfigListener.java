@@ -79,7 +79,7 @@ public class JDOConfigListener extends JDO_Test {
          *   The value depends on identity type so can only be known at runtime.
          */
         if (isTestToBePerformed()) {
-            overrides.put("javax.jdo.mapping.Schema", schemaname);
+            overrides.put("javax.jdo.mapping.Schema", SCHEMANAME);
         }
     }
 

@@ -19,7 +19,6 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -76,6 +75,12 @@ public class RunTCK extends AbstractTCKMojo {
      */
     @Parameter( property = "project.lib.ext.directory", defaultValue = "${basedir}/../lib/ext", required = true)
     private String extLibsDirectory;
+
+    /**
+     * To skip jndi PMF Tests set to true.
+     */
+    @Parameter( property = "jdo.tck.skipJndi", defaultValue = "false", required = true)
+    private boolean skipJndi;
 
     /**
      * Location of implementation log file.
@@ -213,6 +218,7 @@ public class RunTCK extends AbstractTCKMojo {
         propsString.add("-DResultPrinterClass=" + resultPrinterClass);
         propsString.add("-Dverbose=" + verbose);
         propsString.add("-Djdo.tck.cleanupaftertest=" + cleanupaftertest);
+        propsString.add("-Djdo.tck.skipJndi=" + skipJndi);
         propsString.add("-DPMFProperties=" + buildDirectory + File.separator
                 + "classes" + File.separator + pmfProperties);
         propsString.add("-DPMF2Properties=" + buildDirectory + File.separator
@@ -511,13 +517,11 @@ public class RunTCK extends AbstractTCKMojo {
                 try {
                     fromFile = fi.next();
                     fromFileName = fromFile.toString();
-//                    System.out.println("Copying " + fromFileName);
                     if ((startIdx = fromFileName.indexOf(idtype + File.separator)) > -1) {
                         // fully specified name of file (idtype + package + filename)
                         pkgName = fromFileName.substring(startIdx);
                         toFile = new File(cfgDirName + File.separator
                                 + pkgName);
-//                        System.out.println("Copy from source dir to " + toFile.toString());
                         FileUtils.copyFile(fromFile, toFile);
                     }
                 } catch (IOException ex) {

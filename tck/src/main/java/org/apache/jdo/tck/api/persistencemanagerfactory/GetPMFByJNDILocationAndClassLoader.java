@@ -68,12 +68,22 @@ public class GetPMFByJNDILocationAndClassLoader extends AbstractGetPMF {
 
     /** */
     public void testInvalidGetPMF() {
-        checkGetPMFWithInvalidProperties(ASSERTION_FAILED);
+        if (SKIP_JNDI) {
+            logger.debug(
+                "Skipped test GetPMFByJNDILocationAndClassLoader.testInvalidGetPMF because of jdo.tck.skipJndi.");
+        } else {
+            checkGetPMFWithInvalidProperties(ASSERTION_FAILED);
+        }
     }
 
     /** */
     public void testValidGetPMF() {
-        checkGetPMFWithValidProperties();
+        if (SKIP_JNDI) {
+            logger.debug(
+                "Skipped test GetPMFByJNDILocationAndClassLoader.testValidGetPMF because of jdo.tck.skipJndi.");
+        } else {
+            checkGetPMFWithValidProperties();
+        }
     }
 
     /** */
