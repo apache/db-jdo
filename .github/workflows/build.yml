@@ -1,0 +1,30 @@
+# Builds JDO and runs the TCK
+#
+# This workflow is run for every submitted pull request and every push on master
+name: Build JDO & Run TCK
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+
+jobs:
+  build:
+    name: Build JDO & Run TCK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      # Builds JDO & Runs the TCK
+      # Skips JNDI-related tests as they require external libraries
+      - name: Build JDO & Run TCK
+        run: |
+          mvn -Djdo.tck.skipJndi clean install
