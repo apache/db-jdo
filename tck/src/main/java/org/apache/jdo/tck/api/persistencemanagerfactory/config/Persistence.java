@@ -63,7 +63,7 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromNamedPU() {
-        String name = "PUNamed_" + identitytype + "0";
+        String name = "PUNamed_" + IDENTITYTYPE + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(name);
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());
@@ -72,7 +72,7 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromNamedPUWithNullOverrides() {
-        String name = "PUNamed_" + identitytype + "0";
+        String name = "PUNamed_" + IDENTITYTYPE + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(null, name);
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());
@@ -81,7 +81,7 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromNamedPUWithEmptyOverrides() {
-        String name = "PUNamed_" + identitytype + "0";
+        String name = "PUNamed_" + IDENTITYTYPE + "0";
         Map overrides = new HashMap();
         pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
         assertEquals("Incorrect value for RestoreValues",
@@ -91,7 +91,7 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromNamedPUWithOverrides() {
-        String name = "PUNamed_" + identitytype + "0";
+        String name = "PUNamed_" + IDENTITYTYPE + "0";
         Properties overrides = new Properties();
         overrides.setProperty(Constants.PROPERTY_RESTORE_VALUES, "true");
         pmf = JDOHelper.getPersistenceManagerFactory(overrides, name);
@@ -102,7 +102,7 @@ public class Persistence extends JDO_Test {
 
     /** */
     public void testGetPMFfromNamedPUWithWhiteSpace() {
-        String name = "PUNamed_" + identitytype + "0";
+        String name = "PUNamed_" + IDENTITYTYPE + "0";
         pmf = JDOHelper.getPersistenceManagerFactory(" \t" + name + " \n");
         assertEquals("Incorrect value for RestoreValues",
                 false, pmf.getRestoreValues());

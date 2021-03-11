@@ -183,12 +183,12 @@ public abstract class JDO_Test extends TestCase {
      * String indicating the type of identity used for the current test case.
      * The value is either "applicationidentity" or "datastoreidentity".
      */
-    protected final String identitytype = System.getProperty("jdo.tck.identitytype");
+    protected static final String IDENTITYTYPE = System.getProperty("jdo.tck.identitytype");
 
     /** 
      * String indicating the name of the schema for the current test.
      */
-    protected final String schemaname = System.getProperty("jdo.tck.schemaname");
+    protected static final String SCHEMANAME = System.getProperty("jdo.tck.schemaname");
 
     /** Name of the file containing the properties for the PMF. */
     protected static String PMFProperties = System.getProperty("PMFProperties");
@@ -197,15 +197,19 @@ public abstract class JDO_Test extends TestCase {
      * If false then test will not clean up data from database.
      * The default value is true.
      */
-    protected static boolean cleanupData = 
+    protected static final boolean CLEANUP_DATA =
        System.getProperty("jdo.tck.cleanupaftertest", "true").equalsIgnoreCase("true");
 
     /** Flag indicating whether to close the PMF after each test or not.
      * It defaults to false.
      */   
-    protected static final boolean closePMFAfterEachTest =
+    protected static final boolean CLOSE_PMF_AFTER_EACH_TEST =
         System.getProperty("jdo.tck.closePMFAfterEachTest", "false").equalsIgnoreCase("true");
-    
+
+    /** Flag indicating whether to skip JNDI related tests. */
+    protected static final boolean SKIP_JNDI =
+            System.getProperty("jdo.tck.skipJndi", "false").equalsIgnoreCase("true");
+
     /** The Properties object for the PersistenceManagerFactory. */
     protected static Properties PMFPropertiesObject;
 
@@ -362,7 +366,7 @@ public abstract class JDO_Test extends TestCase {
             pmf = null;
         
         try {
-            if (cleanupData) {
+            if (CLEANUP_DATA) {
                 localTearDown();
             }
         } 
@@ -370,7 +374,7 @@ public abstract class JDO_Test extends TestCase {
             setTearDownThrowable("localTearDown", t);
         }
         
-        if (closePMFAfterEachTest) {
+        if (CLOSE_PMF_AFTER_EACH_TEST) {
             try {
                 closePMF();
             }
@@ -1213,7 +1217,7 @@ public abstract class JDO_Test extends TestCase {
      * identity; <code>false</code> otherwise:
      */
     public boolean runsWithApplicationIdentity() {
-        return APPLICATION_IDENTITY.equals(identitytype);
+        return APPLICATION_IDENTITY.equals(IDENTITYTYPE);
     }
     
     /** 
@@ -1230,8 +1234,7 @@ public abstract class JDO_Test extends TestCase {
                 "Test " + testName + 
                 " was not run, because it is only applicable for identity type " + 
                 requiredIdentityType + 
-                ". The identity type of the current configuration is " +
-                identitytype);
+                ". The identity type of the current configuration is " + IDENTITYTYPE);
         }
     }
 
