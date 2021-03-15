@@ -10,7 +10,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-jdo:
     name: Build JDO & Run TCK
     runs-on: ubuntu-latest
     strategy:
