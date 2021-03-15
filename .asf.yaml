@@ -13,6 +13,24 @@ github:
     - apache
     - java
 
+  enabled_merge_buttons:
+    # disable merge button:
+    merge:   false
+    # enable squash button:
+    squash:  true
+    # enable rebase button:
+    rebase:  true
+
+  protected_branches:
+    # rules for the 'master' branch
+    master:
+      # disallows pushing merge commits to the branch
+      required_linear_history: true
+
+      required_status_checks:
+        # strict means "Require branches to be up to date before merging".
+        strict: false
+
 notifications:
   commits:      jdo-commits@db.apache.org
   issues:       jdo-dev@db.apache.org
