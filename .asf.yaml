@@ -1,0 +1,20 @@
+github:
+  description: "Apache JDO project"
+  homepage: https://db.apache.org/jdo
+  labels:
+    - db
+    - jdo
+    - nosql
+    - jpa
+    - jta
+    - api
+    - database
+    - orm
+    - apache
+    - java
+
+notifications:
+  commits:      jdo-commits@db.apache.org
+  issues:       jdo-dev@db.apache.org
+  pullrequests: jdo-dev@db.apache.org
+  jira_options: link label
