@@ -22,7 +22,7 @@
 How to Release an Apache JDO Distribution
 =========================================
 
-A distribution of JDO is built from a branch of svn. It is copied into a
+A distribution of JDO is built from a branch of the git repository. It is copied into a
 release directory, from which it is staged and tested prior to release.
 Once released, it is propagated to mirror servers around the world.
 
