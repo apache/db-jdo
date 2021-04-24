@@ -252,7 +252,7 @@ Site updates
         
 2.  Change the link to RunRules on the
     [TCK](http://db.apache.org/jdo/tck.html) page to link to the
-    RunRules.html file of the latest release.
+    RunRules.md file of the latest release.
 3.  Update the news list on the site home page to announce the new
     release.
 4.  Update the specification page to link to the new specification pdf
@@ -260,15 +260,15 @@ Site updates
     documentation page of the JCP web site. If the release has not been
     approved by the JCP, link to the .pdf in the JDO source repository.
 5.  Add the javadoc for the release to the site.
-    1.  Make a new directory under site/docs for the release, e.g.
-        api2.1. We'll call it *docsdir*.
+    1.  Make a new directory under [db-jdo-site/src/main/resources/javadoc](https://github.com/apache/db-jdo-site/tree/master/src/main/resources/javadoc) 
+        for the release, e.g. api2.1. We'll call it *docsdir*.
     2.  Download the javadoc artifact from the repository and copy it to
         *docsdir*.
     3.  Unzip it in *docsdir*.
-    4.  Do svn add on *docsdir*.
-    5.  Edit xdocs/javadoc.xml and add links to the new javadoc.
-6.  Build and test. Follow the instructions in site/HOWTO to push the
-    site changes to the Apache web site.
+    4.  Do `git add` on *docsdir*.
+    5.  Edit  db-jdo-site/src/main/asciidoc/javadoc.adoc and add links to the new javadoc.
+6.  Build and test. Follow the instructions in [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/master/README.md)
+    to push the site changes to the Apache web site.
 
 <span id="postrelease"></span>
 
@@ -282,8 +282,7 @@ be modified because a test challenge is found to be valid.
     number. For example, create a branch named 2.1.1, from the 2.1
     branch.
 2.  Merge bug fixes or other modifications into the new branch.
-3.  In the new branch, modify trunk/README.txt to include a section on
-    bug fixes since the 2.1 release, and to suggest checking out the
+3.  In the new branch, modify README.md to include a section on
+    bug fixes since the previous release, and to suggest checking out the
     source from a bug-fix branch to get the fixes listed.
-4.  Link to this README in the web interface to svn from the .cgi
-    download page and from http://db.apache.org/jdo/tck.html.
+4.  Link to this README in the download page of the release.
