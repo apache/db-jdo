@@ -22,9 +22,12 @@
 How to Release an Apache JDO Distribution
 =========================================
 
-A distribution of JDO is built from a branch of the git repository. It is copied into a
-release directory, from which it is staged and tested prior to release.
-Once released, it is propagated to mirror servers around the world.
+A distribution (release) of JDO is built from a branch of git. A release 
+consists of a compressed source (e.g. zip file) and associated checksums and 
+signatures. It is copied into a release directory, from which it is staged 
+and tested.
+Once approved by a formal vote of the DB PMC, it is copied to the officiel 
+Apache distribution infrastructure and propagated to mirror servers around the world.
 
 The process is performed by a release manager with cooperation from
 testers in the community.
@@ -36,8 +39,8 @@ Overview of the process
 
 The community first decides on the name of the release. The format of
 the name is *spec-number*.*major*.*minor*. A trailing *minor* number
-with a zero value is right trimmed, so there might be a 2.0.1 but not a
-2.0.0.
+with a zero value is right trimmed, so there might be a 3.0.1 but not a
+3.0.0.
 
 Interim releases prior to final release are identified by a suffix on
 the release number. Common suffixes include: -alpha, -beta, -beta2,
@@ -46,9 +49,13 @@ the contents of each suffix release are agreed by the community. There
 might be significant changes in functionality between the suffix
 releases. Each suffix release goes through the process documented here.
 
-The release manager makes a branch from the trunk (for a major release)
-or from another branch (for a minor release) to create a branch with the
-source of the distribution.
+The community decides whether to continue development on the main branch 
+while the release is in progress. In this case, a branch is created 
+first. If a new branch is needed, the release manager makes a new branch 
+from the master branch (for a major release) or from another branch (for 
+a minor release). If a new branch is not needed, the release will be 
+created from the main branch and a release branch will only be created 
+later for a maintenance release.
 
 The release manager follows the Apache process detailed below to build
 and deploy a release.
@@ -58,16 +65,19 @@ The release manager calls for the community to test the release.
 The community tests the release. If necessary, cycle until all issues
 are resolved.
 
-The release manager closes the staged repository
+The release manager closes the staging repository
 
 The release manager calls for a vote to release by sending a message to
-the community and forwarding the message to the pmc.
+the community and forwarding the message to the PMC.
 
 The community votes on the release. If necessary, cycle until issues are
 resolved.
 
-The release manager notifies the pmc of the successful vote outcome.
-Note that a successful vote includes three +1 votes from PMC members.
+The release manager notifies the PMC of the successful vote outcome.
+A successful vote includes three +1 votes from PMC members and more +1 
+than -1 votes.
+The release manager copies the approved release to the official Apache 
+distribution directory which is then mirrored worldwide.
 
 The release manager notifies the worldwide community of the availability
 of the release.
@@ -77,31 +87,30 @@ The release manager updates the JDO web sites
 
 If bugs are found or test challenges are sustained after the release is
 approved and distributed, the release manager creates a new branch to
-address the bugs found.
+address the bugs found and proceeds from the beginning.
 
 <span id="procdetail"></span>
 
 Detailed process steps
 ----------------------
 
-1.  You might want to run [Apache Rat](http://creadur.apache.org/rat) to
-    check the sources for any lisence issues.
+1.  Verify licensing of the sources by running 
+    [Apache Rat](http://creadur.apache.org/rat) to
+    check the sources for any licence issues.
 
-        mvn apache-rat:check
+        mvn clean apache-rat:check
 
-2.  Create a branch from the trunk and increment the spec or major
-    number. For example, create a 3.1 branch from the trunk.
+2.  If necessary, create a branch from the master branch and increment the 
+    spec or major number. For example, create a "3.1" branch from the 
+    master branch.
 
-        cd jdo
-        svn copy https://svn.apache.org/repos/asf/db/jdo/trunk \
-        https://svn.apache.org/repos/asf/db/jdo/branches/3.1
+        git checkout -b 3.2
+        git push -u 3.2
 
-3.  In trunk, update version numbers in the following files in
+3.  In the release branch, update version numbers in the following files in
     preparation for the next release:
-    trunk/README.html  
-    File names and version references in the Overview section
-
-    trunk/tck/RunRules.html  
+    
+    tck/README.md  
     Update version number and date
 
     Use the maven version plug-in to update version numbers in the
@@ -110,21 +119,20 @@ Detailed process steps
 4.  If needed, update the dependency to the RI, DataNucleus, in the tck
     pom.xml.
 
-5.  If needed, apply patches from the trunk or branches to the new
-    branch.
+5.  If needed, apply patches from the master branch to the release branch.
 
 6.  Update version numbers where necessary in projects to be released,
     if these changes haven't been made previously. Check the following
     files:
-    branches/*version*/README.html  
+    README.md  
     File names and version references in the Overview section (for a
     major release only.)
 
-    branches/*version*/tck/RunRules.html  
+    tck/RunRules.md  
     Update version number
 
 7.  Check the scm settings in the pom.xml files in the new branch and
-    make sure they refer the new branch (instead of the trunk).
+    make sure they refer to the new branch (instead of the master branch).
 
 8.  Follow the instructions at [Publishing Maven
     Artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html)
@@ -132,21 +140,32 @@ Detailed process steps
 
 9.  Copy the JNDI implementation jars (providerutil.jar and
     fscontext.jar) to the branch lib/ext directory. This is needed to
-    test the tck before distributing it.**  
-    Do not check these in to SVN**
+    test the tck before distributing it.
+    **Do not check these in into the repository**
 
-10. Build the distribution with the following command:
+10. Make sure the TCK passes
 
-             mvn clean install -Papache-release
-            
+        mvn clean install
 
+11. Build the distribution with the following command:
+
+        mvn clean install -Papache-release -Djdo.tck.doRunTCK=false -Djdo.tck.doInstallSchema=false -Djdo.tck.doEnhance=false
+  
     This creates the .jar and .pom files in the target directory of each
-    subproject. Be prepared to enter your key passcode when prompted.
+    subproject. Be prepared to enter your key passcode when prompted, 
+    to create the <artifact>.asc GPG signatures.
     This happens multiple times.
 
-11. Run [Apache Rat](http://creadur.apache.org/rat) on the release.
+12. Run [Apache Rat](http://creadur.apache.org/rat) on the release 
+    artifacts to verify the results of the build.
 
-12. Do a dry run prepare and deployment of a snapshot release. You might
+    Download Apache Rat from https://creadur.apache.org/rat/download_rat.cgi 
+    and extract the Jar-File, e.g. apache-rat-0.13.jar 
+
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
+
+13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
     modifications when preparing a release. The files in lib/ext and
     lib/jdori count as local modifications. Be prepared to enter your
