@@ -171,72 +171,68 @@ Detailed process steps
     lib/jdori count as local modifications. Be prepared to enter your
     key passcode when prompted. This happens multiple times.
 
-         mvn release:prepare -Papache-release -DautoVersionSubmodules=true -DdryRun=true -Dresume=false
+    The release plugin will will ask the following questions and expects an input:
+    What is the release version for "JDO Root POM"?
+    What is the SCM release tag or label for "JDO Root POM"?
+    What is the new development version for "JDO Root POM"?
+    The proposed defaults should be fine.
 
-         mvn deploy -Papache-release 
-            
-
+        mkdir tmp
+        cd tmp 
+        git clone https://github.com/apache/db-jdo.git
+        cd db-jdo
+        mvn release:prepare -Papache-release -DautoVersionSubmodules=true -DdryRun=true -Dresume=false
+        mvn deploy -Papache-release 
+  
     Check the artifacts at [the Maven release
     repository](https://repository.apache.org/content/repositories/snapshots/)
 
-13. Prepare and release the artifacts. There are interoperability issues
+14. Prepare and release the artifacts. There are interoperability issues
     with the maven release plugin and cygwin, so if on Windows, use a
     Windows command window for this step and the following one.
 
         mvn release:clean -Papache-release
         mvn release:prepare -Papache-release
-              
 
-    Note: If you're located in Europe then release:prepare may fail with
-    'Unable to tag SCM' and ' svn: No such revision X '. Wait 10 seconds
-    and run mvn release:prepare again.
-
-14. Stage the release for a vote.
+15. Stage the release for a vote.
 
         mvn release:perform -Papache-release
-            
 
-15. Go to [the Nexus
+16. Go to [the Nexus
     repository](https://repository.apache.org/index.html), login with
     your apache account, click on Staging Repositories in the menu on
     the left and close the staged repository. Press the refresh button
-    to see the new status 'closed'. See [11.4.1. Closing an Open
-    Repository](http://books.sonatype.com/nexus-book/reference/staging-repositories.html)
+    to see the new status 'closed'. See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
     for details.
 
-16. Send an announcement to test the release to the
+17. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
+    to test the release to the
     jdo-dev@db.apache.org alias. If problems are found, fix and repeat.
 
-17. Send an announcement to vote on the release to the
+18. Send an announcement to vote on the release to the
     jdo-dev@db.apache.org alias. The message subject line contains
     \[VOTE\]. Forward the \[VOTE\] message to private@db.apache.org.
     Iterate until you get a successful vote. Mail the results of the
     vote to jdo-dev@db.apache.org, cc: general@db.apache.org, and
     include \[VOTE\] \[RESULTS\] in the subject line.
 
-18. After testing and voting is complete, follow the instructions at
-    [11.4.3. Releasing a Staging
-    Repository](http://books.sonatype.com/nexus-book/reference/staging-repositories.html)
+19. After testing and voting is complete, follow the instructions at
+    [Releasing a Staging Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ReleasingaStagingRepository)
     to release the artifacts.
 
-19. Update the distribution repository at http://apache.org/dist/db/jdo/
-    by adding the new release directory to the svnpubsub directory.
-    Check out the repository at
+20. Update the distribution repository at https://apache.org/dist/db/jdo/
+    by adding the new release directory.
+    Check out the SVN repository at
     https://dist.apache.org/repos/dist/release/db/jdo and add the new
     release with all artifacts under the new directory. Make sure that
     the key used to sign the artifacts is included in the KEYS file.
     Committing the new directory will trigger an update to the mirrors.
 
-20. If the release is a bug fix release to a maintenance release, update
-    README.txt in the parent branch, adding the following line: "This
-    release has been deprecated. Please use version 2.x.y.", with a link
-    to the svn web interface for that version.
-
 21. After updating the site (below), announce the release to the Apache
     community via email to announce@apache.org This must be sent from an
-    @apache.org email address. \*\*\* Be aware that by sending to this
+    @apache.org email address. **Be aware that by sending to this
     address you will be bombarded with piles of emails from people with
-    "I'm out of the Office" as if you really cared \*\*\*
+    "I'm out of the Office" as if you really cared.**
 
 <span id="site"></span>
 
@@ -245,31 +241,15 @@ Site updates
 
 1.  Update the Apache JDO web site to point the downloads page to the
     release.
-    1.  In site/src/site/xdoc/releases create release-*N.n*.xml. Edit
-        the release numbers and the link to the release notes. You will
-        need to change the '&'s in the URL to "&amp;"
+    1.  In [dbo-jdo-site/src/main/asciidoc](https://github.com/apache/db-jdo-site/tree/master/src/main/asciidoc)
+        create release-*N.n*.adoc.
 
-    2.  In site/src/site/resources/releases create release-*N.n*.cgi.
-        The .cgi file contents are identical to the other .cgi files in
-        the release directory; only the file name differs.
+    2.  Edit db-jdo-site/src/main/asciidoc/downloads.adoc to link to the 
+        new release page .adoc document.
 
-    3.  Edit site/src/site/xdoc/downloads.xml to link to the new release
-        page .cgi document.
-
-    4.  Build and test as described in the site/HOWTO document. Note
-        that the cgi page will not be active until it is on the server,
-        so can't really be tested.
-
-    5.  Add the new files to the subversion repository.
-
-            svn add site/src/site/xdoc/releases/release-N.n.xml 
-            svn add site/docs/releases/release-N.n.html 
-            svn add site/src/site/resources/releases/release-N.n.cgi 
-            svn add site/docs/releases/release-N.n.cgi 
-                
-
-    6.  Set the svn properties svn:eol-style to native and
-        svn:executable to true for the .cgi files.
+    3.  Build and test as described in the [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/master/README.md) 
+        document. 
+        
 2.  Change the link to RunRules on the
     [TCK](http://db.apache.org/jdo/tck.html) page to link to the
     RunRules.html file of the latest release.
