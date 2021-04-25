@@ -52,6 +52,13 @@
       </fetch-group>
     </class>
 
+    <class name="PCRect2"
+           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCRect2$Oid">
+      <field name="id" primary-key="true"/>
+      <field name="upperLeft" converter="org.apache.jdo.tck.pc.mylib.PCRect2$PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.pc.mylib.PCRect2$PointToStringConverter"/>
+    </class>
+
     <class name="PrimitiveTypes" 
            identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes$Oid">
       <field name="id" primary-key="true"/>

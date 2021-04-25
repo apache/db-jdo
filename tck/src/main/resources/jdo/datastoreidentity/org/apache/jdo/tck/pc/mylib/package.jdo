@@ -43,6 +43,11 @@
       </fetch-group>
     </class>
 
+    <class name="PCRect2" identity-type="datastore">
+      <field name="upperLeft" converter="org.apache.jdo.tck.pc.mylib.PCRect2$PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.pc.mylib.PCRect2$PointToStringConverter"/>
+    </class>
+
     <class name="PrimitiveTypes" identity-type="datastore"/>
 
   </package>
