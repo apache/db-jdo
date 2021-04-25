@@ -5,3 +5,8 @@
 *.iml
 .externalToolBuilders
 target
+lib
+query.ser
+datanucleus.txt
+tck.txt
+
