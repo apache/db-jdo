@@ -120,6 +120,9 @@ public class PCRect2 {
      */
     public static class PointToStringConverter implements AttributeConverter<Point, String> {
 
+        private static int nrOfConvertToDatastoreCalls = 0;
+        private static int nrOfConvertToAttributeCalls = 0;
+
         // Character to separate x and y value of teh Pont instance.
         private static final String SEPARATOR = ":";
 
@@ -132,6 +135,7 @@ public class PCRect2 {
          */
         @Override
         public String convertToDatastore(Point attributeValue) {
+            nrOfConvertToDatastoreCalls++;
             String datastoreValue = null;
             if (attributeValue != null) {
                 StringBuilder builder = new StringBuilder();
@@ -154,6 +158,7 @@ public class PCRect2 {
          */
         @Override
         public Point convertToAttribute(String datastoreValue) {
+            nrOfConvertToAttributeCalls++;
             Point attributeValue = null;
             if (datastoreValue != null) {
                 String[] parts = datastoreValue.split(SEPARATOR);
@@ -168,6 +173,13 @@ public class PCRect2 {
                         "datastoreValue=" + datastoreValue + " attributeValue=" + attributeValue);
             }
             return attributeValue;
+        }
+
+        public static int getNrOfConvertToDatastoreCalls() {
+            return nrOfConvertToDatastoreCalls;
+        }
+        public static int getNrOfConvertToAttributeCalls() {
+            return nrOfConvertToAttributeCalls;
         }
     }
 }
