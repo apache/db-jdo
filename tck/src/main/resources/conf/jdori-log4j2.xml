@@ -38,7 +38,7 @@
     
     <!-- TCK Loggers -->
 
-    <Logger name="org.apache.jdo.tck" level="debug" additivity="false">
+    <Logger name="org.apache.jdo.tck" level="info" additivity="false">
       <AppenderRef ref="TCK"/>
     </Logger>
     <Logger name="org.springframework" level="error" additivity="false">

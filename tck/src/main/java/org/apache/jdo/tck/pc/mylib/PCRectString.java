@@ -29,11 +29,11 @@ import java.util.Date;
  *
  * @author Michael Bouschen
  */
-public class PCRect2 {
+public class PCRectString {
     private static long counter = new Date().getTime();
 
     private static long newId() {
-        synchronized (PCRect2.class) {
+        synchronized (PCRectString.class) {
             return counter++;
         }
     }
@@ -43,15 +43,15 @@ public class PCRect2 {
     private Point upperLeft;
     private Point lowerRight;
 
-    public PCRect2() {
+    public PCRectString() {
     }
 
-    public PCRect2(long id, Point ul, Point lr) {
+    public PCRectString(long id, Point ul, Point lr) {
         upperLeft = ul;
         lowerRight = lr;
     }
 
-    public PCRect2(Point ul, Point lr) {
+    public PCRectString(Point ul, Point lr) {
         upperLeft = ul;
         lowerRight = lr;
     }
@@ -81,13 +81,13 @@ public class PCRect2 {
                     + " ul: " + getUpperLeft().name()
                     + " lr: " + getLowerRight().name();
         } catch (NullPointerException ex) {
-            rc = "NPE getting PCRect2's values";
+            rc = "NPE getting PCRectString's values";
         }
         return rc;
     }
 
     /**
-     * PCRect2'S ObjectId class.
+     * PCRectString'S ObjectId class.
      */
     public static class Oid implements Serializable {
         public long id;
@@ -102,8 +102,8 @@ public class PCRect2 {
         public int hashCode() { return (int)id ; }
 
         public boolean equals(Object other) {
-            if (other != null && (other instanceof PCRect2.Oid)) {
-                PCRect2.Oid k = (PCRect2.Oid)other;
+            if (other != null && (other instanceof PCRectString.Oid)) {
+                PCRectString.Oid k = (PCRectString.Oid)other;
                 return k.id == this.id;
             }
             return false;
