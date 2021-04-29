@@ -25,7 +25,7 @@ import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface.
- * It#s fields of type Point are converted to strins in the datastore.
+ * It's fields of type Point are converted to strings in the datastore.
  *
  * @author Michael Bouschen
  */
@@ -131,7 +131,7 @@ public class PCRectString {
         /**
          * Converts the given Point attribute value to its string representation in the datastore.
          * @param attributeValue the attribute value of type Point to be converted
-         * @return the string representation of the Pont instance
+         * @return the string representation of the Point instance
          */
         @Override
         public String convertToDatastore(Point attributeValue) {
@@ -152,7 +152,7 @@ public class PCRectString {
         }
 
         /**
-         * Converts the given string datastore value to its representation as a persistent attribute og type Point.
+         * Converts the given string datastore value to its representation as a persistent attribute of type Point.
          * @param datastoreValue the string value in the datastore
          * @return the attribute value as Point instance
          */
