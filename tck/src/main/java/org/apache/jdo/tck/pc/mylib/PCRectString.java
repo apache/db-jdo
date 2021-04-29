@@ -84,7 +84,7 @@ public class PCRectString {
         private static int nrOfConvertToDatastoreCalls = 0;
         private static int nrOfConvertToAttributeCalls = 0;
 
-        // Character to separate x and y value of teh Pont instance.
+        // Character to separate x and y value of the Point instance.
         private static final String SEPARATOR = ":";
 
         private Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
