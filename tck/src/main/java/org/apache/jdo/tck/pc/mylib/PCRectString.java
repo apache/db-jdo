@@ -32,10 +32,8 @@ import java.util.Date;
 public class PCRectString {
     private static long counter = new Date().getTime();
 
-    private static long newId() {
-        synchronized (PCRectString.class) {
-            return counter++;
-        }
+    private static synchronized long newId() {
+        return counter++;
     }
 
     public long id = newId();
@@ -76,7 +74,6 @@ public class PCRectString {
         String rc = null;
         Object obj = this;
         try {
-            //rc = Util.getClassName(this)
             rc = obj.getClass().getName()
                     + " ul: " + getUpperLeft().name()
                     + " lr: " + getLowerRight().name();
