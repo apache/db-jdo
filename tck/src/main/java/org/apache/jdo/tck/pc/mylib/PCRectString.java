@@ -20,7 +20,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.jdo.AttributeConverter;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -36,17 +35,11 @@ public class PCRectString {
         return counter++;
     }
 
-    public long id = newId();
-
+    private long id = newId();
     private Point upperLeft;
     private Point lowerRight;
 
     public PCRectString() {
-    }
-
-    public PCRectString(long id, Point ul, Point lr) {
-        upperLeft = ul;
-        lowerRight = lr;
     }
 
     public PCRectString(Point ul, Point lr) {
@@ -81,35 +74,6 @@ public class PCRectString {
             rc = "NPE getting PCRectString's values";
         }
         return rc;
-    }
-
-    /**
-     * PCRectString'S ObjectId class.
-     */
-    public static class Oid implements Serializable {
-        public long id;
-
-        public Oid() {
-        }
-
-        public Oid(String s) { id = Long.parseLong(justTheId(s)); }
-
-        public String toString() { return this.getClass().getName() + ": "  + id;}
-
-        public int hashCode() { return (int)id ; }
-
-        public boolean equals(Object other) {
-            if (other != null && (other instanceof PCRectString.Oid)) {
-                PCRectString.Oid k = (PCRectString.Oid)other;
-                return k.id == this.id;
-            }
-            return false;
-        }
-
-        protected static String justTheId(String str) {
-            return str.substring(str.indexOf(':') + 1);
-        }
-
     }
 
     /**

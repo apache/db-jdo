@@ -53,7 +53,7 @@
     </class>
 
     <class name="PCRectString"
-           identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PCRectString$Oid">
+           identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
       <field name="id" primary-key="true"/>
       <field name="upperLeft" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
       <field name="lowerRight" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
