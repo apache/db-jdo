@@ -52,7 +52,7 @@ releases. Each suffix release goes through the process documented here.
 The community decides whether to continue development on the main branch 
 while the release is in progress. In this case, a branch is created 
 first. If a new branch is needed, the release manager makes a new branch 
-from the master branch (for a major release) or from another branch (for 
+from the main branch (for a major release) or from another branch (for 
 a minor release). If a new branch is not needed, the release will be 
 created from the main branch and a release branch will only be created 
 later for a maintenance release.
@@ -100,9 +100,9 @@ Detailed process steps
 
         mvn clean apache-rat:check
 
-2.  If necessary, create a branch from the master branch and increment the 
+2.  If necessary, create a branch from the main branch and increment the 
     spec or major number. For example, create a "3.1" branch from the 
-    master branch.
+    main branch.
 
         git checkout -b 3.2
         git push -u 3.2
@@ -119,7 +119,7 @@ Detailed process steps
 4.  If needed, update the dependency to the RI, DataNucleus, in the tck
     pom.xml.
 
-5.  If needed, apply patches from the master branch to the release branch.
+5.  If needed, apply patches from the main branch to the release branch.
 
 6.  Update version numbers where necessary in projects to be released,
     if these changes haven't been made previously. Check the following
@@ -132,7 +132,7 @@ Detailed process steps
     Update version number
 
 7.  Check the scm settings in the pom.xml files in the new branch and
-    make sure they refer to the new branch (instead of the master branch).
+    make sure they refer to the new branch (instead of the main branch).
 
 8.  Follow the instructions at [Publishing Maven
     Artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html)
