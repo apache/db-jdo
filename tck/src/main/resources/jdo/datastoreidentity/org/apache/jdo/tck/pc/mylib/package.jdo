@@ -44,8 +44,8 @@
     </class>
 
     <class name="PCRectString" identity-type="datastore">
-      <field name="upperLeft" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
-      <field name="lowerRight" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
+      <field name="upperLeft" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
     </class>
 
     <class name="PrimitiveTypes" identity-type="datastore"/>

@@ -16,17 +16,11 @@
  */
 package org.apache.jdo.tck.pc.mylib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.jdo.AttributeConverter;
 import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface.
- * It's fields of type Point are converted to strings in the datastore.
- *
- * @author Michael Bouschen
+ * Its fields of type Point are converted to strings in the datastore.
  */
 public class PCRectString {
     private static long counter = new Date().getTime();
@@ -39,8 +33,7 @@ public class PCRectString {
     private Point upperLeft;
     private Point lowerRight;
 
-    public PCRectString() {
-    }
+    public PCRectString() {}
 
     public PCRectString(Point ul, Point lr) {
         upperLeft = ul;
@@ -50,15 +43,19 @@ public class PCRectString {
     public Point getUpperLeft() {
         return upperLeft;
     }
+    public void setUpperLeft(Point upperLeft) {
+        this.upperLeft = upperLeft;
+    }
 
     public Point getLowerRight() {
         return lowerRight;
     }
-
+    public void setLowerRight(Point lowerRight) {
+        this.lowerRight = lowerRight;
+    }
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -74,73 +71,5 @@ public class PCRectString {
             rc = "NPE getting PCRectString's values";
         }
         return rc;
-    }
-
-    /**
-     * AttributeConverter implementation mapping a Point instance to a string of the form x:y.
-     */
-    public static class PointToStringConverter implements AttributeConverter<Point, String> {
-
-        private static int nrOfConvertToDatastoreCalls = 0;
-        private static int nrOfConvertToAttributeCalls = 0;
-
-        // Character to separate x and y value of the Point instance.
-        private static final String SEPARATOR = ":";
-
-        private Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
-
-        /**
-         * Converts the given Point attribute value to its string representation in the datastore.
-         * @param attributeValue the attribute value of type Point to be converted
-         * @return the string representation of the Point instance
-         */
-        @Override
-        public String convertToDatastore(Point attributeValue) {
-            nrOfConvertToDatastoreCalls++;
-            String datastoreValue = null;
-            if (attributeValue != null) {
-                StringBuilder builder = new StringBuilder();
-                builder.append(attributeValue.getX());
-                builder.append(SEPARATOR);
-                builder.append(attributeValue.getY() == null ? Integer.valueOf(0) : attributeValue.getY());
-                datastoreValue = builder.toString();
-            }
-            if (logger.isDebugEnabled()) {
-                logger.debug("PointToStringConverter.convertToDatastore " +
-                        "attributeValue=" + attributeValue + " datastoreValue=" + datastoreValue);
-            }
-            return datastoreValue;
-        }
-
-        /**
-         * Converts the given string datastore value to its representation as a persistent attribute of type Point.
-         * @param datastoreValue the string value in the datastore
-         * @return the attribute value as Point instance
-         */
-        @Override
-        public Point convertToAttribute(String datastoreValue) {
-            nrOfConvertToAttributeCalls++;
-            Point attributeValue = null;
-            if (datastoreValue != null) {
-                String[] parts = datastoreValue.split(SEPARATOR);
-                if (parts.length == 2) {
-                    Integer x = Integer.valueOf(parts[0]);
-                    Integer y = Integer.valueOf(parts[1]);
-                    attributeValue = new Point(x == null ? 0 : x.intValue(), y);
-                }
-            }
-            if (logger.isDebugEnabled()) {
-                logger.debug("PointToStringConverter.convertToAttribute " +
-                        "datastoreValue=" + datastoreValue + " attributeValue=" + attributeValue);
-            }
-            return attributeValue;
-        }
-
-        public static int getNrOfConvertToDatastoreCalls() {
-            return nrOfConvertToDatastoreCalls;
-        }
-        public static int getNrOfConvertToAttributeCalls() {
-            return nrOfConvertToAttributeCalls;
-        }
     }
 }

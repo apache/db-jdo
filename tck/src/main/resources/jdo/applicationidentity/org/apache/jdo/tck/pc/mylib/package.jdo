@@ -55,8 +55,8 @@
     <class name="PCRectString"
            identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
       <field name="id" primary-key="true"/>
-      <field name="upperLeft" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
-      <field name="lowerRight" converter="org.apache.jdo.tck.pc.mylib.PCRectString$PointToStringConverter"/>
+      <field name="upperLeft" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
     </class>
 
     <class name="PrimitiveTypes" 

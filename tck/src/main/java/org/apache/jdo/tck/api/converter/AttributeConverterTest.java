@@ -20,7 +20,9 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCRectString;
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
+import org.apache.jdo.tck.util.PointToStringConverter;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import java.util.List;
@@ -33,6 +35,8 @@ import java.util.List;
  *<B>Assertion ID:</B> [not identified]
  *<BR>
  *<B>Assertion Description: </B>
+ * A PCRectString instance refers two Point instances, that are stored as strings in the datastore.
+ * A Point instance is converted using an AttributeConverter.
  */
 public class AttributeConverterTest extends JDO_Test {
 
@@ -59,59 +63,93 @@ public class AttributeConverterTest extends JDO_Test {
     }
 
     /**
-     * Test method creating a PCRectString instance and reading it back from the datastore.
-     * A PCRectString instance refers two Point instances, that are stored as strings in the datastore.
-     * A Point instance is converted using an AttributeConverter.
+     * Test method creating a PCRectString instance.
+     * It should call AttributeConverter method convertToDatastore.
      */
-    public void testCreatePCRectStringInstance() {
-        Transaction tx;
+    public void testStorePCRectStringInstance() {
+        int nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
+        int nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
+
+        // Create a persistent PCRectString instance and store its oid
+        // AttributeConverter method convertToDatastore is called when persisting instance
+        createPCRectStringInstances(1);
+
+        // convertToDatastore should be called twice
+        assertEquals(2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+        // convertToAttribute should not be called
+        assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+    }
+
+    /**
+     * Test method reading a PCRectString instance from the datastore.
+     * It should call AttributeConverter method convertToAttribute.
+     */
+    public void testReadPCRectStringInstance() {
         PCRectString rect;
         Object oid;
         int nrOfDbCalls;
         int nrOfAttrCalls;
 
-        // Test: AttributeConverter method convertToDatastore is called when persisting instance
-        nrOfDbCalls = PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls();
-        nrOfAttrCalls = PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls();
-        pm = getPM();
-        tx = pm.currentTransaction();
-        tx.begin();
         // Create a persistent PCRectString instance and store its oid
-        rect = new PCRectString(new Point(UL_X, UL_Y), new Point(LR_X, LR_Y));
-        pm.makePersistent(rect);
-        oid = pm.getObjectId(rect);
-        tx.commit();
-        // convertToDatastore should be called twice
-        assertEquals(2, PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
-        // convertToAttribute should not be called
-        assertEquals(0, PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+        oid = createPCRectStringInstances(1);
 
         // Cleanup the 2nd-level cache and close the pm to make sure PCRect instances are not cached
         pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, PCRectString.class);
         pm.close();
         pm = null;
 
-        // Test: AttributeConverter method convertToAttribute is called when loading instance from the datastore
-        nrOfDbCalls = PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls();
-        nrOfAttrCalls = PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls();
+        nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
+        nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
         pm = getPM();
-        tx = pm.currentTransaction();
-        tx.begin();
-        // Read the PCRectString instance from the datastore
+        pm.currentTransaction().begin();
+        // Read the PCRectString instance from the datastore, this should call convertToAttribute
         rect = (PCRectString)pm.getObjectById(oid);
         Point ul = rect.getUpperLeft();
         Point lr = rect.getLowerRight();
-        tx.commit();
-        // convertToDatastore should not be called
-        assertEquals(0, PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
-        // convertToAttribute should be called twice
-        assertEquals(2, PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+        pm.currentTransaction().commit();
 
-        // Check the coordinates of the associated Point instances
+        // convertToDatastore should not be called
+        assertEquals(0, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+        // convertToAttribute should be called twice
+        assertEquals(2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+        // Check the values of the associated Point instances
         assertEquals(UL_X, ul.getX());
-        assertEquals(Integer.valueOf(UL_Y), ul.getY());
+        assertEquals(UL_Y, ul.getY() == null ? 0 : ul.getY().intValue());
         assertEquals(LR_X, lr.getX());
         assertEquals(LR_Y, lr.getY() == null ? 0 : lr.getY().intValue());
+    }
+
+    /**
+     * Test method modifying a PCRectString instance.
+     * It should call AttributeConverter method convertToDatastore.
+     */
+    public void testModifyPCRectStringInstance() {
+        Transaction tx;
+        PCRectString rect;
+        Object oid;
+        int nrOfDbCalls;
+        int nrOfAttrCalls;
+
+        // Create a persistent PCRectString instance and store its oid
+        oid = createPCRectStringInstances(1);
+
+        nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
+        nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
+        pm = getPM();
+        tx = pm.currentTransaction();
+        tx.begin();
+        rect = (PCRectString)pm.getObjectById(oid);
+        // Update PCRectString instance, this should call convertToDatastore
+        rect.setUpperLeft(new Point(UL_X + 1, UL_Y + 1));
+        rect.setLowerRight(new Point(LR_X + 1, LR_Y + 1));
+        // PCRectString instance should be dirty
+        assertTrue(JDOHelper.isDirty(rect));
+        tx.commit();
+
+        // convertToDatastore should be called twice
+        assertEquals(2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+        // convertToAttribute should not be called
+        assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
     }
 
     /**
@@ -120,39 +158,29 @@ public class AttributeConverterTest extends JDO_Test {
      * @throws Exception
      */
     public void testQueryPCRectStringInstance() throws Exception {
-        Transaction tx;
         int nrOfDbCalls;
         int nrOfAttrCalls;
 
-        // Test: AttributeConverter method convertToDatastore is called when persisting instances
-        nrOfDbCalls = PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls();
-        nrOfAttrCalls = PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls();
-        pm = getPM();
-        tx = pm.currentTransaction();
-        tx.begin();
-        // create 5 persistent PCRectString instances
-        for (int i = 0; i < 5; i++) {
-            pm.makePersistent(new PCRectString(new Point(UL_X + i, UL_Y + i), new Point(LR_X + i, LR_Y + i)));
-        }
-        tx.commit();
+        nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
+        nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
+        createPCRectStringInstances(5);
         // convertToDatastore should be called twice per instance = 10 times
-        assertEquals(10, PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
+        assertEquals(10, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
         // convertToAttribute should not be called
-        assertEquals(0, PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+        assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
 
         // Cleanup the 2nd-level cache and close the pm to make sure PCRect instances are not cached
         pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, PCRectString.class);
         pm.close();
         pm = null;
 
-        // Test: AttributeConverter method convertToAttribute is called when loading instance from the datastore
-        nrOfDbCalls = PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls();
-        nrOfAttrCalls = PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls();
+        nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
+        nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
         pm = getPM();
-        tx = pm.currentTransaction();
-        tx.begin();
+        pm.currentTransaction().begin();
         try (Query<PCRectString> q = pm.newQuery(PCRectString.class, "this.upperLeft == :point")) {
-            q.setParameters(new Point(UL_X+1, UL_Y+1));
+            q.setParameters(new Point(UL_X + 1, UL_Y + 1));
+            // AttributeConverter method convertToAttribute is called when loading instance from the datastore
             List<PCRectString> res = q.executeList();
             assertEquals(1, res.size());
             PCRectString rect = res.get(0);
@@ -165,13 +193,38 @@ public class AttributeConverterTest extends JDO_Test {
             assertEquals(LR_X+1, lr.getX());
             assertEquals(LR_Y+1, lr.getY() == null ? 0 : lr.getY().intValue());
         } finally {
-            tx.commit();
+            pm.currentTransaction().commit();
         }
 
-        // convertToDatastore should not be called to handle the query parameter
-        assertTrue(PCRectString.PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
+        // convertToDatastore should be called to handle the query parameter
+        assertTrue(PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls >= 1);
         // convertToAttribute should be called at least twice
-        assertTrue(PCRectString.PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+        assertTrue(PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls >= 2);
+    }
+
+    /**
+     * Helper method to create PCRectString instances.
+     * @param nrOfObjects number of PCRectString instances to be created
+     * @return ObjectId of the first PCRectString instance
+     */
+    private Object createPCRectStringInstances(int nrOfObjects) {
+        PCRectString rect;
+        Object oid;
+
+        if (nrOfObjects < 1) {
+            return null;
+        }
+
+        pm = getPM();
+        pm.currentTransaction().begin();
+        rect = new PCRectString(new Point(UL_X, UL_Y), new Point(LR_X, LR_Y));
+        pm.makePersistent(rect);
+        oid = pm.getObjectId(rect);
+        for (int i = 1; i < nrOfObjects; i++) {
+            pm.makePersistent(new PCRectString(new Point(UL_X + i, UL_Y + i), new Point(LR_X + i, LR_Y + i)));
+        }
+        pm.currentTransaction().commit();
+        return oid;
     }
 
 }
