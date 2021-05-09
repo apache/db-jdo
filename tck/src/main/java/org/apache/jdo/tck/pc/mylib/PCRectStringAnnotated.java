@@ -16,24 +16,40 @@
  */
 package org.apache.jdo.tck.pc.mylib;
 
+import org.apache.jdo.tck.util.PointToStringConverter;
+
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Convert;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface.
  * Its fields of type Point are converted to strings in the datastore.
  */
-public class PCRectString implements IPCRect {
+@PersistenceCapable(table="PCRectStringAnnotated")
+public class PCRectStringAnnotated implements IPCRect {
     private static long counter = new Date().getTime();
 
     private static synchronized long newId() {
         return counter++;
     }
 
+    @Column(name="ID")
     private long id = newId();
+
+    @Persistent
+    @Column(name="UPPER_LEFT")
+    @Convert(value = PointToStringConverter.class)
     private Point upperLeft;
+
+    @Persistent
+    @Column(name="LOWER_RIGHT")
+    @Convert(value = PointToStringConverter.class)
     private Point lowerRight;
 
-    public PCRectString() {}
+    public PCRectStringAnnotated() {}
 
     public Point getUpperLeft() {
         return upperLeft;

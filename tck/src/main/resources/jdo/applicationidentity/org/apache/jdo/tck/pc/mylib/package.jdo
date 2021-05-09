@@ -59,6 +59,11 @@
       <field name="lowerRight" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
     </class>
 
+    <class name="PCRectStringAnnotated"
+           identity-type="application" objectid-class="javax.jdo.identity.LongIdentity">
+      <field name="id" primary-key="true"/>
+    </class>
+
     <class name="PrimitiveTypes" 
            identity-type="application" objectid-class="org.apache.jdo.tck.pc.mylib.PrimitiveTypes$Oid">
       <field name="id" primary-key="true"/>
