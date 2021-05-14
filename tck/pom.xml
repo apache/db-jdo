@@ -193,17 +193,17 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-core</artifactId>
-                    <version>5.2.4</version>
+                    <version>5.2.7</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-rdbms</artifactId>
-                    <version>5.2.4</version>
+                    <version>5.2.7</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jdo</artifactId>
-                    <version>5.2.4</version>
+                    <version>5.2.6</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
@@ -213,7 +213,7 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jpa</artifactId>
-                    <version>5.2.5</version>
+                    <version>5.2.6</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -243,18 +243,6 @@
                     <version>4.2.2</version>
                 </dependency>
             </dependencies>
-            <repositories>
-                <repository>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <id>DataNucleus Nightly</id>
-                    <url>http://www.datanucleus.org/downloads/maven2-nightly</url>
-                </repository>
-            </repositories>
         </profile>
     </profiles>
 
