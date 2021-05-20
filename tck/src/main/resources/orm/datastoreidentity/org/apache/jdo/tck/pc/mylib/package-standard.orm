@@ -53,6 +53,17 @@
       </field>
     </class>
 
+    <class name="PCRectString" table="PCRectString">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+      <field name="id" column="ID"/>
+      <field name="lowerRight" column="LOWER_RIGHT"/>
+      <field name="upperLeft" column="UPPER_LEFT"/>
+    </class>
+
+    <class name="PCRectStringAnnotated">
+      <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
+    </class>
+
     <class name="PrimitiveTypes" table="PrimitiveTypes">
       <datastore-identity strategy="identity" column="DATASTORE_IDENTITY"/>
       <field name="id" column="ID"/>

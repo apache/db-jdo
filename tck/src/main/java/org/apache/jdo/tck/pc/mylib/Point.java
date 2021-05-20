@@ -40,10 +40,8 @@ public class Point {
 
     public String toString() {
         String rc = null;
-	Object obj = this;
         try {
-	    rc = obj.getClass().getName();
-            //rc = Util.getClassName(this) + name();
+            rc = "Point(" + name() + ")";
         } catch (NullPointerException ex) {
             rc = "NPE getting Point's values";
         }
@@ -61,6 +59,7 @@ public class Point {
     }
     
     public String name() {
-        return " x: " + getX() + ", y: " + getY().intValue();
+        return "x: " + getX() + ", y: " + getY().intValue();
     }
+
 }

@@ -49,6 +49,12 @@
       </field>
     </class>
 
+    <class name="PCRectString" table="PCRectString">
+      <field name="id" column="ID"/>
+      <field name="lowerRight" column="LOWER_RIGHT"/>
+      <field name="upperLeft" column="UPPER_LEFT"/>
+    </class>
+
     <class name="PrimitiveTypes" table="PrimitiveTypes">
       <field name="id" column="ID"/>
       <field name="booleanNotNull" column="booleanNotNull"/>

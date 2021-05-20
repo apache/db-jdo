@@ -43,6 +43,13 @@
       </fetch-group>
     </class>
 
+    <class name="PCRectStringAnnotated" identity-type="datastore"/>
+
+    <class name="PCRectString" identity-type="datastore">
+      <field name="upperLeft" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
+    </class>
+
     <class name="PrimitiveTypes" identity-type="datastore"/>
 
   </package>
