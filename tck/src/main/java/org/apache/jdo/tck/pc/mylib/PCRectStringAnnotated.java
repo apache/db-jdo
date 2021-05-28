@@ -39,12 +39,10 @@ public class PCRectStringAnnotated implements IPCRect {
     @Column(name="ID")
     private long id = newId();
 
-    @Persistent
     @Column(name="UPPER_LEFT")
     @Convert(value = PointToStringConverter.class)
     private Point upperLeft;
 
-    @Persistent
     @Column(name="LOWER_RIGHT")
     @Convert(value = PointToStringConverter.class)
     private Point lowerRight;
