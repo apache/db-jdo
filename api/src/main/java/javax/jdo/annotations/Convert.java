@@ -40,7 +40,6 @@ import javax.jdo.AttributeConverter;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
-@Repeatable(Converts.class)
 public @interface Convert {
 
 	/**
