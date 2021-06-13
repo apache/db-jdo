@@ -18,63 +18,46 @@ package org.apache.jdo.tck.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.jdo.tck.pc.mylib.Point;
 
 import javax.jdo.AttributeConverter;
 
 /**
- * AttributeConverter implementation mapping a Point instance to a string of the form x:y.
+ * AttributeConverter implementation mapping a Integer instance to a string.
  */
-public class PointToStringConverter implements AttributeConverter<Point, String> {
+public class IntegerToStringConverter implements AttributeConverter<Integer, String> {
 
     private static int nrOfConvertToDatastoreCalls = 0;
     private static int nrOfConvertToAttributeCalls = 0;
 
-    // Character to separate x and y value of the Point instance.
-    private static final String SEPARATOR = ":";
-
     private final Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /**
-     * Converts the given Point attribute value to its string representation in the datastore.
-     * @param attributeValue the attribute value of type Point to be converted
-     * @return the string representation of the Point instance
+     * Converts the given Integer attribute value to its string representation in the datastore.
+     * @param attributeValue the attribute value of type Integer to be converted
+     * @return the string representation of the Integer instance
      */
     @Override
-    public String convertToDatastore(Point attributeValue) {
+    public String convertToDatastore(Integer attributeValue) {
         nrOfConvertToDatastoreCalls++;
-        String datastoreValue = null;
-        if (attributeValue != null) {
-            datastoreValue = attributeValue.getX() +
-                    SEPARATOR +
-                    (attributeValue.getY() == null ? Integer.valueOf(0) : attributeValue.getY());
-        }
+        String datastoreValue = attributeValue != null ? attributeValue.toString() : null;
         if (logger.isDebugEnabled()) {
-            logger.debug("PointToStringConverter.convertToDatastore " +
+            logger.debug("IntegerToStringConverter.convertToDatastore " +
                     "attributeValue=" + attributeValue + " datastoreValue=" + datastoreValue);
         }
         return datastoreValue;
     }
 
     /**
-     * Converts the given string datastore value to its representation as a persistent attribute of type Point.
+     * Converts the given string datastore value to its representation as a persistent attribute of type Integer.
      * @param datastoreValue the string value in the datastore
-     * @return the attribute value as Point instance
+     * @return the attribute value as Integer instance
      */
     @Override
-    public Point convertToAttribute(String datastoreValue) {
+    public Integer convertToAttribute(String datastoreValue) {
         nrOfConvertToAttributeCalls++;
-        Point attributeValue = null;
-        if (datastoreValue != null) {
-            String[] parts = datastoreValue.split(SEPARATOR);
-            if (parts.length == 2) {
-                Integer x = Integer.valueOf(parts[0]);
-                Integer y = Integer.valueOf(parts[1]);
-                attributeValue = new Point(x == null ? 0 : x.intValue(), y);
-            }
-        }
+        Integer attributeValue = datastoreValue != null ? Integer.valueOf(datastoreValue): null;
         if (logger.isDebugEnabled()) {
-            logger.debug("PointToStringConverter.convertToAttribute " +
+            logger.debug("IntegerToStringConverter.convertToAttribute " +
                     "datastoreValue=" + datastoreValue + " attributeValue=" + attributeValue);
         }
         return attributeValue;

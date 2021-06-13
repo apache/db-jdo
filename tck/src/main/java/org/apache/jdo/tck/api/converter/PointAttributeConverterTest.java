@@ -17,9 +17,9 @@
 package org.apache.jdo.tck.api.converter;
 
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.mylib.IPCRect;
-import org.apache.jdo.tck.pc.mylib.PCRectString;
-import org.apache.jdo.tck.pc.mylib.PCRectStringAnnotated;
+import org.apache.jdo.tck.pc.converter.IPCRect;
+import org.apache.jdo.tck.pc.converter.PCRect;
+import org.apache.jdo.tck.pc.converter.PCRectAnnotated;
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.PointToStringConverter;
@@ -31,7 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- *<B>Title:</B>AttributeConverterTest
+ *<B>Title:</B>PointAttributeConverterTest
  *<BR>
  *<B>Keywords:</B> mapping
  *<BR>
@@ -41,7 +41,7 @@ import java.util.List;
  * A IPCRect instance refers two Point instances, that are stored as strings in the datastore.
  * A Point instance is converted using an AttributeConverter.
  */
-public class AttributeConverterTest extends JDO_Test {
+public class PointAttributeConverterTest extends JDO_Test {
 
     private static final int UL_X = 1;
     private static final int UL_Y = 10;
@@ -54,7 +54,7 @@ public class AttributeConverterTest extends JDO_Test {
      * @param args The arguments passed to the program.
      */
     public static void main(String[] args) {
-        BatchTestRunner.run(AttributeConverterTest.class);
+        BatchTestRunner.run(PointAttributeConverterTest.class);
     }
 
     /**
@@ -62,78 +62,78 @@ public class AttributeConverterTest extends JDO_Test {
      */
     @Override
     protected void localSetUp() {
-        addTearDownClass(PCRectString.class);
-        addTearDownClass(PCRectStringAnnotated.class);
+        addTearDownClass(PCRect.class);
+        addTearDownClass(PCRectAnnotated.class);
     }
 
     /**
      * Test method creating and storing a PCRectString instance.
      */
     public void testStorePCRectStringInstance() {
-        runStoreIPCRectInstance(PCRectString.class);
+        runStoreIPCRectInstance(PCRect.class);
     }
 
     /**
      * Test method reading a PCRectString instance from the datastore.
      */
     public void testReadPCRectStringInstance() {
-        runReadIPCRectInstance(PCRectString.class);
+        runReadIPCRectInstance(PCRect.class);
     }
 
     /**
      * Test method modifying a PCRectString instance and storing in the datastore.
      */
     public void testModifyPCRectStringInstance() {
-        runModifyIPCRectInstance(PCRectString.class);
+        runModifyIPCRectInstance(PCRect.class);
     }
 
     /**
      * Test method running a PCRectString query with a query parameter of type Point.
      */
     public void testPCRectStringQueryWithPointParam() throws Exception {
-        runQueryWithPointParameter(PCRectString.class);
+        runQueryWithPointParameter(PCRect.class);
     }
 
     /**
      * Test method running a PCRectString query with a query parameter of type String.
      */
     public void testPCRectStringQueryWithStringParam() throws Exception {
-        runQueryWithStringParameter(PCRectString.class);
+        runQueryWithStringParameter(PCRect.class);
     }
 
     /**
      * Test method creating and storing a PCRectStringAnnotated instance.
      */
     public void testStorePCRectStringAnnotatedInstance() {
-        runStoreIPCRectInstance(PCRectStringAnnotated.class);
+        runStoreIPCRectInstance(PCRectAnnotated.class);
     }
 
     /**
      * Test method reading a PCRectStringAnnotated instance from the datastore.
      */
     public void testReadPCRectStringAnnotatedInstance() {
-        runReadIPCRectInstance(PCRectStringAnnotated.class);
+        runReadIPCRectInstance(PCRectAnnotated.class);
     }
 
     /**
      * Test method modifying a PCRectStringAnnotated instance and storing in the datastore.
      */
     public void testModifyPCRectStringAnnotatedInstance() {
-        runModifyIPCRectInstance(PCRectStringAnnotated.class);
+        runModifyIPCRectInstance(PCRectAnnotated.class);
     }
 
     /**
      * Test method running a PCRectStringAnnotated query with a query parameter of type String.
      */
     public void testPCRectStringAnnotatedQueryWithPointParam() throws Exception {
-        runQueryWithPointParameter(PCRectStringAnnotated.class);
+        runQueryWithPointParameter(PCRectAnnotated.class);
     }
 
     /**
      * Test method running a PCRectStringAnnotated query with a query parameter of type Point.
      */
     public void testPCRectStringAnnotatedQueryWithStringParam() throws Exception {
-        runQueryWithStringParameter(PCRectStringAnnotated.class);
+        runQueryWithStringParameter(PCRectAnnotated.class);
     }
 
     // Helper methods
@@ -209,12 +209,20 @@ public class AttributeConverterTest extends JDO_Test {
         // Create a persistent IPCRect instance and store its oid
         oid = createIPCRectInstances(pcrectClass, 1);
 
+        // Cleanup the 2nd-level cache and close the pm to make sure PCRect instances are not cached
+        pm.getPersistenceManagerFactory().getDataStoreCache().evictAll(false, pcrectClass);
+        pm.close();
+        pm = null;
+
         nrOfDbCalls = PointToStringConverter.getNrOfConvertToDatastoreCalls();
         nrOfAttrCalls = PointToStringConverter.getNrOfConvertToAttributeCalls();
         pm = getPM();
         tx = pm.currentTransaction();
         tx.begin();
         rect = (IPCRect)pm.getObjectById(oid);
+        // should trigger convertToAttribute
+        rect.getLowerRight();
+        rect.getUpperLeft();
         // Update IPCRect instance, this should call convertToDatastore
         rect.setUpperLeft(new Point(UL_X + 1, UL_Y + 1));
         rect.setLowerRight(new Point(LR_X + 1, LR_Y + 1));
@@ -224,8 +232,8 @@ public class AttributeConverterTest extends JDO_Test {
 
         // convertToDatastore should be called twice
         assertEquals(2, PointToStringConverter.getNrOfConvertToDatastoreCalls() - nrOfDbCalls);
-        // convertToAttribute should not be called
-        assertEquals(0, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
+        // convertToAttribute should be called twice
+        assertEquals(2, PointToStringConverter.getNrOfConvertToAttributeCalls() - nrOfAttrCalls);
     }
 
     /**
@@ -334,7 +342,7 @@ public class AttributeConverterTest extends JDO_Test {
 
     /**
      * Helper method to create IPCRect instances.
-     * @param pcrectClass class instance of the IPCRect implementation class to be craeted
+     * @param pcrectClass class instance of the IPCRect implementation class to be created
      * @param nrOfObjects number of IPCRect instances to be created
      * @return ObjectId of the first IPCRect instance
      */

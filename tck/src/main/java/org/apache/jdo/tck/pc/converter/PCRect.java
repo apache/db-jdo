@@ -14,40 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.jdo.tck.pc.mylib;
+package org.apache.jdo.tck.pc.converter;
 
-import org.apache.jdo.tck.util.PointToStringConverter;
+import org.apache.jdo.tck.pc.mylib.Point;
 
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Convert;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface.
  * Its fields of type Point are converted to strings in the datastore.
  */
-@PersistenceCapable(table="PCRectStringAnnotated")
-public class PCRectStringAnnotated implements IPCRect {
+public class PCRect implements IPCRect {
     private static long counter = new Date().getTime();
 
     private static synchronized long newId() {
         return counter++;
     }
 
-    @Column(name="ID")
     private long id = newId();
-
-    @Column(name="UPPER_LEFT")
-    @Convert(value = PointToStringConverter.class)
     private Point upperLeft;
-
-    @Column(name="LOWER_RIGHT")
-    @Convert(value = PointToStringConverter.class)
     private Point lowerRight;
 
-    public PCRectStringAnnotated() {}
+    public PCRect() {}
+
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Point getUpperLeft() {
         return upperLeft;
@@ -62,12 +57,6 @@ public class PCRectStringAnnotated implements IPCRect {
     public void setLowerRight(Point lowerRight) {
         this.lowerRight = lowerRight;
     }
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String toString() {
         String rc = null;
@@ -77,7 +66,7 @@ public class PCRectStringAnnotated implements IPCRect {
                     + " ul: " + getUpperLeft().name()
                     + " lr: " + getLowerRight().name();
         } catch (NullPointerException ex) {
-            rc = "NPE getting PCRectString's values";
+            rc = "NPE getting PCRect's values";
         }
         return rc;
     }

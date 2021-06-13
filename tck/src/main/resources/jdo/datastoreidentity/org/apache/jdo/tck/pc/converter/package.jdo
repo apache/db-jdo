@@ -19,31 +19,28 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
 	http://java.sun.com/xml/ns/jdo/jdo_3_0.xsd">
-  <package name="org.apache.jdo.tck.pc.mylib">
-
-    <class name="PCPoint" identity-type="datastore"/>
-
-    <class name="VersionedPCPoint" identity-type="datastore">
-      <version strategy="version-number" column="VERSION"/>
-    </class>
-
-    <class name="PCPoint2" identity-type="datastore">
-      <field name="clearCalled" persistence-modifier="none"/>
-      <field name="loadCalled" persistence-modifier="none"/>
-      <field name="storeCalled" persistence-modifier="none"/>
-      <field name="deleteCalled" persistence-modifier="none"/>
-    </class>
+  <package name="org.apache.jdo.tck.pc.converter">
 
     <class name="PCRect" identity-type="datastore">
-      <fetch-group name="PCRect.upperLeft">
-        <field name="upperLeft"/>
-      </fetch-group>
-      <fetch-group name="PCRect.lowerRight">
-        <field name="lowerRight"/>
-      </fetch-group>
+      <field name="upperLeft" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
+      <field name="lowerRight" converter="org.apache.jdo.tck.util.PointToStringConverter"/>
     </class>
 
-    <class name="PrimitiveTypes" identity-type="datastore"/>
+    <class name="PCRectAnnotated" identity-type="datastore"/>
+
+    <class name="PCPoint" identity-type="datastore">
+      <field name="x" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
+      <field name="y" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
+    </class>
+
+    <class name="PCPointAnnotated" identity-type="datastore"/>
+
+    <class name="PCPointProp" identity-type="datastore">
+      <property name="x" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
+      <property name="y" converter="org.apache.jdo.tck.util.IntegerToStringConverter"/>
+    </class>
+
+    <class name="PCPointPropAnnotated" identity-type="datastore"/>
 
   </package>
 </jdo>

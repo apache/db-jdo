@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.jdo.tck.pc.mylib;
+package org.apache.jdo.tck.pc.converter;
 
 /**
- * Interface for common methods of implementation classes PCRectString and PCRectStringAnnotated.
+ * Interface for common methods of implementation classes PCPoint, PCPointAnnotated,
+ * PCPointProp and PCPointPropAnnotated.
  */
-public interface IPCRect {
-    Point getUpperLeft();
-    void setUpperLeft(Point upperLeft);
+public interface IPCPoint {
+    int getX();
+    void setX(int x);
 
-    Point getLowerRight();
-    void setLowerRight(Point lowerRight);
+    Integer getY();
+    void setY(Integer y);
 }
