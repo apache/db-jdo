@@ -14,15 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.jdo.tck.pc.mylib;
-
+package org.apache.jdo.tck.pc.converter;
 import java.util.Date;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface.
- * Its fields of type Point are converted to strings in the datastore.
+ * Its fields of type int and Integer are converted to strings in the datastore.
  */
-public class PCRectString implements IPCRect {
+public class PCPointProp implements IPCPoint {
     private static long counter = new Date().getTime();
 
     private static synchronized long newId() {
@@ -30,24 +29,11 @@ public class PCRectString implements IPCRect {
     }
 
     private long id = newId();
-    private Point upperLeft;
-    private Point lowerRight;
+    private int x;
+    private Integer y;
 
-    public PCRectString() {}
+    public PCPointProp() {}
 
-    public Point getUpperLeft() {
-        return upperLeft;
-    }
-    public void setUpperLeft(Point upperLeft) {
-        this.upperLeft = upperLeft;
-    }
-
-    public Point getLowerRight() {
-        return lowerRight;
-    }
-    public void setLowerRight(Point lowerRight) {
-        this.lowerRight = lowerRight;
-    }
     public long getId() {
         return id;
     }
@@ -55,16 +41,21 @@ public class PCRectString implements IPCRect {
         this.id = id;
     }
 
+    public int getX() {
+        return x;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public Integer getY() {
+        return y;
+    }
+    public void setY(Integer y) {
+        this.y = y;
+    }
+
     public String toString() {
-        String rc = null;
-        Object obj = this;
-        try {
-            rc = obj.getClass().getName()
-                    + " ul: " + getUpperLeft().name()
-                    + " lr: " + getLowerRight().name();
-        } catch (NullPointerException ex) {
-            rc = "NPE getting PCRectString's values";
-        }
-        return rc;
+        return this.getClass().getName() + "(x: " + x + " / y: " + y + ")";
     }
 }
