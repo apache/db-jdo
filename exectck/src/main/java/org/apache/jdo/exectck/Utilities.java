@@ -62,9 +62,9 @@ public class Utilities {
         return cp.toString();
     }
 
-    public static String removeSubstrs(String master, String exclude) {
+    public static String removeSubstrs(String original, String exclude) {
         String[] deleteThese = exclude.split(" ");
-        String filtered = master;
+        String filtered = original;
         for (String sub: deleteThese) {
             filtered = filtered.replaceAll(sub.trim(), "");
         }
