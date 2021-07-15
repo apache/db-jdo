@@ -1,12 +1,12 @@
 # Builds JDO and runs the TCK
 #
-# This workflow is run for every submitted pull request and every push on master
+# This workflow is run for every submitted pull request and every push on the main branch
 name: Build JDO & Run TCK
 
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
 
 jobs:

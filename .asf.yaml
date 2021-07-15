@@ -22,8 +22,8 @@ github:
     rebase:  true
 
   protected_branches:
-    # rules for the 'master' branch
-    master:
+    # rules for the 'main' branch
+    main:
       # disallows pushing merge commits to the branch
       required_linear_history: true
 
