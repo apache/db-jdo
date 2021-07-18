@@ -241,13 +241,13 @@ Site updates
 
 1.  Update the Apache JDO web site to point the downloads page to the
     release.
-    1.  In [dbo-jdo-site/src/main/asciidoc](https://github.com/apache/db-jdo-site/tree/master/src/main/asciidoc)
+    1.  In [dbo-jdo-site/src/main/asciidoc](https://github.com/apache/db-jdo-site/tree/main/src/main/asciidoc)
         create release-*N.n*.adoc.
 
     2.  Edit db-jdo-site/src/main/asciidoc/downloads.adoc to link to the 
         new release page .adoc document.
 
-    3.  Build and test as described in the [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/master/README.md) 
+    3.  Build and test as described in the [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/main/README.md) 
         document. 
         
 2.  Change the link to RunRules on the
@@ -260,14 +260,14 @@ Site updates
     documentation page of the JCP web site. If the release has not been
     approved by the JCP, link to the .pdf in the JDO source repository.
 5.  Add the javadoc for the release to the site.
-    1.  Make a new directory under [db-jdo-site/src/main/resources/javadoc](https://github.com/apache/db-jdo-site/tree/master/src/main/resources/javadoc) 
+    1.  Make a new directory under [db-jdo-site/src/main/resources/javadoc](https://github.com/apache/db-jdo-site/tree/main/src/main/resources/javadoc) 
         for the release, e.g. api2.1. We'll call it *docsdir*.
     2.  Download the javadoc artifact from the repository and copy it to
         *docsdir*.
     3.  Unzip it in *docsdir*.
     4.  Do `git add` on *docsdir*.
     5.  Edit  db-jdo-site/src/main/asciidoc/javadoc.adoc and add links to the new javadoc.
-6.  Build and test. Follow the instructions in [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/master/README.md)
+6.  Build and test. Follow the instructions in [db-jdo-site/README.md](https://github.com/apache/db-jdo-site/blob/main/README.md)
     to push the site changes to the Apache web site.
 
 <span id="postrelease"></span>
