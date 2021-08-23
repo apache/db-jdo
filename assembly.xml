@@ -63,23 +63,6 @@
       </moduleSet>
       <moduleSet>
 	<includes>
-	  <include>org.apache.jdo:copy-jdori-jars</include>
-	</includes>
-	<sources>
-	  <includeModuleDirectory>false</includeModuleDirectory>
-	  <fileSets>
-	    <fileSet>
-	      <outputDirectory>copyjdorijars</outputDirectory>
-	      <includes>
-		<include>src/**</include>
-		<include>pom.xml</include>
-	      </includes>
-	    </fileSet>
-	  </fileSets>
-	</sources>
-      </moduleSet>
-      <moduleSet>
-	<includes>
 	  <include>org.apache.jdo:jdo-tck</include>
 	</includes>
 	<sources>
