@@ -15,7 +15,6 @@
 specification/*
 specification/OOO/*
 specification/imports/*
-.svnignore
 assembly.xml
 datanucleus.txt
 query.ser
