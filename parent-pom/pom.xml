@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
-        <version>23</version>
+        <version>24</version>
         <relativePath></relativePath>
     </parent>
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2-SNAPSHOT</version>
+    <version>3.2-RC1</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
@@ -164,17 +164,17 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2-RC1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
