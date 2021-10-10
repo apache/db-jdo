@@ -105,41 +105,45 @@ Detailed process steps
     main branch.
 
         git checkout -b 3.2
-        git push -u 3.2
+        git push -u origin 3.2
 
 3.  In the release branch, update version numbers in the following files in
     preparation for the next release:
     
-    tck/README.md  
-    Update version number and date
+    * `tck/README.md`     
+      Update version number and date
 
     Use the maven version plug-in to update version numbers in the
     pom.xml files at the root and subproject levels.
 
+        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
+        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
+        mvn versions::commit -DprocessAllModules
+
 4.  If needed, update the dependency to the RI, DataNucleus, in the tck
-    pom.xml.
+    `pom.xml`.
 
 5.  If needed, apply patches from the main branch to the release branch.
 
 6.  Update version numbers where necessary in projects to be released,
     if these changes haven't been made previously. Check the following
     files:
-    README.md  
-    File names and version references in the Overview section (for a
+     * `README.md`   
+       File names and version references in the Overview section (for a
     major release only.)
 
-    tck/RunRules.md  
-    Update version number
+     * `tck/RunRules.md`  
+       Update version number
 
-7.  Check the scm settings in the pom.xml files in the new branch and
+7.  Check the scm settings in the `pom.xml` files in the new branch and
     make sure they refer to the new branch (instead of the main branch).
 
 8.  Follow the instructions at [Publishing Maven
     Artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html)
     to set up your development environment.
 
-9.  Copy the JNDI implementation jars (providerutil.jar and
-    fscontext.jar) to the branch lib/ext directory. This is needed to
+9.  Copy the JNDI implementation jars (`providerutil.jar` and
+    `fscontext.jar`) to the branch `lib/ext` directory. This is needed to
     test the tck before distributing it.
     **Do not check these in into the repository**
 

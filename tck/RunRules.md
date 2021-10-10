@@ -27,7 +27,7 @@ Running the JDO 3.2 Technology Compatibility Kit
 -   [First Level TCK Appeals Process](#firstlevel)
 -   [Prerequisites](#prerequisites)
 
-21-December-2018
+10-October-2021
 
 <span id="overview"></span>
 
