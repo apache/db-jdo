@@ -41,6 +41,10 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         <url>http://www.apache.org</url>
     </organization>
 
+    <properties>
+        <project.build.outputTimestamp>2021-10-10T21:21:00Z</project.build.outputTimestamp>
+    </properties>
+
     <developers>
         <developer>
             <id>madams</id>
