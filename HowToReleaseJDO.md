@@ -166,8 +166,8 @@ Detailed process steps
     Download Apache Rat from https://creadur.apache.org/rat/download_rat.cgi 
     and extract the Jar-File, e.g. apache-rat-0.13.jar 
 
-        java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
-        java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-RC1-sources.jar
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-RC1-sources.jar
 
 13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
