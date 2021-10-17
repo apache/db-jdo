@@ -139,7 +139,7 @@ Detailed process steps
     make sure they refer to the new branch (instead of the main branch).
 
 8.  Follow the instructions at [Publishing Maven
-    Artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html)
+    Artifacts](https://infra.apache.org/publishing-maven-artifacts.html)
     to set up your development environment.
 
 9.  Copy the JNDI implementation jars (`providerutil.jar` and
@@ -157,28 +157,29 @@ Detailed process steps
   
     This creates the .jar and .pom files in the target directory of each
     subproject. Be prepared to enter your key passcode when prompted, 
-    to create the <artifact>.asc GPG signatures.
+    to create the `<artifact>.asc` GPG signatures.
     This happens multiple times.
 
 12. Run [Apache Rat](http://creadur.apache.org/rat) on the release 
     artifacts to verify the results of the build.
 
     Download Apache Rat from https://creadur.apache.org/rat/download_rat.cgi 
-    and extract the Jar-File, e.g. apache-rat-0.13.jar 
+    and extract the Jar-File, e.g. `apache-rat-0.13.jar` 
 
         java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-RC1-sources.jar
         java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-RC1-sources.jar
 
 13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
-    modifications when preparing a release. The files in lib/ext and
-    lib/jdori count as local modifications. Be prepared to enter your
+    modifications when preparing a release. The files in `lib/ext and`
+    `lib/jdori` count as local modifications. Be prepared to enter your
     key passcode when prompted. This happens multiple times.
 
-    The release plugin will will ask the following questions and expects an input:
-    What is the release version for "JDO Root POM"?
-    What is the SCM release tag or label for "JDO Root POM"?
-    What is the new development version for "JDO Root POM"?
+    The release plugin will ask the following questions and expects an input:
+    * What is the release version for "JDO Root POM"?
+    * What is the SCM release tag or label for "JDO Root POM"?
+    * What is the new development version for "JDO Root POM"?
+    
     The proposed defaults should be fine.
 
         mkdir tmp
