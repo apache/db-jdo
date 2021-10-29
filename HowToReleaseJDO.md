@@ -120,10 +120,6 @@ Detailed process steps
         mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
         mvn versions:commit -DprocessAllModules
 
-        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
-        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
-        mvn versions::commit -DprocessAllModules
-
 4.  If needed, update the dependency to the RI, DataNucleus, in the tck
     `pom.xml`.
 
