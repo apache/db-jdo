@@ -113,14 +113,7 @@ Detailed process steps
     * `tck/README.md`     
       Update version number and date
 
-    Use the maven version plug-in to update version numbers in the
-    `pom.xml` files at the root and subproject levels.
-
-        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
-        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
-        mvn versions:commit -DprocessAllModules
-
-4.  If needed, update the dependency to the RI, DataNucleus, in the tck
+4 . If needed, update the dependency to the RI, DataNucleus, in the tck
     `pom.xml`.
 
 5.  If needed, apply patches from the main branch to the release branch.
@@ -197,8 +190,13 @@ Detailed process steps
     Windows command window for this step and the following one.
 
         mvn release:clean -Papache-release
-        mvn release:prepare -Papache-release
+        mvn release:prepare -Papache-release -DreleaseVersion=3.2-RC1 -DdevelopmentVersion=3.2-RC2-SNAPSHOT -Dtag=v3.2-rc1 -DautoVersionSubmodules=true
+    
+    or, in case of the final release
 
+        mvn release:clean -Papache-release
+        mvn release:prepare -Papache-release -DreleaseVersion=3.2 -DdevelopmentVersion=3.2.1-SNAPSHOT -Dtag=v3.2 -DautoVersionSubmodules=true
+    
 15. Stage the release for a vote.
 
         mvn release:perform -Papache-release
@@ -238,6 +236,13 @@ Detailed process steps
     @apache.org email address. **Be aware that by sending to this
     address you will be bombarded with piles of emails from people with
     "I'm out of the Office" as if you really cared.**
+
+22. Finally, use the maven version plug-in on the `main` branch to update version numbers in the
+    `pom.xml` files at the root and subproject levels.
+
+        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
+        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
+        mvn versions:commit -DprocessAllModules
 
 <span id="site"></span>
 
