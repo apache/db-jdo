@@ -33,7 +33,6 @@ Q*MeetingRoom.java
 Q*Person.java
 Q*Project.java
 Q*DiscriminatorClassName*.java
-QPC*Annotated.java
 QPrimitiveTypes.java
 QVersionedPCPoint.java
 QNamedQueriesSample.java
