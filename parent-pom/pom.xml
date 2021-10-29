@@ -40,7 +40,7 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org</url>
     </organization>
-
+    
     <developers>
         <developer>
             <id>madams</id>
