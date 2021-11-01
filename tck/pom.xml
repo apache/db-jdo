@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>3.2-RC1</version>
+        <version>3.2-SNAPSHOT</version>
         <relativePath>../parent-pom</relativePath>
     </parent>
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo-tck</artifactId>
-    <version>3.2-RC1</version>
+    <version>3.2-SNAPSHOT</version>
     <name>JDO Technology Compatibility Kit (TCK)</name>
     <description>The Java Data Objects (JDO) API is a standard interface-based Java model abstraction of persistence, developed as Java Specification Request JSR 243 under the auspices of the Java Community Process.
 
