@@ -94,33 +94,33 @@ address the bugs found and proceeds from the beginning.
 Detailed process steps
 ----------------------
 
-1.  Verify licensing of the sources by running 
+1. Verify licensing of the sources by running 
     [Apache Rat](http://creadur.apache.org/rat) to
     check the sources for any licence issues.
 
         mvn clean apache-rat:check
 
-2.  If necessary, create a branch from the main branch and increment the 
+2. If necessary, create a branch from the main branch and increment the 
     spec or major number. For example, create a "3.1" branch from the 
     main branch.
 
         git checkout -b 3.2
         git push -u origin 3.2
 
-3.  In the release branch, update version numbers in the following files in
+3. In the release branch, update version numbers in the following files in
     preparation for the next release:
     
     * `tck/README.md`     
       Update version number and date
 
-4 . If needed, update the dependency to the RI, DataNucleus, in the tck
+4. If needed, update the dependency to the RI, DataNucleus, in the tck
     `pom.xml`.
 
-5.  If needed, apply patches from the main branch to the release branch.
+5. If needed, apply patches from the main branch to the release branch.
 
-6.  Update version numbers where necessary in projects to be released,
-    if these changes haven't been made previously. Check the following
-    files:
+6. Update version numbers where necessary in projects to be released,
+    if these changes haven't been made previously. Updating `pom.xml` 
+    files is not necessary at this point. Check the following files:
      * `README.md`   
        File names and version references in the Overview section (for a
     major release only.)
@@ -128,23 +128,23 @@ Detailed process steps
      * `tck/RunRules.md`  
        Update version number
 
-7.  Check the scm settings in the `pom.xml` files in the new branch and
+8. Check the scm settings in the `pom.xml` files in the new branch and
     make sure they refer to the new branch (instead of the main branch).
 
-8.  Follow the instructions at [Publishing Maven
+9. Follow the instructions at [Publishing Maven
     Artifacts](https://infra.apache.org/publishing-maven-artifacts.html)
     to set up your development environment.
 
-9.  Copy the JNDI implementation jars (`providerutil.jar` and
-    `fscontext.jar`) to the branch `lib/ext` directory. This is needed to
-    test the tck before distributing it.
-    **Do not check these in into the repository**
+10. Copy the JNDI implementation jars (`providerutil.jar` and
+     `fscontext.jar`) to the branch `lib/ext` directory. This is needed to
+     test the tck before distributing it.
+     **Do not check these in into the repository**
 
-10. Make sure the TCK passes
+11. Make sure the TCK passes
 
         mvn clean install
 
-11. Build the distribution with the following command:
+12. Build the distribution with the following command:
 
         mvn clean install -Papache-release -Djdo.tck.doRunTCK=false -Djdo.tck.doInstallSchema=false -Djdo.tck.doEnhance=false
   
@@ -153,7 +153,7 @@ Detailed process steps
     to create the `<artifact>.asc` GPG signatures.
     This happens multiple times.
 
-12. Run [Apache Rat](http://creadur.apache.org/rat) on the release 
+13. Run [Apache Rat](http://creadur.apache.org/rat) on the release 
     artifacts to verify the results of the build.
 
     Download Apache Rat from https://creadur.apache.org/rat/download_rat.cgi 
@@ -162,7 +162,7 @@ Detailed process steps
         java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-RC1-sources.jar
         java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-RC1-sources.jar
 
-13. Do a dry run prepare and deployment of a *snapshot release*. You might
+14. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
     modifications when preparing a release. The files in `lib/ext and`
     `lib/jdori` count as local modifications. Be prepared to enter your
@@ -185,7 +185,7 @@ Detailed process steps
     Check the artifacts at [the Maven release
     repository](https://repository.apache.org/content/repositories/snapshots/)
 
-14. Prepare and release the artifacts. There are interoperability issues
+15. Prepare and release the artifacts. There are interoperability issues
     with the maven release plugin and cygwin, so if on Windows, use a
     Windows command window for this step and the following one.
 
@@ -197,33 +197,33 @@ Detailed process steps
         mvn release:clean -Papache-release
         mvn release:prepare -Papache-release -DreleaseVersion=3.2 -DdevelopmentVersion=3.2.1-SNAPSHOT -Dtag=v3.2 -DautoVersionSubmodules=true
     
-15. Stage the release for a vote.
+16. Stage the release for a vote.
 
         mvn release:perform -Papache-release
 
-16. Go to [the Nexus
+17. Go to [the Nexus
     repository](https://repository.apache.org/index.html), login with
     your apache account, click on Staging Repositories in the menu on
     the left and close the staged repository. Press the refresh button
     to see the new status 'closed'. See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
     for details.
 
-17. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
+18. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
     to test the release to the
     jdo-dev@db.apache.org alias. If problems are found, fix and repeat.
 
-18. Send an announcement to vote on the release to the
+19. Send an announcement to vote on the release to the
     jdo-dev@db.apache.org alias. The message subject line contains
     \[VOTE\]. Forward the \[VOTE\] message to private@db.apache.org.
     Iterate until you get a successful vote. Mail the results of the
     vote to jdo-dev@db.apache.org, cc: general@db.apache.org, and
     include \[VOTE\] \[RESULTS\] in the subject line.
 
-19. After testing and voting is complete, follow the instructions at
+20. After testing and voting is complete, follow the instructions at
     [Releasing a Staging Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ReleasingaStagingRepository)
     to release the artifacts.
 
-20. Update the distribution repository at https://apache.org/dist/db/jdo/
+21. Update the distribution repository at https://apache.org/dist/db/jdo/
     by adding the new release directory.
     Check out the SVN repository at
     https://dist.apache.org/repos/dist/release/db/jdo and add the new
@@ -231,13 +231,13 @@ Detailed process steps
     the key used to sign the artifacts is included in the KEYS file.
     Committing the new directory will trigger an update to the mirrors.
 
-21. After updating the site (below), announce the release to the Apache
+22. After updating the site (below), announce the release to the Apache
     community via email to announce@apache.org This must be sent from an
     @apache.org email address. **Be aware that by sending to this
     address you will be bombarded with piles of emails from people with
     "I'm out of the Office" as if you really cared.**
 
-22. Finally, use the maven version plug-in on the `main` branch to update version numbers in the
+23. Finally, use the maven version plug-in on the `main` branch to update version numbers in the
     `pom.xml` files at the root and subproject levels.
 
         mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
