@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>3.2-SNAPSHOT</version>
+        <version>3.2-RC1</version>
         <relativePath>../parent-pom</relativePath>
     </parent>
 
     <groupId>javax.jdo</groupId>
     <artifactId>jdo-api</artifactId>
-    <version>3.2-SNAPSHOT</version>
+    <version>3.2-RC1</version>
     <name>JDO API</name>
 
     <dependencies>
@@ -58,7 +58,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
-                    <execution></execution>
+                    <execution />
                 </executions>
             </plugin>
             <plugin>
@@ -141,4 +141,8 @@
             </plugin>
         </plugins>
     </reporting>
+
+  <scm>
+    <tag>v3.2-rc1</tag>
+  </scm>
 </project>
