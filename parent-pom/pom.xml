@@ -153,7 +153,9 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         </mailingList>
     </mailingLists>
 
-    <scm>
+    <scm child.scm.connection.inherit.append.path="false"
+         child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
         <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
