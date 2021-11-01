@@ -22,13 +22,13 @@
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>3.2-RC1</version>
+        <version>3.2-RC2-SNAPSHOT</version>
         <relativePath>parent-pom</relativePath>
     </parent>
 
     <groupId>org.apache</groupId>
     <artifactId>jdo</artifactId>
-    <version>3.2-RC1</version>
+    <version>3.2-RC2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JDO Root POM</name>
@@ -118,9 +118,4 @@
             </build>
         </profile>
     </profiles>
-
-
-  <scm>
-    <tag>v3.2-rc1</tag>
-  </scm>
 </project>
