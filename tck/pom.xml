@@ -98,7 +98,7 @@
             <plugin>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2-RC1</version>
+                <version>3.2-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>
