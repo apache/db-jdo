@@ -114,6 +114,9 @@
                                 <configuration>
                                     <file>${file}.jar</file>
                                     <keyname>${gpg.keyname}</keyname>
+                                    <gpgArguments>
+                                        <arg>--digest-algo=SHA512</arg>
+                                    </gpgArguments>
                                 </configuration>
                             </execution>
                         </executions>
