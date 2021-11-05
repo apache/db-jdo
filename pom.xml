@@ -40,6 +40,10 @@
         <module>tck</module>
     </modules>
 
+    <properties>
+        <sourceReleaseAssemblyDescriptor>source-release-zip-tar</sourceReleaseAssemblyDescriptor>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
