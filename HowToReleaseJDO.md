@@ -26,7 +26,7 @@ A distribution (release) of JDO is built from a branch of git. A release
 consists of a compressed source (e.g. zip file) and associated checksums and 
 signatures. It is copied into a release directory, from which it is staged 
 and tested.
-Once approved by a formal vote of the DB PMC, it is copied to the officiel 
+Once approved by a formal vote of the DB PMC, it is copied to the official 
 Apache distribution infrastructure and propagated to mirror servers around the world.
 
 The process is performed by a release manager with cooperation from
@@ -162,6 +162,7 @@ Detailed process steps
         java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
         java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
 
+
 13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
     modifications when preparing a release. The files in `lib/ext and`
@@ -186,7 +187,15 @@ Detailed process steps
     Check the artifacts at [the Maven release
     repository](https://repository.apache.org/content/repositories/snapshots/)
 
-14. Prepare and release the artifacts. There are interoperability issues
+14. Update the distribution repository at https://apache.org/dist/db/jdo/
+    by adding the new release directory.
+    Check out the SVN repository at
+    https://dist.apache.org/repos/dist/release/db/jdo and add the new
+    release with all artifacts under the new directory. Make sure that
+    the key used to sign the artifacts is included in the KEYS file.
+    Committing the new directory will trigger an update to the mirrors.
+
+15. Prepare and release the artifacts. There are interoperability issues
     with the maven release plugin and cygwin, so if on Windows, use a
     Windows command window for this step and the following one.
 
@@ -198,39 +207,31 @@ Detailed process steps
         mvn release:clean -Papache-release
         mvn release:prepare -Papache-release -DreleaseVersion=3.2 -DdevelopmentVersion=3.2.1-SNAPSHOT -Dtag=v3.2 -DautoVersionSubmodules=true
     
-15. Stage the release for a vote.
+16. Stage the release for a vote.
 
         mvn release:perform -Papache-release
 
-16. Go to [the Nexus
+17. Go to [the Nexus
     repository](https://repository.apache.org/index.html), login with
     your apache account, click on Staging Repositories in the menu on
     the left and close the staged repository. Press the refresh button
     to see the new status 'closed'. See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
     for details.
 
-17. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
+18. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
     to test the release to the
     jdo-dev@db.apache.org alias. If problems are found, fix and repeat.
 
-18. Send an announcement to vote on the release to the
+19. Send an announcement to vote on the release to the
     jdo-dev@db.apache.org alias. The message subject line contains
     \[VOTE\]. Forward the \[VOTE\] message to private@db.apache.org.
     Iterate until you get a successful vote. Mail the results of the
     vote to jdo-dev@db.apache.org, cc: general@db.apache.org, and
     include \[VOTE\] \[RESULTS\] in the subject line.
 
-19. After testing and voting is complete, follow the instructions at
+20. After testing and voting is complete, follow the instructions at
     [Releasing a Staging Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ReleasingaStagingRepository)
     to release the artifacts.
-
-20. Update the distribution repository at https://apache.org/dist/db/jdo/
-    by adding the new release directory.
-    Check out the SVN repository at
-    https://dist.apache.org/repos/dist/release/db/jdo and add the new
-    release with all artifacts under the new directory. Make sure that
-    the key used to sign the artifacts is included in the KEYS file.
-    Committing the new directory will trigger an update to the mirrors.
 
 21. After updating the site (below), announce the release to the Apache
     community via email to announce@apache.org This must be sent from an
