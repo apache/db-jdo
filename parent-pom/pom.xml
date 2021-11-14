@@ -27,7 +27,7 @@
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2-RC3</version>
+    <version>3.2-RC4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
@@ -154,13 +154,6 @@
         </mailingList>
     </mailingLists>
 
-    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
-        <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
-        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
-      <tag>v3.2-rc3</tag>
-  </scm>
-
     <properties>
         <project.build.outputTimestamp>1</project.build.outputTimestamp>
     </properties>
@@ -170,17 +163,17 @@
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2-RC3</version>
+                <version>3.2-RC4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2-RC3</version>
+                <version>3.2-RC4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2-RC3</version>
+                <version>3.2-RC4-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
