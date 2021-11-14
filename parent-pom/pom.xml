@@ -15,14 +15,15 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
         <version>24</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>org.apache.jdo</groupId>
@@ -31,9 +32,10 @@
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
-    <description>The Java Data Objects (JDO) API is a standard interface-based 
-Java model abstraction of persistence, developed as Java Specification 
-Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
+    <description>The Java Data Objects (JDO) API is a standard interface-based
+        Java model abstraction of persistence, developed as Java Specification
+        Requests (JSR 12 and 243) under the auspices of the Java Community Process.
+    </description>
     <url>http://db.apache.org/jdo</url>
     <inceptionYear>2005</inceptionYear>
     <organization>
@@ -152,6 +154,13 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
             <archive>http://mail-archives.apache.org/mod_mbox/db-jdo-commits/</archive>
         </mailingList>
     </mailingLists>
+
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
+    </scm>
 
     <properties>
         <project.build.outputTimestamp>1</project.build.outputTimestamp>
