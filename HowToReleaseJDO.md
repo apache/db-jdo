@@ -128,8 +128,15 @@ Detailed process steps
      * `tck/RunRules.md`  
        Update version number
 
-7. Check the scm settings in the `pom.xml` files in the new branch and
-    make sure they refer to the new branch (instead of the main branch).
+7. Check the `<scm>` settings in the parent `pom.xml` file in the new branch. Note that and
+   that the maven release plugin tends to remove the section. It should look as follows:
+   
+       <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
+           <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+           <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+           <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
+       </scm>
 
 8. Follow the instructions at [Publishing Maven
     Artifacts](https://infra.apache.org/publishing-maven-artifacts.html)
