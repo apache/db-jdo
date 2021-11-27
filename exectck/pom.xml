@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.apache.jdo</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>3.2-RC5-SNAPSHOT</version>
+        <version>3.2-RC5</version>
         <relativePath>../parent-pom</relativePath>
     </parent>
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>jdo-exectck</artifactId>
-    <version>3.2-RC5-SNAPSHOT</version>
+    <version>3.2-RC5</version>
     <packaging>maven-plugin</packaging>
     <name>JDO TCK Execution Maven Mojo</name>
 
@@ -99,4 +99,8 @@
             </activation>
         </profile>
     </profiles>
+
+  <scm>
+    <tag>v3.2-rc5</tag>
+  </scm>
 </project>
