@@ -214,11 +214,14 @@ Detailed process steps
 
         mvn release:perform -Papache-release
 
-17. Go to [the Nexus
-    repository](https://repository.apache.org/index.html), login with
-    your apache account, click on Staging Repositories in the menu on
-    the left and close the staged repository. Press the refresh button
-    to see the new status 'closed'. See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
+17. Go to [the Nexus repository](https://repository.apache.org/index.html) and login with your apache account, then:
+    1. Click on "Staging Repositories" and select the current release.
+    2. Select the "Content" tab in the lower part of the UI and use right-click to remove unnecessary files,
+    such as `.sha512.md5` and `.sha512.sha1`.
+    3. "Close" the staged repository. 
+    4. Press the "Refresh" button to see the new status 'closed'. 
+    
+    See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
     for details.
 
 18. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 

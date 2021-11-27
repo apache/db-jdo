@@ -193,12 +193,12 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-core</artifactId>
-                    <version>5.2.7</version>
+                    <version>5.2.9</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-rdbms</artifactId>
-                    <version>5.2.7</version>
+                    <version>5.2.9</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
@@ -213,7 +213,7 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jpa</artifactId>
-                    <version>5.2.6</version>
+                    <version>5.2.8</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.logging.log4j</groupId>
