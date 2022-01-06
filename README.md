@@ -56,7 +56,7 @@ Note that Apache JDO uses the Apache Commons Logging package for logging.
 
 You must have Maven (version 2+) to build the projects from source and to execute the TCK. You can download Maven from [here](http://maven.apache.org/download.html)
 
-Note that Maven uses the `user.home` system property for the location of the Maven local repostitory: `${user.home}/.m2/repository`.
+Note that Maven uses the `user.home` system property for the location of the Maven local repository: `${user.home}/.m2/repository`.
 Under Windows this system property is `C:\Documents and Settings\{user}` no matter what the `HOME` variable is set to. As a workaround you may set the system property by adding `-Duser.home=%HOME%` to the environment variable `MAVEN_OPTS`.
 
 ### JNDI Implementation (fscontext.jar and providerutil.jar)
