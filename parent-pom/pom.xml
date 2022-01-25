@@ -27,7 +27,7 @@
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2-RC6-SNAPSHOT</version>
+    <version>3.2</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
@@ -162,7 +162,7 @@
         <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
-        <tag>v3.2-rc5</tag>
+        <tag>v3.2</tag>
     </scm>
 
     <dependencyManagement>
@@ -170,17 +170,17 @@
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2-RC6-SNAPSHOT</version>
+                <version>3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2-RC6-SNAPSHOT</version>
+                <version>3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2-RC6-SNAPSHOT</version>
+                <version>3.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
