@@ -243,7 +243,9 @@ Detailed process steps
     by adding the new release directory.
     Check out the SVN repository at
     https://dist.apache.org/repos/dist/release/db/jdo and add the new
-    release with all artifacts under the new directory. Make sure that
+    release under the new directory. Since this is a source release,
+    the only artifacts published are the ...source-release.zip and ...source-release.zip
+    and the corresponding .asc and .sha512. Make sure that
     the key used to sign the artifacts is included in the KEYS file.
     Committing the new directory will trigger an update to the mirrors.
 
