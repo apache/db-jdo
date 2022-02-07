@@ -21,26 +21,27 @@
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
-        <version>23</version>
-        <relativePath></relativePath>
+        <version>24</version>
+        <relativePath />
     </parent>
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2-SNAPSHOT</version>
+    <version>3.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
-    <description>The Java Data Objects (JDO) API is a standard interface-based 
-Java model abstraction of persistence, developed as Java Specification 
-Requests (JSR 12 and 243) under the auspices of the Java Community Process.</description>
+    <description>The Java Data Objects (JDO) API is a standard interface-based
+        Java model abstraction of persistence, developed as Java Specification
+        Requests (JSR 12 and 243) under the auspices of the Java Community Process.
+    </description>
     <url>http://db.apache.org/jdo</url>
     <inceptionYear>2005</inceptionYear>
     <organization>
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org</url>
     </organization>
-    
+
     <developers>
         <developer>
             <id>madams</id>
@@ -153,28 +154,26 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
         </mailingList>
     </mailingLists>
 
-    <scm>
-        <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
-        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
-    </scm>
+    <properties>
+        <project.build.outputTimestamp>1</project.build.outputTimestamp>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.2.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
@@ -254,10 +253,6 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
                     <version>3.1.2</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0-M1</version>
-                </plugin>
-                <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
@@ -281,9 +276,8 @@ Requests (JSR 12 and 243) under the auspices of the Java Community Process.</des
                     <version>5.1.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.3.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

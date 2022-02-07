@@ -26,7 +26,7 @@ A distribution (release) of JDO is built from a branch of git. A release
 consists of a compressed source (e.g. zip file) and associated checksums and 
 signatures. It is copied into a release directory, from which it is staged 
 and tested.
-Once approved by a formal vote of the DB PMC, it is copied to the officiel 
+Once approved by a formal vote of the DB PMC, it is copied to the official 
 Apache distribution infrastructure and propagated to mirror servers around the world.
 
 The process is performed by a release manager with cooperation from
@@ -94,40 +94,33 @@ address the bugs found and proceeds from the beginning.
 Detailed process steps
 ----------------------
 
-1.  Verify licensing of the sources by running 
+1. Verify licensing of the sources by running 
     [Apache Rat](http://creadur.apache.org/rat) to
     check the sources for any licence issues.
 
         mvn clean apache-rat:check
 
-2.  If necessary, create a branch from the main branch and increment the 
+2. If necessary, create a branch from the main branch and increment the 
     spec or major number. For example, create a "3.1" branch from the 
     main branch.
 
         git checkout -b 3.2
         git push -u origin 3.2
 
-3.  In the release branch, update version numbers in the following files in
+3. In the release branch, update version numbers in the following files in
     preparation for the next release:
     
     * `tck/README.md`     
       Update version number and date
 
-    Use the maven version plug-in to update version numbers in the
-    `pom.xml` files at the root and subproject levels.
-
-        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
-        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
-        mvn versions:commit -DprocessAllModules
-
-4.  If needed, update the dependency to the RI, DataNucleus, in the tck
+4. If needed, update the dependency to the RI, DataNucleus, in the tck
     `pom.xml`.
 
-5.  If needed, apply patches from the main branch to the release branch.
+5. If needed, apply patches from the main branch to the release branch.
 
-6.  Update version numbers where necessary in projects to be released,
-    if these changes haven't been made previously. Check the following
-    files:
+6. Update version numbers where necessary in projects to be released,
+    if these changes haven't been made previously. Updating `pom.xml` 
+    files is not necessary at this point. Check the following files:
      * `README.md`   
        File names and version references in the Overview section (for a
     major release only.)
@@ -135,14 +128,21 @@ Detailed process steps
      * `tck/RunRules.md`  
        Update version number
 
-7.  Check the scm settings in the `pom.xml` files in the new branch and
-    make sure they refer to the new branch (instead of the main branch).
+7. Check the `<scm>` settings in the parent `pom.xml` file in the new branch. Note that and
+   that the maven release plugin tends to remove the section. It should look as follows:
+   
+       <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
+           <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+           <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+           <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
+       </scm>
 
-8.  Follow the instructions at [Publishing Maven
+8. Follow the instructions at [Publishing Maven
     Artifacts](https://infra.apache.org/publishing-maven-artifacts.html)
     to set up your development environment.
 
-9.  Copy the JNDI implementation jars (`providerutil.jar` and
+9. Copy the JNDI implementation jars (`providerutil.jar` and
     `fscontext.jar`) to the branch `lib/ext` directory. This is needed to
     test the tck before distributing it.
     **Do not check these in into the repository**
@@ -166,14 +166,15 @@ Detailed process steps
     Download Apache Rat from https://creadur.apache.org/rat/download_rat.cgi 
     and extract the Jar-File, e.g. `apache-rat-0.13.jar` 
 
-        java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-RC1-sources.jar
-        java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-RC1-sources.jar
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
+        java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
+
 
 13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
     modifications when preparing a release. The files in `lib/ext and`
     `lib/jdori` count as local modifications. Be prepared to enter your
-    key passcode when prompted. This happens multiple times.
+    key passcode when prompted. This may happen multiple times.
 
     The release plugin will ask the following questions and expects an input:
     * What is the release version for "JDO Root POM"?
@@ -186,58 +187,80 @@ Detailed process steps
         cd tmp 
         git clone https://github.com/apache/db-jdo.git
         cd db-jdo
+        git checkout 3.2
         mvn release:prepare -Papache-release -DautoVersionSubmodules=true -DdryRun=true -Dresume=false
         mvn deploy -Papache-release 
   
     Check the artifacts at [the Maven release
     repository](https://repository.apache.org/content/repositories/snapshots/)
 
-14. Prepare and release the artifacts. There are interoperability issues
+14. Check out the SVN repository at
+    https://dist.apache.org/repos/dist/release/db/jdo and make sure that
+    the key used to sign the artifacts is included in the KEYS file.
+
+15. Prepare and release the artifacts. There are interoperability issues
     with the maven release plugin and cygwin, so if on Windows, use a
     Windows command window for this step and the following one.
 
         mvn release:clean -Papache-release
-        mvn release:prepare -Papache-release
+        mvn release:prepare -Papache-release -DreleaseVersion=3.2-RC1 -DdevelopmentVersion=3.2-RC2-SNAPSHOT -Dtag=v3.2-rc1 -DautoVersionSubmodules=true
+    
+    or, in case of the final release
 
-15. Stage the release for a vote.
+        mvn release:clean -Papache-release
+        mvn release:prepare -Papache-release -DreleaseVersion=3.2 -DdevelopmentVersion=3.2.1-SNAPSHOT -Dtag=v3.2 -DautoVersionSubmodules=true
+    
+16. Stage the release for a vote.
 
         mvn release:perform -Papache-release
 
-16. Go to [the Nexus
-    repository](https://repository.apache.org/index.html), login with
-    your apache account, click on Staging Repositories in the menu on
-    the left and close the staged repository. Press the refresh button
-    to see the new status 'closed'. See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
+17. Go to [the Nexus repository](https://repository.apache.org/index.html) and login with your apache account, then:
+    1. Click on "Staging Repositories" and select the current release.
+    2. Select the "Content" tab in the lower part of the UI and use right-click to remove unnecessary files,
+    such as `.sha512.md5` and `.sha512.sha1`.
+    3. "Close" the staged repository. 
+    4. Press the "Refresh" button to see the new status 'closed'. 
+    
+    See [Closing an Open Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ClosinganOpenRepository)
     for details.
 
-17. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
+18. Send an announcement (e.g. Subject: Please test staged JDO 3.2 release) 
     to test the release to the
     jdo-dev@db.apache.org alias. If problems are found, fix and repeat.
 
-18. Send an announcement to vote on the release to the
+19. Send an announcement to vote on the release to the
     jdo-dev@db.apache.org alias. The message subject line contains
     \[VOTE\]. Forward the \[VOTE\] message to private@db.apache.org.
     Iterate until you get a successful vote. Mail the results of the
     vote to jdo-dev@db.apache.org, cc: general@db.apache.org, and
     include \[VOTE\] \[RESULTS\] in the subject line.
 
-19. After testing and voting is complete, follow the instructions at
+20. After testing and voting is complete, follow the instructions at
     [Releasing a Staging Repository](https://help.sonatype.com/repomanager2/staging-releases/managing-staging-repositories#ManagingStagingRepositories-ReleasingaStagingRepository)
     to release the artifacts.
 
-20. Update the distribution repository at https://apache.org/dist/db/jdo/
+21. Update the distribution repository at https://apache.org/dist/db/jdo/
     by adding the new release directory.
     Check out the SVN repository at
     https://dist.apache.org/repos/dist/release/db/jdo and add the new
-    release with all artifacts under the new directory. Make sure that
+    release under the new directory. Since this is a source release,
+    the only artifacts published are the ...source-release.zip and ...source-release.tar.gz
+    and the corresponding .asc and .sha512. Make sure that
     the key used to sign the artifacts is included in the KEYS file.
     Committing the new directory will trigger an update to the mirrors.
 
-21. After updating the site (below), announce the release to the Apache
+22. After updating the site (below), announce the release to the Apache
     community via email to announce@apache.org This must be sent from an
     @apache.org email address. **Be aware that by sending to this
     address you will be bombarded with piles of emails from people with
     "I'm out of the Office" as if you really cared.**
+
+23. Finally, use the maven version plug-in on the `main` branch to update version numbers in the
+    `pom.xml` files at the root and subproject levels.
+
+        mvn versions:set -DnewVersion=3.2-RC1 -DprocessAllModules
+        mvn versions:update-parent -DallowSnapshots=true -DnewVersion=3.2-RC1 -DprocessAllModulesss
+        mvn versions:commit -DprocessAllModules
 
 <span id="site"></span>
 
