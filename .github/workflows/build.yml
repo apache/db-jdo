@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         # test against Java 8 and 11
-        java: [ 8, 11 ]
+        java: [ 8, 11, 17 ]
     defaults:
       run:
         shell: bash
