@@ -1,5 +1,0 @@
-@Target({ElementType.FIELD, ElementType.METHOD}) 
-@Retention(RetentionPolicy.RUNTIME)
-public @interface NotPersistent
-{
-}
