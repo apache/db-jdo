@@ -35,7 +35,7 @@ Raise any issues with the content of this project over in [Apache JIRA](https://
 
 ## Checking Out The Project
 
-You can check out the source for this project using the `Clone or Download` option above. For example you can type either of the following
+You can check out the source for this project using the `Clone or Download` option above. For example you can type either of the following:
 
     git clone git@github.com:apache/db-jdo.git
 
