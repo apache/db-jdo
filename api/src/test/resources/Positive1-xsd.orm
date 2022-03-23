@@ -21,8 +21,8 @@ has application identity.
 -->
 <orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm 
-                         http://xmlns.jcp.org/xml/ns/jdo/orm_2_2.xsd">
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+     http://xmlns.jcp.org/xml/ns/jdo/orm_3_2.xsd">
     <package name="org.apache.jdo.tck.pc.company">
 
         <class name="Address"/>

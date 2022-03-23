@@ -16,8 +16,8 @@
   limitations under the License.
 -->
 <!DOCTYPE jdoquery  PUBLIC 
-    "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.2//EN"
-        "http://xmlns.jcp.org/dtd/jdoquery_2_2.dtd">
+    "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 3.2//EN"
+        "http://xmlns.jcp.org/dtd/jdoquery_3_2.dtd">
 <jdoquery>
     <package name="simple">
         <class name="TestClass">
