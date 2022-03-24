@@ -15,10 +15,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<jdo xmlns="http://java.sun.com/xml/ns/jdo/jdo"
+<jdo xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://java.sun.com/xml/ns/jdo/jdo 
-	http://java.sun.com/xml/ns/jdo/jdo_3_0.xsd">
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo
+     http://xmlns.jcp.org/xml/ns/jdo/jdo_3_2.xsd">
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfCharacter" identity-type="datastore">
 <field name="Character1"  embedded="true">

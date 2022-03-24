@@ -36,10 +36,16 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.jdo.JDOFatalException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import javax.xml.parsers.*;
 import org.w3c.dom.Document;
-import org.xml.sax.*;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Tests schema files.
@@ -76,15 +82,15 @@ public class XMLTestUtil {
 
     /** jdo xsd file */
     protected static final File JDO_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdo_2_2.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdo_3_2.xsd");
 
     /** orm xsd file */
     protected static final File ORM_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/orm_2_2.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/orm_3_2.xsd");
 
     /** jdoquery xsd file */
     protected static final File JDOQUERY_XSD_FILE = 
-        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_2_2.xsd");
+        new File(BASEDIR + "/target/classes/javax/jdo/jdoquery_3_2.xsd");
 
     /** Entity resolver */
     protected static final EntityResolver resolver = new JDOEntityResolver();
@@ -107,7 +113,7 @@ public class XMLTestUtil {
     protected static final String NL = System.getProperty("line.separator");
 
     /** XSD builder for jdo namespace. */
-    private final DocumentBuilder jdoXsdBuilder = 
+    private final DocumentBuilder jdoXsdBuilder =
         createBuilder(JDO_XSD_NS + " " + JDO_XSD_FILE.toURI().toString());
     
     /** XSD builder for orm namespace. */
@@ -357,29 +363,29 @@ public class XMLTestUtil {
         implements EntityResolver {
 
         private static final String RECOGNIZED_JDO_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.2//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 3.2//EN";
         private static final String RECOGNIZED_JDO_SYSTEM_ID = 
-            "file:/javax/jdo/jdo_2_2.dtd";
+            "file:/javax/jdo/jdo_3_2.dtd";
         private static final String RECOGNIZED_JDO_SYSTEM_ID2 = 
-            "http://xmlns.jcp.org/dtd/jdo_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/jdo_3_2.dtd";
         private static final String RECOGNIZED_ORM_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 2.2//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 3.2//EN";
         private static final String RECOGNIZED_ORM_SYSTEM_ID = 
-            "file:/javax/jdo/orm_2_2.dtd";
+            "file:/javax/jdo/orm_3_2.dtd";
         private static final String RECOGNIZED_ORM_SYSTEM_ID2 = 
-            "http://xmlns.jcp.org/dtd/orm_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/orm_3_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_PUBLIC_ID = 
-            "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 2.2//EN";
+            "-//Sun Microsystems, Inc.//DTD Java Data Objects Query Metadata 3.2//EN";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID = 
-            "file:/javax/jdo/jdoquery_2_2.dtd";
+            "file:/javax/jdo/jdoquery_3_2.dtd";
         private static final String RECOGNIZED_JDOQUERY_SYSTEM_ID2 = 
-            "http://xmlns.jcp.org/dtd/jdoquery_2_2.dtd";
+            "http://xmlns.jcp.org/dtd/jdoquery_3_2.dtd";
         private static final String JDO_DTD_FILENAME = 
-            "javax/jdo/jdo_2_2.dtd";
+            "javax/jdo/jdo_3_2.dtd";
         private static final String ORM_DTD_FILENAME = 
-            "javax/jdo/orm_2_2.dtd";
+            "javax/jdo/orm_3_2.dtd";
         private static final String JDOQUERY_DTD_FILENAME = 
-            "javax/jdo/jdoquery_2_2.dtd";
+            "javax/jdo/jdoquery_3_2.dtd";
 
         static Map<String,String> publicIds = new HashMap<String,String>();
         static Map<String,String> systemIds = new HashMap<String,String>();

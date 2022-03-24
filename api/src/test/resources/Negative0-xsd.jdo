@@ -18,6 +18,6 @@
 <!-- Negative test: empty jdo element --> 
 <jdo xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo 
-                         http://xmlns.jcp.org/xml/ns/jdo/jdo_2_2.xsd">
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo
+     http://xmlns.jcp.org/xml/ns/jdo/jdo_3_2.xsd">
 </jdo>
