@@ -16,9 +16,9 @@
   limitations under the License.
 -->
 <jdoquery xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoquery"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdoquery
-     http://xmlns.jcp.org/xml/ns/jdo/jdoquery_3_2.xsd">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdoquery
+          https://db.apache.org/jdo/xmlns/jdoquery_3_2.xsd">
     <package name="simple">
         <class name="TestClass">
             <query

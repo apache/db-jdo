@@ -21,7 +21,7 @@ This file contains the schema information when an implementation has application
 <orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
-     http://xmlns.jcp.org/xml/ns/jdo/orm_3_2.xsd">
+     https://db.apache.org/jdo/xmlns/orm_3_2.xsd">
     <package name="org.apache.jdo.tck.pc.building" schema="datastoreidentity12">
 
         <sequence name="id_seq" datastore-sequence="DATASTORE_SEQ"/>

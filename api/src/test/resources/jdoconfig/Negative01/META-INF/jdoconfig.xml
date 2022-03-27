@@ -15,9 +15,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<jdoconfig
-        xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jdoconfig xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="https://db.apache.org/jdo/xmlns/jdoconfig_3_2.xsd">
 
     <!-- No PMFs defined -->
 </jdoconfig>
