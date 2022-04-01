@@ -30,7 +30,13 @@
             </field>
             <field name="TreeSetOfObject1" table="TREESET_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="TreeSetOfObject2" table="TREESET_OF_OBJECT2">
@@ -45,7 +51,13 @@
             </field>
             <field name="TreeSetOfSimpleClass4" table="TREESET_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="TreeSetOfSimpleClass5" table="TREESET_OF_SIMPLE_CLASS5">
@@ -60,7 +72,13 @@
             </field>
             <field name="TreeSetOfSimpleInterface7" table="TREESET_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="TreeSetOfSimpleInterface8" table="TREESET_OF_SIMPLE_INTERFACE8">
