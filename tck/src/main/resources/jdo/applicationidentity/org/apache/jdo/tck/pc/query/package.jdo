@@ -16,9 +16,9 @@
   limitations under the License.
 -->
 
-<jdo xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdo"
+<jdo xmlns="https://db.apache.org/jdo/xmlns/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo
+     xsi:schemaLocation="https://db.apache.org/jdo/xmlns/jdo
      https://db.apache.org/jdo/xmlns/jdo_3_2.xsd">
   <package name="org.apache.jdo.tck.pc.query">
 

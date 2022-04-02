@@ -18,9 +18,9 @@
 <!--
 Metadata for datastore identity
 -->
-<orm xmlns="http://xmlns.jcp.org/xml/ns/jdo/orm"
+<orm xmlns="https://db.apache.org/jdo/xmlns/orm"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/orm
+     xsi:schemaLocation="https://db.apache.org/jdo/xmlns/orm
      https://db.apache.org/jdo/xmlns/orm_3_2.xsd">
     <package name="org.apache.jdo.tck.pc.fieldtypes">
         <class name="ArrayCollections" table="ARRAY_COLLECTIONS">
