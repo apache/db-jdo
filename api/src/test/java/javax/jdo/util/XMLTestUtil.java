@@ -70,15 +70,15 @@ public class XMLTestUtil {
     
     /** jdo namespace */
     protected static final String JDO_XSD_NS = 
-        "http://xmlns.jcp.org/xml/ns/jdo/jdo";
+        "https://db.apache.org/jdo/xmlns/jdo";
 
     /** orm namespace */
     protected static final String ORM_XSD_NS = 
-        "http://xmlns.jcp.org/xml/ns/jdo/orm";
+        "https://db.apache.org/jdo/xmlns/orm";
 
     /** jdoquery namespace */
     protected static final String JDOQUERY_XSD_NS = 
-        "http://xmlns.jcp.org/xml/ns/jdo/jdoquery";
+        "https://db.apache.org/jdo/xmlns/jdoquery";
 
     /** jdo xsd file */
     protected static final File JDO_XSD_FILE = 

@@ -15,8 +15,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE orm PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Mapping Metadata 3.2//EN"
-  "http://xmlns.jcp.org/dtd/orm_2_2.dtd">
+<!DOCTYPE orm PUBLIC
+    "-//The Apache Software Foundation//DTD Java Data Objects Mapping Metadata 3.2//EN"
+    "https://db.apache.org/jdo/xmlns/orm_3_2.dtd">
 <!--
 This file contains the schema information when an implementation
 has application identity.

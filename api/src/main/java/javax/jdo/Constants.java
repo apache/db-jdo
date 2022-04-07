@@ -66,39 +66,39 @@ public interface Constants {
 
     /**
      * The standard JDO configuration schema namespace.
-     * Constant value is <code>http://xmlns.jcp.org/xml/ns/jdo/jdoconfig</code>.
+     * Constant value is <code>https://db.apache.org/jdo/xmlns/jdoconfig</code>.
      *
      * @since 2.1
      */
     static String JDOCONFIG_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdoconfig";
+        = "https://db.apache.org/jdo/xmlns/jdoconfig";
 
     /**
      * The standard JDO metadata schema namespace.
-     * Constant value is <code>http://xmlns.jcp.org/xml/ns/jdo/jdo</code>.
+     * Constant value is <code>https://db.apache.org/jdo/xmlns/jdo</code>.
      *
      * @since 2.1
      */
     static String JDO_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdo";
+        = "https://db.apache.org/jdo/xmlns/jdo";
 
     /**
      * The standard JDO object-repository mapping schema namespace.
-     * Constant value is <code>http://xmlns.jcp.org/xml/ns/jdo/orm</code>.
+     * Constant value is <code>https://db.apache.org/jdo/xmlns/orm</code>.
      *
      * @since 2.1
      */
     static String ORM_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/orm";
+        = "https://db.apache.org/jdo/xmlns/orm";
 
     /**
      * The standard JDO query schema namespace.
-     * Constant value is <code>http://xmlns.jcp.org/xml/ns/jdo/jdoquery</code>.
+     * Constant value is <code>https://db.apache.org/jdo/xmlns/jdoquery</code>.
      *
      * @since 2.1
      */
     static String JDOQUERY_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdoquery";
+        = "https://db.apache.org/jdo/xmlns/jdoquery";
 
     /**
      * The name of the persistence manager factory element in the JDO

@@ -17,10 +17,10 @@
 -->
 
 <xs:schema
-  targetNamespace="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
-  xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
+  targetNamespace="https://db.apache.org/jdo/xmlns/jdoconfig"
+  xmlns="https://db.apache.org/jdo/xmlns/jdoconfig"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:jdoconfig="http://xmlns.jcp.org/xml/ns/jdo/jdoconfig"
+  xmlns:jdoconfig="https://db.apache.org/jdo/xmlns/jdoconfig"
   elementFormDefault="qualified"
   attributeFormDefault="unqualified"
   version="3.2">

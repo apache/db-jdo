@@ -25,13 +25,13 @@ public interface javax.jdo.Constants {
     static String JDOCONFIG_RESOURCE_NAME
         = "META-INF/jdoconfig.xml";
     static String JDOCONFIG_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdoconfig";
+        = "https://db.apache.org/jdo/xmlns/jdoconfig";
     static String JDO_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdo";
+        = "https://db.apache.org/jdo/xmlns/jdo";
     static String ORM_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/orm";
+        = "https://db.apache.org/jdo/xmlns/orm";
     static String JDOQUERY_XSD_NS
-        = "http://xmlns.jcp.org/xml/ns/jdo/jdoquery";
+        = "https://db.apache.org/jdo/xmlns/jdoquery";
     static String ELEMENT_PERSISTENCE_MANAGER_FACTORY
         = "persistence-manager-factory";
     static String PMF_ATTRIBUTE_CLASS

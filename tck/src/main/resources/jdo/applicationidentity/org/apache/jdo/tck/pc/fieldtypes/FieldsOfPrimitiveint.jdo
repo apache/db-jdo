@@ -15,10 +15,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<jdo xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdo"
+<jdo xmlns="https://db.apache.org/jdo/xmlns/jdo"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo
-     http://xmlns.jcp.org/xml/ns/jdo/jdo_3_2.xsd">
+     xsi:schemaLocation="https://db.apache.org/jdo/xmlns/jdo
+     https://db.apache.org/jdo/xmlns/jdo_3_2.xsd">
 <package name="org.apache.jdo.tck.pc.fieldtypes">
 <class name="FieldsOfPrimitiveint" identity-type="application"
     objectid-class="org.apache.jdo.tck.pc.fieldtypes.FieldsOfPrimitiveint$Oid">
