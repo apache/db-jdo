@@ -30,7 +30,13 @@
             </field>
             <field name="ArrayListOfObject1" table="ARRAYLIST_OF_OBJECT1">
                 <join column="IDENTIFIER"/>
-                <element column="OBJREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfObject2" table="ARRAYLIST_OF_OBJECT2">
@@ -45,7 +51,13 @@
             </field>
             <field name="ArrayListOfSimpleClass4" table="ARRAYLIST_OF_SIMPLE_CLASS4">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPCLSREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfSimpleClass5" table="ARRAYLIST_OF_SIMPLE_CLASS5">
@@ -60,7 +72,13 @@
             </field>
             <field name="ArrayListOfSimpleInterface7" table="ARRAYLIST_OF_SIMPLE_INTERFACE7">
                 <join column="IDENTIFIER"/>
-                <element column="SIMPINTREF"/>
+                <element>
+                  <embedded>
+                    <field name="id" column="ID"/>
+                    <field name="intField" column="INTVAL"/>
+                    <field name="stringField" column="STRINGVAL"/>
+                  </embedded>
+                </element>
                 <order column="INDEX"/>
             </field>
             <field name="ArrayListOfSimpleInterface8" table="ARRAYLIST_OF_SIMPLE_INTERFACE8">
