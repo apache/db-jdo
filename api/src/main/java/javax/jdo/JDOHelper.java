@@ -1526,8 +1526,8 @@ public class JDOHelper implements Constants {
                 msg.msg(
                     "EXC_SAXParseException",
                     url.toExternalForm(),
-                    new Integer(e.getLineNumber()),
-                    new Integer(e.getColumnNumber())),
+                    e.getLineNumber(),
+                    e.getColumnNumber()),
                 e);
         }
         catch (SAXException e) {

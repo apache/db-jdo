@@ -128,7 +128,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @since 2.0
      */
     protected Object createKeyAsObject() {
-        return new Integer(key);
+        return Integer.valueOf(key);
     }
 
     /** Write this object. Write the superclass first.

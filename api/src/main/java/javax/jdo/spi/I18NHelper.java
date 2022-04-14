@@ -354,7 +354,7 @@ public class I18NHelper {
     final private static String getMessage(ResourceBundle messages, 
             String messageKey, int arg) 
     {
-        Object []args = {new Integer(arg)};
+        Object []args = {Integer.valueOf(arg)};
         return getMessage(messages, messageKey, args);
     }
     
