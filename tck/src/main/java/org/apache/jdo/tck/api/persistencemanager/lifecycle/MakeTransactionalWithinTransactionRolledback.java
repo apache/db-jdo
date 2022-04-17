@@ -104,11 +104,11 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
             if (debug)
                 logger.debug(" ** in runTestMakeTransactionalWithinTransactionRolledback()");
 
-            p1.setY(new Integer(100));
+            p1.setY(Integer.valueOf(100));
             tx.begin();
-            p1.setY(new Integer(200));
+            p1.setY(Integer.valueOf(200));
             pm.makeTransactional(p1);
-            p1.setY(new Integer(300));
+            p1.setY(Integer.valueOf(300));
             tx.rollback();
 
             if (p1.getY().intValue() != 200) {
@@ -131,14 +131,14 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
         try {
             if (debug)
                 logger.debug(" ** in runTestMakeTransactionalWithinTransactionRolledbackAll1()");
-            p2.setY(new Integer(100));
-            p3.setY(new Integer(100));
+            p2.setY(Integer.valueOf(100));
+            p3.setY(Integer.valueOf(100));
             tx.begin();
-            p2.setY(new Integer(200));
-            p3.setY(new Integer(200));
+            p2.setY(Integer.valueOf(200));
+            p3.setY(Integer.valueOf(200));
             pm.makeTransactionalAll(col1);
-            p2.setY(new Integer(300));
-            p3.setY(new Integer(300));
+            p2.setY(Integer.valueOf(300));
+            p3.setY(Integer.valueOf(300));
             tx.rollback();
             
             if (p2.getY().intValue() != 200) {
@@ -167,15 +167,15 @@ public class MakeTransactionalWithinTransactionRolledback extends PersistenceMan
             if (debug)
                 logger.debug(" ** in runTestMakeTransactionalWithinTransactionRolledbackAll2()");
 
-            p4.setY(new Integer(100));
-            p5.setY(new Integer(100));
+            p4.setY(Integer.valueOf(100));
+            p5.setY(Integer.valueOf(100));
             tx.begin();
-            p4.setY(new Integer(200));
-            p5.setY(new Integer(200));
+            p4.setY(Integer.valueOf(200));
+            p5.setY(Integer.valueOf(200));
             Object[] objArray = col2.toArray();
             pm.makeTransactionalAll(objArray);
-            p4.setY(new Integer(300));
-            p5.setY(new Integer(300));
+            p4.setY(Integer.valueOf(300));
+            p5.setY(Integer.valueOf(300));
             tx.rollback();
             
             if (p4.getY().intValue() != 200) {

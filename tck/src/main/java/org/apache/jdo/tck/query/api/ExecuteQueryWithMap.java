@@ -82,7 +82,7 @@ public class ExecuteQueryWithMap extends QueryTest {
             query.setFilter("x == param");
         
             Map actualParams = new java.util.HashMap();
-            actualParams.put("param", new Integer(2) );
+            actualParams.put("param", Integer.valueOf(2) );
             Object results = query.executeWithMap(actualParams);
 
             // check query result
@@ -116,8 +116,8 @@ public class ExecuteQueryWithMap extends QueryTest {
             query.setFilter("x == param1 && y == param2");
         
             Map actualParams = new java.util.HashMap();
-            actualParams.put("param1", new Integer(2) );
-            actualParams.put("param2", new Integer(2) );
+            actualParams.put("param1", Integer.valueOf(2) );
+            actualParams.put("param2", Integer.valueOf(2) );
             Object results = query.executeWithMap(actualParams);
 
             // check query result

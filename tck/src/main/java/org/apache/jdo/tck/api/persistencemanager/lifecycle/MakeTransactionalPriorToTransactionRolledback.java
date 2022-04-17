@@ -105,17 +105,17 @@ public class MakeTransactionalPriorToTransactionRolledback extends PersistenceMa
         try {
             if (debug)
                 logger.debug(" ** in runTestMakeTransactionalPriorToTransactionRolledback()");
-            p1.setY(new Integer(50));
+            p1.setY(Integer.valueOf(50));
 
             tx.begin();
-            p1.setY(new Integer(100));
+            p1.setY(Integer.valueOf(100));
             pm.makeTransactional(p1);
-            p1.setY(new Integer(200));
+            p1.setY(Integer.valueOf(200));
             tx.rollback();
 
-            p1.setY(new Integer(300));
+            p1.setY(Integer.valueOf(300));
             tx.begin();
-            p1.setY(new Integer(400));
+            p1.setY(Integer.valueOf(400));
             tx.rollback();
 
             if (p1.getY().intValue() != 300) {
@@ -136,21 +136,21 @@ public class MakeTransactionalPriorToTransactionRolledback extends PersistenceMa
         try {
             if (debug)
                 logger.debug(" ** in runTestMakeTransactionalPriorToTransactionRolledbackAll1()");
-            p2.setY(new Integer(50));
-            p3.setY(new Integer(50));
+            p2.setY(Integer.valueOf(50));
+            p3.setY(Integer.valueOf(50));
             tx.begin();
-            p2.setY(new Integer(100));
-            p3.setY(new Integer(100));
+            p2.setY(Integer.valueOf(100));
+            p3.setY(Integer.valueOf(100));
             pm.makeTransactionalAll(col1);
-            p2.setY(new Integer(200));
-            p3.setY(new Integer(200));
+            p2.setY(Integer.valueOf(200));
+            p3.setY(Integer.valueOf(200));
             tx.rollback();
 
-            p2.setY(new Integer(300));
-            p3.setY(new Integer(300));
+            p2.setY(Integer.valueOf(300));
+            p3.setY(Integer.valueOf(300));
             tx.begin();
-            p2.setY(new Integer(400));
-            p3.setY(new Integer(400));
+            p2.setY(Integer.valueOf(400));
+            p3.setY(Integer.valueOf(400));
             tx.rollback();
 
             if (p2.getY().intValue() != 300) {
@@ -180,23 +180,23 @@ public class MakeTransactionalPriorToTransactionRolledback extends PersistenceMa
         try {
             if (debug)
                 logger.debug (" ** in runTestMakeTransactionalPriorToTransactionRolledbackAll2()");
-            p2.setY(new Integer(50));
-            p3.setY(new Integer(50));
+            p2.setY(Integer.valueOf(50));
+            p3.setY(Integer.valueOf(50));
             tx.begin();
-            p2.setY(new Integer(100));
-            p3.setY(new Integer(100));
+            p2.setY(Integer.valueOf(100));
+            p3.setY(Integer.valueOf(100));
 
             Object[] objArray = col2.toArray();
             pm.makeTransactionalAll(objArray);
-            p2.setY(new Integer(200));
-            p3.setY(new Integer(200));
+            p2.setY(Integer.valueOf(200));
+            p3.setY(Integer.valueOf(200));
             tx.rollback();
 
-            p2.setY(new Integer(300));
-            p3.setY(new Integer(300));
+            p2.setY(Integer.valueOf(300));
+            p3.setY(Integer.valueOf(300));
             tx.begin();
-            p2.setY(new Integer(400));
-            p3.setY(new Integer(400));
+            p2.setY(Integer.valueOf(400));
+            p3.setY(Integer.valueOf(400));
             tx.rollback();
 
             if (p2.getY().intValue() != 300) {

@@ -105,7 +105,7 @@ public class InstanceLifecycleListenerDirty
         pm.makePersistent(pc);
         pm.currentTransaction().commit();
         pm.currentTransaction().begin();
-        pc.setY(new Integer(666));
+        pc.setY(Integer.valueOf(666));
         pm.currentTransaction().commit();
 
         // now check the callback and listener were called

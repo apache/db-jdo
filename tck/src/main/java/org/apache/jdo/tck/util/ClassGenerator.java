@@ -311,7 +311,7 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     else if (fieldType.equals("Short"))
       return " = Short.valueOf((short)5)";
     else if (fieldType.equals("Integer"))
-      return " = new Integer((int)5)";
+      return " = Integer.valueOf((int)5)";
     else if (fieldType.equals("Long"))
       return " = Long.valueOf((long)5)";
     else if (fieldType.equals("Float"))

@@ -188,11 +188,11 @@ public class TestUtil {
                                   - 565656.43434)));
                       break;
                   case(11):
-                      vec.add(0, new Integer(Integer.MIN_VALUE));
-                      vec.add(1, new Integer(Integer.MAX_VALUE));
-                      vec.add(2, new Integer(Integer.MAX_VALUE - 20000));
-                      vec.add(3, new Integer(Integer.MAX_VALUE - 343434343));
-                      vec.add(4, new Integer(Integer.MAX_VALUE - 565656));
+                      vec.add(0, Integer.valueOf(Integer.MIN_VALUE));
+                      vec.add(1, Integer.valueOf(Integer.MAX_VALUE));
+                      vec.add(2, Integer.valueOf(Integer.MAX_VALUE - 20000));
+                      vec.add(3, Integer.valueOf(Integer.MAX_VALUE - 343434343));
+                      vec.add(4, Integer.valueOf(Integer.MAX_VALUE - 565656));
                       break;
                   case(12):
                       vec.add(0, Long.valueOf(Long.MIN_VALUE));
@@ -301,11 +301,11 @@ public class TestUtil {
                     vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 9756.634)));
                     break;
                   case(11):
-                    vec.add(0, new Integer(Integer.MAX_VALUE - 54454));
-                    vec.add(1, new Integer(Integer.MIN_VALUE));
-                    vec.add(2, new Integer(Integer.MAX_VALUE));
-                    vec.add(3, new Integer(Integer.MAX_VALUE - 767234));
-                    vec.add(4, new Integer(Integer.MAX_VALUE - 23673446));
+                    vec.add(0, Integer.valueOf(Integer.MAX_VALUE - 54454));
+                    vec.add(1, Integer.valueOf(Integer.MIN_VALUE));
+                    vec.add(2, Integer.valueOf(Integer.MAX_VALUE));
+                    vec.add(3, Integer.valueOf(Integer.MAX_VALUE - 767234));
+                    vec.add(4, Integer.valueOf(Integer.MAX_VALUE - 23673446));
                     break;
                   case(12):
                     vec.add(0, Long.valueOf(Long.MAX_VALUE - 545345454));

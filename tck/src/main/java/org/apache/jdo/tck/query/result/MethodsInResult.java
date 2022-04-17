@@ -60,7 +60,7 @@ public class MethodsInResult extends QueryTest {
 
     public void testCollectionSizeInResult() {
         // collection.size()
-        Object expected = Arrays.asList(new Integer(3), new Integer(2));
+        Object expected = Arrays.asList(Integer.valueOf(3), Integer.valueOf(2));
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -92,7 +92,7 @@ public class MethodsInResult extends QueryTest {
     public void testMapSizeInResult() {
         // map.size()
         Object expected = Arrays.asList(
-                new Integer(2), new Integer(2), new Integer(2), new Integer(2), new Integer(2));
+                Integer.valueOf(2), Integer.valueOf(2), Integer.valueOf(2), Integer.valueOf(2), Integer.valueOf(2));
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -123,7 +123,7 @@ public class MethodsInResult extends QueryTest {
 
     public void testMaxAndSizeInResult() {
         // MAX(collection.size())
-        Object expected = new Integer(3);
+        Object expected = Integer.valueOf(3);
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -216,7 +216,7 @@ public class MethodsInResult extends QueryTest {
     public void testIndexOfInResult() {
         // String.indexOf()
         Object expected =
-                Arrays.asList(new Integer(4), new Integer(4), new Integer(4), new Integer(4), new Integer(4));
+                Arrays.asList(Integer.valueOf(4), Integer.valueOf(4), Integer.valueOf(4), Integer.valueOf(4), Integer.valueOf(4));
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

@@ -80,9 +80,9 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testIntegerConstructor() {
-        ObjectIdentity c1 = new ObjectIdentity(Object.class, new Integer(1));
-        ObjectIdentity c2 = new ObjectIdentity(Object.class, new Integer(1));
-        ObjectIdentity c3 = new ObjectIdentity(Object.class, new Integer(2));
+        ObjectIdentity c1 = new ObjectIdentity(Object.class, Integer.valueOf(1));
+        ObjectIdentity c2 = new ObjectIdentity(Object.class, Integer.valueOf(1));
+        ObjectIdentity c3 = new ObjectIdentity(Object.class, Integer.valueOf(2));
         assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
     }

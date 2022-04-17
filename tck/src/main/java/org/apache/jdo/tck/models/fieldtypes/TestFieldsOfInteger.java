@@ -75,8 +75,8 @@ public class TestFieldsOfInteger extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Integer firstValue = new Integer(Integer.MIN_VALUE);
-        Integer secondValue = new Integer(Integer.MAX_VALUE);
+        Integer firstValue = Integer.valueOf(Integer.MIN_VALUE);
+        Integer secondValue = Integer.valueOf(Integer.MAX_VALUE);
         tx.begin();
         FieldsOfInteger pi = new FieldsOfInteger();
         pi.identifier = 1;

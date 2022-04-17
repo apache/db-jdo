@@ -104,7 +104,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testGetPM() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.getPersistenceManager(p) != null) {
             fail("JDOHelper.getPersistenceManager should return null pm for non-persistent instance");
         }
@@ -119,7 +119,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testGetObjectId() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.getObjectId(p) != null) {
             fail("JDOHelper.getObjectId should return null ObjectId for non-persistent instance");
         }
@@ -129,7 +129,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testGetTransactionObjectId() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.getObjectId(p) != null) {
             fail("JDOHelper.getTransactionalObjectId should return null ObjectId for non-persistent instance");
         }
@@ -139,7 +139,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testIsDirty() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.isDirty(p)) {
             fail("JDOHelper.isDirty should return false for non-persistent instance");
         }
@@ -149,7 +149,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testIsTransactional() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.isTransactional(p)) {
             fail("JDOHelper.isTransactional should return false for non-persistent instance");
         }
@@ -159,7 +159,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testIsPersistent() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.isPersistent(p)) {
             fail("JDOHelper.isPersistent should return false for non-persistent instance");
         }
@@ -169,7 +169,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testIsNew() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.isNew(p)) {
             fail("JDOHelper.isNew should return false for non-persistent instance");
         }
@@ -180,7 +180,7 @@ public class JDOHelperTest extends AbstractTest {
 
     /** */
     public void testIsDeleted() {
-        PCPoint p = new PCPoint(1, new Integer(1));
+        PCPoint p = new PCPoint(1, Integer.valueOf(1));
         if (JDOHelper.isDeleted(p)) {
             fail("JDOHelper.isDeleted should return false for non-persistent instance");
         }

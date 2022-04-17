@@ -70,7 +70,7 @@ public class ThisIsReservedWordForElementOfCollection extends QueryTest {
 
         // use this to access a field 
         runParameterPrimitiveTypesQuery(
-            "this.intNotNull == intNotNull", "int intNotNull", new Integer(9), 
+            "this.intNotNull == intNotNull", "int intNotNull", Integer.valueOf(9), 
             pm, instance9, ASSERTION_FAILED);
     }
 

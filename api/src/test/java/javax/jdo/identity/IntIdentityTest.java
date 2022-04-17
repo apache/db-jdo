@@ -52,8 +52,8 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
 
     public void testIntegerConstructor() {
         IntIdentity c1 = new IntIdentity(Object.class, (int)1);
-        IntIdentity c2 = new IntIdentity(Object.class, new Integer((int)1));
-        IntIdentity c3 = new IntIdentity(Object.class, new Integer((int)2));
+        IntIdentity c2 = new IntIdentity(Object.class, Integer.valueOf((int)1));
+        IntIdentity c3 = new IntIdentity(Object.class, Integer.valueOf((int)2));
         assertEquals ("Equal intIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal IntIdentity instances compare equal", c1.equals(c3));
     }
@@ -100,12 +100,12 @@ public class IntIdentityTest extends SingleFieldIdentityTest {
     }
     public void testGetKeyAsObjectPrimitive() {
         IntIdentity c1 = new IntIdentity(Object.class, 1);
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Integer(1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Integer.valueOf(1));
     }
 
     public void testGetKeyAsObject() {
-        IntIdentity c1 = new IntIdentity(Object.class, new Integer(1));
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Integer(1));
+        IntIdentity c1 = new IntIdentity(Object.class, Integer.valueOf(1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Integer.valueOf(1));
     }
 
     public void testBadConstructorNullIntegerParam() {

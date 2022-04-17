@@ -71,7 +71,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
         Object[] booleanParameter = new Object[]{Boolean.valueOf(false)};
         Object[] objectParameter = new Object[]{null};
-        Object[] integerParameter = new Object[]{new Integer(0)};
+        Object[] integerParameter = new Object[]{Integer.valueOf(0)};
         
         SetProperty[] setMethods = new SetProperty[] {
             new SetProperty("setConnectionDriverName", stringParameters, stringParameter),

@@ -39,7 +39,7 @@ public class PCPointSingleFieldInteger extends AbstractPCPointSingleField {
     /**
      * The primary key field.
      */
-    private Integer id = new Integer(newId());
+    private Integer id = Integer.valueOf(newId());
 
     public int x;
     public Integer y;
@@ -64,7 +64,7 @@ public class PCPointSingleFieldInteger extends AbstractPCPointSingleField {
      */
     public PCPointSingleFieldInteger(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public void setX(int x) {

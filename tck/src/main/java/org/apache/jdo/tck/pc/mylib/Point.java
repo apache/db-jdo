@@ -30,7 +30,7 @@ public class Point {
 
     public Point(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public Point(int x, Integer y) {

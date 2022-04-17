@@ -87,7 +87,7 @@ public class EqualityAndComparisonsBetweenPrimitivesAndWrapperInstances
         
         // case int <= Integer
         runParameterPrimitiveTypesQuery(
-            "intNotNull <= param", "java.lang.Integer param", new Integer(2),
+            "intNotNull <= param", "java.lang.Integer param", Integer.valueOf(2),
             pm, instancesLess3, ASSERTION_FAILED); 
         
         // case Double > double

@@ -432,7 +432,7 @@ public abstract class QueryTest extends AbstractReaderTest {
                 }
                 PrimitiveTypes primitiveObject = new PrimitiveTypes(
                     (long)i, bFlag, Boolean.valueOf(bFlag), (byte)i, Byte.valueOf((byte)i),
-                    (short)i, Short.valueOf((short)i), (int) i, new Integer(i),
+                    (short)i, Short.valueOf((short)i), (int) i, Integer.valueOf(i),
                     (long)i, Long.valueOf(i), (float)i, Float.valueOf((float)i),
                     (double)i, Double.valueOf(i), charValue, Character.valueOf(charValue),
                     Calendar.getInstance().getTime(), strValue,

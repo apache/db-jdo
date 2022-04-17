@@ -43,7 +43,7 @@ public class PCPoint implements Serializable {
 
     public PCPoint(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public PCPoint(int x, Integer y) {

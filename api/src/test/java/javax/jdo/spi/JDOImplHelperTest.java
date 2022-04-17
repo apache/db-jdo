@@ -46,7 +46,7 @@ public class JDOImplHelperTest extends AbstractTest {
     /** */
     public void setUp() {
         // make sure PCClass is loaded before any tests are run
-        new PCPoint(1, new Integer(1));        
+        new PCPoint(1, Integer.valueOf(1));
     }
 
     /** */
