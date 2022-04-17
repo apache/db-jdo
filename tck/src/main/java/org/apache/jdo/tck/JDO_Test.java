@@ -1169,7 +1169,7 @@ public abstract class JDO_Test extends TestCase {
             } else if (fieldType == Byte.class) {
                 field.set(oid, new Byte((byte)(100 + ((Byte)field.get(oid)).byteValue())));
             } else if (fieldType == Character.class) {
-                field.set(oid, new Character((char)(10 + ((Character)(field.get(oid))).charValue())));
+                field.set(oid, Character.valueOf((char)(10 + ((Character)(field.get(oid))).charValue())));
             }
         }
         return true;

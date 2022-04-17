@@ -434,7 +434,7 @@ public abstract class QueryTest extends AbstractReaderTest {
                     (long)i, bFlag, new Boolean(bFlag), (byte)i, new Byte((byte)i),
                     (short)i, new Short((short)i), (int) i, new Integer(i),
                     (long)i, new Long(i), (float)i, new Float(i), 
-                    (double)i, new Double(i), charValue, new Character(charValue),
+                    (double)i, new Double(i), charValue, Character.valueOf(charValue),
                     Calendar.getInstance().getTime(), strValue,
                     new BigDecimal(String.valueOf(i)), 
                     new BigInteger(String.valueOf(i)),

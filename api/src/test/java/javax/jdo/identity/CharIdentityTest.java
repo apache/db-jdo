@@ -53,8 +53,8 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
     
     public void testCharacterConstructor() {
         CharIdentity c1 = new CharIdentity(Object.class, 'a');
-        CharIdentity c2 = new CharIdentity(Object.class, new Character('a'));
-        CharIdentity c3 = new CharIdentity(Object.class, new Character('b'));
+        CharIdentity c2 = new CharIdentity(Object.class, Character.valueOf('a'));
+        CharIdentity c3 = new CharIdentity(Object.class, Character.valueOf('b'));
         assertEquals("Equal CharIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal CharIdentity instances compare equal", c1.equals(c3));
     }
@@ -110,12 +110,12 @@ public class CharIdentityTest extends SingleFieldIdentityTest {
     }
     public void testGetKeyAsObjectPrimitive() {
         CharIdentity c1 = new CharIdentity(Object.class, '1');
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Character('1'));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Character.valueOf('1'));
     }
 
     public void testGetKeyAsObject() {
-        CharIdentity c1 = new CharIdentity(Object.class, new Character('1'));
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Character('1'));
+        CharIdentity c1 = new CharIdentity(Object.class, Character.valueOf('1'));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Character.valueOf('1'));
     }
 
     public void testBadConstructorNullCharacterParam() {

@@ -429,7 +429,7 @@ public class SignatureVerifier {
             if (isArray) {
                 ok = actual.getClass().getComponentType().equals(char.class);
             } else {
-                ok = new Character(value.charAt(1)).equals(actual);
+                ok = Character.valueOf(value.charAt(1)).equals(actual);
             }
         // next check Class
         } else if (type.equals("java.lang.Class")) {
