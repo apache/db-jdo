@@ -1167,7 +1167,7 @@ public abstract class JDO_Test extends TestCase {
             } else if (fieldType == Short.class) {
                 field.set(oid, Short.valueOf((short)(10000 + ((Short)field.get(oid)).shortValue())));
             } else if (fieldType == Byte.class) {
-                field.set(oid, new Byte((byte)(100 + ((Byte)field.get(oid)).byteValue())));
+                field.set(oid, Byte.valueOf((byte)(100 + ((Byte)field.get(oid)).byteValue())));
             } else if (fieldType == Character.class) {
                 field.set(oid, Character.valueOf((char)(10 + ((Character)(field.get(oid))).charValue())));
             }

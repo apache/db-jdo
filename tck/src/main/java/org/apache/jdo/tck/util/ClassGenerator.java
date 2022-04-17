@@ -303,7 +303,7 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     else if (Character.isLowerCase(fieldType.charAt(0)))
       return " = 5"; // return 0 for all other primitive types
     else if (fieldType.equals("Byte"))
-      return " = new Byte((byte)5)";
+      return " = Byte.valueOf((byte)5)";
     else if (fieldType.equals("Boolean"))
       return " = Boolean.valueOf(false)";
     else if (fieldType.equals("Character"))

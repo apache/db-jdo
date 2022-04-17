@@ -76,8 +76,8 @@ public class TestFieldsOfByte extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Byte firstValue = new Byte((byte)Byte.MIN_VALUE);
-        Byte secondValue = new Byte((byte)Byte.MAX_VALUE);
+        Byte firstValue = Byte.valueOf((byte)Byte.MIN_VALUE);
+        Byte secondValue = Byte.valueOf((byte)Byte.MAX_VALUE);
         tx.begin();
         FieldsOfByte pi = new FieldsOfByte();
         pi.identifier = 1;

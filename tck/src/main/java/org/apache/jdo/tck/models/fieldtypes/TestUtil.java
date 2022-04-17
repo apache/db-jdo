@@ -163,11 +163,11 @@ public class TestUtil {
                       vec.add(4, new BigInteger("456445645"));
                       break;
                   case(8):
-                      vec.add(0, new Byte((byte)Byte.MIN_VALUE));
-                      vec.add(1, new Byte((byte)Byte.MAX_VALUE));
-                      vec.add(2, new Byte((byte)(Byte.MAX_VALUE- 20)));
-                      vec.add(3, new Byte((byte)(Byte.MAX_VALUE - 50)));
-                      vec.add(4, new Byte((byte)(Byte.MAX_VALUE - 75)));
+                      vec.add(0, Byte.valueOf((byte)Byte.MIN_VALUE));
+                      vec.add(1, Byte.valueOf((byte)Byte.MAX_VALUE));
+                      vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 20)));
+                      vec.add(3, Byte.valueOf((byte)(Byte.MAX_VALUE - 50)));
+                      vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 75)));
                       break;
                   case(9):
                       vec.add(0, Double.valueOf(AllTypes.DOUBLE_SMALLEST));
@@ -278,11 +278,11 @@ public class TestUtil {
                     vec.add(4, new BigInteger("53452567766657567"));
                     break;
                   case(8):
-                    vec.add(0, new Byte((byte)(Byte.MAX_VALUE-34)));
-                    vec.add(1, new Byte((byte)Byte.MIN_VALUE));
-                    vec.add(2, new Byte((byte)(Byte.MAX_VALUE- 76)));
-                    vec.add(3, new Byte((byte)Byte.MAX_VALUE));
-                    vec.add(4, new Byte((byte)(Byte.MAX_VALUE - 12)));
+                    vec.add(0, Byte.valueOf((byte)(Byte.MAX_VALUE-34)));
+                    vec.add(1, Byte.valueOf((byte)Byte.MIN_VALUE));
+                    vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 76)));
+                    vec.add(3, Byte.valueOf((byte)Byte.MAX_VALUE));
+                    vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 12)));
                     break;
                   case(9):
                     vec.add(0, Double.valueOf(AllTypes.DOUBLE_LARGEST - 343434));

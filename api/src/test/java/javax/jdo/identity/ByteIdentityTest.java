@@ -52,8 +52,8 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
 
     public void testByteConstructor() {
         ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
-        ByteIdentity c2 = new ByteIdentity(Object.class, new Byte((byte)1));
-        ByteIdentity c3 = new ByteIdentity(Object.class, new Byte((byte)2));
+        ByteIdentity c2 = new ByteIdentity(Object.class, Byte.valueOf((byte)1));
+        ByteIdentity c3 = new ByteIdentity(Object.class, Byte.valueOf((byte)2));
         assertEquals ("Equal ByteIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal ByteIdentity instances compare equal", c1.equals(c3));
     }
@@ -101,12 +101,12 @@ public class ByteIdentityTest extends SingleFieldIdentityTest {
     
     public void testGetKeyAsObjectPrimitive() {
         ByteIdentity c1 = new ByteIdentity(Object.class, (byte)1);
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Byte((byte)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Byte.valueOf((byte)1));
     }
 
     public void testGetKeyAsObject() {
-        ByteIdentity c1 = new ByteIdentity(Object.class, new Byte((byte)1));
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Byte((byte)1));
+        ByteIdentity c1 = new ByteIdentity(Object.class, Byte.valueOf((byte)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Byte.valueOf((byte)1));
     }
 
     public void testBadConstructorNullByteParam() {
