@@ -75,8 +75,8 @@ public class TestFieldsOfBoolean extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Boolean firstValue = new Boolean(true);
-        Boolean secondValue = new Boolean(false);
+        Boolean firstValue = Boolean.valueOf(true);
+        Boolean secondValue = Boolean.valueOf(false);
         tx.begin();
         FieldsOfBoolean pi = new FieldsOfBoolean();
         pi.identifier = 1;

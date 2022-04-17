@@ -305,7 +305,7 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     else if (fieldType.equals("Byte"))
       return " = new Byte((byte)5)";
     else if (fieldType.equals("Boolean"))
-      return " = new Boolean(false)";
+      return " = Boolean.valueOf(false)";
     else if (fieldType.equals("Character"))
       return " = Character.valueOf('a')";
     else if (fieldType.equals("Short"))
