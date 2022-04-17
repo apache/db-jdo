@@ -76,8 +76,8 @@ public class TestFieldsOfShort extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Short firstValue = new Short(Short.MIN_VALUE);
-        Short secondValue = new Short(Short.MAX_VALUE);
+        Short firstValue = Short.valueOf(Short.MIN_VALUE);
+        Short secondValue = Short.valueOf(Short.MAX_VALUE);
         tx.begin();
         FieldsOfShort pi = new FieldsOfShort();
         pi.identifier = 1;

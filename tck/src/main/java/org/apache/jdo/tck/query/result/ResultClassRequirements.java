@@ -160,20 +160,20 @@ public class ResultClassRequirements extends QueryTest {
     // Two dimensional arrays to be converted to maps 
     // in the expected result.
     private static Object[][] emp1Map = 
-        {{"id", new Long(1)}, 
+        {{"id", Long.valueOf(1)}, 
          {"name", "emp1Last"}};
     private static Object[][] emp2Map = 
-        {{"id", new Long(2)}, 
+        {{"id", Long.valueOf(2)}, 
          {"name", "emp2Last"}};
     private static Object[][] emp5Map = 
-        {{"id", new Long(5)}, 
+        {{"id", Long.valueOf(5)}, 
          {"name", "emp5Last"}};
     private static Object[][] publicPutMethod1 =
-        {{"personid", new Long(1)}, {"lastname", "emp1Last"}};
+        {{"personid", Long.valueOf(1)}, {"lastname", "emp1Last"}};
     private static Object[][] publicPutMethod2 =
-        {{"personid", new Long(2)}, {"lastname", "emp2Last"}};
+        {{"personid", Long.valueOf(2)}, {"lastname", "emp2Last"}};
     private static Object[][] publicPutMethod5 =
-        {{"personid", new Long(5)}, {"lastname", "emp5Last"}};
+        {{"personid", Long.valueOf(5)}, {"lastname", "emp5Last"}};
     
     /**
      * The <code>main</code> is called when the class
@@ -186,7 +186,7 @@ public class ResultClassRequirements extends QueryTest {
     
     /** */
     public void testLong() {
-        Object expected = Arrays.asList(new Long(1), new Long(2), new Long(5));
+        Object expected = Arrays.asList(Long.valueOf(1), Long.valueOf(2), Long.valueOf(5));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -216,7 +216,7 @@ public class ResultClassRequirements extends QueryTest {
 
     /** */
     public void testDouble() {
-        Object expected = Arrays.asList(new Double(20000.0), new Double(10000.0), new Double(45000.0));
+        Object expected = Arrays.asList(Double.valueOf(20000.0), Double.valueOf(10000.0), Double.valueOf(45000.0));
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();

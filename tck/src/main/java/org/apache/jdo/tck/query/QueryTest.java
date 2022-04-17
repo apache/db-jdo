@@ -432,13 +432,13 @@ public abstract class QueryTest extends AbstractReaderTest {
                 }
                 PrimitiveTypes primitiveObject = new PrimitiveTypes(
                     (long)i, bFlag, new Boolean(bFlag), (byte)i, new Byte((byte)i),
-                    (short)i, new Short((short)i), (int) i, new Integer(i),
-                    (long)i, new Long(i), (float)i, new Float(i), 
-                    (double)i, new Double(i), charValue, Character.valueOf(charValue),
+                    (short)i, Short.valueOf((short)i), (int) i, new Integer(i),
+                    (long)i, Long.valueOf(i), (float)i, Float.valueOf((float)i),
+                    (double)i, Double.valueOf(i), charValue, Character.valueOf(charValue),
                     Calendar.getInstance().getTime(), strValue,
                     new BigDecimal(String.valueOf(i)), 
                     new BigInteger(String.valueOf(i)),
-                    new Long(i));
+                    Long.valueOf(i));
                 pm.makePersistent(primitiveObject);
             }
             tx.commit();

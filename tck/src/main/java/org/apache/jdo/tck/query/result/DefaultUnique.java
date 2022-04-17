@@ -115,7 +115,7 @@ public class DefaultUnique extends QueryTest {
 
     /** */
     public void testAggregateNoGrouping1() {
-        Object expected = new Double("99.997");
+        Object expected = Double.valueOf("99.997");
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -246,7 +246,7 @@ public class DefaultUnique extends QueryTest {
 
     /** */
     public void testAggregateGrouping1() {
-        Object expected = Arrays.asList(new Double("99.996"), new Double("99.9985"));
+        Object expected = Arrays.asList(Double.valueOf("99.996"), Double.valueOf("99.9985"));
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
         QDentalInsurance cand = QDentalInsurance.candidate();

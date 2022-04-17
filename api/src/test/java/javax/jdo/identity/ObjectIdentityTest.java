@@ -88,9 +88,9 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     }
     
     public void testLongConstructor() {
-        ObjectIdentity c1 = new ObjectIdentity(Object.class, new Long(1));
-        ObjectIdentity c2 = new ObjectIdentity(Object.class, new Long(1));
-        ObjectIdentity c3 = new ObjectIdentity(Object.class, new Long(2));
+        ObjectIdentity c1 = new ObjectIdentity(Object.class, Long.valueOf(1));
+        ObjectIdentity c2 = new ObjectIdentity(Object.class, Long.valueOf(1));
+        ObjectIdentity c3 = new ObjectIdentity(Object.class, Long.valueOf(2));
         assertEquals("Equal ObjectIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal ObjectIdentity instances compare equal", c1.equals(c3));
     }

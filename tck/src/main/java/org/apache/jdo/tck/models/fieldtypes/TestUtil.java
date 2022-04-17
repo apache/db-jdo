@@ -170,22 +170,22 @@ public class TestUtil {
                       vec.add(4, new Byte((byte)(Byte.MAX_VALUE - 75)));
                       break;
                   case(9):
-                      vec.add(0, new Double(AllTypes.DOUBLE_SMALLEST));
-                      vec.add(1, new Double(AllTypes.DOUBLE_LARGEST));
-                      vec.add(2, new Double(AllTypes.DOUBLE_LARGEST - 20000));
-                      vec.add(3, new Double(AllTypes.DOUBLE_LARGEST
+                      vec.add(0, Double.valueOf(AllTypes.DOUBLE_SMALLEST));
+                      vec.add(1, Double.valueOf(AllTypes.DOUBLE_LARGEST));
+                      vec.add(2, Double.valueOf(AllTypes.DOUBLE_LARGEST - 20000));
+                      vec.add(3, Double.valueOf(AllTypes.DOUBLE_LARGEST
                                   - 454545.436664));
-                      vec.add(4, new Double(AllTypes.DOUBLE_LARGEST
+                      vec.add(4, Double.valueOf(AllTypes.DOUBLE_LARGEST
                                   - 2323235.76764677));
                       break;
                   case(10):
-                      vec.add(0, new Float(AllTypes.FLOAT_SMALLEST));
-                      vec.add(1, new Float(AllTypes.FLOAT_LARGEST));
-                      vec.add(2, new Float(AllTypes.FLOAT_LARGEST - 20000));
-                      vec.add(3, new Float(AllTypes.FLOAT_LARGEST
-                                  - 454545.434));
-                      vec.add(4, new Float(AllTypes.FLOAT_LARGEST
-                                  - 565656.43434));
+                      vec.add(0, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
+                      vec.add(1, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
+                      vec.add(2, Float.valueOf((float)AllTypes.FLOAT_LARGEST - 20000));
+                      vec.add(3, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
+                                  - 454545.434)));
+                      vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
+                                  - 565656.43434)));
                       break;
                   case(11):
                       vec.add(0, new Integer(Integer.MIN_VALUE));
@@ -195,18 +195,18 @@ public class TestUtil {
                       vec.add(4, new Integer(Integer.MAX_VALUE - 565656));
                       break;
                   case(12):
-                      vec.add(0, new Long(Long.MIN_VALUE));
-                      vec.add(1, new Long(Long.MAX_VALUE));
-                      vec.add(2, new Long(Long.MAX_VALUE - 20000));
-                      vec.add(3, new Long(Long.MAX_VALUE - 343434343));
-                      vec.add(4, new Long(Long.MAX_VALUE - 565656));
+                      vec.add(0, Long.valueOf(Long.MIN_VALUE));
+                      vec.add(1, Long.valueOf(Long.MAX_VALUE));
+                      vec.add(2, Long.valueOf(Long.MAX_VALUE - 20000));
+                      vec.add(3, Long.valueOf(Long.MAX_VALUE - 343434343));
+                      vec.add(4, Long.valueOf(Long.MAX_VALUE - 565656));
                       break;
                   case(13):
-                      vec.add(0, new Short(Short.MIN_VALUE));
-                      vec.add(1, new Short(Short.MAX_VALUE));
-                      vec.add(2, new Short((short)(Short.MAX_VALUE - 20000)));
-                      vec.add(3, new Short((short)(Short.MAX_VALUE - 343)));
-                      vec.add(4, new Short((short)(Short.MAX_VALUE - 5656)));
+                      vec.add(0, Short.valueOf(Short.MIN_VALUE));
+                      vec.add(1, Short.valueOf(Short.MAX_VALUE));
+                      vec.add(2, Short.valueOf((short)(Short.MAX_VALUE - 20000)));
+                      vec.add(3, Short.valueOf((short)(Short.MAX_VALUE - 343)));
+                      vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 5656)));
                       break;
                   case(14):
                       vec.add(0, (SimpleEnum)SimpleEnum.AK);
@@ -285,20 +285,20 @@ public class TestUtil {
                     vec.add(4, new Byte((byte)(Byte.MAX_VALUE - 12)));
                     break;
                   case(9):
-                    vec.add(0, new Double(AllTypes.DOUBLE_LARGEST - 343434));
-                    vec.add(1, new Double(AllTypes.DOUBLE_SMALLEST));
-                    vec.add(2, new Double(AllTypes.DOUBLE_LARGEST));
-                    vec.add(3, new Double(AllTypes.DOUBLE_LARGEST
+                    vec.add(0, Double.valueOf(AllTypes.DOUBLE_LARGEST - 343434));
+                    vec.add(1, Double.valueOf(AllTypes.DOUBLE_SMALLEST));
+                    vec.add(2, Double.valueOf(AllTypes.DOUBLE_LARGEST));
+                    vec.add(3, Double.valueOf(AllTypes.DOUBLE_LARGEST
                                 - 65423445.436664));
-                    vec.add(4, new Double(AllTypes.DOUBLE_LARGEST
+                    vec.add(4, Double.valueOf(AllTypes.DOUBLE_LARGEST
                                 - 7235.236764677));
                     break;
                   case(10):
-                    vec.add(0, new Float(AllTypes.FLOAT_LARGEST - 5452));
-                    vec.add(1, new Float(AllTypes.FLOAT_SMALLEST));
-                    vec.add(2, new Float(AllTypes.FLOAT_LARGEST - 6564560.54));
-                    vec.add(3, new Float(AllTypes.FLOAT_LARGEST));
-                    vec.add(4, new Float(AllTypes.FLOAT_LARGEST - 9756.634));
+                    vec.add(0, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 5452)));
+                    vec.add(1, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
+                    vec.add(2, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 6564560.54)));
+                    vec.add(3, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
+                    vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 9756.634)));
                     break;
                   case(11):
                     vec.add(0, new Integer(Integer.MAX_VALUE - 54454));
@@ -308,18 +308,18 @@ public class TestUtil {
                     vec.add(4, new Integer(Integer.MAX_VALUE - 23673446));
                     break;
                   case(12):
-                    vec.add(0, new Long(Long.MAX_VALUE - 545345454));
-                    vec.add(1, new Long(Long.MIN_VALUE));
-                    vec.add(2, new Long(Long.MAX_VALUE));
-                    vec.add(3, new Long(Long.MAX_VALUE - 3543343));
-                    vec.add(4, new Long(Long.MAX_VALUE - 556));
+                    vec.add(0, Long.valueOf(Long.MAX_VALUE - 545345454));
+                    vec.add(1, Long.valueOf(Long.MIN_VALUE));
+                    vec.add(2, Long.valueOf(Long.MAX_VALUE));
+                    vec.add(3, Long.valueOf(Long.MAX_VALUE - 3543343));
+                    vec.add(4, Long.valueOf(Long.MAX_VALUE - 556));
                     break;
                   case(13):
-                    vec.add(0, new Short((short)(Short.MAX_VALUE - 3434)));
-                    vec.add(1, new Short(Short.MIN_VALUE));
-                    vec.add(2, new Short((short)(Short.MAX_VALUE)));
-                    vec.add(3, new Short((short)(Short.MAX_VALUE - 23344)));
-                    vec.add(4, new Short((short)(Short.MAX_VALUE - 723)));
+                    vec.add(0, Short.valueOf((short)(Short.MAX_VALUE - 3434)));
+                    vec.add(1, Short.valueOf(Short.MIN_VALUE));
+                    vec.add(2, Short.valueOf((short)(Short.MAX_VALUE)));
+                    vec.add(3, Short.valueOf((short)(Short.MAX_VALUE - 23344)));
+                    vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 723)));
                     break;
                   case(14):
                       vec.add(0, (SimpleEnum)SimpleEnum.AZ);

@@ -89,7 +89,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testCount0() {
         // COUNT(this)
-        Object expected = new Long(3);
+        Object expected = Long.valueOf(3);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -120,7 +120,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testCount1() {
         // COUNT(this)
-        Object expected = new Long(0);
+        Object expected = Long.valueOf(0);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -152,7 +152,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testCount2() {
         // COUNT(manager)
-        Object expected = new Long(2);
+        Object expected = Long.valueOf(2);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -183,7 +183,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testCount3() {
         // COUNT(manager.personid)
-        Object expected = new Long(2);
+        Object expected = Long.valueOf(2);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -214,7 +214,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testCount4() {
         // COUNT(DISTINCT manager)
-        Object expected = new Long(1);
+        Object expected = Long.valueOf(1);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -245,7 +245,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testSum0() {
         // SUM(long)
-        Object expected = new Long(1+2+5);
+        Object expected = Long.valueOf(1+2+5);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -276,7 +276,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testSum1() {
         // SUM(double)
-        Object expected = new Double(20000.0+10000.0+45000.0);
+        Object expected = Double.valueOf(20000.0+10000.0+45000.0);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -371,7 +371,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testSum4() {
         // SUM(((FullTimeEmployee)manager).salary)
-        Object expected =  new Double(20000);
+        Object expected =  Double.valueOf(20000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -405,7 +405,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testSum5() {
         // SUM(DISTINCT ((FullTimeEmployee)manager).salary)
-        Object expected = new Double(10000);
+        Object expected = Double.valueOf(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -439,7 +439,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMin0() {
         // MIN(long)
-        Object expected = new Long(1);
+        Object expected = Long.valueOf(1);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -470,7 +470,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMin1() {
         // MIN(double)
-        Object expected = new Double(10000.0);
+        Object expected = Double.valueOf(10000.0);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -564,7 +564,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMin4() {
         // MIN(((FullTimeEmployee)manager).salary)
-        Object expected = new Double(10000);
+        Object expected = Double.valueOf(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -597,7 +597,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMax0() {
         // MAX(long)
-        Object expected = new Long(5);
+        Object expected = Long.valueOf(5);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -628,7 +628,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMax1() {
         // MAX(double)
-        Object expected = new Double(45000.0);
+        Object expected = Double.valueOf(45000.0);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -722,7 +722,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testMax4() {
         // MAX(((FullTimeEmployee)manager).salary)
-        Object expected = new Double(10000);
+        Object expected = Double.valueOf(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -756,7 +756,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testAvg0() {
         // AVG(long)
-        Object expected = new Double(3);
+        Object expected = Double.valueOf(3);
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -787,7 +787,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testAvg1() {
         // AVG(double)
-        Object expected = new Double(25000.0);
+        Object expected = Double.valueOf(25000.0);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -818,7 +818,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testAvg2() {
         // AVG(BigDecimal)
-        Object expected = new Double("99.997");
+        Object expected = Double.valueOf("99.997");
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
         QDentalInsurance cand = QDentalInsurance.candidate();
@@ -881,7 +881,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testAvg4() {
         // AVG(((FullTimeEmployee)manager).salary)
-        Object expected = new Double(10000);
+        Object expected = Double.valueOf(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -915,7 +915,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testAvg5() {
         // AVG(DISTINCT ((FullTimeEmployee)manager).salary)
-        Object expected = new Double(10000);
+        Object expected = Double.valueOf(10000);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();

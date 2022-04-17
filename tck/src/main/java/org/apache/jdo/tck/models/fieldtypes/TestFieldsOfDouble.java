@@ -76,8 +76,8 @@ public class TestFieldsOfDouble extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Double firstValue = new Double(AllTypes.DOUBLE_SMALLEST);
-        Double secondValue = new Double(AllTypes.DOUBLE_LARGEST);
+        Double firstValue = Double.valueOf(AllTypes.DOUBLE_SMALLEST);
+        Double secondValue = Double.valueOf(AllTypes.DOUBLE_LARGEST);
         tx.begin();
         FieldsOfDouble pi = new FieldsOfDouble();
         pi.identifier = 1;

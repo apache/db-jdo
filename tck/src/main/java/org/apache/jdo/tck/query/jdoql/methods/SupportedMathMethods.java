@@ -899,8 +899,8 @@ public class SupportedMathMethods extends QueryTest {
             ms1.setId(1);
             ms1.setAngle(new BigDecimal(Math.PI));
             ms1.setTrigValue(new BigDecimal(0.0));
-            ms1.setDoubleValue(new Double(4.55));
-            ms1.setFloatValue(new Float(4.55));
+            ms1.setDoubleValue(Double.valueOf(4.55));
+            ms1.setFloatValue(Float.valueOf(4.55f));
             ms1.setIntValue(new Integer(5));
             pm.makePersistent(ms1);
 
@@ -909,8 +909,8 @@ public class SupportedMathMethods extends QueryTest {
             ms2.setId(2);
             ms2.setAngle(new BigDecimal(Math.PI/2.0));
             ms2.setTrigValue(new BigDecimal(1.0));
-            ms2.setDoubleValue(new Double(4.45));
-            ms2.setFloatValue(new Float(4.45));
+            ms2.setDoubleValue(Double.valueOf(4.45));
+            ms2.setFloatValue(Float.valueOf((float)4.45));
             ms2.setIntValue(new Integer(4));
             pm.makePersistent(ms2);
 
@@ -919,8 +919,8 @@ public class SupportedMathMethods extends QueryTest {
             ms3.setId(3);
             ms3.setAngle(new BigDecimal(0));
             ms3.setTrigValue(new BigDecimal(-1.0));
-            ms3.setDoubleValue(new Double(2.49));
-            ms3.setFloatValue(new Float(2.49));
+            ms3.setDoubleValue(Double.valueOf(2.49));
+            ms3.setFloatValue(Float.valueOf((float)2.49));
             ms3.setIntValue(new Integer(3));
             pm.makePersistent(ms3);
 

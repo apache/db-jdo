@@ -122,11 +122,11 @@ public class DistinctQuery extends QueryTest {
     /** */
     public void testPositive2() {
         Object expected = Arrays.asList(new Object[] {
-                new Object[]{new Long(1),"Development"},
-                new Object[]{new Long(1),"Development"},
-                new Object[]{new Long(1),"Development"},
-                new Object[]{new Long(2),"Human Resources"},
-                new Object[]{new Long(2),"Human Resources"}});
+                new Object[]{Long.valueOf(1),"Development"},
+                new Object[]{Long.valueOf(1),"Development"},
+                new Object[]{Long.valueOf(1),"Development"},
+                new Object[]{Long.valueOf(2),"Human Resources"},
+                new Object[]{Long.valueOf(2),"Human Resources"}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -157,8 +157,8 @@ public class DistinctQuery extends QueryTest {
     /** */
     public void testPositive3() {
         Object expected = Arrays.asList(new Object[] {
-                new Object[]{new Long(1),"Development"},
-                new Object[]{new Long(2),"Human Resources"}});
+                new Object[]{Long.valueOf(1),"Development"},
+                new Object[]{Long.valueOf(2),"Human Resources"}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

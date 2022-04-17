@@ -83,8 +83,8 @@ public class Grouping extends QueryTest {
     /** */
     public void testPositive() {
         Object expected = Arrays.asList(new Object[] {
-                new Object[] {getTransientCompanyModelInstance("dept1"), new Double(30000.0)},
-                new Object[] {getTransientCompanyModelInstance("dept2"), new Double(45000.0)}});
+                new Object[] {getTransientCompanyModelInstance("dept1"), Double.valueOf(30000.0)},
+                new Object[] {getTransientCompanyModelInstance("dept2"), Double.valueOf(45000.0)}});
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
