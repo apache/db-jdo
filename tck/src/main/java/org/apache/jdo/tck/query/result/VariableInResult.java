@@ -103,7 +103,7 @@ public class VariableInResult extends QueryTest {
 
     /** */
     public void testDistinctNavigation() {
-        Object elem = new Object[]{new Long(1), "orange"};
+        Object elem = new Object[]{Long.valueOf(1), "orange"};
         Object expected = Arrays.asList(elem);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -137,9 +137,9 @@ public class VariableInResult extends QueryTest {
     /** */
     public void testNavigation() {
         Object expected = Arrays.asList(
-                new Object[]{new Long(1), "orange"},
-                new Object[]{new Long(1), "orange"},
-                new Object[]{new Long(1), "orange"});
+                new Object[]{Long.valueOf(1), "orange"},
+                new Object[]{Long.valueOf(1), "orange"},
+                new Object[]{Long.valueOf(1), "orange"});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

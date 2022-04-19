@@ -59,7 +59,7 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
 
         runTestUnsupportedOperators01(pm, Employee.class, "this.team.add(this)");
         runTestUnsupportedOperators01(pm, Employee.class, "this.team.remove(this)");
-        runTestUnsupportedOperators01(pm, PCPoint.class, "y == new Integer(1)");
+        runTestUnsupportedOperators01(pm, PCPoint.class, "y == Integer.valueOf(1)");
     }
 
     /** */

@@ -75,7 +75,7 @@ public class DeclareParameters extends QueryTest {
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param");
             query.setFilter("x == param");
-            Object results = query.execute(new Integer(2));
+            Object results = query.execute(Integer.valueOf(2));
     
             // check query result
             List expected = new ArrayList();
@@ -106,7 +106,7 @@ public class DeclareParameters extends QueryTest {
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
-            Object results = query.execute(new Integer(2), new Integer(2));
+            Object results = query.execute(Integer.valueOf(2), Integer.valueOf(2));
 
             // check query result
             List expected = new ArrayList();
@@ -137,7 +137,7 @@ public class DeclareParameters extends QueryTest {
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("int a, int b");
             query.setFilter("x == a && y == b");
-            Object results = query.execute(new Integer(1), new Integer(1));
+            Object results = query.execute(Integer.valueOf(1), Integer.valueOf(1));
 
             // check query result
             List expected = new ArrayList();

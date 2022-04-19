@@ -97,10 +97,10 @@ public class Having extends QueryTest {
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
                         getTransientCompanyModelInstance("dept1"),
-                        new Double(33.0)},
+                        Double.valueOf(33.0)},
                 new Object[] {
                         getTransientCompanyModelInstance("dept2"),
-                        new Double(0.0)}});
+                        Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -135,10 +135,10 @@ public class Having extends QueryTest {
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
                         getTransientCompanyModelInstance("dept1"),
-                        new Double(33.0)},
+                        Double.valueOf(33.0)},
                 new Object[] {
                         getTransientCompanyModelInstance("dept2"),
-                        new Double(0.0)}});
+                        Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

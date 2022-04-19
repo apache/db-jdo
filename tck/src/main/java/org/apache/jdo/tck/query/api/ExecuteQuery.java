@@ -140,7 +140,7 @@ public class ExecuteQuery extends QueryTest {
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
-            Object results = query.execute(new Integer(2), new Integer(2));
+            Object results = query.execute(Integer.valueOf(2), Integer.valueOf(2));
 
             // check query result
             List expected = new ArrayList();

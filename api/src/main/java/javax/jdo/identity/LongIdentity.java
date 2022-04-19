@@ -138,7 +138,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @since 2.0
      */
     protected Object createKeyAsObject() {
-        return new Long(key);
+        return Long.valueOf(key);
     }
 
     /** Write this object. Write the superclass first.

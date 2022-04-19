@@ -70,7 +70,7 @@ public class CompileQuery extends QueryTest {
             query.setFilter("x == param");
             query.compile();
             
-            Object results = query.execute(new Integer(4));
+            Object results = query.execute(Integer.valueOf(4));
 
             // check query result
             List expected = new ArrayList();

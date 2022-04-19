@@ -81,7 +81,7 @@ public class ExecuteQueryWithArray extends QueryTest {
             query.declareParameters("Integer param");
             query.setFilter("x == param");
         
-            Object[] actualParams = { new Integer(2) };
+            Object[] actualParams = { Integer.valueOf(2) };
             Object results = query.executeWithArray(actualParams);
 
             // check query result
@@ -114,7 +114,7 @@ public class ExecuteQueryWithArray extends QueryTest {
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
             
-            Object[] actualParams = { new Integer(2), new Integer(2) };
+            Object[] actualParams = { Integer.valueOf(2), Integer.valueOf(2) };
             Object results = query.executeWithArray(actualParams);
 
             // check query result

@@ -76,8 +76,8 @@ public class TestFieldsOfLong extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Long firstValue = new Long(Long.MIN_VALUE);
-        Long secondValue = new Long(Long.MAX_VALUE);
+        Long firstValue = Long.valueOf(Long.MIN_VALUE);
+        Long secondValue = Long.valueOf(Long.MAX_VALUE);
         tx.begin();
         FieldsOfLong pi = new FieldsOfLong();
         pi.identifier = 1;

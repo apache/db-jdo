@@ -54,8 +54,8 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
 
     public void testLongConstructor() {
         LongIdentity c1 = new LongIdentity(Object.class, 1);
-        LongIdentity c2 = new LongIdentity(Object.class, new Long(1));
-        LongIdentity c3 = new LongIdentity(Object.class, new Long(2));
+        LongIdentity c2 = new LongIdentity(Object.class, Long.valueOf(1));
+        LongIdentity c3 = new LongIdentity(Object.class, Long.valueOf(2));
         assertEquals ("Equal LongIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal LongIdentity instances compare equal", c1.equals(c3));
     }
@@ -103,12 +103,12 @@ public class LongIdentityTest extends SingleFieldIdentityTest {
     
     public void testGetKeyAsObjectPrimitive() {
         LongIdentity c1 = new LongIdentity(Object.class, 1L);
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Long(1L));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Long.valueOf(1L));
     }
 
     public void testGetKeyAsObject() {
-        LongIdentity c1 = new LongIdentity(Object.class, new Long(1L));
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Long(1L));
+        LongIdentity c1 = new LongIdentity(Object.class, Long.valueOf(1L));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Long.valueOf(1L));
     }
 
     public void testBadConstructorNullShortParam() {

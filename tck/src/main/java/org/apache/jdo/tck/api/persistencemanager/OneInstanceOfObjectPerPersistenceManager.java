@@ -133,8 +133,8 @@ public class OneInstanceOfObjectPerPersistenceManager extends
         Query q = getPM().newQuery (PCPoint.class);
         q.declareParameters ("int px, int py");
         q.setFilter ("x == px & y == py");
-        Collection results = (Collection)q.execute (new Integer(x), 
-		        new Integer(y));
+        Collection results = (Collection)q.execute (Integer.valueOf(x),
+		        Integer.valueOf(y));
         Iterator it = results.iterator();
         PCPoint ret = (PCPoint)it.next();
         return ret;

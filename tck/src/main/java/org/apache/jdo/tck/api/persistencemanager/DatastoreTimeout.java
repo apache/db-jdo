@@ -51,13 +51,13 @@ public class DatastoreTimeout extends JDO_Test {
         "Assertion A12.6.9-1, A14.6.1-7 (DatastoreTimeout) failed: ";
 
     /** Timeout value for datastore read */
-    private static Integer READ_TIMEOUT = new Integer(100);
+    private static Integer READ_TIMEOUT = Integer.valueOf(100);
 
     /** Timeout value for datastore write */
-    private static Integer WRITE_TIMEOUT = new Integer(100);
+    private static Integer WRITE_TIMEOUT = Integer.valueOf(100);
 
     /** Zero Timeout value */
-    private static Integer ZERO_TIMEOUT = new Integer(0);
+    private static Integer ZERO_TIMEOUT = Integer.valueOf(0);
 
     /** Time for the main thread to sleep after starting a parallel thread. */
     private static int MAIN_SLEEP_MILLIS = 1000;

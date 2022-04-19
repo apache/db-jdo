@@ -86,11 +86,11 @@ public class RefreshAllWithNoParameters extends PersistenceManagerTest {
             
             tx.begin();
             p.setX(500);
-            p.setY(new Integer(800));
+            p.setY(Integer.valueOf(800));
             pm.refreshAll();
             int currentX = p.getX();
             Integer currentY = p.getY();
-            if ((currentX != 100) || !currentY.equals(new Integer(200))) {
+            if ((currentX != 100) || !currentY.equals(Integer.valueOf(200))) {
                 fail(ASSERTION_FAILED,
                      "RefreshAll expected 100, 200; got " + currentX + ", " + currentY);
             }

@@ -72,10 +72,10 @@ public class AssignmentPrePostIncrementDecrementNotSupported extends QueryTest {
         runTestUnsupportedOperators01(pm, "x-- == 1");
         runTestUnsupportedOperators01(pm, "++x == 1");
         runTestUnsupportedOperators01(pm, "--x == 1");
-        runTestUnsupportedOperators02(pm, "x == ++param", new Integer(1));
-        runTestUnsupportedOperators02(pm, "x == --param", new Integer(1));
-        runTestUnsupportedOperators02(pm, "x == param++", new Integer(1));
-        runTestUnsupportedOperators02(pm, "x == param--", new Integer(1));
+        runTestUnsupportedOperators02(pm, "x == ++param", Integer.valueOf(1));
+        runTestUnsupportedOperators02(pm, "x == --param", Integer.valueOf(1));
+        runTestUnsupportedOperators02(pm, "x == param++", Integer.valueOf(1));
+        runTestUnsupportedOperators02(pm, "x == param--", Integer.valueOf(1));
         
         pm.close();
         pm = null;

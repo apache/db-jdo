@@ -67,7 +67,7 @@ public class NewQuery extends QueryTest {
             
     /** Parameters of valid SQL queries. */
     private static Object[][] parameters = {
-        {new Integer(1)}
+        {Integer.valueOf(1)}
     };
             
     /** */

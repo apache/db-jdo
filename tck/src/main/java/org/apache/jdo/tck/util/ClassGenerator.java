@@ -303,21 +303,21 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     else if (Character.isLowerCase(fieldType.charAt(0)))
       return " = 5"; // return 0 for all other primitive types
     else if (fieldType.equals("Byte"))
-      return " = new Byte((byte)5)";
+      return " = Byte.valueOf((byte)5)";
     else if (fieldType.equals("Boolean"))
-      return " = new Boolean(false)";
+      return " = Boolean.FALSE";
     else if (fieldType.equals("Character"))
-      return " = new Character('a')";
+      return " = Character.valueOf('a')";
     else if (fieldType.equals("Short"))
-      return " = new Short((short)5)";
+      return " = Short.valueOf((short)5)";
     else if (fieldType.equals("Integer"))
-      return " = new Integer((int)5)";
+      return " = Integer.valueOf((int)5)";
     else if (fieldType.equals("Long"))
-      return " = new Long((long)5)";
+      return " = Long.valueOf((long)5)";
     else if (fieldType.equals("Float"))
-      return " = new Float((float)5)";
+      return " = Float.valueOf((float)5)";
     else if (fieldType.equals("Double"))
-      return " = new Double((double)5)";
+      return " = Double.valueOf((double)5)";
     else if (fieldType.equals("String"))
       return " = new String(\"JDO TCK\")";
     else if (fieldType.equals("Locale"))

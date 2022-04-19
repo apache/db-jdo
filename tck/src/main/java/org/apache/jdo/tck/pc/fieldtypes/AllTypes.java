@@ -83,54 +83,50 @@ public class AllTypes {
         { Short.MIN_VALUE, Short.MAX_VALUE, 0, 100, 100, 1000, -1000, 10000, -10000, -500};
 
     public static final Boolean[] Boolean_values = {
-        new Boolean(false), new Boolean(true),  new Boolean(true),  new Boolean(false), new Boolean(true), 
-        new Boolean(false), new Boolean(false), new Boolean(false), new Boolean(true),  new Boolean(false)
+        false, true,  true,  false, true,
+        false, false, false, true,  false
     };
     public static final Byte[] Byte_values = {
-        new Byte(Byte.MIN_VALUE), new Byte(Byte.MAX_VALUE), new Byte((byte)0),   new Byte((byte)-100), new Byte((byte)100),
-        new Byte((byte)-10),      new Byte((byte)10),       new Byte((byte)50), new Byte((byte)50),   new Byte((byte)75)
+        Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)0,  (byte)-100, (byte)100,
+        (byte)-10,      (byte)10,       (byte)50, (byte)50,   (byte)75
     };
     public static final Character[] Character_values = {
-        new Character(Character.MIN_VALUE), new Character(Character.MAX_VALUE),
-        new Character(' '), new Character('A'),
-        new Character('z'), new Character('B'),
-        new Character('F'), new Character('z'),
-        new Character('M'), new Character('M')
+        Character.MIN_VALUE, Character.MAX_VALUE, ' ', 'A', 'z', 'B', 'F', 'z', 'M', 'M'
     };
     public static final Double[] Double_values = {
-        new Double(DOUBLE_SMALLEST),   new Double(DOUBLE_LARGEST),
-        new Double(0.0),            new Double(100.0),
-        new Double(100.0),          new Double(50000000.0),
-        new Double(-234234.234),    new Double(1000000000.0),
-        new Double(350.5),         new Double(-25.5)
+        DOUBLE_SMALLEST,   DOUBLE_LARGEST,
+        0.0,            100.0,
+        100.0,          50000000.0,
+        -234234.234,    1000000000.0,
+        350.5,         -25.5
     };
     public static final Float[] Float_values = {
-        new Float(FLOAT_SMALLEST), new Float(FLOAT_LARGEST),
-        new Float(0.0f),            new Float(100.0f),
-        new Float(100.0f),          new Float(50000000.0f),
-        new Float(234234.234f),     new Float(1000000000.0f),
-        new Float(350.5f),          new Float(-25.5f)
+        FLOAT_SMALLEST, FLOAT_LARGEST,
+        0.0f,           100.0f,
+        100.0f,         50000000.0f,
+        234234.234f,    1000000000.0f,
+        350.5f,         -25.5f
     };
     public static final Integer[] Integer_values = {
-        new Integer(veryLargeNegativeInt), new Integer(veryLargePositiveInt),
-        new Integer(0),             new Integer(10000),
-        new Integer(100),           new Integer(100),
-        new Integer(1000000),       new Integer(-1000000),
-        new Integer(-1000),         new Integer(1000)
+        veryLargeNegativeInt, veryLargePositiveInt,
+        0,             10000,
+        100,           100,
+        1000000,       -1000000,
+        -1000,         1000
     };
     public static final Long[] Long_values = {
-        new Long(Long.MIN_VALUE), new Long(Long.MAX_VALUE),
-        new Long(0),                new Long(100),
-        new Long(-1000),            new Long(1000),
-        new Long(-1000),            new Long(1000000),
-        new Long(100),              new Long(-1000000)
+        Long.MIN_VALUE, Long.MAX_VALUE,
+        0L,                100L,
+        -1000L,            1000L,
+        -1000L,            1000000L,
+        100L,              -1000000L
     };
     public static final Short[] Short_values = {
-        new Short(Short.MIN_VALUE), new Short(Short.MAX_VALUE),
-        new Short((short)0),        new Short((short)100),
-        new Short((short)100),      new Short((short)1000),
-        new Short((short)-1000),    new Short((short)10000),
-        new Short((short)-10000),   new Short((short)-500)
+        Short.MIN_VALUE, Short.MAX_VALUE,
+        (short)0,        (short)100,
+        (short)100,      (short)1000,
+        (short)-1000,    (short)10000,
+        (short)-10000,   (short)-500
     };
 
     public static final String[] String_values = {

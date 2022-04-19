@@ -124,7 +124,7 @@ public class SetterReplacePreviousValues extends QueryTest {
         int index = 0;
         Query query = VALID_QUERIES[index].getAPIQuery(getPM());
         query.declareParameters("long param");
-        Object[] parameters = new Object[] {new Long(1)};
+        Object[] parameters = new Object[] {Long.valueOf(1)};
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 
                 parameters, expectedResult[index], true);
         query = VALID_QUERIES[index].getSingleStringQuery(getPM());

@@ -90,32 +90,32 @@ public class ExecuteWithMap extends QueryTest {
     private static HashMap illegalMapStringKeys = new HashMap();
     static {
         // valid parameter values
-        hm1.put(new Integer(1), new Integer(4));
-        hm1.put(new Integer(2), "Even");
+        hm1.put(Integer.valueOf(1), Integer.valueOf(4));
+        hm1.put(Integer.valueOf(2), "Even");
 
-        hm2.put(new Integer(1), "emp2First");
-        hm2.put(new Integer(2), "emp2Last");
-        hm2.put(new Integer(3), "emp2Middle");
-        hm2.put(new Integer(4), "New York");
+        hm2.put(Integer.valueOf(1), "emp2First");
+        hm2.put(Integer.valueOf(2), "emp2Last");
+        hm2.put(Integer.valueOf(3), "emp2Middle");
+        hm2.put(Integer.valueOf(4), "New York");
 
         hm3 = (HashMap) hm2.clone();
         // extra entry okay, should be ignored by impl
-        hm3.put(new Integer(0), "emp2First");
+        hm3.put(Integer.valueOf(0), "emp2First");
 
         hm4 = (HashMap) hm2.clone();
         // extra entry okay, should be ignored by impl
-        hm4.put(new Integer(5), "New York");
+        hm4.put(Integer.valueOf(5), "New York");
 
         // invalid parameter values
-        illegalMapMissingKeyTwo.put(new Integer(1), "emp2First");
-        illegalMapMissingKeyTwo.put(new Integer(3), "emp2Last");
-        illegalMapMissingKeyTwo.put(new Integer(4), "emp2Middle");
-        illegalMapMissingKeyTwo.put(new Integer(5), "New York");
+        illegalMapMissingKeyTwo.put(Integer.valueOf(1), "emp2First");
+        illegalMapMissingKeyTwo.put(Integer.valueOf(3), "emp2Last");
+        illegalMapMissingKeyTwo.put(Integer.valueOf(4), "emp2Middle");
+        illegalMapMissingKeyTwo.put(Integer.valueOf(5), "New York");
 
-        illegalMapStartsWithZero.put(new Integer(0), "emp2First");
-        illegalMapStartsWithZero.put(new Integer(1), "emp2Last");
-        illegalMapStartsWithZero.put(new Integer(2), "emp2Middle");
-        illegalMapStartsWithZero.put(new Integer(3), "New York");
+        illegalMapStartsWithZero.put(Integer.valueOf(0), "emp2First");
+        illegalMapStartsWithZero.put(Integer.valueOf(1), "emp2Last");
+        illegalMapStartsWithZero.put(Integer.valueOf(2), "emp2Middle");
+        illegalMapStartsWithZero.put(Integer.valueOf(3), "New York");
 
         illegalMapStringKeys.put(new String("1dog"), "emp2First");
         illegalMapStringKeys.put(new String("2dog"), "emp2Last");

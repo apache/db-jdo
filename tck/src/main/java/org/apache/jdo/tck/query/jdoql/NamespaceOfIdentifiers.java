@@ -79,7 +79,7 @@ public class NamespaceOfIdentifiers extends QueryTest {
         
         // use of field/parameter names
         runParameterPrimitiveTypesQuery(
-            "this.intNotNull == intNotNull", "int intNotNull", new Integer(9),
+            "this.intNotNull == intNotNull", "int intNotNull", Integer.valueOf(9),
              pm, instance9, ASSERTION_FAILED);
 
         tx.commit();

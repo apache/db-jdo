@@ -72,7 +72,7 @@ public class ImmutableQueryResult extends QueryTest {
         
         // method add
         try {
-            result.add(new Integer(1));
+            result.add(Integer.valueOf(1));
             fail(ASSERTION_FAILED,
                  "Method add called on a query result show throw " + 
                  "UnsupportedOperationException"); 

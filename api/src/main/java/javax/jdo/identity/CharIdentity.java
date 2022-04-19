@@ -139,7 +139,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @since 2.0
      */
     protected Object createKeyAsObject() {
-        return new Character(key);
+        return Character.valueOf(key);
     }
 
     /** Write this object. Write the superclass first.

@@ -52,8 +52,8 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
 
     public void testShortConstructor() {
         ShortIdentity c1 = new ShortIdentity(Object.class, (short)1);
-        ShortIdentity c2 = new ShortIdentity(Object.class, new Short((short)1));
-        ShortIdentity c3 = new ShortIdentity(Object.class, new Short((short)2));
+        ShortIdentity c2 = new ShortIdentity(Object.class, Short.valueOf((short)1));
+        ShortIdentity c3 = new ShortIdentity(Object.class, Short.valueOf((short)2));
         assertEquals ("Equal ShortIdentity instances compare not equal.", c1, c2);
         assertFalse ("Not equal ShortIdentity instances compare equal", c1.equals(c3));
     }
@@ -100,12 +100,12 @@ public class ShortIdentityTest extends SingleFieldIdentityTest {
     }
     public void testGetKeyAsObjectPrimitive() {
         ShortIdentity c1 = new ShortIdentity(Object.class, (short)1);
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Short((short)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Short.valueOf((short)1));
     }
 
     public void testGetKeyAsObject() {
-        ShortIdentity c1 = new ShortIdentity(Object.class, new Short((short)1));
-        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), new Short((short)1));
+        ShortIdentity c1 = new ShortIdentity(Object.class, Short.valueOf((short)1));
+        assertEquals("keyAsObject doesn't match.", c1.getKeyAsObject(), Short.valueOf((short)1));
     }
 
     public void testBadConstructorNullShortParam() {

@@ -203,8 +203,8 @@ public class QueryElementHolder {
         this.imports = imports;
         this.grouping = grouping;
         this.ordering = ordering;
-        this.fromLong = new Long(from);
-        this.toLong = new Long(to);
+        this.fromLong = Long.valueOf(from);
+        this.toLong = Long.valueOf(to);
         this.jdoqlTypedQuery = jdoqlTypedQuery;
         this.paramValues = paramValues;
     }

@@ -39,7 +39,7 @@ public class PCPointSingleFieldByte extends AbstractPCPointSingleField {
     /**
      * The primary key field.
      */
-    private Byte id = new Byte(newId());
+    private Byte id = Byte.valueOf(newId());
 
     public int x;
     public Integer y;
@@ -64,7 +64,7 @@ public class PCPointSingleFieldByte extends AbstractPCPointSingleField {
      */
     public PCPointSingleFieldByte(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public void setX(int x) {

@@ -70,8 +70,8 @@ public class Retrieve extends PersistenceManagerTest {
     private PCPoint2 p3 = null;
     private PCRect rect = null;
 
-    private static final Integer one = new Integer(1);
-    private static final Integer three = new Integer(3);
+    private static final Integer one = Integer.valueOf(1);
+    private static final Integer three = Integer.valueOf(3);
 
     /**
      * @see org.apache.jdo.tck.JDO_Test#localSetUp()

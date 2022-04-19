@@ -81,7 +81,7 @@ public class DeclareImports extends QueryTest {
             query.declareImports("import java.lang.Integer");
             query.declareParameters("Integer param");
             query.setFilter("y == param");
-            Object results = query.execute(new Integer(2));
+            Object results = query.execute(Integer.valueOf(2));
 
             // check query result
             List expected = new ArrayList();

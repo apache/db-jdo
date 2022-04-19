@@ -71,7 +71,7 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
     void runTestUnmodifiedSubquery(PersistenceManager pm) {
         List expectedResult = getTransientCompanyModelInstancesAsList(
             new String[]{"emp1","emp2","emp4","emp5","emp6","emp7","emp10"});
-        Double averageWeeklyHours = new Double(33.5);
+        Double averageWeeklyHours = Double.valueOf(33.5);
 
         // select average weeklyhours of all employees
         String singleStringJDOQLSubquery =

@@ -53,7 +53,7 @@ public class PCPointSingleFieldPrimitiveint extends AbstractPCPointSingleField {
      */
     public PCPointSingleFieldPrimitiveint(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public void setX(int x) {

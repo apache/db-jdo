@@ -524,7 +524,7 @@ public class StateInterrogationTest extends AbstractTest {
                 Object[] params) throws Throwable {
             String name = method.getName();
             if (name == "hashCode") {
-                return new Integer(id);
+                return Integer.valueOf(id);
             } else if (name == "equals") {
                 Object other = params[0];
                 if (!(other instanceof PersistenceManager)) return Boolean.FALSE;

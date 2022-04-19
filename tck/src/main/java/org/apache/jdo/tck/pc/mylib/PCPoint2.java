@@ -81,7 +81,7 @@ public class PCPoint2 implements Serializable, InstanceCallbacks {
 
     public PCPoint2(int x, int y) {
         this.x = x;
-        this.y = new Integer(y);
+        this.y = Integer.valueOf(y);
     }
 
     public PCPoint2(int x, Integer y) {

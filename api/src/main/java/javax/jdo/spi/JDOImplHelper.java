@@ -778,7 +778,7 @@ public class JDOImplHelper extends java.lang.Object {
                     if (result == null) {
                         throw new JDOUserException (msg.msg(
                             "EXC_DateStringConstructor", new Object[] //NOI18N
-                            {s, new Integer(pp.getErrorIndex()), 
+                            {s, pp.getErrorIndex(),
                              dateFormatPattern}));
                     }
                     return result;

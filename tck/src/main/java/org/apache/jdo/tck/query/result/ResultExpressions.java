@@ -197,7 +197,7 @@ public class ResultExpressions extends QueryTest {
 
     /** */
     public void testVariableField() {
-        Object expectedResult = Arrays.asList(new Object[]{new Long(1)});
+        Object expectedResult = Arrays.asList(new Object[]{Long.valueOf(1)});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -326,7 +326,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testSum() {
         // SUM
-        Object expectedResult = new Long(1+2+3+4+5);
+        Object expectedResult = Long.valueOf(1+2+3+4+5);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -419,7 +419,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testAvg() {
         // AVG
-        Object expectedResult = new Double(3);
+        Object expectedResult = Double.valueOf(3);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -586,7 +586,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testNavigationalExpressionField() {
         // navigational expression field
-        Object expectedResult = Arrays.asList(new Object[]{new Long(1)});
+        Object expectedResult = Arrays.asList(new Object[]{Long.valueOf(1)});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

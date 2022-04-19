@@ -128,7 +128,7 @@ public class ShortIdentity
      * @since 2.0
      */
     protected Object createKeyAsObject() {
-        return new Short(key);
+        return Short.valueOf(key);
     }
 
     /** Write this object. Write the superclass first.

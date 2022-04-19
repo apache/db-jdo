@@ -77,8 +77,8 @@ public class TestFieldsOfFloat extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Float firstValue = new Float(AllTypes.FLOAT_SMALLEST);
-        Float secondValue = new Float(AllTypes.FLOAT_LARGEST);
+        Float firstValue = Float.valueOf((float)AllTypes.FLOAT_SMALLEST);
+        Float secondValue = Float.valueOf((float)AllTypes.FLOAT_LARGEST);
         tx.begin();
         FieldsOfFloat pi = new FieldsOfFloat();
         pi.identifier = 1;

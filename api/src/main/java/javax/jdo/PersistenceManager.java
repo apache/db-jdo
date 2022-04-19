@@ -563,6 +563,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @see #makePersistent(Object pc)
      * @param <T> Type of the persistable object
      */
+    @SuppressWarnings({"unchecked", "varargs"})
     <T> T[] makePersistentAll (T... pcs);
     
     /** Make a <code>Collection</code> of instances persistent.
@@ -1093,6 +1094,7 @@ public interface PersistenceManager extends AutoCloseable {
      * @since 2.0
      * @param <T> Type of the persistable object
      */
+    @SuppressWarnings({"unchecked", "varargs"})
     <T> T[] detachCopyAll (T... pcs);
 
     /**
