@@ -69,7 +69,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         Class[] objectParameters = new Class[]{Object.class};
         Class[] integerParameters = new Class[]{Integer.class};
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
-        Object[] booleanParameter = new Object[]{Boolean.valueOf(false)};
+        Object[] booleanParameter = new Object[]{Boolean.FALSE};
         Object[] objectParameter = new Object[]{null};
         Object[] integerParameter = new Object[]{Integer.valueOf(0)};
         

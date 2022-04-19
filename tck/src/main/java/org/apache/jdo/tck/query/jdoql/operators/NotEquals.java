@@ -188,8 +188,8 @@ public class NotEquals extends ComparisonTests {
     /** */
     private void runQueries()
     {
-        Boolean trueBoolean = Boolean.valueOf(true);
-        Boolean falseBoolean = Boolean.valueOf(false);
+        Boolean trueBoolean = Boolean.TRUE;
+        Boolean falseBoolean = Boolean.FALSE;
         run_booleanQuery(boolean_filterL, booleanParameter, trueBoolean, true, 6);
         run_booleanQuery(boolean_filterL, booleanParameter, falseBoolean, false, 4);
         run_booleanQuery(boolean_filterR, booleanParameter, trueBoolean, true, 6);
