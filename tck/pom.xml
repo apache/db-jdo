@@ -193,27 +193,27 @@
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-core</artifactId>
-                    <version>6.0.0-m4</version>
+                    <version>5.2.9</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-rdbms</artifactId>
-                    <version>6.0.0-m4</version>
+                    <version>5.2.9</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jdo</artifactId>
-                    <version>6.0.0-m4</version>
+                    <version>5.2.8</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-jdo-query</artifactId>
-                    <version>6.0.0-m1</version>
+                    <version>5.0.9</version>
                 </dependency>
                 <dependency>
                     <groupId>org.datanucleus</groupId>
                     <artifactId>datanucleus-api-jpa</artifactId>
-                    <version>6.0.0-m4</version>
+                    <version>5.2.8</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.logging.log4j</groupId>
