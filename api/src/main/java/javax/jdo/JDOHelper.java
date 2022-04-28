@@ -32,7 +32,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
@@ -177,7 +176,7 @@ public class JDOHelper implements Constants {
      *  implementations.
      */
     private static JDOImplHelper implHelper = (JDOImplHelper)
-        AccessController.doPrivileged(
+        doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {
                     return JDOImplHelper.getInstance();
@@ -1910,7 +1909,7 @@ public class JDOHelper implements Constants {
      * @since 2.0
      */
     private static ClassLoader getContextClassLoader() {
-        return AccessController.doPrivileged(
+        return doPrivileged(
             new PrivilegedAction<ClassLoader> () {
                 public ClassLoader run () {
                     return Thread.currentThread().getContextClassLoader();
@@ -1924,7 +1923,7 @@ public class JDOHelper implements Constants {
      */
     private static InputStream getResourceAsStream(
             final ClassLoader resourceLoader, final String name) {
-        return AccessController.doPrivileged(
+        return doPrivileged(
             new PrivilegedAction<InputStream>() {
                 public InputStream run() {
                     return resourceLoader.getResourceAsStream(name);
@@ -1948,7 +1947,7 @@ public class JDOHelper implements Constants {
             final Class<?>[] parameterTypes) 
                 throws NoSuchMethodException {
         try {
-            return AccessController.doPrivileged(
+            return doPrivileged(
                 new PrivilegedExceptionAction<Method>() {
                     public Method run() throws NoSuchMethodException {
                         return implClass.getMethod(methodName, parameterTypes);
@@ -1967,7 +1966,7 @@ public class JDOHelper implements Constants {
             final Object instance, final Object[] parameters) 
                 throws IllegalAccessException, InvocationTargetException {
         try {
-            return (Object) AccessController.doPrivileged(
+            return (Object) doPrivileged(
                 new PrivilegedExceptionAction<Object>() {
                     public Object run() 
                         throws IllegalAccessException, 
@@ -1998,7 +1997,7 @@ public class JDOHelper implements Constants {
             final String resourceName) 
                 throws IOException {
         try {
-            return AccessController.doPrivileged(
+            return doPrivileged(
                 new PrivilegedExceptionAction<Enumeration<URL>>() {
                     public Enumeration<URL> run() throws IOException {
                         return resourceLoader.getResources(resourceName);
@@ -2024,7 +2023,7 @@ public class JDOHelper implements Constants {
             final ClassLoader loader) 
                 throws ClassNotFoundException {
         try {
-            return AccessController.doPrivileged(
+            return doPrivileged(
                 new PrivilegedExceptionAction<Class<?>>() {
                     public Class<?> run() throws ClassNotFoundException {
                         return Class.forName(name, init, loader);
@@ -2045,7 +2044,7 @@ public class JDOHelper implements Constants {
     private static InputStream openStream(final URL url) 
             throws IOException {
         try {
-            return AccessController.doPrivileged(
+            return doPrivileged(
                 new PrivilegedExceptionAction<InputStream>() {
                     public InputStream run() throws IOException {
                         return url.openStream();
@@ -2057,4 +2056,28 @@ public class JDOHelper implements Constants {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedExceptionAction<T> privilegedAction)
+            throws PrivilegedActionException {
+        try {
+            return (T) LegacyJava.doPrivilegedExceptionAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof PrivilegedActionException) {
+                throw (PrivilegedActionException) e.getCause();
+            }
+            throw new PrivilegedActionException(e);
+        }
+    }
 }

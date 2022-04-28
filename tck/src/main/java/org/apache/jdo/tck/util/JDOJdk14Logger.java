@@ -20,7 +20,9 @@ package org.apache.jdo.tck.util;
 import java.io.InputStream;
 import java.io.IOException;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 
 import java.util.logging.LogManager;
@@ -67,7 +69,7 @@ public class JDOJdk14Logger
     private void configureJDK14Logger() {
         final LogManager logManager = LogManager.getLogManager();
         final ClassLoader cl = getClass().getClassLoader();
-        AccessController.doPrivileged(new PrivilegedAction() {
+        doPrivileged(new PrivilegedAction() {
             public Object run () {
                 try {
                     InputStream config = cl.getResourceAsStream(PROPERIES_FILE);
@@ -91,5 +93,16 @@ public class JDOJdk14Logger
             }
             });
     }
-    
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
+    }
 }

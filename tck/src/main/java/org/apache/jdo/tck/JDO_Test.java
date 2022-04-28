@@ -27,9 +27,10 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import java.security.AccessController;
+import javax.jdo.*;
 import java.security.PrivilegedAction;
 
 import java.util.ArrayList;
@@ -42,16 +43,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
-
-import javax.jdo.Constants;
-import javax.jdo.Extent;
-import javax.jdo.JDOException;
-import javax.jdo.JDOFatalException;
-import javax.jdo.JDOHelper;
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -653,7 +644,7 @@ public abstract class JDO_Test extends TestCase {
     public static void closePMF(final PersistenceManagerFactory PMF) {
         if (PMF != null) {
             if (!PMF.isClosed()) {
-                AccessController.doPrivileged(
+                doPrivileged(
                     new PrivilegedAction () {
                         public Object run () {
                             PMF.close();
@@ -662,6 +653,18 @@ public abstract class JDO_Test extends TestCase {
                     }
                 );
             }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
         }
     }
 
@@ -1188,7 +1191,7 @@ public abstract class JDO_Test extends TestCase {
      * @return an array of fields
      */
     protected Field[] getModifiableFields(final Object obj) {
-        return (Field[])AccessController.doPrivileged(
+        return (Field[])doPrivileged(
             new PrivilegedAction () {
                 public Object run () {
                     Class cls = obj.getClass();

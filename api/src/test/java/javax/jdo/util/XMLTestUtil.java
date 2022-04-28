@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -416,7 +418,7 @@ public class XMLTestUtil {
                 // but only if the publicId is equal to RECOGNIZED_PUBLIC_ID
                 // or there is no publicID and the systemID is equal to
                 // RECOGNIZED_SYSTEM_ID. 
-                    InputStream stream = AccessController.doPrivileged (
+                    InputStream stream = doPrivileged (
                         new PrivilegedAction<InputStream> () {
                             public InputStream run () {
                             return getClass().getClassLoader().
@@ -435,6 +437,7 @@ public class XMLTestUtil {
             }
         }
     }
+
 
     /** Helper class to find all test JDO metadata files. */
     public static class XMLFinder {
@@ -562,6 +565,19 @@ public class XMLTestUtil {
             String messages = xmlTest.checkXML(file, true);
             messages = (messages == null) ?  "OK" : NL + messages;
             System.out.println(messages);
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
         }
     }
 }

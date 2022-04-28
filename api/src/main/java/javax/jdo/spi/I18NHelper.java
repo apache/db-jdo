@@ -17,9 +17,10 @@
 
 package javax.jdo.spi;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.text.MessageFormat;
-import java.security.AccessController;
+import javax.jdo.LegacyJava;
 import java.security.PrivilegedAction;
 
 import javax.jdo.JDOFatalInternalException;
@@ -107,7 +108,7 @@ public class I18NHelper {
      * @return the helper instance bound to the bundle
      */
     public static I18NHelper getInstance (final Class cls) {
-        ClassLoader classLoader = AccessController.doPrivileged (
+        ClassLoader classLoader = doPrivileged (
             new PrivilegedAction<ClassLoader> () {
                 public ClassLoader run () {
                     return cls.getClassLoader();
@@ -389,12 +390,24 @@ public class I18NHelper {
      * block because of security.
      */
     private static ClassLoader getSystemClassLoaderPrivileged() {
-        return AccessController.doPrivileged (
+        return doPrivileged (
             new PrivilegedAction<ClassLoader> () {
                 public ClassLoader run () {
                     return ClassLoader.getSystemClassLoader();
                 }
             }
         );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
     }
 }
