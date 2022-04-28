@@ -24,9 +24,12 @@ package javax.jdo.spi;
 
 import org.xml.sax.ErrorHandler;
 
+import javax.jdo.LegacyJava;
+import javax.jdo.LegacyJava.SecurityManager;
+
 import java.lang.reflect.Constructor;
 
-import java.security.AccessController;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 
 import java.text.DateFormat;
@@ -47,11 +50,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import javax.jdo.Constants;
-import javax.jdo.JDOException;
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.JDOFatalUserException;
-import javax.jdo.JDOUserException;
+import javax.jdo.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 /** This class is a helper class for JDO implementations.  It contains methods
@@ -186,8 +185,7 @@ public class JDOImplHelper extends java.lang.Object {
 	}
 	return Collections.unmodifiableSet(lowerCased);
     }
-    
-    
+
     /** Register the default DateFormat instance.
      */
     static {
@@ -208,7 +206,7 @@ public class JDOImplHelper extends java.lang.Object {
      */    
     public static JDOImplHelper getInstance() 
         throws SecurityException {        
-        SecurityManager sec = System.getSecurityManager();
+        SecurityManager sec = LegacyJava.getSecurityManager();
         if (sec != null) { 
             // throws exception if caller is not authorized
             sec.checkPermission (JDOPermission.GET_METADATA);
@@ -454,7 +452,7 @@ public class JDOImplHelper extends java.lang.Object {
      */
     public void unregisterClasses (ClassLoader cl)
     {
-        SecurityManager sec = System.getSecurityManager();
+        SecurityManager sec = LegacyJava.getSecurityManager();
         if (sec != null) { 
             // throws exception if caller is not authorized
             sec.checkPermission (JDOPermission.MANAGE_METADATA);
@@ -491,7 +489,7 @@ public class JDOImplHelper extends java.lang.Object {
     {
         if (pcClass == null) 
             throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
-        SecurityManager sec = System.getSecurityManager();
+        SecurityManager sec = LegacyJava.getSecurityManager();
         if (sec != null) { 
             // throws exception if caller is not authorized
             sec.checkPermission (JDOPermission.MANAGE_METADATA);
@@ -575,7 +573,7 @@ public class JDOImplHelper extends java.lang.Object {
         throws SecurityException {
         if (smClass == null) 
             throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
-        SecurityManager sm = System.getSecurityManager();
+        SecurityManager sm = LegacyJava.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
         }
@@ -597,7 +595,7 @@ public class JDOImplHelper extends java.lang.Object {
      */
     public static void registerAuthorizedStateManagerClasses (
             Collection smClasses) throws SecurityException {
-        SecurityManager sm = System.getSecurityManager();
+        SecurityManager sm = LegacyJava.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
             synchronized (authorizedStateManagerClasses) {
@@ -680,7 +678,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @since 1.0.1
      */
     public static void checkAuthorizedStateManagerClass (Class smClass) {
-        final SecurityManager scm = System.getSecurityManager();
+        final SecurityManager scm = LegacyJava.getSecurityManager();
         if (scm == null) {
             // if no security manager, no checking.
             return;
@@ -879,7 +877,7 @@ public class JDOImplHelper extends java.lang.Object {
     static DateFormat getDateTimeInstance() {
         DateFormat result = null;
         try {
-        result = AccessController.doPrivileged (
+        result = doPrivileged (
             new PrivilegedAction<DateFormat> () {
                 public DateFormat run () {
                     return DateFormat.getDateTimeInstance();
@@ -890,6 +888,18 @@ public class JDOImplHelper extends java.lang.Object {
             result = DateFormat.getInstance();
         }
         return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
     }
 
     /**

@@ -17,7 +17,9 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 
 import javax.jdo.JDOFatalUserException;
@@ -55,6 +57,18 @@ public class Close extends JDO_Test {
         BatchTestRunner.run(Close.class);
     }
 
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
+    }
+
     /** */
     public void test() {
         pmf = getPMF();
@@ -85,7 +99,7 @@ public class Close extends JDO_Test {
         // pmf.close() on already-closed pmf should not throw an exception
         try {
             // don't use closePMF methods because they check isClosed before calling
-            AccessController.doPrivileged(
+            doPrivileged(
                 new PrivilegedAction () {
                     public Object run () {
                         pmf.close();

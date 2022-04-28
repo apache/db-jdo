@@ -27,7 +27,8 @@ import java.io.Serializable;
 
 import java.math.BigDecimal;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
 import java.security.PrivilegedAction;
 
 import java.text.SimpleDateFormat;
@@ -52,14 +53,26 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     /** The JDOImplHelper instance used for Date formatting.
      */
     private static JDOImplHelper helper = (JDOImplHelper)
-        AccessController.doPrivileged(
+        doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {
                     return JDOImplHelper.getInstance();
                 }
             }
         );
-    
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
+    }
+
     /** Creates a new instance of ObjectIdentityTest */
     public ObjectIdentityTest() {
     }

@@ -20,6 +20,7 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.security.Permission;
 
 import javax.jdo.JDOException;
+import javax.jdo.LegacyJava;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.spi.JDOPermission;
 
@@ -68,6 +69,9 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
     }
 
     private void closeWithMySecurityManager(PersistenceManagerFactory pmf) {
+        if (LegacyJava.isSecurityManagerDeprecated()) {
+            return;
+        }
         SecurityManager oldSecMgr = System.getSecurityManager();
         try {
             System.setSecurityManager(new MySecurityManager());

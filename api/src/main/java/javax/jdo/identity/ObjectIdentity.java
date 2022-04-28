@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 
 import javax.jdo.JDOUserException;
@@ -44,14 +46,26 @@ public class ObjectIdentity extends SingleFieldIdentity {
     /** The JDOImplHelper instance used for parsing the String to an Object.
      */
     private static JDOImplHelper helper = (JDOImplHelper)
-        AccessController.doPrivileged(
+        doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {
                     return JDOImplHelper.getInstance();
                 }
             }
         );
-    
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
+    }
+
     /** The delimiter for String constructor.
      */
     private static final String STRING_DELIMITER = ":"; //NOI18N

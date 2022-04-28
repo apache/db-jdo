@@ -17,7 +17,9 @@
 
 package org.apache.jdo.tck;
 
-import java.security.AccessController;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
+import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
 
 import java.util.HashMap;
@@ -50,13 +52,25 @@ public class AbstractReaderTest extends JDO_Test {
      * @return the named object
      */
     protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
-        return AccessController.doPrivileged(
+        return doPrivileged(
             new PrivilegedAction() {
                 public Object run() {
                     return factory.getBean(name);
                 }
             }
         );
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+        try {
+            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException) {
+                throw (RuntimeException) e.getCause();
+            }
+            throw new JDOFatalInternalException(e.getMessage());
+        }
     }
 
     /** Get the root object from the bean factory.
