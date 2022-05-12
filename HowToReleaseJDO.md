@@ -182,12 +182,12 @@ Detailed process steps
         mvn release:prepare -Papache-release -DautoVersionSubmodules=true -DdryRun=true -Dresume=false
         mvn deploy -Papache-release 
   
-    Check the artifacts at [the Maven release
-    repository](https://repository.apache.org/content/repositories/snapshots/)
+    Check the artifacts at the Maven release repository for 
+    [javax.jdo](https://repository.apache.org/content/repositories/snapshots/javax/jdo/jdo-api/) and
+    [org.apach.jdo](https://repository.apache.org/content/repositories/snapshots/org/apache/jdo/).
 
-14. Check out the SVN repository at
-    https://dist.apache.org/repos/dist/release/db/jdo and make sure that
-    the key used to sign the artifacts is included in the KEYS file.
+14. Make sure that the key used to sign the artifacts is included in the 
+    [KEYS](https://dist.apache.org/repos/dist/release/db/jdo/KEYS) file (this is an SVN repository).
 
 15. Prepare and release the artifacts. There are interoperability issues
     with the maven release plugin and cygwin, so if on Windows, use a
