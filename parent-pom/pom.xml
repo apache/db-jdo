@@ -38,7 +38,8 @@
     <url>http://db.apache.org/jdo</url>
     <inceptionYear>2005</inceptionYear>
     <organization>
-        <name>Apache Software Foundation</name>
+        <!-- The name is used when generating a NOTICE file -->
+        <name>The Apache Software Foundation</name>
         <url>http://www.apache.org</url>
     </organization>
 
