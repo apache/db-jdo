@@ -65,7 +65,7 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.14-SNAPSHOT<version>
+                <version>0.14-SNAPSHOT</version>
                 <configuration>
                     <excludesFile>.rat-excludes</excludesFile>
                 </configuration>
