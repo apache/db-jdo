@@ -27,7 +27,7 @@
 
     <groupId>org.apache.jdo</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>3.2.1-SNAPSHOT</version>
+    <version>3.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JDO PARENT</name>
@@ -38,7 +38,8 @@
     <url>http://db.apache.org/jdo</url>
     <inceptionYear>2005</inceptionYear>
     <organization>
-        <name>Apache Software Foundation</name>
+        <!-- The name is used when generating a NOTICE file -->
+        <name>The Apache Software Foundation</name>
         <url>http://www.apache.org</url>
     </organization>
 
@@ -154,8 +155,15 @@
         </mailingList>
     </mailingLists>
 
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
+        <connection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/db-jdo.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=db-jdo.git</url>
+      <tag>HEAD</tag>
+  </scm>
+
     <properties>
-        <project.build.outputTimestamp>1</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1653505066</project.build.outputTimestamp>
     </properties>
 
     <dependencyManagement>
@@ -163,17 +171,17 @@
             <dependency>
                 <groupId>javax.jdo</groupId>
                 <artifactId>jdo-api</artifactId>
-                <version>3.2.1-SNAPSHOT</version>
+                <version>3.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-exectck</artifactId>
-                <version>3.2.1-SNAPSHOT</version>
+                <version>3.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jdo</groupId>
                 <artifactId>jdo-tck</artifactId>
-                <version>3.2.1-SNAPSHOT</version>
+                <version>3.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>

@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-Running the JDO 3.2 Technology Compatibility Kit
+Running the JDO 3.2.1 Technology Compatibility Kit
 ================================================
 
 -   [Overview](#overview)
@@ -27,7 +27,7 @@ Running the JDO 3.2 Technology Compatibility Kit
 -   [First Level TCK Appeals Process](#firstlevel)
 -   [Prerequisites](#prerequisites)
 
-1-November-2021
+12-May-2022
 
 <span id="overview"></span>
 
