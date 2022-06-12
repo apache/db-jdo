@@ -160,7 +160,7 @@ Detailed process steps
         java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
         java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
 
-13. Check reproducibility. Reproducibility is tracked 
+12. Check reproducibility. Reproducibility is tracked 
     [here]( https://github.com/jvm-repo-rebuild/reproducible-central#org.apache.jdo:jdo).
         
         mvn clean install
