@@ -160,6 +160,11 @@ Detailed process steps
         java -jar apache-rat-0.13.jar -E .rat-excludes -d api/target/jdo-api-3.2-SNAPSHOT-sources.jar
         java -jar apache-rat-0.13.jar -E .rat-excludes -d tck/target/jdo-tck-3.2-SNAPSHOT-sources.jar
 
+12. Check reproducibility. Reproducibility is tracked 
+    [here]( https://github.com/jvm-repo-rebuild/reproducible-central#org.apache.jdo:jdo).
+        
+        mvn clean install
+        mvn clean package artifact:compare
 
 13. Do a dry run prepare and deployment of a *snapshot release*. You might
     want to do this in a fresh workspace, since you cannot have local
