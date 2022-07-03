@@ -42,18 +42,18 @@ public class OrderFactoryRegistry {
       *
       * NOTE:  SHOULD BE RENAMED!!
      */
-    final static String FACTORY_PROPERTY_NAME = 
+    static final String FACTORY_PROPERTY_NAME =
         "jdo.tck.mapping.companyfactory";
 
     /** The factory name if the system property is not set.
      */
-    final static String DEFAULT_FACTORY_CLASS_NAME =
+    static final String DEFAULT_FACTORY_CLASS_NAME =
         "org.apache.jdo.tck.pc.order.OrderFactoryConcreteClass";
 
     /**
      * The default factory class name
      */
-    final static String FACTORY_CLASS_NAME;
+    static final String FACTORY_CLASS_NAME;
 
     static {
         String prop = System.getProperty(FACTORY_PROPERTY_NAME);
@@ -66,7 +66,7 @@ public class OrderFactoryRegistry {
      * This is the default order factory singleton. This is statically
      * loaded regardless of the setting of the system property.
      */
-    final static OrderFactory SINGLETON = new OrderFactoryConcreteClass();
+    static final OrderFactory SINGLETON = new OrderFactoryConcreteClass();
     
     /** 
      * This is the currently registered factory.
@@ -115,8 +115,8 @@ public class OrderFactoryRegistry {
         OrderFactory factory = null;
         try {
             if (factoryClassName != null) {
-                Class factoryClass = Class.forName(factoryClassName);
-                Constructor ctor = factoryClass.getConstructor(new Class[]
+                Class<?> factoryClass = Class.forName(factoryClassName);
+                Constructor<?> ctor = factoryClass.getConstructor(new Class[]
                     {PersistenceManager.class});
                 factory = (OrderFactory)
                     ctor.newInstance(new Object[]{pm});

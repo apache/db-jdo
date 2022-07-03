@@ -63,8 +63,8 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new HashSet();
-    private Collection col2 = new HashSet();
+    private Collection<PCPoint> col1 = new HashSet<>();
+    private Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -219,9 +219,9 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     }
     
     /** */
-    private boolean navigateAndTestTransientCol (Collection col) {
+    private boolean navigateAndTestTransientCol (Collection<PCPoint> col) {
         boolean noError = true;
-        Iterator iter = col1.iterator();
+        Iterator<PCPoint> iter = col1.iterator();
         while (iter.hasNext() ) {
             PCPoint p = (PCPoint) iter.next();
             if (! testState(p, TRANSIENT, "transient")) {

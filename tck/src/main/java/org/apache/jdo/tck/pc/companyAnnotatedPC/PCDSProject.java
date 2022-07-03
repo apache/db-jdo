@@ -23,11 +23,12 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
+
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 
 import org.apache.jdo.tck.util.DeepEquality;
@@ -43,7 +44,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
         column="DISCRIMINATOR")
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
 public class PCDSProject 
-    implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
 
     @NotPersistent()
     private long _projid;
@@ -52,9 +53,9 @@ public class PCDSProject
     @NotPersistent()
     private BigDecimal _budget;
     @NotPersistent()
-    private transient Set _reviewers = new HashSet();
+    private transient Set<IEmployee> _reviewers = new HashSet<>();
     @NotPersistent()
-    private transient Set _members = new HashSet();
+    private transient Set<IEmployee> _members = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -135,7 +136,7 @@ public class PCDSProject
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    public Set getReviewers() {
+    public Set<IEmployee> getReviewers() {
         return _reviewers;
     }
 
@@ -159,10 +160,10 @@ public class PCDSProject
      * Set the reviewers associated with this project.
      * @param reviewers The set of reviewers to associate with this project.
      */
-    public void setReviewers(Set reviewers) {
+    public void setReviewers(Set<IEmployee> reviewers) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._reviewers = (reviewers != null) ? new HashSet(reviewers) : null;
+        this._reviewers = (reviewers != null) ? new HashSet<>(reviewers) : null;
     }
 
     /**
@@ -177,7 +178,7 @@ public class PCDSProject
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSEmployee.class,
             column="MEMBER", foreignKey="PR_MEMB_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    public Set getMembers() {
+    public Set<IEmployee> getMembers() {
         return _members;
     }
 
@@ -202,10 +203,10 @@ public class PCDSProject
      * @param employees The set of employees to be the members of this
      * project. 
      */
-    public void setMembers(Set employees) {
+    public void setMembers(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._members = (employees != null) ? new HashSet(employees) : null;
+        this._members = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -217,8 +218,8 @@ public class PCDSProject
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        _reviewers = new HashSet();
-        _members = new HashSet();
+        _reviewers = new HashSet<>();
+        _members = new HashSet<>();
     }
 
     /**
@@ -265,27 +266,6 @@ public class PCDSProject
             helper.deepEquals(_reviewers, otherProject.getReviewers(), where + ".reviewers") &
             helper.deepEquals(_members, otherProject.getMembers(), where + ".members");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((PCDSProject)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((PCDSProject)o1, (PCDSProject)o2);
-    }
 
     /**
      * 
@@ -299,7 +279,7 @@ public class PCDSProject
      * @return a negative integer, zero, or a positive integer as this
      * object is less than, equal to, or greater than the specified PCDSProject object.
      */
-    public int compareTo(PCDSProject other) {
+    public int compareTo(IProject other) {
         return compare(this, other);
     }
 
@@ -312,7 +292,7 @@ public class PCDSProject
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(PCDSProject o1, PCDSProject o2) {
+    public int compare(IProject o1, IProject o2) {
         return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
@@ -341,7 +321,7 @@ public class PCDSProject
      * This class is used to represent the application identity
      * for the <code>PCDSProject</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field represents the identifier for the
@@ -386,12 +366,8 @@ public class PCDSProject
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( projid < other.projid ) return -1;
-            if( projid > other.projid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(projid, obj.projid);
         }
 
     }

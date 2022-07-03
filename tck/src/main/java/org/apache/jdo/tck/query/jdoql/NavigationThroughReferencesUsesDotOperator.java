@@ -55,6 +55,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
      * Returns the name of the company test data resource.
      * @return name of the company test data resource. 
      */
+    @Override
     protected String getCompanyTestDataResource() {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
@@ -70,7 +71,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive0() {
         // navigation through one relationship
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -100,8 +101,8 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive1() {
         // navigation through multiple relationships
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
@@ -131,8 +132,8 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive2() {
         // navigation through a self referencing relationship
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
@@ -162,8 +163,8 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive3() {
         // navigation through a self referencing relationship multiple times
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "medicalIns2", "medicalIns3"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();

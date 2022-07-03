@@ -18,13 +18,10 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
 
 import javax.jdo.datastore.JDOConnection;
 
@@ -187,7 +184,7 @@ public class DataStoreConnectionThrows extends PersistenceManagerTest {
                 new Call() {
                     public String getName() {return "setTypeMap";}
                     public void execute(Connection conn) 
-                        throws SQLException {conn.setTypeMap(new HashMap());}
+                        throws SQLException {conn.setTypeMap(Collections.emptyMap());}
                 }
             );
      }

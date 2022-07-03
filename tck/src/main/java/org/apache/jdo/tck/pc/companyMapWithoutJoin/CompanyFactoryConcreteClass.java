@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 import javax.jdo.PersistenceManager;
@@ -30,7 +28,7 @@ import javax.jdo.PersistenceManager;
 public  class CompanyFactoryConcreteClass implements CompanyFactory {
 
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    public static final Class<?>[] tearDownClasses = new Class<?>[] {
         PartTimeEmployee.class, FullTimeEmployee.class,  
         Department.class, Company.class
     };
@@ -80,7 +78,7 @@ public  class CompanyFactoryConcreteClass implements CompanyFactory {
                 birthdate);
     }
 
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

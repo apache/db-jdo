@@ -99,7 +99,8 @@ public class PCPointSingleFieldString extends AbstractPCPointSingleField {
     public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
         return this.id.equals(((StringIdentity)singleFieldIdentity).getKey());
     }
-    
+
+    @Override
     public String toString() {
         return super.toString() + this.id;
     }

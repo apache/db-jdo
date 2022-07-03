@@ -25,10 +25,8 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.NumericExpression;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMeetingRoom;
@@ -76,21 +74,21 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
 
             // API query
-            try (Query apiQuery = pm.newQuery(Employee.class)) {
-                Query sub = pm.newQuery(Employee.class);
+            try (Query<Employee> apiQuery = pm.newQuery(Employee.class)) {
+                Query<Employee> sub = pm.newQuery(Employee.class);
                 sub.setResult("avg(this.weeklyhours)");
                 apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
                 apiQuery.addSubquery(sub, "double averageWeeklyhours",
                               "this.department.employees");
-                List<FullTimeEmployee> emps = apiQuery.executeList();
+                List<Employee> emps = apiQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
 
                 // API query against memory model
-                List allEmployees = (List)pm.newQuery(Employee.class).execute();
+                List<Employee> allEmployees = pm.newQuery(Employee.class).executeList();
                 apiQuery.setCandidates(allEmployees);
                 emps = apiQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
@@ -110,11 +108,11 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
             // single String JDOQL
-            try (Query singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_COLLECTION_SUBQUERY)) {
-                List<FullTimeEmployee> emps = singleStringQuery.executeList();
+            try (Query<Employee> singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_COLLECTION_SUBQUERY)) {
+                List<Employee> emps = singleStringQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED, ex.getLocalizedMessage());
@@ -132,8 +130,8 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp1", "emp2", "emp4", "emp6", "emp7", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
                 JDOQLTypedSubquery<Employee> subquery = q.subquery(cand.department.employees, Employee.class,"e");
@@ -157,20 +155,20 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp7", "emp8", "emp9", "emp10");
 
             // API query
-            try (Query apiQuery = pm.newQuery(Employee.class)) {
-                 Query sub = pm.newQuery(MeetingRoom.class);
+            try (Query<Employee> apiQuery = pm.newQuery(Employee.class)) {
+                 Query<MeetingRoom> sub = pm.newQuery(MeetingRoom.class);
                 sub.setResult("max(roomid)");
                 apiQuery.setFilter("maxNumber == 3");
                 apiQuery.addSubquery(sub, "long maxNumber", "this.department.meetingRooms");
-                List<FullTimeEmployee> emps = apiQuery.executeList();
+                List<Employee> emps = apiQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
 
                 // API query against memory model
-                List allEmployees = (List)pm.newQuery(Employee.class).execute();
+                List<Employee> allEmployees = pm.newQuery(Employee.class).executeList();
                 apiQuery.setCandidates(allEmployees);
                 emps = apiQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
@@ -190,11 +188,11 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp7", "emp8", "emp9", "emp10");
             // single String JDOQL
-            try (Query singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_LIST_SUBQUERY)) {
-                List<FullTimeEmployee> emps = singleStringQuery.executeList();
+            try (Query<Employee> singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_LIST_SUBQUERY)) {
+                List<Employee> emps = singleStringQuery.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_LIST_SUBQUERY, emps, expected);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED, ex.getLocalizedMessage());
@@ -212,14 +210,14 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List expected = getTransientCompanyModelInstancesAsList(
-                    new String[]{"emp7", "emp8", "emp9", "emp10"});
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+                    "emp7", "emp8", "emp9", "emp10");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
                 JDOQLTypedSubquery<MeetingRoom> subquery =
                         q.subquery(cand.department.meetingRooms, MeetingRoom.class,"r");
                 QMeetingRoom candsub = QMeetingRoom.candidate("r");
-                q.filter(subquery.selectUnique((NumericExpression)candsub.roomid.max()).eq(3l));
+                q.filter(subquery.selectUnique((NumericExpression<Long>)candsub.roomid.max()).eq(3l));
                 List<Employee> emps = q.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_COLLECTION_SUBQUERY, emps, expected);
             } catch (Exception ex) {

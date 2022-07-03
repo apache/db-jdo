@@ -75,7 +75,7 @@ public class UnmodifiableQuery extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(singleStringQuery);
         query.setUnmodifiable();
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
@@ -93,7 +93,7 @@ public class UnmodifiableQuery extends QueryTest {
     
     /** */
     public void testNegative() {
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(singleStringQuery);
         query.setUnmodifiable();
         checkSetters(query);
 
@@ -101,7 +101,7 @@ public class UnmodifiableQuery extends QueryTest {
         checkSetters(query);
     }
     
-    private void checkSetters(Query query) {
+    private void checkSetters(Query<?> query) {
         checkSetResult(query);
         checkSetClass(query);
         checkSetFilter(query);
@@ -113,7 +113,7 @@ public class UnmodifiableQuery extends QueryTest {
         checkSetOrdering(query);
     }
         
-    private void checkSetResult(Query query) {
+    private void checkSetResult(Query<?> query) {
         try {
             query.setResult("firstname, lastname");
             methodFailed("setResult()");
@@ -129,7 +129,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkSetFilter(Query query) {
+    private void checkSetFilter(Query<?> query) {
         try {
             query.setFilter("firstname == 'emp1First'");
             methodFailed("setFilter()");
@@ -137,7 +137,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkDeclareVariables(Query query) {
+    private void checkDeclareVariables(Query<?> query) {
         try {
             query.declareVariables("Employee emp");
             methodFailed("declareVariables()");
@@ -145,7 +145,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkDeclareParameters(Query query) {
+    private void checkDeclareParameters(Query<?> query) {
         try {
             query.declareParameters("Employee emp");
             methodFailed("declareParameters()");
@@ -153,7 +153,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkDeclareImports(Query query) {
+    private void checkDeclareImports(Query<?> query) {
         try {
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
             methodFailed("declareImports()");
@@ -161,7 +161,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkSetGrouping(Query query) {
+    private void checkSetGrouping(Query<?> query) {
         try {
             query.setGrouping("firstname");
             methodFailed("setGrouping()");
@@ -169,7 +169,7 @@ public class UnmodifiableQuery extends QueryTest {
         }
     }
     
-    private void checkSetOrdering(Query query) {
+    private void checkSetOrdering(Query<?> query) {
         try {
             query.setOrdering("firstname ASCENDING");
             methodFailed("setOrdering()");

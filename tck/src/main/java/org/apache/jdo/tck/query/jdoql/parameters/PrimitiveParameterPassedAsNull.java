@@ -60,7 +60,7 @@ public class PrimitiveParameterPassedAsNull extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Query q = pm.newQuery(PrimitiveTypes.class, "intNotNull == param");
+        Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "intNotNull == param");
         q.declareParameters("int param");
         try {
             q.execute(null);

@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.jdo.PersistenceManager;
@@ -115,16 +116,16 @@ public class MakeTransactional extends PersistenceManagerTest{
         try {
             tx.begin();
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p1);
             col1.add(p2);
             col1.add(p3);
             col1.add(p4);
             
             pm.makeTransactionalAll(col1);
-            Iterator iter = col1.iterator();
+            Iterator<PCPoint> iter = col1.iterator();
             while (iter.hasNext() ) {
-                PCPoint p = (PCPoint) iter.next();
+                PCPoint p = iter.next();
                 if (currentState(p) != TRANSIENT_CLEAN) {
                     fail(ASSERTION_FAILED,
                          "Expected T-CLEAN instance, instance " + p + " is " + 

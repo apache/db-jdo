@@ -19,6 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -48,12 +49,12 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A12.5.1-5D (RefreshAllSideEffects) failed: ";
     
-    ArrayList oids = new ArrayList();
+    List<Object> oids = new ArrayList<>();
 
     PersistenceManager pm1;
     PersistenceManager pm2;
     PersistenceManager pmVerify;
-    Collection coll = new ArrayList(); // Collection of persistent instances
+    List<VersionedPCPoint> coll = new ArrayList<>(); // Collection of persistent instances
     boolean useCollection = true;
 
     /**
@@ -66,6 +67,7 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     }
 
     /** */
+    @Override
     public void localSetUp () {
         addTearDownClass(VersionedPCPoint.class);
         pm = getPM();
@@ -77,8 +79,8 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
         coll.add(pnt2);
         pm.makePersistentAll(coll);
 
-        oids.add(0, pm.getObjectId((Object)pnt1));
-        oids.add(1, pm.getObjectId((Object)pnt2));
+        oids.add(0, pm.getObjectId(pnt1));
+        oids.add(1, pm.getObjectId(pnt2));
         tx.commit();
     }
 
@@ -132,12 +134,12 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
         Transaction tx1 = pm1.currentTransaction();
         tx1.setOptimistic(true);
         tx1.begin();
-        Collection points1 = pm1.getObjectsById(oids, true);
+        Collection<VersionedPCPoint> points1 = pm1.getObjectsById(oids, true);
         ((VersionedPCPoint)points1.toArray()[0]).setX(11);  // make transactional
 
         Transaction tx2 = pm2.currentTransaction();
         tx2.begin();
-        Collection points2 = pm2.getObjectsById(oids);
+        Collection<VersionedPCPoint> points2 = pm2.getObjectsById(oids);
         ((VersionedPCPoint)points2.toArray()[0]).setX(22);
         ((VersionedPCPoint)points2.toArray()[1]).setX(22);
         ((VersionedPCPoint)points2.toArray()[0]).setY(Integer.valueOf("22"));
@@ -175,7 +177,7 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
             
         Transaction txVerify = pmVerify.currentTransaction();
         txVerify.begin();
-        Collection pointsVerify = 
+        Collection<VersionedPCPoint> pointsVerify =
                 pmVerify.getObjectsById(oids, true);
         if (((VersionedPCPoint)pointsVerify.toArray()[0]).getX()
                 != pntExpected.getX() 

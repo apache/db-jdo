@@ -66,18 +66,18 @@ public class SetCandidateCollection extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(inserted);
             Object results = query.execute();
         
             // check query result
-            List expected = new ArrayList();
-            Object p1 = new PCPoint(0, 0);
-            Object p2 = new PCPoint(1, 1);
-            Object p3 = new PCPoint(2, 2);
-            Object p4 = new PCPoint(3, 3);
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p1 = new PCPoint(0, 0);
+            PCPoint p2 = new PCPoint(1, 1);
+            PCPoint p3 = new PCPoint(2, 2);
+            PCPoint p4 = new PCPoint(3, 3);
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p1);
             expected.add(p2);
             expected.add(p3);

@@ -90,7 +90,7 @@ public class PointAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCRectString query with a query parameter of type Point.
      */
-    public void testPCRectStringQueryWithPointParam() throws Exception {
+    public void testPCRectStringQueryWithPointParam() {
         runQueryWithPointParameter(PCRect.class);
     }
 
@@ -125,7 +125,7 @@ public class PointAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCRectStringAnnotated query with a query parameter of type String.
      */
-    public void testPCRectStringAnnotatedQueryWithPointParam() throws Exception {
+    public void testPCRectStringAnnotatedQueryWithPointParam() {
         runQueryWithPointParameter(PCRectAnnotated.class);
     }
 
@@ -241,7 +241,7 @@ public class PointAttributeConverterTest extends JDO_Test {
      * The parameter value is converted using the AttributeConverter.
      * @throws Exception
      */
-    private <T extends IPCRect> void runQueryWithPointParameter(Class<T> pcrectClass) throws Exception {
+    private <T extends IPCRect> void runQueryWithPointParameter(Class<T> pcrectClass) {
         int nrOfDbCalls;
         int nrOfAttrCalls;
 

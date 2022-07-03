@@ -61,7 +61,7 @@ public class VariablesWithoutExtent extends QueryTest {
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
 
-            Object expected = new LinkedList();
+            Object expected = new LinkedList<>();
 
             QueryElementHolder holder = new QueryElementHolder(
                     /*UNIQUE*/      null,

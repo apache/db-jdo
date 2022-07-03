@@ -66,7 +66,7 @@ public class ParameterBoundToDifferentPM extends QueryTest {
         PersistenceManager pm2 = pmf.getPersistenceManager();
         pm2.currentTransaction().begin();
         try {
-            Query q = pm2.newQuery(Employee.class, "department == d");
+            Query<Employee> q = pm2.newQuery(Employee.class, "department == d");
             q.declareParameters("Department d"); 
             try {
                 q.execute(dept1);

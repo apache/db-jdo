@@ -63,8 +63,8 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new HashSet();
-    private Collection col2 = new HashSet();
+    private Collection<PCPoint> col1 = new HashSet<>();
+    private Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -141,8 +141,8 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
             pm.makeTransactionalAll(col1);
             tx.rollback();
 
-            for (Iterator iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = (PCPoint) iter.next();
+            for (Iterator<PCPoint> iter = col1.iterator(); iter.hasNext();) {
+                PCPoint p = iter.next();
                 if (!testState(p, TRANSIENT_CLEAN, "transient_clean")) {
                     fail(ASSERTION_FAILED,
                          "expected T-CLEAN instance, instance " + p1 + 

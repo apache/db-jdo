@@ -64,10 +64,10 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
 
     /** */
     public void test() {
-        Class[] stringParameters = new Class[]{String.class};
-        Class[] booleanParameters = new Class[]{boolean.class};
-        Class[] objectParameters = new Class[]{Object.class};
-        Class[] integerParameters = new Class[]{Integer.class};
+        Class<?>[] stringParameters = new Class[]{String.class};
+        Class<?>[] booleanParameters = new Class[]{boolean.class};
+        Class<?>[] objectParameters = new Class[]{Object.class};
+        Class<?>[] integerParameters = new Class[]{Integer.class};
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
         Object[] booleanParameter = new Object[]{Boolean.FALSE};
         Object[] objectParameter = new Object[]{null};
@@ -132,9 +132,9 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         pmf = getPMF();
         closePMF(pmf); // don't use closePMF() because that sets pmf to null
         // each set method should throw an exception
-        Collection setCollection = Arrays.asList(setMethods);
-        for (Iterator it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = (SetProperty)it.next();
+        Collection<SetProperty> setCollection = Arrays.asList(setMethods);
+        for (Iterator<SetProperty> it = setCollection.iterator(); it.hasNext();) {
+            SetProperty sp = it.next();
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
@@ -150,9 +150,9 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             }
         }
         // each get method should succeed
-        Collection getCollection = Arrays.asList(getMethods);
-        for (Iterator it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = (GetProperty)it.next();
+        Collection<GetProperty> getCollection = Arrays.asList(getMethods);
+        for (Iterator<GetProperty> it = getCollection.iterator(); it.hasNext();) {
+            GetProperty gp = it.next();
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
@@ -169,10 +169,10 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         
         java.lang.reflect.Method method;
         String methodName;
-        Class[] parameters;
+        Class<?>[] parameters;
         Object[] parameter;
        
-        SetProperty(String methodName, Class[] parameters, Object[] parameter) {
+        SetProperty(String methodName, Class<?>[] parameters, Object[] parameter) {
             this.methodName = methodName;
             this.parameters = parameters;
             this.parameter = parameter;
@@ -207,7 +207,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
             this.methodName = methodName;
             try {
                 method = PersistenceManagerFactory.class.getMethod(methodName,
-                        (Class[])null);
+                        (Class<?>[])null);
             } catch (NoSuchMethodException ex) {
                 throw new JDOFatalInternalException("Method not defined: " + methodName);
             }

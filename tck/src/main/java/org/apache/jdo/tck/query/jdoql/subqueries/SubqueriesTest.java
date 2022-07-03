@@ -38,6 +38,7 @@ public abstract class SubqueriesTest extends QueryTest {
      * Returns the name of the company test data resource.
      * @return name of the company test data resource. 
      */
+    @Override
     protected String getCompanyTestDataResource() {
         return SUBQUERIES_TEST_COMPANY_TESTDATA;
     }
@@ -47,7 +48,7 @@ public abstract class SubqueriesTest extends QueryTest {
      * @param pm the PersistenceManager 
      * @return a List including all persistent Employee instances
      */
-    protected List getAllEmployees(PersistenceManager pm) {
+    protected List<Employee> getAllEmployees(PersistenceManager pm) {
         return getAllPersistentInstances(pm, Employee.class);
     }
 
@@ -58,12 +59,12 @@ public abstract class SubqueriesTest extends QueryTest {
      * @param pcClass the persistent capable class 
      * @return a List including all persistent instances of the specified class.
      */
-    protected List getAllPersistentInstances(PersistenceManager pm, 
-                                             Class pcClass) {
+    protected <T> List<T> getAllPersistentInstances(PersistenceManager pm,
+                                             Class<T> pcClass) {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List all = (List)pm.newQuery(pcClass).execute();
+            List<T> all = pm.newQuery(pcClass).executeList();
             tx.commit();
             return all;
         } finally { 

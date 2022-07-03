@@ -65,7 +65,7 @@ public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalI
     public JPAAppMedicalInsurance(long insid, String carrier, 
                             IEmployee employee, String planType)
     {
-        super(insid, carrier, (JPAAppEmployee)employee);
+        super(insid, carrier, employee);
         this.planType = planType;
     }
 
@@ -93,6 +93,7 @@ public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalI
      * @return a String representation of a <code>JPAAppMedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "JPAMedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -101,6 +102,7 @@ public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalI
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -119,7 +121,8 @@ public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalI
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         JPAAppMedicalInsurance otherIns = (JPAAppMedicalInsurance)other;
         String where = "JPAAppMedicalInsurance<" + getInsid() + ">";

@@ -60,7 +60,7 @@ public abstract class OrderFactoryAbstractImpl implements OrderFactory {
         return result;
     }
 
-    public Order newOrder(long orderId, Set items, long customerId) {
+    public Order newOrder(long orderId, Set<OrderItem> items, long customerId) {
         Order result = newOrder();
         result.setOrderId(orderId);
         result.setItems(items);

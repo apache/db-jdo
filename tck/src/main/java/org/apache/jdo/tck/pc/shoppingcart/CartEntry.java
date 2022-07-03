@@ -25,7 +25,7 @@ public class CartEntry implements Serializable {
 
     protected static long nextId = System.currentTimeMillis();
 
-    public synchronized static long nextId() {
+    public static synchronized long nextId() {
         return nextId++;
     }
 

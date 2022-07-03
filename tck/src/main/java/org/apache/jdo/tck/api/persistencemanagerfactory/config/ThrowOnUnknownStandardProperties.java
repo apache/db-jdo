@@ -39,16 +39,18 @@ public class ThrowOnUnknownStandardProperties extends JDO_Test {
         BatchTestRunner.run(ThrowOnUnknownStandardProperties.class);
     }
 
+    @Override
     protected boolean preSetUp() {
         return false;
     }
 
+    @Override
     protected boolean preTearDown() {
         return false;
     }
 
     protected Method getStaticGetPMFMethod() {
-        Class pmfClass = getPMFClass();
+        Class<?> pmfClass = getPMFClass();
         try {
             Method m = pmfClass.getDeclaredMethod(
                     "getPersistenceManagerFactory", new Class[] {Map.class});

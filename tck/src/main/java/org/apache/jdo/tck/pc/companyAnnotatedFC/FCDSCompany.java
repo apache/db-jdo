@@ -23,8 +23,6 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
@@ -33,8 +31,10 @@ import java.util.Date;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.ICompany;
 
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents information about a company.
@@ -42,7 +42,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(table="companies")
 @DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSCompany 
-    implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
+    implements ICompany, Serializable, Comparable<ICompany>, Comparator<ICompany>, DeepEquality {
 
     @Column(name="ID")
     private long        companyid;
@@ -64,10 +64,7 @@ public class FCDSCompany
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSDepartment.class)
-    private transient Set departments = new HashSet();
-
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private transient Set<IDepartment> departments = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -172,7 +169,7 @@ public class FCDSCompany
      * @return An unmodifiable <code>Set</code> that contains all the
      * <code>FCDSDepartment</code>s of the company.
      */
-    public Set getDepartments() {
+    public Set<IDepartment> getDepartments() {
         return Collections.unmodifiableSet(departments);
     }
 
@@ -201,11 +198,11 @@ public class FCDSCompany
      * @param departments The set of <code>FCDSDepartment</code>s for the
      * company.
      */
-    public void setDepartments(Set departments) {
+    public void setDepartments(Set<IDepartment> departments) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this.departments = 
-            (departments != null) ? new HashSet(departments) : null;
+            (departments != null) ? new HashSet<>(departments) : null;
     }
 
     /**
@@ -217,7 +214,7 @@ public class FCDSCompany
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        departments = new HashSet();
+        departments = new HashSet<>();
     }
 
     /**
@@ -236,8 +233,7 @@ public class FCDSCompany
         StringBuffer rc = new StringBuffer();
         rc.append(companyid);
         rc.append(", name ").append(name);
-        rc.append(", founded ").append(
-            founded==null ? "null" : formatter.format(founded));
+        rc.append(", founded ").append(JDOCustomDateEditor.getDateRepr(founded));
         return rc.toString();
     }
 
@@ -263,27 +259,6 @@ public class FCDSCompany
             helper.deepEquals(address, otherCompany.getAddress(), where + ".address") &
             helper.deepEquals(departments, otherCompany.getDepartments(), where + ".departments");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((FCDSCompany)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((FCDSCompany)o1, (FCDSCompany)o2);
-    }
 
     /** 
      * Compares this object with the specified Company object for
@@ -295,7 +270,7 @@ public class FCDSCompany
      * object is less than, equal to, or greater than the specified Company
      * object. 
      */
-    public int compareTo(FCDSCompany other) {
+    public int compareTo(ICompany other) {
         return compare(this, other);
     }
 
@@ -308,7 +283,7 @@ public class FCDSCompany
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(FCDSCompany o1, FCDSCompany o2) {
+    public int compare(ICompany o1, ICompany o2) {
         return EqualityHelper.compare(o1.getCompanyid(), o2.getCompanyid());
     }
     
@@ -338,7 +313,7 @@ public class FCDSCompany
      * for the <code>Company</code> class. It consists of both the company 
      * name and the date that the company was founded.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field is part of the identifier and should match in name
@@ -382,12 +357,8 @@ public class FCDSCompany
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( companyid < other.companyid ) return -1;
-            if( companyid > other.companyid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(companyid, obj.companyid);
         }
         
     }

@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -101,14 +101,14 @@ public class IgnoreCacheFalse extends QueryTest {
         newInstance.setIntNotNull(98);
         pm.makePersistent(newInstance);
         
-        Collection result = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "intNotNull == 98").execute();
+        List<PrimitiveTypes> result = pm.newQuery(
+            PrimitiveTypes.class, "intNotNull == 98").executeList();
         // check result
         if (result.isEmpty())
             fail(ASSERTION_FAILED, 
                  "Query should find new instance, but query result is empty");
-        Iterator i = result.iterator();
-        PrimitiveTypes p = (PrimitiveTypes)i.next();
+        Iterator<PrimitiveTypes> i = result.iterator();
+        PrimitiveTypes p = i.next();
         if (p.getId() != 98L)
             fail(ASSERTION_FAILED, 
                  "Query returned wrong instance with id " + p.getId());
@@ -127,13 +127,13 @@ public class IgnoreCacheFalse extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection tmp = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 3").execute();
-        PrimitiveTypes instance3 = (PrimitiveTypes)tmp.iterator().next();
+        List<PrimitiveTypes> tmp = pm.newQuery(
+            PrimitiveTypes.class, "id == 3").executeList();
+        PrimitiveTypes instance3 = tmp.iterator().next();
         pm.deletePersistent(instance3);
-                
-        Collection result = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "intNotNull == 3").execute();
+
+        List<PrimitiveTypes> result = pm.newQuery(
+            PrimitiveTypes.class, "intNotNull == 3").executeList();
         // check result
         if (result.isEmpty()) {
             if (debug)
@@ -141,7 +141,7 @@ public class IgnoreCacheFalse extends QueryTest {
         }
         else {
             // query result not empty => problem
-            PrimitiveTypes p = (PrimitiveTypes)result.iterator().next();
+            PrimitiveTypes p = result.iterator().next();
             if (JDOHelper.isDeleted(p))
                 fail(ASSERTION_FAILED,
                      "query result should not include deleted instance");
@@ -156,21 +156,21 @@ public class IgnoreCacheFalse extends QueryTest {
     void runTestModifiedInstance(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        
-        Collection tmp = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 5").execute();
-        PrimitiveTypes instance5 = (PrimitiveTypes)tmp.iterator().next();
+
+        List<PrimitiveTypes> tmp = pm.newQuery(
+            PrimitiveTypes.class, "id == 5").executeList();
+        PrimitiveTypes instance5 = tmp.iterator().next();
         instance5.setIntNotNull(99);
-                
-        Collection result = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "intNotNull == 99").execute();
+
+        List<PrimitiveTypes> result = pm.newQuery(
+            PrimitiveTypes.class, "intNotNull == 99").executeList();
         // check result
         if (result.isEmpty()) {
             fail(ASSERTION_FAILED, 
                  "Query should find modified instance, but query result is empty");
         }
-        Iterator i = result.iterator();
-        PrimitiveTypes p = (PrimitiveTypes)i.next();
+        Iterator<PrimitiveTypes> i = result.iterator();
+        PrimitiveTypes p = i.next();
         if (p.getId() != 5L)
             fail(ASSERTION_FAILED, 
                  "Query returned wrong instance with id " + p.getId());

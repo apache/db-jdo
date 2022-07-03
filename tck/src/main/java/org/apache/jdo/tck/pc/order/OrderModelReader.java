@@ -73,8 +73,8 @@ public class OrderModelReader extends DefaultListableBeanFactory {
      * called "root" of type list in the xml and returns it.
      * @return a list of root instances
      */
-    public List getRootList() {
-        return (List)getBean(ROOT_LIST_NAME);
+    public List<Object> getRootList() {
+        return (List<Object>)getBean(ROOT_LIST_NAME);
     }
     
     /** 
@@ -99,7 +99,7 @@ public class OrderModelReader extends DefaultListableBeanFactory {
      * Order bean.
      */
     public Order getOrder(String name) {
-        return (Order)getBean(name, Order.class);
+        return getBean(name, Order.class);
     }
 
     /** 
@@ -111,20 +111,20 @@ public class OrderModelReader extends DefaultListableBeanFactory {
      * Department bean.
      */
     public OrderItem getOrderItem(String name) {
-        return (OrderItem)getBean(name, OrderItem.class);
+        return getBean(name, OrderItem.class);
     }
 
     /**
      * @return Returns the tearDownClasses.
      */
-    public Class[] getTearDownClassesFromFactory() {
+    public Class<?>[] getTearDownClassesFromFactory() {
         return orderFactory.getTearDownClasses();
     }
     
     /**
      * @return Returns the tearDownClasses.
      */
-    public static Class[] getTearDownClasses() {
+    public static Class<?>[] getTearDownClasses() {
         return OrderFactoryConcreteClass.tearDownClasses;
     }
 

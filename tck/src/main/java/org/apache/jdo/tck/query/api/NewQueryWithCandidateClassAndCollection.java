@@ -59,7 +59,7 @@ public class NewQueryWithCandidateClassAndCollection extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(PCPoint.class, inserted);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class, inserted);
             Object results = query.execute();
 
             // check query result

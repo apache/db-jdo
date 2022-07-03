@@ -59,7 +59,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -89,8 +89,8 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -120,7 +120,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        Object expected = getTransientCompanyModelInstancesAsList("dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -150,7 +150,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        Object expected = getTransientCompanyModelInstancesAsList("dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -180,7 +180,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive4() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"}) ;
+        Object expected = getTransientCompanyModelInstancesAsList("dept1") ;
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

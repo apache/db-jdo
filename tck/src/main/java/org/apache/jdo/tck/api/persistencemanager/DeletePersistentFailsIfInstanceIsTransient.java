@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
@@ -96,7 +97,7 @@ public class DeletePersistentFailsIfInstanceIsTransient extends PersistenceManag
             PCPoint p1 = new PCPoint (3,3);
             PCPoint p2 = new PCPoint (4,4);
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p1);
             col1.add(p2);
             
@@ -125,7 +126,7 @@ public class DeletePersistentFailsIfInstanceIsTransient extends PersistenceManag
             PCPoint p1 = new PCPoint (3,3);
             PCPoint p2 = new PCPoint (4,4);
             
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p1);
             col1.add(p2);
 

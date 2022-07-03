@@ -158,8 +158,8 @@ public class TestListCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            List expected = expectedValue.get(i);
-            List actual = pi.get(i);
+            List<?> expected = expectedValue.get(i);
+            List<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -168,8 +168,8 @@ public class TestListCollections extends JDO_Test {
             else if (! expected.equals(actual)) {
                 if (TestUtil.getFieldSpecs(ListCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
-                    ListIterator expectedIt = expected.listIterator();
-                    ListIterator actualIt = actual.listIterator();
+                    ListIterator<?> expectedIt = expected.listIterator();
+                    ListIterator<?> actualIt = actual.listIterator();
                     int index = 0;
                     while (expectedIt.hasNext()) {
                         BigDecimal bigDecExpected =

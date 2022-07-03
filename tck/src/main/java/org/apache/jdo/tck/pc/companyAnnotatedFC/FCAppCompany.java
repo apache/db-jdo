@@ -23,8 +23,6 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
@@ -33,8 +31,10 @@ import java.util.Date;
 import org.apache.jdo.tck.pc.company.IAddress;
 
 import org.apache.jdo.tck.pc.company.ICompany;
+import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents information about a company.
@@ -44,7 +44,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
     public class FCAppCompany 
-    implements ICompany, Serializable, Comparable, Comparator, DeepEquality {
+    implements ICompany, Serializable, Comparable<ICompany>, Comparator<ICompany>, DeepEquality {
 
     @Persistent(primaryKey="true")
     @Column(name="ID")
@@ -67,10 +67,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
     @Persistent(persistenceModifier=PersistenceModifier.PERSISTENT,
             mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCAppDepartment.class)
-    private transient Set departments = new HashSet();
-
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private transient Set<IDepartment> departments = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -175,7 +172,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @return An unmodifiable <code>Set</code> that contains all the
      * <code>FCAppDepartment</code>s of the company.
      */
-    public Set getDepartments() {
+    public Set<IDepartment> getDepartments() {
         return Collections.unmodifiableSet(departments);
     }
 
@@ -204,11 +201,11 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @param departments The set of <code>FCAppDepartment</code>s for the
      * company.
      */
-    public void setDepartments(Set departments) {
+    public void setDepartments(Set<IDepartment> departments) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this.departments = 
-            (departments != null) ? new HashSet(departments) : null;
+            (departments != null) ? new HashSet<>(departments) : null;
     }
     
     /**
@@ -220,7 +217,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        departments = new HashSet();
+        departments = new HashSet<>();
     }
 
     /**
@@ -239,8 +236,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
         StringBuffer rc = new StringBuffer();
         rc.append(companyid);
         rc.append(", name ").append(name);
-        rc.append(", founded ").append(
-            founded==null ? "null" : formatter.format(founded));
+        rc.append(", founded ").append(JDOCustomDateEditor.getDateRepr(founded));
         return rc.toString();
     }
 
@@ -277,14 +273,14 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * @throws ClassCastException - if the specified object's type prevents
      * it from being compared to this Object. 
      */
-    public int compareTo(Object o) {
+    public int compareTo(ICompany o) {
         return compareTo((FCAppCompany)o);
     }
 
     /** 
      * Compare two instances. This is a method in Comparator.
      */
-    public int compare(Object o1, Object o2) {
+    public int compare(ICompany o1, ICompany o2) {
         return compare((FCAppCompany)o1, (FCAppCompany)o2);
     }
 
@@ -341,7 +337,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * for the <code>Company</code> class. It consists of both the company 
      * name and the date that the company was founded.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field is part of the identifier and should match in name
@@ -385,12 +381,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( companyid < other.companyid ) return -1;
-            if( companyid > other.companyid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(companyid, obj.companyid);
         }
         
     }

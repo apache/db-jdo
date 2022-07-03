@@ -798,12 +798,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while(iter.hasNext()){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             boolean val = obj.getboolean();
             if (val != value) {
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns object with incorrect value, retrieved value: " + val + ", expected value: " + value, filter, parameter);
@@ -813,7 +813,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -821,12 +821,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             byte val = obj.getbyte();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -836,7 +836,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -844,12 +844,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             short val = obj.getshort();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -859,7 +859,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -867,12 +867,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             char val = obj.getchar();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -882,7 +882,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -890,12 +890,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             int val = obj.getint();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -905,7 +905,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -913,12 +913,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             long val = obj.getlong();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -928,7 +928,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -936,12 +936,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             float val = obj.getfloat();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -951,7 +951,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -959,12 +959,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             double val = obj.getdouble();
             if( val != value ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -974,7 +974,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -982,12 +982,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while(iter.hasNext()){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Boolean val = obj.getBoolean();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns object with incorrect value", filter, parameter);
@@ -997,7 +997,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1005,12 +1005,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Byte val = obj.getByte();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1020,7 +1020,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1028,12 +1028,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Short val = obj.getShort();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1043,7 +1043,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1051,12 +1051,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Character val = obj.getCharacter();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1066,7 +1066,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1074,12 +1074,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Integer val = obj.getInteger();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1089,7 +1089,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1097,12 +1097,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Long val = obj.getLong();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1112,7 +1112,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1120,12 +1120,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Float val = obj.getFloat();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1135,7 +1135,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1143,12 +1143,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Double val = obj.getDouble();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1158,7 +1158,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1166,12 +1166,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             String val = obj.getString();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1181,7 +1181,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1189,12 +1189,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Locale val = obj.getLocale();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1205,7 +1205,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1213,12 +1213,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             BigDecimal val = obj.getBigDecimal();
 //        if( !val.equals(value) ){
             if( val.compareTo(value) != 0 ){
@@ -1229,7 +1229,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1237,12 +1237,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             BigInteger val = obj.getBigInteger();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1252,7 +1252,7 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1260,12 +1260,12 @@ public class Equality extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Date val = obj.getDate();
             if( !val.equals(value) ){
                 fail(ASSERTION_FAILED, "JDOQL Equality test returns incorrect value, retrieved value: " + val + ", with parameter value: " + value, filter, parameter);
@@ -1275,11 +1275,12 @@ public class Equality extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL Equality test returns wrong number of instances", filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         addTearDownClass(AllTypes.class);
         AllTypes.load(getPM());

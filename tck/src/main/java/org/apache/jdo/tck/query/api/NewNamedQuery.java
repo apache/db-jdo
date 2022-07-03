@@ -83,9 +83,9 @@ public class NewNamedQuery extends QueryTest {
         executeNamedQuery(Person.class, "invalidUnique", null, false);
     }
 
-    private void executeNamedQuery(Class candidateClass, String namedQuery,
+    private void executeNamedQuery(Class<?> candidateClass, String namedQuery,
             Object expectedResult, boolean positive) {
-        Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
+        Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
         executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
                 false, null, expectedResult, positive);
     }

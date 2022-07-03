@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.jdo.PersistenceManager;
@@ -60,8 +61,8 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new java.util.HashSet();
-    private Collection col2 = new java.util.HashSet();
+    private Collection<PCPoint> col1 = new HashSet<>();
+    private Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInst() {
@@ -158,7 +159,7 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
                 testState(p4, TRANSIENT_CLEAN, "transient clean")) {
                 
                 pm.makeNontransactionalAll(col1);
-                Iterator iter = col1.iterator();
+                Iterator<PCPoint> iter = col1.iterator();
                 while (iter.hasNext() ) {
                     PCPoint p = (PCPoint) iter.next();
                     if (testState(p, TRANSIENT, "transient")) {

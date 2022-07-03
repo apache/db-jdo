@@ -28,6 +28,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.HashSet;
 import java.math.BigDecimal;
+
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IProject;
 
 import org.apache.jdo.tck.util.DeepEquality;
@@ -40,7 +42,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(table="projects")
 @DatastoreIdDiscriminatorClassNameInheritanceNew
 public class FCDSProject 
-    implements IProject, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
 
     @Column(name="PROJID")
     private long projid;
@@ -52,12 +54,12 @@ public class FCDSProject
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class,
             column="REVIEWER", foreignKey="PR_REV_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    private transient Set reviewers = new HashSet();
+    private transient Set<IEmployee> reviewers = new HashSet<>();
     @Persistent(table="project_member")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedFC.FCDSEmployee.class,
             column="MEMBER", foreignKey="PR_MEMB_FK")
     @Join(column="PROJID", foreignKey="PR_PROJ_FK")
-    private transient Set members = new HashSet();
+    private transient Set<IEmployee> members = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -129,7 +131,7 @@ public class FCDSProject
     /**
      * Get the reviewers associated with this project.
      */
-    public Set getReviewers() {
+    public Set<IEmployee> getReviewers() {
         return Collections.unmodifiableSet(reviewers);
     }
 
@@ -153,10 +155,10 @@ public class FCDSProject
      * Set the reviewers associated with this project.
      * @param reviewers The set of reviewers to associate with this project.
      */
-    public void setReviewers(Set reviewers) {
+    public void setReviewers(Set<IEmployee> reviewers) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.reviewers = (reviewers != null) ? new HashSet(reviewers) : null;
+        this.reviewers = (reviewers != null) ? new HashSet<>(reviewers) : null;
     }
 
     /**
@@ -165,7 +167,7 @@ public class FCDSProject
      * @return The members of the project is returned as an unmodifiable
      * set of <code>FCDSEmployee</code>s.
      */
-    public Set getMembers() {
+    public Set<IEmployee> getMembers() {
         return Collections.unmodifiableSet(members);
     }
 
@@ -190,10 +192,10 @@ public class FCDSProject
      * @param employees The set of employees to be the members of this
      * project. 
      */
-    public void setMembers(Set employees) {
+    public void setMembers(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.members = (members != null) ? new HashSet(employees) : null;
+        this.members = (members != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -205,8 +207,8 @@ public class FCDSProject
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        reviewers = new HashSet();
-        members = new HashSet();
+        reviewers = new HashSet<>();
+        members = new HashSet<>();
     }
 
     /**
@@ -252,27 +254,6 @@ public class FCDSProject
             helper.deepEquals(reviewers, otherProject.getReviewers(), where + ".reviewers") &
             helper.deepEquals(members, otherProject.getMembers(), where + ".members");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((FCDSProject)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((FCDSProject)o1, (FCDSProject)o2);
-    }
 
     /**
      * 
@@ -285,7 +266,7 @@ public class FCDSProject
      * @return a negative integer, zero, or a positive integer as this
      * object is less than, equal to, or greater than the specified FFCDSProject object.
      */
-    public int compareTo(FCDSProject other) {
+    public int compareTo(IProject other) {
         return compare(this, other);
     }
 
@@ -298,7 +279,7 @@ public class FCDSProject
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(FCDSProject o1, FCDSProject o2) {
+    public int compare(IProject o1, IProject o2) {
         return EqualityHelper.compare(o1.getProjid(), o2.getProjid());
     }
 
@@ -327,7 +308,7 @@ public class FCDSProject
      * This class is used to represent the application identity
      * for the <code>FCDSProject</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field represents the identifier for the
@@ -372,12 +353,8 @@ public class FCDSProject
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( projid < other.projid ) return -1;
-            if( projid > other.projid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(projid, obj.projid);
         }
 
     }

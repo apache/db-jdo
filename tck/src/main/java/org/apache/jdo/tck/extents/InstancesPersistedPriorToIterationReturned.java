@@ -60,14 +60,14 @@ public class InstancesPersistedPriorToIterationReturned extends ExtentTest {
         try {
             beginTransaction();
             getPM().setIgnoreCache(false);
-            Extent ex = getPM().getExtent (Employee.class, true);
+            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
             addEmployee();
-            Iterator it = ex.iterator();
+            Iterator<Employee> it = ex.iterator();
             int count = countIterator(it);
             rollbackTransaction();
 
             beginTransaction();
-            Iterator it2 = ex.iterator();
+            Iterator<Employee> it2 = ex.iterator();
             int count2 = countIterator(it2);
             commitTransaction();
     

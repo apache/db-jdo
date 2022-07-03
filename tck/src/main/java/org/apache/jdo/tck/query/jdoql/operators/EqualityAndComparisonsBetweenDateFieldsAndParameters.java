@@ -86,7 +86,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldEqualsParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -123,8 +123,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldGEParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -161,7 +160,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testParameterLTField() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        Object expected = getTransientCompanyModelInstancesAsList();
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

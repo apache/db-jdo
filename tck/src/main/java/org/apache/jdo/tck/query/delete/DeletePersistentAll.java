@@ -185,7 +185,7 @@ public class DeletePersistentAll extends QueryTest {
                                        "WHERE carrier == param PARAMETERS String param";
             query = pm.newQuery(Insurance.class, "carrier == param");
             query.declareParameters("String param");
-            Map parameters = new HashMap();
+            Map<String, Object> parameters = new HashMap<>();
             parameters.put("param", "Carrier1");
             long expectedNrOfDeletedObjects = 2;
             long nr = query.deletePersistentAll(parameters);
@@ -215,7 +215,7 @@ public class DeletePersistentAll extends QueryTest {
             String singleStringQuery = "SELECT FROM org.apache.jdo.tck.pc.company.Insurance " +
                                        "WHERE carrier == param PARAMETERS String param";
             query = pm.newQuery(singleStringQuery);
-            Map parameters = new HashMap();
+            Map<String, Object> parameters = new HashMap<>();
             parameters.put("param", "Carrier1");
             long expectedNrOfDeletedObjects = 2;
             long nr = query.deletePersistentAll(parameters);

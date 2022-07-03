@@ -102,11 +102,11 @@ public class SetterReplacePreviousValues extends QueryTest {
      */
     private Object[] expectedResult = {
         // replace parameter declaration
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"}),
+        getTransientCompanyModelInstancesAsList("dept1"),
         // replace filter setting
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
+        getTransientCompanyModelInstancesAsList("emp2"),
         // replace variable declaration
-        getTransientCompanyModelInstancesAsList(new String[]{"dept1"})
+        getTransientCompanyModelInstancesAsList("dept1")
     };
     
     /**
@@ -122,7 +122,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     public void testPositive() {
         // replace parameter declaration
         int index = 0;
-        Query query = VALID_QUERIES[index].getAPIQuery(getPM());
+        Query<?> query = VALID_QUERIES[index].getAPIQuery(getPM());
         query.declareParameters("long param");
         Object[] parameters = new Object[] {Long.valueOf(1)};
         executeJDOQuery(ASSERTION_FAILED, query, VALID_QUERIES[index].toString(), false, 

@@ -68,18 +68,18 @@ public class ExecuteQueryWhenPersistenceManagerIsClosed extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 4");
             query.compile();
-            Object results = query.execute();
+            query.execute();
             tx.commit();
             tx = null;
             pm.close();
 
             try {
-                Object result = query.execute();
+                query.execute();
                 fail(ASSERTION_FAILED,
                      "Query.execute after pm is closed should throw JDOUserException.");
             } 

@@ -72,7 +72,7 @@ public class PCAppFullTimeEmployee extends PCAppEmployee
     public PCAppFullTimeEmployee(long personid, String first, String last,
                             String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
-        super(personid, first, last, middle, born, (PCAppAddress)addr, hired);
+        super(personid, first, last, middle, born, addr, hired);
         _salary = sal;
     }
 
@@ -99,6 +99,7 @@ public class PCAppFullTimeEmployee extends PCAppEmployee
      * 
      * @return a String representation of a <code>PCAppFullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCFullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -107,6 +108,7 @@ public class PCAppFullTimeEmployee extends PCAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -129,7 +131,8 @@ public class PCAppFullTimeEmployee extends PCAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCAppFullTimeEmployee otherEmp = (PCAppFullTimeEmployee)other;
         String where = "FCFullTimeEmployee<" + getPersonid() + ">";

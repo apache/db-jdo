@@ -67,6 +67,7 @@ public class SetIsolationLevel extends JDO_Test
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         pm = getPM();
     }

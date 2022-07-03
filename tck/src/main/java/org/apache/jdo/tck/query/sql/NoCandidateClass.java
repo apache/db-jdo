@@ -23,6 +23,7 @@ import javax.jdo.Query;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -75,7 +76,7 @@ public class NoCandidateClass extends QueryTest {
     public void testNamedQuery() {
         if (isSQLSupported()) {
             int index = 0;
-            Query query = getPM().newNamedQuery(null, "SQLQuery");
+            Query<Employee> query = getPM().newNamedQuery(null, "SQLQuery");
             executeJDOQuery(ASSERTION_FAILED, query, "Named SQL query", 
                     false, null, expectedResult[index], true);
         }

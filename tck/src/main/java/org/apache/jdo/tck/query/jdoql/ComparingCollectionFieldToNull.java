@@ -26,7 +26,6 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -97,6 +97,7 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * 
      * @return a String representation of a <code>FCAppFullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCFullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -105,6 +106,7 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -126,7 +128,8 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCAppFullTimeEmployee otherEmp = (FCAppFullTimeEmployee)other;
         String where = "FCFullTimeEmployee<" + getPersonid() + ">";

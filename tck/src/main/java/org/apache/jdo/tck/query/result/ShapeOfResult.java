@@ -58,7 +58,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testNoResult() {
         // result: null
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
@@ -87,7 +87,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testThisAsC() {
         // result: this AS C
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

@@ -75,7 +75,7 @@ public class ExecuteQueryWithArray extends QueryTest {
             
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param");
@@ -85,8 +85,8 @@ public class ExecuteQueryWithArray extends QueryTest {
             Object results = query.executeWithArray(actualParams);
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -108,7 +108,7 @@ public class ExecuteQueryWithArray extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
@@ -118,8 +118,8 @@ public class ExecuteQueryWithArray extends QueryTest {
             Object results = query.executeWithArray(actualParams);
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);

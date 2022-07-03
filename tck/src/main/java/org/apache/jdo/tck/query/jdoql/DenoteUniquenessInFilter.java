@@ -67,7 +67,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     public void testPositive0() {
         // Uniqueness not specified.
         // emp1 qualifies for both contains clause => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        Object expected = getTransientCompanyModelInstancesAsList("dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -104,7 +104,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         // Uniqueness specified.
         // Only emp3 qualifies for both contains clause.
         // Condition e1 != e2 violated => result is empty
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{});
+        Object expected = getTransientCompanyModelInstancesAsList();
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -144,7 +144,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         // emp1 and emp2 match the second contains clause.
         // Thus, there are two different values for e1 and e2
         // satifying the entire filter => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        Object expected = getTransientCompanyModelInstancesAsList("dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

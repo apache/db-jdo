@@ -53,7 +53,7 @@ public class QueryExtentions extends QueryTest {
      */
     private Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
+                "emp1", "emp2", "emp3", "emp4", "emp5")
     };
             
     /**
@@ -68,8 +68,8 @@ public class QueryExtentions extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
-        Map extentions = new HashMap();
+        Query<Person> query = getPM().newQuery(singleStringQuery);
+        Map<String, String> extentions = new HashMap<>();
         extentions.put("unknown key 1", "unknown value 1");
         query.setExtensions(extentions);
         query.addExtension("unknown key 2", "unknown value 2");

@@ -23,6 +23,7 @@ import java.util.Set;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 
@@ -128,7 +129,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set emps = new HashSet();
+            Set<IEmployee> emps = new HashSet<>();
             emps.add(emp1);
             dept1.setEmployees(emps);
             pm.flush();
@@ -209,13 +210,13 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
         if (isTestToBePerformed) {
             
             // Set relationship
-            Set emps = new HashSet();
+            Set<IEmployee> emps = new HashSet<>();
             Employee empNew = new FullTimeEmployee(101, "Jenny", "Merriwether",
                 "White", new Date(500L), new Date(10000L), 135000);
             pm.makePersistent(empNew);
             emps.add(empNew);
             dept1.setEmployees(emps);
-            Object empNewOid = pm.getObjectId((Object)empNew);
+            Object empNewOid = pm.getObjectId(empNew);
             pm.flush();
             
             // Postcondition

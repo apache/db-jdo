@@ -21,18 +21,9 @@ import java.util.Date;
 
 import javax.jdo.listener.AttachCallback;
 
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListenerAttach
@@ -70,11 +61,11 @@ public class InstanceLifecycleListenerAttach
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    private static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -100,13 +91,13 @@ public class InstanceLifecycleListenerAttach
         getPM();
         pm.currentTransaction().begin();
         pm.makePersistent(pc);
-        PC detached = (PC)pm.detachCopy(pc);
+        PC detached = pm.detachCopy(pc);
         detached.listener = listener;
         pm.currentTransaction().commit();
         pm.currentTransaction().begin();
         listener.setExpectedSource(detached);
         // makePersistent should cause the attach listeners to be called
-        PC attached = (PC)pm.makePersistent(detached);
+        PC attached = pm.makePersistent(detached);
         pm.currentTransaction().commit();
 
         // now check the callback and listener were called
@@ -123,6 +114,7 @@ public class InstanceLifecycleListenerAttach
     private static class InstanceLifecycleListenerAttachImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preAttach(InstanceLifecycleEvent event) {
             notifyEvent(PRE_ATTACH_LISTENER);
             checkEventType(ASSERTION13_FAILED,
@@ -130,6 +122,7 @@ public class InstanceLifecycleListenerAttach
             checkEventSource(ASSERTION13_FAILED, event.getSource());
         }
 
+        @Override
         public void postAttach(InstanceLifecycleEvent event) {
             notifyEvent(POST_ATTACH_LISTENER);
             checkEventType(ASSERTION14_FAILED,

@@ -63,7 +63,7 @@ public class CompileQuery extends QueryTest {
         try {
             tx.begin();
             String params = "Integer param";
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters(params);
@@ -73,8 +73,8 @@ public class CompileQuery extends QueryTest {
             Object results = query.execute(Integer.valueOf(4));
 
             // check query result
-            List expected = new ArrayList();
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);

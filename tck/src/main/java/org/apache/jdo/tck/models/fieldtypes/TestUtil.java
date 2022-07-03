@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
- 
-
 
 package org.apache.jdo.tck.models.fieldtypes;
 
@@ -57,7 +55,7 @@ public class TestUtil {
 
 
     //gets the key type and value type for fields of a Map class
-  public static Vector getFieldSpecsForMap(String field) {
+  public static Vector<String> getFieldSpecsForMap(String field) {
       //sample field =public HashMap HashMapOfObject_Object0
       //fieldType -- look for the last space and get the value between Of and _
       //valueType -- look for last _ and get the String before the  numbers
@@ -84,7 +82,7 @@ public class TestUtil {
       }
       valueType =  valueTypeWithNumber.substring(0, lastIndexOfValueType+1);
 
-      Vector fieldSpecs = new Vector();
+      Vector<String> fieldSpecs = new Vector<>();
       fieldSpecs.add(fieldType);
       fieldSpecs.add(valueType);
 
@@ -107,7 +105,7 @@ public class TestUtil {
 
   public static Vector makeNewVectorInstance(String type, int order) {
 
-      Vector vec = new Vector();
+      Vector vec = new Vector<>();
 
       switch (order) {
           case(1):
@@ -338,11 +336,11 @@ public class TestUtil {
     }
 
     protected static boolean containsBigDecimalKey(BigDecimal keyValue,
-                                                Set bigDecimalKeySet)
+                                                Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator iter = bigDecimalKeySet.iterator();
+        Iterator<BigDecimal> iter = bigDecimalKeySet.iterator();
         while (iter.hasNext()) {
-            BigDecimal nextVal = (BigDecimal) iter.next();
+            BigDecimal nextVal = iter.next();
             if (keyValue.compareTo(nextVal) == 0) {
                 return true;
             }
@@ -351,11 +349,11 @@ public class TestUtil {
     }
 
     protected static BigDecimal getBigDecimalKey(BigDecimal keyValue,
-                                                Set bigDecimalKeySet)
+                                                Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator iter = bigDecimalKeySet.iterator();
+        Iterator<BigDecimal> iter = bigDecimalKeySet.iterator();
         while (iter.hasNext()) {
-            BigDecimal nextVal = (BigDecimal) iter.next();
+            BigDecimal nextVal = iter.next();
             if (keyValue.compareTo(nextVal) == 0) {
                 return nextVal;
             }

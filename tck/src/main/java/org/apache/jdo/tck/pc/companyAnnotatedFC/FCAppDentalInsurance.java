@@ -89,6 +89,7 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * @return a String representation of a <code>FCAppDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -97,6 +98,7 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -115,7 +117,8 @@ public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsur
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCAppDentalInsurance otherIns = (FCAppDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";

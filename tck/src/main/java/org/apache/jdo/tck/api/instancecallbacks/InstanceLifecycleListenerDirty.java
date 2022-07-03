@@ -17,15 +17,7 @@
  
 package org.apache.jdo.tck.api.instancecallbacks;
 
-import java.util.Date;
-
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 
@@ -71,11 +63,11 @@ public class InstanceLifecycleListenerDirty
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PCPoint.class};
+    private static Class<?>[] persistentClasses = new Class[] {PCPoint.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -121,6 +113,7 @@ public class InstanceLifecycleListenerDirty
     private static class InstanceLifecycleListenerDirtyImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preDirty(InstanceLifecycleEvent event) {
             notifyEvent(PRE_DIRTY_LISTENER);
             checkEventType(ASSERTION9_FAILED,
@@ -132,6 +125,7 @@ public class InstanceLifecycleListenerDirty
                     expectedSource);
         }
 
+        @Override
         public void postDirty(InstanceLifecycleEvent event) {
             notifyEvent(POST_DIRTY_LISTENER);
             checkEventType(ASSERTION10_FAILED,

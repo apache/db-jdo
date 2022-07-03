@@ -23,11 +23,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents an employee.
@@ -43,8 +42,8 @@ public abstract class Employee extends Person implements IEmployee {
     private Employee         mentor;
     private Employee         protege;
     private Employee         hradvisor;
-    private transient Set team = new HashSet();  // element-type is Employee
-    private transient Set hradvisees = new HashSet();  // element-type is Employee
+    private transient Set<IEmployee> team = new HashSet<>();  // element-type is Employee
+    private transient Set<IEmployee> hradvisees = new HashSet<>();  // element-type is Employee
 
     /** This is the JDO-required no-args constructor */
     protected Employee() {}
@@ -169,7 +168,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @return The set of <code>Employee</code>s on this employee's team,
      * returned as an unmodifiable set. 
      */
-    public Set getTeam() {
+    public Set<IEmployee> getTeam() {
         return Collections.unmodifiableSet(team);
     }
 
@@ -199,10 +198,10 @@ public abstract class Employee extends Person implements IEmployee {
      * Set the employee's team.
      * @param team The set of <code>Employee</code>s.
      */
-    public void setTeam(Set team) {
+    public void setTeam(Set<IEmployee> team) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.team = (team != null) ? new HashSet(team) : null;
+        this.team = (team != null) ? new HashSet<>(team) : null;
     }
 
     /**
@@ -258,7 +257,7 @@ public abstract class Employee extends Person implements IEmployee {
      * @return An unmodifiable <code>Set</code> containing the
      * <code>Employee</code>s that are HR advisees of this employee.
      */
-    public Set getHradvisees() {
+    public Set<IEmployee> getHradvisees() {
         return Collections.unmodifiableSet(hradvisees);
     }
 
@@ -290,10 +289,10 @@ public abstract class Employee extends Person implements IEmployee {
      * @param hradvisees The <code>Employee</code>s that are HR advisees of
      * this employee. 
      */
-    public void setHradvisees(Set hradvisees) {
+    public void setHradvisees(Set<IEmployee> hradvisees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this.hradvisees = (hradvisees != null) ? new HashSet(hradvisees) : null;
+        this.hradvisees = (hradvisees != null) ? new HashSet<>(hradvisees) : null;
     }
 
     /**
@@ -305,14 +304,15 @@ public abstract class Employee extends Person implements IEmployee {
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        team = new HashSet();
-        hradvisees = new HashSet();
+        team = new HashSet<>();
+        hradvisees = new HashSet<>();
     }
 
     /**
      * Return a String representation of a <code>Employee</code> object.
      * @return a String representation of a <code>Employee</code> object.
      */
+    @Override
     public String toString() {
         return "Employee(" + getFieldRepr() + ")";
     }
@@ -321,11 +321,11 @@ public abstract class Employee extends Person implements IEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(
-            hiredate==null ? "null" : formatter.format(hiredate));
+        rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);
         rc.append(", role ").append(role);
         return rc.toString();
@@ -342,7 +342,8 @@ public abstract class Employee extends Person implements IEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         IEmployee otherEmp = (IEmployee)other;
         String where = "Employee<" + getPersonid() + ">";

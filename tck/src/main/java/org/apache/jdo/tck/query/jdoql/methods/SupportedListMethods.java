@@ -65,7 +65,7 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInFilter() {
         // get(PARAMETER) in filter
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"dept1"});
+        Object expected = getTransientCompanyModelInstancesAsList("dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -104,7 +104,7 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInResult() {
         // get(LITERAL) in result
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"room2"});
+        Object expected = getTransientCompanyModelInstancesAsList("room2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

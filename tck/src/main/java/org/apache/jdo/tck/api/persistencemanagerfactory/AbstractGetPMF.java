@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 
 import java.io.File;
 import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -144,11 +144,11 @@ abstract class AbstractGetPMF extends JDO_Test {
             Properties props) {
         Object[] noArgs = new Object[]{};
         String javaxjdooption = "javax.jdo.option.";
-        Class pmfclass = pmf.getClass();
-        Set entries = props.entrySet();
+        Class<?> pmfclass = pmf.getClass();
+        Set<Map.Entry<Object, Object>> entries = props.entrySet();
         StringBuffer buffer = new StringBuffer();
-        for (Iterator it = entries.iterator(); it.hasNext();) {
-            Entry entry = (Entry)it.next();
+        for (Iterator<Map.Entry<Object, Object>> it = entries.iterator(); it.hasNext();) {
+            Map.Entry<Object, Object> entry = it.next();
             String key = (String)entry.getKey();
             if (key.equals("javax.jdo.option.ConnectionPassword")) {
                 continue;
@@ -188,7 +188,7 @@ abstract class AbstractGetPMF extends JDO_Test {
     
     /** Get the "get" method corresponding to the option name.
      */
-    Method getGetMethod(Class cls, String optionName) {
+    Method getGetMethod(Class<?> cls, String optionName) {
         try {
             return cls.getMethod("get" + optionName, new Class[]{});
         } catch (Exception ex) {

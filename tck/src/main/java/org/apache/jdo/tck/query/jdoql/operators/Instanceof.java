@@ -54,7 +54,7 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -84,7 +84,7 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

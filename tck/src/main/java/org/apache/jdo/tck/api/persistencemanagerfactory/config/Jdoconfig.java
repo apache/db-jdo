@@ -17,6 +17,7 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory.config;
 
 import java.util.HashMap;
+import java.util.Map;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -48,7 +49,7 @@ public class Jdoconfig extends JDO_Test {
     // Do not use superclass pmf, pm
     private PersistenceManagerFactory privatePmf = null;
     private PersistenceManager privatePm = null;
-    private HashMap overrides = new HashMap();
+    private Map<String, String> overrides = new HashMap<>();
 
     /**
      * The <code>main</code> is called when the class

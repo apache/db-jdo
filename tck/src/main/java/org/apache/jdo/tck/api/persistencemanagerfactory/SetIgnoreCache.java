@@ -17,8 +17,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -51,6 +49,7 @@ public class SetIgnoreCache extends JDO_Test {
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         closePMF();
         pmf = getUnconfiguredPMF();

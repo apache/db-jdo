@@ -122,8 +122,8 @@ public class TransactionalFieldsAreTransactionalInSubclasses extends TestParts {
     {
         AllPersist4 a = new AllPersist4(0, 0.0, 0, '0', false, 0.0f, (short)0, (short)0, 0);
         pm.makePersistent(a); // guarantee the class is registered; this will be removed
-        Extent e = pm.getExtent(AllPersist4.class, true);
-        Iterator i = e.iterator();
+        Extent<AllPersist4> e = pm.getExtent(AllPersist4.class, true);
+        Iterator<AllPersist4> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        

@@ -156,7 +156,7 @@ public class EmbeddedInheritance extends JDO_Test {
 
         getPM().currentTransaction().begin();
 
-        Query q = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
+        Query<Kitchen> q = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
                 " WHERE this.oven.make == 'Westinghouse'");
 		List<Kitchen> kitchens = (List<Kitchen>)q.execute();
         assertNotNull("No results from query!", kitchens);
@@ -195,14 +195,14 @@ public class EmbeddedInheritance extends JDO_Test {
 
         getPM().currentTransaction().begin();
 
-        Query q1 = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
+        Query<Kitchen> q1 = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
                 " WHERE this.oven instanceof org.apache.jdo.tck.pc.building.MultifunctionOven");
         List<Kitchen> kitchens1 = (List<Kitchen>)q1.execute();
         assertNotNull("No results from query!", kitchens1);
         assertEquals("Number of query results was incorrect", 1, kitchens1.size());
  
         // Query using cast and a field of the subclass embedded class
-        Query q2 = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
+        Query<Kitchen> q2 = getPM().newQuery("SELECT FROM " + Kitchen.class.getName() +
                 " WHERE ((org.apache.jdo.tck.pc.building.MultifunctionOven)this.oven).capabilities == 'TIMER,CLOCK'");
         List<Kitchen> kitchens2 = (List<Kitchen>)q2.execute();
         assertNotNull("No results from query!", kitchens2);

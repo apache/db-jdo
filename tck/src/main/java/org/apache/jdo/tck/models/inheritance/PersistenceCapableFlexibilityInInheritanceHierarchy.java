@@ -105,7 +105,7 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
             TopPersistH b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -191,7 +191,7 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -224,8 +224,8 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
 
     void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(TopPersistH.class, true);
-        Iterator i = e.iterator();
+        Extent<TopPersistH> e = pm.getExtent(TopPersistH.class, true);
+        Iterator<TopPersistH> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        

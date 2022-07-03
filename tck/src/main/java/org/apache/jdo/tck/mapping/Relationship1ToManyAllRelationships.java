@@ -194,7 +194,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
             Object dept2Oid = getOidByName("dept2");
             Department dept2 = (Department)pm.getObjectById(dept2Oid);
 
-            Set emps = new HashSet();
+            Set<IEmployee> emps = new HashSet<>();
             emps.add(emp4);
             dept1.setEmployees(emps);
             pm.flush();
@@ -239,7 +239,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
             Employee empNew = new FullTimeEmployee(101, "Jenny", "Merriwether",
                 "White", new Date(500L), new Date(10000L), 135000);
             pm.makePersistent(empNew);
-            Object empNewOid = pm.getObjectId((Object)empNew);
+            Object empNewOid = pm.getObjectId(empNew);
 
             dept1.addEmployee(empNew);
             pm.flush();
@@ -337,7 +337,7 @@ public class Relationship1ToManyAllRelationships extends AbstractRelationshipTes
             IDepartment deptNew = new Department(99L, "The New Department");
             pm.makePersistent(deptNew);
             emp1.setDepartment(deptNew);
-            Object deptNewOid = pm.getObjectId((Object)deptNew);
+            Object deptNewOid = pm.getObjectId(deptNew);
             pm.flush();
             
             assertFalse(testMethod + ": Test aborted, precondition is false; " +

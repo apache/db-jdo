@@ -21,13 +21,8 @@ import java.util.Date;
 
 import javax.jdo.listener.StoreCallback;
 
-import javax.jdo.JDOHelper;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -71,11 +66,11 @@ public class InstanceLifecycleListenerStore
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    private static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 

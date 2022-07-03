@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -128,7 +129,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint2> col1 = new HashSet<>();
             col1.add(pnt1);
             col1.add(p1);
 
@@ -174,7 +175,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint2> col1 = new HashSet<>();
             col1.add(pnt2);
             col1.add(p2);
 

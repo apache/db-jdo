@@ -796,9 +796,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while(iter.hasNext()){
             AllTypes obj = (AllTypes) iter.next();
@@ -811,7 +811,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -819,9 +819,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -834,7 +834,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -842,9 +842,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -857,7 +857,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -865,9 +865,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -880,7 +880,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -888,9 +888,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -903,7 +903,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -911,9 +911,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -926,7 +926,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -934,9 +934,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -949,7 +949,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -957,9 +957,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -972,7 +972,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -980,9 +980,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while(iter.hasNext()){
             AllTypes obj = (AllTypes) iter.next();
@@ -994,7 +994,7 @@ public class NotEquals extends ComparisonTests {
         }
         if( cnt != expected_count )
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1002,9 +1002,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1017,7 +1017,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1025,9 +1025,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1040,7 +1040,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1048,9 +1048,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1063,7 +1063,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1071,9 +1071,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1086,7 +1086,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1094,9 +1094,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1109,7 +1109,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1117,9 +1117,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1132,7 +1132,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1140,9 +1140,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1155,7 +1155,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1163,9 +1163,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1178,7 +1178,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1186,9 +1186,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1201,7 +1201,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1209,9 +1209,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1224,7 +1224,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1232,9 +1232,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1247,7 +1247,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1255,9 +1255,9 @@ public class NotEquals extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<?> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
             AllTypes obj = (AllTypes) iter.next();
@@ -1270,7 +1270,7 @@ public class NotEquals extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL NotEquals test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 

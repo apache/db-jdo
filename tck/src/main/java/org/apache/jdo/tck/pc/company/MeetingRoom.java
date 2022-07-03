@@ -30,7 +30,7 @@ import javax.jdo.annotations.PersistenceCapable;
  */
 @PersistenceCapable
 public class MeetingRoom
-    implements IMeetingRoom, Serializable, Comparable, Comparator, DeepEquality {
+    implements IMeetingRoom, Serializable, Comparable<IMeetingRoom>, Comparator<IMeetingRoom>, DeepEquality {
 
     private long    roomid;
     private String  name;
@@ -123,27 +123,6 @@ public class MeetingRoom
             helper.equals(roomid, otherMeetingRoom.getRoomid(), where + ".roomid") &
             helper.equals(name, otherMeetingRoom.getName(), where + ".name");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((IMeetingRoom)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((IMeetingRoom)o1, (IMeetingRoom)o2);
-    }
 
     /** 
      * Compares this object with the specified MeetingRoom object for
@@ -168,7 +147,7 @@ public class MeetingRoom
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(IMeetingRoom o1, IMeetingRoom o2) {
+    public int compare(IMeetingRoom o1, IMeetingRoom o2) {
         return EqualityHelper.compare(o1.getRoomid(), o2.getRoomid());
     }
 
@@ -197,7 +176,7 @@ public class MeetingRoom
      * This class is used to represent the application identifier 
      * for the <code>MeetingRoom</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This is the identifier field for <code>MeetingRoom</code> and must
@@ -244,12 +223,8 @@ public class MeetingRoom
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( roomid < other.roomid ) return -1;
-            if( roomid > other.roomid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(roomid, obj.roomid);
         }
     }
 }

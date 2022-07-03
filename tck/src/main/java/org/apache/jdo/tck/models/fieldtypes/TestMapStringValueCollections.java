@@ -139,14 +139,14 @@ public class TestMapStringValueCollections extends JDO_Test {
         int valueOrder = (order == 1) ? 2 : 1; // why??
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
-            Vector fieldSpecs = TestUtil.getFieldSpecsForMap(
+            Vector<String> fieldSpecs = TestUtil.getFieldSpecsForMap(
                     MapStringValueCollections.fieldSpecs[i]);
-            Vector key = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(0), keyOrder);
-            Vector value = TestUtil.makeNewVectorInstance(
-                    (String)fieldSpecs.get(1), valueOrder);
+            Vector<?> key = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(0), keyOrder);
+            Vector<?> value = TestUtil.makeNewVectorInstance(
+                    fieldSpecs.get(1), valueOrder);
 
-            HashMap map = new HashMap();
+            HashMap map = new HashMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }
@@ -165,8 +165,8 @@ public class TestMapStringValueCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Map expected = expectedValue.get(i);
-            Map actual = pi.get(i);
+            Map<?, ?> expected = expectedValue.get(i);
+            Map<?, ?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -176,9 +176,9 @@ public class TestMapStringValueCollections extends JDO_Test {
                 if (TestUtil.getFieldSpecsForMap(
                             MapStringValueCollections.fieldSpecs[i]
                             ).get(0).equals("BigDecimal")) {
-                    Set expectedKeySet = expected.keySet();
+                    Set<?> expectedKeySet = expected.keySet();
                     Set actualKeySet = actual.keySet();
-                    Iterator expectedIter = expectedKeySet.iterator();
+                    Iterator<?> expectedIter = expectedKeySet.iterator();
                     while (expectedIter.hasNext()) {
                         BigDecimal expectedKey = (BigDecimal) expectedIter.next();
                         // compare keys

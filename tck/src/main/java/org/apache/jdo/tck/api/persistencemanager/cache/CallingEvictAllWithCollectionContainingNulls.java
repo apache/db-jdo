@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -104,7 +105,7 @@ public class CallingEvictAllWithCollectionContainingNulls extends PersistenceMan
             tx.begin();
             
             PCPoint p5 = null;
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add (p1);
             col1.add (p5);
             col1.add (p2);
@@ -125,7 +126,7 @@ public class CallingEvictAllWithCollectionContainingNulls extends PersistenceMan
             tx.begin();
             
             PCPoint p5 = null;
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add (p3);
             col1.add (p4);
             col1.add (p5);

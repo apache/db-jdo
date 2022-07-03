@@ -63,7 +63,7 @@ public class FCAppMedicalInsurance extends FCAppInsurance implements IMedicalIns
     public FCAppMedicalInsurance(long insid, String carrier, 
                             IEmployee employee, String planType)
     {
-        super(insid, carrier, (FCAppEmployee)employee);
+        super(insid, carrier, employee);
         this.planType = planType;
     }
 
@@ -90,6 +90,7 @@ public class FCAppMedicalInsurance extends FCAppInsurance implements IMedicalIns
      * @return a String representation of a <code>FCAppMedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCMedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -98,6 +99,7 @@ public class FCAppMedicalInsurance extends FCAppInsurance implements IMedicalIns
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -116,7 +118,8 @@ public class FCAppMedicalInsurance extends FCAppInsurance implements IMedicalIns
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCAppMedicalInsurance otherIns = (FCAppMedicalInsurance)other;
         String where = "FCMedicalInsurance<" + getInsid() + ">";

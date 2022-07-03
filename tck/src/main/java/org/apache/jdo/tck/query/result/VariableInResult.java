@@ -71,7 +71,7 @@ public class VariableInResult extends QueryTest {
     
     /** */
     public void testDistinctNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1","emp2","emp3","emp4","emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -171,7 +171,7 @@ public class VariableInResult extends QueryTest {
 
     /** */
     public void testNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1","emp2","emp3","emp4","emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -203,7 +203,7 @@ public class VariableInResult extends QueryTest {
 
     /** */
     public void testMultipleProjectionWithConstraints() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp4","emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

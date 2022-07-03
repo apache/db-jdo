@@ -103,7 +103,7 @@ public class PersistentFieldsArePersistentInSubClasses extends TestParts {
             AllPersist4 b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (AllPersist4)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -187,7 +187,7 @@ public class PersistentFieldsArePersistentInSubClasses extends TestParts {
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (AllPersist4)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -222,8 +222,8 @@ public class PersistentFieldsArePersistentInSubClasses extends TestParts {
     {
         AllPersist4 a = new AllPersist4(0, 0.0, 0, '0', false, 0.0f, (short)0, (short)0, 0);
         pm.makePersistent(a); // guarantee the class is registered; this will be removed
-        Extent e = pm.getExtent(AllPersist4.class, true);
-        Iterator i = e.iterator();
+        Extent<AllPersist4> e = pm.getExtent(AllPersist4.class, true);
+        Iterator<AllPersist4> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        

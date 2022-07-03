@@ -61,7 +61,7 @@ public class GetProperties extends JDO_Test {
        int foundStandardProperties = 0;
 
        Properties p = pmf.getProperties();
-       for (Enumeration e = p.propertyNames(); e.hasMoreElements(); ) {
+       for (Enumeration<?> e = p.propertyNames(); e.hasMoreElements(); ) {
            String s = (String) e.nextElement();
            if (debug) logger.debug ("\t" + s + ": " + p.getProperty(s));
            

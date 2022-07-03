@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -52,12 +49,15 @@ public class EvictNullArgs extends PersistenceManagerNullsTest {
     static MethodUnderTest evict = 
             new MethodUnderTestEvict();
     static class MethodUnderTestEvict extends MethodUnderTest {
+        @Override
         public void pmApi(PersistenceManager pm, Object pc) {
             pm.evict(pc);
         }
-        public void pmApi(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> void pmApi(PersistenceManager pm, Collection<T> pcs) {
             pm.evictAll(pcs);
         }
+        @Override
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.evictAll(pcs);
         }

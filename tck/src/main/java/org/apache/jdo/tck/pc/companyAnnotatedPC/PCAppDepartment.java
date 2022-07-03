@@ -23,7 +23,6 @@ import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +31,7 @@ import org.apache.jdo.tck.pc.company.ICompany;
 
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IMeetingRoom;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -43,7 +43,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME,
         column="DISCRIMINATOR")
 public class PCAppDepartment
-    implements IDepartment, Serializable, Comparable, Comparator, DeepEquality {
+    implements IDepartment, Serializable, Comparable<IDepartment>, Comparator<IDepartment>, DeepEquality {
 
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
 
@@ -56,9 +56,9 @@ public class PCAppDepartment
     @NotPersistent()
     private PCAppEmployee _employeeOfTheMonth;
     @NotPersistent()
-    private transient Set _employees = new HashSet();
+    private transient Set<IEmployee> _employees = new HashSet<>();
     @NotPersistent()
-    private transient Set _fundedEmps = new HashSet();
+    private transient Set<IEmployee> _fundedEmps = new HashSet<>();
 
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
@@ -183,7 +183,7 @@ public class PCAppDepartment
 
     @Persistent(mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCAppEmployee.class)
-    public Set getEmployees() {
+    public Set<IEmployee> getEmployees() {
         return _employees;
     }
 
@@ -207,10 +207,10 @@ public class PCAppDepartment
      * Set the employees to be in this department.
      * @param employees The set of employees for this department.
      */
-    public void setEmployees(Set employees) {
+    public void setEmployees(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._employees = (employees != null) ? new HashSet(employees) : null;
+        this._employees = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     /**
@@ -220,7 +220,7 @@ public class PCAppDepartment
 
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCAppEmployee.class)
     @Persistent(mappedBy="fundingDept")
-    public Set getFundedEmps() {
+    public Set<IEmployee> getFundedEmps() {
         return _fundedEmps;
     }
 
@@ -246,20 +246,20 @@ public class PCAppDepartment
      * Set the funded employees to be in this department.
      * @param employees The set of funded employees for this department. 
      */
-    public void setFundedEmps(Set employees) {
+    public void setFundedEmps(Set<IEmployee> employees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._fundedEmps = (employees != null) ? new HashSet(employees) : null;
+        this._fundedEmps = (employees != null) ? new HashSet<>(employees) : null;
     }
 
     @Override
-	public List getMeetingRooms() {
+	public List<IMeetingRoom> getMeetingRooms() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setMeetingRooms(List rooms) {
+	public void setMeetingRooms(List<IMeetingRoom> rooms) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -273,8 +273,8 @@ public class PCAppDepartment
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        _employees = new HashSet();
-        _fundedEmps = new HashSet();
+        _employees = new HashSet<>();
+        _fundedEmps = new HashSet<>();
     }
 
     /**
@@ -326,27 +326,6 @@ public class PCAppDepartment
     }
 
     /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((PCAppDepartment)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((PCAppDepartment)o1, (PCAppDepartment)o2);
-    }
-
-    /** 
      * Compares this object with the specified Department object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -356,7 +335,7 @@ public class PCAppDepartment
      * object is less than, equal to, or greater than the specified
      * Department object. 
      */
-    public int compareTo(PCAppDepartment other) {
+    public int compareTo(IDepartment other) {
         return compare(this, other);
     }
 
@@ -369,7 +348,7 @@ public class PCAppDepartment
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(PCAppDepartment o1, PCAppDepartment o2) {
+    public int compare(IDepartment o1, IDepartment o2) {
         return EqualityHelper.compare(o1.getDeptid(), o2.getDeptid());
     }
     
@@ -398,7 +377,7 @@ public class PCAppDepartment
      * The application identity class associated with the
      * <code>Department</code> class. 
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field represents the application identifier field 
@@ -445,12 +424,8 @@ public class PCAppDepartment
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( deptid < other.deptid ) return -1;
-            if( deptid > other.deptid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(deptid, obj.deptid);
         }
 
     }

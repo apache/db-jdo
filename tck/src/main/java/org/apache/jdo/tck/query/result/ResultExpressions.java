@@ -135,8 +135,8 @@ public class ResultExpressions extends QueryTest {
     
     /** */
     public void testThis() {
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expectedResult = getTransientCompanyModelInstancesAsList(
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -197,7 +197,7 @@ public class ResultExpressions extends QueryTest {
 
     /** */
     public void testVariableField() {
-        Object expectedResult = Arrays.asList(new Object[]{Long.valueOf(1)});
+        Object expectedResult = Arrays.asList(Long.valueOf(1));
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -229,7 +229,7 @@ public class ResultExpressions extends QueryTest {
 
     /** */
     public void testVariable() {
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"proj1"});
+        Object expectedResult = getTransientCompanyModelInstancesAsList("proj1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -326,7 +326,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testSum() {
         // SUM
-        Object expectedResult = Long.valueOf(1+2+3+4+5);
+        Object expectedResult = Long.valueOf(1L+2+3+4+5);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -515,7 +515,7 @@ public class ResultExpressions extends QueryTest {
     public void testNavigationalExpressionVariable() {
         // navigational expression variable
         Object expectedResult =
-                Arrays.asList(new Object[]{"Development", "Human Resources"});
+                Arrays.asList("Development", "Human Resources");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -586,7 +586,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testNavigationalExpressionField() {
         // navigational expression field
-        Object expectedResult = Arrays.asList(new Object[]{Long.valueOf(1)});
+        Object expectedResult = Arrays.asList(Long.valueOf(1));
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -618,7 +618,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testParameter() {
         // parameter
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"proj1"});
+        Object expectedResult = getTransientCompanyModelInstancesAsList("proj1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -655,7 +655,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testCast() {
         // cast
-        Object expectedResult = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        Object expectedResult = getTransientCompanyModelInstancesAsList("emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

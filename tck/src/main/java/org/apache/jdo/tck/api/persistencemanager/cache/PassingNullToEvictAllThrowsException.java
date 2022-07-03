@@ -73,7 +73,7 @@ public class PassingNullToEvictAllThrowsException extends PersistenceManagerTest
         if (debug) logger.debug ("**  in runTestEvictAll1() ");
         try {
             tx.begin();
-            Collection col1 = null;
+            Collection<Object> col1 = null;
             try {
                 pm.evictAll(col1);
                 fail(ASSERTION_FAILED,

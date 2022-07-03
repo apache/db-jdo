@@ -17,7 +17,7 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -63,7 +63,7 @@ public class SupportedMapMethods extends QueryTest {
     
     /** */
     public void testGet() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -93,8 +93,8 @@ public class SupportedMapMethods extends QueryTest {
     
     /** */
     public void testContainsKey() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -124,7 +124,7 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testContainsValue() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -154,7 +154,7 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testIsEmpty() {
-        Object expected = new ArrayList();
+        Object expected = Collections.emptyList();
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -184,8 +184,8 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testSize() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

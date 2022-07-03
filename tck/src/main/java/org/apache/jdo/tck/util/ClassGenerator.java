@@ -718,7 +718,7 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
         startXmlClass(xmlPw2, classFile, 2);
 
         int fieldCounter=0;
-        String fieldNames [] = new String [elementTypes.length * embeddedElements.length];
+        String[] fieldNames = new String [elementTypes.length * embeddedElements.length];
         for(int j=0; j < elementTypes.length; j++)
         {
             if( elementTypes[j].equals("Locale") && collectionTypes[i].equals("TreeSet") )
@@ -855,7 +855,7 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     final String [] embeddedValueForFieldSpec = {"", "embedded-value=true", "embedded-value=false"};
 
     int fieldCounter=0;
-    String fieldNames [] = new String [keyTypes.length * embeddedKeys.length
+    String[] fieldNames = new String [keyTypes.length * embeddedKeys.length
                                        * valueTypes.length * embeddedValues.length];
     for(int i = 0; i < keyTypes.length; i++)
     {

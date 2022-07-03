@@ -184,11 +184,11 @@ public class GetObjectIds extends JDO_Test {
     /** */
     public void testGetObjectIdsCollection() {
         StringBuffer messages = new StringBuffer();
-        List paramList = Arrays.asList(objs);
-        List expectedList = Arrays.asList(oids);
+        List<Object> paramList = Arrays.asList(objs);
+        List<Object> expectedList = Arrays.asList(oids);
         Collection<Object> actualCollection = JDOHelper.getObjectIds(paramList);
-        Iterator expectedIterator = expectedList.iterator();
-        Iterator actualIterator = actualCollection.iterator();
+        Iterator<Object> expectedIterator = expectedList.iterator();
+        Iterator<Object> actualIterator = actualCollection.iterator();
         for (int i = 0; i < objs.length; ++i) {
             Object expected = expectedIterator.next();
             Object actual = actualIterator.next();

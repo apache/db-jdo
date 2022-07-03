@@ -39,7 +39,7 @@ public class CompanyFactoryAnnotatedPIDSPM
         this.pm = pm;        
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PIDSDentalInsurance.class,
             PIDSMedicalInsurance.class,
@@ -53,38 +53,38 @@ public class CompanyFactoryAnnotatedPIDSPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(PIDSAddress.class);
+        return pm.newInstance(PIDSAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(PIDSCompany.class);
+        return pm.newInstance(PIDSCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(PIDSDentalInsurance.class);
+        return pm.newInstance(PIDSDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(PIDSDepartment.class);
+        return pm.newInstance(PIDSDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(PIDSFullTimeEmployee.class);
+        return pm.newInstance(PIDSFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(PIDSMedicalInsurance.class);
+        return pm.newInstance(PIDSMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PIDSPartTimeEmployee.class);
+        return pm.newInstance(PIDSPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(PIDSProject.class);
+        return pm.newInstance(PIDSProject.class);
     }
 }

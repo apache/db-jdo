@@ -21,16 +21,9 @@ import java.util.Date;
 
 import javax.jdo.listener.DetachCallback;
 
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Test InstanceLifecycleListenerDetach
@@ -69,11 +62,11 @@ public class InstanceLifecycleListenerDetach
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    private static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -102,7 +95,7 @@ public class InstanceLifecycleListenerDetach
         pm.currentTransaction().begin();
         pm.makePersistent(pc);
         // detachCopy should cause the detach listeners to be called
-        PC detached = (PC)pm.detachCopy(pc);
+        PC detached = pm.detachCopy(pc);
         pm.currentTransaction().commit();
 
         // now check the callback and listener were called
@@ -119,6 +112,7 @@ public class InstanceLifecycleListenerDetach
     private static class InstanceLifecycleListenerDetachImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preDetach(InstanceLifecycleEvent event) {
             notifyEvent(PRE_DETACH_LISTENER);
             checkEventType(ASSERTION11_FAILED,
@@ -128,6 +122,7 @@ public class InstanceLifecycleListenerDetach
                     event.getSource());
         }
 
+        @Override
         public void postDetach(InstanceLifecycleEvent event) {
             notifyEvent(POST_DETACH_LISTENER);
             checkEventType(ASSERTION12_FAILED,

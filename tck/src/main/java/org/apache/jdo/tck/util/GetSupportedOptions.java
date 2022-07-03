@@ -30,11 +30,11 @@ public class GetSupportedOptions {
             System.exit(-1);
         }
         String PMFclassname = args[0];
-        Class PMFclass = Class.forName(PMFclassname);
+        Class<?> PMFclass = Class.forName(PMFclassname);
         PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.newInstance();
-        Collection options = pmf.supportedOptions();
+        Collection<String> options = pmf.supportedOptions();
         System.out.println("Supported options are:");
-        Iterator iter = options.iterator();
+        Iterator<String> iter = options.iterator();
         while( iter.hasNext() ){
             String val = (String) iter.next();
             System.out.println(val);        

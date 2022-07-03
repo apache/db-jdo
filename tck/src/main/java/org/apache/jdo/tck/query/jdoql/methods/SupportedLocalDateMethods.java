@@ -75,7 +75,7 @@ public class SupportedLocalDateMethods extends QueryTest {
             List<LocalDateSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateSample)pm.getObjectById(oidOfLocalDate1));
 
-            Query q =  pm.newQuery(LocalDateSample.class, filter);
+            Query<LocalDateSample> q =  pm.newQuery(LocalDateSample.class, filter);
             List<LocalDateSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -96,7 +96,7 @@ public class SupportedLocalDateMethods extends QueryTest {
             List<LocalDateSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateSample)pm.getObjectById(oidOfLocalDate2));
 
-            Query q =  pm.newQuery(LocalDateSample.class, filter);
+            Query<LocalDateSample> q =  pm.newQuery(LocalDateSample.class, filter);
             List<LocalDateSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -118,7 +118,7 @@ public class SupportedLocalDateMethods extends QueryTest {
             expectedResult.add((LocalDateSample)pm.getObjectById(oidOfLocalDate1));
             expectedResult.add((LocalDateSample)pm.getObjectById(oidOfLocalDate2));
 
-            Query q =  pm.newQuery(LocalDateSample.class, filter);
+            Query<LocalDateSample> q =  pm.newQuery(LocalDateSample.class, filter);
             List<LocalDateSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();

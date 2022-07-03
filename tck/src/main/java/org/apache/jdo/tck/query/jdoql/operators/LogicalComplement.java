@@ -17,13 +17,12 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -67,11 +66,11 @@ public class LogicalComplement extends QueryTest {
         try {
             tx.begin();
 
-            Collection allEvenInstances = (Collection)pm.newQuery(
-                PrimitiveTypes.class, "booleanNull == false").execute();
-            Collection allInstances = (Collection)pm.newQuery(
-                PrimitiveTypes.class, "true").execute();
-            Collection empty = new HashSet();
+            List<PrimitiveTypes> allEvenInstances = pm.newQuery(
+                PrimitiveTypes.class, "booleanNull == false").executeList();
+            List<PrimitiveTypes> allInstances = pm.newQuery(
+                PrimitiveTypes.class, "true").executeList();
+            List<PrimitiveTypes> empty = Collections.emptyList();
 
             // case !false
             runSimplePrimitiveTypesQuery(
@@ -106,12 +105,12 @@ public class LogicalComplement extends QueryTest {
         try {
             tx.begin();
 
-            Collection instancesLess3 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id < 3").execute();
-            Collection instancesNot3 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id != 3").execute();
-            Collection instances3 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id == 3").execute();
+            List<PrimitiveTypes> instancesLess3 = pm.newQuery(
+                    PrimitiveTypes.class, "id < 3").executeList();
+            List<PrimitiveTypes> instancesNot3 = pm.newQuery(
+                    PrimitiveTypes.class, "id != 3").executeList();
+            List<PrimitiveTypes> instances3 = pm.newQuery(
+                    PrimitiveTypes.class, "id == 3").executeList();
 
             // case !(field >= value)
             runSimplePrimitiveTypesQuery("! (id >= 3)",
@@ -151,10 +150,10 @@ public class LogicalComplement extends QueryTest {
         try {
             tx.begin();
 
-            Collection instances3 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id == 3").execute();
-            Collection instancesNot0Not3 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id != 3 && id != 0").execute();
+            List<PrimitiveTypes> instances3 = pm.newQuery(
+                    PrimitiveTypes.class, "id == 3").executeList();
+            List<PrimitiveTypes> instancesNot0Not3 = pm.newQuery(
+                    PrimitiveTypes.class, "id != 3 && id != 0").executeList();
 
 
             // case (nullableField == value)
@@ -191,10 +190,10 @@ public class LogicalComplement extends QueryTest {
         try {
             tx.begin();
 
-            Collection instancesGreater0 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id > 0").execute();
-            Collection instances0 = (Collection)pm.newQuery(
-                    PrimitiveTypes.class, "id == 0").execute();
+            List<PrimitiveTypes> instancesGreater0 = pm.newQuery(
+                    PrimitiveTypes.class, "id > 0").executeList();
+            List<PrimitiveTypes> instances0 = pm.newQuery(
+                    PrimitiveTypes.class, "id == 0").executeList();
 
             // case !(field == null)
             runSimplePrimitiveTypesQuery(
@@ -234,10 +233,10 @@ public class LogicalComplement extends QueryTest {
         try {
             tx.begin();
             PrimitiveTypes primitiveObject = new PrimitiveTypes(
-                    (long)0, false, null, (byte)0, null,
-                    (short)0, null, (int) 0, null,
-                    (long)0, null, (float)0, null,
-                    (double)0, null, '0', null,
+                    0, false, null, (byte)0, null,
+                    (short)0, null, 0, null,
+                    0, null, 0, null,
+                    0, null, '0', null,
                     null, null,
                     null,
                     null,

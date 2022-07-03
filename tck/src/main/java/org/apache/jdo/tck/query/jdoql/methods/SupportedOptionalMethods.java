@@ -373,7 +373,7 @@ public class SupportedOptionalMethods extends QueryTest {
                             false, null, expectedResults, true);
     }
 
-    private void checkQuery(String filter, String paramDecl, Map<String, ?> paramValues, Object[] result) {
+    private void checkQuery(String filter, String paramDecl, Map<String, Object> paramValues, Object[] result) {
         QueryElementHolder qeh = new QueryElementHolder(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 

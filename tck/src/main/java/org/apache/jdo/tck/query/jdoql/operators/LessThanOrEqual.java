@@ -754,12 +754,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             byte val = obj.getbyte();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -770,7 +770,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -779,12 +779,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             short val = obj.getshort();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -795,7 +795,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -804,12 +804,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             char val = obj.getchar();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -820,7 +820,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -829,12 +829,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             int val = obj.getint();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -845,7 +845,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -854,12 +854,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             long val = obj.getlong();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -870,7 +870,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -879,12 +879,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             float val = obj.getfloat();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -895,7 +895,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -904,12 +904,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             double val = obj.getdouble();
             boolean correct_value = valueOnLeft ? value <= val : val <= value;
             if( !correct_value ){
@@ -920,7 +920,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -929,12 +929,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Byte val = obj.getByte();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -945,7 +945,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -954,12 +954,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Short val = obj.getShort();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -970,7 +970,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -979,12 +979,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Character val = obj.getCharacter();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -995,7 +995,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1004,12 +1004,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Integer val = obj.getInteger();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1020,7 +1020,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1029,12 +1029,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Long val = obj.getLong();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1045,7 +1045,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1054,12 +1054,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Float val = obj.getFloat();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1070,7 +1070,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1079,12 +1079,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Double val = obj.getDouble();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1095,7 +1095,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1104,12 +1104,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             String val = obj.getString();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1120,7 +1120,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1129,12 +1129,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             BigDecimal val = obj.getBigDecimal();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1145,7 +1145,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1154,12 +1154,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             BigInteger val = obj.getBigInteger();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1170,7 +1170,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 
@@ -1179,12 +1179,12 @@ public class LessThanOrEqual extends ComparisonTests {
     {
         tx.begin();
         runQuery(pm, filter, parameter, parameterValue, ASSERTION_FAILED);
-        if( query_result == null )
+        if( queryResult == null )
             return;
-        Iterator iter = query_result.iterator();
+        Iterator<AllTypes> iter = queryResult.iterator();
         int cnt = 0;
         while( iter.hasNext() ){
-            AllTypes obj = (AllTypes) iter.next();
+            AllTypes obj = iter.next();
             Date val = obj.getDate();
             boolean correct_value = valueOnLeft ? (value.compareTo(val) <= 0) : (val.compareTo(value) <= 0);
             if( !correct_value ){
@@ -1195,7 +1195,7 @@ public class LessThanOrEqual extends ComparisonTests {
         if( cnt != expected_count ){
             fail(ASSERTION_FAILED, "JDOQL LessThanOrEqual test returns wrong number of instances, expected " + expected_count + ", got " + cnt, filter, parameter);
         }
-        query.close(query_result);
+        query.close(queryResult);
         tx.rollback();
     }
 

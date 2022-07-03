@@ -39,7 +39,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Index(name="INS_DISCRIMINATOR_INDEX", unique="false",
         columns=@Column(name="DISCRIMINATOR"))
 public class FCAppInsurance 
-    implements IInsurance, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IInsurance, Serializable, Comparable<IInsurance>, Comparator<IInsurance>, DeepEquality  {
 
     @PrimaryKey
     @Column(name="INSID")
@@ -166,27 +166,6 @@ public class FCAppInsurance
             helper.equals(carrier, otherIns.getCarrier(), where + ".carrier") &
             helper.deepEquals(employee, otherIns.getEmployee(), where + ".employee");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((FCAppInsurance)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((FCAppInsurance)o1, (FCAppInsurance)o2);
-    }
 
     /** 
      * Compares this object with the specified Insurance object for
@@ -198,7 +177,7 @@ public class FCAppInsurance
      * object is less than, equal to, or greater than the specified
      * Insurance object. 
      */
-    public int compareTo(FCAppInsurance other) {
+    public int compareTo(IInsurance other) {
         return compare(this, other);
     }
 
@@ -211,7 +190,7 @@ public class FCAppInsurance
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(FCAppInsurance o1, FCAppInsurance o2) {
+    public int compare(IInsurance o1, IInsurance o2) {
         return EqualityHelper.compare(o1.getInsid(), o2.getInsid());
     }
     
@@ -240,7 +219,7 @@ public class FCAppInsurance
      * This class is used to represent the application
      * identifier for the <code>Insurance</code> class.
      */
-    public static class Oid implements Serializable, Comparable 
+    public static class Oid implements Serializable, Comparable<Oid>
     {
         /**
          * This field represents the application identifier for the
@@ -286,12 +265,8 @@ public class FCAppInsurance
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( insid < other.insid ) return -1;
-            if( insid > other.insid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(insid, obj.insid);
         }
 
     }

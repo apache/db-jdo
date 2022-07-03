@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.util;
 
-import java.util.Comparator;
-
 /**
  * This <code>DeepEquality</code> interface defines a method indicating
  * whether some other object is "deep equal to" this object.

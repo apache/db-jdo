@@ -25,6 +25,7 @@ import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IProject;
 
 /**
  * This interface represents the persistent state of Employee.
@@ -41,10 +42,10 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     double getWeeklyhours();
     @Persistent(mappedBy="reviewers")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
-    Set getReviewedProjects();
+    Set<IProject> getReviewedProjects();
     @Persistent(mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSProject.class)
-    Set getProjects();
+    Set<IProject> getProjects();
     @Persistent(mappedBy="employee",types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSDentalInsurance.class)
     IDentalInsurance getDentalInsurance();
     @Persistent(mappedBy="employee",types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSMedicalInsurance.class)
@@ -60,7 +61,7 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     IEmployee getManager();
     @Persistent(mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
-    Set getTeam();
+    Set<IEmployee> getTeam();
     @Persistent(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
     @Column(name="MENTOR")
     IEmployee getMentor();
@@ -71,21 +72,21 @@ public interface PIDSEmployee extends IEmployee, PIDSPerson {
     IEmployee getHradvisor();
     @Persistent(mappedBy="hradvisor")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
-    Set getHradvisees();
+    Set<IEmployee> getHradvisees();
     
     void setHiredate(Date hiredate);
     void setWeeklyhours(double weeklyhours);
-    void setReviewedProjects(Set reviewedProjects);
-    void setProjects(Set projects);
+    void setReviewedProjects(Set<IProject> reviewedProjects);
+    void setProjects(Set<IProject> projects);
     void setDentalInsurance(IDentalInsurance dentalInsurance);
     void setMedicalInsurance(IMedicalInsurance medicalInsurance);
     void setDepartment(IDepartment department);
     void setFundingDept(IDepartment department);
     void setManager(IEmployee manager);
-    void setTeam(Set team);
+    void setTeam(Set<IEmployee> team);
     void setMentor(IEmployee mentor);
     void setProtege(IEmployee protege);
     void setHradvisor(IEmployee hradvisor);
-    void setHradvisees(Set hradvisees);
+    void setHradvisees(Set<IEmployee> hradvisees);
     
 }

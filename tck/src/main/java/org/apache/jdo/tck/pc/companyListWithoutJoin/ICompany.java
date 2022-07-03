@@ -28,12 +28,12 @@ import java.util.Set;
 public interface ICompany {
     
     long getCompanyid();
-    Set getDepartments();
+    Set<IDepartment> getDepartments();
     Date getFounded();
     String getName();
     
     void setCompanyid(long id);
-    void setDepartments(Set depts);
+    void setDepartments(Set<IDepartment> depts);
     void setFounded(Date date);
     void setName(String string);
 }

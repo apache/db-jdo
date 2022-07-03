@@ -29,7 +29,7 @@ public class CompanyFactoryPMInterface
         extends CompanyFactoryAbstractImpl {
     
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    public static final Class<?>[] tearDownClasses = new Class<?>[] {
         IPartTimeEmployee.class, IFullTimeEmployee.class,  
         IDepartment.class, ICompany.class
     };
@@ -43,22 +43,22 @@ public class CompanyFactoryPMInterface
     }
     
     ICompany newCompany() {
-        return (ICompany)pm.newInstance(ICompany.class);
+        return pm.newInstance(ICompany.class);
     }
     
     IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(IDepartment.class);
+        return pm.newInstance(IDepartment.class);
     }
     
     IFullTimeEmployee  newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(IFullTimeEmployee.class);
+        return pm.newInstance(IFullTimeEmployee.class);
     }
     
     IPartTimeEmployee  newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(IPartTimeEmployee.class);
+        return pm.newInstance(IPartTimeEmployee.class);
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

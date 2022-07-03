@@ -17,11 +17,6 @@
  
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -55,6 +50,7 @@ public class SetMultithreaded extends JDO_Test {
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         closePMF();
         pmf = getUnconfiguredPMF();

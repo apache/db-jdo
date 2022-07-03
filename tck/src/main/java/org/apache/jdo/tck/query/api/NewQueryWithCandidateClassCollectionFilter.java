@@ -62,11 +62,11 @@ public class NewQueryWithCandidateClassCollectionFilter extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(PCPoint.class, inserted, "x ==2");
+            Query<PCPoint> query = pm.newQuery(PCPoint.class, inserted, "x ==2");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
+            List<PCPoint> expected = new ArrayList<>();
             PCPoint pc1 = new PCPoint(2, 2);
             expected.add(pc1);
             expected = getFromInserted(expected);

@@ -70,6 +70,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         // setUp gets a PMF that needs to be closed
         closePMF();
@@ -151,7 +152,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** */
     private void getPMFsetTransactionIsolationLevelFromProperties(String level) {
         String property = PROPERTY_TRANSACTION_ISOLATION_LEVEL + "." + level;
-        Map modifiedProps = new HashMap(PMFPropertiesObject);
+        Map<Object, Object> modifiedProps = new HashMap<>(PMFPropertiesObject);
         modifiedProps.put(PROPERTY_TRANSACTION_ISOLATION_LEVEL, level);
         if (isSupported(property)) {
             pmf2 = JDOHelper.getPersistenceManagerFactory(modifiedProps);

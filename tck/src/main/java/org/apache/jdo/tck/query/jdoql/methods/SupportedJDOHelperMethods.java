@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql.methods;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +31,6 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.Expression;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
@@ -73,8 +71,8 @@ public class SupportedJDOHelperMethods extends QueryTest {
     
     /** */
     public void testGetObjectById1() {
-        Class oidClass = getPM().getObjectIdClass(Person.class);
-        List expectedResult = getExpectedResult(true, Person.class);
+        Class<?> oidClass = getPM().getObjectIdClass(Person.class);
+        List<Person> expectedResult = getExpectedResult(true, Person.class);
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -104,7 +102,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
 
     /** */
     public void testGetObjectById2() {
-        List expectedResult = getExpectedResult(false, Person.class, "personid == 1");
+        List<Person> expectedResult = getExpectedResult(false, Person.class, "personid == 1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -149,7 +147,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
 
         try {
             // query 1
-            List expectedResult = Arrays.asList(Long.valueOf(1));
+            List<Long> expectedResult1 = Arrays.asList(Long.valueOf(1));
 
             JDOQLTypedQuery<VersionedPCPoint> query = getPM().newJDOQLTypedQuery(VersionedPCPoint.class);
             QVersionedPCPoint cand = QVersionedPCPoint.candidate();
@@ -172,12 +170,13 @@ public class SupportedJDOHelperMethods extends QueryTest {
                     /*JDOQLTyped*/  query,
                     /*paramValues*/ null);
 
-            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-            //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult);
+            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult1);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult1);
+            //executeJDOQLTypedQuery(ASSERTION_FAILED, holder, Long.class, expectedResult1);
 
             // query 2
-            expectedResult = getExpectedResult(false, VersionedPCPoint.class, "x == 1");
+            List<VersionedPCPoint> expectedResult2 =
+                    getExpectedResult(false, VersionedPCPoint.class, "x == 1");
 
             query = getPM().newJDOQLTypedQuery(VersionedPCPoint.class);
             cand = QVersionedPCPoint.candidate();
@@ -204,9 +203,9 @@ public class SupportedJDOHelperMethods extends QueryTest {
                     /*JDOQLTyped*/  query,
                     /*paramValues*/ paramValues);
 
-            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+            executeAPIQuery(ASSERTION_FAILED, holder, expectedResult2);
+            executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult2);
+            executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult2);
 
         } finally {
             pm.currentTransaction().begin();
@@ -225,29 +224,29 @@ public class SupportedJDOHelperMethods extends QueryTest {
     }
 
     /** */
-    private List getExpectedResult(boolean oidsWanted, Class candidateClass) {
+    private <T> List<T> getExpectedResult(boolean oidsWanted, Class<T> candidateClass) {
         return getExpectedResult(oidsWanted, candidateClass, null);
     }
     
     /** */
-    private List getExpectedResult(boolean oidsWanted, 
-            Class candidateClass, String filter) {
-        List expectedResult;
+    private <T> List<T> getExpectedResult(boolean oidsWanted,
+            Class<T> candidateClass, String filter) {
+        List<T> expectedResult;
         PersistenceManager pm = getPM();
         Transaction transaction = pm.currentTransaction();
         transaction.begin();
         try {
-            Query query = filter == null ? pm.newQuery(candidateClass) :
+            Query<T> query = filter == null ? pm.newQuery(candidateClass) :
                 pm.newQuery(candidateClass, filter);
             try {
-                Collection result = (Collection) query.execute();
+                List<T> result = query.executeList();
                 if (oidsWanted) {
-                    expectedResult = new ArrayList();
-                    for (Iterator i = result.iterator(); i.hasNext(); ) {
-                        expectedResult.add(JDOHelper.getObjectId(i.next()));
+                    expectedResult = new ArrayList<>();
+                    for (Iterator<T> i = result.iterator(); i.hasNext(); ) {
+                        expectedResult.add((T)JDOHelper.getObjectId(i.next()));
                     }
                 } else {
-                    expectedResult = new ArrayList(result);
+                    expectedResult = new ArrayList<>(result);
                 }
             } finally {
                 query.closeAll();

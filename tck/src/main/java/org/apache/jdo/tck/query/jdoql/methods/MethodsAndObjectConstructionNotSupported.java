@@ -63,10 +63,10 @@ public class MethodsAndObjectConstructionNotSupported extends QueryTest {
     }
 
     /** */
-    void runTestUnsupportedOperators01(PersistenceManager pm, 
-                                       Class candidateClass, String filter) {
+    <T> void runTestUnsupportedOperators01(PersistenceManager pm,
+                                       Class<T> candidateClass, String filter) {
         String expectedMsg = "setFilter: Invalid method call ....";
-        Query query = pm.newQuery();
+        Query<T> query = pm.newQuery();
         query.setClass(candidateClass);
         
         try {

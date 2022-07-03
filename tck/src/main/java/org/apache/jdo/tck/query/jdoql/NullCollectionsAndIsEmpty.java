@@ -57,7 +57,7 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
     /** */
     public void testPositive() {
         // isEmpty
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

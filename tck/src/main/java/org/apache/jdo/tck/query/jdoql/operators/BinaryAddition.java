@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -66,10 +65,10 @@ public class BinaryAddition extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
-        Collection allOddInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "booleanNull").execute();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
+        List<PrimitiveTypes> allOddInstances = pm.newQuery(
+            PrimitiveTypes.class, "booleanNull").executeList();
         
         runSimplePrimitiveTypesQuery("id + 1 == 10", 
                                      pm, instance9, ASSERTION_FAILED);

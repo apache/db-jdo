@@ -34,16 +34,16 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 public class AbstractReaderTest extends JDO_Test {
 
     /** The list of all objects in the bean collection. */
-    protected List rootOids;
+    protected List<Object> rootOids;
 
     /** The name of the root object in the bean collection. */
-    protected static final String rootName = "root";
+    protected static final String ROOT_NAME = "root";
 
     /** The name of the file containing the bean collection (test data). */
     protected final String inputFilename = System.getProperty("jdo.tck.testdata");
 
     /** The map of String (bean name) to Object (bean). */
-    protected Map oidMap = new HashMap();
+    protected Map<String, Object> oidMap = new HashMap<>();
 
     /** Get the named bean from the bean factory.
      * 
@@ -52,12 +52,7 @@ public class AbstractReaderTest extends JDO_Test {
      * @return the named object
      */
     protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
-        return doPrivileged(
-            new PrivilegedAction() {
-                public Object run() {
-                    return factory.getBean(name);
-                }
-            }
+        return doPrivileged(() -> factory.getBean(name)
         );
     }
 
@@ -78,8 +73,8 @@ public class AbstractReaderTest extends JDO_Test {
      * @param factory the bean factory
      * @return the List of objects
      */
-    protected List getRootList(DefaultListableBeanFactory factory) {
-        return (List) getBean(factory, rootName);
+    protected List<Object> getRootList(DefaultListableBeanFactory factory) {
+        return (List<Object>) getBean(factory, ROOT_NAME);
     }
 
     /** Get the named object from the Map of objects.
@@ -88,7 +83,7 @@ public class AbstractReaderTest extends JDO_Test {
      * @return the named object
      */
     protected Object getOidByName(String name) {
-        return oidMap.get((Object)name);
+        return oidMap.get(name);
     }
 
 }

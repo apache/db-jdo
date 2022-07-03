@@ -74,8 +74,8 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * called "root" of type list in the xml and returns it.
      * @return a list of root instances
      */
-    public List getRootList() {
-        return (List)getBean(ROOT_LIST_NAME);
+    public List<Object> getRootList() {
+        return (List<Object>)getBean(ROOT_LIST_NAME);
     }
     
     /** 
@@ -100,7 +100,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Company bean.
      */
     public Company getCompany(String name) {
-        return (Company)getBean(name, Company.class);
+        return getBean(name, Company.class);
     }
 
     /** 
@@ -112,7 +112,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Department bean.
      */
     public Department getDepartment(String name) {
-        return (Department)getBean(name, Department.class);
+        return getBean(name, Department.class);
     }
 
     /** 
@@ -124,7 +124,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Employee bean.
      */
     public Employee getEmployee(String name) {
-        return (Employee)getBean(name, Employee.class);
+        return getBean(name, Employee.class);
     }
 
     /** 
@@ -136,7 +136,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * FullTimeEmployee bean.
      */
     public FullTimeEmployee getFullTimeEmployee(String name) {
-        return (FullTimeEmployee)getBean(name, FullTimeEmployee.class);
+        return getBean(name, FullTimeEmployee.class);
     }
 
     /** 
@@ -148,7 +148,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * PartTimeEmployee bean.
      */
     public PartTimeEmployee getPartTimeEmployee(String name) {
-        return (PartTimeEmployee)getBean(name, PartTimeEmployee.class);
+        return getBean(name, PartTimeEmployee.class);
     }
 
     /** 
@@ -160,20 +160,20 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * Person bean.
      */
     public Person getPerson(String name) {
-        return (Person)getBean(name, Person.class);
+        return getBean(name, Person.class);
     }
 
     /**
      * @return Returns the tearDownClasses.
      */
-    public Class[] getTearDownClassesFromFactory() {
+    public Class<?>[] getTearDownClassesFromFactory() {
         return companyFactory.getTearDownClasses();
     }
     
     /**
      * @return Returns the tearDownClasses.
      */
-    public static Class[] getTearDownClasses() {
+    public static Class<?>[] getTearDownClasses() {
         return CompanyFactoryConcreteClass.tearDownClasses;
     }
 

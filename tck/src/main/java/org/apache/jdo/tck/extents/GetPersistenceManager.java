@@ -53,7 +53,7 @@ public class GetPersistenceManager extends ExtentTest {
 
     /** */
     public void test() {
-        Extent ex = getPM().getExtent (Employee.class, true);
+        Extent<Employee> ex = getPM().getExtent (Employee.class, true);
         if (pm != ex.getPersistenceManager()) {
             fail(ASSERTION_FAILED,
                  "unexpected pm of extent, expected " + pm + 

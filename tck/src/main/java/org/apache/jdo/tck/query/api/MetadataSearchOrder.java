@@ -51,16 +51,11 @@ public class MetadataSearchOrder extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp1", "emp2", "emp3", "emp4", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp2", "emp3", "emp4", "emp5"}),
-        getTransientMylibInstancesAsList(new String[]{
-                "pcClass1", "pcClass2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp3", "emp4", "emp5"}),
-        getTransientCompanyModelInstancesAsList(new String[]{
-                "emp4", "emp5"})
+        getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5"),
+        getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp4", "emp5"),
+        getTransientMylibInstancesAsList("pcClass1", "pcClass2"),
+        getTransientCompanyModelInstancesAsList("emp3", "emp4", "emp5"),
+        getTransientCompanyModelInstancesAsList("emp4", "emp5")
     };
             
     /**
@@ -107,9 +102,9 @@ public class MetadataSearchOrder extends QueryTest {
                 expectedResult[index]);
     }
 
-    private void executeNamedQuery(Class candidateClass, String namedQuery,
+    private void executeNamedQuery(Class<?> candidateClass, String namedQuery,
             Object expectedResult) {
-        Query query = getPM().newNamedQuery(candidateClass, namedQuery); 
+        Query<?> query = getPM().newNamedQuery(candidateClass, namedQuery);
         executeJDOQuery(ASSERTION_FAILED, query, "Named query " + namedQuery,
                 false, null, expectedResult, true);
     }

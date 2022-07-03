@@ -48,8 +48,7 @@ public class SetGrouping extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        Arrays.asList(new Object[] {
-                "emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last"})
+        Arrays.asList("emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last")
     };
             
     /**
@@ -64,7 +63,7 @@ public class SetGrouping extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setResult("lastname");
         query.setGrouping("lastname");
         String singleStringQuery = "SELECT lastname FROM Person GROUP BY lastname";

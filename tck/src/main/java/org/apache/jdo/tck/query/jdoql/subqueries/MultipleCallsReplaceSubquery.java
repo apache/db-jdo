@@ -24,6 +24,7 @@ import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -55,8 +56,8 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
     /** */
     public void testPositive() {
         PersistenceManager pm = getPM();
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp1","emp2","emp4","emp5","emp6","emp7","emp10"});
+        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(
+            "emp1","emp2","emp4","emp5","emp6","emp7","emp10");
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
@@ -65,13 +66,13 @@ public class MultipleCallsReplaceSubquery extends SubqueriesTest {
 
         // API query
         // Query returning the weeklyhours of employee with id 1
-        Query tmp = pm.newQuery(Employee.class);
+        Query<Employee> tmp = pm.newQuery(Employee.class);
         tmp.setResult("this.weeklyhours");
         tmp.setFilter("this.id == 1");
         // Query returning the avg of weeklyhours of all employees
-        Query sub = pm.newQuery(Employee.class);
+        Query<Employee> sub = pm.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
         apiQuery.addSubquery(tmp, "double averageWeeklyhours", null);
         // second call of addSubquery using the same variable

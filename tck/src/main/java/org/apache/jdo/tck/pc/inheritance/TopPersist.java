@@ -28,7 +28,7 @@ public class TopPersist {  //  persistent
     public int intB; // persistent
     
     private int keyValue;  // persistent--used as key field in application identity
-    static private int nextKeyValue = 1;
+    private static int nextKeyValue = 1;
     
     public TopPersist() {
         intA = Constants.intA_V[0];

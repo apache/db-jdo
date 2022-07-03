@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.util.Date;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
@@ -71,6 +70,7 @@ public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
      * Returns a String representation of a <code>PartTimeEmployee</code> object.
      * @return a String representation of a <code>PartTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "PartTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -79,6 +79,7 @@ public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -98,7 +99,8 @@ public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                         EqualityHelper helper) {
         IPartTimeEmployee otherEmp = (IPartTimeEmployee)other;
         String where = "PartTimeEmployee<" + getPersonid() + ">";

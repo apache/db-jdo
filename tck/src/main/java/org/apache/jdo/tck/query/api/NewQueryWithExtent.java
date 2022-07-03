@@ -61,7 +61,7 @@ public class NewQueryWithExtent extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(pm.getExtent(PCPoint.class, false));
+            Query<PCPoint> query = pm.newQuery(pm.getExtent(PCPoint.class, false));
             query.setClass(PCPoint.class);
             Object results = query.execute();
 

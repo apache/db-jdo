@@ -77,10 +77,12 @@ public class GetProperties extends JDO_Test implements Constants {
         BatchTestRunner.run(GetProperties.class);
     }
 
+    @Override
     public void localSetUp() {
         getPM();
     }
 
+    @Override
     public void localTearDown() {
         // the PM is left in an unknown state due to setting properties so it must be cleaned up
         cleanupPM();
@@ -88,8 +90,8 @@ public class GetProperties extends JDO_Test implements Constants {
 
     private Collection<String> supportedOptions;
     private Set<String> supportedProperties;
-    private static Set<TestProperty> testRequiredProperties = new HashSet<TestProperty>();
-    private static Map<String, Set<TestProperty>> testOptionalProperties = new HashMap<String, Set<TestProperty>>();
+    private static Set<TestProperty> testRequiredProperties = new HashSet<>();
+    private static Map<String, Set<TestProperty>> testOptionalProperties = new HashMap<>();
 
     private interface TestProperty {
         void test(PersistenceManager pm, Set<String> supportedProperties);
@@ -199,13 +201,13 @@ public class GetProperties extends JDO_Test implements Constants {
     private TestProperty testLowerCaseMultithreaded = 
             new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
-        public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.multithreaded", (Boolean) value);}
+        public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.multithreaded", value);}
     };
 
     private TestProperty testUpperCaseMultithreaded = 
         new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
     public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
-    public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.MULTITHREADED", (Boolean) value);}
+    public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.MULTITHREADED", value);}
 };
 
     private TestProperty testDetachAllOnCommit =
@@ -255,7 +257,7 @@ public class GetProperties extends JDO_Test implements Constants {
     };
 
     private Set<TestProperty> setOf(TestProperty... testPropertys) {
-        Set<TestProperty> result = new HashSet<TestProperty>();
+        Set<TestProperty> result = new HashSet<>();
         for (TestProperty testProperty: testPropertys) {
          result.add(testProperty);
         }

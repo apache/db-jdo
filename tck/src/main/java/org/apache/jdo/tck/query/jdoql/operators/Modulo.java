@@ -17,13 +17,12 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
@@ -58,7 +57,7 @@ public class Modulo extends QueryTest {
     }
 
     public void testPositive() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp4"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp4");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -94,8 +93,8 @@ public class Modulo extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection instance4 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 10").execute();
+        List<PrimitiveTypes> instance4 = pm.newQuery(
+            PrimitiveTypes.class, "id == 10").executeList();
                 
         runSimplePrimitiveTypesQuery("id % 10 == 0", 
                                      pm, instance4, ASSERTION_FAILED);

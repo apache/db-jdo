@@ -91,7 +91,7 @@ public class IntAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCPoint query with a query parameter of type Point.
      */
-    public void testPCPointQueryWithPointParam() throws Exception {
+    public void testPCPointQueryWithPointParam() {
         runQueryWithIntParameter(PCPoint.class);
     }
 
@@ -126,7 +126,7 @@ public class IntAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCPointAnnotated query with a query parameter of type String.
      */
-    public void testPCPointAnnotatedQueryWithPointParam() throws Exception {
+    public void testPCPointAnnotatedQueryWithPointParam() {
         runQueryWithIntParameter(PCPointAnnotated.class);
     }
 
@@ -161,7 +161,7 @@ public class IntAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCPoint query with a query parameter of type Point.
      */
-    public void testPCPointPropQueryWithPointParam() throws Exception {
+    public void testPCPointPropQueryWithPointParam() {
         runQueryWithIntParameter(PCPointProp.class);
     }
 
@@ -196,7 +196,7 @@ public class IntAttributeConverterTest extends JDO_Test {
     /**
      * Test method running a PCPointAnnotated query with a query parameter of type String.
      */
-    public void testPCPointPropAnnotatedQueryWithPointParam() throws Exception {
+    public void testPCPointPropAnnotatedQueryWithPointParam() {
         runQueryWithIntParameter(PCPointPropAnnotated.class);
     }
 
@@ -309,7 +309,7 @@ public class IntAttributeConverterTest extends JDO_Test {
      * The parameter value is converted using the AttributeConverter.
      * @throws Exception
      */
-    private <T extends IPCPoint> void runQueryWithIntParameter(Class<T> pcPointClass) throws Exception {
+    private <T extends IPCPoint> void runQueryWithIntParameter(Class<T> pcPointClass) {
         int nrOfDbCalls;
         int nrOfAttrCalls;
 

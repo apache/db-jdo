@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Field;
@@ -40,7 +39,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 
-
 /**
  * Tests classes for correct signatures.
  *
@@ -48,13 +46,13 @@ import java.io.LineNumberReader;
  */
 public class SignatureVerifier {
     /** The new-line character on this system. */
-    static protected final String NL = System.getProperty("line.separator");
+    protected static final String NL = System.getProperty("line.separator");
 
     /** All modifiers defined in java.lang.reflect.Modifier.
      * This field is used to filter out vm-specific modifiers 
      * such as found in Sun's vm to identify Enum and Annotation.
      */
-    static protected final int ALL_MODIFIERS = 
+    protected static final int ALL_MODIFIERS =
             Modifier.ABSTRACT |
             Modifier.FINAL |
             Modifier.INTERFACE |
@@ -69,10 +67,10 @@ public class SignatureVerifier {
             Modifier.VOLATILE;
 
     /** Pseudo modifier for annotation */
-    static protected final int ANNOTATION = 0x2000;
+    protected static final int ANNOTATION = 0x2000;
 
     /** Pseudo modifier for enum */
-    static protected final int ENUM = 0x4000;
+    protected static final int ENUM = 0x4000;
 
     /** A writer for standard output. */
     protected final PrintWriter log;
@@ -90,16 +88,16 @@ public class SignatureVerifier {
     protected final ClassLoader classLoader;
 
     /** The currently tested Class. */
-    protected Class cls;
+    protected Class<?> cls;
     
     /** All untested, declared members of the current class. */
-    protected final Set members = new HashSet();
+    protected final Set<Member> members = new HashSet<>();
 
     /** Collects names of loadable classes. */
-    private final Set loading = new TreeSet();
+    private final Set<String> loading = new TreeSet<>();
 
     /** Collects names of unloadable classes. */
-    private final Set notLoading = new TreeSet();
+    private final Set<String> notLoading = new TreeSet<>();
 
     /** Counts tested features (class, constructor, fields, methods). */
     private int tested;
@@ -189,7 +187,7 @@ public class SignatureVerifier {
      * @throws IOException error reading file
      * @throws ParseException error during parsing
      */
-    public int test(List descrFileNames)
+    public int test(List<String> descrFileNames)
         throws IOException, ParseException {
         // check argument
         if (descrFileNames == null || descrFileNames.isEmpty()) {
@@ -325,8 +323,8 @@ public class SignatureVerifier {
      * @param userTypeName user type names
      * @return class objects
      */
-    protected Class[] getClasses(String[] userTypeName) {
-        final Class[] cls = new Class[userTypeName.length];
+    protected Class<?>[] getClasses(String[] userTypeName) {
+        final Class<?>[] cls = new Class[userTypeName.length];
         for (int i = userTypeName.length - 1; i >= 0; i--) {
             cls[i] = getClass(userTypeName[i]);
         }
@@ -338,9 +336,9 @@ public class SignatureVerifier {
      * @param userTypeName user type name
      * @return class object
      */
-    protected Class getClass(String userTypeName) {
+    protected Class<?> getClass(String userTypeName) {
         // use helper for retrieving class objects for primitive types
-        Class cls = TypeHelper.primitiveClass(userTypeName);
+        Class<?> cls = TypeHelper.primitiveClass(userTypeName);
         if (cls != null) {
             return cls;
         }
@@ -381,7 +379,7 @@ public class SignatureVerifier {
         }
         // first check primitive type
         final Object exp;
-        Class expClass;
+        Class<?> expClass;
         final boolean ok;
         if (type.equals("byte")) {
             if (isArray) {
@@ -482,7 +480,7 @@ public class SignatureVerifier {
                     String expectedFieldName = 
                             value.substring(lastDot + 1, value.length());
                     // get Class object from class name
-                    Class expectedClass = getClass(expectedClassName);
+                    Class<?> expectedClass = getClass(expectedClassName);
                     if (expectedClass == null) 
                         throw new ClassNotFoundException();
                     // get Field object from Class and field name
@@ -602,13 +600,13 @@ public class SignatureVerifier {
         excepts = TypeHelper.qualifiedUserTypeNames(excepts);
 
         // get parameter classes
-        final Class[] prms = getClasses(params);
+        final Class<?>[] prms = getClasses(params);
         if (prms == null) {
             return;
         }
 
         // get constructor
-        final Constructor ctor;
+        final Constructor<?> ctor;
         try {
             ctor = cls.getDeclaredConstructor(prms);
         } catch (NoSuchMethodException ex) {
@@ -663,7 +661,7 @@ public class SignatureVerifier {
         result = TypeHelper.qualifiedUserTypeName(result);
 
         // get parameter classes
-        final Class[] prms = getClasses(params);
+        final Class<?>[] prms = getClasses(params);
         if (prms == null) {
             return;
         }
@@ -687,7 +685,7 @@ public class SignatureVerifier {
             // methods in interfaces are implicitly public
             mods |= Modifier.PUBLIC;
         }
-        Class resultType = getClass(result);
+        Class<?> resultType = getClass(result);
         if (resultType == null) {
         	System.out.println("WARNING : checkMethod " + name + " result=" + result + " comes up with null resultType!");
         } else if (resultType.isAnnotation()) {
@@ -787,8 +785,8 @@ public class SignatureVerifier {
         }
 
         // check superclass and extended/implemented interfaces
-        final Class superclass = cls.getSuperclass();
-        final Class[] interfaces = cls.getInterfaces();	
+        final Class<?> superclass = cls.getSuperclass();
+        final Class<?>[] interfaces = cls.getInterfaces();
         if (isInterface) {
             //assert (impl.length == 0);
             if (!TypeHelper.isNameMatch(ext, interfaces)) {
@@ -824,8 +822,8 @@ public class SignatureVerifier {
         }
 
         // check for public non-standard members
-        for (Iterator i = members.iterator(); i.hasNext();) {
-            final Member m = (Member)i.next();
+        for (Iterator<Member> i = members.iterator(); i.hasNext();) {
+            final Member m = i.next();
             if ((m.getModifiers() & Modifier.PUBLIC) != 0) {
                 handleNonStandard("non-standard, public member;",
                                   Formatter.toString(m));
@@ -838,7 +836,7 @@ public class SignatureVerifier {
      * @param cls the class
      * @return modifiers of the class with extra flags for enum and annotation
      */
-    protected int convertModifiers(Class cls) {
+    protected int convertModifiers(Class<?> cls) {
         int result = cls.getModifiers();
         // first remove extraneous stuff
         result &= ALL_MODIFIERS;
@@ -1498,14 +1496,14 @@ public class SignatureVerifier {
          */
         protected String[] demandIdentifierList()
             throws IOException, ParseException {
-            final ArrayList ids = new ArrayList();
+            final List<String> ids = new ArrayList<>();
             ids.add(demandIdentifier());
             String t;
             while ((t = parseToken()).equals(",")) {
                 ids.add(demandIdentifier());
             }
             setLookAhead(t); // not an identifier
-            return (String[])ids.toArray(new String[ids.size()]);
+            return ids.toArray(new String[ids.size()]);
         }
     
         /**
@@ -1554,7 +1552,7 @@ public class SignatureVerifier {
          */
         protected String[] parseParameterList()
             throws IOException, ParseException {
-            final ArrayList types = new ArrayList();
+            final List<String> types = new ArrayList<>();
             String t = parseType();
             if (t != null) {
                 types.add(t);
@@ -1565,7 +1563,7 @@ public class SignatureVerifier {
                 }
                 setLookAhead(t); // not a comma token
             }
-            return (String[])types.toArray(new String[types.size()]);
+            return types.toArray(new String[types.size()]);
         }
     
         /**
@@ -1711,10 +1709,10 @@ public class SignatureVerifier {
          * @throws ParseException parsing error
          */
         @SuppressWarnings("empty-statement")
-        public void parse(List descrFileNames)
+        public void parse(List<String> descrFileNames)
             throws IOException, ParseException {        
-            for (Iterator i = descrFileNames.iterator(); i.hasNext();) {
-                final String fileName = (String)i.next();
+            for (Iterator<String> i = descrFileNames.iterator(); i.hasNext();) {
+                final String fileName = i.next();
                 logInfo("");
                 logInfo("parsing descriptor file: " + fileName);
                 try {
@@ -1740,19 +1738,19 @@ public class SignatureVerifier {
     // ----------------------------------------------------------------------
 
     /** A writer for standard output. */
-    static protected PrintWriter out = new PrintWriter(System.out, true);
+    protected static PrintWriter out = new PrintWriter(System.out, true);
 
     /** Command line arguments */
-    static public final List descrFileNames = new ArrayList();
+    public static final List<String> descrFileNames = new ArrayList<>();
 
     /** Command line option 'quiet'.*/
-    static private boolean optionQuiet;
+    private static boolean optionQuiet;
 
     /** Command line option 'verbose'.*/
-    static private boolean optionVerbose;
+    private static boolean optionVerbose;
 
     /** Prints the CLI usage. */
-    static public void printUsage() {
+    public static  void printUsage() {
         out.println();
         out.println("usage: SignatureVerifier [options] arguments");
         out.println("options:");
@@ -1769,7 +1767,7 @@ public class SignatureVerifier {
      * @param args arguments
      * @return status code
      */
-    static public int parseArgs(String args[]) {
+    public static int parseArgs(String[] args) {
         out.println("parse main() arguments");
 
         // parse this class' options and arguments
@@ -1802,7 +1800,7 @@ public class SignatureVerifier {
         // print args
         if (false) {
             out.println("descrFileNames = {");
-            for (Iterator i = descrFileNames.iterator(); i.hasNext();) {
+            for (Iterator<String> i = descrFileNames.iterator(); i.hasNext();) {
                 out.println("                     " + i.next());
             }
             out.println("                 }");
@@ -1823,7 +1821,7 @@ public class SignatureVerifier {
      * Runs the signature test and exits with a status code.
      * @param args command line arguments
      */
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         out.println("run SignatureVerifier ...");
         if (parseArgs(args) != 0) {
             printUsage();

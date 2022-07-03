@@ -60,6 +60,7 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
     }
 
     /** */
+    @Override
     public void localSetUp () {
         addTearDownClass(VersionedPCPoint.class);
         pm = getPM();
@@ -67,7 +68,7 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
         tx.begin();
         VersionedPCPoint pnt = new VersionedPCPoint (0,0);
         pm.makePersistent(pnt);
-        oid = pm.getObjectId((Object)pnt);
+        oid = pm.getObjectId(pnt);
         tx.commit();
     }
 

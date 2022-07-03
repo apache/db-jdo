@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.jdo.Extent;
@@ -37,6 +38,8 @@ import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
+import org.apache.jdo.tck.pc.company.IEmployee;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.Project;
@@ -48,7 +51,6 @@ import org.apache.jdo.tck.pc.company.Project;
  */
 abstract class ExtentTest extends JDO_Test {
 
-    protected Class extentClass = Employee.class;
     protected Company company;
     protected Object companyOID;
     
@@ -82,7 +84,7 @@ abstract class ExtentTest extends JDO_Test {
         try {
             // Don't use beginTransaction() because this calls getPM() which calls checkPM()!
             pm.currentTransaction().begin();
-            Extent ex = getPM().getExtent(Company.class, false);
+            Extent<Company> ex = getPM().getExtent(Company.class, false);
             int count = countIterator(ex.iterator());
             pm.currentTransaction().commit();
             if (count == 1) {
@@ -98,7 +100,7 @@ abstract class ExtentTest extends JDO_Test {
     
     /** */
     protected void initDB() {
-        HashSet h;
+        Set<IEmployee> h;
         Address addr1 = new Address (7001L, "18 Network Circle",
                                      "Santa Clara", "CA", "94455", "USA");
         company = new Company (1L, "Sun Microsystems", new Date(), addr1);
@@ -126,7 +128,7 @@ abstract class ExtentTest extends JDO_Test {
         // Set up their departments.
         Department board =
             new Department(2001L, "board", company);
-        h = new HashSet();
+        h = new HashSet<>();
         h.add(scott);
         board.setEmployees(h);
         scott.setDepartment(board);
@@ -134,7 +136,7 @@ abstract class ExtentTest extends JDO_Test {
         company.addDepartment(board);
 
         Department emg = new Department(2002L, "emg", company);
-        h = new HashSet();
+        h = new HashSet<>();
         h.add(ed);
         emg.setEmployees(h);
         ed.setDepartment(emg);
@@ -159,30 +161,30 @@ abstract class ExtentTest extends JDO_Test {
         // on one.
         Project solaris = new Project(4001L, "Solaris", new BigDecimal(100.375));
         Project sparc = new Project(4002L, "Sparc", new BigDecimal(200.500));
-        h = new HashSet();
+        h = new HashSet<>();
         h.add(scott);
         h.add(ed);
         solaris.setMembers(h); // Solaris is worked on by Scott and Ed
 
-        h = new HashSet();
+        h = new HashSet<>();
         h.add(scott);
         sparc.setMembers(h); // Sparc is worked on by Scott
-        
-        h = new HashSet();
-        h.add(solaris);
-        h.add(sparc);
-        scott.setProjects(h); // Scott works on Solaris and Sparc
 
-        h = new HashSet();
-        h.add(solaris);
-        ed.setProjects(h); // Ed works on Solaris
+        Set<IProject> p;
+        p= new HashSet<>();
+        p.add(solaris);
+        p.add(sparc);
+        scott.setProjects(p); // Scott works on Solaris and Sparc
+
+        p = new HashSet<>();
+        p.add(solaris);
+        ed.setProjects(p); // Ed works on Solaris
         
         /* Now put all of these into the database
          */
         pm.currentTransaction().begin();
         pm.makePersistent (company);
         pm.currentTransaction().commit();
-        // System.out.println ("Company OID: " + pm.getObjectId(company));
     }
 
     /**
@@ -211,7 +213,7 @@ abstract class ExtentTest extends JDO_Test {
      * @param it iterator
      * @return count
      */
-    protected int countIterator(Iterator it) {
+    protected int countIterator(Iterator<?> it) {
         int count = 0;
         for (;it.hasNext();count++, it.next());
         return count;
@@ -221,7 +223,7 @@ abstract class ExtentTest extends JDO_Test {
      * @param it iterator
      * @return count
      */
-    protected int printIterator(Iterator it) {
+    protected int printIterator(Iterator<?> it) {
         int count = 0;
         for (;it.hasNext();count++) {
             System.out.println (it.next().toString());
@@ -233,8 +235,8 @@ abstract class ExtentTest extends JDO_Test {
      *
      * @return extent
      */
-    protected Extent getExtent() {
-        return getPM().getExtent(extentClass, true);
+    protected Extent<Employee> getExtent() {
+        return getPM().getExtent(Employee.class, true);
     }
 
     /**
@@ -250,9 +252,9 @@ abstract class ExtentTest extends JDO_Test {
             companyOIDClassName = "org.apache.jdo.impl.fostore.OID";
         }
         try {
-            Class companyOIDClass = Class.forName(companyOIDClassName);
-            Constructor companyOIDConstructor = companyOIDClass.getConstructor(new Class[] {String.class});
-            Object companyOID = companyOIDConstructor.newInstance (new Object[] {companyOIDString});
+            Class<?> companyOIDClass = Class.forName(companyOIDClassName);
+            Constructor<?> companyOIDConstructor = companyOIDClass.getConstructor(new Class[] {String.class});
+            Object companyOID = companyOIDConstructor.newInstance (companyOIDString);
             return companyOID;
         } 
         catch (Exception ex) {
@@ -267,6 +269,7 @@ abstract class ExtentTest extends JDO_Test {
      *
      * @return PersistenceManager
      */
+    @Override
     protected PersistenceManager getPM() {
         if (pm == null) {
             pm = getPMF().getPersistenceManager();
@@ -279,6 +282,7 @@ abstract class ExtentTest extends JDO_Test {
      *
      * @return PersistenceManagerFactory
      */
+    @Override
     public PersistenceManagerFactory getPMF() {
         if (pmf == null) {
             pmf = super.getPMF();

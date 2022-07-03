@@ -72,16 +72,17 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer x");
             query.setFilter("this.x == x");
-            Object results = query.execute(new java.lang.Integer(2));
+            query.setParameters(Integer.valueOf(2));
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -108,16 +109,17 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer y");
             query.setFilter("this.y == y");
-            Object results = query.execute(new java.lang.Integer(3));
+            query.setParameters(Integer.valueOf(3));
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p4 = new PCPoint(3, 3);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p4 = new PCPoint(3, 3);
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);

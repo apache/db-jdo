@@ -39,7 +39,7 @@ public class CompanyFactoryAnnotatedFCAppPM
         this.pm = pm;        
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             FCAppDentalInsurance.class,
             FCAppMedicalInsurance.class,
@@ -54,38 +54,38 @@ public class CompanyFactoryAnnotatedFCAppPM
     }
     
     public IAddress newAddress() {
-        return (IAddress)pm.newInstance(FCAppAddress.class);
+        return pm.newInstance(FCAppAddress.class);
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)pm.newInstance(FCAppMeetingRoom.class);
+        return pm.newInstance(FCAppMeetingRoom.class);
     }
     
     public ICompany newCompany() {
-        return (ICompany)pm.newInstance(FCAppCompany.class);
+        return pm.newInstance(FCAppCompany.class);
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(FCAppDentalInsurance.class);
+        return pm.newInstance(FCAppDentalInsurance.class);
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(FCAppDepartment.class);
+        return pm.newInstance(FCAppDepartment.class);
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(FCAppFullTimeEmployee.class);
+        return pm.newInstance(FCAppFullTimeEmployee.class);
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(FCAppMedicalInsurance.class);
+        return pm.newInstance(FCAppMedicalInsurance.class);
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(FCAppPartTimeEmployee.class);
+        return pm.newInstance(FCAppPartTimeEmployee.class);
     }
     
     public IProject newProject() {
-        return (IProject)pm.newInstance(FCAppProject.class);
+        return pm.newInstance(FCAppProject.class);
     }
 }

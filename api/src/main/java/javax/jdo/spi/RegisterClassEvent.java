@@ -35,19 +35,19 @@ public class RegisterClassEvent extends EventObject
 	private static final long serialVersionUID = 945917130591776973L;
 
 	/** The class object of the registered persistence-capable class */
-    protected Class pcClass;
+    protected Class<?> pcClass;
 
     /** The names of managed fields of the persistence-capable class */
     protected String[] fieldNames;  
 
     /** The types of managed fields of the persistence-capable class */
-    protected Class[] fieldTypes;
+    protected Class<?>[] fieldTypes;
 
     /** The flags of managed fields of the persistence-capable class */
     protected byte[] fieldFlags;
 
     /** */
-    protected Class persistenceCapableSuperclass; 
+    protected Class<?> persistenceCapableSuperclass;
 
     /** 
      * Constructs a new <code>RegisterClassEvent</code>.
@@ -59,11 +59,11 @@ public class RegisterClassEvent extends EventObject
      * @param persistenceCapableSuperclass the persistence-capable superclass
      **/
     public RegisterClassEvent(JDOImplHelper helper,
-                              Class registeredClass, 
+                              Class<?> registeredClass,
                               String[] fieldNames, 
-                              Class[] fieldTypes,
+                              Class<?>[] fieldTypes,
                               byte[] fieldFlags,
-                              Class persistenceCapableSuperclass)
+                              Class<?> persistenceCapableSuperclass)
     {
         super(helper);
         this.pcClass = registeredClass;
@@ -77,7 +77,7 @@ public class RegisterClassEvent extends EventObject
      * Returns the class object of the registered persistence-capable class.
      * @return the persistence-capable class.
      */
-    public Class getRegisteredClass()
+    public Class<?> getRegisteredClass()
     {
         return pcClass;
     }
@@ -95,7 +95,7 @@ public class RegisterClassEvent extends EventObject
      * Returns the types of the managed field of the persistence-capable class.
      * @return the types of the managed fields
      */
-    public Class[] getFieldTypes()
+    public Class<?>[] getFieldTypes()
     {
         return fieldTypes;
     }
@@ -113,7 +113,7 @@ public class RegisterClassEvent extends EventObject
      * Returns the class object of the persistence-capable superclass.
      * @return the persistence-capable superclass.
      */
-    public Class getPersistenceCapableSuperclass()
+    public Class<?> getPersistenceCapableSuperclass()
     {
         return persistenceCapableSuperclass;
     }

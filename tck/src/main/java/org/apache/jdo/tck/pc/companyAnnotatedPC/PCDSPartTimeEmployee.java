@@ -99,6 +99,7 @@ public class PCDSPartTimeEmployee extends PCDSEmployee implements IPartTimeEmplo
      * 
      * @return a String representation of a <code>PCDSPartTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCPartTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -107,6 +108,7 @@ public class PCDSPartTimeEmployee extends PCDSEmployee implements IPartTimeEmplo
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -129,7 +131,8 @@ public class PCDSPartTimeEmployee extends PCDSEmployee implements IPartTimeEmplo
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                         EqualityHelper helper) {
         PCDSPartTimeEmployee otherEmp = (PCDSPartTimeEmployee)other;
         String where = "FCPartTimeEmployee<" + getPersonid() + ">";

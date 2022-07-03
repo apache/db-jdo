@@ -31,7 +31,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
  */
 @Embeddable
 public class JPAAppAddress 
-    implements IAddress, Serializable, Comparable, Comparator, DeepEquality {
+    implements IAddress, Serializable, Comparable<IAddress>, Comparator<IAddress>, DeepEquality {
 
     private long    addrid;
     private String  street;
@@ -212,27 +212,6 @@ public class JPAAppAddress
             helper.equals(zipcode, otherAddress.getZipcode(), where + ".zipcode") &
             helper.equals(country, otherAddress.getCountry(), where + ".country");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((JPAAppAddress)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((JPAAppAddress)o1, (JPAAppAddress)o2);
-    }
 
     /** 
      * Compares this object with the specified Address object for
@@ -244,7 +223,7 @@ public class JPAAppAddress
      * object is less than, equal to, or greater than the specified Address
      * object. 
      */
-    public int compareTo(JPAAppAddress other) {
+    public int compareTo(IAddress other) {
         return compare(this, other);
     }
     
@@ -260,7 +239,7 @@ public class JPAAppAddress
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object.
      */
-    public static int compare(JPAAppAddress o1, JPAAppAddress o2) {
+    public int compare(IAddress o1, IAddress o2) {
         return EqualityHelper.compare(o1.getAddrid(), o2.getAddrid());
     }
 
@@ -289,7 +268,7 @@ public class JPAAppAddress
      * This class is used to represent the application identifier 
      * for the <code>Address</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This is the identifier field for <code>Address</code> and must
@@ -336,12 +315,8 @@ public class JPAAppAddress
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( addrid < other.addrid ) return -1;
-            if( addrid > other.addrid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(addrid, obj.addrid);
         }
 
     }

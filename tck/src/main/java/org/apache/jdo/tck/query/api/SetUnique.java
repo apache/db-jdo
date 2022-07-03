@@ -47,8 +47,7 @@ public class SetUnique extends QueryTest {
      */
     private Object[] expectedResult = {
         getTransientCompanyModelInstance("emp1"),
-        getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
+        getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5")
     };
             
     /**
@@ -63,7 +62,7 @@ public class SetUnique extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setUnique(true);
         query.setFilter("lastname == 'emp1Last'");
         String singleStringQuery = 

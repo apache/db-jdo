@@ -40,7 +40,7 @@ public class CompanyFactoryAnnotatedJPAAppConcrete
         this.pm = pm;        
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             JPAAppDentalInsurance.class,
             JPAAppMedicalInsurance.class,
@@ -54,38 +54,38 @@ public class CompanyFactoryAnnotatedJPAAppConcrete
     }
     
     public IAddress newAddress() {
-        return (IAddress) new JPAAppAddress();
+        return new JPAAppAddress();
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany) new JPAAppCompany();
+        return new JPAAppCompany();
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance) new JPAAppDentalInsurance();
+        return new JPAAppDentalInsurance();
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment) new JPAAppDepartment();
+        return new JPAAppDepartment();
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee) new JPAAppFullTimeEmployee();
+        return new JPAAppFullTimeEmployee();
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance) new JPAAppMedicalInsurance();
+        return new JPAAppMedicalInsurance();
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee) new JPAAppPartTimeEmployee();
+        return new JPAAppPartTimeEmployee();
     }
     
     public IProject newProject() {
-        return (IProject) new JPAAppProject();
+        return new JPAAppProject();
     }
 }

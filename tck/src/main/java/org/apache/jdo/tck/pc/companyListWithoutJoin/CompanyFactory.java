@@ -22,8 +22,6 @@
 
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 /**
@@ -42,5 +40,5 @@ public interface CompanyFactory {
     IPartTimeEmployee newPartTimeEmployee(long personid, 
             String first, String last, String middle,
             Date born, Date hired, double wage); 
-    Class[] getTearDownClasses();
+    Class<?>[] getTearDownClasses();
 }

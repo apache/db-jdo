@@ -70,6 +70,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
     }
     
     /** */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         PCPoint point = new PCPoint(50, 100);
@@ -113,7 +114,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
             };
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            Collection actuals = new HashSet();
+            Collection<PCPoint> actuals = new HashSet<>();
             while (rs.next()) {
                 PCPoint p = new PCPoint(rs.getInt(1), rs.getInt(2));
                 actuals.add(p);

@@ -18,7 +18,9 @@
 package org.apache.jdo.tck.query.jdoql;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -82,7 +84,7 @@ public class QueryIsSerializable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<?> query = pm.newQuery();
             if (query instanceof Serializable) { 
                 if (debug) {
                     logger.debug("Query extends serializable interface.");
@@ -103,14 +105,14 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
-    void runTestQueryIsSerializable02(PersistenceManager pm) throws Exception {
+    void runTestQueryIsSerializable02(PersistenceManager pm) throws IOException {
         if (debug) logger.debug("\nExecuting test QueryIsSerializable02() ...");
 
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 3");
@@ -141,7 +143,7 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
-    void runTestQueryIsSerializable03(PersistenceManager pm) throws Exception {
+    void runTestQueryIsSerializable03(PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) logger.debug("\nExecuting test QueryIsSerializable03() ...");
         Object restoredQuery = null;
         ObjectInputStream ois = null;
@@ -161,14 +163,14 @@ public class QueryIsSerializable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(restoredQuery);
+            Query<PCPoint> query = pm.newQuery(restoredQuery);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.compile();
-            Object results = query.execute();
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p4 = new PCPoint(3, 3);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p4 = new PCPoint(3, 3);
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);

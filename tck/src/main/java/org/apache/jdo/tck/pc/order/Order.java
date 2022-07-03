@@ -24,9 +24,9 @@ import java.util.Set;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
-public class Order implements Serializable, Comparable, Comparator, DeepEquality {
+public class Order implements Serializable, Comparable<Order>, Comparator<Order>, DeepEquality {
     long orderId;
-    Set items;
+    Set<OrderItem> items;
     long customerId;
 
     public Order() {}
@@ -36,7 +36,7 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
         this.customerId = customerId;
     }
 
-    public Order(long orderId, Set items, long customerId) {
+    public Order(long orderId, Set<OrderItem> items, long customerId) {
         this.orderId = orderId;
         this.items = items;
         this.customerId = customerId;
@@ -50,11 +50,11 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
         this.orderId = orderId;
     }
     
-    public Set getItems() {
+    public Set<OrderItem> getItems() {
         return items;
     }
     
-    public void setItems(Set items) {
+    public void setItems(Set<OrderItem> items) {
         this.items = items;
     }
 
@@ -87,27 +87,6 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
             helper.equals(customerId, otherOrder.getCustomerId(),
                     where + ".customerId");
     }
-    
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((Order)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((Order)o1, (Order)o2);
-    }
 
     /** 
      * Compares this object with the specified Company object for
@@ -132,7 +111,7 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(Order o1, Order o2) {
+    public int compare(Order o1, Order o2) {
         return EqualityHelper.compare(o1.getOrderId(), o2.getOrderId());
     }
     
@@ -154,7 +133,7 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
      * for the <code>Order</code> class. It consists of both the orderId 
      * field.
      */
-    public static class OrderOid implements Serializable, Comparable {
+    public static class OrderOid implements Serializable, Comparable<OrderOid> {
         public long orderId;
 
         /** The required public no-arg constructor. */
@@ -190,12 +169,8 @@ public class Order implements Serializable, Comparable, Comparator, DeepEquality
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            OrderOid other = (OrderOid) obj;
-            if( orderId < other.orderId ) return -1;
-            if( orderId > other.orderId ) return 1;
-            return 0;
+        public int compareTo(OrderOid obj) {
+            return Long.compare(orderId, obj.orderId);
         }
 
     }

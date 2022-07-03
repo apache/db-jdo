@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -71,8 +70,8 @@ public class Multiplication extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection instance4 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 4").execute();
+        List<PrimitiveTypes> instance4 = pm.newQuery(
+            PrimitiveTypes.class, "id == 4").executeList();
                 
         runSimplePrimitiveTypesQuery("id * 2 == 8", 
                                      pm, instance4, ASSERTION_FAILED);

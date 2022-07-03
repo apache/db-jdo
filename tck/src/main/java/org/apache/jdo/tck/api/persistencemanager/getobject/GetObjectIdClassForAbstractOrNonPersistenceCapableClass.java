@@ -60,7 +60,7 @@ public class GetObjectIdClassForAbstractOrNonPersistenceCapableClass extends Per
     
     /** */
     private void runTestNonPcClass(PersistenceManager pm) {
-        Class c1 = pm.getObjectIdClass(Point.class);
+        Class<?> c1 = pm.getObjectIdClass(Point.class);
         if ( c1 != null) {
             fail(ASSERTION_FAILED,
                  "pm.getObjectIdClass returns non-null ObjectId class for non pc class");
@@ -69,7 +69,7 @@ public class GetObjectIdClassForAbstractOrNonPersistenceCapableClass extends Per
 
     /** */
     private void runTestNullParam(PersistenceManager pm) {
-        Class c1 = pm.getObjectIdClass(null);
+        Class<?> c1 = pm.getObjectIdClass(null);
         if (c1 != null) {
             fail(ASSERTION_FAILED,
                  "pm.getObjectIdClass for null returned non-null class: " +

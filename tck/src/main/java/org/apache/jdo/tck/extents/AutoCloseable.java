@@ -24,7 +24,6 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.pc.company.Department;
 
@@ -85,7 +84,7 @@ public class AutoCloseable extends ExtentTest {
                         "(3) Closed extent iterator should return false on hasNext().");
             }
             try {
-                Department next = iterator.next();
+                iterator.next();
                 fail(ASSERTION_FAILED,
                         "(4) Closed extent iterator should throw NoSuchElementException on next().");
             } catch (NoSuchElementException ex) {
@@ -139,7 +138,7 @@ public class AutoCloseable extends ExtentTest {
                         "(3) Closed extent iterator should return false on hasNext().");
             }
             try {
-                Department next = iterator.next();
+                iterator.next();
                 fail(ASSERTION_FAILED,
                         "(4) Closed extent iterator should throw NoSuchElementException on next().");
             } catch (NoSuchElementException ex) {

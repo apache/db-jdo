@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
@@ -61,8 +62,8 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection col1 = new java.util.HashSet();
-    private Collection col2 = new java.util.HashSet();
+    private Collection<PCPoint> col1 = new HashSet<>();
+    private Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInstance() {

@@ -280,7 +280,7 @@ public class Address_bad
      * This class is used to represent the application identifier 
      * for the <code>Address</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This is the identifier field for <code>Address</code> and must
@@ -327,12 +327,8 @@ public class Address_bad
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( addrid < other.addrid ) return -1;
-            if( addrid > other.addrid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(addrid, obj.addrid);
         }
 
     }

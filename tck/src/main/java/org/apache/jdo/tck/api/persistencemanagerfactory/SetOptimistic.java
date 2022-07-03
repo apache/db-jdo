@@ -51,6 +51,7 @@ public class SetOptimistic extends JDO_Test {
     }
 
     /** */
+    @Override
     protected void localSetUp() {
         closePMF();
         pmf = getUnconfiguredPMF();

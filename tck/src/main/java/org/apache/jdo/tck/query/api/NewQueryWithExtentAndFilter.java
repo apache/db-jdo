@@ -63,12 +63,12 @@ public class NewQueryWithExtentAndFilter extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         try {
-            Query query = pm.newQuery(pm.getExtent(PCPoint.class, false), "x == 1");
+            Query<PCPoint> query = pm.newQuery(pm.getExtent(PCPoint.class, false), "x == 1");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object pcp1 = new PCPoint(1, 1);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint pcp1 = new PCPoint(1, 1);
             expected.add(pcp1);
             expected = getFromInserted(expected);
             printOutput(results, expected);

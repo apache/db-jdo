@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.jdoql.variables;
 
 import java.util.LinkedList;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
@@ -67,7 +66,7 @@ public class VariablesAndFields extends QueryTest {
 
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -98,7 +97,7 @@ public class VariablesAndFields extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -129,7 +128,7 @@ public class VariablesAndFields extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -159,7 +158,7 @@ public class VariablesAndFields extends QueryTest {
 
     /** */
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -189,7 +188,7 @@ public class VariablesAndFields extends QueryTest {
     }
     /** */
     public void testPositive4() {
-        Object expected = new LinkedList();
+        Object expected = new LinkedList<>();
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -219,7 +218,7 @@ public class VariablesAndFields extends QueryTest {
     }
     /** */
     public void testPositive5() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

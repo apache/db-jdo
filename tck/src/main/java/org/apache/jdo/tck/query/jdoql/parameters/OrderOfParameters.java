@@ -17,10 +17,8 @@
 
 package org.apache.jdo.tck.query.jdoql.parameters;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
-import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -66,7 +64,7 @@ public class OrderOfParameters extends QueryTest {
                     "select from org.apache.jdo.tck.pc.company.Person where firstname == :param1 & lastname == :param2";
             query = pm.newQuery(Person.class, "firstname == :param1 & lastname == :param2");
             result = query.execute("emp1First", "emp1Last");
-            List<Person> expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+            List<Person> expected = getTransientCompanyModelInstancesAsList("emp1");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
             tx.commit();
         } finally {
@@ -91,7 +89,7 @@ public class OrderOfParameters extends QueryTest {
                     "select from org.apache.jdo.tck.pc.company.Person where firstname == :param1 & lastname == :param2";
             query = pm.newQuery(singleStringQuery);
             result = query.execute("emp1First", "emp1Last");
-            List<Person> expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+            List<Person> expected = getTransientCompanyModelInstancesAsList("emp1");
             checkQueryResultWithoutOrder(ASSERTION_FAILED, singleStringQuery, result, expected);
             tx.commit();
         } finally {

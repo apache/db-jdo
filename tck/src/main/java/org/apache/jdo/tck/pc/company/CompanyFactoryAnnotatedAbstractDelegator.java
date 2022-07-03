@@ -43,42 +43,42 @@ public abstract class CompanyFactoryAnnotatedAbstractDelegator
     }
     
     public IAddress newAddress() {
-        return (IAddress)delegate.newAddress();
+        return delegate.newAddress();
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)delegate.newMeetingRoom();
+        return delegate.newMeetingRoom();
     }
 
     public ICompany newCompany() {
-        return (ICompany)delegate.newCompany();
+        return delegate.newCompany();
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)delegate.newDentalInsurance();
+        return delegate.newDentalInsurance();
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment)delegate.newDepartment();
+        return delegate.newDepartment();
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)delegate.newFullTimeEmployee();
+        return delegate.newFullTimeEmployee();
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)delegate.newMedicalInsurance();
+        return delegate.newMedicalInsurance();
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)delegate.newPartTimeEmployee();
+        return delegate.newPartTimeEmployee();
     }
     
     public IProject newProject() {
-        return (IProject)delegate.newProject();
+        return delegate.newProject();
     }
     
-    public Class[]getTearDownClasses() {
+    public Class<?>[]getTearDownClasses() {
         return delegate.getTearDownClasses();
     }
 }

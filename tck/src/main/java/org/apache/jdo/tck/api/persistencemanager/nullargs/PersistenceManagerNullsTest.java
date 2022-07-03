@@ -19,11 +19,9 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
@@ -49,7 +47,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
         public void pmApi(PersistenceManager pm, Object obj) {
             throw new UnsupportedOperationException("Test must implement this method");
         }
-        public void pmApi(PersistenceManager pm, Collection coll) {
+        public <T> void pmApi(PersistenceManager pm, Collection<T> coll) {
             throw new UnsupportedOperationException("Test must implement this method");
         }
         public void pmApi(PersistenceManager pm, Object[] objs) {
@@ -58,7 +56,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
         public Object pmApiReturn(PersistenceManager pm, Object obj) {
             throw new UnsupportedOperationException("Test must implement this method");
         }
-        public Collection pmApiReturn(PersistenceManager pm, Collection coll) {
+        public <T> Collection<T> pmApiReturn(PersistenceManager pm, Collection<T> coll) {
             throw new UnsupportedOperationException("Test must implement this method");
         }
         public Object[] pmApiReturn(PersistenceManager pm, Object[] objs) {
@@ -77,11 +75,11 @@ public class PersistenceManagerNullsTest extends JDO_Test {
         "Assertion A12.6-5 failed: ";
 
     protected PCPoint pNotNull = null;
-    protected Collection collNullElem = null;
-    protected Collection expectedCollection = null;
+    protected Collection<?> collNullElem = null;
+    protected Collection<?> expectedCollection = null;
     protected Object[] arrayNullElem = new Object[] {null, null};
     protected Object[] expectedArray = new Object[] {null, null};
-    protected Collection testInstances = null;
+    protected Collection<?> testInstances = null;
     
     /** */
     protected PersistenceManagerNullsTest() { }
@@ -136,7 +134,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
         return out.toString();
     }
 
-    protected static String toString(Collection objs) {
+    protected static <T> String toString(Collection<T> objs) {
         return toString(objs.toArray());
     }
 
@@ -146,13 +144,13 @@ public class PersistenceManagerNullsTest extends JDO_Test {
       * @param expected Collection
       * @param actual Collection
       */
-    protected boolean checkReturn(Collection expected, Collection actual) {
-        Object eElem = null;
-        Object aElem = null;
+    protected <S, T> boolean checkReturn(Collection<S> expected, Collection<T> actual) {
+        S eElem = null;
+        T aElem = null;
         if (expected.size() != actual.size())
             return false;
-        Iterator eIt = expected.iterator();
-        Iterator aIt = actual.iterator();
+        Iterator<S> eIt = expected.iterator();
+        Iterator<T> aIt = actual.iterator();
         while (eIt.hasNext()) {
             eElem = eIt.next();
             aElem = aIt.next();
@@ -224,7 +222,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     public void executeNullCollectionParameter(MethodUnderTest mut,
             String method) {
 
-        Collection coll = null;
+        Collection<?> coll = null;
         Transaction tx = pm.currentTransaction();
 
         try {
@@ -296,7 +294,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
      * @param mut method under test
      * @param method method name
      */
-    public void executeCollectionNullElement(Collection coll,
+    public <T> void executeCollectionNullElement(Collection<T> coll,
             MethodUnderTest mut, String method) {
 
         Transaction tx = pm.currentTransaction();
@@ -402,8 +400,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     public void executeNullCollectionParameterReturn( MethodUnderTest mut, 
             String method) {
 
-        Collection returnVal = null;
-        Collection coll = null;
+        Collection<?> returnVal = null;
+        Collection<?> coll = null;
         Transaction tx = pm.currentTransaction();
 
         try {
@@ -484,10 +482,10 @@ public class PersistenceManagerNullsTest extends JDO_Test {
      * @param mut method under test
      * @param method method name
      */
-    public void executeCollectionNullElementReturn(Collection coll,
+    public <T> void executeCollectionNullElementReturn(Collection<T> coll,
             MethodUnderTest mut, String method) {
 
-        Collection returnVal = null;
+        Collection<T> returnVal = null;
         Transaction tx = pm.currentTransaction();
         try {
             tx = pm.currentTransaction();

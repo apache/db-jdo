@@ -29,13 +29,13 @@ public interface PIProject extends IProject {
     long getProjid();
     String getName();
     BigDecimal getBudget();
-    Set getReviewers();
-    Set getMembers();
+    Set<IEmployee> getReviewers();
+    Set<IEmployee> getMembers();
     
     void setProjid(long projid);
     void setName(String name);
     void setBudget(BigDecimal budget);
-    void setReviewers(Set reviewers);
-    void setMembers(Set employees);
+    void setReviewers(Set<IEmployee> reviewers);
+    void setMembers(Set<IEmployee> employees);
     
 }

@@ -17,7 +17,6 @@
  
 package org.apache.jdo.tck.query.api;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +24,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.util.ConversionHelper;
 
 /**
  *<B>Title:</B> Declare Imports
@@ -75,7 +72,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareImports("import java.lang.Integer");
@@ -84,8 +81,8 @@ public class DeclareImports extends QueryTest {
             Object results = query.execute(Integer.valueOf(2));
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -107,7 +104,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<Department> query = pm.newQuery();
             query.setClass(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
@@ -132,7 +129,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<Company> query = pm.newQuery();
             query.setClass(Company.class);
             query.setCandidates(pm.getExtent(Company.class, false));
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee; import org.apache.jdo.tck.pc.company.Department");

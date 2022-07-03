@@ -47,7 +47,7 @@ public class TestTreeSetCollections extends JDO_Test {
     private PersistenceManager  pm;
     private Transaction         tx;
     private static String       prefix = "TestTreeSetCollections: ";
-    private TreeSet             defaultValue; // do not initialize, should be 0 for int
+    private TreeSet<?>          defaultValue; // do not initialize, should be 0 for int
 
     /** */
     private static final String ASSERTION_FAILED = 
@@ -131,13 +131,13 @@ public class TestTreeSetCollections extends JDO_Test {
     /** */
     private void setValues(TreeSetCollections collect, int order)
     {
-        Vector value;
+        Vector<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     TreeSetCollections.fieldSpecs[i]);
             value = TestUtil.makeNewVectorInstance(valueType, order);
-            TreeSet treeSet = new TreeSet((Collection)value);
+            TreeSet<?> treeSet = new TreeSet<>((Collection<?>)value);
             collect.set(i, treeSet);
             if (debug)
                 logger.debug("Set " + i + "th value to: " + treeSet.toString());
@@ -152,8 +152,8 @@ public class TestTreeSetCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
-            Collection expected = expectedValue.get(i);
-            Collection actual = pi.get(i);
+            Collection<?> expected = expectedValue.get(i);
+            Collection<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()

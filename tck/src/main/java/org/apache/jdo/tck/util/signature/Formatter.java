@@ -34,7 +34,7 @@ class Formatter {
      * Returns a string formatting an array of names as
      * comma-separated list.
      */
-    static public String toString(String prefix, String[] names) {
+    public static String toString(String prefix, String[] names) {
         final StringBuffer s = new StringBuffer();
         if (names != null && names.length > 0) { 
             s.append(prefix == null ? "" : prefix).append(names[0]);
@@ -49,7 +49,7 @@ class Formatter {
      * Returns a string formatting an array of class objects as
      * comma-separated list of (Java) user type names.
      */
-    static public String toString(String prefix, Class[] cls) {
+    public static String toString(String prefix, Class<?>[] cls) {
         final StringBuffer s = new StringBuffer();
         if (cls != null && cls.length > 0) {
             String n = TypeHelper.userTypeName(cls[0].getName());
@@ -66,7 +66,7 @@ class Formatter {
      * Returns an exhaustive string description of a <code>Field</code>
      * presenting types as (Java) user type names.
      */
-    static public String toString(Field field, Object value) {
+    public static String toString(Field field, Object value) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(field.getModifiers())).append(" ");
         s.append(TypeHelper.userTypeName(field.getType().getName()));
@@ -79,7 +79,7 @@ class Formatter {
     /**
      * Returns an combined string description of a field declaration.
      */
-    static public String toString(int mods, String type, String name,
+    public static String toString(int mods, String type, String name,
                                   String value) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(mods)).append(" ");
@@ -94,7 +94,7 @@ class Formatter {
      * <code>Constructor</code> presenting types as (Java) user type names.
 
      */
-    static public String toString(Constructor ctor) {
+    public static String toString(Constructor<?> ctor) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(ctor.getModifiers())).append(" ");
         s.append(ctor.getName()).append("(");
@@ -107,7 +107,7 @@ class Formatter {
      * Returns an exhaustive string description of a <code>Method</code>
      * presenting types as (Java) user type names.
      */
-    static public String toString(Method method) {
+    public static String toString(Method method) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(method.getModifiers())).append(" ");
         final String r = method.getReturnType().getName();
@@ -125,7 +125,7 @@ class Formatter {
      * Returns an combined string description of a constructor or
      * method declaration.
      */
-    static public String toString(int mods, String result, String name,
+    public static String toString(int mods, String result, String name,
                                   String[] params, String[] excepts) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(mods)).append(" ");
@@ -139,12 +139,12 @@ class Formatter {
      * Returns an exhaustive string description of a <code>Class</code>
      * presenting types as (Java) user type names.
      */
-    static public String toString(Class cls) {
+    public static String toString(Class<?> cls) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(cls.getModifiers()));
         s.append(cls.isInterface() ? " " : " class ").append(cls.getName());
-        final Class superc = cls.getSuperclass();
-        final Class[] interf = cls.getInterfaces();
+        final Class<?> superc = cls.getSuperclass();
+        final Class<?>[] interf = cls.getInterfaces();
         if (cls.isInterface()) {
             s.append(toString(" extends ", interf));
         } else {
@@ -157,7 +157,7 @@ class Formatter {
     /**
      * Returns an combined string description of a class header declaration.
      */
-    static public String toString(int mods, String name,
+    public static String toString(int mods, String name,
                                   String[] ext, String[] impl) {
         final StringBuffer s = new StringBuffer();
         s.append(Modifier.toString(mods));
@@ -172,12 +172,12 @@ class Formatter {
      * Returns an exhaustive string description of a <code>Member</code>
      * presenting types as (Java) user type names.
      */
-    static public String toString(Member member) {
+    public static String toString(Member member) {
         final String s;
         if (member instanceof Field) {
             s = toString((Field)member, null);
         } else if (member instanceof Constructor) {
-            s = toString((Constructor)member);
+            s = toString((Constructor<?>)member);
         } else if (member instanceof Method) {
             s = toString((Method)member);
         } else {

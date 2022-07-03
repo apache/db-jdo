@@ -60,7 +60,7 @@ public class UnconstrainedVariable extends QueryTest {
     /** */
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3", "emp4"});
+            Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp4");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             QEmployee cand = QEmployee.candidate();

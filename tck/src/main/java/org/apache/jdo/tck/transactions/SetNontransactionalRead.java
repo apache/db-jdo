@@ -17,9 +17,9 @@
  
 package org.apache.jdo.tck.transactions;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -142,15 +142,15 @@ public class SetNontransactionalRead extends JDO_Test {
             }
 
             // run query
-            Query q = pm.newQuery(Department.class);
+            Query<Department> q = pm.newQuery(Department.class);
             q.setFilter("name == \"MyDepartment\"");
-            Collection result = (Collection)q.execute();
-            Iterator i = result.iterator();
+            List<Department> result = q.executeList();
+            Iterator<Department> i = result.iterator();
             if (!i.hasNext()) {
                 fail(ASSERTION_FAILED,
                      "Query outside of a transaction returned empty collection.");
             }
-            d = (Department)i.next();
+            d = i.next();
             String deptName = d.getName();
             if (!"MyDepartment".equals(deptName)) {
                 fail("Department in query result returns unexpected value of d.name, expected MyDepartment, got " + deptName);

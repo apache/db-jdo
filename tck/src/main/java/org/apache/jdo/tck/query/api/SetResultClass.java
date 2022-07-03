@@ -69,7 +69,7 @@ public class SetResultClass extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setResultClass(FullName.class);
         query.setResult("firstname, lastname");
         String singleStringQuery = 

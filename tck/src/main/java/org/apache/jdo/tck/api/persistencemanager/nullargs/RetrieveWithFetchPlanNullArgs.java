@@ -15,16 +15,12 @@
  * limitations under the License.
  */
 
-
 package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -52,12 +48,15 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
     static MethodUnderTest retrieveWithFetchPlan = 
             new MethodUnderTestRetrieveWithFetchPlan();
     static class MethodUnderTestRetrieveWithFetchPlan extends MethodUnderTest {
+        @Override
         public void pmApi(PersistenceManager pm, Object pc) {
             pm.retrieve(pc, false);
         }
-        public void pmApi(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> void pmApi(PersistenceManager pm, Collection<T> pcs) {
             pm.retrieveAll(pcs, false);
         }
+        @Override
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.retrieveAll(false, pcs);
         }

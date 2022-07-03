@@ -88,7 +88,8 @@ public class PCPointSingleFieldPrimitiveshort extends AbstractPCPointSingleField
     public boolean equalsPKField(SingleFieldIdentity singleFieldIdentity) {
         return this.id==((ShortIdentity)singleFieldIdentity).getKey();
     }
-    
+
+    @Override
     public String toString() {
         return super.toString() + this.id;
     }

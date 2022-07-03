@@ -98,6 +98,7 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
     }
 
     public class MySecurityManager extends SecurityManager {
+        @Override
         public void checkPermission(Permission perm) {
             if (perm==JDOPermission.CLOSE_PERSISTENCE_MANAGER_FACTORY)
                 throw new SecurityException(

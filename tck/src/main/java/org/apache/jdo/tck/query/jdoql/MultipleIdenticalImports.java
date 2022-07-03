@@ -62,7 +62,7 @@ public class MultipleIdenticalImports extends QueryTest {
      *
      */
     public void testImportDepartmentTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -100,7 +100,7 @@ public class MultipleIdenticalImports extends QueryTest {
      *
      */
     public void testImportDepartmentExplicitlyAndPerTypeImportOnDemand() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -138,7 +138,7 @@ public class MultipleIdenticalImports extends QueryTest {
      * 
      */
     public void testTypeImportOnDemandTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

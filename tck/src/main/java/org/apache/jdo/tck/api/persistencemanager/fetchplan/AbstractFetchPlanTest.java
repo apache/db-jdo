@@ -149,8 +149,8 @@ public class AbstractFetchPlanTest extends JDO_Test {
      */
     protected void checkGroups(String location,
             FetchPlan fetchPlan, String[] groups) {
-        Collection expected = new HashSet();
-        Collection actual = fetchPlan.getGroups();
+        Collection<String> expected = new HashSet<>();
+        Collection<String> actual = fetchPlan.getGroups();
         for (int i = 0; i < groups.length; ++i) {
             expected.add(groups[i]);
         }

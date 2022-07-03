@@ -25,6 +25,7 @@ public class StateTransitionObj implements Serializable {
     
     private int      id;
     private int      int_field;
+
     private transient int nonmanaged_field;
     
     public StateTransitionObj()
@@ -71,7 +72,7 @@ public class StateTransitionObj implements Serializable {
      * The class to be used as the application identifier
      * for the <code>StateTransitionObj</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field is part of the identifier and should match in name
@@ -115,10 +116,8 @@ public class StateTransitionObj implements Serializable {
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            return id - other.id;
+        public int compareTo(Oid obj) {
+            return id - obj.id;
         }
         
     }

@@ -23,7 +23,6 @@ import java.util.List;
 import javax.jdo.JDOHelper;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
 import javax.jdo.listener.AttachLifecycleListener;
 import javax.jdo.listener.ClearLifecycleListener;
 import javax.jdo.listener.CreateLifecycleListener;
@@ -34,11 +33,6 @@ import javax.jdo.listener.LoadLifecycleListener;
 import javax.jdo.listener.StoreLifecycleListener;
 
 import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
-
-import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Abstract test AbstractInstanceLifecycleListener
@@ -177,7 +171,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
      * are removed from the datastore at the end of the test.
      * @return classes
      */
-    protected abstract Class[] getPersistentClasses();
+    protected abstract Class<?>[] getPersistentClasses();
 
     /** 
      * Register a new InstanceLifecycleListenerImpl with the 
@@ -201,6 +195,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
      * Set up for lifecycle tests:
      * Register the LifecycleListener; add PCPoint to tearDownClasses.
      */
+    @Override
     protected void localSetUp() {
         addListener();
         addTearDownClass(getPersistentClasses());
@@ -210,6 +205,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
      * Clean up after lifecycle tests:
      * Unregister the LifecycleListener.
      */
+    @Override
     protected void localTearDown() {
         removeListener(); // no callbacks for teardown
         super.localTearDown();
@@ -246,7 +242,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
          * are used during collection of events and both names and values
          * are used for reporting results.
          */
-        private static List locations = new ArrayList();
+        private static List<String> locations = new ArrayList<>();
 
         /** These are indexes into the sequence array. Each index
          * represents the position in the sequence array for the

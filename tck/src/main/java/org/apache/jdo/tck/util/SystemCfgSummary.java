@@ -64,7 +64,7 @@ public class SystemCfgSummary {
     static String getSystemInfo() {
         
         Properties props = System.getProperties();
-        Enumeration propEnum = props.propertyNames();
+        Enumeration<?> propEnum = props.propertyNames();
         StringBuffer sysinfo = new StringBuffer();
         while (propEnum.hasMoreElements()) {
             String key = (String)propEnum.nextElement();

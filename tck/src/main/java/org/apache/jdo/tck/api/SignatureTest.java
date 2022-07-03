@@ -91,7 +91,7 @@ public class SignatureTest extends JDO_Test {
             }
 
             // run the test
-            final List signatureFileNames = new ArrayList();
+            final List<String> signatureFileNames = new ArrayList<>();
             signatureFileNames.add(signatureFileName);
             int status = verifier.test(signatureFileNames);
             

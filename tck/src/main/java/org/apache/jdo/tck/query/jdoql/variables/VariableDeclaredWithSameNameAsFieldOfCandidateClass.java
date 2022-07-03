@@ -22,6 +22,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
@@ -66,16 +67,15 @@ public class VariableDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTe
     /** */
     void checkQueryVariables(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
-        Class clazz = org.apache.jdo.tck.pc.company.Project.class;
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(clazz);
-            query.setCandidates(pm.getExtent(clazz, false));
+            Query<Project> query = pm.newQuery();
+            query.setClass(Project.class);
+            query.setCandidates(pm.getExtent(Project.class, false));
             try {
                 query.declareVariables( "org.apache.jdo.tck.pc.company.Person reviewers;" );
                 query.setFilter( "reviewers.contains(reviewers)" );
-                Object results = query.execute();
+                query.execute();
                 fail(ASSERTION_FAILED,
                      "Variable declaration \"Person reviewers\" did not hide field Person.reviewers");
             }
@@ -91,12 +91,12 @@ public class VariableDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTe
 
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(clazz);
-            query.setCandidates(pm.getExtent(clazz, false));
+            Query<Project> query = pm.newQuery();
+            query.setClass(Project.class);
+            query.setCandidates(pm.getExtent(Project.class, false));
             query.declareVariables( "org.apache.jdo.tck.pc.company.Person reviewers;" );
             query.setFilter( "this.reviewers.contains(reviewers) && reviewers.firstname==\"brazil\"" );
-            Object results = query.execute();
+            query.execute();
         } 
         finally {
             if (tx.isActive())

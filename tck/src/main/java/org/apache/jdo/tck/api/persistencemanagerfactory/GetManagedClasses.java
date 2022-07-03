@@ -59,7 +59,7 @@ public class GetManagedClasses extends JDO_Test {
 
             	pm.getExtent(PCPoint.class);
 
-            	Query q = pm.newQuery(PCRect.class);
+            	Query<PCRect> q = pm.newQuery(PCRect.class);
             	q.execute();
 
             	pm.currentTransaction().rollback();

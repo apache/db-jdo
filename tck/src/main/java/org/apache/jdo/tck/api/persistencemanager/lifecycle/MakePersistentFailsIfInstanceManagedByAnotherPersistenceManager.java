@@ -19,6 +19,7 @@
 package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
@@ -135,7 +136,7 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager ext
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             
@@ -162,7 +163,7 @@ public class MakePersistentFailsIfInstanceManagedByAnotherPersistenceManager ext
         try {
             tx.begin();
 
-            Collection col1 = new java.util.HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
             Object[] obj1= col1.toArray();

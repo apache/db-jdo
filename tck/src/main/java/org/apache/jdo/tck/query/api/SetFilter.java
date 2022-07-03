@@ -63,18 +63,18 @@ public class SetFilter extends QueryTest {
     public void testPositive() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
-        Class clazz = PCPoint.class;
+        Class<PCPoint> clazz = PCPoint.class;
         try {
-            Extent extent = pm.getExtent(clazz, true);
+            Extent<PCPoint> extent = pm.getExtent(clazz, true);
             tx.begin();
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery(clazz);
             query.setClass(clazz);
             query.setCandidates(extent);
             query.setFilter("x == 2");
             Object results = query.execute();
             
             // check query result
-            List expected = new ArrayList();
+            List<PCPoint> expected = new ArrayList<>();
             expected.add(new PCPoint(2, 2));
             expected = getFromInserted(expected);
             printOutput(results, expected);

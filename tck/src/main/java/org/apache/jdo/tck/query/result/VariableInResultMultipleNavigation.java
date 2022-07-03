@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Company;
-import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.QCompany;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;

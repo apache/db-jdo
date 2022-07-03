@@ -23,6 +23,7 @@ import org.apache.jdo.tck.pc.company.ICompany;
 import java.util.Date;
 import java.util.Set;
 import org.apache.jdo.tck.pc.company.IAddress;
+import org.apache.jdo.tck.pc.company.IDepartment;
 
 /**
  * This interface represents the persistent state of Company.
@@ -51,7 +52,7 @@ public interface PIAppCompany extends ICompany {
     long getCompanyid();
     @Persistent(mappedBy="company")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIAppDepartment.class)
-    Set getDepartments();
+    Set<IDepartment> getDepartments();
     @Column(name="FOUNDEDDATE")
     Date getFounded();
     @Column(name="NAME", jdbcType="VARCHAR")
@@ -59,7 +60,7 @@ public interface PIAppCompany extends ICompany {
     
     void setAddress(IAddress a);
     void setCompanyid(long id);
-    void setDepartments(Set depts);
+    void setDepartments(Set<IDepartment> depts);
     void setFounded(Date date);
     void setName(String string);
 }

@@ -70,7 +70,7 @@ public class GetPersistenceManager extends QueryTest {
             tx.setOptimistic(false);
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
 
@@ -104,7 +104,7 @@ public class GetPersistenceManager extends QueryTest {
             tx.setOptimistic(true);
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
 

@@ -21,12 +21,10 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -69,8 +67,8 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
 
     /** */
     void runTestUnmodifiedSubquery(PersistenceManager pm) {
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp1","emp2","emp4","emp5","emp6","emp7","emp10"});
+        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(
+            "emp1","emp2","emp4","emp5","emp6","emp7","emp10");
         Double averageWeeklyHours = Double.valueOf(33.5);
 
         // select average weeklyhours of all employees
@@ -82,13 +80,13 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
             "(" + singleStringJDOQLSubquery + ")";
 
         // execute subquery
-        Query sub = pm.newQuery(Employee.class);
+        Query<Employee> sub = pm.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
         executeJDOQuery(ASSERTION_FAILED, sub, singleStringJDOQLSubquery, 
                         false, null, averageWeeklyHours, true);
 
         // execute API query
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 
@@ -101,8 +99,8 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
 
     /** */
     void runTestDifferentPM(PersistenceManager pm) {
-        List expectedResult = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp1","emp2","emp4","emp5","emp6","emp7","emp10"});
+        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(
+            "emp1","emp2","emp4","emp5","emp6","emp7","emp10");
 
         // select employees who work more than the average of all employees
         String singleStringJDOQL = 
@@ -112,10 +110,10 @@ public class UnmodifiedSubqueryInstance extends SubqueriesTest {
         // create subquery instance using different pm
         PersistenceManager newPM = 
             pm.getPersistenceManagerFactory().getPersistenceManager();
-        Query sub = newPM.newQuery(Employee.class);
+        Query<Employee> sub = newPM.newQuery(Employee.class);
         sub.setResult("avg(this.weeklyhours)");
 
-        Query apiQuery = pm.newQuery(Employee.class);
+        Query<Employee> apiQuery = pm.newQuery(Employee.class);
         apiQuery.setFilter("this.weeklyhours> averageWeeklyhours");
         apiQuery.addSubquery(sub, "double averageWeeklyhours", null);
         executeJDOQuery(ASSERTION_FAILED, apiQuery, singleStringJDOQL, 

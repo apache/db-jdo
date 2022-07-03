@@ -102,7 +102,7 @@ public class NonpersistentSuperClass extends TestParts {
             TopNonPersistH b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopNonPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -188,7 +188,7 @@ public class NonpersistentSuperClass extends TestParts {
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (TopNonPersistH)pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -221,8 +221,8 @@ public class NonpersistentSuperClass extends TestParts {
 
     void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(TopNonPersistH.class, true);
-        Iterator i = e.iterator();
+        Extent<TopNonPersistH> e = pm.getExtent(TopNonPersistH.class, true);
+        Iterator<TopNonPersistH> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        

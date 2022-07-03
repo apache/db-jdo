@@ -92,6 +92,7 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * @return a String representation of a <code>PCAppDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -100,6 +101,7 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -118,7 +120,8 @@ public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsur
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCAppDentalInsurance otherIns = (PCAppDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";

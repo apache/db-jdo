@@ -17,10 +17,7 @@
  
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
-import javax.jdo.FetchPlan;
 import javax.jdo.Query;
-
-import org.apache.jdo.tck.api.persistencemanager.fetchplan.AbstractFetchPlanTest;
 
 import org.apache.jdo.tck.pc.mylib.PCRect;
 
@@ -57,7 +54,7 @@ public class FetchPlanQuery extends AbstractFetchPlanTest {
     public void testQuery() {
         setBothGroup();
         pm.currentTransaction().begin();
-        Query query = pm.newQuery(PCRect.class);
+        Query<PCRect> query = pm.newQuery(PCRect.class);
         checkGroups(ASSERTION_FAILED + " after newQuery().getFetchPlan()", 
                 query.getFetchPlan(), bothGroup);
         query.setUnique(true);

@@ -132,7 +132,7 @@ public class Retrieve extends PersistenceManagerTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection coll = new ArrayList();
+            Collection<Object> coll = new ArrayList<>();
             coll.add(p1);
             coll.add(p3);
             coll.add(rect);
@@ -157,7 +157,7 @@ public class Retrieve extends PersistenceManagerTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection coll = new ArrayList();
+            Collection<Object> coll = new ArrayList<>();
             coll.add(p1);
             coll.add(p3);
             coll.add(rect);
@@ -182,7 +182,7 @@ public class Retrieve extends PersistenceManagerTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Collection coll = new ArrayList();
+            Collection<Object> coll = new ArrayList<>();
             coll.add(p1);
             coll.add(p3);
             coll.add(rect);

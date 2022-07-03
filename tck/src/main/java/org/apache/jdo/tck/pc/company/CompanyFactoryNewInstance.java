@@ -31,5 +31,5 @@ public interface CompanyFactoryNewInstance {
     abstract public IMedicalInsurance newMedicalInsurance();
     abstract public IPartTimeEmployee newPartTimeEmployee();
     abstract public IProject newProject();
-    Class[] getTearDownClasses();    
+    Class<?>[] getTearDownClasses();
 }

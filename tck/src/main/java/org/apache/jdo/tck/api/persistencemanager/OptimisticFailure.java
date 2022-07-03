@@ -155,7 +155,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
            p3tx2.setX(202);
            pm2.deletePersistent(p4tx2);
            p5tx2.setX(502); // this change must not be committed
-           Set expectedFailedObjects = new HashSet();
+           Set<VersionedPCPoint> expectedFailedObjects = new HashSet<>();
            expectedFailedObjects.add(p1tx2);
            expectedFailedObjects.add(p2tx2);
            expectedFailedObjects.add(p3tx2);

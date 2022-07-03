@@ -137,7 +137,7 @@ public class PCClass implements LoadCallback {
     /**
      * The objectid class for this class in case of application identity. 
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         public long id;
 
@@ -162,12 +162,12 @@ public class PCClass implements LoadCallback {
             return str.substring(str.indexOf(':') + 1);
         }
 
-        public int compareTo(Object o) {
+        public int compareTo(Oid o) {
             if (o == null)
                 throw new ClassCastException();
             if (o == this)
                 return 0;
-            long otherId = ((Oid)o).id;
+            long otherId = o.id;
             if (id == otherId)
                 return 0;
             else if (id < otherId)

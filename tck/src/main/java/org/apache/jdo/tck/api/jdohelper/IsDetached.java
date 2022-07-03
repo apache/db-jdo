@@ -77,7 +77,7 @@ public class IsDetached extends DetachTest {
         txn.begin();
         {
             c = (Cart) pm.getObjectById(oid);
-            detached = (Cart) pm.detachCopy(c);
+            detached = pm.detachCopy(c);
             assertTrue(JDOHelper.isDetached(detached));
         }
         txn.commit();

@@ -18,7 +18,7 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -71,12 +71,12 @@ public class Division extends QueryTest {
 
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        
-        Collection instance8 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 8").execute();
-        
-        Collection instances8And9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 8 || id == 9").execute();
+
+        List<PrimitiveTypes> instance8 = pm.newQuery(
+            PrimitiveTypes.class, "id == 8").executeList();
+
+        List<PrimitiveTypes> instances8And9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 8 || id == 9").executeList();
                 
         runSimplePrimitiveTypesQuery("id / 2 == 4", 
                                      pm, instances8And9, ASSERTION_FAILED);

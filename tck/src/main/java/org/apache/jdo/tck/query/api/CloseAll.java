@@ -17,16 +17,14 @@
  
 package org.apache.jdo.tck.query.api;
 
-
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -64,12 +62,11 @@ public class CloseAll extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
         
-            Collection results = (Collection)query.execute();
-            Iterator resIterator = results.iterator();
+            List<PCPoint> results = query.executeList();
+            Iterator<PCPoint> resIterator = results.iterator();
 
             query.closeAll();
 

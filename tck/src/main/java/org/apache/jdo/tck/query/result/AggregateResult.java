@@ -19,7 +19,6 @@ package org.apache.jdo.tck.query.result;
 
 import java.math.BigDecimal;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
@@ -245,7 +244,7 @@ public class AggregateResult extends QueryTest {
     /** */
     public void testSum0() {
         // SUM(long)
-        Object expected = Long.valueOf(1+2+5);
+        Object expected = Long.valueOf(1L+2+5);
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();

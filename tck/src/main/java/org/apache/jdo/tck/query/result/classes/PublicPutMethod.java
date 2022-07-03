@@ -25,11 +25,11 @@ import java.util.Map;
  */
 public class PublicPutMethod {
 
-    private Map map = new HashMap();
+    private Map<Object, Object> map = new HashMap<>();
     
     public PublicPutMethod() {}
     
-    public PublicPutMethod(Map map) {
+    public PublicPutMethod(Map<Object, Object> map) {
         this.map = map;
     }
     

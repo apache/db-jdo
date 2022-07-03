@@ -61,13 +61,12 @@ public class NewQueryWithCandidateClassAndExtent extends QueryTest {
     public void testPositive() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
-        Class clazz = PCPoint.class;
         try {
-            Extent extent = pm.getExtent(clazz, true);
+            Extent<PCPoint> extent = pm.getExtent(PCPoint.class, true);
             tx.begin();
 
-            Query query = pm.newQuery();
-            query.setClass(clazz);
+            Query<PCPoint> query = pm.newQuery();
+            query.setClass(PCPoint.class);
             query.setCandidates(extent);
             Object results = query.execute();
 

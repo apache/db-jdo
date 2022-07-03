@@ -39,7 +39,7 @@ public class CompanyFactoryAnnotatedPCDSConcrete
         this.pm = pm;        
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PCDSDentalInsurance.class,
             PCDSMedicalInsurance.class,
@@ -53,38 +53,38 @@ public class CompanyFactoryAnnotatedPCDSConcrete
     }
     
     public IAddress newAddress() {
-        return (IAddress) new PCDSAddress();
+        return new PCDSAddress();
     }
 
     public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
+        return null;
     }
     
     public ICompany newCompany() {
-        return (ICompany) new PCDSCompany();
+        return new PCDSCompany();
     }
     
     public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance) new PCDSDentalInsurance();
+        return new PCDSDentalInsurance();
     }
     
     public IDepartment newDepartment() {
-        return (IDepartment) new PCDSDepartment();
+        return new PCDSDepartment();
     }
     
     public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee) new PCDSFullTimeEmployee();
+        return new PCDSFullTimeEmployee();
     }
     
     public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance) new PCDSMedicalInsurance();
+        return new PCDSMedicalInsurance();
     }
     
     public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee) new PCDSPartTimeEmployee();
+        return new PCDSPartTimeEmployee();
     }
     
     public IProject newProject() {
-        return (IProject) new PCDSProject();
+        return new PCDSProject();
     }
 }

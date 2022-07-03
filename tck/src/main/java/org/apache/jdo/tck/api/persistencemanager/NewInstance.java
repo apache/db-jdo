@@ -18,8 +18,6 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.newInstance.AAddress;
 import org.apache.jdo.tck.pc.newInstance.Address;
 import org.apache.jdo.tck.pc.newInstance.IAddress;

@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.pc.mylib.PCPoint;
@@ -133,13 +132,13 @@ public class ThreadSafe extends PersistenceManagerTest {
      */
     protected synchronized void checkResults(String header, int toSucceed) {
         // check unhandled exceptions
-        final Set uncaught = group.getAllUncaughtExceptions();
+        final Set<Map.Entry<Thread, Throwable>> uncaught = group.getAllUncaughtExceptions();
         if ((uncaught != null) && !uncaught.isEmpty()) {
             StringBuffer report = new StringBuffer("Uncaught exceptions:\n");
-            for (Iterator i = uncaught.iterator(); i.hasNext();) {
-                Map.Entry next = (Map.Entry)i.next();
-                Thread thread = (Thread)next.getKey();
-                Throwable problem = (Throwable)next.getValue();
+            for (Iterator<Map.Entry<Thread, Throwable>> i = uncaught.iterator(); i.hasNext();) {
+                Map.Entry<Thread, Throwable> next = i.next();
+                Thread thread = next.getKey();
+                Throwable problem = next.getValue();
                 report.append(header + ": Uncaught exception " + problem
                               + " in thread " + thread + "\n");
             }

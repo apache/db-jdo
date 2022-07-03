@@ -71,10 +71,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime1));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -93,10 +93,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime2));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -115,10 +115,10 @@ public class SupportedLocalTimeMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<LocalTimeSample> expectedResult = new ArrayList();
+            List<LocalTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalTimeSample)pm.getObjectById(oidOfLocalTime1));
 
-            Query q =  pm.newQuery(LocalTimeSample.class, filter);
+            Query<LocalTimeSample> q =  pm.newQuery(LocalTimeSample.class, filter);
             List<LocalTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();

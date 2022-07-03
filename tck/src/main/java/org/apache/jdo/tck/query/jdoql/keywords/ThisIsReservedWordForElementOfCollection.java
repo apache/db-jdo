@@ -17,12 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql.keywords;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -60,8 +59,8 @@ public class ThisIsReservedWordForElementOfCollection extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
                 
         // compare this with a parameter
         runParameterPrimitiveTypesQuery(

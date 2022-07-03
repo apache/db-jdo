@@ -16,16 +16,8 @@
  */
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import java.util.Collection;
 import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
 
@@ -66,7 +58,7 @@ public class DetachCopy extends DetachTest {
         getPM().currentTransaction().begin();
         setCartFetchGroups();
         //pm.retrieveAll(cartClosure);
-        Cart cartDetached = (Cart)pm.detachCopy(cart1);
+        Cart cartDetached = pm.detachCopy(cart1);
         checkCartValues(ASSERTION_FAILED + 
                 "after detachCopy," + NL, cartDetached);
         pm.currentTransaction().commit();
@@ -78,10 +70,10 @@ public class DetachCopy extends DetachTest {
         getPM().currentTransaction().begin();
         setCartFetchGroups();
         //pm.retrieveAll(cartClosure);
-        Collection instances = new HashSet();
+        Collection<Cart> instances = new HashSet<>();
         instances.add(cart1);
-        Collection detached = pm.detachCopyAll(instances);
-        Cart cartDetached = (Cart)detached.iterator().next();
+        Collection<Cart> detached = pm.detachCopyAll(instances);
+        Cart cartDetached = detached.iterator().next();
         checkCartValues(ASSERTION_FAILED + 
                 "after detachCopyAll(Collection)," + NL, cartDetached);
         pm.currentTransaction().commit();

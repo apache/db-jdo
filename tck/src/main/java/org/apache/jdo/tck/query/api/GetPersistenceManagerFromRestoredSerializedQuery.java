@@ -19,7 +19,9 @@ package org.apache.jdo.tck.query.api;
 
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -72,8 +74,8 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
     }
 
     /** */
-    void serializeQuery(PersistenceManager pm) throws Exception {
-        Query query = pm.newQuery();
+    void serializeQuery(PersistenceManager pm) throws IOException {
+        Query<PCPoint> query = pm.newQuery();
         query.setClass(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
         query.setFilter("x == 3");
@@ -95,11 +97,11 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
 
     /** */
     void runTestGetPersistenceManagerFromRestoredSerializedQuery(
-        PersistenceManager pm) throws Exception {
+        PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) 
             logger.debug("\nExecuting test GetPersistenceManagerFromRestoredSerializedQuery() ...");
                     
-        Query restoredQuery = null;
+        Query<PCPoint> restoredQuery = null;
         ObjectInputStream ois = null;
         PersistenceManager pm1 = null;
 
@@ -108,7 +110,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         try {
             if (debug) logger.debug("Attempting to de-serialize Query object.");
             ois = new ObjectInputStream(new FileInputStream(SERIALZED_QUERY));
-            restoredQuery = (Query)ois.readObject();
+            restoredQuery = (Query<PCPoint>)ois.readObject();
             if (restoredQuery == null) {
                 fail(ASSERTION_FAILED,
                      "Deserialzed query is null");

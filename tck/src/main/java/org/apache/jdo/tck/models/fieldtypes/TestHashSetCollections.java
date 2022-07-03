@@ -124,14 +124,14 @@ public class TestHashSetCollections extends JDO_Test {
     /** */
     private void setValues(HashSetCollections collect, int order)
     {
-        Collection value;
+        Collection<?> value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
                     HashSetCollections.fieldSpecs[i]);
-            value = (Collection)TestUtil.makeNewVectorInstance(
+            value = TestUtil.makeNewVectorInstance(
                     valueType, order);
-            HashSet lvalue = new HashSet(value);
+            HashSet<?> lvalue = new HashSet<>(value);
             collect.set(i, lvalue);
             if (debug)
                 logger.debug("Set " + i + "th value to: " + value.toString());
@@ -147,8 +147,8 @@ public class TestHashSetCollections extends JDO_Test {
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
         for (i = 0; i < n; ++i) {
-            HashSet expected = expectedValue.get(i);
-            HashSet actual = pi.get(i);
+            HashSet<?> expected = expectedValue.get(i);
+            HashSet<?> actual = pi.get(i);
             if (actual.size() != expected.size()) {
                 sbuf.append("\nFor element " + i + ", expected size = " +
                         expected.size() + ", actual size = " + actual.size()
@@ -158,10 +158,10 @@ public class TestHashSetCollections extends JDO_Test {
                 if (TestUtil.getFieldSpecs(HashSetCollections.fieldSpecs[i]
                             ).equals("BigDecimal")) {
                     // sort values for comparison
-                    TreeSet expectedTS = new TreeSet(expected);
-                    TreeSet actualTS = new TreeSet(actual);
-                    Iterator expectedIter = expectedTS.iterator();
-                    Iterator actualIter = actualTS.iterator();
+                    TreeSet<?> expectedTS = new TreeSet<>(expected);
+                    TreeSet<?> actualTS = new TreeSet<>(actual);
+                    Iterator<?> expectedIter = expectedTS.iterator();
+                    Iterator<?> actualIter = actualTS.iterator();
                     for (int j=0; j < expectedTS.size(); j++) {
                         BigDecimal bigDecExpected =
                                 (BigDecimal)(expectedIter.next());

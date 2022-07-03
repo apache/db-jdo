@@ -89,6 +89,7 @@ public class FCDSDentalInsurance extends FCDSInsurance
      * @return a String representation of a <code>FCDSDentalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCDentalInsurance(" + getFieldRepr()+ ")";
     }
@@ -97,6 +98,7 @@ public class FCDSDentalInsurance extends FCDSInsurance
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -115,7 +117,8 @@ public class FCDSDentalInsurance extends FCDSInsurance
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         FCDSDentalInsurance otherIns = (FCDSDentalInsurance)other;
         String where = "FCDentalInsurance<" + getInsid() + ">";

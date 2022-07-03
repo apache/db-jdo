@@ -67,13 +67,12 @@ public class ExecutingQueryWhenNoTransactionNoNontransactionalRead
 
     /** */
     void runTestNewQuery(PersistenceManager pm) {
-        Class clazz = PCPoint.class;
-        Extent extent = pm.getExtent(clazz, true);
-        Query query = pm.newQuery();
-        query.setClass(clazz);
+        Extent<PCPoint> extent = pm.getExtent(PCPoint.class, true);
+        Query<PCPoint> query = pm.newQuery();
+        query.setClass(PCPoint.class);
         query.setCandidates(extent);
         try {
-            Object results = query.execute();
+            query.execute();
             fail(ASSERTION_FAILED,
                  "Querying outside transactions should throw exception with non transactional read set to false");
         }

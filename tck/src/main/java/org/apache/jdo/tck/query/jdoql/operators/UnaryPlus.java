@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.jdoql.operators;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -71,8 +72,8 @@ public class UnaryPlus extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
         
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
                 
         runSimplePrimitiveTypesQuery("+id == 9", 
                                      pm, instance9, ASSERTION_FAILED);

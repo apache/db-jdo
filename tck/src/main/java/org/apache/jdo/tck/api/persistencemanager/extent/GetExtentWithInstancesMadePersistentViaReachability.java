@@ -82,14 +82,14 @@ public class GetExtentWithInstancesMadePersistentViaReachability extends Persist
     private void runTest(PersistenceManager pm) {
         Transaction tx = pm.currentTransaction();
         tx.begin();
-        Extent e = pm.getExtent(Department.class, false);
+        Extent<Department> e = pm.getExtent(Department.class, false);
 
         boolean foundDep1 = false;
         boolean foundDep2 = false;
         boolean foundDep3 = false;
 
-        for (Iterator i = e.iterator(); i.hasNext();) {
-            Department dep = (Department) i.next();
+        for (Iterator<Department> i = e.iterator(); i.hasNext();) {
+            Department dep = i.next();
             if (dep.getName().equals("Department 1"))
                 foundDep1=true;
             else if (dep.getName().equals("Department 2"))

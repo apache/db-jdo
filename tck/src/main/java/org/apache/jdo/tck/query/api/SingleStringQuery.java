@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
@@ -50,7 +49,7 @@ public class SingleStringQuery extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-23 (SingleStringQuery) failed: ";
     
-    private static String singleStringQuery = 
+    private static final String SINGLE_STRING_QUERY =
         "SELECT UNIQUE firstname, lastname " +
         "INTO FullName " +
         "FROM FullTimeEmployee " +
@@ -72,7 +71,7 @@ public class SingleStringQuery extends QueryTest {
      */
     private Object[] expectedResult = {
         new FullName("emp1First", "emp1Last"),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp5"}) 
+        getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5")
     };
             
     /** Parameters of valid queries. */
@@ -92,8 +91,8 @@ public class SingleStringQuery extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        Query<FullTimeEmployee> query = getPM().newQuery(SINGLE_STRING_QUERY);
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 true, parameters[index], expectedResult[index], true);
         
         index = 1;

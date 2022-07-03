@@ -30,13 +30,13 @@ public interface PICompany extends ICompany {
     //temporary for test. No methods should be here
     IAddress getAddress();
     long getCompanyid();
-    Set getDepartments();
+    Set<IDepartment> getDepartments();
     Date getFounded();
     String getName();
     
     void setAddress(IAddress a);
     void setCompanyid(long id);
-    void setDepartments(Set depts);
+    void setDepartments(Set<IDepartment> depts);
     void setFounded(Date date);
     void setName(String string);
 }

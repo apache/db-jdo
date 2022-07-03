@@ -47,8 +47,7 @@ public class SetRange extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp4", "emp5"})
+        getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5")
     };
             
     /**
@@ -63,7 +62,7 @@ public class SetRange extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setRange(0, 5);
         String singleStringQuery = 
             "SELECT FROM Person RANGE 0, 5";

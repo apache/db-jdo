@@ -74,10 +74,10 @@ public class DomainObjectsAsParameters extends QueryTest {
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("dept1"));
+            Collection<Employee> results = (Collection<Employee>)q.execute(getPersistentCompanyModelInstance("dept1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -102,10 +102,10 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.department == d";
             Collection<Employee> expectedResult = new ArrayList<>();
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPM().getObjectById(oidDept1Copy));
+            Collection<Employee> results = (Collection<Employee>)q.execute(getPM().getObjectById(oidDept1Copy));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -131,10 +131,10 @@ public class DomainObjectsAsParameters extends QueryTest {
             Collection<Employee> expectedResult = new ArrayList<>();
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp4"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Department d");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("dept1"));
+            Collection<Employee> results = (Collection<Employee>)q.execute(getPersistentCompanyModelInstance("dept1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -161,10 +161,10 @@ public class DomainObjectsAsParameters extends QueryTest {
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<Employee> results = (Collection<Employee>)q.execute(getPersistentCompanyModelInstance("emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -189,10 +189,11 @@ public class DomainObjectsAsParameters extends QueryTest {
             String filter = "this.salary > e.salary";
             Collection<Employee> expectedResult = new ArrayList<>();
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(FullTimeEmployee.class);
+            Query<FullTimeEmployee> q =  pm.newQuery(FullTimeEmployee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.FullTimeEmployee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<FullTimeEmployee> results =
+                    (Collection<FullTimeEmployee>)q.execute(getPersistentCompanyModelInstance("emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -221,10 +222,10 @@ public class DomainObjectsAsParameters extends QueryTest {
             Collection<Employee> expectedResult = new ArrayList<>();
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp2"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp5"));
-            Query q =  pm.newQuery(FullTimeEmployee.class);
+            Query<FullTimeEmployee> q =  pm.newQuery(FullTimeEmployee.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.FullTimeEmployee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(emp1);
+            Collection<FullTimeEmployee> results = (Collection<FullTimeEmployee>)q.execute(emp1);
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -248,10 +249,11 @@ public class DomainObjectsAsParameters extends QueryTest {
             String filter = "this.employees.contains(e)";
             Collection<Department> expectedResult = new ArrayList<>();
             expectedResult.add((Department)getPersistentCompanyModelInstance("dept1"));
-            Query q =  pm.newQuery(Department.class);
+            Query<Department> q =  pm.newQuery(Department.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Employee e");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("emp1"));
+            Collection<Department> results =
+                    (Collection<Department>)q.execute(getPersistentCompanyModelInstance("emp1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
 
             tx.commit();
@@ -275,10 +277,11 @@ public class DomainObjectsAsParameters extends QueryTest {
             String filter = "this.employees.contains(ins.employee)";
             Collection<Department> expectedResult = new ArrayList<>();
             expectedResult.add((Department)getPersistentCompanyModelInstance("dept1"));
-            Query q =  pm.newQuery(Department.class);
+            Query<Department> q =  pm.newQuery(Department.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Insurance ins");
             q.setFilter(filter);
-            Collection results = (Collection)q.execute(getPersistentCompanyModelInstance("medicalIns1"));
+            Collection<Department> results =
+                    (Collection<Department>)q.execute(getPersistentCompanyModelInstance("medicalIns1"));
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();
@@ -304,14 +307,14 @@ public class DomainObjectsAsParameters extends QueryTest {
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp1"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp3"));
             expectedResult.add((Employee)getPersistentCompanyModelInstance("emp4"));
-            Query q =  pm.newQuery(Employee.class);
+            Query<Employee> q =  pm.newQuery(Employee.class);
             q.declareParameters("java.util.Collection insurances");
             q.setFilter(filter);
             Collection<MedicalInsurance> parameters = new ArrayList<>();
             parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns1"));
             parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns3"));
             parameters.add((MedicalInsurance)getPersistentCompanyModelInstance("medicalIns4"));
-            Collection results = (Collection)q.execute(parameters);
+            Collection<Employee> results = (Collection<Employee>)q.execute(parameters);
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             
             tx.commit();

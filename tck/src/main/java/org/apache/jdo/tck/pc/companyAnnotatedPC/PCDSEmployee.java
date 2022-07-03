@@ -22,7 +22,6 @@ import javax.jdo.annotations.*;
 import java.io.ObjectInputStream;
 import java.io.IOException;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +29,9 @@ import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
+import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents an employee.
@@ -61,13 +62,13 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
     @NotPersistent()
     private PCDSEmployee         _hradvisor;
     @NotPersistent()
-    private transient Set _reviewedProjects = new HashSet();
+    private transient Set<IProject> _reviewedProjects = new HashSet<>();
     @NotPersistent()
-    private transient Set _projects = new HashSet();
+    private transient Set<IProject> _projects = new HashSet<>();
     @NotPersistent()
-    private transient Set _team = new HashSet();
+    private transient Set<IEmployee> _team = new HashSet<>();
     @NotPersistent()
-    private transient Set _hradvisees = new HashSet();
+    private transient Set<IEmployee> _hradvisees = new HashSet<>();
 
 
     /** This is the JDO-required no-args constructor */
@@ -154,7 +155,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
 
     @Persistent(mappedBy="reviewers")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSProject.class)
-    public Set getReviewedProjects() {
+    public Set<IProject> getReviewedProjects() {
         return _reviewedProjects;
     }
 
@@ -178,11 +179,11 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * Set the reviewed projects for the employee.
      * @param reviewedProjects The set of reviewed projects.
      */
-    public void setReviewedProjects(Set reviewedProjects) {
+    public void setReviewedProjects(Set<IProject> reviewedProjects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
         this._reviewedProjects = 
-            (reviewedProjects != null) ? new HashSet(reviewedProjects) : null;
+            (reviewedProjects != null) ? new HashSet<>(reviewedProjects) : null;
     }
 
     /**
@@ -192,7 +193,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
 
     @Persistent(mappedBy="members")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSProject.class)
-    public Set getProjects() {
+    public Set<IProject> getProjects() {
         return _projects;
     }
 
@@ -216,10 +217,10 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * Set the projects for the employee.
      * @param projects The set of projects of the employee.
      */
-    public void setProjects(Set projects) {
+    public void setProjects(Set<IProject> projects) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._projects = (projects != null) ? new HashSet(projects) : null;
+        this._projects = (projects != null) ? new HashSet<>(projects) : null;
     }
     
     /**
@@ -327,7 +328,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
 
     @Persistent(mappedBy="manager")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSEmployee.class)
-    public Set getTeam() {
+    public Set<IEmployee> getTeam() {
         return _team;
     }
 
@@ -363,10 +364,10 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * 
      * @param team The set of <code>PCDSEmployee</code>s.
      */
-    public void setTeam(Set team) {
+    public void setTeam(Set<IEmployee> team) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._team = (team != null) ? new HashSet(team) : null;
+        this._team = (team != null) ? new HashSet<>(team) : null;
     }
 
     /**
@@ -435,7 +436,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
 
     @Persistent(mappedBy="hradvisor")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPC.PCDSEmployee.class)
-    public Set getHradvisees() {
+    public Set<IEmployee> getHradvisees() {
         return _hradvisees;
     }
 
@@ -473,10 +474,10 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * @param hradvisees The <code>PCDSEmployee</code>s that are HR advisees of
      * this employee.
      */
-    public void setHradvisees(Set hradvisees) {
+    public void setHradvisees(Set<IEmployee> hradvisees) {
         // workaround: create a new HashSet, because fostore does not
         // support LinkedHashSet
-        this._hradvisees = (hradvisees != null) ? new HashSet(hradvisees) : null;
+        this._hradvisees = (hradvisees != null) ? new HashSet<>(hradvisees) : null;
     }
 
     /**
@@ -488,10 +489,10 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        _reviewedProjects = new HashSet();
-        _projects = new HashSet();
-        _team = new HashSet();
-        _hradvisees = new HashSet();
+        _reviewedProjects = new HashSet<>();
+        _projects = new HashSet<>();
+        _team = new HashSet<>();
+        _hradvisees = new HashSet<>();
     }
 
     /**
@@ -500,6 +501,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * 
      * @return a String representation of a <code>PCDSEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "FCEmployee(" + getFieldRepr() + ")";
     }
@@ -508,11 +510,11 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
-        rc.append(", hired ").append(
-            _hiredate==null ? "null" : formatter.format(_hiredate));
+        rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(_hiredate));
         rc.append(", weeklyhours ").append(_weeklyhours);
         return rc.toString();
     }
@@ -531,7 +533,8 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCDSEmployee otherEmp = (PCDSEmployee)other;
         String where = "Employee<" + getPersonid() + ">";

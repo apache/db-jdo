@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,7 +26,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ThreadExceptionHandler;
@@ -64,6 +63,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     }
 
     /** */
+    @Override
     public void testPositive() {
         PersistenceManager pm = getPM();
         Transaction tx = pm.currentTransaction();
@@ -100,12 +100,12 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             tx = null;
             
             // check unhandled exceptions
-            Set uncaught = group.getAllUncaughtExceptions();
+            Set<Map.Entry<Thread, Throwable>> uncaught = group.getAllUncaughtExceptions();
             if ((uncaught != null) && !uncaught.isEmpty()) {
-                for (Iterator i = uncaught.iterator(); i.hasNext();) {
-                    Map.Entry next = (Map.Entry)i.next();
-                    Thread thread = (Thread)next.getKey();
-                    Throwable problem = (Throwable)next.getValue();
+                for (Iterator<Map.Entry<Thread, Throwable>> i = uncaught.iterator(); i.hasNext();) {
+                    Map.Entry<Thread, Throwable> next = i.next();
+                    Thread thread = next.getKey();
+                    Throwable problem = next.getValue();
                     if (debug) {
                         logger.debug("uncaught exception in thread " + thread +
                                      " stacktrace:");
@@ -133,6 +133,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     }
 
     /** Will be removed. */
+    @Override
     void executeQueries(PersistenceManager ignore) {
         pm = getPM();
         setInsertedObjects(pm);
@@ -146,11 +147,10 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
-            Object results = query.execute();
-            for (Iterator i=((Collection)results).iterator(); i.hasNext();) {
+            List<PCPoint> results = query.executeList();
+            for (Iterator<PCPoint> i=(results).iterator(); i.hasNext();) {
                 inserted.add(i.next());
             }
             tx.commit();

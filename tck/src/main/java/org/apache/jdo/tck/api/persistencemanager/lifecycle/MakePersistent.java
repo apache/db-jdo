@@ -69,6 +69,7 @@ public class MakePersistent extends PersistenceManagerTest {
      * Overrides parent method to avoid querying for classes
      * that may not exist in the schema
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
     }
@@ -124,7 +125,7 @@ public class MakePersistent extends PersistenceManagerTest {
         try {
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             
@@ -146,7 +147,7 @@ public class MakePersistent extends PersistenceManagerTest {
             tx = pm.currentTransaction();
             tx.begin();
             
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p1);
             col1.add(p2);
             
@@ -189,7 +190,7 @@ public class MakePersistent extends PersistenceManagerTest {
         PCPoint np1 = new PCPoint (3,3);
         PCPoint np2 = new PCPoint (4,4);
         
-        Collection col1 = new HashSet();
+        Collection<PCPoint> col1 = new HashSet<>();
         col1.add(np1);
         col1.add(np2);
         
@@ -212,7 +213,7 @@ public class MakePersistent extends PersistenceManagerTest {
         PCPoint np1 = new PCPoint (3,3);
         PCPoint np2 = new PCPoint (4,4);
         
-        Collection col1 = new HashSet();
+        Collection<PCPoint> col1 = new HashSet<>();
         col1.add(np1);
         col1.add(np2);
         

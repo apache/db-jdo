@@ -27,7 +27,7 @@ public class OrderFactoryPMInterface
         extends OrderFactoryAbstractImpl {
     
     /** */
-    public static final Class[] tearDownClasses = new Class[] {
+    public static final Class<?>[] tearDownClasses = new Class[] {
         Order.class, OrderItem.class
     };
 
@@ -40,14 +40,14 @@ public class OrderFactoryPMInterface
     }
     
     Order newOrder() {
-        return (Order)pm.newInstance(Order.class);
+        return pm.newInstance(Order.class);
     }
     
     OrderItem newOrderItem() {
-        return (OrderItem)pm.newInstance(OrderItem.class);
+        return pm.newInstance(OrderItem.class);
     }
     
-    public Class[] getTearDownClasses() {
+    public Class<?>[] getTearDownClasses() {
         return tearDownClasses;
     }
 }

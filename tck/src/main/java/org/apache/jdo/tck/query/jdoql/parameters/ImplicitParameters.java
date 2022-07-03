@@ -63,7 +63,7 @@ public class ImplicitParameters extends QueryTest {
     /** */
     public void testResult() {
         Object expected = getExpectedResultOfFirstQuery(
-                getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3", "emp4", "emp5"}));
+                getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5"));
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", PARAMETER);
@@ -92,7 +92,7 @@ public class ImplicitParameters extends QueryTest {
     
     /** */
     public void testFilter() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
@@ -152,8 +152,8 @@ public class ImplicitParameters extends QueryTest {
     
     /** */
     public void testRange() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[] {
-                "emp1", "emp2", "emp3", "emp4", "emp5"});
+        Object expected = getTransientCompanyModelInstancesAsList(
+                "emp1", "emp2", "emp3", "emp4", "emp5");
 
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("zero", Long.valueOf(0));
@@ -191,7 +191,7 @@ public class ImplicitParameters extends QueryTest {
         loadAndPersistCompanyModel(getPM());
     }
     
-    private List getExpectedResultOfFirstQuery(List instances) {
+    private List<?> getExpectedResultOfFirstQuery(List<?> instances) {
         Object[] expectedResult = new Object[instances.size()];
         for (int i = 0; i < expectedResult.length; i++) {
             expectedResult[i] = new Object[] {instances.get(i), PARAMETER};

@@ -82,8 +82,8 @@ public class MultiplePMsReturnInstancesRepresentingSamePC extends JDO_Test {
 
             pm.currentTransaction().begin();
 
-            Extent extent = pm.getExtent(StateTransitionObj.class, false);
-			Iterator iter = extent.iterator();
+            Extent<StateTransitionObj> extent = pm.getExtent(StateTransitionObj.class, false);
+			Iterator<StateTransitionObj> iter = extent.iterator();
 			if( !iter.hasNext() ){
 				fail(ASSERTION_FAILED,
 					 "Extent for StateTransitionObj should not be empty");

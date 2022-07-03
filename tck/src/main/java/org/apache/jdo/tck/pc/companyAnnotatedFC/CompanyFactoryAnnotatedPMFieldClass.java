@@ -29,15 +29,15 @@ import org.apache.jdo.tck.pc.company.*;
 public class CompanyFactoryAnnotatedPMFieldClass
         extends org.apache.jdo.tck.pc.company.CompanyFactoryAbstractImpl {
     
-    Class addressClass = null;
-    Class dentalInsuranceClass = null;
-    Class medicalInsuranceClass = null;
-    Class partTimeEmployeeClass = null;
-    Class fullTimeEmployeeClass = null;
-    Class projectClass = null;
-    Class departmentClass = null;
-    Class meetingRoomClass = null;
-    Class companyClass = null;
+    Class<?> addressClass = null;
+    Class<?> dentalInsuranceClass = null;
+    Class<?> medicalInsuranceClass = null;
+    Class<?> partTimeEmployeeClass = null;
+    Class<?> fullTimeEmployeeClass = null;
+    Class<?> projectClass = null;
+    Class<?> departmentClass = null;
+    Class<?> meetingRoomClass = null;
+    Class<?> companyClass = null;
 
     /**
      * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
@@ -87,8 +87,8 @@ public class CompanyFactoryAnnotatedPMFieldClass
         
     }
     
-    public Class[] getTearDownClasses() {
-        return new Class[] {
+    public Class<?>[] getTearDownClasses() {
+        return new Class<?>[] {
             dentalInsuranceClass,
             medicalInsuranceClass,
             partTimeEmployeeClass,

@@ -163,10 +163,10 @@ public class RelationshipManyToManyAllRelationships
             IEmployee empNew = new FullTimeEmployee(100, "Jerry", "Valentine",
                     "Brown", new Date(500L), new Date(10000L), 125000);
             pm.makePersistent(empNew);
-            Set<IEmployee> members = new HashSet<IEmployee>();
+            Set<IEmployee> members = new HashSet<>();
             members.add(empNew);
             proj1.setMembers(members);
-            Object empNewOid = pm.getObjectId((Object)empNew);
+            Object empNewOid = pm.getObjectId(empNew);
             pm.flush();
 
             // Postcondition
@@ -202,10 +202,10 @@ public class RelationshipManyToManyAllRelationships
             IProject projNew = new Project(99L, "Skunkworks",
                     new BigDecimal(10000.35));
             pm.makePersistent(projNew);
-            Set<IProject> projects = new HashSet<IProject>();
+            Set<IProject> projects = new HashSet<>();
             projects.add(projNew);
             emp1.setProjects(projects);
-            Object projNewOid = pm.getObjectId((Object)projNew);
+            Object projNewOid = pm.getObjectId(projNew);
             pm.flush();
 
             // Postcondition
@@ -241,7 +241,7 @@ public class RelationshipManyToManyAllRelationships
                     "Brown", new Date(500L), new Date(10000L), 125000);
             pm.makePersistent(empNew);
             proj1.addMember(empNew);
-            Object empNewOid = pm.getObjectId((Object)empNew);
+            Object empNewOid = pm.getObjectId(empNew);
             pm.flush();
 
             // Postcondition
@@ -278,7 +278,7 @@ public class RelationshipManyToManyAllRelationships
                     new BigDecimal(10000.35));
             pm.makePersistent(projNew);
             emp1.addProject(projNew);
-            Object projNewOid = pm.getObjectId((Object)projNew);
+            Object projNewOid = pm.getObjectId(projNew);
             pm.flush();
 
             // Postcondition

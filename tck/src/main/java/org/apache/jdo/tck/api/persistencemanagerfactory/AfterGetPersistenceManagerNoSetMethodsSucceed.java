@@ -49,8 +49,8 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     private String username;
     private String password;
 
-    private Class[] stringParameters = null;
-    private Class[] booleanParameters = null;
+    private Class<?>[] stringParameters = null;
+    private Class<?>[] booleanParameters = null;
     private Object[] stringParameter = null;
     private Object[] booleanParameter = null;
     private SetProperty[] setMethods = null;
@@ -139,9 +139,9 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
             pm = getPMF().getPersistenceManager(username,password);
 
         // each set method should throw an exception
-        Collection setCollection = Arrays.asList(setMethods);
-        for (Iterator it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = (SetProperty)it.next();
+        Collection<SetProperty> setCollection = Arrays.asList(setMethods);
+        for (Iterator<SetProperty> it = setCollection.iterator(); it.hasNext();) {
+            SetProperty sp = it.next();
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
@@ -154,9 +154,9 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
             }
         }
         // each get method should succeed
-        Collection getCollection = Arrays.asList(getMethods);
-        for (Iterator it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = (GetProperty)it.next();
+        Collection<GetProperty> getCollection = Arrays.asList(getMethods);
+        for (Iterator<GetProperty> it = getCollection.iterator(); it.hasNext();) {
+            GetProperty gp = it.next();
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
@@ -172,10 +172,10 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
         
         java.lang.reflect.Method method;
         String methodName;
-        Class[] parameters;
+        Class<?>[] parameters;
         Object[] parameter;
        
-        SetProperty(String methodName, Class[] parameters, Object[] parameter) {
+        SetProperty(String methodName, Class<?>[] parameters, Object[] parameter) {
             this.methodName = methodName;
             this.parameters = parameters;
             this.parameter = parameter;
@@ -210,7 +210,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
             this.methodName = methodName;
             try {
                 method = PersistenceManagerFactory.class.getMethod(methodName,
-                        (Class[])null);
+                        (Class<?>[])null);
             } catch (NoSuchMethodException ex) {
                 throw new JDOFatalInternalException(
                     "Method not defined: " + methodName);

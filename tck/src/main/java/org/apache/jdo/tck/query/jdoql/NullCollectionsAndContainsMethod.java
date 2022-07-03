@@ -100,7 +100,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
      *
      */
     public void testContains2() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", "emp3"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

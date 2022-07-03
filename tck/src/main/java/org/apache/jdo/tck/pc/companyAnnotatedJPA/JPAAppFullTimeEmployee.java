@@ -21,7 +21,6 @@ import javax.persistence.*;
 
 import java.util.Date;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
 import org.apache.jdo.tck.util.EqualityHelper;
 
@@ -71,7 +70,7 @@ public class JPAAppFullTimeEmployee extends JPAAppEmployee
     public JPAAppFullTimeEmployee(long personid, String first, String last,
                             String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
-        super(personid, first, last, middle, born, (JPAAppAddress)addr, hired);
+        super(personid, first, last, middle, born, addr, hired);
         salary = sal;
     }
 
@@ -97,6 +96,7 @@ public class JPAAppFullTimeEmployee extends JPAAppEmployee
      * 
      * @return a String representation of a <code>JPAAppFullTimeEmployee</code> object.
      */
+    @Override
     public String toString() {
         return "JPAAppFullTimeEmployee(" + getFieldRepr() + ")";
     }
@@ -105,6 +105,7 @@ public class JPAAppFullTimeEmployee extends JPAAppEmployee
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     public String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -127,7 +128,8 @@ public class JPAAppFullTimeEmployee extends JPAAppEmployee
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance.
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         JPAAppFullTimeEmployee otherEmp = (JPAAppFullTimeEmployee)other;
         String where = "JPAAppFullTimeEmployee<" + getPersonid() + ">";

@@ -27,7 +27,7 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     public char c;     // non-managed
     public double d;           // transactional
     public short s;            // transactional
-    public HashSet children;   // non-managed
+    public Set<String> children;   // non-managed
     public Date loadTime;      // non-managed
     
     private int keyValue;  // persistent--used as key field in application identity
@@ -57,9 +57,9 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     public static int applicationStep;  // values are 0, beforeGetObjectById and afterGetObjectById 
     
     // used in ModificationOfNontransactionalNonpersistentFields test
-    public static ArrayList exceptions = new ArrayList();
-    public static ArrayList callbackCalled = new ArrayList();
-    public static ArrayList attributeOpCausingExceptions = new ArrayList();
+    public static List<Exception> exceptions = new ArrayList<>();
+    public static List<String> callbackCalled = new ArrayList<>();
+    public static List<String> attributeOpCausingExceptions = new ArrayList<>();
 
     public static void initializeStaticsForTest()
     {
@@ -74,15 +74,15 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
         savedApplicationStep = 0;
         applicationStep = 0;
     
-        exceptions = new ArrayList();
-        callbackCalled = new ArrayList();
-        attributeOpCausingExceptions = new ArrayList();
+        exceptions = new ArrayList<>();
+        callbackCalled = new ArrayList<>();
+        attributeOpCausingExceptions = new ArrayList<>();
     }    
 
     public static void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackNonPersistFdsClass.class, true);
-        Iterator i = e.iterator();
+        Extent<InstanceCallbackNonPersistFdsClass> e = pm.getExtent(InstanceCallbackNonPersistFdsClass.class, true);
+        Iterator<InstanceCallbackNonPersistFdsClass> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        
@@ -228,7 +228,7 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
         savedFloatValue = floatValue;
         loadTime = new Date();
         savedLoadTime = loadTime;
-        children = new HashSet();
+        children = new HashSet<>();
         children.add(member1);
         children.add(member2);
         children.add(member3);

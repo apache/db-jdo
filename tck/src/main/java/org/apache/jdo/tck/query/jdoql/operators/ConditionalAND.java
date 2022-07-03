@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -68,13 +68,13 @@ public class ConditionalAND extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
-        Collection allOddInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "booleanNull").execute();
-        Collection allInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "true").execute();
-        Collection empty = new HashSet();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
+        List<PrimitiveTypes> allOddInstances = pm.newQuery(
+            PrimitiveTypes.class, "booleanNull").executeList();
+        List<PrimitiveTypes> allInstances = pm.newQuery(
+            PrimitiveTypes.class, "true").executeList();
+        List<PrimitiveTypes> empty = Collections.emptyList();
         
         // case true && true
         runSimplePrimitiveTypesQuery("true && true", 

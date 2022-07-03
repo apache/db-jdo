@@ -22,9 +22,6 @@ import javax.jdo.annotations.*;
 
 import java.io.Serializable;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +31,7 @@ import org.apache.jdo.tck.pc.company.IPerson;
 
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents a person.
@@ -45,7 +43,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, 
         column="DATASTORE_IDENTITY")
 public class PCDSPerson 
-    implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
 
     @NotPersistent()
     private long    _personid;
@@ -60,10 +58,7 @@ public class PCDSPerson
     @NotPersistent()
     private PCDSAddress _address;
     @NotPersistent()
-    private Map _phoneNumbers = new HashMap();
-    
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private Map<String, String> _phoneNumbers = new HashMap<>();
 
     /** This is the JDO-required no-args constructor. */
     protected PCDSPerson() {}
@@ -231,7 +226,7 @@ public class PCDSPerson
     @Join(column="EMPID")
     @Key(types=java.lang.String.class, column="TYPE")
     @Value(types=java.lang.String.class, column="PHONENO")
-    public Map getPhoneNumbers() {
+    public Map<String, String> getPhoneNumbers() {
         return _phoneNumbers;
     }
 
@@ -271,11 +266,11 @@ public class PCDSPerson
      * Set the phoneNumber map to be in this person.
      * @param phoneNumbers The map of phoneNumbers for this person.
      */
-    public void setPhoneNumbers(Map phoneNumbers) {
+    public void setPhoneNumbers(Map<String, String> phoneNumbers) {
         // workaround: create a new HashMap, because fostore does not
         // support LinkedHashMap
         this._phoneNumbers = 
-            (phoneNumbers != null) ? new HashMap(phoneNumbers) : null;
+            (phoneNumbers != null) ? new HashMap<>(phoneNumbers) : null;
     }
 
     /**
@@ -297,8 +292,7 @@ public class PCDSPerson
         rc.append(_personid);
         rc.append(", ").append(_lastname);
         rc.append(", ").append(_firstname);
-        rc.append(", born ").append(
-            _birthdate==null ? "null" : formatter.format(_birthdate));
+        rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(_birthdate));
         rc.append(", phone ").append(_phoneNumbers);
         return rc.toString();
     }
@@ -331,29 +325,7 @@ public class PCDSPerson
             helper.deepEquals(_phoneNumbers, otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((PCDSPerson)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((PCDSPerson)o1, (PCDSPerson)o2);
-    }
-
     /**
-     * 
      * Compares this object with the specified PCDSPerson object for
      * order. Returns a negative integer, zero, or a positive integer as
      * this object is less than, equal to, or greater than the specified
@@ -365,7 +337,7 @@ public class PCDSPerson
      * object is less than, equal to, or greater than the specified PCDSPerson
      * object.
      */
-    public int compareTo(PCDSPerson other) {
+    public int compareTo(IPerson other) {
         return compare(this, other);
     }
 
@@ -378,7 +350,7 @@ public class PCDSPerson
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(PCDSPerson o1, PCDSPerson o2) {
+    public int compare(IPerson o1, IPerson o2) {
         return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
     }
     
@@ -406,7 +378,7 @@ public class PCDSPerson
      * This class is used to represent the application identifier
      * for the <code>Person</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field represents the identifier for the <code>Person</code>
@@ -451,12 +423,8 @@ public class PCDSPerson
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( personid < other.personid ) return -1;
-            if( personid > other.personid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(personid, obj.personid);
         }
 
     }

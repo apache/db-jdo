@@ -80,15 +80,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1)");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -115,15 +115,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1) * 2");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -150,15 +150,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (9 - 1) * (3 + 5) / 32");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -186,15 +186,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 2 && y == 2");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -221,7 +221,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1) || y == (1002 - 1000)");
@@ -229,8 +229,8 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -257,15 +257,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 * 2) && true");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -291,15 +291,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (10000 / 5000) || false");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -325,15 +325,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("(x == 2) == true");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -359,15 +359,15 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("(x == ((21 - 1/1)/10 + 1)) | (false && true)");
             Object results = query.execute();
 
             // check query result
-            List expected = new ArrayList();
-            Object p4 = new PCPoint(3, 3);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p4 = new PCPoint(3, 3);
             expected.add(p4);
             expected = getFromInserted(expected);
             printOutput(results, expected);

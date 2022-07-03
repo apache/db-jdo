@@ -70,7 +70,7 @@ public class SaveAsNamedQuery extends QueryTest {
     /** */
     public void testSave() {
         int index = 0;
-        Query query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(singleStringQuery);
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
@@ -82,7 +82,7 @@ public class SaveAsNamedQuery extends QueryTest {
         query.closeAll();
 
         // Retrieve via the name, and execute
-        Query namedQuery = getPM().newNamedQuery(Person.class, savedName);
+        Query<Person> namedQuery = getPM().newNamedQuery(Person.class, savedName);
         assertNotNull(namedQuery);
         executeJDOQuery(ASSERTION_FAILED, namedQuery, singleStringQuery, false, null, expectedResult[index], true);
         namedQuery.closeAll();

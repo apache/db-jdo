@@ -60,7 +60,7 @@ public class StartsWithAndEndsWith extends QueryTest {
     /** */
     public void testPositive0() {
         // startsWith
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -91,7 +91,7 @@ public class StartsWithAndEndsWith extends QueryTest {
     /** */
     public void testPositive1() {
         // endsWith
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

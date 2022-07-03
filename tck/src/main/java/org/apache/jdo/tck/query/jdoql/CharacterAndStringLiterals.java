@@ -96,8 +96,7 @@ public class CharacterAndStringLiterals extends QueryTest {
      *
      */
     public void testPositive1() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                        "primitiveTypesCharacterStringLiterals"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
@@ -129,8 +128,7 @@ public class CharacterAndStringLiterals extends QueryTest {
      * 
      */
     public void testPositive2() {
-        Object expected = getTransientMylibInstancesAsList(new String[]{
-                "primitiveTypesCharacterStringLiterals"});
+        Object expected = getTransientMylibInstancesAsList("primitiveTypesCharacterStringLiterals");
 
         JDOQLTypedQuery<PrimitiveTypes> query = getPM().newJDOQLTypedQuery(PrimitiveTypes.class);
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();

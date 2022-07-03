@@ -119,14 +119,14 @@ public class MakePersistentAssignsObjectId extends PersistenceManagerTest {
         try {
             tx.begin();
             
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p2);
             col1.add(p3);
             
             pm.makePersistentAll(col1);
 
-            for (Iterator i = col1.iterator(); i.hasNext();) {
-                PCPoint p = (PCPoint)i.next();
+            for (Iterator<PCPoint> i = col1.iterator(); i.hasNext();) {
+                PCPoint p = i.next();
                 if (!testState(p, PERSISTENT_NEW, "persistent_new")) {
                     fail(ASSERTION_FAILED,
                          "expected P-NEW instance, instance is " + getStateOfInstance(p) + ".");
@@ -154,7 +154,7 @@ public class MakePersistentAssignsObjectId extends PersistenceManagerTest {
             int NUM_OBJS = 2;
             tx.begin();
 
-            Collection col1 = new HashSet();
+            Collection<PCPoint> col1 = new HashSet<>();
             col1.add(p4);
             col1.add(p5);
             

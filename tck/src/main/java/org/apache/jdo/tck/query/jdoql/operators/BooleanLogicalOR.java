@@ -17,15 +17,14 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -68,15 +67,15 @@ public class BooleanLogicalOR extends QueryTest {
         Transaction tx = pm.currentTransaction();
         tx.begin();
 
-        Collection instance9 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id == 9").execute();
-        Collection instancesLess3 = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "id < 3").execute();
-        Collection allOddInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "booleanNull").execute();
-        Collection allInstances = (Collection)pm.newQuery(
-            PrimitiveTypes.class, "true").execute();
-        Collection empty = new HashSet();
+        List<PrimitiveTypes> instance9 = pm.newQuery(
+            PrimitiveTypes.class, "id == 9").executeList();
+        List<PrimitiveTypes> instancesLess3 = pm.newQuery(
+            PrimitiveTypes.class, "id < 3").executeList();
+        List<PrimitiveTypes> allOddInstances = pm.newQuery(
+            PrimitiveTypes.class, "booleanNull").executeList();
+        List<PrimitiveTypes> allInstances = pm.newQuery(
+            PrimitiveTypes.class, "true").executeList();
+        List<PrimitiveTypes> empty = Collections.emptyList();
         
         // case true | true
         runSimplePrimitiveTypesQuery("true | true", 
@@ -137,9 +136,9 @@ public class BooleanLogicalOR extends QueryTest {
         tx.begin();
         
         try {
-            Query q = pm.newQuery(PrimitiveTypes.class, 
+            Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class,
                                   "stringNull | stringNull");
-            Object result = q.execute();
+            q.execute();
             fail(ASSERTION_FAILED,
                  "Query using | operator for non-supported types should throw JDOUserException.");
         }

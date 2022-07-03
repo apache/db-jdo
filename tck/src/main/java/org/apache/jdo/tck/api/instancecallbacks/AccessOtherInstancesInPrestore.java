@@ -69,6 +69,7 @@ public class AccessOtherInstancesInPrestore extends TestParts {
     /**
      * @see org.apache.jdo.tck.JDO_Test#localSetUp()
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(InstanceCallbackClass.class);
     }

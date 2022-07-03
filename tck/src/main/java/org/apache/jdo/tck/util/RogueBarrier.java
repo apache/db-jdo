@@ -93,11 +93,12 @@ public class RogueBarrier {
         }
     }
 
-    static public class Test extends Thread {
-        static private final int parties = 1000;
-        static private final RogueBarrier b = new RogueBarrier(parties);
-        static private int count;
+    public static class Test extends Thread {
+        private static final int parties = 1000;
+        private static final RogueBarrier b = new RogueBarrier(parties);
+        private static int count;
 
+        @Override
         public void run() {
             final int i0 = b.await();
             if (i0 == 0) {
@@ -135,11 +136,11 @@ public class RogueBarrier {
             b.await();
         }
 
-        static public void test() {
+        public static void test() {
             System.out.println("--> RogueBarrier$Test.test()");
 
             // start threads
-            final Thread threads[] = new Test[parties];
+            final Thread[] threads = new Test[parties];
             for (int i = 0; i < parties; i++) {
                 threads[i] = new Test();
                 threads[i].start();
@@ -158,8 +159,8 @@ public class RogueBarrier {
 
             System.out.println("<-- RogueBarrier$Test.test()");
         }
-    
-        static public void main(String[] args) {
+
+        public static void main(String[] args) {
             Test.test();
         }
     }

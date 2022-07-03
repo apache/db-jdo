@@ -22,18 +22,15 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.pc.company.IPerson;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
+import org.apache.jdo.tck.util.JDOCustomDateEditor;
 
 /**
  * This class represents a person.
@@ -45,7 +42,7 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DiscriminatorColumn(discriminatorType=DiscriminatorType.STRING,
         name="DISCRIMINATOR")
 public class JPAAppPerson 
-    implements IPerson, Serializable, Comparable, Comparator, DeepEquality  {
+    implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
 
     @Id
     @Column(name="PERSONID")
@@ -77,10 +74,7 @@ public class JPAAppPerson
 
     @OneToMany(mappedBy="person", cascade=CascadeType.ALL)
     @MapKey(name="type")
-    private Map<String, JPAAppPhoneNumber> phoneNumbers
-            = new HashMap<String, JPAAppPhoneNumber>();    
-    protected static SimpleDateFormat formatter =
-        new SimpleDateFormat("d/MMM/yyyy");
+    private Map<String, JPAAppPhoneNumber> phoneNumbers = new HashMap<>();
 
     /** This is the JDO-required no-args constructor. */
     protected JPAAppPerson() {}
@@ -223,7 +217,7 @@ public class JPAAppPerson
      * Get the map of phone numbers as an unmodifiable map.
      * @return A Map of phone numbers.
      */
-    public Map getPhoneNumbers() {
+    public Map<String, String> getPhoneNumbers() {
         return (convertPhone2String(phoneNumbers));
     }
 
@@ -276,7 +270,7 @@ public class JPAAppPerson
      * Set the phoneNumber map to be in this person.
      * @param phoneNumbers A Map of phoneNumbers for this person.
      */
-    public void setPhoneNumbers(Map phoneNumbers) {
+    public void setPhoneNumbers(Map<String, String> phoneNumbers) {
         this.phoneNumbers = (phoneNumbers != null) ? 
                 convertString2Phone(phoneNumbers) : null;
     }
@@ -286,33 +280,28 @@ public class JPAAppPerson
      * @param pnums Map of phoneNumbers
      * @return Map of phoneNumbers
      */
-    protected HashMap convertString2Phone(Map pnums) {
-        HashMap retval = new HashMap();
-        for (Object objEntry: pnums.entrySet()) {
-            Map.Entry entry = (Map.Entry)objEntry;
-            String key = (String)entry.getKey();
-            String value = (String)entry.getValue();
-            JPAAppPhoneNumber newValue = 
-                    new JPAAppPhoneNumber(this, key, value);
-//            System.out.println("Key = " + key + "  Value = " + value);
+    protected Map<String, JPAAppPhoneNumber> convertString2Phone(Map<String, String> pnums) {
+        Map<String, JPAAppPhoneNumber> retval = new HashMap<>();
+        for (Map.Entry<String, String> entry: pnums.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            JPAAppPhoneNumber newValue = new JPAAppPhoneNumber(this, key, value);
             retval.put(key, newValue);
         }
         return retval;
     }
     
     /**
-     * Converts HashMap of String, JPAAppPhoneNmber to HashMap of String, String
+     * Converts HashMap of String, JPAAppPhoneNumber to HashMap of String, String
      * @param pnums Map of phoneNumbers
      * @return Map of phoneNumbers
      */
-    protected HashMap convertPhone2String(Map pnums) {
-        HashMap retval = new HashMap();
-        for (Object objEntry: pnums.entrySet()) {
-            Map.Entry entry = (Map.Entry)objEntry;
-            String key = (String)entry.getKey();
-            JPAAppPhoneNumber value = (JPAAppPhoneNumber)entry.getValue();
-            String newValue = 
-                    value.getPhoneNumber();
+    protected Map<String, String> convertPhone2String(Map<String, JPAAppPhoneNumber> pnums) {
+        Map<String, String> retval = new HashMap<>();
+        for (Map.Entry<String, JPAAppPhoneNumber> entry: pnums.entrySet()) {
+            String key = entry.getKey();
+            JPAAppPhoneNumber value = entry.getValue();
+            String newValue = value.getPhoneNumber();
             retval.put(key, newValue);
         }
         return retval;
@@ -336,8 +325,7 @@ public class JPAAppPerson
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);
-        rc.append(", born ").append(
-            birthdate==null ? "null" : formatter.format(birthdate));
+        rc.append(", born ").append(JDOCustomDateEditor.getDateRepr(birthdate));
         rc.append(", phone ").append(convertPhone2String(phoneNumbers));
         return rc.toString();
     }
@@ -370,27 +358,6 @@ public class JPAAppPerson
             helper.deepEquals(convertPhone2String(phoneNumbers), otherPerson.getPhoneNumbers(), where + ".phoneNumbers");
     }
 
-    /** 
-     * Compares this object with the specified object for order. Returns a
-     * negative integer, zero, or a positive integer as this object is less
-     * than, equal to, or greater than the specified object. 
-     * @param o The Object to be compared. 
-     * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object. 
-     * @throws ClassCastException - if the specified object's type prevents
-     * it from being compared to this Object. 
-     */
-    public int compareTo(Object o) {
-        return compareTo((JPAAppPerson)o);
-    }
-
-    /** 
-     * Compare two instances. This is a method in Comparator.
-     */
-    public int compare(Object o1, Object o2) {
-        return compare((JPAAppPerson)o1, (JPAAppPerson)o2);
-    }
-
     /**
      * 
      * Compares this object with the specified JPAAppPerson object for
@@ -404,7 +371,7 @@ public class JPAAppPerson
      * object is less than, equal to, or greater than the specified JPAAppPerson
      * object.
      */
-    public int compareTo(JPAAppPerson other) {
+    public int compareTo(IPerson other) {
         return compare(this, other);
     }
 
@@ -417,7 +384,7 @@ public class JPAAppPerson
      * @return a negative integer, zero, or a positive integer as the first
      * object is less than, equal to, or greater than the second object. 
      */
-    public static int compare(JPAAppPerson o1, JPAAppPerson o2) {
+    public int compare(IPerson o1, IPerson o2) {
         return EqualityHelper.compare(o1.getPersonid(), o2.getPersonid());
     }
     
@@ -445,7 +412,7 @@ public class JPAAppPerson
      * This class is used to represent the application identifier
      * for the <code>Person</code> class.
      */
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
 
         /**
          * This field represents the identifier for the <code>Person</code>
@@ -490,12 +457,8 @@ public class JPAAppPerson
         }
 
         /** */
-        public int compareTo(Object obj) {
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) obj;
-            if( personid < other.personid ) return -1;
-            if( personid > other.personid ) return 1;
-            return 0;
+        public int compareTo(Oid obj) {
+            return Long.compare(personid, obj.personid);
         }
 
     }

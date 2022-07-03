@@ -16,7 +16,6 @@
  */
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.LocalDateTimeSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -78,7 +77,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             List<LocalDateTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime1));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -99,7 +98,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             List<LocalDateTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime2));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -121,7 +120,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime1));
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime2));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -142,7 +141,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             List<LocalDateTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime1));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -163,7 +162,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             List<LocalDateTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime2));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();
@@ -184,7 +183,7 @@ public class SupportedLocalDateTimeMethods extends QueryTest {
             List<LocalDateTimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((LocalDateTimeSample)pm.getObjectById(oidOfLocalDateTime1));
 
-            Query q =  pm.newQuery(LocalDateTimeSample.class, filter);
+            Query<LocalDateTimeSample> q =  pm.newQuery(LocalDateTimeSample.class, filter);
             List<LocalDateTimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
             tx.commit();

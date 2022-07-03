@@ -20,10 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 import java.util.Arrays;
 
 import javax.jdo.Extent;
-import javax.jdo.FetchPlan;
 import javax.jdo.Query;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -44,8 +42,8 @@ public class FetchPlanIsCopy extends AbstractFetchPlanTest {
     private static final String ASSERTION_FAILED = 
         "Assertion 12.7.5-1 (FetchPlanIsCopy) failed: ";
 
-    Query query = null;
-    Extent extent = null;
+    Query<PCRect> query = null;
+    Extent<PCRect> extent = null;
     
     /**
      * The <code>main</code> is called when the class

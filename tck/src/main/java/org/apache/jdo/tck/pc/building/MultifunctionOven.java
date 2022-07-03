@@ -49,6 +49,7 @@ public class MultifunctionOven extends Oven implements Serializable {
     	return capabilities;
     }
 
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

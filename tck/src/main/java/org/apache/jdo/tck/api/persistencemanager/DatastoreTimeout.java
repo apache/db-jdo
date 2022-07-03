@@ -251,10 +251,10 @@ public class DatastoreTimeout extends JDO_Test {
         getPM();
         try {
             pm.currentTransaction().begin();
-            Query q = pm.newQuery(PCPoint.class);
+            Query<PCPoint> q = pm.newQuery(PCPoint.class);
             q.setDatastoreReadTimeoutMillis(timeout);
             @SuppressWarnings("unused")
-            List<?> result = (List<?>)q.execute();
+            List<PCPoint> result = q.executeList();
             pm.currentTransaction().commit();
             if (!isDatastoreTimeoutSupported()) {
                 fail(ASSERTION_FAILED, "Query.setDatastoreReadTimeoutMillis should throw a " +
@@ -423,7 +423,7 @@ public class DatastoreTimeout extends JDO_Test {
         getPM();
         try {
             pm.currentTransaction().begin();
-            Query q = pm.newQuery(PCPoint.class);
+            Query<PCPoint> q = pm.newQuery(PCPoint.class);
             q.setDatastoreWriteTimeoutMillis(timeout);
             q.deletePersistentAll();
             pm.currentTransaction().commit();

@@ -16,10 +16,8 @@
  */
 package org.apache.jdo.tck.query.api;
 
-import javax.jdo.Query;
 import javax.jdo.JDOUserException;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.NamedQueriesSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -51,12 +49,12 @@ public class NamedQueryRepeatableAnnotations extends QueryTest {
     /** */
     public void testPositive() {
         try {
-            Query query = getPM().newNamedQuery(NamedQueriesSample.class, "NameIsJohn");
+            getPM().newNamedQuery(NamedQueriesSample.class, "NameIsJohn");
         } catch (JDOUserException e) {
             fail(ASSERTION_FAILED + "Lookup of query failed but should have been found");
         }
         try {
-            Query query = getPM().newNamedQuery(NamedQueriesSample.class, "NameIsFred");
+            getPM().newNamedQuery(NamedQueriesSample.class, "NameIsFred");
         } catch (JDOUserException e) {
             fail(ASSERTION_FAILED + "Lookup of query failed but should have been found");
         }

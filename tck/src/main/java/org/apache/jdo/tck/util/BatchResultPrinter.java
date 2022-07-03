@@ -65,21 +65,25 @@ public class BatchResultPrinter
     }
         
     /** Called in case of a test error. */
+    @Override
     public void addError(Test test, Throwable t) {
         getWriter().print("   ERROR");
     }
         
-    /** Called in case of a test failure. */ 
+    /** Called in case of a test failure. */
+    @Override
     public void addFailure(Test test, AssertionFailedError t) {
         getWriter().print("   FAILURE");
     }
         
     /** Called when a test case is finished. */
+    @Override
     public void endTest(Test test) {
         getWriter().println();
     }
         
     /** Called when a test case is started. */
+    @Override
     public void startTest(Test test) {
         String testName;
         if (test instanceof TestCase) {
@@ -95,11 +99,13 @@ public class BatchResultPrinter
     /**
      * @see ResultPrinter#elapsedTimeAsString(long)
      */
+    @Override
     protected String elapsedTimeAsString(long runTime) {
         return THREE_DIGITS_FORMATTER.format((double)runTime/1000);
     }
 
     /** */
+    @Override
     protected void printHeader(long runTime) {
         this.runtime = runTime;
         getWriter().println("Description: " + System.getProperty("jdo.tck.description"));    
@@ -107,6 +113,7 @@ public class BatchResultPrinter
     }
         
     /** */
+    @Override
     protected void printFooter(TestResult result) {
         String message = null;
         if (this.consoleFileOutput != null) { 
@@ -184,12 +191,12 @@ public class BatchResultPrinter
     }
     
     private static Object[] getSortedArrayOfErrorSummaryEntries(TestResult result) {
-        Map map = new HashMap();
-        for (Enumeration e=result.errors(); e.hasMoreElements(); ) {
-            TestFailure testFailure = (TestFailure) e.nextElement();
+        Map<String, ErrorSummaryEntry> map = new HashMap<>();
+        for (Enumeration<TestFailure> e=result.errors(); e.hasMoreElements(); ) {
+            TestFailure testFailure = e.nextElement();
             Throwable t = testFailure.thrownException();
             String message = getRootCause(t).toString();
-            ErrorSummaryEntry errorSummaryEntry = (ErrorSummaryEntry) map.get(message);
+            ErrorSummaryEntry errorSummaryEntry = map.get(message);
             if (errorSummaryEntry==null ) {
                 errorSummaryEntry = new ErrorSummaryEntry(t);
                 map.put(message, errorSummaryEntry);
@@ -209,7 +216,7 @@ public class BatchResultPrinter
         return t;
     }
     
-    private static class ErrorSummaryEntry implements Comparable {
+    private static class ErrorSummaryEntry implements Comparable<ErrorSummaryEntry> {
         private int count = 0;
         private Throwable t;
         
@@ -218,19 +225,19 @@ public class BatchResultPrinter
         }
         
         public boolean equals(Object o) {
-            return compareTo(o)==0;
+            return compareTo((ErrorSummaryEntry)o)==0;
         }
         
         public int hashCode() {
             return this.count;
         }
         
-        public int compareTo(Object o) {
-            int result = this.count - ((ErrorSummaryEntry)o).count;
+        public int compareTo(ErrorSummaryEntry o) {
+            int result = this.count - o.count;
             if (result==0) {
                 String message1 = getRootCause().toString();
                 String message2 = 
-                    ((ErrorSummaryEntry)o).getRootCause().toString();
+                    o.getRootCause().toString();
                 result = message1.compareTo(message2);
             }
             return result;

@@ -152,7 +152,7 @@ public class Unique extends QueryTest {
     public void testNegative() {
         String singleString = "SELECT UNIQUE FROM " + Person.class.getName();
         
-        Query query = getPM().newQuery(Person.class);
+        Query<Person> query = getPM().newQuery(Person.class);
         query.setUnique(true);
         executeJDOQuery(ASSERTION_FAILED, query, singleString, 
                 false, null, null, false);

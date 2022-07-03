@@ -17,10 +17,6 @@
  
 package org.apache.jdo.tck.query.api;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -71,7 +67,7 @@ public class DeclareVariables extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<Department> query = pm.newQuery();
             query.setClass(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Employee e" );
@@ -95,7 +91,7 @@ public class DeclareVariables extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<Department> query = pm.newQuery();
             query.setClass(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Employee e; org.apache.jdo.tck.pc.company.Project p;");

@@ -20,18 +20,10 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import java.util.Date;
 
 import javax.jdo.listener.DeleteCallback;
-import javax.jdo.JDOHelper;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.DeleteLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 
 import org.apache.jdo.tck.util.BatchTestRunner;
-
 
 /**
  * <B>Title:</B> Test TestInstanceLifecycleListenerDelete
@@ -72,11 +64,11 @@ public class InstanceLifecycleListenerDelete
     /**
      * The persistent classes used for this test.
      */
-    private static Class[] persistentClasses = new Class[] {PC.class};
+    private static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */
-    protected Class[] getPersistentClasses() {
+    protected Class<?>[] getPersistentClasses() {
         return persistentClasses;
     }
 
@@ -121,6 +113,7 @@ public class InstanceLifecycleListenerDelete
     private static class InstanceLifecycleListenerDeleteImpl 
             extends InstanceLifecycleListenerImpl {
 
+        @Override
         public void preDelete(InstanceLifecycleEvent event) {
             notifyEvent(PRE_DELETE_LISTENER);
             checkEventType(ASSERTION7_FAILED,
@@ -132,6 +125,7 @@ public class InstanceLifecycleListenerDelete
                     expectedSource);
         }
 
+        @Override
         public void postDelete(InstanceLifecycleEvent event) {
             notifyEvent(POST_DELETE_LISTENER);
             checkEventType(ASSERTION8_FAILED,

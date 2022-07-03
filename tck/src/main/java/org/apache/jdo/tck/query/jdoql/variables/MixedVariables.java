@@ -104,8 +104,8 @@ public class MixedVariables extends QueryTest {
      * The expected results of valid queries.
      */
     private Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
+        getTransientCompanyModelInstancesAsList("emp2"),
+        getTransientCompanyModelInstancesAsList("emp2")
     };
             
     /**

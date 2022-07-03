@@ -17,10 +17,8 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
-import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.MedicalInsurance;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QMedicalInsurance;
@@ -29,13 +27,6 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  *<B>Title:</B> Navigation Through a Reference and comparing a Relationship with null
@@ -63,6 +54,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      * Returns the name of the company test data resource.
      * @return name of the company test data resource. 
      */
+    @Override
     protected String getCompanyTestDataResource() {
         return NAVIGATION_TEST_COMPANY_TESTDATA;
     }
@@ -96,8 +88,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive0() {
         // 0: simple manager check being null
-        Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp0", "emp4", "emp7"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp0", "emp4", "emp7");
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.eq((Employee)null));
@@ -130,7 +121,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     public void testPositive1() {
         // 1: simple manager check being not null
         Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"});
+                "emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10");
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.ne((Employee)null));
@@ -163,7 +154,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     public void testPositive2() {
         // 2: simple manager check being not null using not operator
         Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10"});
+                "emp1", "emp2", "emp3", "emp5", "emp6", "emp8", "emp9", "emp10");
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.eq((Employee)null).not());
@@ -197,7 +188,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     public void testPositive3() {
         // 3: manager's manager check
         Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp0", "emp1", "emp4", "emp5", "emp6", "emp7", "emp8", "emp9"});
+                "emp0", "emp1", "emp4", "emp5", "emp6", "emp7", "emp8", "emp9");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -231,7 +222,7 @@ public class NavigationComparisonWithNull extends QueryTest {
     public void testPositive4() {
        // 4: manager's manager check with extra check on first level manager
         Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp1", "emp5", "emp6", "emp8", "emp9"});
+                "emp1", "emp5", "emp6", "emp8", "emp9");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -264,8 +255,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive5() {
         // 5 : manager's manager check not being null
-        Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"emp2", "emp3", "emp10"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp10");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -298,8 +288,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive6() {
         // 6 : manager's manager check not being null using not operator
-        Object expected = getTransientCompanyModelInstancesAsList(
-            new String[]{"emp2", "emp3", "emp10"});
+        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp10");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -334,7 +323,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive7() {
         Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"medicalIns1", "medicalIns4", "medicalIns5", "medicalIns98"});
+                "medicalIns1", "medicalIns4", "medicalIns5", "medicalIns98");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
@@ -367,8 +356,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive8() {
         // 8 : multiple relationships 
-        Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"medicalIns1", "medicalIns5"});
+        Object expected = getTransientCompanyModelInstancesAsList("medicalIns1", "medicalIns5");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
@@ -403,8 +391,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      */
     public void testPositive9() {
         // 9 : multiple relationships 
-        Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"medicalIns2", "medicalIns3"});
+        Object expected = getTransientCompanyModelInstancesAsList("medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();
@@ -436,8 +423,7 @@ public class NavigationComparisonWithNull extends QueryTest {
      * !(this.employee.manager.manager == null)
      */
     public void testPositive10() {
-        Object expected = getTransientCompanyModelInstancesAsList(
-                new String[]{"medicalIns2", "medicalIns3"});
+        Object expected = getTransientCompanyModelInstancesAsList("medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
         QMedicalInsurance cand = QMedicalInsurance.candidate();

@@ -113,7 +113,7 @@ public class FieldWithSameNameInSuperclass extends TestParts {
             FieldSameName4 b = null;
         
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (FieldSameName4) pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] =  pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous
@@ -200,7 +200,7 @@ public class FieldWithSameNameInSuperclass extends TestParts {
         
             // verify rollback lost all persistent changes.
             try {  // retrieve object created in previous transaction & store in value array for later comparison
-                TestParts.thirdObj_V[1] = (FieldSameName4) pm.getObjectById(objPtrB, true);
+                TestParts.thirdObj_V[1] = pm.getObjectById(objPtrB, true);
             }
             catch (JDOUserException e) {
                 // could not locate persistent object created in previous transaction
@@ -233,8 +233,8 @@ public class FieldWithSameNameInSuperclass extends TestParts {
 
     void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(FieldSameName4.class, true);
-        Iterator i = e.iterator();
+        Extent<FieldSameName4> e = pm.getExtent(FieldSameName4.class, true);
+        Iterator<FieldSameName4> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        

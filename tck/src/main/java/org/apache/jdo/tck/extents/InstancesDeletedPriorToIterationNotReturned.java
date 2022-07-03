@@ -59,15 +59,15 @@ public class InstancesDeletedPriorToIterationNotReturned extends ExtentTest {
         try {
             beginTransaction();
             getPM().setIgnoreCache(false);
-            Extent ex = getPM().getExtent (Employee.class, true);
-            Iterator it1 = ex.iterator();
-            deleteEmployee((Employee)it1.next());
-            Iterator it2 = ex.iterator();
+            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+            Iterator<Employee> it1 = ex.iterator();
+            deleteEmployee(it1.next());
+            Iterator<Employee> it2 = ex.iterator();
             int count = countIterator(it2);
             rollbackTransaction();
 
             beginTransaction();
-            Iterator it3 = ex.iterator();
+            Iterator<Employee> it3 = ex.iterator();
             int count3 = countIterator(it3);
             commitTransaction();
     

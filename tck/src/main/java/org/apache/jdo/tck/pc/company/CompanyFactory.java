@@ -65,5 +65,5 @@ public interface CompanyFactory {
             String first, String last, String middle,
             Date born, IAddress addr, Date hired, double wage); 
     IProject newProject(long projid, String name, BigDecimal budget);
-    Class[] getTearDownClasses();
+    Class<?>[] getTearDownClasses();
 }

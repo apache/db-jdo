@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -161,8 +160,8 @@ public class BitwiseBinaryOperators extends QueryTest {
         tx.begin();
 
         try {
-            Query q = pm.newQuery(PrimitiveTypes.class, "stringNull & stringNull == stringNull");
-            Object result = q.execute();
+            Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "stringNull & stringNull == stringNull");
+            q.execute();
             fail(ASSERTION_FAILED,
                     "Query using & operator for non-supported types should throw JDOUserException.");
         }
@@ -175,8 +174,8 @@ public class BitwiseBinaryOperators extends QueryTest {
 
         if (!isBitwiseOperationsSupported()) {
             try {
-                Query q = pm.newQuery(PrimitiveTypes.class, "(intNotNull & 4) > 0");
-                Object result = q.execute();
+                Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull & 4) > 0");
+                q.execute();
                 fail(ASSERTION_FAILED,
                         "Query using & operator for non-supported types should throw JDOUserException.");
             } catch (JDOUserException ex) {
@@ -199,8 +198,8 @@ public class BitwiseBinaryOperators extends QueryTest {
         tx.begin();
 
         try {
-            Query q = pm.newQuery(PrimitiveTypes.class, "stringNull | stringNull == stringNull");
-            Object result = q.execute();
+            Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "stringNull | stringNull == stringNull");
+            q.execute();
             fail(ASSERTION_FAILED,
                     "Query using | operator for non-supported types should throw JDOUserException.");
         }
@@ -213,8 +212,8 @@ public class BitwiseBinaryOperators extends QueryTest {
 
         if (!isBitwiseOperationsSupported()) {
             try {
-                Query q = pm.newQuery(PrimitiveTypes.class, "(intNotNull | 3) == 7");
-                Object result = q.execute();
+                Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull | 3) == 7");
+                q.execute();
                 fail(ASSERTION_FAILED,
                         "Query using & operator for non-supported types should throw JDOUserException.");
             } catch (JDOUserException ex) {
@@ -237,8 +236,8 @@ public class BitwiseBinaryOperators extends QueryTest {
         tx.begin();
 
         try {
-            Query q = pm.newQuery(PrimitiveTypes.class, "stringNull ^ stringNul == stringNull");
-            Object result = q.execute();
+            Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "stringNull ^ stringNul == stringNull");
+            q.execute();
             fail(ASSERTION_FAILED,
                     "Query using & operator for non-supported types should throw JDOUserException.");
         }
@@ -251,8 +250,8 @@ public class BitwiseBinaryOperators extends QueryTest {
 
         if (!isBitwiseOperationsSupported()) {
             try {
-                Query q = pm.newQuery(PrimitiveTypes.class, "(intNotNull ^ 1) == 0");
-                Object result = q.execute();
+                Query<PrimitiveTypes> q = pm.newQuery(PrimitiveTypes.class, "(intNotNull ^ 1) == 0");
+                q.execute();
                 fail(ASSERTION_FAILED,
                         "Query using & operator for non-supported types should throw JDOUserException.");
             } catch (JDOUserException ex) {

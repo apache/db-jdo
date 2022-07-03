@@ -22,7 +22,6 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.jdo.PersistenceManager;
@@ -130,8 +129,8 @@ public class TestArrayCollections extends JDO_Test {
     /** */
     private void setValues(ArrayCollections collect, int order)
     {
-        Vector value;
-        Class vectorClass = null;
+        Vector<?> value;
+        Class<?> vectorClass = null;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {
             String valueType = TestUtil.getFieldSpecs(
@@ -162,7 +161,7 @@ public class TestArrayCollections extends JDO_Test {
         int n = pi.getLength();
         for (int i = 0; i < n; ++i) {
             Object obj = new Object();
-            Class objClass = obj.getClass();
+            Class<?> objClass = obj.getClass();
             Object[] expected = (Object[])Array.newInstance(objClass, 5);
             Object[] actual = (Object[])Array.newInstance(objClass, 5);
             expected = expectedValue.get(i);

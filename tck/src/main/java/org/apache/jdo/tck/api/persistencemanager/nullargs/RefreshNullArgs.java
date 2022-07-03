@@ -20,11 +20,8 @@ package org.apache.jdo.tck.api.persistencemanager.nullargs;
 
 import java.util.Collection;
 
-import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
@@ -52,12 +49,15 @@ public class RefreshNullArgs extends PersistenceManagerNullsTest {
     static MethodUnderTest refresh = 
             new MethodUnderTestRefresh();
     static class MethodUnderTestRefresh extends MethodUnderTest {
+        @Override
         public void pmApi(PersistenceManager pm, Object pc) {
             pm.refresh(pc);
         }
-        public void pmApi(PersistenceManager pm, Collection pcs) {
+        @Override
+        public <T> void pmApi(PersistenceManager pm, Collection<T> pcs) {
             pm.refreshAll(pcs);
         }
+        @Override
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.refreshAll(pcs);
         }

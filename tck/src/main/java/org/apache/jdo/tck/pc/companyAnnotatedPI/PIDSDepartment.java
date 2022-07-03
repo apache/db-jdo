@@ -50,16 +50,16 @@ public interface PIDSDepartment extends IDepartment {
     IEmployee getEmployeeOfTheMonth();
     @Persistent(mappedBy="department")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
-    Set getEmployees();
+    Set<IEmployee> getEmployees();
     @Persistent(mappedBy="fundingDept")
     @Element(types=org.apache.jdo.tck.pc.companyAnnotatedPI.PIDSEmployee.class)
-    Set getFundedEmps();
+    Set<IEmployee> getFundedEmps();
     
     void setDeptid(long deptid);
     void setName(String name);
     void setCompany(ICompany company);
     void setEmployeeOfTheMonth(IEmployee employeeOfTheMonth);
-    void setEmployees(Set employees);
-    void setFundedEmps(Set employees);
+    void setEmployees(Set<IEmployee> employees);
+    void setFundedEmps(Set<IEmployee> employees);
 
 }

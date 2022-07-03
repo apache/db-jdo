@@ -48,7 +48,7 @@ DataStoreCache interface is used.
 public class DataStoreCacheTest extends PersistenceManagerTest {
 
     Object pointoid;
-    Collection pointoidCollection;
+    Collection<Object> pointoidCollection;
     Object[] pointoidArray;
     
     /** */
@@ -68,13 +68,14 @@ public class DataStoreCacheTest extends PersistenceManagerTest {
      * In setup, create a persistent instance and get its oid.
      * The oid is a valid parameter to the cache APIs. 
      */
+    @Override
     protected void localSetUp() {
         addTearDownClass(PCPoint.class);
         PCPoint point = new PCPoint(50, 100);
         getPM().currentTransaction().begin();
         pm.makePersistent(point);
         pointoid = pm.getObjectId(point);
-        pointoidCollection = new HashSet();
+        pointoidCollection = new HashSet<>();
         pointoidCollection.add(pointoid);
         pointoidArray = new Object[] {pointoid};
         pm.currentTransaction().commit();

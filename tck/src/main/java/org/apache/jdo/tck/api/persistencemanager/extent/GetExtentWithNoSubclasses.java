@@ -88,11 +88,11 @@ public class GetExtentWithNoSubclasses extends PersistenceManagerTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Extent e = pm.getExtent(PCPoint.class, false);
+            Extent<PCPoint> e = pm.getExtent(PCPoint.class, false);
             
             int c = 0;
-            for (Iterator i = e.iterator(); i.hasNext();) {
-                PCPoint p = (PCPoint) i.next();
+            for (Iterator<PCPoint> i = e.iterator(); i.hasNext();) {
+                PCPoint p = i.next();
                 if (debug) logger.debug("p.getX() = " + p.getX());
                 if ((p.getX() == 1) || (p.getX() == 3)) {
                     // OK

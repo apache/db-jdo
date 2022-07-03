@@ -74,15 +74,15 @@ public class ExecuteQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 4");
-            Object results = query.execute();
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p5 = new PCPoint(4, 4);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p5 = new PCPoint(4, 4);
             expected.add(p5);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -104,16 +104,17 @@ public class ExecuteQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param");
             query.setFilter("x == param");
-            Object results = query.execute(new java.lang.Integer(2));
+            query.setParameters(Integer.valueOf(2));
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);
@@ -135,16 +136,17 @@ public class ExecuteQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query query = pm.newQuery();
+            Query<PCPoint> query = pm.newQuery();
             query.setClass(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
-            Object results = query.execute(Integer.valueOf(2), Integer.valueOf(2));
+            query.setParameters(Integer.valueOf(2), Integer.valueOf(2));
+            List<PCPoint> results = query.executeList();
 
             // check query result
-            List expected = new ArrayList();
-            Object p3 = new PCPoint(2, 2);
+            List<PCPoint> expected = new ArrayList<>();
+            PCPoint p3 = new PCPoint(2, 2);
             expected.add(p3);
             expected = getFromInserted(expected);
             printOutput(results, expected);

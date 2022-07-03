@@ -100,12 +100,10 @@ public class Close extends JDO_Test {
         try {
             // don't use closePMF methods because they check isClosed before calling
             doPrivileged(
-                new PrivilegedAction () {
-                    public Object run () {
+                    () -> {
                         pmf.close();
                         return null;
                     }
-                }
             );
         } catch (JDOUserException ex) {
             // unexpected exception

@@ -162,7 +162,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
                 new Date(0L), new Date(10000L), 125000);
             pm.makePersistent(empNew);
             medIns1.setEmployee(empNew);
-            Object empNewOid = pm.getObjectId((Object)empNew);
+            Object empNewOid = pm.getObjectId(empNew);
             pm.flush();
             
             // Postcondition
@@ -199,7 +199,7 @@ public class Relationship1To1NoRelationships extends AbstractRelationshipTest {
                 "Ameriblast", "B");
             pm.makePersistent(medInsNew);
             emp1.setMedicalInsurance(medInsNew);
-            Object medInsNewOid = pm.getObjectId((Object)medInsNew);
+            Object medInsNewOid = pm.getObjectId(medInsNew);
             pm.flush();
             
             // Postcondition

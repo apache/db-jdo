@@ -17,9 +17,7 @@
  
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.Transaction;
@@ -73,8 +71,8 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
 	public void test() throws Exception {
         pm.currentTransaction().begin();
         try {
-    		Extent extent = pm.getExtent(StateTransitionObj.class, false);
-    		Iterator iter = extent.iterator();
+    		Extent<StateTransitionObj> extent = pm.getExtent(StateTransitionObj.class, false);
+    		Iterator<StateTransitionObj> iter = extent.iterator();
     		if( !iter.hasNext() ){
     			fail(ASSERTION_FAILED,
     				 "Extent for StateTransitionObj should not be empty");

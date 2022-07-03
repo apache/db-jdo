@@ -95,6 +95,7 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * @return a String representation of a <code>PCDSMedicalInsurance</code>
      * object.
      */
+    @Override
     public String toString() {
         return "FCMedicalInsurance(" + getFieldRepr() + ")";
     }
@@ -103,6 +104,7 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * Returns a String representation of the non-relationship fields.
      * @return a String representation of the non-relationship fields.
      */
+    @Override
     protected String getFieldRepr() {
         StringBuffer rc = new StringBuffer();
         rc.append(super.getFieldRepr());
@@ -121,7 +123,8 @@ public class PCDSMedicalInsurance extends PCDSInsurance
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, 
+    @Override
+    public boolean deepCompareFields(Object other,
                                      EqualityHelper helper) {
         PCDSMedicalInsurance otherIns = (PCDSMedicalInsurance)other;
         String where = "FCMedicalInsurance<" + getInsid() + ">";

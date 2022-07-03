@@ -65,10 +65,10 @@ public class CompletenessTestOrder extends AbstractReaderTest {
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
-            List rootList = getRootList(reader);
+            List<Object> rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
-            rootOids = new ArrayList();
-            for (Iterator i = rootList.iterator(); i.hasNext(); ) {
+            rootOids = new ArrayList<>();
+            for (Iterator<Object> i = rootList.iterator(); i.hasNext(); ) {
                 Object pc = i.next();
                 rootOids.add(pm.getObjectId(pc));
             }
@@ -84,7 +84,7 @@ public class CompletenessTestOrder extends AbstractReaderTest {
             OrderFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
             OrderModelReader reader = new OrderModelReader(inputFilename);
-            List rootList = getRootList(reader);
+            List<Object> rootList = getRootList(reader);
             
             getPM();
             pm.currentTransaction().begin();

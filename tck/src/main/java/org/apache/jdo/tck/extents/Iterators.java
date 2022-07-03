@@ -55,11 +55,11 @@ public class Iterators extends ExtentTest {
     /** */
     public void test() {
 
-        Extent ex = getExtent();
+        Extent<?> ex = getExtent();
     
         int count = 0;
         beginTransaction();
-        for (Iterator it = ex.iterator(); it.hasNext();++count) {
+        for (Iterator<?> it = ex.iterator(); it.hasNext();++count) {
             Object emp = it.next();
             if (debug) logger.debug(emp.toString());
         }

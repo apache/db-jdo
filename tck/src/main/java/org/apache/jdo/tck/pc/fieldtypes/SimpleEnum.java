@@ -94,7 +94,7 @@ WY("WYOMING");
         return sname;
     };
 
-    public static class Oid implements Serializable, Comparable {
+    public static class Oid implements Serializable, Comparable<Oid> {
         public long id;
         
         public Oid() {
@@ -118,12 +118,8 @@ WY("WYOMING");
             return str.substring(str.indexOf(':') + 1);
         }
         
-        public int compareTo(Object p){
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) p;
-            if( id < other.id ) return -1;
-            if( id > other.id ) return 1;
-            return 0;
+        public int compareTo(Oid p){
+            return Long.compare(id, p.id);
         }
         
     }

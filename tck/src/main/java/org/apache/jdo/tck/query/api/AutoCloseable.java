@@ -69,10 +69,10 @@ public class AutoCloseable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = null;
+            Query<PCPoint> query = null;
             List<PCPoint> queryResult = null;
             Iterator<PCPoint> iterator = null;
-            try (Query query1 = pm.newQuery(PCPoint.class)) {
+            try (Query<PCPoint> query1 = pm.newQuery(PCPoint.class)) {
                 query = query1;
                 queryResult = (List<PCPoint>) query1.execute();
                 iterator = queryResult.iterator();
@@ -157,10 +157,10 @@ public class AutoCloseable extends QueryTest {
         try {
             tx.begin();
 
-            Query query = null;
+            Query<PCPoint> query = null;
             List<PCPoint> queryResult = null;
             Iterator<PCPoint> iterator = null;
-            try (Query query1 = pm.newQuery(PCPoint.class)) {
+            try (Query<PCPoint> query1 = pm.newQuery(PCPoint.class)) {
                 query = query1;
                 queryResult = (List<PCPoint>) query1.execute();
                 iterator = queryResult.iterator();

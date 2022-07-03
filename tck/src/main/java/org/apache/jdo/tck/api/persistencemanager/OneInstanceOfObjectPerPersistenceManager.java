@@ -18,8 +18,8 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Query;
 import javax.jdo.Transaction;
@@ -130,13 +130,13 @@ public class OneInstanceOfObjectPerPersistenceManager extends
 
     /** */
     private PCPoint findPoint (int x, int y) {
-        Query q = getPM().newQuery (PCPoint.class);
+        Query<PCPoint> q = getPM().newQuery (PCPoint.class);
         q.declareParameters ("int px, int py");
         q.setFilter ("x == px & y == py");
-        Collection results = (Collection)q.execute (Integer.valueOf(x),
-		        Integer.valueOf(y));
-        Iterator it = results.iterator();
-        PCPoint ret = (PCPoint)it.next();
+        q.setParameters(Integer.valueOf(x), Integer.valueOf(y));
+        List<PCPoint> results = q.executeList();
+        Iterator<PCPoint> it = results.iterator();
+        PCPoint ret = it.next();
         return ret;
     }
     

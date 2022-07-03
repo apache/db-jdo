@@ -69,29 +69,27 @@ public class JDOJdk14Logger
     private void configureJDK14Logger() {
         final LogManager logManager = LogManager.getLogManager();
         final ClassLoader cl = getClass().getClassLoader();
-        doPrivileged(new PrivilegedAction() {
-            public Object run () {
-                try {
-                    InputStream config = cl.getResourceAsStream(PROPERIES_FILE);
-                    logManager.readConfiguration(config);
-                    return null;
-                }
-                catch (IOException ex) {
-                    throw new JDOFatalUserException(
-                        "A IOException was thrown when trying to read the " +
-                        "logging configuration file " + PROPERIES_FILE + ".",
-                        ex); 
-                }
-                catch (SecurityException ex) {
-                    throw new JDOFatalUserException(
-                        "A SecurityException was thrown when trying to read " + 
-                        "the logging configuration file " + PROPERIES_FILE + 
-                        ". In order to configure JDK 1.4 logging, you must " + 
-                        "grant java.util.logging.LoggingPermission(control) " + 
-                        "to the codeBase containing the JDO TCK.", ex);
-                }
+        doPrivileged(() -> {
+            try {
+                InputStream config = cl.getResourceAsStream(PROPERIES_FILE);
+                logManager.readConfiguration(config);
+                return null;
             }
-            });
+            catch (IOException ex) {
+                throw new JDOFatalUserException(
+                    "A IOException was thrown when trying to read the " +
+                    "logging configuration file " + PROPERIES_FILE + ".",
+                    ex);
+            }
+            catch (SecurityException ex) {
+                throw new JDOFatalUserException(
+                    "A SecurityException was thrown when trying to read " +
+                    "the logging configuration file " + PROPERIES_FILE +
+                    ". In order to configure JDK 1.4 logging, you must " +
+                    "grant java.util.logging.LoggingPermission(control) " +
+                    "to the codeBase containing the JDO TCK.", ex);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")

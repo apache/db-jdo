@@ -26,7 +26,7 @@ public class Cart implements Serializable {
 
     protected static long nextId = System.currentTimeMillis();
 
-    public synchronized static long nextId() {
+    public static synchronized long nextId() {
         return nextId++;
     }
 
@@ -37,7 +37,7 @@ public class Cart implements Serializable {
     protected String customerId;
 
     /** The list of entries in this cart */
-    protected Set entries = new HashSet(); // element-type CartEntry
+    protected Set<CartEntry> entries = new HashSet<>(); // element-type CartEntry
 
     /** For JDO compliance only; not for public consumption. */
     protected Cart() {}
@@ -73,7 +73,7 @@ public class Cart implements Serializable {
         entries.add(ce);
     }
 
-    public Iterator getEntries() {
+    public Iterator<CartEntry> getEntries() {
         return entries.iterator();
     }
 

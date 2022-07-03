@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.jdo.Extent;
 import javax.jdo.InstanceCallbacks;
@@ -59,7 +60,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
     public String           name;
     public Date            timeStamp;
     public InstanceCallbackClass  nextObj;
-    public HashSet         children;
+    public Set<InstanceCallbackClass> children;
     public int             intValue;
     public double          doubleValue;
     public short           childToDelete;
@@ -79,8 +80,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
 
     public static void removeAllInstances(PersistenceManager pm)
     {
-        Extent e = pm.getExtent(InstanceCallbackClass.class, true);
-        Iterator i = e.iterator();
+        Extent<InstanceCallbackClass> e = pm.getExtent(InstanceCallbackClass.class, true);
+        Iterator<InstanceCallbackClass> i = e.iterator();
         while( i.hasNext() ){
             pm.deletePersistent(i.next());
         }        
@@ -94,7 +95,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
         name = label;
         timeStamp = createTime;
         nextObj = obj;
-        children = new HashSet();
+        children = new HashSet<>();
         this.intValue = intValue;
         this.doubleValue = doubleValue;
         this.childToDelete = childToDelete;
@@ -129,7 +130,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
                 pm.deletePersistent(nextObj);  // delete referenced object
 
                 // delete designated child
-                for(Iterator i = children.iterator(); i.hasNext();) {
+                for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
                      InstanceCallbackClass obj =  (InstanceCallbackClass)i.next();
                      if( obj.intValue == childToDelete) {
                         pm.deletePersistent(obj);
@@ -157,7 +158,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator i = children.iterator(); i.hasNext();) {
+            for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
                 InstanceCallbackClass o = (InstanceCallbackClass)i.next();
                 sumOfChildrenIntValue[intValue] += o.intValue;   
             }
@@ -182,8 +183,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = (InstanceCallbackClass)i.next();
+            for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
+                InstanceCallbackClass o = i.next();
                 sumOfChildrenIntValue[intValue] += o.intValue;   
             }
             capturedChildToDelete[intValue] = childToDelete;
@@ -205,7 +206,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
         }
     }
     
-public static class KeyClass implements Serializable, Comparable {
+public static class KeyClass implements Serializable, Comparable<KeyClass> {
     public int keyValue;
 
     public KeyClass() {
@@ -230,9 +231,9 @@ public static class KeyClass implements Serializable, Comparable {
         return Integer.toString(keyValue);
     } 
     
-    public int compareTo(Object obj) {
+    public int compareTo(KeyClass obj) {
         // may throw ClassCastException to be handled by user.
-        return keyValue - ((KeyClass)obj).keyValue;
+        return keyValue - obj.keyValue;
     }
     
 }
