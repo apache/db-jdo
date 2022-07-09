@@ -20,7 +20,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.math.BigDecimal;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -141,7 +140,7 @@ public class TestTreeMapStringKeyCollections extends JDO_Test {
             Vector<?> value = TestUtil.makeNewVectorInstance(
                     fieldSpecs.get(1), valueOrder);
 
-            TreeMap map = new TreeMap<>();
+            TreeMap<Object, Object> map = new TreeMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }

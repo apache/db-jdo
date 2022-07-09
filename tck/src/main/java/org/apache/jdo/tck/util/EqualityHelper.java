@@ -279,7 +279,7 @@ public class EqualityHelper {
         Comparator<K> comparator =
                 (Comparator<K>)((Map.Entry<V, K>)myList.get(0)).getKey();
         Collections.sort(otherList, 
-                new DeepEqualityEntryKeyComparator(comparator));
+                new DeepEqualityEntryKeyComparator<>(comparator));
 
         for (int i = 0; i < myList.size(); i++) {
             Map.Entry<K,V> entry1 = myList.get(i);
@@ -543,7 +543,7 @@ public class EqualityHelper {
         // Use the natural ordering of me; must implement Comparable
         Collections.sort(myList, entryKeyComparator);
         List<Map.Entry<K,V>> otherList = new ArrayList<>(other.entrySet());
-        Comparator comparator = entryKeyComparator;
+        Comparator<Map.Entry<?, ?>> comparator = entryKeyComparator;
         // Use the Comparator to avoid the other side implementing Comparable
         Object key = myList.get(0).getKey();
         if (key instanceof Comparator) {

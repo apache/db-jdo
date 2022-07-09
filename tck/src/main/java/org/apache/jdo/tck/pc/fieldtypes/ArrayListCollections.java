@@ -18,57 +18,61 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ArrayListCollections { 
   public int identifier;
-  public ArrayList ArrayListOfObject0;
-  public ArrayList ArrayListOfObject1;
-  public ArrayList ArrayListOfObject2;
-  public ArrayList ArrayListOfSimpleClass3;
-  public ArrayList ArrayListOfSimpleClass4;
-  public ArrayList ArrayListOfSimpleClass5;
-  public ArrayList ArrayListOfSimpleInterface6;
-  public ArrayList ArrayListOfSimpleInterface7;
-  public ArrayList ArrayListOfSimpleInterface8;
-  public ArrayList ArrayListOfString9;
-  public ArrayList ArrayListOfString10;
-  public ArrayList ArrayListOfString11;
-  public ArrayList ArrayListOfDate12;
-  public ArrayList ArrayListOfDate13;
-  public ArrayList ArrayListOfDate14;
-  public ArrayList ArrayListOfLocale15;
-  public ArrayList ArrayListOfLocale16;
-  public ArrayList ArrayListOfLocale17;
-  public ArrayList ArrayListOfBigDecimal18;
-  public ArrayList ArrayListOfBigDecimal19;
-  public ArrayList ArrayListOfBigDecimal20;
-  public ArrayList ArrayListOfBigInteger21;
-  public ArrayList ArrayListOfBigInteger22;
-  public ArrayList ArrayListOfBigInteger23;
-  public ArrayList ArrayListOfByte24;
-  public ArrayList ArrayListOfByte25;
-  public ArrayList ArrayListOfByte26;
-  public ArrayList ArrayListOfDouble27;
-  public ArrayList ArrayListOfDouble28;
-  public ArrayList ArrayListOfDouble29;
-  public ArrayList ArrayListOfFloat30;
-  public ArrayList ArrayListOfFloat31;
-  public ArrayList ArrayListOfFloat32;
-  public ArrayList ArrayListOfInteger33;
-  public ArrayList ArrayListOfInteger34;
-  public ArrayList ArrayListOfInteger35;
-  public ArrayList ArrayListOfLong36;
-  public ArrayList ArrayListOfLong37;
-  public ArrayList ArrayListOfLong38;
-  public ArrayList ArrayListOfShort39;
-  public ArrayList ArrayListOfShort40;
-  public ArrayList ArrayListOfShort41;
-  public ArrayList ArrayListOfSimpleEnum42;
-  public ArrayList ArrayListOfSimpleEnum43;
-  public ArrayList ArrayListOfSimpleEnum44;
-  public ArrayList ArrayListOfSimpleEnum45;
-  public ArrayList ArrayListOfSimpleEnum46;
+  public ArrayList<Object> ArrayListOfObject0;
+  public ArrayList<Object> ArrayListOfObject1;
+  public ArrayList<Object> ArrayListOfObject2;
+  public ArrayList<SimpleClass> ArrayListOfSimpleClass3;
+  public ArrayList<SimpleClass> ArrayListOfSimpleClass4;
+  public ArrayList<SimpleClass> ArrayListOfSimpleClass5;
+  public ArrayList<SimpleInterface> ArrayListOfSimpleInterface6;
+  public ArrayList<SimpleInterface> ArrayListOfSimpleInterface7;
+  public ArrayList<SimpleInterface> ArrayListOfSimpleInterface8;
+  public ArrayList<String> ArrayListOfString9;
+  public ArrayList<String> ArrayListOfString10;
+  public ArrayList<String> ArrayListOfString11;
+  public ArrayList<Date> ArrayListOfDate12;
+  public ArrayList<Date> ArrayListOfDate13;
+  public ArrayList<Date> ArrayListOfDate14;
+  public ArrayList<Locale> ArrayListOfLocale15;
+  public ArrayList<Locale> ArrayListOfLocale16;
+  public ArrayList<Locale> ArrayListOfLocale17;
+  public ArrayList<BigDecimal> ArrayListOfBigDecimal18;
+  public ArrayList<BigDecimal> ArrayListOfBigDecimal19;
+  public ArrayList<BigDecimal> ArrayListOfBigDecimal20;
+  public ArrayList<BigInteger> ArrayListOfBigInteger21;
+  public ArrayList<BigInteger> ArrayListOfBigInteger22;
+  public ArrayList<BigInteger> ArrayListOfBigInteger23;
+  public ArrayList<Byte> ArrayListOfByte24;
+  public ArrayList<Byte> ArrayListOfByte25;
+  public ArrayList<Byte> ArrayListOfByte26;
+  public ArrayList<Double> ArrayListOfDouble27;
+  public ArrayList<Double> ArrayListOfDouble28;
+  public ArrayList<Double> ArrayListOfDouble29;
+  public ArrayList<Float> ArrayListOfFloat30;
+  public ArrayList<Float> ArrayListOfFloat31;
+  public ArrayList<Float> ArrayListOfFloat32;
+  public ArrayList<Integer> ArrayListOfInteger33;
+  public ArrayList<Integer> ArrayListOfInteger34;
+  public ArrayList<Integer> ArrayListOfInteger35;
+  public ArrayList<Long> ArrayListOfLong36;
+  public ArrayList<Long> ArrayListOfLong37;
+  public ArrayList<Long> ArrayListOfLong38;
+  public ArrayList<Short> ArrayListOfShort39;
+  public ArrayList<Short> ArrayListOfShort40;
+  public ArrayList<Short> ArrayListOfShort41;
+  public ArrayList<SimpleEnum> ArrayListOfSimpleEnum42;
+  public ArrayList<SimpleEnum> ArrayListOfSimpleEnum43;
+  public ArrayList<SimpleEnum> ArrayListOfSimpleEnum44;
+  public ArrayList<SimpleEnum> ArrayListOfSimpleEnum45;
+  public ArrayList<SimpleEnum> ArrayListOfSimpleEnum46;
 
   public static final String [] fieldSpecs = { 
   "public ArrayList ArrayListOfObject0",
@@ -123,7 +127,7 @@ public class ArrayListCollections {
   {
     return fieldSpecs.length;
   }
-  public ArrayList get(int index)
+  public ArrayList<?> get(int index)
   {
     switch (index)
     {
@@ -388,7 +392,7 @@ public class ArrayListCollections {
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier ; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

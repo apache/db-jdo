@@ -143,7 +143,7 @@ public class TestMapStringKeyCollections extends JDO_Test {
             Vector<?> value = TestUtil.makeNewVectorInstance(
                     fieldSpecs.get(1), valueOrder);
 
-            HashMap map = new HashMap<>();
+            HashMap<Object, Object> map = new HashMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }

@@ -20,7 +20,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.math.BigDecimal;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
@@ -142,7 +141,7 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
             Vector<?> value = TestUtil.makeNewVectorInstance(
                     fieldSpecs.get(1), valueOrder);
 
-            HashMap map = new HashMap<>();
+            HashMap<Object, Object> map = new HashMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }

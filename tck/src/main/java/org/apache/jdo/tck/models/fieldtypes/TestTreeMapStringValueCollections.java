@@ -139,7 +139,7 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
             Vector<?> value = TestUtil.makeNewVectorInstance(
                     fieldSpecs.get(1), valueOrder);
 
-            TreeMap map = new TreeMap<>();
+            TreeMap<Object, Object> map = new TreeMap<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }

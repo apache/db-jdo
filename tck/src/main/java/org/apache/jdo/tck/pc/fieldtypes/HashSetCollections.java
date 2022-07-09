@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class HashSetCollections { 
   public int identifier;
-  public HashSet HashSetOfObject0;
-  public HashSet HashSetOfObject1;
-  public HashSet HashSetOfObject2;
-  public HashSet HashSetOfSimpleClass3;
-  public HashSet HashSetOfSimpleClass4;
-  public HashSet HashSetOfSimpleClass5;
-  public HashSet HashSetOfSimpleInterface6;
-  public HashSet HashSetOfSimpleInterface7;
-  public HashSet HashSetOfSimpleInterface8;
-  public HashSet HashSetOfString9;
-  public HashSet HashSetOfString10;
-  public HashSet HashSetOfString11;
-  public HashSet HashSetOfDate12;
-  public HashSet HashSetOfDate13;
-  public HashSet HashSetOfDate14;
-  public HashSet HashSetOfLocale15;
-  public HashSet HashSetOfLocale16;
-  public HashSet HashSetOfLocale17;
-  public HashSet HashSetOfBigDecimal18;
-  public HashSet HashSetOfBigDecimal19;
-  public HashSet HashSetOfBigDecimal20;
-  public HashSet HashSetOfBigInteger21;
-  public HashSet HashSetOfBigInteger22;
-  public HashSet HashSetOfBigInteger23;
-  public HashSet HashSetOfByte24;
-  public HashSet HashSetOfByte25;
-  public HashSet HashSetOfByte26;
-  public HashSet HashSetOfDouble27;
-  public HashSet HashSetOfDouble28;
-  public HashSet HashSetOfDouble29;
-  public HashSet HashSetOfFloat30;
-  public HashSet HashSetOfFloat31;
-  public HashSet HashSetOfFloat32;
-  public HashSet HashSetOfInteger33;
-  public HashSet HashSetOfInteger34;
-  public HashSet HashSetOfInteger35;
-  public HashSet HashSetOfLong36;
-  public HashSet HashSetOfLong37;
-  public HashSet HashSetOfLong38;
-  public HashSet HashSetOfShort39;
-  public HashSet HashSetOfShort40;
-  public HashSet HashSetOfShort41;
-  public HashSet HashSetOfSimpleClass42;
+  public HashSet<Object> HashSetOfObject0;
+  public HashSet<Object> HashSetOfObject1;
+  public HashSet<Object> HashSetOfObject2;
+  public HashSet<SimpleClass> HashSetOfSimpleClass3;
+  public HashSet<SimpleClass> HashSetOfSimpleClass4;
+  public HashSet<SimpleClass> HashSetOfSimpleClass5;
+  public HashSet<SimpleInterface> HashSetOfSimpleInterface6;
+  public HashSet<SimpleInterface> HashSetOfSimpleInterface7;
+  public HashSet<SimpleInterface> HashSetOfSimpleInterface8;
+  public HashSet<String> HashSetOfString9;
+  public HashSet<String> HashSetOfString10;
+  public HashSet<String> HashSetOfString11;
+  public HashSet<Date> HashSetOfDate12;
+  public HashSet<Date> HashSetOfDate13;
+  public HashSet<Date> HashSetOfDate14;
+  public HashSet<Locale> HashSetOfLocale15;
+  public HashSet<Locale> HashSetOfLocale16;
+  public HashSet<Locale> HashSetOfLocale17;
+  public HashSet<BigDecimal> HashSetOfBigDecimal18;
+  public HashSet<BigDecimal> HashSetOfBigDecimal19;
+  public HashSet<BigDecimal> HashSetOfBigDecimal20;
+  public HashSet<BigInteger> HashSetOfBigInteger21;
+  public HashSet<BigInteger> HashSetOfBigInteger22;
+  public HashSet<BigInteger> HashSetOfBigInteger23;
+  public HashSet<Byte> HashSetOfByte24;
+  public HashSet<Byte> HashSetOfByte25;
+  public HashSet<Byte> HashSetOfByte26;
+  public HashSet<Double> HashSetOfDouble27;
+  public HashSet<Double> HashSetOfDouble28;
+  public HashSet<Double> HashSetOfDouble29;
+  public HashSet<Float> HashSetOfFloat30;
+  public HashSet<Float> HashSetOfFloat31;
+  public HashSet<Float> HashSetOfFloat32;
+  public HashSet<Integer> HashSetOfInteger33;
+  public HashSet<Integer> HashSetOfInteger34;
+  public HashSet<Integer> HashSetOfInteger35;
+  public HashSet<Long> HashSetOfLong36;
+  public HashSet<Long> HashSetOfLong37;
+  public HashSet<Long> HashSetOfLong38;
+  public HashSet<Short> HashSetOfShort39;
+  public HashSet<Short> HashSetOfShort40;
+  public HashSet<Short> HashSetOfShort41;
+  public HashSet<SimpleClass> HashSetOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public HashSet HashSetOfObject0",
@@ -115,7 +119,7 @@ public class HashSetCollections {
   {
     return fieldSpecs.length;
   }
-  public HashSet get(int index)
+  public HashSet<?> get(int index)
   {
     switch (index)
     {

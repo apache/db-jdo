@@ -105,7 +105,7 @@ public class TestUtil {
 
   public static Vector makeNewVectorInstance(String type, int order) {
 
-      Vector vec = new Vector<>();
+      Vector<Object> vec = new Vector<>();
 
       switch (order) {
           case(1):

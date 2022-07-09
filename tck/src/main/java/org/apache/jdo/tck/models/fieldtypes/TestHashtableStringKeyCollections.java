@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
@@ -144,7 +143,7 @@ public class TestHashtableStringKeyCollections extends JDO_Test {
             Vector<?> value = TestUtil.makeNewVectorInstance(
                     fieldSpecs.get(1), valueOrder);
 
-            Hashtable map = new Hashtable<>();
+            Hashtable<Object, Object> map = new Hashtable<>();
             for (int j = 0; j< key.size(); j++) {
                 map.put(key.get(j), value.get(j));
             }

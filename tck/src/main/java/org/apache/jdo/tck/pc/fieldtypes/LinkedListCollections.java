@@ -18,53 +18,57 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class LinkedListCollections { 
   public int identifier;
-  public LinkedList LinkedListOfObject0;
-  public LinkedList LinkedListOfObject1;
-  public LinkedList LinkedListOfObject2;
-  public LinkedList LinkedListOfSimpleClass3;
-  public LinkedList LinkedListOfSimpleClass4;
-  public LinkedList LinkedListOfSimpleClass5;
-  public LinkedList LinkedListOfSimpleInterface6;
-  public LinkedList LinkedListOfSimpleInterface7;
-  public LinkedList LinkedListOfSimpleInterface8;
-  public LinkedList LinkedListOfString9;
-  public LinkedList LinkedListOfString10;
-  public LinkedList LinkedListOfString11;
-  public LinkedList LinkedListOfDate12;
-  public LinkedList LinkedListOfDate13;
-  public LinkedList LinkedListOfDate14;
-  public LinkedList LinkedListOfLocale15;
-  public LinkedList LinkedListOfLocale16;
-  public LinkedList LinkedListOfLocale17;
-  public LinkedList LinkedListOfBigDecimal18;
-  public LinkedList LinkedListOfBigDecimal19;
-  public LinkedList LinkedListOfBigDecimal20;
-  public LinkedList LinkedListOfBigInteger21;
-  public LinkedList LinkedListOfBigInteger22;
-  public LinkedList LinkedListOfBigInteger23;
-  public LinkedList LinkedListOfByte24;
-  public LinkedList LinkedListOfByte25;
-  public LinkedList LinkedListOfByte26;
-  public LinkedList LinkedListOfDouble27;
-  public LinkedList LinkedListOfDouble28;
-  public LinkedList LinkedListOfDouble29;
-  public LinkedList LinkedListOfFloat30;
-  public LinkedList LinkedListOfFloat31;
-  public LinkedList LinkedListOfFloat32;
-  public LinkedList LinkedListOfInteger33;
-  public LinkedList LinkedListOfInteger34;
-  public LinkedList LinkedListOfInteger35;
-  public LinkedList LinkedListOfLong36;
-  public LinkedList LinkedListOfLong37;
-  public LinkedList LinkedListOfLong38;
-  public LinkedList LinkedListOfShort39;
-  public LinkedList LinkedListOfShort40;
-  public LinkedList LinkedListOfShort41;
-  public LinkedList LinkedListOfSimpleClass42;
+  public LinkedList<Object> LinkedListOfObject0;
+  public LinkedList<Object> LinkedListOfObject1;
+  public LinkedList<Object> LinkedListOfObject2;
+  public LinkedList<SimpleClass> LinkedListOfSimpleClass3;
+  public LinkedList<SimpleClass> LinkedListOfSimpleClass4;
+  public LinkedList<SimpleClass> LinkedListOfSimpleClass5;
+  public LinkedList<SimpleInterface> LinkedListOfSimpleInterface6;
+  public LinkedList<SimpleInterface> LinkedListOfSimpleInterface7;
+  public LinkedList<SimpleInterface> LinkedListOfSimpleInterface8;
+  public LinkedList<String> LinkedListOfString9;
+  public LinkedList<String> LinkedListOfString10;
+  public LinkedList<String> LinkedListOfString11;
+  public LinkedList<Date> LinkedListOfDate12;
+  public LinkedList<Date> LinkedListOfDate13;
+  public LinkedList<Date> LinkedListOfDate14;
+  public LinkedList<Locale> LinkedListOfLocale15;
+  public LinkedList<Locale> LinkedListOfLocale16;
+  public LinkedList<Locale> LinkedListOfLocale17;
+  public LinkedList<BigDecimal> LinkedListOfBigDecimal18;
+  public LinkedList<BigDecimal> LinkedListOfBigDecimal19;
+  public LinkedList<BigDecimal> LinkedListOfBigDecimal20;
+  public LinkedList<BigInteger> LinkedListOfBigInteger21;
+  public LinkedList<BigInteger> LinkedListOfBigInteger22;
+  public LinkedList<BigInteger> LinkedListOfBigInteger23;
+  public LinkedList<Byte> LinkedListOfByte24;
+  public LinkedList<Byte> LinkedListOfByte25;
+  public LinkedList<Byte> LinkedListOfByte26;
+  public LinkedList<Double> LinkedListOfDouble27;
+  public LinkedList<Double> LinkedListOfDouble28;
+  public LinkedList<Double> LinkedListOfDouble29;
+  public LinkedList<Float> LinkedListOfFloat30;
+  public LinkedList<Float> LinkedListOfFloat31;
+  public LinkedList<Float> LinkedListOfFloat32;
+  public LinkedList<Integer> LinkedListOfInteger33;
+  public LinkedList<Integer> LinkedListOfInteger34;
+  public LinkedList<Integer> LinkedListOfInteger35;
+  public LinkedList<Long> LinkedListOfLong36;
+  public LinkedList<Long> LinkedListOfLong37;
+  public LinkedList<Long> LinkedListOfLong38;
+  public LinkedList<Short> LinkedListOfShort39;
+  public LinkedList<Short> LinkedListOfShort40;
+  public LinkedList<Short> LinkedListOfShort41;
+  public LinkedList<SimpleClass> LinkedListOfSimpleClass42;
 
   public static final String [] fieldSpecs = { 
   "public LinkedList LinkedListOfObject0",
@@ -115,7 +119,7 @@ public class LinkedListCollections {
   {
     return fieldSpecs.length;
   }
-  public LinkedList get(int index)
+  public LinkedList<?> get(int index)
   {
     switch (index)
     {

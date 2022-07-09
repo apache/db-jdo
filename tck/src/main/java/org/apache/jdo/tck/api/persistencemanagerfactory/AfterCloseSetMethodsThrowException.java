@@ -64,10 +64,10 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
 
     /** */
     public void test() {
-        Class<?>[] stringParameters = new Class[]{String.class};
-        Class<?>[] booleanParameters = new Class[]{boolean.class};
-        Class<?>[] objectParameters = new Class[]{Object.class};
-        Class<?>[] integerParameters = new Class[]{Integer.class};
+        Class<String>[] stringParameters = new Class[]{String.class};
+        Class<Boolean>[] booleanParameters = new Class[]{boolean.class};
+        Class<Object>[] objectParameters = new Class[]{Object.class};
+        Class<Integer>[] integerParameters = new Class[]{Integer.class};
         Object[] stringParameter = new Object[]{"Nobody knows the trouble"};
         Object[] booleanParameter = new Object[]{Boolean.FALSE};
         Object[] objectParameter = new Object[]{null};
