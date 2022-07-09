@@ -19,7 +19,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.math.BigDecimal;
 
-import java.util.Collection;
 import java.util.Vector;
 import java.util.List;
 import java.util.ListIterator;

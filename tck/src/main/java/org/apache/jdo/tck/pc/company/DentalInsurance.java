@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.company;
 
 import java.math.BigDecimal;
 
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 import javax.jdo.annotations.PersistenceCapable;

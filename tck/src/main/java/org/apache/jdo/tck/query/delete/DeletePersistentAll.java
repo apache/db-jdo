@@ -20,7 +20,6 @@ package org.apache.jdo.tck.query.delete;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryTest;

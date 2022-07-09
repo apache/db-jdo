@@ -32,7 +32,6 @@ import org.apache.jdo.tck.pc.company.ICompany;
 import org.apache.jdo.tck.pc.company.IDepartment;
 import org.apache.jdo.tck.pc.company.IEmployee;
 
-import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 import org.apache.jdo.tck.pc.company.IMeetingRoom;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

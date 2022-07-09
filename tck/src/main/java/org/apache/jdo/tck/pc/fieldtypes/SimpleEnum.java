@@ -15,11 +15,8 @@
  * limitations under the License.
  */
 
-
-
 package org.apache.jdo.tck.pc.fieldtypes;
 
-import java.util.Date;
 import java.io.Serializable;
 
 public enum SimpleEnum {

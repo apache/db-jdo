@@ -21,7 +21,6 @@ import java.util.Arrays;
 
 import javax.jdo.JDOQLTypedQuery;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;

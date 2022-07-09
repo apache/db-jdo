@@ -16,7 +16,6 @@
  */
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.query.LocalDateSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;

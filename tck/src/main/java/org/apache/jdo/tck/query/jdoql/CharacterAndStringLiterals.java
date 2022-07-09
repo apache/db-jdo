@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.pc.mylib.QPrimitiveTypes;
