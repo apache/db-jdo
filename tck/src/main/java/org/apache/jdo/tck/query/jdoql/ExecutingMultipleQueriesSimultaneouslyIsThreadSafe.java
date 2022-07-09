@@ -47,7 +47,7 @@ In either case, the execution must be thread safe.
 public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
     extends MultipleActiveQueryInstanceInSamePersistenceManager {
     
-    static int nrOfThreads = 20;
+    static final int NR_OF_THREADS = 20;
     
     /** */
     private static final String ASSERTION_FAILED = 
@@ -71,11 +71,11 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             tx.begin();
 
             if (debug) 
-                logger.debug(getThreadName() + ": Starting " + 
-                             nrOfThreads + " concurrent threads.");
+                logger.debug(getThreadName() + ": Starting " +
+                        NR_OF_THREADS + " concurrent threads.");
             ThreadExceptionHandler group = new ThreadExceptionHandler();
-            Thread[] threads = new Thread[nrOfThreads];
-            for (int i = 0; i < nrOfThreads; i++) {
+            Thread[] threads = new Thread[NR_OF_THREADS];
+            for (int i = 0; i < NR_OF_THREADS; i++) {
             	// Runnable r = new QueryExecuter(pm);
                 Runnable r = 
                     new ExecutingMultipleQueriesSimultaneouslyIsThreadSafe().
@@ -90,7 +90,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             if (debug) 
                 logger.debug(getThreadName() +
                              ": Waiting for threads to join...");
-            for (int i = 0; i < nrOfThreads; i++) {
+            for (int i = 0; i < NR_OF_THREADS; i++) {
                 try { threads[i].join(); } 
                 catch (InterruptedException e) { }
             }

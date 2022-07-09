@@ -63,11 +63,11 @@ public class OptimisticFailure extends PersistenceManagerTest {
         BatchTestRunner.run(OptimisticFailure.class);
     }
 
-    private VersionedPCPoint p1 = new VersionedPCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
-    private VersionedPCPoint p2 = new VersionedPCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
-    private VersionedPCPoint p3 = new VersionedPCPoint(3,3); // this will be deleted in tx1, updated in tx2
-    private VersionedPCPoint p4 = new VersionedPCPoint(4,4); // this will be deleted in tx1, deleted in tx2
-    private VersionedPCPoint p5 = new VersionedPCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
+    private final VersionedPCPoint p1 = new VersionedPCPoint(1,1); // this will be updated in tx1, updated in tx2, verified in tx3
+    private final VersionedPCPoint p2 = new VersionedPCPoint(2,2); // this will be updated in tx1, deleted in tx2, verified in tx3
+    private final VersionedPCPoint p3 = new VersionedPCPoint(3,3); // this will be deleted in tx1, updated in tx2
+    private final VersionedPCPoint p4 = new VersionedPCPoint(4,4); // this will be deleted in tx1, deleted in tx2
+    private final VersionedPCPoint p5 = new VersionedPCPoint(5,5); // this will be unchanged in tx1, updated in tx2, verified in tx3
     private Object p1oid = null;
     private Object p2oid = null;
     private Object p3oid = null;

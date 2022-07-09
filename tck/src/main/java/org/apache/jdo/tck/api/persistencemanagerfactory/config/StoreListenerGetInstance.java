@@ -28,7 +28,7 @@ public class StoreListenerGetInstance implements StoreLifecycleListener {
     private static boolean preStore = false;
     private static boolean postStore = false;
     private static int instanceCount = 0;
-    private static StoreListenerGetInstance slInstance = 
+    private final static StoreListenerGetInstance slInstance =
             new StoreListenerGetInstance();
 
     private StoreListenerGetInstance() {

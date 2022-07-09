@@ -79,7 +79,7 @@ public class NontransactionalWriteDatastoreCommitConflict
         conflictingUpdate();
         beginAndCommitTransaction(false);
         checkXValue(ASSERTION_FAILED + "after datastore commit with conflict",
-                newXValue);
+                NEW_XVALUE);
         failOnError();
     }
 

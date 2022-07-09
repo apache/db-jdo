@@ -49,13 +49,13 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A12.5.1-5D (RefreshAllSideEffects) failed: ";
     
-    List<Object> oids = new ArrayList<>();
+    private final List<Object> oids = new ArrayList<>();
 
-    PersistenceManager pm1;
-    PersistenceManager pm2;
-    PersistenceManager pmVerify;
-    List<VersionedPCPoint> coll = new ArrayList<>(); // Collection of persistent instances
-    boolean useCollection = true;
+    private PersistenceManager pm1;
+    private PersistenceManager pm2;
+    private PersistenceManager pmVerify;
+    private final List<VersionedPCPoint> coll = new ArrayList<>(); // Collection of persistent instances
+    private boolean useCollection = true;
 
     /**
      * The <code>main</code> is called when the class

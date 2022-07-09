@@ -55,7 +55,7 @@ abstract class AbstractGetPMF extends JDO_Test {
         validPropertiesFile.substring(0, validPropertiesFile.lastIndexOf(File.separatorChar)+1) +
         "logging.properties";
 */
-    protected static String invalidPropertiesFile;
+    protected static final String invalidPropertiesFile;
     static
     {
         if (validPropertiesFile==null)

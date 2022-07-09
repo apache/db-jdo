@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
 public class EqualityHelper {
     
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging in enabled. */
@@ -76,7 +76,7 @@ public class EqualityHelper {
      * is used to order Maps whose keys are Comparable so the entries can be 
      * compared using deepCompareFields.
      */
-    private static Comparator<Map.Entry<?, ?>> entryKeyComparator = (o1, o2) -> {
+    private static final Comparator<Map.Entry<?, ?>> entryKeyComparator = (o1, o2) -> {
         Object key1 = o1.getKey();
         Object key2 = o2.getKey();
         return ((Comparable<Object>)key1).compareTo(key2);
@@ -106,7 +106,7 @@ public class EqualityHelper {
      */
     private static class DeepEqualityEntryKeyComparator<K,V>
     implements Comparator<Map.Entry<K,V>> {
-        Comparator<K> comparator;
+        final Comparator<K> comparator;
         DeepEqualityEntryKeyComparator(Comparator<K> comp) {
             this.comparator = comp;
         }
@@ -120,16 +120,16 @@ public class EqualityHelper {
     /** Collection of instances that have been processed already in the
      * context of this EqualityHelper instance 
      */
-    private Collection<Object> processed = new HashSet<>();
+    private final Collection<Object> processed = new HashSet<>();
     
     /** StringBuffer of logged differences.
      */
-    StringBuffer unequalBuffer = new StringBuffer();
+    final StringBuffer unequalBuffer = new StringBuffer();
     
     /**
      * Context is a stack of navigational paths.
      */
-    Stack<String> contextStack = new Stack<>();
+    final Stack<String> contextStack = new Stack<>();
 
     // Methods to support keeping track of instances that have been
     // processed already.

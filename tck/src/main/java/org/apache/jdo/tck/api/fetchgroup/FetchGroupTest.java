@@ -90,26 +90,26 @@ public class FetchGroupTest extends JDO_Test {
     private Address address;
     private Map phoneNumbers = new HashMap();
      */
-    protected String[] basicMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] basicMembers = new String[]{"hiredate", "weeklyhours",
         "personid", "firstname", "lastname", "middlename", "birthdate"};
     /** In org/apache/jdo/tck/pc/package.jdo, middlename is not in DFG */
-    protected String[] defaultMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] defaultMembers = new String[]{"hiredate", "weeklyhours",
         "personid", "firstname", "lastname","birthdate"};
-    protected String[] allMembers = new String[]{"hiredate", "weeklyhours", 
+    protected final String[] allMembers = new String[]{"hiredate", "weeklyhours",
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",
         "reviewedProjects", "projects", "team", "hradvisees",
         "personid", "firstname", "lastname", "middlename", "birthdate",
         "address", "phoneNumbers"};
     /** Address address is of type Address and is a relationship */
-    protected String[] relationshipMembers = new String[]{
+    protected final String[] relationshipMembers = new String[]{
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",
         "reviewedProjects", "projects", "team", "hradvisees", "address"};
     /** Map phoneNumbers is not a relationship but is multivalued */
-    protected String[] multivaluedMembers = new String[]{
+    protected final String[] multivaluedMembers = new String[]{
         "reviewedProjects", "projects", "team", "hradvisees", "phoneNumbers"};
-    protected String[] allButMultivaluedMembers = new String[]
+    protected final String[] allButMultivaluedMembers = new String[]
         {"hiredate", "weeklyhours", 
         "dentalInsurance", "medicalInsurance", "department", "fundingDept",
         "manager", "mentor", "protege", "hradvisor",

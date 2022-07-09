@@ -77,7 +77,7 @@ public class ShapeOfResult extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         // candidate class
         getTransientMylibInstancesAsList(
                 "primitiveTypesPositive", "primitiveTypesNegative",

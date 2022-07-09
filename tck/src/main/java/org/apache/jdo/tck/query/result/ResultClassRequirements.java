@@ -158,20 +158,20 @@ public class ResultClassRequirements extends QueryTest {
         
     // Two dimensional arrays to be converted to maps 
     // in the expected result.
-    private static Object[][] emp1Map = 
+    private static final Object[][] emp1Map =
         {{"id", Long.valueOf(1)}, 
          {"name", "emp1Last"}};
-    private static Object[][] emp2Map = 
+    private static final Object[][] emp2Map =
         {{"id", Long.valueOf(2)}, 
          {"name", "emp2Last"}};
-    private static Object[][] emp5Map = 
+    private static final Object[][] emp5Map =
         {{"id", Long.valueOf(5)}, 
          {"name", "emp5Last"}};
-    private static Object[][] publicPutMethod1 =
+    private static final Object[][] publicPutMethod1 =
         {{"personid", Long.valueOf(1)}, {"lastname", "emp1Last"}};
-    private static Object[][] publicPutMethod2 =
+    private static final Object[][] publicPutMethod2 =
         {{"personid", Long.valueOf(2)}, {"lastname", "emp2Last"}};
-    private static Object[][] publicPutMethod5 =
+    private static final Object[][] publicPutMethod5 =
         {{"personid", Long.valueOf(5)}, {"lastname", "emp5Last"}};
     
     /**

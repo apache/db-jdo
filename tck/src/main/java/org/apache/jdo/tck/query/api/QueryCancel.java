@@ -191,9 +191,9 @@ public class QueryCancel extends QueryTest {
     /** Runnable class executing the query. */
     class QueryExecutor implements Runnable {
 
-        PersistenceManager pm;
-        CyclicBarrier barrier;
-        Query<?> query;
+        final PersistenceManager pm;
+        final CyclicBarrier barrier;
+        final Query<?> query;
         
         QueryExecutor(PersistenceManager pm, Query<?> query, CyclicBarrier barrier) {
             this.pm = pm;

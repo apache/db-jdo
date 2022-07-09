@@ -46,7 +46,7 @@ public class MakePersistentNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(MakePersistentNullArgs.class);
     }
 
-    static MethodUnderTest makePersistent = new MethodUnderTestMakePersistent();
+    static final MethodUnderTest makePersistent = new MethodUnderTestMakePersistent();
     static class MethodUnderTestMakePersistent extends MethodUnderTest {
         @Override
         public Object pmApiReturn(PersistenceManager pm, Object pc) {

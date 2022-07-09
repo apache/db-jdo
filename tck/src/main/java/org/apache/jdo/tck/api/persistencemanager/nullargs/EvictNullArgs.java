@@ -46,7 +46,7 @@ public class EvictNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(EvictNullArgs.class);
     }
 
-    static MethodUnderTest evict = 
+    static final MethodUnderTest evict =
             new MethodUnderTestEvict();
     static class MethodUnderTestEvict extends MethodUnderTest {
         @Override

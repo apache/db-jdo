@@ -45,7 +45,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 public class RelationshipManyToManyNoRelationships extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
         "Assertion A15-3.14 (RelationshipManyToManyNoRelationships) failed: ";
     
     Object emp1Oid = null;

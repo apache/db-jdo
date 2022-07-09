@@ -46,7 +46,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(DeletePersistentNullArgs.class);
     }
 
-    static MethodUnderTest deletePersistent = 
+    static final MethodUnderTest deletePersistent =
             new MethodUnderTestDeletePersistent();
     static class MethodUnderTestDeletePersistent extends MethodUnderTest {
         @Override

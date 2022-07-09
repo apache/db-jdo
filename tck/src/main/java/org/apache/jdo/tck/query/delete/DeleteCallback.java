@@ -113,7 +113,7 @@ public class DeleteCallback extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private List<?>[] expectedResult = {
+    private final List<?>[] expectedResult = {
             getTransientCompanyModelInstancesAsList(
                     "emp1", "emp2", "emp3", "emp4", "emp5"),
             getTransientMylibInstancesAsList(
@@ -367,10 +367,10 @@ public class DeleteCallback extends QueryTest {
         implements DeleteLifecycleListener, StoreLifecycleListener {
         
         /** The oids of expected pc instances. */
-        private Collection<Object> expectedOids = new HashSet<>();
+        private final Collection<Object> expectedOids = new HashSet<>();
         
         /** The list of events. */
-        private List<InstanceLifecycleEvent> events = new ArrayList<>();
+        private final List<InstanceLifecycleEvent> events = new ArrayList<>();
         
         /**
          * Argument <code>expectedPCInstances</code> holds pc instances

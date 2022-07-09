@@ -51,7 +51,7 @@ public class InstanceLifecycleListenerDirty
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerDirtyImpl();
 
     /** Return the listener.
@@ -63,7 +63,7 @@ public class InstanceLifecycleListenerDirty
     /**
      * The persistent classes used for this test.
      */
-    private static Class<?>[] persistentClasses = new Class[] {PCPoint.class};
+    private final static Class<?>[] persistentClasses = new Class[] {PCPoint.class};
 
     /** Return the persistent classes.
      */

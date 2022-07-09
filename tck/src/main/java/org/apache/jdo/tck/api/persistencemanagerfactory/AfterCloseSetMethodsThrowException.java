@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+import java.lang.reflect.Method;
+
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManagerFactory;
@@ -165,12 +167,12 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     }
    
     /** */
-    class SetProperty {
+    static class SetProperty {
         
-        java.lang.reflect.Method method;
-        String methodName;
-        Class<?>[] parameters;
-        Object[] parameter;
+        private final Method method;
+        private final String methodName;
+        private final Class<?>[] parameters;
+        private final Object[] parameter;
        
         SetProperty(String methodName, Class<?>[] parameters, Object[] parameter) {
             this.methodName = methodName;
@@ -198,10 +200,10 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     }
    
     /** */
-    class GetProperty {
+    static class GetProperty {
        
-        java.lang.reflect.Method method;
-        String methodName;
+        private final Method method;
+        private final String methodName;
        
         GetProperty(String methodName) {
             this.methodName = methodName;

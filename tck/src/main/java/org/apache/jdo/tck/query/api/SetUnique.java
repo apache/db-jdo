@@ -44,7 +44,7 @@ public class SetUnique extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientCompanyModelInstance("emp1"),
         getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5")
     };

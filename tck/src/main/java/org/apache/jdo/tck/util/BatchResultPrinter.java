@@ -218,7 +218,7 @@ public class BatchResultPrinter
     
     private static class ErrorSummaryEntry implements Comparable<ErrorSummaryEntry> {
         private int count = 0;
-        private Throwable t;
+        private final Throwable t;
         
         private ErrorSummaryEntry(Throwable t) {
             this.t = t;

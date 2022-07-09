@@ -46,7 +46,7 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(DetachCopyNullArgs.class);
     }
 
-    static MethodUnderTest detachCopy = new MethodUnderTestDetachCopy();
+    static final MethodUnderTest detachCopy = new MethodUnderTestDetachCopy();
     static class MethodUnderTestDetachCopy extends MethodUnderTest {
         @Override
         public Object pmApiReturn(PersistenceManager pm, Object pc) {

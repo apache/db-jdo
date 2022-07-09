@@ -30,14 +30,14 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
     
-    protected PersistenceManager pm;
+    protected final PersistenceManager pm;
     
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging is enabled. */
-    protected boolean debug = logger.isDebugEnabled();
+    protected final boolean debug = logger.isDebugEnabled();
     
     /**
      * Creates a new instance of CompanyFactoryAbstractImpl

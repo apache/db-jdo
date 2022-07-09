@@ -99,7 +99,7 @@ public class SetterReplacePreviousValues extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         // replace parameter declaration
         getTransientCompanyModelInstancesAsList("dept1"),
         // replace filter setting

@@ -62,7 +62,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
     private int attempts = 0;
 
     /** The number of inserters. Each inserter runs in its own thread. */
-    private int inserters = 5;
+    private final int inserters = 5;
 
     /** The number of objects inserted. */
     protected int insertedCount = 0;

@@ -43,7 +43,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
         "Assertion A15-3.14 (Relationship1ToManyNoRelationships) failed: ";
     
     Object emp1Oid = null;
@@ -166,7 +166,7 @@ public class Relationship1ToManyNoRelationships extends AbstractRelationshipTest
             Department deptNew = new Department(99L, "The New Department");
             emp1.setDepartment(deptNew);
             pm.makePersistent(deptNew);
-            Object deptNewOid = pm.getObjectId((Object)deptNew);
+            Object deptNewOid = pm.getObjectId(deptNew);
             pm.flush();
             
             assertFalse(testMethod + ": Test aborted, precondition is false; " +

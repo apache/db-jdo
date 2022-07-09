@@ -46,7 +46,7 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
         if (isTestToBePerformed()) {
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
-            reader = new CompanyModelReader(inputFilename);
+            reader = new CompanyModelReader(INPUT_FILENAME);
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
@@ -59,17 +59,17 @@ public class AbstractRelationshipTest extends AbstractReaderTest {
             }
             // DO THIS
             // in xmlBeanFactory String[] getBeanDefinitionNames()
-            oidMap.put("emp1", pm.getObjectId(reader.getEmployee("emp1")));
-            oidMap.put("emp2", pm.getObjectId(reader.getEmployee("emp2")));
-            oidMap.put("emp4", pm.getObjectId(reader.getEmployee("emp4")));
-            oidMap.put("medicalIns1",
+            OID_MAP.put("emp1", pm.getObjectId(reader.getEmployee("emp1")));
+            OID_MAP.put("emp2", pm.getObjectId(reader.getEmployee("emp2")));
+            OID_MAP.put("emp4", pm.getObjectId(reader.getEmployee("emp4")));
+            OID_MAP.put("medicalIns1",
                 pm.getObjectId(reader.getMedicalInsurance("medicalIns1")));
-            oidMap.put("medicalIns2",
+            OID_MAP.put("medicalIns2",
                 pm.getObjectId(reader.getMedicalInsurance("medicalIns2")));
-            oidMap.put("dept1", pm.getObjectId(reader.getDepartment("dept1")));
-            oidMap.put("dept2", pm.getObjectId(reader.getDepartment("dept2")));
-            oidMap.put("proj1", pm.getObjectId(reader.getProject("proj1")));
-            oidMap.put("proj2", pm.getObjectId(reader.getProject("proj2")));
+            OID_MAP.put("dept1", pm.getObjectId(reader.getDepartment("dept1")));
+            OID_MAP.put("dept2", pm.getObjectId(reader.getDepartment("dept2")));
+            OID_MAP.put("proj1", pm.getObjectId(reader.getProject("proj1")));
+            OID_MAP.put("proj2", pm.getObjectId(reader.getProject("proj2")));
              
             pm.currentTransaction().commit();
             cleanupPM();

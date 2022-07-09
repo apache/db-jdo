@@ -71,10 +71,10 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
     private PCPoint c6 = null;
     private PCPoint c7 = null;
 
-    private Collection<PCPoint> pcol1 = new HashSet<>();
-    private Collection<PCPoint> pcol2 = new HashSet<>();
-    private Collection<PCPoint> ccol1 = new HashSet<>();
-    private Collection<PCPoint> ccol2 = new HashSet<>();
+    private final Collection<PCPoint> pcol1 = new HashSet<>();
+    private final Collection<PCPoint> pcol2 = new HashSet<>();
+    private final Collection<PCPoint> ccol1 = new HashSet<>();
+    private final Collection<PCPoint> ccol2 = new HashSet<>();
 
     /** */
     public void testMakeNontransactional() {

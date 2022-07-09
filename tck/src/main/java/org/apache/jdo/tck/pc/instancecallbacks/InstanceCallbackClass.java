@@ -42,18 +42,18 @@ public class InstanceCallbackClass implements InstanceCallbacks {
     public static int objectState;
        
     // The rest of these variables used in FieldsInPredelete tests, except to set a variable to make object dirty.
-    public static int arraySize = 5;
-    public static String[] capturedName = new String[arraySize];
-    public static Date[] capturedTimeStamp = new Date[arraySize];
-    public static double[] capturedDoubleValue = new double[arraySize];
-    public static short[] capturedChildToDelete = new short[arraySize];
-    public static char[] capturedCharValue = new char[arraySize];
-    public static String[] capturedNextObjName = new String[arraySize];
-    public static int[] numberOfChildren = new int[arraySize];
-    public static int[] sumOfChildrenIntValue = new int[arraySize];
-    public static boolean[] processedIndex = new boolean[arraySize];
+    public static final int arraySize = 5;
+    public static final String[] capturedName = new String[arraySize];
+    public static final Date[] capturedTimeStamp = new Date[arraySize];
+    public static final double[] capturedDoubleValue = new double[arraySize];
+    public static final short[] capturedChildToDelete = new short[arraySize];
+    public static final char[] capturedCharValue = new char[arraySize];
+    public static final String[] capturedNextObjName = new String[arraySize];
+    public static final int[] numberOfChildren = new int[arraySize];
+    public static final int[] sumOfChildrenIntValue = new int[arraySize];
+    public static final boolean[] processedIndex = new boolean[arraySize];
     
-    public static boolean[] transactionActive = new boolean[arraySize];
+    public static final boolean[] transactionActive = new boolean[arraySize];
     
     private static int nextKeyValue = 1;
     private int keyValue;  // persistent--used as key field in application identity

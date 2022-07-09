@@ -41,7 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 public class Relationship1To1AllRelationships extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
         "Assertion A15-3.14 (Relationship1To1AllRelationships) failed: ";
     
     /**

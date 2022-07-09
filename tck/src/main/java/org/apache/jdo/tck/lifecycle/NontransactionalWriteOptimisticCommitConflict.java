@@ -81,7 +81,7 @@ public class NontransactionalWriteOptimisticCommitConflict
         createAndModifyVersionedPCPoint();
         conflictingUpdate();
         beginAndCommitTransactionFails(location, true);
-        checkXValue(location, conflictXValue);
+        checkXValue(location, CONFLICT_XVALUE);
         failOnError();
     }
 

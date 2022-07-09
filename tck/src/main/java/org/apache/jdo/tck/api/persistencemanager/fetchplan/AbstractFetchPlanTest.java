@@ -51,13 +51,13 @@ public class AbstractFetchPlanTest extends JDO_Test {
 
     /** The String arrays used for setting fetch groups.
      */
-    protected String[] defaultGroup = new String[]
+    protected final String[] defaultGroup = new String[]
         {"default"};
-    protected String[] upperLeftGroup = new String[]
+    protected final String[] upperLeftGroup = new String[]
         {"default", "PCRect.upperLeft"};
-    protected String[] lowerRightGroup = new String[]
+    protected final String[] lowerRightGroup = new String[]
         {"default", "PCRect.lowerRight"};
-    protected String[] bothGroup = new String[]{
+    protected final String[] bothGroup = new String[]{
         "default", "PCRect.upperLeft", "PCRect.lowerRight"};
     /**
      * @see org.apache.jdo.tck.JDO_Test#localSetUp()

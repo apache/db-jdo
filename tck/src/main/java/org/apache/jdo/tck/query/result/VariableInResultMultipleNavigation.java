@@ -67,17 +67,17 @@ public class VariableInResultMultipleNavigation extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object company1 = getTransientCompanyModelInstance("company1");
-    private Object emp1 = getTransientCompanyModelInstance("emp1");
-    private Object emp2 = getTransientCompanyModelInstance("emp2");
-    private Object emp3 = getTransientCompanyModelInstance("emp3");
-    private Object emp4 = getTransientCompanyModelInstance("emp4");
-    private Object emp5 = getTransientCompanyModelInstance("emp5");
-    private Object proj1 = getTransientCompanyModelInstance("proj1");
-    private Object proj2 = getTransientCompanyModelInstance("proj2");
-    private Object proj3 = getTransientCompanyModelInstance("proj3");
-    private Object dept1 = getTransientCompanyModelInstance("dept1");
-    private Object dept2 = getTransientCompanyModelInstance("dept2");
+    private final Object company1 = getTransientCompanyModelInstance("company1");
+    private final Object emp1 = getTransientCompanyModelInstance("emp1");
+    private final Object emp2 = getTransientCompanyModelInstance("emp2");
+    private final Object emp3 = getTransientCompanyModelInstance("emp3");
+    private final Object emp4 = getTransientCompanyModelInstance("emp4");
+    private final Object emp5 = getTransientCompanyModelInstance("emp5");
+    private final Object proj1 = getTransientCompanyModelInstance("proj1");
+    private final Object proj2 = getTransientCompanyModelInstance("proj2");
+    private final Object proj3 = getTransientCompanyModelInstance("proj3");
+    private final Object dept1 = getTransientCompanyModelInstance("dept1");
+    private final Object dept2 = getTransientCompanyModelInstance("dept2");
 
     /**
      * The <code>main</code> is called when the class

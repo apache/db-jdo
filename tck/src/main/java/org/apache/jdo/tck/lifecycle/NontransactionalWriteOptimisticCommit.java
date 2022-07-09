@@ -76,7 +76,7 @@ public class NontransactionalWriteOptimisticCommit
         createAndModifyVersionedPCPoint();
         beginAndCommitTransaction(true);
         checkXValue(ASSERTION_FAILED + "after optimistic commit",
-                newXValue);
+                NEW_XVALUE);
         failOnError();
     }
 

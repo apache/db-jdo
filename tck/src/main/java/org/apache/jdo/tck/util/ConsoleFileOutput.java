@@ -31,7 +31,7 @@ import java.io.PrintStream;
  */
 class ConsoleFileOutput extends OutputStream {
 
-    private String fileName;
+    private final String fileName;
     private final PrintStream systemOut = System.out;
     private FileOutputStream fileOut;
     

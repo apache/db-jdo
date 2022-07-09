@@ -46,7 +46,7 @@ public class RefreshNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(RefreshNullArgs.class);
     }
 
-    static MethodUnderTest refresh = 
+    static final MethodUnderTest refresh =
             new MethodUnderTestRefresh();
     static class MethodUnderTestRefresh extends MethodUnderTest {
         @Override

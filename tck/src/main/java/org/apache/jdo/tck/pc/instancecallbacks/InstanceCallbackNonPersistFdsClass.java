@@ -40,9 +40,9 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     public static float savedFloatValue;
     
     public static Date savedLoadTime;
-    public static String member1 = "one";
-    public static String member2 = "two";
-    public static String member3 = "three";
+    public static final String member1 = "one";
+    public static final String member2 = "two";
+    public static final String member3 = "three";
     
     public static boolean preClearCalled = false;
     public static boolean preStoreCalled = false;
@@ -51,8 +51,8 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     public static boolean postloadCalledMultipleTimes = false;
     
     // used in CallingJdoPostload test
-    public static int beforeGetObjectById = 1;
-    public static int afterGetObjectById = 2;
+    public static final int beforeGetObjectById = 1;
+    public static final int afterGetObjectById = 2;
     public static int savedApplicationStep;
     public static int applicationStep;  // values are 0, beforeGetObjectById and afterGetObjectById 
     

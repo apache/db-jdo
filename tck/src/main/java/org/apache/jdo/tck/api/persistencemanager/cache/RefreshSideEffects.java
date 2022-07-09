@@ -126,9 +126,9 @@ public class RefreshSideEffects extends PersistenceManagerTest {
     /** */
     class RefreshThreadT1 implements Runnable {
 
-        PersistenceManager pm;
-        RefreshThreadT2 other;
-        boolean commitDone;
+        private final PersistenceManager pm;
+        private RefreshThreadT2 other;
+        private boolean commitDone;
 
         /** */
         RefreshThreadT1(PersistenceManager pm) {
@@ -186,9 +186,9 @@ public class RefreshSideEffects extends PersistenceManagerTest {
     /** */
     class RefreshThreadT2 implements Runnable {
 
-        PersistenceManager pm;
-        RefreshThreadT1 other;
-        boolean done;
+        private final PersistenceManager pm;
+        private RefreshThreadT1 other;
+        private boolean done;
     
         /** */
         RefreshThreadT2(PersistenceManager pm) {

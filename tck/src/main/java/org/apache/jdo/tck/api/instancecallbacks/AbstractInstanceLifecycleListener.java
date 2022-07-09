@@ -242,7 +242,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
          * are used during collection of events and both names and values
          * are used for reporting results.
          */
-        private static List<String> locations = new ArrayList<>();
+        private final static List<String> locations = new ArrayList<>();
 
         /** These are indexes into the sequence array. Each index
          * represents the position in the sequence array for the
@@ -323,7 +323,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
             POST_STORE_LISTENER = index++;
         }
 
-        private int[] actual = new int[locations.size()];
+        private final int[] actual = new int[locations.size()];
 
         /** Track the current sequence of callbacks.
          */
@@ -351,7 +351,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
         /** 
          * The error message buffer to report exceptions.
          */
-        protected StringBuffer messages = new StringBuffer();
+        protected final StringBuffer messages = new StringBuffer();
         
         protected void checkEventType(String where, int expected, int actual) {
             if (expected != actual) {

@@ -123,12 +123,12 @@ public class FieldWithSameNameInSuperclass extends TestParts {
 
             try {  // retrieve object created in previous transaction
                 a = (FieldSameName4) pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
         
                 // verify referenced persistent object contains correct values
                 b = a.getThirdObj();
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
                 }
             }
             catch (JDOUserException e) {
@@ -191,9 +191,9 @@ public class FieldWithSameNameInSuperclass extends TestParts {
             t.rollback();
         
             // verify objects revert back to transient after rollback
-            checkPersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.getDoubleB(), c.getIntB(), c.getShortF(), c.getThirdObj(), c.getIntH());
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.getFloatE(), c.getSecondObj());
-            checkNonpersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 10, c.getIntA(), c.getCharC(), c.getBooleanD(), c.getShortG(), c.getFourthObj());
+            checkPersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.getDoubleB(), c.getIntB(), c.getShortF(), c.getThirdObj(), c.getIntH());
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.getFloatE(), c.getSecondObj());
+            checkNonpersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 10, c.getIntA(), c.getCharC(), c.getBooleanD(), c.getShortG(), c.getFourthObj());
         
             t.begin();
         
@@ -209,10 +209,10 @@ public class FieldWithSameNameInSuperclass extends TestParts {
         
             try {  // retrieve object created in previous transaction
                 a = (FieldSameName4) pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 1, a.getDoubleB(), a.getIntB(), a.getShortF(), a.getThirdObj(), a.getIntH());
                 b = a.getThirdObj();
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 3, b.getDoubleB(), b.getIntB(), b.getShortF(), b.getThirdObj(), b.getIntH());
                 }
             }
             catch (JDOUserException e) {

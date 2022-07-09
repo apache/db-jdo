@@ -46,7 +46,7 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(MakeTransientNullArgs.class);
     }
 
-    static MethodUnderTest makeTransient = 
+    static final MethodUnderTest makeTransient =
             new MethodUnderTestMakeTransient();
     static class MethodUnderTestMakeTransient extends MethodUnderTest {
         @Override

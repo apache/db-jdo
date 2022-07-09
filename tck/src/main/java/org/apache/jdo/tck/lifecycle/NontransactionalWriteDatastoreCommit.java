@@ -76,7 +76,7 @@ public class NontransactionalWriteDatastoreCommit
         createAndModifyVersionedPCPoint();
         beginAndCommitTransaction(false);
         checkXValue(ASSERTION_FAILED + "after datastore commit",
-                newXValue);
+                NEW_XVALUE);
         failOnError();
     }
 

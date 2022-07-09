@@ -90,8 +90,8 @@ public class GetProperties extends JDO_Test implements Constants {
 
     private Collection<String> supportedOptions;
     private Set<String> supportedProperties;
-    private static Set<TestProperty> testRequiredProperties = new HashSet<>();
-    private static Map<String, Set<TestProperty>> testOptionalProperties = new HashMap<>();
+    private static final Set<TestProperty> testRequiredProperties = new HashSet<>();
+    private static final Map<String, Set<TestProperty>> testOptionalProperties = new HashMap<>();
 
     private interface TestProperty {
         void test(PersistenceManager pm, Set<String> supportedProperties);
@@ -102,11 +102,12 @@ public class GetProperties extends JDO_Test implements Constants {
     }
 
     abstract class AbstractTestProperty implements TestProperty {
-        String propertyName;
-        Object testValue1;
-        Object testValue2;
+        final String propertyName;
+        final Object testValue1;
+        final Object testValue2;
         protected String messageForNullResult = ASSERTION_FAILED_12_19_5;
         protected String messageForWrongResultAfterSet = ASSERTION_FAILED_12_19_5;
+
         AbstractTestProperty(String propertyName, Object testValue1, Object testValue2) {
             this.propertyName = propertyName;
             this.testValue1 = testValue1;
@@ -174,92 +175,92 @@ public class GetProperties extends JDO_Test implements Constants {
         }
     };
 
-    private TestProperty testCopyOnAttach = 
+    private final TestProperty testCopyOnAttach =
            new AbstractAPITestProperty(PROPERTY_COPY_ON_ATTACH, true, false) {
         public Object get(PersistenceManager pm) {return pm.getCopyOnAttach();}
         public void set(PersistenceManager pm, Object value) {pm.setCopyOnAttach((Boolean) value);}
     };
 
-    private TestProperty testDatastoreReadTimeoutMillis = 
+    private final TestProperty testDatastoreReadTimeoutMillis =
             new AbstractAPITestProperty(PROPERTY_DATASTORE_READ_TIMEOUT_MILLIS, 20, 40) {
         public Object get(PersistenceManager pm) {return pm.getDatastoreReadTimeoutMillis();}
         public void set(PersistenceManager pm, Object value) {pm.setDatastoreReadTimeoutMillis((Integer) value);}
     };
 
-    private TestProperty testDatastoreWriteTimeoutMillis = 
+    private final TestProperty testDatastoreWriteTimeoutMillis =
             new AbstractAPITestProperty(PROPERTY_DATASTORE_WRITE_TIMEOUT_MILLIS, 60, 80) {
         public Object get(PersistenceManager pm) {return pm.getDatastoreWriteTimeoutMillis();}
         public void set(PersistenceManager pm, Object value) {pm.setDatastoreWriteTimeoutMillis((Integer) value);}
     };
 
-    private TestProperty testMultithreaded = 
+    private final TestProperty testMultithreaded =
             new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
         public void set(PersistenceManager pm, Object value) {pm.setMultithreaded((Boolean) value);}
     };
 
-    private TestProperty testLowerCaseMultithreaded = 
+    private final TestProperty testLowerCaseMultithreaded =
             new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
         public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
         public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.multithreaded", value);}
     };
 
-    private TestProperty testUpperCaseMultithreaded = 
+    private final TestProperty testUpperCaseMultithreaded =
         new AbstractAPITestProperty(PROPERTY_MULTITHREADED, true, false) {
     public Object get(PersistenceManager pm) {return pm.getMultithreaded();}
     public void set(PersistenceManager pm, Object value) {pm.setProperty("javax.jdo.option.MULTITHREADED", value);}
 };
 
-    private TestProperty testDetachAllOnCommit =
+    private final TestProperty testDetachAllOnCommit =
             new AbstractAPITestProperty(PROPERTY_DETACH_ALL_ON_COMMIT, true, false) {
         public Object get(PersistenceManager pm) {return pm.getDetachAllOnCommit();}
         public void set(PersistenceManager pm, Object value) {pm.setDetachAllOnCommit((Boolean) value);}
     };
 
-    private TestProperty testIgnoreCache =
+    private final TestProperty testIgnoreCache =
             new AbstractAPITestProperty(PROPERTY_IGNORE_CACHE, true, false) {
         public Object get(PersistenceManager pm) {return pm.getIgnoreCache();}
         public void set(PersistenceManager pm, Object value) {pm.setIgnoreCache((Boolean) value);}
     };
 
-    private TestProperty testOptimistic =
+    private final TestProperty testOptimistic =
             new AbstractAPITestProperty(PROPERTY_OPTIMISTIC, true, false) {
         public Object get(PersistenceManager pm) {return pm.currentTransaction().getOptimistic();}
         public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setOptimistic((Boolean) value);}
     };
 
-    private TestProperty testRetainValues =
+    private final TestProperty testRetainValues =
             new AbstractAPITestProperty(PROPERTY_RETAIN_VALUES, true, false) {
         public Object get(PersistenceManager pm) {return pm.currentTransaction().getRetainValues();}
         public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setRetainValues((Boolean) value);}
     };
 
-    private TestProperty testRestoreValues =
+    private final TestProperty testRestoreValues =
             new AbstractAPITestProperty(PROPERTY_RESTORE_VALUES, true, false) {
         public Object get(PersistenceManager pm) {return pm.currentTransaction().getRestoreValues();}
         public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setRestoreValues((Boolean) value);}
     };
 
-    private TestProperty testNontransactionalRead =
+    private final TestProperty testNontransactionalRead =
             new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_READ, true, false) {
         public Object get(PersistenceManager pm) {return pm.currentTransaction().getNontransactionalRead();}
         public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setNontransactionalRead((Boolean) value);}
     };
 
-    private TestProperty testNontransactionalWrite =
+    private final TestProperty testNontransactionalWrite =
             new AbstractAPITestProperty(PROPERTY_NONTRANSACTIONAL_WRITE, true, false) {
         public Object get(PersistenceManager pm) {return pm.currentTransaction().getNontransactionalWrite();}
         public void set(PersistenceManager pm, Object value) {pm.currentTransaction().setNontransactionalWrite((Boolean) value);}
     };
 
-    private TestProperty testIllegalArgument = 
+    private final TestProperty testIllegalArgument =
         new AbstractNonAPITestProperty(PROPERTY_IGNORE_CACHE, 1, false) { 
     };
 
     private Set<TestProperty> setOf(TestProperty... testPropertys) {
         Set<TestProperty> result = new HashSet<>();
         for (TestProperty testProperty: testPropertys) {
-         result.add(testProperty);
+            result.add(testProperty);
         }
         return result;
     }

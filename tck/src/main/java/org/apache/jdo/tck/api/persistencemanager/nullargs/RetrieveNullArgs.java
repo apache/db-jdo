@@ -46,7 +46,7 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(RetrieveNullArgs.class);
     }
 
-    static MethodUnderTest retrieve = 
+    static final MethodUnderTest retrieve =
             new MethodUnderTestRetrieve();
     static class MethodUnderTestRetrieve extends MethodUnderTest {
         @Override

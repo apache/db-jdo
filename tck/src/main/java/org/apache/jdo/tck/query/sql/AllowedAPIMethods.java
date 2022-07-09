@@ -72,7 +72,7 @@ public class AllowedAPIMethods extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientMylibInstancesAsList(
                 "primitiveTypesPositive", 
                 "primitiveTypesNegative",

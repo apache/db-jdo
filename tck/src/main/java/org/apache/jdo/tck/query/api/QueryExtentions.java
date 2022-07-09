@@ -44,13 +44,13 @@ public class QueryExtentions extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.9-1 (QueryExtentions) failed: ";
     
-    private static String singleStringQuery = 
+    private static final String SINGLE_STRING_QUERY =
         "SELECT FROM " + Person.class.getName();
 
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(
                 "emp1", "emp2", "emp3", "emp4", "emp5")
     };
@@ -67,12 +67,12 @@ public class QueryExtentions extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query<Person> query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         Map<String, String> extentions = new HashMap<>();
         extentions.put("unknown key 1", "unknown value 1");
         query.setExtensions(extentions);
         query.addExtension("unknown key 2", "unknown value 2");
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 false, null, expectedResult[index], true);
     }
 

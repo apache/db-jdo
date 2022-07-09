@@ -76,7 +76,7 @@ public class NontransactionalWriteDatastoreRollback
         createAndModifyVersionedPCPoint();
         beginAndRollbackTransaction(false);
         checkXValue(ASSERTION_FAILED + "after datastore rollback",
-                originalXValue);
+                ORIGINAL_XVALUE);
         failOnError();
     }
 

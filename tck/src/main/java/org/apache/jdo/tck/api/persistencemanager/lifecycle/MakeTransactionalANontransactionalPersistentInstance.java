@@ -62,8 +62,8 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
     private PCPoint p6 = null;
     private PCPoint p7 = null;
 
-    private Collection<PCPoint> col1 = new HashSet<>();
-    private Collection<PCPoint> col2 = new HashSet<>();
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransactionalInstance() {

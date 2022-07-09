@@ -89,7 +89,7 @@ public class TestUtil {
       return fieldSpecs;
   }
 
-  public static String [] elementTypes = new String[]
+  public static final String [] elementTypes = new String[]
             {"Object", "SimpleClass", "SimpleInterface",
             "String", "Date", "Locale", "BigDecimal",
             "BigInteger", "Byte", "Double", "Float",

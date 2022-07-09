@@ -58,7 +58,7 @@ public class JDOConfigListener extends JDO_Test {
     // Do not use superclass pmf, pm
     private PersistenceManagerFactory pmf = null;
     private PersistenceManager pm = null;
-    private Map<String, String> overrides = new HashMap<>();
+    private final Map<String, String> overrides = new HashMap<>();
 
     /**
      * The <code>main</code> is called when the class

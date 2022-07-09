@@ -62,7 +62,7 @@ public class NoCandidateClass extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[]{
                 new Object[]{"emp1First", "emp1Last"},
                 new Object[]{"emp2First", "emp2Last"},

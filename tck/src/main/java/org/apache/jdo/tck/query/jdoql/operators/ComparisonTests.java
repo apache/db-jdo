@@ -32,28 +32,28 @@ public abstract class ComparisonTests extends JDO_Test {
     protected Transaction           tx;
     protected List<AllTypes>        queryResult;
         
-    protected static    String      BooleanParameter = "Boolean value";
-    protected static    String      booleanParameter = "boolean value";
-    protected static    String      ByteParameter = "Byte value";
-    protected static    String      byteParameter = "byte value";
-    protected static    String      CharacterParameter = "Character value";
-    protected static    String      charParameter = "char value";
-    protected static    String      DoubleParameter = "Double value";
-    protected static    String      doubleParameter = "double value";
-    protected static    String      FloatParameter = "Float value";
-    protected static    String      floatParameter = "float value";
-    protected static    String      IntegerParameter = "Integer value";
-    protected static    String      intParameter = "int value";
-    protected static    String      LongParameter = "Long value";
-    protected static    String      longParameter = "long value";
-    protected static    String      ShortParameter = "Short value";
-    protected static    String      shortParameter = "short value";
-    protected static    String      StringParameter = "String value";
-    protected static    String      LocaleParameter = "java.util.Locale value";
-    protected static    String      BigDecimalParameter = "java.math.BigDecimal value";
-    protected static    String      BigIntegerParameter = "java.math.BigInteger value";
-    protected static    String      DateParameter = "java.util.Date value";
-    protected static    String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
+    protected static final String      BooleanParameter = "Boolean value";
+    protected static final String      booleanParameter = "boolean value";
+    protected static final String      ByteParameter = "Byte value";
+    protected static final String      byteParameter = "byte value";
+    protected static final String      CharacterParameter = "Character value";
+    protected static final String      charParameter = "char value";
+    protected static final String      DoubleParameter = "Double value";
+    protected static final String      doubleParameter = "double value";
+    protected static final String      FloatParameter = "Float value";
+    protected static final String      floatParameter = "float value";
+    protected static final String      IntegerParameter = "Integer value";
+    protected static final String      intParameter = "int value";
+    protected static final String      LongParameter = "Long value";
+    protected static final String      longParameter = "long value";
+    protected static final String      ShortParameter = "Short value";
+    protected static final String      shortParameter = "short value";
+    protected static final String      StringParameter = "String value";
+    protected static final String      LocaleParameter = "java.util.Locale value";
+    protected static final String      BigDecimalParameter = "java.math.BigDecimal value";
+    protected static final String      BigIntegerParameter = "java.math.BigInteger value";
+    protected static final String      DateParameter = "java.util.Date value";
+    protected static final String      AllTypesParameter = "org.apache.jdo.tck.pc.fieldtypes.AllTypes value";
 
     /**
      *

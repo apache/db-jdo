@@ -64,7 +64,7 @@ public class NewQuerySingleString extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientCompanyModelInstancesAsList(
                 "emp1", "emp2", "emp3", "emp4", "emp5")
     };

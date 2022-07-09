@@ -49,7 +49,7 @@ public class Jdoconfig extends JDO_Test {
     // Do not use superclass pmf, pm
     private PersistenceManagerFactory privatePmf = null;
     private PersistenceManager privatePm = null;
-    private Map<String, String> overrides = new HashMap<>();
+    private final Map<String, String> overrides = new HashMap<>();
 
     /**
      * The <code>main</code> is called when the class

@@ -111,12 +111,12 @@ public class NonpersistentSuperClass extends TestParts {
             
             try {  // retrieve object created in previous transaction
                 a = (TopNonPersistH)pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
         
                 // verify referenced persistent object contains correct values
                 b = a.thirdObj;
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterCommit, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_COMMIT, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
                 }
             }
             catch (JDOUserException e) {
@@ -179,9 +179,9 @@ public class NonpersistentSuperClass extends TestParts {
             t.rollback();
         
             // verify objects revert back to transient after rollback
-            checkPersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.doubleB, c.intB, c.shortF, c.thirdObj, c.intH);
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.floatE, c.secondObj);
-            checkNonpersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
+            checkPersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.doubleB, c.intB, c.shortF, c.thirdObj, c.intH);
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.floatE, c.secondObj);
+            checkNonpersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
         
             t.begin();
         
@@ -197,10 +197,10 @@ public class NonpersistentSuperClass extends TestParts {
         
             try {  // retrieve object created in previous transaction
                 a = (TopNonPersistH)pm.getObjectById(objPtrA, true);
-                checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
+                checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 1, a.doubleB, a.intB, a.shortF, a.thirdObj, a.intH);
                 b = a.thirdObj;
                 if(b != null) {  // if previous error caused b to be null, then these tests cannot be performed.
-                    checkPersistentAreCorrect(ASSERTION_FAILED, persistentAfterRollback, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
+                    checkPersistentAreCorrect(ASSERTION_FAILED, PERSISTENT_AFTER_ROLLBACK, 3, b.doubleB, b.intB, b.shortF, b.thirdObj, b.intH);
                 }
             }
             catch (JDOUserException e) {

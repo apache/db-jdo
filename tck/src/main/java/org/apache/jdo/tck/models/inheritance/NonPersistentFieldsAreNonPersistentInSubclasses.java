@@ -109,7 +109,7 @@ public class NonPersistentFieldsAreNonPersistentInSubclasses extends TestParts {
             t = null;
         
             // verify objects revert back to transient after rollback
-            checkNonpersistentAreCorrect(ASSERTION_FAILED, transientAfterRollback, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
+            checkNonpersistentAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 10, c.intA, c.charC, c.booleanD, c.shortG, c.fourthObj);
         }
         finally {
             if ((t != null) && t.isActive())

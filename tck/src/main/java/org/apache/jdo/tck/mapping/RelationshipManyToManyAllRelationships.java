@@ -46,7 +46,7 @@ public class RelationshipManyToManyAllRelationships
         extends AbstractRelationshipTest {
     
     String testMethod = null;
-    protected String ASSERTION_FAILED =
+    private static final String ASSERTION_FAILED =
             "Assertion A15-3.14 (RelationshipManyToManyAllRelationships) failed: ";
 
             Object emp1Oid = null;

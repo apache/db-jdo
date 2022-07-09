@@ -220,11 +220,11 @@ public abstract class JDO_Test extends TestCase {
     protected boolean testSucceeded;
 
     /** Logger */
-    protected Log logger = 
+    protected final Log logger =
         LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
     /** true if debug logging in enabled. */
-    protected boolean debug = logger.isDebugEnabled();
+    protected final boolean debug = logger.isDebugEnabled();
     
     /** 
      * Indicates an exception thrown in method <code>tearDown</code>.
@@ -236,13 +236,13 @@ public abstract class JDO_Test extends TestCase {
      * A list of registered oid instances. 
      * Corresponding pc instances are deleted in <code>localTearDown</code>.
      */
-    private Collection<Object> tearDownInstances = new LinkedList<>();
+    private final Collection<Object> tearDownInstances = new LinkedList<>();
     
     /** 
      * A list of registered pc classes. 
      * The extents of these classes are deleted in <code>localTearDown</code>.
      */
-    private Collection<Class<?>> tearDownClasses = new LinkedList<>();
+    private final Collection<Class<?>> tearDownClasses = new LinkedList<>();
     
     /**
      * Intended for subclasses so that they may skip this class's normal set up procedure.

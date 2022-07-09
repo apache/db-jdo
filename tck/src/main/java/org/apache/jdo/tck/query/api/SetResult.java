@@ -47,7 +47,7 @@ public class SetResult extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList("emp1Last", "emp2Last", "emp3Last", "emp4Last", "emp5Last")
     };
             

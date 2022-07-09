@@ -76,7 +76,7 @@ public class NontransactionalWriteOptimisticRollback
         createAndModifyVersionedPCPoint();
         beginAndRollbackTransaction(true);
         checkXValue(ASSERTION_FAILED + "after optimistic rollback",
-                originalXValue);
+                ORIGINAL_XVALUE);
         failOnError();
     }
 

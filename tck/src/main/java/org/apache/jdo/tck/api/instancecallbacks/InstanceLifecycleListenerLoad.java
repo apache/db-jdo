@@ -46,7 +46,7 @@ public class InstanceLifecycleListenerLoad
     /**
      * The InstanceLifecycleListener used for this test
      */
-    InstanceLifecycleListenerImpl listener = 
+    private final InstanceLifecycleListenerImpl listener =
             new InstanceLifecycleListenerLoadImpl();
 
     /** Return the listener.
@@ -58,7 +58,7 @@ public class InstanceLifecycleListenerLoad
     /**
      * The persistent classes used for this test.
      */
-    private static Class<?>[] persistentClasses = new Class[] {PC.class};
+    private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
      */

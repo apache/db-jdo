@@ -46,7 +46,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(MakeNontransactionalNullArgs.class);
     }
 
-    static MethodUnderTest makeNontransactional = 
+    static final MethodUnderTest makeNontransactional =
             new MethodUnderTestMakeNontransactional();
     static class MethodUnderTestMakeNontransactional extends MethodUnderTest {
         @Override

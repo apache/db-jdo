@@ -76,10 +76,10 @@ public class SignatureVerifier {
     protected final PrintWriter log;
 
     /** Flag to print error output only. */
-    private boolean quiet;
+    private final boolean quiet;
 
     /** Flag to also print verbose output. */
-    private boolean verbose;
+    private final boolean verbose;
 
     /** The parse to be used for parsing signature descriptor files. */
     protected final Parser parser = new Parser();
@@ -1738,7 +1738,7 @@ public class SignatureVerifier {
     // ----------------------------------------------------------------------
 
     /** A writer for standard output. */
-    protected static PrintWriter out = new PrintWriter(System.out, true);
+    protected static final PrintWriter out = new PrintWriter(System.out, true);
 
     /** Command line arguments */
     public static final List<String> descrFileNames = new ArrayList<>();

@@ -88,10 +88,8 @@ public class VersionedPCPoint implements Serializable {
     public static class Oid implements Serializable {
         public long id;
 
-        /** The name of the class of the target object.
-        */
-        public static String targetClassName = 
-                "org.apache.jdo.tck.pc.mylib.VersionedPCPoint"; 
+        /** The name of the class of the target object. */
+        public static final String TARGET_CLASS_NAME = "org.apache.jdo.tck.pc.mylib.VersionedPCPoint";
 
         public Oid() {
         }
@@ -118,7 +116,7 @@ public class VersionedPCPoint implements Serializable {
          * @return the target class name.
          */
         public String getTargetClassName() {
-            return targetClassName;
+            return TARGET_CLASS_NAME;
         } 
 
     }   

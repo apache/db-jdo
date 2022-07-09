@@ -109,7 +109,7 @@ public class TransactionalFieldsAreTransactionalInSubclasses extends TestParts {
             t = null;
 
             // verify objects revert back to transient after rollback
-            checkTransactionalAreCorrect(ASSERTION_FAILED, transientAfterRollback, 8, c.floatE, c.secondObj);
+            checkTransactionalAreCorrect(ASSERTION_FAILED, TRANSIENT_AFTER_ROLLBACK, 8, c.floatE, c.secondObj);
         }
         finally {
             if ((t != null) && t.isActive())

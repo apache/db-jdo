@@ -62,7 +62,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * List of inserted instances (see methods insertPCPoints and
      * getFromInserted). 
      */
-    protected List<PCPoint> inserted = new ArrayList<>();
+    protected final List<PCPoint> inserted = new ArrayList<>();
     
     /**
      * The company model reader is used 

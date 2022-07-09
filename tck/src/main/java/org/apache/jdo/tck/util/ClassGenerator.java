@@ -67,7 +67,7 @@ public class ClassGenerator {
   private StringBuffer isFinalArray = new StringBuffer(2000);
       
   // can accomodate only 4000 fields, have to increase the capacity if the fields exceed 4000
-  private static boolean [] isFinal = new boolean[4000];
+  private static final boolean [] isFinal = new boolean[4000];
 
   void generate() throws Exception
   {

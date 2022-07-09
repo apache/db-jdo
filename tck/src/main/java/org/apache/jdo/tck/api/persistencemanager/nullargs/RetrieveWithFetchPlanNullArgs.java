@@ -45,7 +45,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
         BatchTestRunner.run(RetrieveWithFetchPlanNullArgs.class);
     }
 
-    static MethodUnderTest retrieveWithFetchPlan = 
+    static final MethodUnderTest retrieveWithFetchPlan =
             new MethodUnderTestRetrieveWithFetchPlan();
     static class MethodUnderTestRetrieveWithFetchPlan extends MethodUnderTest {
         @Override

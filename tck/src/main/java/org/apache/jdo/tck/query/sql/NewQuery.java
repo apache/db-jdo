@@ -59,13 +59,13 @@ public class NewQuery extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[]{
                 new Object[]{"emp1First", "emp1Last"}})
     };
             
     /** Parameters of valid SQL queries. */
-    private static Object[][] parameters = {
+    private static final Object[][] parameters = {
         {Integer.valueOf(1)}
     };
             

@@ -59,9 +59,8 @@ public class TransientTransactionalInstanceRetainsValuesAtCommit extends Persist
     private PCPoint p4 = null;
     private PCPoint p5 = null;
 
-    private Collection<PCPoint> col1 = new HashSet<>();
-    private Collection<PCPoint> col2 = new HashSet<>();
-
+    private final Collection<PCPoint> col1 = new HashSet<>();
+    private final Collection<PCPoint> col2 = new HashSet<>();
 
     /** */
     public void testTransientTransactionalInstanceRetainsValuesAtCommit() {

@@ -69,13 +69,13 @@ public class SingleStringQuery extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         new FullName("emp1First", "emp1Last"),
         getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5")
     };
             
     /** Parameters of valid queries. */
-    private Object[][] parameters = {
+    private final Object[][] parameters = {
         {new BigDecimal("2000")}
     };
             

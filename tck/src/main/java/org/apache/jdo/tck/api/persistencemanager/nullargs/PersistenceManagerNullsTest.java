@@ -77,8 +77,8 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     protected PCPoint pNotNull = null;
     protected Collection<?> collNullElem = null;
     protected Collection<?> expectedCollection = null;
-    protected Object[] arrayNullElem = new Object[] {null, null};
-    protected Object[] expectedArray = new Object[] {null, null};
+    protected final Object[] arrayNullElem = new Object[] {null, null};
+    protected final Object[] expectedArray = new Object[] {null, null};
     protected Collection<?> testInstances = null;
     
     /** */

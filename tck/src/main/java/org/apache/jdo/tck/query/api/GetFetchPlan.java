@@ -44,8 +44,8 @@ public class GetFetchPlan extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-21 (FetchPan) failed: ";
 
-    private String FETCH_GROUP_1 = "fetchGroup1";
-    private String FETCH_GROUP_2 = "fetchGroup2";
+    private static final String FETCH_GROUP_1 = "fetchGroup1";
+    private static final String FETCH_GROUP_2 = "fetchGroup2";
 
     /**
      * The <code>main</code> is called when the class

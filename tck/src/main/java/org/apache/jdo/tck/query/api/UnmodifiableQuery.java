@@ -47,13 +47,13 @@ public class UnmodifiableQuery extends QueryTest {
     private static final String ASSERTION_FAILED = 
         "Assertion A14.6-22 (UnmodifiableQuery) failed: ";
     
-    private static String singleStringQuery = 
+    private static final String SINGLE_STRING_QUERY =
         "SELECT firstname, lastname FROM org.apache.jdo.tck.pc.company.Person";
 
     /** 
      * The expected results of valid queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         Arrays.asList(new Object[] {
                 new FullName("emp1First", "emp1Last"), 
                 new FullName("emp2First", "emp2Last"),
@@ -74,25 +74,25 @@ public class UnmodifiableQuery extends QueryTest {
     /** */
     public void testPositive() {
         int index = 0;
-        Query<Person> query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setUnmodifiable();
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 false, null, expectedResult[index], true);
 
         query = getPM().newNamedQuery(Person.class, "unmodifiable");
         query.setResultClass(FullName.class);
         query.setRange(0, 5);
         query.setIgnoreCache(true);
-        executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
+        executeJDOQuery(ASSERTION_FAILED, query, SINGLE_STRING_QUERY,
                 false, null, expectedResult[index], true);
     }
     
     /** */
     public void testNegative() {
-        Query<Person> query = getPM().newQuery(singleStringQuery);
+        Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setUnmodifiable();
         checkSetters(query);
 

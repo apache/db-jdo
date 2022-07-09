@@ -54,10 +54,10 @@ public class AllTypes {
     private BigDecimal  fld_BigDecimal;
     private BigInteger  fld_BigInteger;
     
-    public static int   veryLargePositiveInt = Integer.MAX_VALUE - 511;
-    public static int   veryLargeNegativeInt = Integer.MIN_VALUE + 512;
+    public static final int VERY_LARGE_POSITIVE_INT = Integer.MAX_VALUE - 511;
+    public static final int VERY_LARGE_NEGATIVE_INT = Integer.MIN_VALUE + 512;
 
-    public static int  NUM_VALUES = 10;  // should equal number of elements in the following arrays
+    public static final int  NUM_VALUES = 10;  // should equal number of elements in the following arrays
     // DO NOT CHANGE THE FOLLOWING VALUES, OR MANY LINES OF CODE IN TESTS MUST CHANGE!!!
     public static final boolean[] boolean_values =
         { false, true, true, false, true, false, false, false, true, false };
@@ -76,7 +76,7 @@ public class AllTypes {
         { FLOAT_SMALLEST, FLOAT_LARGEST, 0.0f, 100.0f, 100.0f,
         50000000.0f, -234.23f, 1000000000.0f, 350.5f, -25.5f };
     public static final int[] int_values =
-        { veryLargeNegativeInt, veryLargePositiveInt, 0, 100, 100, 1000, -1000, 1000000, -1000000, 10000};
+        {VERY_LARGE_NEGATIVE_INT, VERY_LARGE_POSITIVE_INT, 0, 100, 100, 1000, -1000, 1000000, -1000000, 10000};
     public static final long[] long_values =
         { Long.MIN_VALUE, Long.MAX_VALUE, 0, 100, 100, 1000, -1000, 1000000, -1000, -1000000};
     public static final short[] short_values =
@@ -108,7 +108,7 @@ public class AllTypes {
         350.5f,         -25.5f
     };
     public static final Integer[] Integer_values = {
-        veryLargeNegativeInt, veryLargePositiveInt,
+            VERY_LARGE_NEGATIVE_INT, VERY_LARGE_POSITIVE_INT,
         0,             10000,
         100,           100,
         1000000,       -1000000,

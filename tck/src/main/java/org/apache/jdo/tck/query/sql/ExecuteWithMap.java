@@ -70,7 +70,7 @@ public class ExecuteWithMap extends QueryTest {
     /** 
      * The expected results of valid SQL queries.
      */
-    private Object[] expectedResult = {
+    private final Object[] expectedResult = {
         getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", 
                 "primitiveTypesCharacterStringLiterals"}),
@@ -123,7 +123,7 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put(new String("3dog"), "emp2Middle");
         illegalMapStringKeys.put(new String("4dog"), "New York");
     };
-    private static Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
+    private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */
     public void testSetClass() {
