@@ -118,10 +118,10 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStartsWithZero.put(Integer.valueOf(2), "emp2Middle");
         illegalMapStartsWithZero.put(Integer.valueOf(3), "New York");
 
-        illegalMapStringKeys.put(new String("1dog"), "emp2First");
-        illegalMapStringKeys.put(new String("2dog"), "emp2Last");
-        illegalMapStringKeys.put(new String("3dog"), "emp2Middle");
-        illegalMapStringKeys.put(new String("4dog"), "New York");
+        illegalMapStringKeys.put("1dog", "emp2First");
+        illegalMapStringKeys.put("2dog", "emp2Last");
+        illegalMapStringKeys.put("3dog", "emp2Middle");
+        illegalMapStringKeys.put("4dog", "New York");
     };
     private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             

@@ -703,12 +703,12 @@ public class LessThanOrEqual extends ComparisonTests {
         run_DoubleQuery(Double_filterObj, AllTypesParameter, alltypes, Double.valueOf(-999999999999.0), true, 9);
         run_DoubleQuery(Double_filterVal, null, null, Double.valueOf(100.0), false, 6);
 
-        run_StringQuery(String_filterL, StringParameter, new String("JDO"), new String("JDO"), true, 9);
-        run_StringQuery(String_filterR, StringParameter, new String("JDBC"), new String("JDBC"), false, 1);
-        alltypes.setString(new String("abcde"));
-        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, new String("abcde"), true, 3);
-        run_StringQuery(String_filterVal1, null, null, new String("Java"), false, 6);
-        run_StringQuery(String_filterVal2, null, null, new String(""), false, 1);
+        run_StringQuery(String_filterL, StringParameter, "JDO", "JDO", true, 9);
+        run_StringQuery(String_filterR, StringParameter, "JDBC", "JDBC", false, 1);
+        alltypes.setString("abcde");
+        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, "abcde", true, 3);
+        run_StringQuery(String_filterVal1, null, null, "Java", false, 6);
+        run_StringQuery(String_filterVal2, null, null, "", false, 1);
 
         BigDecimal bd = new BigDecimal("100.0");
         run_BigDecimalQuery(BigDecimal_filterL, BigDecimalParameter, bd, bd, true, 6);

@@ -130,11 +130,11 @@ public class AllTypes {
     };
 
     public static final String[] String_values = {
-        new String(""), new String("hello world"),
-        new String("JDO has a very nice persistence API"), new String("JDO"),
-        new String("Java"), new String("abcde"),
-        new String("abcdef"), new String("JDO is a breeze to use"),
-        new String("Java"), new String("Long-live JDO")
+            "", "hello world",
+            "JDO has a very nice persistence API", "JDO",
+            "Java", "abcde",
+            "abcdef", "JDO is a breeze to use",
+            "Java", "Long-live JDO"
     };
     public static final Locale[] Locale_values = {
         Locale.US, Locale.UK, Locale.FRANCE, Locale.GERMANY, Locale.CANADA,

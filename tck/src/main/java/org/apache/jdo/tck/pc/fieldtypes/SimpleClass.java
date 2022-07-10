@@ -32,7 +32,7 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable<Si
     }
     private long id = newId();
   private int intField=0;
-  private String stringField = new String("Test");
+  private String stringField = "Test";
   public SimpleClass(){};
   public SimpleClass(int intField, String stringField)
   {

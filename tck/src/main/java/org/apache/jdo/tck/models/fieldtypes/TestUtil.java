@@ -126,11 +126,11 @@ public class TestUtil {
                       vec.add(4, new SimpleClass(5, "World"));
                       break;
                   case(3):
-                      vec.add(0, new String("Hello"));
-                      vec.add(1, new String("Welcome"));
-                      vec.add(2, new String("To The"));
-                      vec.add(3, new String("Beautiful"));
-                      vec.add(4, new String("World"));
+                      vec.add(0, "Hello");
+                      vec.add(1, "Welcome");
+                      vec.add(2, "To The");
+                      vec.add(3, "Beautiful");
+                      vec.add(4, "World");
                       break;
                   case(4):
                       vec.add(0, new Date(2007908));
@@ -235,11 +235,11 @@ public class TestUtil {
                     vec.add(4, new SimpleClass(5, "Strawberries"));
                     break;
                   case(3):
-                    vec.add(0, new String("Peaches"));
-                    vec.add(1, new String("Oranges"));
-                    vec.add(2, new String("Blue Berries"));
-                    vec.add(3, new String("Apples"));
-                    vec.add(4, new String("Strawberries"));
+                    vec.add(0, "Peaches");
+                    vec.add(1, "Oranges");
+                    vec.add(2, "Blue Berries");
+                    vec.add(3, "Apples");
+                    vec.add(4, "Strawberries");
                     break;
                   case(4):
                     vec.add(0, new Date(54545));

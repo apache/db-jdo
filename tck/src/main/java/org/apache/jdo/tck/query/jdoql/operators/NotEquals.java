@@ -742,12 +742,12 @@ public class NotEquals extends ComparisonTests {
         run_DoubleQuery(Double_filterObj, AllTypesParameter, alltypes, Double.valueOf(0.0), 9);
         run_DoubleQuery(Double_filterVal, null, null, Double.valueOf(100.0), 8);
 
-        run_StringQuery(String_filterL, StringParameter, new String("JDO"), new String("JDO"), 9);
-        run_StringQuery(String_filterR, StringParameter, new String("JDBC"), new String("JDBC"), 10);
-        alltypes.setString(new String("abcde"));
-        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, new String("abcde"), 9);
-        run_StringQuery(String_filterVal1, null, null, new String("Java"), 8);
-        run_StringQuery(String_filterVal2, null, null, new String(""), 9);
+        run_StringQuery(String_filterL, StringParameter, "JDO", "JDO", 9);
+        run_StringQuery(String_filterR, StringParameter, "JDBC", "JDBC", 10);
+        alltypes.setString("abcde");
+        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, "abcde", 9);
+        run_StringQuery(String_filterVal1, null, null, "Java", 8);
+        run_StringQuery(String_filterVal2, null, null, "", 9);
 
         run_LocaleQuery(Locale_filterL, LocaleParameter, Locale.CANADA_FRENCH, Locale.CANADA_FRENCH, 10);
         run_LocaleQuery(Locale_filterR, LocaleParameter, Locale.US, Locale.US, 9);

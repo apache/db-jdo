@@ -744,12 +744,12 @@ public class Equality extends ComparisonTests {
         run_DoubleQuery(Double_filterObj, AllTypesParameter, alltypes, Double.valueOf(-25.5), 1);
         run_DoubleQuery(Double_filterVal, null, null, Double.valueOf(-25.5), 1);
 
-        run_StringQuery(String_filterL, StringParameter, new String("JDO"), new String("JDO"), 1);
-        run_StringQuery(String_filterR, StringParameter, new String("JDBC"), new String("JDBC"), 0);
-        alltypes.setString(new String("abcde"));
-        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, new String("abcde"), 1);
-        run_StringQuery(String_filterVal1, null, null, new String("Java"), 2);
-        run_StringQuery(String_filterVal2, null, null, new String(""), 1);
+        run_StringQuery(String_filterL, StringParameter, "JDO", "JDO", 1);
+        run_StringQuery(String_filterR, StringParameter, "JDBC", "JDBC", 0);
+        alltypes.setString("abcde");
+        run_StringQuery(String_filterObj, AllTypesParameter, alltypes, "abcde", 1);
+        run_StringQuery(String_filterVal1, null, null, "Java", 2);
+        run_StringQuery(String_filterVal2, null, null, "", 1);
 
         run_LocaleQuery(Locale_filterL, LocaleParameter, Locale.CANADA_FRENCH, Locale.CANADA_FRENCH, 0);
         run_LocaleQuery(Locale_filterR, LocaleParameter, Locale.US, Locale.US, 1);
