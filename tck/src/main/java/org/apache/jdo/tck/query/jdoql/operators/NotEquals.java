@@ -289,7 +289,7 @@ public class NotEquals extends ComparisonTests {
         run_charQuery(char_filterR, charParameter, Character.valueOf('z'), 'z', 8);
         run_charQuery(char_filterL, CharacterParameter, Character.valueOf(' '), ' ', 9);
         run_charQuery(char_filterR, CharacterParameter, Character.valueOf('f'), 'f', 10);
-        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), (char)Character.MIN_VALUE, 9);
+        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.MIN_VALUE, 9);
         run_charQuery(char_filterR, byteParameter, Byte.valueOf((byte)122), 'z', 8);
         run_charQuery(char_filterL, ByteParameter, Byte.valueOf((byte)'a'), 'a', 10);
         run_charQuery(char_filterR, ByteParameter, Byte.valueOf((byte)'a'), 'a', 10);
@@ -307,8 +307,8 @@ public class NotEquals extends ComparisonTests {
         run_charQuery(char_filterR, LongParameter, Long.valueOf('B'), 'B', 9);
         run_charQuery(char_filterL, floatParameter, Float.valueOf((float)123.222), 'x', 10);
         run_charQuery(char_filterR, floatParameter, Float.valueOf((float)123.222), 'x', 10);
-        run_charQuery(char_filterL, FloatParameter, Float.valueOf((float)'z'), 'z', 8);
-        run_charQuery(char_filterR, FloatParameter, Float.valueOf((float)'z'), 'z', 8);
+        run_charQuery(char_filterL, FloatParameter, Float.valueOf('z'), 'z', 8);
+        run_charQuery(char_filterR, FloatParameter, Float.valueOf('z'), 'z', 8);
         run_charQuery(char_filterL, doubleParameter, Double.valueOf('B'), 'B', 9);
         run_charQuery(char_filterR, doubleParameter, Double.valueOf('B'), 'B', 9);
         run_charQuery(char_filterL, DoubleParameter, Double.valueOf('A'), 'A', 9);
@@ -566,7 +566,7 @@ public class NotEquals extends ComparisonTests {
         run_CharacterQuery(Character_filterR, charParameter, Character.valueOf('z'), Character.valueOf('z'), 8);
         run_CharacterQuery(Character_filterL, CharacterParameter, Character.valueOf(' '), Character.valueOf(' '), 9);
         run_CharacterQuery(Character_filterR, CharacterParameter, Character.valueOf('f'), Character.valueOf('f'), 10);
-        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf((char)Character.MIN_VALUE), 9);
+        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf(Character.MIN_VALUE), 9);
         run_CharacterQuery(Character_filterR, ByteParameter, Byte.valueOf((byte)'a'), Character.valueOf('a'), 10);
         run_CharacterQuery(Character_filterL, shortParameter, Short.valueOf((short)'M'), Character.valueOf('M'), 8);
         run_CharacterQuery(Character_filterR, shortParameter, Short.valueOf((short)'F'), Character.valueOf('F'), 9);
@@ -582,8 +582,8 @@ public class NotEquals extends ComparisonTests {
         run_CharacterQuery(Character_filterR, LongParameter, Long.valueOf('B'), Character.valueOf('B'), 9);
         run_CharacterQuery(Character_filterL, floatParameter, Float.valueOf((float)123.222), Character.valueOf('x'), 10);
         run_CharacterQuery(Character_filterR, floatParameter, Float.valueOf((float)123.222), Character.valueOf('x'), 10);
-        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), 8);
-        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), 8);
+        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf('z'), Character.valueOf('z'), 8);
+        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf('z'), Character.valueOf('z'), 8);
         run_CharacterQuery(Character_filterL, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), 9);
         run_CharacterQuery(Character_filterR, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), 9);
         run_CharacterQuery(Character_filterL, DoubleParameter, Double.valueOf('A'), Character.valueOf('A'), 9);

@@ -478,7 +478,7 @@ public class SignatureVerifier {
                     int lastDot = value.lastIndexOf(".");
                     String expectedClassName = value.substring(0, lastDot);
                     String expectedFieldName = 
-                            value.substring(lastDot + 1, value.length());
+                            value.substring(lastDot + 1);
                     // get Class object from class name
                     Class<?> expectedClass = getClass(expectedClassName);
                     if (expectedClass == null) 

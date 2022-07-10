@@ -395,7 +395,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     Object applyOperation(int operation, StateTransitionObj stobj)
     {
         Object result = null;
-        StateTransitionObj obj = (StateTransitionObj) stobj;
+        StateTransitionObj obj = stobj;
         switch( operation ){
             case MAKEPERSISTENTOPTIMISTIC:
             case MAKEPERSISTENTDATASTORE:
@@ -534,7 +534,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        StateTransitionObj sto = (StateTransitionObj) obj;
+        StateTransitionObj sto = obj;
         sto.readField();
         int curr = currentState(sto);
         if( curr != PERSISTENT_CLEAN ) {
@@ -637,7 +637,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     {
         StateTransitionObj obj = getTransientCleanInstance();
         if( obj == null ) return null;
-        StateTransitionObj pcobj = (StateTransitionObj) obj;
+        StateTransitionObj pcobj = obj;
         pcobj.writeField(23);
         int curr = currentState(obj);
         if( curr != TRANSIENT_DIRTY ) { 

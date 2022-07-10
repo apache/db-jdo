@@ -36,7 +36,7 @@ public class FieldsOfDouble {
   private transient Double Double12;
   private transient Double Double13;
   private transient Double Double14;
-  private final Double Double15 = Double.valueOf((double)5);
+  private final Double Double15 = Double.valueOf(5);
   private volatile Double Double16;
   private volatile Double Double17;
   private volatile Double Double18;
@@ -46,16 +46,16 @@ public class FieldsOfDouble {
   private volatile Double Double22;
   private volatile Double Double23;
   private static transient Double Double24;
-  private static final Double Double25 = Double.valueOf((double)5);
+  private static final Double Double25 = Double.valueOf(5);
   private static volatile Double Double26;
-  private transient final Double Double27 = Double.valueOf((double)5);
+  private transient final Double Double27 = Double.valueOf(5);
   private transient volatile Double Double28;
   private transient volatile Double Double29;
   private transient volatile Double Double30;
   private transient volatile Double Double31;
   private transient volatile Double Double32;
   private transient volatile Double Double33;
-  private static transient final Double Double34 = Double.valueOf((double)5);
+  private static transient final Double Double34 = Double.valueOf(5);
   private static transient volatile Double Double35;
   public Double Double36;
   public Double Double37;
@@ -72,7 +72,7 @@ public class FieldsOfDouble {
   public transient Double Double48;
   public transient Double Double49;
   public transient Double Double50;
-  public final Double Double51 = Double.valueOf((double)5);
+  public final Double Double51 = Double.valueOf(5);
   public volatile Double Double52;
   public volatile Double Double53;
   public volatile Double Double54;
@@ -82,16 +82,16 @@ public class FieldsOfDouble {
   public volatile Double Double58;
   public volatile Double Double59;
   public static transient Double Double60;
-  public static final Double Double61 = Double.valueOf((double)5);
+  public static final Double Double61 = Double.valueOf(5);
   public static volatile Double Double62;
-  public transient final Double Double63 = Double.valueOf((double)5);
+  public transient final Double Double63 = Double.valueOf(5);
   public transient volatile Double Double64;
   public transient volatile Double Double65;
   public transient volatile Double Double66;
   public transient volatile Double Double67;
   public transient volatile Double Double68;
   public transient volatile Double Double69;
-  public static transient final Double Double70 = Double.valueOf((double)5);
+  public static transient final Double Double70 = Double.valueOf(5);
   public static transient volatile Double Double71;
   protected Double Double72;
   protected Double Double73;
@@ -108,7 +108,7 @@ public class FieldsOfDouble {
   protected transient Double Double84;
   protected transient Double Double85;
   protected transient Double Double86;
-  protected final Double Double87 = Double.valueOf((double)5);
+  protected final Double Double87 = Double.valueOf(5);
   protected volatile Double Double88;
   protected volatile Double Double89;
   protected volatile Double Double90;
@@ -118,16 +118,16 @@ public class FieldsOfDouble {
   protected volatile Double Double94;
   protected volatile Double Double95;
   protected static transient Double Double96;
-  protected static final Double Double97 = Double.valueOf((double)5);
+  protected static final Double Double97 = Double.valueOf(5);
   protected static volatile Double Double98;
-  protected transient final Double Double99 = Double.valueOf((double)5);
+  protected transient final Double Double99 = Double.valueOf(5);
   protected transient volatile Double Double100;
   protected transient volatile Double Double101;
   protected transient volatile Double Double102;
   protected transient volatile Double Double103;
   protected transient volatile Double Double104;
   protected transient volatile Double Double105;
-  protected static transient final Double Double106 = Double.valueOf((double)5);
+  protected static transient final Double Double106 = Double.valueOf(5);
   protected static transient volatile Double Double107;
   Double Double108;
   Double Double109;
@@ -144,7 +144,7 @@ public class FieldsOfDouble {
   transient Double Double120;
   transient Double Double121;
   transient Double Double122;
-  final Double Double123 = Double.valueOf((double)5);
+  final Double Double123 = Double.valueOf(5);
   volatile Double Double124;
   volatile Double Double125;
   volatile Double Double126;
@@ -154,16 +154,16 @@ public class FieldsOfDouble {
   volatile Double Double130;
   volatile Double Double131;
   static transient Double Double132;
-  static final Double Double133 = Double.valueOf((double)5);
+  static final Double Double133 = Double.valueOf(5);
   static volatile Double Double134;
-  transient final Double Double135 = Double.valueOf((double)5);
+  transient final Double Double135 = Double.valueOf(5);
   transient volatile Double Double136;
   transient volatile Double Double137;
   transient volatile Double Double138;
   transient volatile Double Double139;
   transient volatile Double Double140;
   transient volatile Double Double141;
-  static transient final Double Double142 = Double.valueOf((double)5);
+  static transient final Double Double142 = Double.valueOf(5);
   static transient volatile Double Double143;
 
 public static final boolean [] isPersistent = { 
@@ -1072,7 +1072,7 @@ false,false,true,false
 
         public String toString() { return this.getClass().getName() + ": "  + identifier;}
 
-        public int hashCode() { return (int)identifier ; }
+        public int hashCode() { return identifier; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

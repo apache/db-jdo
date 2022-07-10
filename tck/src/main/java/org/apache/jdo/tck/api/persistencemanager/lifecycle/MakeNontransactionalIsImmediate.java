@@ -223,7 +223,7 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
         boolean noError = true;
         Iterator<PCPoint> iter = col1.iterator();
         while (iter.hasNext() ) {
-            PCPoint p = (PCPoint) iter.next();
+            PCPoint p = iter.next();
             if (! testState(p, TRANSIENT, "transient")) {
                 noError = false;
             }

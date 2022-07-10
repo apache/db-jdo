@@ -261,7 +261,7 @@ public class LessThan extends ComparisonTests {
         run_charQuery(char_filterR, charParameter, Character.valueOf('z'), 'z', false, 7);
         run_charQuery(char_filterL, CharacterParameter, Character.valueOf(' '), ' ', true, 8);
         run_charQuery(char_filterR, CharacterParameter, Character.valueOf('f'), 'f', false, 7);
-        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), (char)Character.MIN_VALUE, true, 9);
+        run_charQuery(char_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.MIN_VALUE, true, 9);
         run_charQuery(char_filterR, ByteParameter, Byte.valueOf((byte)'a'), 'a', false, 7);
         run_charQuery(char_filterL, shortParameter, Short.valueOf((short)'M'), 'M', true, 3);
         run_charQuery(char_filterR, shortParameter, Short.valueOf((short)'M'), 'M', false, 5);
@@ -271,10 +271,10 @@ public class LessThan extends ComparisonTests {
         run_charQuery(char_filterR, intParameter, Integer.valueOf('z'), 'z', false, 7);
         run_charQuery(char_filterL, IntegerParameter, Integer.valueOf('B'), 'B', true, 6);
         run_charQuery(char_filterR, IntegerParameter, Integer.valueOf('B'), 'B', false, 3);
-        run_charQuery(char_filterL, floatParameter, Float.valueOf((float)'f'), 'f', true, 3);
-        run_charQuery(char_filterR, floatParameter, Float.valueOf((float)' '), ' ', false, 1);
-        run_charQuery(char_filterL, FloatParameter, Float.valueOf((float)'z'), 'z', true, 1);
-        run_charQuery(char_filterR, FloatParameter, Float.valueOf((float)'z'), 'z', false, 7);
+        run_charQuery(char_filterL, floatParameter, Float.valueOf('f'), 'f', true, 3);
+        run_charQuery(char_filterR, floatParameter, Float.valueOf(' '), ' ', false, 1);
+        run_charQuery(char_filterL, FloatParameter, Float.valueOf('z'), 'z', true, 1);
+        run_charQuery(char_filterR, FloatParameter, Float.valueOf('z'), 'z', false, 7);
         run_charQuery(char_filterL, doubleParameter, Double.valueOf('B'), 'B', true, 6);
         run_charQuery(char_filterR, doubleParameter, Double.valueOf('B'), 'B', false, 3);
         run_charQuery(char_filterL, DoubleParameter, Double.valueOf('A'), 'A', true, 7);
@@ -362,8 +362,8 @@ public class LessThan extends ComparisonTests {
         run_longQuery(long_filterObj, AllTypesParameter, alltypes, 100, false, 5);
         run_longQuery(long_filterVal, null, null, 1000000, false, 8);
     
-        run_floatQuery(float_filterL, floatParameter, Float.valueOf((float)AllTypes.FLOAT_SMALLEST), AllTypes.FLOAT_SMALLEST, true, 9);
-        run_floatQuery(float_filterR, floatParameter, Float.valueOf((float)AllTypes.FLOAT_LARGEST), AllTypes.FLOAT_LARGEST, false, 9);
+        run_floatQuery(float_filterL, floatParameter, Float.valueOf(AllTypes.FLOAT_SMALLEST), AllTypes.FLOAT_SMALLEST, true, 9);
+        run_floatQuery(float_filterR, floatParameter, Float.valueOf(AllTypes.FLOAT_LARGEST), AllTypes.FLOAT_LARGEST, false, 9);
         run_floatQuery(float_filterL, FloatParameter, Float.valueOf(4.0f), 4.0f, true, 6);
         run_floatQuery(float_filterR, FloatParameter, Float.valueOf(400.0f), 400.0f, false, 7);
         run_floatQuery(float_filterL, byteParameter, Byte.valueOf((byte)4), 4.0f, true, 6);
@@ -521,7 +521,7 @@ public class LessThan extends ComparisonTests {
         run_CharacterQuery(Character_filterR, charParameter, Character.valueOf('z'), Character.valueOf('z'), false, 7);
         run_CharacterQuery(Character_filterL, CharacterParameter, Character.valueOf(' '), Character.valueOf(' '), true, 8);
         run_CharacterQuery(Character_filterR, CharacterParameter, Character.valueOf('f'), Character.valueOf('f'), false, 7);
-        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf((char)Character.MIN_VALUE), true, 9);
+        run_CharacterQuery(Character_filterL, byteParameter, Byte.valueOf((byte)Character.MIN_VALUE), Character.valueOf(Character.MIN_VALUE), true, 9);
         run_CharacterQuery(Character_filterR, ByteParameter, Byte.valueOf((byte)'a'), Character.valueOf('a'), false, 7);
         run_CharacterQuery(Character_filterL, shortParameter, Short.valueOf((short)'M'), Character.valueOf('M'), true, 3);
         run_CharacterQuery(Character_filterR, shortParameter, Short.valueOf((short)'F'), Character.valueOf('F'), false, 4);
@@ -535,10 +535,10 @@ public class LessThan extends ComparisonTests {
         run_CharacterQuery(Character_filterR, longParameter, Long.valueOf('z'), Character.valueOf('z'), false, 7);
         run_CharacterQuery(Character_filterL, LongParameter, Long.valueOf('B'), Character.valueOf('B'), true, 6);
         run_CharacterQuery(Character_filterR, LongParameter, Long.valueOf('B'), Character.valueOf('B'), false, 3);
-        run_CharacterQuery(Character_filterL, floatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), true, 1);
-        run_CharacterQuery(Character_filterR, floatParameter, Float.valueOf((float)'z'), Character.valueOf('z'), false, 7);
-        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf((float)'M'), Character.valueOf('M'), true, 3);
-        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf((float)'X'), Character.valueOf('X'), false, 7);
+        run_CharacterQuery(Character_filterL, floatParameter, Float.valueOf('z'), Character.valueOf('z'), true, 1);
+        run_CharacterQuery(Character_filterR, floatParameter, Float.valueOf('z'), Character.valueOf('z'), false, 7);
+        run_CharacterQuery(Character_filterL, FloatParameter, Float.valueOf('M'), Character.valueOf('M'), true, 3);
+        run_CharacterQuery(Character_filterR, FloatParameter, Float.valueOf('X'), Character.valueOf('X'), false, 7);
         run_CharacterQuery(Character_filterL, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), true, 6);
         run_CharacterQuery(Character_filterR, doubleParameter, Double.valueOf('B'), Character.valueOf('B'), false, 3);
         run_CharacterQuery(Character_filterL, DoubleParameter, Double.valueOf('A'), Character.valueOf('A'), true, 7);

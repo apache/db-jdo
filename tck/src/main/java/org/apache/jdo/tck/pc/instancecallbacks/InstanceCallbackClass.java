@@ -131,7 +131,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
 
                 // delete designated child
                 for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
-                     InstanceCallbackClass obj =  (InstanceCallbackClass)i.next();
+                     InstanceCallbackClass obj = i.next();
                      if( obj.intValue == childToDelete) {
                         pm.deletePersistent(obj);
                         break;
@@ -159,7 +159,7 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
             for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = (InstanceCallbackClass)i.next();
+                InstanceCallbackClass o = i.next();
                 sumOfChildrenIntValue[intValue] += o.intValue;   
             }
             capturedChildToDelete[intValue] = childToDelete;

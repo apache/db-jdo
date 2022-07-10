@@ -181,7 +181,7 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
                                 (BigDecimal)actual.get(nextKey);
                         if ((expectedMapValue.compareTo(actualMapValue) != 0)) {
                             sbuf.append("\nFor element " + i + "(" 
-                                    + (String)nextKey +
+                                    + nextKey +
                                     "), expected = " + expectedMapValue +
                                     ", actual = " + actualMapValue + " . ");
                     }

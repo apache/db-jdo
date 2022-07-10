@@ -49,7 +49,7 @@ public class DetachAttach extends DetachTest {
     public void testAttachClean() {
         Cart detachedCart = createDetachedInstance(ASSERTION_FAILED);
         pm.currentTransaction().begin();
-        Cart attachedCart = (Cart)pm.makePersistent(detachedCart);
+        Cart attachedCart = pm.makePersistent(detachedCart);
         checkCartValues(ASSERTION_FAILED +
                 "after attach," + NL, attachedCart, true);
         pm.currentTransaction().commit();

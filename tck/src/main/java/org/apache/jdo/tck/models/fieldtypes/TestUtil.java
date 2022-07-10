@@ -161,8 +161,8 @@ public class TestUtil {
                       vec.add(4, new BigInteger("456445645"));
                       break;
                   case(8):
-                      vec.add(0, Byte.valueOf((byte)Byte.MIN_VALUE));
-                      vec.add(1, Byte.valueOf((byte)Byte.MAX_VALUE));
+                      vec.add(0, Byte.valueOf(Byte.MIN_VALUE));
+                      vec.add(1, Byte.valueOf(Byte.MAX_VALUE));
                       vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 20)));
                       vec.add(3, Byte.valueOf((byte)(Byte.MAX_VALUE - 50)));
                       vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 75)));
@@ -177,9 +177,9 @@ public class TestUtil {
                                   - 2323235.76764677));
                       break;
                   case(10):
-                      vec.add(0, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
-                      vec.add(1, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
-                      vec.add(2, Float.valueOf((float)AllTypes.FLOAT_LARGEST - 20000));
+                      vec.add(0, Float.valueOf(AllTypes.FLOAT_SMALLEST));
+                      vec.add(1, Float.valueOf(AllTypes.FLOAT_LARGEST));
+                      vec.add(2, Float.valueOf(AllTypes.FLOAT_LARGEST - 20000));
                       vec.add(3, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
                                   - 454545.434)));
                       vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST
@@ -207,11 +207,11 @@ public class TestUtil {
                       vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 5656)));
                       break;
                   case(14):
-                      vec.add(0, (SimpleEnum)SimpleEnum.AK);
-                      vec.add(1, (SimpleEnum)SimpleEnum.FM);
-                      vec.add(2, (SimpleEnum)SimpleEnum.KS);
-                      vec.add(3, (SimpleEnum)SimpleEnum.NJ);
-                      vec.add(4, (SimpleEnum)SimpleEnum.WI);
+                      vec.add(0, SimpleEnum.AK);
+                      vec.add(1, SimpleEnum.FM);
+                      vec.add(2, SimpleEnum.KS);
+                      vec.add(3, SimpleEnum.NJ);
+                      vec.add(4, SimpleEnum.WI);
                       break;
                  default:
                       throw new IndexOutOfBoundsException();
@@ -271,9 +271,9 @@ public class TestUtil {
                     break;
                   case(8):
                     vec.add(0, Byte.valueOf((byte)(Byte.MAX_VALUE-34)));
-                    vec.add(1, Byte.valueOf((byte)Byte.MIN_VALUE));
+                    vec.add(1, Byte.valueOf(Byte.MIN_VALUE));
                     vec.add(2, Byte.valueOf((byte)(Byte.MAX_VALUE- 76)));
-                    vec.add(3, Byte.valueOf((byte)Byte.MAX_VALUE));
+                    vec.add(3, Byte.valueOf(Byte.MAX_VALUE));
                     vec.add(4, Byte.valueOf((byte)(Byte.MAX_VALUE - 12)));
                     break;
                   case(9):
@@ -286,10 +286,10 @@ public class TestUtil {
                                 - 7235.236764677));
                     break;
                   case(10):
-                    vec.add(0, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 5452)));
-                    vec.add(1, Float.valueOf((float)AllTypes.FLOAT_SMALLEST));
+                    vec.add(0, Float.valueOf(AllTypes.FLOAT_LARGEST - 5452));
+                    vec.add(1, Float.valueOf(AllTypes.FLOAT_SMALLEST));
                     vec.add(2, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 6564560.54)));
-                    vec.add(3, Float.valueOf((float)AllTypes.FLOAT_LARGEST));
+                    vec.add(3, Float.valueOf(AllTypes.FLOAT_LARGEST));
                     vec.add(4, Float.valueOf((float)(AllTypes.FLOAT_LARGEST - 9756.634)));
                     break;
                   case(11):
@@ -309,16 +309,16 @@ public class TestUtil {
                   case(13):
                     vec.add(0, Short.valueOf((short)(Short.MAX_VALUE - 3434)));
                     vec.add(1, Short.valueOf(Short.MIN_VALUE));
-                    vec.add(2, Short.valueOf((short)(Short.MAX_VALUE)));
+                    vec.add(2, Short.valueOf(Short.MAX_VALUE));
                     vec.add(3, Short.valueOf((short)(Short.MAX_VALUE - 23344)));
                     vec.add(4, Short.valueOf((short)(Short.MAX_VALUE - 723)));
                     break;
                   case(14):
-                      vec.add(0, (SimpleEnum)SimpleEnum.AZ);
-                      vec.add(1, (SimpleEnum)SimpleEnum.SD);
-                      vec.add(2, (SimpleEnum)SimpleEnum.NV);
-                      vec.add(3, (SimpleEnum)SimpleEnum.WV);
-                      vec.add(4, (SimpleEnum)SimpleEnum.PA);
+                      vec.add(0, SimpleEnum.AZ);
+                      vec.add(1, SimpleEnum.SD);
+                      vec.add(2, SimpleEnum.NV);
+                      vec.add(3, SimpleEnum.WV);
+                      vec.add(4, SimpleEnum.PA);
                       break;
                  default:
                     throw new IndexOutOfBoundsException();

@@ -156,7 +156,7 @@ public class TestCollectionCollections extends JDO_Test {
                 	logger.debug("Field is " + i + " Class name is "
                           +  actual.getClass().getName()
 			              + "   isInstance of Vector is "
-			              + actual.getClass().isInstance((Object)new Vector<>()));
+			              + actual.getClass().isInstance(new Vector<>()));
 		            }
                     List<?> expectedL = (List<?>)expected;
                     List<?> actualL = (List<?>)actual;

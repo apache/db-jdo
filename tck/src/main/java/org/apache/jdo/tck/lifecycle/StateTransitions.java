@@ -1034,7 +1034,7 @@ public class StateTransitions extends JDO_Test {
     {
         StateTransitionObj obj = getHollowInstance();
         if( obj == null ) return null;
-        obj = (StateTransitionObj) pm.detachCopy(obj);
+        obj = pm.detachCopy(obj);
         obj.writeField(1000);
         int curr = currentState(obj);
         if( curr != DETACHED_DIRTY ) { 

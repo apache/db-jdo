@@ -36,7 +36,7 @@ public class GetSupportedOptions {
         System.out.println("Supported options are:");
         Iterator<String> iter = options.iterator();
         while( iter.hasNext() ){
-            String val = (String) iter.next();
+            String val = iter.next();
             System.out.println(val);        
         }
     }

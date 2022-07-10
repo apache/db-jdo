@@ -72,7 +72,7 @@ public class FCAppFullTimeEmployee extends FCAppEmployee
     public FCAppFullTimeEmployee(long personid, String first, String last,
                             String middle, Date born, IAddress addr, 
                             Date hired, double sal) {
-        super(personid, first, last, middle, born, (FCAppAddress)addr, hired);
+        super(personid, first, last, middle, born, addr, hired);
         salary = sal;
     }
 

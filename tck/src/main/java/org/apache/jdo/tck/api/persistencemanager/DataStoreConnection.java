@@ -123,7 +123,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
                 appendMessage(ASSERTION_FAILED + "Wrong size of result of " +
                         sql + NL + "expected: 1, actual: " + actuals.size());
             } else {
-                PCPoint actual = (PCPoint)actuals.iterator().next();
+                PCPoint actual = actuals.iterator().next();
                 if (goldenPoint.getX() != actual.getX() ||
                         !goldenPoint.getY().equals(actual.getY())) {
                     appendMessage(ASSERTION_FAILED + 

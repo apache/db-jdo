@@ -161,7 +161,7 @@ public class MakeNontransactionalTransientCleanInstance extends PersistenceManag
                 pm.makeNontransactionalAll(col1);
                 Iterator<PCPoint> iter = col1.iterator();
                 while (iter.hasNext() ) {
-                    PCPoint p = (PCPoint) iter.next();
+                    PCPoint p = iter.next();
                     if (testState(p, TRANSIENT, "transient")) {
                         // expected result
                     }

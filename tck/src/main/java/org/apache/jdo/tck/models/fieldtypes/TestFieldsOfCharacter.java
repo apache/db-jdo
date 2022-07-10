@@ -76,8 +76,8 @@ public class TestFieldsOfCharacter extends JDO_Test {
     {
         Transaction tx = pm.currentTransaction();
         int i, n;
-        Character firstValue = Character.valueOf((char)Character.MIN_VALUE);
-        Character secondValue = Character.valueOf((char)Character.MAX_VALUE);
+        Character firstValue = Character.valueOf(Character.MIN_VALUE);
+        Character secondValue = Character.valueOf(Character.MAX_VALUE);
         tx.begin();
         FieldsOfCharacter pi = new FieldsOfCharacter();
         pi.identifier = 1;

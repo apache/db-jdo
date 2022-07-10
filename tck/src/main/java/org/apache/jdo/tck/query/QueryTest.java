@@ -136,10 +136,10 @@ public abstract class QueryTest extends AbstractReaderTest {
         
         List<PCPoint> result = new ArrayList<>();
         for (Iterator<PCPoint> iter = list.iterator(); iter.hasNext();) {
-            Object pc = iter.next();
+            PCPoint pc = iter.next();
             for (Iterator<PCPoint> iteri = inserted.iterator(); iteri.hasNext();) {
                 PCPoint pci = iteri.next();
-                if (((PCPoint)pc).getX() == pci.getX()) {
+                if (pc.getX() == pci.getX()) {
                     result.add(pci);
                     break;
                 }
@@ -919,7 +919,7 @@ public abstract class QueryTest extends AbstractReaderTest {
         }
             
         logger.debug("Expected Objects are:");
-        iter = ((Collection<?>)expected).iterator();
+        iter = expected.iterator();
         while (iter.hasNext()) {
             pcp = (PCPoint)iter.next();
             logger.debug("X = " + pcp.getX() + "\tY = " + pcp.getY());

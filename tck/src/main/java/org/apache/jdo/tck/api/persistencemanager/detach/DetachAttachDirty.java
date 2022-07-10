@@ -53,7 +53,7 @@ public class DetachAttachDirty extends DetachTest {
         pm.currentTransaction().begin();
         cartEntry1.setQuantity(500);
         goldenCartEntry.setQuantity(500);
-        Cart attachedCart = (Cart)pm.makePersistent(detachedCart);
+        Cart attachedCart = pm.makePersistent(detachedCart);
         checkCartValues(ASSERTION_FAILED +
                 "after attach," + NL, attachedCart, true);
         pm.currentTransaction().commit();

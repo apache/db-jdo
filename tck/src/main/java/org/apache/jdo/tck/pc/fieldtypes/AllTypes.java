@@ -299,7 +299,7 @@ public static void load(PersistenceManager pm)
 
         public String toString() { return this.getClass().getName() + ": "  + id;}
 
-        public int hashCode() { return (int)id ; }
+        public int hashCode() { return id; }
 
         public boolean equals(Object other) {
             if (other != null && (other instanceof Oid)) {

@@ -237,7 +237,7 @@ public class PCDSPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String getPhoneNumber(String type) {
-        return (String)_phoneNumbers.get(type);
+        return _phoneNumbers.get(type);
     }
     
     /**
@@ -249,7 +249,7 @@ public class PCDSPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String putPhoneNumber(String type, String phoneNumber) {
-        return (String)_phoneNumbers.put(type, phoneNumber);
+        return _phoneNumbers.put(type, phoneNumber);
     }
 
     /**
@@ -259,7 +259,7 @@ public class PCDSPerson
      * <code>null</code> if there was no phone number for the type. 
      */
     public String removePhoneNumber(String type) {
-        return (String)_phoneNumbers.remove(type);
+        return _phoneNumbers.remove(type);
     }
 
     /**

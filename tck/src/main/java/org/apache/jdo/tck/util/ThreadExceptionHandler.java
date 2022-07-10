@@ -55,7 +55,7 @@ public class ThreadExceptionHandler extends ThreadGroup
      * @return uncaught exception for the specified thread
      */
     public Throwable getUncaughtException(Thread t) {
-        return (Throwable)uncaughtExceptions.get(t);
+        return uncaughtExceptions.get(t);
     }
 
     /** 

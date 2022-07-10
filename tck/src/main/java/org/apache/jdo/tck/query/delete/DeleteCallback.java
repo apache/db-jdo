@@ -410,8 +410,8 @@ public class DeleteCallback extends QueryTest {
             boolean hasDeleteEventBeenPassed = false;
             int size = events.size();
             for (int i = 0; i < size; i++) {
-                InstanceLifecycleEvent event = 
-                    (InstanceLifecycleEvent) this.events.get(i);
+                InstanceLifecycleEvent event =
+                        this.events.get(i);
                 Object source = event.getSource();
                 int eventType = event.getEventType();
                 if (eventType == InstanceLifecycleEvent.DELETE) {

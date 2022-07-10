@@ -43,7 +43,7 @@ public class CompanyFactoryPMClass
     }
     
     ICompany newCompany() {
-        return (ICompany)pm.newInstance(Company.class);
+        return pm.newInstance(Company.class);
     }
     
     IDepartment newDepartment() {
