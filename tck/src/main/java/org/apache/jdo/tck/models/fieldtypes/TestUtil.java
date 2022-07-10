@@ -227,12 +227,6 @@ public class TestUtil {
                     vec.add(4, new SimpleClass(3, "Hi There"));
                     break;
                   case(1):
-                    vec.add(0, new SimpleClass(1, "Peaches"));
-                    vec.add(1, new SimpleClass(2, "Oranges"));
-                    vec.add(2, new SimpleClass(3, "Blue Berries"));
-                    vec.add(3, new SimpleClass(4, "Apples"));
-                    vec.add(4, new SimpleClass(5, "Strawberries"));
-                    break;
                   case(2):
                     vec.add(0, new SimpleClass(1, "Peaches"));
                     vec.add(1, new SimpleClass(2, "Oranges"));
