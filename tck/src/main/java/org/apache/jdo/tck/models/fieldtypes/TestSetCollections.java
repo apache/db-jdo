@@ -132,7 +132,7 @@ public class TestSetCollections extends JDO_Test {
             Set<?> lvalue = new HashSet<>(value);
             collect.set(i, lvalue);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + value.toString());
+                logger.debug("Set " + i + "th value to: " + value);
         }
     }
 
@@ -182,7 +182,7 @@ public class TestSetCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
   }
 }

@@ -184,7 +184,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
                    Throwable t = ts[i];
                    if (t instanceof JDOOptimisticVerificationException) {
                        if (debug)
-                           logger.debug("Expected exception caught " + t.toString());
+                           logger.debug("Expected exception caught " + t);
                        JDOException jex = (JDOException)t;
                        Object failed = jex.getFailedObject();
                        if (failed == null) {
@@ -199,7 +199,7 @@ public class OptimisticFailure extends PersistenceManagerTest {
                            } 
                            else {
                                fail(ASSERTION_FAILED,
-                                    "Unexpected failed instance: " + failed.toString());
+                                    "Unexpected failed instance: " + failed);
                            }
                        }
                    } 

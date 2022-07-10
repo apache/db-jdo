@@ -132,12 +132,12 @@ public class RefreshAllNoParameterSideEffects extends PersistenceManagerTest {
         } catch (javax.jdo.JDOOptimisticVerificationException ove) {
             if (doRefresh) {
                 appendMessage("Expected no exception on commit with doRefresh "
-                        + "true, but got " + ove.toString());
+                        + "true, but got " + ove);
             }
             // else expect exception
         } catch (Exception e) {
             appendMessage("Unexpected exception on commit. doRefresh is " 
-                    + doRefresh + ".  Exception is: " + e.toString());
+                    + doRefresh + ".  Exception is: " + e);
         }
 
         // verify that correct value was committed

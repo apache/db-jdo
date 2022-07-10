@@ -155,13 +155,13 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
                  buildisStaticArray(isStatic(fieldModifiers[k])); // add to isStaticArray
                  buildFieldSpecs(xmlPersistenceModifiers[l].replace('"',' ') + " " +
                                  xmlEmbeddedModifiers[m].replace('"',' ') +
-                                 sb.toString()); // add to the field specs array
+                         sb); // add to the field specs array
                  isFinal[fieldCounter-1] = fieldModifiers[k].indexOf("final") >= 0;
                  if(isFinal[fieldCounter-1])
                    sb.append(getInitializerForFinalTypes(fieldTypes[i]));
                  buildisFinalArray(isFinal[fieldCounter-1]);
                  sb.append(";");
-                 pw.println(sb.toString());
+                 pw.println(sb);
              }
            }
          }

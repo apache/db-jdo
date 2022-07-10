@@ -176,8 +176,7 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " + messages);
         }
     }
 
@@ -202,8 +201,7 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Collection pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Collection pcs) " + messages);
         }
     }
 
@@ -226,8 +224,7 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Object[] pcs) " + messages);
         }
     }
 
@@ -253,8 +250,7 @@ public class GetObjectIds extends JDO_Test {
             }
         }
         if (messages.length() != 0) {
-            fail(ASSERTION_FAILED + "getObjectIds(Collection<SingleFieldIdentyty> pcs) " +
-                messages.toString());
+            fail(ASSERTION_FAILED + "getObjectIds(Collection<SingleFieldIdentyty> pcs) " + messages);
         }
     }
 

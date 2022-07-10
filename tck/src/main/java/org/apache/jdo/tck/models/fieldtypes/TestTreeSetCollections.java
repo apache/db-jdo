@@ -140,7 +140,7 @@ public class TestTreeSetCollections extends JDO_Test {
             TreeSet<?> treeSet = new TreeSet<>((Collection<?>)value);
             collect.set(i, treeSet);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + treeSet.toString());
+                logger.debug("Set " + i + "th value to: " + treeSet);
         }
     }
 
@@ -167,7 +167,7 @@ public class TestTreeSetCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

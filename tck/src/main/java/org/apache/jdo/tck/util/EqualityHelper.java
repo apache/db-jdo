@@ -361,11 +361,11 @@ public class EqualityHelper {
             offset.append("    ");
         }
         unequalBuffer.append(where);
-        unequalBuffer.append(offset.toString());
+        unequalBuffer.append(offset);
         unequalBuffer.append("expected '");
         unequalBuffer.append(o1);
         unequalBuffer.append("'");
-        unequalBuffer.append(offset.toString());
+        unequalBuffer.append(offset);
         unequalBuffer.append("  actual '");
         unequalBuffer.append(o2);
         unequalBuffer.append("'\n");

@@ -463,7 +463,7 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
                 }
             }
             if (messages.length() > 0) {
-                fail(where + "\n" + messages.toString());
+                fail(where + "\n" + messages);
             }
         }
 

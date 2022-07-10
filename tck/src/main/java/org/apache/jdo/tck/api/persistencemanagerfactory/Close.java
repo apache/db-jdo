@@ -123,7 +123,7 @@ public class Close extends JDO_Test {
         } catch (JDOUserException ex) {
             // expected exception
             if (debug) {
-                logger.debug("caught expected exception " + ex.toString());
+                logger.debug("caught expected exception " + ex);
             }
         } catch (JDOFatalUserException ex) {
             // unexpected exception

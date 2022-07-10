@@ -99,7 +99,7 @@ public class SignatureTest extends JDO_Test {
             if (status != 0) {
                 fail(ASSERTION_FAILED,
                      ("Found problems or signature descrepancies." + NEWLINE
-                      + "Test Output: " + NEWLINE + sw.toString()));
+                      + "Test Output: " + NEWLINE + sw));
                 logger.debug(sw.toString());
             }
             
@@ -110,11 +110,11 @@ public class SignatureTest extends JDO_Test {
         } catch (IOException ex) {
             fail(ASSERTION_FAILED,
                  ("Exception caught: " + ex + NEWLINE
-                  + "Test Output: " + NEWLINE + sw.toString()));
+                  + "Test Output: " + NEWLINE + sw));
         } catch (ParseException ex) {
             fail(ASSERTION_FAILED,
                  ("Exception caught: " + ex + NEWLINE
-                  + "Test Output: " + NEWLINE + sw.toString()));
+                  + "Test Output: " + NEWLINE + sw));
         }
     }
 }

@@ -119,7 +119,7 @@ abstract class AbstractGetPMF extends JDO_Test {
         } catch (JDOFatalUserException e) {
             // expected exception
             if (debug)
-                logger.debug("caught expected exception " + e.toString());
+                logger.debug("caught expected exception " + e);
         }
     }
     

@@ -112,7 +112,7 @@ public class TypeHelper {
             s = userTypeNames.get(name.substring(i));
             check(s != null, MSG_ILLEGAL_RFL_TYPE + name);
         }
-        return (s + sb.toString());
+        return (s + sb);
     }
     
     /**

@@ -144,8 +144,7 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
         }
 
         public String toString() {
-            return this.getClass().getName() + "order:" 
-                + String.valueOf(orderId);
+            return this.getClass().getName() + "order:" + orderId;
         }
         
         /** */

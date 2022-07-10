@@ -144,11 +144,11 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
                     "pmf method " + where + " should throw JDOUserException when called for closed pmf");
             } catch (JDOUserException ex) {
                 if (debug)
-                    logger.debug("Caught expected exception " + ex.toString() +
+                    logger.debug("Caught expected exception " + ex +
                                  " from " + where);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " + where);
+                     "Caught unexpected exception " + ex + " from " + where);
             }
         }
         // each get method should succeed
@@ -160,7 +160,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
                 gp.execute(pmf);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " +
+                     "Caught unexpected exception " + ex + " from " +
                      where);
             }
         }

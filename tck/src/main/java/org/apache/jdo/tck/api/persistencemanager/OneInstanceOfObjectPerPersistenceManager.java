@@ -121,7 +121,7 @@ public class OneInstanceOfObjectPerPersistenceManager extends
             results.append("query results differ. ");
         }
         if (results.length() != 0) {
-            fail(ASSERTION_FAILED + results.toString());
+            fail(ASSERTION_FAILED + results);
         }
 
         // The standard way to end each test method is to simply return. Exceptions are caught by JUnit.

@@ -151,7 +151,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
                      " should throw JDOUserException when called after getPersistenceManager");
             } catch (JDOUserException ex) {
                 if (debug)
-                    logger.debug("Caught expected exception " + ex.toString() + " from " + where);
+                    logger.debug("Caught expected exception " + ex + " from " + where);
             }
         }
         // each get method should succeed
@@ -163,7 +163,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
                 gp.execute(pmf);
             } catch (JDOUserException ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex.toString() + " from " + where);
+                     "Caught unexpected exception " + ex + " from " + where);
             }
         }
     }

@@ -88,7 +88,7 @@ public class CloseWithoutPermissionThrowsSecurityException extends JDO_Test {
         } catch (SecurityException ex) {
             // expected exception if JDOPermission("closePersistenceManagerFactory") is not set
             if (debug)
-                logger.debug("caught expected exception " + ex.toString());
+                logger.debug("caught expected exception " + ex);
         } catch (JDOException e) {
             fail(ASSERTION_FAILED, "Unexpected exception at pmf.close(): " + e);
         }

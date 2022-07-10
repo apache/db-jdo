@@ -125,7 +125,7 @@ public class TestFieldsOfLong extends JDO_Test {
                 fail(ASSERTION_FAILED,
                      "Incorrect value for " + FieldsOfLong.fieldSpecs[i] +
                      ", expected value " + startValue.toString() +
-                     ", value is " + val.toString());
+                     ", value is " + val);
             }
         }
     }

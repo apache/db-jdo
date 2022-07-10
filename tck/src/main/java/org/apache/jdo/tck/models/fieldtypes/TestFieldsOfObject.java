@@ -138,7 +138,7 @@ public class TestFieldsOfObject extends JDO_Test {
                 buffer.append(" has wrong value: expected ");
                 buffer.append(startValue.toString());
                 buffer.append(" actual ");
-                buffer.append(val.toString());
+                buffer.append(val);
                 buffer.append(".\n");
             }
         }

@@ -138,7 +138,7 @@ public class TestArrayListCollections extends JDO_Test {
             ArrayList<?> arrayListValue = new ArrayList<>(value);
             collect.set(i, arrayListValue);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + value.toString());
+                logger.debug("Set " + i + "th value to: " + value);
         }
     }
 
@@ -194,7 +194,7 @@ public class TestArrayListCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

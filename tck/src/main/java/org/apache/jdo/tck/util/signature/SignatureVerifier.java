@@ -451,7 +451,7 @@ public class SignatureVerifier {
                 } else {
                     s = "";
                 }
-                ok = (String.valueOf(s)).equals(actual);
+                ok = s.equals(actual);
             }
         // now check non-java.lang annotations and enums
         } else {

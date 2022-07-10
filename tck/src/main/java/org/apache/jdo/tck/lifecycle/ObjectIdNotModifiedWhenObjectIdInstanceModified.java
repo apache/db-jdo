@@ -103,7 +103,7 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
                     report.append(before);
                     report.append("\n");
                     report.append("mangled= ");
-                    report.append(objId2.toString());
+                    report.append(objId2);
                     report.append("\n");
                     report.append("  after= ");
                     report.append(objId3.toString());

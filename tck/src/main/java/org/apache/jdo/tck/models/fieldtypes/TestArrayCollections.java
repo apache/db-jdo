@@ -198,7 +198,7 @@ public class TestArrayCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }

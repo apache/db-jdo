@@ -200,7 +200,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION3_FAILED,
                         method + " on a null object should do nothing."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
             }
             tx.commit();
 
@@ -238,7 +238,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
                 fail(ASSERTION4_FAILED,
                         method 
                         + " with null Collection argument should throw NPE."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
                 e.printStackTrace();
             }
             tx.commit();
@@ -274,7 +274,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION4_FAILED,
                         method + " with null array argument should throw NPE."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
                 e.printStackTrace();
             }
             tx.commit();
@@ -307,7 +307,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION5_FAILED,
                         method + " on a null Collection element should"
-                        + " do nothing. Instead we get: " + e.toString());
+                        + " do nothing. Instead we get: " + e);
                 e.printStackTrace();
             }
 
@@ -339,7 +339,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION5_FAILED,
                         method + " on a null array element should " 
-                        + "do nothing. Instead we get: " + e.toString());
+                        + "do nothing. Instead we get: " + e);
                 e.printStackTrace();
             }
 
@@ -372,7 +372,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION3_FAILED,
                         method + " on a null object should do nothing."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
                 e.printStackTrace();
             }
             if (returnVal != null)
@@ -417,7 +417,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
                 fail(ASSERTION4_FAILED,
                         method 
                         + " with null Collection argument should throw NPE."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
                 e.printStackTrace();
             }
             if (returnVal != null)
@@ -458,7 +458,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION4_FAILED,
                         method + " with null array argument should throw NPE."
-                        + " Instead we get: " + e.toString());
+                        + " Instead we get: " + e);
                 e.printStackTrace();
             }
             if (returnVal != null)
@@ -496,7 +496,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION5_FAILED,
                         method + " on a null Collection element should"
-                        + " do nothing. Instead we get: " + e.toString());
+                        + " do nothing. Instead we get: " + e);
                 e.printStackTrace();
             }
 
@@ -504,7 +504,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
                 fail(ASSERTION5_FAILED,
                         method + " returns incorrect Object. Expected "
                         + expectedCollection.toString() + " actual was " 
-                        + returnVal.toString());
+                        + returnVal);
             tx.commit();
         } finally {
             if (tx.isActive())
@@ -534,16 +534,16 @@ public class PersistenceManagerNullsTest extends JDO_Test {
             } catch (Exception e) {
                 fail(ASSERTION5_FAILED,
                         method + " on a null array element should " 
-                        + "do nothing. Instead we get: " + e.toString());
+                        + "do nothing. Instead we get: " + e);
                 e.printStackTrace();
             }
 
             if (!checkReturn(expectedArray, returnVal))
                 fail(ASSERTION5_FAILED,
                         method + " returns incorrect Object. Expected "
-                        + Arrays.asList(expectedArray).toString() 
+                        + Arrays.asList(expectedArray)
                         + " actual was " 
-                        + Arrays.asList(returnVal).toString());
+                        + Arrays.asList(returnVal));
             tx.commit();
 
         } finally {

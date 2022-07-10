@@ -145,7 +145,7 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
             }
             collect.set(i, map);
             if (debug)
-                logger.debug("Set " + i + "th value to: " + map.toString());
+                logger.debug("Set " + i + "th value to: " + map);
         }
     }
 
@@ -179,7 +179,7 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
                             sbuf.append("\nFor element " + i +
                                     " expected key = " + expectedKey +
                                     " not found in actual Map.  Actual keyset is "
-                                    + actualKeySet.toString());
+                                    + actualKeySet);
                         // compare values
                         } else {
                             String expectedVal = (String) expected.get(expectedKey);
@@ -202,7 +202,7 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
         }
         if (sbuf.length() > 0) {
             fail(ASSERTION_FAILED,
-                 "Expected and observed do not match!!" + sbuf.toString());
+                 "Expected and observed do not match!!" + sbuf);
         }
     }
 }
