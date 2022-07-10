@@ -61,7 +61,7 @@ public class MakeTransientNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.makeTransientAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that makeTransient() with null valued argument does nothing.

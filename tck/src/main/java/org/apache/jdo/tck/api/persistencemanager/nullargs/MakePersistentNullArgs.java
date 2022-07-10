@@ -60,7 +60,7 @@ public class MakePersistentNullArgs extends PersistenceManagerNullsTest {
         public Object[] pmApiReturn(PersistenceManager pm, Object[] pcs) {
             return pm.makePersistentAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that makePersistent() with null valued argument does nothing.

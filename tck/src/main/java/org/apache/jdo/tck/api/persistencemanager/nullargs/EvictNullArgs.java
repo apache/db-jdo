@@ -61,7 +61,7 @@ public class EvictNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.evictAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that evict() with null valued argument does nothing.

@@ -68,6 +68,6 @@ public interface DeepEquality {
      * @throws ClassCastException if the specified instances' type prevents
      * it from being compared to this instance. 
      */
-    public boolean deepCompareFields(Object other, EqualityHelper helper);
+    boolean deepCompareFields(Object other, EqualityHelper helper);
     
 }

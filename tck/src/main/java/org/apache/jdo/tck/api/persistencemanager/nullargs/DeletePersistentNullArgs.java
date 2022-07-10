@@ -61,7 +61,7 @@ public class DeletePersistentNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.deletePersistentAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that deletePersistent() with null valued argument does nothing.

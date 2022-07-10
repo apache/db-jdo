@@ -122,7 +122,8 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put("2dog", "emp2Last");
         illegalMapStringKeys.put("3dog", "emp2Middle");
         illegalMapStringKeys.put("4dog", "New York");
-    };
+    }
+
     private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */

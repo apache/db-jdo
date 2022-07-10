@@ -60,7 +60,7 @@ public class RetrieveWithFetchPlanNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.retrieveAll(false, pcs);
         }
-    };
+    }
 
     /** 
      * Test that retrieveWithFetchPlan() with null valued argument does nothing.

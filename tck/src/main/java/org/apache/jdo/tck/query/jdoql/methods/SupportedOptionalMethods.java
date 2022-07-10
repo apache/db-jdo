@@ -420,7 +420,8 @@ public class SupportedOptionalMethods extends QueryTest {
     public static class ResultInfo {
         public long id;
         public String optionalString;
-        public ResultInfo() {};
+        public ResultInfo() {}
+
         public ResultInfo(long id, String optionalString) {
             this.id = id;
             this.optionalString = optionalString;

@@ -119,7 +119,7 @@ public class EvictAllWithNoParameters extends PersistenceManagerTest {
 
             if ( testState(p1, HOLLOW, "hollow") ||
                  testState(p1, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransaction")) {
-                ;  // expected result
+                // expected result
             } 
             else {
                 fail(ASSERTION_FAILED,
@@ -128,7 +128,7 @@ public class EvictAllWithNoParameters extends PersistenceManagerTest {
 
             if ( testState(pnt1, HOLLOW, "hollow") ||
                  testState(pnt1, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransaction")) {
-                ;  // expected result
+                // expected result
             } 
             else {
                 fail(ASSERTION_FAILED,

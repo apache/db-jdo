@@ -159,7 +159,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             tx.begin();
 
             if (makePersistentNonTranInstance(p1)) {
-                ; // expected result
+                // expected result
             }
             tx.commit();
             tx = null;
@@ -218,7 +218,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             if ( makePersistentNonTranInstance(p2) &&
                  makePersistentNonTranInstance(p3) &&
                  makePersistentNonTranInstance(p4)) {
-                ;  // expected result
+                // expected result
             }
             tx.commit();
 
@@ -278,7 +278,7 @@ public class MakeTransactionalANontransactionalPersistentInstance extends Persis
             if ( makePersistentNonTranInstance(p5) &&
                  makePersistentNonTranInstance(p6) &&
                  makePersistentNonTranInstance(p7)) {
-                ;  // expected result
+                // expected result
             }
             tx.commit();
 

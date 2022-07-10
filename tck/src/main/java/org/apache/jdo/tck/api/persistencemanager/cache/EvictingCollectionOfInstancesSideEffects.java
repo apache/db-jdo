@@ -145,7 +145,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
 
             if ( testState(p1, HOLLOW, "hollow")  ||
                  testState(p1, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransactional"))  {
-                ; // expected result
+                // expected result
             } 
             else { 
                 fail(ASSERTION_FAILED,
@@ -154,7 +154,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
 
             if ( testState(pnt1, HOLLOW, "hollow")  ||
                  testState(pnt1, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransactional"))  {
-                ; // expected result
+                // expected result
             } else {
                 fail(ASSERTION_FAILED,
                      "pnt1 should be HOLLOW or P-NONTX after pm.evictAll(Collection).");
@@ -191,7 +191,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
 
             if ( testState(p2, HOLLOW, "hollow")  ||
                  testState(p2, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransactional"))  {
-                ; // expected result
+                // expected result
             } else {
                 fail(ASSERTION_FAILED,
                      "p2 should be HOLLOW or P-NONTX after pm.evictAll(Object[]).");
@@ -199,7 +199,7 @@ public class EvictingCollectionOfInstancesSideEffects extends PersistenceManager
 
             if ( testState(pnt2, HOLLOW, "hollow")  ||
                  testState(pnt2, PERSISTENT_NONTRANSACTIONAL, "persistent_nontransactional"))  {
-                ; // expected result
+                // expected result
             } else {
                 fail(ASSERTION_FAILED,
                      "pnt2 should be HOLLOW or P-NONTX after pm.evictAll(Object[]).");

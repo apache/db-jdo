@@ -33,8 +33,9 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable<Si
     private long id = newId();
   private int intField=0;
   private String stringField = "Test";
-  public SimpleClass(){};
-  public SimpleClass(int intField, String stringField)
+  public SimpleClass(){}
+
+    public SimpleClass(int intField, String stringField)
   {
     this.intField = intField;
     this.stringField = stringField;

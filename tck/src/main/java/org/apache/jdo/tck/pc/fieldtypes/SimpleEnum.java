@@ -89,7 +89,7 @@ WY("WYOMING");
     
     public String toString() {
         return sname;
-    };
+    }
 
     public static class Oid implements Serializable, Comparable<Oid> {
         public long id;

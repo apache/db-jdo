@@ -23,13 +23,13 @@ package org.apache.jdo.tck.pc.company;
 public interface CompanyFactoryNewInstance {
 
     abstract public IAddress newAddress();
-    abstract public IMeetingRoom newMeetingRoom();
-    abstract public ICompany newCompany();
-    abstract public IDentalInsurance newDentalInsurance();
-    abstract public IDepartment newDepartment();
-    abstract public IFullTimeEmployee newFullTimeEmployee();
-    abstract public IMedicalInsurance newMedicalInsurance();
-    abstract public IPartTimeEmployee newPartTimeEmployee();
-    abstract public IProject newProject();
+    IMeetingRoom newMeetingRoom();
+    ICompany newCompany();
+    IDentalInsurance newDentalInsurance();
+    IDepartment newDepartment();
+    IFullTimeEmployee newFullTimeEmployee();
+    IMedicalInsurance newMedicalInsurance();
+    IPartTimeEmployee newPartTimeEmployee();
+    IProject newProject();
     Class<?>[] getTearDownClasses();
 }

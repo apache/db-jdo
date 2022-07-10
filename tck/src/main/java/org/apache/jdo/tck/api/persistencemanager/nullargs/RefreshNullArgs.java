@@ -61,7 +61,7 @@ public class RefreshNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.refreshAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that refresh() with null valued argument does nothing.

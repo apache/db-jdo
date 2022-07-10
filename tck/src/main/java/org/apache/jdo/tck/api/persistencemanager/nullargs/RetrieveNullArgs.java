@@ -61,7 +61,7 @@ public class RetrieveNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.retrieveAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that retrieve() with null valued argument does nothing.

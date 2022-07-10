@@ -132,8 +132,10 @@ public class GetProperties extends JDO_Test implements Constants {
         AbstractNonAPITestProperty(String propertyName, Object testValue1, Object testValue2) {
             super(propertyName, testValue1, testValue2);
         }
-        public Object get(PersistenceManager pm) {throw new RuntimeException("not implemented");};
-        public void set(PersistenceManager pm, Object value) {throw new RuntimeException("not implemented");};
+        public Object get(PersistenceManager pm) {throw new RuntimeException("not implemented");}
+
+        public void set(PersistenceManager pm, Object value) {throw new RuntimeException("not implemented");}
+
         public void test(PersistenceManager pm, Set<String> supportedProperties) {
             Object result0 = pm.getProperties().get(propertyName);
             errorIfEqual(this.messageForNullResult + "getProperties().get(" + propertyName + ")", null, result0);
@@ -173,7 +175,7 @@ public class GetProperties extends JDO_Test implements Constants {
             errorIfNotEqual(this.messageForWrongResultAfterSet + "after pm.setXXX(), getProperties.get(" + propertyName + ")",
                     testValue2, result2);
         }
-    };
+    }
 
     private final TestProperty testCopyOnAttach =
            new AbstractAPITestProperty(PROPERTY_COPY_ON_ATTACH, true, false) {

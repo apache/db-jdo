@@ -60,7 +60,7 @@ public class DetachCopyNullArgs extends PersistenceManagerNullsTest {
         public Object[] pmApiReturn(PersistenceManager pm, Object[] pcs) {
             return pm.detachCopyAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that detachCopy() with null valued argument does nothing.

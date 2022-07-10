@@ -61,7 +61,7 @@ public class MakeNontransactionalNullArgs extends PersistenceManagerNullsTest {
         public void pmApi(PersistenceManager pm, Object[] pcs) {
             pm.makeNontransactionalAll(pcs);
         }
-    };
+    }
 
     /** 
      * Test that makeNontransactional() with null valued argument does nothing.

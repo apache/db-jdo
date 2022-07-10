@@ -111,7 +111,7 @@ public class DataStoreConnection extends PersistenceManagerTest {
             if (conn.getAutoCommit()) {
                 appendMessage(ASSERTION_FAILED + 
                         "Autocommit must not be true in JDO connection.");
-            };
+            }
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             Collection<PCPoint> actuals = new HashSet<>();
