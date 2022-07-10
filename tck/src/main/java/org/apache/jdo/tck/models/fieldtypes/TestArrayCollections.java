@@ -149,7 +149,7 @@ public class TestArrayCollections extends JDO_Test {
             collect.set(i, valueArray);
             if (debug)
                 logger.debug("Set " + i + "th value to: "
-                        + valueArray.toString());
+                        + Arrays.toString(valueArray));
         }
     }
 
@@ -192,7 +192,7 @@ public class TestArrayCollections extends JDO_Test {
                 }
                 else {
                     sbuf.append("\nFor element " + i + ", expected = " +
-                        expected + ", actual = " + actual + " . ");
+                        Arrays.toString(expected) + ", actual = " + Arrays.toString(actual) + " . ");
                 }
             }
         }
