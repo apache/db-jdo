@@ -46,7 +46,7 @@ supporting them as Second Class Objects or First Class Objects.
 public class TestTreeSetCollections extends JDO_Test {
     private PersistenceManager  pm;
     private Transaction         tx;
-    private static String       prefix = "TestTreeSetCollections: ";
+    private static final String PREFIX = "TestTreeSetCollections: ";
     private TreeSet<?>          defaultValue; // do not initialize, should be 0 for int
 
     /** */

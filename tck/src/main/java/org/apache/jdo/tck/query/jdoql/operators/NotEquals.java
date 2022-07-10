@@ -106,7 +106,7 @@ public class NotEquals extends ComparisonTests {
     private static final String      Boolean_filterT     = "fld_Boolean != true";
     private static final String      Boolean_filterF     = "false != fld_Boolean";
     private static final String      Boolean_filterObj   = "value.fld_Boolean != fld_Boolean";
-    private static      String      Boolean_filterVal   = "fld_Boolean != false";
+    private static final String      Boolean_filterVal   = "fld_Boolean != false";
     
     private static final String      Byte_filterL        = "value != fld_Byte";
     private static final String      Byte_filterR        = "fld_Byte != value";

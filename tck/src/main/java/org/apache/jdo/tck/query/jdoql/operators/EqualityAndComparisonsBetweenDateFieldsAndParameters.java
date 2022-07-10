@@ -63,7 +63,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
     }
     
     /** Parameters of valid queries. */
-    private Object[][] parameters = {
+    private final Object[][] parameters = {
         // date field == date parameter
         {FIRST_OF_JAN_1999},
         // date field >= date parameter

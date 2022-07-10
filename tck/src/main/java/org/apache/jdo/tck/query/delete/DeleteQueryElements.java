@@ -181,7 +181,7 @@ public class DeleteQueryElements extends QueryTest {
     };
     
     /** Parameters of valid queries. */
-    private Object[][] parameters = {
+    private final Object[][] parameters = {
         {new BigDecimal("2500000")}
     };
             

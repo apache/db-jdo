@@ -43,17 +43,17 @@ import java.util.Map;
 public class QueryElementHolder {
 
     // fields holding JDOQL query elements
-    private Boolean unique;
-    private String result;
-    private Class<?> resultClass;
-    private Class<?> candidateClass;
-    private Boolean excludeSubClasses;
-    private String filter;
-    private String variables;
-    private String parameters;
-    private String imports;
-    private String grouping;
-    private String ordering;
+    private final Boolean unique;
+    private final String result;
+    private final Class<?> resultClass;
+    private final Class<?> candidateClass;
+    private final Boolean excludeSubClasses;
+    private final String filter;
+    private final String variables;
+    private final String parameters;
+    private final String imports;
+    private final String grouping;
+    private final String ordering;
     private String fromString;
     private String toString;
     private Long   fromLong;

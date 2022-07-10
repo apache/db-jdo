@@ -53,11 +53,11 @@ use the wrapped values as operands.
  */
 
 public class GreaterThanOrEqual extends ComparisonTests {
-    private static      String      boolean_filterL     = "value >= fld_boolean";
-    private static      String      boolean_filterR     = "fld_boolean >= value";
-    private static      String      boolean_filterT     = "fld_boolean >= true";
-    private static      String      boolean_filterF     = "false >= fld_boolean";
-    private static      String      boolean_filterObj   = "value.fld_boolean >= fld_boolean";
+    private static final String      boolean_filterL     = "value >= fld_boolean";
+    private static final String      boolean_filterR     = "fld_boolean >= value";
+    private static final String      boolean_filterT     = "fld_boolean >= true";
+    private static final String      boolean_filterF     = "false >= fld_boolean";
+    private static final String      boolean_filterObj   = "value.fld_boolean >= fld_boolean";
     
     private static final String      byte_filterL        = "value >= fld_byte";
     private static final String      byte_filterR        = "fld_byte >= value";
@@ -94,12 +94,12 @@ public class GreaterThanOrEqual extends ComparisonTests {
     private static final String      short_filterObj     = "value.fld_short >= fld_short";
     private static final String      short_filterVal     = "1000 >= fld_short";
     
-    private static      String      Boolean_filterL     = "value >= fld_Boolean";
-    private static      String      Boolean_filterR     = "fld_Boolean >= value";
-    private static      String      Boolean_filterT     = "fld_Boolean >= true";
-    private static      String      Boolean_filterF     = "false >= fld_Boolean";
-    private static      String      Boolean_filterObj   = "value.fld_Boolean >= fld_Boolean";
-    private static      String      Boolean_filterVal   = "fld_Boolean >= false";
+    private static final String      Boolean_filterL     = "value >= fld_Boolean";
+    private static final String      Boolean_filterR     = "fld_Boolean >= value";
+    private static final String      Boolean_filterT     = "fld_Boolean >= true";
+    private static final String      Boolean_filterF     = "false >= fld_Boolean";
+    private static final String      Boolean_filterObj   = "value.fld_Boolean >= fld_Boolean";
+    private static final String      Boolean_filterVal   = "fld_Boolean >= false";
     
     private static final String      Byte_filterL        = "value >= fld_Byte";
     private static final String      Byte_filterR        = "fld_Byte >= value";

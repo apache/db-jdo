@@ -54,8 +54,8 @@ public class GetExtentWithNoSubclasses extends PersistenceManagerTest {
         BatchTestRunner.run(GetExtentWithNoSubclasses.class);
     }
 
-    private PCPoint p1 = null;
-    private PCPoint p2 = null;
+    private final PCPoint p1 = null;
+    private final PCPoint p2 = null;
 
     /** */
     public void testGetExtentWithNoSubclasses() {
