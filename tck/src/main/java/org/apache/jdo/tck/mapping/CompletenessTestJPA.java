@@ -64,7 +64,7 @@ public class CompletenessTestJPA extends AbstractReaderTest {
         if (runsWithApplicationIdentity()) {
             getPM();
             CompanyFactoryRegistry.registerFactory(pm);
-            CompanyModelReader reader = new CompanyModelReader(INPUT_FILENAME);
+            CompanyModelReader reader = new CompanyModelReader(inputFilename);
             addTearDownClass(reader.getTearDownClassesFromFactory());
             // persist test data
             pm.currentTransaction().begin();
@@ -86,7 +86,7 @@ public class CompletenessTestJPA extends AbstractReaderTest {
             // register the default factory
             CompanyFactoryRegistry.registerFactory();
             // get new obj graph to compare persistent graph with
-            CompanyModelReader reader = new CompanyModelReader(INPUT_FILENAME);
+            CompanyModelReader reader = new CompanyModelReader(inputFilename);
             List<Object> rootList = getRootList(reader);
             
             getPM();

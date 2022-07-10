@@ -40,10 +40,10 @@ public class AbstractReaderTest extends JDO_Test {
     protected static final String ROOT_NAME = "root";
 
     /** The name of the file containing the bean collection (test data). */
-    protected final String INPUT_FILENAME = System.getProperty("jdo.tck.testdata");
+    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
 
     /** The map of String (bean name) to Object (bean). */
-    protected final Map<String, Object> OID_MAP = new HashMap<>();
+    protected final Map<String, Object> oidMap = new HashMap<>();
 
     /** Get the named bean from the bean factory.
      * 
@@ -88,7 +88,7 @@ public class AbstractReaderTest extends JDO_Test {
      * @return the named object
      */
     protected Object getOidByName(String name) {
-        return OID_MAP.get(name);
+        return oidMap.get(name);
     }
 
 }
