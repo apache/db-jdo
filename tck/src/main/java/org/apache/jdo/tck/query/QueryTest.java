@@ -256,75 +256,56 @@ public abstract class QueryTest extends AbstractReaderTest {
             }
         }
     }
-    
+
     /**
      * Returns a persistent company model instance for the given bean name.
+     * @param clazz class of the returned instance
      * @param beanName the bean name.
      * @return the persistent company model instance. 
      */
-    protected Object getPersistentCompanyModelInstance(String beanName) {
+    protected <T> T getPersistentCompanyModelInstance(Class<T> clazz, String beanName) {
         return beanName == null ? null :
-            getBean(getCompanyModelReaderForPersistentInstances(),beanName);
+                getBean(getCompanyModelReaderForPersistentInstances(), clazz, beanName);
     }
     
     /**
      * Returns a transient company model instance for the given bean name.
+     * @param clazz the class of teh returned instance
      * @param beanName the bean name.
      * @return the transient company model instance. 
      */
-    protected Object getTransientCompanyModelInstance(String beanName) {
+    protected <T> T getTransientCompanyModelInstance(Class<T> clazz, String beanName) {
         return beanName == null ? null :
-            getBean(getCompanyModelReaderForTransientInstances(),beanName);
+                getBean(getCompanyModelReaderForTransientInstances(), clazz, beanName);
     }
-    
-    /**
-     * Returns an array of persistent company model instances for bean names 
-     * in the given argument.
-     * @param beanNames the bean names of company mode instances.
-     * @return the array of persistent company model instances. 
-     */
-    protected Object[] getPersistentCompanyModelInstances(String[] beanNames) {
-        Object[] result = new Object[beanNames.length];
-        for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getPersistentCompanyModelInstance(beanNames[i]);
-        }
-        return result;
-    }
-    
-    /**
-     * Returns an array of transient company model instances for bean names 
-     * in the given argument.
-     * @param beanNames the bean names of company mode instances.
-     * @return the array of transient company model instances. 
-     */
-    protected Object[] getTransientCompanyModelInstances(String[] beanNames) {
-        Object[] result = new Object[beanNames.length];
-        for (int i = 0; i < beanNames.length; i++) {
-            result[i] = getTransientCompanyModelInstance(beanNames[i]);
-        }
-        return result;
-    }
-    
+
     /**
      * Returns a list of persistent company model instances
      * for beans names in the given argument.
+     * @param elementType the element type of the returned list
      * @param beanNames the bean names of company model instances.
      * @return the list of persistent company model instances. 
      */
-    protected List getPersistentCompanyModelInstancesAsList(String... beanNames) {
-        return new ArrayList<>(
-                Arrays.asList(getPersistentCompanyModelInstances(beanNames)));
+    protected <T> List<T> getPersistentCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
+        List<T> result = new ArrayList<>(beanNames.length);
+        for (int i = 0; i < beanNames.length; i++) {
+            result.add(getPersistentCompanyModelInstance(elementType, beanNames[i]));
+        }
+        return result;
     }
-    
     /**
      * Returns a list of transient company model instances
      * for beans names in the given argument.
+     * @param elementType the element type of the returned list
      * @param beanNames the bean names of company model instances.
      * @return the list of transient company model instances. 
      */
-    protected List getTransientCompanyModelInstancesAsList(String... beanNames) {
-        return new ArrayList<>(
-                Arrays.asList(getTransientCompanyModelInstances(beanNames)));
+    protected <T> List<T> getTransientCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
+        List<T> result = new ArrayList<>(beanNames.length);
+        for (int i = 0; i < beanNames.length; i++) {
+            result.add(getTransientCompanyModelInstance(elementType, beanNames[i]));
+        }
+        return result;
     }
     
     /**

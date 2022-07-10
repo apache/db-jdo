@@ -57,7 +57,7 @@ public class NullSubqueryParameter extends SubqueriesTest {
     public void testPositive() {
         PersistenceManager pm = getPM();
 
-        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(
+        List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(IEmployee.class,
             "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
 
         String singleStringJDOQL = 

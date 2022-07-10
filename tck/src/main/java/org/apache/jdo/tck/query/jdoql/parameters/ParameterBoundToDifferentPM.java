@@ -58,7 +58,7 @@ public class ParameterBoundToDifferentPM extends QueryTest {
     public void testNegative() {
         // get parameter dept1
         getPM().currentTransaction().begin();
-        Department dept1 = (Department) getPersistentCompanyModelInstance("dept1");
+        Department dept1 = getPersistentCompanyModelInstance(Department.class, "dept1");
         getPM().currentTransaction().commit();
         
         // pass parameter dept1 to query of different pm

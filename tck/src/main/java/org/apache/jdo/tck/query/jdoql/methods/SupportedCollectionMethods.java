@@ -29,6 +29,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,7 +66,7 @@ public class SupportedCollectionMethods extends QueryTest {
     /** */
     public void testContains() {
         // contains(VARIABLE)
-        Object expectedResult = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -95,11 +96,11 @@ public class SupportedCollectionMethods extends QueryTest {
 
         // contains(PARAMETER)
 
-        expectedResult = getTransientCompanyModelInstancesAsList("dept1");
+        expectedResult = getTransientCompanyModelInstancesAsList(Department.class,"dept1");
 
         getPM().currentTransaction().begin();
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("e", getPersistentCompanyModelInstance("emp1"));
+        paramValues.put("e", getPersistentCompanyModelInstance(Employee.class, "emp1"));
         getPM().currentTransaction().commit();
 
         query = getPM().newJDOQLTypedQuery(Department.class);
@@ -133,7 +134,7 @@ public class SupportedCollectionMethods extends QueryTest {
     public void testIsEmpty() {
 
         // !isEmpty
-        Object expectedResult = getTransientCompanyModelInstancesAsList("dept1", "dept2");
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -161,7 +162,7 @@ public class SupportedCollectionMethods extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
 
         // isEmpty
-        expectedResult = getTransientCompanyModelInstancesAsList(
+        List<Employee> expectedResult2 = getTransientCompanyModelInstancesAsList(Employee.class,
                 "emp1", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query2 = getPM().newJDOQLTypedQuery(Employee.class);
@@ -185,15 +186,15 @@ public class SupportedCollectionMethods extends QueryTest {
                 /*JDOQLTyped*/  query2,
                 /*paramValues*/ null);
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult);
+        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult2);
+        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult2);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult2);
     }
 
     /** */
     public void testSize() {
         // size
-        Object expectedResult = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

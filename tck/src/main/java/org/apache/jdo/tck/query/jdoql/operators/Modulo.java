@@ -24,6 +24,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -57,7 +58,7 @@ public class Modulo extends QueryTest {
     }
 
     public void testPositive() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp4");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp4");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

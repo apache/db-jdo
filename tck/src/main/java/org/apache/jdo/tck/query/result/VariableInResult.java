@@ -18,10 +18,12 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
@@ -70,7 +72,7 @@ public class VariableInResult extends QueryTest {
     
     /** */
     public void testDistinctNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1","emp2","emp3","emp4","emp5");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -170,7 +172,7 @@ public class VariableInResult extends QueryTest {
 
     /** */
     public void testNoNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1","emp2","emp3","emp4","emp5");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -202,7 +204,7 @@ public class VariableInResult extends QueryTest {
 
     /** */
     public void testMultipleProjectionWithConstraints() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp4","emp5");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp4","emp5");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

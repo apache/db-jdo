@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
@@ -28,6 +29,7 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QPerson;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Identifiers Equal Field Names.
@@ -58,7 +60,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -88,7 +90,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
@@ -119,7 +121,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -149,7 +151,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -179,7 +181,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
 
     /** */
     public void testPositive4() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1") ;
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1") ;
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

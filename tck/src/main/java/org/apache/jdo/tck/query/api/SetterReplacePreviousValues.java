@@ -101,11 +101,11 @@ public class SetterReplacePreviousValues extends QueryTest {
      */
     private final Object[] expectedResult = {
         // replace parameter declaration
-        getTransientCompanyModelInstancesAsList("dept1"),
+        getTransientCompanyModelInstancesAsList(Department.class, "dept1"),
         // replace filter setting
-        getTransientCompanyModelInstancesAsList("emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
         // replace variable declaration
-        getTransientCompanyModelInstancesAsList("dept1")
+        getTransientCompanyModelInstancesAsList(Department.class, "dept1")
     };
     
     /**

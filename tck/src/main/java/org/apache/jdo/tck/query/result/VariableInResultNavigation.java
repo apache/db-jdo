@@ -21,6 +21,8 @@ import java.util.Arrays;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.pc.company.Project;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.pc.company.QProject;
@@ -66,16 +68,16 @@ public class VariableInResultNavigation extends QueryTest {
     /** 
      * The expected results of valid queries.
      */
-    private final Object emp1 = getTransientCompanyModelInstance("emp1");
-    private final Object emp2 = getTransientCompanyModelInstance("emp2");
-    private final Object emp3 = getTransientCompanyModelInstance("emp3");
-    private final Object emp4 = getTransientCompanyModelInstance("emp4");
-    private final Object emp5 = getTransientCompanyModelInstance("emp5");
-    private final Object proj1 = getTransientCompanyModelInstance("proj1");
-    private final Object proj2 = getTransientCompanyModelInstance("proj2");
-    private final Object proj3 = getTransientCompanyModelInstance("proj3");
-    private final Object dept1 = getTransientCompanyModelInstance("dept1");
-    private final Object dept2 = getTransientCompanyModelInstance("dept2");
+    private final Object emp1 = getTransientCompanyModelInstance(Employee.class, "emp1");
+    private final Object emp2 = getTransientCompanyModelInstance(Employee.class, "emp2");
+    private final Object emp3 = getTransientCompanyModelInstance(Employee.class, "emp3");
+    private final Object emp4 = getTransientCompanyModelInstance(Employee.class, "emp4");
+    private final Object emp5 = getTransientCompanyModelInstance(Employee.class, "emp5");
+    private final Object proj1 = getTransientCompanyModelInstance(Project.class, "proj1");
+    private final Object proj2 = getTransientCompanyModelInstance(Project.class, "proj2");
+    private final Object proj3 = getTransientCompanyModelInstance(Project.class, "proj3");
+    private final Object dept1 = getTransientCompanyModelInstance(Department.class, "dept1");
+    private final Object dept2 = getTransientCompanyModelInstance(Department.class, "dept2");
 
     /**
      * The <code>main</code> is called when the class

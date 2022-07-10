@@ -27,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.StringExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,7 +62,7 @@ public class StringConcatenation extends QueryTest {
      *
      */
     public void testStringLiteralPlusStringLiteral() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -90,7 +91,7 @@ public class StringConcatenation extends QueryTest {
     }
 
     public void testStringFieldPlusStringLiteral() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

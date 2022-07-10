@@ -25,6 +25,7 @@ import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -77,8 +78,8 @@ public class AllowedAPIMethods extends QueryTest {
                 "primitiveTypesPositive", 
                 "primitiveTypesNegative",
                 "primitiveTypesCharacterStringLiterals"),
-        getTransientCompanyModelInstancesAsList("dept1", "dept2"),
-        getTransientCompanyModelInstancesAsList(
+        getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2"),
+        getTransientCompanyModelInstancesAsList(Employee.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5"),
         new Object[]{"emp1First", "emp1Last"},
         Arrays.asList(

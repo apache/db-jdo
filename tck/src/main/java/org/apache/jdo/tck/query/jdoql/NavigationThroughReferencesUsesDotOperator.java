@@ -27,6 +27,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Navigation Through a References uses Dot Operator
@@ -70,7 +71,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive0() {
         // navigation through one relationship
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,"emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -100,7 +101,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive1() {
         // navigation through multiple relationships
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
                 "medicalIns1", "medicalIns2", "medicalIns3", "medicalIns4",  "medicalIns5");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
@@ -131,7 +132,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive2() {
         // navigation through a self referencing relationship
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
                 "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);
@@ -162,7 +163,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
 
     public void testPositive3() {
         // navigation through a self referencing relationship multiple times
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<MedicalInsurance> expected = getTransientCompanyModelInstancesAsList(MedicalInsurance.class,
                 "medicalIns2", "medicalIns3");
 
         JDOQLTypedQuery<MedicalInsurance> query = getPM().newJDOQLTypedQuery(MedicalInsurance.class);

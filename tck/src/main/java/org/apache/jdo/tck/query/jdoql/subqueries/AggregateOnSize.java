@@ -55,7 +55,7 @@ public class AggregateOnSize extends SubqueriesTest {
     public void testMaxAndSizeInSubquery() {
         PersistenceManager pm = getPM();
 
-        List<IDepartment> expectedResult = getTransientCompanyModelInstancesAsList("dept1");
+        List<IDepartment> expectedResult = getTransientCompanyModelInstancesAsList(IDepartment.class, "dept1");
 
         // Select departments with the maximum number of employees
         String singleStringJDOQL = 

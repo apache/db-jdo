@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.jdoql.methods;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
@@ -62,7 +63,7 @@ public class SupportedMapMethods extends QueryTest {
     
     /** */
     public void testGet() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -92,7 +93,7 @@ public class SupportedMapMethods extends QueryTest {
     
     /** */
     public void testContainsKey() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
@@ -123,7 +124,7 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testContainsValue() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -183,7 +184,7 @@ public class SupportedMapMethods extends QueryTest {
 
     /** */
     public void testSize() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);

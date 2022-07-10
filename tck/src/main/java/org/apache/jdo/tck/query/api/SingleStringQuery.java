@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
@@ -71,7 +72,7 @@ public class SingleStringQuery extends QueryTest {
      */
     private final Object[] expectedResult = {
         new FullName("emp1First", "emp1Last"),
-        getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5")
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp5")
     };
             
     /** Parameters of valid queries. */

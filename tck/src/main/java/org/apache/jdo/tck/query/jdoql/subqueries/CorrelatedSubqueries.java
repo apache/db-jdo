@@ -74,7 +74,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
 
             // API query
@@ -108,7 +108,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
             // single String JDOQL
             try (Query<Employee> singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_COLLECTION_SUBQUERY)) {
@@ -130,7 +130,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp1", "emp2", "emp4", "emp6", "emp7", "emp10");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
@@ -155,7 +155,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp7", "emp8", "emp9", "emp10");
 
             // API query
@@ -188,7 +188,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp7", "emp8", "emp9", "emp10");
             // single String JDOQL
             try (Query<Employee> singleStringQuery = pm.newQuery(SINGLE_STRING_QUERY_LIST_SUBQUERY)) {
@@ -210,7 +210,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList(
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp7", "emp8", "emp9", "emp10");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();

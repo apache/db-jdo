@@ -26,6 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Instanceof operator.
@@ -53,7 +54,7 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -83,7 +84,7 @@ public class Instanceof extends QueryTest {
     }
 
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

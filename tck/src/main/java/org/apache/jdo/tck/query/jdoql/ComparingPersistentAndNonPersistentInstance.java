@@ -27,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,7 +60,7 @@ public class ComparingPersistentAndNonPersistentInstance
 
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList();
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -67,7 +68,7 @@ public class ComparingPersistentAndNonPersistentInstance
         query.filter(cand.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+        paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -93,7 +94,7 @@ public class ComparingPersistentAndNonPersistentInstance
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        Object expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -102,7 +103,7 @@ public class ComparingPersistentAndNonPersistentInstance
         query.filter(cand.personid.eq(empParam.personid));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("param", getTransientCompanyModelInstance("emp1"));
+        paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,

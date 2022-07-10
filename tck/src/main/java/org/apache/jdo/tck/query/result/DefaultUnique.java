@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.result;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
@@ -60,7 +61,7 @@ public class DefaultUnique extends QueryTest {
 
     /** */
     public void testThis() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);

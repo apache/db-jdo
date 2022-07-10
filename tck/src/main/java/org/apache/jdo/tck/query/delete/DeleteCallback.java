@@ -114,7 +114,7 @@ public class DeleteCallback extends QueryTest {
      * The expected results of valid queries.
      */
     private final List<?>[] expectedResult = {
-            getTransientCompanyModelInstancesAsList(
+            getTransientCompanyModelInstancesAsList(Employee.class,
                     "emp1", "emp2", "emp3", "emp4", "emp5"),
             getTransientMylibInstancesAsList(
                     "primitiveTypesPositive", 

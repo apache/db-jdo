@@ -21,6 +21,7 @@ import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -60,7 +61,7 @@ public class Unique extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -120,7 +121,7 @@ public class Unique extends QueryTest {
 
     /** */
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

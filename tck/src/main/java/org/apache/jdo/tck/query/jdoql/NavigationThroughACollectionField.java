@@ -26,6 +26,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Navigation Through a Collection Field
@@ -69,7 +70,7 @@ public class NavigationThroughACollectionField extends QueryTest {
     
     /** */
     public void testPositive() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

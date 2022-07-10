@@ -18,6 +18,7 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -118,7 +119,7 @@ public class NullResults extends QueryTest {
 
     /** */
     public void testDistinctNavigation() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp2", null});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", null);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

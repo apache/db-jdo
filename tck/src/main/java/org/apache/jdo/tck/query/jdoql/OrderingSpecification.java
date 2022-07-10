@@ -74,7 +74,7 @@ public class OrderingSpecification extends QueryTest {
     /** */
     public void testPositiveCompanyQueries0() {
         // nulls first
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<DentalInsurance> expected = getTransientCompanyModelInstancesAsList(DentalInsurance.class,
                 "dentalIns99", "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5");
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);
@@ -106,7 +106,7 @@ public class OrderingSpecification extends QueryTest {
     /** */
     public void testPositiveCompanyQueries1() {
         // nulls last
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<DentalInsurance> expected = getTransientCompanyModelInstancesAsList(DentalInsurance.class,
                 "dentalIns1", "dentalIns2", "dentalIns3", "dentalIns4", "dentalIns5", "dentalIns99");
 
         JDOQLTypedQuery<DentalInsurance> query = getPM().newJDOQLTypedQuery(DentalInsurance.class);

@@ -30,6 +30,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.IfThenElseExpression;
+import java.util.List;
 
 /**
  *<B>Title:</B> Use of If Else expression in filter
@@ -111,7 +112,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive0() {
         // simple If/Else using literals
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp5");
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -144,7 +145,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive1() {
         // simple If/Else using relationships
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -177,7 +178,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive2() {
         // multiple If/Else with distinct conditions
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
@@ -215,7 +216,7 @@ public class IfElseInFilter extends QueryTest {
     /** */
     public void testPositive3() {
         // multiple If/Else with overlapping conditions
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
 
         JDOQLTypedQuery<FullTimeEmployee> query = getPM().newJDOQLTypedQuery(FullTimeEmployee.class);
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();

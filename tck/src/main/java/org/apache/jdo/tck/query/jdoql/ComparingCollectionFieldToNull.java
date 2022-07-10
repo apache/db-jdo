@@ -97,11 +97,11 @@ public class ComparingCollectionFieldToNull extends QueryTest {
     protected void localSetUp() {
         addTearDownClass(CompanyModelReader.getTearDownClasses());
         loadAndPersistCompanyModel(getPM());
-        Employee employee = (Employee) getPersistentCompanyModelInstance("emp1");
+        Employee employee = getPersistentCompanyModelInstance(Employee.class,"emp1");
         expectedResult =
             // emp1 should be in the query result set,
             // if the JDO Implentation supports null values for Collections
-            getTransientCompanyModelInstancesAsList(
+            getTransientCompanyModelInstancesAsList(Employee.class,
                 isNullCollectionSupported() ? 
                     new String[]{"emp1"} : new String[]{});
         if (isNullCollectionSupported()) {

@@ -30,6 +30,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,7 +65,7 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInFilter() {
         // get(PARAMETER) in filter
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -75,7 +76,7 @@ public class SupportedListMethods extends QueryTest {
         getPM().currentTransaction().begin();
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("pos", Integer.valueOf(1));
-        paramValues.put("room1", getPersistentCompanyModelInstance("room2"));
+        paramValues.put("room1", getPersistentCompanyModelInstance(MeetingRoom.class, "room2"));
         getPM().currentTransaction().commit();
 
         QueryElementHolder holder = new QueryElementHolder(
@@ -103,7 +104,7 @@ public class SupportedListMethods extends QueryTest {
     /** */
     public void testGetInResult() {
         // get(LITERAL) in result
-        Object expected = getTransientCompanyModelInstancesAsList("room2");
+        List<MeetingRoom> expected = getTransientCompanyModelInstancesAsList(MeetingRoom.class,"room2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

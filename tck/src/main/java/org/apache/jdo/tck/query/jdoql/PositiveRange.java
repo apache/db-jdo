@@ -25,6 +25,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Positive Range.
@@ -52,7 +53,7 @@ public class PositiveRange extends QueryTest {
     }
 
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
@@ -82,7 +83,7 @@ public class PositiveRange extends QueryTest {
     }
 
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
@@ -112,7 +113,7 @@ public class PositiveRange extends QueryTest {
     }
 
     public void testPositive2() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
@@ -142,7 +143,7 @@ public class PositiveRange extends QueryTest {
     }
 
     public void testPositive3() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp4");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp2", "emp3", "emp4");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

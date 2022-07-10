@@ -27,6 +27,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Navigation Through a Null-Valued Field
@@ -75,7 +76,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         // navigation through reference relationship field
         // the relationship medicalInsurance is not set for emp2 and emp3 =>
         // they should not be part of the result
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -106,7 +107,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
     public void testPositive2() {
         // navigation through reference relationship field
         // emp5 and emp6 have have emp4 as manager
-        Object expected = getTransientCompanyModelInstancesAsList("emp5", "emp6");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp5", "emp6");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -135,7 +136,8 @@ public class NavigationThroughANullValuedField extends QueryTest {
     }
     public void testPositive3() {
         // multiple navigation through reference relationship field
-        Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp10");
+        List<Employee> expected =
+                getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3", "emp10");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -167,7 +169,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         // employees emp2 and emp3 do not have a medicalInsurance, but emp1
         // matches the filter such that dept1 qualifies for inclusion in the
         // result set.
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

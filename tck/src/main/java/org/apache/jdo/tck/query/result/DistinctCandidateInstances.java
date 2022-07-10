@@ -62,7 +62,7 @@ public class DistinctCandidateInstances extends QueryTest {
     /** */
     public void testExtentQueries0() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp1");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp1");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             query.variable("p", Person.class);
@@ -93,7 +93,7 @@ public class DistinctCandidateInstances extends QueryTest {
     /** */
     public void testExtentQueries1() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class,"emp1");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             QEmployee cand = QEmployee.candidate();
@@ -129,19 +129,19 @@ public class DistinctCandidateInstances extends QueryTest {
         String singleStringDistinctQuery = 
             "SELECT DISTINCT FROM " + Person.class.getName();
         
-        List<Person> candidates = getPersistentCompanyModelInstancesAsList("emp1", "emp1");
+        List<Person> candidates = getPersistentCompanyModelInstancesAsList(Person.class, "emp1", "emp1");
         Query<Person> query = pm.newQuery();
         query.setClass(Person.class);
         query.setCandidates(candidates);
         query.setResult("this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 
                 false, null,
-                getTransientCompanyModelInstancesAsList("emp1", "emp1"), true);
+                getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp1"), true);
         
         query.setResult("DISTINCT this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringDistinctQuery, 
                 false, null,
-                getTransientCompanyModelInstancesAsList("emp1"), true);
+                getTransientCompanyModelInstancesAsList(Person.class,"emp1"), true);
     }
 
     /**

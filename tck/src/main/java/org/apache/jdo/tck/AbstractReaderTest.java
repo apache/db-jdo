@@ -56,6 +56,11 @@ public class AbstractReaderTest extends JDO_Test {
         );
     }
 
+    protected <T> T getBean(final DefaultListableBeanFactory factory, Class<T> clazz, final String name) {
+        return doPrivileged(() -> factory.getBean(name, clazz)
+        );
+    }
+
     @SuppressWarnings("unchecked")
     private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
         try {

@@ -25,6 +25,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Supported Date methods.
@@ -58,7 +59,7 @@ public class SupportedDateMethods extends QueryTest {
     
     /** */
     public void testGetDate() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -88,7 +89,7 @@ public class SupportedDateMethods extends QueryTest {
     
     /** */
     public void testGetMonth() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -118,7 +119,7 @@ public class SupportedDateMethods extends QueryTest {
 
     /** */
     public void testGetYear() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

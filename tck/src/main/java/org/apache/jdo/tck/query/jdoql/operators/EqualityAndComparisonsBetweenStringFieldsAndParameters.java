@@ -27,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.StringExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,7 +60,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
     
     public void testStringFieldEqualsStringParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -92,7 +93,8 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
 
     public void testStringFieldGEStringParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5");
+        List<Employee> expected =
+                getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -125,7 +127,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
     }
 
     public void testStringParameterLTStringField() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp3", "emp4", "emp5");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

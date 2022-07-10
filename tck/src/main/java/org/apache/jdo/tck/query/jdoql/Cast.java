@@ -29,6 +29,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Cast Query Operator
@@ -59,7 +60,7 @@ public class Cast extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp5");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -92,7 +93,7 @@ public class Cast extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1", "dept2");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

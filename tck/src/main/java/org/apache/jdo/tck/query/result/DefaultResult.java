@@ -24,6 +24,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Default Result.
@@ -52,7 +53,7 @@ public class DefaultResult extends QueryTest {
     
     /** */
     public void testPositive() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);

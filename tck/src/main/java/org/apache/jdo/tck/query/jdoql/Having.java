@@ -20,6 +20,7 @@ package org.apache.jdo.tck.query.jdoql;
 import java.util.Arrays;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -95,10 +96,10 @@ public class Having extends QueryTest {
     public void testPositive0() {
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
-                        getTransientCompanyModelInstance("dept1"),
+                        getTransientCompanyModelInstance(Department.class, "dept1"),
                         Double.valueOf(33.0)},
                 new Object[] {
-                        getTransientCompanyModelInstance("dept2"),
+                        getTransientCompanyModelInstance(Department.class, "dept2"),
                         Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -133,10 +134,10 @@ public class Having extends QueryTest {
         // HAVING clause uses field that isn't contained in the SELECT clause.
         Object expected = Arrays.asList(new Object[] {
                 new Object[] {
-                        getTransientCompanyModelInstance("dept1"),
+                        getTransientCompanyModelInstance(Department.class, "dept1"),
                         Double.valueOf(33.0)},
                 new Object[] {
-                        getTransientCompanyModelInstance("dept2"),
+                        getTransientCompanyModelInstance(Department.class, "dept2"),
                         Double.valueOf(0.0)}});
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);

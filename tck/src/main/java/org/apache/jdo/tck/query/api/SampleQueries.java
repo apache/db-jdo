@@ -168,7 +168,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class,"emp1", "emp2", "emp5");
             try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
                 List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
@@ -198,7 +198,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
             try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
                 List<FullTimeEmployee> emps = q.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
@@ -228,7 +228,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
             try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_01)) {
                 List<FullTimeEmployee> emps = q.executeList();
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_01, emps, expected);
@@ -258,7 +258,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp5");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp2", "emp5");
             try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
                 QFullTimeEmployee cand = QFullTimeEmployee.candidate();
                 q.filter(cand.salary.gt(30000.));
@@ -286,7 +286,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp5", "emp2");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
             try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
                 q.setOrdering ("salary ascending");
                 List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute();
@@ -313,7 +313,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp5", "emp2");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
             try (Query<FullTimeEmployee> q = pm.newQuery(FullTimeEmployee.class, "salary > 30000")) {
                 q.setOrdering ("salary ascending");
                 List<FullTimeEmployee> emps = q.executeList();
@@ -340,7 +340,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp5", "emp2");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1", "emp5", "emp2");
             try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_02)) {
                 List<FullTimeEmployee> emps = q.executeList();
                 checkQueryResultWithOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_02, emps, expected);
@@ -366,7 +366,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<FullTimeEmployee> expected =
-                    getTransientCompanyModelInstancesAsList("emp1", "emp5", "emp2");
+                    getTransientCompanyModelInstancesAsList(FullTimeEmployee.class,"emp1", "emp5", "emp2");
             try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
                 QFullTimeEmployee cand = QFullTimeEmployee.candidate();
                 q.filter(cand.salary.gt(30000.))
@@ -397,7 +397,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class,"emp1");
             try (Query<FullTimeEmployee> q =
                          pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)")) {
                 q.declareParameters("Double sal, String begin");
@@ -427,7 +427,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
             try (Query<FullTimeEmployee> q =
                     pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)")) {
                 q.declareParameters("Double sal, String begin");
@@ -461,7 +461,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
             try (Query<FullTimeEmployee> q =
                     pm.newQuery(FullTimeEmployee.class,"salary > sal && firstname.startsWith(begin)")) {
                 q.declareParameters("Double sal, String begin");
@@ -492,7 +492,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
             try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_03)) {
                 List<FullTimeEmployee> emps = (List<FullTimeEmployee>)q.execute(30000., "M");
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_03, emps, expected);
@@ -520,7 +520,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList("emp1");
+            List<FullTimeEmployee> expected = getTransientCompanyModelInstancesAsList(FullTimeEmployee.class, "emp1");
             try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
                 QFullTimeEmployee cand = QFullTimeEmployee.candidate();
                 NumericExpression<Double> sal = q.numericParameter("sal", Double.class);
@@ -556,7 +556,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
             try (Query<Employee> q = pm.newQuery(Employee.class, "department.name == dep")) {
                 q.declareParameters("String dep");
                 List<Employee> emps = (List<Employee>)q.execute ("R&D");
@@ -585,7 +585,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
             try (Query<Employee> q = pm.newQuery (Employee.class, "department.name == dep")) {
                 q.declareParameters ("String dep");
                 Map<String, Object> paramValues = new HashMap<>();
@@ -617,7 +617,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
             try (Query<Employee> q = pm.newQuery (Employee.class, "department.name == dep")) {
                 q.declareParameters ("String dep");
                 q.setParameters("R&D");
@@ -647,7 +647,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
             try (Query<Employee> q = pm.newQuery (SINGLE_STRING_QUERY_04)) {
                 Map<String, Object> paramValues = new HashMap<>();
                 paramValues.put("dep", "R&D");
@@ -678,7 +678,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Employee> expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
                 StringExpression dep = q.stringParameter("dep");
@@ -710,7 +710,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Department> expected = getTransientCompanyModelInstancesAsList("dept1");
+            List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
             try (Query<Department> q =
                          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
                 q.declareVariables("Employee emp");
@@ -739,7 +739,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Department> expected = getTransientCompanyModelInstancesAsList("dept1");
+            List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
             try (Query<Department> q =
                          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
                 q.declareVariables("Employee emp");
@@ -771,7 +771,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Department> expected = getTransientCompanyModelInstancesAsList("dept1");
+            List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
             try (Query<Department> q =
                          pm.newQuery(Department.class, "employees.contains (emp) && emp.weeklyhours > hours")) {
                 q.declareVariables("Employee emp");
@@ -801,7 +801,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Department> expected = getTransientCompanyModelInstancesAsList("dept1");
+            List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
             try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_05)) {
                 List<Department> deps = (List<Department>)q.execute (30.);
                 checkQueryResultWithoutOrder(ASSERTION_FAILED, SINGLE_STRING_QUERY_05, deps, expected);
@@ -827,7 +827,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            List<Department> expected = getTransientCompanyModelInstancesAsList("dept1");
+            List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
             try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
                 QDepartment cand = QDepartment.candidate();
                 QEmployee emp = QEmployee.variable("emp");
@@ -860,7 +860,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Department> expected =
-                    getTransientCompanyModelInstancesAsList("dept1", "dept2", "dept3");
+                    getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
             try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
                 q.declareParameters("java.util.Collection depts");
                 List<String> deptNames = Arrays.asList("R&D", "Sales", "Marketing");
@@ -888,7 +888,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Department> expected =
-                    getTransientCompanyModelInstancesAsList("dept1", "dept2", "dept3");
+                    getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
             try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
                 q.declareParameters("java.util.Collection depts");
                 Map<String, Object> paramValues = new HashMap<>();
@@ -918,7 +918,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Department> expected =
-                    getTransientCompanyModelInstancesAsList("dept1", "dept2", "dept3");
+                    getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
             try (Query<Department> q = pm.newQuery(Department.class, "depts.contains(name)")) {
                 q.declareParameters("java.util.Collection depts");
                 q.setParameters(Arrays.asList("R&D", "Sales", "Marketing"));
@@ -946,7 +946,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Department> expected =
-                    getTransientCompanyModelInstancesAsList("dept1", "dept2", "dept3");
+                    getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
             try (Query<Department> q = pm.newQuery(SINGLE_STRING_QUERY_06)) {
                 Map<String, Object> paramValues = new HashMap<>();
                 paramValues.put("depts", Arrays.asList("R&D", "Sales", "Marketing"));
@@ -975,7 +975,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Department> expected =
-                    getTransientCompanyModelInstancesAsList("dept1", "dept2", "dept3");
+                    getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2", "dept3");
             try (JDOQLTypedQuery<Department> q = pm.newJDOQLTypedQuery(Department.class)) {
                 QDepartment cand = QDepartment.candidate();
                 CollectionExpression<Collection<String>, String> depts =
@@ -1293,7 +1293,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class,"emp2")),
                     new Info("Craig", 50000., null)
             );
             try (Query<FullTimeEmployee> q =
@@ -1324,7 +1324,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
                     new Info("Craig", 50000., null)
             );
             try (Query<FullTimeEmployee> q =
@@ -1358,7 +1358,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
                     new Info("Craig", 50000., null)
             );
             try (Query<FullTimeEmployee> q =
@@ -1390,7 +1390,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
                     new Info("Craig", 50000., null)
             );
             try (Query<FullTimeEmployee> q = pm.newQuery(SINGLE_STRING_QUERY_09)) {
@@ -1419,7 +1419,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
                     new Info("Craig", 50000., null)
             );
             try (Query<FullTimeEmployee> q = pm.newNamedQuery(FullTimeEmployee.class, "constructor")) {
@@ -1448,7 +1448,7 @@ public class SampleQueries extends QueryTest {
         try {
             tx.begin();
             List<Info> expected = Arrays.asList(
-                    new Info("Michael", 40000., (Employee)getTransientCompanyModelInstance("emp2")),
+                    new Info("Michael", 40000., getTransientCompanyModelInstance(Employee.class, "emp2")),
                     new Info("Craig", 50000., null)
             );
             try (JDOQLTypedQuery<FullTimeEmployee> q = pm.newJDOQLTypedQuery(FullTimeEmployee.class)) {
@@ -1926,7 +1926,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
             try (Query<Employee> q = pm.newQuery(Employee.class, "firstname == empName")) {
                 q.setUnique(true);
                 q.declareParameters ("String empName");
@@ -1952,7 +1952,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
             try (Query<Employee> q = pm.newQuery (Employee.class, "firstname == empName")) {
                 q.setUnique(true);
                 q.declareParameters ("String empName");
@@ -1981,7 +1981,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
             try (Query<Employee> q = pm.newQuery (Employee.class, "firstname == empName")) {
                 q.setUnique(true);
                 q.declareParameters ("String empName");
@@ -2008,7 +2008,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
             try (Query<Employee> q = pm.newQuery (SINGLE_STRING_QUERY_13)) {
                 q.setParameters("Michael");
                 Employee emp = q.executeResultUnique(Employee.class);
@@ -2033,7 +2033,7 @@ public class SampleQueries extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Employee expectedEmp = (Employee)getTransientCompanyModelInstance("emp1");
+            Employee expectedEmp = getTransientCompanyModelInstance(Employee.class, "emp1");
             try (JDOQLTypedQuery<Employee> q = pm.newJDOQLTypedQuery(Employee.class)) {
                 QEmployee cand = QEmployee.candidate();
                 StringExpression empName = q.stringParameter("empName");
@@ -2893,7 +2893,7 @@ public class SampleQueries extends QueryTest {
         Info info1 = new Info();
         info1.firstname = "Michael";
         info1.salary = 40000.;
-        info1.reportsTo = (Employee)getTransientCompanyModelInstance("emp2");
+        info1.reportsTo = getTransientCompanyModelInstance(Employee.class, "emp2");
         Info info2 = new Info();
         info2.firstname = "Craig";
         info2.salary = 50000.;
@@ -2903,21 +2903,21 @@ public class SampleQueries extends QueryTest {
 
     private List<EmpWrapper> testQuery15Helper() {
         EmpWrapper wrapper1 = new EmpWrapper();
-        wrapper1.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp1");
+        wrapper1.FullTimeEmployee = getTransientCompanyModelInstance(FullTimeEmployee.class, "emp1");
         EmpWrapper wrapper2 = new EmpWrapper();
-        wrapper2.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp2");
+        wrapper2.FullTimeEmployee = getTransientCompanyModelInstance(FullTimeEmployee.class, "emp2");
         EmpWrapper wrapper3 = new EmpWrapper();
-        wrapper3.FullTimeEmployee = (FullTimeEmployee)getTransientCompanyModelInstance("emp5");
+        wrapper3.FullTimeEmployee = getTransientCompanyModelInstance(FullTimeEmployee.class, "emp5");
         return Arrays.asList(wrapper1, wrapper2, wrapper3);
     }
 
     private List<EmpInfo> testQuery16Helper() {
         EmpInfo info1 = new EmpInfo();
-        info1.setFullTimeEmployee((FullTimeEmployee) getTransientCompanyModelInstance("emp1"));
+        info1.setFullTimeEmployee( getTransientCompanyModelInstance(FullTimeEmployee.class, "emp1"));
         EmpInfo info2 = new EmpInfo();
-        info2.setFullTimeEmployee((FullTimeEmployee) getTransientCompanyModelInstance("emp2"));
+        info2.setFullTimeEmployee( getTransientCompanyModelInstance(FullTimeEmployee.class, "emp2"));
         EmpInfo info3 = new EmpInfo();
-        info3.setFullTimeEmployee((FullTimeEmployee) getTransientCompanyModelInstance("emp5"));
+        info3.setFullTimeEmployee( getTransientCompanyModelInstance(FullTimeEmployee.class, "emp5"));
         return Arrays.asList(info1, info2, info3);
     }
 

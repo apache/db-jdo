@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
@@ -74,9 +75,9 @@ public class ExecuteWithMap extends QueryTest {
         getTransientMylibInstancesAsList(new String[]{
                 "primitiveTypesPositive", 
                 "primitiveTypesCharacterStringLiterals"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"}),
-        getTransientCompanyModelInstancesAsList(new String[]{"emp2"})
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2"),
+        getTransientCompanyModelInstancesAsList(Employee.class, "emp2")
     };
 
     /** 

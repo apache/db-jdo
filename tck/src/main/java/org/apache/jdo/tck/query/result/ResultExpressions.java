@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -134,7 +135,7 @@ public class ResultExpressions extends QueryTest {
     
     /** */
     public void testThis() {
-        Object expectedResult = getTransientCompanyModelInstancesAsList(
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -228,7 +229,7 @@ public class ResultExpressions extends QueryTest {
 
     /** */
     public void testVariable() {
-        Object expectedResult = getTransientCompanyModelInstancesAsList("proj1");
+        List<Project> expectedResult = getTransientCompanyModelInstancesAsList(Project.class, "proj1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -558,7 +559,7 @@ public class ResultExpressions extends QueryTest {
         query.filter(cand.personid.eq(1l).and(p.projid.eq(cand.personid)));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+        paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -617,7 +618,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testParameter() {
         // parameter
-        Object expectedResult = getTransientCompanyModelInstancesAsList("proj1");
+        List<Project> expectedResult = getTransientCompanyModelInstancesAsList(Project.class, "proj1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -627,7 +628,7 @@ public class ResultExpressions extends QueryTest {
         query.filter(cand.personid.eq(1l).and(cand.personid.eq(p.projid)));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("p", getPersistentCompanyModelInstance("proj1"));
+        paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -654,7 +655,7 @@ public class ResultExpressions extends QueryTest {
     /** */
     public void testCast() {
         // cast
-        Object expectedResult = getTransientCompanyModelInstancesAsList("emp2");
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

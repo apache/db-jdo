@@ -40,13 +40,13 @@ import java.util.Map;
  * JDO {@link javax.jdo.Query} instance. 
  * Instead, the default of JDO {@link javax.jdo.Query} instance is taken.
  */
-public class QueryElementHolder {
+public class QueryElementHolder<T> {
 
     // fields holding JDOQL query elements
     private final Boolean unique;
     private final String result;
     private final Class<?> resultClass;
-    private final Class<?> candidateClass;
+    private final Class<T> candidateClass;
     private final Boolean excludeSubClasses;
     private final String filter;
     private final String variables;
@@ -58,7 +58,7 @@ public class QueryElementHolder {
     private String toString;
     private Long   fromLong;
     private Long   toLong;
-    private JDOQLTypedQuery<?> jdoqlTypedQuery;
+    private JDOQLTypedQuery<T> jdoqlTypedQuery;
     private Map<String, Object> paramValues;
     
     /**
@@ -84,7 +84,7 @@ public class QueryElementHolder {
      * @param to the JDOQL range to query element
      */
     public QueryElementHolder(Boolean unique, String result, 
-            Class<?> resultClass, Class<?> candidateClass,
+            Class<?> resultClass, Class<T> candidateClass,
             Boolean excludeSubClasses, String filter,
             String variables, String parameters, String imports, 
             String grouping, String ordering, String from, String to) {
@@ -133,11 +133,11 @@ public class QueryElementHolder {
      * @param paramValues the parameter values
      */
     public QueryElementHolder(Boolean unique, String result,
-                              Class<?> resultClass, Class<?> candidateClass,
+                              Class<?> resultClass, Class<T> candidateClass,
                               Boolean excludeSubClasses, String filter,
                               String variables, String parameters, String imports,
                               String grouping, String ordering, String from, String to,
-                              JDOQLTypedQuery<?> jdoqlTypedQuery,
+                              JDOQLTypedQuery<T> jdoqlTypedQuery,
                               Map<String, Object> paramValues) {
         if (from == null ^ to == null) {
             throw new IllegalArgumentException(
@@ -186,11 +186,11 @@ public class QueryElementHolder {
      * @param paramValues the parameter values
      */
     public QueryElementHolder(Boolean unique, String result,
-                              Class<?> resultClass, Class<?> candidateClass,
+                              Class<?> resultClass, Class<T> candidateClass,
                               Boolean excludeSubClasses, String filter,
                               String variables, String parameters, String imports,
                               String grouping, String ordering, long from, long to,
-                              JDOQLTypedQuery<?> jdoqlTypedQuery,
+                              JDOQLTypedQuery<T> jdoqlTypedQuery,
                               Map<String, Object> paramValues) {
         this.unique = unique;
         this.result = result;
@@ -239,7 +239,7 @@ public class QueryElementHolder {
      * @param pm the persistence manager
      * @return the JDO query instance
      */
-    public <T> Query<T> getSingleStringQuery(PersistenceManager pm) {
+    public Query<T> getSingleStringQuery(PersistenceManager pm) {
         return pm.newQuery(toString());
     }
 
@@ -253,11 +253,11 @@ public class QueryElementHolder {
      * @param pm the persistence manager
      * @return the JDO query instance
      */
-    public <T> Query<T> getAPIQuery(PersistenceManager pm) {
+    public Query<T> getAPIQuery(PersistenceManager pm) {
         Extent<T> extent = this.excludeSubClasses != null ?
-                pm.getExtent((Class<T>)this.candidateClass,
+                pm.getExtent(this.candidateClass,
                         !this.excludeSubClasses.booleanValue()) :
-                pm.getExtent((Class<T>)this.candidateClass);
+                pm.getExtent(this.candidateClass);
         Query<T> query = pm.newQuery(extent);
         if (this.unique != null) {
             query.setUnique(this.unique.booleanValue());
@@ -294,7 +294,7 @@ public class QueryElementHolder {
      * Returns the JDOQLTypedQuery instance.
      * @return the JDOQLTypedQuery instance
      */
-    public JDOQLTypedQuery<?> getJDOQLTypedQuery() {
+    public JDOQLTypedQuery<T> getJDOQLTypedQuery() {
         if (this.jdoqlTypedQuery != null) {
             this.rangeToJDOQLTypedQuery(this.jdoqlTypedQuery);
         }

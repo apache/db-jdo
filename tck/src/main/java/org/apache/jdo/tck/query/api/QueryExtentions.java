@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.jdo.Query;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -51,7 +52,7 @@ public class QueryExtentions extends QueryTest {
      * The expected results of valid queries.
      */
     private final Object[] expectedResult = {
-        getTransientCompanyModelInstancesAsList(
+        getTransientCompanyModelInstancesAsList(Employee.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5")
     };
             

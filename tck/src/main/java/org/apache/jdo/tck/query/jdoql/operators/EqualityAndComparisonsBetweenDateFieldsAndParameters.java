@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
@@ -85,7 +86,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldEqualsParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1");
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -122,7 +123,8 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testFieldGEParameter() {
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4");
+        List<Employee> expected =
+                getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3", "emp4");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -159,7 +161,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
      *
      */
     public void testParameterLTField() {
-        Object expected = getTransientCompanyModelInstancesAsList();
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();

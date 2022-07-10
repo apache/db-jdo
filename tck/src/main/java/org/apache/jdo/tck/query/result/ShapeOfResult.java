@@ -18,8 +18,10 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -57,7 +59,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testNoResult() {
         // result: null
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
@@ -86,7 +88,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testThisAsC() {
         // result: this AS C
-        Object expected = getTransientCompanyModelInstancesAsList("emp1", "emp2", "emp3", "emp4", "emp5");
+        List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1", "emp2", "emp3", "emp4", "emp5");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -117,7 +119,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testNoResultUnique() {
         // result: null, unique: true
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();
@@ -148,7 +150,7 @@ public class ShapeOfResult extends QueryTest {
     /** */
     public void testThisAsCUnique() {
         // result: this AS C, unique: true
-        Object expected = getTransientCompanyModelInstance("emp1");
+        Object expected = getTransientCompanyModelInstance(Employee.class, "emp1");
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
         QPerson cand = QPerson.candidate();

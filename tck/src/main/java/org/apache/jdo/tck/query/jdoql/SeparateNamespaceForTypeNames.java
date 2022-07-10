@@ -29,6 +29,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,7 +64,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
      *
      */
     public void testParameterName() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+        List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1", "emp2", "emp3");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
@@ -71,7 +72,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
         query.filter(cand.department.eq(empParam));
 
         Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("Department", getPersistentCompanyModelInstance("dept1"));
+        paramValues.put("Department", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         QueryElementHolder holder = new QueryElementHolder(
                 /*UNIQUE*/      null,
@@ -99,7 +100,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
      * 
      */
     public void testVaiableName() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

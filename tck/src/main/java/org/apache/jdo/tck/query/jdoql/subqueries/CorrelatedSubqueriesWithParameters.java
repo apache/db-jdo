@@ -68,7 +68,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
      * Test subquery: 
      */
     void runTestSubqueries01(PersistenceManager pm) {
-        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
             "emp2", "emp6", "emp9");
         
         // Select employees who work more than the average of the employees 
@@ -104,7 +104,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
 
     /** */
     void runTestSubqueries02(PersistenceManager pm) {
-        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList("emp2", "emp10");
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp10");
 
         // Select employees hired after a particular date who work more 
         // than the average of all employees of the same manager
@@ -142,7 +142,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
 
     /** */
     void runTestSubqueries03(PersistenceManager pm) {
-        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(
+        List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
             "emp2", "emp6", "emp9", "emp10");
 
         // Select employees who work more than the average of all 

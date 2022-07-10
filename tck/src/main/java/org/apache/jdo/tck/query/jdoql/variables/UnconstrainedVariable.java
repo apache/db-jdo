@@ -27,6 +27,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.NumericExpression;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,7 +60,7 @@ public class UnconstrainedVariable extends QueryTest {
     /** */
     public void testPositive() {
         if (isUnconstrainedVariablesSupported()) {
-            Object expected = getTransientCompanyModelInstancesAsList("emp2", "emp3", "emp4");
+            List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3", "emp4");
 
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             QEmployee cand = QEmployee.candidate();

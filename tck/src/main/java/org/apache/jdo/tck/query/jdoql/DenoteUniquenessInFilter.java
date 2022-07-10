@@ -19,6 +19,7 @@ package org.apache.jdo.tck.query.jdoql;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -26,6 +27,7 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 import javax.jdo.JDOQLTypedQuery;
+import java.util.List;
 
 /**
  *<B>Title:</B> Element Returned in Query Result
@@ -66,7 +68,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     public void testPositive0() {
         // Uniqueness not specified.
         // emp1 qualifies for both contains clause => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -103,7 +105,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         // Uniqueness specified.
         // Only emp3 qualifies for both contains clause.
         // Condition e1 != e2 violated => result is empty
-        Object expected = getTransientCompanyModelInstancesAsList();
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class);
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();
@@ -143,7 +145,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         // emp1 and emp2 match the second contains clause.
         // Thus, there are two different values for e1 and e2
         // satifying the entire filter => result is dept1
-        Object expected = getTransientCompanyModelInstancesAsList("dept1");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
         JDOQLTypedQuery<Department> query = getPM().newJDOQLTypedQuery(Department.class);
         QDepartment cand = QDepartment.candidate();

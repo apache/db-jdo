@@ -18,8 +18,10 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
+import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
@@ -57,7 +59,7 @@ public class DistinctQuery extends QueryTest {
     
     /** */
     public void testPositive0() {
-        Object expected = getTransientCompanyModelInstancesAsList(
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class,
                 "dept1", "dept1", "dept1", "dept2", "dept2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
@@ -88,7 +90,7 @@ public class DistinctQuery extends QueryTest {
 
     /** */
     public void testPositive1() {
-        Object expected = getTransientCompanyModelInstancesAsList("dept1", "dept2");
+        List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
         QEmployee cand = QEmployee.candidate();
