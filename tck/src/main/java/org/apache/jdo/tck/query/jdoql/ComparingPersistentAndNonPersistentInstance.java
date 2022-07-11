@@ -70,7 +70,7 @@ public class ComparingPersistentAndNonPersistentInstance
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -105,7 +105,7 @@ public class ComparingPersistentAndNonPersistentInstance
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", getTransientCompanyModelInstance(Employee.class, "emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

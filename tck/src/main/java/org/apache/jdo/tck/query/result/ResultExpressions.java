@@ -59,9 +59,9 @@ public class ResultExpressions extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // unknown field x
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "x",
         /*INTO*/        null, 
@@ -76,7 +76,7 @@ public class ResultExpressions extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // field salary is declared in a subclass of the candidate class
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "salary",
         /*INTO*/        null, 
@@ -91,7 +91,7 @@ public class ResultExpressions extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // project collection field
-        new QueryElementHolder(
+        new QueryElementHolder<Department>(
         /*UNIQUE*/      null,
         /*RESULT*/      "employees",
         /*INTO*/        null, 
@@ -106,7 +106,7 @@ public class ResultExpressions extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // project map field
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "phoneNumbers",
         /*INTO*/        null, 
@@ -142,7 +142,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this",
                 /*INTO*/        null,
@@ -173,7 +173,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid",
                 /*INTO*/        null,
@@ -205,7 +205,7 @@ public class ResultExpressions extends QueryTest {
         query.result(false, p.projid);
         query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p.projid",
                 /*INTO*/        null,
@@ -237,7 +237,7 @@ public class ResultExpressions extends QueryTest {
         query.result(false, variable);
         query.filter(cand.projects.contains(variable).and(cand.personid.eq(1l)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p",
                 /*INTO*/        null,
@@ -268,7 +268,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.count());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(this)",
                 /*INTO*/        null,
@@ -301,7 +301,7 @@ public class ResultExpressions extends QueryTest {
         query.result(false, p.count());
         query.filter(cand.projects.contains(p).and(cand.personid.eq(1l)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(p)",
                 /*INTO*/        null,
@@ -332,7 +332,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid.sum());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(personid)",
                 /*INTO*/        null,
@@ -363,7 +363,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid.min());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(personid)",
                 /*INTO*/        null,
@@ -394,7 +394,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid.max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(personid)",
                 /*INTO*/        null,
@@ -425,7 +425,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(personid)",
                 /*INTO*/        null,
@@ -457,7 +457,7 @@ public class ResultExpressions extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.personid.add(1));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "personid + 1",
                 /*INTO*/        null,
@@ -489,7 +489,7 @@ public class ResultExpressions extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.personid);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.personid",
                 /*INTO*/        null,
@@ -524,7 +524,7 @@ public class ResultExpressions extends QueryTest {
         query.result(true, e.department.name);
         query.filter(cand.team.contains(eExpr).and(cand.personid.eq(2l)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "distinct e.department.name",
                 /*INTO*/        null,
@@ -561,7 +561,7 @@ public class ResultExpressions extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p.projid",
                 /*INTO*/        null,
@@ -593,7 +593,7 @@ public class ResultExpressions extends QueryTest {
         query.result(false, cand.department.deptid);
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department.deptid",
                 /*INTO*/        null,
@@ -630,7 +630,7 @@ public class ResultExpressions extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p",
                 /*INTO*/        null,
@@ -662,7 +662,7 @@ public class ResultExpressions extends QueryTest {
         query.result(false, cand.manager.cast(FullTimeEmployee.class));
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "(FullTimeEmployee)manager",
                 /*INTO*/        null,

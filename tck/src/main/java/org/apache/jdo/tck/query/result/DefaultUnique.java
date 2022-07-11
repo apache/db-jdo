@@ -66,7 +66,7 @@ public class DefaultUnique extends QueryTest {
 
         JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -92,7 +92,7 @@ public class DefaultUnique extends QueryTest {
     public void testAggregateNoGrouping0() {
         Object expected = Long.valueOf(5);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "COUNT(department)",
                 /*INTO*/        null,
@@ -117,7 +117,7 @@ public class DefaultUnique extends QueryTest {
     public void testAggregateNoGrouping1() {
         Object expected = Double.valueOf("99.997");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "avg(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -142,7 +142,7 @@ public class DefaultUnique extends QueryTest {
     public void testAggregateNoGrouping2() {
         Object expected = new BigDecimal("2000.99");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "MIN(budget)",
                 /*INTO*/        null,
@@ -167,7 +167,7 @@ public class DefaultUnique extends QueryTest {
     public void testAggregateNoGrouping3() {
         Object expected = new BigDecimal("2500000.99");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "MAX(budget)",
                 /*INTO*/        null,
@@ -192,7 +192,7 @@ public class DefaultUnique extends QueryTest {
     public void testAggregateNoGrouping4() {
         Object expected = new BigDecimal("2552001.98");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "SUM (budget)",
                 /*INTO*/        null,
@@ -222,7 +222,7 @@ public class DefaultUnique extends QueryTest {
         query.result(false, cand.department.count());
         query.groupBy(cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "count(department)",
                 /*INTO*/        null,
@@ -254,7 +254,7 @@ public class DefaultUnique extends QueryTest {
         query.result(false, cand.lifetimeOrthoBenefit.avg());
         query.groupBy(cand.employee.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -286,7 +286,7 @@ public class DefaultUnique extends QueryTest {
         query.result(false, cand.lifetimeOrthoBenefit.min());
         query.groupBy(cand.employee.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "min(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -318,7 +318,7 @@ public class DefaultUnique extends QueryTest {
         query.result(false, cand.lifetimeOrthoBenefit.max());
         query.groupBy(cand.employee.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "MAX(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -350,7 +350,7 @@ public class DefaultUnique extends QueryTest {
         query.result(false, cand.lifetimeOrthoBenefit.sum());
         query.groupBy(cand.employee.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "sum(lifetimeOrthoBenefit)",
                 /*INTO*/        null,

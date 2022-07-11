@@ -69,7 +69,7 @@ public class SupportedMapMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.get("home").eq("1111"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -100,7 +100,7 @@ public class SupportedMapMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.containsKey("home"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -130,7 +130,7 @@ public class SupportedMapMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.containsValue("1111"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -160,7 +160,7 @@ public class SupportedMapMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.isEmpty());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -191,7 +191,7 @@ public class SupportedMapMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.phoneNumbers.size().eq(2));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

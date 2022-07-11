@@ -67,7 +67,7 @@ public class DistinctCandidateInstances extends QueryTest {
             JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
             query.variable("p", Person.class);
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,
@@ -100,7 +100,7 @@ public class DistinctCandidateInstances extends QueryTest {
             query.result(true, cand);
             query.variable("p", Person.class);
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      "DISTINCT",
                     /*INTO*/        null,

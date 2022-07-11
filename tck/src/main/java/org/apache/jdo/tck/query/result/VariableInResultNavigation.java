@@ -102,7 +102,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)).and(p.name.eq("orange")));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -142,7 +142,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -182,7 +182,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.employees.contains(e).and(e.projects.contains(p)));
         query.result(false, cand, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, e, p",
                 /*INTO*/        null,
@@ -220,7 +220,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.deptid.eq(1l).and(cand.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,
@@ -260,7 +260,7 @@ public class VariableInResultNavigation extends QueryTest {
         query.filter(cand.company.name.eq("Sun Microsystems, Inc.").and(cand.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e, p",
                 /*INTO*/        null,

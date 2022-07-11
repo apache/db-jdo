@@ -68,7 +68,7 @@ public class StringConcatenation extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.eq("emp1" + "First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -102,7 +102,7 @@ public class StringConcatenation extends QueryTest {
         paramValues.put("param", "emp1FirstExt");
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

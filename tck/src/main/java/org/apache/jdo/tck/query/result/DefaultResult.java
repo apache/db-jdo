@@ -58,7 +58,7 @@ public class DefaultResult extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

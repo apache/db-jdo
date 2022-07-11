@@ -923,7 +923,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     protected void compileAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, boolean positive) {
+            QueryElementHolder<?> queryElementHolder, boolean positive) {
         if (logger.isDebugEnabled()) {
             logger.debug("Compiling API query: " + queryElementHolder);
         }
@@ -946,7 +946,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     protected void compileSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, boolean positive) {
+            QueryElementHolder<?> queryElementHolder, boolean positive) {
         if (logger.isDebugEnabled())
             logger.debug("Compiling single string query: " + 
                     queryElementHolder);
@@ -1000,7 +1000,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * to succeed or to fail.
      */
     private void compile(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString,  
+            QueryElementHolder<?> queryElementHolder, boolean asSingleString,
             String singleStringQuery, boolean positive) {
         getPM();
         try {
@@ -1081,7 +1081,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      */
     protected void executeAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object expectedResult) {
+            QueryElementHolder<?> queryElementHolder, Object expectedResult) {
         if (logger.isDebugEnabled()) {
             logger.debug("Executing API query: " + queryElementHolder);
         }
@@ -1100,7 +1100,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      */
     protected void executeSingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, Object expectedResult) {
+            QueryElementHolder<?> queryElementHolder, Object expectedResult) {
         if (logger.isDebugEnabled())
             logger.debug("Executing single string query: " +
                     queryElementHolder);
@@ -1113,7 +1113,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param queryElementHolder query elements
      * @param expectedResult expected query result
      */
-    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder<?> queryElementHolder,
                                           Object expectedResult) {
         executeJDOQLTypedQuery(assertion, queryElementHolder, null, false, expectedResult);
     }
@@ -1126,7 +1126,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param resultClauseSpecified flag whether result clause is specified
      * @param expectedResult the expected query result
      */
-    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder queryElementHolder,
+    protected void executeJDOQLTypedQuery(String assertion, QueryElementHolder<?> queryElementHolder,
                                           Class<?> resultClass, boolean resultClauseSpecified,
                                           Object expectedResult) {
         String singleStringQuery = queryElementHolder.toString();
@@ -1207,7 +1207,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedResult the expected query result.
      * @return the query result
      */
-    private Object execute(String assertion, QueryElementHolder queryElementHolder,
+    private Object execute(String assertion, QueryElementHolder<?> queryElementHolder,
                            boolean asSingleString, Object expectedResult) {
         getPM();
         Query<?> query = asSingleString ?
@@ -1432,7 +1432,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllByAPIQuery(String assertion,
-            QueryElementHolder queryElementHolder, 
+            QueryElementHolder<?> queryElementHolder,
             long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by API query: " + 
@@ -1456,7 +1456,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     protected void deletePersistentAllBySingleStringQuery(String assertion,
-            QueryElementHolder queryElementHolder, long expectedNrOfDeletedObjects) {
+            QueryElementHolder<?> queryElementHolder, long expectedNrOfDeletedObjects) {
         if (logger.isDebugEnabled()) {
             logger.debug("Deleting persistent by single string query: " + 
                     queryElementHolder);
@@ -1482,7 +1482,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
     private void delete(String assertion, 
-            QueryElementHolder queryElementHolder, boolean asSingleString, long expectedNrOfDeletedObjects) {
+            QueryElementHolder<?> queryElementHolder, boolean asSingleString, long expectedNrOfDeletedObjects) {
         getPM();
         Query<?> query = asSingleString ?
                 queryElementHolder.getSingleStringQuery(pm) :

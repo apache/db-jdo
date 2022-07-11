@@ -64,7 +64,7 @@ public class NullResults extends QueryTest {
         query.filter(cand.lastname.eq("emp2Last"));
         query.result(false, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "manager",
                 /*INTO*/        null,
@@ -95,7 +95,7 @@ public class NullResults extends QueryTest {
         query.filter(cand.lastname.eq("emp2Last"));
         query.result(false, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "manager",
                 /*INTO*/        null,
@@ -125,7 +125,7 @@ public class NullResults extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.manager);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT manager",
                 /*INTO*/        null,

@@ -66,7 +66,7 @@ public class NPEInResultExpr extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.manager.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "manager.lastname",
                 /*INTO*/        null,
@@ -98,7 +98,7 @@ public class NPEInResultExpr extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(false, e.manager.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e.manager.lastname",
                 /*INTO*/        null,

@@ -77,7 +77,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.toLowerCase().eq("emp1first"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -107,7 +107,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.toUpperCase().eq("EMP1FIRST"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -137,7 +137,7 @@ public class SupportedStringMethods extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.name.indexOf("e").eq(1));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -167,7 +167,7 @@ public class SupportedStringMethods extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.name.indexOf("e", 2).eq(3));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -198,7 +198,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.matches(".*First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -229,7 +229,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.matches("emp.First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -258,7 +258,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.matches("(?i)EMP1FIRST"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -289,7 +289,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.substring(4).eq("First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -320,7 +320,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.substring(4,9).eq("First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -351,7 +351,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.startsWith("emp"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -382,7 +382,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.endsWith("First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -413,7 +413,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.startsWith("mp", 1));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -444,7 +444,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.length().eq(9));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -474,7 +474,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.charAt(3).eq('1'));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -504,7 +504,7 @@ public class SupportedStringMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.trim().eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

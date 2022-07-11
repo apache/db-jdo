@@ -74,7 +74,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("Department", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -107,7 +107,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
         QEmployee variable = QEmployee.variable("Employee");
         query.filter(cand.employees.contains(variable).and(variable.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -94,7 +94,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.eq((Employee)null));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -127,7 +127,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.ne((Employee)null));
         
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -160,7 +160,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.eq((Employee)null).not());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -195,7 +195,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.manager.eq((Employee)null));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -229,7 +229,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.ne((Employee)null).and(cand.manager.manager.eq((Employee)null)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -262,7 +262,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.manager.ne((Employee)null));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -296,7 +296,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.manager.manager.eq((Employee)null).not());
 
-        QueryElementHolder holder  =new QueryElementHolder(
+        QueryElementHolder<Employee> holder  =new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -330,7 +330,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.manager.eq((Employee)null));
 
-        QueryElementHolder holder  = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder  = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -365,7 +365,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         query.filter(cand.employee.ne((Employee)null).and(cand.employee.manager.ne((Employee)null))
                 .and(cand.employee.manager.manager.eq((Employee)null)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -400,7 +400,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.manager.ne((Employee)null));
 
-        QueryElementHolder holder  = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder  = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -433,7 +433,7 @@ public class NavigationComparisonWithNull extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.manager.eq((Employee)null).not());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

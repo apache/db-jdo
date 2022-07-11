@@ -71,7 +71,7 @@ public class UnconstrainedVariable extends QueryTest {
             Map<String, Object> paramValues = new HashMap<>();
             paramValues.put("id", Integer.valueOf(1));
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,

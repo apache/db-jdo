@@ -70,7 +70,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -104,7 +104,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -137,7 +137,7 @@ public class EqualityAndComparisonsBetweenStringFieldsAndParameters
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp2First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -67,7 +67,7 @@ public class ImplicitParameters extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", PARAMETER);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, :param",
                 /*INTO*/        null,
@@ -96,7 +96,7 @@ public class ImplicitParameters extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("param", "emp1First");
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -127,7 +127,7 @@ public class ImplicitParameters extends QueryTest {
         paramValues.put("minValue", Long.valueOf(3));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department.name",
                 /*INTO*/        null,
@@ -159,7 +159,7 @@ public class ImplicitParameters extends QueryTest {
         paramValues.put("five", Long.valueOf(5));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

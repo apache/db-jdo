@@ -66,7 +66,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.employees.size());
         query.orderBy(cand.name.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.employees.size()",
                 /*INTO*/        null,
@@ -98,7 +98,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.phoneNumbers.size());
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.phoneNumbers.size()",
                 /*INTO*/        null,
@@ -128,7 +128,7 @@ public class MethodsInResult extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.result(false, cand.employees.size().max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(this.employees.size())",
                 /*INTO*/        null,
@@ -159,7 +159,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.phoneNumbers.get("home"));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.phoneNumbers.get('home')",
                 /*INTO*/        null,
@@ -190,7 +190,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.firstname.substring(1, 4));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.firstname.substring(1,4)",
                 /*INTO*/        null,
@@ -222,7 +222,7 @@ public class MethodsInResult extends QueryTest {
         query.result(false, cand.firstname.indexOf("First"));
         query.orderBy(cand.lastname.asc(), cand.firstname.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this.firstname.indexOf('First')",
                 /*INTO*/        null,

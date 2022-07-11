@@ -68,7 +68,7 @@ public class ComparingCollectionFieldToNull extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.personid.eq(1L).and(cand.projects.eq(null)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

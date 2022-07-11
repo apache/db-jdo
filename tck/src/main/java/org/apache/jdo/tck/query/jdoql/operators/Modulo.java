@@ -65,7 +65,7 @@ public class Modulo extends QueryTest {
         query.filter(cand.personid.mod(2).eq(0L));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

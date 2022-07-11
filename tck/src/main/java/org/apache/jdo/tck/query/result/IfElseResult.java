@@ -52,9 +52,9 @@ public class IfElseResult extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // Invalid type of condition expression 
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "IF (this.firstname) 0 ELSE 1",
         /*INTO*/        null, 
@@ -69,7 +69,7 @@ public class IfElseResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // missing ELSE  
-        new QueryElementHolder(
+        new QueryElementHolder<DentalInsurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      "IF (this.employee == null) 0",
         /*INTO*/        null, 
@@ -84,7 +84,7 @@ public class IfElseResult extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // type of THEN expr must be the same as type of ELSE expr
-        new QueryElementHolder(
+        new QueryElementHolder<DentalInsurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      "IF (this.employee == null) 'Michael' ELSE this.employee",
         /*INTO*/        null, 
@@ -119,7 +119,7 @@ public class IfElseResult extends QueryTest {
                 query.ifThenElse(cand.employee.eq((Employee)null), "No employee", cand.employee.lastname));
         query.orderBy(cand.insid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "IF (this.employee == null) 'No employee' ELSE this.employee.lastname",
                 /*INTO*/        null,
@@ -153,7 +153,7 @@ public class IfElseResult extends QueryTest {
                         cand.budget.mul(new BigDecimal("1.2")), cand.budget.mul(new BigDecimal("1.1"))));
         query.orderBy(cand.projid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "IF (this.members.size() > 2) this.budget * 1.2 ELSE this.budget * 1.1",
                 /*INTO*/        null,
@@ -186,7 +186,7 @@ public class IfElseResult extends QueryTest {
         query.result(false, ifThenElse);
         query.orderBy(cand.projid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "IF (this.reviewers.isEmpty()) 'No reviewer' " +
                 "ELSE IF (this.reviewers.size() == 1) 'Single reviewer' ELSE 'Reviewer team'",

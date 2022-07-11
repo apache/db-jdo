@@ -74,7 +74,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         // contains
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -111,7 +111,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
         paramValues.put("p", getPersistentCompanyModelInstance(Project.class, "proj1"));
 
         // contains
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -69,7 +69,7 @@ public class Cast extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.cast(FullTimeEmployee.class);
         query.filter(cast.salary.gt(15000.0));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -103,7 +103,7 @@ public class Cast extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)e.cast(FullTimeEmployee.class);
         query.filter(cand.employees.contains(e).and(cast.salary.gt(15000.0)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

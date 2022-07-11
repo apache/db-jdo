@@ -111,7 +111,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
                 cand.departments.contains(d)).and(d.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, cand, d, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Company> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, d, e, p",
                 /*INTO*/        null,
@@ -154,7 +154,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
                 cand.departments.contains(d)).and(d.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, cand, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Company> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this, e, p",
                 /*INTO*/        null,
@@ -197,7 +197,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
                 cand.departments.contains(d)).and(d.employees.contains(e)).and(e.projects.contains(p)));
         query.result(false, d, e, p);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Company> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "d, e, p",
                 /*INTO*/        null,

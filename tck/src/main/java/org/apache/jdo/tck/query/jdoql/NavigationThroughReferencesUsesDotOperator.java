@@ -77,7 +77,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -108,7 +108,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.department.name.eq("Development"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -139,7 +139,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -170,7 +170,7 @@ public class NavigationThroughReferencesUsesDotOperator extends QueryTest {
         QMedicalInsurance cand = QMedicalInsurance.candidate();
         query.filter(cand.employee.manager.manager.firstname.eq("emp0First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<MedicalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

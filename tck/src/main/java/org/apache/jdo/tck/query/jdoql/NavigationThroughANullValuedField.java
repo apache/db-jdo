@@ -82,7 +82,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.medicalInsurance.carrier.eq("Carrier1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -113,7 +113,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.lastname.eq("emp4Last"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -143,7 +143,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.manager.manager.lastname.eq("emp0Last"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -176,7 +176,7 @@ public class NavigationThroughANullValuedField extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.employees.contains(e).and(e.medicalInsurance.carrier.eq("Carrier1")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

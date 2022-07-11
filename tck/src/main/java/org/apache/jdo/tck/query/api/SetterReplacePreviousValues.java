@@ -48,9 +48,9 @@ public class SetterReplacePreviousValues extends QueryTest {
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
         // replace parameter declaration
-        new QueryElementHolder(
+        new QueryElementHolder<Department>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
@@ -65,7 +65,7 @@ public class SetterReplacePreviousValues extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // replace filter setting
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
@@ -80,7 +80,7 @@ public class SetterReplacePreviousValues extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // replace variable declaration
-        new QueryElementHolder(
+        new QueryElementHolder<Department>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 

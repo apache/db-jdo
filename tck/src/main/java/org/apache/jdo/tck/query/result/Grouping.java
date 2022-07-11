@@ -54,8 +54,8 @@ public class Grouping extends QueryTest {
      * The array of invalid queries which may be executed as
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+        new QueryElementHolder<FullTimeEmployee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "department, salary",
         /*INTO*/        null,
@@ -91,7 +91,7 @@ public class Grouping extends QueryTest {
         query.result(false, cand.department, cand.salary.sum());
         query.groupBy(cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, SUM(salary)",
                 /*INTO*/        null,

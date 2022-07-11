@@ -52,9 +52,9 @@ public class IfElseInFilter extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // Invalid type of condition expression 
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
@@ -69,7 +69,7 @@ public class IfElseInFilter extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // missing ELSE
-        new QueryElementHolder(
+        new QueryElementHolder<DentalInsurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
@@ -84,7 +84,7 @@ public class IfElseInFilter extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // type of THEN expr must be the same as type of ELSE expr
-        new QueryElementHolder(
+        new QueryElementHolder<DentalInsurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null,
         /*INTO*/        null, 
@@ -121,7 +121,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(cand.salary.gt(ifExpr));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -154,7 +154,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(ifExpr.eq(cand.department.deptid));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -190,7 +190,7 @@ public class IfElseInFilter extends QueryTest {
         query.filter(ifExpr.eq(2));
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -227,7 +227,7 @@ public class IfElseInFilter extends QueryTest {
                 query.ifThen(cond1, 1).ifThen(cond2, 2).ifThen(cond3, 3).elseEnd(4);
         query.filter(ifExpr.eq(2));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

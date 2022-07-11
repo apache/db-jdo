@@ -58,9 +58,9 @@ public class AggregateResult extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // SUM
-        new QueryElementHolder(
+        new QueryElementHolder<FullTimeEmployee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "SUM(firstname)",
         /*INTO*/        null, 
@@ -94,7 +94,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.count());
 
-        QueryElementHolder holder =  new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder =  new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(this)",
                 /*INTO*/        null,
@@ -126,7 +126,7 @@ public class AggregateResult extends QueryTest {
         query.result(false, cand.count());
         query.filter(cand.personid.eq(0L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(this)",
                 /*INTO*/        null,
@@ -157,7 +157,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.manager.count());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(manager)",
                 /*INTO*/        null,
@@ -188,7 +188,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.manager.personid.count());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(manager.personid)",
                 /*INTO*/        null,
@@ -219,7 +219,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.manager.countDistinct());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "COUNT(DISTINCT manager)",
                 /*INTO*/        null,
@@ -250,7 +250,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.personid.sum());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(personid)",
                 /*INTO*/        null,
@@ -281,7 +281,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.salary.sum());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(salary)",
                 /*INTO*/        null,
@@ -313,7 +313,7 @@ public class AggregateResult extends QueryTest {
         QProject cand = QProject.candidate();
         query.result(false, cand.budget.sum());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(budget)",
                 /*INTO*/        null,
@@ -345,7 +345,7 @@ public class AggregateResult extends QueryTest {
         query.result(false, cand.budget.sum());
         query.filter(cand.projid.eq(0L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(budget)",
                 /*INTO*/        null,
@@ -379,7 +379,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.sum());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,
@@ -413,7 +413,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.sumDistinct());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "SUM(DISTINCT ((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,
@@ -444,7 +444,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.personid.min());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(personid)",
                 /*INTO*/        null,
@@ -475,7 +475,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.salary.min());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(salary)",
                 /*INTO*/        null,
@@ -506,7 +506,7 @@ public class AggregateResult extends QueryTest {
         QProject cand = QProject.candidate();
         query.result(false, cand.budget.min());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(budget)",
                 /*INTO*/        null,
@@ -538,7 +538,7 @@ public class AggregateResult extends QueryTest {
         query.result(false, cand.budget.min());
         query.filter(cand.projid.eq(0L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(budget)",
                 /*INTO*/        null,
@@ -572,7 +572,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.min());
 
-        QueryElementHolder holder =  new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder =  new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MIN(((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,
@@ -602,7 +602,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.personid.max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(personid)",
                 /*INTO*/        null,
@@ -633,7 +633,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.salary.max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(salary)",
                 /*INTO*/        null,
@@ -664,7 +664,7 @@ public class AggregateResult extends QueryTest {
         QProject cand = QProject.candidate();
         query.result(false, cand.budget.max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(budget)",
                 /*INTO*/        null,
@@ -696,7 +696,7 @@ public class AggregateResult extends QueryTest {
         query.result(false, cand.budget.max());
         query.filter(cand.projid.eq(0L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Project> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(budget)",
                 /*INTO*/        null,
@@ -730,7 +730,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.max());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "MAX(((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,
@@ -761,7 +761,7 @@ public class AggregateResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.personid.avg());
 
-        QueryElementHolder holder =  new QueryElementHolder(
+        QueryElementHolder<Person> holder =  new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(personid)",
                 /*INTO*/        null,
@@ -792,7 +792,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cand = QFullTimeEmployee.candidate();
         query.result(false, cand.salary.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(salary)",
                 /*INTO*/        null,
@@ -823,7 +823,7 @@ public class AggregateResult extends QueryTest {
         QDentalInsurance cand = QDentalInsurance.candidate();
         query.result(false, cand.lifetimeOrthoBenefit.avg());
 
-        QueryElementHolder holder =  new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder =  new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -855,7 +855,7 @@ public class AggregateResult extends QueryTest {
         query.result(false, cand.lifetimeOrthoBenefit.avg());
         query.filter(cand.insid.eq(0L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(lifetimeOrthoBenefit)",
                 /*INTO*/        null,
@@ -889,7 +889,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,
@@ -923,7 +923,7 @@ public class AggregateResult extends QueryTest {
         QFullTimeEmployee cast = (QFullTimeEmployee)cand.manager.cast(FullTimeEmployee.class);
         query.result(false, cast.salary.avgDistinct());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "AVG(DISTINCT ((FullTimeEmployee)manager).salary)",
                 /*INTO*/        null,

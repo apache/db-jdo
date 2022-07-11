@@ -144,7 +144,7 @@ public class SupportedOptionalMethods extends QueryTest {
     }
 
     private void checkQuery(String filter, Object ... resultOids) {
-        QueryElementHolder qeh = new QueryElementHolder(
+        QueryElementHolder<OptionalSample> qeh = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
@@ -373,7 +373,7 @@ public class SupportedOptionalMethods extends QueryTest {
     }
 
     private void checkQuery(String filter, String paramDecl, Map<String, Object> paramValues, Object[] result) {
-        QueryElementHolder qeh = new QueryElementHolder(
+        QueryElementHolder<OptionalSample> qeh = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 

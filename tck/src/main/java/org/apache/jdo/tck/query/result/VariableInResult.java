@@ -80,7 +80,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(true, e);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "distinct e",
                 /*INTO*/        null,
@@ -113,7 +113,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
         query.result(true, p.projid, p.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "distinct p.projid, p.name",
                 /*INTO*/        null,
@@ -148,7 +148,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.projects.contains(p).and(p.name.eq("orange")));
         query.result(false, p.projid, p.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "p.projid, p.name",
                 /*INTO*/        null,
@@ -180,7 +180,7 @@ public class VariableInResult extends QueryTest {
         query.filter(cand.employees.contains(e));
         query.result(false, e);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e",
                 /*INTO*/        null,
@@ -213,7 +213,7 @@ public class VariableInResult extends QueryTest {
         query.result(false, e);
 
         // SELECT e FROM Department WHERE deptid==2 & employees.contains(e) VARIABLES Employee e
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "e",
                 /*INTO*/        null,

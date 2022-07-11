@@ -51,8 +51,8 @@ public class CharacterAndStringLiterals extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+        new QueryElementHolder<PrimitiveTypes>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -66,7 +66,7 @@ public class CharacterAndStringLiterals extends QueryTest {
         /*ORDER BY*/    null,
         /*FROM*/        null,
         /*TO*/          null),
-        new QueryElementHolder(
+        new QueryElementHolder<PrimitiveTypes>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -101,7 +101,7 @@ public class CharacterAndStringLiterals extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -133,7 +133,7 @@ public class CharacterAndStringLiterals extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.stringNull.startsWith("Even").or(cand.charNotNull.eq('0')));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

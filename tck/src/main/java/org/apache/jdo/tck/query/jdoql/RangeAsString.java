@@ -61,7 +61,7 @@ public class RangeAsString extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -91,7 +91,7 @@ public class RangeAsString extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -121,7 +121,7 @@ public class RangeAsString extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -151,7 +151,7 @@ public class RangeAsString extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

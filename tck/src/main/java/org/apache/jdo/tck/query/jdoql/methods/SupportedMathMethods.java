@@ -88,7 +88,7 @@ public class SupportedMathMethods extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNotNull.abs().eq(4));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -119,7 +119,7 @@ public class SupportedMathMethods extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.intNull.abs().eq(4));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -150,7 +150,7 @@ public class SupportedMathMethods extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.longNotNull.abs().eq(4L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -181,7 +181,7 @@ public class SupportedMathMethods extends QueryTest {
         QPrimitiveTypes cand = QPrimitiveTypes.candidate();
         query.filter(cand.longNull.abs().eq(4L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -213,7 +213,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.floatNotNull.abs().lt(4.1f).
                 and(cand.floatNotNull.abs().gt(3.9f)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -246,7 +246,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.floatNull.abs().lt(4.1f).
                 and(cand.floatNull.abs().gt(3.9f)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -279,7 +279,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.doubleNotNull.abs().lt(4.1).
                 and(cand.doubleNotNull.abs().gt(3.9)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -312,7 +312,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.doubleNull.abs().lt(4.1).
                 and(cand.doubleNull.abs().gt(3.9)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -344,7 +344,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.doubleNotNull.gt(0d).and(cand.doubleNotNull.sqrt().lt(2.1).
                 and(cand.doubleNotNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -377,7 +377,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.doubleNull.gt(0d).and(cand.doubleNull.sqrt().lt(2.1).
                 and(cand.doubleNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -410,7 +410,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.intNotNull.gt(0).and(cand.intNotNull.sqrt().lt(2.1).
                 and(cand.intNotNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -443,7 +443,7 @@ public class SupportedMathMethods extends QueryTest {
         query.filter(cand.intNull.gt(0).and(cand.intNull.sqrt().lt(2.1).
                 and(cand.intNull.sqrt().gt(1.9))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<PrimitiveTypes> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

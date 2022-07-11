@@ -73,7 +73,7 @@ public class SupportedCollectionMethods extends QueryTest {
         QEmployee eVariable = QEmployee.variable("e");
         query.filter(cand.employees.contains(eVariable).and(eVariable.personid.eq(1L)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -108,7 +108,7 @@ public class SupportedCollectionMethods extends QueryTest {
         Expression<Employee> paramExpression = query.parameter("e", Employee.class);
         query.filter(cand.employees.contains(paramExpression));
 
-        holder = new QueryElementHolder(
+        holder = new QueryElementHolder<Department>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -140,7 +140,7 @@ public class SupportedCollectionMethods extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.isEmpty().not());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -169,7 +169,7 @@ public class SupportedCollectionMethods extends QueryTest {
         QEmployee empCand = QEmployee.candidate();
         query2.filter(empCand.team.isEmpty());
 
-        holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder2 = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -186,9 +186,9 @@ public class SupportedCollectionMethods extends QueryTest {
                 /*JDOQLTyped*/  query2,
                 /*paramValues*/ null);
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expectedResult2);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expectedResult2);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expectedResult2);
+        executeAPIQuery(ASSERTION_FAILED, holder2, expectedResult2);
+        executeSingleStringQuery(ASSERTION_FAILED, holder2, expectedResult2);
+        executeJDOQLTypedQuery(ASSERTION_FAILED, holder2, expectedResult2);
     }
 
     /** */
@@ -200,7 +200,7 @@ public class SupportedCollectionMethods extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().eq(3));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

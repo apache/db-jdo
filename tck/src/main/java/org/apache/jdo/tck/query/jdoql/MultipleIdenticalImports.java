@@ -73,7 +73,7 @@ public class MultipleIdenticalImports extends QueryTest {
         paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -111,7 +111,7 @@ public class MultipleIdenticalImports extends QueryTest {
         paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // Import Department explictly and per type-import-on-demand
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -149,7 +149,7 @@ public class MultipleIdenticalImports extends QueryTest {
         paramValues.put("d", getPersistentCompanyModelInstance(Department.class, "dept1"));
 
         // type-import-on-demand twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

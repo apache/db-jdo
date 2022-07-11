@@ -45,8 +45,8 @@ public class NewQuerySingleString extends QueryTest {
      * The array of valid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] VALID_QUERIES = {
-        new QueryElementHolder(
+    private static final QueryElementHolder<?>[] VALID_QUERIES = {
+        new QueryElementHolder<Person>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 

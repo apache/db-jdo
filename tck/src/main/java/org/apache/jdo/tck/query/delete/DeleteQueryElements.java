@@ -53,9 +53,9 @@ public class DeleteQueryElements extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // The query is invalid because it defines a result clause.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      "carrier", 
         /*INTO*/        null, 
@@ -70,7 +70,7 @@ public class DeleteQueryElements extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // The query is invalid because it defines a result class.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        String.class, 
@@ -86,7 +86,7 @@ public class DeleteQueryElements extends QueryTest {
         /*TO*/          null),
         // The query is invalid because it defines a result clause
         // and a result class.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      "carrier", 
         /*INTO*/        String.class, 
@@ -101,7 +101,7 @@ public class DeleteQueryElements extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // The query is invalid because it defines a grouping clause.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -117,7 +117,7 @@ public class DeleteQueryElements extends QueryTest {
         /*TO*/          null),
         // The query is invalid because it defines a result clause
         // and a grouping clause
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      "carrier", 
         /*INTO*/        null, 
@@ -132,7 +132,7 @@ public class DeleteQueryElements extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // The query is invalid because it defines an ordering clause.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -147,7 +147,7 @@ public class DeleteQueryElements extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // The query is invalid because it defines a range clause.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      null,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -164,7 +164,7 @@ public class DeleteQueryElements extends QueryTest {
         // The query is valid but deletePersistentAll is expected 
         // to throw a JDOUserException because it defines a
         // unique clause but it affects multiple rows in the database.
-        new QueryElementHolder(
+        new QueryElementHolder<Insurance>(
         /*UNIQUE*/      Boolean.TRUE,
         /*RESULT*/      null, 
         /*INTO*/        null, 
@@ -199,7 +199,7 @@ public class DeleteQueryElements extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2500000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -226,7 +226,7 @@ public class DeleteQueryElements extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2500000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,

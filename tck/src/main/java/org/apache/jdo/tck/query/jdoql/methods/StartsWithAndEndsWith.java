@@ -66,7 +66,7 @@ public class StartsWithAndEndsWith extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.startsWith("emp1"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -97,7 +97,7 @@ public class StartsWithAndEndsWith extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.firstname.endsWith("1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

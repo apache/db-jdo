@@ -66,7 +66,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department",
                 /*INTO*/        null,
@@ -96,7 +96,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.department);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT department",
                 /*INTO*/        null,
@@ -131,7 +131,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(false, cand.department.deptid, cand.department.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department.deptid, department.name",
                 /*INTO*/        null,
@@ -163,7 +163,7 @@ public class DistinctQuery extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.result(true, cand.department.deptid, cand.department.name);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "DISTINCT department.deptid, department.name",
                 /*INTO*/        null,

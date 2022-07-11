@@ -79,7 +79,7 @@ public class SupportedListMethods extends QueryTest {
         paramValues.put("room1", getPersistentCompanyModelInstance(MeetingRoom.class, "room2"));
         getPM().currentTransaction().commit();
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -111,7 +111,7 @@ public class SupportedListMethods extends QueryTest {
         query.result(false, cand.meetingRooms.get(1));
         query.filter(cand.deptid.eq(1L));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "meetingRooms.get(1)",
                 /*INTO*/        null,

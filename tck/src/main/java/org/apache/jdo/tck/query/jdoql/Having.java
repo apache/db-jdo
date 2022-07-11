@@ -50,9 +50,9 @@ public class Having extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
         // HAVING clause is not a boolean expression
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "department, AVG(weeklyhours)",
         /*INTO*/        null, 
@@ -67,7 +67,7 @@ public class Having extends QueryTest {
         /*FROM*/        null,
         /*TO*/          null),
         // HAVING clause is a non-aggregate expression using a non-grouping field
-        new QueryElementHolder(
+        new QueryElementHolder<Employee>(
         /*UNIQUE*/      null,
         /*RESULT*/      "department, AVG(weeklyhours)",
         /*INTO*/        null, 
@@ -107,7 +107,7 @@ public class Having extends QueryTest {
         query.groupBy(cand.department).having(cand.department.count().gt(0L));
         query.result(false, cand.department, cand.weeklyhours.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, AVG(weeklyhours)",
                 /*INTO*/        null,
@@ -145,7 +145,7 @@ public class Having extends QueryTest {
         query.groupBy(cand.department).having(cand.personid.count().gt(1L));
         query.result(false, cand.department, cand.weeklyhours.avg());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "department, AVG(weeklyhours)",
                 /*INTO*/        null,

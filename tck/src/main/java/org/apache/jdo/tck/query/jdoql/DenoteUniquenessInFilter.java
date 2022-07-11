@@ -77,7 +77,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(1l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(40d)))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -114,7 +114,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(3l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(19d).and(e1.ne(e2))))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -154,7 +154,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
         query.filter(cand.employees.contains(e1).and(e1.personid.eq(1l).and(
                 cand.employees.contains(e2).and(e2.weeklyhours.eq(40d).and(e1.ne(e2))))));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

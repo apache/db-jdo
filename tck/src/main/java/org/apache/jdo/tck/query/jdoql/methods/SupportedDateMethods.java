@@ -65,7 +65,7 @@ public class SupportedDateMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getDay().eq(10));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -95,7 +95,7 @@ public class SupportedDateMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getMonth().eq(5));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -125,7 +125,7 @@ public class SupportedDateMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.birthdate.getYear().eq(1970));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -53,8 +53,8 @@ public class InvalidUseOfKeywords extends QueryTest {
      * The array of invalid queries which may be executed as 
      * single string queries and as API queries.
      */
-    private static final QueryElementHolder[] INVALID_QUERIES = {
-        new QueryElementHolder(
+    private static final QueryElementHolder<?>[] INVALID_QUERIES = {
+        new QueryElementHolder<Person>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 
@@ -68,7 +68,7 @@ public class InvalidUseOfKeywords extends QueryTest {
                 /*ORDER BY*/    null,
                 /*FROM*/        null,
                 /*TO*/          null),
-        new QueryElementHolder(
+        new QueryElementHolder<Person>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null, 
                 /*INTO*/        null, 

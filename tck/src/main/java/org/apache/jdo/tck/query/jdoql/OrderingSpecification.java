@@ -81,7 +81,7 @@ public class OrderingSpecification extends QueryTest {
         QDentalInsurance cand = QDentalInsurance.candidate();
         query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsFirst());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -113,7 +113,7 @@ public class OrderingSpecification extends QueryTest {
         QDentalInsurance cand = QDentalInsurance.candidate();
         query.orderBy(cand.lifetimeOrthoBenefit.asc().nullsLast());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<DentalInsurance> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

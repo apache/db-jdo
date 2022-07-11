@@ -77,7 +77,7 @@ public class NavigationThroughACollectionField extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.employees.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

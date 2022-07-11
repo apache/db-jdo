@@ -64,7 +64,7 @@ public class SingleString extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("limit", new BigDecimal("2000"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<FullTimeEmployee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.FALSE,
                 /*RESULT*/      "firstname AS firstName, lastname AS lastName",
                 /*INTO*/        FullName.class,

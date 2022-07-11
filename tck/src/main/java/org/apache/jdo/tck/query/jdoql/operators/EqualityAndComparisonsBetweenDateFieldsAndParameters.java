@@ -97,7 +97,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // date field == date parameter
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -135,7 +135,7 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // date field >= date parameter
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -172,8 +172,8 @@ public class EqualityAndComparisonsBetweenDateFieldsAndParameters
         paramValues.put("param", FIRST_OF_JAN_1999);
 
         // Import Department twice
-        QueryElementHolder holder = // date parameter < date field
-                new QueryElementHolder(
+        QueryElementHolder<Employee> holder = // date parameter < date field
+                new QueryElementHolder<>(
                         /*UNIQUE*/      null,
                         /*RESULT*/      null,
                         /*INTO*/        null,

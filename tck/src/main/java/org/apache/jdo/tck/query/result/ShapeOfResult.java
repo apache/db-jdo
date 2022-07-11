@@ -63,7 +63,7 @@ public class ShapeOfResult extends QueryTest {
 
         JDOQLTypedQuery<Person> query = getPM().newJDOQLTypedQuery(Person.class);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -94,7 +94,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "this AS Person",
                 /*INTO*/        null,
@@ -125,7 +125,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -157,7 +157,7 @@ public class ShapeOfResult extends QueryTest {
         query.filter(cand.personid.eq(1l));
         query.result(false, cand);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "this AS Person",
                 /*INTO*/        null,
@@ -188,7 +188,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.firstname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname",
                 /*INTO*/        null,
@@ -220,7 +220,7 @@ public class ShapeOfResult extends QueryTest {
         query.filter(cand.personid.eq(1l));
         query.result(false, cand.firstname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname",
                 /*INTO*/        null,
@@ -256,7 +256,7 @@ public class ShapeOfResult extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        null,
@@ -288,7 +288,7 @@ public class ShapeOfResult extends QueryTest {
         query.filter(cand.personid.eq(1l));
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        null,
@@ -325,7 +325,7 @@ public class ShapeOfResult extends QueryTest {
         // JDOQLTypedQuery API
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        FullName.class,
@@ -358,7 +358,7 @@ public class ShapeOfResult extends QueryTest {
         // JDOQLTypedQuery API
         query.result(false, cand.firstname, cand.lastname);
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      "firstname, lastname",
                 /*INTO*/        FullName.class,

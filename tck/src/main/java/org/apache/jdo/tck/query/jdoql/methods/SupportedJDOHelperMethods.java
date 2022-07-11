@@ -78,7 +78,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.result(false, cand.jdoObjectId());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      "JDOHelper.getObjectId(this)",
                 /*INTO*/        null,
@@ -114,7 +114,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
         Map<String, Object> paramValues = new HashMap<>();
         paramValues.put("oid", JDOHelper.getObjectId(expectedResult.get(0)));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -153,7 +153,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
             QVersionedPCPoint cand = QVersionedPCPoint.candidate();
             query.result(false, cand.jdoVersion());
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<VersionedPCPoint> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      "JDOHelper.getVersion(this)",
                     /*INTO*/        null,
@@ -186,7 +186,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
             Map<String, Object> paramValues = new HashMap<>();
             paramValues.put("ver", Long.valueOf(1));
 
-            holder = new QueryElementHolder(
+            holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,

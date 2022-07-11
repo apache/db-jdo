@@ -61,7 +61,7 @@ public class Instanceof extends QueryTest {
         query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -91,7 +91,7 @@ public class Instanceof extends QueryTest {
         query.filter(cand.mentor.instanceOf(PartTimeEmployee.class));
 
         // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

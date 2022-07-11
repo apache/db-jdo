@@ -84,10 +84,9 @@ public class AssignmentPrePostIncrementDecrementNotSupported extends QueryTest {
     /** */
     void runTestUnsupportedOperators01(PersistenceManager pm, String filter) {
         
-        Query<PCPoint> query = pm.newQuery();
+        Query<PCPoint> query = pm.newQuery(PCPoint.class);
         String expectedMsg = "setFilter: Syntax error unexpected token ...";
         
-        query.setClass(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
         
         try {

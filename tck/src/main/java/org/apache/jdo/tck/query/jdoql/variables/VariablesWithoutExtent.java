@@ -62,7 +62,7 @@ public class VariablesWithoutExtent extends QueryTest {
 
             Object expected = new LinkedList<>();
 
-            QueryElementHolder holder = new QueryElementHolder(
+            QueryElementHolder<Person> holder = new QueryElementHolder<>(
                     /*UNIQUE*/      null,
                     /*RESULT*/      null,
                     /*INTO*/        null,

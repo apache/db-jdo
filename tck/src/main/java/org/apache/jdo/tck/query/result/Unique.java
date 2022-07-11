@@ -67,7 +67,7 @@ public class Unique extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(1l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -97,7 +97,7 @@ public class Unique extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.eq(0l));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -127,7 +127,7 @@ public class Unique extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.orderBy(cand.personid.asc());
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      Boolean.TRUE,
                 /*RESULT*/      null,
                 /*INTO*/        null,

@@ -74,7 +74,7 @@ public class VariablesAndFields extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -105,7 +105,7 @@ public class VariablesAndFields extends QueryTest {
         QEmployee e = QEmployee.variable("e");
         query.filter(cand.team.contains(e).and(e.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -135,7 +135,7 @@ public class VariablesAndFields extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -166,7 +166,7 @@ public class VariablesAndFields extends QueryTest {
         QEmployee manager = QEmployee.variable("manager");
         query.filter(cand.team.contains(manager).and(manager.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -196,7 +196,7 @@ public class VariablesAndFields extends QueryTest {
         QEmployee manager = QEmployee.variable("manager");
         query.filter(cand.team.contains(cand.manager).and(cand.manager.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -226,7 +226,7 @@ public class VariablesAndFields extends QueryTest {
         QEmployee employee = QEmployee.variable("employee");
         query.filter(cand.team.contains(employee).and(employee.firstname.eq("emp1First")));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /* Note: the variable name is the same as the class
                  * name except for capitalization. This is legal. */
                 /*UNIQUE*/      null,

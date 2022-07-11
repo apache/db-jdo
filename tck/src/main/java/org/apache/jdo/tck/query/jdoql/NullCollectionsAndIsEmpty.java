@@ -63,7 +63,7 @@ public class NullCollectionsAndIsEmpty extends QueryTest {
         QEmployee cand = QEmployee.candidate();
         query.filter(cand.personid.eq(1L).and(cand.projects.isEmpty()));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Employee> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,

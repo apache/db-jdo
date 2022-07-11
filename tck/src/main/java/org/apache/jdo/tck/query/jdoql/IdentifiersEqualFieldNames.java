@@ -66,7 +66,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.firstname.eq("emp1First"));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -97,7 +97,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         QPerson cand = QPerson.candidate();
         query.filter(cand.personid.lt((long)Byte.MAX_VALUE));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Person> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -127,7 +127,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(org.apache.jdo.tck.pc.company.Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -157,7 +157,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
@@ -187,7 +187,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
         QDepartment cand = QDepartment.candidate();
         query.filter(cand.employees.size().gt(Department.RECOMMENDED_NO_OF_EMPS));
 
-        QueryElementHolder holder = new QueryElementHolder(
+        QueryElementHolder<Department> holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
