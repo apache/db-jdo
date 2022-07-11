@@ -433,7 +433,9 @@ public class HashMapStringKeyCollections {
         throw new IndexOutOfBoundsException();
     }
   }
-  public boolean set(int index,HashMap value)
+
+  @SuppressWarnings("unchecked")
+  public boolean set(int index, HashMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

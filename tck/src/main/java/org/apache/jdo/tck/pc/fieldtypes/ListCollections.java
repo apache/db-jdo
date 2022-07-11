@@ -213,6 +213,8 @@ public class ListCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index, List value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

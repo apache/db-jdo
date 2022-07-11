@@ -213,6 +213,8 @@ public class LinkedListCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,LinkedList value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

@@ -213,6 +213,8 @@ public class HashSetCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,HashSet value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

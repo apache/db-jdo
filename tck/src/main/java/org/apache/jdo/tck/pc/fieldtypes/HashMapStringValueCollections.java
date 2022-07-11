@@ -404,6 +404,8 @@ public class HashMapStringValueCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,HashMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

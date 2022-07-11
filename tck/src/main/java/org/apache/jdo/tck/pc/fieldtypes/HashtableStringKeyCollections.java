@@ -433,6 +433,8 @@ public class HashtableStringKeyCollections {
         throw new IndexOutOfBoundsException("Bad index " + index);
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,Hashtable value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

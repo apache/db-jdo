@@ -213,6 +213,8 @@ public class SetCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,Set value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

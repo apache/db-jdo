@@ -433,6 +433,8 @@ public class TreeMapStringKeyCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,TreeMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

@@ -213,6 +213,8 @@ public class VectorCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,Vector value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

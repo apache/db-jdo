@@ -196,6 +196,8 @@ public class TreeSetCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,TreeSet value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

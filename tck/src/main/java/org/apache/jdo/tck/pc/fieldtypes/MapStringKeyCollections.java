@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-public class MapStringKeyCollections { 
+public class MapStringKeyCollections {
   public int identifier;
   public Map<String, Object> MapOfString_Object0;
   public Map<String, Object> MapOfString_Object1;
@@ -485,6 +485,8 @@ public class MapStringKeyCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,Map value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

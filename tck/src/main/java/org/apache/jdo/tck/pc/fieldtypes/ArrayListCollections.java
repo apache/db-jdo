@@ -229,6 +229,8 @@ public class ArrayListCollections {
         throw new IndexOutOfBoundsException();
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index, ArrayList value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)

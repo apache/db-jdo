@@ -456,6 +456,8 @@ public class MapStringValueCollections {
         throw new IndexOutOfBoundsException("Bad index " + index);
     }
   }
+
+  @SuppressWarnings("unchecked")
   public boolean set(int index,Map value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
