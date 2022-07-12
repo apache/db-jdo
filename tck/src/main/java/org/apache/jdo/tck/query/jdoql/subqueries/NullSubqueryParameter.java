@@ -54,6 +54,7 @@ public class NullSubqueryParameter extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         PersistenceManager pm = getPM();
 

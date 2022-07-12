@@ -64,6 +64,7 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries01(PersistenceManager pm) {
         List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(IEmployee.class,
             "emp1","emp2","emp4","emp5","emp6","emp7","emp10");
@@ -96,6 +97,7 @@ public class NonCorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries02(PersistenceManager pm) {
         List<IEmployee> expectedResult = getTransientCompanyModelInstancesAsList(IEmployee.class,
             "emp2", "emp5", "emp10");

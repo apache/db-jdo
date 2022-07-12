@@ -67,7 +67,8 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     /** 
      * Test subquery: 
      */
-    void runTestSubqueries01(PersistenceManager pm) {
+    @SuppressWarnings("unchecked")
+   void runTestSubqueries01(PersistenceManager pm) {
         List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
             "emp2", "emp6", "emp9");
         
@@ -103,6 +104,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries02(PersistenceManager pm) {
         List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp10");
 
@@ -141,6 +143,7 @@ public class CorrelatedSubqueriesWithParameters extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestSubqueries03(PersistenceManager pm) {
         List<Employee> expectedResult = getTransientCompanyModelInstancesAsList(Employee.class,
             "emp2", "emp6", "emp9", "emp10");

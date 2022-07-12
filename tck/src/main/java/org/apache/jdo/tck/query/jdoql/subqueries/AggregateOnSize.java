@@ -52,6 +52,7 @@ public class AggregateOnSize extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testMaxAndSizeInSubquery() {
         PersistenceManager pm = getPM();
 

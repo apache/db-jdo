@@ -126,6 +126,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionJDOQLTypedQuery() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -184,6 +185,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testListSingleStringQuery() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -206,6 +208,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testListJDOQLTypedQuery() {
         Transaction tx = pm.currentTransaction();
         try {
