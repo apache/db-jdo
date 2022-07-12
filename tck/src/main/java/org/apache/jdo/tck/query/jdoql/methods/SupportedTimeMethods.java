@@ -75,10 +75,9 @@ public class SupportedTimeMethods extends QueryTest {
         try {
             tx.begin();
             Collection<TimeSample> expectedResult = new ArrayList<>();
-            expectedResult.add((TimeSample)pm.getObjectById(oidOfTime1));
+            expectedResult.add(pm.getObjectById(TimeSample.class, oidOfTime1));
 
-            Query<TimeSample> q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
             List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
@@ -102,8 +101,7 @@ public class SupportedTimeMethods extends QueryTest {
             Collection<TimeSample> expectedResult = new ArrayList<>();
             expectedResult.add((TimeSample)pm.getObjectById(oidOfTime2));
 
-            Query<TimeSample> q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
             List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);
@@ -125,10 +123,9 @@ public class SupportedTimeMethods extends QueryTest {
         try {
             tx.begin();
             Collection<TimeSample> expectedResult = new ArrayList<>();
-            expectedResult.add((TimeSample)pm.getObjectById(oidOfTime2));
+            expectedResult.add(pm.getObjectById(TimeSample.class, oidOfTime2));
 
-            Query<TimeSample> q =  pm.newQuery();
-            q.setClass(TimeSample.class);
+            Query<TimeSample> q =  pm.newQuery(TimeSample.class);
             q.setFilter(filter);
             List<TimeSample> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);

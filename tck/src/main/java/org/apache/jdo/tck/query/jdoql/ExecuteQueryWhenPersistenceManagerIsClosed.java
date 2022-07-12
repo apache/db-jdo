@@ -68,8 +68,7 @@ public class ExecuteQueryWhenPersistenceManagerIsClosed extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 4");
             query.compile();

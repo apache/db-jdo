@@ -130,8 +130,7 @@ public class DistinctCandidateInstances extends QueryTest {
             "SELECT DISTINCT FROM " + Person.class.getName();
         
         List<Person> candidates = getPersistentCompanyModelInstancesAsList(Person.class, "emp1", "emp1");
-        Query<Person> query = pm.newQuery();
-        query.setClass(Person.class);
+        Query<Person> query = pm.newQuery(Person.class);
         query.setCandidates(candidates);
         query.setResult("this");
         executeJDOQuery(ASSERTION_FAILED, query, singleStringQuery, 

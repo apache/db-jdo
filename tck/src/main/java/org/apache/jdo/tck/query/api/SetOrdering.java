@@ -73,8 +73,7 @@ public class SetOrdering extends QueryTest {
             tx.begin();
 
             //ascending
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x ascending");
             Object results = query.execute();
@@ -100,8 +99,7 @@ public class SetOrdering extends QueryTest {
             tx.begin();
 
             //descending
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x descending");
             Object results = query.execute();

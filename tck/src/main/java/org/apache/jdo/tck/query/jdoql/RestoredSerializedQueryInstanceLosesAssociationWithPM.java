@@ -79,8 +79,7 @@ public class RestoredSerializedQueryInstanceLosesAssociationWithPM
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query<Project> query = pm.newQuery();
-            query.setClass(Project.class);
+            Query<Project> query = pm.newQuery(Project.class);
             query.setCandidates(pm.getExtent(Project.class, false));
             query.declareVariables("org.apache.jdo.tck.pc.company.Person a; org.apache.jdo.tck.pc.company.Person b" );
             query.setFilter("reviewers.contains(a) && a.firstname==\"brazil\" || reviewers.contains(b) && b.firstname==\"brazil\"" );

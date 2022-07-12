@@ -64,8 +64,7 @@ public class NewQueryWithCandidateClassAndExtent extends QueryTest {
             Extent<PCPoint> extent = pm.getExtent(PCPoint.class, true);
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(extent);
             Object results = query.execute();
 

@@ -72,8 +72,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareImports("import java.lang.Integer");
             query.declareParameters("Integer param");
@@ -104,8 +103,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query<Department> query = pm.newQuery();
-            query.setClass(Department.class);
+            Query<Department> query = pm.newQuery(Department.class);
             query.setCandidates(pm.getExtent(Department.class, false));
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
             query.declareVariables("Employee e" );
@@ -129,8 +127,7 @@ public class DeclareImports extends QueryTest {
         try {
             tx.begin();
 
-            Query<Company> query = pm.newQuery();
-            query.setClass(Company.class);
+            Query<Company> query = pm.newQuery(Company.class);
             query.setCandidates(pm.getExtent(Company.class, false));
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee; import org.apache.jdo.tck.pc.company.Department");
             query.declareVariables("Department d; Employee e" );

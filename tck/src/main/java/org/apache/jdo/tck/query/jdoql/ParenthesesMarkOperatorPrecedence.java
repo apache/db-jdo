@@ -79,8 +79,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1)");
             Object results = query.execute();
@@ -114,8 +113,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1) * 2");
             Object results = query.execute();
@@ -149,8 +147,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (9 - 1) * (3 + 5) / 32");
             Object results = query.execute();
@@ -185,8 +182,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == 2 && y == 2");
             Object results = query.execute();
@@ -220,8 +216,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 + 1) || y == (1002 - 1000)");
         
@@ -256,8 +251,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (1 * 2) && true");
             Object results = query.execute();
@@ -290,8 +284,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("x == (10000 / 5000) || false");
             Object results = query.execute();
@@ -324,8 +317,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("(x == 2) == true");
             Object results = query.execute();
@@ -358,8 +350,7 @@ public class ParenthesesMarkOperatorPrecedence extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setFilter("(x == ((21 - 1/1)/10 + 1)) | (false && true)");
             Object results = query.execute();

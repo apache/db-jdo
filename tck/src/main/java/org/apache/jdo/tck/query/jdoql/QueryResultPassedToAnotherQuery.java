@@ -75,8 +75,7 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             resultCln = query.executeList();
             // Create a new collection for the result collection.
@@ -102,8 +101,7 @@ public class QueryResultPassedToAnotherQuery extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(resultCln);
             query.setFilter("x == 1");
             Object results = query.execute();

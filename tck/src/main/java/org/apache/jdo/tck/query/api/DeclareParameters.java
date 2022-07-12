@@ -69,8 +69,7 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
     
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param");
             query.setFilter("x == param");
@@ -100,8 +99,7 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
             
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer param1, Integer param2");
             query.setFilter("x == param1 && y == param2");
@@ -131,8 +129,7 @@ public class DeclareParameters extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("int a, int b");
             query.setFilter("x == a && y == b");

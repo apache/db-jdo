@@ -68,8 +68,7 @@ public class ExecutingQueryWhenNoTransactionNoNontransactionalRead
     /** */
     void runTestNewQuery(PersistenceManager pm) {
         Extent<PCPoint> extent = pm.getExtent(PCPoint.class, true);
-        Query<PCPoint> query = pm.newQuery();
-        query.setClass(PCPoint.class);
+        Query<PCPoint> query = pm.newQuery(PCPoint.class);
         query.setCandidates(extent);
         try {
             query.execute();

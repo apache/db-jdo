@@ -71,8 +71,7 @@ public class EnumMethodOrdinal extends QueryTest {
             List<FieldsOfSimpleEnum> expectedResult = new ArrayList<>();
             expectedResult.add((FieldsOfSimpleEnum)pm.getObjectById(oidOfExpectedResult));
 
-            Query<FieldsOfSimpleEnum> q =  pm.newQuery();
-            q.setClass(FieldsOfSimpleEnum.class);
+            Query<FieldsOfSimpleEnum> q =  pm.newQuery(FieldsOfSimpleEnum.class);
             q.setFilter(filter);
             List<FieldsOfSimpleEnum> results = q.executeList();
             checkQueryResultWithoutOrder(ASSERTION_FAILED, filter, results, expectedResult);

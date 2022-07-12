@@ -62,8 +62,7 @@ public class CompileQuery extends QueryTest {
         try {
             tx.begin();
             String params = "Integer param";
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters(params);
             query.setFilter("x == param");

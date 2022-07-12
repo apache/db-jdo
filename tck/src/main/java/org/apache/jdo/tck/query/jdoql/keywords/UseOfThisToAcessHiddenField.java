@@ -71,8 +71,7 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer x");
             query.setFilter("this.x == x");
@@ -108,8 +107,7 @@ public class UseOfThisToAcessHiddenField extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer y");
             query.setFilter("this.y == y");

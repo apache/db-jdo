@@ -69,8 +69,7 @@ public class VariableDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTe
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            Query<Project> query = pm.newQuery();
-            query.setClass(Project.class);
+            Query<Project> query = pm.newQuery(Project.class);
             query.setCandidates(pm.getExtent(Project.class, false));
             try {
                 query.declareVariables( "org.apache.jdo.tck.pc.company.Person reviewers;" );
@@ -91,8 +90,7 @@ public class VariableDeclaredWithSameNameAsFieldOfCandidateClass extends QueryTe
 
         try {
             tx.begin();
-            Query<Project> query = pm.newQuery();
-            query.setClass(Project.class);
+            Query<Project> query = pm.newQuery(Project.class);
             query.setCandidates(pm.getExtent(Project.class, false));
             query.declareVariables( "org.apache.jdo.tck.pc.company.Person reviewers;" );
             query.setFilter( "this.reviewers.contains(reviewers) && reviewers.firstname==\"brazil\"" );

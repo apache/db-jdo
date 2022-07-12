@@ -65,8 +65,7 @@ public class SetCandidateCollection extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(inserted);
             Object results = query.execute();
         

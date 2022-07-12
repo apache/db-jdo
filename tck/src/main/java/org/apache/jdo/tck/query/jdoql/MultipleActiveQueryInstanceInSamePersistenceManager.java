@@ -71,13 +71,11 @@ public class MultipleActiveQueryInstanceInSamePersistenceManager extends QueryTe
     void executeQueries(PersistenceManager pm) {
         // query selecting all point instances
         pm.currentTransaction().begin();
-        Query<PCPoint> query = pm.newQuery();
-        query.setClass(PCPoint.class);
+        Query<PCPoint> query = pm.newQuery(PCPoint.class);
         query.setCandidates(pm.getExtent(PCPoint.class, false));
         
         // query selecting point with x value 0
-        Query<PCPoint> query2 = pm.newQuery();
-        query2.setClass(PCPoint.class);
+        Query<PCPoint> query2 = pm.newQuery(PCPoint.class);
         query2.setCandidates(pm.getExtent(PCPoint.class, false));
         query2.setFilter("x == 0");
         

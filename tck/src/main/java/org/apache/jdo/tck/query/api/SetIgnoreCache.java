@@ -120,8 +120,7 @@ public class SetIgnoreCache extends QueryTest {
             tx.setOptimistic(true);
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
 
             if (debug)

@@ -153,8 +153,7 @@ public class OrderingSpecification extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x ascending");
             Object results = query.execute();
@@ -183,8 +182,7 @@ public class OrderingSpecification extends QueryTest {
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.setOrdering("x descending");
             Object results = query.execute();
@@ -218,8 +216,7 @@ public class OrderingSpecification extends QueryTest {
         try {
             tx.begin();
 
-            Query<AllTypes> query = pm.newQuery();
-            query.setClass(AllTypes.class);
+            Query<AllTypes> query = pm.newQuery(AllTypes.class);
             query.setCandidates(pm.getExtent(AllTypes.class, false));
             
             StringBuffer buffer = new StringBuffer();
