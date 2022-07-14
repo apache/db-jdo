@@ -164,6 +164,8 @@
 
     <properties>
         <project.build.outputTimestamp>1653505066</project.build.outputTimestamp>
+        <showWarnings></showWarnings>
+        <compilerArgument></compilerArgument>
     </properties>
 
     <dependencyManagement>
@@ -291,6 +293,9 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <showWarnings>${showWarnings}</showWarnings>
+                    <fork>true</fork>
+                    <compilerArgument>${compilerArgument}</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
@@ -330,4 +335,14 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>warnings</id>
+            <properties>
+                <showWarnings>true</showWarnings>
+		<compilerArgument>-Xlint:all</compilerArgument>
+            </properties>
+        </profile>
+    </profiles>
 </project>

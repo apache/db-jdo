@@ -57,15 +57,6 @@
                     <execution />
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
-            </plugin>
             <!-- The next two plugins are required until such time as https://issues.apache.org/jira/browse/FELIX-3352 is fixed. -->
             <plugin>
                 <groupId>org.apache.felix</groupId>

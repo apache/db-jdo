@@ -34,6 +34,7 @@
         The JDO TCK is a test suite designed to test implementations of the Java Data Objects specification. In order to claim compatibility with JDO, an implementation must pass all relevant tests of the JDOTCK.
 
     NOTE!! There are no unit tests in this project.</description>
+
     <dependencies>
         <dependency>
             <groupId>javax.jdo</groupId>
@@ -80,15 +81,6 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
-            </plugin>
             <plugin>
                 <!-- store dependencies into property dependency.classpath -->
                 <artifactId>maven-dependency-plugin</artifactId>
