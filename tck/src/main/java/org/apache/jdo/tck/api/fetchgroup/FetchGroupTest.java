@@ -123,6 +123,7 @@ public class FetchGroupTest extends JDO_Test {
         getPM(); // initialize pmf and pm fields
     }
 
+    @SuppressWarnings("unchecked")
     public void testPMFGetFetchGroup() {
         allPMFFetchGroups = pmf.getFetchGroups();
         Map<String , FetchGroup> unscopedFetchGroupMap = new HashMap<>();
@@ -234,6 +235,7 @@ public class FetchGroupTest extends JDO_Test {
         failOnError();
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveCategory() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveCategory");
         Set<String> expectedSet = new HashSet<>();
@@ -247,6 +249,7 @@ public class FetchGroupTest extends JDO_Test {
                 expectedSet, members);        
     }
 
+    @SuppressWarnings("unchecked")
     public void testAddMember() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMember");
         for (int i = 0; i < allMembers.length; ++i) {
@@ -262,6 +265,7 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void testAddMembers() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testAddMembers");
         fg.addMembers(multivaluedMembers);
@@ -273,6 +277,7 @@ public class FetchGroupTest extends JDO_Test {
                 expectedSet, members);
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveMembers() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMembers");
         fg.addMembers(allMembers);
@@ -292,6 +297,7 @@ public class FetchGroupTest extends JDO_Test {
                 expectedSet, members);
     }
 
+    @SuppressWarnings("unchecked")
     public void testRemoveMember() {
         FetchGroup fg = pm.getFetchGroup(Employee.class, "testRemoveMember");
         fg.addCategory(FetchGroup.ALL);
@@ -521,6 +527,7 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void checkAddCategory(Class<?> cls, String category, String[] expected) {
         FetchGroup fg = pm.getFetchGroup(cls, "test" + count() + category);
         Set<String> expectedSet = new HashSet<>();
@@ -538,6 +545,7 @@ public class FetchGroupTest extends JDO_Test {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private String printFetchGroup(FetchGroup fg) {
         StringBuffer sb = new StringBuffer("FetchGroup (");
         sb.append(fg.getType().isInterface()?"interface: ":"class: ");

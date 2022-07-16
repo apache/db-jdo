@@ -62,6 +62,7 @@ public class SupportedMapMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testGet() {
         List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -92,6 +93,7 @@ public class SupportedMapMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testContainsKey() {
         List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");
@@ -123,6 +125,7 @@ public class SupportedMapMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testContainsValue() {
         List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class, "emp1");
 
@@ -183,6 +186,7 @@ public class SupportedMapMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSize() {
         List<Person> expected = getTransientCompanyModelInstancesAsList(Person.class,
                 "emp1", "emp2", "emp3", "emp4", "emp5");

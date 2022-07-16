@@ -90,6 +90,7 @@ public class SingleStringQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         int index = 0;
         Query<FullTimeEmployee> query = getPM().newQuery(SINGLE_STRING_QUERY);

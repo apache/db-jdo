@@ -89,6 +89,7 @@ public class NPEInResultExpr extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         Object expected = Arrays.asList("emp2Last", null, "emp2Last", "emp2Last", "emp2Last");
 

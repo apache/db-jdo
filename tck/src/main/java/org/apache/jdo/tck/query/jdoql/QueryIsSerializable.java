@@ -140,6 +140,7 @@ public class QueryIsSerializable extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestQueryIsSerializable03(PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) logger.debug("\nExecuting test QueryIsSerializable03() ...");
         Object restoredQuery = null;

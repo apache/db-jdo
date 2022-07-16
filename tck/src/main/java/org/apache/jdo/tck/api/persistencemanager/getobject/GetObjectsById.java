@@ -113,6 +113,7 @@ public class GetObjectsById extends JDO_Test {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollection() {
         getPM().currentTransaction().begin();
         Collection<PCPoint> result = pm.getObjectsById(oidCollection);
@@ -123,6 +124,7 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionTrue() {
         getPM().currentTransaction().begin();
         Collection<PCPoint> result = pm.getObjectsById(oidCollection, true);
@@ -134,6 +136,7 @@ public class GetObjectsById extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionFalse() {
         getPM().currentTransaction().begin();
         Collection<PCPoint> result = pm.getObjectsById(oidCollection, false);

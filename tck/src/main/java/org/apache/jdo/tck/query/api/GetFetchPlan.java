@@ -93,6 +93,7 @@ public class GetFetchPlan extends QueryTest {
      * assigned to fetchGroup1
      * @param query the query
      */
+    @SuppressWarnings("unchecked")
     private void checkFetchGroup1(Query<PCClass> query) {
         FetchPlan fetchplan = query.getFetchPlan();
         Collection<String> fetchgroups = fetchplan.getGroups();
@@ -110,6 +111,7 @@ public class GetFetchPlan extends QueryTest {
      * Finally, that fetch group is removed from the fetch plan again.
      * @param query the query
      */
+    @SuppressWarnings("unchecked")
     private void checkFetchGroup2(Query<PCClass> query) {
         FetchPlan fetchplan = query.getFetchPlan();
         fetchplan.addGroup(FETCH_GROUP_2);

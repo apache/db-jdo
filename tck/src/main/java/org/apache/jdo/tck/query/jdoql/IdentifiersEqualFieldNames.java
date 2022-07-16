@@ -120,6 +120,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive2() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -150,6 +151,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive3() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 
@@ -180,6 +182,7 @@ public class IdentifiersEqualFieldNames extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive4() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1") ;
 

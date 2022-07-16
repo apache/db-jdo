@@ -76,6 +76,7 @@ public class EqualityHelper {
      * is used to order Maps whose keys are Comparable so the entries can be 
      * compared using deepCompareFields.
      */
+    @SuppressWarnings("unchecked")
     private static final Comparator<Map.Entry<?, ?>> entryKeyComparator = (o1, o2) -> {
         Object key1 = o1.getKey();
         Object key2 = o2.getKey();
@@ -191,6 +192,7 @@ public class EqualityHelper {
      * @param other the other object to be tested for deep equality
      * @return <code>true</code> if the objects are deep equal.
      */
+    @SuppressWarnings("unchecked")
     public  boolean deepEquals(Object me, Object other) {
         if (me == other)
             return true;
@@ -217,6 +219,7 @@ public class EqualityHelper {
      * @throws ClassCastException if the collections contain elements that
      * are not mutually comparable.
      */
+    @SuppressWarnings("unchecked")
     public <T extends Comparable<T>> boolean deepEquals(Collection<T> mine, Collection<T> other) {
         if (mine == other)
             return true;
@@ -257,6 +260,7 @@ public class EqualityHelper {
      * @throws ClassCastException if the maps contain keys or values that 
      * are not mutually comparable.
      */
+    @SuppressWarnings("unchecked")
     public <K,V> boolean deepEquals(Map<K,V> mine, Map<K,V> other) {
         if (mine == other)
             return true;
@@ -304,6 +308,7 @@ public class EqualityHelper {
      * @param other the other collection to be tested for shallow equality
      * @return <code>true</code> if the collections are deep equal.
      */
+    @SuppressWarnings("unchecked")
     public <T extends Comparable<T>> boolean shallowEquals(Collection<T> mine, Collection<T> other) {
         if (mine == other)
             return true;
@@ -413,6 +418,7 @@ public class EqualityHelper {
      * @param where the location of the inequality (provided by the caller)
      * @return <code>true</code> if the objects are deep equal.
      */
+    @SuppressWarnings("unchecked")
     public boolean deepEquals(Object me, Object other, String where) {
         if (me == other)
             return true;
@@ -448,6 +454,7 @@ public class EqualityHelper {
      * @throws ClassCastException if the collections contain elements that
      * are not mutually comparable.
      */
+    @SuppressWarnings("unchecked")
     public <S extends Comparable<S>, T> boolean deepEqualsCollection(Collection<S> me, Collection<T> other,
             String where) {
         if (me == other)
@@ -510,6 +517,7 @@ public class EqualityHelper {
      * @throws ClassCastException if the maps contain keys or values that 
      * are not mutually comparable.
      */
+    @SuppressWarnings("unchecked")
     public <K,V> boolean deepEqualsMap(Map<K,V> me, Map<K,V> other, String where) {
         if (me == other)
             return true;
@@ -582,6 +590,7 @@ public class EqualityHelper {
      * @param where the location of the inequality (provided by the caller)
      * @return <code>true</code> if the collections are deep equal.
      */
+    @SuppressWarnings("unchecked")
     public <T extends Comparable<T>> boolean shallowEquals(Collection<T> me, Collection<T> other,
             String where) {
         if (me == other)

@@ -64,6 +64,7 @@ public class SupportedCollectionMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testContains() {
         // contains(VARIABLE)
         List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
@@ -192,6 +193,7 @@ public class SupportedCollectionMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSize() {
         // size
         List<Department> expectedResult = getTransientCompanyModelInstancesAsList(Department.class, "dept1");

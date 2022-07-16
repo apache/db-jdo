@@ -175,6 +175,7 @@ public class BatchTestRunner
      * @param classNames class names
      * @return the test suite
      */
+    @SuppressWarnings("unchecked")
     protected TestSuite getTestSuite(String[] classNames) {
         TestSuite testSuite = new TestSuite();
         for (String className : classNames) {

@@ -149,6 +149,7 @@ public class Unique extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
 
+    @SuppressWarnings("unchecked")
     public void testNegative() {
         String singleString = "SELECT UNIQUE FROM " + Person.class.getName();
         

@@ -142,6 +142,7 @@ public class IfElseResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         Object expected = Arrays.asList(
                 new BigDecimal("3000001.188"), new BigDecimal("55000"), new BigDecimal("2201.089"));
@@ -176,6 +177,7 @@ public class IfElseResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive2() {
         Object expected = Arrays.asList("No reviewer", "Reviewer team", "Single reviewer");
 

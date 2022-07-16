@@ -88,6 +88,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNoParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;
@@ -145,6 +146,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testObjectArrayParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;
@@ -205,6 +207,7 @@ public class DeletePersistentAll extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testMapParametersSingleString() {
         Transaction tx = pm.currentTransaction();
         Query<Insurance> query = null;

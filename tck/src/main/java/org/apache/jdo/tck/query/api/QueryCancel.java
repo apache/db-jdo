@@ -90,6 +90,7 @@ public class QueryCancel extends QueryTest {
      *
      * @throws Exception exception
      */
+    @SuppressWarnings("unchecked")
     public void testCancel() throws InterruptedException {
         PersistenceManager pm = getPM();
         // Test query 
@@ -141,6 +142,7 @@ public class QueryCancel extends QueryTest {
      *
      * @throws Exception exception
      */
+    @SuppressWarnings("unchecked")
     public void testCancelAll() throws Exception {
         PersistenceManager pm = getPM();
         // Test query

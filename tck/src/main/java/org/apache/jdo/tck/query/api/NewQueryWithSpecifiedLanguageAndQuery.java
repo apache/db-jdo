@@ -55,6 +55,7 @@ public class NewQueryWithSpecifiedLanguageAndQuery extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         PersistenceManager pm = getPM();
         if (debug)

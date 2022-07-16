@@ -78,6 +78,7 @@ public class AbstractReaderTest extends JDO_Test {
      * @param factory the bean factory
      * @return the List of objects
      */
+    @SuppressWarnings("unchecked")
     protected List<Object> getRootList(DefaultListableBeanFactory factory) {
         return (List<Object>) getBean(factory, ROOT_NAME);
     }

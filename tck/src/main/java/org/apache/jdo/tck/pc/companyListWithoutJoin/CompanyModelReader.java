@@ -74,6 +74,7 @@ public class CompanyModelReader extends DefaultListableBeanFactory {
      * called "root" of type list in the xml and returns it.
      * @return a list of root instances
      */
+    @SuppressWarnings("unchecked")
     public List<Object> getRootList() {
         return (List<Object>)getBean(ROOT_LIST_NAME);
     }

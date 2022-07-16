@@ -62,6 +62,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field 
      * with a parameter of a domain object type.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterEqual() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -94,6 +95,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * with a parameter of a domain object type. The actual parameter is a copy of the
      * domain object referenced by the employees, thus the expected result is empty.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterEqualCopy() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -121,6 +123,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with a not equal operator comparing a field
      * with a parameter of a domain object type.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNotEqual() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -151,6 +154,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field 
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNavigationToDomainObject() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -182,6 +186,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterNavigationToPrimitiveField() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -211,6 +216,7 @@ public class DomainObjectsAsParameters extends QueryTest {
      * This methods runs a JDOQL query with an equal operator comparing a field
      * with a domain object navigated from a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testDirtyParameterNavigationToPrimitiveField() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -242,6 +248,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a domain object parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testContainsParameter() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -270,6 +277,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a navigated domain object parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testContainsParameterNavigation() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();
@@ -298,6 +306,7 @@ public class DomainObjectsAsParameters extends QueryTest {
     /**
      * This methods runs a JDOQL query with a contains clause using a collection parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testParameterCollection() {
         PersistenceManager pm  = getPM();
         Transaction tx = pm.currentTransaction();

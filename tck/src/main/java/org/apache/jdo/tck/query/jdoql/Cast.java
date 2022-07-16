@@ -92,6 +92,7 @@ public class Cast extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1", "dept2");
 

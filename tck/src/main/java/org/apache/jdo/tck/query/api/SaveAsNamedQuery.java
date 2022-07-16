@@ -67,6 +67,7 @@ public class SaveAsNamedQuery extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSave() {
         int index = 0;
         Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);

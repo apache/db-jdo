@@ -104,6 +104,7 @@ public class CorrelatedSubqueries extends SubqueriesTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCollectionSingleStringQuery() {
         Transaction tx = pm.currentTransaction();
         try {

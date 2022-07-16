@@ -63,6 +63,7 @@ public class SupportedListMethods extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testGetInFilter() {
         // get(PARAMETER) in filter
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");

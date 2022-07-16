@@ -65,6 +65,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive0() {
         // Uniqueness not specified.
         // emp1 qualifies for both contains clause => result is dept1
@@ -101,6 +102,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         // Uniqueness specified.
         // Only emp3 qualifies for both contains clause.
@@ -139,6 +141,7 @@ public class DenoteUniquenessInFilter extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive2() {
         // Uniqueness specified.
         // Only emp1 matches the first contains clause.

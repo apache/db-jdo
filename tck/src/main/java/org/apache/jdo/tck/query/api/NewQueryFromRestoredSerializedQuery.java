@@ -63,6 +63,7 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
      *
      * @throws Exception exception
      */
+    @SuppressWarnings("unchecked")
     public void testPositive() throws IOException, ClassNotFoundException {
         PersistenceManager pm = getPM();
         if (debug)

@@ -62,6 +62,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     /**
      *
      */
+    @SuppressWarnings("unchecked")
     public void testContains1() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class);
 
@@ -99,6 +100,7 @@ public class NullCollectionsAndContainsMethod extends QueryTest {
     /**
      *
      */
+    @SuppressWarnings("unchecked")
     public void testContains2() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2", "emp3");
 

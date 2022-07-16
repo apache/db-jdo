@@ -69,6 +69,7 @@ public class NavigationThroughACollectionField extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 

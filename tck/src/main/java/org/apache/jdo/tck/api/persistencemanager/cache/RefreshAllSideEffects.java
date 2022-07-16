@@ -127,6 +127,7 @@ public class RefreshAllSideEffects extends PersistenceManagerTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     private void runTestRefreshAllSideEffects(boolean doRefresh) {
 
         if (debug) logger.debug ("\nSTART RefreshAllSideEffects");

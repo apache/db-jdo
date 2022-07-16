@@ -90,6 +90,7 @@ public class ExecuteWithMap extends QueryTest {
     private static final HashMap<Object, Object> illegalMapMissingKeyTwo = new HashMap<>();
     private static final HashMap<Object, Object> illegalMapStartsWithZero = new HashMap<>();
     private static final HashMap<Object, Object> illegalMapStringKeys = new HashMap<>();
+
     static {
         // valid parameter values
         hm1.put(Integer.valueOf(1), Integer.valueOf(4));
@@ -100,10 +101,12 @@ public class ExecuteWithMap extends QueryTest {
         hm2.put(Integer.valueOf(3), "emp2Middle");
         hm2.put(Integer.valueOf(4), "New York");
 
+        //noinspection unchecked
         hm3 = (HashMap<Object, Object>) hm2.clone();
         // extra entry okay, should be ignored by impl
         hm3.put(Integer.valueOf(0), "emp2First");
 
+        //noinspection unchecked
         hm4 = (HashMap<Object, Object>)hm2.clone();
         // extra entry okay, should be ignored by impl
         hm4.put(Integer.valueOf(5), "New York");
@@ -125,6 +128,7 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put("4dog", "New York");
     }
 
+    @SuppressWarnings("unchecked")
     private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */

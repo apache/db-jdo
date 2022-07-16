@@ -57,6 +57,7 @@ public class ChangeQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         Query query = getPM().newNamedQuery(Person.class, "changeQuery");
         

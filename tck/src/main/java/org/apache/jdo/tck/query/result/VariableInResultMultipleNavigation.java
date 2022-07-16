@@ -92,6 +92,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithCompanyAndDepartmentAndEmployeeAndProject() {
         Object expected = Arrays.asList(
                 new Object[] {company1, dept1, emp1, proj1},
@@ -135,6 +136,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithCompanyAndEmployeeAndProject() {
         Object expected = Arrays.asList(
                 new Object[] {company1, emp1, proj1},
@@ -178,6 +180,7 @@ public class VariableInResultMultipleNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithDepartmentAndEmployeeAndProject() {
         Object expected = Arrays.asList(
                 new Object[] {dept1, emp1, proj1},

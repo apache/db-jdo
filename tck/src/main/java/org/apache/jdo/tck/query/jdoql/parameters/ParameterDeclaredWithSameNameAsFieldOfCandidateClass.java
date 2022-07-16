@@ -112,8 +112,7 @@ public class ParameterDeclaredWithSameNameAsFieldOfCandidateClass extends QueryT
         try {
             tx.begin();
 
-            Query<PCPoint> query = pm.newQuery();
-            query.setClass(PCPoint.class);
+            Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             query.declareParameters("Integer y");
             query.setFilter("y == y");

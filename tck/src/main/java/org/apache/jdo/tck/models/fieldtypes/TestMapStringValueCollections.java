@@ -157,6 +157,7 @@ public class TestMapStringValueCollections extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     private void checkValues(Object oid,
             MapStringValueCollections expectedValue)
     {
@@ -190,8 +191,7 @@ public class TestMapStringValueCollections extends JDO_Test {
                         } else {
                             String expectedVal = (String) expected.get(expectedKey);
                             String actualValue = (String)
-                                    actual.get(TestUtil.getBigDecimalKey(expectedKey,
-                                            actualKeySet));
+                                    actual.get(TestUtil.getBigDecimalKey(expectedKey, actualKeySet));
                             if (!expectedVal.equals(actualValue)) {
                                 sbuf.append("\nFor element " + i +
                                         " expected value = " + expectedVal +

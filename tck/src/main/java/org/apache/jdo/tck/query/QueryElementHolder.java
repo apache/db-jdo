@@ -239,6 +239,7 @@ public class QueryElementHolder<T> {
      * @param pm the persistence manager
      * @return the JDO query instance
      */
+    @SuppressWarnings("unchecked")
     public Query<T> getSingleStringQuery(PersistenceManager pm) {
         return pm.newQuery(toString());
     }

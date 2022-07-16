@@ -66,6 +66,7 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive0() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
@@ -97,6 +98,7 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive1() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
@@ -158,6 +160,7 @@ public class VariablesAndFields extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive3() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 
@@ -187,7 +190,9 @@ public class VariablesAndFields extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
+
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive4() {
         Object expected = new LinkedList<>();
 
@@ -217,7 +222,9 @@ public class VariablesAndFields extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
+
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive5() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp2");
 

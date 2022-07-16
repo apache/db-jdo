@@ -147,6 +147,7 @@ public class AbstractFetchPlanTest extends JDO_Test {
      * @param fetchPlan fetch plan
      * @param groups groups
      */
+    @SuppressWarnings("unchecked")
     protected void checkGroups(String location,
             FetchPlan fetchPlan, String[] groups) {
         Collection<String> expected = new HashSet<>();

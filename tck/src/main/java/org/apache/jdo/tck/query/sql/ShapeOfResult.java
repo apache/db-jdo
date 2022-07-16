@@ -160,6 +160,7 @@ public class ShapeOfResult extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNegative() {
         if (isSQLSupported()) {
             String schema = getPMFProperty("javax.jdo.mapping.Schema");

@@ -90,6 +90,7 @@ public class ConversionHelper {
      * @param collection the collection
      * @return the converted collection
      */
+    @SuppressWarnings("unchecked")
     public static <T> Collection<T> convertsElementsOfTypeObjectArray(Collection<T> collection) {
         Collection<T>  result = new ArrayList<>();
         for (T t : collection) {
@@ -108,6 +109,7 @@ public class ConversionHelper {
      * @param map the map
      * @return the converted map
      */
+    @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> convertsElementsOfTypeObjectArray(Map<K, V> map) {
         Map<K, V> result = new HashMap<>();
         for (Map.Entry<K, V> entry : map.entrySet()) {

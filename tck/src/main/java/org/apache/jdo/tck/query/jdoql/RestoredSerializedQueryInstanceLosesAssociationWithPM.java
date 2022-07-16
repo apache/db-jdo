@@ -75,6 +75,7 @@ public class RestoredSerializedQueryInstanceLosesAssociationWithPM
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void checkRestoredQueryInstance(PersistenceManager pm) throws IOException, ClassNotFoundException {
         Transaction tx = pm.currentTransaction();
         try {

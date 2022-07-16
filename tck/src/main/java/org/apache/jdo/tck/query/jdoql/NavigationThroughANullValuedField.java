@@ -164,6 +164,8 @@ public class NavigationThroughANullValuedField extends QueryTest {
         executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
     }
+
+    @SuppressWarnings("unchecked")
     public void testPositive4() {
         // navigation through collection relationship field
         // employees emp2 and emp3 do not have a medicalInsurance, but emp1

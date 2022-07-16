@@ -66,6 +66,7 @@ public class QueryExtentions extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         int index = 0;
         Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);

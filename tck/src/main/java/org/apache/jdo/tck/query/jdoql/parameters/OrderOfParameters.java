@@ -78,6 +78,7 @@ public class OrderOfParameters extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testSingleStringAPIQuery() {
         // Do not use QueryElementHolder, because QueryElementHolder always uses a Map for parameter values
         Transaction tx = pm.currentTransaction();

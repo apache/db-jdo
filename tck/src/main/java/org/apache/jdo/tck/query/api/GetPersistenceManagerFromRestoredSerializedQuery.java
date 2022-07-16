@@ -94,6 +94,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestGetPersistenceManagerFromRestoredSerializedQuery(
         PersistenceManager pm) throws IOException, ClassNotFoundException {
         if (debug) 

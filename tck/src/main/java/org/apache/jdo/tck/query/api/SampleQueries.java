@@ -163,6 +163,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the salary field in a candidate instance isnull, then it cannot
      * be unwrapped for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery01a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -223,6 +224,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the salary field in a candidate instance isnull, then it cannot
      * be unwrapped for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery01d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -281,6 +283,7 @@ public class SampleQueries extends QueryTest {
      * This query selects all Employee instances from the candidate collection where the salary
      * is greater than the constant 30000, and returns a Collection ordered based on employee salary.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery02a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -335,6 +338,7 @@ public class SampleQueries extends QueryTest {
      * This query selects all Employee instances from the candidate collection where the salary
      * is greater than the constant 30000, and returns a Collection ordered based on employee salary.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery02d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -393,6 +397,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the salary field in a candidate instance is null, then it cannot be
      * unwrapped for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery03a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -488,6 +493,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the salary field in a candidate instance is null, then it cannot be
      * unwrapped for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery03d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -552,6 +558,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the dept field in a candidate instance is null, then it cannot be
      * navigated for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery04a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -643,6 +650,7 @@ public class SampleQueries extends QueryTest {
      * If the value for the dept field in a candidate instance is null, then it cannot be
      * navigated for the comparison, and the candidate instance is rejected.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery04d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -706,6 +714,7 @@ public class SampleQueries extends QueryTest {
      * the collection of Employee instances contains at least one Employee instance
      * having a salary greater than the value passed as a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery05a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -797,6 +806,7 @@ public class SampleQueries extends QueryTest {
      * the collection of Employee instances contains at least one Employee instance
      * having a salary greater than the value passed as a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery05d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -823,6 +833,7 @@ public class SampleQueries extends QueryTest {
      * the collection of Employee instances contains at least one Employee instance
      * having a salary greater than the value passed as a parameter.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery05f() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -855,6 +866,7 @@ public class SampleQueries extends QueryTest {
      * This query selects all Department instances where the name field is contained in
      * a parameter collection, which in this example consists of three department names.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery06a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -941,6 +953,7 @@ public class SampleQueries extends QueryTest {
      * This query selects all Department instances where the name field is contained in
      * a parameter collection, which in this example consists of three department names.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery06d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1002,6 +1015,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query selects names of all Employees who work in the parameter department.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery07a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1084,6 +1098,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query selects names of all Employees who work in the parameter department.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery07d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1144,6 +1159,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query selects names, salaries, and bosses of Employees who work in the parameter department.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery08a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1231,6 +1247,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query selects names, salaries, and bosses of Employees who work in the parameter department.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery08d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1288,6 +1305,7 @@ public class SampleQueries extends QueryTest {
      * This query selects names, salaries, and bosses of Employees who work in the parameter department,
      * and uses the constructor for the result class.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery09a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1385,6 +1403,7 @@ public class SampleQueries extends QueryTest {
      * This query selects names, salaries, and bosses of Employees who work in the parameter department,
      * and uses the constructor for the result class.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery09d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1566,6 +1585,7 @@ public class SampleQueries extends QueryTest {
      * This query averages the salaries of Employees who work in the parameter department
      * and returns a single value.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery10d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1708,6 +1728,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query averages and sums the salaries of Employees who work in the parameter department.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery11d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1765,6 +1786,7 @@ public class SampleQueries extends QueryTest {
      * This query averages and sums the salaries of Employees who work in all departments having
      * more than one employee and aggregates by department name.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery12a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -1829,6 +1851,7 @@ public class SampleQueries extends QueryTest {
      * This query averages and sums the salaries of Employees who work in all departments having
      * more than one employee and aggregates by department name.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery12d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2004,6 +2027,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns a single instance of Employee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery13d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2145,6 +2169,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns a single field of a single Employee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery14d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2203,6 +2228,7 @@ public class SampleQueries extends QueryTest {
      * stores the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
      * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery15a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2291,6 +2317,7 @@ public class SampleQueries extends QueryTest {
      * stores the result in a user-defined class. Since the default is "distinct this as FullTimeEmployee",
      * the field must be named FullTimeEmployee and be of type FullTimeEmployee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery15d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2350,6 +2377,7 @@ public class SampleQueries extends QueryTest {
      * This query selects instances of FullTimeEmployee who make more than the parameter salary and
      * stores the result in a user-defined class.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery16a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2435,6 +2463,7 @@ public class SampleQueries extends QueryTest {
      * This query selects instances of FullTimeEmployee who make more than the parameter salary and
      * stores the result in a user-defined class.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery16d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2492,6 +2521,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns the names of all Employees of all "Research" departments.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery17a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2546,6 +2576,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns the names of all Employees of all "Research" departments.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery17d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2594,6 +2625,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns the names of all Employees of all "Research" departments.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery17f() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2622,6 +2654,7 @@ public class SampleQueries extends QueryTest {
      * 
      * This query returns names of employees who work more than the average of all employees.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery18a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2680,6 +2713,7 @@ public class SampleQueries extends QueryTest {
      *
      * This query returns names of employees who work more than the average of all employees.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery18d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2736,6 +2770,7 @@ public class SampleQueries extends QueryTest {
      * subquery is the collection of employees in the department of the candidate employee
      * and the parameter passed to the subquery is the manager of the candidate employee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery19a() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2804,6 +2839,7 @@ public class SampleQueries extends QueryTest {
      * subquery is the collection of employees in the department of the candidate employee
      * and the parameter passed to the subquery is the manager of the candidate employee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery19d() {
         Transaction tx = pm.currentTransaction();
         try {
@@ -2831,6 +2867,7 @@ public class SampleQueries extends QueryTest {
      * subquery is the collection of employees in the department of the candidate employee
      * and the parameter passed to the subquery is the manager of the candidate employee.
      */
+    @SuppressWarnings("unchecked")
     public void testQuery19f() {
         Transaction tx = pm.currentTransaction();
         try {

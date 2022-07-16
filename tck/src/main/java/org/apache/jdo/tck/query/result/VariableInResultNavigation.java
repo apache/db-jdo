@@ -89,6 +89,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -125,6 +126,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithoutConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -165,6 +167,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithThis() {
         Object expected = Arrays.asList(
                 new Object[] {dept1, emp1, proj1},
@@ -205,6 +208,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithThisConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},
@@ -243,6 +247,7 @@ public class VariableInResultNavigation extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationWithCompanyConstraint() {
         Object expected = Arrays.asList(
                 new Object[] {emp1, proj1},

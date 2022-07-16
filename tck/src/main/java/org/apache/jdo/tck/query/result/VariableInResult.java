@@ -71,6 +71,7 @@ public class VariableInResult extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testDistinctNoNavigation() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
@@ -103,6 +104,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testDistinctNavigation() {
         Object elem = new Object[]{Long.valueOf(1), "orange"};
         Object expected = Arrays.asList(elem);
@@ -136,6 +138,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigation() {
         Object expected = Arrays.asList(
                 new Object[]{Long.valueOf(1), "orange"},
@@ -171,6 +174,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNoNavigation() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp1","emp2","emp3","emp4","emp5");
 
@@ -203,6 +207,7 @@ public class VariableInResult extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testMultipleProjectionWithConstraints() {
         List<Employee> expected = getTransientCompanyModelInstancesAsList(Employee.class, "emp4","emp5");
 

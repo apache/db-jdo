@@ -1261,6 +1261,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param unique indicates, if the query is supposed 
      * to return a single result.
      */
+    @SuppressWarnings("unchecked")
     protected <T> void executeSQLQuery(String assertion, String sql,
             Class<T> candidateClass, Class<?> resultClass, boolean positive,
             Object parameters, Object expectedResult, boolean unique) {
@@ -1321,6 +1322,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param positive indicates if query execution is supposed to fail
      * @return the query result
      */
+    @SuppressWarnings("unchecked")
     private Object execute(String assertion, Query<?> query,
             String singleStringQuery, boolean hasOrdering,
             Object parameters, Object expectedResult, boolean positive) {
@@ -1507,6 +1509,7 @@ public abstract class QueryTest extends AbstractReaderTest {
      * @param parameters the parmaters of the query.
      * @param expectedNrOfDeletedObjects the expected number of deleted objects.
      */
+    @SuppressWarnings("unchecked")
     private void delete(String assertion, Query<?> query,
             String singleStringQuery, Object parameters, 
             long expectedNrOfDeletedObjects) {

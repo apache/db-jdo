@@ -228,6 +228,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkDefaultGroups() {
         Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
@@ -243,6 +244,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkClearGroups() {
         Set<String> expectedGroups = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
@@ -258,6 +260,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroup() {
         Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("group1");
@@ -274,6 +277,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkAddGroup() {
         Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
@@ -291,6 +295,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkRemoveGroup() {
         Set<String> expectedGroups = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
@@ -306,6 +311,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroupsCollection() {
         Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
@@ -324,6 +330,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void checkSetGroupsArray() {
         Set<String> expectedGroups = new HashSet<>();
         expectedGroups.add("default");
@@ -342,6 +349,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     protected void checkGetDetachmentRoots() {
         Set<String> expectedRoots = new HashSet<>();
         FetchPlan fp = getPM().getFetchPlan();
@@ -356,6 +364,7 @@ public class FetchPlanInterface extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     protected void checkSetDetachmentRoots() {
         PCPoint p = new PCPoint(10, 20);
         Set<PCPoint> expectedRoots = new HashSet<>();

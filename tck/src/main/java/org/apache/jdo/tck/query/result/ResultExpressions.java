@@ -196,6 +196,7 @@ public class ResultExpressions extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testVariableField() {
         Object expectedResult = Arrays.asList(Long.valueOf(1));
 
@@ -228,6 +229,7 @@ public class ResultExpressions extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testVariable() {
         List<Project> expectedResult = getTransientCompanyModelInstancesAsList(Project.class, "proj1");
 
@@ -291,6 +293,7 @@ public class ResultExpressions extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testCountVariable() {
         // COUNT(variable)
         Object expectedResult = Long.valueOf(1);
@@ -512,6 +515,7 @@ public class ResultExpressions extends QueryTest {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void testNavigationalExpressionVariable() {
         // navigational expression variable
         Object expectedResult =

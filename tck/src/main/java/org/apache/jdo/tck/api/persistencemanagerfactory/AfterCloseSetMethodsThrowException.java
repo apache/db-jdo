@@ -65,6 +65,7 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     public void test() {
         Class<String>[] stringParameters = new Class[]{String.class};
         Class<Boolean>[] booleanParameters = new Class[]{boolean.class};

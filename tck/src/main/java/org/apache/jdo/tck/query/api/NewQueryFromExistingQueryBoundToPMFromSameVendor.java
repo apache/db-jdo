@@ -65,6 +65,7 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestNewQueryFromExistingQueryBoundToPMFromSameVendor01(
         PersistenceManager pm) {
         if (debug)
@@ -106,6 +107,7 @@ public class NewQueryFromExistingQueryBoundToPMFromSameVendor extends QueryTest 
     }
 
     /** */
+    @SuppressWarnings("unchecked")
     void runTestNewQueryFromExistingQueryBoundToPMFromSameVendor02(
         PersistenceManager pm) {
         if (debug) 

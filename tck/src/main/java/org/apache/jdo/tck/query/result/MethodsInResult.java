@@ -150,6 +150,7 @@ public class MethodsInResult extends QueryTest {
         executeJDOQLTypedQuery(ASSERTION_FAILED, holder, null, true, expected);
     }
 
+    @SuppressWarnings("unchecked")
     public void testMapGetInResult() {
         // map.get()
         Object expected = Arrays.asList("1111", "2222", "3333", "3343", "3363");

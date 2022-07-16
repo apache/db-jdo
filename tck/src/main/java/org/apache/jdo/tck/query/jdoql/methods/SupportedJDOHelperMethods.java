@@ -229,6 +229,7 @@ public class SupportedJDOHelperMethods extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     private <T> List<T> getExpectedResult(boolean oidsWanted,
             Class<T> candidateClass, String filter) {
         List<T> expectedResult;

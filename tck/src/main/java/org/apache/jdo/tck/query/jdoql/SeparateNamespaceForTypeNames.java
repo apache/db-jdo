@@ -99,6 +99,7 @@ public class SeparateNamespaceForTypeNames extends QueryTest {
     /**
      * 
      */
+    @SuppressWarnings("unchecked")
     public void testVaiableName() {
         List<Department> expected = getTransientCompanyModelInstancesAsList(Department.class, "dept1");
 

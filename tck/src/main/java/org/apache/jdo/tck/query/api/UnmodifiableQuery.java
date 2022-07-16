@@ -72,6 +72,7 @@ public class UnmodifiableQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testPositive() {
         int index = 0;
         Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
@@ -91,6 +92,7 @@ public class UnmodifiableQuery extends QueryTest {
     }
     
     /** */
+    @SuppressWarnings("unchecked")
     public void testNegative() {
         Query<Person> query = getPM().newQuery(SINGLE_STRING_QUERY);
         query.setUnmodifiable();
@@ -119,7 +121,8 @@ public class UnmodifiableQuery extends QueryTest {
         } catch (JDOUserException ignored) {
         }
     }
-    
+
+    @SuppressWarnings("unchecked")
     private void checkSetClass(Query query) {
         try {
             query.setClass(Employee.class);
