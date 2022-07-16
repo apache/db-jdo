@@ -192,7 +192,7 @@ public class EqualityHelper {
      * @param other the other object to be tested for deep equality
      * @return <code>true</code> if the objects are deep equal.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public  boolean deepEquals(Object me, Object other) {
         if (me == other)
             return true;
@@ -418,7 +418,7 @@ public class EqualityHelper {
      * @param where the location of the inequality (provided by the caller)
      * @return <code>true</code> if the objects are deep equal.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public boolean deepEquals(Object me, Object other, String where) {
         if (me == other)
             return true;
@@ -517,7 +517,7 @@ public class EqualityHelper {
      * @throws ClassCastException if the maps contain keys or values that 
      * are not mutually comparable.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public <K,V> boolean deepEqualsMap(Map<K,V> me, Map<K,V> other, String where) {
         if (me == other)
             return true;

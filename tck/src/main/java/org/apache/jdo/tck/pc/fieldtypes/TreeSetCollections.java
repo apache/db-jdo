@@ -110,6 +110,8 @@ public class TreeSetCollections {
   {
     return fieldSpecs.length;
   }
+
+  @SuppressWarnings("rawtypes")
   public TreeSet get(int index)
   {
     switch (index)
@@ -198,7 +200,7 @@ public class TreeSetCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,TreeSet value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") TreeSet value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

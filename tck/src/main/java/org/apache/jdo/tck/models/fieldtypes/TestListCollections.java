@@ -136,6 +136,7 @@ public class TestListCollections extends JDO_Test {
     /** */
     private void setValues(ListCollections collect, int order)
     {
+        @SuppressWarnings("rawtypes")
         Vector value;
         int n = collect.getLength();
         for (int i = 0; i < n; ++i) {

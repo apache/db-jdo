@@ -20,7 +20,6 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.math.BigDecimal;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
@@ -174,6 +173,7 @@ public class TestHashMapStringValueCollections extends JDO_Test {
                             HashMapStringValueCollections.fieldSpecs[i]
                             ).get(0).equals("BigDecimal")) {
                     Set<?> expectedKeySet = expected.keySet();
+                    @SuppressWarnings("rawtypes")
                     Set actualKeySet = actual.keySet();
                     for (Object o : expectedKeySet) {
                         BigDecimal expectedKey = (BigDecimal) o;

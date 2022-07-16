@@ -487,7 +487,7 @@ public class MapStringKeyCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,Map value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") Map value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

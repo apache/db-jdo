@@ -435,7 +435,7 @@ public class HashtableStringKeyCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,Hashtable value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") Hashtable value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

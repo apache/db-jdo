@@ -435,7 +435,7 @@ public class HashMapStringKeyCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index, HashMap value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") HashMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

@@ -215,7 +215,7 @@ public class SetCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,Set value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") Set value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

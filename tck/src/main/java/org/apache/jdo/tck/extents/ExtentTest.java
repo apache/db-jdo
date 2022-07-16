@@ -253,7 +253,7 @@ abstract class ExtentTest extends JDO_Test {
         }
         try {
             Class<?> companyOIDClass = Class.forName(companyOIDClassName);
-            Constructor<?> companyOIDConstructor = companyOIDClass.getConstructor(new Class[] {String.class});
+            Constructor<?> companyOIDConstructor = companyOIDClass.getConstructor(String.class);
             Object companyOID = companyOIDConstructor.newInstance (companyOIDString);
             return companyOID;
         } 

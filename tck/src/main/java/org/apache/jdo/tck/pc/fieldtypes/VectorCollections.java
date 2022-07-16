@@ -215,7 +215,7 @@ public class VectorCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,Vector value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") Vector value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

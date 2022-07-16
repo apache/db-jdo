@@ -215,7 +215,7 @@ public class HashSetCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,HashSet value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") HashSet value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

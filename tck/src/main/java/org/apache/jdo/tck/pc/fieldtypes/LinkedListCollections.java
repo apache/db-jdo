@@ -215,7 +215,7 @@ public class LinkedListCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,LinkedList value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") LinkedList value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

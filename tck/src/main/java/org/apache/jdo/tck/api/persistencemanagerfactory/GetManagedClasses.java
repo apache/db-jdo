@@ -49,6 +49,7 @@ public class GetManagedClasses extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("rawtypes")
     public void test() {
     	try {
         	// Get PMF and a PM, and do an Extent on some classes

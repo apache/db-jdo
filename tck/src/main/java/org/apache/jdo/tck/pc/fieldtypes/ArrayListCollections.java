@@ -231,7 +231,7 @@ public class ArrayListCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index, ArrayList value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") ArrayList value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

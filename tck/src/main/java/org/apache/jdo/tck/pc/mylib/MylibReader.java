@@ -36,6 +36,7 @@ public class MylibReader extends DefaultListableBeanFactory {
 
     /** Teardown classes 
      */
+    @SuppressWarnings("rawtypes")
     private static final Class<?>[] tearDownClasses = new Class[] {
         PrimitiveTypes.class, PCClass.class
     };

@@ -215,7 +215,7 @@ public class ListCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index, List value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") List value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

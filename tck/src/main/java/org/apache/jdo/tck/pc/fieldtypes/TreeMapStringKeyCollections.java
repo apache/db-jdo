@@ -435,7 +435,7 @@ public class TreeMapStringKeyCollections {
   }
 
   @SuppressWarnings("unchecked")
-  public boolean set(int index,TreeMap value)
+  public boolean set(int index, @SuppressWarnings("rawtypes") TreeMap value)
   {
     if(fieldSpecs[index].indexOf("final") != -1)
       return false;

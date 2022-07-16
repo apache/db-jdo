@@ -103,6 +103,7 @@ public class TestUtil {
       return 9999;
   }
 
+  @SuppressWarnings("rawtypes")
   public static Vector makeNewVectorInstance(String type, int order) {
 
       Vector<Object> vec = new Vector<>();

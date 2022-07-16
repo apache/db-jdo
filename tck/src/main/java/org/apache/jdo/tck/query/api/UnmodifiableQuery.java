@@ -123,7 +123,7 @@ public class UnmodifiableQuery extends QueryTest {
     }
 
     @SuppressWarnings("unchecked")
-    private void checkSetClass(Query query) {
+    private void checkSetClass(@SuppressWarnings("rawtypes") Query query) {
         try {
             query.setClass(Employee.class);
             methodFailed("setClass()");

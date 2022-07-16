@@ -178,6 +178,7 @@ public class TestMapStringValueCollections extends JDO_Test {
                             MapStringValueCollections.fieldSpecs[i]
                             ).get(0).equals("BigDecimal")) {
                     Set<?> expectedKeySet = expected.keySet();
+                    @SuppressWarnings("rawtypes")
                     Set actualKeySet = actual.keySet();
                     for (Object o : expectedKeySet) {
                         BigDecimal expectedKey = (BigDecimal) o;

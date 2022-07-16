@@ -38,7 +38,8 @@ public class CompanyFactoryAnnotatedPIAppPM
     public CompanyFactoryAnnotatedPIAppPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PIAppDentalInsurance.class,

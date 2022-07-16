@@ -189,7 +189,7 @@ abstract class AbstractGetPMF extends JDO_Test {
      */
     Method getGetMethod(Class<?> cls, String optionName) {
         try {
-            return cls.getMethod("get" + optionName, new Class[]{});
+            return cls.getMethod("get" + optionName);
         } catch (Exception ex) {
             fail("Unexpected exception thrown from getMethod on PMF class with option name" + 
                     optionName);
