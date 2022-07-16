@@ -88,7 +88,7 @@ public class InstanceLifecycleListenerCreate
 
         // verify that the listener was called
         listener.verifyCallbacks(ASSERTION1_FAILED, new int[] {
-                listener.POST_CREATE_LISTENER});
+                InstanceLifecycleListenerImpl.POST_CREATE_LISTENER});
     }
     
     /** 
