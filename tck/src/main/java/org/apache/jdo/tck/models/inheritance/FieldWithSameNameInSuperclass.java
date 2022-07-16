@@ -233,9 +233,8 @@ public class FieldWithSameNameInSuperclass extends TestParts {
     void removeAllInstances(PersistenceManager pm)
     {
         Extent<FieldSameName4> e = pm.getExtent(FieldSameName4.class, true);
-        Iterator<FieldSameName4> i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        for (FieldSameName4 fieldSameName4 : e) {
+            pm.deletePersistent(fieldSameName4);
         }        
     }
 }

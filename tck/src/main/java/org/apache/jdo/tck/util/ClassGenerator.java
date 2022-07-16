@@ -74,122 +74,118 @@ public class ClassGenerator {
     final String twoSpaces = "  ";
     final String space = " ";
 
-    for (int i=0; i < fieldTypes.length; i++)
-    {
-      String classFile = (isPrimitive(fieldTypes[i]) ? "FieldsOfPrimitive" : "FieldsOf") + fieldTypes[i];
+      for (String fieldType : fieldTypes) {
+          String classFile = (isPrimitive(fieldType) ? "FieldsOfPrimitive" : "FieldsOf") + fieldType;
 
-      FileOutputStream xmlFout = new FileOutputStream(classFile + ".jdo.n");
-      PrintWriter xmlPw = new PrintWriter(xmlFout);
-      FileOutputStream xmlFout1 = new FileOutputStream(classFile + ".jdo.a");
-      PrintWriter xmlPw1 = new PrintWriter(xmlFout1);
-      FileOutputStream xmlFout2 = new FileOutputStream(classFile + ".jdo.d");
-      PrintWriter xmlPw2 = new PrintWriter(xmlFout2);
-      startXmlMetaData(xmlPw);
-      startXmlMetaData(xmlPw1);
-      startXmlMetaData(xmlPw2);
+          FileOutputStream xmlFout = new FileOutputStream(classFile + ".jdo.n");
+          PrintWriter xmlPw = new PrintWriter(xmlFout);
+          FileOutputStream xmlFout1 = new FileOutputStream(classFile + ".jdo.a");
+          PrintWriter xmlPw1 = new PrintWriter(xmlFout1);
+          FileOutputStream xmlFout2 = new FileOutputStream(classFile + ".jdo.d");
+          PrintWriter xmlPw2 = new PrintWriter(xmlFout2);
+          startXmlMetaData(xmlPw);
+          startXmlMetaData(xmlPw1);
+          startXmlMetaData(xmlPw2);
 
-      startXmlClass(xmlPw,  classFile, 0);
-      startXmlClass(xmlPw1, classFile, 1);
-      startXmlClass(xmlPw2, classFile, 2);
+          startXmlClass(xmlPw, classFile, 0);
+          startXmlClass(xmlPw1, classFile, 1);
+          startXmlClass(xmlPw2, classFile, 2);
 
-      FileOutputStream fout = new FileOutputStream(classFile + ".java");
-      PrintWriter pw = new PrintWriter(fout);
-      startClass(pw, classFile);
-      int fieldCounter = 0;
-      for(int j=0; j < accessSpecifiers.length; j++)
-      {
-        for (int k=0; k < fieldModifiers.length; k++)
-        {
-          for(int l = 0; l < xmlPersistenceModifiers.length; l++)
-          {
-             // do not generate persistence modifiers (persistent or transactional or none)
-             // for fields that cannot be persisted
+          FileOutputStream fout = new FileOutputStream(classFile + ".java");
+          PrintWriter pw = new PrintWriter(fout);
+          startClass(pw, classFile);
+          int fieldCounter = 0;
+          for (String accessSpecifier : accessSpecifiers) {
+              for (String fieldModifier : fieldModifiers) {
+                  for (String xmlPersistenceModifier : xmlPersistenceModifiers) {
+                      // do not generate persistence modifiers (persistent or transactional or none)
+                      // for fields that cannot be persisted
 
 
-         if( (fieldModifiers[k].indexOf("static") >= 0 || fieldModifiers[k].indexOf("final") >= 0 ) &&
-            !xmlPersistenceModifiers[l].equals(""))
-                continue;                
-             
+                      if ((fieldModifier.indexOf("static") >= 0 || fieldModifier.indexOf("final") >= 0) &&
+                              !xmlPersistenceModifier.equals(""))
+                          continue;
+
 /*        original code
          if(!isPersistenceCapable(fieldModifiers[k])
                   && !xmlPersistenceModifiers[l].equals(""))
                 continue;
 */
-             for(int m=0; m < xmlEmbeddedModifiers.length; m++) {
-                 // generate persistence modifiers (persistent or transactional or none)
-                 // only for fields that can be persisted
-                 // generate embedded modifiers only for persistent fields
-                 
-                 boolean fieldIsPersistent = !( fieldModifiers[k].indexOf("static") >= 0 ||
-                                                fieldModifiers[k].indexOf("final")  >= 0 ||
-                                                xmlPersistenceModifiers[l].indexOf("none") >= 0 ||
-                                                xmlPersistenceModifiers[l].indexOf("transactional") >= 0 ||
-                                                (fieldModifiers[k].indexOf("transient") >= 0 && xmlPersistenceModifiers[l].indexOf("persistent") == -1)
-                                              ); 
-                                                
-                 if(!xmlEmbeddedModifiers[m].equals("") && !fieldIsPersistent )
-                  continue;
+                      for (String xmlEmbeddedModifier : xmlEmbeddedModifiers) {
+                          // generate persistence modifiers (persistent or transactional or none)
+                          // only for fields that can be persisted
+                          // generate embedded modifiers only for persistent fields
 
-                 StringBuffer sb = new StringBuffer();
-                 sb.append(twoSpaces);
-                 sb.append(accessSpecifiers[j]);
-                 sb.append(fieldModifiers[k]);
-                 sb.append(fieldTypes[i]);
-                 sb.append(space);
-                 String fieldName = (fieldTypes[i] + fieldCounter++);
+                          boolean fieldIsPersistent = !(fieldModifier.indexOf("static") >= 0 ||
+                                  fieldModifier.indexOf("final") >= 0 ||
+                                  xmlPersistenceModifier.indexOf("none") >= 0 ||
+                                  xmlPersistenceModifier.indexOf("transactional") >= 0 ||
+                                  (fieldModifier.indexOf("transient") >= 0 && xmlPersistenceModifier.indexOf(
+                                          "persistent") == -1)
+                          );
+
+                          if (!xmlEmbeddedModifier.equals("") && !fieldIsPersistent)
+                              continue;
+
+                          StringBuffer sb = new StringBuffer();
+                          sb.append(twoSpaces);
+                          sb.append(accessSpecifier);
+                          sb.append(fieldModifier);
+                          sb.append(fieldType);
+                          sb.append(space);
+                          String fieldName = (fieldType + fieldCounter++);
 //temporary fix to get around the bug in the enhancer code
-if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals("")))
-{
-                 printXmlField(xmlPw, "name=\"" + fieldName + "\" "
-                               + xmlPersistenceModifiers[l]+ " "
-                               + xmlEmbeddedModifiers[m]);
-                 printXmlField(xmlPw1, "name=\"" + fieldName + "\" "
-                               + xmlPersistenceModifiers[l]+ " "
-                               + xmlEmbeddedModifiers[m]);
-                 printXmlField(xmlPw2, "name=\"" + fieldName + "\" "
-                               + xmlPersistenceModifiers[l]+ " "
-                               + xmlEmbeddedModifiers[m]);
-}//end temporary fix
-                 sb.append(fieldName);
-                 buildisPersistentArray(fieldIsPersistent); // add to isPersistentArray
-                 buildisStaticArray(isStatic(fieldModifiers[k])); // add to isStaticArray
-                 buildFieldSpecs(xmlPersistenceModifiers[l].replace('"',' ') + " " +
-                                 xmlEmbeddedModifiers[m].replace('"',' ') +
-                         sb); // add to the field specs array
-                 isFinal[fieldCounter-1] = fieldModifiers[k].indexOf("final") >= 0;
-                 if(isFinal[fieldCounter-1])
-                   sb.append(getInitializerForFinalTypes(fieldTypes[i]));
-                 buildisFinalArray(isFinal[fieldCounter-1]);
-                 sb.append(";");
-                 pw.println(sb);
-             }
-           }
-         }
-       }
-       writeisPersistentArray(pw);
-       writeisStaticArray(pw);
-       writeisFinalArray(pw);
-       writeFieldSpecs(pw);
-       writeMethodGetLength(pw);
-       writeMethodGet(pw, fieldTypes[i], fieldCounter);
-       writeMethodSet(pw, fieldTypes[i], fieldCounter);
-       endClass(pw);
-       pw.close();
-       fout.close();
+                          if (!(xmlEmbeddedModifier.equals("") && xmlPersistenceModifier.equals(""))) {
+                              printXmlField(xmlPw, "name=\"" + fieldName + "\" "
+                                      + xmlPersistenceModifier + " "
+                                      + xmlEmbeddedModifier);
+                              printXmlField(xmlPw1, "name=\"" + fieldName + "\" "
+                                      + xmlPersistenceModifier + " "
+                                      + xmlEmbeddedModifier);
+                              printXmlField(xmlPw2, "name=\"" + fieldName + "\" "
+                                      + xmlPersistenceModifier + " "
+                                      + xmlEmbeddedModifier);
+                          }//end temporary fix
+                          sb.append(fieldName);
+                          buildisPersistentArray(fieldIsPersistent); // add to isPersistentArray
+                          buildisStaticArray(isStatic(fieldModifier)); // add to isStaticArray
+                          buildFieldSpecs(xmlPersistenceModifier.replace('"', ' ') + " " +
+                                  xmlEmbeddedModifier.replace('"', ' ') +
+                                  sb); // add to the field specs array
+                          isFinal[fieldCounter - 1] = fieldModifier.indexOf("final") >= 0;
+                          if (isFinal[fieldCounter - 1])
+                              sb.append(getInitializerForFinalTypes(fieldType));
+                          buildisFinalArray(isFinal[fieldCounter - 1]);
+                          sb.append(";");
+                          pw.println(sb);
+                      }
+                  }
+              }
+          }
+          writeisPersistentArray(pw);
+          writeisStaticArray(pw);
+          writeisFinalArray(pw);
+          writeFieldSpecs(pw);
+          writeMethodGetLength(pw);
+          writeMethodGet(pw, fieldType, fieldCounter);
+          writeMethodSet(pw, fieldType, fieldCounter);
+          endClass(pw);
+          pw.close();
+          fout.close();
 
-       endXmlClass(xmlPw);
-       endXmlClass(xmlPw1);
-       endXmlClass(xmlPw2);
-       endXmlMetaDeta(xmlPw);
-       endXmlMetaDeta(xmlPw1);
-       endXmlMetaDeta(xmlPw2);
-       xmlPw.close();
-       xmlFout.close();
-       xmlPw1.close();
-       xmlFout1.close();
-       xmlPw2.close();
-       xmlFout2.close();
-     }
+          endXmlClass(xmlPw);
+          endXmlClass(xmlPw1);
+          endXmlClass(xmlPw2);
+          endXmlMetaDeta(xmlPw);
+          endXmlMetaDeta(xmlPw1);
+          endXmlMetaDeta(xmlPw2);
+          xmlPw.close();
+          xmlFout.close();
+          xmlPw1.close();
+          xmlFout1.close();
+          xmlPw2.close();
+          xmlFout2.close();
+      }
  }
 
 
@@ -436,20 +432,17 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
      pw.println("public static final boolean [] isPersistent = { ");
 
      int fieldCounter=0;
-     for(int i = 0; i < charArray.length; i++)
-     {
-        pw.print(charArray[i]);
-        if(charArray[i] == ',')
-        {
-          fieldCounter++;
-          if(fieldCounter == 10)
-          {
-            pw.println("");
-            pw.flush();
-            fieldCounter = 0;
+      for (char c : charArray) {
+          pw.print(c);
+          if (c == ',') {
+              fieldCounter++;
+              if (fieldCounter == 10) {
+                  pw.println("");
+                  pw.flush();
+                  fieldCounter = 0;
+              }
           }
-        }
-     }
+      }
      pw.println("");
      pw.println(" };");
      isPersistent = new StringBuffer(2000);
@@ -466,20 +459,17 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
      pw.println("public static final boolean [] isStatic = { ");
 
      int fieldCounter=0;
-     for(int i = 0; i < charArray.length; i++)
-     {
-        pw.print(charArray[i]);
-        if(charArray[i] == ',')
-        {
-          fieldCounter++;
-          if(fieldCounter == 10)
-          {
-            pw.println("");
-            pw.flush();
-            fieldCounter = 0;
+      for (char c : charArray) {
+          pw.print(c);
+          if (c == ',') {
+              fieldCounter++;
+              if (fieldCounter == 10) {
+                  pw.println("");
+                  pw.flush();
+                  fieldCounter = 0;
+              }
           }
-        }
-     }
+      }
      pw.println("");
      pw.println(" };");
      isStatic = new StringBuffer(2000);
@@ -494,20 +484,17 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
      pw.println("public static final boolean [] isFinal = { ");
 
      int fieldCounter=0;
-     for(int i = 0; i < charArray.length; i++)
-     {
-        pw.print(charArray[i]);
-        if(charArray[i] == ',')
-        {
-          fieldCounter++;
-          if(fieldCounter == 10)
-          {
-            pw.println("");
-            pw.flush();
-            fieldCounter = 0;
+      for (char c : charArray) {
+          pw.print(c);
+          if (c == ',') {
+              fieldCounter++;
+              if (fieldCounter == 10) {
+                  pw.println("");
+                  pw.flush();
+                  fieldCounter = 0;
+              }
           }
-        }
-     }
+      }
      pw.println("");
      pw.println(" };");
      isFinalArray = new StringBuffer(2000);
@@ -534,16 +521,14 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     pw.println("  public static final String [] fieldSpecs = { ");
 
     pw.print("  ");
-    for(int i = 0; i < charArray.length; i++)
-    {
-       pw.print(charArray[i]);
-       if(charArray[i] == ',')
-       {
-         pw.println("");
-         pw.print("  ");
-         pw.flush();
-       }
-    }
+      for (char c : charArray) {
+          pw.print(c);
+          if (c == ',') {
+              pw.println("");
+              pw.print("  ");
+              pw.flush();
+          }
+      }
     pw.println("");
     pw.println("  };");
     fieldSpecs = new StringBuffer(2000);
@@ -689,100 +674,99 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
   {
     final String [] embeddedElements = {"", "true", "false"};
     final String [] embeddedElementsForFieldSpec = {"", "embedded-element=true", "embedded-element=false"};
-    for(int i=0; i < collectionTypes.length; i++)
-    {
+      for (String collectionType : collectionTypes) {
           // Map has a lot of combinations, generate it separately
-      if(collectionTypes[i].indexOf("Map") >= 0 || collectionTypes[i].equals("Hashtable"))
-      {
-        generateMapCollection(collectionTypes[i]);
-      }
-      else // Array and the other collections
-      {
-        String classFile = collectionTypes[i] + "Collections";
-        FileOutputStream fout = new FileOutputStream(classFile + ".java");
-        PrintWriter pw = new PrintWriter(fout);
-        FileOutputStream xmlFout = new FileOutputStream(classFile + ".jdo.n");
-        PrintWriter xmlPw = new PrintWriter(xmlFout);
-        FileOutputStream xmlFout1 = new FileOutputStream(classFile + ".jdo.a");
-        PrintWriter xmlPw1 = new PrintWriter(xmlFout1);
-        FileOutputStream xmlFout2 = new FileOutputStream(classFile + ".jdo.d");
-        PrintWriter xmlPw2 = new PrintWriter(xmlFout2);
-
-        startClass(pw, classFile);
-        startXmlMetaData(xmlPw);
-        startXmlMetaData(xmlPw1);
-        startXmlMetaData(xmlPw2);
-
-        startXmlClass(xmlPw,  classFile, 0);
-        startXmlClass(xmlPw1, classFile, 1);
-        startXmlClass(xmlPw2, classFile, 2);
-
-        int fieldCounter=0;
-        String[] fieldNames = new String [elementTypes.length * embeddedElements.length];
-        for(int j=0; j < elementTypes.length; j++)
-        {
-            if( elementTypes[j].equals("Locale") && collectionTypes[i].equals("TreeSet") )
-                continue;
-          for(int k=0; k < embeddedElements.length; k++)
+          if (collectionType.indexOf("Map") >= 0 || collectionType.equals("Hashtable")) {
+              generateMapCollection(collectionType);
+          } else // Array and the other collections
           {
-            if(collectionTypes[i].equals("Array"))
-            {
-              if(!embeddedElements[k].equals(""))
-              {
-                fieldNames[fieldCounter] = collectionTypes[i] + "Of" + elementTypes[j] + fieldCounter;
+              String classFile = collectionType + "Collections";
+              FileOutputStream fout = new FileOutputStream(classFile + ".java");
+              PrintWriter pw = new PrintWriter(fout);
+              FileOutputStream xmlFout = new FileOutputStream(classFile + ".jdo.n");
+              PrintWriter xmlPw = new PrintWriter(xmlFout);
+              FileOutputStream xmlFout1 = new FileOutputStream(classFile + ".jdo.a");
+              PrintWriter xmlPw1 = new PrintWriter(xmlFout1);
+              FileOutputStream xmlFout2 = new FileOutputStream(classFile + ".jdo.d");
+              PrintWriter xmlPw2 = new PrintWriter(xmlFout2);
+
+              startClass(pw, classFile);
+              startXmlMetaData(xmlPw);
+              startXmlMetaData(xmlPw1);
+              startXmlMetaData(xmlPw2);
+
+              startXmlClass(xmlPw, classFile, 0);
+              startXmlClass(xmlPw1, classFile, 1);
+              startXmlClass(xmlPw2, classFile, 2);
+
+              int fieldCounter = 0;
+              String[] fieldNames = new String[elementTypes.length * embeddedElements.length];
+              for (int j = 0; j < elementTypes.length; j++) {
+                  if (elementTypes[j].equals("Locale") && collectionType.equals("TreeSet"))
+                      continue;
+                  for (int k = 0; k < embeddedElements.length; k++) {
+                      if (collectionType.equals("Array")) {
+                          if (!embeddedElements[k].equals("")) {
+                              fieldNames[fieldCounter] = collectionType + "Of" + elementTypes[j] + fieldCounter;
 //                pw.println("  public " + "Object [] "+ fieldNames[fieldCounter] +";");
-                pw.println("  public " + elementTypes[j] +" [] " + fieldNames[fieldCounter] +";");
-                printXmlArrayFieldWithEmbeddedElement(xmlPw,  fieldNames[fieldCounter], embeddedElements[k]);
-                printXmlArrayFieldWithEmbeddedElement(xmlPw1, fieldNames[fieldCounter], embeddedElements[k]);
-                printXmlArrayFieldWithEmbeddedElement(xmlPw2, fieldNames[fieldCounter], embeddedElements[k]);
-                buildFieldSpecs(embeddedElementsForFieldSpec[k] + " " +
-                                "public " + elementTypes[j] +" [] " + fieldNames[fieldCounter]); // add to the field specs array*/
+                              pw.println("  public " + elementTypes[j] + " [] " + fieldNames[fieldCounter] + ";");
+                              printXmlArrayFieldWithEmbeddedElement(xmlPw, fieldNames[fieldCounter],
+                                      embeddedElements[k]);
+                              printXmlArrayFieldWithEmbeddedElement(xmlPw1, fieldNames[fieldCounter],
+                                      embeddedElements[k]);
+                              printXmlArrayFieldWithEmbeddedElement(xmlPw2, fieldNames[fieldCounter],
+                                      embeddedElements[k]);
+                              buildFieldSpecs(embeddedElementsForFieldSpec[k] + " " +
+                                      "public " + elementTypes[j] + " [] " + fieldNames[fieldCounter]); // add to the
+                              // field specs array*/
 
-                fieldCounter++;
+                              fieldCounter++;
+                          }
+                      } else // Collection
+                      {
+                          fieldNames[fieldCounter] = collectionType + "Of" + elementTypes[j] + fieldCounter;
+                          pw.println("  public " + collectionType + " " + fieldNames[fieldCounter] + ";");
+                          printXmlCollectionFieldWithEmbeddedElement(xmlPw, fieldNames[fieldCounter],
+                                  elementsWithPackageInfo[j],
+                                  embeddedElements[k]);
+                          printXmlCollectionFieldWithEmbeddedElement(xmlPw1, fieldNames[fieldCounter],
+                                  elementsWithPackageInfo[j],
+                                  embeddedElements[k]);
+                          printXmlCollectionFieldWithEmbeddedElement(xmlPw2, fieldNames[fieldCounter],
+                                  elementsWithPackageInfo[j],
+                                  embeddedElements[k]);
+                          buildFieldSpecs(embeddedElementsForFieldSpec[k] + " " +
+                                  "public " + collectionType + " " + fieldNames[fieldCounter]); // add to the field specs array*/
+                          fieldCounter++;
+
+                      }
+                  }
               }
-            }
-            else // Collection
-            {
-              fieldNames[fieldCounter] = collectionTypes[i] + "Of" + elementTypes[j] + fieldCounter;
-              pw.println("  public " + collectionTypes[i] +" "+ fieldNames[fieldCounter] +";");
-              printXmlCollectionFieldWithEmbeddedElement(xmlPw, fieldNames[fieldCounter], elementsWithPackageInfo[j],
-                                                         embeddedElements[k]);
-              printXmlCollectionFieldWithEmbeddedElement(xmlPw1, fieldNames[fieldCounter], elementsWithPackageInfo[j],
-                                                         embeddedElements[k]);
-              printXmlCollectionFieldWithEmbeddedElement(xmlPw2, fieldNames[fieldCounter], elementsWithPackageInfo[j],
-                                                         embeddedElements[k]);
-              buildFieldSpecs(embeddedElementsForFieldSpec[k] + " " +
-                              "public " + collectionTypes[i] +" "+ fieldNames[fieldCounter]); // add to the field specs array*/
-              fieldCounter++;
+              writeFieldSpecs(pw);
+              writeMethodGetLength(pw);
+              writeMethodGet(pw, collectionType.equals("Array") ? "Object [] " : collectionType, fieldNames, fieldCounter);
+              if (collectionType.equals("Array"))
+                  writeMethodSetForArray(pw, "Object [] ", fieldNames, fieldCounter);
+              else
+                  writeMethodSet(pw, collectionType, fieldNames, fieldCounter);
 
-            }
+              endClass(pw);
+              pw.close();
+              fout.close();
+              endXmlClass(xmlPw);
+              endXmlClass(xmlPw1);
+              endXmlClass(xmlPw2);
+              endXmlMetaDeta(xmlPw);
+              endXmlMetaDeta(xmlPw1);
+              endXmlMetaDeta(xmlPw2);
+              xmlPw.close();
+              xmlFout.close();
+              xmlPw1.close();
+              xmlFout1.close();
+              xmlPw2.close();
+              xmlFout2.close();
           }
-        }
-        writeFieldSpecs(pw);
-        writeMethodGetLength(pw);
-        writeMethodGet(pw, collectionTypes[i].equals("Array")? "Object [] " : collectionTypes[i], fieldNames, fieldCounter);
-        if(collectionTypes[i].equals("Array"))
-          writeMethodSetForArray(pw, "Object [] ", fieldNames, fieldCounter);
-        else
-         writeMethodSet(pw, collectionTypes[i], fieldNames, fieldCounter);
-
-        endClass(pw);
-        pw.close();
-        fout.close();
-        endXmlClass(xmlPw);
-        endXmlClass(xmlPw1);
-        endXmlClass(xmlPw2);
-        endXmlMetaDeta(xmlPw);
-        endXmlMetaDeta(xmlPw1);
-        endXmlMetaDeta(xmlPw2);
-        xmlPw.close();
-        xmlFout.close();
-        xmlPw1.close();
-        xmlFout1.close();
-        xmlPw2.close();
-        xmlFout2.close();
       }
-    }
   }
 
   private void generateMapCollection(String mapName) throws Exception
@@ -857,34 +841,30 @@ if(!(xmlEmbeddedModifiers[m].equals("") &&  xmlPersistenceModifiers[l].equals(""
     int fieldCounter=0;
     String[] fieldNames = new String [keyTypes.length * embeddedKeys.length
                                        * valueTypes.length * embeddedValues.length];
-    for(int i = 0; i < keyTypes.length; i++)
-    {
-      for(int j = 0; j < embeddedKeys.length; j++)
-      {
-        for(int k = 0; k < valueTypes.length; k++)
-        {
-          for(int l = 0; l < embeddedValues.length; l++)
-          {
-            if( keyTypes[i].equals("") && embeddedKeys[j].equals("")
-              && valueTypes[k].equals("") && embeddedValues[l].equals(""))
-              continue;
-            fieldNames[fieldCounter] = mapName+ "Of" + keyTypes[i] +"_"+valueTypes[k] + fieldCounter;
-            pw.println("  public " + mapName +" " + fieldNames[fieldCounter] +";");
-            printXmlMapField(xmlPw, fieldNames[fieldCounter], keyTypes[i], embeddedKeys[j],
-                             valueTypes[k], embeddedValues[l]);
-            printXmlMapField(xmlPw1, fieldNames[fieldCounter], keyTypes[i], embeddedKeys[j],
-                             valueTypes[k], embeddedValues[l]);
-            printXmlMapField(xmlPw2, fieldNames[fieldCounter], keyTypes[i], embeddedKeys[j],
-                             valueTypes[k], embeddedValues[l]);
-            buildFieldSpecs(embeddedKeyForFieldSpec[j] + " " +
-                            embeddedValueForFieldSpec[l] + " " +
-                            "public " + mapName +" "+ fieldNames[fieldCounter]); // add to the field specs array*/
-            fieldCounter++;
+      for (String keyType : keyTypes) {
+          for (int j = 0; j < embeddedKeys.length; j++) {
+              for (String valueType : valueTypes) {
+                  for (int l = 0; l < embeddedValues.length; l++) {
+                      if (keyType.equals("") && embeddedKeys[j].equals("")
+                              && valueType.equals("") && embeddedValues[l].equals(""))
+                          continue;
+                      fieldNames[fieldCounter] = mapName + "Of" + keyType + "_" + valueType + fieldCounter;
+                      pw.println("  public " + mapName + " " + fieldNames[fieldCounter] + ";");
+                      printXmlMapField(xmlPw, fieldNames[fieldCounter], keyType, embeddedKeys[j],
+                              valueType, embeddedValues[l]);
+                      printXmlMapField(xmlPw1, fieldNames[fieldCounter], keyType, embeddedKeys[j],
+                              valueType, embeddedValues[l]);
+                      printXmlMapField(xmlPw2, fieldNames[fieldCounter], keyType, embeddedKeys[j],
+                              valueType, embeddedValues[l]);
+                      buildFieldSpecs(embeddedKeyForFieldSpec[j] + " " +
+                              embeddedValueForFieldSpec[l] + " " +
+                              "public " + mapName + " " + fieldNames[fieldCounter]); // add to the field specs array*/
+                      fieldCounter++;
 
-           }
-        }
+                  }
+              }
+          }
       }
-    }
     writeFieldSpecs(pw);
     writeMethodGetLength(pw);
     writeMethodGet(pw, mapName, fieldNames, fieldCounter);

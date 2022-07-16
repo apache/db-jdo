@@ -177,15 +177,13 @@ public class BatchTestRunner
      */
     protected TestSuite getTestSuite(String[] classNames) {
         TestSuite testSuite = new TestSuite();
-        for (int i = 0; i < classNames.length; i++) {
-            String className = classNames[i];
+        for (String className : classNames) {
             try {
-                Class<? extends TestCase> clazz = (Class<? extends TestCase>)Class.forName(className);
+                Class<? extends TestCase> clazz = (Class<? extends TestCase>) Class.forName(className);
                 testSuite.addTestSuite(clazz);
-            }
-            catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 System.out.println(
-                    "Cannot find test class '" + className + "'.");
+                        "Cannot find test class '" + className + "'.");
             }
         }
         return testSuite;
@@ -344,11 +342,10 @@ public class BatchTestRunner
             String[] values) {
         str = fixPartialFileName(str);
         if (!str.equals("")) {
-            for (int i = 0; i < values.length; i++) {
-                String value = values[i];
-                if (value!=null &&
-                    !value.equals("") &&
-                    !value.startsWith(".")) {
+            for (String value : values) {
+                if (value != null &&
+                        !value.equals("") &&
+                        !value.startsWith(".")) {
                     str += c;
                     break;
                 }

@@ -416,8 +416,8 @@ public abstract class JDO_Test extends TestCase {
     
     protected void addTearDownClass(Class<?>[] pcClasses) {
         if (pcClasses == null) return;
-        for (int i = 0; i < pcClasses.length; ++i) {
-            addTearDownClass(pcClasses[i]);
+        for (Class<?> pcClass : pcClasses) {
+            addTearDownClass(pcClass);
         }
     }
     
@@ -471,8 +471,8 @@ public abstract class JDO_Test extends TestCase {
             getPM();
             try {
                 this.pm.currentTransaction().begin();
-                for (Iterator<Class<?>> i = this.tearDownClasses.iterator(); i.hasNext(); ) {
-                    this.pm.deletePersistentAll(getAllObjects(this.pm, i.next()));
+                for (Class<?> tearDownClass : this.tearDownClasses) {
+                    this.pm.deletePersistentAll(getAllObjects(this.pm, tearDownClass));
                 }
                 this.pm.currentTransaction().commit();
             }
@@ -620,8 +620,8 @@ public abstract class JDO_Test extends TestCase {
                     failure = ex;
                 PersistenceManager[] pms = getFailedPersistenceManagers(
                     "closePMF", ex);
-                for (int i = 0; i < pms.length; i++) {
-                    cleanupPM(pms[i]);
+                for (PersistenceManager persistenceManager : pms) {
+                    cleanupPM(persistenceManager);
                 }
             }
             catch (RuntimeException ex) {
@@ -750,8 +750,8 @@ public abstract class JDO_Test extends TestCase {
         PrintStream resultStream = null;
         try {
             resultStream = new PrintStream(new FileOutputStream(file));
-            for (Iterator<String> it = supportedOptions.iterator(); it.hasNext();) {
-                resultStream.println(it.next());
+            for (String supportedOption : supportedOptions) {
+                resultStream.println(supportedOption);
             }
         } catch (FileNotFoundException e) {
             throw new JDOFatalException(
@@ -1146,31 +1146,30 @@ public abstract class JDO_Test extends TestCase {
     protected boolean mangleObject (Object oid) throws IllegalAccessException {
         Field[] fields = getModifiableFields(oid);
         if (fields.length == 0) return false;
-        for (int i = 0; i < fields.length; ++i) {
-            Field field = fields[i];
+        for (Field field : fields) {
             Class<?> fieldType = field.getType();
             if (fieldType == long.class) {
                 field.setLong(oid, 10000L + field.getLong(oid));
             } else if (fieldType == int.class) {
                 field.setInt(oid, 10000 + field.getInt(oid));
             } else if (fieldType == short.class) {
-                field.setShort(oid, (short)(10000 + field.getShort(oid)));
+                field.setShort(oid, (short) (10000 + field.getShort(oid)));
             } else if (fieldType == byte.class) {
-                field.setByte(oid, (byte)(100 + field.getByte(oid)));
+                field.setByte(oid, (byte) (100 + field.getByte(oid)));
             } else if (fieldType == char.class) {
-                field.setChar(oid, (char)(10 + field.getChar(oid)));
+                field.setChar(oid, (char) (10 + field.getChar(oid)));
             } else if (fieldType == String.class) {
                 field.set(oid, "This is certainly a challenge" + field.get(oid));
             } else if (fieldType == Integer.class) {
-                field.set(oid, Integer.valueOf(10000 + ((Integer)field.get(oid)).intValue()));
+                field.set(oid, Integer.valueOf(10000 + ((Integer) field.get(oid)).intValue()));
             } else if (fieldType == Long.class) {
-                field.set(oid, Long.valueOf(10000L + ((Long)field.get(oid)).longValue()));
+                field.set(oid, Long.valueOf(10000L + ((Long) field.get(oid)).longValue()));
             } else if (fieldType == Short.class) {
-                field.set(oid, Short.valueOf((short)(10000 + ((Short)field.get(oid)).shortValue())));
+                field.set(oid, Short.valueOf((short) (10000 + ((Short) field.get(oid)).shortValue())));
             } else if (fieldType == Byte.class) {
-                field.set(oid, Byte.valueOf((byte)(100 + ((Byte)field.get(oid)).byteValue())));
+                field.set(oid, Byte.valueOf((byte) (100 + ((Byte) field.get(oid)).byteValue())));
             } else if (fieldType == Character.class) {
-                field.set(oid, Character.valueOf((char)(10 + ((Character)(field.get(oid))).charValue())));
+                field.set(oid, Character.valueOf((char) (10 + ((Character) (field.get(oid))).charValue())));
             }
         }
         return true;
@@ -1194,8 +1193,7 @@ public abstract class JDO_Test extends TestCase {
                     Class<?> cls = obj.getClass();
                     List<Field> result = new ArrayList<>();
                     Field[] fields = cls.getFields();
-                    for (int i = 0; i < fields.length; ++i) {
-                        Field field = fields[i];
+                    for (Field field : fields) {
                         int modifiers = field.getModifiers();
                         if (Modifier.isFinal(modifiers) ||
                                 Modifier.isStatic(modifiers))

@@ -82,9 +82,8 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     public static void removeAllInstances(PersistenceManager pm)
     {
         Extent<InstanceCallbackNonPersistFdsClass> e = pm.getExtent(InstanceCallbackNonPersistFdsClass.class, true);
-        Iterator<InstanceCallbackNonPersistFdsClass> i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        for (InstanceCallbackNonPersistFdsClass instanceCallbackNonPersistFdsClass : e) {
+            pm.deletePersistent(instanceCallbackNonPersistFdsClass);
         }        
     }
 

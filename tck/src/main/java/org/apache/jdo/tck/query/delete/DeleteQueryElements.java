@@ -250,9 +250,9 @@ public class DeleteQueryElements extends QueryTest {
     
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            deletePersistentAllByAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
-            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], -1);
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            deletePersistentAllByAPIQuery(ASSERTION_FAILED, invalidQuery, -1);
+            deletePersistentAllBySingleStringQuery(ASSERTION_FAILED, invalidQuery, -1);
         }
     }
 

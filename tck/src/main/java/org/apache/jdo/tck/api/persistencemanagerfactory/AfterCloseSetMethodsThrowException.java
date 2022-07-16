@@ -135,33 +135,31 @@ public class AfterCloseSetMethodsThrowException extends JDO_Test {
         closePMF(pmf); // don't use closePMF() because that sets pmf to null
         // each set method should throw an exception
         Collection<SetProperty> setCollection = Arrays.asList(setMethods);
-        for (Iterator<SetProperty> it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = it.next();
+        for (SetProperty sp : setCollection) {
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
                 fail(ASSERTION_FAILED,
-                    "pmf method " + where + " should throw JDOUserException when called for closed pmf");
+                        "pmf method " + where + " should throw JDOUserException when called for closed pmf");
             } catch (JDOUserException ex) {
                 if (debug)
                     logger.debug("Caught expected exception " + ex +
-                                 " from " + where);
+                            " from " + where);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex + " from " + where);
+                        "Caught unexpected exception " + ex + " from " + where);
             }
         }
         // each get method should succeed
         Collection<GetProperty> getCollection = Arrays.asList(getMethods);
-        for (Iterator<GetProperty> it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = it.next();
+        for (GetProperty gp : getCollection) {
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
             } catch (Exception ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex + " from " +
-                     where);
+                        "Caught unexpected exception " + ex + " from " +
+                                where);
             }
         }
     }

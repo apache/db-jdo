@@ -135,10 +135,8 @@ public abstract class QueryTest extends AbstractReaderTest {
             return null;
         
         List<PCPoint> result = new ArrayList<>();
-        for (Iterator<PCPoint> iter = list.iterator(); iter.hasNext();) {
-            PCPoint pc = iter.next();
-            for (Iterator<PCPoint> iteri = inserted.iterator(); iteri.hasNext();) {
-                PCPoint pci = iteri.next();
+        for (PCPoint pc : list) {
+            for (PCPoint pci : inserted) {
                 if (pc.getX() == pci.getX()) {
                     result.add(pci);
                     break;
@@ -288,8 +286,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected <T> List<T> getPersistentCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
         List<T> result = new ArrayList<>(beanNames.length);
-        for (int i = 0; i < beanNames.length; i++) {
-            result.add(getPersistentCompanyModelInstance(elementType, beanNames[i]));
+        for (String beanName : beanNames) {
+            result.add(getPersistentCompanyModelInstance(elementType, beanName));
         }
         return result;
     }
@@ -302,8 +300,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      */
     protected <T> List<T> getTransientCompanyModelInstancesAsList(Class<T> elementType, String... beanNames) {
         List<T> result = new ArrayList<>(beanNames.length);
-        for (int i = 0; i < beanNames.length; i++) {
-            result.add(getTransientCompanyModelInstance(elementType, beanNames[i]));
+        for (String beanName : beanNames) {
+            result.add(getTransientCompanyModelInstance(elementType, beanName));
         }
         return result;
     }
@@ -713,17 +711,15 @@ public abstract class QueryTest extends AbstractReaderTest {
     protected <S, T> boolean equalsCollection(Collection<S> o1, Collection<T> o2) {
         // make a copy of o2 so we can destroy it
         Collection<T> o2copy = new ArrayList<>();
-        Iterator<T> i2 = o2.iterator();
-        while (i2.hasNext()) {
-            o2copy.add(i2.next());
+        for (T t : o2) {
+            o2copy.add(t);
         }
         boolean result = true;
         if (o1 != o2) {
             if (o1.size() != o2.size()) {
                 result = false;
             } else {
-                for (Iterator<S> i = o1.iterator(); i.hasNext(); ) {
-                    S oo1 = i.next();
+                for (S oo1 : o1) {
                     if (!remove(o2copy, oo1)) {
                         result = false;
                         break;
@@ -751,8 +747,7 @@ public abstract class QueryTest extends AbstractReaderTest {
             if (o1.size() != o2.size()) {
                 result = false;
             } else {
-                for (Iterator<Map.Entry<K1,V1>> i = o1.entrySet().iterator(); i.hasNext(); ) {
-                    Map.Entry<K1,V1> entry = i.next();
+                for (Map.Entry<K1, V1> entry : o1.entrySet()) {
                     K1 key = entry.getKey();
                     V1 value = entry.getValue();
                     V2 value2 = o2.get(key);
@@ -781,8 +776,8 @@ public abstract class QueryTest extends AbstractReaderTest {
      * in the given collection.
      */
     private boolean contains(Collection<Object> col, Object o) {
-        for (Iterator<Object> i = col.iterator(); i.hasNext(); ) {
-            if (equals(o, i.next())) {
+        for (Object value : col) {
+            if (equals(o, value)) {
                 return true;
             }
         }

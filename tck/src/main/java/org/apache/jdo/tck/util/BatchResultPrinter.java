@@ -184,8 +184,8 @@ public class BatchResultPrinter
         Object[] array = getSortedArrayOfErrorSummaryEntries(result);
         if (array.length>0) {
             getWriter().println("Error summary:");
-            for (int i=0; i<array.length; i++) {
-                getWriter().println(array[i]);
+            for (Object o : array) {
+                getWriter().println(o);
             }
         }
     }

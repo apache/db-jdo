@@ -71,8 +71,7 @@ public class CompletenessTestMap extends AbstractReaderTest {
             List<Object> rootList = getRootList(reader);
             pm.makePersistentAll(rootList);
             rootOids = new ArrayList<>();
-            for (Iterator<Object> i = rootList.iterator(); i.hasNext(); ) {
-                Object pc = i.next();
+            for (Object pc : rootList) {
                 rootOids.add(pm.getObjectId(pc));
             }
             pm.currentTransaction().commit();

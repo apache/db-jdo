@@ -81,9 +81,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
     public static void removeAllInstances(PersistenceManager pm)
     {
         Extent<InstanceCallbackClass> e = pm.getExtent(InstanceCallbackClass.class, true);
-        Iterator<InstanceCallbackClass> i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        for (InstanceCallbackClass instanceCallbackClass : e) {
+            pm.deletePersistent(instanceCallbackClass);
         }        
     }
     
@@ -130,12 +129,11 @@ public class InstanceCallbackClass implements InstanceCallbacks {
                 pm.deletePersistent(nextObj);  // delete referenced object
 
                 // delete designated child
-                for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
-                     InstanceCallbackClass obj = i.next();
-                     if( obj.intValue == childToDelete) {
+                for (InstanceCallbackClass obj : children) {
+                    if (obj.intValue == childToDelete) {
                         pm.deletePersistent(obj);
                         break;
-                     }
+                    }
                 }
             }
         }
@@ -158,9 +156,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = i.next();
-                sumOfChildrenIntValue[intValue] += o.intValue;   
+            for (InstanceCallbackClass o : children) {
+                sumOfChildrenIntValue[intValue] += o.intValue;
             }
             capturedChildToDelete[intValue] = childToDelete;
             capturedCharValue[intValue] = charValue;
@@ -183,9 +180,8 @@ public class InstanceCallbackClass implements InstanceCallbacks {
             capturedDoubleValue[intValue] = doubleValue;
             numberOfChildren[intValue] = children.size();
             sumOfChildrenIntValue[intValue] = 0;
-            for(Iterator<InstanceCallbackClass> i = children.iterator(); i.hasNext();) {
-                InstanceCallbackClass o = i.next();
-                sumOfChildrenIntValue[intValue] += o.intValue;   
+            for (InstanceCallbackClass o : children) {
+                sumOfChildrenIntValue[intValue] += o.intValue;
             }
             capturedChildToDelete[intValue] = childToDelete;
             capturedCharValue[intValue] = charValue;

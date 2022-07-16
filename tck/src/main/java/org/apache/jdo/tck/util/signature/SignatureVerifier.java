@@ -822,11 +822,10 @@ public class SignatureVerifier {
         }
 
         // check for public non-standard members
-        for (Iterator<Member> i = members.iterator(); i.hasNext();) {
-            final Member m = i.next();
+        for (final Member m : members) {
             if ((m.getModifiers() & Modifier.PUBLIC) != 0) {
                 handleNonStandard("non-standard, public member;",
-                                  Formatter.toString(m));
+                        Formatter.toString(m));
             }
         }
     }
@@ -1710,9 +1709,8 @@ public class SignatureVerifier {
          */
         @SuppressWarnings("empty-statement")
         public void parse(List<String> descrFileNames)
-            throws IOException, ParseException {        
-            for (Iterator<String> i = descrFileNames.iterator(); i.hasNext();) {
-                final String fileName = i.next();
+            throws IOException, ParseException {
+            for (final String fileName : descrFileNames) {
                 logInfo("");
                 logInfo("parsing descriptor file: " + fileName);
                 try {
@@ -1721,7 +1719,7 @@ public class SignatureVerifier {
                     ir.setLineNumber(1);
                     setLookAhead(null);
                     // empty-statement intentional
-                    while (parseClass() != null);
+                    while (parseClass() != null) ;
                 } finally {
                     descriptorFile = null;
                     if (ir != null) {
@@ -1771,37 +1769,37 @@ public class SignatureVerifier {
         out.println("parse main() arguments");
 
         // parse this class' options and arguments
-        for (int i = 0; i < args.length; i++) {
-            if (args[i] == null) {
+        for (String arg : args) {
+            if (arg == null) {
                 continue;
             }
-            if (args[i].equalsIgnoreCase("-h")
-                || args[i].equalsIgnoreCase("--help")) {
+            if (arg.equalsIgnoreCase("-h")
+                    || arg.equalsIgnoreCase("--help")) {
                 return -1;
             }
-            if (args[i].equalsIgnoreCase("-v")
-                || args[i].equalsIgnoreCase("--verbose")) {
+            if (arg.equalsIgnoreCase("-v")
+                    || arg.equalsIgnoreCase("--verbose")) {
                 optionVerbose = true;
                 continue;
             }
-            if (args[i].equalsIgnoreCase("-q")
-                || args[i].equalsIgnoreCase("--quiet")) {
+            if (arg.equalsIgnoreCase("-q")
+                    || arg.equalsIgnoreCase("--quiet")) {
                 optionQuiet = true;
                 continue;
             }
-            if (args[i].startsWith("-")) {
-                out.println("Usage Error: unknown option " + args[i]);
+            if (arg.startsWith("-")) {
+                out.println("Usage Error: unknown option " + arg);
                 return -1;
             }
             // collect argument
-            descrFileNames.add(args[i]);
+            descrFileNames.add(arg);
         }
 
         // print args
         if (false) {
             out.println("descrFileNames = {");
-            for (Iterator<String> i = descrFileNames.iterator(); i.hasNext();) {
-                out.println("                     " + i.next());
+            for (String descrFileName : descrFileNames) {
+                out.println("                     " + descrFileName);
             }
             out.println("                 }");
             out.println("optionQuiet    = " + optionQuiet);

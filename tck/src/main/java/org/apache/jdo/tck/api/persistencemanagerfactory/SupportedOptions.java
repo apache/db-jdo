@@ -67,9 +67,7 @@ public class SupportedOptions extends JDO_Test {
         PersistenceManagerFactory pmf = getPMF();
         if (debug) logger.debug("Options supported by this implementation:");
         Collection<String> c = pmf.supportedOptions();
-        Iterator<String> iter = c.iterator();
-        while( iter.hasNext() ){
-            String option = iter.next();
+        for (String option : c) {
             if (debug) logger.debug(option);
         }
     }  

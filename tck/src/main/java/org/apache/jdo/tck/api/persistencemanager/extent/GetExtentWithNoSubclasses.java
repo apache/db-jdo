@@ -91,16 +91,14 @@ public class GetExtentWithNoSubclasses extends PersistenceManagerTest {
             Extent<PCPoint> e = pm.getExtent(PCPoint.class, false);
             
             int c = 0;
-            for (Iterator<PCPoint> i = e.iterator(); i.hasNext();) {
-                PCPoint p = i.next();
+            for (PCPoint p : e) {
                 if (debug) logger.debug("p.getX() = " + p.getX());
                 if ((p.getX() == 1) || (p.getX() == 3)) {
                     // OK
-                }
-                else {
-                    fail(ASSERTION_FAILED, 
-                         "Extent of class " + PCPoint.class.getName() + 
-                         " includes unexpected instance, p.getX():" + p.getX());
+                } else {
+                    fail(ASSERTION_FAILED,
+                            "Extent of class " + PCPoint.class.getName() +
+                                    " includes unexpected instance, p.getX():" + p.getX());
                 }
             }
             tx.commit();

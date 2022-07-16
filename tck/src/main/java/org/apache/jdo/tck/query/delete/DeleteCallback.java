@@ -251,9 +251,7 @@ public class DeleteCallback extends QueryTest {
      * {@link JDOHelper#makeDirty(java.lang.Object, java.lang.String)
      */
     private void updateInstances(Collection<?> instances, String fieldName) {
-        for (Iterator<?> i = instances.iterator(); i.hasNext(); ) {
-            Object pc = i.next();
-            
+        for (Object pc : instances) {
             // clear employee relationships
             if (pc instanceof Employee) {
                 Employee employee = (Employee) pc;
@@ -264,13 +262,13 @@ public class DeleteCallback extends QueryTest {
                     employee.getMedicalInsurance().setEmployee(null);
                 }
                 if (employee.getDepartment() != null) {
-                    ((Department)employee.getDepartment()).removeEmployee(employee);
+                    ((Department) employee.getDepartment()).removeEmployee(employee);
                 }
                 if (employee.getFundingDept() != null) {
-                    ((Department)employee.getFundingDept()).removeEmployee(employee);
+                    ((Department) employee.getFundingDept()).removeEmployee(employee);
                 }
                 if (employee.getManager() != null) {
-                    ((Employee)employee.getManager()).removeFromTeam(employee);
+                    ((Employee) employee.getManager()).removeFromTeam(employee);
                 }
                 if (employee.getMentor() != null) {
                     employee.getMentor().setProtege(null);
@@ -279,39 +277,37 @@ public class DeleteCallback extends QueryTest {
                     employee.getProtege().setMentor(null);
                 }
                 if (employee.getHradvisor() != null) {
-                    ((Employee)employee.getHradvisor()).removeAdvisee(employee);
+                    ((Employee) employee.getHradvisor()).removeAdvisee(employee);
                 }
                 if (employee.getReviewedProjects() != null) {
-                    for (Iterator<IProject> it = employee.getReviewedProjects().iterator();
-                         it.hasNext(); ) {
-                        Project other = (Project) it.next();
+                    for (IProject iProject : employee.getReviewedProjects()) {
+                        Project other = (Project) iProject;
                         other.removeReviewer(employee);
                     }
                 }
                 if (employee.getProjects() != null) {
-                    for (Iterator<IProject> it=employee.getProjects().iterator();
-                            it.hasNext(); ) {
-                        Project other = (Project) it.next();
+                    for (IProject iProject : employee.getProjects()) {
+                        Project other = (Project) iProject;
                         other.removeMember(employee);
                     }
                 }
                 if (employee.getTeam() != null) {
-                    for (Iterator<IEmployee> it = employee.getTeam().iterator(); it.hasNext(); ) {
-                        Employee other = (Employee) it.next();
+                    for (IEmployee iEmployee : employee.getTeam()) {
+                        Employee other = (Employee) iEmployee;
                         other.setManager(null);
                     }
                 }
                 if (employee.getHradvisees() != null) {
-                    for (Iterator<IEmployee> it=employee.getHradvisees().iterator(); it.hasNext(); ) {
-                        Employee other = (Employee) it.next();
+                    for (IEmployee iEmployee : employee.getHradvisees()) {
+                        Employee other = (Employee) iEmployee;
                         other.setHradvisor(employee);
                     }
                 }
             }
-            
+
             // make the instance dirty.
             if (logger.isDebugEnabled()) {
-                logger.debug("Calling JDOHelper.makeDirty(" + 
+                logger.debug("Calling JDOHelper.makeDirty(" +
                         pc + ", \"" + fieldName + "\")");
             }
             JDOHelper.makeDirty(pc, fieldName);
@@ -379,8 +375,8 @@ public class DeleteCallback extends QueryTest {
          * which are expected to be sources of events.
          */
         public LifecycleVerifier(Collection<?> expectedPCInstances) {
-            for (Iterator<?> i = expectedPCInstances.iterator(); i.hasNext(); ) {
-                this.expectedOids.add(JDOHelper.getObjectId(i.next()));
+            for (Object expectedPCInstance : expectedPCInstances) {
+                this.expectedOids.add(JDOHelper.getObjectId(expectedPCInstance));
             }
         }
         
@@ -409,33 +405,31 @@ public class DeleteCallback extends QueryTest {
             
             boolean hasDeleteEventBeenPassed = false;
             int size = events.size();
-            for (int i = 0; i < size; i++) {
-                InstanceLifecycleEvent event =
-                        this.events.get(i);
+            for (InstanceLifecycleEvent event : events) {
                 Object source = event.getSource();
                 int eventType = event.getEventType();
                 if (eventType == InstanceLifecycleEvent.DELETE) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug("Verifying delete event on " + 
+                        logger.debug("Verifying delete event on " +
                                 JDOHelper.getObjectId(source));
                     }
                     hasDeleteEventBeenPassed = true;
                     if (!JDOHelper.isDeleted(source)) {
-                        fail(ASSERTION_FAILED, 
+                        fail(ASSERTION_FAILED,
                                 "PC instance must have persistent deleted " +
-                                "state: " + source);
+                                        "state: " + source);
                     }
                     oidsOfDeletedInstances.add(JDOHelper.getObjectId(source));
                 } else if (eventType == InstanceLifecycleEvent.STORE) {
                     if (logger.isDebugEnabled()) {
-                        logger.debug("Verifying store event on " + 
+                        logger.debug("Verifying store event on " +
                                 JDOHelper.getObjectId(source));
                     }
-                    
+
                     if (hasDeleteEventBeenPassed) {
-                        fail(ASSERTION_FAILED, 
+                        fail(ASSERTION_FAILED,
                                 "PC instances must not be flushed " +
-                                "after delete has been executed.");
+                                        "after delete has been executed.");
                     }
                     oidsOfUpdateInstances.add(JDOHelper.getObjectId(source));
                 }

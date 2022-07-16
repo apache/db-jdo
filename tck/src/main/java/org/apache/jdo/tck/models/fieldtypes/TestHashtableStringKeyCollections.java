@@ -174,20 +174,18 @@ public class TestHashtableStringKeyCollections extends JDO_Test {
                             HashtableStringKeyCollections.fieldSpecs[i]
                             ).get(1).equals("BigDecimal")) {
                     Set<?> keys = expected.keySet();
-                    Iterator<?> iter = keys.iterator();
-                    while (iter.hasNext()) {
-                        Object nextKey = iter.next();
-                        BigDecimal expectedMapValue = 
-                                (BigDecimal)expected.get(nextKey);
-                        BigDecimal actualMapValue = 
-                                (BigDecimal)actual.get(nextKey);
+                    for (Object nextKey : keys) {
+                        BigDecimal expectedMapValue =
+                                (BigDecimal) expected.get(nextKey);
+                        BigDecimal actualMapValue =
+                                (BigDecimal) actual.get(nextKey);
                         if ((expectedMapValue.compareTo(actualMapValue) != 0)) {
-                            sbuf.append("\nFor element " + i + "(" 
+                            sbuf.append("\nFor element " + i + "("
                                     + nextKey +
                                     "), expected = " + expectedMapValue +
                                     ", actual = " + actualMapValue + " . ");
+                        }
                     }
-                }
             }
             else {
                 sbuf.append("\nFor element " + i + ", expected = " +

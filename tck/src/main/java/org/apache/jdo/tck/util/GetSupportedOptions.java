@@ -34,10 +34,8 @@ public class GetSupportedOptions {
         PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.newInstance();
         Collection<String> options = pmf.supportedOptions();
         System.out.println("Supported options are:");
-        Iterator<String> iter = options.iterator();
-        while( iter.hasNext() ){
-            String val = iter.next();
-            System.out.println(val);        
+        for (String val : options) {
+            System.out.println(val);
         }
     }
 

@@ -135,12 +135,11 @@ public class ThreadSafe extends PersistenceManagerTest {
         final Set<Map.Entry<Thread, Throwable>> uncaught = group.getAllUncaughtExceptions();
         if ((uncaught != null) && !uncaught.isEmpty()) {
             StringBuffer report = new StringBuffer("Uncaught exceptions:\n");
-            for (Iterator<Map.Entry<Thread, Throwable>> i = uncaught.iterator(); i.hasNext();) {
-                Map.Entry<Thread, Throwable> next = i.next();
+            for (Map.Entry<Thread, Throwable> next : uncaught) {
                 Thread thread = next.getKey();
                 Throwable problem = next.getValue();
                 report.append(header + ": Uncaught exception " + problem
-                              + " in thread " + thread + "\n");
+                        + " in thread " + thread + "\n");
             }
             fail(ASSERTION_FAILED, report.toString());
             group.clear();

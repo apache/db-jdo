@@ -60,16 +60,16 @@ public class UppercaseLowercase extends QueryTest {
     
     /** */
     public void testPositive() {
-        for (int i = 0; i < VALID_SINGLE_STRING_QUERIES.length; i++) {
-            compileSingleStringQuery(ASSERTION_FAILED, 
-                    VALID_SINGLE_STRING_QUERIES[i], true);
+        for (String validSingleStringQuery : VALID_SINGLE_STRING_QUERIES) {
+            compileSingleStringQuery(ASSERTION_FAILED,
+                    validSingleStringQuery, true);
         }
     }
      
     public void testNegitve() {
-        for (int i = 0; i < INVALID_SINGLE_STRING_QUERIES.length; i++) {
-            compileSingleStringQuery(ASSERTION_FAILED, 
-                    INVALID_SINGLE_STRING_QUERIES[i], false);
+        for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+            compileSingleStringQuery(ASSERTION_FAILED,
+                    invalidSingleStringQuery, false);
         }
     }
 }

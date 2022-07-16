@@ -75,8 +75,8 @@ public class ConversionHelper {
      */
     public static Map<Object, Object> arrayToMap(Object[][] array) {
         Map<Object, Object> map = new HashMap<>();
-        for (int i = 0; i < array.length; i++) {
-            map.put(array[i][0], array[i][1]);
+        for (Object[] objects : array) {
+            map.put(objects[0], objects[1]);
         }
         return map;
     }
@@ -92,8 +92,8 @@ public class ConversionHelper {
      */
     public static <T> Collection<T> convertsElementsOfTypeObjectArray(Collection<T> collection) {
         Collection<T>  result = new ArrayList<>();
-        for (Iterator<T> i = collection.iterator(); i.hasNext(); ) {
-            T current = (T)convertObjectArrayElements(i.next());
+        for (T t : collection) {
+            T current = (T) convertObjectArrayElements(t);
             result.add(current);
         }
         return result;
@@ -110,11 +110,10 @@ public class ConversionHelper {
      */
     public static <K, V> Map<K, V> convertsElementsOfTypeObjectArray(Map<K, V> map) {
         Map<K, V> result = new HashMap<>();
-        for (Iterator<Map.Entry<K, V>> i = map.entrySet().iterator(); i.hasNext(); ) {
-            Map.Entry<K, V> entry = i.next();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
             Object key = convertObjectArrayElements(entry.getKey());
             Object value = convertObjectArrayElements(entry.getValue());
-            result.put((K)key, (V)value);
+            result.put((K) key, (V) value);
         }
         return result;
     }

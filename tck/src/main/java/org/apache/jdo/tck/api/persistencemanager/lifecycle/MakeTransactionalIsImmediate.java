@@ -141,12 +141,11 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
             pm.makeTransactionalAll(col1);
             tx.rollback();
 
-            for (Iterator<PCPoint> iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = iter.next();
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT_CLEAN, "transient_clean")) {
                     fail(ASSERTION_FAILED,
-                         "expected T-CLEAN instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                            "expected T-CLEAN instance, instance " + p1 +
+                                    " is " + getStateOfInstance(p));
                 }
             }
             tx = null;
@@ -167,13 +166,13 @@ public class MakeTransactionalIsImmediate extends PersistenceManagerTest {
             Object[] objArray = col2.toArray();
             pm.makeTransactionalAll(objArray);
             tx.rollback();
-            
-            for (int i=0; i < objArray.length; i++) {
-                PCPoint p = (PCPoint) objArray[i];
+
+            for (Object o : objArray) {
+                PCPoint p = (PCPoint) o;
                 if (!testState(p, TRANSIENT_CLEAN, "transient_clean")) {
                     fail(ASSERTION_FAILED,
-                         "expected T-CLEAN instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                            "expected T-CLEAN instance, instance " + p1 +
+                                    " is " + getStateOfInstance(p));
                 }
             }
             tx = null;

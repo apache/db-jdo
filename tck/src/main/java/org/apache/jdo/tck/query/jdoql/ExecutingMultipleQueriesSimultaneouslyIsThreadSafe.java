@@ -102,17 +102,16 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             // check unhandled exceptions
             Set<Map.Entry<Thread, Throwable>> uncaught = group.getAllUncaughtExceptions();
             if ((uncaught != null) && !uncaught.isEmpty()) {
-                for (Iterator<Map.Entry<Thread, Throwable>> i = uncaught.iterator(); i.hasNext();) {
-                    Map.Entry<Thread, Throwable> next = i.next();
+                for (Map.Entry<Thread, Throwable> next : uncaught) {
                     Thread thread = next.getKey();
                     Throwable problem = next.getValue();
                     if (debug) {
                         logger.debug("uncaught exception in thread " + thread +
-                                     " stacktrace:");
+                                " stacktrace:");
                         problem.printStackTrace();
                     }
                     fail(ASSERTION_FAILED,
-                         "Thread " + thread + ": uncaught exception " + problem);
+                            "Thread " + thread + ": uncaught exception " + problem);
                 }
             }
         }
@@ -150,8 +149,8 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
             Query<PCPoint> query = pm.newQuery(PCPoint.class);
             query.setCandidates(pm.getExtent(PCPoint.class, false));
             List<PCPoint> results = query.executeList();
-            for (Iterator<PCPoint> i=(results).iterator(); i.hasNext();) {
-                inserted.add(i.next());
+            for (PCPoint result : results) {
+                inserted.add(result);
             }
             tx.commit();
             tx = null;

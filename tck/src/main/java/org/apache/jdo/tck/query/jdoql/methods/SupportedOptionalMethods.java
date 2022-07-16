@@ -165,8 +165,8 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < resultOids.length; i++) {
-                expectedResults.add(pm.getObjectById(resultOids[i]));
+            for (Object resultOid : resultOids) {
+                expectedResults.add(pm.getObjectById(resultOid));
             }
         } finally {
             if (tx.isActive()) {
@@ -359,8 +359,8 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < resultOids.length; i++) {
-                expectedResults.add(pm.getObjectById(resultOids[i]));
+            for (Object resultOid : resultOids) {
+                expectedResults.add(pm.getObjectById(resultOid));
             }
         } finally {
             if (tx.isActive())
@@ -395,12 +395,11 @@ public class SupportedOptionalMethods extends QueryTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            for (int i = 0; i < result.length; i++) {
-                Object o = result[i];
+            for (Object o : result) {
                 if (o instanceof String || o instanceof Date || o instanceof Integer) {
                     expectedResults.add(o);
                 } else {
-                    expectedResults.add(pm.getObjectById(result[i]));
+                    expectedResults.add(pm.getObjectById(o));
                 }
             }
         } finally {

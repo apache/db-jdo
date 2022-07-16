@@ -142,12 +142,11 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
         }
 
         Set<Map.Entry<Thread, Throwable>> exceptions = threadGroup.getAllUncaughtExceptions();
-        for (Iterator<Map.Entry<Thread, Throwable>> i = exceptions.iterator(); i.hasNext(); ) {
-            Map.Entry<Thread, Throwable> entry = i.next();
+        for (Map.Entry<Thread, Throwable> entry : exceptions) {
             Thread thread = entry.getKey();
             Throwable throwable = entry.getValue();
             String message = "Uncaught exception " + throwable + " in thread " + thread;
-            if( throwable instanceof AssertionFailedError )
+            if (throwable instanceof AssertionFailedError)
                 fail(ASSERTION_FAILED, message);
             else
                 throw new JDOFatalException(message, throwable);
@@ -231,8 +230,7 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
                     logger.debug("getting Extent of " + instanceClass.getName());
                 tx.begin();
                 Extent<?> e = pm.getExtent(instanceClass, false);
-                for (Iterator<?> i = e.iterator(); i.hasNext();) {
-                    Object instance = i.next();
+                for (Object instance : e) {
                     objCount++;
                 }
                 tx.commit();

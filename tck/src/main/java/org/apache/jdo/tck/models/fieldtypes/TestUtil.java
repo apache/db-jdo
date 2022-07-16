@@ -332,9 +332,7 @@ public class TestUtil {
     protected static boolean containsBigDecimalKey(BigDecimal keyValue,
                                                 Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator<BigDecimal> iter = bigDecimalKeySet.iterator();
-        while (iter.hasNext()) {
-            BigDecimal nextVal = iter.next();
+        for (BigDecimal nextVal : bigDecimalKeySet) {
             if (keyValue.compareTo(nextVal) == 0) {
                 return true;
             }
@@ -345,9 +343,7 @@ public class TestUtil {
     protected static BigDecimal getBigDecimalKey(BigDecimal keyValue,
                                                 Set<BigDecimal> bigDecimalKeySet)
     {
-        Iterator<BigDecimal> iter = bigDecimalKeySet.iterator();
-        while (iter.hasNext()) {
-            BigDecimal nextVal = iter.next();
+        for (BigDecimal nextVal : bigDecimalKeySet) {
             if (keyValue.compareTo(nextVal) == 0) {
                 return nextVal;
             }

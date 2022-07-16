@@ -169,17 +169,14 @@ public class MakeNontransactionalPersistentCleanInstance
                  makePersistentCleanInstance(p4)) {
                 
                 pm.makeNontransactionalAll(col1);
-                Iterator<PCPoint> iter = col1.iterator();
-                while (iter.hasNext() ) {
-                    PCPoint p = iter.next();
+                for (PCPoint p : col1) {
                     curr = currentState(p);
                     if (curr == HOLLOW ||
-                        curr == PERSISTENT_NONTRANSACTIONAL) {
-                    }
-                    else {
+                            curr == PERSISTENT_NONTRANSACTIONAL) {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Expected persistent-nontransactional or hollow; got " + 
-                             getStateOfInstance(p));
+                                "Expected persistent-nontransactional or hollow; got " +
+                                        getStateOfInstance(p));
                     }
                 }
             }
@@ -212,16 +209,15 @@ public class MakeNontransactionalPersistentCleanInstance
                 
                 pm.makeNontransactionalAll(objArray);
 
-                for (int i=0; i < objArray.length; i++) {
-                    PCPoint p = (PCPoint) objArray[i];
+                for (Object o : objArray) {
+                    PCPoint p = (PCPoint) o;
                     curr = currentState(p);
                     if (curr == HOLLOW ||
-                        curr == PERSISTENT_NONTRANSACTIONAL) {
-                    }
-                    else {
+                            curr == PERSISTENT_NONTRANSACTIONAL) {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Expected persistent-nontransactional or hollow; got " + 
-                             getStateOfInstance(p));
+                                "Expected persistent-nontransactional or hollow; got " +
+                                        getStateOfInstance(p));
                     }
                 }
             }

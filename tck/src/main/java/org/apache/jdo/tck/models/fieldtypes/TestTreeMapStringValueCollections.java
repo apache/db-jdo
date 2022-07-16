@@ -171,27 +171,26 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
                             ).get(0).equals("BigDecimal")) {
                     Set<?> expectedKeySet = expected.keySet();
                     Set actualKeySet = actual.keySet();
-                    Iterator<?> expectedIter = expectedKeySet.iterator();
-                    while (expectedIter.hasNext()) {
-                        BigDecimal expectedKey = (BigDecimal) expectedIter.next();
+                    for (Object o : expectedKeySet) {
+                        BigDecimal expectedKey = (BigDecimal) o;
                         // compare keys
                         if (!TestUtil.containsBigDecimalKey(expectedKey, actualKeySet)) {
                             sbuf.append("\nFor element " + i +
                                     " expected key = " + expectedKey +
                                     " not found in actual Map.  Actual keyset is "
                                     + actualKeySet);
-                        // compare values
+                            // compare values
                         } else {
                             String expectedVal = (String) expected.get(expectedKey);
                             String actualValue = (String)
-                               actual.get(TestUtil.getBigDecimalKey(expectedKey,
-                                                                    actualKeySet));
+                                    actual.get(TestUtil.getBigDecimalKey(expectedKey,
+                                            actualKeySet));
                             if (!expectedVal.equals(actualValue)) {
                                 sbuf.append("\nFor element " + i +
-                                    " expected value = " + expectedVal +
-                                    " actual Value = " + actualValue);
-                           }
-                       }
+                                        " expected value = " + expectedVal +
+                                        " actual Value = " + actualValue);
+                            }
+                        }
                     }
                 }
                 else {

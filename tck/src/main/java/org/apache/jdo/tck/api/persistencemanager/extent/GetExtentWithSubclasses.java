@@ -102,16 +102,15 @@ public class GetExtentWithSubclasses extends PersistenceManagerTest {
         boolean foundMichelle = false;
         boolean foundVictor = false;
 
-        for (Iterator<Person> i = e.iterator(); i.hasNext();) {
-            Person p = i.next();
+        for (Person p : e) {
             if ((p.getFirstname().equals("Craig")) && (p.getLastname().equals("Russell")))
-                foundCraig=true;
+                foundCraig = true;
             else if ((p.getFirstname().equals("Michael")) && (p.getLastname().equals("Bouschen")))
-                foundMichael=true;
+                foundMichael = true;
             else if ((p.getFirstname().equals("Michelle")) && (p.getLastname().equals("Caisse")))
-                foundMichelle=true;
+                foundMichelle = true;
             else if ((p.getFirstname().equals("Victor")) && (p.getLastname().equals("Kirkebo")))
-                foundVictor=true;
+                foundVictor = true;
         }
 
         if (!foundCraig) {

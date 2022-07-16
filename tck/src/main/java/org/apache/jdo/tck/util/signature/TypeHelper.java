@@ -63,8 +63,7 @@ public class TypeHelper {
         userTypeNames.put("Z", "boolean");
         userTypeNames.put("V", "void");
 
-        for (Iterator<Map.Entry<String, String>> i = userTypeNames.entrySet().iterator(); i.hasNext();) {
-            final Map.Entry<String, String> e = i.next();
+        for (final Map.Entry<String, String> e : userTypeNames.entrySet()) {
             reflectionTypeNames.put(e.getValue(), e.getKey());
         }
 

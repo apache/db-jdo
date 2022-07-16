@@ -141,14 +141,13 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
 
         // each set method should throw an exception
         Collection<SetProperty> setCollection = Arrays.asList(setMethods);
-        for (Iterator<SetProperty> it = setCollection.iterator(); it.hasNext();) {
-            SetProperty sp = it.next();
+        for (SetProperty sp : setCollection) {
             String where = sp.getMethodName();
             try {
                 sp.execute(pmf);
                 fail(ASSERTION_FAILED,
-                     "pmf method " + where + 
-                     " should throw JDOUserException when called after getPersistenceManager");
+                        "pmf method " + where +
+                                " should throw JDOUserException when called after getPersistenceManager");
             } catch (JDOUserException ex) {
                 if (debug)
                     logger.debug("Caught expected exception " + ex + " from " + where);
@@ -156,14 +155,13 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
         }
         // each get method should succeed
         Collection<GetProperty> getCollection = Arrays.asList(getMethods);
-        for (Iterator<GetProperty> it = getCollection.iterator(); it.hasNext();) {
-            GetProperty gp = it.next();
+        for (GetProperty gp : getCollection) {
             String where = gp.getMethodName();
             try {
                 gp.execute(pmf);
             } catch (JDOUserException ex) {
                 fail(ASSERTION_FAILED,
-                     "Caught unexpected exception " + ex + " from " + where);
+                        "Caught unexpected exception " + ex + " from " + where);
             }
         }
     }

@@ -147,16 +147,15 @@ abstract class AbstractGetPMF extends JDO_Test {
         Class<?> pmfclass = pmf.getClass();
         Set<Map.Entry<Object, Object>> entries = props.entrySet();
         StringBuffer buffer = new StringBuffer();
-        for (Iterator<Map.Entry<Object, Object>> it = entries.iterator(); it.hasNext();) {
-            Map.Entry<Object, Object> entry = it.next();
-            String key = (String)entry.getKey();
+        for (Map.Entry<Object, Object> entry : entries) {
+            String key = (String) entry.getKey();
             if (key.equals("javax.jdo.option.ConnectionPassword")) {
                 continue;
             }
             if (key.equals("javax.jdo.option.ConnectionUserName")) {
                 continue;
             }
-            String expected = (String)entry.getValue();
+            String expected = (String) entry.getValue();
             if (key.startsWith(javaxjdooption)) {
                 String optionName = key.substring(javaxjdooption.length());
                 Method getMethod = getGetMethod(pmfclass, optionName);

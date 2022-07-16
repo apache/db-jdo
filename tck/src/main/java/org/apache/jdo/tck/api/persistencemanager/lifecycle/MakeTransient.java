@@ -132,12 +132,11 @@ public class MakeTransient extends PersistenceManagerTest {
             pm.makeTransientAll(col1);
             tx.commit();
             tx = null;
-            
-            for (Iterator<PCPoint> iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = iter.next();
+
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT, "transient")) {
-                    fail("expected TRANSIENT instance, instance " + p1 + 
-                         " is " + getStateOfInstance(p));
+                    fail("expected TRANSIENT instance, instance " + p1 +
+                            " is " + getStateOfInstance(p));
                 }
             }
         }

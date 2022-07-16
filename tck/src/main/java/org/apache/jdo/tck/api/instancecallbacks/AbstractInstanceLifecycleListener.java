@@ -342,8 +342,8 @@ public abstract class AbstractInstanceLifecycleListener extends JDO_Test {
         private static int[] newExpected(int[] sequence) {
             int order = 0;
             int[] result = new int[locations.size()];
-            for (int i = 0; i < sequence.length; ++i) {
-                result[sequence[i]] = ++order;
+            for (int j : sequence) {
+                result[j] = ++order;
             }
             return result;
         }

@@ -123,13 +123,11 @@ public class MakeTransactional extends PersistenceManagerTest{
             col1.add(p4);
             
             pm.makeTransactionalAll(col1);
-            Iterator<PCPoint> iter = col1.iterator();
-            while (iter.hasNext() ) {
-                PCPoint p = iter.next();
+            for (PCPoint p : col1) {
                 if (currentState(p) != TRANSIENT_CLEAN) {
                     fail(ASSERTION_FAILED,
-                         "Expected T-CLEAN instance, instance " + p + " is " + 
-                         getStateOfInstance(p1) + ".");
+                            "Expected T-CLEAN instance, instance " + p + " is " +
+                                    getStateOfInstance(p1) + ".");
                 }
             }
             tx.commit();
@@ -149,13 +147,13 @@ public class MakeTransactional extends PersistenceManagerTest{
             
             Object[] objArray = {p1,p2,p3,p4};
             pm.makeTransactionalAll(objArray);
-            
-            for ( int i=0; i < objArray.length; i++) {
-                p = (PCPoint) objArray[i];
+
+            for (Object o : objArray) {
+                p = (PCPoint) o;
                 if (currentState(p) != TRANSIENT_CLEAN) {
                     fail(ASSERTION_FAILED,
-                         "Expected T-CLEAN instance, instance " + p + " is " + 
-                         getStateOfInstance(p1) + ".");
+                            "Expected T-CLEAN instance, instance " + p + " is " +
+                                    getStateOfInstance(p1) + ".");
                 }
             }
             tx.commit();

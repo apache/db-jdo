@@ -160,22 +160,19 @@ public class CloseFailsIfTransactionActive extends JDO_Test {
         } catch (JDOException ex) {
             PersistenceManager[] pms = getFailedPersistenceManagers(ex);
             int numberOfPersistenceManagers = pms.length;
-            for (int i = 0; i < numberOfPersistenceManagers; ++i) {
-                PersistenceManager pm = pms[i];
+            for (PersistenceManager pm : pms) {
                 if (pm == null) {
                     fail(ASSERTION_FAILED,
-                         "Found unexpected null PersistenceManager");
-                } 
-                else {
+                            "Found unexpected null PersistenceManager");
+                } else {
                     Transaction tx = pm.currentTransaction();
                     if (tx.isActive()) {
                         if (debug)
                             logger.debug("Found active transaction; rolling back.");
                         tx.rollback();
-                    } 
-                    else {
+                    } else {
                         fail(ASSERTION_FAILED,
-                             "Unexpectedly, this transaction is not active: " + tx);
+                                "Unexpectedly, this transaction is not active: " + tx);
                     }
                 }
             }

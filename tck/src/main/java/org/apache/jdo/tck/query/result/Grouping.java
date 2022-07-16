@@ -115,9 +115,9 @@ public class Grouping extends QueryTest {
 
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

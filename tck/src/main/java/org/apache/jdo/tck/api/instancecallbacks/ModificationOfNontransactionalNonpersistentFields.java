@@ -143,8 +143,8 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
                 logger.debug("obj1.children contains " + obj1.children.size() + " members");
                 if(obj1.children.size() != 0) {
                     logger.debug("Those members are:");
-                    for(Iterator<String> i = obj1.children.iterator(); i.hasNext();) {
-                        logger.debug(i.next());
+                    for (String s : obj1.children) {
+                        logger.debug(s);
                     }
                 }
             }

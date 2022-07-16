@@ -151,8 +151,8 @@ public class AbstractFetchPlanTest extends JDO_Test {
             FetchPlan fetchPlan, String[] groups) {
         Collection<String> expected = new HashSet<>();
         Collection<String> actual = fetchPlan.getGroups();
-        for (int i = 0; i < groups.length; ++i) {
-            expected.add(groups[i]);
+        for (String group : groups) {
+            expected.add(group);
         }
         if (!expected.equals(actual)) {
             appendMessage(location + NL + "Fetch groups differ." + NL +

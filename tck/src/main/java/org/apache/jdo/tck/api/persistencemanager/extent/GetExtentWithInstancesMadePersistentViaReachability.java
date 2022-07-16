@@ -88,14 +88,13 @@ public class GetExtentWithInstancesMadePersistentViaReachability extends Persist
         boolean foundDep2 = false;
         boolean foundDep3 = false;
 
-        for (Iterator<Department> i = e.iterator(); i.hasNext();) {
-            Department dep = i.next();
+        for (Department dep : e) {
             if (dep.getName().equals("Department 1"))
-                foundDep1=true;
+                foundDep1 = true;
             else if (dep.getName().equals("Department 2"))
-                foundDep2=true;
+                foundDep2 = true;
             else if (dep.getName().equals("Department 3"))
-                foundDep3=true;		
+                foundDep3 = true;
         }
 
         if (!foundDep1) {

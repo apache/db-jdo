@@ -221,9 +221,8 @@ public class NonpersistentSuperClass extends TestParts {
     void removeAllInstances(PersistenceManager pm)
     {
         Extent<TopNonPersistH> e = pm.getExtent(TopNonPersistH.class, true);
-        Iterator<TopNonPersistH> i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        for (TopNonPersistH topNonPersistH : e) {
+            pm.deletePersistent(topNonPersistH);
         }        
     }
 }

@@ -95,14 +95,14 @@ public class InvalidUseOfKeywords extends QueryTest {
     
     /** */
     public void testNegative() {
-        for (int i = 0; i < INVALID_SINGLE_STRING_QUERIES.length; i++) {
-            compileSingleStringQuery(ASSERTION_FAILED, 
-                    INVALID_SINGLE_STRING_QUERIES[i], false);
+        for (String invalidSingleStringQuery : INVALID_SINGLE_STRING_QUERIES) {
+            compileSingleStringQuery(ASSERTION_FAILED,
+                    invalidSingleStringQuery, false);
         }
-        
-        for (int i = 0; i < INVALID_QUERIES.length; i++) {
-            compileAPIQuery(ASSERTION_FAILED, INVALID_QUERIES[i], false);
-            compileSingleStringQuery(ASSERTION_FAILED, INVALID_QUERIES[i], 
+
+        for (QueryElementHolder<?> invalidQuery : INVALID_QUERIES) {
+            compileAPIQuery(ASSERTION_FAILED, invalidQuery, false);
+            compileSingleStringQuery(ASSERTION_FAILED, invalidQuery,
                     false);
         }
     }

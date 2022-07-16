@@ -224,9 +224,8 @@ public class PersistenceCapableFlexibilityInInheritanceHierarchy extends TestPar
     void removeAllInstances(PersistenceManager pm)
     {
         Extent<TopPersistH> e = pm.getExtent(TopPersistH.class, true);
-        Iterator<TopPersistH> i = e.iterator();
-        while( i.hasNext() ){
-            pm.deletePersistent(i.next());
+        for (TopPersistH topPersistH : e) {
+            pm.deletePersistent(topPersistH);
         }        
     }
 }

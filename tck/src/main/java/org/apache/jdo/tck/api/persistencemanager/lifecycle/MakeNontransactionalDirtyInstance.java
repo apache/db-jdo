@@ -212,10 +212,8 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
             int curr;
             tx.begin();
 
-            Iterator<PCPoint> iter = tcol.iterator();
-            while (iter.hasNext()) {
-                PCPoint p = iter.next();
-                if (makeAndTestDirtyInstance(p,state))
+            for (PCPoint p : tcol) {
+                if (makeAndTestDirtyInstance(p, state))
                     stopFlag = true;
             }
 
@@ -249,10 +247,8 @@ public class MakeNontransactionalDirtyInstance extends PersistenceManagerTest {
                 logger.debug(" ** in testMakeNontransactionalDirtyInstanceAll2()");
             tx.begin();
 
-            Iterator<PCPoint> iter = tcol.iterator();
-            while (iter.hasNext()) {
-                PCPoint p = iter.next();
-                if (makeAndTestDirtyInstance(p,state))
+            for (PCPoint p : tcol) {
+                if (makeAndTestDirtyInstance(p, state))
                     stopFlag = true;
             }
 

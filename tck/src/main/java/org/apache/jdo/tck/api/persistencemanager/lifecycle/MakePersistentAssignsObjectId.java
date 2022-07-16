@@ -125,16 +125,15 @@ public class MakePersistentAssignsObjectId extends PersistenceManagerTest {
             
             pm.makePersistentAll(col1);
 
-            for (Iterator<PCPoint> i = col1.iterator(); i.hasNext();) {
-                PCPoint p = i.next();
+            for (PCPoint p : col1) {
                 if (!testState(p, PERSISTENT_NEW, "persistent_new")) {
                     fail(ASSERTION_FAILED,
-                         "expected P-NEW instance, instance is " + getStateOfInstance(p) + ".");
+                            "expected P-NEW instance, instance is " + getStateOfInstance(p) + ".");
                 }
-                
+
                 if (pm.getObjectId(p) == null) {
                     fail(ASSERTION_FAILED,
-                         "pm.makePersistentAll should assign non-null oid.");
+                            "pm.makePersistentAll should assign non-null oid.");
                 }
             }
             

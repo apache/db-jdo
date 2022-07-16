@@ -194,13 +194,12 @@ public class MakeTransientFieldsPreservedUnchanged extends PersistenceManagerTes
             pm.makeTransientAll(col1);
             tx.commit();
             tx = null;
-            
-            for (Iterator<PCPoint> iter = col1.iterator(); iter.hasNext();) {
-                PCPoint p = iter.next();
+
+            for (PCPoint p : col1) {
                 if (!testState(p, TRANSIENT, "transient")) {
                     fail(ASSERTION_FAILED,
-                         "expected TRANSIENT instance, instance " + p + 
-                         " is " + getStateOfInstance(p));
+                            "expected TRANSIENT instance, instance " + p +
+                                    " is " + getStateOfInstance(p));
                 }
             }
         }

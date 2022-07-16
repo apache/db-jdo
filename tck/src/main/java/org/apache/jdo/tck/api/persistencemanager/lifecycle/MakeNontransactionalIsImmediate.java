@@ -221,10 +221,8 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     /** */
     private boolean navigateAndTestTransientCol (Collection<PCPoint> col) {
         boolean noError = true;
-        Iterator<PCPoint> iter = col1.iterator();
-        while (iter.hasNext() ) {
-            PCPoint p = iter.next();
-            if (! testState(p, TRANSIENT, "transient")) {
+        for (PCPoint p : col1) {
+            if (!testState(p, TRANSIENT, "transient")) {
                 noError = false;
             }
         }
@@ -234,9 +232,9 @@ public class MakeNontransactionalIsImmediate extends PersistenceManagerTest {
     /** */
     private boolean navigateAndTestTransientArray (Object[] objArray) {
         boolean noError = true;
-        for (int i=0; i < objArray.length; i++) {
-            PCPoint p = (PCPoint) objArray[i];
-            if (! testState(p, TRANSIENT, "transient")) {
+        for (Object o : objArray) {
+            PCPoint p = (PCPoint) o;
+            if (!testState(p, TRANSIENT, "transient")) {
                 noError = false;
             }
         }

@@ -79,8 +79,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** Set TransactionIsolationLevel to all values via API. */ 
     public void testSetTransactionIsolationLevelByAPI() {
         // iterate through all possible TransactionIsolationLevels
-        for (int i = 0; i < transactionIsolationLevels.length; ++i) {
-            String transactionIsolationLevel = transactionIsolationLevels[i];
+        for (String transactionIsolationLevel : transactionIsolationLevels) {
             setTransactionIsolationLevelByAPI(transactionIsolationLevel);
         }
         failOnError();
@@ -89,8 +88,7 @@ public class SetTransactionIsolationLevel extends JDO_Test
     /** Set TransactionIsolationLevel to all values from properties. */ 
     public void testSetTransactionIsolationLevelFromProperties() {
         // iterate through all possible TransactionIsolationLevels
-        for (int i = 0; i < transactionIsolationLevels.length; ++i) {
-            String transactionIsolationLevel = transactionIsolationLevels[i];
+        for (String transactionIsolationLevel : transactionIsolationLevels) {
             getPMFsetTransactionIsolationLevelFromProperties(transactionIsolationLevel);
         }
         failOnError();

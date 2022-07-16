@@ -242,8 +242,8 @@ public class SupportedJDOHelperMethods extends QueryTest {
                 List<T> result = query.executeList();
                 if (oidsWanted) {
                     expectedResult = new ArrayList<>();
-                    for (Iterator<T> i = result.iterator(); i.hasNext(); ) {
-                        expectedResult.add((T)JDOHelper.getObjectId(i.next()));
+                    for (T t : result) {
+                        expectedResult.add((T) JDOHelper.getObjectId(t));
                     }
                 } else {
                     expectedResult = new ArrayList<>(result);

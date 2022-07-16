@@ -80,8 +80,8 @@ public class ObjectIdUniqueAmongInstances extends PersistenceManagerTest {
             // For all new persistent instances, get the object ids and
             // save them in another hashset.  There should be the same
             // number if the ids  are all unique.
-            for (Iterator<PCPoint> it = instances.iterator(); it.hasNext();) {
-                oids.add(pm.getObjectId(it.next()));
+            for (PCPoint instance : instances) {
+                oids.add(pm.getObjectId(instance));
             }
     
             tx.commit();
