@@ -269,7 +269,7 @@ public class TCKFileHandler extends Handler {
         } catch (Exception e) {
             try {
                 setEncoding(defaultEncoding);
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
     }
@@ -281,7 +281,7 @@ public class TCKFileHandler extends Handler {
         if ( value != null) {
             try {
                 result = Boolean.valueOf(value.trim()).booleanValue();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }    
         }
         return result;
@@ -304,7 +304,7 @@ public class TCKFileHandler extends Handler {
         if (value != null) {
             try {
                 result = Level.parse(value.trim());
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
         return result;
@@ -329,7 +329,7 @@ public class TCKFileHandler extends Handler {
                 Class<?> clazz =
                     ClassLoader.getSystemClassLoader().loadClass(value);
                 result = clazz.newInstance();
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
         return result;

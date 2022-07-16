@@ -392,6 +392,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("ThrowFromFinallyBlock")
     Object applyOperation(int operation, StateTransitionObj stobj)
     {
         Object result = null;

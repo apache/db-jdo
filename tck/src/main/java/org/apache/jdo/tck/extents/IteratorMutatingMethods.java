@@ -67,8 +67,6 @@ public class IteratorMutatingMethods extends ExtentTest {
         catch (UnsupportedOperationException expected) {
             // expected exception
             if (debug) logger.debug("expected exception " + ex);
-        } 
-        finally {
         }
         commitTransaction();
     }

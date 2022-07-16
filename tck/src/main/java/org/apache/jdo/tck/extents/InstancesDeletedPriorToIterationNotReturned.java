@@ -56,31 +56,27 @@ public class InstancesDeletedPriorToIterationNotReturned extends ExtentTest {
 
     /** */
     public void test() {
-        try {
-            beginTransaction();
-            getPM().setIgnoreCache(false);
-            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
-            Iterator<Employee> it1 = ex.iterator();
-            deleteEmployee(it1.next());
-            Iterator<Employee> it2 = ex.iterator();
-            int count = countIterator(it2);
-            rollbackTransaction();
+        beginTransaction();
+        getPM().setIgnoreCache(false);
+        Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+        Iterator<Employee> it1 = ex.iterator();
+        deleteEmployee(it1.next());
+        Iterator<Employee> it2 = ex.iterator();
+        int count = countIterator(it2);
+        rollbackTransaction();
 
-            beginTransaction();
-            Iterator<Employee> it3 = ex.iterator();
-            int count3 = countIterator(it3);
-            commitTransaction();
-    
-            if (count != 1) {
-                fail(ASSERTION_FAILED,
-                     "counted " + count + " after delete; should be 1");
-            }
-            if (count3 != 2) {
-                fail(ASSERTION_FAILED,
-                     "counted " + count3 + "after rollback; should be 2");
-            }
-        } 
-        finally {
+        beginTransaction();
+        Iterator<Employee> it3 = ex.iterator();
+        int count3 = countIterator(it3);
+        commitTransaction();
+
+        if (count != 1) {
+            fail(ASSERTION_FAILED,
+                 "counted " + count + " after delete; should be 1");
+        }
+        if (count3 != 2) {
+            fail(ASSERTION_FAILED,
+                 "counted " + count3 + "after rollback; should be 2");
         }
     }
 }

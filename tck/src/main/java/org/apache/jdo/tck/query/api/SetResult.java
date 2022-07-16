@@ -79,7 +79,7 @@ public class SetResult extends QueryTest {
             fail(ASSERTION_FAILED + "Compilation for query " +
                     "'SELECT noname FROM Person' " +
                     "succeeded, though the result clause is invalid.");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
 

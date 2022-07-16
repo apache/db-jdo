@@ -87,8 +87,8 @@ public class NewQueryFromRestoredSerializedQuery extends QueryTest {
             } 
             finally {
                 if (oos != null) {
-                    try { oos.flush();} catch(Exception ex) {}
-                    try { oos.close();} catch(Exception ex) {}
+                    try { oos.flush();} catch(Exception ignored) {}
+                    try { oos.close();} catch(Exception ignored) {}
                 }
             }
 

@@ -110,14 +110,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -145,14 +145,14 @@ public class DatastoreTimeout extends JDO_Test {
         } 
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -176,14 +176,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 
@@ -207,14 +207,14 @@ public class DatastoreTimeout extends JDO_Test {
         }
         finally {
             t.join();
-            Throwable problem = group.getUncaughtException(t);
-            if (problem != null) {
-                if (problem instanceof AssertionFailedError)
-                    throw (AssertionFailedError)problem;
-                else
-                    throw new JDOFatalException( "Thread " + t.getName()+ 
-                                                 " results in exception ", problem);
-            }
+        }
+        Throwable problem = group.getUncaughtException(t);
+        if (problem != null) {
+            if (problem instanceof AssertionFailedError)
+                throw (AssertionFailedError)problem;
+            else
+                throw new JDOFatalException( "Thread " + t.getName()+
+                                             " results in exception ", problem);
         }
     }
 

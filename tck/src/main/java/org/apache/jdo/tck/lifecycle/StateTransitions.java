@@ -617,6 +617,7 @@ public class StateTransitions extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("ThrowFromFinallyBlock")
     void applyOperation(int operation, StateTransitionObj stobj)
     {
         StateTransitionObj obj = stobj;

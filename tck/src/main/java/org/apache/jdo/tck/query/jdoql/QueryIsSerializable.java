@@ -125,8 +125,8 @@ public class QueryIsSerializable extends QueryTest {
             } 
             finally {
                 if (oos != null) {
-                    try { oos.flush();} catch(Exception ex) {}
-                    try { oos.close();} catch(Exception ex) {}
+                    try { oos.flush();} catch(Exception ignored) {}
+                    try { oos.close();} catch(Exception ignored) {}
                 }
             }
 
@@ -152,7 +152,7 @@ public class QueryIsSerializable extends QueryTest {
             if (debug) logger.debug("Query object restored.");
         } finally {
             if (ois != null) {
-                try { ois.close();} catch(Exception ex) {}
+                try { ois.close();} catch(Exception ignored) {}
             }
         }
 

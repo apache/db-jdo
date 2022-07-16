@@ -139,7 +139,7 @@ public class TestArrayCollections extends JDO_Test {
             try {
                 // get the right class to instantiate
                 vectorClass = value.get(0).getClass();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
             Object[] valueArray = (Object[])Array.newInstance(vectorClass,

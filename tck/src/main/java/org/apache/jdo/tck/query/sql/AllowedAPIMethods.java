@@ -158,7 +158,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.setResult("firstname, lastname");
             methodFailed("setResult()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -166,7 +166,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.setFilter("WHERE personid = 1");
             methodFailed("setFilter()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -174,7 +174,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.declareVariables("Employee emp");
             methodFailed("declareVariables()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -182,7 +182,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.declareParameters("Employee emp");
             methodFailed("declareParameters()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -190,7 +190,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
             methodFailed("declareImports()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -198,7 +198,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.setGrouping("firstname");
             methodFailed("setGrouping()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -206,7 +206,7 @@ public class AllowedAPIMethods extends QueryTest {
         try {
             query.setOrdering("firstname ASCENDING");
             methodFailed("setOrdering()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     

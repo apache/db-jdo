@@ -152,7 +152,7 @@ public class RogueBarrier {
                     try {
                         threads[i].join();
                         break;
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException ignored) {
                     }
                 }
             }

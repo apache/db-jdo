@@ -57,43 +57,39 @@ public class IteratorHasNextFalseAfterExtentClose extends ExtentTest {
     /** */
     public void test() {
 
-        try {
-            beginTransaction();
-            Extent<Employee> ex = getPM().getExtent (Employee.class, true);
-            Iterator<Employee> it1 = ex.iterator();
-            deleteEmployee(it1.next());
-            Iterator<Employee> it2 = ex.iterator();
-            addEmployee();
-            Iterator<Employee> it3 = ex.iterator();
-            ex.close(it1);
-            ex.close(it2);
-            ex.close(it3);
-            rollbackTransaction();
-    
-            beginTransaction();
-            Iterator<Employee> it4 = ex.iterator();
-            int count4 = countIterator(it4);
-            rollbackTransaction();
-            if (debug) logger.debug ("Iterator4 after rollback: " + count4);
-    
-            if (it1.hasNext()) {
-                fail(ASSERTION_FAILED,
-                     "iterator1.hasNext(): " + it1.hasNext());
-            }
-            if (it2.hasNext()) {
-                fail(ASSERTION_FAILED,
-                     "iterator2.hasNext(): " + it2.hasNext());
-            }
-            if (it3.hasNext()) {
-                fail(ASSERTION_FAILED,
-                     "iterator3.hasNext(): " + it3.hasNext());
-            }
-            if (count4 != 2) {
-                fail(ASSERTION_FAILED,
-                     "Iterator " + count4 + " should be 2");
-            }
-        } 
-        finally {
+        beginTransaction();
+        Extent<Employee> ex = getPM().getExtent (Employee.class, true);
+        Iterator<Employee> it1 = ex.iterator();
+        deleteEmployee(it1.next());
+        Iterator<Employee> it2 = ex.iterator();
+        addEmployee();
+        Iterator<Employee> it3 = ex.iterator();
+        ex.close(it1);
+        ex.close(it2);
+        ex.close(it3);
+        rollbackTransaction();
+
+        beginTransaction();
+        Iterator<Employee> it4 = ex.iterator();
+        int count4 = countIterator(it4);
+        rollbackTransaction();
+        if (debug) logger.debug ("Iterator4 after rollback: " + count4);
+
+        if (it1.hasNext()) {
+            fail(ASSERTION_FAILED,
+                 "iterator1.hasNext(): " + it1.hasNext());
+        }
+        if (it2.hasNext()) {
+            fail(ASSERTION_FAILED,
+                 "iterator2.hasNext(): " + it2.hasNext());
+        }
+        if (it3.hasNext()) {
+            fail(ASSERTION_FAILED,
+                 "iterator3.hasNext(): " + it3.hasNext());
+        }
+        if (count4 != 2) {
+            fail(ASSERTION_FAILED,
+                 "Iterator " + count4 + " should be 2");
         }
     }
 }

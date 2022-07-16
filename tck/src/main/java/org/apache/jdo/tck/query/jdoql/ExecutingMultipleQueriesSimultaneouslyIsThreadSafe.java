@@ -92,7 +92,7 @@ public class ExecutingMultipleQueriesSimultaneouslyIsThreadSafe
                              ": Waiting for threads to join...");
             for (int i = 0; i < NR_OF_THREADS; i++) {
                 try { threads[i].join(); } 
-                catch (InterruptedException e) { }
+                catch (InterruptedException ignored) { }
             }
             if (debug) logger.debug(getThreadName() + ": All threads joined.");
 

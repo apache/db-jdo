@@ -116,7 +116,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.setResult("firstname, lastname");
             methodFailed("setResult()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -124,7 +124,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.setClass(Employee.class);
             methodFailed("setClass()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -132,7 +132,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.setFilter("firstname == 'emp1First'");
             methodFailed("setFilter()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -140,7 +140,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.declareVariables("Employee emp");
             methodFailed("declareVariables()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -148,7 +148,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.declareParameters("Employee emp");
             methodFailed("declareParameters()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -156,7 +156,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.declareImports("import org.apache.jdo.tck.pc.company.Employee");
             methodFailed("declareImports()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -164,7 +164,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.setGrouping("firstname");
             methodFailed("setGrouping()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     
@@ -172,7 +172,7 @@ public class UnmodifiableQuery extends QueryTest {
         try {
             query.setOrdering("firstname ASCENDING");
             methodFailed("setOrdering()");
-        } catch (JDOUserException e) {
+        } catch (JDOUserException ignored) {
         }
     }
     

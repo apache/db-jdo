@@ -88,7 +88,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         } 
         finally {
             if (oos != null) {
-                try { oos.close();} catch(Exception ex) {}
+                try { oos.close();} catch(Exception ignored) {}
             }
         }
     }
@@ -117,7 +117,7 @@ public class GetPersistenceManagerFromRestoredSerializedQuery
         } 
         finally {
             if (ois != null) {
-                try { ois.close(); } catch(Exception ex) {}
+                try { ois.close(); } catch(Exception ignored) {}
             }
         }
 
