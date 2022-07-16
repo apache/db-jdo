@@ -66,6 +66,7 @@ public class InstanceLifecycleListenerStore
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -101,9 +102,9 @@ public class InstanceLifecycleListenerStore
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION2_FAILED, new int[] {
-                listener.PRE_STORE_LISTENER,
-                listener.PRE_STORE_CALLBACK,
-                listener.POST_STORE_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_STORE_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_STORE_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_STORE_LISTENER});
     }
     
     /** 
@@ -148,7 +149,7 @@ public class InstanceLifecycleListenerStore
 
         public void jdoPreStore() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_STORE_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_STORE_CALLBACK);
             }
         }
     }

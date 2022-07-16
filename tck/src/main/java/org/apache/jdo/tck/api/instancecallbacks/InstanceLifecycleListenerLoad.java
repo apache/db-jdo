@@ -58,6 +58,7 @@ public class InstanceLifecycleListenerLoad
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -98,8 +99,8 @@ public class InstanceLifecycleListenerLoad
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION2_FAILED, new int[] {
-                listener.POST_LOAD_CALLBACK,
-                listener.POST_LOAD_LISTENER});
+                InstanceLifecycleListenerImpl.POST_LOAD_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_LOAD_LISTENER});
     }
     
     /** 
@@ -142,7 +143,7 @@ public class InstanceLifecycleListenerLoad
 
         public void jdoPostLoad() {
             if (listener != null) {
-                listener.notifyEvent(listener.POST_LOAD_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.POST_LOAD_CALLBACK);
             }
         }
     }

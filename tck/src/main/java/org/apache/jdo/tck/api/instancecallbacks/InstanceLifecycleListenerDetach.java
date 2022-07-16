@@ -62,6 +62,7 @@ public class InstanceLifecycleListenerDetach
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -100,9 +101,9 @@ public class InstanceLifecycleListenerDetach
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION11_FAILED, new int[] {
-                listener.PRE_DETACH_LISTENER,
-                listener.PRE_DETACH_CALLBACK,
-                listener.POST_DETACH_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_DETACH_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_DETACH_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_DETACH_LISTENER});
     }
     
     /** 
@@ -165,7 +166,7 @@ public class InstanceLifecycleListenerDetach
  
         public void jdoPreDetach() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_DETACH_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_DETACH_CALLBACK);
             }
         }
         public void jdoPostDetach(Object obj) {

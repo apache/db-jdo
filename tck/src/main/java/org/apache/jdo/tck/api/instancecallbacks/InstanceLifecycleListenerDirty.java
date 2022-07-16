@@ -63,6 +63,7 @@ public class InstanceLifecycleListenerDirty
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PCPoint.class};
 
     /** Return the persistent classes.
@@ -102,8 +103,8 @@ public class InstanceLifecycleListenerDirty
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION10_FAILED, new int[] {
-                listener.PRE_DIRTY_LISTENER,
-                listener.POST_DIRTY_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_DIRTY_LISTENER,
+                InstanceLifecycleListenerImpl.POST_DIRTY_LISTENER});
     }
     
     /** 

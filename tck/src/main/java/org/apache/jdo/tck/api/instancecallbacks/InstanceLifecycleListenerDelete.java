@@ -64,6 +64,7 @@ public class InstanceLifecycleListenerDelete
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -101,9 +102,9 @@ public class InstanceLifecycleListenerDelete
 
         // now check the callback and listeners were called
         listener.verifyCallbacks(ASSERTION7_FAILED, (new int[] {
-                listener.PRE_DELETE_LISTENER,
-                listener.PRE_DELETE_CALLBACK,
-                listener.POST_DELETE_LISTENER}));
+                InstanceLifecycleListenerImpl.PRE_DELETE_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_DELETE_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_DELETE_LISTENER}));
     }
     
     /** 
@@ -153,7 +154,7 @@ public class InstanceLifecycleListenerDelete
 
         public void jdoPreDelete() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_DELETE_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_DELETE_CALLBACK);
             }
         }
     }

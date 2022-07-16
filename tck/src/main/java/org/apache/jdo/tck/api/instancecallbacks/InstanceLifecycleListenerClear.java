@@ -64,6 +64,7 @@ public class InstanceLifecycleListenerClear
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private final static Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -102,9 +103,9 @@ public class InstanceLifecycleListenerClear
 
         // now check the callback and listeners were called
         listener.verifyCallbacks(ASSERTION5_FAILED, new int[] {
-                listener.PRE_CLEAR_LISTENER,
-                listener.PRE_CLEAR_CALLBACK,
-                listener.POST_CLEAR_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_CLEAR_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_CLEAR_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_CLEAR_LISTENER});
     }
     
     /** 
@@ -151,7 +152,7 @@ public class InstanceLifecycleListenerClear
 
         public void jdoPreClear() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_CLEAR_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_CLEAR_CALLBACK);
             }
         }
     }

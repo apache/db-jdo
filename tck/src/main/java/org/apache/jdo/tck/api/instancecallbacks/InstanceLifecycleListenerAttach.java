@@ -61,6 +61,7 @@ public class InstanceLifecycleListenerAttach
     /**
      * The persistent classes used for this test.
      */
+    @SuppressWarnings("rawtypes")
     private static final Class<?>[] persistentClasses = new Class[] {PC.class};
 
     /** Return the persistent classes.
@@ -102,9 +103,9 @@ public class InstanceLifecycleListenerAttach
 
         // now check the callback and listener were called
         listener.verifyCallbacks(ASSERTION13_FAILED, new int[] {
-                listener.PRE_ATTACH_LISTENER,
-                listener.PRE_ATTACH_CALLBACK,
-                listener.POST_ATTACH_LISTENER});
+                InstanceLifecycleListenerImpl.PRE_ATTACH_LISTENER,
+                InstanceLifecycleListenerImpl.PRE_ATTACH_CALLBACK,
+                InstanceLifecycleListenerImpl.POST_ATTACH_LISTENER});
     }
     
     /** 
@@ -164,7 +165,7 @@ public class InstanceLifecycleListenerAttach
 
         public void jdoPreAttach() {
             if (listener != null) {
-                listener.notifyEvent(listener.PRE_ATTACH_CALLBACK);
+                listener.notifyEvent(InstanceLifecycleListenerImpl.PRE_ATTACH_CALLBACK);
             }
         }
         public void jdoPostAttach(Object obj) {
