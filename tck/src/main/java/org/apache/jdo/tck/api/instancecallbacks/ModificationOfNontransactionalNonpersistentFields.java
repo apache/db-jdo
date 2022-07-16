@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.api.instancecallbacks;
 
-import java.util.Iterator;
-
 import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;

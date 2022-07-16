@@ -18,8 +18,6 @@
 
 package org.apache.jdo.tck.models.inheritance;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;

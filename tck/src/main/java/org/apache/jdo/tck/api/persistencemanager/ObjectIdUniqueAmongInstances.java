@@ -19,7 +19,6 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.jdo.Transaction;

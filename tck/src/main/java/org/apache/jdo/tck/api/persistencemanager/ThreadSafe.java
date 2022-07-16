@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 

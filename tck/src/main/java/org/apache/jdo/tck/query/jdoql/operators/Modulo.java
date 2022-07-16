@@ -24,7 +24,6 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;

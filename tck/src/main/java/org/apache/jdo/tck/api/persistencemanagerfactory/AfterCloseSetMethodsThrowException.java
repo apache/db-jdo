@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 
 import java.lang.reflect.Method;
 

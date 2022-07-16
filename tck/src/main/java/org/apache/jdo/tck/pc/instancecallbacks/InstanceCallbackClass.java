@@ -21,7 +21,6 @@ package org.apache.jdo.tck.pc.instancecallbacks;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.jdo.Extent;

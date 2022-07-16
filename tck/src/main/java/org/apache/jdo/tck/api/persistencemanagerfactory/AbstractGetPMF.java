@@ -20,7 +20,6 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.lang.reflect.Method;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;

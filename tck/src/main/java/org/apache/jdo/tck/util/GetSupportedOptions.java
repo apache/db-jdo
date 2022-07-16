@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import javax.jdo.PersistenceManagerFactory;
 
 public class GetSupportedOptions {

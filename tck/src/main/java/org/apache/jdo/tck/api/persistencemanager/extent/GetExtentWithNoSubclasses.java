@@ -17,8 +17,6 @@
 
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
-import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;

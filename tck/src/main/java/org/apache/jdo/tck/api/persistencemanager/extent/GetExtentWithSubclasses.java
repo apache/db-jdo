@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;

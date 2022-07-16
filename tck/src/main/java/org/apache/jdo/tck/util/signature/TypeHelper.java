@@ -17,7 +17,6 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.Map;
 import java.util.Arrays;
