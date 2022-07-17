@@ -63,9 +63,8 @@ public class ThreadSafe extends PersistenceManagerTest {
 
     /**
      *
-     * @throws Exception exception
      */
-    public void testThreadSafe() throws Exception  {
+    public void testThreadSafe() {
         if (debug) logger.debug("\nSTART testThreadSafe");
         
         // test thread-safety of PMF.getPersistenceManager():

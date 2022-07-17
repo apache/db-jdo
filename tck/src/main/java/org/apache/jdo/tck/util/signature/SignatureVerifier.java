@@ -379,117 +379,130 @@ public class SignatureVerifier {
         final Object exp;
         Class<?> expClass;
         final boolean ok;
-        if (type.equals("byte")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(byte.class);
-            } else {
-                ok = Byte.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("boolean")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(boolean.class);
-            } else {
-                ok = Boolean.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("short")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(short.class);
-            } else {
-                ok = Short.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("int")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(int.class);
-            } else {
-                ok = Integer.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("long")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(long.class);
-            } else {
-                ok = Long.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("float")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(float.class);
-            } else {
-                ok = Float.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("double")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(double.class);
-            } else {
-                ok = Double.valueOf(value).equals(actual);
-            }
-        } else if (type.equals("char")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(char.class);
-            } else {
-                ok = Character.valueOf(value.charAt(1)).equals(actual);
-            }
-        // next check Class
-        } else if (type.equals("java.lang.Class")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(Class.class);
-            } else {
-                // strip ".class" from type name
-                int offset = value.indexOf(".class");
-                value = value.substring(0, offset);
-                ok = getClass(value).equals(actual);
-            }
-        // next check String
-        } else if (type.equals("java.lang.String")) {
-            if (isArray) {
-                ok = actual.getClass().getComponentType().equals(String.class);
-            } else {
-                // cut off '\"' chars at begin and end
-                final String s;
-                if (value.length() > 1) {
-                    s = value.substring(1, value.length() - 1);
+        switch (type) {
+            case "byte":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(byte.class);
                 } else {
-                    s = "";
+                    ok = Byte.valueOf(value).equals(actual);
                 }
-                ok = s.equals(actual);
-            }
-        // now check non-java.lang annotations and enums
-        } else {
-            expClass = getClass(type);
-            if (isArray) {
-                // check if the actual component type is the right class
-                // don't check the actual values because only empty arrays
-                // are supported.
-                ok = actual.getClass().getComponentType().equals(expClass);
-            } else if (expClass == null) {
-                System.out.println("WARNING : checkValue value=" + value + " type=" + type + " comes up with null class");
-                ok = false;
-            } else if (expClass.isAnnotation()) {
-                // check whether the type isAssignableFrom the class of the actual value, 
-                // if type is an annotation. The actual value is a dynamic proxy, 
-                // so an equals comparison does not work. 
-                ok = expClass.isAssignableFrom(actual.getClass());
-            } else {
-                // get the actual value which must be a static class.field
-                Object expectedValue = null;
-                try {
-                    // now get actual value
-                    // separate value name into class and field name
-                    int lastDot = value.lastIndexOf(".");
-                    String expectedClassName = value.substring(0, lastDot);
-                    String expectedFieldName = 
-                            value.substring(lastDot + 1);
-                    // get Class object from class name
-                    Class<?> expectedClass = getClass(expectedClassName);
-                    if (expectedClass == null) 
-                        throw new ClassNotFoundException();
-                    // get Field object from Class and field name
-                    Field expectedField = 
-                            expectedClass.getField(expectedFieldName);
-                    expectedValue = expectedField.get(null);
-                } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException | SecurityException ex) {
-                    handleNotLoading(ex);
+                break;
+            case "boolean":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(boolean.class);
+                } else {
+                    ok = Boolean.valueOf(value).equals(actual);
                 }
-                ok = expectedValue.equals(actual);
-            }
+                break;
+            case "short":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(short.class);
+                } else {
+                    ok = Short.valueOf(value).equals(actual);
+                }
+                break;
+            case "int":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(int.class);
+                } else {
+                    ok = Integer.valueOf(value).equals(actual);
+                }
+                break;
+            case "long":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(long.class);
+                } else {
+                    ok = Long.valueOf(value).equals(actual);
+                }
+                break;
+            case "float":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(float.class);
+                } else {
+                    ok = Float.valueOf(value).equals(actual);
+                }
+                break;
+            case "double":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(double.class);
+                } else {
+                    ok = Double.valueOf(value).equals(actual);
+                }
+                break;
+            case "char":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(char.class);
+                } else {
+                    ok = Character.valueOf(value.charAt(1)).equals(actual);
+                }
+                // next check Class
+                break;
+            case "java.lang.Class":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(Class.class);
+                } else {
+                    // strip ".class" from type name
+                    int offset = value.indexOf(".class");
+                    value = value.substring(0, offset);
+                    ok = getClass(value).equals(actual);
+                }
+                // next check String
+                break;
+            case "java.lang.String":
+                if (isArray) {
+                    ok = actual.getClass().getComponentType().equals(String.class);
+                } else {
+                    // cut off '\"' chars at begin and end
+                    final String s;
+                    if (value.length() > 1) {
+                        s = value.substring(1, value.length() - 1);
+                    } else {
+                        s = "";
+                    }
+                    ok = s.equals(actual);
+                }
+                // now check non-java.lang annotations and enums
+                break;
+            default:
+                expClass = getClass(type);
+                if (isArray) {
+                    // check if the actual component type is the right class
+                    // don't check the actual values because only empty arrays
+                    // are supported.
+                    ok = actual.getClass().getComponentType().equals(expClass);
+                } else if (expClass == null) {
+                    System.out.println("WARNING : checkValue value=" + value + " type=" + type + " comes up with null" +
+                            " class");
+                    ok = false;
+                } else if (expClass.isAnnotation()) {
+                    // check whether the type isAssignableFrom the class of the actual value,
+                    // if type is an annotation. The actual value is a dynamic proxy,
+                    // so an equals comparison does not work.
+                    ok = expClass.isAssignableFrom(actual.getClass());
+                } else {
+                    // get the actual value which must be a static class.field
+                    Object expectedValue = null;
+                    try {
+                        // now get actual value
+                        // separate value name into class and field name
+                        int lastDot = value.lastIndexOf(".");
+                        String expectedClassName = value.substring(0, lastDot);
+                        String expectedFieldName =
+                                value.substring(lastDot + 1);
+                        // get Class object from class name
+                        Class<?> expectedClass = getClass(expectedClassName);
+                        if (expectedClass == null)
+                            throw new ClassNotFoundException();
+                        // get Field object from Class and field name
+                        Field expectedField =
+                                expectedClass.getField(expectedFieldName);
+                        expectedValue = expectedField.get(null);
+                    } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException | SecurityException ex) {
+                        handleNotLoading(ex);
+                    }
+                    ok = expectedValue.equals(actual);
+                }
+                break;
         }
         // return message if not ok
         if (ok) return null;
@@ -1405,28 +1418,61 @@ public class SignatureVerifier {
         protected int parseModifiers()
             throws IOException, ParseException {
             int m = 0;
+            label:
             while (true) {
                 // parse known modifiers
                 final String t = parseToken();
-                if      (t.equals("abstract")) m |= Modifier.ABSTRACT;
-                else if (t.equals("annotation")) m |= 
-                        (ANNOTATION + Modifier.ABSTRACT + Modifier.INTERFACE);
-                else if (t.equals("enum")) m |= ENUM;
-                else if (t.equals("final")) m |= Modifier.FINAL;
-                else if (t.equals("interface")) m |= Modifier.INTERFACE;
-                else if (t.equals("native")) m |= Modifier.NATIVE;
-                else if (t.equals("private")) m |= Modifier.PRIVATE;
-                else if (t.equals("protected")) m |= Modifier.PROTECTED;
-                else if (t.equals("public")) m |= Modifier.PUBLIC;
-                else if (t.equals("static")) m |= Modifier.STATIC;
-                else if (t.equals("strictfp")) m |= Modifier.STRICT;
-                else if (t.equals("synchronized")) m |= Modifier.SYNCHRONIZED;
-                else if (t.equals("transient")) m |= Modifier.TRANSIENT;
-                else if (t.equals("varargs")) m |= Modifier.TRANSIENT;
-                else if (t.equals("volatile")) m |= Modifier.VOLATILE;
-                else {
-                    setLookAhead(t); // not a modifier
-                    break;
+                switch (t) {
+                    case "abstract":
+                        m |= Modifier.ABSTRACT;
+                        break;
+                    case "annotation":
+                        m |=
+                                (ANNOTATION + Modifier.ABSTRACT + Modifier.INTERFACE);
+                        break;
+                    case "enum":
+                        m |= ENUM;
+                        break;
+                    case "final":
+                        m |= Modifier.FINAL;
+                        break;
+                    case "interface":
+                        m |= Modifier.INTERFACE;
+                        break;
+                    case "native":
+                        m |= Modifier.NATIVE;
+                        break;
+                    case "private":
+                        m |= Modifier.PRIVATE;
+                        break;
+                    case "protected":
+                        m |= Modifier.PROTECTED;
+                        break;
+                    case "public":
+                        m |= Modifier.PUBLIC;
+                        break;
+                    case "static":
+                        m |= Modifier.STATIC;
+                        break;
+                    case "strictfp":
+                        m |= Modifier.STRICT;
+                        break;
+                    case "synchronized":
+                        m |= Modifier.SYNCHRONIZED;
+                        break;
+                    case "transient":
+                        m |= Modifier.TRANSIENT;
+                        break;
+                    case "varargs":
+                        m |= Modifier.TRANSIENT;
+                        break;
+                    case "volatile":
+                        m |= Modifier.VOLATILE;
+                        break;
+                    default:
+                        setLookAhead(t); // not a modifier
+
+                        break label;
                 }
             }
             //log.println("parseModifiers() : '" + Modifier.toString(m) + "'");
@@ -1581,37 +1627,45 @@ public class SignatureVerifier {
             final String[] excepts;
             {
                 final String tvp = parseToken();
-                if (tvp.equals(";")) {
-                    value = null;
-                    params = null;
-                    excepts = null;
-                } else if (tvp.equals("=")) {
-                    // parse field value
-                    value = demandLiteral();
-                    demandToken(";");
-                    params = null;
-                    excepts = null;
-                } else if (tvp.equals("(")) {
-                    // parse optional parameter and exception list
-                    params = parseParameterList();
-                    demandToken(")");
-                    final String tt = parseToken();
-                    if (tt.equals("throws")) {
-                        excepts = demandIdentifierList();
-                        demandToken(";");
+                switch (tvp) {
+                    case ";":
                         value = null;
-                    } else if (tt.equals(";")) {
-                        excepts = new String[]{};
-                        value = null;
-                    } else if (tt.equals("default")) {
-                        value = demandElementValue();
+                        params = null;
+                        excepts = null;
+                        break;
+                    case "=":
+                        // parse field value
+                        value = demandLiteral();
                         demandToken(";");
-                        excepts = new String[]{};
-                    } else {
-                        throw new ParseException(msgUnexpectedToken(tt), 0);
-                    }
-                } else {
-                    throw new ParseException(msgUnexpectedToken(tvp), 0);
+                        params = null;
+                        excepts = null;
+                        break;
+                    case "(":
+                        // parse optional parameter and exception list
+                        params = parseParameterList();
+                        demandToken(")");
+                        final String tt = parseToken();
+                        switch (tt) {
+                            case "throws":
+                                excepts = demandIdentifierList();
+                                demandToken(";");
+                                value = null;
+                                break;
+                            case ";":
+                                excepts = new String[]{};
+                                value = null;
+                                break;
+                            case "default":
+                                value = demandElementValue();
+                                demandToken(";");
+                                excepts = new String[]{};
+                                break;
+                            default:
+                                throw new ParseException(msgUnexpectedToken(tt), 0);
+                        }
+                        break;
+                    default:
+                        throw new ParseException(msgUnexpectedToken(tvp), 0);
                 }
             }
         

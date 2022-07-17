@@ -252,7 +252,7 @@ public abstract class JDO_Test extends TestCase {
     }
 
     @Override
-    protected final void setUp() throws Exception {
+    protected final void setUp() {
         if (!preSetUp()) {
             return;
         }
