@@ -89,14 +89,11 @@ public class NoAccessToFieldsAfterPredelete extends JDO_Test {
         // relocte object.
         try {
             a = (InstanceCallbackClass)pm.getObjectById(aId, true);
-        } catch (JDOUserException e) {
-            fail(ASSERTION_FAILED, "NoAccessToFieldsAfterPredelete:  Could not locate persistent object created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             fail(ASSERTION_FAILED, "NoAccessToFieldsAfterPredelete:  Could not locate persistent object created in previous transaction, got " + e);
             return;
         }
-        
+
         pm.deletePersistent(a);
         performAccessFieldTests("Object in state persistent-deleted:  ", a);
         

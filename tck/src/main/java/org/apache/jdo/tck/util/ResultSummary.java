@@ -141,11 +141,7 @@ public class ResultSummary implements Serializable {
             }
         } catch (FileNotFoundException e) {
             result = null;
-        } catch (IOException e) {
-            throw new JDOFatalException(
-                    "Cannot deserialize result summary in file "
-                    +fileName, e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new JDOFatalException(
                     "Cannot deserialize result summary in file "
                     +fileName, e);

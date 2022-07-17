@@ -126,11 +126,7 @@ public class CallingJdoPrestore extends JDO_Test {
             obj1.setNonManaged(-1, (char)62);
             expectedIntValue1 = obj1.calcIntValue();
             expectedFloatValue1 = obj1.calcFloatValue();
-        } catch (JDOUserException e) {
-            // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj1 created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj1 created in previous transaction, got " + e);
             return;
@@ -148,11 +144,7 @@ public class CallingJdoPrestore extends JDO_Test {
             
             // change obj2 making it persistent dirty (leave obj1 persistent clean).
             obj2.incrementIntValue();
-        } catch (JDOUserException e) {
-            // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj2 created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj2 created in previous transaction, got " + e);
             return;
@@ -167,25 +159,17 @@ public class CallingJdoPrestore extends JDO_Test {
             obj1 = (InstanceCallbackNonPersistFdsClass)pm.getObjectById(objPtr1, true);
             checkValues("Object1, did not expect jdoPreStore to be called:  ", origIntValue1, origIntValue1, obj1.intValue);
             checkValues("Object1, did not expect jdoPreStore to be called:  ", origFloatValue1, origFloatValue1, obj1.floatValue);
-        } catch (JDOUserException e) {
-            // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj1 created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj1 created in previous transaction, got " + e);
             return;
         }
-        
+
         try {
             obj2 = (InstanceCallbackNonPersistFdsClass)pm.getObjectById(objPtr2, true);
             checkValues("Object2, expected jdoPreStore() to be called:  ", origIntValue2, expectedIntValue2, obj2.intValue);
             checkValues("Object2, expected jdoPreStore() to be called:  ", origFloatValue2, expectedFloatValue2, obj2.floatValue);
-        } catch (JDOUserException e) {
-            // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj2 created in previous transaction, got " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "CallingJdoPrestore: Failed to find object obj2 created in previous transaction, got " + e);
             return;

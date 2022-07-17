@@ -98,16 +98,12 @@ public class CallingJdoPostload extends JDO_Test {
         InstanceCallbackNonPersistFdsClass.applicationStep = InstanceCallbackNonPersistFdsClass.beforeGetObjectById;
         try {
             obj1 = (InstanceCallbackNonPersistFdsClass)pm.getObjectById(objPtr1, true);  // jdoPreLoad() called
-        } catch (JDOUserException e) {
-            // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "CallingJdoPostload:  Could not locate persistent object obj1 created in previous transaction " + e);
-            return;
-        } catch (JDODataStoreException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "CallingJdoPostload:  Could not locate persistent object obj1 created in previous transaction " + e);
             return;
         }
-        
+
         int objectState = currentState(obj1);        
         // expect state to be hollow or persistent-clean
         if(objectState != HOLLOW && objectState != PERSISTENT_CLEAN) {

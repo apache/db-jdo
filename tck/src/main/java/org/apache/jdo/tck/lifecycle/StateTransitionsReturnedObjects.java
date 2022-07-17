@@ -422,9 +422,7 @@ public class StateTransitionsReturnedObjects extends JDO_Test {
                     ois = new ObjectInputStream(new ByteArrayInputStream(
                             byteArrayOutputStream.toByteArray()));
                     result = ois.readObject();
-                } catch (IOException e) {
-                    throw new JDOFatalException(e.getMessage(), e);
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     throw new JDOFatalException(e.getMessage(), e);
                 } finally {
                     try {

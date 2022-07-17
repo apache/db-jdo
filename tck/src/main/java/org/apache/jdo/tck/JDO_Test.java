@@ -278,18 +278,11 @@ public abstract class JDO_Test extends TestCase {
             setUp();
             runTest();
             testSucceeded = true;
-        }
-        catch (AssertionFailedError e) {
+        } catch (Throwable e) {
             if (logger.isInfoEnabled())
                 logger.info("Exception during setUp or runtest: ", e);
             throw e;
-        }
-        catch (Throwable t) {
-            if (logger.isInfoEnabled())
-                logger.info("Exception during setUp or runtest: ", t);
-            throw t;
-        }
-        finally {
+        } finally {
             tearDown();
             if (debug) {
                 logger.debug("Free memory: " + Runtime.getRuntime().freeMemory());

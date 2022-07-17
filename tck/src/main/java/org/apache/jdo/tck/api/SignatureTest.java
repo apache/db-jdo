@@ -107,11 +107,7 @@ public class SignatureTest extends JDO_Test {
             if (debug) {
                 logger.debug(sw.toString());
             }
-        } catch (IOException ex) {
-            fail(ASSERTION_FAILED,
-                 ("Exception caught: " + ex + NEWLINE
-                  + "Test Output: " + NEWLINE + sw));
-        } catch (ParseException ex) {
+        } catch (IOException | ParseException ex) {
             fail(ASSERTION_FAILED,
                  ("Exception caught: " + ex + NEWLINE
                   + "Test Output: " + NEWLINE + sw));

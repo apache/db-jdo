@@ -348,10 +348,8 @@ public class SignatureVerifier {
             final String r = TypeHelper.reflectionTypeName(userTypeName);
             cls = Class.forName(r, false, classLoader);
             loading.add(userTypeName);
-        } catch (LinkageError err) {
+        } catch (LinkageError | ClassNotFoundException err) {
             handleNotLoading(err);
-        } catch (ClassNotFoundException ex) {
-            handleNotLoading(ex);
         }
         return cls;
     }
@@ -487,15 +485,7 @@ public class SignatureVerifier {
                     Field expectedField = 
                             expectedClass.getField(expectedFieldName);
                     expectedValue = expectedField.get(null);
-                } catch (NoSuchFieldException ex) {
-                    handleNotLoading(ex);
-                } catch (SecurityException ex) {
-                    handleNotLoading(ex);
-                } catch (IllegalArgumentException ex) {
-                    handleNotLoading(ex);
-                } catch (IllegalAccessException ex) {
-                    handleNotLoading(ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException | SecurityException ex) {
                     handleNotLoading(ex);
                 }
                 ok = expectedValue.equals(actual);

@@ -90,16 +90,12 @@ public class ModificationOfNontransactionalNonpersistentFields extends JDO_Test 
         t.begin();
         try {
             obj1 = (InstanceCallbackNonPersistFdsClass)pm.getObjectById(objPtr1, true);  // jdoPostLoad() called
-        } catch (JDOUserException e) {
+        } catch (JDOUserException | JDODataStoreException e) {
             // could not locate persistent object created in previous transaction
             fail(ASSERTION_FAILED, "ModificationOfNontransactionalNonpersistentFields:  Could not locate persistent object obj1 created in previous transaction, got " + e);
             return;
-        } catch (JDODataStoreException e) {
-           // could not locate persistent object created in previous transaction
-            fail(ASSERTION_FAILED, "ModificationOfNontransactionalNonpersistentFields:  Could not locate persistent object obj1 created in previous transaction, got " + e);
-            return;
         }
-        
+
         // check fields set in jdoPostLoad()
         if(obj1.i != -10) {
             fail(ASSERTION_FAILED, "jdoPostLoad:  Value incorrect, obj1.i != -10; it is " + obj1.i);
