@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class FCAppDentalInsurance extends FCAppInsurance implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="LIFETIME_ORTHO_BENEFIT")
     private BigDecimal lifetimeOrthoBenefit;
 

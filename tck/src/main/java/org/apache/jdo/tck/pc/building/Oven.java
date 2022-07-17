@@ -23,6 +23,8 @@ import java.io.Serializable;
  */
 public class Oven implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /** Manufacturer of the appliance. */
     protected String make;
 

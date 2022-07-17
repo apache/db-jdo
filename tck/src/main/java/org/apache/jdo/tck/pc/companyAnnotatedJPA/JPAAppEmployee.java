@@ -42,6 +42,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 @Table(name="employees")
 public abstract class JPAAppEmployee extends JPAAppPerson implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="HIREDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date             hiredate;

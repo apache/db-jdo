@@ -92,6 +92,9 @@ WY("WYOMING");
     }
 
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
         
         public Oid() {

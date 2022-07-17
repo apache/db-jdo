@@ -25,6 +25,9 @@ import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 public class Order implements Serializable, Comparable<Order>, Comparator<Order>, DeepEquality {
+
+    private static final long serialVersionUID = 1L;
+
     long orderId;
     Set<OrderItem> items;
     long customerId;
@@ -128,12 +131,17 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
         return false;
     }
 
+
+
     /**
      * The class to be used as the application identifier
      * for the <code>Order</code> class. It consists of both the orderId 
      * field.
      */
     public static class OrderOid implements Serializable, Comparable<OrderOid> {
+
+        private static final long serialVersionUID = 1L;
+
         public long orderId;
 
         /** The required public no-arg constructor. */
@@ -148,6 +156,7 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
         }
         
         /** */
+        @Override
         public boolean equals(Object obj) {
             if (obj == null || !this.getClass().equals(obj.getClass())) 
                 return false;
@@ -159,6 +168,7 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
         }
 
         /** */
+        @Override
         public int hashCode() {
             return (int)orderId;
         }

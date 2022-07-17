@@ -32,6 +32,8 @@ import javax.jdo.annotations.PersistenceCapable;
 public class MeetingRoom
     implements IMeetingRoom, Serializable, Comparable<IMeetingRoom>, Comparator<IMeetingRoom>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     private long    roomid;
     private String  name;
 
@@ -177,6 +179,8 @@ public class MeetingRoom
      * for the <code>MeetingRoom</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This is the identifier field for <code>MeetingRoom</code> and must

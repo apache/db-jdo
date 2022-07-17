@@ -41,6 +41,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 @PersistenceCapable(table="persons")
 public abstract class FCDSEmployee extends FCDSPerson implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="HIREDATE")
     private Date             hiredate;
     @Column(name="WEEKLYHOURS")

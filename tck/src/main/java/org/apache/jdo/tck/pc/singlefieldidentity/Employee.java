@@ -26,6 +26,8 @@ import java.util.Date;
  */
 public abstract class Employee extends Person {
 
+    private static final long serialVersionUID = 1L;
+
     private Date             hiredate;
     private double           weeklyhours;
 

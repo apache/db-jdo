@@ -44,9 +44,11 @@ import org.apache.commons.logging.impl.Jdk14Logger;
 public class JDOJdk14Logger
     extends Jdk14Logger
 {
+    private static final long serialVersionUID = 1L;
+
     /** Logging properties file name. */
     public static final String PROPERIES_FILE = "logging.properties";
-    
+
     /** Indicates whether JDK 1.4 logging has been configured by this class. */
     private static boolean configured = false;
 

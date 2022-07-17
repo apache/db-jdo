@@ -42,6 +42,9 @@ public class TopNonPersistB extends TopNonPersist {  //  persistent
     }
     
     public static class Id implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int keyValue;
 
         public Id() {

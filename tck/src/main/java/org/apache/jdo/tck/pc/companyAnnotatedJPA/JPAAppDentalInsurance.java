@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class JPAAppDentalInsurance extends JPAAppInsurance
     implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="LIFETIME_ORTHO_BENEFIT")
     private BigDecimal lifetimeOrthoBenefit;
 

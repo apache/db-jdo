@@ -25,6 +25,9 @@ import org.apache.jdo.tck.util.EqualityHelper;
  * This class represents a part-time employee.
  */
 public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
+
+    private static final long serialVersionUID = 1L;
+
     private double wage;
 
     /** This is the JDO-required no-args constructor. The TCK relies on

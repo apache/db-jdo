@@ -41,6 +41,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
 public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private Date             _hiredate;
     @NotPersistent()

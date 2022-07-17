@@ -40,6 +40,8 @@ import javax.jdo.annotations.PersistenceCapable;
 public class Company
     implements ICompany, Serializable, Comparable<ICompany>, Comparator<ICompany>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     private long        companyid;
     private String      name;
     private Date        founded;
@@ -288,6 +290,8 @@ public class Company
      * name and the date that the company was founded.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field is part of the identifier and should match in name

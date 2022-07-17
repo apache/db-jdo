@@ -30,6 +30,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @Entity
 public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="PLANTYPE")
     private String planType; // possible values: "PPO", "EPO", "NPO" 
 

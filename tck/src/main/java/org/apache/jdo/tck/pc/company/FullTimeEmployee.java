@@ -29,6 +29,8 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     private double  salary;
 
     /** This is the JDO-required no-args constructor. The TCK relies on

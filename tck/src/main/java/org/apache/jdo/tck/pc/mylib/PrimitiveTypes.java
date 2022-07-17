@@ -26,6 +26,8 @@ import java.util.Date;
 @PersistenceCapable
 public class PrimitiveTypes implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (PrimitiveTypes.class) {
@@ -359,6 +361,8 @@ public class PrimitiveTypes implements Serializable {
     }
     
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         public long id;
 

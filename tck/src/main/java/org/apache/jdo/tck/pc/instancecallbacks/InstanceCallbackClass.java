@@ -202,6 +202,9 @@ public class InstanceCallbackClass implements InstanceCallbacks {
     }
     
 public static class KeyClass implements Serializable, Comparable<KeyClass> {
+
+    private static final long serialVersionUID = 1L;
+
     public int keyValue;
 
     public KeyClass() {

@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCDSDentalInsurance extends PCDSInsurance
         implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private BigDecimal _lifetimeOrthoBenefit;
 

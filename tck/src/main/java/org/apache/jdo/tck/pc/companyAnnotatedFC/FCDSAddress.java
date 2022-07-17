@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCDSAddress 
     implements IAddress, Serializable, Comparable<IAddress>, Comparator<IAddress>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     private long    addrid;
     private String  street;
     private String  city;
@@ -265,6 +267,8 @@ public class FCDSAddress
      * for the <code>Address</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This is the identifier field for <code>Address</code> and must

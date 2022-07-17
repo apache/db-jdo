@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
  */
 public abstract class Employee extends Person implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     private Date             hiredate;
     private double           weeklyhours;
     private Department       department;

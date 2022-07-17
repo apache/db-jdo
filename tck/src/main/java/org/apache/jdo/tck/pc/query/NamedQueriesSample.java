@@ -30,6 +30,9 @@ import java.io.Serializable;
 @Query(name="NameIsJohn", value="SELECT FROM org.apache.jdo.tck.pc.query.NamedQueriesSample WHERE name == 'John'")
 @Query(name="NameIsFred", value="SELECT FROM org.apache.jdo.tck.pc.query.NamedQueriesSample WHERE name == 'Fred'")
 public class NamedQueriesSample implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
     @PrimaryKey
 	long id;
 

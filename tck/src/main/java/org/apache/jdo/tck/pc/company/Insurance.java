@@ -34,6 +34,8 @@ import javax.jdo.annotations.PersistenceCapable;
 public abstract class Insurance
     implements IInsurance, Serializable, Comparable<IInsurance>, Comparator<IInsurance>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     private long     insid;
     private String   carrier;
     private Employee employee;
@@ -205,8 +207,10 @@ public abstract class Insurance
      * This class is used to represent the application
      * identifier for the <code>Insurance</code> class.
      */
-    public static class Oid implements Serializable, Comparable<Oid>
-    {
+    public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
+
         /**
          * This field represents the application identifier for the
          * <code>Insurance</code> class. It must match the field in the

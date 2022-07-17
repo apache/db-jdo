@@ -31,6 +31,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(table="persons")
 public class FCDSPartTimeEmployee extends FCDSEmployee implements IPartTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="WAGE")
     private double wage;
 

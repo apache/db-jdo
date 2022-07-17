@@ -36,6 +36,8 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public abstract class Employee extends Person implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     private Date             hiredate;
     private double           weeklyhours;
     private DentalInsurance  dentalInsurance;

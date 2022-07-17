@@ -280,6 +280,8 @@ public class Address
      */
     public static class Oid implements Serializable, Comparable<Oid> {
 
+        private static final long serialVersionUID = 1L;
+
         /**
          * This is the identifier field for <code>Address</code> and must
          * correspond in type and name to the field in

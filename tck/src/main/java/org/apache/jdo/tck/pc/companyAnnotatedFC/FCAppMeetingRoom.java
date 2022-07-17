@@ -36,6 +36,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCAppMeetingRoom 
     implements IMeetingRoom, Serializable, Comparable<IMeetingRoom>, Comparator<IMeetingRoom>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     @Persistent(primaryKey="true")
     @Column(name="ID")
     private long    roomid;
@@ -184,6 +186,8 @@ public class FCAppMeetingRoom
      * for the <code>FCAppMeetingRoom</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This is the identifier field for <code>FCAppMeetingRoom</code> and must

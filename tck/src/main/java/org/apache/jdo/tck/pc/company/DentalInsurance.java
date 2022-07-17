@@ -30,6 +30,8 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public class DentalInsurance extends Insurance implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     private BigDecimal lifetimeOrthoBenefit;
 
     /** This is the JDO-required no-args constructor. The TCK relies on

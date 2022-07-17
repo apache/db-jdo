@@ -248,5 +248,7 @@ public class AutoCloseable extends QueryTest {
     /**
      * DummyException used in method testTryWithResourceThrowingException.
      */
-    private static final class DummyException extends Exception {}
+    private static final class DummyException extends Exception {
+        private static final long serialVersionUID = 1L;
+    }
 }

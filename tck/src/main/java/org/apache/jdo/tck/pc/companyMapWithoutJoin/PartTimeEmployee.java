@@ -27,6 +27,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
     private double wage;
 
+    private static final long serialVersionUID = 1L;
+
     /** This is the JDO-required no-args constructor. The TCK relies on
      * this constructor for testing PersistenceManager.newInstance(PCClass).
      */

@@ -44,6 +44,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCDSDepartment
     implements IDepartment, Serializable, Comparable<IDepartment>, Comparator<IDepartment>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     public static final int RECOMMENDED_NO_OF_EMPS = 2;
 
     @Column(name="ID")
@@ -367,6 +369,8 @@ public class FCDSDepartment
      * <code>Department</code> class. 
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the application identifier field 

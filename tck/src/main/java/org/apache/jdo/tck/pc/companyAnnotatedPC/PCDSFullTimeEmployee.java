@@ -33,6 +33,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCDSFullTimeEmployee extends PCDSEmployee
         implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private double _salary;
 

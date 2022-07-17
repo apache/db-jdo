@@ -46,6 +46,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 @ApplicationIdDiscriminatorClassName
 public abstract class FCAppEmployee extends FCAppPerson implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="HIREDATE")
     private Date             hiredate;
     @Column(name="WEEKLYHOURS")

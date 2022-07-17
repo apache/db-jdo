@@ -21,6 +21,9 @@ package org.apache.jdo.tck.pc.lifecycle;
 import java.io.Serializable;
 
 public class StateTransitionObj implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private static int counter = 0;
     
     private int      id;
@@ -73,6 +76,8 @@ public class StateTransitionObj implements Serializable {
      * for the <code>StateTransitionObj</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field is part of the identifier and should match in name

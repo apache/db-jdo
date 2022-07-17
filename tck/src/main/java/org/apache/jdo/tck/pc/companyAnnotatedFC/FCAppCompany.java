@@ -46,6 +46,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
     public class FCAppCompany 
     implements ICompany, Serializable, Comparable<ICompany>, Comparator<ICompany>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     @Persistent(primaryKey="true")
     @Column(name="ID")
     private long        companyid;
@@ -338,6 +340,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
      * name and the date that the company was founded.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field is part of the identifier and should match in name

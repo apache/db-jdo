@@ -341,7 +341,7 @@
             <id>warnings</id>
             <properties>
                 <showWarnings>true</showWarnings>
-		<compilerArgument>-Xlint:all</compilerArgument>
+		<compilerArgument>-Xlint:all,-try</compilerArgument>
             </properties>
         </profile>
     </profiles>

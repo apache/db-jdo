@@ -42,6 +42,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 @Inheritance(strategy=InheritanceStrategy.SUPERCLASS_TABLE)
 public abstract class PCAppEmployee extends PCAppPerson implements IEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private Date             _hiredate;
     @NotPersistent()

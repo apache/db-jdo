@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 
 public class LocalDateTimeSample implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private long id;
     private LocalDateTime localDateTime;
 

@@ -25,7 +25,9 @@ import javax.jdo.identity.SingleFieldIdentity;
  * @author Michael Watzek
  */
 public class PCPointSingleFieldInteger extends AbstractPCPointSingleField {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * Returns a unique value, used for primary key field initialization.
      * @return a unique value

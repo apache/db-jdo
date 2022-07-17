@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCAppPartTimeEmployee extends PCAppEmployee 
         implements IPartTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private double _wage;
 

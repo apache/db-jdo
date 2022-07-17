@@ -47,6 +47,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
     public class JPAAppProject 
     implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name="PROJID")
     private long projid;
@@ -314,6 +316,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
      * for the <code>JPAAppProject</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the

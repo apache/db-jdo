@@ -22,6 +22,8 @@ import java.io.Serializable;
  */
 public class Product implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /** Identity field when used with application identity */
     protected String sku;
 
@@ -68,6 +70,9 @@ public class Product implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public String sku;
 
         public Oid() {

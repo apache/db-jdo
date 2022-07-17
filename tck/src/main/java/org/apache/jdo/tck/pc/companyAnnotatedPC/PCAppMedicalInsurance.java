@@ -30,6 +30,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent
     private String _planType; // possible values: "PPO", "EPO", "NPO" 
 

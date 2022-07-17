@@ -33,6 +33,8 @@ import java.io.Serializable;
 //        name="DISCRIMINATOR")
 public class JPAAppPhoneNumber implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @ManyToOne
     @Column(name="EMPID")
@@ -137,6 +139,8 @@ public class JPAAppPhoneNumber implements Serializable {
      * for the <code>Person</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>

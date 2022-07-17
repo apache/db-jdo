@@ -30,6 +30,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class PCDSMedicalInsurance extends PCDSInsurance
         implements IMedicalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private String _planType; // possible values: "PPO", "EPO", "NPO" 
 

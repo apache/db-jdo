@@ -290,6 +290,9 @@ public static void load(PersistenceManager pm)
 }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public int id;
 
         public Oid() {

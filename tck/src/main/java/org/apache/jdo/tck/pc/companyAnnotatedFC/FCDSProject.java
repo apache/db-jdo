@@ -44,6 +44,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class FCDSProject 
     implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="PROJID")
     private long projid;
     @Column(name="NAME")
@@ -309,6 +311,8 @@ public class FCDSProject
      * for the <code>FCDSProject</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the

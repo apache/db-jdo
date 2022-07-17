@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @DatastoreIdentity(strategy=IdGeneratorStrategy.IDENTITY, column="DATASTORE_IDENTITY")
 public class PCDSPartTimeEmployee extends PCDSEmployee implements IPartTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private double _wage;
 

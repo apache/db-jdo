@@ -30,8 +30,10 @@ import javax.jdo.identity.SingleFieldIdentity;
  * @author Michael Watzek
  */
 public abstract class AbstractPCPointSingleField implements Serializable {
-    
-    /** 
+
+    private static final long serialVersionUID = 1L;
+
+    /**
      * This field is used by subclasses 
      * to compute the value of the primary key field.
      */ 

@@ -23,6 +23,8 @@ import java.io.Serializable;
  */ 
 public class CartEntry implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     protected static long nextId = System.currentTimeMillis();
 
     public static synchronized long nextId() {
@@ -117,6 +119,9 @@ public class CartEntry implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {

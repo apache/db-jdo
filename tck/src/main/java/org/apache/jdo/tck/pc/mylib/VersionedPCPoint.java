@@ -28,8 +28,9 @@ import java.util.Date;
 */
 @PersistenceCapable
 public class VersionedPCPoint implements Serializable {
-    
-    
+
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (PCPoint.class) {
@@ -86,6 +87,9 @@ public class VersionedPCPoint implements Serializable {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         /** The name of the class of the target object. */

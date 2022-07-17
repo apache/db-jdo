@@ -31,6 +31,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 public class JPAAppFullTimeEmployee extends JPAAppEmployee
         implements IFullTimeEmployee {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="SALARY")
     private double salary;
 

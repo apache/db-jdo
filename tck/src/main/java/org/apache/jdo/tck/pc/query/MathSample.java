@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class MathSample implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	long id;
 
 	/** Angle in radians. */

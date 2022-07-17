@@ -46,6 +46,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 public class FCAppPerson
     implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     @PrimaryKey
     @Column(name="PERSONID")
     private long    personid;
@@ -375,6 +377,8 @@ public class FCAppPerson
      * for the <code>Person</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>

@@ -43,6 +43,8 @@ import org.apache.jdo.tck.util.JDOCustomDateEditor;
 public class PCAppPerson 
     implements IPerson, Serializable, Comparable<IPerson>, Comparator<IPerson>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private long    _personid;
     @NotPersistent()
@@ -380,6 +382,8 @@ public class PCAppPerson
      * for the <code>Person</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the <code>Person</code>

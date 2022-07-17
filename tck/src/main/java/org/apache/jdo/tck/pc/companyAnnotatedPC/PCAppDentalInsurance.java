@@ -32,6 +32,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class PCAppDentalInsurance extends PCAppInsurance implements IDentalInsurance {
 
+    private static final long serialVersionUID = 1L;
+
     @NotPersistent()
     private BigDecimal _lifetimeOrthoBenefit;
 

@@ -25,6 +25,8 @@ import org.apache.jdo.tck.util.EqualityHelper;
 
 public class OrderItem implements Serializable, Comparable<OrderItem>, Comparator<OrderItem>, DeepEquality {
 
+    private static final long serialVersionUID = 1L;
+
     Order order;
     long item;
     String description;
@@ -150,6 +152,9 @@ public class OrderItem implements Serializable, Comparable<OrderItem>, Comparato
      * and the item fields.
      */
     public static class OrderItemOid implements Serializable, Comparable<OrderItemOid> {
+
+        private static final long serialVersionUID = 1L;
+
         public Order.OrderOid order; //matches order field name and OrderId type
         public long item; // matches item field name and type
 

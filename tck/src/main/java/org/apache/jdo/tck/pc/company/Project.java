@@ -40,6 +40,8 @@ import javax.jdo.annotations.PersistenceCapable;
 public class Project
     implements IProject, Serializable, Comparable<IProject>, Comparator<IProject>, DeepEquality  {
 
+    private static final long serialVersionUID = 1L;
+
     private long       projid;
     private String     name;
     private BigDecimal budget;
@@ -291,6 +293,8 @@ public class Project
      * for the <code>Project</code> class.
      */
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * This field represents the identifier for the

@@ -280,6 +280,9 @@ public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
     }
     
 public static class KeyClass implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     public int keyValue;
 
     public KeyClass() {

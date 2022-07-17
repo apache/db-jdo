@@ -24,6 +24,8 @@ import java.io.Serializable;
 
 public class SimpleClass implements Serializable, SimpleInterface, Comparable<SimpleClass> {
 
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (SimpleClass.class) {
@@ -86,6 +88,9 @@ public class SimpleClass implements Serializable, SimpleInterface, Comparable<Si
   }
   
     public static class Oid implements Serializable, Comparable<Oid> {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {

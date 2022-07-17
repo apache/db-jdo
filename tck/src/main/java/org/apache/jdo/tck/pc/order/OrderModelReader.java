@@ -34,6 +34,8 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class OrderModelReader extends DefaultListableBeanFactory {
 
+    private static final long serialVersionUID = 1L;
+
     /** The name of the root list bean. */
     public static final String ROOT_LIST_NAME = "root";
 

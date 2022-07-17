@@ -28,7 +28,9 @@ import javax.jdo.InstanceCallbacks;
 * @author Marina Vatkina
 */
 public class PCPoint2 implements Serializable, InstanceCallbacks {
-    
+
+    private static final long serialVersionUID = 1L;
+
     private static long counter = new Date().getTime();
     private static long newId() {
         synchronized (PCPoint2.class) {
@@ -122,6 +124,9 @@ public class PCPoint2 implements Serializable, InstanceCallbacks {
     }
 
     public static class Oid implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
         public long id;
 
         public Oid() {
