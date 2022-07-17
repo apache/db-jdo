@@ -27,6 +27,7 @@ public class OrderFactoryPMInterface
         extends OrderFactoryAbstractImpl {
     
     /** */
+    @SuppressWarnings("rawtypes")
     public static final Class<?>[] tearDownClasses = new Class[] {
         Order.class, OrderItem.class
     };

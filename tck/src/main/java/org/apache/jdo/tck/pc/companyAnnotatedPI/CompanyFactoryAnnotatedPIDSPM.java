@@ -38,7 +38,9 @@ public class CompanyFactoryAnnotatedPIDSPM
     public CompanyFactoryAnnotatedPIDSPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PIDSDentalInsurance.class,

@@ -61,7 +61,9 @@ public class CompanyFactoryAnnotatedPMFieldClassJPA
             companyClass =
                     org.apache.jdo.tck.pc.companyAnnotatedJPA.JPAAppCompany.class;
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class<?>[] {
             dentalInsuranceClass,

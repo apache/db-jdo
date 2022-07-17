@@ -86,7 +86,9 @@ public class CompanyFactoryAnnotatedPMFieldClass
         }
         
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class<?>[] {
             dentalInsuranceClass,

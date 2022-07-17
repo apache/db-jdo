@@ -28,6 +28,7 @@ import javax.jdo.PersistenceManager;
 public  class OrderFactoryConcreteClass implements OrderFactory {
 
     /** */
+    @SuppressWarnings("rawtypes")
     public static final Class<?>[] tearDownClasses = new Class[] {
         Order.class, OrderItem.class
     };

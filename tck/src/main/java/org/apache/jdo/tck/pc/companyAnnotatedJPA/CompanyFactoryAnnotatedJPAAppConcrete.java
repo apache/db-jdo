@@ -39,7 +39,9 @@ public class CompanyFactoryAnnotatedJPAAppConcrete
         super(pm);
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             JPAAppDentalInsurance.class,

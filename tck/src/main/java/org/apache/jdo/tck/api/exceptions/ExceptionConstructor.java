@@ -31,6 +31,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  *<B>Assertion Description: </B>
  */
 
+@SuppressWarnings("rawtypes")
 public class ExceptionConstructor extends JDO_Test {
 
     protected static final Class<?>[] classArrayEmpty =

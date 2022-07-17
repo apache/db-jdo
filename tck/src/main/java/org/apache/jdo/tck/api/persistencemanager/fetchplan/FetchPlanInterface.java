@@ -383,6 +383,7 @@ public class FetchPlanInterface extends JDO_Test {
 
     /** */
     private void checkSetDetachmentRootClasses() {
+        @SuppressWarnings("rawtypes")
         Class<?>[] expectedRootClasses = new Class[] {PCPoint.class};
         FetchPlan fp = getPM().getFetchPlan();
         fp.setDetachmentRootClasses(

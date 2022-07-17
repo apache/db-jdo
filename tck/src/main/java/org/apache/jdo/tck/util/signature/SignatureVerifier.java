@@ -323,6 +323,7 @@ public class SignatureVerifier {
      * @return class objects
      */
     protected Class<?>[] getClasses(String[] userTypeName) {
+        @SuppressWarnings("rawtypes")
         final Class<?>[] cls = new Class[userTypeName.length];
         for (int i = userTypeName.length - 1; i >= 0; i--) {
             cls[i] = getClass(userTypeName[i]);

@@ -53,7 +53,7 @@ public class ThrowOnUnknownStandardProperties extends JDO_Test {
         Class<?> pmfClass = getPMFClass();
         try {
             Method m = pmfClass.getDeclaredMethod(
-                    "getPersistenceManagerFactory", new Class[] {Map.class});
+                    "getPersistenceManagerFactory", Map.class);
 
             if ((m.getModifiers() & Modifier.STATIC) != Modifier.STATIC) {
                 throw new JDOException(

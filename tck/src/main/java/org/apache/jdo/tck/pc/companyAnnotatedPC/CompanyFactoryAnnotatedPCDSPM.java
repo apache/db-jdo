@@ -38,7 +38,9 @@ public class CompanyFactoryAnnotatedPCDSPM
     public CompanyFactoryAnnotatedPCDSPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PCDSDentalInsurance.class,

@@ -212,8 +212,7 @@ public class BatchTestRunner
                     // choose constructor taking ConsoleFileOutput arg
                     if (!Boolean.getBoolean("no.log.file")) {
                         try {
-                            ctor = clazz.getConstructor(
-                            new Class[] { ConsoleFileOutput.class } );
+                            ctor = clazz.getConstructor(ConsoleFileOutput.class);
                             stream = new ConsoleFileOutput();
                         }
                         catch (NoSuchMethodException ex) {
@@ -223,8 +222,7 @@ public class BatchTestRunner
                     
                     // choose constructor taking PrintStream arg
                     if (ctor == null) {
-                        ctor = clazz.getConstructor(
-                                new Class[] { PrintStream.class } );
+                        ctor = clazz.getConstructor(PrintStream.class);
                         stream = System.out;
                     }
                         

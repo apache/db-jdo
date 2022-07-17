@@ -37,7 +37,9 @@ public class CompanyFactoryAnnotatedJPAAppPM
     public CompanyFactoryAnnotatedJPAAppPM(PersistenceManager pm) {
         super(pm);
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             JPAAppDentalInsurance.class,

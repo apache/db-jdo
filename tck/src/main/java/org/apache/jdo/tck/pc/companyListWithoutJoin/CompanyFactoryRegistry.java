@@ -114,8 +114,7 @@ public class CompanyFactoryRegistry {
         try {
             if (factoryClassName != null) {
                 Class<?> factoryClass = Class.forName(factoryClassName);
-                Constructor<?> ctor = factoryClass.getConstructor(new Class[]
-                    {PersistenceManager.class});
+                Constructor<?> ctor = factoryClass.getConstructor(PersistenceManager.class);
                 factory = (CompanyFactory)
                     ctor.newInstance(new Object[]{pm});
             }

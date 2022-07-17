@@ -127,6 +127,7 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put("4dog", "New York");
     }
 
+    @SuppressWarnings("rawtypes")
     private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */

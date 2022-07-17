@@ -76,6 +76,7 @@ public class AfterGetPersistenceManagerNoSetMethodsSucceed extends JDO_Test {
     }
 
     /** */
+    @SuppressWarnings("rawtypes")
     public void initVariables() {
         stringParameters = new Class[]{String.class};
         booleanParameters = new Class[]{boolean.class};

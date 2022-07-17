@@ -38,7 +38,9 @@ public class CompanyFactoryAnnotatedPCAppConcrete
     public CompanyFactoryAnnotatedPCAppConcrete(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PCAppDentalInsurance.class,

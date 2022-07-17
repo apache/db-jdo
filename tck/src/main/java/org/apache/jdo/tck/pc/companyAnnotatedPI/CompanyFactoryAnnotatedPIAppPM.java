@@ -40,6 +40,7 @@ public class CompanyFactoryAnnotatedPIAppPM
     }
 
     @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             PIAppDentalInsurance.class,

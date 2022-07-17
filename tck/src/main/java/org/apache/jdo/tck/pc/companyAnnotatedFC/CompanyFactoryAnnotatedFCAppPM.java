@@ -38,7 +38,9 @@ public class CompanyFactoryAnnotatedFCAppPM
     public CompanyFactoryAnnotatedFCAppPM(PersistenceManager pm) {
         this.pm = pm;        
     }
-    
+
+    @SuppressWarnings("rawtypes")
+    @Override
     public Class<?>[] getTearDownClasses() {
         return new Class[] {
             FCAppDentalInsurance.class,

@@ -192,8 +192,7 @@ public class DeleteCallback extends QueryTest {
             Collection<?> result = executeQuery(query, index, asSingleString);
             try {
                 lifecycleVerifier = new LifecycleVerifier(result);
-                pm.addInstanceLifecycleListener(lifecycleVerifier, 
-                        new Class[]{VALID_QUERIES[index].getCandidateClass()});
+                pm.addInstanceLifecycleListener(lifecycleVerifier, VALID_QUERIES[index].getCandidateClass());
                 updateInstances(result, fieldName);
                 deleteInstances(query, index, asSingleString, result.size());
             } finally
