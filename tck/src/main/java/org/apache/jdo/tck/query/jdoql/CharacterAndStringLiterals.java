@@ -52,34 +52,34 @@ public class CharacterAndStringLiterals extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] INVALID_QUERIES = {
-        new QueryElementHolder<PrimitiveTypes>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "charNotNull == 'O.'",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder<PrimitiveTypes>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        PrimitiveTypes.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "charNotNull == \"O.\"",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        PrimitiveTypes.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "charNotNull == 'O.'",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        PrimitiveTypes.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "charNotNull == \"O.\"",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /**

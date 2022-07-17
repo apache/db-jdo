@@ -44,20 +44,20 @@ public class KeywordsAsFieldNames extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] INVALID_QUERIES = {
-        new QueryElementHolder<JDOQLKeywordsAsFieldNames>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "select", 
-        /*INTO*/        null, 
-        /*FROM*/        JDOQLKeywordsAsFieldNames.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "select",
+                    /*INTO*/        null,
+                    /*FROM*/        JDOQLKeywordsAsFieldNames.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 
@@ -65,20 +65,20 @@ public class KeywordsAsFieldNames extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] VALID_QUERIES = {
-        new QueryElementHolder<JDOQLKeywordsAsFieldNames>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "this.select", 
-        /*INTO*/        null, 
-        /*FROM*/        JDOQLKeywordsAsFieldNames.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "this.select",
+                    /*INTO*/        null,
+                    /*FROM*/        JDOQLKeywordsAsFieldNames.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /**

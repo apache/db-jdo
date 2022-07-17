@@ -45,21 +45,21 @@ public class MixedVariables extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] INVALID_QUERIES = {
-        new QueryElementHolder<Employee>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   "Employee e",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   "Employee e",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 
@@ -67,36 +67,36 @@ public class MixedVariables extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] VALID_QUERIES = {
-        new QueryElementHolder<Employee>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   "Employee e; Project p",
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null),
-        new QueryElementHolder<Employee>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      null, 
-        /*INTO*/        null, 
-        /*FROM*/        Employee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
-                        "(projects.contains(p) & p.name == 'orange')",
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    null,
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   "Employee e; Project p",
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null),
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      null,
+                    /*INTO*/        null,
+                    /*FROM*/        Employee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       "(team.contains(e) & e.firstname == 'emp1First') & " +
+                    "(projects.contains(p) & p.name == 'orange')",
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    null,
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
     
     /** 

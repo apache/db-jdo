@@ -55,20 +55,20 @@ public class Grouping extends QueryTest {
      * single string queries and as API queries.
      */
     private static final QueryElementHolder<?>[] INVALID_QUERIES = {
-        new QueryElementHolder<FullTimeEmployee>(
-        /*UNIQUE*/      null,
-        /*RESULT*/      "department, salary",
-        /*INTO*/        null,
-        /*FROM*/        FullTimeEmployee.class,
-        /*EXCLUDE*/     null,
-        /*WHERE*/       null,
-        /*VARIABLES*/   null,
-        /*PARAMETERS*/  null,
-        /*IMPORTS*/     null,
-        /*GROUP BY*/    "department",
-        /*ORDER BY*/    null,
-        /*FROM*/        null,
-        /*TO*/          null)
+            new QueryElementHolder<>(
+                    /*UNIQUE*/      null,
+                    /*RESULT*/      "department, salary",
+                    /*INTO*/        null,
+                    /*FROM*/        FullTimeEmployee.class,
+                    /*EXCLUDE*/     null,
+                    /*WHERE*/       null,
+                    /*VARIABLES*/   null,
+                    /*PARAMETERS*/  null,
+                    /*IMPORTS*/     null,
+                    /*GROUP BY*/    "department",
+                    /*ORDER BY*/    null,
+                    /*FROM*/        null,
+                    /*TO*/          null)
     };
         
     /**

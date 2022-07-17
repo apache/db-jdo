@@ -109,7 +109,7 @@ public class SupportedCollectionMethods extends QueryTest {
         Expression<Employee> paramExpression = query.parameter("e", Employee.class);
         query.filter(cand.employees.contains(paramExpression));
 
-        holder = new QueryElementHolder<Department>(
+        holder = new QueryElementHolder<>(
                 /*UNIQUE*/      null,
                 /*RESULT*/      null,
                 /*INTO*/        null,
