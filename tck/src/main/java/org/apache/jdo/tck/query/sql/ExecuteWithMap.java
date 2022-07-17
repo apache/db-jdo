@@ -41,6 +41,7 @@ import org.apache.jdo.tck.util.BatchTestRunner;
  * The value in the Map corresponding to the key whose intValue is 1
  * is bound to the first ? in the SQL statement, and so forth. 
  */
+@SuppressWarnings("unchecked")
 public class ExecuteWithMap extends QueryTest {
 
     /** */
@@ -101,12 +102,10 @@ public class ExecuteWithMap extends QueryTest {
         hm2.put(Integer.valueOf(3), "emp2Middle");
         hm2.put(Integer.valueOf(4), "New York");
 
-        //noinspection unchecked
         hm3 = (HashMap<Object, Object>) hm2.clone();
         // extra entry okay, should be ignored by impl
         hm3.put(Integer.valueOf(0), "emp2First");
 
-        //noinspection unchecked
         hm4 = (HashMap<Object, Object>)hm2.clone();
         // extra entry okay, should be ignored by impl
         hm4.put(Integer.valueOf(5), "New York");
@@ -128,7 +127,6 @@ public class ExecuteWithMap extends QueryTest {
         illegalMapStringKeys.put("4dog", "New York");
     }
 
-    @SuppressWarnings("unchecked")
     private static final Map<Object, Object>[] parameterMap = new Map[]{hm1, hm2, hm3, hm4};
             
     /** */

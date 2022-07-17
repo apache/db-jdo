@@ -550,10 +550,16 @@ public abstract class JDO_Test extends TestCase {
             try {
                 Class<?> pmfClass = getPMFClass();
                 name = pmfClass.getName();
-                pmf = (PersistenceManagerFactory) pmfClass.newInstance();
+                pmf = (PersistenceManagerFactory) pmfClass.getDeclaredConstructor().newInstance();
                 if (supportedOptions == null) {
                     supportedOptions = pmf.supportedOptions();
                 }
+            } catch (NoSuchMethodException ex) {
+                throw new JDOException("No no-args constructor of PMF class '" +
+                        name + "'.", ex);
+            } catch (InvocationTargetException ex) {
+                throw new JDOException("Exception thrown by constructor of PMF class '" +
+                        name + "'.", ex);
             } catch (InstantiationException ex) {
                 throw new JDOException("Cannot instantiate PMF class '" + 
                                        name + "'.", ex);

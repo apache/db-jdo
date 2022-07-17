@@ -30,7 +30,7 @@ public class GetSupportedOptions {
         }
         String PMFclassname = args[0];
         Class<?> PMFclass = Class.forName(PMFclassname);
-        PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.newInstance();
+        PersistenceManagerFactory pmf = (PersistenceManagerFactory) PMFclass.getDeclaredConstructor().newInstance();
         Collection<String> options = pmf.supportedOptions();
         System.out.println("Supported options are:");
         for (String val : options) {

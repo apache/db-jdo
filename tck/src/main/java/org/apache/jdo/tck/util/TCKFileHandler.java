@@ -328,7 +328,7 @@ public class TCKFileHandler extends Handler {
             try {
                 Class<?> clazz =
                     ClassLoader.getSystemClassLoader().loadClass(value);
-                result = clazz.newInstance();
+                result = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception ignored) {
             }
         }

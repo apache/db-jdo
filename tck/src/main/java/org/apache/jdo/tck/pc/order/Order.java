@@ -131,7 +131,9 @@ public class Order implements Serializable, Comparable<Order>, Comparator<Order>
         return false;
     }
 
-
+    public int hashCode() {
+        return (int)orderId;
+    }
 
     /**
      * The class to be used as the application identifier

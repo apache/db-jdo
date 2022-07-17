@@ -286,7 +286,7 @@ public class DomainObjectsAsParameters extends QueryTest {
 
             String filter = "this.employees.contains(ins.employee)";
             Collection<Department> expectedResult = new ArrayList<>();
-            expectedResult.add((Department)getPersistentCompanyModelInstance(Department.class, "dept1"));
+            expectedResult.add(getPersistentCompanyModelInstance(Department.class, "dept1"));
             Query<Department> q =  pm.newQuery(Department.class);
             q.declareParameters("org.apache.jdo.tck.pc.company.Insurance ins");
             q.setFilter(filter);
