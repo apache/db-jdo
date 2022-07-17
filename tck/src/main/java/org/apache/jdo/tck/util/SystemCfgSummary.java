@@ -80,16 +80,11 @@ public class SystemCfgSummary {
      * @param message the message
      */
     static void saveSystemInfo(String path, String message) {
-        PrintStream resultStream = null;
-        try {
-            resultStream = new PrintStream(
-                    new FileOutputStream(path, true));
+        try (PrintStream resultStream = new PrintStream(
+                new FileOutputStream(path, true))) {
             resultStream.println(message);
         } catch (FileNotFoundException e) {
             throw new JDOFatalException("Cannot create file " + path, e);
-        } finally {
-            if (resultStream != null)
-                resultStream.close();
         }
     }
 }

@@ -745,18 +745,13 @@ public abstract class JDO_Test extends TestCase {
         if (file.exists())
             // PMF supported options have been dumped before => return
             return;
-        PrintStream resultStream = null;
-        try {
-            resultStream = new PrintStream(new FileOutputStream(file));
+        try (PrintStream resultStream = new PrintStream(new FileOutputStream(file))) {
             for (String supportedOption : supportedOptions) {
                 resultStream.println(supportedOption);
             }
         } catch (FileNotFoundException e) {
             throw new JDOFatalException(
-                "dumpSupportedOptions: cannot create file " + file.getName(), e);
-        } finally {
-            if (resultStream != null)
-                resultStream.close();
+                    "dumpSupportedOptions: cannot create file " + file.getName(), e);
         }
     }
      
