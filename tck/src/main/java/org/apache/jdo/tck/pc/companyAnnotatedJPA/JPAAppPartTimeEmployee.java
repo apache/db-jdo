@@ -109,7 +109,7 @@ public class JPAAppPartTimeEmployee extends JPAAppEmployee
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $" + wage);
         return rc.toString();

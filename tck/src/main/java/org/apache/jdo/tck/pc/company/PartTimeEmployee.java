@@ -101,7 +101,7 @@ public class PartTimeEmployee extends Employee implements IPartTimeEmployee {
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $" + wage);
         return rc.toString();

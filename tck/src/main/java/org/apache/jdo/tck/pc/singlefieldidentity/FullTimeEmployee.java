@@ -81,7 +81,7 @@ public class FullTimeEmployee extends Employee {
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();

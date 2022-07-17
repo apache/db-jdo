@@ -64,7 +64,7 @@ public abstract class ComparisonTests extends JDO_Test {
      */
     protected void fail(String assertion, String message, String filter, String parameter)
     {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(message);
         buf.append("(");
         buf.append(" filter \"").append(filter).append("\"");

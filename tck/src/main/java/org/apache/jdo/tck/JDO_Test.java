@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-
 package org.apache.jdo.tck;
 
 import java.io.File;
@@ -1069,7 +1068,7 @@ public abstract class JDO_Test extends TestCase {
      */
     public static String getStateOfInstance(Object o) {
         boolean existingEntries = false;
-        StringBuffer buff = new StringBuffer("{");
+        StringBuilder buff = new StringBuilder("{");
         if( JDOHelper.isPersistent(o) ){
             buff.append("persistent");
             existingEntries = true;

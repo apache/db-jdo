@@ -514,7 +514,7 @@ public abstract class PCDSEmployee extends PCDSPerson implements IEmployee {
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(_hiredate));
         rc.append(", weeklyhours ").append(_weeklyhours);

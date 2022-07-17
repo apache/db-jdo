@@ -244,8 +244,8 @@ public class BatchResultPrinter
         }
         
         public String toString() {
-            StringBuffer buffer = 
-                new StringBuffer(THREE_DIGITS_FORMATTER.format(count));
+            StringBuilder buffer =
+                new StringBuilder(THREE_DIGITS_FORMATTER.format(count));
             buffer.append(" error" );
             if (this.count!=1) {
                 buffer.append("s: ");

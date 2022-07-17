@@ -219,7 +219,7 @@ public class OrderingSpecification extends QueryTest {
             Query<AllTypes> query = pm.newQuery(AllTypes.class);
             query.setCandidates(pm.getExtent(AllTypes.class, false));
             
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append("  fld_byte ascending");
             buffer.append(", fld_char ascending");
             buffer.append(", fld_double ascending");

@@ -359,7 +359,7 @@ public class EqualityHelper {
     void logUnequal(Object o1, Object o2, String where) {
         unequalBuffer.append("Context: ");
         Iterator<String> it = contextStack.iterator();
-        StringBuffer offset = new StringBuffer("\n");
+        StringBuilder offset = new StringBuilder("\n");
         while (it.hasNext()) {
             unequalBuffer.append(it.next());
             unequalBuffer.append("-> ");

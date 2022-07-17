@@ -143,7 +143,7 @@ public class TestVectorCollections extends JDO_Test {
     /** */
     private void checkValues(Object oid, VectorCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         VectorCollections pi = (VectorCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

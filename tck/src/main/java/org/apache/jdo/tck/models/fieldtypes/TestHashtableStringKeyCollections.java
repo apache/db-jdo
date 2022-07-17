@@ -156,7 +156,7 @@ public class TestHashtableStringKeyCollections extends JDO_Test {
     private void checkValues(Object oid,
             HashtableStringKeyCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         HashtableStringKeyCollections pi = (HashtableStringKeyCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

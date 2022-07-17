@@ -290,7 +290,7 @@ public class PCAppPerson
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(_personid);
         rc.append(", ").append(_lastname);
         rc.append(", ").append(_firstname);

@@ -108,7 +108,7 @@ public class FCDSPartTimeEmployee extends FCDSEmployee implements IPartTimeEmplo
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $" + wage);
         return rc.toString();

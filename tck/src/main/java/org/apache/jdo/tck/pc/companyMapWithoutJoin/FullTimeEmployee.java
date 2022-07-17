@@ -82,7 +82,7 @@ public class FullTimeEmployee extends Employee implements IFullTimeEmployee {
      * @return a String representation of the non-relationship fields.
      */
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(salary);
         return rc.toString();

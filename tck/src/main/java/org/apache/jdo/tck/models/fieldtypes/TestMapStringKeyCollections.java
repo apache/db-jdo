@@ -156,7 +156,7 @@ public class TestMapStringKeyCollections extends JDO_Test {
     private void checkValues(Object oid,
             MapStringKeyCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         MapStringKeyCollections pi = (MapStringKeyCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

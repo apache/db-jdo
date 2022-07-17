@@ -107,7 +107,7 @@ public class FCAppMeetingRoom
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(roomid);
         rc.append(", name ").append(name);
         return rc.toString();

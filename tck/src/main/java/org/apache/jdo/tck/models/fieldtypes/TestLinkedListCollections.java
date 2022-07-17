@@ -148,7 +148,7 @@ public class TestLinkedListCollections extends JDO_Test {
     private void checkValues(Object oid, LinkedListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         LinkedListCollections pi = (LinkedListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

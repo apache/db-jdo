@@ -123,7 +123,7 @@ public class PersistenceManagerNullsTest extends JDO_Test {
     }
     
     protected static String toString(Object[] objs) {
-        StringBuffer out = new StringBuffer();
+        StringBuilder out = new StringBuilder();
         for (int i=0; i < objs.length; i++) {
             out.append("[" + i + "]: ");
             if (objs[i] == null)

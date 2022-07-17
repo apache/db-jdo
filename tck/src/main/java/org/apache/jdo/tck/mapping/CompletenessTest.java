@@ -88,7 +88,7 @@ public class CompletenessTest extends AbstractReaderTest {
             pm.currentTransaction().begin();
             // compare persisted and new
             int size = rootList.size();
-            StringBuffer msg = new StringBuffer();
+            StringBuilder msg = new StringBuilder();
             for (int i = 0; i < size; i++) {
                 DeepEquality expected = (DeepEquality) rootList.get(i);
                 Object oid = rootOids.get(i);

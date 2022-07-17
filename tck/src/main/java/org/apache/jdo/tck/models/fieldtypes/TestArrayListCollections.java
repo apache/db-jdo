@@ -146,7 +146,7 @@ public class TestArrayListCollections extends JDO_Test {
     private void checkValues(Object oid, ArrayListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         ArrayListCollections pi = (ArrayListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

@@ -108,7 +108,7 @@ public class PCAppMedicalInsurance extends PCAppInsurance implements IMedicalIns
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(_planType);
         return rc.toString();

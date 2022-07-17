@@ -239,7 +239,7 @@ public class PCDSProject
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(_projid);
         rc.append(", name ").append(_name);
         rc.append(", budget ").append(_budget);

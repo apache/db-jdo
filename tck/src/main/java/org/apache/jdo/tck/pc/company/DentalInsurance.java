@@ -97,7 +97,7 @@ public class DentalInsurance extends Insurance implements IDentalInsurance {
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(lifetimeOrthoBenefit);
         return rc.toString();

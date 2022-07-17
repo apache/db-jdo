@@ -283,7 +283,7 @@ public class FCDSPerson
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(personid);
         rc.append(", ").append(lastname);
         rc.append(", ").append(firstname);

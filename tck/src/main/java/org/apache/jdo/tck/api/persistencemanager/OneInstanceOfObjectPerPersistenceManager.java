@@ -105,7 +105,7 @@ public class OneInstanceOfObjectPerPersistenceManager extends
         tx = null;
 
         // Use a StringBuffer to collect results.
-        StringBuffer results = new StringBuffer();
+        StringBuilder results = new StringBuilder();
 
         // Compare the original object with the object obtained by getObjectById.
         if (p1 != p1a) {

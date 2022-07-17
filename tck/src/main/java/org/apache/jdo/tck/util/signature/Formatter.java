@@ -35,7 +35,7 @@ class Formatter {
      * comma-separated list.
      */
     public static String toString(String prefix, String[] names) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         if (names != null && names.length > 0) { 
             s.append(prefix == null ? "" : prefix).append(names[0]);
             for (int i = 1; i < names.length; i++) {
@@ -50,7 +50,7 @@ class Formatter {
      * comma-separated list of (Java) user type names.
      */
     public static String toString(String prefix, Class<?>[] cls) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         if (cls != null && cls.length > 0) {
             String n = TypeHelper.userTypeName(cls[0].getName());
             s.append(prefix == null ? "" : prefix).append(n);
@@ -67,7 +67,7 @@ class Formatter {
      * presenting types as (Java) user type names.
      */
     public static String toString(Field field, Object value) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(field.getModifiers())).append(" ");
         s.append(TypeHelper.userTypeName(field.getType().getName()));
         s.append(" ");
@@ -81,7 +81,7 @@ class Formatter {
      */
     public static String toString(int mods, String type, String name,
                                   String value) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(mods)).append(" ");
         s.append(type).append(" ");
         s.append(name);
@@ -95,7 +95,7 @@ class Formatter {
 
      */
     public static String toString(Constructor<?> ctor) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(ctor.getModifiers())).append(" ");
         s.append(ctor.getName()).append("(");
         s.append(toString("", ctor.getParameterTypes())).append(")");
@@ -108,7 +108,7 @@ class Formatter {
      * presenting types as (Java) user type names.
      */
     public static String toString(Method method) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(method.getModifiers())).append(" ");
         final String r = method.getReturnType().getName();
         s.append(TypeHelper.userTypeName(r)).append(" ");
@@ -127,7 +127,7 @@ class Formatter {
      */
     public static String toString(int mods, String result, String name,
                                   String[] params, String[] excepts) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(mods)).append(" ");
         s.append(result == null ? "" : result).append(" ");
         s.append(name).append("(").append(toString("", params)).append(")");
@@ -140,7 +140,7 @@ class Formatter {
      * presenting types as (Java) user type names.
      */
     public static String toString(Class<?> cls) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(cls.getModifiers()));
         s.append(cls.isInterface() ? " " : " class ").append(cls.getName());
         final Class<?> superc = cls.getSuperclass();
@@ -159,7 +159,7 @@ class Formatter {
      */
     public static String toString(int mods, String name,
                                   String[] ext, String[] impl) {
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         s.append(Modifier.toString(mods));
         final boolean isInterface = ((mods & Modifier.INTERFACE) != 0);
         s.append(isInterface ? " " : " class ").append(name);

@@ -142,7 +142,7 @@ public class TestHashSetCollections extends JDO_Test {
     private void checkValues(Object oid, HashSetCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         HashSetCollections pi = (HashSetCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

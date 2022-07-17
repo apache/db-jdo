@@ -154,7 +154,7 @@ public class TestHashMapStringKeyCollections extends JDO_Test {
     private void checkValues(Object oid,
             HashMapStringKeyCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         HashMapStringKeyCollections pi = (HashMapStringKeyCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

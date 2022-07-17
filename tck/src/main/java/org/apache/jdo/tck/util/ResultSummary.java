@@ -198,7 +198,7 @@ public class ResultSummary implements Serializable {
      */
     public String toString() {
         String newLine = System.getProperty("line.separator");
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append("Total tests run: ").append(totalTestCount).append(".");
         if (this.nrOfFailedConfigurations==0) {
             result.append(newLine);

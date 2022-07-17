@@ -151,7 +151,7 @@ public class PCDSInsurance
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(_insid);
         rc.append(", carrier ").append(_carrier);
         return rc.toString();

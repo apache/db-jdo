@@ -210,7 +210,7 @@ public class Project
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(projid);
         rc.append(", name ").append(name);
         rc.append(", budget ").append(budget);

@@ -153,7 +153,7 @@ public class TestListCollections extends JDO_Test {
     private void checkValues(Object oid, ListCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         ListCollections pi = (ListCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

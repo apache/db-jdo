@@ -147,7 +147,7 @@ public class TestTreeSetCollections extends JDO_Test {
     /** */
     private void checkValues(Object oid, TreeSetCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         TreeSetCollections pi = (TreeSetCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

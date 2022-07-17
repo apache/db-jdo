@@ -79,7 +79,7 @@ public class ObjectIdNotModifiedWhenObjectIdInstanceModified extends JDO_Test {
     		}
     		extent.close(iter);
             int failures = 0;
-            StringBuffer report = new StringBuffer("Failures comparing oids.\n");
+            StringBuilder report = new StringBuilder("Failures comparing oids.\n");
     		for (int i=0; i<NUM_OBJECTS; i++) {
     			Object objId1=pm.getObjectId(obj[i]);
                 String before=objId1.toString();

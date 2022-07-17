@@ -128,7 +128,7 @@ public abstract class Insurance
      * @return a String representation of the non-relationship fields.
      */
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(insid);
         rc.append(", carrier ").append(carrier);
         return rc.toString();

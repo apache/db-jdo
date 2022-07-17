@@ -103,7 +103,7 @@ public class FCAppMedicalInsurance extends FCAppInsurance implements IMedicalIns
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(planType);
         return rc.toString();

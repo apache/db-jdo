@@ -106,7 +106,7 @@ public class JPAAppMedicalInsurance extends JPAAppInsurance implements IMedicalI
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(planType);
         return rc.toString();

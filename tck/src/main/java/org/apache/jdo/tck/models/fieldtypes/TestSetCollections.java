@@ -140,7 +140,7 @@ public class TestSetCollections extends JDO_Test {
     private void checkValues(Object oid, SetCollections expectedValue)
     {
         int i;
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         SetCollections pi = (SetCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

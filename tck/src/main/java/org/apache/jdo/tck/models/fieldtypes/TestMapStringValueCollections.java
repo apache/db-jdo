@@ -160,7 +160,7 @@ public class TestMapStringValueCollections extends JDO_Test {
     private void checkValues(Object oid,
             MapStringValueCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         MapStringValueCollections pi = (MapStringValueCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();

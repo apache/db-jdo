@@ -1042,7 +1042,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c); 
                 int i;
@@ -1088,7 +1088,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c); 
                 int i;
@@ -1131,7 +1131,7 @@ public class SignatureVerifier {
             }
                     
             // parse remaining two chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             for (int j = 0; j < 2; j++) {
                 sb.append(c);
                 int i;
@@ -1178,7 +1178,7 @@ public class SignatureVerifier {
             }
         
             // parse remaining chars
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             do {
                 sb.append(c);
                 int i;
@@ -1454,7 +1454,7 @@ public class SignatureVerifier {
             String t = scanIdentifier();
             if (t != null) {
                 // parse dot-connected identifiers
-                final StringBuffer id = new StringBuffer(t);
+                final StringBuilder id = new StringBuilder(t);
                 String tt = parseToken();
                 while (tt.equals(".")) {
                     id.append(".");
@@ -1516,7 +1516,7 @@ public class SignatureVerifier {
             String t = parseIdentifier();
             if (t != null) {
                 // parse array dimensions
-                final StringBuffer type = new StringBuffer(t);
+                final StringBuilder type = new StringBuilder(t);
                 while ((t = parseToken()).equals("[")) {
                     demandToken("]");
                     type.append("[]");

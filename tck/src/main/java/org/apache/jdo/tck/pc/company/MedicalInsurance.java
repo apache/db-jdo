@@ -97,7 +97,7 @@ public class MedicalInsurance extends Insurance implements IMedicalInsurance {
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", planType ").append(planType);
         return rc.toString();

@@ -98,7 +98,7 @@ public abstract class Employee extends Person {
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", hired ").append(JDOCustomDateEditor.getDateRepr(hiredate));
         rc.append(", weeklyhours ").append(weeklyhours);

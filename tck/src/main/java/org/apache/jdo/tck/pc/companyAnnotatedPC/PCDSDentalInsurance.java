@@ -106,7 +106,7 @@ public class PCDSDentalInsurance extends PCDSInsurance
      */
     @Override
     protected String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", lifetimeOrthoBenefit ").append(_lifetimeOrthoBenefit);
         return rc.toString();

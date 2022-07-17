@@ -113,7 +113,7 @@ public class PCDSFullTimeEmployee extends PCDSEmployee
      */
     @Override
     public String getFieldRepr() {
-        StringBuffer rc = new StringBuffer();
+        StringBuilder rc = new StringBuilder();
         rc.append(super.getFieldRepr());
         rc.append(", $").append(_salary);
         return rc.toString();

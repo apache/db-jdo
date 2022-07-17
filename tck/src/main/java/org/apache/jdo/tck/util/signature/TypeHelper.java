@@ -89,7 +89,7 @@ public class TypeHelper {
         final int n = name.length();
         check(n > 0, MSG_ILLEGAL_RFL_TYPE + name);
         int i = 0;
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         while (name.charAt(i) == '[') {
             sb.append("[]");
             i++;
@@ -138,7 +138,7 @@ public class TypeHelper {
         final int n = name.length();
         check(n > 0, MSG_ILLEGAL_USR_TYPE + name);
         int i = n - 1;
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         while (name.charAt(i) == ']') {
             i--;
             check(name.charAt(i) == '[', MSG_ILLEGAL_USR_TYPE + name);

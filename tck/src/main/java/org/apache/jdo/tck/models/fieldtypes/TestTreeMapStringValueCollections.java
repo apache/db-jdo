@@ -153,7 +153,7 @@ public class TestTreeMapStringValueCollections extends JDO_Test {
     private void checkValues(Object oid,
             TreeMapStringValueCollections expectedValue)
     {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         TreeMapStringValueCollections pi = (TreeMapStringValueCollections)
                 pm.getObjectById(oid, true);
         int n = pi.getLength();
