@@ -118,7 +118,7 @@ public interface FetchPlan {
      * of all currently active fetch groups
      * @since 2.0
      */
-    Set getGroups();
+    Set<String> getGroups();
 
     /** 
      * Set a collection of groups.
@@ -126,7 +126,7 @@ public interface FetchPlan {
      * @return the FetchPlan
      * @since 2.0
      */
-    FetchPlan setGroups(Collection fetchGroupNames);
+    FetchPlan setGroups(Collection<String> fetchGroupNames);
 
     /** 
      * Set a collection of groups.
@@ -169,7 +169,7 @@ public interface FetchPlan {
      * @return This FetchPlan
      * @since 2.0
      */
-    FetchPlan setDetachmentRoots(Collection roots);
+    FetchPlan setDetachmentRoots(Collection<?> roots);
 
     /**
      * Get the roots for DetachAllOnCommit.
@@ -184,14 +184,14 @@ public interface FetchPlan {
      * @return This FetchPlan
      * @since 2.0
      */
-    FetchPlan setDetachmentRootClasses(Class... rootClasses);
+    FetchPlan setDetachmentRootClasses(Class<?>... rootClasses);
 
     /**
      * Get the root classes for DetachAllOnCommit.
      * @return The detachment root classes
      * @since 2.0
      */
-    Class[] getDetachmentRootClasses();
+    Class<?>[] getDetachmentRootClasses();
 
     /**
      * Set the fetch size for large result set support. Use

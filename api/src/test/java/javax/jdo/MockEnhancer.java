@@ -46,10 +46,10 @@ public class MockEnhancer implements JDOEnhancer {
     @SuppressWarnings("unused")
     private boolean verbose;
     private int numberOfElements;
-    private List<String> classNames = new ArrayList<String>();
-    private List<String> jarNames = new ArrayList<String>();
-    private List<String> jdoNames = new ArrayList<String>();
-    private List<String> puNames = new ArrayList<String>();
+    private List<String> classNames = new ArrayList<>();
+    private List<String> jarNames = new ArrayList<>();
+    private List<String> jdoNames = new ArrayList<>();
+    private List<String> puNames = new ArrayList<>();
     @SuppressWarnings("unused")
     private String outputDirectory = null;
 

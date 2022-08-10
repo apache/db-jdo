@@ -84,7 +84,7 @@ public @interface PersistenceCapable
      * Primary key class when using application identity and using own PK. 
      * @return Object-id class (if specified)
      */
-    Class objectIdClass() default void.class;
+    Class<?> objectIdClass() default void.class;
 
     /**
      * Whether this class is cacheable in a Level2 cache.

@@ -38,7 +38,7 @@ import javax.jdo.spi.JDOImplHelper;
 /** This class is for identity with a single Object type field.
  * @version 2.0
  */
-public class ObjectIdentity extends SingleFieldIdentity {
+public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
     
     /** The key is stored in the superclass field keyAsObject.
      */
@@ -75,7 +75,7 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * @param param the key
      */
     @SuppressWarnings("static-access")
-    public ObjectIdentity (Class pcClass, Object param) {
+    public ObjectIdentity (Class<?> pcClass, Object param) {
         super (pcClass);
         assertKeyNotNull(param);
         String paramString = null;
@@ -165,31 +165,26 @@ public class ObjectIdentity extends SingleFieldIdentity {
      * @since 2.2
      */
     @SuppressWarnings("unchecked")
-    public int compareTo(Object o) {
-        if (o instanceof ObjectIdentity) {
-        	ObjectIdentity other = (ObjectIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                if (other.keyAsObject instanceof Comparable && 
-                        keyAsObject instanceof Comparable) {
-                    return ((Comparable)keyAsObject).compareTo(
-                            (Comparable)other.keyAsObject);
-                }
-                else
-                {
-                    throw new ClassCastException("The key class (" + 
-                            keyAsObject.getClass().getName() + 
-                            ") does not implement Comparable");
-                }
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(ObjectIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + 
-                " != " + o.getClass().getName());
+        int result = super.compare(o);
+        if (result == 0) {
+            if (o.keyAsObject instanceof Comparable &&
+                    keyAsObject instanceof Comparable) {
+                return ((Comparable<Object>)keyAsObject).compareTo(
+                        o.keyAsObject);
+            }
+            else
+            {
+                throw new ClassCastException("The key class (" +
+                        keyAsObject.getClass().getName() +
+                        ") does not implement Comparable");
+            }
+        } else {
+            return result;
+        }
     }
 
     /** Write this object. Write the superclass first.

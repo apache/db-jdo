@@ -29,8 +29,7 @@ import java.io.ObjectOutput;
 /** This class is for identity with a single short field.
  * @version 2.0
  */
-public class ShortIdentity
-	extends SingleFieldIdentity
+public class ShortIdentity extends SingleFieldIdentity<ShortIdentity>
 {
 	private short key;
 
@@ -43,7 +42,7 @@ public class ShortIdentity
      * @param pcClass the class
      * @param key the key
      */
-    public ShortIdentity (Class pcClass, short key) {
+    public ShortIdentity (Class<?> pcClass, short key) {
         super(pcClass);
         construct(key);
     }
@@ -52,7 +51,7 @@ public class ShortIdentity
      * @param pcClass the class
      * @param key the key
      */
-    public ShortIdentity (Class pcClass, Short key) {
+    public ShortIdentity (Class<?> pcClass, Short key) {
         super(pcClass);
         setKeyAsObject(key);
         construct(key.shortValue());
@@ -62,7 +61,7 @@ public class ShortIdentity
      * @param pcClass the class
      * @param str the key
      */
-    public ShortIdentity (Class pcClass, String str) {
+    public ShortIdentity (Class<?> pcClass, String str) {
         super(pcClass);
         assertKeyNotNull(str);
         construct(Short.parseShort (str));
@@ -107,20 +106,12 @@ public class ShortIdentity
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof ShortIdentity) {
-        	ShortIdentity other = (ShortIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                return (key - other.key);
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(ShortIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        return (result == 0) ? (key - o.key) : result;
     }
 
     /** Create the key as an Object.

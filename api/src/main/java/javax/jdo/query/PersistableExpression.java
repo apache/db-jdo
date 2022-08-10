@@ -27,11 +27,11 @@ public interface PersistableExpression<T> extends Expression<T>
      * Method to return an expression for the (JDO) identity of this persistable object.
      * @return The identity expression
      */
-    Expression jdoObjectId();
+    Expression<?> jdoObjectId();
 
     /**
      * Method to return an expression for the (JDO) version of this persistable object.
      * @return The version expression
      */
-    Expression jdoVersion();
+    Expression<?> jdoVersion();
 }

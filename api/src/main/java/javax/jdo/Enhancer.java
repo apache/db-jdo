@@ -88,7 +88,7 @@ public class Enhancer {
     private boolean printAndExit = false;
 
     /** Persistence Units */
-    private List<String> persistenceUnitNames = new ArrayList<String>();
+    private List<String> persistenceUnitNames = new ArrayList<>();
     /** Target Directory Parameter */
     private String directoryName = null;
     /** ClassLoader for JDOEnhancer */
@@ -106,13 +106,13 @@ public class Enhancer {
     /** Verbose messages are always collected but only output if verbose flag is set */
     private StringBuilder verboseBuffer = new StringBuilder();
     /** File Names */
-    private List<String> fileNames = new ArrayList<String>();
+    private List<String> fileNames = new ArrayList<>();
     /** Class File Names */
-    private List<String> classFileNames = new ArrayList<String>();
+    private List<String> classFileNames = new ArrayList<>();
     /** JDO File Names */
-    private List<String> jdoFileNames = new ArrayList<String>();
+    private List<String> jdoFileNames = new ArrayList<>();
     /** Jar File Names */
-    private List<String> jarFileNames = new ArrayList<String>();
+    private List<String> jarFileNames = new ArrayList<>();
     /** The number of classes validated by the JDOEnhancer */
     private int numberOfValidatedClasses = 0;
     /** The number of classes enhanced by the JDOEnhancer */
@@ -227,7 +227,7 @@ public class Enhancer {
      */
     private void parseArgs(String[] args) {
         boolean doneWithOptions = false;
-        fileNames = new ArrayList<String>();
+        fileNames = new ArrayList<>();
         for (int i = 0; i < args.length; ++i) {
             String arg = args[i];
             // if first argument is ? then simply print usage and return.
@@ -364,7 +364,7 @@ public class Enhancer {
         // separate classPath using system class path separator
         String separator = System.getProperty("path.separator");
         String[] paths = classPath.split(separator);
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
         for (String path: paths) {
             // for each path construct a URL from the File
             File file = new File(path);

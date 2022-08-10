@@ -532,7 +532,7 @@ public interface JDOQLTypedQuery<T> extends Serializable, Closeable {
      * @param values The extension map of keys and values
      * @return This query
      */
-    JDOQLTypedQuery<T> extensions(Map values);
+    JDOQLTypedQuery<T> extensions(Map<String, Object> values);
 
     /**
      * Save the query, as it is currently defined, as a named query under the specified name.

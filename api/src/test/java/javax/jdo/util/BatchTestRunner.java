@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.io.PrintStream;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import junit.textui.ResultPrinter;
@@ -59,14 +60,15 @@ public class BatchTestRunner
     }
     
     /**  
-     * Constructor. USes teh specified resultPrinter to format the test result.
+     * Constructor. Uses tehe specified resultPrinter to format the test result.
      */
     public BatchTestRunner(ResultPrinter resultPrinter) {
         super(resultPrinter);
     }
 
-    /** Runs all test methods from the specified class. */
-    public static void run(Class clazz) {
+    /** Runs all test methods from the specified class.
+     * @param clazz*/
+    public static void run(Class<? extends TestCase> clazz) {
         run(new TestSuite(clazz));
     }
     
@@ -113,7 +115,7 @@ public class BatchTestRunner
                     // get class instance
                     Class<?> clazz = Class.forName(className);
                     // constructor taking PrintStream arg
-                    Constructor ctor = clazz.getConstructor(
+                    Constructor<?> ctor = clazz.getConstructor(
                         new Class[] { PrintStream.class } );
                     // create instance
                     return (ResultPrinter)ctor.newInstance(

@@ -39,8 +39,8 @@ import javax.jdo.spi.I18NHelper;
  * a new user-defined class for the purpose.
  * @version 2.0
  */
-public abstract class SingleFieldIdentity
-    implements Externalizable, Comparable {
+public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<SUBCLASS>>
+        implements Externalizable, Comparable<SUBCLASS>  {
     
     /** The Internationalization message helper.
      */
@@ -48,7 +48,7 @@ public abstract class SingleFieldIdentity
 
     /** The class of the target object.
      */
-    transient private Class targetClass;
+    transient private Class<?> targetClass;
     
     /** The name of the class of the target object.
      */
@@ -66,7 +66,7 @@ public abstract class SingleFieldIdentity
      * @param pcClass the class of the target
      * @since 2.0
      */
-    protected SingleFieldIdentity(Class pcClass) {
+    protected SingleFieldIdentity(Class<?> pcClass) {
         if (pcClass == null)
             throw new NullPointerException();
         targetClass = pcClass;
@@ -105,7 +105,7 @@ public abstract class SingleFieldIdentity
      * @return the target class.
      * @since 2.0
      */
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return targetClass;
     }
 

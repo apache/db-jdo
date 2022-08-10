@@ -71,7 +71,7 @@ public class JDOImplHelperTest extends AbstractTest {
     /** */
     public void testGetFieldTypes() {
         JDOImplHelper implHelper = JDOImplHelper.getInstance();
-        Class[] fieldTypes = implHelper.getFieldTypes(PCPoint.class);
+        Class<?>[] fieldTypes = implHelper.getFieldTypes(PCPoint.class);
         if (fieldTypes == null) {
             fail("array of field types is null");
         }
@@ -116,7 +116,7 @@ public class JDOImplHelperTest extends AbstractTest {
     /** */
     public void testGetPCSuperclass() {
         JDOImplHelper implHelper = JDOImplHelper.getInstance();
-        Class pcSuper = 
+        Class<?> pcSuper =
             implHelper.getPersistenceCapableSuperclass(PCPoint.class);
         if (pcSuper != null) {
             fail("Wrong pc superclass of PCPoint; expected null, got " + 
@@ -139,7 +139,7 @@ public class JDOImplHelperTest extends AbstractTest {
     public void testClassRegistration() {
         JDOImplHelper implHelper = JDOImplHelper.getInstance();
 
-        Collection registeredClasses = implHelper.getRegisteredClasses();
+        Collection<Class<?>> registeredClasses = implHelper.getRegisteredClasses();
         // test whether PCPoint is registered
         if (!registeredClasses.contains(PCPoint.class)) {
             fail("Missing registration of pc class PCPoint");
@@ -147,9 +147,9 @@ public class JDOImplHelperTest extends AbstractTest {
 
         // Save registered meta data for restoring
         String[] fieldNames = implHelper.getFieldNames(PCPoint.class);
-        Class[] fieldTypes = implHelper.getFieldTypes(PCPoint.class);
+        Class<?>[] fieldTypes = implHelper.getFieldTypes(PCPoint.class);
         byte[] fieldFlags = implHelper.getFieldFlags(PCPoint.class);
-        Class pcSuperclass = implHelper.getPersistenceCapableSuperclass(PCPoint.class);
+        Class<?> pcSuperclass = implHelper.getPersistenceCapableSuperclass(PCPoint.class);
         
         // test unregisterClass with null parameter
         try {

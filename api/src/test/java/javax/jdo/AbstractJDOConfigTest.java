@@ -108,10 +108,10 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
      * @param expected the first {@link java.util.Map Map} object to test.
      * @param actual the second {@link java.util.Map Map} object to test.
      */
-    static void assertEqualProperties(Map expected, Map actual) {
-        Iterator i = expected.entrySet().iterator();
+    static void assertEqualProperties(Map<?, ?> expected, Map<?, ?> actual) {
+        Iterator<? extends Map.Entry<?, ?>> i = expected.entrySet().iterator();
         while (i.hasNext()) {
-            Map.Entry entry = (Map.Entry) i.next();
+            Map.Entry<?, ?> entry = i.next();
             String key = (String) entry.getKey();
             String expectedValue = (String) entry.getValue();
             String actualValue = (String) actual.get(key);
@@ -126,7 +126,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
     
     protected String getPMFClassNameViaServiceLookup(ClassLoader loader) {
         try {
-            Enumeration urls = JDOHelper.getResources(loader, 
+            Enumeration<URL> urls = JDOHelper.getResources(loader,
                 SERVICE_LOOKUP_PMF_RESOURCE_NAME);
             while (urls.hasMoreElements()) {
                 // return the first one found

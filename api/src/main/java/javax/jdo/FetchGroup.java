@@ -140,7 +140,7 @@ public interface FetchGroup {
      * @return the persistent type
      * @since 2.2
      */
-    Class getType();
+    Class<?> getType();
 
     /** 
      * Get the post-load property of this FetchGroup.
@@ -260,7 +260,7 @@ public interface FetchGroup {
      * in the FetchGroup
      * @since 2.2
      */
-    Set getMembers();
+    Set<String> getMembers();
 
     /**
      * Make this FetchGroup unmodifiable. If already unmodifiable, this method

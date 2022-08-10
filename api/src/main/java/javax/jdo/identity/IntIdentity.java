@@ -29,7 +29,7 @@ import java.io.ObjectOutput;
 /** This class is for identity with a single int field.
  * @version 2.0
  */
-public class IntIdentity extends SingleFieldIdentity {
+public class IntIdentity extends SingleFieldIdentity<IntIdentity> {
 
     private int key;
 
@@ -42,7 +42,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
-    public IntIdentity (Class pcClass, int key) {
+    public IntIdentity (Class<?> pcClass, int key) {
         super(pcClass);
         construct(key);
 	}
@@ -51,7 +51,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
-    public IntIdentity (Class pcClass, Integer key) {
+    public IntIdentity (Class<?> pcClass, Integer key) {
         super(pcClass);
         setKeyAsObject(key);
         construct(key.intValue ());
@@ -62,7 +62,7 @@ public class IntIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param str the key
      */
-    public IntIdentity (Class pcClass, String str) {
+    public IntIdentity (Class<?> pcClass, String str) {
         super(pcClass);
         assertKeyNotNull(str);
         construct(Integer.parseInt(str));
@@ -107,20 +107,12 @@ public class IntIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof IntIdentity) {
-        	IntIdentity other = (IntIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                return (key - other.key);
-            } else {
-                return result;
-            }
-        }
-       else if (o == null) {
+    public int compareTo(IntIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        return (result == 0) ? (key - o.key) : result;
     }
 
     /** Create the key as an Object.

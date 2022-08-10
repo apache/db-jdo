@@ -309,7 +309,7 @@ public class XMLTestUtil {
                 try {
                     BufferedReader bufferedReader =
                         new BufferedReader(new FileReader(fileUnderTest));
-                    ArrayList<String> tmp = new ArrayList<String>();
+                    ArrayList<String> tmp = new ArrayList<>();
                     while (bufferedReader.ready()) {
                         tmp.add(bufferedReader.readLine());
                     }
@@ -389,8 +389,8 @@ public class XMLTestUtil {
         private static final String JDOQUERY_DTD_FILENAME = 
             "javax/jdo/jdoquery_3_2.dtd";
 
-        static Map<String,String> publicIds = new HashMap<String,String>();
-        static Map<String,String> systemIds = new HashMap<String,String>();
+        static Map<String,String> publicIds = new HashMap<>();
+        static Map<String,String> systemIds = new HashMap<>();
         static {
             publicIds.put(RECOGNIZED_JDO_PUBLIC_ID, JDO_DTD_FILENAME);
             publicIds.put(RECOGNIZED_ORM_PUBLIC_ID, ORM_DTD_FILENAME);
@@ -442,7 +442,7 @@ public class XMLTestUtil {
     /** Helper class to find all test JDO metadata files. */
     public static class XMLFinder {
 
-        private List<File> metadataFiles = new ArrayList<File>();
+        private List<File> metadataFiles = new ArrayList<>();
         private final boolean recursive;
         
         /** Constructor. */
@@ -513,7 +513,7 @@ public class XMLTestUtil {
         String[] ret = null;
         String metadata = System.getProperty(METADATA_PROP);
         if ((metadata != null) && (metadata.length() > 0)) {
-            List<String> entries = new ArrayList<String>();
+            List<String> entries = new ArrayList<>();
             StringTokenizer st = new StringTokenizer(metadata, DELIM);
             while (st.hasMoreTokens()) {
                 entries.add(st.nextToken());

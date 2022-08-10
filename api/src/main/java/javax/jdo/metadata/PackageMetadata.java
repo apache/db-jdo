@@ -73,7 +73,7 @@ public interface PackageMetadata extends Metadata {
      * @param cls The class
      * @return The ClassMetadata
      */
-    ClassMetadata newClassMetadata(Class cls);
+    ClassMetadata newClassMetadata(Class<?> cls);
 
     /**
      * Accessor for the number of classes defined in this package.
@@ -99,7 +99,7 @@ public interface PackageMetadata extends Metadata {
      * @param cls The class
      * @return The ClassMetadata
      */
-    InterfaceMetadata newInterfaceMetadata(Class cls);
+    InterfaceMetadata newInterfaceMetadata(Class<?> cls);
 
     /**
      * Accessor for the number of interfaces defined in this package.

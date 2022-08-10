@@ -21,11 +21,11 @@ package javax.jdo.query;
  * 
  * @param <T> Enum type
  */
-public interface EnumExpression<T> extends ComparableExpression<Enum>
+public interface EnumExpression<T> extends ComparableExpression<Enum<?>>
 {
     /**
      * Method to return an expression for the ordinal of this enum.
      * @return Expression for the ordinal of the passed enum
      */
-    NumericExpression ordinal();
+    NumericExpression<Integer> ordinal();
 }

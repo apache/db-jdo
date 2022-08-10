@@ -31,7 +31,7 @@ import javax.jdo.spi.I18NHelper;
 /** This class is for identity with a single character field.
  * @version 2.0
  */
-public class CharIdentity extends SingleFieldIdentity {
+public class CharIdentity extends SingleFieldIdentity<CharIdentity> {
 
     /** The Internationalization message helper.
      */
@@ -50,7 +50,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param key the key
      */
-    public CharIdentity (Class pcClass, char key) {
+    public CharIdentity (Class<?> pcClass, char key) {
         super (pcClass);
         construct(key);
     }
@@ -59,7 +59,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param key the key
      */
-    public CharIdentity (Class pcClass, Character key) {
+    public CharIdentity (Class<?> pcClass, Character key) {
         super (pcClass);
         setKeyAsObject(key);
         construct(key.charValue());
@@ -70,7 +70,7 @@ public class CharIdentity extends SingleFieldIdentity {
      * @param pcClass the target class
      * @param str the key
      */
-    public CharIdentity (Class pcClass, String str) {
+    public CharIdentity (Class<?> pcClass, String str) {
         super(pcClass);
         assertKeyNotNull(str);
         if (str.length() != 1) 
@@ -118,20 +118,12 @@ public class CharIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof CharIdentity) {
-        	CharIdentity other = (CharIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                return (key - other.key);
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(CharIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        return (result == 0) ? (key - o.key) : result;
     }
 
     /** Create the key as an Object.

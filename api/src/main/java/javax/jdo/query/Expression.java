@@ -28,7 +28,7 @@ public interface Expression<T>
      * @param expr Other expression
      * @return Whether they are equal
      */
-    BooleanExpression eq(Expression expr);
+    BooleanExpression eq(Expression<?> expr);
 
     /**
      * Method returning whether this expression equals the literal.
@@ -42,7 +42,7 @@ public interface Expression<T>
      * @param expr Other expression
      * @return Whether they are not equal
      */
-    BooleanExpression ne(Expression expr);
+    BooleanExpression ne(Expression<?> expr);
 
     /**
      * Method returning whether this expression doesn't equal the literal.
@@ -68,19 +68,19 @@ public interface Expression<T>
      * @param cls Class to check against
      * @return Whether it is an instanceof
      */
-    BooleanExpression instanceOf(Class cls);
+    BooleanExpression instanceOf(Class<?> cls);
 
     /**
      * Return an expression where this expression is cast to the specified type.
      * @param cls Class to cast to
      * @return The cast expression
      */
-    Expression cast(Class cls);
+    <S> Expression<S> cast(Class<S> cls);
 
     /**
      * Method to return an expression with the specified alias assigned to this expression.
      * @param alias the alias for this expression
      * @return the expression with an alias
      */
-    Expression as(String alias);
+    Expression<T> as(String alias);
 }

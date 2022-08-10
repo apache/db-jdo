@@ -28,7 +28,7 @@ public class PMFService implements Constants{
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            Map overrides, Map props) {
+            Map<?, ?> overrides, Map<?, ?> props) {
         PersistenceManagerFactory pmf =
                 (PersistenceManagerFactory) PMFProxy.newInstance();
         setPMFProperties(pmf, props, overrides);
@@ -37,7 +37,7 @@ public class PMFService implements Constants{
     }
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
-            Map props) {
+            Map<?, ?> props) {
         PersistenceManagerFactory pmf =
                 (PersistenceManagerFactory) PMFProxy.newInstance();
         setPMFProperties(pmf, props, null);
@@ -46,7 +46,7 @@ public class PMFService implements Constants{
     }
 
     private static void setPMFProperties(PersistenceManagerFactory pmf,
-            Map props, Map overrides) {
+            Map<?, ?> props, Map<?, ?> overrides) {
 
         pmf.setConnectionDriverName((String)props.get(PROPERTY_CONNECTION_DRIVER_NAME));
 

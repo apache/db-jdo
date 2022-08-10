@@ -77,26 +77,26 @@ public class JDOImplHelper extends java.lang.Object {
      * are added by the static method in each <code>PersistenceCapable</code> 
      * class.  Entries are never removed.
      */    
-    private static Map<Class,Meta> registeredClasses =
-            Collections.synchronizedMap(new HashMap<Class,Meta> ());
+    private static Map<Class<?>,Meta> registeredClasses =
+            Collections.synchronizedMap(new HashMap<> ());
     
     /** This Set contains all classes that have registered for setStateManager
      * permissions via authorizeStateManagerClass.
      * Only the key is used in order to maintain a weak set of classes.
      */
-    private static final Map<Class,Class>
-            authorizedStateManagerClasses = new WeakHashMap<Class,Class>();
+    private static final Map<Class<?>,Class<?>>
+            authorizedStateManagerClasses = new WeakHashMap<>();
 
     /** This list contains the registered listeners for 
      * <code>RegisterClassEvent</code>s.
      */
     private static final List<RegisterClassListener>
-            listeners = new ArrayList<RegisterClassListener>();
+            listeners = new ArrayList<>();
     
     /** The list of registered StateInterrogation instances
      */
     private static List<StateInterrogation>
-            stateInterrogations = new ArrayList<StateInterrogation>();
+            stateInterrogations = new ArrayList<>();
 
     /** The singleton <code>JDOImplHelper</code> instance.
      */    
@@ -131,7 +131,7 @@ public class JDOImplHelper extends java.lang.Object {
     public static final Set<String> USER_CONFIGURABLE_STANDARD_PROPERTIES = createUserConfigurableStandardProperties();
 
     private static Set<String> createUserConfigurableStandardProperties() {
-        Set<String> props = new HashSet<String>();
+        Set<String> props = new HashSet<>();
         
         props.add(Constants.PROPERTY_CONNECTION_DRIVER_NAME);
         props.add(Constants.PROPERTY_CONNECTION_FACTORY2_NAME);
@@ -178,7 +178,7 @@ public class JDOImplHelper extends java.lang.Object {
     static Set<String> createUserConfigurableStandardPropertiesLowerCased() {
 	Set<String> mixedCased = createUserConfigurableStandardProperties();
 	Set<String> lowerCased =
-		new HashSet<String>(mixedCased.size());
+		new HashSet<>(mixedCased.size());
 
 	for (String propertyName : mixedCased) {
 	    lowerCased.add(propertyName.toLowerCase());
@@ -220,7 +220,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field names for the class.
      */    
-    public String[] getFieldNames (Class pcClass) {
+    public String[] getFieldNames (Class<?> pcClass) {
         Meta meta = getMeta (pcClass);
         return meta.getFieldNames();
     }
@@ -230,7 +230,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field types for the class.
      */    
-    public Class[] getFieldTypes (Class pcClass) {
+    public Class<?>[] getFieldTypes (Class<?> pcClass) {
         Meta meta = getMeta (pcClass);
         return meta.getFieldTypes();
     }
@@ -240,7 +240,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @return the field types for the class.
      */    
-    public byte[] getFieldFlags (Class pcClass) {
+    public byte[] getFieldFlags (Class<?> pcClass) {
         Meta meta = getMeta (pcClass);
         return meta.getFieldFlags();
     }
@@ -251,7 +251,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @return The <code>PersistenceCapable</code> superclass for this class,
      * or <code>null</code> if there isn't one.
      */    
-    public Class getPersistenceCapableSuperclass (Class pcClass) {
+    public Class<?> getPersistenceCapableSuperclass (Class<?> pcClass) {
         Meta meta = getMeta (pcClass);
         return meta.getPersistenceCapableSuperclass();
     }
@@ -266,7 +266,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @return the new instance, or <code>null</code> if the class is not 
      * registered.
      */    
-    public PersistenceCapable newInstance (Class pcClass, StateManager sm) {
+    public PersistenceCapable newInstance (Class<?> pcClass, StateManager sm) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         return pcInstance == null?null:pcInstance.jdoNewInstance(sm);
@@ -285,7 +285,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param oid the ObjectId instance from which to copy key field values.
  */    
     public PersistenceCapable newInstance 
-            (Class pcClass, StateManager sm, Object oid) {
+            (Class<?> pcClass, StateManager sm, Object oid) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         return pcInstance == null?null:pcInstance.jdoNewInstance(sm, oid);
@@ -303,7 +303,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @return the new ObjectId instance, or <code>null</code> if the class 
      * is not registered.
      */    
-    public Object newObjectIdInstance (Class pcClass) {
+    public Object newObjectIdInstance (Class<?> pcClass) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         return pcInstance == null?null:pcInstance.jdoNewObjectIdInstance();
@@ -334,7 +334,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param pcClass the <code>PersistenceCapable</code> class.
      * @since 2.0
      */
-    public Object newObjectIdInstance (Class pcClass, Object obj) {
+    public Object newObjectIdInstance (Class<?> pcClass, Object obj) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         return (pcInstance == null)?null:pcInstance.jdoNewObjectIdInstance(obj);
@@ -360,7 +360,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param fm the field manager that supplies the field values.
  */    
     public void copyKeyFieldsToObjectId 
-    (Class pcClass, PersistenceCapable.ObjectIdFieldSupplier fm, Object oid) {
+    (Class<?> pcClass, PersistenceCapable.ObjectIdFieldSupplier fm, Object oid) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         if (pcInstance == null) {
@@ -390,7 +390,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param fm the field manager that receives the field values.
      */    
     public void copyKeyFieldsFromObjectId
-    (Class pcClass, PersistenceCapable.ObjectIdFieldConsumer fm, Object oid) {
+    (Class<?> pcClass, PersistenceCapable.ObjectIdFieldConsumer fm, Object oid) {
         Meta meta = getMeta (pcClass);
         PersistenceCapable pcInstance = meta.getPC();
         if (pcInstance == null) {
@@ -415,9 +415,9 @@ public class JDOImplHelper extends java.lang.Object {
      * @param persistenceCapableSuperclass the most immediate superclass that is
      * <code>PersistenceCapable</code>
      */    
-    public static void registerClass (Class pcClass, 
-            String[] fieldNames, Class[] fieldTypes, 
-            byte[] fieldFlags, Class persistenceCapableSuperclass,
+    public static void registerClass (Class<?> pcClass,
+            String[] fieldNames, Class<?>[] fieldTypes,
+            byte[] fieldFlags, Class<?> persistenceCapableSuperclass,
             PersistenceCapable pc) {
         if (pcClass == null) 
             throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
@@ -431,9 +431,8 @@ public class JDOImplHelper extends java.lang.Object {
                 RegisterClassEvent event = new RegisterClassEvent(
                     jdoImplHelper, pcClass, fieldNames, fieldTypes, 
                     fieldFlags, persistenceCapableSuperclass);
-                for (Iterator i = listeners.iterator(); i.hasNext();) {
-                    RegisterClassListener crl = 
-                        (RegisterClassListener)i.next();
+                for (Iterator<RegisterClassListener> i = listeners.iterator(); i.hasNext();) {
+                    RegisterClassListener crl = i.next();
                     if (crl != null) {
                         crl.registerClass(event);
                     }
@@ -458,9 +457,9 @@ public class JDOImplHelper extends java.lang.Object {
             sec.checkPermission (JDOPermission.MANAGE_METADATA);
         }
         synchronized(registeredClasses) {
-            for (Iterator i = registeredClasses.keySet().iterator(); 
+            for (Iterator<Class<?>> i = registeredClasses.keySet().iterator();
                  i.hasNext();) {
-                Class pcClass = (Class)i.next();
+                Class<?> pcClass = i.next();
                 // Note, the pc class was registered by calling the static
                 // method JDOImplHelper.registerClass. This means the
                 // JDOImplHelper class loader is the same as or an ancestor
@@ -485,7 +484,7 @@ public class JDOImplHelper extends java.lang.Object {
      * unregistered.
      * @since 1.0.2
      */
-    public void unregisterClass (Class pcClass)
+    public void unregisterClass (Class<?> pcClass)
     {
         if (pcClass == null) 
             throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
@@ -503,7 +502,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param crl the listener to be added
      */
     public void addRegisterClassListener (RegisterClassListener crl) {
-        HashSet alreadyRegisteredClasses = null;
+        HashSet<Class<?>> alreadyRegisteredClasses = null;
         synchronized (listeners) {
             listeners.add(crl);
             // Make a copy of the existing set of registered classes.
@@ -511,12 +510,12 @@ public class JDOImplHelper extends java.lang.Object {
             // registrations might occur, and will then all wait until this 
             // synchronized block completes. Some of the class registrations 
             // might be delivered twice to the newly registered listener.
-            alreadyRegisteredClasses = new HashSet<Class> (registeredClasses.keySet());
+            alreadyRegisteredClasses = new HashSet<> (registeredClasses.keySet());
         }
         // new registrations will call the new listener while the following 
         // occurs notify the new listener about already-registered classes
-        for (Iterator it = alreadyRegisteredClasses.iterator(); it.hasNext();) {
-            Class pcClass = (Class)it.next();
+        for (Iterator<Class<?>> it = alreadyRegisteredClasses.iterator(); it.hasNext();) {
+            Class<?> pcClass = it.next();
             Meta meta = getMeta (pcClass);
             RegisterClassEvent event = new RegisterClassEvent(
                 this, pcClass, meta.getFieldNames(), meta.getFieldTypes(), 
@@ -541,7 +540,7 @@ public class JDOImplHelper extends java.lang.Object {
      * persistence-capable classes.
      * @return registered persistence-capable classes
      */
-    public Collection<Class> getRegisteredClasses() {
+    public Collection<Class<?>> getRegisteredClasses() {
         return Collections.unmodifiableCollection(registeredClasses.keySet());
     }
 
@@ -549,7 +548,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param pcClass the <code>Class</code>.
      * @return the <code>Meta</code> for the <code>Class</code>.
      */    
-    private static Meta getMeta (Class pcClass) {
+    private static Meta getMeta (Class<?> pcClass) {
         Meta ret = (Meta) registeredClasses.get (pcClass);
         if (ret == null) {
             throw new JDOFatalUserException(
@@ -569,7 +568,7 @@ public class JDOImplHelper extends java.lang.Object {
      * JDOPermission("setStateManager").
      * @since 1.0.1
      */
-    public static void registerAuthorizedStateManagerClass (Class smClass) 
+    public static void registerAuthorizedStateManagerClass (Class<?> smClass)
         throws SecurityException {
         if (smClass == null) 
             throw new NullPointerException(msg.msg("ERR_NullClass")); //NOI18N
@@ -594,19 +593,19 @@ public class JDOImplHelper extends java.lang.Object {
      * @since 1.0.1
      */
     public static void registerAuthorizedStateManagerClasses (
-            Collection smClasses) throws SecurityException {
+            Collection<?> smClasses) throws SecurityException {
         SecurityManager sm = LegacyJava.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(JDOPermission.SET_STATE_MANAGER);
             synchronized (authorizedStateManagerClasses) {
-                for (Iterator it = smClasses.iterator(); it.hasNext();) {
+                for (Iterator<?> it = smClasses.iterator(); it.hasNext();) {
                     Object smClass = it.next();
                     if (!(smClass instanceof Class)) {
                         throw new ClassCastException(
                             msg.msg("ERR_StateManagerClassCast", //NOI18N
                                 smClass.getClass().getName()));
                     }
-                    registerAuthorizedStateManagerClass((Class)it.next());
+                    registerAuthorizedStateManagerClass((Class<?>)it.next());
                 }
             }
         }
@@ -677,7 +676,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param smClass a Class to be checked for JDOPermission("setStateManager")
      * @since 1.0.1
      */
-    public static void checkAuthorizedStateManagerClass (Class smClass) {
+    public static void checkAuthorizedStateManagerClass (Class<?> smClass) {
         final SecurityManager scm = LegacyJava.getSecurityManager();
         if (scm == null) {
             // if no security manager, no checking.
@@ -715,8 +714,7 @@ public class JDOImplHelper extends java.lang.Object {
      * keyed on class instance and the value is an instance of 
      * StringConstructor.
      */
-    static final Map<Class,StringConstructor> stringConstructorMap =
-            new HashMap<Class,StringConstructor>();
+    static final Map<Class<?>,StringConstructor> stringConstructorMap = new HashMap<>();
 
     /**
      * 
@@ -727,7 +725,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param sc the StringConstructor instance
      * @return the previous StringConstructor registered for this class
      */
-    public Object registerStringConstructor(Class cls, StringConstructor sc) {
+    public Object registerStringConstructor(Class<?> cls, StringConstructor sc) {
         synchronized(stringConstructorMap) {
             return stringConstructorMap.put(cls, sc);
         }
@@ -844,7 +842,7 @@ public class JDOImplHelper extends java.lang.Object {
             if (stringConstructor != null) {
                 return stringConstructor.construct(keyString);
             } else {
-                Constructor keyConstructor = 
+                Constructor<?> keyConstructor =
                     keyClass.getConstructor(new Class[]{String.class});
                 return keyConstructor.newInstance(new Object[]{keyString});
             }
@@ -937,8 +935,8 @@ public class JDOImplHelper extends java.lang.Object {
          * <code>PersistenceCapable</code> superclass
          * @param pc An instance of the <code>PersistenceCapable</code> class
          */        
-        Meta (String[] fieldNames, Class[] fieldTypes, byte[] fieldFlags,
-              Class persistenceCapableSuperclass, PersistenceCapable pc) {
+        Meta (String[] fieldNames, Class<?>[] fieldTypes, byte[] fieldFlags,
+              Class<?> persistenceCapableSuperclass, PersistenceCapable pc) {
             this.fieldNames = fieldNames;
             this.fieldTypes = fieldTypes;
             this.fieldFlags = fieldFlags;
@@ -963,12 +961,12 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        Class[] fieldTypes;
+        Class<?>[] fieldTypes;
     
         /** Get the field types from the metadata.
          * @return the array of field types.
          */
-        Class[] getFieldTypes() {
+        Class<?>[] getFieldTypes() {
             return fieldTypes;
         }
     
@@ -988,12 +986,12 @@ public class JDOImplHelper extends java.lang.Object {
         /** This is the <code>Class</code> instance of the 
          * <code>PersistenceCapable</code> superclass.
          */
-        Class persistenceCapableSuperclass;
+        Class<?> persistenceCapableSuperclass;
     
         /** Return the <code>PersistenceCapable</code> superclass.
          * @return the <code>PersistenceCapable</code> superclass
          */
-        Class getPersistenceCapableSuperclass() {
+        Class<?> getPersistenceCapableSuperclass() {
             return persistenceCapableSuperclass;
         }
         /** This is an instance of <code>PersistenceCapable</code>,
@@ -1022,8 +1020,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param si the StateInterrogation to add
      */
     public synchronized void addStateInterrogation(StateInterrogation si) {
-        List<StateInterrogation> newList =
-                new ArrayList<StateInterrogation>(stateInterrogations);
+        List<StateInterrogation> newList = new ArrayList<>(stateInterrogations);
         newList.add(si);
         stateInterrogations = newList;
     }
@@ -1034,8 +1031,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @param si the StateInterrogation to remove
      */
     public synchronized void removeStateInterrogation(StateInterrogation si) {
-        List<StateInterrogation> newList =
-                new ArrayList<StateInterrogation>(stateInterrogations);
+        List<StateInterrogation> newList = new ArrayList<>(stateInterrogations);
         newList.remove(si);
         stateInterrogations = newList;
     }
@@ -1045,7 +1041,7 @@ public class JDOImplHelper extends java.lang.Object {
      * Synchronize to avoid add/remove/iterate conflicts.
      * @return an Iterator over all StateInterrogation instances.
      */
-    private synchronized Iterator getStateInterrogationIterator() {
+    private synchronized Iterator<StateInterrogation> getStateInterrogationIterator() {
         return stateInterrogations.iterator();
     }
     
@@ -1057,9 +1053,9 @@ public class JDOImplHelper extends java.lang.Object {
      * @param fieldName the field to mark dirty
      */
     public void nonBinaryCompatibleMakeDirty(Object pc, String fieldName) {
-        Iterator sit = getStateInterrogationIterator();
+        Iterator<StateInterrogation> sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
-            StateInterrogation si = (StateInterrogation)sit.next();
+            StateInterrogation si = sit.next();
             try {
                 if (si.makeDirty(pc, fieldName)) return;
             } catch (Throwable t) {
@@ -1084,9 +1080,9 @@ public class JDOImplHelper extends java.lang.Object {
      */
     public boolean nonBinaryCompatibleIs(Object pc, 
             StateInterrogationBooleanReturn sibr) {
-        Iterator sit = getStateInterrogationIterator();
+        Iterator<StateInterrogation> sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
-            StateInterrogation si = (StateInterrogation)sit.next();
+            StateInterrogation si = sit.next();
             Boolean result;
             try {
                 result = sibr.is(pc, si);
@@ -1112,9 +1108,9 @@ public class JDOImplHelper extends java.lang.Object {
      */
     public Object nonBinaryCompatibleGet(Object pc, 
             StateInterrogationObjectReturn sibr) {
-        Iterator sit = getStateInterrogationIterator();
+        Iterator<StateInterrogation> sit = getStateInterrogationIterator();
         while (sit.hasNext()) {
-            StateInterrogation si = (StateInterrogation)sit.next();
+            StateInterrogation si = sit.next();
             Object result;
             try {
                 result = sibr.get(pc, si);
@@ -1171,7 +1167,7 @@ public class JDOImplHelper extends java.lang.Object {
         if (properties == null || properties.isEmpty())
             return;
 
-        List<JDOUserException> exceptions = new ArrayList<JDOUserException>();
+        List<JDOUserException> exceptions = new ArrayList<>();
         StringBuilder unknowns = new StringBuilder();
 
         for (Object key : properties.keySet()) {

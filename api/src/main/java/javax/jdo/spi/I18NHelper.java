@@ -50,13 +50,11 @@ public class I18NHelper {
 
     /** Bundles that have already been loaded 
      */
-    private static Hashtable<String,ResourceBundle>
-            bundles = new Hashtable<String,ResourceBundle>();
+    private static Hashtable<String,ResourceBundle> bundles = new Hashtable<>();
     
     /** Helper instances that have already been created 
      */
-    private static Hashtable<String,I18NHelper>
-            helpers = new Hashtable<String,I18NHelper>();
+    private static Hashtable<String,I18NHelper> helpers = new Hashtable<>();
     
     /** The default locale for this VM.
      */
@@ -107,7 +105,7 @@ public class I18NHelper {
      * @param cls the class object from which to load the resource bundle
      * @return the helper instance bound to the bundle
      */
-    public static I18NHelper getInstance (final Class cls) {
+    public static I18NHelper getInstance (final Class<?> cls) {
         ClassLoader classLoader = doPrivileged (
             new PrivilegedAction<ClassLoader> () {
                 public ClassLoader run () {

@@ -32,7 +32,7 @@ import java.io.ObjectOutput;
  */
     public class ConcreteTestIdentity extends SingleFieldIdentity {
         
-        ConcreteTestIdentity(Class cls) {
+        ConcreteTestIdentity(Class<?> cls) {
             super(cls);
         }
         

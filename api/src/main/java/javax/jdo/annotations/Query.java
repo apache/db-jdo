@@ -62,7 +62,7 @@ public @interface Query
     /** Result class into which to put the results.
      * @return the class of the result
      */
-    Class resultClass() default void.class;
+    Class<?> resultClass() default void.class;
 
     /** The name of the fetch plan used by this query
      * @return the fetch plan

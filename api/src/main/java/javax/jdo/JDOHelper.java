@@ -103,7 +103,7 @@ public class JDOHelper implements Constants {
      * properties.
      */
     static Map<String, String> createAttributePropertyXref() {
-        Map<String, String> xref = new HashMap<String,String>();
+        Map<String, String> xref = new HashMap<>();
 
         xref.put(
             PMF_ATTRIBUTE_CLASS,
@@ -398,7 +398,7 @@ public class JDOHelper implements Constants {
      * @since 2.0
      */
     public static Collection<Object> getObjectIds(Collection<?> pcs) {
-        ArrayList<Object> result = new ArrayList<Object>();
+        ArrayList<Object> result = new ArrayList<>();
         for (Iterator<?> it = pcs.iterator(); it.hasNext();) {
             result.add(getObjectId(it.next()));
         }
@@ -796,7 +796,7 @@ public class JDOHelper implements Constants {
     protected static PersistenceManagerFactory getPersistenceManagerFactory
             (Map<?, ?> overrides, Map<?, ?> props, ClassLoader pmfClassLoader) {
         
-        List<Throwable> exceptions = new ArrayList<Throwable>();
+        List<Throwable> exceptions = new ArrayList<>();
         if (pmfClassLoader == null)
             throw new JDOFatalUserException (msg.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
@@ -1278,8 +1278,7 @@ public class JDOHelper implements Constants {
             ClassLoader resourceLoader,
             String jdoconfigResourceName) {
         // key is PU name, value is Map of PU properties
-        Map<String,Map<Object,Object>> propertiesByNameInAllConfigs
-                = new HashMap<String,Map<Object,Object>>();
+        Map<String,Map<Object,Object>> propertiesByNameInAllConfigs = new HashMap<>();
         try {
             URL firstFoundConfigURL = null;
 
@@ -1288,7 +1287,7 @@ public class JDOHelper implements Constants {
                 getResources(resourceLoader, jdoconfigResourceName);
 
             if (resources.hasMoreElements()) {
-                ArrayList<URL> processedResources = new ArrayList<URL>();
+                ArrayList<URL> processedResources = new ArrayList<>();
 
                 // get ready to parse XML
                 DocumentBuilderFactory factory = getDocumentBuilderFactory();
@@ -1412,8 +1411,7 @@ public class JDOHelper implements Constants {
             ? ""
             : requestedPMFName.trim();
 
-        Map<String,Map<Object,Object>>
-                propertiesByName = new HashMap<String,Map<Object,Object>>();
+        Map<String,Map<Object,Object>> propertiesByName = new HashMap<>();
         InputStream in = null;
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -1877,7 +1875,7 @@ public class JDOHelper implements Constants {
      * the invocation returns an instance.
      * Otherwise add the exception thrown to an exception list.
      */
-        ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
+        ArrayList<Throwable> exceptions = new ArrayList<>();
         int numberOfJDOEnhancers = 0;
         try {
             Enumeration<URL> urls = getResources(loader, SERVICE_LOOKUP_ENHANCER_RESOURCE_NAME);

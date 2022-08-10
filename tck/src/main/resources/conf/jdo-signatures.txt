@@ -342,7 +342,8 @@ public class javax.jdo.identity.ByteIdentity extends javax.jdo.identity.SingleFi
     public byte getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.ByteIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -355,7 +356,8 @@ public class javax.jdo.identity.CharIdentity extends javax.jdo.identity.SingleFi
     public char getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.CharIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -368,7 +370,8 @@ public class javax.jdo.identity.IntIdentity extends javax.jdo.identity.SingleFie
     public int getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.IntIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -381,7 +384,8 @@ public class javax.jdo.identity.LongIdentity extends javax.jdo.identity.SingleFi
     public long getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.LongIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -393,7 +397,8 @@ public class javax.jdo.identity.ObjectIdentity extends javax.jdo.identity.Single
     public String toString();
     public boolean equals(Object obj);
     public int hashCode();
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.ObjectIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -406,7 +411,8 @@ public class javax.jdo.identity.ShortIdentity extends javax.jdo.identity.SingleF
     public short getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.ShortIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }
@@ -428,7 +434,8 @@ public class javax.jdo.identity.StringIdentity extends javax.jdo.identity.Single
     public String getKey();
     public String toString();
     public boolean equals(Object obj);
-    public int compareTo(Object obj);
+    public volatile int compareTo(Object);
+    public int compareTo(javax.jdo.identity.StringIdentity obj);
     public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException;
     public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException;
 }

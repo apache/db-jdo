@@ -279,7 +279,7 @@ public class EnhancerTest extends AbstractTest {
         InvocationResult result = new InvocationResult();
         try {
             // create the java command to invoke the Enhancer
-            List<String> commands = new ArrayList<String>();
+            List<String> commands = new ArrayList<>();
             // find the java command in the user's path
             commands.add("java");
             commands.add("-cp");

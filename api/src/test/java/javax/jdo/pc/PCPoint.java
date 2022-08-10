@@ -39,14 +39,14 @@ public class PCPoint
     protected transient byte jdoFlags;
     private static final int jdoInheritedFieldCount = 0;
     private static final String jdoFieldNames[] = { "x", "y" };
-    private static final Class jdoFieldTypes[]; 
+    private static final Class<?> jdoFieldTypes[];
     private static final byte jdoFieldFlags[] = { 
         (byte)(PersistenceCapable.CHECK_READ + PersistenceCapable.CHECK_WRITE + 
                PersistenceCapable.SERIALIZABLE), 
         (byte)(PersistenceCapable.CHECK_READ + PersistenceCapable.CHECK_WRITE + 
                PersistenceCapable.SERIALIZABLE), 
     }; 
-    private static final Class jdoPersistenceCapableSuperclass; 
+    private static final Class<?> jdoPersistenceCapableSuperclass;
 
     static 
     {
@@ -445,7 +445,7 @@ public class PCPoint
         out.defaultWriteObject();
     }
     
-    protected static final Class sunjdo$classForName$(String s) {
+    protected static final Class<?> sunjdo$classForName$(String s) {
         try {
             return Class.forName(s);
         }

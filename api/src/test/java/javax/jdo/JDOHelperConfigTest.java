@@ -76,10 +76,10 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
      * @return a new {@link java.util.Map Map} object populated with properties
      *         that can be used in this test suite.
      */
-    protected Map prepareInitialExpectedMap(String testVariant,
+    protected Map<String, String> prepareInitialExpectedMap(String testVariant,
         int listenerCount, int vendorSpecificPropertyCount,
         boolean excludeName, boolean excludePUName) {
-        Map<String, String> expected = new HashMap<String, String>();
+        Map<String, String> expected = new HashMap<>();
 
         if (!excludeName) {
             expected.put(PROPERTY_NAME, PMF_ATTRIBUTE_NAME + "." + testVariant);
@@ -212,10 +212,10 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
 
         URLClassLoader loader = new JDOConfigTestClassLoader(
             getClass().getClassLoader(), classpaths);
-        Map expected = prepareInitialExpectedMap(testVariantName,
+        Map<String, String> expected = prepareInitialExpectedMap(testVariantName,
             listenerCount, vendorSpecificPropertyCount, excludeName, excludePUName);
         String name = testVariantName == null ? null : (String) expected.get(PROPERTY_NAME);
-        Map actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
+        Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
         assertNotNull("No properties found", actual);
         if (checkEqualProperties) {
@@ -254,7 +254,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1a",
             JDOCONFIG_CLASSPATH_PREFIX + "/Positive01/1b" };
         URLClassLoader loader = new JDOConfigTestClassLoader(getClass().getClassLoader(), classpaths);
-        Map actual = JDOHelper.getPropertiesFromJdoconfig(
+        Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(
             ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
     }
 
@@ -264,7 +264,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive02/");
 
-        Map properties = JDOHelper.getPropertiesFromJdoconfig(
+        Map<Object, Object> properties = JDOHelper.getPropertiesFromJdoconfig(
             ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
         assertNotNull("Anonymous PMF with no properties returned null", properties);
         assertTrue("Anonymous PMF with no properties had properties", properties.size() == 0);
@@ -314,8 +314,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive06/");
 
-        Map expected = prepareInitialExpectedMap("positive06.pmf0", 2, 0, true, true);
-        Map actual = JDOHelper.getPropertiesFromJdoconfig(
+        Map<String, String> expected = prepareInitialExpectedMap("positive06.pmf0", 2, 0, true, true);
+        Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(
             ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
         assertNotNull("No properties found", actual);
@@ -328,8 +328,8 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
         URLClassLoader loader = new JDOConfigTestClassLoader(
                 getClass().getClassLoader(), JDOCONFIG_CLASSPATH_PREFIX + "/Positive07/");
 
-        Map expected = prepareInitialExpectedMap("positive07.pmf0", 2, 0, true, false);
-        Map actual = JDOHelper.getPropertiesFromJdoconfig(
+        Map<String, String> expected = prepareInitialExpectedMap("positive07.pmf0", 2, 0, true, false);
+        Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(
             ANONYMOUS_PERSISTENCE_MANAGER_FACTORY_NAME, loader);
 
         assertNotNull("No properties found", actual);

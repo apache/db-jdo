@@ -318,7 +318,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @see #executeWithArray(Object[] parameters)
      * @param parameters the <code>Map</code> containing all of the parameters.
      */
-    Object executeWithMap (Map parameters);
+    Object executeWithMap (Map<String, ?> parameters);
     
     /** Execute the query and return the filtered <code>Collection</code>.
      *
@@ -468,7 +468,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param cls the result class
      * @since 2.0
      */
-    void setResultClass(Class cls);
+    void setResultClass(Class<?> cls);
 
     /**
      * Set the range of results to return. The execution of the query is
@@ -524,7 +524,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @see #addExtension
      * @since 2.0
      */
-    void setExtensions(Map extensions);
+    void setExtensions(Map<?, ?> extensions);
 
     /**
      * Returns the <code>FetchPlan</code> used by this
@@ -554,7 +554,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @return the number of instances of the candidate class that were deleted
      * @since 2.0
      */
-    long deletePersistentAll(Map parameters);
+    long deletePersistentAll(Map<?, ?> parameters);
 
     /**
      * Deletes all the instances of the candidate class that pass the
@@ -610,7 +610,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery(Query sub, String variableDeclaration, String candidateCollectionExpression);
+    void addSubquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression);
 
     /**
      * Add a subquery to this query.
@@ -628,7 +628,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
+    void addSubquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
 
     /**
      * Add a subquery to this query.
@@ -669,7 +669,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * the parameters in the subquery
      * @since 2.1
      */
-    void addSubquery(Query sub, String variableDeclaration, 
+    void addSubquery(Query<?> sub, String variableDeclaration,
          String candidateCollectionExpression, String... parameters);
 
     /**
@@ -691,8 +691,8 @@ public interface Query<T> extends AutoCloseable, Serializable {
      *    String candidateCollectionExpression, String... parameters)
      * @since 2.1
      */
-    void addSubquery(Query sub, String variableDeclaration, 
-         String candidateCollectionExpression, Map parameters);
+    void addSubquery(Query<?> sub, String variableDeclaration,
+         String candidateCollectionExpression, Map<?, ?> parameters);
 
     /**
      * Specify a timeout interval (milliseconds) for any read operations
@@ -860,7 +860,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param candidateCollectionExpression the candidate collection of the subquery as an expression using terms of the outer query
      * @return This query
      */
-    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression);
+    Query<T> subquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression);
 
     /**
      * Add a subquery to this query.
@@ -871,7 +871,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param parameter the expression from the outer query to bind the parameter in the subquery
      * @return This query
      */
-    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
+    Query<T> subquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression, String parameter);
 
     /**
      * Add a subquery to this query.
@@ -882,7 +882,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param parameters the expressions from the outer query to bind the parameters in the subquery
      * @return This query
      */
-    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, String... parameters);
+    Query<T> subquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression, String... parameters);
 
     /**
      * Add a subquery to this query.
@@ -893,7 +893,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param parameters the expressions from the outer query to bind the parameter in the subquery
      * @return This query
      */
-    Query<T> subquery(Query sub, String variableDeclaration, String candidateCollectionExpression, Map parameters);
+    Query<T> subquery(Query<?> sub, String variableDeclaration, String candidateCollectionExpression, Map<?, ?> parameters);
 
     /**
      * Set the import statements to be used to identify the fully qualified name of variables or parameters. 
@@ -973,7 +973,7 @@ public interface Query<T> extends AutoCloseable, Serializable {
      * @param values The extension map of keys and values
      * @return This query
      */
-    Query<T> extensions(Map values);
+    Query<T> extensions(Map<?, ?> values);
 
     /**
      * Method to set the named parameters on this query prior to execution.

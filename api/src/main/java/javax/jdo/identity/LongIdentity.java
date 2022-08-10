@@ -29,7 +29,7 @@ import java.io.ObjectOutput;
 /** This class is for identity with a single long field.
  * @version 2.0
  */
-public class LongIdentity extends SingleFieldIdentity {
+public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
 	
     /** The key.
      */
@@ -44,7 +44,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
-    public LongIdentity (Class pcClass, long key) {
+    public LongIdentity (Class<?> pcClass, long key) {
         super (pcClass);
         construct(key);
     }
@@ -53,7 +53,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param key the key
      */
-    public LongIdentity (Class pcClass, Long key) {
+    public LongIdentity (Class<?> pcClass, Long key) {
         super(pcClass);
         setKeyAsObject(key);
         construct(key.longValue());
@@ -63,7 +63,7 @@ public class LongIdentity extends SingleFieldIdentity {
      * @param pcClass the class
      * @param str the key
      */
-    public LongIdentity (Class pcClass, String str) {
+    public LongIdentity (Class<?> pcClass, String str) {
         super(pcClass);
         assertKeyNotNull(str);
         construct(Long.parseLong(str));
@@ -108,29 +108,25 @@ public class LongIdentity extends SingleFieldIdentity {
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    public int compareTo(Object o) {
-        if (o instanceof LongIdentity) {
-        	LongIdentity other = (LongIdentity)o;
-            int result = super.compare(other);
-            if (result == 0) {
-                long diff = key - other.key;
-                if (diff == 0) {
-                    return 0;
-                } else {
-                    if (diff < 0) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
-                }
-            } else {
-                return result;
-            }
-        }
-        else if (o == null) {
+    public int compareTo(LongIdentity o) {
+        if (o == null) {
             throw new ClassCastException("object is null");
         }
-        throw new ClassCastException(this.getClass().getName() + " != " + o.getClass().getName());
+        int result = super.compare(o);
+        if (result == 0) {
+            long diff = key - o.key;
+            if (diff == 0) {
+                return 0;
+            } else {
+                if (diff < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        } else {
+            return result;
+        }
     }
 
     /** Create the key as an Object.

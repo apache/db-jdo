@@ -215,7 +215,7 @@ public class ObjectStateTest extends AbstractTest {
     }
 
     private static Method getDeclaredMethod
-            (Class clazz, String methodName, Class[] parameters) {
+            (Class<?> clazz, String methodName, Class<?>[] parameters) {
         try {
             @SuppressWarnings("unchecked")
             Method result = clazz.getDeclaredMethod(methodName, parameters);
@@ -224,7 +224,7 @@ public class ObjectStateTest extends AbstractTest {
             // human-readable class.methodName(parameter[,parameter])
             StringBuffer sb = new StringBuffer(methodName);
             String delimiter = "(";
-            for (Class parameter: parameters) {
+            for (Class<?> parameter: parameters) {
                 sb.append(delimiter);
                 sb.append(parameter.getName());
                 delimiter = ",";
