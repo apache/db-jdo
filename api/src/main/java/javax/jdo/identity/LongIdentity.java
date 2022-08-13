@@ -30,7 +30,9 @@ import java.io.ObjectOutput;
  * @version 2.0
  */
 public class LongIdentity extends SingleFieldIdentity<LongIdentity> {
-	
+
+    private static final long serialVersionUID = 1L;
+
     /** The key.
      */
     private long key;

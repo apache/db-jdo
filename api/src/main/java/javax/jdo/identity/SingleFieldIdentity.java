@@ -41,7 +41,9 @@ import javax.jdo.spi.I18NHelper;
  */
 public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<SUBCLASS>>
         implements Externalizable, Comparable<SUBCLASS>  {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /** The Internationalization message helper.
      */
     protected static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N

@@ -31,7 +31,9 @@ import java.io.ObjectOutput;
  */
 public class ShortIdentity extends SingleFieldIdentity<ShortIdentity>
 {
-	private short key;
+    private static final long serialVersionUID = 1L;
+
+    private short key;
 
     private void construct(short key) {
         this.key = key;

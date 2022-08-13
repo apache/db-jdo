@@ -39,7 +39,9 @@ import javax.jdo.spi.JDOImplHelper;
  * @version 2.0
  */
 public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /** The key is stored in the superclass field keyAsObject.
      */
     

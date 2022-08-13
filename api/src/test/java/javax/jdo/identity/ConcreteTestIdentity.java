@@ -31,7 +31,9 @@ import java.io.ObjectOutput;
  * @author clr
  */
     public class ConcreteTestIdentity extends SingleFieldIdentity {
-        
+
+        private static final long serialVersionUID = 1L;
+
         ConcreteTestIdentity(Class<?> cls) {
             super(cls);
         }

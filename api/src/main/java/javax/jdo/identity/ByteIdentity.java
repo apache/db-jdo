@@ -30,7 +30,9 @@ import java.io.ObjectOutput;
  * @version 2.0
  */
 public class ByteIdentity extends SingleFieldIdentity<ByteIdentity> {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /** The key.
      */
     private byte key;

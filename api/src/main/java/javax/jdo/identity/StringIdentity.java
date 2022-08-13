@@ -30,7 +30,9 @@ import java.io.ObjectOutput;
  * @version 2.0
  */
 public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
-    
+
+    private static final long serialVersionUID = 1L;
+
     /** The key is stored in the superclass field keyAsObject.
      */
     

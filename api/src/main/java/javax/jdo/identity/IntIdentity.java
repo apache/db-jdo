@@ -31,6 +31,8 @@ import java.io.ObjectOutput;
  */
 public class IntIdentity extends SingleFieldIdentity<IntIdentity> {
 
+    private static final long serialVersionUID = 1L;
+
     private int key;
 
     private void construct(int key) {
