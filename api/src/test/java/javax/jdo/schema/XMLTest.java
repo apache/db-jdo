@@ -70,11 +70,7 @@ public class XMLTest extends AbstractTest {
     
     /** Returns array of files of matching file names. */
     protected static File[] getFiles(final String prefix, final String suffix) {
-        FilenameFilter filter = new FilenameFilter () {
-            public boolean accept(File file, String name) {
-                return (name.startsWith(prefix) && name.endsWith(suffix));
-            }
-        };
+        FilenameFilter filter = (file, name) -> (name.startsWith(prefix) && name.endsWith(suffix));
         File dir = new File(FILE_PREFIX);
         return dir.listFiles(filter);
     }

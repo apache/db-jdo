@@ -324,19 +324,17 @@ public class EnhancerTest extends AbstractTest {
     private Thread createReaderThread(final InputStream input, final CharBuffer output) {
         final Reader reader = new InputStreamReader(input);
         Thread thread = new Thread(
-                new Runnable() {
-                    public void run() {
-                        int count = 0;
-                        int outputBytesRead = 0;
-                        try {
-                            while (-1 != (outputBytesRead = reader.read(output))) {
-                                count += outputBytesRead;
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            output.flip();
+                () -> {
+                    int count = 0;
+                    int outputBytesRead = 0;
+                    try {
+                        while (-1 != (outputBytesRead = reader.read(output))) {
+                            count += outputBytesRead;
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        output.flip();
                     }
                 });
         thread.start();

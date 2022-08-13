@@ -106,13 +106,7 @@ public class I18NHelper {
      * @return the helper instance bound to the bundle
      */
     public static I18NHelper getInstance (final Class<?> cls) {
-        ClassLoader classLoader = doPrivileged (
-            new PrivilegedAction<ClassLoader> () {
-                public ClassLoader run () {
-                    return cls.getClassLoader();
-                }
-            }
-            );
+        ClassLoader classLoader = doPrivileged (cls::getClassLoader);
         String bundle = getPackageName (cls.getName()) + bundleSuffix;
         return getInstance (bundle, classLoader);
     }
@@ -388,13 +382,7 @@ public class I18NHelper {
      * block because of security.
      */
     private static ClassLoader getSystemClassLoaderPrivileged() {
-        return doPrivileged (
-            new PrivilegedAction<ClassLoader> () {
-                public ClassLoader run () {
-                    return ClassLoader.getSystemClassLoader();
-                }
-            }
-        );
+        return doPrivileged (ClassLoader::getSystemClassLoader);
     }
 
     @SuppressWarnings("unchecked")

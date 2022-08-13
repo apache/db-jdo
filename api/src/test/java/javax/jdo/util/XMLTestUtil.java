@@ -456,21 +456,13 @@ public class XMLTestUtil {
         
         /** Returns array of files of matching file names. */
         private File[] getFiles(File dir, final String suffix) {
-            FilenameFilter filter = new FilenameFilter() {
-                    public boolean accept(File file, String name) {
-                        return name.endsWith(suffix);
-                    }
-                };
+            FilenameFilter filter = (file, name) -> name.endsWith(suffix);
             return dir.listFiles(filter);
         }
 
         /** */
         private File[] getDirectories(File dir) {
-            FileFilter filter = new FileFilter() {
-                    public boolean accept(File pathname) {
-                        return pathname.isDirectory();
-                    }
-                };
+            FileFilter filter = File::isDirectory;
             return dir.listFiles(filter);
         }
 

@@ -736,30 +736,27 @@ public class JDOImplHelper extends java.lang.Object {
     static {
         if (isClassLoadable("java.util.Currency")) {
             jdoImplHelper.registerStringConstructor(
-                    Currency.class, new StringConstructor() {
-                public Object construct(String s) {
-                    try {
-                        return Currency.getInstance(s);
-                    } catch (IllegalArgumentException ex) {
-                        throw new javax.jdo.JDOUserException(msg.msg(
-                            "EXC_CurrencyStringConstructorIllegalArgument", //NOI18N
-                            s), ex); 
-                    } catch (Exception ex) {
-                        throw new JDOUserException(msg.msg(
-                            "EXC_CurrencyStringConstructorException"), //NOI18N
-                            ex); 
-                    }
-                }
-            });
+                    Currency.class,
+                    s -> {
+                        try {
+                            return Currency.getInstance(s);
+                        } catch (IllegalArgumentException ex) {
+                            throw new JDOUserException(msg.msg(
+                                "EXC_CurrencyStringConstructorIllegalArgument", //NOI18N
+                                s), ex);
+                        } catch (Exception ex) {
+                            throw new JDOUserException(msg.msg(
+                                "EXC_CurrencyStringConstructorException"), //NOI18N
+                                ex);
+                        }
+                    });
         }
-        jdoImplHelper.registerStringConstructor(Locale.class, new StringConstructor() {
-            public Object construct(String s) {
-                try {
-                    return getLocale(s);
-                } catch (Exception ex) {
-                    throw new JDOUserException(msg.msg(
-                        "EXC_LocaleStringConstructorException"), ex); //NOI18N
-                }
+        jdoImplHelper.registerStringConstructor(Locale.class, s -> {
+            try {
+                return getLocale(s);
+            } catch (Exception ex) {
+                throw new JDOUserException(msg.msg(
+                    "EXC_LocaleStringConstructorException"), ex); //NOI18N
             }
         });
         jdoImplHelper.registerStringConstructor(Date.class, new StringConstructor() {
@@ -874,13 +871,7 @@ public class JDOImplHelper extends java.lang.Object {
     static DateFormat getDateTimeInstance() {
         DateFormat result = null;
         try {
-        result = doPrivileged (
-            new PrivilegedAction<DateFormat> () {
-                public DateFormat run () {
-                    return DateFormat.getDateTimeInstance();
-                }
-            }
-            );
+        result = doPrivileged (() -> DateFormat.getDateTimeInstance());
         } catch (Exception ex) {
             result = DateFormat.getInstance();
         }

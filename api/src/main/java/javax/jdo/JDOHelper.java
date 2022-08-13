@@ -176,13 +176,7 @@ public class JDOHelper implements Constants {
      *  implementations.
      */
     private static JDOImplHelper implHelper =
-        doPrivileged(
-            new PrivilegedAction<JDOImplHelper> () {
-                public JDOImplHelper run () {
-                    return JDOImplHelper.getInstance();
-                }
-            }
-        );
+            doPrivileged((PrivilegedAction<JDOImplHelper>) JDOImplHelper::getInstance);
 
     /** The singleton instance of JDOHelper.
      * @since 2.1
@@ -209,101 +203,61 @@ public class JDOHelper implements Constants {
     *  implementations of getPersistenceManager.
     */
     static StateInterrogationObjectReturn getPersistenceManager =
-        new StateInterrogationObjectReturn() {
-            public Object get(Object pc, StateInterrogation si) {
-                return si.getPersistenceManager(pc);
-            }
-        };
+            (pc, si) -> si.getPersistenceManager(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getObjectId.
     */
     static StateInterrogationObjectReturn getObjectId =
-        new StateInterrogationObjectReturn() {
-            public Object get(Object pc, StateInterrogation si) {
-                return si.getObjectId(pc);
-            }
-        };
+           (pc, si) -> si.getObjectId(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getTransactionalObjectId.
     */
     static StateInterrogationObjectReturn getTransactionalObjectId =
-        new StateInterrogationObjectReturn() {
-            public Object get(Object pc, StateInterrogation si) {
-                return si.getTransactionalObjectId(pc);
-            }
-        };
+           (pc, si) -> si.getTransactionalObjectId(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getVersion.
     */
     static StateInterrogationObjectReturn getVersion =
-        new StateInterrogationObjectReturn() {
-            public Object get(Object pc, StateInterrogation si) {
-                return si.getVersion(pc);
-            }
-        };
+           (pc, si) -> si.getVersion(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isPersistent.
     */
     static StateInterrogationBooleanReturn isPersistent =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isPersistent(pc);
-            }
-        };
+           (pc, si) -> si.isPersistent(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isTransactional.
     */
     static StateInterrogationBooleanReturn isTransactional =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isTransactional(pc);
-            }
-        };
+           (pc, si) -> si.isTransactional(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDirty.
     */
     static StateInterrogationBooleanReturn isDirty =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isDirty(pc);
-            }
-        };
+           (pc, si) -> si.isDirty(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isNew.
     */
     static StateInterrogationBooleanReturn isNew =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isNew(pc);
-            }
-        };
+           (pc, si) -> si.isNew(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDeleted.
     */
     static StateInterrogationBooleanReturn isDeleted =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isDeleted(pc);
-            }
-        };
+           (pc, si) -> si.isDeleted(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDetached.
     */
     static StateInterrogationBooleanReturn isDetached =
-        new StateInterrogationBooleanReturn() {
-            public Boolean is(Object pc, StateInterrogation si) {
-                return si.isDetached(pc);
-            }
-        };
+           (pc, si) -> si.isDetached(pc);
 
     /** Return the associated <code>PersistenceManager</code> if there is one.
      * Transactional and persistent instances return the associated
@@ -1902,11 +1856,7 @@ public class JDOHelper implements Constants {
      */
     private static ClassLoader getContextClassLoader() {
         return doPrivileged(
-            new PrivilegedAction<ClassLoader> () {
-                public ClassLoader run () {
-                    return Thread.currentThread().getContextClassLoader();
-                }
-            }
+                (PrivilegedAction<ClassLoader>) () -> Thread.currentThread().getContextClassLoader()
         );
     }
 
@@ -1915,13 +1865,7 @@ public class JDOHelper implements Constants {
      */
     private static InputStream getResourceAsStream(
             final ClassLoader resourceLoader, final String name) {
-        return doPrivileged(
-            new PrivilegedAction<InputStream>() {
-                public InputStream run() {
-                    return resourceLoader.getResourceAsStream(name);
-                }
-            }
-        );
+        return doPrivileged((PrivilegedAction<InputStream>) () -> resourceLoader.getResourceAsStream(name));
     }
 
 
@@ -1940,11 +1884,7 @@ public class JDOHelper implements Constants {
                 throws NoSuchMethodException {
         try {
             return doPrivileged(
-                new PrivilegedExceptionAction<Method>() {
-                    public Method run() throws NoSuchMethodException {
-                        return implClass.getMethod(methodName, parameterTypes);
-                    }
-                }
+                    (PrivilegedExceptionAction<Method>) () -> implClass.getMethod(methodName, parameterTypes)
             );
         } catch (PrivilegedActionException ex) {
             throw (NoSuchMethodException)ex.getException();
@@ -1959,13 +1899,7 @@ public class JDOHelper implements Constants {
                 throws IllegalAccessException, InvocationTargetException {
         try {
             return doPrivileged(
-                new PrivilegedExceptionAction<Object>() {
-                    public Object run() 
-                        throws IllegalAccessException, 
-                            InvocationTargetException {
-                        return method.invoke (instance, parameters);
-                    }
-                }
+                    (PrivilegedExceptionAction<Object>) () -> method.invoke (instance, parameters)
             );
         } catch (PrivilegedActionException ex) {
             Exception cause = ex.getException();
@@ -1990,11 +1924,7 @@ public class JDOHelper implements Constants {
                 throws IOException {
         try {
             return doPrivileged(
-                new PrivilegedExceptionAction<Enumeration<URL>>() {
-                    public Enumeration<URL> run() throws IOException {
-                        return resourceLoader.getResources(resourceName);
-                    }
-                }
+                    (PrivilegedExceptionAction<Enumeration<URL>>) () -> resourceLoader.getResources(resourceName)
             );
         } catch (PrivilegedActionException ex) {
             throw (IOException)ex.getException();
@@ -2016,11 +1946,7 @@ public class JDOHelper implements Constants {
                 throws ClassNotFoundException {
         try {
             return doPrivileged(
-                new PrivilegedExceptionAction<Class<?>>() {
-                    public Class<?> run() throws ClassNotFoundException {
-                        return Class.forName(name, init, loader);
-                    }
-                }
+                    (PrivilegedExceptionAction<Class<?>>) () -> Class.forName(name, init, loader)
             );
         } catch (PrivilegedActionException ex) {
             throw (ClassNotFoundException)ex.getException();
@@ -2037,11 +1963,7 @@ public class JDOHelper implements Constants {
             throws IOException {
         try {
             return doPrivileged(
-                new PrivilegedExceptionAction<InputStream>() {
-                    public InputStream run() throws IOException {
-                        return url.openStream();
-                    }
-                }
+                    (PrivilegedExceptionAction<InputStream>) () -> url.openStream()
             );
         } catch (PrivilegedActionException ex) {
             throw (IOException)ex.getException();
