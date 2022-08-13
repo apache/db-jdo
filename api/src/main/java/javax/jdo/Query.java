@@ -375,9 +375,8 @@ public interface Query<T> extends AutoCloseable, Serializable {
 
     /**
      * Don't use this method directly; use <code>closeAll()</code> instead. It is intended for use with try-with-resources.
-     * @throws Exception if this resource cannot be closed
      */
-    void close() throws Exception;
+    void close();
 
     /**
      * Set the grouping expressions, optionally including a "having"

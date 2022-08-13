@@ -157,8 +157,8 @@ There is a profile called `warnings` that configures the maven-compiler-plugin t
 Please note, the tck enables the profile `jdori` per default and this default is disabled when specifying the profile 
 `warnings`. So if you want to run the tck with the jdori with warnings enabled please use the following:
 
-    mvn -Pwarings,jdori clean install
+    mvn -Pwarnings,jdori clean install
 
 You can pass different compiler arguments using the -D option:
 
-    mvn -Pwarings,jdori -DcompilerArgument=-Xlint:all clean install
+    mvn -Pwarnings,jdori -DcompilerArgument=-Xlint:all clean install

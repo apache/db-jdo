@@ -304,7 +304,7 @@ public interface javax.jdo.Extent extends java.lang.Iterable, java.lang.AutoClos
     abstract javax.jdo.PersistenceManager getPersistenceManager();
     abstract void closeAll();
     abstract void close(java.util.Iterator it);
-    abstract void close() throws java.lang.Exception;
+    abstract void close();
     abstract javax.jdo.FetchPlan getFetchPlan();
 }
 
@@ -908,7 +908,7 @@ public interface javax.jdo.Query extends java.lang.AutoCloseable, java.io.Serial
     abstract javax.jdo.PersistenceManager getPersistenceManager();
     abstract void close(Object queryResult);
     abstract void closeAll();
-    abstract void close() throws java.lang.Exception;
+    abstract void close();
     abstract void setGrouping(String group);
     abstract void setUnique(boolean unique);
     abstract void setResult(String data);
