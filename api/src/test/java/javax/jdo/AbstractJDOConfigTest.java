@@ -109,9 +109,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
      * @param actual the second {@link java.util.Map Map} object to test.
      */
     static void assertEqualProperties(Map<?, ?> expected, Map<?, ?> actual) {
-        Iterator<? extends Map.Entry<?, ?>> i = expected.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry<?, ?> entry = i.next();
+        for (Map.Entry<?, ?> entry : expected.entrySet()) {
             String key = (String) entry.getKey();
             String expectedValue = (String) entry.getValue();
             String actualValue = (String) actual.get(key);

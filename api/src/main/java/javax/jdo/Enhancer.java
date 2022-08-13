@@ -154,13 +154,11 @@ public class Enhancer {
             addVerboseMessage("MSG_EnhancerProperty", PROPERTY_ENHANCER_VERSION_NUMBER, //NOI18N
                     properties.getProperty(PROPERTY_ENHANCER_VERSION_NUMBER));
             Set<Entry<Object, Object>> props = properties.entrySet();
-            Iterator<Entry<Object, Object>> entries = props.iterator();
-            while (entries.hasNext()) {
-                Entry<Object, Object> entry = entries.next();
+            for (Entry<Object, Object> entry : props) {
                 if (!(PROPERTY_ENHANCER_VENDOR_NAME.equals(entry.getKey()) ||
                         PROPERTY_ENHANCER_VERSION_NUMBER.equals(entry.getKey()))) {
-                    addVerboseMessage("MSG_EnhancerProperty", (String)entry.getKey(), //NOI18N
-                            (String)entry.getValue());                    
+                    addVerboseMessage("MSG_EnhancerProperty", (String) entry.getKey(), //NOI18N
+                            (String) entry.getValue());
                 }
             }
             enhancer.setVerbose(verbose);

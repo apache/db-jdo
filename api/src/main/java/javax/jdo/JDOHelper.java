@@ -1472,17 +1472,15 @@ public class JDOHelper implements Constants {
 
                 // check for duplicate properties among atts & elems
                 if (requestedPMFName.equals(pmfName)) {
-                    Iterator<?> it =
-                        pmfPropertiesFromAttributes.keySet().iterator();
-                    while (it.hasNext()) {
-                        String property = (String) it.next();
+                    for (Object o : pmfPropertiesFromAttributes.keySet()) {
+                        String property = (String) o;
                         if (pmfPropertiesFromElements.contains(property)) {
                             throw new JDOFatalUserException(
-                                msg.msg(
-                                    "EXC_DuplicatePropertyFound",
-                                    property,
-                                    pmfName,
-                                    url.toExternalForm()));
+                                    msg.msg(
+                                            "EXC_DuplicatePropertyFound",
+                                            property,
+                                            pmfName,
+                                            url.toExternalForm()));
                         }
                     }
                 }
