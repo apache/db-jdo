@@ -163,7 +163,7 @@ public @interface Persistent
      * for persistence.
      * @return the types
      */
-    Class[] types() default {};
+    Class<?>[] types() default {};
 
     /** Name of the related member in the other class 
      * where this value is mapped (bidirectional relationship). 

@@ -151,7 +151,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
         } else if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         } else {
-            SingleFieldIdentity other = (SingleFieldIdentity) obj;
+            SingleFieldIdentity<?> other = (SingleFieldIdentity<?>) obj;
             if (targetClass != null && targetClass == other.targetClass)
                 return true;
             return targetClassName.equals (other.targetClassName);
@@ -197,7 +197,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
      * @return The relative ordering between the objects
      * @since 2.2
      */
-    protected int compare(SingleFieldIdentity o) {
+    protected int compare(SingleFieldIdentity<?> o) {
             return targetClassName.compareTo(o.targetClassName);
         }
  
