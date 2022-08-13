@@ -296,7 +296,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFNullJNDI() {
         try {
-            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext());
+            JDOHelper.getPersistenceManagerFactory(null, getInitialContext());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -309,7 +309,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFNullJNDIGoodClassLoader() {
         try {
-            JDOHelper.getPersistenceManagerFactory((String)null, getInitialContext(), this.getClass().getClassLoader());
+            JDOHelper.getPersistenceManagerFactory(null, getInitialContext(), this.getClass().getClassLoader());
             fail("Null JNDI resource name should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {
@@ -387,7 +387,7 @@ public class JDOHelperTest extends AbstractTest {
      */
     public void testGetPMFBothNullClassLoader() {
         try {
-            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null, (ClassLoader)null);
+            JDOHelper.getPersistenceManagerFactory("Whatever", (ClassLoader)null, null);
             fail("Null ClassLoader should result in JDOFatalUserException");
         }
         catch (JDOFatalUserException ex) {

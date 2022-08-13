@@ -549,7 +549,7 @@ public class JDOImplHelper extends java.lang.Object {
      * @return the <code>Meta</code> for the <code>Class</code>.
      */    
     private static Meta getMeta (Class<?> pcClass) {
-        Meta ret = (Meta) registeredClasses.get (pcClass);
+        Meta ret = registeredClasses.get (pcClass);
         if (ret == null) {
             throw new JDOFatalUserException(
                 msg.msg ("ERR_NoMetadata", pcClass.getName())); //NOI18N
@@ -836,8 +836,7 @@ public class JDOImplHelper extends java.lang.Object {
         try {
             Class<?> keyClass = Class.forName(className);
             synchronized(stringConstructorMap) {
-                stringConstructor = 
-                        (StringConstructor) stringConstructorMap.get(keyClass);
+                stringConstructor = stringConstructorMap.get(keyClass);
             }
             if (stringConstructor != null) {
                 return stringConstructor.construct(keyString);

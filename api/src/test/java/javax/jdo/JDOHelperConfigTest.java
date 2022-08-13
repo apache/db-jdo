@@ -214,7 +214,7 @@ public class JDOHelperConfigTest extends AbstractJDOConfigTest implements Consta
             getClass().getClassLoader(), classpaths);
         Map<String, String> expected = prepareInitialExpectedMap(testVariantName,
             listenerCount, vendorSpecificPropertyCount, excludeName, excludePUName);
-        String name = testVariantName == null ? null : (String) expected.get(PROPERTY_NAME);
+        String name = testVariantName == null ? null : expected.get(PROPERTY_NAME);
         Map<Object, Object> actual = JDOHelper.getPropertiesFromJdoconfig(name, loader);
 
         assertNotNull("No properties found", actual);

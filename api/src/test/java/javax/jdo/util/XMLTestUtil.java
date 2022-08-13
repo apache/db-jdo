@@ -313,7 +313,7 @@ public class XMLTestUtil {
                     while (bufferedReader.ready()) {
                         tmp.add(bufferedReader.readLine());
                     }
-                    lines = (String[])tmp.toArray(new String[tmp.size()]);
+                    lines = tmp.toArray(new String[tmp.size()]);
                 } catch (IOException ex) {
                     throw new JDOFatalException("getLines: caught IOException", ex);
                 }
@@ -406,9 +406,9 @@ public class XMLTestUtil {
             throws SAXException, IOException 
         {
             // check for recognized ids
-            String filename = (String)publicIds.get(publicId);
+            String filename = publicIds.get(publicId);
             if (filename == null) {
-                filename = (String)systemIds.get(systemId);
+                filename = systemIds.get(systemId);
             }
             final String finalName = filename;
             if (finalName == null) {
@@ -503,7 +503,7 @@ public class XMLTestUtil {
 
         /** Returns an array of test files with suffix .jdo, .orm or .jdoquery. */
         public File[] getMetadataFiles() {
-            return (File[])metadataFiles.toArray(new File[metadataFiles.size()]);
+            return metadataFiles.toArray(new File[metadataFiles.size()]);
         }
 
     }
@@ -518,7 +518,7 @@ public class XMLTestUtil {
             while (st.hasMoreTokens()) {
                 entries.add(st.nextToken());
             }
-            ret = (String[])entries.toArray(new String[entries.size()]);
+            ret = entries.toArray(new String[entries.size()]);
         }
         return ret;
     }

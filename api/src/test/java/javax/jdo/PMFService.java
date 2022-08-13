@@ -29,8 +29,7 @@ public class PMFService implements Constants{
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
             Map<?, ?> overrides, Map<?, ?> props) {
-        PersistenceManagerFactory pmf =
-                (PersistenceManagerFactory) PMFProxy.newInstance();
+        PersistenceManagerFactory pmf = PMFProxy.newInstance();
         setPMFProperties(pmf, props, overrides);
 
         return pmf;
@@ -38,8 +37,7 @@ public class PMFService implements Constants{
 
     public static PersistenceManagerFactory getPersistenceManagerFactory(
             Map<?, ?> props) {
-        PersistenceManagerFactory pmf =
-                (PersistenceManagerFactory) PMFProxy.newInstance();
+        PersistenceManagerFactory pmf = PMFProxy.newInstance();
         setPMFProperties(pmf, props, null);
 
         return pmf;

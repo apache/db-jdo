@@ -127,7 +127,7 @@ public class I18NHelper {
      */
     public static I18NHelper getInstance (String bundleName, 
                                           ClassLoader loader) {
-        I18NHelper helper = (I18NHelper) helpers.get (bundleName);
+        I18NHelper helper = helpers.get (bundleName);
         if (helper != null) {
             return helper;
         }
@@ -135,7 +135,7 @@ public class I18NHelper {
         helpers.put (bundleName, helper);
         // if two threads simultaneously create the same helper, return the first
         // one to be put into the Hashtable.  The other will be garbage collected.
-        return (I18NHelper) helpers.get (bundleName);
+        return helpers.get (bundleName);
     }
 
     /** Message formatter
@@ -229,7 +229,7 @@ public class I18NHelper {
      */
     final private static ResourceBundle loadBundle(
         String bundleName, ClassLoader loader) {
-        ResourceBundle messages = (ResourceBundle)bundles.get(bundleName);
+        ResourceBundle messages = bundles.get(bundleName);
 
         if (messages == null) //not found as loaded - add
         {

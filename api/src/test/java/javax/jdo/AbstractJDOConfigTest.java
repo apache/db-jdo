@@ -130,7 +130,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
                 SERVICE_LOOKUP_PMF_RESOURCE_NAME);
             while (urls.hasMoreElements()) {
                 // return the first one found
-                return JDOHelper.getClassNameFromURL((URL)urls.nextElement());
+                return JDOHelper.getClassNameFromURL(urls.nextElement());
             }
         } catch (Exception ex) {
             // ignore exceptions from i/o errors

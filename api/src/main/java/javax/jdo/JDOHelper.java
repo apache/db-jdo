@@ -175,7 +175,7 @@ public class JDOHelper implements Constants {
     /** The JDOImplHelper instance used for handling non-binary-compatible
      *  implementations.
      */
-    private static JDOImplHelper implHelper = (JDOImplHelper)
+    private static JDOImplHelper implHelper =
         doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {
@@ -842,8 +842,7 @@ public class JDOHelper implements Constants {
                 while (urls.hasMoreElements()) {
 
                     try {
-                        pmfClassName = getClassNameFromURL(
-                                (URL) urls.nextElement());
+                        pmfClassName = getClassNameFromURL(urls.nextElement());
 
                         // return the implementation that is valid.
                         PersistenceManagerFactory pmf = 
@@ -865,8 +864,7 @@ public class JDOHelper implements Constants {
 
         throw new JDOFatalUserException(msg.msg(
                 "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"),
-                (Throwable[])
-                    exceptions.toArray(new Throwable[exceptions.size()]));
+                exceptions.toArray(new Throwable[exceptions.size()]));
     }
 
     /** Get a class name from a URL. The URL is from getResources with 
@@ -1222,7 +1220,7 @@ public class JDOHelper implements Constants {
                 // then some kind of resource was found by the given name;
                 // assume that it's a properties file
                 props = new Properties();
-                ((Properties) props).load(in);
+                props.load(in);
             }
         } catch (IOException ioe) {
             throw new JDOFatalUserException(msg.msg(
@@ -1339,7 +1337,7 @@ public class JDOHelper implements Constants {
 
         // done with reading all config resources;
         // return what we found, which may very well be null
-        return (Map<Object,Object>) propertiesByNameInAllConfigs.get(name);
+        return propertiesByNameInAllConfigs.get(name);
     }
 
 
@@ -1563,8 +1561,7 @@ public class JDOHelper implements Constants {
             String attName = att.getNodeName();
             String attValue = att.getNodeValue().trim();
 
-            String jdoPropertyName =
-                (String) ATTRIBUTE_PROPERTY_XREF.get(attName);
+            String jdoPropertyName = ATTRIBUTE_PROPERTY_XREF.get(attName);
 
             p.put(
                 jdoPropertyName != null
@@ -1612,8 +1609,7 @@ public class JDOHelper implements Constants {
                 // <persistence-manager-factory> attribute names or the
                 // "javax.jdo" property names in <property> element "name"
                 // attributes.  Handy-dandy.
-                String jdoPropertyName =
-                    (String) ATTRIBUTE_PROPERTY_XREF.get(name);
+                String jdoPropertyName = ATTRIBUTE_PROPERTY_XREF.get(name);
                 
                 String propertyName = jdoPropertyName != null
                         ? jdoPropertyName
@@ -1883,7 +1879,7 @@ public class JDOHelper implements Constants {
                 while (urls.hasMoreElements()) {
                     numberOfJDOEnhancers++;
                     try {
-                        String enhancerClassName = getClassNameFromURL((URL)urls.nextElement());
+                        String enhancerClassName = getClassNameFromURL(urls.nextElement());
                         Class<?> enhancerClass = forName(enhancerClassName, true, ctrLoader);
                         JDOEnhancer enhancer = (JDOEnhancer)enhancerClass.newInstance();
                         return enhancer;
@@ -1898,7 +1894,7 @@ public class JDOHelper implements Constants {
         }
 
         throw new JDOFatalUserException(msg.msg("EXC_GetEnhancerNoValidEnhancerAvailable", numberOfJDOEnhancers),
-                (Throwable[])exceptions.toArray(new Throwable[exceptions.size()]));
+                exceptions.toArray(new Throwable[exceptions.size()]));
     }
 
     /** Get the context class loader associated with the current thread. 
@@ -1964,7 +1960,7 @@ public class JDOHelper implements Constants {
             final Object instance, final Object[] parameters) 
                 throws IllegalAccessException, InvocationTargetException {
         try {
-            return (Object) doPrivileged(
+            return doPrivileged(
                 new PrivilegedExceptionAction<Object>() {
                     public Object run() 
                         throws IllegalAccessException, 
@@ -1974,7 +1970,7 @@ public class JDOHelper implements Constants {
                 }
             );
         } catch (PrivilegedActionException ex) {
-            Exception cause = (Exception)ex.getException();
+            Exception cause = ex.getException();
             if (cause instanceof IllegalAccessException)
                 throw (IllegalAccessException)cause;
             else //if (cause instanceof InvocationTargetException)

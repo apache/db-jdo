@@ -105,6 +105,6 @@ public class StringIdentity extends SingleFieldIdentity<StringIdentity> {
     public void readExternal(ObjectInput in)
 		throws IOException, ClassNotFoundException {
         super.readExternal (in);
-        keyAsObject = (String)in.readObject();
+        keyAsObject = in.readObject();
     }
 }

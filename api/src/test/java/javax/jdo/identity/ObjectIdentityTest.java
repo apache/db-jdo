@@ -52,7 +52,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     /** The JDOImplHelper instance used for Date formatting.
      */
-    private static JDOImplHelper helper = (JDOImplHelper)
+    private static JDOImplHelper helper =
         doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {

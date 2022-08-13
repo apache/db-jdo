@@ -45,7 +45,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
     
     /** The JDOImplHelper instance used for parsing the String to an Object.
      */
-    private static JDOImplHelper helper = (JDOImplHelper)
+    private static JDOImplHelper helper =
         doPrivileged(
             new PrivilegedAction<JDOImplHelper> () {
                 public JDOImplHelper run () {
