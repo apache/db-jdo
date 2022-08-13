@@ -405,7 +405,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     }
 
     @SuppressWarnings("rawtypes")
-    public Set getFetchGroups() {
+    public Set<FetchGroup> getFetchGroups() {
         throw new UnsupportedOperationException("not implemented");
     }
 
