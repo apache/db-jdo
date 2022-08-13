@@ -227,7 +227,7 @@ public class I18NHelper {
      * @param loader the class loader from which to load the resource bundle
      * @return  the ResourceBundle
      */
-    final private static ResourceBundle loadBundle(
+    private static ResourceBundle loadBundle(
         String bundleName, ClassLoader loader) {
         ResourceBundle messages = bundles.get(bundleName);
 
@@ -276,7 +276,7 @@ public class I18NHelper {
      * @param messageKey the message key
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, String messageKey) 
+    private static String getMessage(ResourceBundle messages, String messageKey)
     {
         return messages.getString(messageKey);
     }
@@ -288,7 +288,7 @@ public class I18NHelper {
      * @param msgArgs an array of arguments to substitute into the message
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object[] msgArgs) 
     {
         for (int i=0; i<msgArgs.length; i++) {
@@ -305,7 +305,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg) 
     {
         Object []args = {arg};
@@ -320,7 +320,7 @@ public class I18NHelper {
      * @param arg2 the second argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg1, Object arg2) 
     {
         Object []args = {arg1, arg2};
@@ -336,7 +336,7 @@ public class I18NHelper {
      * @param arg3 the third argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, Object arg1, Object arg2, Object arg3) 
     {
         Object []args = {arg1, arg2, arg3};
@@ -350,7 +350,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, int arg) 
     {
         Object []args = {Integer.valueOf(arg)};
@@ -364,7 +364,7 @@ public class I18NHelper {
      * @param arg the argument
      * @return the resolved message text
      */
-    final private static String getMessage(ResourceBundle messages, 
+    private static String getMessage(ResourceBundle messages,
             String messageKey, boolean arg) 
     {
         Object []args = {String.valueOf(arg)};
@@ -377,7 +377,7 @@ public class I18NHelper {
      * package 
      * @return package portion of the specified class
      */   
-    final private static String getPackageName(final String className)
+    private static String getPackageName(final String className)
     { 
         final int index = className.lastIndexOf('.');
         return ((index != -1) ? className.substring(0, index) : ""); // NOI18N
