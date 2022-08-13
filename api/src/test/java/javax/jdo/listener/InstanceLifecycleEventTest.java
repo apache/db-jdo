@@ -31,16 +31,16 @@ import javax.jdo.util.BatchTestRunner;
  */
 public class InstanceLifecycleEventTest extends AbstractTest {
     
-    Object created = new Object();
-    Object loaded = new Object();
-    Object stored = new Object();
-    Object cleared = new Object();
-    Object deleted = new Object();
-    Object dirtied = new Object();
-    Object attached = new Object();
-    Object attachTarget = new Object();
-    Object detached = new Object();
-    Object detachTarget = new Object();
+    final Object created = new Object();
+    final Object loaded = new Object();
+    final Object stored = new Object();
+    final Object cleared = new Object();
+    final Object deleted = new Object();
+    final Object dirtied = new Object();
+    final Object attached = new Object();
+    final Object attachTarget = new Object();
+    final Object detached = new Object();
+    final Object detachTarget = new Object();
     
     /** Creates a new instance of SingleFieldIdentityTest */
     public InstanceLifecycleEventTest() {

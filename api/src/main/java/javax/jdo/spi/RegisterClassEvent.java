@@ -35,19 +35,19 @@ public class RegisterClassEvent extends EventObject
 	private static final long serialVersionUID = 945917130591776973L;
 
 	/** The class object of the registered persistence-capable class */
-    protected Class<?> pcClass;
+    protected final Class<?> pcClass;
 
     /** The names of managed fields of the persistence-capable class */
-    protected String[] fieldNames;  
+    protected final String[] fieldNames;
 
     /** The types of managed fields of the persistence-capable class */
-    protected Class<?>[] fieldTypes;
+    protected final Class<?>[] fieldTypes;
 
     /** The flags of managed fields of the persistence-capable class */
-    protected byte[] fieldFlags;
+    protected final byte[] fieldFlags;
 
     /** */
-    protected Class<?> persistenceCapableSuperclass;
+    protected final Class<?> persistenceCapableSuperclass;
 
     /** 
      * Constructs a new <code>RegisterClassEvent</code>.

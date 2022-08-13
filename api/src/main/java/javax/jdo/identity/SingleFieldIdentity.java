@@ -46,7 +46,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
 
     /** The Internationalization message helper.
      */
-    protected static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
+    protected static final I18NHelper MSG = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /** The class of the target object.
      */
@@ -99,7 +99,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
     protected void assertKeyNotNull(Object key) {
         if (key == null) {
             throw new JDONullIdentityException(
-                msg.msg("EXC_SingleFieldIdentityNullParameter")); //NOI18N
+                MSG.msg("EXC_SingleFieldIdentityNullParameter")); //NOI18N
         }
     }
     
@@ -137,7 +137,7 @@ public abstract class SingleFieldIdentity<SUBCLASS extends SingleFieldIdentity<S
      */
     protected Object createKeyAsObject() {
         throw new JDOFatalInternalException
-                (msg.msg("EXC_CreateKeyAsObjectMustNotBeCalled"));
+                (MSG.msg("EXC_CreateKeyAsObjectMustNotBeCalled"));
     }
     
     /** Check the class and class name and object type. If restored

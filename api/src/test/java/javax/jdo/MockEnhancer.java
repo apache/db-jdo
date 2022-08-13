@@ -37,7 +37,7 @@ import javax.jdo.metadata.JDOMetadata;
  */
 public class MockEnhancer implements JDOEnhancer {
 
-    static Properties props = new Properties();
+    static final Properties props = new Properties();
     static {
         props.put(PROPERTY_ENHANCER_VENDOR_NAME, "Mock Enhancer");
         props.put(PROPERTY_ENHANCER_VERSION_NUMBER, "2.3.0");
@@ -46,10 +46,10 @@ public class MockEnhancer implements JDOEnhancer {
     @SuppressWarnings("unused")
     private boolean verbose;
     private int numberOfElements;
-    private List<String> classNames = new ArrayList<>();
-    private List<String> jarNames = new ArrayList<>();
-    private List<String> jdoNames = new ArrayList<>();
-    private List<String> puNames = new ArrayList<>();
+    private final List<String> classNames = new ArrayList<>();
+    private final List<String> jarNames = new ArrayList<>();
+    private final List<String> jdoNames = new ArrayList<>();
+    private final List<String> puNames = new ArrayList<>();
     @SuppressWarnings("unused")
     private String outputDirectory = null;
 

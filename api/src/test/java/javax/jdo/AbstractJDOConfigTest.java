@@ -31,7 +31,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
      * A class path prefix used in the various tests where the class path
      * needs to be set.
      */
-    protected static String JDOCONFIG_CLASSPATH_PREFIX
+    protected static final String JDOCONFIG_CLASSPATH_PREFIX
             = initJDOConfigClasspathPrefix();
 
     /**
@@ -50,7 +50,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
      * The class path used to specify the location of test class files.
      * @return the class path where test class files can be found.
      */
-    protected static String TEST_CLASSPATH = initTestClasspath();
+    protected static final String TEST_CLASSPATH = initTestClasspath();
 
     /**
      * Returns the default class path for JDO test class files 
@@ -64,7 +64,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
     /**
      * The class path used to locate the JDO API class files.
      */
-    protected static String API_CLASSPATH = initAPIClasspath();
+    protected static final String API_CLASSPATH = initAPIClasspath();
 
     /**
      * Returns the default class path for JDO API class files
@@ -99,7 +99,7 @@ public abstract class AbstractJDOConfigTest extends AbstractTest {
     /**
      * A randomizer seeded with the system clock's current time.
      */
-    protected static Random RANDOM = new Random(System.currentTimeMillis());
+    protected static final Random RANDOM = new Random(System.currentTimeMillis());
 
     /**
      * Fails the test if the number of properties in the two specified

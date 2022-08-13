@@ -31,7 +31,7 @@ import javax.jdo.util.XMLTestUtil;
 public class XMLTest extends AbstractTest {
 
     /** */
-    protected static String BASEDIR = System.getProperty("basedir", ".");
+    protected static final String BASEDIR = System.getProperty("basedir", ".");
 
     /** File prefix */
     protected static final String FILE_PREFIX = BASEDIR + "/src/test/resources/";
@@ -53,20 +53,20 @@ public class XMLTest extends AbstractTest {
         new File[] {JDO_XSD_FILE, ORM_XSD_FILE, JDOQUERY_XSD_FILE};
     
     /** XSD metadata files. */
-    protected static File[] positiveXSDJDO = getFiles("Positive", "-xsd.jdo");
-    protected static File[] negativeXSDJDO = getFiles("Negative", "-xsd.jdo");
-    protected static File[] positiveXSDORM = getFiles("Positive", "-xsd.orm");
-    protected static File[] negativeXSDORM = getFiles("Negative", "-xsd.orm");
-    protected static File[] positiveXSDJDOQUERY = getFiles("Positive", "-xsd.jdoquery");
-    protected static File[] negativeXSDJDOQUERY = getFiles("Negative", "-xsd.jdoquery");
+    protected static final File[] positiveXSDJDO = getFiles("Positive", "-xsd.jdo");
+    protected static final File[] negativeXSDJDO = getFiles("Negative", "-xsd.jdo");
+    protected static final File[] positiveXSDORM = getFiles("Positive", "-xsd.orm");
+    protected static final File[] negativeXSDORM = getFiles("Negative", "-xsd.orm");
+    protected static final File[] positiveXSDJDOQUERY = getFiles("Positive", "-xsd.jdoquery");
+    protected static final File[] negativeXSDJDOQUERY = getFiles("Negative", "-xsd.jdoquery");
     
     /** DTD metadata files. */
-    protected static File[] positiveDTDJDO = getFiles("Positive", "-dtd.jdo");
-    protected static File[] negativeDTDJDO = getFiles("Negative", "-dtd.jdo");
-    protected static File[] positiveDTDORM = getFiles("Positive", "-dtd.orm");
-    protected static File[] negativeDTDORM = getFiles("Negative", "-dtd.orm");
-    protected static File[] positiveDTDJDOQUERY = getFiles("Positive", "-dtd.jdoquery");
-    protected static File[] negativeDTDJDOQUERY = getFiles("Negative", "-dtd.jdoquery");
+    protected static final File[] positiveDTDJDO = getFiles("Positive", "-dtd.jdo");
+    protected static final File[] negativeDTDJDO = getFiles("Negative", "-dtd.jdo");
+    protected static final File[] positiveDTDORM = getFiles("Positive", "-dtd.orm");
+    protected static final File[] negativeDTDORM = getFiles("Negative", "-dtd.orm");
+    protected static final File[] positiveDTDJDOQUERY = getFiles("Positive", "-dtd.jdoquery");
+    protected static final File[] negativeDTDJDOQUERY = getFiles("Negative", "-dtd.jdoquery");
     
     /** Returns array of files of matching file names. */
     protected static File[] getFiles(final String prefix, final String suffix) {

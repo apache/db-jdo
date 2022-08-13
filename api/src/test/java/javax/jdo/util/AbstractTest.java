@@ -27,10 +27,10 @@ import junit.framework.TestCase;
 public abstract class AbstractTest extends TestCase implements Constants {
 
     /** */
-    protected static PrintStream out = System.out;
+    protected static final PrintStream OUT = System.out;
     
     /** If true, print extra messages. */
-    protected boolean verbose;
+    protected final boolean verbose;
 
     /**
      * Construct and initialize from properties.
@@ -56,7 +56,7 @@ public abstract class AbstractTest extends TestCase implements Constants {
      */
     protected void println(String s) {
         if (verbose) 
-            out.println(s);
+            OUT.println(s);
     }
     
     /** New line.

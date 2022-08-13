@@ -97,7 +97,7 @@ public class StubPMF implements PersistenceManagerFactory, Constants {
     Integer optionDatastoreReadTimeoutMillis;
     Integer optionDatastoreWriteTimeoutMillis;
 
-    Properties properties = new Properties();
+    final Properties properties = new Properties();
 
     public String getConnectionUserName() {
         return optionConnectionUserName;

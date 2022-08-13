@@ -50,15 +50,15 @@ public class I18NHelper {
 
     /** Bundles that have already been loaded 
      */
-    private static Hashtable<String,ResourceBundle> bundles = new Hashtable<>();
+    private static final Hashtable<String,ResourceBundle> bundles = new Hashtable<>();
     
     /** Helper instances that have already been created 
      */
-    private static Hashtable<String,I18NHelper> helpers = new Hashtable<>();
+    private static final Hashtable<String,I18NHelper> helpers = new Hashtable<>();
     
     /** The default locale for this VM.
      */
-    private static Locale       locale = Locale.getDefault();
+    private static final Locale locale = Locale.getDefault();
 
     /** The bundle used by this instance of the helper.
      */
@@ -69,7 +69,7 @@ public class I18NHelper {
     private Throwable           failure = null;
 
     /** The unqualified standard name of a bundle. */
-    private static final String bundleSuffix = ".Bundle";    // NOI18N
+    private static final String BUNDLE_SUFFIX = ".Bundle";    // NOI18N
 
     /** Constructor */
     private I18NHelper() {
@@ -107,7 +107,7 @@ public class I18NHelper {
      */
     public static I18NHelper getInstance (final Class<?> cls) {
         ClassLoader classLoader = doPrivileged (cls::getClassLoader);
-        String bundle = getPackageName (cls.getName()) + bundleSuffix;
+        String bundle = getPackageName (cls.getName()) + BUNDLE_SUFFIX;
         return getInstance (bundle, classLoader);
     }
 

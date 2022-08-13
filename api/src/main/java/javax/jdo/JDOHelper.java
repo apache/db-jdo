@@ -50,7 +50,6 @@ import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.JDOImplHelper.StateInterrogationBooleanReturn;
 import javax.jdo.spi.JDOImplHelper.StateInterrogationObjectReturn;
 import javax.jdo.spi.PersistenceCapable;
-import javax.jdo.spi.StateInterrogation;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -94,7 +93,7 @@ public class JDOHelper implements Constants {
 
     /** The Internationalization message helper.
      */
-    private final static I18NHelper msg = 
+    private final static I18NHelper MSG =
         I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
 
     /**
@@ -175,13 +174,13 @@ public class JDOHelper implements Constants {
     /** The JDOImplHelper instance used for handling non-binary-compatible
      *  implementations.
      */
-    private static JDOImplHelper implHelper =
+    private static final JDOImplHelper IMPL_HELPER =
             doPrivileged((PrivilegedAction<JDOImplHelper>) JDOImplHelper::getInstance);
 
     /** The singleton instance of JDOHelper.
      * @since 2.1
      */
-    private static JDOHelper instance = new JDOHelper();
+    private static final JDOHelper INSTANCE = new JDOHelper();
 
     /**
      * Return the singleton instance of JDOHelper. This instance is 
@@ -190,7 +189,7 @@ public class JDOHelper implements Constants {
      * @return the thread-safe singleton JDOHelper
      */
     public static JDOHelper getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /** Some applications might prefer to use instance
@@ -202,61 +201,61 @@ public class JDOHelper implements Constants {
     /** The stateless instance used for handling non-binary-compatible
     *  implementations of getPersistenceManager.
     */
-    static StateInterrogationObjectReturn getPersistenceManager =
+    static final StateInterrogationObjectReturn getPersistenceManager =
             (pc, si) -> si.getPersistenceManager(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getObjectId.
     */
-    static StateInterrogationObjectReturn getObjectId =
+    static final StateInterrogationObjectReturn getObjectId =
            (pc, si) -> si.getObjectId(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getTransactionalObjectId.
     */
-    static StateInterrogationObjectReturn getTransactionalObjectId =
+    static final StateInterrogationObjectReturn getTransactionalObjectId =
            (pc, si) -> si.getTransactionalObjectId(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of getVersion.
     */
-    static StateInterrogationObjectReturn getVersion =
+    static final StateInterrogationObjectReturn getVersion =
            (pc, si) -> si.getVersion(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isPersistent.
     */
-    static StateInterrogationBooleanReturn isPersistent =
+    static final StateInterrogationBooleanReturn isPersistent =
            (pc, si) -> si.isPersistent(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isTransactional.
     */
-    static StateInterrogationBooleanReturn isTransactional =
+    static final StateInterrogationBooleanReturn isTransactional =
            (pc, si) -> si.isTransactional(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDirty.
     */
-    static StateInterrogationBooleanReturn isDirty =
+    static final StateInterrogationBooleanReturn isDirty =
            (pc, si) -> si.isDirty(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isNew.
     */
-    static StateInterrogationBooleanReturn isNew =
+    static final StateInterrogationBooleanReturn isNew =
            (pc, si) -> si.isNew(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDeleted.
     */
-    static StateInterrogationBooleanReturn isDeleted =
+    static final StateInterrogationBooleanReturn isDeleted =
            (pc, si) -> si.isDeleted(pc);
 
    /** The stateless instance used for handling non-binary-compatible
     *  implementations of isDetached.
     */
-    static StateInterrogationBooleanReturn isDetached =
+    static final StateInterrogationBooleanReturn isDetached =
            (pc, si) -> si.isDetached(pc);
 
     /** Return the associated <code>PersistenceManager</code> if there is one.
@@ -276,7 +275,7 @@ public class JDOHelper implements Constants {
             return ((PersistenceCapable)pc).jdoGetPersistenceManager();
         } else {
             return (PersistenceManager)
-                implHelper.nonBinaryCompatibleGet(pc, getPersistenceManager);
+                IMPL_HELPER.nonBinaryCompatibleGet(pc, getPersistenceManager);
         }
       }
     
@@ -297,7 +296,7 @@ public class JDOHelper implements Constants {
         if (pc instanceof PersistenceCapable) {
             ((PersistenceCapable)pc).jdoMakeDirty(fieldName);
         } else {
-             implHelper.nonBinaryCompatibleMakeDirty(pc, fieldName);
+             IMPL_HELPER.nonBinaryCompatibleMakeDirty(pc, fieldName);
         }
     }
     
@@ -335,7 +334,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoGetObjectId();
         } else {
-            return implHelper.nonBinaryCompatibleGet(pc, getObjectId);
+            return IMPL_HELPER.nonBinaryCompatibleGet(pc, getObjectId);
         }
     }
 
@@ -392,7 +391,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoGetTransactionalObjectId();
         } else {
-            return implHelper.nonBinaryCompatibleGet(
+            return IMPL_HELPER.nonBinaryCompatibleGet(
                 pc, getTransactionalObjectId);
         }
     }
@@ -407,7 +406,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoGetVersion();
         } else {
-            return implHelper.nonBinaryCompatibleGet(pc, getVersion);
+            return IMPL_HELPER.nonBinaryCompatibleGet(pc, getVersion);
         }
     }
     /** Tests whether the parameter instance is dirty.
@@ -429,7 +428,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsDirty();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isDirty);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isDirty);
         }
     }
 
@@ -448,7 +447,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsTransactional();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isTransactional);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isTransactional);
         }
     }
 
@@ -469,7 +468,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsPersistent();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isPersistent);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isPersistent);
         }
     }
 
@@ -491,7 +490,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsNew();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isNew);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isNew);
         }
     }
 
@@ -513,7 +512,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsDeleted();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isDeleted);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isDeleted);
         }
     }
     
@@ -533,7 +532,7 @@ public class JDOHelper implements Constants {
       if (pc instanceof PersistenceCapable) {
           return ((PersistenceCapable)pc).jdoIsDetached();
         } else {
-            return implHelper.nonBinaryCompatibleIs(pc, isDetached);
+            return IMPL_HELPER.nonBinaryCompatibleIs(pc, isDetached);
         }
     }
 
@@ -752,7 +751,7 @@ public class JDOHelper implements Constants {
         
         List<Throwable> exceptions = new ArrayList<>();
         if (pmfClassLoader == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
 
         JDOImplHelper.assertOnlyKnownStandardProperties(overrides);
@@ -816,7 +815,7 @@ public class JDOHelper implements Constants {
 
         // no PMF class name in props and no services.  
 
-        throw new JDOFatalUserException(msg.msg(
+        throw new JDOFatalUserException(MSG.msg(
                 "EXC_GetPMFNoPMFClassNamePropertyOrPUNameProperty"),
                 exceptions.toArray(new Throwable[exceptions.size()]));
     }
@@ -1021,10 +1020,10 @@ public class JDOHelper implements Constants {
             ClassLoader resourceLoader,
             ClassLoader pmfLoader) {
         if (pmfLoader == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullPMFLoader")); //NOI18N
         if (resourceLoader == null) {
-            throw new JDOFatalUserException(msg.msg(
+            throw new JDOFatalUserException(MSG.msg(
                 "EXC_GetPMFNullPropsLoader")); //NOI18N
         }
 
@@ -1061,7 +1060,7 @@ public class JDOHelper implements Constants {
         }
         
         // no PMF found; give up
-        throw new JDOFatalUserException (msg.msg (
+        throw new JDOFatalUserException (MSG.msg (
             "EXC_NoPMFConfigurableViaPropertiesOrXML", name)); //NOI18N
     }
 
@@ -1090,31 +1089,31 @@ public class JDOHelper implements Constants {
                     (PersistenceManagerFactory) invoke(m,
                         null, new Object[]{overrides, properties});
                 if (pmf == null) {
-                        throw new JDOFatalInternalException(msg.msg (
+                        throw new JDOFatalInternalException(MSG.msg (
                             "EXC_GetPMFNullPMF", pmfClassName)); //NOI18N
                     }
                 return pmf;
 
             } catch (ClassNotFoundException e) {
-                throw new JDOFatalUserException(msg.msg(
+                throw new JDOFatalUserException(MSG.msg(
                         "EXC_GetPMFClassNotFound", pmfClassName), e); //NOI18N
             } catch (NoSuchMethodException e) {
-                throw new JDOFatalInternalException(msg.msg(
+                throw new JDOFatalInternalException(MSG.msg(
                         "EXC_GetPMFNoSuchMethod2", pmfClassName), e); //NOI18N
             } catch (NullPointerException e) {
-                throw new JDOFatalInternalException (msg.msg(
+                throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
             } catch (IllegalAccessException e) {
-                throw new JDOFatalUserException(msg.msg(
+                throw new JDOFatalUserException(MSG.msg(
                         "EXC_GetPMFIllegalAccess", pmfClassName), e); //NOI18N
             } catch (ClassCastException e) {
-                throw new JDOFatalInternalException (msg.msg(
+                throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
             } catch (InvocationTargetException ite) {
                 Throwable nested = ite.getTargetException();
                 if (nested instanceof JDOException) {
                     throw (JDOException)nested;
-                } else throw new JDOFatalInternalException (msg.msg(
+                } else throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFUnexpectedException"), ite); //NOI18N
             }
         } else {
@@ -1128,30 +1127,30 @@ public class JDOHelper implements Constants {
                     (PersistenceManagerFactory) invoke(m,
                         null, new Object[]{properties});
                 if (pmf == null) {
-                        throw new JDOFatalInternalException(msg.msg (
+                        throw new JDOFatalInternalException(MSG.msg (
                             "EXC_GetPMFNullPMF", pmfClassName)); //NOI18N
                     }
                 return pmf;
             } catch (ClassNotFoundException e) {
-                throw new JDOFatalUserException(msg.msg(
+                throw new JDOFatalUserException(MSG.msg(
                         "EXC_GetPMFClassNotFound", pmfClassName), e); //NOI18N
             } catch (NoSuchMethodException e) {
-                throw new JDOFatalInternalException(msg.msg(
+                throw new JDOFatalInternalException(MSG.msg(
                         "EXC_GetPMFNoSuchMethod", pmfClassName), e); //NOI18N
             } catch (NullPointerException e) {
-                throw new JDOFatalInternalException (msg.msg(
+                throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFNullPointerException", pmfClassName), e); //NOI18N
             } catch (IllegalAccessException e) {
-                throw new JDOFatalUserException(msg.msg(
+                throw new JDOFatalUserException(MSG.msg(
                         "EXC_GetPMFIllegalAccess", pmfClassName), e); //NOI18N
             } catch (ClassCastException e) {
-                throw new JDOFatalInternalException (msg.msg(
+                throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFClassCastException", pmfClassName), e); //NOI18N
             } catch (InvocationTargetException ite) {
                 Throwable nested = ite.getTargetException();
                 if (nested instanceof JDOException) {
                     throw (JDOException)nested;
-                } else throw new JDOFatalInternalException (msg.msg(
+                } else throw new JDOFatalInternalException (MSG.msg(
                     "EXC_GetPMFUnexpectedException"), ite); //NOI18N
             }
         }
@@ -1177,7 +1176,7 @@ public class JDOHelper implements Constants {
                 props.load(in);
             }
         } catch (IOException ioe) {
-            throw new JDOFatalUserException(msg.msg(
+            throw new JDOFatalUserException(MSG.msg(
                 "EXC_GetPMFIOExceptionRsrc", name), ioe); //NOI18N
         } finally {
             if (in != null) {
@@ -1266,7 +1265,7 @@ public class JDOHelper implements Constants {
                         }
                         
                         if (propertiesByNameInAllConfigs.containsKey(name))
-                            throw new JDOFatalUserException (msg.msg(
+                            throw new JDOFatalUserException (MSG.msg(
                                 "EXC_DuplicateRequestedNamedPMFFoundInDifferentConfigs",
                                 "".equals(name)
                                         ? "(anonymous)"
@@ -1282,10 +1281,10 @@ public class JDOHelper implements Constants {
         }
         catch (FactoryConfigurationError e) {
             throw new JDOFatalUserException(
-                msg.msg("ERR_NoDocumentBuilderFactory"), e);
+                MSG.msg("ERR_NoDocumentBuilderFactory"), e);
         }
         catch (IOException ioe) {
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFIOExceptionRsrc", name), ioe); //NOI18N
         }
 
@@ -1298,7 +1297,7 @@ public class JDOHelper implements Constants {
     protected static DocumentBuilderFactory getDocumentBuilderFactory() {
         @SuppressWarnings("static-access")
         DocumentBuilderFactory factory =
-                implHelper.getRegisteredDocumentBuilderFactory();
+                IMPL_HELPER.getRegisteredDocumentBuilderFactory();
         if (factory == null) {
             factory = getDefaultDocumentBuilderFactory();
         }
@@ -1318,7 +1317,7 @@ public class JDOHelper implements Constants {
 
     protected static ErrorHandler getErrorHandler() {
         @SuppressWarnings("static-access")
-        ErrorHandler handler = implHelper.getRegisteredErrorHandler();
+        ErrorHandler handler = IMPL_HELPER.getRegisteredErrorHandler();
         if (handler == null) {
             handler = getDefaultErrorHandler();
         }
@@ -1375,7 +1374,7 @@ public class JDOHelper implements Constants {
             Element root = doc.getDocumentElement();
             if (root == null) {
                 throw new JDOFatalUserException(
-                    msg.msg("EXC_InvalidJDOConfigNoRoot", url.toExternalForm())
+                    MSG.msg("EXC_InvalidJDOConfigNoRoot", url.toExternalForm())
                 );
             }
 
@@ -1414,7 +1413,7 @@ public class JDOHelper implements Constants {
                     if (!isNullOrBlank(pmfNameFromElem)) {
                         // exception -- PMF name given as both att & elem
                         throw new JDOFatalUserException(
-                            msg.msg(
+                            MSG.msg(
                                 "EXC_DuplicatePMFNamePropertyFoundWithinConfig",
                                 pmfNameFromAtts,
                                 pmfNameFromElem,
@@ -1430,7 +1429,7 @@ public class JDOHelper implements Constants {
                         String property = (String) o;
                         if (pmfPropertiesFromElements.contains(property)) {
                             throw new JDOFatalUserException(
-                                    msg.msg(
+                                    MSG.msg(
                                             "EXC_DuplicatePropertyFound",
                                             property,
                                             pmfName,
@@ -1449,7 +1448,7 @@ public class JDOHelper implements Constants {
                 if (pmfName.equals(requestedPMFName)
                     && propertiesByName.containsKey(pmfName)) {
 
-                    throw new JDOFatalUserException(msg.msg(
+                    throw new JDOFatalUserException(MSG.msg(
                             "EXC_DuplicateRequestedNamedPMFFoundInSameConfig",
                         pmfName,
                         url.toExternalForm()));
@@ -1460,17 +1459,17 @@ public class JDOHelper implements Constants {
         }
         catch (IOException ioe) {
             throw new JDOFatalUserException(
-                msg.msg("EXC_GetPMFIOExceptionRsrc", url.toString()),
+                MSG.msg("EXC_GetPMFIOExceptionRsrc", url.toString()),
                 ioe); //NOI18N
         }
         catch (ParserConfigurationException e) {
             throw new JDOFatalInternalException(
-                msg.msg("EXC_ParserConfigException"),
+                MSG.msg("EXC_ParserConfigException"),
                 e);
         }
         catch (SAXParseException e) {
             throw new JDOFatalUserException(
-                msg.msg(
+                MSG.msg(
                     "EXC_SAXParseException",
                     url.toExternalForm(),
                     e.getLineNumber(),
@@ -1479,7 +1478,7 @@ public class JDOHelper implements Constants {
         }
         catch (SAXException e) {
             throw new JDOFatalUserException(
-                msg.msg("EXC_SAXException", url.toExternalForm()),
+                MSG.msg("EXC_SAXException", url.toExternalForm()),
                 e);
         }
         catch (JDOException e) {
@@ -1487,7 +1486,7 @@ public class JDOHelper implements Constants {
         }
         catch (RuntimeException e) {
             throw new JDOFatalUserException(
-                msg.msg("EXC_SAXException", url.toExternalForm()),
+                MSG.msg("EXC_SAXException", url.toExternalForm()),
                 e);
         }
         finally {
@@ -1547,12 +1546,12 @@ public class JDOHelper implements Constants {
                 Node nameAtt = attributes.getNamedItem(PROPERTY_ATTRIBUTE_NAME);
                 if (nameAtt == null) {
                     throw new JDOFatalUserException(
-                        msg.msg("EXC_PropertyElementHasNoNameAttribute", url));
+                        MSG.msg("EXC_PropertyElementHasNoNameAttribute", url));
                 }
                 String name = nameAtt.getNodeValue().trim();
                 if ("".equals(name)) {
                     throw new JDOFatalUserException(
-                        msg.msg(
+                        MSG.msg(
                             "EXC_PropertyElementNameAttributeHasNoValue",
                             name,
                             url));
@@ -1569,7 +1568,7 @@ public class JDOHelper implements Constants {
 
                 if (p.containsKey(propertyName)) {
                     throw new JDOFatalUserException(
-                        msg.msg(
+                        MSG.msg(
                             "EXC_DuplicatePropertyNameGivenInPropertyElement",
                             propertyName,
                             url));
@@ -1592,14 +1591,14 @@ public class JDOHelper implements Constants {
                     INSTANCE_LIFECYCLE_LISTENER_ATTRIBUTE_LISTENER);
                 if (listenerAtt == null) {
                     throw new JDOFatalUserException(
-                        msg.msg(
+                        MSG.msg(
                             "EXC_MissingListenerAttribute",
                             url));
                 }
                 String listener = listenerAtt.getNodeValue().trim();
                 if ("".equals(listener)) {
                     throw new JDOFatalUserException(
-                        msg.msg(
+                        MSG.msg(
                             "EXC_MissingListenerAttributeValue",
                             url));
                 }
@@ -1661,7 +1660,7 @@ public class JDOHelper implements Constants {
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (File propsFile, ClassLoader loader) {
         if (propsFile == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullFile")); //NOI18N
 
         InputStream in = null;
@@ -1669,7 +1668,7 @@ public class JDOHelper implements Constants {
             in = new FileInputStream(propsFile);
             return getPersistenceManagerFactory(in, loader);
         } catch (FileNotFoundException fnfe) {
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNoFile", propsFile), fnfe); //NOI18N
         } finally {
             if (in != null)
@@ -1722,10 +1721,10 @@ public class JDOHelper implements Constants {
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (String jndiLocation, Context context, ClassLoader loader) {
         if (jndiLocation == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullJndiLoc")); //NOI18N
         if (loader == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullLoader")); //NOI18N
         try {
             if (context == null)
@@ -1735,7 +1734,7 @@ public class JDOHelper implements Constants {
             return (PersistenceManagerFactory) PortableRemoteObject.narrow
                 (o, PersistenceManagerFactory.class);
         } catch (NamingException ne) {
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNamingException", jndiLocation, loader), ne); //NOI18N
         }
     }
@@ -1774,7 +1773,7 @@ public class JDOHelper implements Constants {
     public static PersistenceManagerFactory getPersistenceManagerFactory
             (InputStream stream, ClassLoader loader) {
         if (stream == null)
-            throw new JDOFatalUserException (msg.msg (
+            throw new JDOFatalUserException (MSG.msg (
                 "EXC_GetPMFNullStream")); //NOI18N
 
         Properties props = new Properties ();
@@ -1782,7 +1781,7 @@ public class JDOHelper implements Constants {
             props.load (stream);
         } catch (IOException ioe) {
             throw new JDOFatalUserException
-                (msg.msg ("EXC_GetPMFIOExceptionStream"), ioe); //NOI18N
+                (MSG.msg ("EXC_GetPMFIOExceptionStream"), ioe); //NOI18N
         }
         return getPersistenceManagerFactory (props, loader);
     }
@@ -1845,7 +1844,7 @@ public class JDOHelper implements Constants {
             exceptions.add(ex);
         }
 
-        throw new JDOFatalUserException(msg.msg("EXC_GetEnhancerNoValidEnhancerAvailable", numberOfJDOEnhancers),
+        throw new JDOFatalUserException(MSG.msg("EXC_GetEnhancerNoValidEnhancerAvailable", numberOfJDOEnhancers),
                 exceptions.toArray(new Throwable[exceptions.size()]));
     }
 

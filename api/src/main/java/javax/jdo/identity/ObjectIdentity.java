@@ -47,7 +47,7 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
     
     /** The JDOImplHelper instance used for parsing the String to an Object.
      */
-    private static JDOImplHelper helper = doPrivileged(JDOImplHelper::getInstance);
+    private static final JDOImplHelper HELPER = doPrivileged(JDOImplHelper::getInstance);
 
     @SuppressWarnings("unchecked")
     private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
@@ -81,20 +81,20 @@ public class ObjectIdentity extends SingleFieldIdentity<ObjectIdentity> {
             paramString = (String)param;
             if (paramString.length() < 3) {
                 throw new JDOUserException(
-                    msg.msg("EXC_ObjectIdentityStringConstructionTooShort") + //NOI18N
-                    msg.msg("EXC_ObjectIdentityStringConstructionUsage", //NOI18N
+                    MSG.msg("EXC_ObjectIdentityStringConstructionTooShort") + //NOI18N
+                    MSG.msg("EXC_ObjectIdentityStringConstructionUsage", //NOI18N
                         paramString));
             }
             int indexOfDelimiter = paramString.indexOf(STRING_DELIMITER);
             if (indexOfDelimiter < 0) {
                 throw new JDOUserException(
-                    msg.msg("EXC_ObjectIdentityStringConstructionNoDelimiter") + //NOI18N
-                    msg.msg("EXC_ObjectIdentityStringConstructionUsage", //NOI18N
+                    MSG.msg("EXC_ObjectIdentityStringConstructionNoDelimiter") + //NOI18N
+                    MSG.msg("EXC_ObjectIdentityStringConstructionUsage", //NOI18N
                         paramString));
             }
             keyString = paramString.substring(indexOfDelimiter+1);
             className = paramString.substring(0, indexOfDelimiter);
-            keyAsObject = helper.construct(className, keyString);
+            keyAsObject = HELPER.construct(className, keyString);
         } else {
             keyAsObject = param;
         }

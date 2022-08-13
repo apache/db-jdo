@@ -35,10 +35,6 @@ public class CharIdentity extends SingleFieldIdentity<CharIdentity> {
 
     private static final long serialVersionUID = 1L;
 
-    /** The Internationalization message helper.
-     */
-    private static I18NHelper msg = I18NHelper.getInstance ("javax.jdo.Bundle"); //NOI18N
-
     /** The key.
      */
     private char key;
@@ -77,7 +73,7 @@ public class CharIdentity extends SingleFieldIdentity<CharIdentity> {
         assertKeyNotNull(str);
         if (str.length() != 1) 
             throw new IllegalArgumentException(
-                msg.msg("EXC_StringWrongLength")); //NOI18N
+                MSG.msg("EXC_StringWrongLength")); //NOI18N
         construct(str.charAt(0));
     }
 

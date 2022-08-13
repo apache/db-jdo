@@ -52,7 +52,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     
     /** The JDOImplHelper instance used for Date formatting.
      */
-    private static JDOImplHelper helper = doPrivileged(JDOImplHelper::getInstance);
+    private static final JDOImplHelper helper = doPrivileged(JDOImplHelper::getInstance);
 
     @SuppressWarnings("unchecked")
     private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
@@ -416,7 +416,7 @@ public class ObjectIdentityTest extends SingleFieldIdentityTest {
     public static class IdClass implements Serializable {
 		private static final long serialVersionUID = 5718122068872969580L;
 
-		public int value;
+		public final int value;
         public IdClass() {value = 0;}
         public IdClass(int value) {this.value = value;}
         public IdClass(String str) {this.value = Integer.parseInt(str);}

@@ -77,7 +77,7 @@ public class JDOImplHelper extends java.lang.Object {
      * are added by the static method in each <code>PersistenceCapable</code> 
      * class.  Entries are never removed.
      */    
-    private static Map<Class<?>,Meta> registeredClasses =
+    private static final Map<Class<?>,Meta> registeredClasses =
             Collections.synchronizedMap(new HashMap<> ());
     
     /** This Set contains all classes that have registered for setStateManager
@@ -100,7 +100,7 @@ public class JDOImplHelper extends java.lang.Object {
 
     /** The singleton <code>JDOImplHelper</code> instance.
      */    
-    private static JDOImplHelper jdoImplHelper = new JDOImplHelper();
+    private static final JDOImplHelper jdoImplHelper = new JDOImplHelper();
     
     /** The Internationalization message helper.
      */
@@ -938,7 +938,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        String[] fieldNames;
+        final String[] fieldNames;
     
         /** Get the field names from the metadata.
          * @return the array of field names.
@@ -951,7 +951,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        Class<?>[] fieldTypes;
+        final Class<?>[] fieldTypes;
     
         /** Get the field types from the metadata.
          * @return the array of field types.
@@ -964,7 +964,7 @@ public class JDOImplHelper extends java.lang.Object {
          * for the Model at runtime.  The field
          * is passed by the static class initialization.
          */
-        byte[] fieldFlags;
+        final byte[] fieldFlags;
     
         /** Get the field types from the metadata.
          * @return the array of field types.
@@ -976,7 +976,7 @@ public class JDOImplHelper extends java.lang.Object {
         /** This is the <code>Class</code> instance of the 
          * <code>PersistenceCapable</code> superclass.
          */
-        Class<?> persistenceCapableSuperclass;
+        final Class<?> persistenceCapableSuperclass;
     
         /** Return the <code>PersistenceCapable</code> superclass.
          * @return the <code>PersistenceCapable</code> superclass
@@ -987,7 +987,7 @@ public class JDOImplHelper extends java.lang.Object {
         /** This is an instance of <code>PersistenceCapable</code>,
          * used at runtime to create new instances.
          */
-        PersistenceCapable pc;
+        final PersistenceCapable pc;
     
         /** Get an instance of the <code>PersistenceCapable</code> class.
          * @return an instance of the <code>PersistenceCapable Class</code>.

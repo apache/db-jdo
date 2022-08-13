@@ -167,7 +167,7 @@ public class ObjectStateTest extends AbstractTest {
     private class MockInvocationHandler implements InvocationHandler {
         /** States is the sum of all life cycle interrogatives.
          */
-        private int states;
+        private final int states;
 
         /**
          * Constructs an invocation handler with the specified bit fields set
