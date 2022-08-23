@@ -23,33 +23,31 @@ import javax.jdo.PersistenceManager;
  * OrderFactoryPMClass.java
  *
  * This class uses the PersistenceManager.newInstance method with the concrete
- * class as a parameter. 
+ * class as a parameter.
  */
-public class OrderFactoryPMClass 
-        extends OrderFactoryAbstractImpl {
-    
-    /** */
-    public static final Class[] tearDownClasses = new Class[] {
-        Order.class, OrderItem.class
-    };
+public class OrderFactoryPMClass extends OrderFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of OrderFactoryPMClass
-     * @param pm the PersistnceManager
-     */
-    public OrderFactoryPMClass(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    public Order newOrder() {
-        return (Order)pm.newInstance(Order.class);
-    }
-    
-    public OrderItem newOrderItem() {
-        return (OrderItem)pm.newInstance(OrderItem.class);
-    }
-    
-    public Class[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  /** */
+  public static final Class[] tearDownClasses = new Class[] {Order.class, OrderItem.class};
+
+  /**
+   * Creates a new instance of OrderFactoryPMClass
+   *
+   * @param pm the PersistnceManager
+   */
+  public OrderFactoryPMClass(PersistenceManager pm) {
+    super(pm);
+  }
+
+  public Order newOrder() {
+    return (Order) pm.newInstance(Order.class);
+  }
+
+  public OrderItem newOrderItem() {
+    return (OrderItem) pm.newInstance(OrderItem.class);
+  }
+
+  public Class[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }

@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of foreign-key constraints.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ForeignKeys
-{
-    /**
-     * The foreign keys.
-     * @return The foreign keys
-     */
-    ForeignKey[] value();
+public @interface ForeignKeys {
+  /**
+   * The foreign keys.
+   *
+   * @return The foreign keys
+   */
+  ForeignKey[] value();
 }

@@ -24,11 +24,10 @@ package javax.jdo.annotations;
  *
  */
 public class Point {
-    
-    /** Creates a new instance of Point */
-    public Point() {
-    }
 
-    int x;
-    Integer y;
+  /** Creates a new instance of Point */
+  public Point() {}
+
+  int x;
+  Integer y;
 }

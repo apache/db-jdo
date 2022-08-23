@@ -15,116 +15,118 @@
  * limitations under the License.
  */
 
-
-
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.util.Date;
 import java.io.Serializable;
 
 public enum SimpleEnum {
-    
-AL("ALABAMA"),
-AK("ALASKA"),
-AS("AMERICAN SAMOA"),
-AZ("ARIZONA"),
-AR("ARKANSAS"),
-CA("CALIFORNIA"),
-CO("COLORADO"),
-CT("CONNECTICUT"),
-DE("DELAWARE"),
-DC("DISTRICT OF COLUMBIA"),
-FM("FEDERATED STATES OF MICRONESIA"),
-FL("FLORIDA"),
-GA("GEORGIA"),
-GU("GUAM"),
-HI("HAWAII"),
-ID("IDAHO"),
-IL("ILLINOIS"),
-IN("INDIANA"),
-IA("IOWA"),
-KS("KANSAS"),
-KY("KENTUCKY"),
-LA("LOUISIANA"),
-ME("MAINE"),
-MH("MARSHALL ISLANDS"),
-MD("MARYLAND"),
-MA("MASSACHUSETTS"),
-MI("MICHIGAN"),
-MN("MINNESOTA"),
-MS("MISSISSIPPI"),
-MO("MISSOURI"),
-MT("MONTANA"),
-NE("NEBRASKA"),
-NV("NEVADA"),
-NH("NEW HAMPSHIRE"),
-NJ("NEW JERSEY"),
-NM("NEW MEXICO"),
-NY("NEW YORK"),
-NC("NORTH CAROLINA"),
-ND("NORTH DAKOTA"),
-MP("NORTHERN MARIANA ISLANDS"),
-OH("OHIO"),
-OK("OKLAHOMA"),
-OR("OREGON"),
-PW("PALAU"),
-PA("PENNSYLVANIA"),
-PR("PUERTO RICO"),
-RI("RHODE ISLAND"),
-SC("SOUTH CAROLINA"),
-SD("SOUTH DAKOTA"),
-TN("TENNESSEE"),
-TX("TEXAS"),
-UT("UTAH"),
-VT("VERMONT"),
-VI("VIRGIN ISLANDS"),
-VA("VIRGINIA"),
-WA("WASHINGTON"),
-WV("WEST VIRGINIA"),
-WI("WISCONSIN"),
-WY("WYOMING");
-    
-    String sname;
-    
-    SimpleEnum(String s) {
-        sname = s;
-    }
-    
-    public String toString() {
-        return sname;
-    };
+  AL("ALABAMA"),
+  AK("ALASKA"),
+  AS("AMERICAN SAMOA"),
+  AZ("ARIZONA"),
+  AR("ARKANSAS"),
+  CA("CALIFORNIA"),
+  CO("COLORADO"),
+  CT("CONNECTICUT"),
+  DE("DELAWARE"),
+  DC("DISTRICT OF COLUMBIA"),
+  FM("FEDERATED STATES OF MICRONESIA"),
+  FL("FLORIDA"),
+  GA("GEORGIA"),
+  GU("GUAM"),
+  HI("HAWAII"),
+  ID("IDAHO"),
+  IL("ILLINOIS"),
+  IN("INDIANA"),
+  IA("IOWA"),
+  KS("KANSAS"),
+  KY("KENTUCKY"),
+  LA("LOUISIANA"),
+  ME("MAINE"),
+  MH("MARSHALL ISLANDS"),
+  MD("MARYLAND"),
+  MA("MASSACHUSETTS"),
+  MI("MICHIGAN"),
+  MN("MINNESOTA"),
+  MS("MISSISSIPPI"),
+  MO("MISSOURI"),
+  MT("MONTANA"),
+  NE("NEBRASKA"),
+  NV("NEVADA"),
+  NH("NEW HAMPSHIRE"),
+  NJ("NEW JERSEY"),
+  NM("NEW MEXICO"),
+  NY("NEW YORK"),
+  NC("NORTH CAROLINA"),
+  ND("NORTH DAKOTA"),
+  MP("NORTHERN MARIANA ISLANDS"),
+  OH("OHIO"),
+  OK("OKLAHOMA"),
+  OR("OREGON"),
+  PW("PALAU"),
+  PA("PENNSYLVANIA"),
+  PR("PUERTO RICO"),
+  RI("RHODE ISLAND"),
+  SC("SOUTH CAROLINA"),
+  SD("SOUTH DAKOTA"),
+  TN("TENNESSEE"),
+  TX("TEXAS"),
+  UT("UTAH"),
+  VT("VERMONT"),
+  VI("VIRGIN ISLANDS"),
+  VA("VIRGINIA"),
+  WA("WASHINGTON"),
+  WV("WEST VIRGINIA"),
+  WI("WISCONSIN"),
+  WY("WYOMING");
 
-    public static class Oid implements Serializable, Comparable {
-        public long id;
-        
-        public Oid() {
-        }
-        
-        public Oid(String s) { id = Integer.parseInt(justTheId(s)); }
-        
-        public String toString() { return this.getClass().getName() + ": "  + id;}
-        
-        public int hashCode() { return (int)id ; }
-        
-        public boolean equals(Object other) {
-            if (other != null && (other instanceof Oid)) {
-                Oid k = (Oid)other;
-                return k.id == this.id;
-            }
-            return false;
-        }
-        
-        protected static String justTheId(String str) {
-            return str.substring(str.indexOf(':') + 1);
-        }
-        
-        public int compareTo(Object p){
-            // may throw ClassCastException which the user must handle
-            Oid other = (Oid) p;
-            if( id < other.id ) return -1;
-            if( id > other.id ) return 1;
-            return 0;
-        }
-        
+  String sname;
+
+  SimpleEnum(String s) {
+    sname = s;
+  }
+
+  public String toString() {
+    return sname;
+  }
+  ;
+
+  public static class Oid implements Serializable, Comparable {
+    public long id;
+
+    public Oid() {}
+
+    public Oid(String s) {
+      id = Integer.parseInt(justTheId(s));
     }
+
+    public String toString() {
+      return this.getClass().getName() + ": " + id;
+    }
+
+    public int hashCode() {
+      return (int) id;
+    }
+
+    public boolean equals(Object other) {
+      if (other != null && (other instanceof Oid)) {
+        Oid k = (Oid) other;
+        return k.id == this.id;
+      }
+      return false;
+    }
+
+    protected static String justTheId(String str) {
+      return str.substring(str.indexOf(':') + 1);
+    }
+
+    public int compareTo(Object p) {
+      // may throw ClassCastException which the user must handle
+      Oid other = (Oid) p;
+      if (id < other.id) return -1;
+      if (id > other.id) return 1;
+      return 0;
+    }
+  }
 }

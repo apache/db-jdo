@@ -29,85 +29,95 @@ import org.apache.commons.logging.LogFactory;
  * classes that implement only the methods to construct the instance.
  */
 public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
-    
-    protected PersistenceManager pm;
-    
-    /** Logger */
-    protected Log logger = 
-        LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
-    /** true if debug logging is enabled. */
-    protected boolean debug = logger.isDebugEnabled();
+  protected PersistenceManager pm;
 
-    /**
-     * Creates a new instance of CompanyFactoryAbstractImpl
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAbstractImpl(PersistenceManager pm) {
-        this.pm = pm;
-    }
+  /** Logger */
+  protected Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
-    abstract ICompany newCompany();
-    abstract IDepartment newDepartment();
-    abstract IFullTimeEmployee newFullTimeEmployee();
-    abstract IPartTimeEmployee newPartTimeEmployee();
-    
-    public ICompany newCompany(long companyid, String name,
-            java.util.Date founded) {
-        ICompany result = newCompany();
-        result.setCompanyid(companyid);
-        result.setName(name);
-        result.setFounded(founded);
-        if (debug) logger.debug("newCompany returned" + result);
-        return result;
-    }
+  /** true if debug logging is enabled. */
+  protected boolean debug = logger.isDebugEnabled();
 
-    public IDepartment newDepartment(long deptid, String name) {
-        IDepartment result = newDepartment();
-        result.setDeptid(deptid);
-        result.setName(name);
-        if (debug) logger.debug("newDepartment returned" + result);
-        return result;
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAbstractImpl
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAbstractImpl(PersistenceManager pm) {
+    this.pm = pm;
+  }
 
+  abstract ICompany newCompany();
 
-    public IDepartment newDepartment(long deptid, String name, ICompany company) {
-        IDepartment result = newDepartment();
-        result.setDeptid(deptid);
-        result.setName(name);
-        result.setCompany(company);
-        if (debug) logger.debug("newDepartment returned" + result);
-        return result;
-    }
+  abstract IDepartment newDepartment();
 
-    public IFullTimeEmployee newFullTimeEmployee(long personid, String first,
-            String last, String middle, java.util.Date born,
-                    java.util.Date hired, double sal) {
-        IFullTimeEmployee result = newFullTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setHiredate(hired);
-        result.setSalary(sal);
-        if (debug) logger.debug("newFullTimeEmployee returned" + result);
-        return result;
-    }
+  abstract IFullTimeEmployee newFullTimeEmployee();
 
-    public IPartTimeEmployee newPartTimeEmployee(long personid, String first, 
-            String last, String middle, java.util.Date born,
-                    java.util.Date hired, double wage) {
-        IPartTimeEmployee result = newPartTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setHiredate(hired);
-        result.setWage(wage);
-        if (debug) logger.debug("newPartTimeEmployee returned" + result);
-        return result;
-    }
+  abstract IPartTimeEmployee newPartTimeEmployee();
 
+  public ICompany newCompany(long companyid, String name, java.util.Date founded) {
+    ICompany result = newCompany();
+    result.setCompanyid(companyid);
+    result.setName(name);
+    result.setFounded(founded);
+    if (debug) logger.debug("newCompany returned" + result);
+    return result;
+  }
+
+  public IDepartment newDepartment(long deptid, String name) {
+    IDepartment result = newDepartment();
+    result.setDeptid(deptid);
+    result.setName(name);
+    if (debug) logger.debug("newDepartment returned" + result);
+    return result;
+  }
+
+  public IDepartment newDepartment(long deptid, String name, ICompany company) {
+    IDepartment result = newDepartment();
+    result.setDeptid(deptid);
+    result.setName(name);
+    result.setCompany(company);
+    if (debug) logger.debug("newDepartment returned" + result);
+    return result;
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      java.util.Date hired,
+      double sal) {
+    IFullTimeEmployee result = newFullTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setHiredate(hired);
+    result.setSalary(sal);
+    if (debug) logger.debug("newFullTimeEmployee returned" + result);
+    return result;
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      java.util.Date hired,
+      double wage) {
+    IPartTimeEmployee result = newPartTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setHiredate(hired);
+    result.setWage(wage);
+    if (debug) logger.debug("newPartTimeEmployee returned" + result);
+    return result;
+  }
 }

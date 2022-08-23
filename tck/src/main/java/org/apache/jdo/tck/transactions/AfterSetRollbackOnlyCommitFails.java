@@ -25,45 +25,38 @@ import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Test AfterSetRollbackOnlyCommitFails
- *<BR>
- *<B>Keywords:</B> rollback commit setRollbackOnly
- *<BR>
- *<B>Assertion IDs:</B> A13.4.5-1 
-
- *<BR>
- *<B>Assertion Description: </B>
- Once a transaction has been marked for rollback via setRollbackOnly, 
- the commit method will always fail with JDOFatalDataStoreException. 
+ * <B>Title:</B> Test AfterSetRollbackOnlyCommitFails <br>
+ * <B>Keywords:</B> rollback commit setRollbackOnly <br>
+ * <B>Assertion IDs:</B> A13.4.5-1 <br>
+ * <B>Assertion Description: </B> Once a transaction has been marked for rollback via
+ * setRollbackOnly, the commit method will always fail with JDOFatalDataStoreException.
  */
-
 public class AfterSetRollbackOnlyCommitFails extends JDO_Test {
 
-    /** */
-    private static final String ASSERTION_FAILED = 
-        "Assertion A13.4.5-1 (AfterSetRollbackOnlyCommitFails) failed: ";
-    
-    /**
-     * The <code>main</code> is called when the class
-     * is directly executed from the command line.
-     * @param args The arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        BatchTestRunner.run(AfterSetRollbackOnlyCommitFails.class);
-    }
+  /** */
+  private static final String ASSERTION_FAILED =
+      "Assertion A13.4.5-1 (AfterSetRollbackOnlyCommitFails) failed: ";
 
-    /** */
-    public void test() {
-        getPM();
-        Transaction tx = pm.currentTransaction();
-        tx.begin();
-        tx.setRollbackOnly();
-        try {
-            tx.commit();
-            fail(ASSERTION_FAILED,
-                    "Failed to catch expected JDOFatalDataStoreException.");
-       } catch (JDOFatalDataStoreException ex) {
-            // Good catch!
-        }
+  /**
+   * The <code>main</code> is called when the class is directly executed from the command line.
+   *
+   * @param args The arguments passed to the program.
+   */
+  public static void main(String[] args) {
+    BatchTestRunner.run(AfterSetRollbackOnlyCommitFails.class);
+  }
+
+  /** */
+  public void test() {
+    getPM();
+    Transaction tx = pm.currentTransaction();
+    tx.begin();
+    tx.setRollbackOnly();
+    try {
+      tx.commit();
+      fail(ASSERTION_FAILED, "Failed to catch expected JDOFatalDataStoreException.");
+    } catch (JDOFatalDataStoreException ex) {
+      // Good catch!
     }
+  }
 }

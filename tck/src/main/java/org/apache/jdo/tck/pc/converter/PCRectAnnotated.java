@@ -25,61 +25,67 @@ import javax.jdo.annotations.PersistenceCapable;
 import java.util.Date;
 
 /**
- * PersistenceCapable class to test JDO AttributeConverter interface.
- * Its fields of type Point are converted to strings in the datastore.
+ * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type Point are
+ * converted to strings in the datastore.
  */
-@PersistenceCapable(table="PCRectConv")
+@PersistenceCapable(table = "PCRectConv")
 public class PCRectAnnotated implements IPCRect {
-    private static long counter = new Date().getTime();
+  private static long counter = new Date().getTime();
 
-    private static synchronized long newId() {
-        return counter++;
+  private static synchronized long newId() {
+    return counter++;
+  }
+
+  @Column(name = "ID")
+  private long id = newId();
+
+  @Column(name = "UPPER_LEFT")
+  @Convert(value = PointToStringConverter.class)
+  private Point upperLeft;
+
+  @Column(name = "LOWER_RIGHT")
+  @Convert(value = PointToStringConverter.class)
+  private Point lowerRight;
+
+  public PCRectAnnotated() {}
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public Point getUpperLeft() {
+    return upperLeft;
+  }
+
+  public void setUpperLeft(Point upperLeft) {
+    this.upperLeft = upperLeft;
+  }
+
+  public Point getLowerRight() {
+    return lowerRight;
+  }
+
+  public void setLowerRight(Point lowerRight) {
+    this.lowerRight = lowerRight;
+  }
+
+  public String toString() {
+    String rc = null;
+    Object obj = this;
+    try {
+      rc =
+          obj.getClass().getName()
+              + " ul: "
+              + getUpperLeft().name()
+              + " lr: "
+              + getLowerRight().name();
+    } catch (NullPointerException ex) {
+      rc = "NPE getting PCRectAnnotated's values";
     }
-
-    @Column(name="ID")
-    private long id = newId();
-
-    @Column(name="UPPER_LEFT")
-    @Convert(value = PointToStringConverter.class)
-    private Point upperLeft;
-
-    @Column(name="LOWER_RIGHT")
-    @Convert(value = PointToStringConverter.class)
-    private Point lowerRight;
-
-    public PCRectAnnotated() {}
-
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Point getUpperLeft() {
-        return upperLeft;
-    }
-    public void setUpperLeft(Point upperLeft) {
-        this.upperLeft = upperLeft;
-    }
-
-    public Point getLowerRight() {
-        return lowerRight;
-    }
-    public void setLowerRight(Point lowerRight) {
-        this.lowerRight = lowerRight;
-    }
-
-    public String toString() {
-        String rc = null;
-        Object obj = this;
-        try {
-            rc = obj.getClass().getName()
-                    + " ul: " + getUpperLeft().name()
-                    + " lr: " + getLowerRight().name();
-        } catch (NullPointerException ex) {
-            rc = "NPE getting PCRectAnnotated's values";
-        }
-        return rc;
-    }
+    return rc;
+  }
 }

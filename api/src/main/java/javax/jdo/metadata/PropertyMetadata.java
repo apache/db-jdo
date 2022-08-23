@@ -18,19 +18,22 @@ package javax.jdo.metadata;
 
 /**
  * Represents a property in a class/persistent-interface.
+ *
  * @since 3.0
  */
 public interface PropertyMetadata extends MemberMetadata {
-    /**
-     * Method to set the field name (persistent interfaces).
-     * @param name field name
-     * @return This metadata object
-     */
-    PropertyMetadata setFieldName(String name);
+  /**
+   * Method to set the field name (persistent interfaces).
+   *
+   * @param name field name
+   * @return This metadata object
+   */
+  PropertyMetadata setFieldName(String name);
 
-    /**
-     * Accessor for the field name.
-     * @return Field name
-     */
-    String getFieldName();
+  /**
+   * Accessor for the field name.
+   *
+   * @return Field name
+   */
+  String getFieldName();
 }

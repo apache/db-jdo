@@ -22,40 +22,42 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the ordering component of an ordered container member, 
- * such as Java Collections Framework Array and List types and Java native
- * array types.
- * Corresponds to the xml element "order".
- * 
+ * Annotation for the ordering component of an ordered container member, such as Java Collections
+ * Framework Array and List types and Java native array types. Corresponds to the xml element
+ * "order".
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Order
-{
-    /**
-     * The name of the column to use for ordering the elements of the member.
-     * @return the name of the ordering column
-     */
-    String column() default "";
+public @interface Order {
+  /**
+   * The name of the column to use for ordering the elements of the member.
+   *
+   * @return the name of the ordering column
+   */
+  String column() default "";
 
-    /**
-     * Name of a field or property in the target class that acts as the 
-     * ordering field or property for this member.
-     * @return the name of the field or property in the target class
-     */
-    String mappedBy() default "";
+  /**
+   * Name of a field or property in the target class that acts as the ordering field or property for
+   * this member.
+   *
+   * @return the name of the field or property in the target class
+   */
+  String mappedBy() default "";
 
-    /**
-     * The definition of the column(s) to use for ordering.
-     * @return the columns to use for ordering
-     */
-    Column[] columns() default {};
+  /**
+   * The definition of the column(s) to use for ordering.
+   *
+   * @return the columns to use for ordering
+   */
+  Column[] columns() default {};
 
-    /**
-     * Vendor extensions.
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
+  /**
+   * Vendor extensions.
+   *
+   * @return the vendor extensions
+   */
+  Extension[] extensions() default {};
 }

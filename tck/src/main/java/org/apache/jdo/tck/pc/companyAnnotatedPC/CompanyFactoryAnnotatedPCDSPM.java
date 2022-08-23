@@ -26,65 +26,65 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPCDSPM
-        implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedPCDSPM implements CompanyFactoryNewInstance {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedPCDSPM
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedPCDSPM(PersistenceManager pm) {
-        this.pm = pm;        
-    }
-    
-    public Class[] getTearDownClasses() {
-        return new Class[] {
-            PCDSDentalInsurance.class,
-            PCDSMedicalInsurance.class,
-            PCDSPartTimeEmployee.class,
-            PCDSFullTimeEmployee.class,
-            PCDSProject.class,
-            PCDSDepartment.class,
-            PCDSCompany.class,
-            PCDSAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return (IAddress)pm.newInstance(PCDSAddress.class);
-    }
+  PersistenceManager pm = null;
 
-    public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
-    }
-    
-    public ICompany newCompany() {
-        return (ICompany)pm.newInstance(PCDSCompany.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(PCDSDentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(PCDSDepartment.class);
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(PCDSFullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(PCDSMedicalInsurance.class);
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PCDSPartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return (IProject)pm.newInstance(PCDSProject.class);
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedPCDSPM
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedPCDSPM(PersistenceManager pm) {
+    this.pm = pm;
+  }
+
+  public Class[] getTearDownClasses() {
+    return new Class[] {
+      PCDSDentalInsurance.class,
+      PCDSMedicalInsurance.class,
+      PCDSPartTimeEmployee.class,
+      PCDSFullTimeEmployee.class,
+      PCDSProject.class,
+      PCDSDepartment.class,
+      PCDSCompany.class,
+      PCDSAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return (IAddress) pm.newInstance(PCDSAddress.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return (IMeetingRoom) null;
+  }
+
+  public ICompany newCompany() {
+    return (ICompany) pm.newInstance(PCDSCompany.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return (IDentalInsurance) pm.newInstance(PCDSDentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return (IDepartment) pm.newInstance(PCDSDepartment.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return (IFullTimeEmployee) pm.newInstance(PCDSFullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return (IMedicalInsurance) pm.newInstance(PCDSMedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return (IPartTimeEmployee) pm.newInstance(PCDSPartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return (IProject) pm.newInstance(PCDSProject.class);
+  }
 }

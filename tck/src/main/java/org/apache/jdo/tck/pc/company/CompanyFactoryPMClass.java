@@ -23,63 +23,69 @@ import javax.jdo.PersistenceManager;
  * CompanyFactoryPMClass.java
  *
  * This class uses the PersistenceManager.newInstance method with the concrete
- * class as a parameter. 
+ * class as a parameter.
  */
-public class CompanyFactoryPMClass 
-        extends CompanyFactoryAbstractImpl {
-    
-    /** */
-    public static final Class[] tearDownClasses = new Class[] {
-        DentalInsurance.class, MedicalInsurance.class,
-        PartTimeEmployee.class, FullTimeEmployee.class,  
-        Project.class, Department.class, Company.class, MeetingRoom.class
-    };
+public class CompanyFactoryPMClass extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactory
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryPMClass(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    public IAddress newAddress() {
-        return (IAddress)pm.newInstance(Address.class);
-    }
+  /** */
+  public static final Class[] tearDownClasses =
+      new Class[] {
+        DentalInsurance.class,
+        MedicalInsurance.class,
+        PartTimeEmployee.class,
+        FullTimeEmployee.class,
+        Project.class,
+        Department.class,
+        Company.class,
+        MeetingRoom.class
+      };
 
-    public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)pm.newInstance(MeetingRoom.class);
-    }
-    
-    public ICompany newCompany() {
-        return (ICompany)pm.newInstance(Company.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(DentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(Department.class);
-    }
-    
-    public IFullTimeEmployee  newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(FullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(MedicalInsurance.class);        
-    }
-    
-    public IPartTimeEmployee  newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return (IProject)pm.newInstance(Project.class);
-    }
+  /**
+   * Creates a new instance of CompanyFactory
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryPMClass(PersistenceManager pm) {
+    super(pm);
+  }
 
-    public Class[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  public IAddress newAddress() {
+    return (IAddress) pm.newInstance(Address.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return (IMeetingRoom) pm.newInstance(MeetingRoom.class);
+  }
+
+  public ICompany newCompany() {
+    return (ICompany) pm.newInstance(Company.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return (IDentalInsurance) pm.newInstance(DentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return (IDepartment) pm.newInstance(Department.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return (IFullTimeEmployee) pm.newInstance(FullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return (IMedicalInsurance) pm.newInstance(MedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return (IPartTimeEmployee) pm.newInstance(PartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return (IProject) pm.newInstance(Project.class);
+  }
+
+  public Class[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }

@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of named queries.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Queries
-{
-    /**
-     * The named queries
-     * @return The named queries
-     */
-    Query[] value();
+public @interface Queries {
+  /**
+   * The named queries
+   *
+   * @return The named queries
+   */
+  Query[] value();
 }

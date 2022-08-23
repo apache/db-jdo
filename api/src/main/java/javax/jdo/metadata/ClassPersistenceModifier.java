@@ -18,11 +18,11 @@ package javax.jdo.metadata;
 
 /**
  * Enumeration of the persistence-modifier values for a class.
+ *
  * @since 3.0
  */
-public enum ClassPersistenceModifier
-{
-    PERSISTENCE_CAPABLE,
-    PERSISTENCE_AWARE,
-    NON_PERSISTENT
+public enum ClassPersistenceModifier {
+  PERSISTENCE_CAPABLE,
+  PERSISTENCE_AWARE,
+  NON_PERSISTENT
 }

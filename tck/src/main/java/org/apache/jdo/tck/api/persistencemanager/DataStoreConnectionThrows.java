@@ -5,13 +5,13 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
@@ -33,162 +33,183 @@ import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> DataStoreConnectionThrows
- *<BR>
- *<B>Keywords:</B>
- *<BR>
- *<B>Assertion ID:</B> A12.16-2
- *<BR>
- *<B>Assertion Description: </B>
-For portability, a JDBC-based JDO implementation 
-will return an instance that implements 
-java.sql.Connection. The instance 
-will throw an exception for any of the 
-following method calls: commit, getMetaData, 
-releaseSavepoint, rollback, setAutoCommit, 
-setCatalog, setHoldability, setReadOnly, 
-setSavepoint, setTransactionIsolation, and 
-setTypeMap.
+ * <B>Title:</B> DataStoreConnectionThrows <br>
+ * <B>Keywords:</B> <br>
+ * <B>Assertion ID:</B> A12.16-2 <br>
+ * <B>Assertion Description: </B> For portability, a JDBC-based JDO implementation will return an
+ * instance that implements java.sql.Connection. The instance will throw an exception for any of the
+ * following method calls: commit, getMetaData, releaseSavepoint, rollback, setAutoCommit,
+ * setCatalog, setHoldability, setReadOnly, setSavepoint, setTransactionIsolation, and setTypeMap.
  */
-
 public class DataStoreConnectionThrows extends PersistenceManagerTest {
 
-    /** */
-    private static final String ASSERTION_FAILED = 
-        "Assertion A12.16-2 (DataStoreConnectionThrows) failed: ";
-    
-    protected PCPoint goldenPoint;
-    
-    /**
-     * The <code>main</code> is called when the class
-     * is directly executed from the command line.
-     * @param args The arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        BatchTestRunner.run(DataStoreConnectionThrows.class);
-    }
+  /** */
+  private static final String ASSERTION_FAILED =
+      "Assertion A12.16-2 (DataStoreConnectionThrows) failed: ";
 
-    /**
-     *
-     * @param conn connection
-     * @param call call
-     */
-    protected void checkThrow(Connection conn, Call call) {
-        try {
-            call.execute(conn);
-            appendMessage(ASSERTION_FAILED +
-                    "Failed to throw an exception for " + call.getName());
-        } catch (SQLException ex) {
-            appendMessage(ASSERTION_FAILED +
-                    "Threw a SQLException for " + call.getName() + NL + ex);
-            return;
-        } catch (Exception ex) {
-            return;
-        }
-    }
+  protected PCPoint goldenPoint;
 
-    /** */
-    interface Call {
-        String getName();
-        void execute(Connection conn) throws SQLException;
-    }
+  /**
+   * The <code>main</code> is called when the class is directly executed from the command line.
+   *
+   * @param args The arguments passed to the program.
+   */
+  public static void main(String[] args) {
+    BatchTestRunner.run(DataStoreConnectionThrows.class);
+  }
 
-    /** */
-    public void testDataStoreConnectionThrows() {
-        if (!(isDataStoreConnectionSupported() && isSQLSupported())) {
-            printUnsupportedOptionalFeatureNotTested(
-                    this.getClass().getName(),
-                    "getDataStoreConnection AND SQLSupported.");
-            return;
-        }
-        JDOConnection jconn = getPM().getDataStoreConnection();
-        Connection conn = (Connection)jconn;
-        check13Methods(conn);
-        if (isJRE14orBetter()) {
-            check14Methods(conn);
-        }
-        jconn.close();
-        failOnError();
+  /**
+   * @param conn connection
+   * @param call call
+   */
+  protected void checkThrow(Connection conn, Call call) {
+    try {
+      call.execute(conn);
+      appendMessage(ASSERTION_FAILED + "Failed to throw an exception for " + call.getName());
+    } catch (SQLException ex) {
+      appendMessage(ASSERTION_FAILED + "Threw a SQLException for " + call.getName() + NL + ex);
+      return;
+    } catch (Exception ex) {
+      return;
     }
+  }
 
-   /** 
-    * These methods are defined in Java 1.3 Connection.
-    * @param conn connection
-    */
-    protected void check13Methods(Connection conn) {
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "commit";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.commit();}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "rollback";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.rollback();}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setTransactionIsolation";}
-                    public void execute(Connection conn) 
-                        throws SQLException {
-                        conn.setTransactionIsolation(
-                                Connection.TRANSACTION_READ_COMMITTED);}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setAutoCommit";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.setAutoCommit(true);}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setCatalog";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.setCatalog("NONE");}
-                }
-            );
+  /** */
+  interface Call {
+    String getName();
+
+    void execute(Connection conn) throws SQLException;
+  }
+
+  /** */
+  public void testDataStoreConnectionThrows() {
+    if (!(isDataStoreConnectionSupported() && isSQLSupported())) {
+      printUnsupportedOptionalFeatureNotTested(
+          this.getClass().getName(), "getDataStoreConnection AND SQLSupported.");
+      return;
     }
+    JDOConnection jconn = getPM().getDataStoreConnection();
+    Connection conn = (Connection) jconn;
+    check13Methods(conn);
+    if (isJRE14orBetter()) {
+      check14Methods(conn);
+    }
+    jconn.close();
+    failOnError();
+  }
 
-    /**
-     * These methods are defined in Java 1.4 Connection.
-     * @param conn connection
-     */
-    protected void check14Methods(Connection conn) {
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setSavepoint";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.setSavepoint();}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "releaseSavepoint";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.releaseSavepoint(null);}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setHoldability";}
-                    public void execute(Connection conn) 
-                        throws SQLException {
-                        conn.setHoldability(
-                                ResultSet.CLOSE_CURSORS_AT_COMMIT);}
-                }
-            );
-        checkThrow(conn,
-                new Call() {
-                    public String getName() {return "setTypeMap";}
-                    public void execute(Connection conn) 
-                        throws SQLException {conn.setTypeMap(new HashMap());}
-                }
-            );
-     }
+  /**
+   * These methods are defined in Java 1.3 Connection.
+   *
+   * @param conn connection
+   */
+  protected void check13Methods(Connection conn) {
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "commit";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.commit();
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "rollback";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.rollback();
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setTransactionIsolation";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setAutoCommit";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setAutoCommit(true);
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setCatalog";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setCatalog("NONE");
+          }
+        });
+  }
+
+  /**
+   * These methods are defined in Java 1.4 Connection.
+   *
+   * @param conn connection
+   */
+  protected void check14Methods(Connection conn) {
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setSavepoint";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setSavepoint();
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "releaseSavepoint";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.releaseSavepoint(null);
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setHoldability";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setHoldability(ResultSet.CLOSE_CURSORS_AT_COMMIT);
+          }
+        });
+    checkThrow(
+        conn,
+        new Call() {
+          public String getName() {
+            return "setTypeMap";
+          }
+
+          public void execute(Connection conn) throws SQLException {
+            conn.setTypeMap(new HashMap());
+          }
+        });
+  }
 }

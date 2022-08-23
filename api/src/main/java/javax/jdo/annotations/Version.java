@@ -22,50 +22,55 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the versioning of the class.
- * Corresponds to the xml element "version" of the "class" and "property" 
- * elements.
- * 
+ * Annotation for the versioning of the class. Corresponds to the xml element "version" of the
+ * "class" and "property" elements.
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Version
-{
-    /**
-     * Strategy for versioning of objects of this class.
-     * @return the strategy for versioning objects of this class
-     */
-    VersionStrategy strategy() default VersionStrategy.UNSPECIFIED;
+public @interface Version {
+  /**
+   * Strategy for versioning of objects of this class.
+   *
+   * @return the strategy for versioning objects of this class
+   */
+  VersionStrategy strategy() default VersionStrategy.UNSPECIFIED;
 
-    /**
-     * Custom strategy for versioning of objects of this class.
-     * If customStrategy is non-empty, strategy must be UNSPECIFIED.
-     * @return the custom strategy for versioning objects of this class
-     */
-    String customStrategy() default "";
+  /**
+   * Custom strategy for versioning of objects of this class. If customStrategy is non-empty,
+   * strategy must be UNSPECIFIED.
+   *
+   * @return the custom strategy for versioning objects of this class
+   */
+  String customStrategy() default "";
 
-    /**
-     * Name of the column for the version.
-     * @return the name of the column for the version
-     */
-    String column() default "";
+  /**
+   * Name of the column for the version.
+   *
+   * @return the name of the column for the version
+   */
+  String column() default "";
 
-    /**
-     * Whether the version column(s) is(are) indexed.
-     * @return whether the version column(s) is(are) indexed
-     */
-    String indexed() default "";
+  /**
+   * Whether the version column(s) is(are) indexed.
+   *
+   * @return whether the version column(s) is(are) indexed
+   */
+  String indexed() default "";
 
-    /**
-     * The column(s) making up the version.
-     * @return the column(s) making up the version
-     */
-    Column[] columns() default {};
+  /**
+   * The column(s) making up the version.
+   *
+   * @return the column(s) making up the version
+   */
+  Column[] columns() default {};
 
-    /** Vendor extensions. 
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
+  /**
+   * Vendor extensions.
+   *
+   * @return the vendor extensions
+   */
+  Extension[] extensions() default {};
 }

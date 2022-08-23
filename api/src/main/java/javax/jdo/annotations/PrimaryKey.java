@@ -22,38 +22,41 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation on a member to define it as a primary key member of a class or
- * persistent interface using application identity. 
- * Also used to define the primary key columns of a secondary table.
+ * Annotation on a member to define it as a primary key member of a class or persistent interface
+ * using application identity. Also used to define the primary key columns of a secondary table.
  * Corresponds to the xml element "primary-key".
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PrimaryKey
-{
-    /**
-     * Name of the primary key constraint
-     * @return the name of the primary key constraint
-     */
-    String name() default "";
+public @interface PrimaryKey {
+  /**
+   * Name of the primary key constraint
+   *
+   * @return the name of the primary key constraint
+   */
+  String name() default "";
 
-    /**
-     * Name of the column to use for the primary key
-     * @return the name of the column to use for the primary key
-     */
-    String column() default "";
+  /**
+   * Name of the column to use for the primary key
+   *
+   * @return the name of the column to use for the primary key
+   */
+  String column() default "";
 
-    /**
-     * The column(s) for the primary key
-     * @return the column(s) for the primary key
-     */
-    Column[] columns() default {};
+  /**
+   * The column(s) for the primary key
+   *
+   * @return the column(s) for the primary key
+   */
+  Column[] columns() default {};
 
-    /** Vendor extensions.
-     * @return the vendor extensions
-     */
-    Extension[] extensions() default {};
+  /**
+   * Vendor extensions.
+   *
+   * @return the vendor extensions
+   */
+  Extension[] extensions() default {};
 }

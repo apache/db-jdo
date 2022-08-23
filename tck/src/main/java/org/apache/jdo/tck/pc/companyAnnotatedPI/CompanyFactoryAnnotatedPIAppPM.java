@@ -26,65 +26,65 @@ import org.apache.jdo.tck.pc.company.*;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPIAppPM
-        implements CompanyFactoryNewInstance {
-    
-    PersistenceManager pm = null;
+public class CompanyFactoryAnnotatedPIAppPM implements CompanyFactoryNewInstance {
 
-    /**
-     * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedPIAppPM(PersistenceManager pm) {
-        this.pm = pm;        
-    }
-    
-    public Class[] getTearDownClasses() {
-        return new Class[] {
-            PIAppDentalInsurance.class,
-            PIAppMedicalInsurance.class,
-            PIAppPartTimeEmployee.class,
-            PIAppFullTimeEmployee.class,
-            PIAppProject.class,
-            PIAppDepartment.class,
-            PIAppCompany.class,
-            PIAppAddress.class
-        };
-    }
-    
-    public IAddress newAddress() {
-        return (IAddress)pm.newInstance(PIAppAddress.class);
-    }
+  PersistenceManager pm = null;
 
-    public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)null;
-    }
-    
-    public ICompany newCompany() {
-        return (ICompany)pm.newInstance(PIAppCompany.class);
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)pm.newInstance(PIAppDentalInsurance.class);
-    }
-    
-    public IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(PIAppDepartment.class);
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(PIAppFullTimeEmployee.class);
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)pm.newInstance(PIAppMedicalInsurance.class);
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PIAppPartTimeEmployee.class);
-    }
-    
-    public IProject newProject() {
-        return (IProject)pm.newInstance(PIAppProject.class);
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAnnotatedPMFieldClass
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedPIAppPM(PersistenceManager pm) {
+    this.pm = pm;
+  }
+
+  public Class[] getTearDownClasses() {
+    return new Class[] {
+      PIAppDentalInsurance.class,
+      PIAppMedicalInsurance.class,
+      PIAppPartTimeEmployee.class,
+      PIAppFullTimeEmployee.class,
+      PIAppProject.class,
+      PIAppDepartment.class,
+      PIAppCompany.class,
+      PIAppAddress.class
+    };
+  }
+
+  public IAddress newAddress() {
+    return (IAddress) pm.newInstance(PIAppAddress.class);
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return (IMeetingRoom) null;
+  }
+
+  public ICompany newCompany() {
+    return (ICompany) pm.newInstance(PIAppCompany.class);
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return (IDentalInsurance) pm.newInstance(PIAppDentalInsurance.class);
+  }
+
+  public IDepartment newDepartment() {
+    return (IDepartment) pm.newInstance(PIAppDepartment.class);
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return (IFullTimeEmployee) pm.newInstance(PIAppFullTimeEmployee.class);
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return (IMedicalInsurance) pm.newInstance(PIAppMedicalInsurance.class);
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return (IPartTimeEmployee) pm.newInstance(PIAppPartTimeEmployee.class);
+  }
+
+  public IProject newProject() {
+    return (IProject) pm.newInstance(PIAppProject.class);
+  }
 }

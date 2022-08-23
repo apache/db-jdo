@@ -27,60 +27,52 @@ import javax.jdo.PersistenceManager;
  * This class is the company factory that uses constructors of the
  * concrete classes.
  */
-public  class CompanyFactoryConcreteClass implements CompanyFactory {
+public class CompanyFactoryConcreteClass implements CompanyFactory {
 
-    /** */
-    public static final Class[] tearDownClasses = new Class[] {
-        PartTimeEmployee.class, FullTimeEmployee.class,  
+  /** */
+  public static final Class[] tearDownClasses =
+      new Class[] {
+        PartTimeEmployee.class, FullTimeEmployee.class,
         Department.class, Company.class
-    };
+      };
 
-    /**
-     * Creates a new instance of CompanyFactoryConcreteClass
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryConcreteClass(PersistenceManager pm) {
-    }
+  /**
+   * Creates a new instance of CompanyFactoryConcreteClass
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryConcreteClass(PersistenceManager pm) {}
 
-    public CompanyFactoryConcreteClass() {
-    }
+  public CompanyFactoryConcreteClass() {}
 
-    public ICompany newCompany(long companyid, 
-            String name, Date founded) {
-        return new Company(companyid, name, founded);
-    }
+  public ICompany newCompany(long companyid, String name, Date founded) {
+    return new Company(companyid, name, founded);
+  }
 
-    public IDepartment newDepartment(long deptid, String name) {
-        return new Department(deptid, name);
-    }
+  public IDepartment newDepartment(long deptid, String name) {
+    return new Department(deptid, name);
+  }
 
-    public IDepartment newDepartment(long deptid, 
-            String name, ICompany company) {
-        return new Department(deptid, name, company);
-    }
+  public IDepartment newDepartment(long deptid, String name, ICompany company) {
+    return new Department(deptid, name, company);
+  }
 
-    public IFullTimeEmployee newFullTimeEmployee(long personid, 
-            String first, String last, String middle, 
-            Date born, Date hired, double sal) {
-        return new FullTimeEmployee(personid, first, last, middle,
-                born, hired, sal);
-    }
+  public IFullTimeEmployee newFullTimeEmployee(
+      long personid, String first, String last, String middle, Date born, Date hired, double sal) {
+    return new FullTimeEmployee(personid, first, last, middle, born, hired, sal);
+  }
 
-    public IPartTimeEmployee newPartTimeEmployee(long personid, 
-            String first, String last, String middle, 
-            Date born, Date hired, double wage) {
-        return new PartTimeEmployee(personid, first, last, middle, 
-                born, hired, wage);
-    } 
+  public IPartTimeEmployee newPartTimeEmployee(
+      long personid, String first, String last, String middle, Date born, Date hired, double wage) {
+    return new PartTimeEmployee(personid, first, last, middle, born, hired, wage);
+  }
 
-    public IPerson newPerson(long personid, 
-            String firstname, String lastname, String middlename, 
-            Date birthdate) {
-        return new Person(personid, firstname, lastname, middlename,
-                birthdate);
-    }
+  public IPerson newPerson(
+      long personid, String firstname, String lastname, String middlename, Date birthdate) {
+    return new Person(personid, firstname, lastname, middlename, birthdate);
+  }
 
-    public Class[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  public Class[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }
