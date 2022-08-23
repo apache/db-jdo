@@ -17,7 +17,6 @@
 package javax.jdo;
 
 import java.io.Serializable;
-
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.CharacterExpression;
 import javax.jdo.query.CollectionExpression;

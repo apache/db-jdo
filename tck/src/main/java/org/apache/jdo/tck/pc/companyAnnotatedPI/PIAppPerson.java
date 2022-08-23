@@ -17,12 +17,22 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
-import javax.jdo.annotations.*;
-
 import java.util.Date;
 import java.util.Map;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Discriminator;
+import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.Embedded;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Join;
+import javax.jdo.annotations.Key;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PersistenceModifier;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Value;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.pc.company.IPerson;
 
 /**

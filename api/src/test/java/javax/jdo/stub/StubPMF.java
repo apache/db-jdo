@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.jdo.Constants;
 import javax.jdo.FetchGroup;
 import javax.jdo.PersistenceManager;

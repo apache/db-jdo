@@ -18,10 +18,8 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Properties;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

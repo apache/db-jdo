@@ -18,14 +18,9 @@
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
 import java.util.Arrays;
-
 import javax.jdo.Extent;
-import javax.jdo.FetchPlan;
 import javax.jdo.Query;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

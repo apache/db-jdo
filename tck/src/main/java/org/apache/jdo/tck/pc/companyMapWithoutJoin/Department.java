@@ -18,13 +18,8 @@
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.io.Serializable;
-import java.io.ObjectInputStream;
-import java.io.IOException;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
-
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

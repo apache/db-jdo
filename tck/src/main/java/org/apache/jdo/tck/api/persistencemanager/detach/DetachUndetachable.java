@@ -17,7 +17,6 @@
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
 import javax.jdo.JDOHelper;
-
 import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

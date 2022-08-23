@@ -17,18 +17,25 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.HashSet;
-import java.math.BigDecimal;
-
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

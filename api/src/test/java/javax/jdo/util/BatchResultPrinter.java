@@ -18,7 +18,6 @@
 package javax.jdo.util;
 
 import java.io.PrintStream;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;

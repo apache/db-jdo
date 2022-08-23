@@ -17,7 +17,9 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.BooleanExpression;
+import javax.jdo.query.IfThenElseExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -27,11 +29,6 @@ import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.query.BooleanExpression;
-import javax.jdo.query.IfThenElseExpression;
-import javax.jdo.query.NumericExpression;
 
 /**
  * <B>Title:</B> Use of If Else expression in filter <br>

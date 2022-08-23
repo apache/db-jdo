@@ -18,12 +18,10 @@
 package org.apache.jdo.tck.query.jdoql.subqueries;
 
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.pc.company.Employee;
+import org.apache.jdo.tck.query.QueryTest;
 
 /** Superclass for all subquery test classes. */
 public abstract class SubqueriesTest extends QueryTest {

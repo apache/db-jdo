@@ -17,15 +17,13 @@
 
 package org.apache.jdo.tck.query.jdoql;
 
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.JDOQLTypedQuery;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOQLTypedQuery;
 
 /**
  * <B>Title:</B> Range as String. <br>
@@ -80,7 +78,6 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
-
   public void testPositive1() {
     Object expected =
         getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3", "emp4"});
@@ -112,7 +109,6 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
-
   public void testPositive2() {
     Object expected =
         getTransientCompanyModelInstancesAsList(new String[] {"emp2", "emp3", "emp4", "emp5"});
@@ -144,7 +140,6 @@ public class RangeAsString extends QueryTest {
     executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
   }
   /** */
-
   public void testPositive3() {
     Object expected =
         getTransientCompanyModelInstancesAsList(new String[] {"emp2", "emp3", "emp4"});

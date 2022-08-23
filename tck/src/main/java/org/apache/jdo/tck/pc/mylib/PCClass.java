@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.mylib;
 
 import java.io.Serializable;
-
 import javax.jdo.listener.LoadCallback;
 
 public class PCClass implements LoadCallback {

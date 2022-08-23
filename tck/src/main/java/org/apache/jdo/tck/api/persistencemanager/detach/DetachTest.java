@@ -18,17 +18,13 @@
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
 import java.util.Iterator;
-
 import javax.jdo.FetchPlan;
 import javax.jdo.JDOHelper;
-
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.shoppingcart.CartEntry;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
+import org.apache.jdo.tck.pc.shoppingcart.CartEntry;
 import org.apache.jdo.tck.pc.shoppingcart.Product;
 import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
-
-import javax.jdo.PersistenceManager;
 
 /** */
 public abstract class DetachTest extends JDO_Test {

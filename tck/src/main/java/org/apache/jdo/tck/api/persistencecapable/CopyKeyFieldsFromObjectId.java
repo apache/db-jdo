@@ -26,7 +26,6 @@ import javax.jdo.identity.ShortIdentity;
 import javax.jdo.identity.SingleFieldIdentity;
 import javax.jdo.identity.StringIdentity;
 import javax.jdo.spi.PersistenceCapable;
-
 import org.apache.jdo.tck.pc.singlefieldidentity.AbstractPCPointSingleField;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldByte;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldCharacter;

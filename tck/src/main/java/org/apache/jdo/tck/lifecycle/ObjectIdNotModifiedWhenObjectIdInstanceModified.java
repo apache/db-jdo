@@ -17,13 +17,9 @@
 
 package org.apache.jdo.tck.lifecycle;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import javax.jdo.Extent;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
 import org.apache.jdo.tck.util.BatchTestRunner;

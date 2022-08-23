@@ -19,7 +19,6 @@ package org.apache.jdo.tck.models.embedded;
 
 import java.util.Date;
 import java.util.Set;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;

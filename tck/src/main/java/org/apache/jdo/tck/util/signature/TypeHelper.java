@@ -17,18 +17,12 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.lang.reflect.Member;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Constructor;
-
-import java.util.Iterator;
-import java.util.Set;
-import java.util.Map;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /** A helper class for translating between Java user type names and reflection type names. */
 public class TypeHelper {

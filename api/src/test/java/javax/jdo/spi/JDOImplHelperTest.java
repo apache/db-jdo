@@ -19,7 +19,6 @@ package javax.jdo.spi;
 
 import java.util.Collection;
 import java.util.Properties;
-
 import javax.jdo.Constants;
 import javax.jdo.JDOUserException;
 import javax.jdo.pc.PCPoint;

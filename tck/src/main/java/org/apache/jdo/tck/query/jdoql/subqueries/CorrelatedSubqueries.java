@@ -18,14 +18,11 @@
 package org.apache.jdo.tck.query.jdoql.subqueries;
 
 import java.util.List;
-
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.JDOQLTypedSubquery;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.jdo.query.NumericExpression;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;

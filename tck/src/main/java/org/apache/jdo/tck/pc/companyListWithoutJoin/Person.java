@@ -18,13 +18,9 @@
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
 import java.io.Serializable;
-
 import java.text.SimpleDateFormat;
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

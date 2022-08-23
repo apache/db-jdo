@@ -16,12 +16,11 @@
  */
 package org.apache.jdo.tck.pc.converter;
 
-import org.apache.jdo.tck.util.IntegerToStringConverter;
-
+import java.util.Date;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Convert;
 import javax.jdo.annotations.PersistenceCapable;
-import java.util.Date;
+import org.apache.jdo.tck.util.IntegerToStringConverter;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type int and

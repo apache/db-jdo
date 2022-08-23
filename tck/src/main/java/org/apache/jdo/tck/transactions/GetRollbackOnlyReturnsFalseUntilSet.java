@@ -18,9 +18,7 @@
 package org.apache.jdo.tck.transactions;
 
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

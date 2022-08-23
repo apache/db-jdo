@@ -18,9 +18,7 @@
 package org.apache.jdo.tck.pc.company;
 
 import java.math.BigDecimal;
-
 import java.util.Date;
-
 import javax.jdo.PersistenceManager;
 
 /*

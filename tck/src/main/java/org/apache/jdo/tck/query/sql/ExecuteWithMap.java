@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.query.sql;
 
 import java.util.HashMap;
-
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;

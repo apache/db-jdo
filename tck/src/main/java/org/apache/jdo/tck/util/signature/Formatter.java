@@ -17,11 +17,11 @@
 
 package org.apache.jdo.tck.util.signature;
 
-import java.lang.reflect.Member;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * A helper class for building exhaustive string descriptions of class, field, constructor, or

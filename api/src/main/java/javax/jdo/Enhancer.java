@@ -16,25 +16,23 @@
  */
 package javax.jdo;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLClassLoader;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.Map.Entry;
-
 import static javax.jdo.Constants.ENHANCER_EXCEPTION;
 import static javax.jdo.Constants.ENHANCER_NO_JDO_ENHANCER_FOUND;
 import static javax.jdo.Constants.ENHANCER_USAGE_ERROR;
 import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
 import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 import javax.jdo.spi.I18NHelper;
 
 /**

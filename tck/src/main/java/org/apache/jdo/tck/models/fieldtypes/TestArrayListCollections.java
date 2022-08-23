@@ -19,13 +19,11 @@ package org.apache.jdo.tck.models.fieldtypes;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.ArrayListCollections;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;

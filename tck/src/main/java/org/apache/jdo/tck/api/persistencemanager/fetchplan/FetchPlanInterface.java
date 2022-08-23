@@ -21,14 +21,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.jdo.FetchPlan;
-
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

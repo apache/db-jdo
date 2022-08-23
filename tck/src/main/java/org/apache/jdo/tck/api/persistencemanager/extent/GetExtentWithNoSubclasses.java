@@ -18,14 +18,12 @@
 package org.apache.jdo.tck.api.persistencemanager.extent;
 
 import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 /**
  * <B>Title:</B> GetExtentWithNoSubclasses <br>

@@ -18,16 +18,13 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.List;
-
-import junit.framework.AssertionFailedError;
-
-import javax.jdo.JDOFatalException;
 import javax.jdo.JDODataStoreException;
+import javax.jdo.JDOFatalException;
 import javax.jdo.JDOUnsupportedOptionException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
+import junit.framework.AssertionFailedError;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;

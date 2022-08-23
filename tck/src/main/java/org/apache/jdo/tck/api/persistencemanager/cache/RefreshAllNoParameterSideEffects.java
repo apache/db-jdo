@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;

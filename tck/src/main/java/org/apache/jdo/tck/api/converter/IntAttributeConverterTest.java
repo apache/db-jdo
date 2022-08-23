@@ -16,6 +16,11 @@
  */
 package org.apache.jdo.tck.api.converter;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import javax.jdo.JDOHelper;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.converter.IPCPoint;
 import org.apache.jdo.tck.pc.converter.PCPoint;
@@ -24,12 +29,6 @@ import org.apache.jdo.tck.pc.converter.PCPointProp;
 import org.apache.jdo.tck.pc.converter.PCPointPropAnnotated;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.IntegerToStringConverter;
-
-import javax.jdo.JDOHelper;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * <B>Title:</B>IntAttributeConverterTest <br>

@@ -18,8 +18,6 @@
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.util.Date;
-
-import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /** This class represents a part-time employee. */

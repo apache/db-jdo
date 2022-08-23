@@ -17,7 +17,6 @@
 package org.apache.jdo.tck.api.exceptions;
 
 import java.lang.reflect.Constructor;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

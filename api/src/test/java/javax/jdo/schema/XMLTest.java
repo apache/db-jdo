@@ -19,7 +19,6 @@ package javax.jdo.schema;
 
 import java.io.File;
 import java.io.FilenameFilter;
-
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 import javax.jdo.util.XMLTestUtil;

@@ -16,6 +16,11 @@
  */
 package org.apache.jdo.tck.api.converter;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import javax.jdo.JDOHelper;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.converter.IPCRect;
 import org.apache.jdo.tck.pc.converter.PCRect;
@@ -23,12 +28,6 @@ import org.apache.jdo.tck.pc.converter.PCRectAnnotated;
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.PointToStringConverter;
-
-import javax.jdo.JDOHelper;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * <B>Title:</B>PointAttributeConverterTest <br>

@@ -20,13 +20,10 @@ package org.apache.jdo.tck.query.jdoql;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
 import org.apache.jdo.tck.pc.company.QDentalInsurance;

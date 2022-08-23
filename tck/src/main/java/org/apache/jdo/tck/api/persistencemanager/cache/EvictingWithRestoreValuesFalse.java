@@ -18,8 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -73,7 +71,7 @@ public class EvictingWithRestoreValuesFalse extends PersistenceManagerTest {
     Transaction tx = pm.currentTransaction();
     tx.setRestoreValues(
         false); // This should cause eviction of transactional instances when transaction is later
-                // rolled back.
+    // rolled back.
 
     // Test
     tx.begin();

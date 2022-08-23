@@ -20,7 +20,6 @@ package org.apache.jdo.tck.api.instancecallbacks;
 import javax.jdo.JDOException;
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 import org.apache.jdo.tck.util.BatchTestRunner;

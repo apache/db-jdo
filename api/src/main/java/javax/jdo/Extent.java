@@ -22,7 +22,6 @@
 
 package javax.jdo;
 
-import java.lang.Iterable;
 import java.util.Iterator;
 
 /**

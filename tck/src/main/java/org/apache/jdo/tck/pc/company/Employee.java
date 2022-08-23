@@ -17,17 +17,14 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.jdo.tck.util.EqualityHelper;
-
 import javax.jdo.annotations.PersistenceCapable;
+import org.apache.jdo.tck.util.EqualityHelper;
 
 /** This class represents an employee. */
 @PersistenceCapable

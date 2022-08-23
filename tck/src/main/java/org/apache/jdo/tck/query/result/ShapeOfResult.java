@@ -18,8 +18,7 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
-
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.JDOQLTypedQuery;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.QPerson;
@@ -27,8 +26,6 @@ import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.query.result.classes.FullName;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOQLTypedQuery;
 
 /**
  * <B>Title:</B> Shape of Result. <br>

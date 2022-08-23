@@ -17,11 +17,16 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
 import java.io.Serializable;
 import java.util.Comparator;
-
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Discriminator;
+import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import org.apache.jdo.tck.pc.company.IMeetingRoom;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

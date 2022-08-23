@@ -29,7 +29,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
-
 import org.apache.jdo.tck.JDO_Test;
 
 /**

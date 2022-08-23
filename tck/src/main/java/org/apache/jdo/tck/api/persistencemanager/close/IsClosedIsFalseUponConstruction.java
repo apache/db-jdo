@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.api.persistencemanager.close;
 
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Is Closed returns false Upon Construction <br>

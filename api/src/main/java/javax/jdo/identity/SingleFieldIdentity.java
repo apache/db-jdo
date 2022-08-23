@@ -26,10 +26,8 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDONullIdentityException;
-
 import javax.jdo.spi.I18NHelper;
 
 /**

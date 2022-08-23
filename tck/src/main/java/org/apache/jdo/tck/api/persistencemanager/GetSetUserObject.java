@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

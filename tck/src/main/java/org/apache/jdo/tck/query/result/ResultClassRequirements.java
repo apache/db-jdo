@@ -20,8 +20,7 @@ package org.apache.jdo.tck.query.result;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
-
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.JDOQLTypedQuery;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.Project;
@@ -36,8 +35,6 @@ import org.apache.jdo.tck.query.result.classes.PublicLongField;
 import org.apache.jdo.tck.query.result.classes.PublicPutMethod;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.ConversionHelper;
-
-import javax.jdo.JDOQLTypedQuery;
 
 /**
  * <B>Title:</B> Result Class Requirements. <br>

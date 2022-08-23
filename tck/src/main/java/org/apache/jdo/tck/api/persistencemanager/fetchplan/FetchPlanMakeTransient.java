@@ -19,11 +19,7 @@ package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
 import java.util.Collection;
 import java.util.HashSet;
-
-import org.apache.jdo.tck.api.persistencemanager.fetchplan.AbstractFetchPlanTest;
-
 import org.apache.jdo.tck.pc.mylib.PCRect;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

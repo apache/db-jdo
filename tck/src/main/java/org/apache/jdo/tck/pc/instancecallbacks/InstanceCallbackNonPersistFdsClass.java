@@ -17,9 +17,14 @@
 
 package org.apache.jdo.tck.pc.instancecallbacks;
 
-import java.io.*;
-import java.util.*;
-import javax.jdo.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import javax.jdo.Extent;
+import javax.jdo.InstanceCallbacks;
+import javax.jdo.PersistenceManager;
 
 public class InstanceCallbackNonPersistFdsClass implements InstanceCallbacks {
   public int i; // non-managed

@@ -18,17 +18,13 @@
 package org.apache.jdo.tck.query.result;
 
 import java.util.Arrays;
-
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.JDOQLTypedQuery;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
-import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOQLTypedQuery;
 
 /**
  * <B>Title:</B> Disctinct Query. <br>

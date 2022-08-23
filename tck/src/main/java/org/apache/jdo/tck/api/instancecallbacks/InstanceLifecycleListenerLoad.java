@@ -18,17 +18,8 @@
 package org.apache.jdo.tck.api.instancecallbacks;
 
 import java.util.Date;
-
-import javax.jdo.listener.LoadCallback;
-
-import javax.jdo.JDOHelper;
-
 import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.listener.ClearLifecycleListener;
-
-import org.apache.jdo.tck.JDO_Test;
-
+import javax.jdo.listener.LoadCallback;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

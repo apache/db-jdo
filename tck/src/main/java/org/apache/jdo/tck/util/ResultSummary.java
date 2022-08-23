@@ -26,9 +26,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
-
 import javax.jdo.JDOFatalException;
-
 import junit.framework.TestResult;
 
 /** A serializable class used to store test results in a file. */

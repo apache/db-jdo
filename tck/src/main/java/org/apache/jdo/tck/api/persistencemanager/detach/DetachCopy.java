@@ -16,19 +16,9 @@
  */
 package org.apache.jdo.tck.api.persistencemanager.detach;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import java.util.Collection;
 import java.util.HashSet;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

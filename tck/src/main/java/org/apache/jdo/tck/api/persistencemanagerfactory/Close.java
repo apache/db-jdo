@@ -17,14 +17,12 @@
 
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
+import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
-
+import javax.jdo.LegacyJava;
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

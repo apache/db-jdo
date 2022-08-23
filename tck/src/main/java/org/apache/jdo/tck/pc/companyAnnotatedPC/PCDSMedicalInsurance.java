@@ -17,7 +17,11 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedPC;
 
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 import org.apache.jdo.tck.util.EqualityHelper;
 

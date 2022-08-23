@@ -19,10 +19,8 @@ package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

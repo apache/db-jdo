@@ -17,9 +17,10 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IEmployee;
-
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 import org.apache.jdo.tck.util.EqualityHelper;
 

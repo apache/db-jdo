@@ -18,8 +18,6 @@
 package org.apache.jdo.tck.query.api;
 
 import javax.jdo.Query;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.mylib.MylibReader;

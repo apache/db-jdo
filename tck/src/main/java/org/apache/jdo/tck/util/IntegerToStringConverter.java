@@ -16,10 +16,9 @@
  */
 package org.apache.jdo.tck.util;
 
+import javax.jdo.AttributeConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.jdo.AttributeConverter;
 
 /** AttributeConverter implementation mapping a Integer instance to a string. */
 public class IntegerToStringConverter implements AttributeConverter<Integer, String> {

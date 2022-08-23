@@ -26,10 +26,8 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.jdo.datastore.JDOConnection;
 import javax.jdo.datastore.Sequence;
-
 import javax.jdo.listener.InstanceLifecycleListener;
 
 /**

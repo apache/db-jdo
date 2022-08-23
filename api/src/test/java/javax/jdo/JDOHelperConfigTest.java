@@ -21,9 +21,7 @@ import java.io.InputStream;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.jdo.util.BatchTestRunner;
-
 import junit.framework.TestSuite;
 
 /** Tests class javax.jdo.JDOHelper for META-INF/jdoconfig.xml compliance. */

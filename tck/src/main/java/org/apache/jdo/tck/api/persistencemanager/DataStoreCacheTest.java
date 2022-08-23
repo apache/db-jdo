@@ -19,11 +19,8 @@ package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.Collection;
 import java.util.HashSet;
-
 import javax.jdo.datastore.DataStoreCache;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

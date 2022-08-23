@@ -17,18 +17,14 @@
 
 package org.apache.jdo.tck.util;
 
-import java.io.InputStream;
 import java.io.IOException;
-
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
 import java.util.logging.LogManager;
-
+import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOFatalUserException;
-
+import javax.jdo.LegacyJava;
 import org.apache.commons.logging.impl.Jdk14Logger;
 
 /**

@@ -19,15 +19,12 @@ package org.apache.jdo.tck.query.delete;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Insurance;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.Query;
-import javax.jdo.Transaction;
 
 /**
  * <B>Title:</B> Delete Persistent All. <br>

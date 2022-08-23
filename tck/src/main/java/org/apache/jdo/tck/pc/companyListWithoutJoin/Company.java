@@ -17,18 +17,15 @@
 
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
-import java.io.Serializable;
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
-
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

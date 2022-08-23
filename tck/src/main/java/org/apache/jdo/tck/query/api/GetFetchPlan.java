@@ -18,10 +18,8 @@
 package org.apache.jdo.tck.query.api;
 
 import java.util.Collection;
-
 import javax.jdo.FetchPlan;
 import javax.jdo.Query;
-
 import org.apache.jdo.tck.pc.mylib.PCClass;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;

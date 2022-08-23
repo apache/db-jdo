@@ -18,9 +18,7 @@
 package org.apache.jdo.tck.extents;
 
 import java.util.Iterator;
-
 import javax.jdo.Extent;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

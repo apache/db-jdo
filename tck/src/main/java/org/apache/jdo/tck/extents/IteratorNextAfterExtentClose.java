@@ -19,9 +19,7 @@ package org.apache.jdo.tck.extents;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 import javax.jdo.Extent;
-
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

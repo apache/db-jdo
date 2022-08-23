@@ -18,9 +18,7 @@
 package org.apache.jdo.tck.pc.singlefieldidentity;
 
 import java.io.Serializable;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 /** This class represents a person. */

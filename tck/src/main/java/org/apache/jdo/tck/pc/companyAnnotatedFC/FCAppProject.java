@@ -17,18 +17,25 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
-import java.io.Serializable;
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.HashSet;
-import java.math.BigDecimal;
-
+import java.util.Set;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Discriminator;
+import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Join;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import org.apache.jdo.tck.pc.company.IProject;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

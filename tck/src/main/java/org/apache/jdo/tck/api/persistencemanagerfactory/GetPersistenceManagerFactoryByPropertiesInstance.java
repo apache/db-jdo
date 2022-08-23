@@ -18,10 +18,8 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.util.Date;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;

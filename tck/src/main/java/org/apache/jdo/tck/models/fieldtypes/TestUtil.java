@@ -17,9 +17,13 @@
 
 package org.apache.jdo.tck.models.fieldtypes;
 
-import java.util.*;
-import java.math.*;
-
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Set;
+import java.util.Vector;
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;

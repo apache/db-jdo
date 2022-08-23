@@ -20,7 +20,6 @@ package org.apache.jdo.tck.mapping;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.jdo.tck.AbstractReaderTest;
 import org.apache.jdo.tck.pc.companyMapWithoutJoin.CompanyFactoryRegistry;
 import org.apache.jdo.tck.pc.companyMapWithoutJoin.CompanyModelReader;

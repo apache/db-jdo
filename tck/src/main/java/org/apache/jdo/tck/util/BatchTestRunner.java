@@ -18,22 +18,17 @@
 package org.apache.jdo.tck.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-
+import javax.jdo.JDOFatalException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import junit.textui.ResultPrinter;
 import junit.textui.TestRunner;
-
-import javax.jdo.JDOFatalException;
-
 import org.apache.jdo.tck.JDO_Test;
 
 /**

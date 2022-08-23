@@ -19,9 +19,8 @@ package org.apache.jdo.tck.api.persistencemanager.flags;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Setting Flags With Transaction instance <br>

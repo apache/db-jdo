@@ -17,16 +17,14 @@
 
 package org.apache.jdo.tck.query.jdoql.operators;
 
-import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
-import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
-
+import java.util.List;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import java.util.List;
+import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
+import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Bitwise Binary Query Operators <br>

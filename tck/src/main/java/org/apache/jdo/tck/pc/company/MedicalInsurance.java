@@ -17,12 +17,8 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.io.Serializable;
-
-import org.apache.jdo.tck.util.DeepEquality;
-import org.apache.jdo.tck.util.EqualityHelper;
-
 import javax.jdo.annotations.PersistenceCapable;
+import org.apache.jdo.tck.util.EqualityHelper;
 
 /**
  * This class represents a dental insurance carrier selection for a particular <code>Employee</code>

@@ -19,10 +19,8 @@ package org.apache.jdo.tck.query.result;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.Query;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;

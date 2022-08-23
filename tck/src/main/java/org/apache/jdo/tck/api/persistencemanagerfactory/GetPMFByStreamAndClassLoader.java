@@ -20,10 +20,8 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

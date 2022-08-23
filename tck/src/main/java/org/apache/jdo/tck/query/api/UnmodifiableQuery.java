@@ -18,11 +18,8 @@
 package org.apache.jdo.tck.query.api;
 
 import java.util.Arrays;
-
 import javax.jdo.JDOUserException;
 import javax.jdo.Query;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;

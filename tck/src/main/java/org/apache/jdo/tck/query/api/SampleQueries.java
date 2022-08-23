@@ -16,7 +16,18 @@
  */
 package org.apache.jdo.tck.query.api;
 
-import org.apache.jdo.tck.JDO_Test;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.JDOQLTypedSubquery;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import javax.jdo.query.CollectionExpression;
+import javax.jdo.query.NumericExpression;
+import javax.jdo.query.StringExpression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -28,19 +39,6 @@ import org.apache.jdo.tck.pc.company.QFullTimeEmployee;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.util.EqualityHelper;
-
-import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.JDOQLTypedSubquery;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
-import javax.jdo.query.CollectionExpression;
-import javax.jdo.query.NumericExpression;
-import javax.jdo.query.StringExpression;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <B>Title:</B> SampleQueries <br>

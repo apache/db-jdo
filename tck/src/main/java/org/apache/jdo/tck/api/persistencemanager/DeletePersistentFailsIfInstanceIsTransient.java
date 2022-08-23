@@ -18,10 +18,8 @@
 package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.Collection;
-
 import javax.jdo.JDOUserException;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

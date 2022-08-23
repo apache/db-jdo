@@ -18,8 +18,7 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
-
-import java.math.*;
+import java.math.BigDecimal;
 
 public class FieldsOfBigDecimal {
   public int identifier;

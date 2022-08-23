@@ -20,7 +20,6 @@ package org.apache.jdo.tck.api.persistencecapable;
 import javax.jdo.JDONullIdentityException;
 import javax.jdo.identity.SingleFieldIdentity;
 import javax.jdo.spi.PersistenceCapable;
-
 import org.apache.jdo.tck.pc.singlefieldidentity.AbstractPCPointSingleField;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldByte;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldCharacter;

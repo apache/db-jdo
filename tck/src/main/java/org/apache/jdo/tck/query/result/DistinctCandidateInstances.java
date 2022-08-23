@@ -17,14 +17,9 @@
 
 package org.apache.jdo.tck.query.result;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.Query;
-import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.Person;

@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.singlefieldidentity;
 
 import java.util.Date;
-
 import javax.jdo.identity.ObjectIdentity;
 import javax.jdo.identity.SingleFieldIdentity;
 

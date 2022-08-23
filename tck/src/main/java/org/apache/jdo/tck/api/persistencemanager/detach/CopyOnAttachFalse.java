@@ -18,7 +18,6 @@ package org.apache.jdo.tck.api.persistencemanager.detach;
 
 import javax.jdo.JDOUserException;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

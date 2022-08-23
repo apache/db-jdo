@@ -22,12 +22,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import javax.jdo.PersistenceManager;
 import javax.jdo.Constants;
-
+import javax.jdo.PersistenceManager;
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

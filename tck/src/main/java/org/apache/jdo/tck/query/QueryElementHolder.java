@@ -17,11 +17,11 @@
 
 package org.apache.jdo.tck.query;
 
+import java.util.Map;
 import javax.jdo.Extent;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import java.util.Map;
 
 /**
  * This class is an abstraction of a JDOQL query, which may be represented as a single string (e.g.

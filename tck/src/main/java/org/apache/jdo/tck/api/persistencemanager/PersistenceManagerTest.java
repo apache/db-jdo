@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanager;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;

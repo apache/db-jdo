@@ -19,12 +19,9 @@ package org.apache.jdo.tck.query.jdoql.methods;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.FieldsOfSimpleEnum;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleEnum;
 import org.apache.jdo.tck.query.QueryTest;

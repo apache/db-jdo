@@ -22,20 +22,12 @@
 
 package javax.jdo.spi;
 
-import org.xml.sax.ErrorHandler;
-
-import javax.jdo.LegacyJava;
-import javax.jdo.LegacyJava.SecurityManager;
-
 import java.lang.reflect.Constructor;
-
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -49,9 +41,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
-
-import javax.jdo.*;
+import javax.jdo.Constants;
+import javax.jdo.JDOException;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.JDOFatalUserException;
+import javax.jdo.JDOUserException;
+import javax.jdo.LegacyJava;
+import javax.jdo.LegacyJava.SecurityManager;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.xml.sax.ErrorHandler;
 
 /**
  * This class is a helper class for JDO implementations. It contains methods to register metadata

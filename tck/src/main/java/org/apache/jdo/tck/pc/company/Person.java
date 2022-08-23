@@ -18,19 +18,15 @@
 package org.apache.jdo.tck.pc.company;
 
 import java.io.Serializable;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
-
-import javax.jdo.annotations.PersistenceCapable;
 
 /** This class represents a person. */
 @PersistenceCapable

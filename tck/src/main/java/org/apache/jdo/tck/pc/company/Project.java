@@ -17,20 +17,17 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.io.Serializable;
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
 import java.util.HashSet;
-import java.math.BigDecimal;
-
+import java.util.Set;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
-
-import javax.jdo.annotations.PersistenceCapable;
 
 /** This class represents a project, a budgeted task with one or more employees working on it. */
 @PersistenceCapable

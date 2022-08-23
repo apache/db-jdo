@@ -19,25 +19,17 @@ package org.apache.jdo.tck.api.instancecallbacks;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.jdo.JDOHelper;
-
-import javax.jdo.listener.InstanceLifecycleEvent;
-import javax.jdo.listener.InstanceLifecycleListener;
 import javax.jdo.listener.AttachLifecycleListener;
 import javax.jdo.listener.ClearLifecycleListener;
 import javax.jdo.listener.CreateLifecycleListener;
 import javax.jdo.listener.DeleteLifecycleListener;
 import javax.jdo.listener.DetachLifecycleListener;
 import javax.jdo.listener.DirtyLifecycleListener;
+import javax.jdo.listener.InstanceLifecycleEvent;
 import javax.jdo.listener.LoadLifecycleListener;
 import javax.jdo.listener.StoreLifecycleListener;
-
 import org.apache.jdo.tck.JDO_Test;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
-
-import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Abstract test AbstractInstanceLifecycleListener <br>

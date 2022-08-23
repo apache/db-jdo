@@ -16,18 +16,16 @@
  */
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.query.LocalDateTimeSample;
-import org.apache.jdo.tck.query.QueryTest;
-import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-import javax.jdo.Transaction;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import org.apache.jdo.tck.pc.query.LocalDateTimeSample;
+import org.apache.jdo.tck.query.QueryTest;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Supported LocalDateTime methods. <br>

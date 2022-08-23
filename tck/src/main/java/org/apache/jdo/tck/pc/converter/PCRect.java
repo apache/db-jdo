@@ -16,9 +16,8 @@
  */
 package org.apache.jdo.tck.pc.converter;
 
-import org.apache.jdo.tck.pc.mylib.Point;
-
 import java.util.Date;
+import org.apache.jdo.tck.pc.mylib.Point;
 
 /**
  * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type Point are

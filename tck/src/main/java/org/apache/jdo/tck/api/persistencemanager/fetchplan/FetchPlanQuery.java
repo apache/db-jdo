@@ -17,13 +17,8 @@
 
 package org.apache.jdo.tck.api.persistencemanager.fetchplan;
 
-import javax.jdo.FetchPlan;
 import javax.jdo.Query;
-
-import org.apache.jdo.tck.api.persistencemanager.fetchplan.AbstractFetchPlanTest;
-
 import org.apache.jdo.tck.pc.mylib.PCRect;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

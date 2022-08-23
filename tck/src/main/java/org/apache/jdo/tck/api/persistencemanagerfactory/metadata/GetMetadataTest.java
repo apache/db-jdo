@@ -22,7 +22,6 @@ import javax.jdo.metadata.MemberMetadata;
 import javax.jdo.metadata.Metadata;
 import javax.jdo.metadata.PackageMetadata;
 import javax.jdo.metadata.TypeMetadata;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

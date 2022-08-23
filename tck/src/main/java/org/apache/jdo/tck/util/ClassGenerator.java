@@ -17,7 +17,8 @@
 
 package org.apache.jdo.tck.util;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 public class ClassGenerator {
   private final String[] fieldTypes = {

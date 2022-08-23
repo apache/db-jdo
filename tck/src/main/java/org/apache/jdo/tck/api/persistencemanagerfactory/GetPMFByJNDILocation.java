@@ -18,14 +18,12 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.io.File;
-
 import javax.jdo.JDOFatalException;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

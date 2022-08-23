@@ -16,13 +16,12 @@
  */
 package org.apache.jdo.tck.api.jdohelper;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.Transaction;
 import org.apache.jdo.tck.api.persistencemanager.detach.DetachTest;
 import org.apache.jdo.tck.pc.shoppingcart.Cart;
 import org.apache.jdo.tck.pc.shoppingcart.Undetachable;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOHelper;
-import javax.jdo.Transaction;
 
 /**
  * <B>Title:</B> Test IsDetached <br>

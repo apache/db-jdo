@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.mylib;
 
 import java.util.Date;
 import java.util.List;
-
 import org.apache.jdo.tck.util.JDOCustomDateEditor;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;

@@ -19,13 +19,11 @@ package org.apache.jdo.tck.api.persistencemanager;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.jdo.JDOException;
 import javax.jdo.JDOHelper;
 import javax.jdo.JDOOptimisticVerificationException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

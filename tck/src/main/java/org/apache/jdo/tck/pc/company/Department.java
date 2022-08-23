@@ -17,21 +17,18 @@
 
 package org.apache.jdo.tck.pc.company;
 
-import java.io.Serializable;
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
-
-import javax.jdo.annotations.PersistenceCapable;
 
 /** This class represents a department within a company. */
 @PersistenceCapable

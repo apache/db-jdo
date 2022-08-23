@@ -17,21 +17,17 @@
 
 package org.apache.jdo.tck.api.jdohelper;
 
-import java.util.List;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-
+import java.util.List;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.identity.SingleFieldIdentity;
-
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.singlefieldidentity.PCPointSingleFieldInteger;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

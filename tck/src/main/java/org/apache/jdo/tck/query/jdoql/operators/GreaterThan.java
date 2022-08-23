@@ -25,7 +25,6 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import org.apache.jdo.tck.pc.fieldtypes.AllTypes;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

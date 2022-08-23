@@ -17,18 +17,15 @@
 
 package org.apache.jdo.tck.api;
 
-import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.util.signature.SignatureVerifier;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import java.util.List;
-import java.util.ArrayList;
-
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.jdo.tck.JDO_Test;
+import org.apache.jdo.tck.util.BatchTestRunner;
+import org.apache.jdo.tck.util.signature.SignatureVerifier;
 
 /**
  * <B>Title:</B> SignatureTest <br>

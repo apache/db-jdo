@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import javax.jdo.JDOException;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

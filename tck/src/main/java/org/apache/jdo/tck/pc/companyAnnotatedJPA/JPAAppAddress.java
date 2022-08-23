@@ -19,9 +19,7 @@ package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
-import javax.persistence.*;
-
+import javax.persistence.Embeddable;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

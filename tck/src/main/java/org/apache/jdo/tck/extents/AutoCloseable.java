@@ -19,14 +19,11 @@ package org.apache.jdo.tck.extents;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.pc.mylib.PCPoint;
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.pc.company.Department;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> AutoCloseable <br>

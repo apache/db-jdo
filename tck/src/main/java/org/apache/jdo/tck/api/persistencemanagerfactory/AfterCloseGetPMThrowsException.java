@@ -19,7 +19,6 @@ package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.JDOUserException;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

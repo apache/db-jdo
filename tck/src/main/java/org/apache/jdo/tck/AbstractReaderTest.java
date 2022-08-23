@@ -17,15 +17,13 @@
 
 package org.apache.jdo.tck;
 
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*

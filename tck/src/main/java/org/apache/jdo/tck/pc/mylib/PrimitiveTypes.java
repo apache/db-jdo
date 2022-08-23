@@ -17,11 +17,11 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
-import javax.jdo.annotations.PersistenceCapable;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable
 public class PrimitiveTypes implements Serializable {

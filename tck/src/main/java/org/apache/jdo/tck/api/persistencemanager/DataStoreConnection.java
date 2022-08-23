@@ -20,14 +20,10 @@ package org.apache.jdo.tck.api.persistencemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import java.util.Collection;
 import java.util.HashSet;
-
 import javax.jdo.datastore.JDOConnection;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

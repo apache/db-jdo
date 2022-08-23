@@ -17,9 +17,15 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
-import javax.persistence.*;
-
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /** This class represents a person. */
 @Entity

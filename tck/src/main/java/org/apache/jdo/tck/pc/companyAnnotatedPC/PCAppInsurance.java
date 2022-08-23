@@ -17,13 +17,20 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedPC;
 
-import javax.jdo.annotations.*;
-
 import java.io.Serializable;
-
 import java.util.Comparator;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Discriminator;
+import javax.jdo.annotations.DiscriminatorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Index;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.NotPersistent;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 import org.apache.jdo.tck.pc.company.IEmployee;
-
 import org.apache.jdo.tck.pc.company.IInsurance;
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;

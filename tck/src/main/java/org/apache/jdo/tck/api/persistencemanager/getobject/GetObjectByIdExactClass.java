@@ -18,18 +18,15 @@
 package org.apache.jdo.tck.api.persistencemanager.getobject;
 
 import java.util.Date;
-import javax.jdo.Transaction;
 import javax.jdo.JDOException;
-
+import javax.jdo.Transaction;
 import javax.jdo.identity.LongIdentity;
-
-import org.apache.jdo.tck.util.BatchTestRunner;
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-
-import org.apache.jdo.tck.pc.singlefieldidentity.Person;
 import org.apache.jdo.tck.pc.singlefieldidentity.Employee;
-import org.apache.jdo.tck.pc.singlefieldidentity.PartTimeEmployee;
 import org.apache.jdo.tck.pc.singlefieldidentity.FullTimeEmployee;
+import org.apache.jdo.tck.pc.singlefieldidentity.PartTimeEmployee;
+import org.apache.jdo.tck.pc.singlefieldidentity.Person;
+import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
  * <B>Title:</B> Get Object By Id <br>

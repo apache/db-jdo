@@ -17,24 +17,23 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
-import java.io.ObjectInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Persistent;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.IDentalInsurance;
 import org.apache.jdo.tck.pc.company.IDepartment;
-
 import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-
 import org.apache.jdo.tck.pc.compositeAnnotation.ApplicationIdDiscriminatorClassName;
-
 import org.apache.jdo.tck.util.EqualityHelper;
 
 /** This class represents an employee. */

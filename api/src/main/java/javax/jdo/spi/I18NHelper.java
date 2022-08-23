@@ -18,12 +18,13 @@
 package javax.jdo.spi;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.text.MessageFormat;
-import javax.jdo.LegacyJava;
 import java.security.PrivilegedAction;
-
+import java.text.MessageFormat;
+import java.util.Hashtable;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
 
 /**
  * Helper class for constructing messages from bundles. The intended usage of this class is to

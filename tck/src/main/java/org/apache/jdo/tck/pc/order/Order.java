@@ -20,7 +20,6 @@ package org.apache.jdo.tck.pc.order;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Set;
-
 import org.apache.jdo.tck.util.DeepEquality;
 import org.apache.jdo.tck.util.EqualityHelper;
 

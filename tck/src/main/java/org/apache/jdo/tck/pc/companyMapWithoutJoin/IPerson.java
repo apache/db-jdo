@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * This interface represents the persistent state of Person. Javadoc was deliberately omitted

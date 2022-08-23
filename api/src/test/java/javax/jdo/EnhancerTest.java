@@ -26,7 +26,6 @@ import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 

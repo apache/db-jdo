@@ -20,15 +20,12 @@ package org.apache.jdo.tck.api.fetchgroup;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import javax.jdo.FetchGroup;
-
 import javax.jdo.JDOException;
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.DentalInsurance;
@@ -42,7 +39,6 @@ import org.apache.jdo.tck.pc.company.PIEmployee;
 import org.apache.jdo.tck.pc.company.PartTimeEmployee;
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.pc.company.Project;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

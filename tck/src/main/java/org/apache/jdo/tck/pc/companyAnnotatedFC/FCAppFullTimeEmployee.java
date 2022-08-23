@@ -17,11 +17,13 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
 import java.util.Date;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
 import org.apache.jdo.tck.util.EqualityHelper;
 

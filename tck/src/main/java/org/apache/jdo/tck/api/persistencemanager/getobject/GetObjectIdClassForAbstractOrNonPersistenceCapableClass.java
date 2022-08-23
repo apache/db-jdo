@@ -18,10 +18,9 @@
 package org.apache.jdo.tck.api.persistencemanager.getobject;
 
 import javax.jdo.PersistenceManager;
-
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.Point;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 /**
  * <B>Title:</B> Get ObjectId Class For Abstract or Non-PersistenceCapable Class <br>

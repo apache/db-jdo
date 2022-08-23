@@ -19,15 +19,12 @@ package javax.jdo;
 
 import java.io.File;
 import java.io.InputStream;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.jdo.pc.PCPoint;
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

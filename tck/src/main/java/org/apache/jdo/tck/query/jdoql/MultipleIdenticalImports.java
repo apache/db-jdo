@@ -19,11 +19,8 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;

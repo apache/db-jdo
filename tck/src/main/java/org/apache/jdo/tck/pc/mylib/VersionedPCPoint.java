@@ -17,9 +17,9 @@
 
 package org.apache.jdo.tck.pc.mylib;
 
-import javax.jdo.annotations.PersistenceCapable;
 import java.io.Serializable;
 import java.util.Date;
+import javax.jdo.annotations.PersistenceCapable;
 
 /**
  * A simple class with two fields for application identity

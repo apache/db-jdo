@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.order;
 
 import java.lang.reflect.Constructor;
-
 import javax.jdo.PersistenceManager;
 
 /*

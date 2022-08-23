@@ -18,9 +18,9 @@
 package javax.jdo.pc;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.spi.*;
-
+import javax.jdo.spi.JDOImplHelper;
 import javax.jdo.spi.PersistenceCapable;
+import javax.jdo.spi.StateManager;
 
 /**
  * This is a hand-enhanced version of a simple class with two fields. The enhanced code assumes

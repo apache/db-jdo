@@ -17,10 +17,8 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import javax.jdo.PersistenceManager;
-
 import java.util.Set;
-
+import javax.jdo.PersistenceManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

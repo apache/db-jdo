@@ -20,13 +20,11 @@ package org.apache.jdo.tck.api.persistencemanager;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCRect;
 import org.apache.jdo.tck.util.BatchTestRunner;

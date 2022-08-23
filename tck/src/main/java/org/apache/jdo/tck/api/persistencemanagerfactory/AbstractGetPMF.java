@@ -17,18 +17,15 @@
 
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
-import java.lang.reflect.Method;
-
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.jdo.JDOFatalUserException;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 

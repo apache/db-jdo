@@ -17,8 +17,12 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
-import javax.jdo.annotations.*;
 
 /**
  * This interface represents the persistent state of FullTimeEmployee. Javadoc was deliberately

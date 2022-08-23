@@ -16,11 +16,10 @@
  */
 package org.apache.jdo.tck.pc.query;
 
-import javax.jdo.annotations.Query;
+import java.io.Serializable;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
-
-import java.io.Serializable;
+import javax.jdo.annotations.Query;
 
 /**
  * Test for use of annotations, where we are relying on the Repeatable nature of the @Query

@@ -26,7 +26,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 

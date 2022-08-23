@@ -18,15 +18,15 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Locale;
-import java.util.GregorianCalendar;
-import java.util.Calendar;
-import java.util.TimeZone;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-import javax.jdo.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
 
 public class AllTypes {
   private int id;

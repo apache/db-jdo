@@ -21,10 +21,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-
 import java.util.Enumeration;
 import java.util.Properties;
-
 import javax.jdo.JDOFatalException;
 
 /** A class to produce a text summary of system configuration information. */

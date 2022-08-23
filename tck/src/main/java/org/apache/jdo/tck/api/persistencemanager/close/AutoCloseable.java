@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.persistencemanager.close;
 
 import javax.jdo.PersistenceManager;
-
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

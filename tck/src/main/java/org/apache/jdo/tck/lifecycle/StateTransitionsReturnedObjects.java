@@ -23,11 +23,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOFatalException;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
 import org.apache.jdo.tck.util.BatchTestRunner;

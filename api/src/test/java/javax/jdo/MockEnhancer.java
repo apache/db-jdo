@@ -17,16 +17,15 @@
 
 package javax.jdo;
 
+import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
+import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
+
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VENDOR_NAME;
-import static javax.jdo.Constants.PROPERTY_ENHANCER_VERSION_NUMBER;
-
 import javax.jdo.metadata.JDOMetadata;
 
 /**

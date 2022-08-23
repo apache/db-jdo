@@ -17,7 +17,9 @@
 package org.apache.jdo.tck.pc.shoppingcart;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /** This class represents an online shopping cart. It has a list of entries of type CartEntry. */
 public class Cart implements Serializable {

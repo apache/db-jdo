@@ -17,13 +17,11 @@
 
 package org.apache.jdo.tck.api.persistencemanager;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
 import org.apache.jdo.tck.pc.newInstance.AAddress;
-import org.apache.jdo.tck.pc.newInstance.Address;
-import org.apache.jdo.tck.pc.newInstance.IAddress;
 import org.apache.jdo.tck.pc.newInstance.AAddress_bad;
+import org.apache.jdo.tck.pc.newInstance.Address;
 import org.apache.jdo.tck.pc.newInstance.Address_bad;
+import org.apache.jdo.tck.pc.newInstance.IAddress;
 import org.apache.jdo.tck.pc.newInstance.IAddress_bad;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

@@ -20,7 +20,6 @@ package org.apache.jdo.tck.query.jdoql.methods;
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.query.QueryTest;

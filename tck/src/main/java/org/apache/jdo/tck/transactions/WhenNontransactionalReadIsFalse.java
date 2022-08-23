@@ -19,12 +19,10 @@ package org.apache.jdo.tck.transactions;
 
 import java.util.Collection;
 import java.util.Date;
-
+import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-import javax.jdo.JDOUserException;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.Department;

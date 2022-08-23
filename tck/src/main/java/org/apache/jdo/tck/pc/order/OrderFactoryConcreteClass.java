@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.order;
 
 import java.util.Set;
-
 import javax.jdo.PersistenceManager;
 
 /*

@@ -19,16 +19,11 @@ package org.apache.jdo.tck.mapping;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-
-import javax.jdo.JDOHelper;
-
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
 import org.apache.jdo.tck.pc.company.FullTimeEmployee;
 import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.pc.company.IEmployee;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

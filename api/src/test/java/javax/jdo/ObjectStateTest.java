@@ -20,9 +20,7 @@ package javax.jdo;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
 import javax.jdo.spi.PersistenceCapable;
-
 import javax.jdo.util.AbstractTest;
 import javax.jdo.util.BatchTestRunner;
 

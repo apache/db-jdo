@@ -21,13 +21,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import javax.jdo.Extent;
 import javax.jdo.InstanceCallbacks;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 
 public class InstanceCallbackClass implements InstanceCallbacks {

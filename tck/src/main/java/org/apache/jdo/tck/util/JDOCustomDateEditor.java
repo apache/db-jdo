@@ -17,10 +17,9 @@
 
 package org.apache.jdo.tck.util;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 public class JDOCustomDateEditor extends CustomDateEditor {
 

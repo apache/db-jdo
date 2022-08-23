@@ -16,10 +16,8 @@
  */
 package org.apache.jdo.tck.query.api;
 
-import javax.jdo.Query;
 import javax.jdo.JDOUserException;
-
-import org.apache.jdo.tck.JDO_Test;
+import javax.jdo.Query;
 import org.apache.jdo.tck.pc.query.NamedQueriesSample;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;

@@ -18,12 +18,10 @@
 package org.apache.jdo.tck.api.persistencemanagerfactory;
 
 import java.security.Permission;
-
 import javax.jdo.JDOException;
 import javax.jdo.LegacyJava;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.spi.JDOPermission;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.util.BatchTestRunner;
 

@@ -20,7 +20,6 @@ import javax.jdo.FetchPlan;
 import javax.jdo.JDODetachedFieldAccessException;
 import org.apache.jdo.tck.pc.shoppingcart.CartEntry;
 import org.apache.jdo.tck.pc.shoppingcart.Product;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

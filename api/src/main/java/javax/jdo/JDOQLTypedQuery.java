@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import javax.jdo.query.BooleanExpression;
 import javax.jdo.query.CharacterExpression;
 import javax.jdo.query.CollectionExpression;

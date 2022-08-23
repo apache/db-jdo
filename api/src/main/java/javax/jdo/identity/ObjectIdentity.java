@@ -25,14 +25,11 @@ package javax.jdo.identity;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
+import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDOUserException;
-
+import javax.jdo.LegacyJava;
 import javax.jdo.spi.JDOImplHelper;
 
 /**

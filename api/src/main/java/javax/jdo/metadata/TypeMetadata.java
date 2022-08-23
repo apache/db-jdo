@@ -17,7 +17,6 @@
 package javax.jdo.metadata;
 
 import java.lang.reflect.Method;
-
 import javax.jdo.annotations.IdentityType;
 
 /**

@@ -20,7 +20,6 @@ package org.apache.jdo.tck.api.persistencecapable;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.spi.PersistenceCapable;
-
 import org.apache.jdo.tck.JDO_Test;
 
 /**

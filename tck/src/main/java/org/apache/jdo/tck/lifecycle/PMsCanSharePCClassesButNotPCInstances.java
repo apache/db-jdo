@@ -20,7 +20,6 @@ package org.apache.jdo.tck.lifecycle;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOException;
 import javax.jdo.JDOFatalException;
@@ -28,9 +27,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-
 import junit.framework.AssertionFailedError;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.lifecycle.StateTransitionObj;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -189,8 +186,8 @@ public class PMsCanSharePCClassesButNotPCInstances extends JDO_Test {
           tx.commit();
         } catch (JDOException ex) {
           if (!sharedPC) // we expect an exception for all but one of the inserters in the case of a
-                         // shared PC
-          throw ex;
+            // shared PC
+            throw ex;
         } finally {
           incrAttempts();
           if (tx != null && tx.isActive()) tx.rollback();

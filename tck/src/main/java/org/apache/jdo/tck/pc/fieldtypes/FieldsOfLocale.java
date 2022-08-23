@@ -18,8 +18,7 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
-
-import java.util.*;
+import java.util.Locale;
 
 public class FieldsOfLocale {
   public int identifier;

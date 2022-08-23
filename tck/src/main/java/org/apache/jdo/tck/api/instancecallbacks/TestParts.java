@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.api.instancecallbacks;
 
 import java.util.Date;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.instancecallbacks.InstanceCallbackClass;
 

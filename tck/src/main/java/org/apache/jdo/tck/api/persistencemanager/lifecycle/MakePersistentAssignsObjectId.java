@@ -20,13 +20,11 @@ package org.apache.jdo.tck.api.persistencemanager.lifecycle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
-import javax.jdo.Transaction;
 import javax.jdo.PersistenceManager;
-
+import javax.jdo.Transaction;
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 /**
  * <B>Title:</B> make instance persistent <br>

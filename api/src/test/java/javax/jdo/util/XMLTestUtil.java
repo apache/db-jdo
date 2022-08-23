@@ -19,29 +19,26 @@ package javax.jdo.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-
 import javax.jdo.JDOFatalException;
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;

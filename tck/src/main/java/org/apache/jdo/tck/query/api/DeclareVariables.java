@@ -17,13 +17,9 @@
 
 package org.apache.jdo.tck.query.api;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;

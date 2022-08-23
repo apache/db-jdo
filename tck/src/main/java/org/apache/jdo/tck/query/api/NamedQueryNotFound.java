@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.query.api;
 
 import javax.jdo.JDOUserException;
-
 import org.apache.jdo.tck.pc.company.Person;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;

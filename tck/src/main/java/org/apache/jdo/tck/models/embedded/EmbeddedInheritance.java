@@ -17,11 +17,8 @@
 package org.apache.jdo.tck.models.embedded;
 
 import java.util.List;
-
 import javax.jdo.Query;
-
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.building.Kitchen;
 import org.apache.jdo.tck.pc.building.MultifunctionOven;
 import org.apache.jdo.tck.pc.building.Oven;

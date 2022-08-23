@@ -18,11 +18,6 @@
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
 import java.lang.reflect.Constructor;
-
-import java.math.BigDecimal;
-
-import java.util.Date;
-
 import javax.jdo.PersistenceManager;
 
 /*

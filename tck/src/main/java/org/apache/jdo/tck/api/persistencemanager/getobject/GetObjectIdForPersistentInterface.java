@@ -18,17 +18,11 @@
 package org.apache.jdo.tck.api.persistencemanager.getobject;
 
 import java.util.Date;
-
 import javax.jdo.Transaction;
-
 import javax.jdo.identity.LongIdentity;
-
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-
-import org.apache.jdo.tck.pc.company.Company;
 import org.apache.jdo.tck.pc.company.ICompany;
 import org.apache.jdo.tck.pc.company.PICompany;
-
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

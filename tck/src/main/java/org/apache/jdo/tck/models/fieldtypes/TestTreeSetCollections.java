@@ -20,13 +20,11 @@ package org.apache.jdo.tck.models.fieldtypes;
 import java.util.Collection;
 import java.util.TreeSet;
 import java.util.Vector;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
-import org.apache.jdo.tck.pc.fieldtypes.TreeSetCollections;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;
+import org.apache.jdo.tck.pc.fieldtypes.TreeSetCollections;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**

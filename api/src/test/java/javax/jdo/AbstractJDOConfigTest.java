@@ -22,7 +22,6 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
-
 import javax.jdo.util.AbstractTest;
 
 public abstract class AbstractJDOConfigTest extends AbstractTest {

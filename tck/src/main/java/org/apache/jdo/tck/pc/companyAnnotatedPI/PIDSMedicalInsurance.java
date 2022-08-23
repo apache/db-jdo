@@ -17,8 +17,8 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedPI;
 
-import javax.jdo.annotations.*;
-
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IMedicalInsurance;
 
 /**

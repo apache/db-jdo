@@ -18,11 +18,8 @@
 package org.apache.jdo.tck.lifecycle;
 
 import javax.jdo.JDOOptimisticVerificationException;
-
 import javax.jdo.PersistenceManager;
-
 import org.apache.jdo.tck.JDO_Test;
-
 import org.apache.jdo.tck.pc.mylib.VersionedPCPoint;
 
 /**

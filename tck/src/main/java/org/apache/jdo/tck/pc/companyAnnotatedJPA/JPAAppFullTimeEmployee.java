@@ -17,11 +17,10 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
-import javax.persistence.*;
-
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import org.apache.jdo.tck.pc.company.IAddress;
-
 import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
 import org.apache.jdo.tck.util.EqualityHelper;
 

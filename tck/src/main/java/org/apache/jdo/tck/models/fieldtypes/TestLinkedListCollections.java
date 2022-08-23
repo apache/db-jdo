@@ -18,14 +18,11 @@
 package org.apache.jdo.tck.models.fieldtypes;
 
 import java.math.BigDecimal;
-
 import java.util.Collection;
-import java.util.ListIterator;
 import java.util.LinkedList;
-
+import java.util.ListIterator;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.fieldtypes.LinkedListCollections;
 import org.apache.jdo.tck.pc.fieldtypes.SimpleClass;

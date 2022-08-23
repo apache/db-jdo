@@ -21,28 +21,20 @@
  */
 package javax.jdo.identity;
 
-import java.lang.reflect.InvocationTargetException;
-
 import java.io.Serializable;
-
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.security.PrivilegedAction;
-
-import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-
+import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
-
-import javax.jdo.JDOUserException;
+import javax.jdo.JDOFatalInternalException;
 import javax.jdo.JDONullIdentityException;
-
+import javax.jdo.JDOUserException;
+import javax.jdo.LegacyJava;
 import javax.jdo.spi.JDOImplHelper;
-
 import javax.jdo.util.BatchTestRunner;
 
 /** */

@@ -19,7 +19,6 @@ package org.apache.jdo.tck.pc.singlefieldidentity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.jdo.identity.SingleFieldIdentity;
 
 /**

@@ -18,9 +18,7 @@
 package javax.jdo.util;
 
 import java.io.PrintStream;
-
 import javax.jdo.Constants;
-
 import junit.framework.TestCase;
 
 /** */

@@ -22,15 +22,15 @@
 
 package javax.jdo;
 
-import javax.jdo.datastore.DataStoreCache;
-import javax.jdo.listener.InstanceLifecycleListener;
-import javax.jdo.metadata.TypeMetadata;
-import javax.jdo.metadata.JDOMetadata;
-import javax.jdo.spi.JDOPermission; // for getFetchGroups javadoc
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Properties;
 import java.util.Set;
+import javax.jdo.datastore.DataStoreCache;
+import javax.jdo.listener.InstanceLifecycleListener;
+import javax.jdo.metadata.JDOMetadata;
+import javax.jdo.metadata.TypeMetadata;
+import javax.jdo.spi.JDOPermission;
 
 /**
  * The <code>PersistenceManagerFactory</code> is the interface to use to obtain <code>

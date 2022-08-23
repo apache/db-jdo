@@ -17,7 +17,10 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
-import org.apache.jdo.tck.JDO_Test;
+import java.util.HashMap;
+import java.util.Map;
+import javax.jdo.JDOQLTypedQuery;
+import javax.jdo.query.Expression;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -26,11 +29,6 @@ import org.apache.jdo.tck.pc.company.QEmployee;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import javax.jdo.JDOQLTypedQuery;
-import javax.jdo.query.Expression;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <B>Title:</B>Supported collection methods <br>

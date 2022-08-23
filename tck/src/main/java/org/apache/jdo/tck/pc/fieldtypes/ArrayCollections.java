@@ -18,8 +18,10 @@
 package org.apache.jdo.tck.pc.fieldtypes;
 
 import java.io.Serializable;
-import java.util.*;
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Locale;
 
 public class ArrayCollections {
   public int identifier;

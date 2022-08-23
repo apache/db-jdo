@@ -17,9 +17,9 @@
 
 package org.apache.jdo.tck.pc.companyAnnotatedFC;
 
-import javax.jdo.annotations.*;
-
 import java.util.Date;
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.PersistenceCapable;
 import org.apache.jdo.tck.pc.company.IAddress;
 import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
 import org.apache.jdo.tck.util.EqualityHelper;

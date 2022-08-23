@@ -17,11 +17,11 @@
 
 package org.apache.jdo.tck.query.jdoql.methods;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
 import javax.jdo.query.NumericExpression;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.MeetingRoom;
@@ -29,9 +29,6 @@ import org.apache.jdo.tck.pc.company.QDepartment;
 import org.apache.jdo.tck.query.QueryElementHolder;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <B>Title:</B>Supported list methods <br>

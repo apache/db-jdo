@@ -16,10 +16,13 @@
  */
 package javax.jdo;
 
-import javax.jdo.spi.JDOPermission;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.*;
+import java.security.Permission;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import javax.jdo.spi.JDOPermission;
 
 /**
  * This class provides wrapper implementations for the Java SecurityManager and AccessController

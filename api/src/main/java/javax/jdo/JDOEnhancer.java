@@ -18,7 +18,6 @@ package javax.jdo;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.util.Properties;
-
 import javax.jdo.metadata.JDOMetadata;
 
 /**

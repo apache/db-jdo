@@ -19,10 +19,9 @@ package org.apache.jdo.tck.api.persistencemanager.getobject;
 
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.Transaction;
-
+import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
 
 /**
  * <B>Title:</B> Get ObjectId For Null Or Not Persistent <br>

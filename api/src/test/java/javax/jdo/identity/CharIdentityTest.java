@@ -23,7 +23,6 @@
 package javax.jdo.identity;
 
 import javax.jdo.JDONullIdentityException;
-
 import javax.jdo.util.BatchTestRunner;
 
 /**

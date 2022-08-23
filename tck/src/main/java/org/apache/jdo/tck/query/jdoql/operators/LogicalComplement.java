@@ -19,11 +19,8 @@ package org.apache.jdo.tck.query.jdoql.operators;
 
 import java.util.Collection;
 import java.util.HashSet;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.mylib.PrimitiveTypes;
 import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
@@ -197,8 +194,28 @@ public class LogicalComplement extends QueryTest {
       tx.begin();
       PrimitiveTypes primitiveObject =
           new PrimitiveTypes(
-              (long) 0, false, null, (byte) 0, null, (short) 0, null, (int) 0, null, (long) 0, null,
-              (float) 0, null, (double) 0, null, '0', null, null, null, null, null, null);
+              (long) 0,
+              false,
+              null,
+              (byte) 0,
+              null,
+              (short) 0,
+              null,
+              (int) 0,
+              null,
+              (long) 0,
+              null,
+              (float) 0,
+              null,
+              (double) 0,
+              null,
+              '0',
+              null,
+              null,
+              null,
+              null,
+              null,
+              null);
       pm.makePersistent(primitiveObject);
       tx.commit();
       tx = null;

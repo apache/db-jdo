@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.companyListWithoutJoin;
 
 import javax.jdo.PersistenceManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

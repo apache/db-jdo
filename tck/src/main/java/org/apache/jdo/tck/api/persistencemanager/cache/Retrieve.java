@@ -19,12 +19,9 @@ package org.apache.jdo.tck.api.persistencemanager.cache;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.api.persistencemanager.PersistenceManagerTest;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.pc.mylib.PCPoint2;
 import org.apache.jdo.tck.pc.mylib.PCRect;

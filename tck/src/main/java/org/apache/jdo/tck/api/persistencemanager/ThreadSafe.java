@@ -20,16 +20,13 @@ package org.apache.jdo.tck.api.persistencemanager;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import javax.jdo.JDOUserException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
-
 import org.apache.jdo.tck.pc.mylib.PCPoint;
 import org.apache.jdo.tck.util.BatchTestRunner;
-import org.apache.jdo.tck.util.ThreadExceptionHandler;
 import org.apache.jdo.tck.util.RogueBarrier;
+import org.apache.jdo.tck.util.ThreadExceptionHandler;
 
 /**
  * <B>Title:</B> Thread Safe <br>

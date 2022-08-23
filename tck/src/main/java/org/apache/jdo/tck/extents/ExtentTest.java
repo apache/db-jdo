@@ -24,12 +24,10 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TimeZone;
-
 import javax.jdo.Extent;
 import javax.jdo.JDOFatalInternalException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-
 import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.Address;
 import org.apache.jdo.tck.pc.company.Company;

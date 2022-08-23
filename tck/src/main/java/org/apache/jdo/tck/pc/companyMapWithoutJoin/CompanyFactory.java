@@ -22,8 +22,6 @@
 
 package org.apache.jdo.tck.pc.companyMapWithoutJoin;
 
-import java.math.BigDecimal;
-
 import java.util.Date;
 
 /**
