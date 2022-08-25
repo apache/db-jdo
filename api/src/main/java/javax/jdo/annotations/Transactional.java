@@ -22,13 +22,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to indicate that a member (field or property) is transactional but not persistent.
- * This corresponds to xml attribute persistence-modifier="transactional" of "field" and "property"
- * elements.
- *
+ * Annotation to indicate that a member (field or property)
+ * is transactional but not persistent.
+ * This corresponds to xml attribute persistence-modifier="transactional" of
+ * "field" and "property" elements.
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Transactional {}
+public @interface Transactional
+{
+}

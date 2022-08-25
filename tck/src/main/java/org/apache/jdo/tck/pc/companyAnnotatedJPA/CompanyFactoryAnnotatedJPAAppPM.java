@@ -18,17 +18,7 @@
 package org.apache.jdo.tck.pc.companyAnnotatedJPA;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.CompanyFactoryAbstractImpl;
-import org.apache.jdo.tck.pc.company.CompanyFactoryNewInstance;
-import org.apache.jdo.tck.pc.company.IAddress;
-import org.apache.jdo.tck.pc.company.ICompany;
-import org.apache.jdo.tck.pc.company.IDentalInsurance;
-import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
-import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.pc.company.IMeetingRoom;
-import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
-import org.apache.jdo.tck.pc.company.IProject;
+import org.apache.jdo.tck.pc.company.*;
 
 /*
  * CompanyFactoryAnnotatedPMFieldClass.java
@@ -36,64 +26,64 @@ import org.apache.jdo.tck.pc.company.IProject;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedJPAAppPM extends CompanyFactoryAbstractImpl
-    implements CompanyFactoryNewInstance {
+public class CompanyFactoryAnnotatedJPAAppPM
+        extends CompanyFactoryAbstractImpl
+        implements CompanyFactoryNewInstance {
 
-  /**
-   * Creates a new instance of CompanyFactoryAnnotatedJPAAppPM
-   *
-   * @param pm the PersistenceManager
-   */
-  public CompanyFactoryAnnotatedJPAAppPM(PersistenceManager pm) {
-    super(pm);
-  }
+    /**
+     * Creates a new instance of CompanyFactoryAnnotatedJPAAppPM
+     * @param pm the PersistenceManager
+     */
+    public CompanyFactoryAnnotatedJPAAppPM(PersistenceManager pm) {
+        super(pm);
+    }
+    
+    public Class[] getTearDownClasses() {
+        return new Class[] {
+            JPAAppDentalInsurance.class,
+            JPAAppMedicalInsurance.class,
+            JPAAppPartTimeEmployee.class,
+            JPAAppFullTimeEmployee.class,
+            JPAAppProject.class,
+            JPAAppDepartment.class,
+            JPAAppCompany.class,
+            JPAAppAddress.class
+        };
+    }
+    
+    public IAddress newAddress() {
+        return (IAddress)pm.newInstance(JPAAppAddress.class);
+    }
 
-  public Class[] getTearDownClasses() {
-    return new Class[] {
-      JPAAppDentalInsurance.class,
-      JPAAppMedicalInsurance.class,
-      JPAAppPartTimeEmployee.class,
-      JPAAppFullTimeEmployee.class,
-      JPAAppProject.class,
-      JPAAppDepartment.class,
-      JPAAppCompany.class,
-      JPAAppAddress.class
-    };
-  }
-
-  public IAddress newAddress() {
-    return (IAddress) pm.newInstance(JPAAppAddress.class);
-  }
-
-  public IMeetingRoom newMeetingRoom() {
-    return (IMeetingRoom) null;
-  }
-
-  public ICompany newCompany() {
-    return (ICompany) pm.newInstance(JPAAppCompany.class);
-  }
-
-  public IDentalInsurance newDentalInsurance() {
-    return (IDentalInsurance) pm.newInstance(JPAAppDentalInsurance.class);
-  }
-
-  public IDepartment newDepartment() {
-    return (IDepartment) pm.newInstance(JPAAppDepartment.class);
-  }
-
-  public IFullTimeEmployee newFullTimeEmployee() {
-    return (IFullTimeEmployee) pm.newInstance(JPAAppFullTimeEmployee.class);
-  }
-
-  public IMedicalInsurance newMedicalInsurance() {
-    return (IMedicalInsurance) pm.newInstance(JPAAppMedicalInsurance.class);
-  }
-
-  public IPartTimeEmployee newPartTimeEmployee() {
-    return (IPartTimeEmployee) pm.newInstance(JPAAppPartTimeEmployee.class);
-  }
-
-  public IProject newProject() {
-    return (IProject) pm.newInstance(JPAAppProject.class);
-  }
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
+    
+    public ICompany newCompany() {
+        return (ICompany)pm.newInstance(JPAAppCompany.class);
+    }
+    
+    public IDentalInsurance newDentalInsurance() {
+        return (IDentalInsurance)pm.newInstance(JPAAppDentalInsurance.class);
+    }
+    
+    public IDepartment newDepartment() {
+        return (IDepartment)pm.newInstance(JPAAppDepartment.class);
+    }
+    
+    public IFullTimeEmployee newFullTimeEmployee() {
+        return (IFullTimeEmployee)pm.newInstance(JPAAppFullTimeEmployee.class);
+    }
+    
+    public IMedicalInsurance newMedicalInsurance() {
+        return (IMedicalInsurance)pm.newInstance(JPAAppMedicalInsurance.class);
+    }
+    
+    public IPartTimeEmployee newPartTimeEmployee() {
+        return (IPartTimeEmployee)pm.newInstance(JPAAppPartTimeEmployee.class);
+    }
+    
+    public IProject newProject() {
+        return (IProject)pm.newInstance(JPAAppProject.class);
+    }
 }

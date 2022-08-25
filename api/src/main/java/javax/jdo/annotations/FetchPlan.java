@@ -23,41 +23,38 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the fetch plan of a persistence manager, query, or extent. Corresponds to the xml
- * element "fetch-plan".
- *
+ * Annotation for the fetch plan of a persistence manager, query, or extent.
+ * Corresponds to the xml element "fetch-plan".
+ * 
  * @version 3.2
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(FetchPlans.class)
-public @interface FetchPlan {
-  /**
-   * Name of the fetch plan.
-   *
-   * @return the name of the fetch plan
-   */
-  String name() default "";
+public @interface FetchPlan
+{
+    /**
+     * Name of the fetch plan.
+     * @return the name of the fetch plan
+     */
+    String name() default "";
 
-  /**
-   * The fetch groups in this fetch plan.
-   *
-   * @return the fetch groups
-   */
-  String[] fetchGroups() default {};
+    /**
+     * The fetch groups in this fetch plan.
+     * @return the fetch groups 
+     */
+    String[] fetchGroups() default {};
 
-  /**
-   * The depth of references to instantiate, starting with the root object.
-   *
-   * @return the maxium fetch depth
-   */
-  int maxFetchDepth() default 1;
+    /**
+     * The depth of references to instantiate, starting with the root object.
+     * @return the maxium fetch depth
+     */
+    int maxFetchDepth() default 1;
 
-  /**
-   * The number of instances of multi-valued fields retrieved by queries.
-   *
-   * @return the fetch size
-   */
-  int fetchSize() default 0;
+    /** 
+     * The number of instances of multi-valued fields retrieved by queries.
+     * @return the fetch size
+     */
+    int fetchSize() default 0;
 }

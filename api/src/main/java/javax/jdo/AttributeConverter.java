@@ -17,50 +17,44 @@
 package javax.jdo;
 
 /**
- * Converts persistent attribute values (fields or properties) to different values stored in the
- * underlying datastore and vice versa. [TBD:
- *
+ * Converts persistent attribute values (fields or properties) to different
+ * values stored in the underlying datastore and vice versa.
+ * [TBD: 
  * <ul>
- *   <li>should we require that converters need access to any other information, e.g metadata?
- *       passed into the constructor
- *   <li>otherwise we assume there is a default constructor, and is instantiable using the current
- *       JDO class loader(s)
- * </ul>
- *
- * ]
- *
+ * <li>should we require that converters need access to any other information, e.g metadata? passed into the constructor</li>
+ * <li>otherwise we assume there is a default constructor, and is instantiable using the current JDO class loader(s)</li>
+ * </ul>]
+ * 
  * @param <A> The type of persistent attribute (field or property).
  * @param <D> The type to be used in the datastore.
  */
 public interface AttributeConverter<A, D> {
 
-  /**
-   * Converts the given persistent attribute value to its representation in the datastore.
-   *
-   * @param attributeValue Value of attribute
-   * @return Value in datastore
-   */
-  D convertToDatastore(A attributeValue);
+    /**
+     * Converts the given persistent attribute value to its representation in the datastore.
+     * @param attributeValue Value of attribute
+     * @return Value in datastore
+     */
+    D convertToDatastore(A attributeValue);
 
-  /**
-   * Converts the given datastore value to its representation as a persistent attribute.
-   *
-   * @param datastoreValue Value in datastore
-   * @return Value in attribute
-   */
-  A convertToAttribute(D datastoreValue);
+    /**
+     * Converts the given datastore value to its representation as a persistent attribute.
+     * @param datastoreValue Value in datastore
+     * @return Value in attribute
+     */
+    A convertToAttribute(D datastoreValue);
 
-  /**
-   * Dummy converter to represent "use the implementation default for this type" when using
-   * annotations.
-   */
-  public static class UseDefault implements AttributeConverter<Object, Object> {
-    public Object convertToDatastore(Object attributeValue) {
-      throw new JDOUserException("This converter is not usable.");
-    }
+    /**
+     * Dummy converter to represent "use the implementation default for this type" when using annotations.
+     */
+	public static class UseDefault implements AttributeConverter<Object, Object>
+	{
+		public Object convertToDatastore(Object attributeValue) {
+			throw new JDOUserException("This converter is not usable.");
+		}
 
-    public Object convertToAttribute(Object datastoreValue) {
-      throw new JDOUserException("This converter is not usable.");
-    }
-  }
+		public Object convertToAttribute(Object datastoreValue) {
+			throw new JDOUserException("This converter is not usable.");
+		}
+	}
 }

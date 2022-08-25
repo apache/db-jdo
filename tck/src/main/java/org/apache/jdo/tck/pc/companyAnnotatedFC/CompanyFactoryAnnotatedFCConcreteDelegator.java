@@ -27,19 +27,19 @@ import org.apache.jdo.tck.pc.company.CompanyFactoryAnnotatedAbstractDelegator;
  * class as a parameter.
  */
 public class CompanyFactoryAnnotatedFCConcreteDelegator
-    extends CompanyFactoryAnnotatedAbstractDelegator {
+        extends CompanyFactoryAnnotatedAbstractDelegator {
 
-  /**
-   * Creates a new instance of CompanyFactoryAnnotatedFCConcreteDelegator
-   *
-   * @param pm the PersistenceManager
-   */
-  public CompanyFactoryAnnotatedFCConcreteDelegator(PersistenceManager pm) {
-    super(pm);
-    if (isAppIdentity) {
-      delegate = new CompanyFactoryAnnotatedFCAppConcrete(pm);
-    } else { // datastoreidentity
-      delegate = new CompanyFactoryAnnotatedFCDSConcrete(pm);
+    /**
+     * Creates a new instance of CompanyFactoryAnnotatedFCConcreteDelegator
+     * @param pm the PersistenceManager
+     */
+    public CompanyFactoryAnnotatedFCConcreteDelegator(PersistenceManager pm) {
+        super(pm);
+        if (isAppIdentity){
+            delegate = new CompanyFactoryAnnotatedFCAppConcrete(pm);
+        } else { //datastoreidentity
+            delegate = new CompanyFactoryAnnotatedFCDSConcrete(pm);
+        }
     }
-  }
+    
 }

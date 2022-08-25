@@ -20,102 +20,88 @@ import javax.jdo.annotations.DiscriminatorStrategy;
 
 /**
  * Represents the discriminator for inheritance purposes for this class.
- *
  * @since 3.0
  */
 public interface DiscriminatorMetadata extends Metadata {
-  /**
-   * Method to set the discriminator column.
-   *
-   * @param column Name of the discriminator column
-   * @return This metadata object
-   */
-  DiscriminatorMetadata setColumn(String column);
+    /**
+     * Method to set the discriminator column.
+     * @param column Name of the discriminator column
+     * @return This metadata object
+     */
+    DiscriminatorMetadata setColumn(String column);
 
-  /**
-   * Accessor for the discriminator column name
-   *
-   * @return The column name
-   */
-  String getColumn();
+    /**
+     * Accessor for the discriminator column name
+     * @return The column name
+     */
+    String getColumn();
 
-  /**
-   * Method to set the discriminator value (when using "value-map" strategy).
-   *
-   * @param val Value for the discriminator for this class
-   * @return This metadata object
-   */
-  DiscriminatorMetadata setValue(String val);
+    /**
+     * Method to set the discriminator value (when using "value-map" strategy).
+     * @param val Value for the discriminator for this class
+     * @return This metadata object
+     */
+    DiscriminatorMetadata setValue(String val);
 
-  /**
-   * Accessor for the discriminator value (when using "value-map" strategy).
-   *
-   * @return The value
-   */
-  String getValue();
+    /**
+     * Accessor for the discriminator value (when using "value-map" strategy).
+     * @return The value
+     */
+    String getValue();
 
-  /**
-   * Method to set the discriminator strategy.
-   *
-   * @param strategy The strategy
-   * @return This metadata object
-   */
-  DiscriminatorMetadata setStrategy(DiscriminatorStrategy strategy);
+    /**
+     * Method to set the discriminator strategy.
+     * @param strategy The strategy
+     * @return This metadata object
+     */
+    DiscriminatorMetadata setStrategy(DiscriminatorStrategy strategy);
 
-  /**
-   * Accessor for the discriminator strategy.
-   *
-   * @return The strategy
-   */
-  DiscriminatorStrategy getStrategy();
+    /**
+     * Accessor for the discriminator strategy.
+     * @return The strategy
+     */
+    DiscriminatorStrategy getStrategy();
 
-  /**
-   * Method to set whether indexed.
-   *
-   * @param indexed Whether indexed (true | false | unique)
-   * @return This metadata object
-   */
-  DiscriminatorMetadata setIndexed(Indexed indexed);
+    /**
+     * Method to set whether indexed.
+     * @param indexed Whether indexed (true | false | unique)
+     * @return This metadata object
+     */
+    DiscriminatorMetadata setIndexed(Indexed indexed);
 
-  /**
-   * Accessor for whether indexed (true|false|unique)
-   *
-   * @return Indexed?
-   */
-  Indexed getIndexed();
+    /**
+     * Accessor for whether indexed (true|false|unique)
+     * @return Indexed?
+     */
+    Indexed getIndexed();
 
-  /**
-   * Accessor for all column(s) defined on the discriminator.
-   *
-   * @return The column(s)
-   */
-  ColumnMetadata[] getColumns();
+    /**
+     * Accessor for all column(s) defined on the discriminator.
+     * @return The column(s)
+     */
+    ColumnMetadata[] getColumns();
 
-  /**
-   * Add a new column for this discriminator.
-   *
-   * @return The ColumnMetadata
-   */
-  ColumnMetadata newColumnMetadata();
+    /**
+     * Add a new column for this discriminator.
+     * @return The ColumnMetadata
+     */
+    ColumnMetadata newColumnMetadata();
 
-  /**
-   * Accessor for the number of columns defined for this discriminator.
-   *
-   * @return The number of columns
-   */
-  int getNumberOfColumns();
+    /**
+     * Accessor for the number of columns defined for this discriminator.
+     * @return The number of columns
+     */
+    int getNumberOfColumns();
 
-  /**
-   * Method to set the index metadata for the discriminator.
-   *
-   * @return The IndexMetadata
-   */
-  IndexMetadata newIndexMetadata();
+    /**
+     * Method to set the index metadata for the discriminator.
+     * @return The IndexMetadata
+     */
+    IndexMetadata newIndexMetadata();
 
-  /**
-   * Accessor for any index metadata for the discriminator.
-   *
-   * @return Index metadata
-   */
-  IndexMetadata getIndexMetadata();
+    /**
+     * Accessor for any index metadata for the discriminator.
+     * @return Index metadata
+     */
+    IndexMetadata getIndexMetadata();
 }

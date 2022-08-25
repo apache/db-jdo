@@ -18,39 +18,44 @@
 package org.apache.jdo.tck.pc.order;
 
 import java.util.Set;
+
 import javax.jdo.PersistenceManager;
 
 /*
  * This class is the order factory that uses constructors of the
  * concrete classes.
  */
-public class OrderFactoryConcreteClass implements OrderFactory {
+public  class OrderFactoryConcreteClass implements OrderFactory {
 
-  /** */
-  public static final Class[] tearDownClasses = new Class[] {Order.class, OrderItem.class};
+    /** */
+    public static final Class[] tearDownClasses = new Class[] {
+        Order.class, OrderItem.class
+    };
 
-  /**
-   * Creates a new instance of OrderFactoryConcreteClass
-   *
-   * @param pm the PersistnceManager
-   */
-  public OrderFactoryConcreteClass(PersistenceManager pm) {}
+    /**
+     * Creates a new instance of OrderFactoryConcreteClass
+     * @param pm the PersistnceManager
+     */
+    public OrderFactoryConcreteClass(PersistenceManager pm) {
+    }
 
-  public OrderFactoryConcreteClass() {}
+    public OrderFactoryConcreteClass() {
+    }
 
-  public Order newOrder(long orderId, long customerId) {
-    return new Order(orderId, customerId);
-  }
+    public Order newOrder(long orderId, long customerId) { 
+        return new Order(orderId, customerId);
+    }
 
-  public Order newOrder(long orderId, Set items, long customerId) {
-    return new Order(orderId, items, customerId);
-  }
+    public Order newOrder(long orderId, Set items, long customerId) { 
+        return new Order(orderId, items, customerId);
+    }
 
-  public OrderItem newOrderItem(Order order, long item, String description, int quantity) {
-    return new OrderItem(order, item, description, quantity);
-  }
+    public OrderItem newOrderItem(Order order, long item, String description,
+            int quantity) {
+        return new OrderItem(order, item, description, quantity);
+    }
 
-  public Class[] getTearDownClasses() {
-    return tearDownClasses;
-  }
+    public Class[] getTearDownClasses() {
+        return tearDownClasses;
+    }
 }

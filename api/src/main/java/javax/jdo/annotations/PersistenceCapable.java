@@ -23,98 +23,86 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for whether the class or interface is persistence-capable.
- *
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PersistenceCapable {
-  /**
-   * Member declarations. Annotations for persistent members of this class or interface can be
-   * specifed either here or on each member. Annotations for inherited members can only be specified
-   * here.
-   *
-   * @return member declarations
-   */
-  Persistent[] members() default {};
+public @interface PersistenceCapable
+{
+    /** Member declarations. Annotations for persistent members of this
+     * class or interface can be specifed either here or on each member.
+     * Annotations for inherited members can only be specified here.
+     * @return member declarations
+     */
+    Persistent[] members() default {};
 
-  /**
-   * Table to use for persisting this class or interface.
-   *
-   * @return The table
-   */
-  String table() default "";
+    /**
+     * Table to use for persisting this class or interface. 
+     * @return The table
+     */
+    String table() default "";
 
-  /**
-   * Catalog to use for persisting this class or interface.
-   *
-   * @return The catalog
-   */
-  String catalog() default "";
+    /**
+     * Catalog to use for persisting this class or interface. 
+     * @return The catalog
+     */
+    String catalog() default "";
 
-  /**
-   * Schema to use for persisting this class or interface.
-   *
-   * @return The schema
-   */
-  String schema() default "";
+    /**
+     * Schema to use for persisting this class or interface. 
+     * @return The schema
+     */
+    String schema() default "";
 
-  /**
-   * Whether this class or interface manages an extent.
-   *
-   * @return Whether an extent is required
-   */
-  String requiresExtent() default "";
+    /**
+     * Whether this class or interface manages an extent. 
+     * @return Whether an extent is required
+     */
+    String requiresExtent() default "";
 
-  /**
-   * Whether objects of this class or interface can only be embedded.
-   *
-   * @return Whether this is embedded only
-   */
-  String embeddedOnly() default "";
+    /**
+     * Whether objects of this class or interface can only be embedded.
+     * @return Whether this is embedded only
+     */
+    String embeddedOnly() default "";
 
-  /**
-   * Whether this class or interface is detachable.
-   *
-   * @return Whether this is detachable
-   */
-  String detachable() default "";
+    /**
+     * Whether this class or interface is detachable. 
+     * @return Whether this is detachable
+     */
+    String detachable() default "";
 
-  /**
-   * Type of identity for this class or interface.
-   *
-   * @return The identity type for this class
-   */
-  IdentityType identityType() default IdentityType.UNSPECIFIED;
+    /**
+     * Type of identity for this class or interface. 
+     * @return The identity type for this class
+     */
+    IdentityType identityType() default IdentityType.UNSPECIFIED;
 
-  /**
-   * Primary key class when using application identity and using own PK.
-   *
-   * @return Object-id class (if specified)
-   */
-  Class objectIdClass() default void.class;
+    /**
+     * Primary key class when using application identity and using own PK. 
+     * @return Object-id class (if specified)
+     */
+    Class objectIdClass() default void.class;
 
-  /**
-   * Whether this class is cacheable in a Level2 cache.
-   *
-   * @return Whether the class is L2 cacheable
-   * @since 2.2
-   */
-  String cacheable() default "true";
+    /**
+     * Whether this class is cacheable in a Level2 cache.
+     * @return Whether the class is L2 cacheable
+     * @since 2.2
+     */
+    String cacheable() default "true";
 
-  /**
-   * Whether objects of this type should, by default, be locked when read.
-   *
-   * @return Whether we should lock this type of object by default
-   * @since 3.0
-   */
-  String serializeRead() default "false";
+    /**
+     * Whether objects of this type should, by default, be locked when read.
+     * @return Whether we should lock this type of object by default
+     * @since 3.0
+     */
+    String serializeRead() default "false";
 
-  /**
-   * Any vendor extensions.
-   *
-   * @return The extensions defined for this class
-   */
-  Extension[] extensions() default {};
+    /**
+     * Any vendor extensions.
+     * @return The extensions defined for this class
+     */
+    Extension[] extensions() default {};
 }

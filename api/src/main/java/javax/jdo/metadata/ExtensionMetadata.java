@@ -22,24 +22,21 @@ package javax.jdo.metadata;
  * @version 3.0
  */
 public interface ExtensionMetadata {
-  /**
-   * Accessor for the vendor name (set at construction).
-   *
-   * @return The vendor
-   */
-  String getVendorName();
+    /**
+     * Accessor for the vendor name (set at construction).
+     * @return The vendor
+     */
+    String getVendorName();
 
-  /**
-   * Accessor for the key (set at construction).
-   *
-   * @return The key
-   */
-  String getKey();
+    /**
+     * Accessor for the key (set at construction).
+     * @return The key
+     */
+    String getKey();
 
-  /**
-   * Accessor for the value (set at construction).
-   *
-   * @return The value
-   */
-  String getValue();
+    /**
+     * Accessor for the value (set at construction).
+     * @return The value
+     */
+    String getValue();
 }

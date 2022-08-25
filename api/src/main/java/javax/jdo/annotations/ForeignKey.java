@@ -23,76 +23,61 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a database foreign-key. Corresponds to the xml element "foreign-key".
+ * Annotation for a database foreign-key.
+ * Corresponds to the xml element "foreign-key".
  *
  * @version 3.2
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(ForeignKeys.class)
-public @interface ForeignKey {
-  /**
-   * Name of the foreign key.
-   *
-   * @return the name of the foreign key
-   */
-  String name() default "";
+public @interface ForeignKey
+{
+    /** Name of the foreign key.
+     * @return the name of the foreign key
+     */
+    String name() default "";
 
-  /**
-   * Table for the foreign key. This is needed iff annotating a type where the foreign key is not
-   * defined on the primary table for the type.
-   *
-   * @return the table on which the foreign key is defined
-   */
-  String table() default "";
+    /** Table for the foreign key. This is needed iff annotating a type where
+     * the foreign key is not defined on the primary table for the type.
+     * @return the table on which the foreign key is defined
+     */
+    String table() default "";
 
-  /**
-   * Whether this foreign key is deferred (constraint is checked only at commit).
-   *
-   * @return whether this foreign key is deferred
-   */
-  String deferred() default "";
+    /** Whether this foreign key is deferred 
+     * (constraint is checked only at commit).
+     * @return whether this foreign key is deferred
+     */
+    String deferred() default "";
 
-  /**
-   * Whether this foreign key is unique.
-   *
-   * @return whether this foreign key is unique
-   */
-  String unique() default "";
+    /** Whether this foreign key is unique.
+     * @return whether this foreign key is unique
+     */
+    String unique() default "";
 
-  /**
-   * The delete action of this foreign key.
-   *
-   * @return the delete action of this foreign key
-   */
-  ForeignKeyAction deleteAction() default ForeignKeyAction.RESTRICT;
+    /** The delete action of this foreign key.
+     * @return the delete action of this foreign key
+     */
+    ForeignKeyAction deleteAction() default ForeignKeyAction.RESTRICT;
 
-  /**
-   * The update action of this foreign key.
-   *
-   * @return the update action of this foreign key
-   */
-  ForeignKeyAction updateAction() default ForeignKeyAction.RESTRICT;
+    /** The update action of this foreign key.
+     * @return the update action of this foreign key
+     */
+    ForeignKeyAction updateAction() default ForeignKeyAction.RESTRICT;
 
-  /**
-   * Member (field and property) names that compose this foreign key.
-   *
-   * @return the member names that compose this foreign key
-   */
-  String[] members() default {};
+    /** Member (field and property) names that compose this foreign key.
+     * @return the member names that compose this foreign key
+     */
+    String[] members() default {};
 
-  /**
-   * Columns that compose this foreign key.
-   *
-   * @return the columns that compose this foreign key
-   */
-  Column[] columns() default {};
+    /** Columns that compose this foreign key.
+     * @return the columns that compose this foreign key
+     */
+    Column[] columns() default {};
 
-  /**
-   * Vendor extensions.
-   *
-   * @return the vendor extensions
-   */
-  Extension[] extensions() default {};
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }

@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of unique constraints.
- *
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Uniques {
-  /**
-   * The unique constraints.
-   *
-   * @return The unique constraints
-   */
-  Unique[] value();
+public @interface Uniques
+{
+    /**
+     * The unique constraints.
+     * @return The unique constraints
+     */
+    Unique[] value();
 }

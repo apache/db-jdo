@@ -22,27 +22,26 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the inheritance of the class. Corresponds to the xml element "inheritance" of the
- * "class" and "interface" elements.
- *
+ * Annotation for the inheritance of the class.
+ * Corresponds to the xml element "inheritance" of the "class"
+ * and "interface" elements.
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Inheritance {
-  /**
-   * Strategy to use for inheritance. Specifies in which table(s) the members for the class are
-   * stored.
-   *
-   * @return the inheritance strategy
-   */
-  InheritanceStrategy strategy() default InheritanceStrategy.UNSPECIFIED;
+public @interface Inheritance
+{
+    /** Strategy to use for inheritance. Specifies in which table(s)
+     * the members for the class are stored. 
+     * @return the inheritance strategy
+     */
+    InheritanceStrategy strategy() default InheritanceStrategy.UNSPECIFIED;
 
-  /**
-   * Custom inheritance strategy. If customStrategy is non-empty, then strategy must be UNSPECIFIED.
-   *
-   * @return the custom inheritance strategy
-   */
-  String customStrategy() default "";
+    /** Custom inheritance strategy. If customStrategy is non-empty, then
+     * strategy must be UNSPECIFIED.
+     * @return the custom inheritance strategy
+     */
+    String customStrategy() default "";
 }
