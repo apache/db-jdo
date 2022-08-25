@@ -22,16 +22,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to specify that this class/field/property is cacheable
- * in a Level 2 cache.
- * This corresponds to the xml attribute "cacheable" of the "class", "field"
- * and "property" elements.
+ * Annotation to specify that this class/field/property is cacheable in a Level 2 cache. This
+ * corresponds to the xml attribute "cacheable" of the "class", "field" and "property" elements.
+ *
  * @version 2.2
  * @since 2.2
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Cacheable
-{
-	String value() default "true";
+public @interface Cacheable {
+  String value() default "true";
 }

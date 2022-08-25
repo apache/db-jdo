@@ -18,14 +18,13 @@ package javax.jdo.metadata;
 
 /**
  * Enumeration of the indexed values.
- * 
+ *
  * @version 3.0
  * @since 3.0
  */
-public enum Indexed
-{
-    UNSPECIFIED,
-    TRUE,
-    FALSE,
-    UNIQUE
+public enum Indexed {
+  UNSPECIFIED,
+  TRUE,
+  FALSE,
+  UNIQUE
 }

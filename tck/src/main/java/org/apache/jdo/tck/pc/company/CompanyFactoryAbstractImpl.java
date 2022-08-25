@@ -18,7 +18,6 @@
 package org.apache.jdo.tck.pc.company;
 
 import javax.jdo.PersistenceManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,224 +28,249 @@ import org.apache.commons.logging.LogFactory;
  * classes that implement only the methods to construct the instance.
  */
 public abstract class CompanyFactoryAbstractImpl implements CompanyFactory {
-    
-    protected PersistenceManager pm;
-    
-    /** Logger */
-    protected Log logger = 
-        LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
-    /** true if debug logging is enabled. */
-    protected boolean debug = logger.isDebugEnabled();
-    
-    /**
-     * Creates a new instance of CompanyFactoryAbstractImpl
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAbstractImpl(PersistenceManager pm) {
-        this.pm = pm;
-    }
-        
-    /** 
-     * String indicating the type of identity used for the current test case.
-     * The value is either "applicationidentity" or "datastoreidentity".
-     */
-    public final String identitytype = 
-            System.getProperty("jdo.tck.identitytype");
-    public boolean isAppIdentity = "applicationidentity".equals(identitytype);
+  protected PersistenceManager pm;
 
-    abstract public IAddress newAddress();
-    abstract public IMeetingRoom newMeetingRoom();
-    abstract public ICompany newCompany();
-    abstract public IDentalInsurance newDentalInsurance();
-    abstract public IDepartment newDepartment();
-    abstract public IFullTimeEmployee newFullTimeEmployee();
-    abstract public IMedicalInsurance newMedicalInsurance();
-    abstract public IPartTimeEmployee newPartTimeEmployee();
-    abstract public IProject newProject();
-    
-    public IAddress newAddress(long addrid, String street, String city, 
-            String state, String zipcode, String country) {
-        IAddress result = newAddress();
-        result.setAddrid(addrid);
-        result.setStreet(street);
-        result.setCity(city);
-        result.setState(state);
-        result.setZipcode(zipcode);
-        result.setCountry(country);
-        if (debug) logger.debug("newAddress returned" + result);
-        return result;
-    }
+  /** Logger */
+  protected Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
-    public IMeetingRoom newMeetingRoom(long roomid, String name) {
-        IMeetingRoom result = newMeetingRoom();
-        result.setRoomid(roomid);
-        result.setName(name);
-        if (debug) logger.debug("newMeetingRoom returned" + result);
-        return result;
-    }
+  /** true if debug logging is enabled. */
+  protected boolean debug = logger.isDebugEnabled();
 
-    public ICompany newCompany(long companyid, String name,
-            java.util.Date founded) {
-        ICompany result = newCompany();
-        result.setCompanyid(companyid);
-        result.setName(name);
-        result.setFounded(founded);
-        if (debug) logger.debug("newCompany returned" + result);
-        return result;
-    }
+  /**
+   * Creates a new instance of CompanyFactoryAbstractImpl
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAbstractImpl(PersistenceManager pm) {
+    this.pm = pm;
+  }
 
-    public ICompany newCompany(long companyid, String name, 
-            java.util.Date founded, IAddress addr) {
-        ICompany result = newCompany();
-        result.setCompanyid(companyid);
-        result.setName(name);
-        result.setFounded(founded);
-        result.setAddress(addr);
-        if (debug) logger.debug("newCompany returned" + result);
-        return result;
-    }
+  /**
+   * String indicating the type of identity used for the current test case. The value is either
+   * "applicationidentity" or "datastoreidentity".
+   */
+  public final String identitytype = System.getProperty("jdo.tck.identitytype");
 
-    public IDentalInsurance newDentalInsurance(long insid, String carrier, 
-            java.math.BigDecimal lifetimeOrthoBenefit) {
-        IDentalInsurance result = newDentalInsurance();
-        result.setInsid(insid);
-        result.setCarrier(carrier);
-        result.setLifetimeOrthoBenefit(lifetimeOrthoBenefit);
-        if (debug) logger.debug("newDentalInsurance returned" + result);
-        return result;
-    }
+  public boolean isAppIdentity = "applicationidentity".equals(identitytype);
 
-    public IDentalInsurance newDentalInsurance(long insid, String carrier, 
-            IEmployee employee, java.math.BigDecimal lifetimeOrthoBenefit) {
-        IDentalInsurance result = newDentalInsurance();
-        result.setInsid(insid);
-        result.setCarrier(carrier);
-        result.setEmployee(employee);
-        result.setLifetimeOrthoBenefit(lifetimeOrthoBenefit);
-        if (debug) logger.debug("newDentalInsurance returned" + result);
-        return result;
-    }
+  public abstract IAddress newAddress();
 
-    public IDepartment newDepartment(long deptid, String name) {
-        IDepartment result = newDepartment();
-        result.setDeptid(deptid);
-        result.setName(name);
-        if (debug) logger.debug("newDepartment returned" + result);
-        return result;
-    }
+  public abstract IMeetingRoom newMeetingRoom();
 
-    public IDepartment newDepartment(long deptid, String name, 
-            ICompany company) {
-        IDepartment result = newDepartment();
-        result.setDeptid(deptid);
-        result.setName(name);
-        result.setCompany(company);
-        if (debug) logger.debug("newDepartment returned" + result);
-        return result;
-    }
+  public abstract ICompany newCompany();
 
-    public IDepartment newDepartment(long deptid, String name, ICompany company,
-            IEmployee employeeOfTheMonth) {
-        IDepartment result = newDepartment();
-        result.setDeptid(deptid);
-        result.setName(name);
-        result.setCompany(company);
-        result.setEmployeeOfTheMonth(employeeOfTheMonth);
-        if (debug) logger.debug("newDepartment returned" + result);
-        return result;
-    }
+  public abstract IDentalInsurance newDentalInsurance();
 
-    public IFullTimeEmployee newFullTimeEmployee(long personid, String first, 
-            String last, String middle, java.util.Date born,
-            java.util.Date hired, double sal) {
-        IFullTimeEmployee result = newFullTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setHiredate(hired);
-        result.setSalary(sal);
-        if (debug) logger.debug("newFullTimeEmployee returned" + result);
-        return result;
-    }
+  public abstract IDepartment newDepartment();
 
-    public IFullTimeEmployee newFullTimeEmployee(long personid, String first,
-            String last, String middle, java.util.Date born, IAddress addr,
-            java.util.Date hired, double sal) {
-        IFullTimeEmployee result = newFullTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setAddress(addr);
-        result.setHiredate(hired);
-        result.setSalary(sal);
-        if (debug) logger.debug("newFullTimeEmployee returned" + result);
-        return result;
-    }
+  public abstract IFullTimeEmployee newFullTimeEmployee();
 
-    public IMedicalInsurance newMedicalInsurance(long insid, String carrier,
-            String planType) {
-        IMedicalInsurance result = newMedicalInsurance();
-        result.setInsid(insid);
-        result.setCarrier(carrier);
-        result.setPlanType(planType);
-        if (debug) logger.debug("newMedicalInsurance returned" + result);
-        return result;
-    }
+  public abstract IMedicalInsurance newMedicalInsurance();
 
-    public IMedicalInsurance newMedicalInsurance(long insid, String carrier, 
-            IEmployee employee, String planType) {
-        IMedicalInsurance result = newMedicalInsurance();
-        result.setInsid(insid);
-        result.setCarrier(carrier);
-        result.setEmployee(employee);
-        result.setPlanType(planType);
-        if (debug) logger.debug("newMedicalInsurance returned" + result);
-        return result;
-    }
+  public abstract IPartTimeEmployee newPartTimeEmployee();
 
-    public IPartTimeEmployee newPartTimeEmployee(long personid, String first,
-            String last, String middle, java.util.Date born, 
-            java.util.Date hired, double wage) {
-        IPartTimeEmployee result = newPartTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setHiredate(hired);
-        result.setWage(wage);
-        if (debug) logger.debug("newPartTimeEmployee returned" + result);
-        return result;
-    }
+  public abstract IProject newProject();
 
-    public IPartTimeEmployee newPartTimeEmployee(long personid, String first, 
-            String last, String middle, java.util.Date born, IAddress addr,
-            java.util.Date hired, double wage) {
-        IPartTimeEmployee result = newPartTimeEmployee();
-        result.setPersonid(personid);
-        result.setFirstname(first);
-        result.setLastname(last);
-        result.setMiddlename(middle);
-        result.setBirthdate(born);
-        result.setAddress(addr);
-        result.setHiredate(hired);
-        result.setWage(wage);
-        if (debug) logger.debug("newPartTimeEmployee returned" + result);
-        return result;
-    }
+  public IAddress newAddress(
+      long addrid, String street, String city, String state, String zipcode, String country) {
+    IAddress result = newAddress();
+    result.setAddrid(addrid);
+    result.setStreet(street);
+    result.setCity(city);
+    result.setState(state);
+    result.setZipcode(zipcode);
+    result.setCountry(country);
+    if (debug) logger.debug("newAddress returned" + result);
+    return result;
+  }
 
-    public IProject newProject(long projid, String name, 
-            java.math.BigDecimal budget) {
-        IProject result = newProject();
-        result.setProjid(projid);
-        result.setName(name);
-        result.setBudget(budget);
-        if (debug) logger.debug("newProject returned" + result);
-        return result;
-    }    
+  public IMeetingRoom newMeetingRoom(long roomid, String name) {
+    IMeetingRoom result = newMeetingRoom();
+    result.setRoomid(roomid);
+    result.setName(name);
+    if (debug) logger.debug("newMeetingRoom returned" + result);
+    return result;
+  }
+
+  public ICompany newCompany(long companyid, String name, java.util.Date founded) {
+    ICompany result = newCompany();
+    result.setCompanyid(companyid);
+    result.setName(name);
+    result.setFounded(founded);
+    if (debug) logger.debug("newCompany returned" + result);
+    return result;
+  }
+
+  public ICompany newCompany(long companyid, String name, java.util.Date founded, IAddress addr) {
+    ICompany result = newCompany();
+    result.setCompanyid(companyid);
+    result.setName(name);
+    result.setFounded(founded);
+    result.setAddress(addr);
+    if (debug) logger.debug("newCompany returned" + result);
+    return result;
+  }
+
+  public IDentalInsurance newDentalInsurance(
+      long insid, String carrier, java.math.BigDecimal lifetimeOrthoBenefit) {
+    IDentalInsurance result = newDentalInsurance();
+    result.setInsid(insid);
+    result.setCarrier(carrier);
+    result.setLifetimeOrthoBenefit(lifetimeOrthoBenefit);
+    if (debug) logger.debug("newDentalInsurance returned" + result);
+    return result;
+  }
+
+  public IDentalInsurance newDentalInsurance(
+      long insid, String carrier, IEmployee employee, java.math.BigDecimal lifetimeOrthoBenefit) {
+    IDentalInsurance result = newDentalInsurance();
+    result.setInsid(insid);
+    result.setCarrier(carrier);
+    result.setEmployee(employee);
+    result.setLifetimeOrthoBenefit(lifetimeOrthoBenefit);
+    if (debug) logger.debug("newDentalInsurance returned" + result);
+    return result;
+  }
+
+  public IDepartment newDepartment(long deptid, String name) {
+    IDepartment result = newDepartment();
+    result.setDeptid(deptid);
+    result.setName(name);
+    if (debug) logger.debug("newDepartment returned" + result);
+    return result;
+  }
+
+  public IDepartment newDepartment(long deptid, String name, ICompany company) {
+    IDepartment result = newDepartment();
+    result.setDeptid(deptid);
+    result.setName(name);
+    result.setCompany(company);
+    if (debug) logger.debug("newDepartment returned" + result);
+    return result;
+  }
+
+  public IDepartment newDepartment(
+      long deptid, String name, ICompany company, IEmployee employeeOfTheMonth) {
+    IDepartment result = newDepartment();
+    result.setDeptid(deptid);
+    result.setName(name);
+    result.setCompany(company);
+    result.setEmployeeOfTheMonth(employeeOfTheMonth);
+    if (debug) logger.debug("newDepartment returned" + result);
+    return result;
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      java.util.Date hired,
+      double sal) {
+    IFullTimeEmployee result = newFullTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setHiredate(hired);
+    result.setSalary(sal);
+    if (debug) logger.debug("newFullTimeEmployee returned" + result);
+    return result;
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      IAddress addr,
+      java.util.Date hired,
+      double sal) {
+    IFullTimeEmployee result = newFullTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setAddress(addr);
+    result.setHiredate(hired);
+    result.setSalary(sal);
+    if (debug) logger.debug("newFullTimeEmployee returned" + result);
+    return result;
+  }
+
+  public IMedicalInsurance newMedicalInsurance(long insid, String carrier, String planType) {
+    IMedicalInsurance result = newMedicalInsurance();
+    result.setInsid(insid);
+    result.setCarrier(carrier);
+    result.setPlanType(planType);
+    if (debug) logger.debug("newMedicalInsurance returned" + result);
+    return result;
+  }
+
+  public IMedicalInsurance newMedicalInsurance(
+      long insid, String carrier, IEmployee employee, String planType) {
+    IMedicalInsurance result = newMedicalInsurance();
+    result.setInsid(insid);
+    result.setCarrier(carrier);
+    result.setEmployee(employee);
+    result.setPlanType(planType);
+    if (debug) logger.debug("newMedicalInsurance returned" + result);
+    return result;
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      java.util.Date hired,
+      double wage) {
+    IPartTimeEmployee result = newPartTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setHiredate(hired);
+    result.setWage(wage);
+    if (debug) logger.debug("newPartTimeEmployee returned" + result);
+    return result;
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee(
+      long personid,
+      String first,
+      String last,
+      String middle,
+      java.util.Date born,
+      IAddress addr,
+      java.util.Date hired,
+      double wage) {
+    IPartTimeEmployee result = newPartTimeEmployee();
+    result.setPersonid(personid);
+    result.setFirstname(first);
+    result.setLastname(last);
+    result.setMiddlename(middle);
+    result.setBirthdate(born);
+    result.setAddress(addr);
+    result.setHiredate(hired);
+    result.setWage(wage);
+    if (debug) logger.debug("newPartTimeEmployee returned" + result);
+    return result;
+  }
+
+  public IProject newProject(long projid, String name, java.math.BigDecimal budget) {
+    IProject result = newProject();
+    result.setProjid(projid);
+    result.setName(name);
+    result.setBudget(budget);
+    if (debug) logger.debug("newProject returned" + result);
+    return result;
+  }
 }

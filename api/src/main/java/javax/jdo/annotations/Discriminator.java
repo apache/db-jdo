@@ -22,53 +22,57 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for the discriminator of the class.
- * Corresponds to the xml element "discriminator" of the "inheritance" element.
- * 
+ * Annotation for the discriminator of the class. Corresponds to the xml element "discriminator" of
+ * the "inheritance" element.
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Discriminator
-{
-    /**
-     * Strategy to use for the discriminator. The discriminator determines
-     * the class associated with a row in the datastore.
-     * @return the strategy to use for the discriminator
-     */
-    DiscriminatorStrategy strategy() 
-        default DiscriminatorStrategy.UNSPECIFIED;
+public @interface Discriminator {
+  /**
+   * Strategy to use for the discriminator. The discriminator determines the class associated with a
+   * row in the datastore.
+   *
+   * @return the strategy to use for the discriminator
+   */
+  DiscriminatorStrategy strategy() default DiscriminatorStrategy.UNSPECIFIED;
 
-    /** Custom strategy to use for the discriminator. 
-     * If customStrategy is non-empty, then strategy must be UNSPECIFIED.
-     * @return the custom strategy
-     */
-    String customStrategy() default "";
+  /**
+   * Custom strategy to use for the discriminator. If customStrategy is non-empty, then strategy
+   * must be UNSPECIFIED.
+   *
+   * @return the custom strategy
+   */
+  String customStrategy() default "";
 
-    /**
-     * Whether the discriminator is indexed.
-     * @return whether the discriminator is indexed
-     */
-    String indexed() default "";
+  /**
+   * Whether the discriminator is indexed.
+   *
+   * @return whether the discriminator is indexed
+   */
+  String indexed() default "";
 
-    /**
-     * Name of the column for the discriminator
-     * @return the name of the column for the discriminator
-     */
-    String column() default "";
+  /**
+   * Name of the column for the discriminator
+   *
+   * @return the name of the column for the discriminator
+   */
+  String column() default "";
 
-    /**
-     * The value for the discriminator for objects of this class 
-     * when using "value-map" strategy.
-     * @return The value for the discriminator for objects of this class 
-     * when using "value-map" strategy
-     */
-    String value() default "";
+  /**
+   * The value for the discriminator for objects of this class when using "value-map" strategy.
+   *
+   * @return The value for the discriminator for objects of this class when using "value-map"
+   *     strategy
+   */
+  String value() default "";
 
-    /**
-     * The column(s) making up the discriminator.
-     * @return the column(s) making up the discriminator
-     */
-    Column[] columns() default {};
+  /**
+   * The column(s) making up the discriminator.
+   *
+   * @return the column(s) making up the discriminator
+   */
+  Column[] columns() default {};
 }

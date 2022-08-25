@@ -18,13 +18,12 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the sequence strategy values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum SequenceStrategy
-{
-    NONTRANSACTIONAL,
-    CONTIGUOUS,
-    NONCONTIGUOUS
+public enum SequenceStrategy {
+  NONTRANSACTIONAL,
+  CONTIGUOUS,
+  NONCONTIGUOUS
 }

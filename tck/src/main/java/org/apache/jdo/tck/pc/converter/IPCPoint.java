@@ -17,13 +17,15 @@
 package org.apache.jdo.tck.pc.converter;
 
 /**
- * Interface for common methods of implementation classes PCPoint, PCPointAnnotated,
- * PCPointProp and PCPointPropAnnotated.
+ * Interface for common methods of implementation classes PCPoint, PCPointAnnotated, PCPointProp and
+ * PCPointPropAnnotated.
  */
 public interface IPCPoint {
-    int getX();
-    void setX(int x);
+  int getX();
 
-    Integer getY();
-    void setY(Integer y);
+  void setX(int x);
+
+  Integer getY();
+
+  void setY(Integer y);
 }

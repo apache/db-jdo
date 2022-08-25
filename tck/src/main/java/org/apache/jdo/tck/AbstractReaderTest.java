@@ -17,15 +17,13 @@
 
 package org.apache.jdo.tck;
 
-import javax.jdo.JDOFatalInternalException;
-import javax.jdo.LegacyJava;
 import java.lang.reflect.InvocationTargetException;
 import java.security.PrivilegedAction;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javax.jdo.JDOFatalInternalException;
+import javax.jdo.LegacyJava;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /*
@@ -33,62 +31,63 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
  */
 public class AbstractReaderTest extends JDO_Test {
 
-    /** The list of all objects in the bean collection. */
-    protected List rootOids;
+  /** The list of all objects in the bean collection. */
+  protected List rootOids;
 
-    /** The name of the root object in the bean collection. */
-    protected static final String rootName = "root";
+  /** The name of the root object in the bean collection. */
+  protected static final String rootName = "root";
 
-    /** The name of the file containing the bean collection (test data). */
-    protected final String inputFilename = System.getProperty("jdo.tck.testdata");
+  /** The name of the file containing the bean collection (test data). */
+  protected final String inputFilename = System.getProperty("jdo.tck.testdata");
 
-    /** The map of String (bean name) to Object (bean). */
-    protected Map oidMap = new HashMap();
+  /** The map of String (bean name) to Object (bean). */
+  protected Map oidMap = new HashMap();
 
-    /** Get the named bean from the bean factory.
-     * 
-     * @param factory the bean factory
-     * @param name the name of the bean
-     * @return the named object
-     */
-    protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
-        return doPrivileged(
-            new PrivilegedAction() {
-                public Object run() {
-                    return factory.getBean(name);
-                }
-            }
-        );
+  /**
+   * Get the named bean from the bean factory.
+   *
+   * @param factory the bean factory
+   * @param name the name of the bean
+   * @return the named object
+   */
+  protected Object getBean(final DefaultListableBeanFactory factory, final String name) {
+    return doPrivileged(
+        new PrivilegedAction() {
+          public Object run() {
+            return factory.getBean(name);
+          }
+        });
+  }
+
+  @SuppressWarnings("unchecked")
+  private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
+    try {
+      return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      if (e.getCause() instanceof RuntimeException) {
+        throw (RuntimeException) e.getCause();
+      }
+      throw new JDOFatalInternalException(e.getMessage());
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    private static <T> T doPrivileged(PrivilegedAction<T> privilegedAction) {
-        try {
-            return (T) LegacyJava.doPrivilegedAction.invoke(null, privilegedAction);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            if (e.getCause() instanceof RuntimeException) {
-                throw (RuntimeException) e.getCause();
-            }
-            throw new JDOFatalInternalException(e.getMessage());
-        }
-    }
+  /**
+   * Get the root object from the bean factory.
+   *
+   * @param factory the bean factory
+   * @return the List of objects
+   */
+  protected List getRootList(DefaultListableBeanFactory factory) {
+    return (List) getBean(factory, rootName);
+  }
 
-    /** Get the root object from the bean factory.
-     * 
-     * @param factory the bean factory
-     * @return the List of objects
-     */
-    protected List getRootList(DefaultListableBeanFactory factory) {
-        return (List) getBean(factory, rootName);
-    }
-
-    /** Get the named object from the Map of objects.
-     * 
-     * @param name the bean name
-     * @return the named object
-     */
-    protected Object getOidByName(String name) {
-        return oidMap.get((Object)name);
-    }
-
+  /**
+   * Get the named object from the Map of objects.
+   *
+   * @param name the bean name
+   * @return the named object
+   */
+  protected Object getOidByName(String name) {
+    return oidMap.get((Object) name);
+  }
 }

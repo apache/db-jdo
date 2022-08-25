@@ -18,14 +18,13 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the identity type values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum IdentityType
-{
-    UNSPECIFIED,
-    APPLICATION,
-    DATASTORE,
-    NONDURABLE
+public enum IdentityType {
+  UNSPECIFIED,
+  APPLICATION,
+  DATASTORE,
+  NONDURABLE
 }

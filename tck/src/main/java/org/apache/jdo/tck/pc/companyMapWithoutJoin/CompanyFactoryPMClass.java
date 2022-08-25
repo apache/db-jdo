@@ -23,42 +23,43 @@ import javax.jdo.PersistenceManager;
  * CompanyFactoryPMClass.java
  *
  * This class uses the PersistenceManager.newInstance method with the concrete
- * class as a parameter. 
+ * class as a parameter.
  */
-public class CompanyFactoryPMClass 
-        extends CompanyFactoryAbstractImpl {
-    
-    /** */
-    public static final Class[] tearDownClasses = new Class[] {
-        PartTimeEmployee.class, FullTimeEmployee.class,  
-        Department.class, Company.class
-    };
+public class CompanyFactoryPMClass extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactoryPMClass
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryPMClass(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    ICompany newCompany() {
-        return (ICompany)pm.newInstance(Company.class);
-    }
-    
-    IDepartment newDepartment() {
-        return (IDepartment)pm.newInstance(Department.class);
-    }
-    
-    IFullTimeEmployee  newFullTimeEmployee() {
-        return (IFullTimeEmployee)pm.newInstance(FullTimeEmployee.class);
-    }
-    
-    IPartTimeEmployee  newPartTimeEmployee() {
-        return (IPartTimeEmployee)pm.newInstance(PartTimeEmployee.class);
-    }
-    
-    public Class[] getTearDownClasses() {
-        return tearDownClasses;
-    }
+  /** */
+  public static final Class[] tearDownClasses =
+      new Class[] {
+        PartTimeEmployee.class, FullTimeEmployee.class,
+        Department.class, Company.class
+      };
+
+  /**
+   * Creates a new instance of CompanyFactoryPMClass
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryPMClass(PersistenceManager pm) {
+    super(pm);
+  }
+
+  ICompany newCompany() {
+    return (ICompany) pm.newInstance(Company.class);
+  }
+
+  IDepartment newDepartment() {
+    return (IDepartment) pm.newInstance(Department.class);
+  }
+
+  IFullTimeEmployee newFullTimeEmployee() {
+    return (IFullTimeEmployee) pm.newInstance(FullTimeEmployee.class);
+  }
+
+  IPartTimeEmployee newPartTimeEmployee() {
+    return (IPartTimeEmployee) pm.newInstance(PartTimeEmployee.class);
+  }
+
+  public Class[] getTearDownClasses() {
+    return tearDownClasses;
+  }
 }

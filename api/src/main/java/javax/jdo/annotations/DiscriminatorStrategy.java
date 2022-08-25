@@ -18,14 +18,13 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the discriminator strategy values.
- * 
+ *
  * @version 2.1
  * @since 2.1
  */
-public enum DiscriminatorStrategy
-{
-    UNSPECIFIED,
-    NONE,
-    VALUE_MAP,
-    CLASS_NAME
+public enum DiscriminatorStrategy {
+  UNSPECIFIED,
+  NONE,
+  VALUE_MAP,
+  CLASS_NAME
 }

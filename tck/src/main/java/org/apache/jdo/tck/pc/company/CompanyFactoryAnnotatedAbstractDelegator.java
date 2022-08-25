@@ -25,60 +25,59 @@ import javax.jdo.PersistenceManager;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public abstract class CompanyFactoryAnnotatedAbstractDelegator
-        extends CompanyFactoryAbstractImpl {
-    
-    public CompanyFactoryNewInstance delegate = null;
-    
-    public final String identitytype =
-            System.getProperty("jdo.tck.identitytype");
-    public boolean isAppIdentity = "applicationidentity".equals(identitytype);
+public abstract class CompanyFactoryAnnotatedAbstractDelegator extends CompanyFactoryAbstractImpl {
 
-    /**
-     * Creates a new instance of CompanyFactory
-     * @param pm the PersistenceManager
-     */
-    public CompanyFactoryAnnotatedAbstractDelegator(PersistenceManager pm) {
-        super(pm);
-    }
-    
-    public IAddress newAddress() {
-        return (IAddress)delegate.newAddress();
-    }
+  public CompanyFactoryNewInstance delegate = null;
 
-    public IMeetingRoom newMeetingRoom() {
-        return (IMeetingRoom)delegate.newMeetingRoom();
-    }
+  public final String identitytype = System.getProperty("jdo.tck.identitytype");
+  public boolean isAppIdentity = "applicationidentity".equals(identitytype);
 
-    public ICompany newCompany() {
-        return (ICompany)delegate.newCompany();
-    }
-    
-    public IDentalInsurance newDentalInsurance() {
-        return (IDentalInsurance)delegate.newDentalInsurance();
-    }
-    
-    public IDepartment newDepartment() {
-        return (IDepartment)delegate.newDepartment();
-    }
-    
-    public IFullTimeEmployee newFullTimeEmployee() {
-        return (IFullTimeEmployee)delegate.newFullTimeEmployee();
-    }
-    
-    public IMedicalInsurance newMedicalInsurance() {
-        return (IMedicalInsurance)delegate.newMedicalInsurance();
-    }
-    
-    public IPartTimeEmployee newPartTimeEmployee() {
-        return (IPartTimeEmployee)delegate.newPartTimeEmployee();
-    }
-    
-    public IProject newProject() {
-        return (IProject)delegate.newProject();
-    }
-    
-    public Class[]getTearDownClasses() {
-        return delegate.getTearDownClasses();
-    }
+  /**
+   * Creates a new instance of CompanyFactory
+   *
+   * @param pm the PersistenceManager
+   */
+  public CompanyFactoryAnnotatedAbstractDelegator(PersistenceManager pm) {
+    super(pm);
+  }
+
+  public IAddress newAddress() {
+    return (IAddress) delegate.newAddress();
+  }
+
+  public IMeetingRoom newMeetingRoom() {
+    return (IMeetingRoom) delegate.newMeetingRoom();
+  }
+
+  public ICompany newCompany() {
+    return (ICompany) delegate.newCompany();
+  }
+
+  public IDentalInsurance newDentalInsurance() {
+    return (IDentalInsurance) delegate.newDentalInsurance();
+  }
+
+  public IDepartment newDepartment() {
+    return (IDepartment) delegate.newDepartment();
+  }
+
+  public IFullTimeEmployee newFullTimeEmployee() {
+    return (IFullTimeEmployee) delegate.newFullTimeEmployee();
+  }
+
+  public IMedicalInsurance newMedicalInsurance() {
+    return (IMedicalInsurance) delegate.newMedicalInsurance();
+  }
+
+  public IPartTimeEmployee newPartTimeEmployee() {
+    return (IPartTimeEmployee) delegate.newPartTimeEmployee();
+  }
+
+  public IProject newProject() {
+    return (IProject) delegate.newProject();
+  }
+
+  public Class[] getTearDownClasses() {
+    return delegate.getTearDownClasses();
+  }
 }

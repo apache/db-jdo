@@ -22,15 +22,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to specify that the class is persistence-aware. If used, this is
- * the only JDO annotation allowed on the class.
- * This corresponds to the xml attribute 
+ * Annotation to specify that the class is persistence-aware. If used, this is the only JDO
+ * annotation allowed on the class. This corresponds to the xml attribute
  * persistence-modifier="persistence-aware" of the "class" element.
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PersistenceAware
-{
-}
+public @interface PersistenceAware {}

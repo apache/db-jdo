@@ -5,13 +5,13 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
@@ -19,11 +19,8 @@ package org.apache.jdo.tck.query.jdoql;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.jdo.JDOQLTypedQuery;
 import javax.jdo.query.Expression;
-
-import org.apache.jdo.tck.JDO_Test;
 import org.apache.jdo.tck.pc.company.CompanyModelReader;
 import org.apache.jdo.tck.pc.company.Department;
 import org.apache.jdo.tck.pc.company.Employee;
@@ -33,151 +30,146 @@ import org.apache.jdo.tck.query.QueryTest;
 import org.apache.jdo.tck.util.BatchTestRunner;
 
 /**
- *<B>Title:</B> Multiple identical imports
- *<BR>
- *<B>Keywords:</B> query
- *<BR>
- *<B>Assertion ID:</B> A14.4-5.
- *<BR>
- *<B>Assertion Description: </B>
- * It is valid to specify the same import multiple times.
+ * <B>Title:</B> Multiple identical imports <br>
+ * <B>Keywords:</B> query <br>
+ * <B>Assertion ID:</B> A14.4-5. <br>
+ * <B>Assertion Description: </B> It is valid to specify the same import multiple times.
  */
-
 public class MultipleIdenticalImports extends QueryTest {
 
-    /** */
-    private static final String ASSERTION_FAILED = 
-        "Assertion A14.4-5 (MultipleIdenticalImports) failed: ";
-    
-    /**
-     * The <code>main</code> is called when the class
-     * is directly executed from the command line.
-     * @param args The arguments passed to the program.
-     */
-    public static void main(String[] args) {
-        BatchTestRunner.run(MultipleIdenticalImports.class);
-    }
+  /** */
+  private static final String ASSERTION_FAILED =
+      "Assertion A14.4-5 (MultipleIdenticalImports) failed: ";
 
-    /**
-     *
-     */
-    public void testImportDepartmentTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+  /**
+   * The <code>main</code> is called when the class is directly executed from the command line.
+   *
+   * @param args The arguments passed to the program.
+   */
+  public static void main(String[] args) {
+    BatchTestRunner.run(MultipleIdenticalImports.class);
+  }
 
-        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-        QEmployee cand = QEmployee.candidate();
-        Expression<Department> empParam = query.parameter("d", Department.class);
-        query.filter(cand.department.eq(empParam));
+  /** */
+  public void testImportDepartmentTwice() {
+    Object expected =
+        getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3"});
 
-        Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+    QEmployee cand = QEmployee.candidate();
+    Expression<Department> empParam = query.parameter("d", Department.class);
+    query.filter(cand.department.eq(empParam));
 
-        // Import Department twice
-        QueryElementHolder holder = new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null,
-                /*INTO*/        null,
-                /*FROM*/        Employee.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "department == d",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "Department d",
-                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Department; " +
-                "import org.apache.jdo.tck.pc.company.Department;",
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null,
-                /*JDOQLTyped*/  query,
-                /*paramValues*/ paramValues);
+    Map<String, Object> paramValues = new HashMap<>();
+    paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expected);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
-    }
+    // Import Department twice
+    QueryElementHolder holder =
+        new QueryElementHolder(
+            /*UNIQUE*/ null,
+            /*RESULT*/ null,
+            /*INTO*/ null,
+            /*FROM*/ Employee.class,
+            /*EXCLUDE*/ null,
+            /*WHERE*/ "department == d",
+            /*VARIABLES*/ null,
+            /*PARAMETERS*/ "Department d",
+            /*IMPORTS*/ "import org.apache.jdo.tck.pc.company.Department; "
+                + "import org.apache.jdo.tck.pc.company.Department;",
+            /*GROUP BY*/ null,
+            /*ORDER BY*/ null,
+            /*FROM*/ null,
+            /*TO*/ null,
+            /*JDOQLTyped*/ query,
+            /*paramValues*/ paramValues);
 
-    /**
-     *
-     */
-    public void testImportDepartmentExplicitlyAndPerTypeImportOnDemand() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+    executeAPIQuery(ASSERTION_FAILED, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
 
-        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-        QEmployee cand = QEmployee.candidate();
-        Expression<Department> empParam = query.parameter("d", Department.class);
-        query.filter(cand.department.eq(empParam));
+  /** */
+  public void testImportDepartmentExplicitlyAndPerTypeImportOnDemand() {
+    Object expected =
+        getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3"});
 
-        Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+    QEmployee cand = QEmployee.candidate();
+    Expression<Department> empParam = query.parameter("d", Department.class);
+    query.filter(cand.department.eq(empParam));
 
-        // Import Department explictly and per type-import-on-demand
-        QueryElementHolder holder = new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null,
-                /*INTO*/        null,
-                /*FROM*/        Employee.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "department == d",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "Department d",
-                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.Department; " +
-                "import org.apache.jdo.tck.pc.company.*",
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null,
-                /*JDOQLTyped*/  query,
-                /*paramValues*/ paramValues);
+    Map<String, Object> paramValues = new HashMap<>();
+    paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expected);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
-    }
+    // Import Department explictly and per type-import-on-demand
+    QueryElementHolder holder =
+        new QueryElementHolder(
+            /*UNIQUE*/ null,
+            /*RESULT*/ null,
+            /*INTO*/ null,
+            /*FROM*/ Employee.class,
+            /*EXCLUDE*/ null,
+            /*WHERE*/ "department == d",
+            /*VARIABLES*/ null,
+            /*PARAMETERS*/ "Department d",
+            /*IMPORTS*/ "import org.apache.jdo.tck.pc.company.Department; "
+                + "import org.apache.jdo.tck.pc.company.*",
+            /*GROUP BY*/ null,
+            /*ORDER BY*/ null,
+            /*FROM*/ null,
+            /*TO*/ null,
+            /*JDOQLTyped*/ query,
+            /*paramValues*/ paramValues);
 
-    /**
-     * 
-     */
-    public void testTypeImportOnDemandTwice() {
-        Object expected = getTransientCompanyModelInstancesAsList(new String[]{"emp1", "emp2", "emp3"});
+    executeAPIQuery(ASSERTION_FAILED, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
 
-        JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
-        QEmployee cand = QEmployee.candidate();
-        Expression<Department> empParam = query.parameter("d", Department.class);
-        query.filter(cand.department.eq(empParam));
+  /** */
+  public void testTypeImportOnDemandTwice() {
+    Object expected =
+        getTransientCompanyModelInstancesAsList(new String[] {"emp1", "emp2", "emp3"});
 
-        Map<String, Object> paramValues = new HashMap<>();
-        paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
+    JDOQLTypedQuery<Employee> query = getPM().newJDOQLTypedQuery(Employee.class);
+    QEmployee cand = QEmployee.candidate();
+    Expression<Department> empParam = query.parameter("d", Department.class);
+    query.filter(cand.department.eq(empParam));
 
-        // type-import-on-demand twice
-        QueryElementHolder holder = new QueryElementHolder(
-                /*UNIQUE*/      null,
-                /*RESULT*/      null,
-                /*INTO*/        null,
-                /*FROM*/        Employee.class,
-                /*EXCLUDE*/     null,
-                /*WHERE*/       "department == d",
-                /*VARIABLES*/   null,
-                /*PARAMETERS*/  "Department d",
-                /*IMPORTS*/     "import org.apache.jdo.tck.pc.company.*; " +
-                "import org.apache.jdo.tck.pc.company.*",
-                /*GROUP BY*/    null,
-                /*ORDER BY*/    null,
-                /*FROM*/        null,
-                /*TO*/          null,
-                /*JDOQLTyped*/  query,
-                /*paramValues*/ paramValues);
+    Map<String, Object> paramValues = new HashMap<>();
+    paramValues.put("d", getPersistentCompanyModelInstance("dept1"));
 
-        executeAPIQuery(ASSERTION_FAILED, holder, expected);
-        executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
-        executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
-    }
+    // type-import-on-demand twice
+    QueryElementHolder holder =
+        new QueryElementHolder(
+            /*UNIQUE*/ null,
+            /*RESULT*/ null,
+            /*INTO*/ null,
+            /*FROM*/ Employee.class,
+            /*EXCLUDE*/ null,
+            /*WHERE*/ "department == d",
+            /*VARIABLES*/ null,
+            /*PARAMETERS*/ "Department d",
+            /*IMPORTS*/ "import org.apache.jdo.tck.pc.company.*; "
+                + "import org.apache.jdo.tck.pc.company.*",
+            /*GROUP BY*/ null,
+            /*ORDER BY*/ null,
+            /*FROM*/ null,
+            /*TO*/ null,
+            /*JDOQLTyped*/ query,
+            /*paramValues*/ paramValues);
 
-    /**
-     * @see org.apache.jdo.tck.JDO_Test#localSetUp()
-     */
-    @Override
-    protected void localSetUp() {
-        addTearDownClass(CompanyModelReader.getTearDownClasses());
-        loadAndPersistCompanyModel(getPM());
-    }
+    executeAPIQuery(ASSERTION_FAILED, holder, expected);
+    executeSingleStringQuery(ASSERTION_FAILED, holder, expected);
+    executeJDOQLTypedQuery(ASSERTION_FAILED, holder, expected);
+  }
+
+  /**
+   * @see org.apache.jdo.tck.JDO_Test#localSetUp()
+   */
+  @Override
+  protected void localSetUp() {
+    addTearDownClass(CompanyModelReader.getTearDownClasses());
+    loadAndPersistCompanyModel(getPM());
+  }
 }

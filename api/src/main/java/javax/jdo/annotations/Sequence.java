@@ -22,52 +22,62 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a datastore sequence.
- * Maps across to the JDO2 element "sequence".
- * 
+ * Annotation for a datastore sequence. Maps across to the JDO2 element "sequence".
+ *
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE) 
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Sequence
-{
-    /** The symbolic name of the datastore sequence. 
-     * @return the name of the sequence
-     */
-    String name();
+public @interface Sequence {
+  /**
+   * The symbolic name of the datastore sequence.
+   *
+   * @return the name of the sequence
+   */
+  String name();
 
-    /** Strategy for the sequence. 
-     * @return the strategy for the sequence
-     */
-    SequenceStrategy strategy();
+  /**
+   * Strategy for the sequence.
+   *
+   * @return the strategy for the sequence
+   */
+  SequenceStrategy strategy();
 
-    /** Name of the sequence in the datastore. 
-     * @return the name of the datastore sequence
-     */
-    String datastoreSequence() default "";
+  /**
+   * Name of the sequence in the datastore.
+   *
+   * @return the name of the datastore sequence
+   */
+  String datastoreSequence() default "";
 
-    /** Name of a factory class for generating the sequence values. 
-     * @return the name of the factory class for the sequence
-     */
-    Class factoryClass() default void.class;
+  /**
+   * Name of a factory class for generating the sequence values.
+   *
+   * @return the name of the factory class for the sequence
+   */
+  Class factoryClass() default void.class;
 
-    /** Vendor extensions for this sequence. 
-     * @return vendor extensions
-     */
-    Extension[] extensions() default {};
+  /**
+   * Vendor extensions for this sequence.
+   *
+   * @return vendor extensions
+   */
+  Extension[] extensions() default {};
 
-    /**
-     * Initial value for the sequence.
-     * @return Initial value for the sequence
-     * @since 3.1
-     */
-    int initialValue() default 1;
+  /**
+   * Initial value for the sequence.
+   *
+   * @return Initial value for the sequence
+   * @since 3.1
+   */
+  int initialValue() default 1;
 
-    /**
-     * Allocation size for the sequence.
-     * @return Allocation size for the sequence
-     * @since 3.1
-     */
-    int allocationSize() default 50;
+  /**
+   * Allocation size for the sequence.
+   *
+   * @return Allocation size for the sequence
+   * @since 3.1
+   */
+  int allocationSize() default 50;
 }
