@@ -18,14 +18,15 @@ package javax.jdo.annotations;
 
 /**
  * Enumeration of the inheritance strategy values.
- *
+ * 
  * @version 3.1
  * @since 2.1
  */
-public enum InheritanceStrategy {
-  UNSPECIFIED,
-  NEW_TABLE,
-  SUBCLASS_TABLE,
-  SUPERCLASS_TABLE,
-  COMPLETE_TABLE
+public enum InheritanceStrategy
+{
+    UNSPECIFIED,
+    NEW_TABLE,
+    SUBCLASS_TABLE,
+    SUPERCLASS_TABLE,
+    COMPLETE_TABLE
 }

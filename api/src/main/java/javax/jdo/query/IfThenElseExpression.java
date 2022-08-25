@@ -23,41 +23,38 @@ package javax.jdo.query;
  */
 public interface IfThenElseExpression<T> extends ComparableExpression<T> {
 
-  /**
-   * Method to add an "IF (...) ..." clause. If called multiple times, will add extra "IF (...) ..."
-   * or "ELSE IF (...) ..."
-   *
-   * @param cond The if expression
-   * @param thenValueExpr Expression to return when the if expression is met
-   * @return This expression
-   */
-  IfThenElseExpression<T> ifThen(BooleanExpression cond, Expression<T> thenValueExpr);
+    /**
+     * Method to add an "IF (...) ..." clause.
+     * If called multiple times, will add extra "IF (...) ..." or "ELSE IF (...) ..."
+     * @param cond The if expression
+     * @param thenValueExpr Expression to return when the if expression is met
+     * @return This expression
+     */
+    IfThenElseExpression<T> ifThen(BooleanExpression cond, Expression<T> thenValueExpr);
 
-  /**
-   * Method to add an "IF (...) ..." clause. If called multiple times, will add extra "IF (...) ..."
-   * or "ELSE IF (...) ..."
-   *
-   * @param cond The if condition
-   * @param thenValue Value to return when the if expression is met
-   * @return This expression
-   */
-  IfThenElseExpression<T> ifThen(BooleanExpression cond, T thenValue);
+    /**
+     * Method to add an "IF (...) ..." clause.
+     * If called multiple times, will add extra "IF (...) ..." or "ELSE IF (...) ..."
+     * @param cond The if condition
+     * @param thenValue Value to return when the if expression is met
+     * @return This expression
+     */
+    IfThenElseExpression<T> ifThen(BooleanExpression cond, T thenValue);
 
-  /**
-   * Method to add the "ELSE ..." clause. If called multiple times will replace the previous else
-   * clause
-   *
-   * @param elseValueExpr Expression for value to return when the if expression is not met
-   * @return This expression
-   */
-  IfThenElseExpression<T> elseEnd(Expression<T> elseValueExpr);
+    /**
+     * Method to add the "ELSE ..." clause.
+     * If called multiple times will replace the previous else clause
+     * @param elseValueExpr Expression for value to return when the if expression is not met
+     * @return This expression
+     */
+    IfThenElseExpression<T> elseEnd(Expression<T> elseValueExpr);
 
-  /**
-   * Method to add the "ELSE ..." clause. If called multiple times will replace the previous else
-   * clause
-   *
-   * @param elseValue Value to return when the if expression is not met
-   * @return This expression
-   */
-  IfThenElseExpression<T> elseEnd(T elseValue);
+    /**
+     * Method to add the "ELSE ..." clause.
+     * If called multiple times will replace the previous else clause
+     * @param elseValue Value to return when the if expression is not met
+     * @return This expression
+     */
+    IfThenElseExpression<T> elseEnd(T elseValue);
+    
 }

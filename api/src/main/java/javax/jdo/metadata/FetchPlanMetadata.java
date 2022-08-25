@@ -18,66 +18,57 @@ package javax.jdo.metadata;
 
 /**
  * Represents a fetch plan for a class.
- *
  * @since 3.0
  */
 public interface FetchPlanMetadata extends Metadata {
-  /**
-   * Accessor for the fetch plan name (set on construction).
-   *
-   * @return The fetch plan name
-   */
-  String getName();
+    /**
+     * Accessor for the fetch plan name (set on construction).
+     * @return The fetch plan name
+     */
+    String getName();
 
-  /**
-   * Method to set the max fetch depth for this plan.
-   *
-   * @param depth The max fetch depth
-   * @return This metadata object
-   */
-  FetchPlanMetadata setMaxFetchDepth(int depth);
+    /**
+     * Method to set the max fetch depth for this plan.
+     * @param depth The max fetch depth
+     * @return This metadata object
+     */
+    FetchPlanMetadata setMaxFetchDepth(int depth);
 
-  /**
-   * Accessor for the max fetch depth.
-   *
-   * @return The max fetch depth
-   */
-  int getMaxFetchDepth();
+    /**
+     * Accessor for the max fetch depth.
+     * @return The max fetch depth
+     */
+    int getMaxFetchDepth();
 
-  /**
-   * Method to set the fetch size.
-   *
-   * @param size The fetch size
-   * @return This metadata object
-   */
-  FetchPlanMetadata setFetchSize(int size);
+    /**
+     * Method to set the fetch size.
+     * @param size The fetch size
+     * @return This metadata object
+     */
+    FetchPlanMetadata setFetchSize(int size);
 
-  /**
-   * Accessor for the max fetch depth.
-   *
-   * @return The max fetch depth
-   */
-  int getFetchSize();
+    /**
+     * Accessor for the max fetch depth.
+     * @return The max fetch depth
+     */
+    int getFetchSize();
 
-  /**
-   * Accessor for all fetch groups defined for this fetch plan.
-   *
-   * @return The fetch groups
-   */
-  FetchGroupMetadata[] getFetchGroups();
+    /**
+     * Accessor for all fetch groups defined for this fetch plan.
+     * @return The fetch groups
+     */
+    FetchGroupMetadata[] getFetchGroups();
 
-  /**
-   * Add a new fetch group for this fetch plan.
-   *
-   * @param name Name of fetch group.
-   * @return The FetchGroupMetadata
-   */
-  FetchGroupMetadata newFetchGroupMetadata(String name);
+    /**
+     * Add a new fetch group for this fetch plan.
+     * @param name Name of fetch group.
+     * @return The FetchGroupMetadata
+     */
+    FetchGroupMetadata newFetchGroupMetadata(String name);
 
-  /**
-   * Accessor for the number of fetch groups defined for this fetch plan.
-   *
-   * @return The number of fetch groups
-   */
-  int getNumberOfFetchGroups();
+    /**
+     * Accessor for the number of fetch groups defined for this fetch plan.
+     * @return The number of fetch groups
+     */
+    int getNumberOfFetchGroups();
 }

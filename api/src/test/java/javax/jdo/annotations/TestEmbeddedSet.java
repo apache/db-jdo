@@ -27,33 +27,35 @@ import java.util.Set;
  */
 @PersistenceCapable
 public abstract class TestEmbeddedSet {
+    
+    /** Creates a new instance of TestEmbeddedSet */
 
-  /** Creates a new instance of TestEmbeddedSet */
-  public TestEmbeddedSet() {}
+    public TestEmbeddedSet() {
+    }
 
-  @Persistent(table = "LINES", embeddedElement = "true")
-  @Join(column = "OWNER_FK")
-  @Element(
-      embeddedMapping =
-          @Embedded(
-              members = {
-                @Persistent(name = "point1.x", column = "POINT1_X"),
-                @Persistent(name = "point1.y", column = "POINT2_Y"),
-                @Persistent(name = "point2.x", column = "POINT2_X"),
-                @Persistent(name = "point2.y", column = "POINT2_Y")
-              }))
-  Set<Line> lines;
+    @Persistent (table="LINES", embeddedElement="true")
+    @Join(column="OWNER_FK")
+    @Element (
+        embeddedMapping=@Embedded(
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
+            }))
+    Set<Line> lines;
 
-  @Persistent(embeddedElement = "true")
-  @Join(column = "OWNER_FK")
-  @Element(
-      embeddedMapping =
-          @Embedded(
-              members = {
-                @Persistent(name = "point1.x", column = "POINT1_X"),
-                @Persistent(name = "point1.y", column = "POINT2_Y"),
-                @Persistent(name = "point2.x", column = "POINT2_X"),
-                @Persistent(name = "point2.y", column = "POINT2_Y")
-              }))
-  abstract Set<Line> getLines();
+    @Persistent (embeddedElement="true")
+    @Join(column="OWNER_FK")
+    @Element (
+        embeddedMapping=@Embedded(
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
+            }))
+    abstract Set<Line> getLines();
+
+    
 }

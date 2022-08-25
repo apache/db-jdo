@@ -23,19 +23,20 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of joins.
- *
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Joins {
-  /**
-   * The join definitions used for the mapping of this type. Joins for secondary tables are usually
-   * defined at the type level and not the field or property level. This allows multiple fields and
-   * properties to share the same join definition and avoid redundancies.
-   *
-   * @return the join definitions
-   */
-  Join[] value();
+public @interface Joins
+{
+    /**
+     * The join definitions used for the mapping of this type. Joins for
+     * secondary tables are usually defined at the type level and not the
+     * field or property level. This allows multiple fields and properties
+     * to share the same join definition and avoid redundancies.
+     * @return the join definitions
+     */
+    Join[] value();
 }

@@ -23,56 +23,46 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a database index. Used for database schema generation to create indexes.
+ * Annotation for a database index. Used for database schema
+ * generation to create indexes.
  * Corresponds to the xml element "index".
  *
  * @version 3.2
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Indices.class)
-public @interface Index {
-  /**
-   * Name of the index
-   *
-   * @return the name of the index
-   */
-  String name() default "";
+public @interface Index
+{
+    /** Name of the index
+     * @return the name of the index
+     */
+    String name() default "";
 
-  /**
-   * Table for the index. This is needed iff annotating a type where the index is not defined on the
-   * primary table for the type.
-   *
-   * @return the table on which the index is defined
-   */
-  String table() default "";
+    /** Table for the index. This is needed iff annotating a type where
+     * the index is not defined on the primary table for the type.
+     * @return the table on which the index is defined
+     */
+    String table() default "";
 
-  /**
-   * Whether this index is unique
-   *
-   * @return whether this index is unique
-   */
-  String unique() default "";
+    /** Whether this index is unique
+     * @return whether this index is unique
+     */
+    String unique() default "";
 
-  /**
-   * Member (field and property) names that compose this index.
-   *
-   * @return member names that compose this index
-   */
-  String[] members() default {};
+    /** Member (field and property) names that compose this index.
+     * @return member names that compose this index
+     */
+    String[] members() default {};
 
-  /**
-   * Columns that compose this index.
-   *
-   * @return columns that compose this index
-   */
-  Column[] columns() default {};
+    /** Columns that compose this index.
+     * @return columns that compose this index
+     */
+    Column[] columns() default {};
 
-  /**
-   * Vendor extensions.
-   *
-   * @return the vendor extensions
-   */
-  Extension[] extensions() default {};
+    /** Vendor extensions.
+     * @return the vendor extensions
+     */
+    Extension[] extensions() default {};
 }

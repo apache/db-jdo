@@ -26,35 +26,35 @@ import java.util.Map;
  *
  */
 public abstract class TestEmbeddedMap {
+    
+    /** Creates a new instance of TestEmbeddedMap */
+    public TestEmbeddedMap() {
+    }
 
-  /** Creates a new instance of TestEmbeddedMap */
-  public TestEmbeddedMap() {}
+    @Persistent(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
+    @Join(column="OWNER_FK")
+    @Key(column="INTEGER")
+    @Value(
+        embeddedMapping=@Embedded(
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
+    }))
+    Map<Integer, Line> integerLines;
 
-  @Persistent(table = "INTEGER_LINES", embeddedKey = "true", embeddedValue = "true")
-  @Join(column = "OWNER_FK")
-  @Key(column = "INTEGER")
-  @Value(
-      embeddedMapping =
-          @Embedded(
-              members = {
-                @Persistent(name = "point1.x", column = "POINT1_X"),
-                @Persistent(name = "point1.y", column = "POINT2_Y"),
-                @Persistent(name = "point2.x", column = "POINT2_X"),
-                @Persistent(name = "point2.y", column = "POINT2_Y")
-              }))
-  Map<Integer, Line> integerLines;
+    @Persistent(table="INTEGER_LINES", embeddedKey="true", embeddedValue="true")
+    @Join(column="OWNER_FK")
+    @Key(column="INTEGER")
+    @Value(
+        embeddedMapping=@Embedded(
+            members={
+                @Persistent(name="point1.x", column="POINT1_X"),
+                @Persistent(name="point1.y", column="POINT2_Y"),
+                @Persistent(name="point2.x", column="POINT2_X"),
+                @Persistent(name="point2.y", column="POINT2_Y")
+    }))
+    abstract Map<Integer, Line> getIntegerLines();
 
-  @Persistent(table = "INTEGER_LINES", embeddedKey = "true", embeddedValue = "true")
-  @Join(column = "OWNER_FK")
-  @Key(column = "INTEGER")
-  @Value(
-      embeddedMapping =
-          @Embedded(
-              members = {
-                @Persistent(name = "point1.x", column = "POINT1_X"),
-                @Persistent(name = "point1.y", column = "POINT2_Y"),
-                @Persistent(name = "point2.x", column = "POINT2_X"),
-                @Persistent(name = "point2.y", column = "POINT2_Y")
-              }))
-  abstract Map<Integer, Line> getIntegerLines();
 }

@@ -18,7 +18,8 @@ package javax.jdo.metadata;
 
 /**
  * Represents a field in a class.
- *
  * @since 3.0
  */
-public interface FieldMetadata extends MemberMetadata {}
+public interface FieldMetadata extends MemberMetadata {
+
+}

@@ -18,16 +18,7 @@
 package org.apache.jdo.tck.pc.companyAnnotatedPC;
 
 import javax.jdo.PersistenceManager;
-import org.apache.jdo.tck.pc.company.CompanyFactoryNewInstance;
-import org.apache.jdo.tck.pc.company.IAddress;
-import org.apache.jdo.tck.pc.company.ICompany;
-import org.apache.jdo.tck.pc.company.IDentalInsurance;
-import org.apache.jdo.tck.pc.company.IDepartment;
-import org.apache.jdo.tck.pc.company.IFullTimeEmployee;
-import org.apache.jdo.tck.pc.company.IMedicalInsurance;
-import org.apache.jdo.tck.pc.company.IMeetingRoom;
-import org.apache.jdo.tck.pc.company.IPartTimeEmployee;
-import org.apache.jdo.tck.pc.company.IProject;
+import org.apache.jdo.tck.pc.company.*;
 
 /*
  * CompanyFactoryAnnotatedFCDSPM.java
@@ -35,65 +26,65 @@ import org.apache.jdo.tck.pc.company.IProject;
  * This class uses the PersistenceManager.newInstance method with the concrete
  * class as a parameter.
  */
-public class CompanyFactoryAnnotatedPCDSConcrete implements CompanyFactoryNewInstance {
+public class CompanyFactoryAnnotatedPCDSConcrete
+        implements CompanyFactoryNewInstance {
+    
+    PersistenceManager pm = null;
 
-  PersistenceManager pm = null;
+    /**
+     * Creates a new instance of CompanyFactoryAnnotatedPCDSConcrete
+     * @param pm the PersistenceManager
+     */
+    public CompanyFactoryAnnotatedPCDSConcrete(PersistenceManager pm) {
+        this.pm = pm;        
+    }
+    
+    public Class[] getTearDownClasses() {
+        return new Class[] {
+            PCDSDentalInsurance.class,
+            PCDSMedicalInsurance.class,
+            PCDSPartTimeEmployee.class,
+            PCDSFullTimeEmployee.class,
+            PCDSProject.class,
+            PCDSDepartment.class,
+            PCDSCompany.class,
+            PCDSAddress.class
+        };
+    }
+    
+    public IAddress newAddress() {
+        return (IAddress) new PCDSAddress();
+    }
 
-  /**
-   * Creates a new instance of CompanyFactoryAnnotatedPCDSConcrete
-   *
-   * @param pm the PersistenceManager
-   */
-  public CompanyFactoryAnnotatedPCDSConcrete(PersistenceManager pm) {
-    this.pm = pm;
-  }
-
-  public Class[] getTearDownClasses() {
-    return new Class[] {
-      PCDSDentalInsurance.class,
-      PCDSMedicalInsurance.class,
-      PCDSPartTimeEmployee.class,
-      PCDSFullTimeEmployee.class,
-      PCDSProject.class,
-      PCDSDepartment.class,
-      PCDSCompany.class,
-      PCDSAddress.class
-    };
-  }
-
-  public IAddress newAddress() {
-    return (IAddress) new PCDSAddress();
-  }
-
-  public IMeetingRoom newMeetingRoom() {
-    return (IMeetingRoom) null;
-  }
-
-  public ICompany newCompany() {
-    return (ICompany) new PCDSCompany();
-  }
-
-  public IDentalInsurance newDentalInsurance() {
-    return (IDentalInsurance) new PCDSDentalInsurance();
-  }
-
-  public IDepartment newDepartment() {
-    return (IDepartment) new PCDSDepartment();
-  }
-
-  public IFullTimeEmployee newFullTimeEmployee() {
-    return (IFullTimeEmployee) new PCDSFullTimeEmployee();
-  }
-
-  public IMedicalInsurance newMedicalInsurance() {
-    return (IMedicalInsurance) new PCDSMedicalInsurance();
-  }
-
-  public IPartTimeEmployee newPartTimeEmployee() {
-    return (IPartTimeEmployee) new PCDSPartTimeEmployee();
-  }
-
-  public IProject newProject() {
-    return (IProject) new PCDSProject();
-  }
+    public IMeetingRoom newMeetingRoom() {
+        return (IMeetingRoom)null;
+    }
+    
+    public ICompany newCompany() {
+        return (ICompany) new PCDSCompany();
+    }
+    
+    public IDentalInsurance newDentalInsurance() {
+        return (IDentalInsurance) new PCDSDentalInsurance();
+    }
+    
+    public IDepartment newDepartment() {
+        return (IDepartment) new PCDSDepartment();
+    }
+    
+    public IFullTimeEmployee newFullTimeEmployee() {
+        return (IFullTimeEmployee) new PCDSFullTimeEmployee();
+    }
+    
+    public IMedicalInsurance newMedicalInsurance() {
+        return (IMedicalInsurance) new PCDSMedicalInsurance();
+    }
+    
+    public IPartTimeEmployee newPartTimeEmployee() {
+        return (IPartTimeEmployee) new PCDSPartTimeEmployee();
+    }
+    
+    public IProject newProject() {
+        return (IProject) new PCDSProject();
+    }
 }

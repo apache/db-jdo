@@ -23,17 +23,16 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of columns.
- *
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE}) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Columns {
-  /**
-   * The columns annotation information.
-   *
-   * @return the columns
-   */
-  Column[] value();
+public @interface Columns
+{
+    /** The columns annotation information.
+     * @return the columns
+     */
+    Column[] value();
 }

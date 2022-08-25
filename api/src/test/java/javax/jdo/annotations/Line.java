@@ -24,10 +24,11 @@ package javax.jdo.annotations;
  *
  */
 public class Line {
+    
+    /** Creates a new instance of Line */
+    public Line() {
+    }
 
-  /** Creates a new instance of Line */
-  public Line() {}
-
-  Point point1;
-  Point point2;
+    Point point1;
+    Point point2;
 }

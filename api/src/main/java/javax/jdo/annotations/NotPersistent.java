@@ -22,13 +22,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to specify that the member is not persistent. If used, this is the only JDO annotation
- * allowed on a member. This corresponds to the xml attribute persistence-modifier="none" of the
+ * Annotation to specify that the member is not persistent. If used, this is
+ * the only JDO annotation allowed on a member.
+ * This corresponds to the xml attribute persistence-modifier="none" of the
  * "field" and "property" elements.
- *
  * @version 2.1
  * @since 2.1
  */
-@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NotPersistent {}
+public @interface NotPersistent
+{
+}

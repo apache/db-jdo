@@ -18,103 +18,91 @@ package javax.jdo.metadata;
 
 /**
  * Represents a unique constraint.
- *
  * @since 3.0
  */
 public interface UniqueMetadata extends Metadata {
-  /**
-   * Method to set the name of the constraint.
-   *
-   * @param name Name of the constraint
-   * @return This metadata object
-   */
-  UniqueMetadata setName(String name);
+    /**
+     * Method to set the name of the constraint.
+     * @param name Name of the constraint
+     * @return This metadata object
+     */
+    UniqueMetadata setName(String name);
 
-  /**
-   * Accessor for the constraint name.
-   *
-   * @return The constraint name
-   */
-  String getName();
+    /**
+     * Accessor for the constraint name.
+     * @return The constraint name
+     */
+    String getName();
 
-  /**
-   * Method to set the table name.
-   *
-   * @param table Table name
-   * @return This metadata object
-   */
-  UniqueMetadata setTable(String table);
+    /**
+     * Method to set the table name.
+     * @param table Table name
+     * @return This metadata object
+     */
+    UniqueMetadata setTable(String table);
 
-  /**
-   * Accessor for the name of the table.
-   *
-   * @return The name
-   */
-  String getTable();
+    /**
+     * Accessor for the name of the table.
+     * @return The name
+     */
+    String getTable();
 
-  /**
-   * Method to set whether the constraint is deferred.
-   *
-   * @param def Deferred?
-   * @return This metadata object
-   */
-  UniqueMetadata setDeferred(boolean def);
+    /**
+     * Method to set whether the constraint is deferred.
+     * @param def Deferred?
+     * @return This metadata object
+     */
+    UniqueMetadata setDeferred(boolean def);
 
-  /**
-   * Accessor for whether deferred.
-   *
-   * @return Deferred?
-   */
-  Boolean getDeferred();
+    /**
+     * Accessor for whether deferred.
+     * @return Deferred?
+     */
+    Boolean getDeferred();
 
-  /**
-   * Accessor for all column(s) defined on the unique constraint.
-   *
-   * @return The column(s)
-   */
-  ColumnMetadata[] getColumns();
+    /**
+     * Accessor for all column(s) defined on the unique constraint.
+     * @return The column(s)
+     */
+    ColumnMetadata[] getColumns();
 
-  /**
-   * Add a new column for this unique constraint.
-   *
-   * @return The ColumnMetadata
-   */
-  ColumnMetadata newColumnMetadata();
+    /**
+     * Add a new column for this unique constraint.
+     * @return The ColumnMetadata
+     */
+    ColumnMetadata newColumnMetadata();
 
-  /**
-   * Accessor for the number of columns defined for this unique constraint.
-   *
-   * @return The number of columns
-   */
-  int getNumberOfColumns();
+    /**
+     * Accessor for the number of columns defined for this unique constraint.
+     * @return The number of columns
+     */
+    int getNumberOfColumns();
 
-  /**
-   * Accessor for all fields/properties defined on the unique constraint.
-   *
-   * @return The members
-   */
-  MemberMetadata[] getMembers();
+    /**
+     * Accessor for all fields/properties defined on the unique constraint.
+     * @return The members
+     */
+    MemberMetadata[] getMembers();
 
-  /**
-   * Accessor for the number of fields/properties defined for this unique constraint.
-   *
-   * @return The number of members
-   */
-  int getNumberOfMembers();
+    /**
+     * Accessor for the number of fields/properties defined for this unique constraint.
+     * @return The number of members
+     */
+    int getNumberOfMembers();
 
-  /**
-   * Add a new field for this unique constraint.
-   *
-   * @param name Name of the field
-   * @return The FieldMetadata
-   */
-  FieldMetadata newFieldMetadata(String name);
+    /**
+     * Add a new field for this unique constraint.
+     * 
+     * @param name Name of the field
+     * @return The FieldMetadata
+     */
+    FieldMetadata newFieldMetadata(String name);
 
-  /**
-   * Add a new property for this unique constraint.
-   *
-   * @param name Name of the property
-   * @return The PropertyMetadata
-   */
-  PropertyMetadata newPropertyMetadata(String name);
+    /**
+     * Add a new property for this unique constraint.
+     * 
+     * @param name Name of the property
+     * @return The PropertyMetadata
+     */
+    PropertyMetadata newPropertyMetadata(String name);
 }

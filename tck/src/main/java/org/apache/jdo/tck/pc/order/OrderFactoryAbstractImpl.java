@@ -17,8 +17,10 @@
 
 package org.apache.jdo.tck.pc.order;
 
-import java.util.Set;
 import javax.jdo.PersistenceManager;
+
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,52 +31,52 @@ import org.apache.commons.logging.LogFactory;
  * classes that implement only the methods to construct the instance.
  */
 public abstract class OrderFactoryAbstractImpl implements OrderFactory {
+    
+    protected PersistenceManager pm;
+    
+    /** Logger */
+    protected Log logger = 
+        LogFactory.getFactory().getInstance("org.apache.jdo.tck");
 
-  protected PersistenceManager pm;
+    /** true if debug logging is enabled. */
+    protected boolean debug = logger.isDebugEnabled();
+    
+    /**
+     * Creates a new instance of OrderFactoryAbstractImpl
+     * @param pm the PersistnceManager
+     */
+    public OrderFactoryAbstractImpl(PersistenceManager pm) {
+        this.pm = pm;
+    }
 
-  /** Logger */
-  protected Log logger = LogFactory.getFactory().getInstance("org.apache.jdo.tck");
+    abstract Order newOrder();
+    abstract OrderItem newOrderItem();
 
-  /** true if debug logging is enabled. */
-  protected boolean debug = logger.isDebugEnabled();
+    public Order newOrder(long orderId, long customerId) {
+        Order result = newOrder();
+        result.setOrderId(orderId);
+        result.setCustomerId(customerId);
+        if (debug) logger.debug("newOrder returned" + result);
+        return result;
+    }
 
-  /**
-   * Creates a new instance of OrderFactoryAbstractImpl
-   *
-   * @param pm the PersistnceManager
-   */
-  public OrderFactoryAbstractImpl(PersistenceManager pm) {
-    this.pm = pm;
-  }
+    public Order newOrder(long orderId, Set items, long customerId) {
+        Order result = newOrder();
+        result.setOrderId(orderId);
+        result.setItems(items);
+        result.setCustomerId(customerId);
+        if (debug) logger.debug("newOrder returned" + result);
+        return result;
+    }
 
-  abstract Order newOrder();
-
-  abstract OrderItem newOrderItem();
-
-  public Order newOrder(long orderId, long customerId) {
-    Order result = newOrder();
-    result.setOrderId(orderId);
-    result.setCustomerId(customerId);
-    if (debug) logger.debug("newOrder returned" + result);
-    return result;
-  }
-
-  public Order newOrder(long orderId, Set items, long customerId) {
-    Order result = newOrder();
-    result.setOrderId(orderId);
-    result.setItems(items);
-    result.setCustomerId(customerId);
-    if (debug) logger.debug("newOrder returned" + result);
-    return result;
-  }
-
-  public OrderItem newOrderItem(Order order, long item, String description, int quantity) {
-    OrderItem result = newOrderItem();
-    result.setOrder(order);
-    result.setItem(item);
-    result.setDescription(description);
-    result.setQuantity(quantity);
-    if (debug) logger.debug("newOrderItem returned" + result);
-    return result;
-  }
+    public OrderItem newOrderItem(Order order, long item, String description,
+            int quantity) {
+        OrderItem result = newOrderItem();
+        result.setOrder(order);
+        result.setItem(item);
+        result.setDescription(description);
+        result.setQuantity(quantity);
+        if (debug) logger.debug("newOrderItem returned" + result);
+        return result;
+    }
 }

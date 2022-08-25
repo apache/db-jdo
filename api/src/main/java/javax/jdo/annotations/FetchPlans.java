@@ -23,17 +23,17 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for a group of FetchPlan objects
- *
+ * 
  * @version 2.1
  * @since 2.1
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.TYPE) 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FetchPlans {
-  /**
-   * The Fetch Plans
-   *
-   * @return The Fetch Plans
-   */
-  FetchPlan[] value();
+public @interface FetchPlans
+{
+    /**
+     * The Fetch Plans
+     * @return The Fetch Plans
+     */
+    FetchPlan[] value();
 }

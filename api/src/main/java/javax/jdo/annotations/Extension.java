@@ -23,33 +23,29 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation for a JDO vendor extension. Corresponds to the xml element "extension".
- *
+ * Annotation for a JDO vendor extension.
+ * Corresponds to the xml element "extension".
+ * 
  * @version 3.2
  * @since 2.1
  */
-@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.FIELD, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Extensions.class)
-public @interface Extension {
-  /**
-   * Vendor that the extension applies to (required).
-   *
-   * @return the vendor
-   */
-  String vendorName();
+public @interface Extension
+{
+    /** Vendor that the extension applies to (required).
+     * @return the vendor
+     */
+    String vendorName();
 
-  /**
-   * The key for the extension (required).
-   *
-   * @return the key
-   */
-  String key();
+    /** The key for the extension (required). 
+     * @return the key
+     */
+    String key();
 
-  /**
-   * The value for the extension (required).
-   *
-   * @return the value
-   */
-  String value();
+    /** The value for the extension (required). 
+     * @return the value
+     */
+    String value();
 }

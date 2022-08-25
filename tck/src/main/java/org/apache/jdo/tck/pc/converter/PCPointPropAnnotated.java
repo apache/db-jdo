@@ -16,60 +16,58 @@
  */
 package org.apache.jdo.tck.pc.converter;
 
-import java.util.Date;
+import org.apache.jdo.tck.util.IntegerToStringConverter;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Convert;
 import javax.jdo.annotations.PersistenceCapable;
-import org.apache.jdo.tck.util.IntegerToStringConverter;
+import java.util.Date;
 
 /**
- * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type int and
- * Integer are converted to strings in the datastore.
+ * PersistenceCapable class to test JDO AttributeConverter interface.
+ * Its fields of type int and Integer are converted to strings in the datastore.
  */
-@PersistenceCapable(table = "PCPointConv")
+@PersistenceCapable(table="PCPointConv")
 public class PCPointPropAnnotated implements IPCPoint {
-  private static long counter = new Date().getTime();
+    private static long counter = new Date().getTime();
 
-  private static synchronized long newId() {
-    return counter++;
-  }
+    private static synchronized long newId() {
+        return counter++;
+    }
 
-  private long id = newId();
-  private int x;
-  private Integer y;
+    private long id = newId();
+    private int x;
+    private Integer y;
 
-  public PCPointPropAnnotated() {}
+    public PCPointPropAnnotated() {}
 
-  @Column(name = "ID")
-  public long getId() {
-    return id;
-  }
+    @Column(name="ID")
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    @Column(name="X")
+    @Convert(value = IntegerToStringConverter.class)
+    public int getX() {
+        return x;
+    }
+    public void setX(int x ) {
+        this.x = x;
+    }
 
-  @Column(name = "X")
-  @Convert(value = IntegerToStringConverter.class)
-  public int getX() {
-    return x;
-  }
+    @Column(name="Y")
+    @Convert(value = IntegerToStringConverter.class)
+    public Integer getY() {
+        return y;
+    }
+    public void setY(Integer y) {
+        this.y = y;
+    }
 
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  @Column(name = "Y")
-  @Convert(value = IntegerToStringConverter.class)
-  public Integer getY() {
-    return y;
-  }
-
-  public void setY(Integer y) {
-    this.y = y;
-  }
-
-  public String toString() {
-    return this.getClass().getName() + "(x: " + x + " / y: " + y + ")";
-  }
+    public String toString() {
+        return this.getClass().getName() + "(x: " + x + " / y: " + y + ")";
+    }
 }

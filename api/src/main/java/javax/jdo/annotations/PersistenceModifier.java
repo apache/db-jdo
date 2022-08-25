@@ -17,15 +17,17 @@
 package javax.jdo.annotations;
 
 /**
- * Enumeration of the persistence-modifier values for a field or property. This corresponds to the
- * "persistence-modifier" attribute of the "field" and "property" elements.
- *
+ * Enumeration of the persistence-modifier values for a field or property.
+ * This corresponds to the "persistence-modifier" attribute of the
+ * "field" and "property" elements.
+ * 
  * @version 2.1
  * @since 2.1
  */
-public enum PersistenceModifier {
-  UNSPECIFIED,
-  PERSISTENT,
-  TRANSACTIONAL,
-  NONE
+public enum PersistenceModifier
+{
+    UNSPECIFIED,
+    PERSISTENT,
+    TRANSACTIONAL,
+    NONE
 }

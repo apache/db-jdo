@@ -15,51 +15,47 @@
  * limitations under the License.
  */
 package org.apache.jdo.tck.pc.converter;
-
 import java.util.Date;
 
 /**
- * PersistenceCapable class to test JDO AttributeConverter interface. Its fields of type int and
- * Integer are converted to strings in the datastore.
+ * PersistenceCapable class to test JDO AttributeConverter interface.
+ * Its fields of type int and Integer are converted to strings in the datastore.
  */
 public class PCPointProp implements IPCPoint {
-  private static long counter = new Date().getTime();
+    private static long counter = new Date().getTime();
 
-  private static synchronized long newId() {
-    return counter++;
-  }
+    private static synchronized long newId() {
+        return counter++;
+    }
 
-  private long id = newId();
-  private int x;
-  private Integer y;
+    private long id = newId();
+    private int x;
+    private Integer y;
 
-  public PCPointProp() {}
+    public PCPointProp() {}
 
-  public long getId() {
-    return id;
-  }
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    public int getX() {
+        return x;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
 
-  public int getX() {
-    return x;
-  }
+    public Integer getY() {
+        return y;
+    }
+    public void setY(Integer y) {
+        this.y = y;
+    }
 
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  public Integer getY() {
-    return y;
-  }
-
-  public void setY(Integer y) {
-    this.y = y;
-  }
-
-  public String toString() {
-    return this.getClass().getName() + "(x: " + x + " / y: " + y + ")";
-  }
+    public String toString() {
+        return this.getClass().getName() + "(x: " + x + " / y: " + y + ")";
+    }
 }
